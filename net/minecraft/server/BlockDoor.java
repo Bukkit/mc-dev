@@ -44,6 +44,10 @@ public class BlockDoor extends Block {
         return false;
     }
 
+    public boolean b() {
+        return false;
+    }
+
     public AxisAlignedBB d(World world, int i, int j, int k) {
         this.a(world, i, j, k);
         return super.d(world, i, j, k);
@@ -163,7 +167,7 @@ public class BlockDoor extends Block {
 
             if (flag) {
                 if (!world.isStatic) {
-                    this.a_(world, i, j, k, i1);
+                    this.b_(world, i, j, k, i1);
                 }
             } else if (l > 0 && Block.byId[l].isPowerSource()) {
                 boolean flag1 = world.isBlockIndirectlyPowered(i, j, k) || world.isBlockIndirectlyPowered(i, j + 1, k);

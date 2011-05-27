@@ -35,6 +35,10 @@ public class BlockCake extends Block {
         return i == 1 ? this.textureId : (i == 0 ? this.textureId + 3 : this.textureId + 1);
     }
 
+    public boolean b() {
+        return false;
+    }
+
     public boolean a() {
         return false;
     }
@@ -68,7 +72,7 @@ public class BlockCake extends Block {
 
     public void doPhysics(World world, int i, int j, int k, int l) {
         if (!this.f(world, i, j, k)) {
-            this.a_(world, i, j, k, world.getData(i, j, k));
+            this.b_(world, i, j, k, world.getData(i, j, k));
             world.setTypeId(i, j, k, 0);
         }
     }

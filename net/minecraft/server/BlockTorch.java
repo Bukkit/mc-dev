@@ -17,6 +17,10 @@ public class BlockTorch extends Block {
         return false;
     }
 
+    public boolean b() {
+        return false;
+    }
+
     public boolean canPlace(World world, int i, int j, int k) {
         return world.d(i - 1, j, k) ? true : (world.d(i + 1, j, k) ? true : (world.d(i, j, k - 1) ? true : (world.d(i, j, k + 1) ? true : world.d(i, j - 1, k))));
     }
@@ -96,7 +100,7 @@ public class BlockTorch extends Block {
             }
 
             if (flag) {
-                this.a_(world, i, j, k, world.getData(i, j, k));
+                this.b_(world, i, j, k, world.getData(i, j, k));
                 world.setTypeId(i, j, k, 0);
             }
         }
@@ -104,7 +108,7 @@ public class BlockTorch extends Block {
 
     private boolean g(World world, int i, int j, int k) {
         if (!this.canPlace(world, i, j, k)) {
-            this.a_(world, i, j, k, world.getData(i, j, k));
+            this.b_(world, i, j, k, world.getData(i, j, k));
             world.setTypeId(i, j, k, 0);
             return false;
         } else {

@@ -2,7 +2,8 @@ package net.minecraft.server;
 
 public class MaterialTransparent extends Material {
 
-    public MaterialTransparent() {
+    public MaterialTransparent(MaterialMapColor materialmapcolor) {
+        super(materialmapcolor);
         this.f();
     }
 

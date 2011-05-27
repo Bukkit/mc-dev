@@ -8,39 +8,44 @@ public class BlockBed extends Block {
 
     public BlockBed(int i) {
         super(i, 134, Material.CLOTH);
-        this.i();
+        this.k();
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         int l = world.getData(i, j, k);
 
-        if (!d(l)) {
-            int i1 = c(l);
-
-            i += a[i1][0];
-            k += a[i1][1];
-            if (world.getTypeId(i, j, k) != this.id) {
-                return true;
-            }
-
-            l = world.getData(i, j, k);
-        }
-
-        if (e(l)) {
-            entityhuman.a("tile.bed.occupied");
+        if (!world.worldProvider.d()) {
+            world.createExplosion((Entity) null, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), 5.0F, true);
             return true;
         } else {
-            EnumBedError enumbederror = entityhuman.a(i, j, k);
+            if (!d(l)) {
+                int i1 = c(l);
 
-            if (enumbederror == EnumBedError.OK) {
-                a(world, i, j, k, true);
-                return true;
-            } else {
-                if (enumbederror == EnumBedError.NOT_POSSIBLE_NOW) {
-                    entityhuman.a("tile.bed.noSleep");
+                i += a[i1][0];
+                k += a[i1][1];
+                if (world.getTypeId(i, j, k) != this.id) {
+                    return true;
                 }
 
+                l = world.getData(i, j, k);
+            }
+
+            if (e(l)) {
+                entityhuman.a("tile.bed.occupied");
                 return true;
+            } else {
+                EnumBedError enumbederror = entityhuman.a(i, j, k);
+
+                if (enumbederror == EnumBedError.OK) {
+                    a(world, i, j, k, true);
+                    return true;
+                } else {
+                    if (enumbederror == EnumBedError.NOT_POSSIBLE_NOW) {
+                        entityhuman.a("tile.bed.noSleep");
+                    }
+
+                    return true;
+                }
             }
         }
     }
@@ -56,12 +61,16 @@ public class BlockBed extends Block {
         }
     }
 
+    public boolean b() {
+        return false;
+    }
+
     public boolean a() {
         return false;
     }
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
-        this.i();
+        this.k();
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
@@ -75,7 +84,7 @@ public class BlockBed extends Block {
         } else if (world.getTypeId(i + a[j1][0], j, k + a[j1][1]) != this.id) {
             world.setTypeId(i, j, k, 0);
             if (!world.isStatic) {
-                this.a_(world, i, j, k, i1);
+                this.b_(world, i, j, k, i1);
             }
         }
     }
@@ -84,7 +93,7 @@ public class BlockBed extends Block {
         return d(i) ? 0 : Item.BED.id;
     }
 
-    private void i() {
+    private void k() {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
     }
 
@@ -112,7 +121,7 @@ public class BlockBed extends Block {
         world.setData(i, j, k, l);
     }
 
-    public static ChunkCoordinates f(World world, int i, int j, int k, int l) {
+    public static ChunkCoordinates g(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
         int j1 = c(i1);
 

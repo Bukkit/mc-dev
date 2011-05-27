@@ -11,11 +11,11 @@ public class BlockSand extends Block {
     }
 
     public void e(World world, int i, int j, int k) {
-        world.c(i, j, k, this.id, this.b());
+        world.c(i, j, k, this.id, this.c());
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        world.c(i, j, k, this.id, this.b());
+        world.c(i, j, k, this.id, this.c());
     }
 
     public void a(World world, int i, int j, int k, Random random) {
@@ -44,7 +44,7 @@ public class BlockSand extends Block {
         }
     }
 
-    public int b() {
+    public int c() {
         return 3;
     }
 

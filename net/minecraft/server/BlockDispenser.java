@@ -4,12 +4,14 @@ import java.util.Random;
 
 public class BlockDispenser extends BlockContainer {
 
+    private Random a = new Random();
+
     protected BlockDispenser(int i) {
         super(i, Material.STONE);
         this.textureId = 45;
     }
 
-    public int b() {
+    public int c() {
         return 4;
     }
 
@@ -82,9 +84,9 @@ public class BlockDispenser extends BlockContainer {
 
         TileEntityDispenser tileentitydispenser = (TileEntityDispenser) world.getTileEntity(i, j, k);
         ItemStack itemstack = tileentitydispenser.b();
-        double d0 = (double) i + (double) f * 0.5D + 0.5D;
+        double d0 = (double) i + (double) f * 0.6D + 0.5D;
         double d1 = (double) j + 0.5D;
-        double d2 = (double) k + (double) f1 * 0.5D + 0.5D;
+        double d2 = (double) k + (double) f1 * 0.6D + 0.5D;
 
         if (itemstack == null) {
             world.makeSound((double) i, (double) j, (double) k, "random.click", 1.0F, 1.2F);
@@ -95,6 +97,7 @@ public class BlockDispenser extends BlockContainer {
                 EntityArrow entityarrow = new EntityArrow(world, d0, d1, d2);
 
                 entityarrow.a((double) f, 0.10000000149011612D, (double) f1, 1.1F, 6.0F);
+                entityarrow.a = true;
                 world.addEntity(entityarrow);
                 world.makeSound((double) i, (double) j, (double) k, "random.bow", 1.0F, 1.2F);
             } else if (itemstack.id == Item.EGG.id) {
@@ -142,7 +145,7 @@ public class BlockDispenser extends BlockContainer {
             boolean flag = world.isBlockIndirectlyPowered(i, j, k) || world.isBlockIndirectlyPowered(i, j + 1, k);
 
             if (flag) {
-                world.c(i, j, k, this.id, this.b());
+                world.c(i, j, k, this.id, this.c());
             }
         }
     }
@@ -175,5 +178,38 @@ public class BlockDispenser extends BlockContainer {
         if (l == 3) {
             world.setData(i, j, k, 4);
         }
+    }
+
+    public void remove(World world, int i, int j, int k) {
+        TileEntityDispenser tileentitydispenser = (TileEntityDispenser) world.getTileEntity(i, j, k);
+
+        for (int l = 0; l < tileentitydispenser.getSize(); ++l) {
+            ItemStack itemstack = tileentitydispenser.getItem(l);
+
+            if (itemstack != null) {
+                float f = this.a.nextFloat() * 0.8F + 0.1F;
+                float f1 = this.a.nextFloat() * 0.8F + 0.1F;
+                float f2 = this.a.nextFloat() * 0.8F + 0.1F;
+
+                while (itemstack.count > 0) {
+                    int i1 = this.a.nextInt(21) + 10;
+
+                    if (i1 > itemstack.count) {
+                        i1 = itemstack.count;
+                    }
+
+                    itemstack.count -= i1;
+                    EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, i1, itemstack.getData()));
+                    float f3 = 0.05F;
+
+                    entityitem.motX = (double) ((float) this.a.nextGaussian() * f3);
+                    entityitem.motY = (double) ((float) this.a.nextGaussian() * f3 + 0.2F);
+                    entityitem.motZ = (double) ((float) this.a.nextGaussian() * f3);
+                    world.addEntity(entityitem);
+                }
+            }
+        }
+
+        super.remove(world, i, j, k);
     }
 }

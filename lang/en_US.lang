@@ -318,6 +318,8 @@ tile.bed.noSleep=You can only sleep at night
 tile.bed.notValid=Your home bed was missing or obstructed
 tile.lockedchest.name=Locked chest
 tile.lockedchest.desc=
+tile.trapdoor.name=Trapdoor
+tile.trapdoor.desc=
 
 item.shovelIron.name=Iron Shovel
 item.shovelIron.desc=

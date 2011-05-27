@@ -7,9 +7,9 @@ public class WorldServer extends World {
 
     public ChunkProviderServer chunkProviderServer;
     public boolean weirdIsOpCache = false;
-    public boolean y;
+    public boolean z;
     private MinecraftServer server;
-    private EntityList A = new EntityList();
+    private EntityList B = new EntityList();
 
     public WorldServer(MinecraftServer minecraftserver, IDataManager idatamanager, String s, int i, long j) {
         super(idatamanager, s, j, WorldProvider.a(i));
@@ -33,7 +33,7 @@ public class WorldServer extends World {
     protected IChunkProvider b() {
         IChunkLoader ichunkloader = this.r.a(this.worldProvider);
 
-        this.chunkProviderServer = new ChunkProviderServer(this, ichunkloader, this.worldProvider.c());
+        this.chunkProviderServer = new ChunkProviderServer(this, ichunkloader, this.worldProvider.b());
         return this.chunkProviderServer;
     }
 
@@ -64,16 +64,16 @@ public class WorldServer extends World {
 
     protected void c(Entity entity) {
         super.c(entity);
-        this.A.a(entity.id, entity);
+        this.B.a(entity.id, entity);
     }
 
     protected void d(Entity entity) {
         super.d(entity);
-        this.A.d(entity.id);
+        this.B.d(entity.id);
     }
 
     public Entity getEntity(int i) {
-        return (Entity) this.A.a(i);
+        return (Entity) this.B.a(i);
     }
 
     public boolean a(Entity entity) {
@@ -88,7 +88,7 @@ public class WorldServer extends World {
     public void a(Entity entity, byte b0) {
         Packet38EntityStatus packet38entitystatus = new Packet38EntityStatus(entity.id, b0);
 
-        this.server.tracker.b(entity, packet38entitystatus);
+        this.server.b(this.worldProvider.dimension).b(entity, packet38entitystatus);
     }
 
     public Explosion createExplosion(Entity entity, double d0, double d1, double d2, float f, boolean flag) {

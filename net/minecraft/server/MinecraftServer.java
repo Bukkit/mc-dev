@@ -19,7 +19,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
     public static HashMap b = new HashMap();
     public NetworkListenThread networkListenThread;
     public PropertyManager propertyManager;
-    public WorldServer worldServer;
+    public WorldServer[] worldServer;
     public ServerConfigurationManager serverConfigurationManager;
     private ConsoleCommandHandler consoleCommandHandler;
     private boolean isRunning = true;
@@ -29,7 +29,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
     public int j;
     private List r = new ArrayList();
     private List s = Collections.synchronizedList(new ArrayList());
-    public EntityTracker tracker;
+    public EntityTracker[] tracker = new EntityTracker[2];
     public boolean onlineMode;
     public boolean spawnAnimals;
     public boolean pvpMode;
@@ -46,7 +46,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
         ConsoleLogManager.init();
-        log.info("Starting minecraft server version Beta 1.5_01");
+        log.info("Starting minecraft server version Beta 1.6");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             log.warning("**** NOT ENOUGH RAM!");
             log.warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
@@ -87,7 +87,8 @@ public class MinecraftServer implements Runnable, ICommandListener {
         }
 
         this.serverConfigurationManager = new ServerConfigurationManager(this);
-        this.tracker = new EntityTracker(this);
+        this.tracker[0] = new EntityTracker(this, 0);
+        this.tracker[1] = new EntityTracker(this, -1);
         long j = System.nanoTime();
         String s1 = this.propertyManager.getString("level-name", "world");
         String s2 = this.propertyManager.getString("level-seed", "");
@@ -113,36 +114,51 @@ public class MinecraftServer implements Runnable, ICommandListener {
             convertable.convert(s, new ConvertProgressUpdater(this));
         }
 
-        log.info("Preparing start region");
-        this.worldServer = new WorldServer(this, new ServerNBTManager(new File("."), s, true), s, this.propertyManager.getBoolean("hellworld", false) ? -1 : 0, i);
-        this.worldServer.addIWorldAccess(new WorldManager(this));
-        this.worldServer.spawnMonsters = this.propertyManager.getBoolean("spawn-monsters", true) ? 1 : 0;
-        this.worldServer.setSpawnFlags(this.propertyManager.getBoolean("spawn-monsters", true), this.spawnAnimals);
-        this.serverConfigurationManager.setPlayerFileData(this.worldServer);
+        this.worldServer = new WorldServer[2];
+        ServerNBTManager servernbtmanager = new ServerNBTManager(new File("."), s, true);
+
+        for (int j = 0; j < this.worldServer.length; ++j) {
+            if (j == 0) {
+                this.worldServer[j] = new WorldServer(this, servernbtmanager, s, j == 0 ? 0 : -1, i);
+            } else {
+                this.worldServer[j] = new SecondaryWorldServer(this, servernbtmanager, s, j == 0 ? 0 : -1, i, this.worldServer[0]);
+            }
+
+            this.worldServer[j].addIWorldAccess(new WorldManager(this, this.worldServer[j]));
+            this.worldServer[j].spawnMonsters = this.propertyManager.getBoolean("spawn-monsters", true) ? 1 : 0;
+            this.worldServer[j].setSpawnFlags(this.propertyManager.getBoolean("spawn-monsters", true), this.spawnAnimals);
+            this.serverConfigurationManager.setPlayerFileData(this.worldServer);
+        }
+
         short short1 = 196;
-        long j = System.currentTimeMillis();
-        ChunkCoordinates chunkcoordinates = this.worldServer.getSpawn();
+        long k = System.currentTimeMillis();
 
-        for (int k = -short1; k <= short1 && this.isRunning; k += 16) {
-            for (int l = -short1; l <= short1 && this.isRunning; l += 16) {
-                long i1 = System.currentTimeMillis();
+        for (int l = 0; l < this.worldServer.length; ++l) {
+            log.info("Preparing start region for level " + l);
+            WorldServer worldserver = this.worldServer[l];
+            ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
 
-                if (i1 < j) {
-                    j = i1;
-                }
+            for (int i1 = -short1; i1 <= short1 && this.isRunning; i1 += 16) {
+                for (int j1 = -short1; j1 <= short1 && this.isRunning; j1 += 16) {
+                    long k1 = System.currentTimeMillis();
 
-                if (i1 > j + 1000L) {
-                    int j1 = (short1 * 2 + 1) * (short1 * 2 + 1);
-                    int k1 = (k + short1) * (short1 * 2 + 1) + l + 1;
+                    if (k1 < k) {
+                        k = k1;
+                    }
 
-                    this.a("Preparing spawn area", k1 * 100 / j1);
-                    j = i1;
-                }
+                    if (k1 > k + 1000L) {
+                        int l1 = (short1 * 2 + 1) * (short1 * 2 + 1);
+                        int i2 = (i1 + short1) * (short1 * 2 + 1) + j1 + 1;
 
-                this.worldServer.chunkProviderServer.getChunkAt(chunkcoordinates.x + k >> 4, chunkcoordinates.z + l >> 4);
+                        this.a("Preparing spawn area", i2 * 100 / l1);
+                        k = k1;
+                    }
 
-                while (this.worldServer.doLighting() && this.isRunning) {
-                    ;
+                    worldserver.chunkProviderServer.getChunkAt(chunkcoordinates.x + i1 >> 4, chunkcoordinates.z + j1 >> 4);
+
+                    while (worldserver.doLighting() && this.isRunning) {
+                        ;
+                    }
                 }
             }
         }
@@ -163,8 +179,13 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
     private void saveChunks() {
         log.info("Saving chunks");
-        this.worldServer.save(true, (IProgressUpdate) null);
-        this.worldServer.saveLevel();
+
+        for (int i = 0; i < this.worldServer.length; ++i) {
+            WorldServer worldserver = this.worldServer[i];
+
+            worldserver.save(true, (IProgressUpdate) null);
+            worldserver.saveLevel();
+        }
     }
 
     private void stop() {
@@ -173,8 +194,12 @@ public class MinecraftServer implements Runnable, ICommandListener {
             this.serverConfigurationManager.savePlayers();
         }
 
-        if (this.worldServer != null) {
-            this.saveChunks();
+        for (int i = 0; i < this.worldServer.length; ++i) {
+            WorldServer worldserver = this.worldServer[i];
+
+            if (worldserver != null) {
+                this.saveChunks();
+            }
         }
     }
 
@@ -203,7 +228,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
                     j += l;
                     i = k;
-                    if (this.worldServer.everyoneDeeplySleeping()) {
+                    if (this.worldServer[0].everyoneDeeplySleeping()) {
                         this.h();
                         j = 0L;
                     } else {
@@ -273,20 +298,29 @@ public class MinecraftServer implements Runnable, ICommandListener {
         AxisAlignedBB.a();
         Vec3D.a();
         ++this.ticks;
-        if (this.ticks % 20 == 0) {
-            this.serverConfigurationManager.sendAll(new Packet4UpdateTime(this.worldServer.getTime()));
+
+        for (j = 0; j < this.worldServer.length; ++j) {
+            WorldServer worldserver = this.worldServer[j];
+
+            if (this.ticks % 20 == 0) {
+                this.serverConfigurationManager.sendAll(new Packet4UpdateTime(worldserver.getTime()));
+            }
+
+            worldserver.doTick();
+
+            while (worldserver.doLighting()) {
+                ;
+            }
+
+            worldserver.cleanUp();
         }
 
-        this.worldServer.doTick();
-
-        while (this.worldServer.doLighting()) {
-            ;
-        }
-
-        this.worldServer.cleanUp();
         this.networkListenThread.a();
         this.serverConfigurationManager.b();
-        this.tracker.a();
+
+        for (j = 0; j < this.tracker.length; ++j) {
+            this.tracker[j].a();
+        }
 
         for (j = 0; j < this.r.size(); ++j) {
             ((IUpdatePlayerListBox) this.r.get(j)).a();
@@ -345,6 +379,14 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
     public String getName() {
         return "CONSOLE";
+    }
+
+    public WorldServer a(int i) {
+        return i == -1 ? this.worldServer[1] : this.worldServer[0];
+    }
+
+    public EntityTracker b(int i) {
+        return i == -1 ? this.tracker[1] : this.tracker[0];
     }
 
     public static boolean isRunning(MinecraftServer minecraftserver) {

@@ -184,11 +184,23 @@ public abstract class NetHandler {
         this.a((Packet) packet200statistic);
     }
 
-    public void a(Packet17 packet17) {}
+    public void a(Packet17 packet17) {
+        this.a((Packet) packet17);
+    }
 
-    public void a(Packet27 packet27) {}
+    public void a(Packet27 packet27) {
+        this.a((Packet) packet27);
+    }
 
-    public void a(Packet70Bed packet70bed) {}
+    public void a(Packet70Bed packet70bed) {
+        this.a((Packet) packet70bed);
+    }
 
-    public void a(Packet71Weather packet71weather) {}
+    public void a(Packet71Weather packet71weather) {
+        this.a((Packet) packet71weather);
+    }
+
+    public void a(Packet131 packet131) {
+        this.a((Packet) packet131);
+    }
 }

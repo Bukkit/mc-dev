@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-public class WorldProvider {
+public abstract class WorldProvider {
 
     public World a;
     public WorldChunkManager b;
@@ -16,10 +16,10 @@ public class WorldProvider {
     public final void a(World world) {
         this.a = world;
         this.a();
-        this.b();
+        this.c();
     }
 
-    protected void b() {
+    protected void c() {
         float f = 0.05F;
 
         for (int i = 0; i <= 15; ++i) {
@@ -33,7 +33,7 @@ public class WorldProvider {
         this.b = new WorldChunkManager(this.a);
     }
 
-    public IChunkProvider c() {
+    public IChunkProvider b() {
         return new ChunkProviderGenerate(this.a, this.a.getSeed());
     }
 
@@ -62,7 +62,11 @@ public class WorldProvider {
         return f1;
     }
 
+    public boolean d() {
+        return true;
+    }
+
     public static WorldProvider a(int i) {
-        return (WorldProvider) (i == 0 ? new WorldProvider() : (i == -1 ? new WorldProviderHell() : null));
+        return (WorldProvider) (i == -1 ? new WorldProviderHell() : (i == 0 ? new WorldProviderNormal() : (i == 1 ? new WorldProviderSky() : null)));
     }
 }

@@ -16,12 +16,15 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
     private static final Logger a = Logger.getLogger("Minecraft");
     private final File b;
     private final File c;
-    private final long d = System.currentTimeMillis();
+    private final File d;
+    private final long e = System.currentTimeMillis();
 
     public PlayerNBTManager(File file1, String s, boolean flag) {
         this.b = new File(file1, s);
         this.b.mkdirs();
         this.c = new File(this.b, "players");
+        this.d = new File(this.b, "data");
+        this.d.mkdirs();
         if (flag) {
             this.c.mkdirs();
         }
@@ -35,7 +38,7 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
             DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file1));
 
             try {
-                dataoutputstream.writeLong(this.d);
+                dataoutputstream.writeLong(this.e);
             } finally {
                 dataoutputstream.close();
             }
@@ -55,7 +58,7 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
             DataInputStream datainputstream = new DataInputStream(new FileInputStream(file1));
 
             try {
-                if (datainputstream.readLong() != this.d) {
+                if (datainputstream.readLong() != this.e) {
                     throw new MinecraftException("The save is being accessed from another location, aborting");
                 }
             } finally {
@@ -212,4 +215,8 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
     }
 
     public void e() {}
+
+    public File b(String s) {
+        return new File(this.d, s + ".dat");
+    }
 }

@@ -18,52 +18,53 @@ public class BiomeBase {
     public static final BiomeBase ICE_DESERT = (new BiomeDesert()).b(16772499).a("Ice Desert").b().e().a(12899129);
     public static final BiomeBase TUNDRA = (new BiomeBase()).b(5762041).a("Tundra").b().a(12899129);
     public static final BiomeBase HELL = (new BiomeHell()).b(16711680).a("Hell").e();
-    public String m;
-    public int n;
-    public byte o;
+    public static final BiomeBase SKY = (new BiomeSky()).b(8421631).a("Sky").e();
+    public String n;
+    public int o;
     public byte p;
-    public int q;
-    protected List r;
+    public byte q;
+    public int r;
     protected List s;
     protected List t;
-    private boolean u;
+    protected List u;
     private boolean v;
-    private static BiomeBase[] w = new BiomeBase[4096];
+    private boolean w;
+    private static BiomeBase[] x = new BiomeBase[4096];
 
     protected BiomeBase() {
-        this.o = (byte) Block.GRASS.id;
-        this.p = (byte) Block.DIRT.id;
-        this.q = 5169201;
-        this.r = new ArrayList();
+        this.p = (byte) Block.GRASS.id;
+        this.q = (byte) Block.DIRT.id;
+        this.r = 5169201;
         this.s = new ArrayList();
         this.t = new ArrayList();
-        this.v = true;
-        this.r.add(new BiomeMeta(EntitySpider.class, 10));
-        this.r.add(new BiomeMeta(EntityZombie.class, 10));
-        this.r.add(new BiomeMeta(EntitySkeleton.class, 10));
-        this.r.add(new BiomeMeta(EntityCreeper.class, 10));
-        this.r.add(new BiomeMeta(EntitySlime.class, 10));
-        this.s.add(new BiomeMeta(EntitySheep.class, 12));
-        this.s.add(new BiomeMeta(EntityPig.class, 10));
-        this.s.add(new BiomeMeta(EntityChicken.class, 10));
-        this.s.add(new BiomeMeta(EntityCow.class, 8));
-        this.t.add(new BiomeMeta(EntitySquid.class, 10));
+        this.u = new ArrayList();
+        this.w = true;
+        this.s.add(new BiomeMeta(EntitySpider.class, 10));
+        this.s.add(new BiomeMeta(EntityZombie.class, 10));
+        this.s.add(new BiomeMeta(EntitySkeleton.class, 10));
+        this.s.add(new BiomeMeta(EntityCreeper.class, 10));
+        this.s.add(new BiomeMeta(EntitySlime.class, 10));
+        this.t.add(new BiomeMeta(EntitySheep.class, 12));
+        this.t.add(new BiomeMeta(EntityPig.class, 10));
+        this.t.add(new BiomeMeta(EntityChicken.class, 10));
+        this.t.add(new BiomeMeta(EntityCow.class, 8));
+        this.u.add(new BiomeMeta(EntitySquid.class, 10));
     }
 
     private BiomeBase e() {
-        this.v = false;
+        this.w = false;
         return this;
     }
 
     public static void a() {
         for (int i = 0; i < 64; ++i) {
             for (int j = 0; j < 64; ++j) {
-                w[i + j * 64] = a((float) i / 63.0F, (float) j / 63.0F);
+                x[i + j * 64] = a((float) i / 63.0F, (float) j / 63.0F);
             }
         }
 
-        DESERT.o = DESERT.p = (byte) Block.SAND.id;
-        ICE_DESERT.o = ICE_DESERT.p = (byte) Block.SAND.id;
+        DESERT.p = DESERT.q = (byte) Block.SAND.id;
+        ICE_DESERT.p = ICE_DESERT.q = (byte) Block.SAND.id;
     }
 
     public WorldGenerator a(Random random) {
@@ -71,22 +72,22 @@ public class BiomeBase {
     }
 
     protected BiomeBase b() {
-        this.u = true;
+        this.v = true;
         return this;
     }
 
     protected BiomeBase a(String s) {
-        this.m = s;
+        this.n = s;
         return this;
     }
 
     protected BiomeBase a(int i) {
-        this.q = i;
+        this.r = i;
         return this;
     }
 
     protected BiomeBase b(int i) {
-        this.n = i;
+        this.o = i;
         return this;
     }
 
@@ -94,7 +95,7 @@ public class BiomeBase {
         int i = (int) (d0 * 63.0D);
         int j = (int) (d1 * 63.0D);
 
-        return w[i + j * 64];
+        return x[i + j * 64];
     }
 
     public static BiomeBase a(float f, float f1) {
@@ -103,15 +104,15 @@ public class BiomeBase {
     }
 
     public List a(EnumCreatureType enumcreaturetype) {
-        return enumcreaturetype == EnumCreatureType.MONSTER ? this.r : (enumcreaturetype == EnumCreatureType.CREATURE ? this.s : (enumcreaturetype == EnumCreatureType.WATER_CREATURE ? this.t : null));
+        return enumcreaturetype == EnumCreatureType.MONSTER ? this.s : (enumcreaturetype == EnumCreatureType.CREATURE ? this.t : (enumcreaturetype == EnumCreatureType.WATER_CREATURE ? this.u : null));
     }
 
     public boolean c() {
-        return this.u;
+        return this.v;
     }
 
     public boolean d() {
-        return this.u ? false : this.v;
+        return this.v ? false : this.w;
     }
 
     static {

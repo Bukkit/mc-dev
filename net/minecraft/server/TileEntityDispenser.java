@@ -45,9 +45,8 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
         int j = 1;
 
         for (int k = 0; k < this.items.length; ++k) {
-            if (this.items[k] != null && this.b.nextInt(j) == 0) {
+            if (this.items[k] != null && this.b.nextInt(j++) == 0) {
                 i = k;
-                ++j;
             }
         }
 

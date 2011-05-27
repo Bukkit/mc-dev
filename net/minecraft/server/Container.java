@@ -23,15 +23,23 @@ public abstract class Container {
     }
 
     public void a(ICrafting icrafting) {
-        this.g.add(icrafting);
+        if (this.g.contains(icrafting)) {
+            throw new IllegalArgumentException("Listener already listening");
+        } else {
+            this.g.add(icrafting);
+            icrafting.a(this, this.b());
+            this.a();
+        }
+    }
+
+    public List b() {
         ArrayList arraylist = new ArrayList();
 
         for (int i = 0; i < this.e.size(); ++i) {
             arraylist.add(((Slot) this.e.get(i)).getItem());
         }
 
-        icrafting.a(this, arraylist);
-        this.a();
+        return arraylist;
     }
 
     public void a() {
@@ -97,13 +105,21 @@ public abstract class Container {
 
                 if (itemstack1 != null) {
                     itemstack = itemstack1.j();
+                    Slot slot = (Slot) this.e.get(i);
+
+                    if (slot != null) {
+                        slot.a(itemstack1);
+                        if (slot.getItem() != null) {
+                            this.a(i, j, flag, entityhuman);
+                        }
+                    }
                 }
             } else {
-                Slot slot = (Slot) this.e.get(i);
+                Slot slot1 = (Slot) this.e.get(i);
 
-                if (slot != null) {
-                    slot.c();
-                    ItemStack itemstack2 = slot.getItem();
+                if (slot1 != null) {
+                    slot1.c();
+                    ItemStack itemstack2 = slot1.getItem();
                     ItemStack itemstack3 = inventoryplayer.j();
 
                     if (itemstack2 != null) {
@@ -113,69 +129,58 @@ public abstract class Container {
                     int k;
 
                     if (itemstack2 == null) {
-                        if (itemstack3 != null && slot.isAllowed(itemstack3)) {
+                        if (itemstack3 != null && slot1.isAllowed(itemstack3)) {
                             k = j == 0 ? itemstack3.count : 1;
-                            if (k > slot.d()) {
-                                k = slot.d();
+                            if (k > slot1.d()) {
+                                k = slot1.d();
                             }
 
-                            slot.c(itemstack3.a(k));
+                            slot1.c(itemstack3.a(k));
                             if (itemstack3.count == 0) {
                                 inventoryplayer.b((ItemStack) null);
                             }
                         }
-                    } else {
-                        ItemStack itemstack4;
+                    } else if (itemstack3 == null) {
+                        k = j == 0 ? itemstack2.count : (itemstack2.count + 1) / 2;
+                        ItemStack itemstack4 = slot1.a(k);
 
-                        if (itemstack3 == null) {
-                            k = j == 0 ? itemstack2.count : (itemstack2.count + 1) / 2;
-                            itemstack4 = slot.a(k);
-                            if (itemstack4 != null && slot.e()) {
-                                entityhuman.a(StatisticList.D[itemstack4.id], itemstack4.count);
+                        inventoryplayer.b(itemstack4);
+                        if (itemstack2.count == 0) {
+                            slot1.c((ItemStack) null);
+                        }
+
+                        slot1.a(inventoryplayer.j());
+                    } else if (slot1.isAllowed(itemstack3)) {
+                        if (itemstack2.id == itemstack3.id && (!itemstack2.e() || itemstack2.getData() == itemstack3.getData())) {
+                            k = j == 0 ? itemstack3.count : 1;
+                            if (k > slot1.d() - itemstack2.count) {
+                                k = slot1.d() - itemstack2.count;
                             }
 
-                            inventoryplayer.b(itemstack4);
+                            if (k > itemstack3.b() - itemstack2.count) {
+                                k = itemstack3.b() - itemstack2.count;
+                            }
+
+                            itemstack3.a(k);
+                            if (itemstack3.count == 0) {
+                                inventoryplayer.b((ItemStack) null);
+                            }
+
+                            itemstack2.count += k;
+                        } else if (itemstack3.count <= slot1.d()) {
+                            slot1.c(itemstack3);
+                            inventoryplayer.b(itemstack2);
+                        }
+                    } else if (itemstack2.id == itemstack3.id && itemstack3.b() > 1 && (!itemstack2.e() || itemstack2.getData() == itemstack3.getData())) {
+                        k = itemstack2.count;
+                        if (k > 0 && k + itemstack3.count <= itemstack3.b()) {
+                            itemstack3.count += k;
+                            itemstack2.a(k);
                             if (itemstack2.count == 0) {
-                                slot.c((ItemStack) null);
+                                slot1.c((ItemStack) null);
                             }
 
-                            slot.a(inventoryplayer.j());
-                        } else if (slot.isAllowed(itemstack3)) {
-                            if (itemstack2.id == itemstack3.id && (!itemstack2.e() || itemstack2.getData() == itemstack3.getData())) {
-                                k = j == 0 ? itemstack3.count : 1;
-                                if (k > slot.d() - itemstack2.count) {
-                                    k = slot.d() - itemstack2.count;
-                                }
-
-                                if (k > itemstack3.b() - itemstack2.count) {
-                                    k = itemstack3.b() - itemstack2.count;
-                                }
-
-                                itemstack3.a(k);
-                                if (itemstack3.count == 0) {
-                                    inventoryplayer.b((ItemStack) null);
-                                }
-
-                                itemstack2.count += k;
-                            } else if (itemstack3.count <= slot.d()) {
-                                slot.c(itemstack3);
-                                inventoryplayer.b(itemstack2);
-                            }
-                        } else if (itemstack2.id == itemstack3.id && itemstack3.b() > 1 && (!itemstack2.e() || itemstack2.getData() == itemstack3.getData())) {
-                            k = itemstack2.count;
-                            if (k > 0 && k + itemstack3.count <= itemstack3.b()) {
-                                itemstack3.count += k;
-                                itemstack4 = itemstack2.a(k);
-                                if (itemstack4 != null && slot.e()) {
-                                    entityhuman.a(StatisticList.D[itemstack4.id], itemstack4.count);
-                                }
-
-                                if (itemstack2.count == 0) {
-                                    slot.c((ItemStack) null);
-                                }
-
-                                slot.a(inventoryplayer.j());
-                            }
+                            slot1.a(inventoryplayer.j());
                         }
                     }
                 }
@@ -211,4 +216,66 @@ public abstract class Container {
     }
 
     public abstract boolean b(EntityHuman entityhuman);
+
+    protected void a(ItemStack itemstack, int i, int j, boolean flag) {
+        int k = i;
+
+        if (flag) {
+            k = j - 1;
+        }
+
+        Slot slot;
+        ItemStack itemstack1;
+
+        if (itemstack.c()) {
+            while (itemstack.count > 0 && (!flag && k < j || flag && k >= i)) {
+                slot = (Slot) this.e.get(k);
+                itemstack1 = slot.getItem();
+                if (itemstack1 != null && itemstack1.id == itemstack.id && (!itemstack.e() || itemstack.getData() == itemstack1.getData())) {
+                    int l = itemstack1.count + itemstack.count;
+
+                    if (l <= itemstack.b()) {
+                        itemstack.count = 0;
+                        itemstack1.count = l;
+                        slot.c();
+                    } else if (itemstack1.count < itemstack.b()) {
+                        itemstack.count -= itemstack.b() - itemstack1.count;
+                        itemstack1.count = itemstack.b();
+                        slot.c();
+                    }
+                }
+
+                if (flag) {
+                    --k;
+                } else {
+                    ++k;
+                }
+            }
+        }
+
+        if (itemstack.count > 0) {
+            if (flag) {
+                k = j - 1;
+            } else {
+                k = i;
+            }
+
+            while (!flag && k < j || flag && k >= i) {
+                slot = (Slot) this.e.get(k);
+                itemstack1 = slot.getItem();
+                if (itemstack1 == null) {
+                    slot.c(itemstack.j());
+                    slot.c();
+                    itemstack.count = 0;
+                    break;
+                }
+
+                if (flag) {
+                    --k;
+                } else {
+                    ++k;
+                }
+            }
+        }
+    }
 }

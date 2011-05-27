@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import java.io.DataInput;
 import java.io.DataOutput;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -32,6 +33,10 @@ public class NBTTagCompound extends NBTBase {
         while ((nbtbase = NBTBase.b(datainput)).a() != 0) {
             this.a.put(nbtbase.b(), nbtbase);
         }
+    }
+
+    public Collection c() {
+        return this.a.values();
     }
 
     public byte a() {

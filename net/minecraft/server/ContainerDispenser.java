@@ -12,7 +12,7 @@ public class ContainerDispenser extends Container {
 
         for (i = 0; i < 3; ++i) {
             for (j = 0; j < 3; ++j) {
-                this.a(new Slot(tileentitydispenser, j + i * 3, 61 + j * 18, 17 + i * 18));
+                this.a(new Slot(tileentitydispenser, j + i * 3, 62 + j * 18, 17 + i * 18));
             }
         }
 

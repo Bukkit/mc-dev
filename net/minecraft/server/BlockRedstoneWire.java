@@ -27,6 +27,10 @@ public class BlockRedstoneWire extends Block {
         return false;
     }
 
+    public boolean b() {
+        return false;
+    }
+
     public boolean canPlace(World world, int i, int j, int k) {
         return world.d(i, j - 1, k);
     }
@@ -264,7 +268,7 @@ public class BlockRedstoneWire extends Block {
             boolean flag = this.canPlace(world, i, j, k);
 
             if (!flag) {
-                this.a_(world, i, j, k, i1);
+                this.b_(world, i, j, k, i1);
                 world.setTypeId(i, j, k, 0);
             } else {
                 this.g(world, i, j, k);
@@ -279,10 +283,10 @@ public class BlockRedstoneWire extends Block {
     }
 
     public boolean c(World world, int i, int j, int k, int l) {
-        return !this.a ? false : this.b(world, i, j, k, l);
+        return !this.a ? false : this.a(world, i, j, k, l);
     }
 
-    public boolean b(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+    public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         if (!this.a) {
             return false;
         } else if (iblockaccess.getData(i, j, k) == 0) {

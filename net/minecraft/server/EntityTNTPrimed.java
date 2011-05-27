@@ -7,7 +7,7 @@ public class EntityTNTPrimed extends Entity {
     public EntityTNTPrimed(World world) {
         super(world);
         this.a = 0;
-        this.aE = true;
+        this.aH = true;
         this.b(0.98F, 0.98F);
         this.height = this.width / 2.0F;
     }

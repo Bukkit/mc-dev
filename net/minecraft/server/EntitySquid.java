@@ -64,7 +64,7 @@ public class EntitySquid extends EntityWaterAnimal {
         return false;
     }
 
-    public boolean Z() {
+    public boolean aa() {
         return this.world.a(this.boundingBox.b(0.0D, -0.6000000238418579D, 0.0D), Material.WATER, this);
     }
 
@@ -82,7 +82,7 @@ public class EntitySquid extends EntityWaterAnimal {
             }
         }
 
-        if (this.Z()) {
+        if (this.aa()) {
             float f;
 
             if (this.g < 3.1415927F) {
@@ -100,20 +100,20 @@ public class EntitySquid extends EntityWaterAnimal {
                 this.m *= 0.99F;
             }
 
-            if (!this.U) {
+            if (!this.X) {
                 this.motX = (double) (this.n * this.k);
                 this.motY = (double) (this.o * this.k);
                 this.motZ = (double) (this.p * this.k);
             }
 
             f = MathHelper.a(this.motX * this.motX + this.motZ * this.motZ);
-            this.G += (-((float) Math.atan2(this.motX, this.motZ)) * 180.0F / 3.1415927F - this.G) * 0.1F;
-            this.yaw = this.G;
+            this.J += (-((float) Math.atan2(this.motX, this.motZ)) * 180.0F / 3.1415927F - this.J) * 0.1F;
+            this.yaw = this.J;
             this.c += 3.1415927F * this.m * 1.5F;
             this.a += (-((float) Math.atan2((double) f, this.motY)) * 180.0F / 3.1415927F - this.a) * 0.1F;
         } else {
             this.i = MathHelper.abs(MathHelper.sin(this.g)) * 3.1415927F * 0.25F;
-            if (!this.U) {
+            if (!this.X) {
                 this.motX = 0.0D;
                 this.motY -= 0.08D;
                 this.motY *= 0.9800000190734863D;
@@ -129,7 +129,7 @@ public class EntitySquid extends EntityWaterAnimal {
     }
 
     protected void c_() {
-        if (this.random.nextInt(50) == 0 || !this.bw || this.n == 0.0F && this.o == 0.0F && this.p == 0.0F) {
+        if (this.random.nextInt(50) == 0 || !this.bz || this.n == 0.0F && this.o == 0.0F && this.p == 0.0F) {
             float f = this.random.nextFloat() * 3.1415927F * 2.0F;
 
             this.n = MathHelper.cos(f) * 0.2F;

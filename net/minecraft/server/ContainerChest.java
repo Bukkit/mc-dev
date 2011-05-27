@@ -34,45 +34,6 @@ public class ContainerChest extends Container {
         return this.a.a_(entityhuman);
     }
 
-    private void a(ItemStack itemstack, int i, int j) {
-        int k = i;
-        Slot slot;
-        ItemStack itemstack1;
-
-        if (itemstack.c()) {
-            for (; itemstack.count > 0 && k < j; ++k) {
-                slot = (Slot) this.e.get(k);
-                itemstack1 = slot.getItem();
-                if (itemstack1 != null && itemstack1.id == itemstack.id && (!itemstack.e() || itemstack.getData() == itemstack1.getData())) {
-                    int l = itemstack1.count + itemstack.count;
-
-                    if (l <= itemstack.b()) {
-                        itemstack.count = 0;
-                        itemstack1.count = l;
-                        slot.c();
-                    } else if (itemstack1.count < itemstack.b()) {
-                        itemstack.count -= itemstack.b() - itemstack1.count;
-                        itemstack1.count = itemstack.b();
-                        slot.c();
-                    }
-                }
-            }
-        }
-
-        if (itemstack.count > 0) {
-            for (k = i; k < j; ++k) {
-                slot = (Slot) this.e.get(k);
-                itemstack1 = slot.getItem();
-                if (itemstack1 == null) {
-                    slot.c(itemstack.j());
-                    slot.c();
-                    itemstack.count = 0;
-                    break;
-                }
-            }
-        }
-    }
-
     public ItemStack a(int i) {
         ItemStack itemstack = null;
         Slot slot = (Slot) this.e.get(i);
@@ -82,9 +43,9 @@ public class ContainerChest extends Container {
 
             itemstack = itemstack1.j();
             if (i < this.b * 9) {
-                this.a(itemstack1, this.b * 9, this.e.size());
+                this.a(itemstack1, this.b * 9, this.e.size(), true);
             } else {
-                this.a(itemstack1, 0, this.b * 9);
+                this.a(itemstack1, 0, this.b * 9, false);
             }
 
             if (itemstack1.count == 0) {

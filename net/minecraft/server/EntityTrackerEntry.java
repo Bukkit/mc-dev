@@ -102,7 +102,7 @@ public class EntityTrackerEntry {
                 this.a((Packet) object);
             }
 
-            DataWatcher datawatcher = this.tracker.W();
+            DataWatcher datawatcher = this.tracker.X();
 
             if (datawatcher.a()) {
                 this.b((Packet) (new Packet40EntityMetadata(this.tracker.id, datawatcher)));

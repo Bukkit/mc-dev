@@ -28,12 +28,12 @@ public class WorldGenMinable extends WorldGenerator {
             double d9 = random.nextDouble() * (double) this.b / 16.0D;
             double d10 = (double) (MathHelper.sin((float) l * 3.1415927F / (float) this.b) + 1.0F) * d9 + 1.0D;
             double d11 = (double) (MathHelper.sin((float) l * 3.1415927F / (float) this.b) + 1.0F) * d9 + 1.0D;
-            int i1 = (int) (d6 - d10 / 2.0D);
-            int j1 = (int) (d7 - d11 / 2.0D);
-            int k1 = (int) (d8 - d10 / 2.0D);
-            int l1 = (int) (d6 + d10 / 2.0D);
-            int i2 = (int) (d7 + d11 / 2.0D);
-            int j2 = (int) (d8 + d10 / 2.0D);
+            int i1 = MathHelper.floor(d6 - d10 / 2.0D);
+            int j1 = MathHelper.floor(d7 - d11 / 2.0D);
+            int k1 = MathHelper.floor(d8 - d10 / 2.0D);
+            int l1 = MathHelper.floor(d6 + d10 / 2.0D);
+            int i2 = MathHelper.floor(d7 + d11 / 2.0D);
+            int j2 = MathHelper.floor(d8 + d10 / 2.0D);
 
             for (int k2 = i1; k2 <= l1; ++k2) {
                 double d12 = ((double) k2 + 0.5D - d6) / (d10 / 2.0D);

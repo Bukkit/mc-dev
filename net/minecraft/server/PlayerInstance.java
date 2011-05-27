@@ -28,7 +28,7 @@ class PlayerInstance {
         this.chunkX = i;
         this.chunkZ = j;
         this.e = new ChunkCoordIntPair(i, j);
-        PlayerManager.a(playermanager).worldServer.chunkProviderServer.getChunkAt(i, j);
+        playermanager.a().chunkProviderServer.getChunkAt(i, j);
     }
 
     public void a(EntityPlayer entityplayer) {
@@ -50,12 +50,12 @@ class PlayerInstance {
             if (this.b.size() == 0) {
                 long i = (long) this.chunkX + 2147483647L | (long) this.chunkZ + 2147483647L << 32;
 
-                PlayerManager.b(this.playerManager).b(i);
+                PlayerManager.a(this.playerManager).b(i);
                 if (this.dirtyCount > 0) {
-                    PlayerManager.c(this.playerManager).remove(this);
+                    PlayerManager.b(this.playerManager).remove(this);
                 }
 
-                PlayerManager.a(this.playerManager).worldServer.chunkProviderServer.queueUnload(this.chunkX, this.chunkZ);
+                this.playerManager.a().chunkProviderServer.queueUnload(this.chunkX, this.chunkZ);
             }
 
             entityplayer.f.remove(this.e);
@@ -67,7 +67,7 @@ class PlayerInstance {
 
     public void a(int i, int j, int k) {
         if (this.dirtyCount == 0) {
-            PlayerManager.c(this.playerManager).add(this);
+            PlayerManager.b(this.playerManager).add(this);
             this.h = this.i = i;
             this.j = this.k = j;
             this.l = this.m = k;
@@ -121,6 +121,8 @@ class PlayerInstance {
     }
 
     public void a() {
+        WorldServer worldserver = this.playerManager.a();
+
         if (this.dirtyCount != 0) {
             int i;
             int j;
@@ -130,9 +132,9 @@ class PlayerInstance {
                 i = this.chunkX * 16 + this.h;
                 j = this.j;
                 k = this.chunkZ * 16 + this.l;
-                this.sendAll(new Packet53BlockChange(i, j, k, PlayerManager.a(this.playerManager).worldServer));
-                if (Block.isTileEntity[PlayerManager.a(this.playerManager).worldServer.getTypeId(i, j, k)]) {
-                    this.sendTileEntity(PlayerManager.a(this.playerManager).worldServer.getTileEntity(i, j, k));
+                this.sendAll(new Packet53BlockChange(i, j, k, worldserver));
+                if (Block.isTileEntity[worldserver.getTypeId(i, j, k)]) {
+                    this.sendTileEntity(worldserver.getTileEntity(i, j, k));
                 }
             } else {
                 int l;
@@ -147,22 +149,22 @@ class PlayerInstance {
                     int i1 = this.k - this.j + 2;
                     int j1 = this.m - this.l + 1;
 
-                    this.sendAll(new Packet51MapChunk(i, j, k, l, i1, j1, PlayerManager.a(this.playerManager).worldServer));
-                    List list = PlayerManager.a(this.playerManager).worldServer.getTileEntities(i, j, k, i + l, j + i1, k + j1);
+                    this.sendAll(new Packet51MapChunk(i, j, k, l, i1, j1, worldserver));
+                    List list = worldserver.getTileEntities(i, j, k, i + l, j + i1, k + j1);
 
                     for (int k1 = 0; k1 < list.size(); ++k1) {
                         this.sendTileEntity((TileEntity) list.get(k1));
                     }
                 } else {
-                    this.sendAll(new Packet52MultiBlockChange(this.chunkX, this.chunkZ, this.dirtyBlocks, this.dirtyCount, PlayerManager.a(this.playerManager).worldServer));
+                    this.sendAll(new Packet52MultiBlockChange(this.chunkX, this.chunkZ, this.dirtyBlocks, this.dirtyCount, worldserver));
 
                     for (i = 0; i < this.dirtyCount; ++i) {
                         j = this.chunkX * 16 + (this.dirtyCount >> 12 & 15);
                         k = this.dirtyCount & 255;
                         l = this.chunkZ * 16 + (this.dirtyCount >> 8 & 15);
-                        if (Block.isTileEntity[PlayerManager.a(this.playerManager).worldServer.getTypeId(j, k, l)]) {
+                        if (Block.isTileEntity[worldserver.getTypeId(j, k, l)]) {
                             System.out.println("Sending!");
-                            this.sendTileEntity(PlayerManager.a(this.playerManager).worldServer.getTileEntity(j, k, l));
+                            this.sendTileEntity(worldserver.getTileEntity(j, k, l));
                         }
                     }
                 }

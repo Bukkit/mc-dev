@@ -16,6 +16,7 @@ public class SlotResult extends Slot {
     }
 
     public void a(ItemStack itemstack) {
+        itemstack.b(this.e.world, this.e);
         if (itemstack.id == Block.WORKBENCH.id) {
             this.e.a(AchievementList.h, 1);
         } else if (itemstack.id == Item.WOOD_PICKAXE.id) {
@@ -39,14 +40,10 @@ public class SlotResult extends Slot {
 
             if (itemstack1 != null) {
                 this.d.a(i, 1);
-                if (itemstack1.getItem().h()) {
-                    this.d.setItem(i, new ItemStack(itemstack1.getItem().g()));
+                if (itemstack1.getItem().i()) {
+                    this.d.setItem(i, new ItemStack(itemstack1.getItem().h()));
                 }
             }
         }
-    }
-
-    public boolean e() {
-        return true;
     }
 }

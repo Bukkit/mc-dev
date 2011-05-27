@@ -11,17 +11,17 @@ class NetworkMasterThread extends Thread {
     public void run() {
         try {
             Thread.sleep(5000L);
-            if (NetworkManager.e(this.a).isAlive()) {
+            if (NetworkManager.g(this.a).isAlive()) {
                 try {
-                    NetworkManager.e(this.a).stop();
+                    NetworkManager.g(this.a).stop();
                 } catch (Throwable throwable) {
                     ;
                 }
             }
 
-            if (NetworkManager.f(this.a).isAlive()) {
+            if (NetworkManager.h(this.a).isAlive()) {
                 try {
-                    NetworkManager.f(this.a).stop();
+                    NetworkManager.h(this.a).stop();
                 } catch (Throwable throwable1) {
                     ;
                 }

@@ -38,9 +38,9 @@ public class StatisticList {
     public static Statistic A = (new CounterStatistic(2024, StatisticCollector.a("stat.playerKills"))).d();
     public static Statistic B = (new CounterStatistic(2025, StatisticCollector.a("stat.fishCaught"))).d();
     public static Statistic[] C = a("stat.mineBlock", 16777216);
-    public static Statistic[] D = null;
-    public static Statistic[] E = null;
-    public static Statistic[] F = null;
+    public static Statistic[] D;
+    public static Statistic[] E;
+    public static Statistic[] F;
     private static boolean G;
     private static boolean H;
 
@@ -88,7 +88,7 @@ public class StatisticList {
                 Integer integer = (Integer) iterator.next();
 
                 if (Item.byId[integer.intValue()] != null) {
-                    String s = StatisticCollector.a("stat.craftItem", new Object[] { Item.byId[integer.intValue()].i()});
+                    String s = StatisticCollector.a("stat.craftItem", new Object[] { Item.byId[integer.intValue()].j()});
 
                     D[integer.intValue()] = (new CraftingStatistic(16842752 + integer.intValue(), s, integer.intValue())).d();
                 }
@@ -102,8 +102,8 @@ public class StatisticList {
         Statistic[] astatistic = new Statistic[256];
 
         for (int j = 0; j < 256; ++j) {
-            if (Block.byId[j] != null && Block.byId[j].g()) {
-                String s1 = StatisticCollector.a(s, new Object[] { Block.byId[j].e()});
+            if (Block.byId[j] != null && Block.byId[j].i()) {
+                String s1 = StatisticCollector.a(s, new Object[] { Block.byId[j].g()});
 
                 astatistic[j] = (new CraftingStatistic(i + j, s1, j)).d();
                 e.add((CraftingStatistic) astatistic[j]);
@@ -121,7 +121,7 @@ public class StatisticList {
 
         for (int l = j; l < k; ++l) {
             if (Item.byId[l] != null) {
-                String s1 = StatisticCollector.a(s, new Object[] { Item.byId[l].i()});
+                String s1 = StatisticCollector.a(s, new Object[] { Item.byId[l].j()});
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).d();
                 if (l >= Block.byId.length) {
@@ -140,8 +140,8 @@ public class StatisticList {
         }
 
         for (int l = j; l < k; ++l) {
-            if (Item.byId[l] != null && Item.byId[l].e()) {
-                String s1 = StatisticCollector.a(s, new Object[] { Item.byId[l].i()});
+            if (Item.byId[l] != null && Item.byId[l].f()) {
+                String s1 = StatisticCollector.a(s, new Object[] { Item.byId[l].j()});
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).d();
             }

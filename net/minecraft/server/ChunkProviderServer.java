@@ -13,7 +13,8 @@ public class ChunkProviderServer implements IChunkProvider {
     private Set unloadQueue = new HashSet();
     private Chunk emptyChunk;
     private IChunkProvider chunkProvider;
-    private IChunkLoader d;
+    private IChunkLoader e;
+    public boolean a = false;
     private Map chunks = new HashMap();
     private List chunkList = new ArrayList();
     private WorldServer world;
@@ -21,7 +22,7 @@ public class ChunkProviderServer implements IChunkProvider {
     public ChunkProviderServer(WorldServer worldserver, IChunkLoader ichunkloader, IChunkProvider ichunkprovider) {
         this.emptyChunk = new EmptyChunk(worldserver, new byte['\u8000'], 0, 0);
         this.world = worldserver;
-        this.d = ichunkloader;
+        this.e = ichunkloader;
         this.chunkProvider = ichunkprovider;
     }
 
@@ -86,15 +87,15 @@ public class ChunkProviderServer implements IChunkProvider {
     public Chunk getOrCreateChunk(int i, int j) {
         Chunk chunk = (Chunk) this.chunks.get(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
 
-        return chunk == null ? (this.world.isLoading ? this.getChunkAt(i, j) : this.emptyChunk) : chunk;
+        return chunk == null ? (!this.world.isLoading && !this.a ? this.emptyChunk : this.getChunkAt(i, j)) : chunk;
     }
 
     private Chunk loadChunk(int i, int j) {
-        if (this.d == null) {
+        if (this.e == null) {
             return null;
         } else {
             try {
-                Chunk chunk = this.d.a(this.world, i, j);
+                Chunk chunk = this.e.a(this.world, i, j);
 
                 if (chunk != null) {
                     chunk.r = this.world.getTime();
@@ -109,9 +110,9 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     private void saveChunkNOP(Chunk chunk) {
-        if (this.d != null) {
+        if (this.e != null) {
             try {
-                this.d.b(this.world, chunk);
+                this.e.b(this.world, chunk);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -119,10 +120,10 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     private void saveChunk(Chunk chunk) {
-        if (this.d != null) {
+        if (this.e != null) {
             try {
                 chunk.r = this.world.getTime();
-                this.d.a(this.world, chunk);
+                this.e.a(this.world, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
             }
@@ -162,18 +163,18 @@ public class ChunkProviderServer implements IChunkProvider {
         }
 
         if (flag) {
-            if (this.d == null) {
+            if (this.e == null) {
                 return true;
             }
 
-            this.d.b();
+            this.e.b();
         }
 
         return true;
     }
 
     public boolean unloadChunks() {
-        if (!this.world.y) {
+        if (!this.world.z) {
             for (int i = 0; i < 100; ++i) {
                 if (!this.unloadQueue.isEmpty()) {
                     Integer integer = (Integer) this.unloadQueue.iterator().next();
@@ -188,8 +189,8 @@ public class ChunkProviderServer implements IChunkProvider {
                 }
             }
 
-            if (this.d != null) {
-                this.d.a();
+            if (this.e != null) {
+                this.e.a();
             }
         }
 
@@ -197,6 +198,6 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     public boolean b() {
-        return !this.world.y;
+        return !this.world.z;
     }
 }

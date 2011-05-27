@@ -54,6 +54,8 @@ public class NetworkListenThread {
             if (netloginhandler.c) {
                 this.g.remove(i--);
             }
+
+            netloginhandler.networkManager.a();
         }
 
         for (i = 0; i < this.h.size(); ++i) {
@@ -69,6 +71,8 @@ public class NetworkListenThread {
             if (netserverhandler.disconnected) {
                 this.h.remove(i--);
             }
+
+            netserverhandler.networkManager.a();
         }
     }
 

@@ -28,6 +28,16 @@ public class EntityCreeper extends EntityMonster {
         this.datawatcher.b(17, Byte.valueOf((byte) (nbttagcompound.m("powered") ? 1 : 0)));
     }
 
+    protected void b(Entity entity, float f) {
+        if (this.fuseTicks > 0) {
+            this.e(-1);
+            --this.fuseTicks;
+            if (this.fuseTicks < 0) {
+                this.fuseTicks = 0;
+            }
+        }
+    }
+
     public void p_() {
         this.b = this.fuseTicks;
         if (this.world.isStatic) {
@@ -48,6 +58,13 @@ public class EntityCreeper extends EntityMonster {
         }
 
         super.p_();
+        if (this.target == null && this.fuseTicks > 0) {
+            this.e(-1);
+            --this.fuseTicks;
+            if (this.fuseTicks < 0) {
+                this.fuseTicks = 0;
+            }
+        }
     }
 
     protected String h() {

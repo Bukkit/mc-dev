@@ -17,7 +17,7 @@ public class EntityWolf extends EntityAnimal {
         super(world);
         this.texture = "/mob/wolf.png";
         this.b(0.8F, 0.8F);
-        this.aA = 1.1F;
+        this.aD = 1.1F;
         this.health = 8;
     }
 
@@ -88,9 +88,9 @@ public class EntityWolf extends EntityAnimal {
                 float f = entityhuman.f(this);
 
                 if (f > 5.0F) {
-                    this.b(entityhuman, f);
+                    this.c(entityhuman, f);
                 }
-            } else if (!this.Z()) {
+            } else if (!this.aa()) {
                 this.setSitting(true);
             }
         } else if (this.target == null && !this.C() && !this.m_() && this.world.random.nextInt(100) == 0) {
@@ -101,7 +101,7 @@ public class EntityWolf extends EntityAnimal {
             }
         }
 
-        if (this.Z()) {
+        if (this.aa()) {
             this.setSitting(false);
         }
 
@@ -113,8 +113,8 @@ public class EntityWolf extends EntityAnimal {
     public void u() {
         super.u();
         this.a = false;
-        if (this.R() && !this.C() && !this.isAngry()) {
-            Entity entity = this.S();
+        if (this.S() && !this.C() && !this.isAngry()) {
+            Entity entity = this.T();
 
             if (entity instanceof EntityHuman) {
                 EntityHuman entityhuman = (EntityHuman) entity;
@@ -124,13 +124,13 @@ public class EntityWolf extends EntityAnimal {
                     if (!this.m_() && itemstack.id == Item.BONE.id) {
                         this.a = true;
                     } else if (this.m_() && Item.byId[itemstack.id] instanceof ItemFood) {
-                        this.a = ((ItemFood) Item.byId[itemstack.id]).k();
+                        this.a = ((ItemFood) Item.byId[itemstack.id]).l();
                     }
                 }
             }
         }
 
-        if (!this.U && this.f && !this.g && !this.C() && this.onGround) {
+        if (!this.X && this.f && !this.g && !this.C() && this.onGround) {
             this.g = true;
             this.h = 0.0F;
             this.i = 0.0F;
@@ -148,10 +148,10 @@ public class EntityWolf extends EntityAnimal {
         }
 
         if (this.a) {
-            this.aB = 10;
+            this.aE = 10;
         }
 
-        if (this.Y()) {
+        if (this.Z()) {
             this.f = true;
             this.g = false;
             this.h = 0.0F;
@@ -192,7 +192,7 @@ public class EntityWolf extends EntityAnimal {
         return this.isSitting() ? 20 : super.v();
     }
 
-    private void b(Entity entity, float f) {
+    private void c(Entity entity, float f) {
         PathEntity pathentity = this.world.findPath(this, entity, 16.0F);
 
         if (pathentity == null && f > 12.0F) {
@@ -253,7 +253,7 @@ public class EntityWolf extends EntityAnimal {
                     }
                 }
             } else if (entity != this && entity != null) {
-                if (this.m_() && entity instanceof EntityHuman && ((EntityHuman) entity).name.equals(this.x())) {
+                if (this.m_() && entity instanceof EntityHuman && ((EntityHuman) entity).name.equalsIgnoreCase(this.x())) {
                     return true;
                 }
 
@@ -322,21 +322,21 @@ public class EntityWolf extends EntityAnimal {
             if (itemstack != null && Item.byId[itemstack.id] instanceof ItemFood) {
                 ItemFood itemfood = (ItemFood) Item.byId[itemstack.id];
 
-                if (itemfood.k() && this.datawatcher.b(18) < 20) {
+                if (itemfood.l() && this.datawatcher.b(18) < 20) {
                     --itemstack.count;
                     if (itemstack.count <= 0) {
                         entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
                     }
 
-                    this.b(((ItemFood) Item.PORK).j());
+                    this.b(((ItemFood) Item.PORK).k());
                     return true;
                 }
             }
 
-            if (entityhuman.name.equals(this.x())) {
+            if (entityhuman.name.equalsIgnoreCase(this.x())) {
                 if (!this.world.isStatic) {
                     this.setSitting(!this.isSitting());
-                    this.ay = false;
+                    this.aB = false;
                     this.a((PathEntity) null);
                 }
 

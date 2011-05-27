@@ -13,11 +13,8 @@ public class SlotResult2 extends Slot {
         return false;
     }
 
-    public boolean e() {
-        return true;
-    }
-
     public void a(ItemStack itemstack) {
+        itemstack.b(this.d.world, this.d);
         if (itemstack.id == Item.IRON_INGOT.id) {
             this.d.a(AchievementList.k, 1);
         }

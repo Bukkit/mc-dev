@@ -223,7 +223,7 @@ public final class SpawnerCreature {
                                 PathPoint pathpoint = pathentity.c();
 
                                 if (Math.abs((double) pathpoint.a - entityhuman.locX) < 1.5D && Math.abs((double) pathpoint.c - entityhuman.locZ) < 1.5D && Math.abs((double) pathpoint.b - entityhuman.locY) < 1.5D) {
-                                    ChunkCoordinates chunkcoordinates = BlockBed.f(world, MathHelper.floor(entityhuman.locX), MathHelper.floor(entityhuman.locY), MathHelper.floor(entityhuman.locZ), 1);
+                                    ChunkCoordinates chunkcoordinates = BlockBed.g(world, MathHelper.floor(entityhuman.locX), MathHelper.floor(entityhuman.locY), MathHelper.floor(entityhuman.locZ), 1);
 
                                     if (chunkcoordinates == null) {
                                         chunkcoordinates = new ChunkCoordinates(j, j1 + 1, k);
@@ -233,7 +233,7 @@ public final class SpawnerCreature {
                                     world.addEntity(entityliving);
                                     a(entityliving, world, (float) chunkcoordinates.x + 0.5F, (float) chunkcoordinates.y, (float) chunkcoordinates.z + 0.5F);
                                     entityhuman.a(true, false, false);
-                                    entityliving.M();
+                                    entityliving.N();
                                     flag = true;
                                     flag1 = true;
                                 }

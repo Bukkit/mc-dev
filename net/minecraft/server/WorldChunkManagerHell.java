@@ -39,6 +39,9 @@ public class WorldChunkManagerHell extends WorldChunkManager {
     public BiomeBase[] a(BiomeBase[] abiomebase, int i, int j, int k, int l) {
         if (abiomebase == null || abiomebase.length < k * l) {
             abiomebase = new BiomeBase[k * l];
+        }
+
+        if (this.a == null || this.a.length < k * l) {
             this.a = new double[k * l];
             this.b = new double[k * l];
         }

@@ -9,10 +9,16 @@ public class PlayerManager {
     private PlayerList b = new PlayerList();
     private List c = new ArrayList();
     private MinecraftServer server;
-    private final int[][] e = new int[][] { { 1, 0}, { 0, 1}, { -1, 0}, { 0, -1}};
+    private int e;
+    private final int[][] f = new int[][] { { 1, 0}, { 0, 1}, { -1, 0}, { 0, -1}};
 
-    public PlayerManager(MinecraftServer minecraftserver) {
+    public PlayerManager(MinecraftServer minecraftserver, int i) {
         this.server = minecraftserver;
+        this.e = i;
+    }
+
+    public WorldServer a() {
+        return this.server.a(this.e);
     }
 
     public void flush() {
@@ -62,7 +68,7 @@ public class PlayerManager {
 
         for (j1 = 1; j1 <= b0 * 2; ++j1) {
             for (int k1 = 0; k1 < 2; ++k1) {
-                int[] aint = this.e[k++ % 4];
+                int[] aint = this.f[k++ % 4];
 
                 for (int l1 = 0; l1 < j1; ++l1) {
                     l += aint[0];
@@ -75,8 +81,8 @@ public class PlayerManager {
         k %= 4;
 
         for (j1 = 0; j1 < b0 * 2; ++j1) {
-            l += this.e[k][0];
-            i1 += this.e[k][1];
+            l += this.f[k][0];
+            i1 += this.f[k][1];
             this.a(i + l, j + i1, true).a(entityplayer);
         }
 
@@ -143,19 +149,15 @@ public class PlayerManager {
         }
     }
 
-    public int b() {
+    public int c() {
         return 144;
     }
 
-    static MinecraftServer a(PlayerManager playermanager) {
-        return playermanager.server;
-    }
-
-    static PlayerList b(PlayerManager playermanager) {
+    static PlayerList a(PlayerManager playermanager) {
         return playermanager.b;
     }
 
-    static List c(PlayerManager playermanager) {
+    static List b(PlayerManager playermanager) {
         return playermanager.c;
     }
 }

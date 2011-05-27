@@ -60,4 +60,38 @@ public class ContainerFurnace extends Container {
     public boolean b(EntityHuman entityhuman) {
         return this.a.a_(entityhuman);
     }
+
+    public ItemStack a(int i) {
+        ItemStack itemstack = null;
+        Slot slot = (Slot) this.e.get(i);
+
+        if (slot != null && slot.b()) {
+            ItemStack itemstack1 = slot.getItem();
+
+            itemstack = itemstack1.j();
+            if (i == 2) {
+                this.a(itemstack1, 3, 39, true);
+            } else if (i >= 3 && i < 30) {
+                this.a(itemstack1, 30, 39, false);
+            } else if (i >= 30 && i < 39) {
+                this.a(itemstack1, 3, 30, false);
+            } else {
+                this.a(itemstack1, 3, 39, false);
+            }
+
+            if (itemstack1.count == 0) {
+                slot.c((ItemStack) null);
+            } else {
+                slot.c();
+            }
+
+            if (itemstack1.count == itemstack.count) {
+                return null;
+            }
+
+            slot.a(itemstack1);
+        }
+
+        return itemstack;
+    }
 }

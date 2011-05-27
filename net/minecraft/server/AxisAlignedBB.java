@@ -197,6 +197,10 @@ public class AxisAlignedBB {
         return this;
     }
 
+    public boolean a(Vec3D vec3d) {
+        return vec3d.a > this.a && vec3d.a < this.d ? (vec3d.b > this.b && vec3d.b < this.e ? vec3d.c > this.c && vec3d.c < this.f : false) : false;
+    }
+
     public AxisAlignedBB shrink(double d0, double d1, double d2) {
         double d3 = this.a;
         double d4 = this.b;
@@ -244,27 +248,27 @@ public class AxisAlignedBB {
         Vec3D vec3d6 = vec3d.c(vec3d1, this.c);
         Vec3D vec3d7 = vec3d.c(vec3d1, this.f);
 
-        if (!this.a(vec3d2)) {
+        if (!this.b(vec3d2)) {
             vec3d2 = null;
         }
 
-        if (!this.a(vec3d3)) {
+        if (!this.b(vec3d3)) {
             vec3d3 = null;
         }
 
-        if (!this.b(vec3d4)) {
+        if (!this.c(vec3d4)) {
             vec3d4 = null;
         }
 
-        if (!this.b(vec3d5)) {
+        if (!this.c(vec3d5)) {
             vec3d5 = null;
         }
 
-        if (!this.c(vec3d6)) {
+        if (!this.d(vec3d6)) {
             vec3d6 = null;
         }
 
-        if (!this.c(vec3d7)) {
+        if (!this.d(vec3d7)) {
             vec3d7 = null;
         }
 
@@ -327,15 +331,15 @@ public class AxisAlignedBB {
         }
     }
 
-    private boolean a(Vec3D vec3d) {
+    private boolean b(Vec3D vec3d) {
         return vec3d == null ? false : vec3d.b >= this.b && vec3d.b <= this.e && vec3d.c >= this.c && vec3d.c <= this.f;
     }
 
-    private boolean b(Vec3D vec3d) {
+    private boolean c(Vec3D vec3d) {
         return vec3d == null ? false : vec3d.a >= this.a && vec3d.a <= this.d && vec3d.c >= this.c && vec3d.c <= this.f;
     }
 
-    private boolean c(Vec3D vec3d) {
+    private boolean d(Vec3D vec3d) {
         return vec3d == null ? false : vec3d.a >= this.a && vec3d.a <= this.d && vec3d.b >= this.b && vec3d.b <= this.e;
     }
 

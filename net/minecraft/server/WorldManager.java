@@ -3,19 +3,21 @@ package net.minecraft.server;
 public class WorldManager implements IWorldAccess {
 
     private MinecraftServer server;
+    private WorldServer world;
 
-    public WorldManager(MinecraftServer minecraftserver) {
+    public WorldManager(MinecraftServer minecraftserver, WorldServer worldserver) {
         this.server = minecraftserver;
+        this.world = worldserver;
     }
 
     public void a(String s, double d0, double d1, double d2, double d3, double d4, double d5) {}
 
     public void a(Entity entity) {
-        this.server.tracker.a(entity);
+        this.server.b(this.world.worldProvider.dimension).a(entity);
     }
 
     public void b(Entity entity) {
-        this.server.tracker.untrackEntity(entity);
+        this.server.b(this.world.worldProvider.dimension).untrackEntity(entity);
     }
 
     public void a(String s, double d0, double d1, double d2, float f, float f1) {}
@@ -25,7 +27,7 @@ public class WorldManager implements IWorldAccess {
     public void a() {}
 
     public void a(int i, int j, int k) {
-        this.server.serverConfigurationManager.flagDirty(i, j, k);
+        this.server.serverConfigurationManager.flagDirty(i, j, k, this.world.worldProvider.dimension);
     }
 
     public void a(String s, int i, int j, int k) {}

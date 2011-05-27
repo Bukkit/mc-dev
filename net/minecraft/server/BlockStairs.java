@@ -28,8 +28,8 @@ public class BlockStairs extends Block {
         return false;
     }
 
-    public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        return super.a(iblockaccess, i, j, k, l);
+    public boolean b() {
+        return false;
     }
 
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist) {
@@ -88,8 +88,8 @@ public class BlockStairs extends Block {
         return this.a.a(i);
     }
 
-    public int b() {
-        return this.a.b();
+    public int c() {
+        return this.a.c();
     }
 
     public void a(World world, int i, int j, int k, Entity entity, Vec3D vec3d) {
@@ -121,8 +121,8 @@ public class BlockStairs extends Block {
         this.a.dropNaturally(world, i, j, k, l, f);
     }
 
-    public void a_(World world, int i, int j, int k, int l) {
-        this.a.a_(world, i, j, k, l);
+    public void b_(World world, int i, int j, int k, int l) {
+        this.a.b_(world, i, j, k, l);
     }
 
     public void b(World world, int i, int j, int k, Entity entity) {

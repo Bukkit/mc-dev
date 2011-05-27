@@ -2,7 +2,9 @@ package net.minecraft.server;
 
 public class MaterialLogic extends Material {
 
-    public MaterialLogic() {}
+    public MaterialLogic(MaterialMapColor materialmapcolor) {
+        super(materialmapcolor);
+    }
 
     public boolean isBuildable() {
         return false;

@@ -12,7 +12,7 @@ public class WorldProviderHell extends WorldProvider {
         this.dimension = -1;
     }
 
-    protected void b() {
+    protected void c() {
         float f = 0.1F;
 
         for (int i = 0; i <= 15; ++i) {
@@ -22,7 +22,7 @@ public class WorldProviderHell extends WorldProvider {
         }
     }
 
-    public IChunkProvider c() {
+    public IChunkProvider b() {
         return new ChunkProviderHell(this.a, this.a.getSeed());
     }
 
@@ -34,5 +34,9 @@ public class WorldProviderHell extends WorldProvider {
 
     public float a(long i, float f) {
         return 0.5F;
+    }
+
+    public boolean d() {
+        return false;
     }
 }

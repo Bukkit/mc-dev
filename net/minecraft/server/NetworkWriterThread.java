@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.io.IOException;
+
 class NetworkWriterThread extends Thread {
 
     final NetworkManager a;
@@ -27,6 +29,15 @@ class NetworkWriterThread extends Thread {
                 }
 
                 NetworkManager.d(this.a);
+                if (NetworkManager.e(this.a)) {
+                    NetworkManager.a(this.a, false);
+
+                    try {
+                        NetworkManager.f(this.a).flush();
+                    } catch (IOException ioexception) {
+                        ioexception.printStackTrace();
+                    }
+                }
             } finally {
                 if (flag) {
                     Object object1 = NetworkManager.a;

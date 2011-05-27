@@ -10,7 +10,7 @@ public class BlockMinecartDetector extends BlockMinecartTrack {
         this.a(true);
     }
 
-    public int b() {
+    public int c() {
         return 20;
     }
 
@@ -23,7 +23,7 @@ public class BlockMinecartDetector extends BlockMinecartTrack {
             int l = world.getData(i, j, k);
 
             if ((l & 8) == 0) {
-                this.f(world, i, j, k, l);
+                this.g(world, i, j, k, l);
             }
         }
     }
@@ -33,12 +33,12 @@ public class BlockMinecartDetector extends BlockMinecartTrack {
             int l = world.getData(i, j, k);
 
             if ((l & 8) != 0) {
-                this.f(world, i, j, k, l);
+                this.g(world, i, j, k, l);
             }
         }
     }
 
-    public boolean b(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+    public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         return (iblockaccess.getData(i, j, k) & 8) != 0;
     }
 
@@ -46,7 +46,7 @@ public class BlockMinecartDetector extends BlockMinecartTrack {
         return (world.getData(i, j, k) & 8) == 0 ? false : l == 1;
     }
 
-    private void f(World world, int i, int j, int k, int l) {
+    private void g(World world, int i, int j, int k, int l) {
         boolean flag = (l & 8) != 0;
         boolean flag1 = false;
         float f = 0.125F;
@@ -71,7 +71,7 @@ public class BlockMinecartDetector extends BlockMinecartTrack {
         }
 
         if (flag1) {
-            world.c(i, j, k, this.id, this.b());
+            world.c(i, j, k, this.id, this.c());
         }
     }
 }

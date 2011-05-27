@@ -31,6 +31,10 @@ public class BlockPortal extends BlockBreakable {
         return false;
     }
 
+    public boolean b() {
+        return false;
+    }
+
     public boolean a_(World world, int i, int j, int k) {
         byte b0 = 0;
         byte b1 = 0;
@@ -43,7 +47,6 @@ public class BlockPortal extends BlockBreakable {
             b1 = 1;
         }
 
-        System.out.println(b0 + ", " + b1);
         if (b0 == b1) {
             return false;
         } else {
@@ -125,17 +128,11 @@ public class BlockPortal extends BlockBreakable {
         }
     }
 
-    public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        return true;
-    }
-
     public int a(Random random) {
         return 0;
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        if (!world.isStatic) {
-            entity.ad();
-        }
+        entity.M();
     }
 }

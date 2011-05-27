@@ -20,6 +20,10 @@ public class BlockSnow extends Block {
         return false;
     }
 
+    public boolean b() {
+        return false;
+    }
+
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
         int l = iblockaccess.getData(i, j, k) & 7;
         float f = (float) (2 * (1 + l)) / 16.0F;
@@ -39,7 +43,7 @@ public class BlockSnow extends Block {
 
     private boolean g(World world, int i, int j, int k) {
         if (!this.canPlace(world, i, j, k)) {
-            this.a_(world, i, j, k, world.getData(i, j, k));
+            this.b_(world, i, j, k, world.getData(i, j, k));
             world.setTypeId(i, j, k, 0);
             return false;
         } else {
@@ -71,12 +75,8 @@ public class BlockSnow extends Block {
 
     public void a(World world, int i, int j, int k, Random random) {
         if (world.a(EnumSkyBlock.BLOCK, i, j, k) > 11) {
-            this.a_(world, i, j, k, world.getData(i, j, k));
+            this.b_(world, i, j, k, world.getData(i, j, k));
             world.setTypeId(i, j, k, 0);
         }
-    }
-
-    public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        return l == 1 ? true : super.a(iblockaccess, i, j, k, l);
     }
 }

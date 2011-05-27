@@ -12,10 +12,4 @@ public class BlockLeavesBase extends Block {
     public boolean a() {
         return false;
     }
-
-    public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        int i1 = iblockaccess.getTypeId(i, j, k);
-
-        return !this.b && i1 == this.id ? false : super.a(iblockaccess, i, j, k, l);
-    }
 }

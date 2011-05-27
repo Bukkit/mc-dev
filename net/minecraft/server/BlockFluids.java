@@ -45,6 +45,10 @@ public abstract class BlockFluids extends Block {
         }
     }
 
+    public boolean b() {
+        return false;
+    }
+
     public boolean a() {
         return false;
     }
@@ -53,10 +57,10 @@ public abstract class BlockFluids extends Block {
         return flag && i == 0;
     }
 
-    public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+    public boolean b(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         Material material = iblockaccess.getMaterial(i, j, k);
 
-        return material == this.material ? false : (material == Material.ICE ? false : (l == 1 ? true : super.a(iblockaccess, i, j, k, l)));
+        return material == this.material ? false : (material == Material.ICE ? false : (l == 1 ? true : super.b(iblockaccess, i, j, k, l)));
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {
@@ -115,35 +119,35 @@ public abstract class BlockFluids extends Block {
         if (iblockaccess.getData(i, j, k) >= 8) {
             boolean flag = false;
 
-            if (flag || this.a(iblockaccess, i, j, k - 1, 2)) {
+            if (flag || this.b(iblockaccess, i, j, k - 1, 2)) {
                 flag = true;
             }
 
-            if (flag || this.a(iblockaccess, i, j, k + 1, 3)) {
+            if (flag || this.b(iblockaccess, i, j, k + 1, 3)) {
                 flag = true;
             }
 
-            if (flag || this.a(iblockaccess, i - 1, j, k, 4)) {
+            if (flag || this.b(iblockaccess, i - 1, j, k, 4)) {
                 flag = true;
             }
 
-            if (flag || this.a(iblockaccess, i + 1, j, k, 5)) {
+            if (flag || this.b(iblockaccess, i + 1, j, k, 5)) {
                 flag = true;
             }
 
-            if (flag || this.a(iblockaccess, i, j + 1, k - 1, 2)) {
+            if (flag || this.b(iblockaccess, i, j + 1, k - 1, 2)) {
                 flag = true;
             }
 
-            if (flag || this.a(iblockaccess, i, j + 1, k + 1, 3)) {
+            if (flag || this.b(iblockaccess, i, j + 1, k + 1, 3)) {
                 flag = true;
             }
 
-            if (flag || this.a(iblockaccess, i - 1, j + 1, k, 4)) {
+            if (flag || this.b(iblockaccess, i - 1, j + 1, k, 4)) {
                 flag = true;
             }
 
-            if (flag || this.a(iblockaccess, i + 1, j + 1, k, 5)) {
+            if (flag || this.b(iblockaccess, i + 1, j + 1, k, 5)) {
                 flag = true;
             }
 
@@ -164,7 +168,7 @@ public abstract class BlockFluids extends Block {
         vec3d.c += vec3d1.c;
     }
 
-    public int b() {
+    public int c() {
         return this.material == Material.WATER ? 5 : (this.material == Material.LAVA ? 30 : 0);
     }
 

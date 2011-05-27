@@ -1,0 +1,164 @@
+package net.minecraft.server;
+
+public class BlockTrapdoor extends Block {
+
+    protected BlockTrapdoor(int i, Material material) {
+        super(i, material);
+        this.textureId = 84;
+        if (material == Material.ORE) {
+            ++this.textureId;
+        }
+
+        float f = 0.5F;
+        float f1 = 1.0F;
+
+        this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f1, 0.5F + f);
+    }
+
+    public boolean a() {
+        return false;
+    }
+
+    public boolean b() {
+        return false;
+    }
+
+    public AxisAlignedBB d(World world, int i, int j, int k) {
+        this.a(world, i, j, k);
+        return super.d(world, i, j, k);
+    }
+
+    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+        this.c(iblockaccess.getData(i, j, k));
+    }
+
+    public void c(int i) {
+        float f = 0.1875F;
+
+        this.a(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
+        if (d(i)) {
+            if ((i & 3) == 0) {
+                this.a(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
+            }
+
+            if ((i & 3) == 1) {
+                this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
+            }
+
+            if ((i & 3) == 2) {
+                this.a(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+            }
+
+            if ((i & 3) == 3) {
+                this.a(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
+            }
+        }
+    }
+
+    public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
+        this.interact(world, i, j, k, entityhuman);
+    }
+
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
+        if (this.material == Material.ORE) {
+            return true;
+        } else {
+            int l = world.getData(i, j, k);
+
+            world.setData(i, j, k, l ^ 4);
+            if (Math.random() < 0.5D) {
+                world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.door_open", 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+            } else {
+                world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.door_close", 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+            }
+
+            return true;
+        }
+    }
+
+    public void doPhysics(World world, int i, int j, int k, int l) {
+        if (!world.isStatic) {
+            int i1 = world.getData(i, j, k);
+            int j1 = i;
+            int k1 = k;
+
+            if ((i1 & 3) == 0) {
+                k1 = k + 1;
+            }
+
+            if ((i1 & 3) == 1) {
+                --k1;
+            }
+
+            if ((i1 & 3) == 2) {
+                j1 = i + 1;
+            }
+
+            if ((i1 & 3) == 3) {
+                --j1;
+            }
+
+            if (!world.d(j1, j, k1)) {
+                world.setTypeId(i, j, k, 0);
+                this.b_(world, i, j, k, i1);
+            }
+        }
+    }
+
+    public MovingObjectPosition a(World world, int i, int j, int k, Vec3D vec3d, Vec3D vec3d1) {
+        this.a(world, i, j, k);
+        return super.a(world, i, j, k, vec3d, vec3d1);
+    }
+
+    public void postPlace(World world, int i, int j, int k, int l) {
+        byte b0 = 0;
+
+        if (l == 2) {
+            b0 = 0;
+        }
+
+        if (l == 3) {
+            b0 = 1;
+        }
+
+        if (l == 4) {
+            b0 = 2;
+        }
+
+        if (l == 5) {
+            b0 = 3;
+        }
+
+        world.setData(i, j, k, b0);
+    }
+
+    public boolean canPlace(World world, int i, int j, int k, int l) {
+        if (l == 0) {
+            return false;
+        } else if (l == 1) {
+            return false;
+        } else {
+            if (l == 2) {
+                ++k;
+            }
+
+            if (l == 3) {
+                --k;
+            }
+
+            if (l == 4) {
+                ++i;
+            }
+
+            if (l == 5) {
+                --i;
+            }
+
+            return world.d(i, j, k);
+        }
+    }
+
+    public static boolean d(int i) {
+        return (i & 4) != 0;
+    }
+}

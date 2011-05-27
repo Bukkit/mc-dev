@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Calendar;
 import java.util.Random;
 
 public class ChunkProviderGenerate implements IChunkProvider {
@@ -128,8 +127,8 @@ public class ChunkProviderGenerate implements IChunkProvider {
                 boolean flag1 = this.s[k + l * 16] + this.j.nextDouble() * 0.2D > 3.0D;
                 int i1 = (int) (this.t[k + l * 16] / 3.0D + 3.0D + this.j.nextDouble() * 0.25D);
                 int j1 = -1;
-                byte b1 = biomebase.o;
-                byte b2 = biomebase.p;
+                byte b1 = biomebase.p;
+                byte b2 = biomebase.q;
 
                 for (int k1 = 127; k1 >= 0; --k1) {
                     int l1 = (l * 16 + k) * 128 + k1;
@@ -147,8 +146,8 @@ public class ChunkProviderGenerate implements IChunkProvider {
                                     b1 = 0;
                                     b2 = (byte) Block.STONE.id;
                                 } else if (k1 >= b0 - 4 && k1 <= b0 + 1) {
-                                    b1 = biomebase.o;
-                                    b2 = biomebase.p;
+                                    b1 = biomebase.p;
+                                    b2 = biomebase.q;
                                     if (flag1) {
                                         b1 = 0;
                                     }
@@ -472,103 +471,140 @@ public class ChunkProviderGenerate implements IChunkProvider {
             worldgenerator.a(this.p, this.j, j2, this.p.getHighestBlockYAt(j2, k2), k2);
         }
 
-        int l2;
+        byte b0 = 0;
 
-        for (i2 = 0; i2 < 2; ++i2) {
-            j2 = k + this.j.nextInt(16) + 8;
-            k2 = this.j.nextInt(128);
+        if (biomebase == BiomeBase.FOREST) {
+            b0 = 2;
+        }
+
+        if (biomebase == BiomeBase.SEASONAL_FOREST) {
+            b0 = 4;
+        }
+
+        if (biomebase == BiomeBase.TAIGA) {
+            b0 = 2;
+        }
+
+        if (biomebase == BiomeBase.PLAINS) {
+            b0 = 3;
+        }
+
+        int l2;
+        int i3;
+
+        for (j2 = 0; j2 < b0; ++j2) {
+            k2 = k + this.j.nextInt(16) + 8;
+            i3 = this.j.nextInt(128);
             l2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.YELLOW_FLOWER.id)).a(this.p, this.j, j2, k2, l2);
+            (new WorldGenFlowers(Block.YELLOW_FLOWER.id)).a(this.p, this.j, k2, i3, l2);
+        }
+
+        byte b1 = 0;
+
+        if (biomebase == BiomeBase.FOREST) {
+            b1 = 2;
+        }
+
+        if (biomebase == BiomeBase.RAINFOREST) {
+            b1 = 10;
+        }
+
+        if (biomebase == BiomeBase.SEASONAL_FOREST) {
+            b1 = 2;
+        }
+
+        if (biomebase == BiomeBase.TAIGA) {
+            b1 = 1;
+        }
+
+        if (biomebase == BiomeBase.PLAINS) {
+            b1 = 10;
+        }
+
+        int j3;
+
+        for (k2 = 0; k2 < b1; ++k2) {
+            i3 = k + this.j.nextInt(16) + 8;
+            l2 = this.j.nextInt(128);
+            j3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenGrass(Block.LONG_GRASS.id)).a(this.p, this.j, i3, l2, j3);
         }
 
         if (this.j.nextInt(2) == 0) {
-            i2 = k + this.j.nextInt(16) + 8;
-            j2 = this.j.nextInt(128);
-            k2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.RED_ROSE.id)).a(this.p, this.j, i2, j2, k2);
+            k2 = k + this.j.nextInt(16) + 8;
+            i3 = this.j.nextInt(128);
+            l2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.RED_ROSE.id)).a(this.p, this.j, k2, i3, l2);
         }
 
         if (this.j.nextInt(4) == 0) {
-            i2 = k + this.j.nextInt(16) + 8;
-            j2 = this.j.nextInt(128);
-            k2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.BROWN_MUSHROOM.id)).a(this.p, this.j, i2, j2, k2);
+            k2 = k + this.j.nextInt(16) + 8;
+            i3 = this.j.nextInt(128);
+            l2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.BROWN_MUSHROOM.id)).a(this.p, this.j, k2, i3, l2);
         }
 
         if (this.j.nextInt(8) == 0) {
-            i2 = k + this.j.nextInt(16) + 8;
-            j2 = this.j.nextInt(128);
-            k2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.RED_MUSHROOM.id)).a(this.p, this.j, i2, j2, k2);
+            k2 = k + this.j.nextInt(16) + 8;
+            i3 = this.j.nextInt(128);
+            l2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.RED_MUSHROOM.id)).a(this.p, this.j, k2, i3, l2);
         }
 
-        for (i2 = 0; i2 < 10; ++i2) {
-            j2 = k + this.j.nextInt(16) + 8;
-            k2 = this.j.nextInt(128);
-            l2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenReed()).a(this.p, this.j, j2, k2, l2);
+        for (k2 = 0; k2 < 10; ++k2) {
+            i3 = k + this.j.nextInt(16) + 8;
+            l2 = this.j.nextInt(128);
+            j3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenReed()).a(this.p, this.j, i3, l2, j3);
         }
 
         if (this.j.nextInt(32) == 0) {
-            i2 = k + this.j.nextInt(16) + 8;
-            j2 = this.j.nextInt(128);
-            k2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenPumpkin()).a(this.p, this.j, i2, j2, k2);
+            k2 = k + this.j.nextInt(16) + 8;
+            i3 = this.j.nextInt(128);
+            l2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenPumpkin()).a(this.p, this.j, k2, i3, l2);
         }
 
-        i2 = 0;
+        k2 = 0;
         if (biomebase == BiomeBase.DESERT) {
-            i2 += 10;
+            k2 += 10;
         }
 
-        int i3;
+        int k3;
 
-        for (j2 = 0; j2 < i2; ++j2) {
-            k2 = k + this.j.nextInt(16) + 8;
-            l2 = this.j.nextInt(128);
-            i3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenCactus()).a(this.p, this.j, k2, l2, i3);
+        for (i3 = 0; i3 < k2; ++i3) {
+            l2 = k + this.j.nextInt(16) + 8;
+            j3 = this.j.nextInt(128);
+            k3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenCactus()).a(this.p, this.j, l2, j3, k3);
         }
 
-        for (j2 = 0; j2 < 50; ++j2) {
-            k2 = k + this.j.nextInt(16) + 8;
-            l2 = this.j.nextInt(this.j.nextInt(120) + 8);
-            i3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.WATER.id)).a(this.p, this.j, k2, l2, i3);
+        for (i3 = 0; i3 < 50; ++i3) {
+            l2 = k + this.j.nextInt(16) + 8;
+            j3 = this.j.nextInt(this.j.nextInt(120) + 8);
+            k3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenLiquids(Block.WATER.id)).a(this.p, this.j, l2, j3, k3);
         }
 
-        for (j2 = 0; j2 < 20; ++j2) {
-            k2 = k + this.j.nextInt(16) + 8;
-            l2 = this.j.nextInt(this.j.nextInt(this.j.nextInt(112) + 8) + 8);
-            i3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.LAVA.id)).a(this.p, this.j, k2, l2, i3);
+        for (i3 = 0; i3 < 20; ++i3) {
+            l2 = k + this.j.nextInt(16) + 8;
+            j3 = this.j.nextInt(this.j.nextInt(this.j.nextInt(112) + 8) + 8);
+            k3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenLiquids(Block.LAVA.id)).a(this.p, this.j, l2, j3, k3);
         }
 
         this.w = this.p.getWorldChunkManager().a(this.w, k + 8, l + 8, 16, 16);
 
-        for (j2 = k + 8; j2 < k + 8 + 16; ++j2) {
-            for (k2 = l + 8; k2 < l + 8 + 16; ++k2) {
-                l2 = j2 - (k + 8);
-                i3 = k2 - (l + 8);
-                int j3 = this.p.e(j2, k2);
-                double d1 = this.w[l2 * 16 + i3] - (double) (j3 - 64) / 64.0D * 0.3D;
+        for (i3 = k + 8; i3 < k + 8 + 16; ++i3) {
+            for (l2 = l + 8; l2 < l + 8 + 16; ++l2) {
+                j3 = i3 - (k + 8);
+                k3 = l2 - (l + 8);
+                int l3 = this.p.e(i3, l2);
+                double d1 = this.w[j3 * 16 + k3] - (double) (l3 - 64) / 64.0D * 0.3D;
 
-                if (d1 < 0.5D && j3 > 0 && j3 < 128 && this.p.isEmpty(j2, j3, k2) && this.p.getMaterial(j2, j3 - 1, k2).isSolid() && this.p.getMaterial(j2, j3 - 1, k2) != Material.ICE) {
-                    this.p.setTypeId(j2, j3, k2, Block.SNOW.id);
+                if (d1 < 0.5D && l3 > 0 && l3 < 128 && this.p.isEmpty(i3, l3, l2) && this.p.getMaterial(i3, l3 - 1, l2).isSolid() && this.p.getMaterial(i3, l3 - 1, l2) != Material.ICE) {
+                    this.p.setTypeId(i3, l3, l2, Block.SNOW.id);
                 }
-            }
-        }
-
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        if (calendar.get(2) == 3 && calendar.get(5) == 1) {
-            k2 = k + this.j.nextInt(16) + 8;
-            l2 = this.j.nextInt(128);
-            i3 = l + this.j.nextInt(16) + 8;
-            if (this.p.getTypeId(k2, l2, i3) == 0 && this.p.d(k2, l2 - 1, i3)) {
-                System.out.println("added a chest!!");
-                this.p.setTypeId(k2, l2, i3, Block.LOCKED_CHEST.id);
             }
         }
 

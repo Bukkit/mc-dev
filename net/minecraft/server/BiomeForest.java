@@ -5,7 +5,7 @@ import java.util.Random;
 public class BiomeForest extends BiomeBase {
 
     public BiomeForest() {
-        this.s.add(new BiomeMeta(EntityWolf.class, 2));
+        this.t.add(new BiomeMeta(EntityWolf.class, 2));
     }
 
     public WorldGenerator a(Random random) {

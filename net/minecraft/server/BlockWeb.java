@@ -7,7 +7,7 @@ public class BlockWeb extends Block {
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        entity.bb = true;
+        entity.be = true;
     }
 
     public boolean a() {

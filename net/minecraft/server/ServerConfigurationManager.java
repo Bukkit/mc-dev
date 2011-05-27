@@ -17,7 +17,7 @@ public class ServerConfigurationManager {
     public static Logger a = Logger.getLogger("Minecraft");
     public List players = new ArrayList();
     private MinecraftServer server;
-    private PlayerManager d;
+    private PlayerManager[] d = new PlayerManager[2];
     private int maxPlayers;
     private Set banByName = new HashSet();
     private Set banByIP = new HashSet();
@@ -36,7 +36,8 @@ public class ServerConfigurationManager {
         this.k = minecraftserver.a("banned-ips.txt");
         this.l = minecraftserver.a("ops.txt");
         this.m = minecraftserver.a("white-list.txt");
-        this.d = new PlayerManager(minecraftserver);
+        this.d[0] = new PlayerManager(minecraftserver, 0);
+        this.d[1] = new PlayerManager(minecraftserver, -1);
         this.maxPlayers = minecraftserver.propertyManager.getInt("max-players", 20);
         this.o = minecraftserver.propertyManager.getBoolean("white-list", false);
         this.g();
@@ -49,36 +50,54 @@ public class ServerConfigurationManager {
         this.n();
     }
 
-    public void setPlayerFileData(WorldServer worldserver) {
-        this.playerFileData = worldserver.p().d();
-    }
-
-    public int a() {
-        return this.d.b();
+    public void setPlayerFileData(WorldServer[] aworldserver) {
+        this.playerFileData = aworldserver[0].p().d();
     }
 
     public void a(EntityPlayer entityplayer) {
-        this.players.add(entityplayer);
-        this.playerFileData.b(entityplayer);
-        this.server.worldServer.chunkProviderServer.getChunkAt((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
+        this.d[0].removePlayer(entityplayer);
+        this.d[1].removePlayer(entityplayer);
+        this.a(entityplayer.dimension).addPlayer(entityplayer);
+        WorldServer worldserver = this.server.a(entityplayer.dimension);
 
-        while (this.server.worldServer.getEntities(entityplayer, entityplayer.boundingBox).size() != 0) {
-            entityplayer.setPosition(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
-        }
+        worldserver.chunkProviderServer.getChunkAt((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
+    }
 
-        this.server.worldServer.addEntity(entityplayer);
-        this.d.addPlayer(entityplayer);
+    public int a() {
+        return this.d[0].c();
+    }
+
+    private PlayerManager a(int i) {
+        return i == -1 ? this.d[1] : this.d[0];
     }
 
     public void b(EntityPlayer entityplayer) {
-        this.d.movePlayer(entityplayer);
+        this.playerFileData.b(entityplayer);
+    }
+
+    public void c(EntityPlayer entityplayer) {
+        this.players.add(entityplayer);
+        WorldServer worldserver = this.server.a(entityplayer.dimension);
+
+        worldserver.chunkProviderServer.getChunkAt((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
+
+        while (worldserver.getEntities(entityplayer, entityplayer.boundingBox).size() != 0) {
+            entityplayer.setPosition(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
+        }
+
+        worldserver.addEntity(entityplayer);
+        this.a(entityplayer.dimension).addPlayer(entityplayer);
+    }
+
+    public void d(EntityPlayer entityplayer) {
+        this.a(entityplayer.dimension).movePlayer(entityplayer);
     }
 
     public void disconnect(EntityPlayer entityplayer) {
         this.playerFileData.a(entityplayer);
-        this.server.worldServer.kill(entityplayer);
+        this.server.a(entityplayer.dimension).kill(entityplayer);
         this.players.remove(entityplayer);
-        this.d.removePlayer(entityplayer);
+        this.a(entityplayer.dimension).removePlayer(entityplayer);
     }
 
     public EntityPlayer a(NetLoginHandler netloginhandler, String s) {
@@ -108,24 +127,28 @@ public class ServerConfigurationManager {
                     }
                 }
 
-                return new EntityPlayer(this.server, this.server.worldServer, s, new ItemInWorldManager(this.server.worldServer));
+                return new EntityPlayer(this.server, this.server.a(0), s, new ItemInWorldManager(this.server.a(0)));
             }
         }
     }
 
-    public EntityPlayer d(EntityPlayer entityplayer) {
-        this.server.tracker.trackPlayer(entityplayer);
-        this.server.tracker.untrackEntity(entityplayer);
-        this.d.removePlayer(entityplayer);
+    public EntityPlayer a(EntityPlayer entityplayer, int i) {
+        this.server.b(entityplayer.dimension).trackPlayer(entityplayer);
+        this.server.b(entityplayer.dimension).untrackEntity(entityplayer);
+        this.a(entityplayer.dimension).removePlayer(entityplayer);
         this.players.remove(entityplayer);
-        this.server.worldServer.removeEntity(entityplayer);
+        this.server.a(entityplayer.dimension).removeEntity(entityplayer);
         ChunkCoordinates chunkcoordinates = entityplayer.K();
-        EntityPlayer entityplayer1 = new EntityPlayer(this.server, this.server.worldServer, entityplayer.name, new ItemInWorldManager(this.server.worldServer));
+
+        entityplayer.dimension = i;
+        EntityPlayer entityplayer1 = new EntityPlayer(this.server, this.server.a(entityplayer.dimension), entityplayer.name, new ItemInWorldManager(this.server.a(entityplayer.dimension)));
 
         entityplayer1.id = entityplayer.id;
         entityplayer1.netServerHandler = entityplayer.netServerHandler;
+        WorldServer worldserver = this.server.a(entityplayer.dimension);
+
         if (chunkcoordinates != null) {
-            ChunkCoordinates chunkcoordinates1 = EntityHuman.getBed(this.server.worldServer, chunkcoordinates);
+            ChunkCoordinates chunkcoordinates1 = EntityHuman.getBed(this.server.a(entityplayer.dimension), chunkcoordinates);
 
             if (chunkcoordinates1 != null) {
                 entityplayer1.setPositionRotation((double) ((float) chunkcoordinates1.x + 0.5F), (double) ((float) chunkcoordinates1.y + 0.1F), (double) ((float) chunkcoordinates1.z + 0.5F), 0.0F, 0.0F);
@@ -135,28 +158,84 @@ public class ServerConfigurationManager {
             }
         }
 
-        this.server.worldServer.chunkProviderServer.getChunkAt((int) entityplayer1.locX >> 4, (int) entityplayer1.locZ >> 4);
+        worldserver.chunkProviderServer.getChunkAt((int) entityplayer1.locX >> 4, (int) entityplayer1.locZ >> 4);
 
-        while (this.server.worldServer.getEntities(entityplayer1, entityplayer1.boundingBox).size() != 0) {
+        while (worldserver.getEntities(entityplayer1, entityplayer1.boundingBox).size() != 0) {
             entityplayer1.setPosition(entityplayer1.locX, entityplayer1.locY + 1.0D, entityplayer1.locZ);
         }
 
-        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn());
+        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer1.dimension));
         entityplayer1.netServerHandler.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
-        this.d.addPlayer(entityplayer1);
-        this.server.worldServer.addEntity(entityplayer1);
+        this.a(entityplayer1, worldserver);
+        this.a(entityplayer1.dimension).addPlayer(entityplayer1);
+        worldserver.addEntity(entityplayer1);
         this.players.add(entityplayer1);
         entityplayer1.syncInventory();
         entityplayer1.w();
         return entityplayer1;
     }
 
-    public void b() {
-        this.d.flush();
+    public void f(EntityPlayer entityplayer) {
+        WorldServer worldserver = this.server.a(entityplayer.dimension);
+        boolean flag = false;
+        byte b0;
+
+        if (entityplayer.dimension == -1) {
+            b0 = 0;
+        } else {
+            b0 = -1;
+        }
+
+        entityplayer.dimension = b0;
+        WorldServer worldserver1 = this.server.a(entityplayer.dimension);
+
+        entityplayer.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer.dimension));
+        worldserver.removeEntity(entityplayer);
+        entityplayer.dead = false;
+        double d0 = entityplayer.locX;
+        double d1 = entityplayer.locZ;
+        double d2 = 8.0D;
+
+        if (entityplayer.dimension == -1) {
+            d0 /= d2;
+            d1 /= d2;
+            entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
+            if (entityplayer.Q()) {
+                worldserver.entityJoinedWorld(entityplayer, false);
+            }
+        } else {
+            d0 *= d2;
+            d1 *= d2;
+            entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
+            if (entityplayer.Q()) {
+                worldserver.entityJoinedWorld(entityplayer, false);
+            }
+        }
+
+        if (entityplayer.Q()) {
+            worldserver1.addEntity(entityplayer);
+            entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
+            worldserver1.entityJoinedWorld(entityplayer, false);
+            worldserver1.chunkProviderServer.a = true;
+            (new PortalTravelAgent()).a(worldserver1, entityplayer);
+            worldserver1.chunkProviderServer.a = false;
+        }
+
+        this.a(entityplayer);
+        entityplayer.netServerHandler.a(entityplayer.locX, entityplayer.locY, entityplayer.locZ, entityplayer.yaw, entityplayer.pitch);
+        entityplayer.a((World) worldserver1);
+        this.a(entityplayer, worldserver1);
+        entityplayer.a(entityplayer.defaultContainer);
     }
 
-    public void flagDirty(int i, int j, int k) {
-        this.d.flagDirty(i, j, k);
+    public void b() {
+        for (int i = 0; i < this.d.length; ++i) {
+            this.d[i].flush();
+        }
+    }
+
+    public void flagDirty(int i, int j, int k, int l) {
+        this.a(l).flagDirty(i, j, k);
     }
 
     public void sendAll(Packet packet) {
@@ -432,5 +511,12 @@ public class ServerConfigurationManager {
 
     public void f() {
         this.m();
+    }
+
+    public void a(EntityPlayer entityplayer, WorldServer worldserver) {
+        if (worldserver.v()) {
+            entityplayer.netServerHandler.sendPacket(new Packet4UpdateTime(worldserver.getTime()));
+            entityplayer.netServerHandler.sendPacket(new Packet70Bed(1));
+        }
     }
 }

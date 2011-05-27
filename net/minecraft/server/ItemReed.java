@@ -41,7 +41,7 @@ public class ItemReed extends Item {
         if (itemstack.count == 0) {
             return false;
         } else {
-            if (world.a(this.id, i, j, k, false)) {
+            if (world.a(this.id, i, j, k, false, l)) {
                 Block block = Block.byId[this.id];
 
                 if (world.setTypeId(i, j, k, this.id)) {

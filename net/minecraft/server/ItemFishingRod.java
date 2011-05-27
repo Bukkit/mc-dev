@@ -5,6 +5,7 @@ public class ItemFishingRod extends Item {
     public ItemFishingRod(int i) {
         super(i);
         this.d(64);
+        this.c(1);
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {

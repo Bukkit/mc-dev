@@ -10,10 +10,6 @@ public class BlockIce extends BlockBreakable {
         this.a(true);
     }
 
-    public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        return super.a(iblockaccess, i, j, k, 1 - l);
-    }
-
     public void remove(World world, int i, int j, int k) {
         Material material = world.getMaterial(i, j - 1, k);
 
@@ -28,7 +24,7 @@ public class BlockIce extends BlockBreakable {
 
     public void a(World world, int i, int j, int k, Random random) {
         if (world.a(EnumSkyBlock.BLOCK, i, j, k) > 11 - Block.q[this.id]) {
-            this.a_(world, i, j, k, world.getData(i, j, k));
+            this.b_(world, i, j, k, world.getData(i, j, k));
             world.setTypeId(i, j, k, Block.STATIONARY_WATER.id);
         }
     }

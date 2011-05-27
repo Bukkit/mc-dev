@@ -25,7 +25,7 @@ public class BlockStationary extends BlockFluids {
         world.j = true;
         world.setRawTypeIdAndData(i, j, k, this.id - 1, l);
         world.b(i, j, k, i, j, k);
-        world.c(i, j, k, this.id - 1, this.b());
+        world.c(i, j, k, this.id - 1, this.c());
         world.j = false;
     }
 

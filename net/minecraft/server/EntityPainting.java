@@ -187,7 +187,7 @@ public class EntityPainting extends Entity {
     public boolean damageEntity(Entity entity, int i) {
         if (!this.dead && !this.world.isStatic) {
             this.die();
-            this.ab();
+            this.ac();
             this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING)));
         }
 

@@ -30,7 +30,7 @@ public class Item {
     public static Item DIAMOND_SPADE = (new ItemSpade(21, EnumToolMaterial.DIAMOND)).a(3, 5).a("shovelDiamond");
     public static Item DIAMOND_PICKAXE = (new ItemPickaxe(22, EnumToolMaterial.DIAMOND)).a(3, 6).a("pickaxeDiamond");
     public static Item DIAMOND_AXE = (new ItemAxe(23, EnumToolMaterial.DIAMOND)).a(3, 7).a("hatchetDiamond");
-    public static Item STICK = (new Item(24)).a(5, 3).f().a("stick");
+    public static Item STICK = (new Item(24)).a(5, 3).g().a("stick");
     public static Item BOWL = (new Item(25)).a(7, 4).a("bowl");
     public static Item MUSHROOM_SOUP = (new ItemSoup(26, 10)).a(8, 4).a("mushroomStew");
     public static Item GOLD_SWORD = (new ItemSword(27, EnumToolMaterial.GOLD)).a(4, 4).a("swordGold");
@@ -102,20 +102,21 @@ public class Item {
     public static Item RAW_FISH = (new ItemFood(93, 2, false)).a(9, 5).a("fishRaw");
     public static Item COOKED_FISH = (new ItemFood(94, 5, false)).a(10, 5).a("fishCooked");
     public static Item INK_SACK = (new ItemDye(95)).a(14, 4).a("dyePowder");
-    public static Item BONE = (new Item(96)).a(12, 1).a("bone").f();
-    public static Item SUGAR = (new Item(97)).a(13, 0).a("sugar").f();
+    public static Item BONE = (new Item(96)).a(12, 1).a("bone").g();
+    public static Item SUGAR = (new Item(97)).a(13, 0).a("sugar").g();
     public static Item CAKE = (new ItemReed(98, Block.CAKE_BLOCK)).c(1).a(13, 1).a("cake");
     public static Item BED = (new ItemBed(99)).c(1).a(13, 2).a("bed");
     public static Item DIODE = (new ItemReed(100, Block.DIODE_OFF)).a(6, 5).a("diode");
     public static Item COOKIE = (new ItemCookie(101, 1, false, 8)).a(12, 5).a("cookie");
+    public static ItemWorldMap MAP = (ItemWorldMap) (new ItemWorldMap(102)).a(12, 3).a("map");
     public static Item GOLD_RECORD = (new ItemRecord(2000, "13")).a(0, 15).a("record");
     public static Item GREEN_RECORD = (new ItemRecord(2001, "cat")).a(1, 15).a("record");
     public final int id;
     protected int maxStackSize = 64;
     private int durability = 0;
     protected int textureId;
-    protected boolean bg = false;
     protected boolean bh = false;
+    protected boolean bi = false;
     private Item craftingResult = null;
     private String name;
 
@@ -163,16 +164,16 @@ public class Item {
         return 0;
     }
 
-    public boolean c() {
-        return this.bh;
+    public boolean d() {
+        return this.bi;
     }
 
     protected Item a(boolean flag) {
-        this.bh = flag;
+        this.bi = flag;
         return this;
     }
 
-    public int d() {
+    public int e() {
         return this.durability;
     }
 
@@ -181,8 +182,8 @@ public class Item {
         return this;
     }
 
-    public boolean e() {
-        return this.durability > 0 && !this.bh;
+    public boolean f() {
+        return this.durability > 0 && !this.bi;
     }
 
     public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
@@ -203,8 +204,8 @@ public class Item {
 
     public void a(ItemStack itemstack, EntityLiving entityliving) {}
 
-    public Item f() {
-        this.bg = true;
+    public Item g() {
+        this.bh = true;
         return this;
     }
 
@@ -226,16 +227,24 @@ public class Item {
         }
     }
 
-    public Item g() {
+    public Item h() {
         return this.craftingResult;
     }
 
-    public boolean h() {
+    public boolean i() {
         return this.craftingResult != null;
     }
 
-    public String i() {
+    public String j() {
         return StatisticCollector.a(this.a() + ".name");
+    }
+
+    public void a(ItemStack itemstack, World world, Entity entity, int i, boolean flag) {}
+
+    public void c(ItemStack itemstack, World world, EntityHuman entityhuman) {}
+
+    public boolean b() {
+        return false;
     }
 
     static {

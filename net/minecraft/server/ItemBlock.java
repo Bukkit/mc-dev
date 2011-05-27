@@ -41,7 +41,9 @@ public class ItemBlock extends Item {
 
         if (itemstack.count == 0) {
             return false;
-        } else if (world.a(this.id, i, j, k, false)) {
+        } else if (j == 127 && Block.byId[this.id].material.isBuildable()) {
+            return false;
+        } else if (world.a(this.id, i, j, k, false, l)) {
             Block block = Block.byId[this.id];
 
             if (world.setTypeIdAndData(i, j, k, this.id, this.filterData(itemstack.getData()))) {
@@ -58,6 +60,6 @@ public class ItemBlock extends Item {
     }
 
     public String a() {
-        return Block.byId[this.id].f();
+        return Block.byId[this.id].h();
     }
 }

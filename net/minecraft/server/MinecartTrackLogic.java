@@ -227,78 +227,78 @@ class MinecartTrackLogic {
         }
     }
 
-    public void a(boolean flag) {
-        boolean flag1 = this.c(this.c, this.d, this.e - 1);
-        boolean flag2 = this.c(this.c, this.d, this.e + 1);
-        boolean flag3 = this.c(this.c - 1, this.d, this.e);
-        boolean flag4 = this.c(this.c + 1, this.d, this.e);
+    public void a(boolean flag, boolean flag1) {
+        boolean flag2 = this.c(this.c, this.d, this.e - 1);
+        boolean flag3 = this.c(this.c, this.d, this.e + 1);
+        boolean flag4 = this.c(this.c - 1, this.d, this.e);
+        boolean flag5 = this.c(this.c + 1, this.d, this.e);
         byte b0 = -1;
 
-        if ((flag1 || flag2) && !flag3 && !flag4) {
+        if ((flag2 || flag3) && !flag4 && !flag5) {
             b0 = 0;
         }
 
-        if ((flag3 || flag4) && !flag1 && !flag2) {
+        if ((flag4 || flag5) && !flag2 && !flag3) {
             b0 = 1;
         }
 
         if (!this.f) {
-            if (flag2 && flag4 && !flag1 && !flag3) {
+            if (flag3 && flag5 && !flag2 && !flag4) {
                 b0 = 6;
             }
 
-            if (flag2 && flag3 && !flag1 && !flag4) {
+            if (flag3 && flag4 && !flag2 && !flag5) {
                 b0 = 7;
             }
 
-            if (flag1 && flag3 && !flag2 && !flag4) {
+            if (flag2 && flag4 && !flag3 && !flag5) {
                 b0 = 8;
             }
 
-            if (flag1 && flag4 && !flag2 && !flag3) {
+            if (flag2 && flag5 && !flag3 && !flag4) {
                 b0 = 9;
             }
         }
 
         if (b0 == -1) {
-            if (flag1 || flag2) {
+            if (flag2 || flag3) {
                 b0 = 0;
             }
 
-            if (flag3 || flag4) {
+            if (flag4 || flag5) {
                 b0 = 1;
             }
 
             if (flag) {
-                if (flag2 && flag4) {
+                if (flag3 && flag5) {
                     b0 = 6;
                 }
 
-                if (flag3 && flag2) {
+                if (flag4 && flag3) {
                     b0 = 7;
                 }
 
-                if (flag4 && flag1) {
+                if (flag5 && flag2) {
                     b0 = 9;
-                }
-
-                if (flag1 && flag3) {
-                    b0 = 8;
-                }
-            } else {
-                if (flag1 && flag3) {
-                    b0 = 8;
-                }
-
-                if (flag4 && flag1) {
-                    b0 = 9;
-                }
-
-                if (flag3 && flag2) {
-                    b0 = 7;
                 }
 
                 if (flag2 && flag4) {
+                    b0 = 8;
+                }
+            } else {
+                if (flag2 && flag4) {
+                    b0 = 8;
+                }
+
+                if (flag5 && flag2) {
+                    b0 = 9;
+                }
+
+                if (flag4 && flag3) {
+                    b0 = 7;
+                }
+
+                if (flag3 && flag5) {
                     b0 = 6;
                 }
             }
@@ -335,7 +335,7 @@ class MinecartTrackLogic {
             i = this.b.getData(this.c, this.d, this.e) & 8 | b0;
         }
 
-        if (this.b.getData(this.c, this.d, this.e) != i) {
+        if (flag1 || this.b.getData(this.c, this.d, this.e) != i) {
             this.b.setData(this.c, this.d, this.e, i);
 
             for (int j = 0; j < this.g.size(); ++j) {

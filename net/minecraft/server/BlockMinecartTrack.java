@@ -22,7 +22,7 @@ public class BlockMinecartTrack extends Block {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
-    public boolean d() {
+    public boolean e() {
         return this.a;
     }
 
@@ -61,6 +61,10 @@ public class BlockMinecartTrack extends Block {
         return this.textureId;
     }
 
+    public boolean b() {
+        return false;
+    }
+
     public int a(Random random) {
         return 1;
     }
@@ -71,7 +75,7 @@ public class BlockMinecartTrack extends Block {
 
     public void e(World world, int i, int j, int k) {
         if (!world.isStatic) {
-            this.h(world, i, j, k);
+            this.a(world, i, j, k, true);
         }
     }
 
@@ -107,7 +111,7 @@ public class BlockMinecartTrack extends Block {
             }
 
             if (flag) {
-                this.a_(world, i, j, k, world.getData(i, j, k));
+                this.b_(world, i, j, k, world.getData(i, j, k));
                 world.setTypeId(i, j, k, 0);
             } else if (this.id == Block.GOLDEN_RAIL.id) {
                 boolean flag1 = world.isBlockIndirectlyPowered(i, j, k) || world.isBlockIndirectlyPowered(i, j + 1, k);
@@ -130,14 +134,14 @@ public class BlockMinecartTrack extends Block {
                     }
                 }
             } else if (l > 0 && Block.byId[l].isPowerSource() && !this.a && MinecartTrackLogic.a(new MinecartTrackLogic(this, world, i, j, k)) == 3) {
-                this.h(world, i, j, k);
+                this.a(world, i, j, k, false);
             }
         }
     }
 
-    private void h(World world, int i, int j, int k) {
+    private void a(World world, int i, int j, int k, boolean flag) {
         if (!world.isStatic) {
-            (new MinecartTrackLogic(this, world, i, j, k)).a(world.isBlockIndirectlyPowered(i, j, k));
+            (new MinecartTrackLogic(this, world, i, j, k)).a(world.isBlockIndirectlyPowered(i, j, k), flag);
         }
     }
 

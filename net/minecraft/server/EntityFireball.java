@@ -144,7 +144,7 @@ public class EntityFireball extends Entity {
         this.yaw = this.lastYaw + (this.yaw - this.lastYaw) * 0.2F;
         float f2 = 0.95F;
 
-        if (this.Z()) {
+        if (this.aa()) {
             for (int k = 0; k < 4; ++k) {
                 float f3 = 0.25F;
 
@@ -187,9 +187,9 @@ public class EntityFireball extends Entity {
     }
 
     public boolean damageEntity(Entity entity, int i) {
-        this.ab();
+        this.ac();
         if (entity != null) {
-            Vec3D vec3d = entity.V();
+            Vec3D vec3d = entity.W();
 
             if (vec3d != null) {
                 this.motX = vec3d.a;

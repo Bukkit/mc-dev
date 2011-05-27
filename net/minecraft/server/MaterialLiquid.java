@@ -2,7 +2,8 @@ package net.minecraft.server;
 
 public class MaterialLiquid extends Material {
 
-    public MaterialLiquid() {
+    public MaterialLiquid(MaterialMapColor materialmapcolor) {
+        super(materialmapcolor);
         this.f();
     }
 

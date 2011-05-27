@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.io.File;
 import java.util.List;
 
 public interface IDataManager {
@@ -17,4 +18,6 @@ public interface IDataManager {
     PlayerFileData d();
 
     void e();
+
+    File b(String s);
 }

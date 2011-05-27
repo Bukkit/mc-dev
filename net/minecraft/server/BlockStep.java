@@ -58,11 +58,7 @@ public class BlockStep extends Block {
         return i;
     }
 
-    public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        if (this != Block.STEP) {
-            super.a(iblockaccess, i, j, k, l);
-        }
-
-        return l == 1 ? true : (!super.a(iblockaccess, i, j, k, l) ? false : (l == 0 ? true : iblockaccess.getTypeId(i, j, k) != this.id));
+    public boolean b() {
+        return this.b;
     }
 }

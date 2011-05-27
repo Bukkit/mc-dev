@@ -346,14 +346,14 @@ public class ChunkProviderHell implements IChunkProvider {
             k1 = k + this.h.nextInt(16) + 8;
             l1 = this.h.nextInt(120) + 4;
             i2 = l + this.h.nextInt(16) + 8;
-            (new WorldGenLightStone1()).a(this.n, this.h, k1, l1, i2);
+            (new WorldGenLightStone2()).a(this.n, this.h, k1, l1, i2);
         }
 
         for (j1 = 0; j1 < 10; ++j1) {
             k1 = k + this.h.nextInt(16) + 8;
             l1 = this.h.nextInt(128);
             i2 = l + this.h.nextInt(16) + 8;
-            (new WorldGenLightStone2()).a(this.n, this.h, k1, l1, i2);
+            (new WorldGenLightStone1()).a(this.n, this.h, k1, l1, i2);
         }
 
         if (this.h.nextInt(1) == 0) {

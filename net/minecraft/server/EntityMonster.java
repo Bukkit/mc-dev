@@ -13,7 +13,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
         float f = this.c(1.0F);
 
         if (f > 0.5F) {
-            this.au += 2;
+            this.ax += 2;
         }
 
         super.u();
@@ -56,7 +56,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
     }
 
     protected float a(int i, int j, int k) {
-        return 0.5F - this.world.l(i, j, k);
+        return 0.5F - this.world.m(i, j, k);
     }
 
     public void b(NBTTagCompound nbttagcompound) {
