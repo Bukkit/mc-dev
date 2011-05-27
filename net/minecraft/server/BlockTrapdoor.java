@@ -66,13 +66,18 @@ public class BlockTrapdoor extends Block {
             int l = world.getData(i, j, k);
 
             world.setData(i, j, k, l ^ 4);
-            if (Math.random() < 0.5D) {
-                world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.door_open", 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
-            } else {
-                world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.door_close", 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
-            }
-
+            world.a(entityhuman, 1003, i, j, k, 0);
             return true;
+        }
+    }
+
+    public void a(World world, int i, int j, int k, boolean flag) {
+        int l = world.getData(i, j, k);
+        boolean flag1 = (l & 4) > 0;
+
+        if (flag1 != flag) {
+            world.setData(i, j, k, l ^ 4);
+            world.a((EntityHuman) null, 1003, i, j, k, 0);
         }
     }
 
@@ -101,6 +106,12 @@ public class BlockTrapdoor extends Block {
             if (!world.d(j1, j, k1)) {
                 world.setTypeId(i, j, k, 0);
                 this.b_(world, i, j, k, i1);
+            }
+
+            if (l > 0 && Block.byId[l].isPowerSource()) {
+                boolean flag = world.isBlockIndirectlyPowered(i, j, k);
+
+                this.a(world, i, j, k, flag);
             }
         }
     }

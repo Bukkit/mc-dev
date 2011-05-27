@@ -72,7 +72,7 @@ public class EntityWeatherStorm extends EntityWeather {
                 entity.a(this);
             }
 
-            this.world.i = 2;
+            this.world.n = 2;
         }
     }
 

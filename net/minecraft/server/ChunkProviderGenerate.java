@@ -522,12 +522,31 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
 
         int j3;
+        int k3;
+
+        for (k2 = 0; k2 < b1; ++k2) {
+            byte b2 = 1;
+
+            if (biomebase == BiomeBase.RAINFOREST && this.j.nextInt(3) != 0) {
+                b2 = 2;
+            }
+
+            l2 = k + this.j.nextInt(16) + 8;
+            k3 = this.j.nextInt(128);
+            j3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenGrass(Block.LONG_GRASS.id, b2)).a(this.p, this.j, l2, k3, j3);
+        }
+
+        b1 = 0;
+        if (biomebase == BiomeBase.DESERT) {
+            b1 = 2;
+        }
 
         for (k2 = 0; k2 < b1; ++k2) {
             i3 = k + this.j.nextInt(16) + 8;
             l2 = this.j.nextInt(128);
-            j3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenGrass(Block.LONG_GRASS.id)).a(this.p, this.j, i3, l2, j3);
+            k3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenDeadBush(Block.DEAD_BUSH.id)).a(this.p, this.j, i3, l2, k3);
         }
 
         if (this.j.nextInt(2) == 0) {
@@ -554,8 +573,8 @@ public class ChunkProviderGenerate implements IChunkProvider {
         for (k2 = 0; k2 < 10; ++k2) {
             i3 = k + this.j.nextInt(16) + 8;
             l2 = this.j.nextInt(128);
-            j3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenReed()).a(this.p, this.j, i3, l2, j3);
+            k3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenReed()).a(this.p, this.j, i3, l2, k3);
         }
 
         if (this.j.nextInt(32) == 0) {
@@ -570,37 +589,35 @@ public class ChunkProviderGenerate implements IChunkProvider {
             k2 += 10;
         }
 
-        int k3;
-
         for (i3 = 0; i3 < k2; ++i3) {
             l2 = k + this.j.nextInt(16) + 8;
-            j3 = this.j.nextInt(128);
-            k3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenCactus()).a(this.p, this.j, l2, j3, k3);
+            k3 = this.j.nextInt(128);
+            j3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenCactus()).a(this.p, this.j, l2, k3, j3);
         }
 
         for (i3 = 0; i3 < 50; ++i3) {
             l2 = k + this.j.nextInt(16) + 8;
-            j3 = this.j.nextInt(this.j.nextInt(120) + 8);
-            k3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.WATER.id)).a(this.p, this.j, l2, j3, k3);
+            k3 = this.j.nextInt(this.j.nextInt(120) + 8);
+            j3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenLiquids(Block.WATER.id)).a(this.p, this.j, l2, k3, j3);
         }
 
         for (i3 = 0; i3 < 20; ++i3) {
             l2 = k + this.j.nextInt(16) + 8;
-            j3 = this.j.nextInt(this.j.nextInt(this.j.nextInt(112) + 8) + 8);
-            k3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.LAVA.id)).a(this.p, this.j, l2, j3, k3);
+            k3 = this.j.nextInt(this.j.nextInt(this.j.nextInt(112) + 8) + 8);
+            j3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenLiquids(Block.LAVA.id)).a(this.p, this.j, l2, k3, j3);
         }
 
         this.w = this.p.getWorldChunkManager().a(this.w, k + 8, l + 8, 16, 16);
 
         for (i3 = k + 8; i3 < k + 8 + 16; ++i3) {
             for (l2 = l + 8; l2 < l + 8 + 16; ++l2) {
-                j3 = i3 - (k + 8);
-                k3 = l2 - (l + 8);
+                k3 = i3 - (k + 8);
+                j3 = l2 - (l + 8);
                 int l3 = this.p.e(i3, l2);
-                double d1 = this.w[j3 * 16 + k3] - (double) (l3 - 64) / 64.0D * 0.3D;
+                double d1 = this.w[k3 * 16 + j3] - (double) (l3 - 64) / 64.0D * 0.3D;
 
                 if (d1 < 0.5D && l3 > 0 && l3 < 128 && this.p.isEmpty(i3, l3, l2) && this.p.getMaterial(i3, l3 - 1, l2).isSolid() && this.p.getMaterial(i3, l3 - 1, l2) != Material.ICE) {
                     this.p.setTypeId(i3, l3, l2, Block.SNOW.id);

@@ -269,10 +269,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 if (i1 <= 16 && !flag) {
                     this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, worldserver));
                 } else {
-                    this.player.itemInWorldManager.dig(i, j, k);
+                    this.player.itemInWorldManager.dig(i, j, k, packet14blockdig.face);
                 }
             } else if (packet14blockdig.e == 2) {
-                this.player.itemInWorldManager.b(i, j, k);
+                this.player.itemInWorldManager.a(i, j, k);
                 if (worldserver.getTypeId(i, j, k) != 0) {
                     this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, worldserver));
                 }
@@ -315,7 +315,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 j1 = i1;
             }
 
-            if (j1 > 16 || flag) {
+            if (this.m && this.player.d((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D) < 64.0D && (j1 > 16 || flag)) {
                 this.player.itemInWorldManager.interact(this.player, worldserver, itemstack, i, j, k, l);
             }
 
@@ -347,6 +347,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, worldserver));
         }
 
+        itemstack = this.player.inventory.getItemInHand();
         if (itemstack != null && itemstack.count == 0) {
             this.player.inventory.items[this.player.inventory.itemInHandIndex] = null;
         }
@@ -484,7 +485,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         WorldServer worldserver = this.minecraftServer.a(this.player.dimension);
         Entity entity = worldserver.getEntity(packet7useentity.target);
 
-        if (entity != null && this.player.e(entity) && this.player.f(entity) < 4.0F) {
+        if (entity != null && this.player.e(entity) && this.player.g(entity) < 36.0D) {
             if (packet7useentity.c == 0) {
                 this.player.c(entity);
             } else if (packet7useentity.c == 1) {

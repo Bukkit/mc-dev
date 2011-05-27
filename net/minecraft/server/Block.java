@@ -21,42 +21,43 @@ public class Block {
     public static final int[] q = new int[256];
     public static final boolean[] r = new boolean[256];
     public static final int[] s = new int[256];
+    public static final boolean[] t = new boolean[256];
     public static final Block STONE = (new BlockStone(1, 1)).c(1.5F).b(10.0F).a(h).a("stone");
     public static final BlockGrass GRASS = (BlockGrass) (new BlockGrass(2)).c(0.6F).a(g).a("grass");
     public static final Block DIRT = (new BlockDirt(3, 2)).c(0.5F).a(f).a("dirt");
     public static final Block COBBLESTONE = (new Block(4, 16, Material.STONE)).c(2.0F).b(10.0F).a(h).a("stonebrick");
-    public static final Block WOOD = (new Block(5, 4, Material.WOOD)).c(2.0F).b(5.0F).a(e).a("wood");
-    public static final Block SAPLING = (new BlockSapling(6, 15)).c(0.0F).a(g).a("sapling");
+    public static final Block WOOD = (new Block(5, 4, Material.WOOD)).c(2.0F).b(5.0F).a(e).a("wood").k();
+    public static final Block SAPLING = (new BlockSapling(6, 15)).c(0.0F).a(g).a("sapling").k();
     public static final Block BEDROCK = (new Block(7, 17, Material.STONE)).c(-1.0F).b(6000000.0F).a(h).a("bedrock").j();
-    public static final Block WATER = (new BlockFlowing(8, Material.WATER)).c(100.0F).f(3).a("water").j();
-    public static final Block STATIONARY_WATER = (new BlockStationary(9, Material.WATER)).c(100.0F).f(3).a("water").j();
-    public static final Block LAVA = (new BlockFlowing(10, Material.LAVA)).c(0.0F).a(1.0F).f(255).a("lava").j();
-    public static final Block STATIONARY_LAVA = (new BlockStationary(11, Material.LAVA)).c(100.0F).a(1.0F).f(255).a("lava").j();
+    public static final Block WATER = (new BlockFlowing(8, Material.WATER)).c(100.0F).f(3).a("water").j().k();
+    public static final Block STATIONARY_WATER = (new BlockStationary(9, Material.WATER)).c(100.0F).f(3).a("water").j().k();
+    public static final Block LAVA = (new BlockFlowing(10, Material.LAVA)).c(0.0F).a(1.0F).f(255).a("lava").j().k();
+    public static final Block STATIONARY_LAVA = (new BlockStationary(11, Material.LAVA)).c(100.0F).a(1.0F).f(255).a("lava").j().k();
     public static final Block SAND = (new BlockSand(12, 18)).c(0.5F).a(l).a("sand");
     public static final Block GRAVEL = (new BlockGravel(13, 19)).c(0.6F).a(f).a("gravel");
     public static final Block GOLD_ORE = (new BlockOre(14, 32)).c(3.0F).b(5.0F).a(h).a("oreGold");
     public static final Block IRON_ORE = (new BlockOre(15, 33)).c(3.0F).b(5.0F).a(h).a("oreIron");
     public static final Block COAL_ORE = (new BlockOre(16, 34)).c(3.0F).b(5.0F).a(h).a("oreCoal");
-    public static final Block LOG = (new BlockLog(17)).c(2.0F).a(e).a("log");
-    public static final BlockLeaves LEAVES = (BlockLeaves) (new BlockLeaves(18, 52)).c(0.2F).f(1).a(g).a("leaves").j();
+    public static final Block LOG = (new BlockLog(17)).c(2.0F).a(e).a("log").k();
+    public static final BlockLeaves LEAVES = (BlockLeaves) (new BlockLeaves(18, 52)).c(0.2F).f(1).a(g).a("leaves").j().k();
     public static final Block SPONGE = (new BlockSponge(19)).c(0.6F).a(g).a("sponge");
     public static final Block GLASS = (new BlockGlass(20, 49, Material.SHATTERABLE, false)).c(0.3F).a(j).a("glass");
     public static final Block LAPIS_ORE = (new BlockOre(21, 160)).c(3.0F).b(5.0F).a(h).a("oreLapis");
     public static final Block LAPIS_BLOCK = (new Block(22, 144, Material.STONE)).c(3.0F).b(5.0F).a(h).a("blockLapis");
-    public static final Block DISPENSER = (new BlockDispenser(23)).c(3.5F).a(h).a("dispenser");
+    public static final Block DISPENSER = (new BlockDispenser(23)).c(3.5F).a(h).a("dispenser").k();
     public static final Block SANDSTONE = (new BlockSandStone(24)).a(h).c(0.8F).a("sandStone");
-    public static final Block NOTE_BLOCK = (new BlockNote(25)).c(0.8F).a("musicBlock");
-    public static final Block BED = (new BlockBed(26)).c(0.2F).a("bed").j();
-    public static final Block GOLDEN_RAIL = (new BlockMinecartTrack(27, 179, true)).c(0.7F).a(i).a("goldenRail");
-    public static final Block DETECTOR_RAIL = (new BlockMinecartDetector(28, 195)).c(0.7F).a(i).a("detectorRail");
-    public static final Block V = null;
-    public static final Block WEB = new BlockWeb(30, 11);
-    public static final BlockLongGrass LONG_GRASS = (BlockLongGrass) (new BlockLongGrass(31, 39)).c(0.0F).a(g).a("flower");
-    public static final Block Y = null;
-    public static final Block Z = null;
+    public static final Block NOTE_BLOCK = (new BlockNote(25)).c(0.8F).a("musicBlock").k();
+    public static final Block BED = (new BlockBed(26)).c(0.2F).a("bed").j().k();
+    public static final Block GOLDEN_RAIL = (new BlockMinecartTrack(27, 179, true)).c(0.7F).a(i).a("goldenRail").k();
+    public static final Block DETECTOR_RAIL = (new BlockMinecartDetector(28, 195)).c(0.7F).a(i).a("detectorRail").k();
+    public static final Block W = null;
+    public static final Block WEB = (new BlockWeb(30, 11)).a("web");
+    public static final BlockLongGrass LONG_GRASS = (BlockLongGrass) (new BlockLongGrass(31, 39)).c(0.0F).a(g).a("tallgrass");
+    public static final BlockDeadBush DEAD_BUSH = (BlockDeadBush) (new BlockDeadBush(32, 55)).c(0.0F).a(g).a("deadbush");
     public static final Block aa = null;
-    public static final Block WOOL = (new BlockCloth()).c(0.8F).a(k).a("cloth");
-    public static final Block ac = null;
+    public static final Block ab = null;
+    public static final Block WOOL = (new BlockCloth()).c(0.8F).a(k).a("cloth").k();
+    public static final Block ad = null;
     public static final BlockFlower YELLOW_FLOWER = (BlockFlower) (new BlockFlower(37, 13)).c(0.0F).a(g).a("flower");
     public static final BlockFlower RED_ROSE = (BlockFlower) (new BlockFlower(38, 12)).c(0.0F).a(g).a("rose");
     public static final BlockFlower BROWN_MUSHROOM = (BlockFlower) (new BlockMushroom(39, 29)).c(0.0F).a(g).a(0.125F).a("mushroom");
@@ -70,59 +71,59 @@ public class Block {
     public static final Block BOOKSHELF = (new BlockBookshelf(47, 35)).c(1.5F).a(e).a("bookshelf");
     public static final Block MOSSY_COBBLESTONE = (new Block(48, 36, Material.STONE)).c(2.0F).b(10.0F).a(h).a("stoneMoss");
     public static final Block OBSIDIAN = (new BlockObsidian(49, 37)).c(10.0F).b(2000.0F).a(h).a("obsidian");
-    public static final Block TORCH = (new BlockTorch(50, 80)).c(0.0F).a(0.9375F).a(e).a("torch");
-    public static final BlockFire FIRE = (BlockFire) (new BlockFire(51, 31)).c(0.0F).a(1.0F).a(e).a("fire").j();
+    public static final Block TORCH = (new BlockTorch(50, 80)).c(0.0F).a(0.9375F).a(e).a("torch").k();
+    public static final BlockFire FIRE = (BlockFire) (new BlockFire(51, 31)).c(0.0F).a(1.0F).a(e).a("fire").j().k();
     public static final Block MOB_SPAWNER = (new BlockMobSpawner(52, 65)).c(5.0F).a(i).a("mobSpawner").j();
-    public static final Block WOOD_STAIRS = (new BlockStairs(53, WOOD)).a("stairsWood");
-    public static final Block CHEST = (new BlockChest(54)).c(2.5F).a(e).a("chest");
-    public static final Block REDSTONE_WIRE = (new BlockRedstoneWire(55, 164)).c(0.0F).a(d).a("redstoneDust").j();
+    public static final Block WOOD_STAIRS = (new BlockStairs(53, WOOD)).a("stairsWood").k();
+    public static final Block CHEST = (new BlockChest(54)).c(2.5F).a(e).a("chest").k();
+    public static final Block REDSTONE_WIRE = (new BlockRedstoneWire(55, 164)).c(0.0F).a(d).a("redstoneDust").j().k();
     public static final Block DIAMOND_ORE = (new BlockOre(56, 50)).c(3.0F).b(5.0F).a(h).a("oreDiamond");
     public static final Block DIAMOND_BLOCK = (new BlockOreBlock(57, 24)).c(5.0F).b(10.0F).a(i).a("blockDiamond");
     public static final Block WORKBENCH = (new BlockWorkbench(58)).c(2.5F).a(e).a("workbench");
-    public static final Block CROPS = (new BlockCrops(59, 88)).c(0.0F).a(g).a("crops").j();
+    public static final Block CROPS = (new BlockCrops(59, 88)).c(0.0F).a(g).a("crops").j().k();
     public static final Block SOIL = (new BlockSoil(60)).c(0.6F).a(f).a("farmland");
-    public static final Block FURNACE = (new BlockFurnace(61, false)).c(3.5F).a(h).a("furnace");
-    public static final Block BURNING_FURNACE = (new BlockFurnace(62, true)).c(3.5F).a(h).a(0.875F).a("furnace");
-    public static final Block SIGN_POST = (new BlockSign(63, TileEntitySign.class, true)).c(1.0F).a(e).a("sign").j();
-    public static final Block WOODEN_DOOR = (new BlockDoor(64, Material.WOOD)).c(3.0F).a(e).a("doorWood").j();
-    public static final Block LADDER = (new BlockLadder(65, 83)).c(0.4F).a(e).a("ladder");
-    public static final Block RAILS = (new BlockMinecartTrack(66, 128, false)).c(0.7F).a(i).a("rail");
-    public static final Block COBBLESTONE_STAIRS = (new BlockStairs(67, COBBLESTONE)).a("stairsStone");
-    public static final Block WALL_SIGN = (new BlockSign(68, TileEntitySign.class, false)).c(1.0F).a(e).a("sign").j();
-    public static final Block LEVER = (new BlockLever(69, 96)).c(0.5F).a(e).a("lever");
-    public static final Block STONE_PLATE = (new BlockPressurePlate(70, STONE.textureId, EnumMobType.MOBS, Material.STONE)).c(0.5F).a(h).a("pressurePlate");
-    public static final Block IRON_DOOR_BLOCK = (new BlockDoor(71, Material.ORE)).c(5.0F).a(i).a("doorIron").j();
-    public static final Block WOOD_PLATE = (new BlockPressurePlate(72, WOOD.textureId, EnumMobType.EVERYTHING, Material.WOOD)).c(0.5F).a(e).a("pressurePlate");
-    public static final Block REDSTONE_ORE = (new BlockRedstoneOre(73, 51, false)).c(3.0F).b(5.0F).a(h).a("oreRedstone");
-    public static final Block GLOWING_REDSTONE_ORE = (new BlockRedstoneOre(74, 51, true)).a(0.625F).c(3.0F).b(5.0F).a(h).a("oreRedstone");
-    public static final Block REDSTONE_TORCH_OFF = (new BlockRedstoneTorch(75, 115, false)).c(0.0F).a(e).a("notGate");
-    public static final Block REDSTONE_TORCH_ON = (new BlockRedstoneTorch(76, 99, true)).c(0.0F).a(0.5F).a(e).a("notGate");
-    public static final Block STONE_BUTTON = (new BlockButton(77, STONE.textureId)).c(0.5F).a(h).a("button");
+    public static final Block FURNACE = (new BlockFurnace(61, false)).c(3.5F).a(h).a("furnace").k();
+    public static final Block BURNING_FURNACE = (new BlockFurnace(62, true)).c(3.5F).a(h).a(0.875F).a("furnace").k();
+    public static final Block SIGN_POST = (new BlockSign(63, TileEntitySign.class, true)).c(1.0F).a(e).a("sign").j().k();
+    public static final Block WOODEN_DOOR = (new BlockDoor(64, Material.WOOD)).c(3.0F).a(e).a("doorWood").j().k();
+    public static final Block LADDER = (new BlockLadder(65, 83)).c(0.4F).a(e).a("ladder").k();
+    public static final Block RAILS = (new BlockMinecartTrack(66, 128, false)).c(0.7F).a(i).a("rail").k();
+    public static final Block COBBLESTONE_STAIRS = (new BlockStairs(67, COBBLESTONE)).a("stairsStone").k();
+    public static final Block WALL_SIGN = (new BlockSign(68, TileEntitySign.class, false)).c(1.0F).a(e).a("sign").j().k();
+    public static final Block LEVER = (new BlockLever(69, 96)).c(0.5F).a(e).a("lever").k();
+    public static final Block STONE_PLATE = (new BlockPressurePlate(70, STONE.textureId, EnumMobType.MOBS, Material.STONE)).c(0.5F).a(h).a("pressurePlate").k();
+    public static final Block IRON_DOOR_BLOCK = (new BlockDoor(71, Material.ORE)).c(5.0F).a(i).a("doorIron").j().k();
+    public static final Block WOOD_PLATE = (new BlockPressurePlate(72, WOOD.textureId, EnumMobType.EVERYTHING, Material.WOOD)).c(0.5F).a(e).a("pressurePlate").k();
+    public static final Block REDSTONE_ORE = (new BlockRedstoneOre(73, 51, false)).c(3.0F).b(5.0F).a(h).a("oreRedstone").k();
+    public static final Block GLOWING_REDSTONE_ORE = (new BlockRedstoneOre(74, 51, true)).a(0.625F).c(3.0F).b(5.0F).a(h).a("oreRedstone").k();
+    public static final Block REDSTONE_TORCH_OFF = (new BlockRedstoneTorch(75, 115, false)).c(0.0F).a(e).a("notGate").k();
+    public static final Block REDSTONE_TORCH_ON = (new BlockRedstoneTorch(76, 99, true)).c(0.0F).a(0.5F).a(e).a("notGate").k();
+    public static final Block STONE_BUTTON = (new BlockButton(77, STONE.textureId)).c(0.5F).a(h).a("button").k();
     public static final Block SNOW = (new BlockSnow(78, 66)).c(0.1F).a(k).a("snow");
     public static final Block ICE = (new BlockIce(79, 67)).c(0.5F).f(3).a(j).a("ice");
     public static final Block SNOW_BLOCK = (new BlockSnowBlock(80, 66)).c(0.2F).a(k).a("snow");
     public static final Block CACTUS = (new BlockCactus(81, 70)).c(0.4F).a(k).a("cactus");
     public static final Block CLAY = (new BlockClay(82, 72)).c(0.6F).a(f).a("clay");
     public static final Block SUGAR_CANE_BLOCK = (new BlockReed(83, 73)).c(0.0F).a(g).a("reeds").j();
-    public static final Block JUKEBOX = (new BlockJukeBox(84, 74)).c(2.0F).b(10.0F).a(h).a("jukebox");
-    public static final Block FENCE = (new BlockFence(85, 4)).c(2.0F).b(5.0F).a(e).a("fence");
-    public static final Block PUMPKIN = (new BlockPumpkin(86, 102, false)).c(1.0F).a(e).a("pumpkin");
+    public static final Block JUKEBOX = (new BlockJukeBox(84, 74)).c(2.0F).b(10.0F).a(h).a("jukebox").k();
+    public static final Block FENCE = (new BlockFence(85, 4)).c(2.0F).b(5.0F).a(e).a("fence").k();
+    public static final Block PUMPKIN = (new BlockPumpkin(86, 102, false)).c(1.0F).a(e).a("pumpkin").k();
     public static final Block NETHERRACK = (new BlockBloodStone(87, 103)).c(0.4F).a(h).a("hellrock");
     public static final Block SOUL_SAND = (new BlockSlowSand(88, 104)).c(0.5F).a(l).a("hellsand");
     public static final Block GLOWSTONE = (new BlockLightStone(89, 105, Material.SHATTERABLE)).c(0.3F).a(j).a(1.0F).a("lightgem");
     public static final BlockPortal PORTAL = (BlockPortal) (new BlockPortal(90, 14)).c(-1.0F).a(j).a(0.75F).a("portal");
-    public static final Block JACK_O_LANTERN = (new BlockPumpkin(91, 102, true)).c(1.0F).a(e).a(1.0F).a("litpumpkin");
-    public static final Block CAKE_BLOCK = (new BlockCake(92, 121)).c(0.5F).a(k).a("cake").j();
-    public static final Block DIODE_OFF = (new BlockDiode(93, false)).c(0.0F).a(e).a("diode").j();
-    public static final Block DIODE_ON = (new BlockDiode(94, true)).c(0.0F).a(0.625F).a(e).a("diode").j();
-    public static final Block LOCKED_CHEST = (new BlockLockedChest(95)).c(0.0F).a(1.0F).a(e).a("lockedchest").a(true);
-    public static final Block TRAP_DOOR = (new BlockTrapdoor(96, Material.WOOD)).c(3.0F).a(e).a("trapdoor").j();
+    public static final Block JACK_O_LANTERN = (new BlockPumpkin(91, 102, true)).c(1.0F).a(e).a(1.0F).a("litpumpkin").k();
+    public static final Block CAKE_BLOCK = (new BlockCake(92, 121)).c(0.5F).a(k).a("cake").j().k();
+    public static final Block DIODE_OFF = (new BlockDiode(93, false)).c(0.0F).a(e).a("diode").j().k();
+    public static final Block DIODE_ON = (new BlockDiode(94, true)).c(0.0F).a(0.625F).a(e).a("diode").j().k();
+    public static final Block LOCKED_CHEST = (new BlockLockedChest(95)).c(0.0F).a(1.0F).a(e).a("lockedchest").a(true).k();
+    public static final Block TRAP_DOOR = (new BlockTrapdoor(96, Material.WOOD)).c(3.0F).a(e).a("trapdoor").j().k();
     public int textureId;
     public final int id;
     protected float strength;
     protected float durability;
-    protected boolean bp;
     protected boolean bq;
+    protected boolean br;
     public double minX;
     public double minY;
     public double minZ;
@@ -130,16 +131,16 @@ public class Block {
     public double maxY;
     public double maxZ;
     public StepSound stepSound;
-    public float by;
+    public float bz;
     public final Material material;
     public float frictionFactor;
     private String name;
 
     protected Block(int i, Material material) {
-        this.bp = true;
         this.bq = true;
+        this.br = true;
         this.stepSound = d;
-        this.by = 1.0F;
+        this.bz = 1.0F;
         this.frictionFactor = 0.6F;
         if (byId[i] != null) {
             throw new IllegalArgumentException("Slot " + i + " is already occupied by " + byId[i] + " when adding " + this);
@@ -153,6 +154,11 @@ public class Block {
             r[i] = !material.blocksLight();
             isTileEntity[i] = false;
         }
+    }
+
+    private Block k() {
+        t[this.id] = true;
+        return this;
     }
 
     protected void f() {}
@@ -479,11 +485,11 @@ public class Block {
     public void a(World world, int i, int j, int k, int l, int i1) {}
 
     public boolean i() {
-        return this.bq;
+        return this.br;
     }
 
     protected Block j() {
-        this.bq = false;
+        this.br = false;
         return this;
     }
 

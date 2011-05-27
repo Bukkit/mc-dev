@@ -35,11 +35,13 @@ public class EntityTracker {
         } else if (entity instanceof EntityFish) {
             this.a(entity, 64, 5, true);
         } else if (entity instanceof EntityArrow) {
-            this.a(entity, 64, 5, true);
+            this.a(entity, 64, 20, false);
+        } else if (entity instanceof EntityFireball) {
+            this.a(entity, 64, 10, false);
         } else if (entity instanceof EntitySnowball) {
-            this.a(entity, 64, 5, true);
+            this.a(entity, 64, 10, true);
         } else if (entity instanceof EntityEgg) {
-            this.a(entity, 64, 5, true);
+            this.a(entity, 64, 10, true);
         } else if (entity instanceof EntityItem) {
             this.a(entity, 64, 20, true);
         } else if (entity instanceof EntityMinecart) {

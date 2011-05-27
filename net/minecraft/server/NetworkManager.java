@@ -126,11 +126,12 @@ public class NetworkManager {
     private void g() {
         try {
             Packet packet = Packet.a(this.input, this.p.c());
-            int[] aint = d;
-            int i = packet.b();
 
-            aint[i] += packet.a();
             if (packet != null) {
+                int[] aint = d;
+                int i = packet.b();
+
+                aint[i] += packet.a();
                 this.m.add(packet);
             } else {
                 this.a("disconnect.endOfStream", new Object[0]);
@@ -209,6 +210,7 @@ public class NetworkManager {
     }
 
     public void d() {
+        this.a();
         this.q = true;
         this.s.interrupt();
         (new ThreadMonitorConnection(this)).start();

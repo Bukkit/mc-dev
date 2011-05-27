@@ -69,74 +69,62 @@ public class BlockDispenser extends BlockContainer {
 
     private void dispense(World world, int i, int j, int k, Random random) {
         int l = world.getData(i, j, k);
-        float f = 0.0F;
-        float f1 = 0.0F;
+        byte b0 = 0;
+        byte b1 = 0;
 
         if (l == 3) {
-            f1 = 1.0F;
+            b1 = 1;
         } else if (l == 2) {
-            f1 = -1.0F;
+            b1 = -1;
         } else if (l == 5) {
-            f = 1.0F;
+            b0 = 1;
         } else {
-            f = -1.0F;
+            b0 = -1;
         }
 
         TileEntityDispenser tileentitydispenser = (TileEntityDispenser) world.getTileEntity(i, j, k);
         ItemStack itemstack = tileentitydispenser.b();
-        double d0 = (double) i + (double) f * 0.6D + 0.5D;
+        double d0 = (double) i + (double) b0 * 0.6D + 0.5D;
         double d1 = (double) j + 0.5D;
-        double d2 = (double) k + (double) f1 * 0.6D + 0.5D;
+        double d2 = (double) k + (double) b1 * 0.6D + 0.5D;
 
         if (itemstack == null) {
-            world.makeSound((double) i, (double) j, (double) k, "random.click", 1.0F, 1.2F);
+            world.e(1001, i, j, k, 0);
         } else {
-            double d3;
-
             if (itemstack.id == Item.ARROW.id) {
                 EntityArrow entityarrow = new EntityArrow(world, d0, d1, d2);
 
-                entityarrow.a((double) f, 0.10000000149011612D, (double) f1, 1.1F, 6.0F);
+                entityarrow.a((double) b0, 0.10000000149011612D, (double) b1, 1.1F, 6.0F);
                 entityarrow.a = true;
                 world.addEntity(entityarrow);
-                world.makeSound((double) i, (double) j, (double) k, "random.bow", 1.0F, 1.2F);
+                world.e(1002, i, j, k, 0);
             } else if (itemstack.id == Item.EGG.id) {
                 EntityEgg entityegg = new EntityEgg(world, d0, d1, d2);
 
-                entityegg.a((double) f, 0.10000000149011612D, (double) f1, 1.1F, 6.0F);
+                entityegg.a((double) b0, 0.10000000149011612D, (double) b1, 1.1F, 6.0F);
                 world.addEntity(entityegg);
-                world.makeSound((double) i, (double) j, (double) k, "random.bow", 1.0F, 1.2F);
+                world.e(1002, i, j, k, 0);
             } else if (itemstack.id == Item.SNOW_BALL.id) {
                 EntitySnowball entitysnowball = new EntitySnowball(world, d0, d1, d2);
 
-                entitysnowball.a((double) f, 0.10000000149011612D, (double) f1, 1.1F, 6.0F);
+                entitysnowball.a((double) b0, 0.10000000149011612D, (double) b1, 1.1F, 6.0F);
                 world.addEntity(entitysnowball);
-                world.makeSound((double) i, (double) j, (double) k, "random.bow", 1.0F, 1.2F);
+                world.e(1002, i, j, k, 0);
             } else {
                 EntityItem entityitem = new EntityItem(world, d0, d1 - 0.3D, d2, itemstack);
+                double d3 = random.nextDouble() * 0.1D + 0.2D;
 
-                d3 = random.nextDouble() * 0.1D + 0.2D;
-                entityitem.motX = (double) f * d3;
+                entityitem.motX = (double) b0 * d3;
                 entityitem.motY = 0.20000000298023224D;
-                entityitem.motZ = (double) f1 * d3;
+                entityitem.motZ = (double) b1 * d3;
                 entityitem.motX += random.nextGaussian() * 0.007499999832361937D * 6.0D;
                 entityitem.motY += random.nextGaussian() * 0.007499999832361937D * 6.0D;
                 entityitem.motZ += random.nextGaussian() * 0.007499999832361937D * 6.0D;
                 world.addEntity(entityitem);
-                world.makeSound((double) i, (double) j, (double) k, "random.click", 1.0F, 1.0F);
+                world.e(1000, i, j, k, 0);
             }
 
-            for (int i1 = 0; i1 < 10; ++i1) {
-                d3 = random.nextDouble() * 0.2D + 0.01D;
-                double d4 = d0 + (double) f * 0.01D + (random.nextDouble() - 0.5D) * (double) f1 * 0.5D;
-                double d5 = d1 + (random.nextDouble() - 0.5D) * 0.5D;
-                double d6 = d2 + (double) f1 * 0.01D + (random.nextDouble() - 0.5D) * (double) f * 0.5D;
-                double d7 = (double) f * d3 + random.nextGaussian() * 0.01D;
-                double d8 = -0.03D + random.nextGaussian() * 0.01D;
-                double d9 = (double) f1 * d3 + random.nextGaussian() * 0.01D;
-
-                world.a("smoke", d4, d5, d6, d7, d8, d9);
-            }
+            world.e(2000, i, j, k, b0 + 1 + (b1 + 1) * 3);
         }
     }
 

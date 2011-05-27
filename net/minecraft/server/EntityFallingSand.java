@@ -60,7 +60,7 @@ public class EntityFallingSand extends Entity {
                 this.motZ *= 0.699999988079071D;
                 this.motY *= -0.5D;
                 this.die();
-                if ((!this.world.a(this.a, i, j, k, true, 1) || BlockSand.b_(this.world, i, j - 1, k) || !this.world.setTypeId(i, j, k, this.a)) && !this.world.isStatic) {
+                if ((!this.world.a(this.a, i, j, k, true, 1) || BlockSand.c_(this.world, i, j - 1, k) || !this.world.setTypeId(i, j, k, this.a)) && !this.world.isStatic) {
                     this.b(this.a, 1);
                 }
             } else if (this.b > 100 && !this.world.isStatic) {

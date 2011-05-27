@@ -60,11 +60,13 @@ public class EntityPig extends EntityAnimal {
     }
 
     public void a(EntityWeatherStorm entityweatherstorm) {
-        EntityPigZombie entitypigzombie = new EntityPigZombie(this.world);
+        if (!this.world.isStatic) {
+            EntityPigZombie entitypigzombie = new EntityPigZombie(this.world);
 
-        entitypigzombie.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
-        this.world.addEntity(entitypigzombie);
-        this.die();
+            entitypigzombie.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
+            this.world.addEntity(entitypigzombie);
+            this.die();
+        }
     }
 
     protected void a(float f) {

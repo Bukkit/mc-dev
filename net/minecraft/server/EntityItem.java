@@ -124,7 +124,9 @@ public class EntityItem extends Entity {
 
                 this.world.makeSound(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 entityhuman.receive(this, i);
-                this.die();
+                if (this.itemStack.count == 0) {
+                    this.die();
+                }
             }
         }
     }

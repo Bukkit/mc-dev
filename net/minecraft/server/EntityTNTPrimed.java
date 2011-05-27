@@ -52,8 +52,10 @@ public class EntityTNTPrimed extends Entity {
         }
 
         if (this.a-- <= 0) {
-            this.die();
-            this.explode();
+            if (!this.world.isStatic) {
+                this.die();
+                this.explode();
+            }
         } else {
             this.world.a("smoke", this.locX, this.locY + 0.5D, this.locZ, 0.0D, 0.0D, 0.0D);
         }

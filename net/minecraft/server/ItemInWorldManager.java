@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public class ItemInWorldManager {
 
-    private World world;
+    private WorldServer world;
     public EntityHuman player;
     private float c = 0.0F;
     private int d;
@@ -16,8 +16,8 @@ public class ItemInWorldManager {
     private int l;
     private int m;
 
-    public ItemInWorldManager(World world) {
-        this.world = world;
+    public ItemInWorldManager(WorldServer worldserver) {
+        this.world = worldserver;
     }
 
     public void a() {
@@ -32,7 +32,7 @@ public class ItemInWorldManager {
 
                 if (f >= 1.0F) {
                     this.i = false;
-                    this.d(this.j, this.k, this.l);
+                    this.c(this.j, this.k, this.l);
                 }
             } else {
                 this.i = false;
@@ -40,16 +40,17 @@ public class ItemInWorldManager {
         }
     }
 
-    public void dig(int i, int j, int k) {
+    public void dig(int i, int j, int k, int l) {
+        this.world.a((EntityHuman) null, i, j, k, l);
         this.d = this.currentTick;
-        int l = this.world.getTypeId(i, j, k);
+        int i1 = this.world.getTypeId(i, j, k);
 
-        if (l > 0) {
-            Block.byId[l].b(this.world, i, j, k, this.player);
+        if (i1 > 0) {
+            Block.byId[i1].b(this.world, i, j, k, this.player);
         }
 
-        if (l > 0 && Block.byId[l].getDamage(this.player) >= 1.0F) {
-            this.d(i, j, k);
+        if (i1 > 0 && Block.byId[i1].getDamage(this.player) >= 1.0F) {
+            this.c(i, j, k);
         } else {
             this.e = i;
             this.f = j;
@@ -57,7 +58,7 @@ public class ItemInWorldManager {
         }
     }
 
-    public void b(int i, int j, int k) {
+    public void a(int i, int j, int k) {
         if (i == this.e && j == this.f && k == this.g) {
             int l = this.currentTick - this.d;
             int i1 = this.world.getTypeId(i, j, k);
@@ -67,7 +68,7 @@ public class ItemInWorldManager {
                 float f = block.getDamage(this.player) * (float) (l + 1);
 
                 if (f >= 0.7F) {
-                    this.d(i, j, k);
+                    this.c(i, j, k);
                 } else if (!this.i) {
                     this.i = true;
                     this.j = i;
@@ -81,7 +82,7 @@ public class ItemInWorldManager {
         this.c = 0.0F;
     }
 
-    public boolean c(int i, int j, int k) {
+    public boolean b(int i, int j, int k) {
         Block block = Block.byId[this.world.getTypeId(i, j, k)];
         int l = this.world.getData(i, j, k);
         boolean flag = this.world.setTypeId(i, j, k, 0);
@@ -93,10 +94,12 @@ public class ItemInWorldManager {
         return flag;
     }
 
-    public boolean d(int i, int j, int k) {
+    public boolean c(int i, int j, int k) {
         int l = this.world.getTypeId(i, j, k);
         int i1 = this.world.getData(i, j, k);
-        boolean flag = this.c(i, j, k);
+
+        this.world.a(this.player, 2001, i, j, k, l + this.world.getData(i, j, k) * 256);
+        boolean flag = this.b(i, j, k);
         ItemStack itemstack = this.player.D();
 
         if (itemstack != null) {

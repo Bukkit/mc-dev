@@ -18,8 +18,20 @@ public class EntityGhast extends EntityFlying implements IMonster {
         this.bC = true;
     }
 
+    protected void b() {
+        super.b();
+        this.datawatcher.a(16, Byte.valueOf((byte) 0));
+    }
+
+    public void p_() {
+        super.p_();
+        byte b0 = this.datawatcher.a(16);
+
+        this.texture = b0 == 1 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
+    }
+
     protected void c_() {
-        if (this.world.spawnMonsters == 0) {
+        if (!this.world.isStatic && this.world.spawnMonsters == 0) {
             this.die();
         }
 
@@ -96,7 +108,14 @@ public class EntityGhast extends EntityFlying implements IMonster {
             }
         }
 
-        this.texture = this.f > 10 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
+        if (!this.world.isStatic) {
+            byte b0 = this.datawatcher.a(16);
+            byte b1 = (byte) (this.f > 10 ? 1 : 0);
+
+            if (b0 != b1) {
+                this.datawatcher.b(16, Byte.valueOf(b1));
+            }
+        }
     }
 
     private boolean a(double d0, double d1, double d2, double d3) {

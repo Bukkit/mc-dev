@@ -203,4 +203,8 @@ public abstract class NetHandler {
     public void a(Packet131 packet131) {
         this.a((Packet) packet131);
     }
+
+    public void a(Packet61 packet61) {
+        this.a((Packet) packet61);
+    }
 }

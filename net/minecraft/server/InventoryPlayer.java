@@ -111,21 +111,24 @@ public class InventoryPlayer implements IInventory {
     }
 
     public boolean canHold(ItemStack itemstack) {
-        if (!itemstack.f()) {
-            itemstack.count = this.e(itemstack);
-            if (itemstack.count == 0) {
+        int i;
+
+        if (itemstack.f()) {
+            i = this.k();
+            if (i >= 0) {
+                this.items[i] = itemstack;
+                this.items[i].b = 5;
                 return true;
+            } else {
+                return false;
             }
-        }
-
-        int i = this.k();
-
-        if (i >= 0) {
-            this.items[i] = itemstack;
-            this.items[i].b = 5;
-            return true;
         } else {
-            return false;
+            do {
+                i = itemstack.count;
+                itemstack.count = this.e(itemstack);
+            } while (itemstack.count > 0 && itemstack.count < i);
+
+            return true;
         }
     }
 

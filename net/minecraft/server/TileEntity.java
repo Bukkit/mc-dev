@@ -79,6 +79,7 @@ public class TileEntity {
     static {
         a(TileEntityFurnace.class, "Furnace");
         a(TileEntityChest.class, "Chest");
+        a(TileEntityRecordPlayer.class, "RecordPlayer");
         a(TileEntityDispenser.class, "Trap");
         a(TileEntitySign.class, "Sign");
         a(TileEntityMobSpawner.class, "MobSpawner");

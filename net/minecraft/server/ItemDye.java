@@ -15,14 +15,20 @@ public class ItemDye extends Item {
             int i1 = world.getTypeId(i, j, k);
 
             if (i1 == Block.SAPLING.id) {
-                ((BlockSapling) Block.SAPLING).b(world, i, j, k, world.random);
-                --itemstack.count;
+                if (!world.isStatic) {
+                    ((BlockSapling) Block.SAPLING).b(world, i, j, k, world.random);
+                    --itemstack.count;
+                }
+
                 return true;
             }
 
             if (i1 == Block.CROPS.id) {
-                ((BlockCrops) Block.CROPS).c_(world, i, j, k);
-                --itemstack.count;
+                if (!world.isStatic) {
+                    ((BlockCrops) Block.CROPS).d_(world, i, j, k);
+                    --itemstack.count;
+                }
+
                 return true;
             }
         }

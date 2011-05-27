@@ -135,29 +135,31 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
         for (int l = 0; l < this.worldServer.length; ++l) {
             log.info("Preparing start region for level " + l);
-            WorldServer worldserver = this.worldServer[l];
-            ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
+            if (l == 0 || this.propertyManager.getBoolean("allow-nether", true)) {
+                WorldServer worldserver = this.worldServer[l];
+                ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
 
-            for (int i1 = -short1; i1 <= short1 && this.isRunning; i1 += 16) {
-                for (int j1 = -short1; j1 <= short1 && this.isRunning; j1 += 16) {
-                    long k1 = System.currentTimeMillis();
+                for (int i1 = -short1; i1 <= short1 && this.isRunning; i1 += 16) {
+                    for (int j1 = -short1; j1 <= short1 && this.isRunning; j1 += 16) {
+                        long k1 = System.currentTimeMillis();
 
-                    if (k1 < k) {
-                        k = k1;
-                    }
+                        if (k1 < k) {
+                            k = k1;
+                        }
 
-                    if (k1 > k + 1000L) {
-                        int l1 = (short1 * 2 + 1) * (short1 * 2 + 1);
-                        int i2 = (i1 + short1) * (short1 * 2 + 1) + j1 + 1;
+                        if (k1 > k + 1000L) {
+                            int l1 = (short1 * 2 + 1) * (short1 * 2 + 1);
+                            int i2 = (i1 + short1) * (short1 * 2 + 1) + j1 + 1;
 
-                        this.a("Preparing spawn area", i2 * 100 / l1);
-                        k = k1;
-                    }
+                            this.a("Preparing spawn area", i2 * 100 / l1);
+                            k = k1;
+                        }
 
-                    worldserver.chunkProviderServer.getChunkAt(chunkcoordinates.x + i1 >> 4, chunkcoordinates.z + j1 >> 4);
+                        worldserver.chunkProviderServer.getChunkAt(chunkcoordinates.x + i1 >> 4, chunkcoordinates.z + j1 >> 4);
 
-                    while (worldserver.doLighting() && this.isRunning) {
-                        ;
+                        while (worldserver.doLighting() && this.isRunning) {
+                            ;
+                        }
                     }
                 }
             }
@@ -300,19 +302,21 @@ public class MinecraftServer implements Runnable, ICommandListener {
         ++this.ticks;
 
         for (j = 0; j < this.worldServer.length; ++j) {
-            WorldServer worldserver = this.worldServer[j];
+            if (j == 0 || this.propertyManager.getBoolean("allow-nether", true)) {
+                WorldServer worldserver = this.worldServer[j];
 
-            if (this.ticks % 20 == 0) {
-                this.serverConfigurationManager.sendAll(new Packet4UpdateTime(worldserver.getTime()));
+                if (this.ticks % 20 == 0) {
+                    this.serverConfigurationManager.a((Packet) (new Packet4UpdateTime(worldserver.getTime())), worldserver.worldProvider.dimension);
+                }
+
+                worldserver.doTick();
+
+                while (worldserver.doLighting()) {
+                    ;
+                }
+
+                worldserver.cleanUp();
             }
-
-            worldserver.doTick();
-
-            while (worldserver.doLighting()) {
-                ;
-            }
-
-            worldserver.cleanUp();
         }
 
         this.networkListenThread.a();

@@ -19,4 +19,6 @@ public interface IWorldAccess {
     void a(String s, int i, int j, int k);
 
     void a(int i, int j, int k, TileEntity tileentity);
+
+    void a(EntityHuman entityhuman, int i, int j, int k, int l, int i1);
 }

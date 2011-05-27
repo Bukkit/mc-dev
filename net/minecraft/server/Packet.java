@@ -183,6 +183,7 @@ public abstract class Packet {
         a(53, true, false, Packet53BlockChange.class);
         a(54, true, false, Packet54PlayNoteBlock.class);
         a(60, true, false, Packet60Explosion.class);
+        a(61, true, false, Packet61.class);
         a(70, true, false, Packet70Bed.class);
         a(71, true, false, Packet71Weather.class);
         a(100, true, false, Packet100OpenWindow.class);

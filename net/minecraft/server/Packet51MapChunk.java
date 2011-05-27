@@ -31,7 +31,7 @@ public class Packet51MapChunk extends Packet {
         this.e = i1;
         this.f = j1;
         byte[] abyte = world.c(i, j, k, l, i1, j1);
-        Deflater deflater = new Deflater(1);
+        Deflater deflater = new Deflater(-1);
 
         try {
             deflater.setInput(abyte);

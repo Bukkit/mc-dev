@@ -107,11 +107,8 @@ public abstract class Container {
                     itemstack = itemstack1.j();
                     Slot slot = (Slot) this.e.get(i);
 
-                    if (slot != null) {
-                        slot.a(itemstack1);
-                        if (slot.getItem() != null) {
-                            this.a(i, j, flag, entityhuman);
-                        }
+                    if (slot != null && slot.getItem() != null) {
+                        this.a(i, j, flag, entityhuman);
                     }
                 }
             } else {

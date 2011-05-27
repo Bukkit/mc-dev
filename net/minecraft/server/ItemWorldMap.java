@@ -16,6 +16,11 @@ public class ItemWorldMap extends ItemWorldMapBase {
             String s = "map_" + itemstack.getData();
 
             worldmap = new WorldMap(s);
+            worldmap.b = world.q().c();
+            worldmap.c = world.q().e();
+            worldmap.e = 3;
+            worldmap.d = (byte) world.worldProvider.dimension;
+            worldmap.a();
             world.a(s, (WorldMapBase) worldmap);
         }
 

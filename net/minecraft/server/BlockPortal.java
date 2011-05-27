@@ -76,7 +76,7 @@ public class BlockPortal extends BlockBreakable {
                 }
             }
 
-            world.j = true;
+            world.o = true;
 
             for (l = 0; l < 2; ++l) {
                 for (i1 = 0; i1 < 3; ++i1) {
@@ -84,7 +84,7 @@ public class BlockPortal extends BlockBreakable {
                 }
             }
 
-            world.j = false;
+            world.o = false;
             return true;
         }
     }
@@ -133,6 +133,8 @@ public class BlockPortal extends BlockBreakable {
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        entity.M();
+        if (entity.vehicle == null && entity.passenger == null) {
+            entity.M();
+        }
     }
 }

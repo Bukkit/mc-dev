@@ -36,8 +36,10 @@ public class ServerConfigurationManager {
         this.k = minecraftserver.a("banned-ips.txt");
         this.l = minecraftserver.a("ops.txt");
         this.m = minecraftserver.a("white-list.txt");
-        this.d[0] = new PlayerManager(minecraftserver, 0);
-        this.d[1] = new PlayerManager(minecraftserver, -1);
+        int i = minecraftserver.propertyManager.getInt("view-distance", 10);
+
+        this.d[0] = new PlayerManager(minecraftserver, 0, i);
+        this.d[1] = new PlayerManager(minecraftserver, -1, i);
         this.maxPlayers = minecraftserver.propertyManager.getInt("max-players", 20);
         this.o = minecraftserver.propertyManager.getBoolean("white-list", false);
         this.g();
@@ -246,6 +248,16 @@ public class ServerConfigurationManager {
         }
     }
 
+    public void a(Packet packet, int i) {
+        for (int j = 0; j < this.players.size(); ++j) {
+            EntityPlayer entityplayer = (EntityPlayer) this.players.get(j);
+
+            if (entityplayer.dimension == i) {
+                entityplayer.netServerHandler.sendPacket(packet);
+            }
+        }
+    }
+
     public String c() {
         String s = "";
 
@@ -451,15 +463,22 @@ public class ServerConfigurationManager {
         }
     }
 
-    public void a(double d0, double d1, double d2, double d3, Packet packet) {
-        for (int i = 0; i < this.players.size(); ++i) {
-            EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
-            double d4 = d0 - entityplayer.locX;
-            double d5 = d1 - entityplayer.locY;
-            double d6 = d2 - entityplayer.locZ;
+    public void a(double d0, double d1, double d2, double d3, int i, Packet packet) {
+        this.a((EntityHuman) null, d0, d1, d2, d3, i, packet);
+    }
 
-            if (d4 * d4 + d5 * d5 + d6 * d6 < d3 * d3) {
-                entityplayer.netServerHandler.sendPacket(packet);
+    public void a(EntityHuman entityhuman, double d0, double d1, double d2, double d3, int i, Packet packet) {
+        for (int j = 0; j < this.players.size(); ++j) {
+            EntityPlayer entityplayer = (EntityPlayer) this.players.get(j);
+
+            if (entityplayer != entityhuman && entityplayer.dimension == i) {
+                double d4 = d0 - entityplayer.locX;
+                double d5 = d1 - entityplayer.locY;
+                double d6 = d2 - entityplayer.locZ;
+
+                if (d4 * d4 + d5 * d5 + d6 * d6 < d3 * d3) {
+                    entityplayer.netServerHandler.sendPacket(packet);
+                }
             }
         }
     }

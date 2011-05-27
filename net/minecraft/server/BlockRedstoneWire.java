@@ -103,10 +103,10 @@ public class BlockRedstoneWire extends Block {
         }
 
         if (k1 != l1) {
-            world.j = true;
+            world.o = true;
             world.setData(i, j, k, l1);
             world.b(i, j, k, i, j, k);
-            world.j = false;
+            world.o = false;
 
             for (i2 = 0; i2 < 4; ++i2) {
                 j2 = i;

@@ -40,16 +40,11 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.br = 0.0F;
         this.name = s;
         this.height = 0.0F;
-        this.inventory.canHold(new ItemStack(Item.PAPER, 64));
-        this.inventory.canHold(new ItemStack(Block.WORKBENCH, 64));
-        this.inventory.canHold(new ItemStack(Item.COMPASS, 64));
-        this.inventory.canHold(new ItemStack(Block.OBSIDIAN, 64));
-        this.inventory.canHold(new ItemStack(Item.FLINT_AND_STEEL));
     }
 
     public void a(World world) {
         super.a(world);
-        this.itemInWorldManager = new ItemInWorldManager(world);
+        this.itemInWorldManager = new ItemInWorldManager((WorldServer) world);
         this.itemInWorldManager.player = this;
     }
 
@@ -162,18 +157,20 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
 
         if (this.D) {
-            if (this.vehicle != null) {
-                this.mount((Entity) null);
-            }
+            if (this.b.propertyManager.getBoolean("allow-nether", true)) {
+                if (this.vehicle != null) {
+                    this.mount(this.vehicle);
+                } else {
+                    this.E += 0.0125F;
+                    if (this.E >= 1.0F) {
+                        this.E = 1.0F;
+                        this.C = 10;
+                        this.b.serverConfigurationManager.f(this);
+                    }
+                }
 
-            this.E += 0.0125F;
-            if (this.E >= 1.0F) {
-                this.E = 1.0F;
-                this.C = 10;
-                this.b.serverConfigurationManager.f(this);
+                this.D = false;
             }
-
-            this.D = false;
         } else {
             if (this.E > 0.0F) {
                 this.E -= 0.05F;

@@ -35,4 +35,8 @@ public class WorldManager implements IWorldAccess {
     public void a(int i, int j, int k, TileEntity tileentity) {
         this.server.serverConfigurationManager.a(i, j, k, tileentity);
     }
+
+    public void a(EntityHuman entityhuman, int i, int j, int k, int l, int i1) {
+        this.server.serverConfigurationManager.a(entityhuman, (double) j, (double) k, (double) l, 64.0D, this.world.worldProvider.dimension, new Packet61(i, j, k, l, i1));
+    }
 }

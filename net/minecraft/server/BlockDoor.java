@@ -101,12 +101,7 @@ public class BlockDoor extends Block {
 
                 world.setData(i, j, k, l ^ 4);
                 world.b(i, j - 1, k, i, j, k);
-                if (Math.random() < 0.5D) {
-                    world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.door_open", 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
-                } else {
-                    world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.door_close", 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
-                }
-
+                world.a(entityhuman, 1003, i, j, k, 0);
                 return true;
             }
         }
@@ -129,11 +124,7 @@ public class BlockDoor extends Block {
 
                 world.setData(i, j, k, l ^ 4);
                 world.b(i, j - 1, k, i, j, k);
-                if (Math.random() < 0.5D) {
-                    world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.door_open", 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
-                } else {
-                    world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.door_close", 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
-                }
+                world.a((EntityHuman) null, 1003, i, j, k, 0);
             }
         }
     }
