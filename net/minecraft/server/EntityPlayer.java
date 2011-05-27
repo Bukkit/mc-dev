@@ -17,6 +17,7 @@ public class EntityPlayer extends EntityHuman {
     public double ak;
     public boolean al = false;
     private int bv = -99999999;
+    private int bw = 60;
 
     public EntityPlayer(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager) {
         super(world);
@@ -39,28 +40,34 @@ public class EntityPlayer extends EntityHuman {
         this.H = 0.0F;
     }
 
-    public void b_() {}
+    public void b_() {
+        --this.bw;
+    }
 
     public void f(Entity entity) {
         this.am.f();
     }
 
     public boolean a(Entity entity, int i) {
-        if (!this.b.n) {
-            if (entity instanceof EntityHuman) {
-                return false;
-            }
-
-            if (entity instanceof EntityArrow) {
-                EntityArrow entityarrow = (EntityArrow) entity;
-
-                if (entityarrow.b instanceof EntityHuman) {
+        if (this.bw > 0) {
+            return false;
+        } else {
+            if (!this.b.n) {
+                if (entity instanceof EntityHuman) {
                     return false;
                 }
-            }
-        }
 
-        return super.a(entity, i);
+                if (entity instanceof EntityArrow) {
+                    EntityArrow entityarrow = (EntityArrow) entity;
+
+                    if (entityarrow.b instanceof EntityHuman) {
+                        return false;
+                    }
+                }
+            }
+
+            return super.a(entity, i);
+        }
     }
 
     public void a(int i) {

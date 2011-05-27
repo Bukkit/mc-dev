@@ -63,9 +63,7 @@ public class EntityMinecart extends Entity implements IInventory {
     }
 
     public boolean a(Entity entity, int i) {
-        if (this.l.z) {
-            return true;
-        } else {
+        if (!this.l.z && !this.G) {
             this.c = -this.c;
             this.b = 10;
             this.u();
@@ -81,6 +79,8 @@ public class EntityMinecart extends Entity implements IInventory {
                 this.l();
             }
 
+            return true;
+        } else {
             return true;
         }
     }

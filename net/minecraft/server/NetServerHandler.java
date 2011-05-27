@@ -82,8 +82,14 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 this.e.b(d1, d2, d3, f, f1);
                 this.e.s = d5;
                 this.e.u = d4;
-                this.d.e.b(this.e.k, true);
-                this.e.k.A();
+                if (this.e.k != null) {
+                    this.d.e.b(this.e.k, true);
+                }
+
+                if (this.e.k != null) {
+                    this.e.k.A();
+                }
+
                 this.d.f.b(this.e);
                 this.g = this.e.p;
                 this.h = this.e.q;
@@ -368,6 +374,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             s = "* " + this.e.at + " " + s.substring(s.indexOf(" ")).trim();
             a.info(s);
             this.d.f.a((Packet) (new Packet3Chat(s)));
+        } else if (s.toLowerCase().startsWith("/kill")) {
+            this.e.a((Entity) null, 1000);
         } else if (s.toLowerCase().startsWith("/tell ")) {
             String[] astring = s.split(" ");
 

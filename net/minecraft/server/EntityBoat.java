@@ -53,9 +53,7 @@ public class EntityBoat extends Entity {
     }
 
     public boolean a(Entity entity, int i) {
-        if (this.l.z) {
-            return true;
-        } else {
+        if (!this.l.z && !this.G) {
             this.c = -this.c;
             this.b = 10;
             this.a += i * 10;
@@ -74,6 +72,8 @@ public class EntityBoat extends Entity {
                 this.l();
             }
 
+            return true;
+        } else {
             return true;
         }
     }
