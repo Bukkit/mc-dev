@@ -50,7 +50,7 @@ public class Explosion {
                             int k1 = world.a(l, i1, j1);
 
                             if (k1 > 0) {
-                                f2 -= (Block.n[k1].a(entity) + 0.3F) * f3;
+                                f2 -= (Block.m[k1].a(entity) + 0.3F) * f3;
                             }
 
                             if (f2 > 0.0F) {
@@ -144,9 +144,9 @@ public class Explosion {
             }
 
             if (k3 > 0) {
-                Block.n[k3].a(world, i4, i3, l2, world.b(i4, i3, l2), 0.3F);
+                Block.m[k3].a(world, i4, i3, l2, world.b(i4, i3, l2), 0.3F);
                 world.d(i4, i3, l2, 0);
-                Block.n[k3].c(world, i4, i3, l2);
+                Block.m[k3].c(world, i4, i3, l2);
             }
         }
 
@@ -158,8 +158,8 @@ public class Explosion {
                 l2 = chunkposition.c;
                 k3 = world.a(i4, i3, l2);
                 j3 = world.a(i4, i3 - 1, l2);
-                if (k3 == 0 && Block.p[j3] && this.b.nextInt(3) == 0) {
-                    world.d(i4, i3, l2, Block.FIRE.bi);
+                if (k3 == 0 && Block.o[j3] && this.b.nextInt(3) == 0) {
+                    world.d(i4, i3, l2, Block.FIRE.bh);
                 }
             }
         }

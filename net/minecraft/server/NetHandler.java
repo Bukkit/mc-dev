@@ -110,7 +110,15 @@ public class NetHandler {
         this.a((Packet) packet6spawnposition);
     }
 
-    public void a(PacketUnusedFishing packetunusedfishing) {
-        this.a((Packet) packetunusedfishing);
+    public void a(Packet28 packet28) {
+        this.a((Packet) packet28);
+    }
+
+    public void a(Packet39 packet39) {
+        this.a((Packet) packet39);
+    }
+
+    public void a(Packet7 packet7) {
+        this.a((Packet) packet7);
     }
 }

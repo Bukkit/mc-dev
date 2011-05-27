@@ -5,7 +5,7 @@ public class EntityZombie extends EntityMonster {
     public EntityZombie(World world) {
         super(world);
         this.aF = "/mob/zombie.png";
-        this.bl = 0.5F;
+        this.br = 0.5F;
         this.e = 5;
     }
 

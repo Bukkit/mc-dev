@@ -20,15 +20,16 @@ public class MinecraftServer implements ICommandListener, Runnable {
     public PropertyManager d;
     public WorldServer e;
     public ServerConfigurationManager f;
-    private boolean m = true;
+    private boolean n = true;
     public boolean g = false;
     int h = 0;
     public String i;
     public int j;
-    private List n = new ArrayList();
-    private List o = Collections.synchronizedList(new ArrayList());
+    private List o = new ArrayList();
+    private List p = Collections.synchronizedList(new ArrayList());
     public EntityTracker k;
     public boolean l;
+    public boolean m;
 
     public MinecraftServer() {
         new ThreadSleepForever(this);
@@ -40,7 +41,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
         ConsoleLogManager.a();
-        a.info("Starting minecraft server version 0.2.3");
+        a.info("Starting minecraft server version 0.2.4");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             a.warning("**** NOT ENOUGH RAM!");
             a.warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
@@ -51,6 +52,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
         String s = this.d.a("server-ip", "");
 
         this.l = this.d.a("online-mode", true);
+        this.m = this.d.a("no-animals", false);
         InetAddress inetaddress = null;
 
         if (s.length() > 0) {
@@ -89,7 +91,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
 
     private void c(String s) {
         a.info("Preparing start region");
-        this.e = new WorldServer(new File("."), s, this.d.a("hellworld", false) ? -1 : 0);
+        this.e = new WorldServer(this, new File("."), s, this.d.a("hellworld", false) ? -1 : 0);
         this.e.a(new WorldManager(this));
         this.e.k = this.d.a("monsters", false) ? 1 : 0;
         this.f.a(this.e);
@@ -99,7 +101,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
             this.a("Preparing spawn area", (i + b0) * 100 / (b0 + b0 + 1));
 
             for (int j = -b0; j <= b0; ++j) {
-                if (!this.m) {
+                if (!this.n) {
                     return;
                 }
 
@@ -138,7 +140,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
     }
 
     public void a() {
-        this.m = false;
+        this.n = false;
     }
 
     public void run() {
@@ -147,7 +149,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
                 long i = System.currentTimeMillis();
                 long j = 0L;
 
-                while (this.m) {
+                while (this.n) {
                     long k = System.currentTimeMillis();
                     long l = k - i;
 
@@ -172,7 +174,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
                     Thread.sleep(1L);
                 }
             } else {
-                while (this.m) {
+                while (this.n) {
                     this.b();
 
                     try {
@@ -186,7 +188,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
             exception.printStackTrace();
             a.log(Level.SEVERE, "Unexpected exception", exception);
 
-            while (this.m) {
+            while (this.n) {
                 this.b();
 
                 try {
@@ -241,8 +243,8 @@ public class MinecraftServer implements ICommandListener, Runnable {
         this.f.b();
         this.k.a();
 
-        for (j = 0; j < this.n.size(); ++j) {
-            ((IUpdatePlayerListBox) this.n.get(j)).a();
+        for (j = 0; j < this.o.size(); ++j) {
+            ((IUpdatePlayerListBox) this.o.get(j)).a();
         }
 
         try {
@@ -253,12 +255,12 @@ public class MinecraftServer implements ICommandListener, Runnable {
     }
 
     public void a(String s, ICommandListener icommandlistener) {
-        this.o.add(new ServerCommand(s, icommandlistener));
+        this.p.add(new ServerCommand(s, icommandlistener));
     }
 
     public void b() {
-        while (this.o.size() > 0) {
-            ServerCommand servercommand = (ServerCommand) this.o.remove(0);
+        while (this.p.size() > 0) {
+            ServerCommand servercommand = (ServerCommand) this.p.remove(0);
             String s = servercommand.a;
             ICommandListener icommandlistener = servercommand.b;
             String s1 = icommandlistener.c();
@@ -268,7 +270,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
                     icommandlistener.b("Connected players: " + this.f.c());
                 } else if (s.toLowerCase().startsWith("stop")) {
                     this.a(s1, "Stopping the server..");
-                    this.m = false;
+                    this.n = false;
                 } else if (s.toLowerCase().startsWith("save-all")) {
                     this.a(s1, "Forcing save..");
                     this.e.a(true, (IProgressUpdate) null);
@@ -455,7 +457,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
     }
 
     public void a(IUpdatePlayerListBox iupdateplayerlistbox) {
-        this.n.add(iupdateplayerlistbox);
+        this.o.add(iupdateplayerlistbox);
     }
 
     public static void main(String[] astring) {
@@ -485,6 +487,6 @@ public class MinecraftServer implements ICommandListener, Runnable {
     }
 
     public static boolean a(MinecraftServer minecraftserver) {
-        return minecraftserver.m;
+        return minecraftserver.n;
     }
 }

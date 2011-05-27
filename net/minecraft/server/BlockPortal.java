@@ -16,7 +16,7 @@ public class BlockPortal extends BlockBreakable {
         float f;
         float f1;
 
-        if (iblockaccess.a(i - 1, j, k) != this.bi && iblockaccess.a(i + 1, j, k) != this.bi) {
+        if (iblockaccess.a(i - 1, j, k) != this.bh && iblockaccess.a(i + 1, j, k) != this.bh) {
             f = 0.125F;
             f1 = 0.5F;
             this.a(0.5F - f, 0.0F, 0.5F - f1, 0.5F + f, 1.0F, 0.5F + f1);
@@ -35,11 +35,11 @@ public class BlockPortal extends BlockBreakable {
         byte b0 = 0;
         byte b1 = 0;
 
-        if (world.a(i - 1, j, k) == Block.OBSIDIAN.bi || world.a(i + 1, j, k) == Block.OBSIDIAN.bi) {
+        if (world.a(i - 1, j, k) == Block.OBSIDIAN.bh || world.a(i + 1, j, k) == Block.OBSIDIAN.bh) {
             b0 = 1;
         }
 
-        if (world.a(i, j, k - 1) == Block.OBSIDIAN.bi || world.a(i, j, k + 1) == Block.OBSIDIAN.bi) {
+        if (world.a(i, j, k - 1) == Block.OBSIDIAN.bh || world.a(i, j, k + 1) == Block.OBSIDIAN.bh) {
             b1 = 1;
         }
 
@@ -63,10 +63,10 @@ public class BlockPortal extends BlockBreakable {
                         int j1 = world.a(i + b0 * l, j + i1, k + b1 * l);
 
                         if (flag) {
-                            if (j1 != Block.OBSIDIAN.bi) {
+                            if (j1 != Block.OBSIDIAN.bh) {
                                 return false;
                             }
-                        } else if (j1 != 0 && j1 != Block.FIRE.bi) {
+                        } else if (j1 != 0 && j1 != Block.FIRE.bh) {
                             return false;
                         }
                     }
@@ -77,7 +77,7 @@ public class BlockPortal extends BlockBreakable {
 
             for (l = 0; l < 2; ++l) {
                 for (i1 = 0; i1 < 3; ++i1) {
-                    world.d(i + b0 * l, j + i1, k + b1 * l, Block.PORTAL.bi);
+                    world.d(i + b0 * l, j + i1, k + b1 * l, Block.PORTAL.bh);
                 }
             }
 
@@ -90,33 +90,33 @@ public class BlockPortal extends BlockBreakable {
         byte b0 = 0;
         byte b1 = 1;
 
-        if (world.a(i - 1, j, k) == this.bi || world.a(i + 1, j, k) == this.bi) {
+        if (world.a(i - 1, j, k) == this.bh || world.a(i + 1, j, k) == this.bh) {
             b0 = 1;
             b1 = 0;
         }
 
         int i1;
 
-        for (i1 = j; world.a(i, i1 - 1, k) == this.bi; --i1) {
+        for (i1 = j; world.a(i, i1 - 1, k) == this.bh; --i1) {
             ;
         }
 
-        if (world.a(i, i1 - 1, k) != Block.OBSIDIAN.bi) {
+        if (world.a(i, i1 - 1, k) != Block.OBSIDIAN.bh) {
             world.d(i, j, k, 0);
         } else {
             int j1;
 
-            for (j1 = 1; j1 < 4 && world.a(i, i1 + j1, k) == this.bi; ++j1) {
+            for (j1 = 1; j1 < 4 && world.a(i, i1 + j1, k) == this.bh; ++j1) {
                 ;
             }
 
-            if (j1 == 3 && world.a(i, i1 + j1, k) == Block.OBSIDIAN.bi) {
-                boolean flag = world.a(i - 1, j, k) == this.bi || world.a(i + 1, j, k) == this.bi;
-                boolean flag1 = world.a(i, j, k - 1) == this.bi || world.a(i, j, k + 1) == this.bi;
+            if (j1 == 3 && world.a(i, i1 + j1, k) == Block.OBSIDIAN.bh) {
+                boolean flag = world.a(i - 1, j, k) == this.bh || world.a(i + 1, j, k) == this.bh;
+                boolean flag1 = world.a(i, j, k - 1) == this.bh || world.a(i, j, k + 1) == this.bh;
 
                 if (flag && flag1) {
                     world.d(i, j, k, 0);
-                } else if ((world.a(i + b0, j, k + b1) != Block.OBSIDIAN.bi || world.a(i - b0, j, k - b1) != this.bi) && (world.a(i - b0, j, k - b1) != Block.OBSIDIAN.bi || world.a(i + b0, j, k + b1) != this.bi)) {
+                } else if ((world.a(i + b0, j, k + b1) != Block.OBSIDIAN.bh || world.a(i - b0, j, k - b1) != this.bh) && (world.a(i - b0, j, k - b1) != Block.OBSIDIAN.bh || world.a(i + b0, j, k + b1) != this.bh)) {
                     world.d(i, j, k, 0);
                 }
             } else {

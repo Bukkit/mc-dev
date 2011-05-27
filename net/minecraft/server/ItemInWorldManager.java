@@ -20,10 +20,10 @@ public class ItemInWorldManager {
         int l = this.b.a(i, j, k);
 
         if (l > 0 && this.d == 0.0F) {
-            Block.n[l].b(this.b, i, j, k, this.a);
+            Block.m[l].b(this.b, i, j, k, this.a);
         }
 
-        if (l > 0 && Block.n[l].a(this.a) >= 1.0F) {
+        if (l > 0 && Block.m[l].a(this.a) >= 1.0F) {
             this.c(i, j, k);
         }
     }
@@ -44,7 +44,7 @@ public class ItemInWorldManager {
                     return;
                 }
 
-                Block block = Block.n[i1];
+                Block block = Block.m[i1];
 
                 this.d += block.a(this.a);
                 ++this.f;
@@ -67,7 +67,7 @@ public class ItemInWorldManager {
     }
 
     public boolean b(int i, int j, int k) {
-        Block block = Block.n[this.b.a(i, j, k)];
+        Block block = Block.m[this.b.a(i, j, k)];
         int l = this.b.b(i, j, k);
         boolean flag = this.b.d(i, j, k, 0);
 
@@ -92,16 +92,32 @@ public class ItemInWorldManager {
             }
         }
 
-        if (flag && this.a.b(Block.n[l])) {
-            Block.n[l].a_(this.b, i, j, k, i1);
+        if (flag && this.a.b(Block.m[l])) {
+            Block.m[l].a_(this.b, i, j, k, i1);
         }
 
         return flag;
     }
 
+    public boolean a(EntityHuman entityhuman, World world, ItemStack itemstack) {
+        int i = itemstack.a;
+        ItemStack itemstack1 = itemstack.a(world, entityhuman);
+
+        if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.a == i)) {
+            return false;
+        } else {
+            entityhuman.ak.a[entityhuman.ak.d] = itemstack1;
+            if (itemstack1.a == 0) {
+                entityhuman.ak.a[entityhuman.ak.d] = null;
+            }
+
+            return true;
+        }
+    }
+
     public boolean a(EntityHuman entityhuman, World world, ItemStack itemstack, int i, int j, int k, int l) {
         int i1 = world.a(i, j, k);
 
-        return i1 > 0 && Block.n[i1].a(world, i, j, k, entityhuman) ? true : (itemstack == null ? false : itemstack.a(entityhuman, world, i, j, k, l));
+        return i1 > 0 && Block.m[i1].a(world, i, j, k, entityhuman) ? true : (itemstack == null ? false : itemstack.a(entityhuman, world, i, j, k, l));
     }
 }

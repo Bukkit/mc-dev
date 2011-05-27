@@ -7,7 +7,7 @@ public class BlockJukeBox extends Block {
     }
 
     public int a(int i) {
-        return this.bh + (i == 1 ? 1 : 0);
+        return this.bg + (i == 1 ? 1 : 0);
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {

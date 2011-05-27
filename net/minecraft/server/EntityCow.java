@@ -37,4 +37,15 @@ public class EntityCow extends EntityAnimal {
     protected int g() {
         return Item.LEATHER.aW;
     }
+
+    public boolean a(EntityHuman entityhuman) {
+        ItemStack itemstack = entityhuman.ak.b();
+
+        if (itemstack != null && itemstack.c == Item.BUCKET.aW) {
+            entityhuman.ak.a(entityhuman.ak.d, new ItemStack(Item.MILK_BUCKET));
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -11,6 +11,6 @@ public class ItemPickaxe extends ItemTool {
     }
 
     public boolean a(Block block) {
-        return block == Block.OBSIDIAN ? this.bc == 3 : (block != Block.DIAMOND_BLOCK && block != Block.DIAMOND_ORE ? (block != Block.GOLD_BLOCK && block != Block.GOLD_ORE ? (block != Block.IRON_BLOCK && block != Block.IRON_ORE ? (block != Block.REDSTONE_ORE && block != Block.GLOWING_REDSTONE_ORE ? (block.bt == Material.d ? true : block.bt == Material.e) : this.bc >= 2) : this.bc >= 1) : this.bc >= 2) : this.bc >= 2);
+        return block == Block.OBSIDIAN ? this.bc == 3 : (block != Block.DIAMOND_BLOCK && block != Block.DIAMOND_ORE ? (block != Block.GOLD_BLOCK && block != Block.GOLD_ORE ? (block != Block.IRON_BLOCK && block != Block.IRON_ORE ? (block != Block.REDSTONE_ORE && block != Block.GLOWING_REDSTONE_ORE ? (block.bs == Material.d ? true : block.bs == Material.e) : this.bc >= 2) : this.bc >= 1) : this.bc >= 2) : this.bc >= 2);
     }
 }

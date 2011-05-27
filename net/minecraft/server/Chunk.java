@@ -102,7 +102,7 @@ public class Chunk {
                 int i1;
 
                 for (l = 0; l < 128; ++l) {
-                    i1 = Block.t[this.b[k + l]];
+                    i1 = Block.s[this.b[k + l]];
                     if (i1 > 0) {
                         this.g.a(i, l, j, i1);
                     }
@@ -113,8 +113,8 @@ public class Chunk {
                 for (i1 = b0 - 2; i1 < 128 && l > 0; this.g.a(i, i1, j, l)) {
                     ++i1;
                     byte b1 = this.b[k + i1];
-                    int j1 = Block.r[b1];
-                    int k1 = Block.t[b1];
+                    int j1 = Block.q[b1];
+                    int k1 = Block.s[b1];
 
                     if (j1 == 0) {
                         j1 = 1;
@@ -167,7 +167,7 @@ public class Chunk {
             i1 = j;
         }
 
-        for (int j1 = i << 11 | k << 7; i1 > 0 && Block.r[this.b[j1 + i1 - 1]] == 0; --i1) {
+        for (int j1 = i << 11 | k << 7; i1 > 0 && Block.q[this.b[j1 + i1 - 1]] == 0; --i1) {
             ;
         }
 
@@ -214,7 +214,7 @@ public class Chunk {
 
             for (j2 = i1; i1 > 0 && i2 > 0; this.f.a(i, i1, k, i2)) {
                 --i1;
-                int k2 = Block.r[this.a(i, i1, k)];
+                int k2 = Block.q[this.a(i, i1, k)];
 
                 if (k2 == 0) {
                     k2 = 1;
@@ -226,7 +226,7 @@ public class Chunk {
                 }
             }
 
-            while (i1 > 0 && Block.r[this.a(i, i1 - 1, k)] == 0) {
+            while (i1 > 0 && Block.q[this.a(i, i1 - 1, k)] == 0) {
                 --i1;
             }
 
@@ -255,12 +255,12 @@ public class Chunk {
 
             this.b[i << 11 | k << 7 | j] = b0;
             if (k1 != 0 && !this.d.z) {
-                Block.n[k1].b(this.d, l1, j, i2);
+                Block.m[k1].b(this.d, l1, j, i2);
             }
 
             this.e.a(i, j, k, i1);
-            if (!this.d.q.c) {
-                if (Block.r[b0] != 0) {
+            if (!this.d.q.e) {
+                if (Block.q[b0] != 0) {
                     if (j >= j1) {
                         this.g(i, j + 1, k);
                     }
@@ -274,7 +274,7 @@ public class Chunk {
             this.d.a(EnumSkyBlock.BLOCK, l1, j, i2, l1, j, i2);
             this.c(i, k);
             if (l != 0) {
-                Block.n[l].e(this.d, l1, j, i2);
+                Block.m[l].e(this.d, l1, j, i2);
             }
 
             this.o = true;
@@ -295,11 +295,11 @@ public class Chunk {
 
             this.b[i << 11 | k << 7 | j] = b0;
             if (j1 != 0) {
-                Block.n[j1].b(this.d, k1, j, l1);
+                Block.m[j1].b(this.d, k1, j, l1);
             }
 
             this.e.a(i, j, k, 0);
-            if (Block.r[b0] != 0) {
+            if (Block.q[b0] != 0) {
                 if (j >= i1) {
                     this.g(i, j + 1, k);
                 }
@@ -311,7 +311,7 @@ public class Chunk {
             this.d.a(EnumSkyBlock.BLOCK, k1, j, l1, k1, j, l1);
             this.c(i, k);
             if (l != 0 && !this.d.z) {
-                Block.n[l].e(this.d, k1, j, l1);
+                Block.m[l].e(this.d, k1, j, l1);
             }
 
             this.o = true;
@@ -417,11 +417,11 @@ public class Chunk {
         if (tileentity == null) {
             int l = this.a(i, j, k);
 
-            if (!Block.q[l]) {
+            if (!Block.p[l]) {
                 return null;
             }
 
-            BlockContainer blockcontainer = (BlockContainer) Block.n[l];
+            BlockContainer blockcontainer = (BlockContainer) Block.m[l];
 
             blockcontainer.e(this.d, this.j * 16 + i, j, this.k * 16 + k);
             tileentity = (TileEntity) this.l.get(chunkposition);
@@ -445,7 +445,7 @@ public class Chunk {
         tileentity.b = this.j * 16 + i;
         tileentity.c = j;
         tileentity.d = this.k * 16 + k;
-        if (this.a(i, j, k) != 0 && Block.n[this.a(i, j, k)] instanceof BlockContainer) {
+        if (this.a(i, j, k) != 0 && Block.m[this.a(i, j, k)] instanceof BlockContainer) {
             if (this.c) {
                 if (this.l.get(chunkposition) != null) {
                     this.d.c.remove(this.l.get(chunkposition));

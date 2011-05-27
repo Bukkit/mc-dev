@@ -45,7 +45,7 @@ public class Item {
     public static Item IRON_HOE = (new ItemHoe(36, 2)).a(130);
     public static Item DIAMOND_HOE = (new ItemHoe(37, 3)).a(131);
     public static Item GOLD_HOE = (new ItemHoe(38, 1)).a(132);
-    public static Item SEEDS = (new ItemSeeds(39, Block.CROPS.bi)).a(9);
+    public static Item SEEDS = (new ItemSeeds(39, Block.CROPS.bh)).a(9);
     public static Item WHEAT = (new Item(40)).a(25);
     public static Item BREAD = (new ItemFood(41, 5)).a(41);
     public static Item LEATHER_HELMET = (new ItemArmor(42, 0, 0, 0)).a(0);
@@ -76,8 +76,8 @@ public class Item {
     public static Item SIGN = (new ItemSign(67)).a(42);
     public static Item WOOD_DOOR = (new ItemDoor(68, Material.c)).a(43);
     public static Item BUCKET = (new ItemBucket(69, 0)).a(74);
-    public static Item WATER_BUCKET = (new ItemBucket(70, Block.WATER.bi)).a(75);
-    public static Item LAVA_BUCKET = (new ItemBucket(71, Block.LAVA.bi)).a(76);
+    public static Item WATER_BUCKET = (new ItemBucket(70, Block.WATER.bh)).a(75);
+    public static Item LAVA_BUCKET = (new ItemBucket(71, Block.LAVA.bh)).a(76);
     public static Item MINECART = (new ItemMinecart(72, 0)).a(135);
     public static Item SADDLE = (new ItemSaddle(73)).a(104);
     public static Item IRON_DOOR = (new ItemDoor(74, Material.e)).a(44);
@@ -129,6 +129,10 @@ public class Item {
 
     public float a(ItemStack itemstack, Block block) {
         return 1.0F;
+    }
+
+    public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
+        return itemstack;
     }
 
     public int a() {

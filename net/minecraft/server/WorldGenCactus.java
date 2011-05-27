@@ -17,7 +17,7 @@ public class WorldGenCactus extends WorldGenerator {
 
                 for (int i2 = 0; i2 < l1; ++i2) {
                     if (Block.CACTUS.f(world, i1, j1 + i2, k1)) {
-                        world.a(i1, j1 + i2, k1, Block.CACTUS.bi);
+                        world.a(i1, j1 + i2, k1, Block.CACTUS.bh);
                     }
                 }
             }

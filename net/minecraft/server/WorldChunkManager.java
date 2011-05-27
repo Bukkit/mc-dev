@@ -11,8 +11,6 @@ public class WorldChunkManager {
     public double[] b;
     public double[] c;
     public BiomeBase[] d;
-    private static double h = 0.5D;
-    private static double i = 0.5D;
 
     protected WorldChunkManager() {}
 

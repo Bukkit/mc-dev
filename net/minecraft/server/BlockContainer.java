@@ -4,7 +4,7 @@ public abstract class BlockContainer extends Block {
 
     protected BlockContainer(int i, Material material) {
         super(i, material);
-        q[i] = true;
+        p[i] = true;
     }
 
     protected BlockContainer(int i, int j, Material material) {

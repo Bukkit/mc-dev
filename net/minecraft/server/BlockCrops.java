@@ -6,7 +6,7 @@ public class BlockCrops extends BlockFlower {
 
     protected BlockCrops(int i, int j) {
         super(i, j);
-        this.bh = j;
+        this.bg = j;
         this.a(true);
         float f = 0.5F;
 
@@ -14,7 +14,7 @@ public class BlockCrops extends BlockFlower {
     }
 
     protected boolean b(int i) {
-        return i == Block.SOIL.bi;
+        return i == Block.SOIL.bh;
     }
 
     public void a(World world, int i, int j, int k, Random random) {
@@ -43,16 +43,16 @@ public class BlockCrops extends BlockFlower {
         int i2 = world.a(i + 1, j, k - 1);
         int j2 = world.a(i + 1, j, k + 1);
         int k2 = world.a(i - 1, j, k + 1);
-        boolean flag = j1 == this.bi || k1 == this.bi;
-        boolean flag1 = l == this.bi || i1 == this.bi;
-        boolean flag2 = l1 == this.bi || i2 == this.bi || j2 == this.bi || k2 == this.bi;
+        boolean flag = j1 == this.bh || k1 == this.bh;
+        boolean flag1 = l == this.bh || i1 == this.bh;
+        boolean flag2 = l1 == this.bh || i2 == this.bh || j2 == this.bh || k2 == this.bh;
 
         for (int l2 = i - 1; l2 <= i + 1; ++l2) {
             for (int i3 = k - 1; i3 <= k + 1; ++i3) {
                 int j3 = world.a(l2, j - 1, i3);
                 float f1 = 0.0F;
 
-                if (j3 == Block.SOIL.bi) {
+                if (j3 == Block.SOIL.bh) {
                     f1 = 1.0F;
                     if (world.b(l2, j - 1, i3) > 0) {
                         f1 = 3.0F;

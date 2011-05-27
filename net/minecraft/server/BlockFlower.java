@@ -6,7 +6,7 @@ public class BlockFlower extends Block {
 
     protected BlockFlower(int i, int j) {
         super(i, Material.i);
-        this.bh = j;
+        this.bg = j;
         this.a(true);
         float f = 0.2F;
 
@@ -18,7 +18,7 @@ public class BlockFlower extends Block {
     }
 
     protected boolean b(int i) {
-        return i == Block.GRASS.bi || i == Block.DIRT.bi || i == Block.SOIL.bi;
+        return i == Block.GRASS.bh || i == Block.DIRT.bh || i == Block.SOIL.bh;
     }
 
     public void b(World world, int i, int j, int k, int l) {

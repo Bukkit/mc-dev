@@ -8,11 +8,19 @@ public class BlockStairs extends Block {
     private Block a;
 
     protected BlockStairs(int i, Block block) {
-        super(i, block.bh, block.bt);
+        super(i, block.bg, block.bs);
         this.a = block;
-        this.c(block.bj);
-        this.b(block.bk / 3.0F);
-        this.a(block.br);
+        this.c(block.bi);
+        this.b(block.bj / 3.0F);
+        this.a(block.bq);
+    }
+
+    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+        this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    public AxisAlignedBB d(World world, int i, int j, int k) {
+        return super.d(world, i, j, k);
     }
 
     public boolean a() {

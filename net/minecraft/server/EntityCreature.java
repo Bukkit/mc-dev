@@ -77,7 +77,7 @@ public class EntityCreature extends EntityLiving {
                 }
             }
 
-            this.bj = false;
+            this.bp = false;
             if (vec3d != null) {
                 double d1 = vec3d.a - this.p;
                 double d2 = vec3d.c - this.r;
@@ -85,7 +85,7 @@ public class EntityCreature extends EntityLiving {
                 float f4 = (float) (Math.atan2(d2, d1) * 180.0D / 3.1415927410125732D) - 90.0F;
                 float f5 = f4 - this.v;
 
-                for (this.bh = this.bl; f5 < -180.0F; f5 += 360.0F) {
+                for (this.bn = this.br; f5 < -180.0F; f5 += 360.0F) {
                     ;
                 }
 
@@ -109,12 +109,12 @@ public class EntityCreature extends EntityLiving {
 
                     this.v = (float) (Math.atan2(d5, d4) * 180.0D / 3.1415927410125732D) - 90.0F;
                     f5 = (f6 - this.v + 90.0F) * 3.1415927F / 180.0F;
-                    this.bg = -MathHelper.a(f5) * this.bh * 1.0F;
-                    this.bh = MathHelper.b(f5) * this.bh * 1.0F;
+                    this.bm = -MathHelper.a(f5) * this.bn * 1.0F;
+                    this.bn = MathHelper.b(f5) * this.bn * 1.0F;
                 }
 
                 if (d3 > 0.0D) {
-                    this.bj = true;
+                    this.bp = true;
                 }
             }
 
@@ -123,11 +123,11 @@ public class EntityCreature extends EntityLiving {
             }
 
             if (this.B) {
-                this.bj = true;
+                this.bp = true;
             }
 
             if (this.V.nextFloat() < 0.8F && (flag1 || flag2)) {
-                this.bj = true;
+                this.bp = true;
             }
         } else {
             super.c();

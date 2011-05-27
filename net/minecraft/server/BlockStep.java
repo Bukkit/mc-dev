@@ -37,14 +37,14 @@ public class BlockStep extends Block {
 
         int l = world.a(i, j - 1, k);
 
-        if (l == STEP.bi) {
+        if (l == STEP.bh) {
             world.d(i, j, k, 0);
-            world.d(i, j - 1, k, Block.DOUBLE_STEP.bi);
+            world.d(i, j - 1, k, Block.DOUBLE_STEP.bh);
         }
     }
 
     public int a(int i, Random random) {
-        return Block.STEP.bi;
+        return Block.STEP.bh;
     }
 
     public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
@@ -52,6 +52,6 @@ public class BlockStep extends Block {
             super.a(iblockaccess, i, j, k, l);
         }
 
-        return l == 1 ? true : (!super.a(iblockaccess, i, j, k, l) ? false : (l == 0 ? true : iblockaccess.a(i, j, k) != this.bi));
+        return l == 1 ? true : (!super.a(iblockaccess, i, j, k, l) ? false : (l == 0 ? true : iblockaccess.a(i, j, k) != this.bh));
     }
 }

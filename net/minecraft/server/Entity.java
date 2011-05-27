@@ -212,9 +212,7 @@ public abstract class Entity {
     }
 
     protected void n() {
-        if (this.ad) {
-            this.Y = 600;
-        } else {
+        if (!this.ad) {
             this.a((Entity) null, 4);
             this.Y = 600;
         }
@@ -411,16 +409,16 @@ public abstract class Entity {
                 k = this.l.a(l, i1, j1);
                 if (this.K > (float) this.b && k > 0) {
                     ++this.b;
-                    StepSound stepsound = Block.n[k].br;
+                    StepSound stepsound = Block.m[k].bq;
 
-                    if (this.l.a(l, i1 + 1, j1) == Block.SNOW.bi) {
-                        stepsound = Block.SNOW.br;
+                    if (this.l.a(l, i1 + 1, j1) == Block.SNOW.bh) {
+                        stepsound = Block.SNOW.bq;
                         this.l.a(this, stepsound.c(), stepsound.a() * 0.15F, stepsound.b());
-                    } else if (!Block.n[k].bt.d()) {
+                    } else if (!Block.m[k].bs.d()) {
                         this.l.a(this, stepsound.c(), stepsound.a() * 0.15F, stepsound.b());
                     }
 
-                    Block.n[k].b(this.l, l, i1, j1, this);
+                    Block.m[k].b(this.l, l, i1, j1, this);
                 }
             }
 
@@ -437,7 +435,7 @@ public abstract class Entity {
                         int l2 = this.l.a(i2, j2, k2);
 
                         if (l2 > 0) {
-                            Block.n[l2].a(this.l, i2, j2, k2, this);
+                            Block.m[l2].a(this.l, i2, j2, k2, this);
                         }
                     }
                 }
@@ -474,7 +472,9 @@ public abstract class Entity {
     }
 
     protected void b(int i) {
-        this.a((Entity) null, i);
+        if (!this.ad) {
+            this.a((Entity) null, i);
+        }
     }
 
     protected void a(float f) {}
@@ -490,7 +490,7 @@ public abstract class Entity {
         int k = MathHelper.b(this.r);
         int l = this.l.a(i, j, k);
 
-        if (l != 0 && Block.n[l].bt == material) {
+        if (l != 0 && Block.m[l].bs == material) {
             float f = BlockFluids.b(this.l.b(i, j, k)) - 0.11111111F;
             float f1 = (float) (j + 1) - f;
 
@@ -500,7 +500,7 @@ public abstract class Entity {
         }
     }
 
-    protected float s() {
+    public float s() {
         return 0.0F;
     }
 
@@ -540,8 +540,8 @@ public abstract class Entity {
         this.m = this.p = d0;
         this.n = this.q = d1;
         this.o = this.r = d2;
-        this.v = f;
-        this.w = f1;
+        this.x = this.v = f;
+        this.y = this.w = f1;
         this.Q = 0.0F;
         double d3 = (double) (this.x - f);
 
@@ -554,6 +554,7 @@ public abstract class Entity {
         }
 
         this.a(this.p, this.q, this.r);
+        this.b(f, f1);
     }
 
     public void c(double d0, double d1, double d2, float f, float f1) {
@@ -597,7 +598,7 @@ public abstract class Entity {
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
-    public void a(EntityHuman entityhuman) {}
+    public void b(EntityHuman entityhuman) {}
 
     public void c(Entity entity) {
         if (entity.j != this && entity.k != this) {
@@ -752,6 +753,10 @@ public abstract class Entity {
         return this.l.d(i, j, k);
     }
 
+    public boolean a(EntityHuman entityhuman) {
+        return false;
+    }
+
     public AxisAlignedBB d(Entity entity) {
         return null;
     }
@@ -810,7 +815,7 @@ public abstract class Entity {
         }
     }
 
-    protected void z() {
+    public void z() {
         this.j.a(this.p, this.q + this.j() + this.j.A(), this.r);
     }
 
@@ -825,7 +830,14 @@ public abstract class Entity {
     public void e(Entity entity) {
         this.d = 0.0D;
         this.e = 0.0D;
-        if (this.k == entity) {
+        if (entity == null) {
+            if (this.k != null) {
+                this.c(this.k.p, this.k.z.b + (double) this.k.I, this.k.r, this.v, this.w);
+                this.k.j = null;
+            }
+
+            this.k = null;
+        } else if (this.k == entity) {
             this.k.j = null;
             this.k = null;
             this.c(entity.p, entity.z.b + (double) entity.I, entity.r, this.v, this.w);

@@ -83,13 +83,11 @@ public class EntityFireball extends Entity {
         List list = this.l.b((Entity) this, this.z.a(this.s, this.t, this.u).b(1.0D, 1.0D, 1.0D));
         double d0 = 0.0D;
 
-        float f;
-
         for (int j = 0; j < list.size(); ++j) {
             Entity entity1 = (Entity) list.get(j);
 
             if (entity1.c_() && (entity1 != this.al || this.an >= 25)) {
-                f = 0.3F;
+                float f = 0.3F;
                 AxisAlignedBB axisalignedbb = entity1.z.b((double) f, (double) f, (double) f);
                 MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
 
@@ -147,7 +145,6 @@ public class EntityFireball extends Entity {
         this.v = this.x + (this.v - this.x) * 0.2F;
         float f2 = 0.95F;
 
-        f = 0.0060F;
         if (this.r()) {
             for (int k = 0; k < 4; ++k) {
                 float f3 = 0.25F;

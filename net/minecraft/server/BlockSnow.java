@@ -21,7 +21,7 @@ public class BlockSnow extends Block {
     public boolean a(World world, int i, int j, int k) {
         int l = world.a(i, j - 1, k);
 
-        return l != 0 && Block.n[l].a() ? world.c(i, j - 1, k).c() : false;
+        return l != 0 && Block.m[l].a() ? world.c(i, j - 1, k).c() : false;
     }
 
     public void b(World world, int i, int j, int k, int l) {
@@ -56,6 +56,6 @@ public class BlockSnow extends Block {
     public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         Material material = iblockaccess.c(i, j, k);
 
-        return l == 1 ? true : (material == this.bt ? false : super.a(iblockaccess, i, j, k, l));
+        return l == 1 ? true : (material == this.bs ? false : super.a(iblockaccess, i, j, k, l));
     }
 }

@@ -12,8 +12,8 @@ public class WorldGenPumpkin extends WorldGenerator {
             int j1 = j + random.nextInt(4) - random.nextInt(4);
             int k1 = k + random.nextInt(8) - random.nextInt(8);
 
-            if (world.a(i1, j1, k1) == 0 && world.a(i1, j1 - 1, k1) == Block.GRASS.bi && Block.PUMPKIN.a(world, i1, j1, k1)) {
-                world.a(i1, j1, k1, Block.PUMPKIN.bi, random.nextInt(4));
+            if (world.a(i1, j1, k1) == 0 && world.a(i1, j1 - 1, k1) == Block.GRASS.bh && Block.PUMPKIN.a(world, i1, j1, k1)) {
+                world.a(i1, j1, k1, Block.PUMPKIN.bh, random.nextInt(4));
             }
         }
 

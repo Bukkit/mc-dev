@@ -136,7 +136,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
     }
 
     private int b(int i) {
-        return i == Block.IRON_ORE.bi ? Item.IRON_INGOT.aW : (i == Block.GOLD_ORE.bi ? Item.GOLD_INGOT.aW : (i == Block.DIAMOND_ORE.bi ? Item.DIAMOND.aW : (i == Block.SAND.bi ? Block.GLASS.bi : (i == Item.PORK.aW ? Item.GRILLED_PORK.aW : (i == Item.RAW_FISH.aW ? Item.COOKED_FISH.aW : (i == Block.COBBLESTONE.bi ? Block.STONE.bi : (i == Item.CLAY_BALL.aW ? Item.CLAY_BRICK.aW : -1)))))));
+        return i == Block.IRON_ORE.bh ? Item.IRON_INGOT.aW : (i == Block.GOLD_ORE.bh ? Item.GOLD_INGOT.aW : (i == Block.DIAMOND_ORE.bh ? Item.DIAMOND.aW : (i == Block.SAND.bh ? Block.GLASS.bh : (i == Item.PORK.aW ? Item.GRILLED_PORK.aW : (i == Item.RAW_FISH.aW ? Item.COOKED_FISH.aW : (i == Block.COBBLESTONE.bh ? Block.STONE.bh : (i == Item.CLAY_BALL.aW ? Item.CLAY_BRICK.aW : -1)))))));
     }
 
     private int a(ItemStack itemstack) {
@@ -145,7 +145,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         } else {
             int i = itemstack.a().aW;
 
-            return i < 256 && Block.n[i].bt == Material.c ? 300 : (i == Item.STICK.aW ? 100 : (i == Item.COAL.aW ? 1600 : (i == Item.LAVA_BUCKET.aW ? 20000 : 0)));
+            return i < 256 && Block.m[i].bs == Material.c ? 300 : (i == Item.STICK.aW ? 100 : (i == Item.COAL.aW ? 1600 : (i == Item.LAVA_BUCKET.aW ? 20000 : 0)));
         }
     }
 }

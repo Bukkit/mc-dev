@@ -49,15 +49,52 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
 
         if (this.j) {
+            double d1;
+            double d2;
+            double d3;
+            double d4;
+
+            if (this.e.k != null) {
+                float f = this.e.v;
+                float f1 = this.e.w;
+
+                this.e.k.z();
+                d1 = this.e.p;
+                d2 = this.e.q;
+                double d5 = this.e.r;
+
+                d3 = 0.0D;
+                d4 = 0.0D;
+                if (packet10flying.i) {
+                    f = packet10flying.e;
+                    f1 = packet10flying.f;
+                }
+
+                if (packet10flying.h && packet10flying.b == -999.0D && packet10flying.d == -999.0D) {
+                    d3 = packet10flying.a;
+                    d4 = packet10flying.c;
+                }
+
+                this.e.k();
+                this.e.b(d1, d2, d5, f, f1);
+                this.e.s = d3;
+                this.e.u = d4;
+                this.e.k.b_();
+                return;
+            }
+
             this.g = this.e.p;
             this.h = this.e.q;
             this.i = this.e.r;
             d0 = this.e.p;
-            double d1 = this.e.q;
-            double d2 = this.e.r;
-            float f = this.e.v;
-            float f1 = this.e.w;
-            double d3;
+            d1 = this.e.q;
+            d2 = this.e.r;
+            float f2 = this.e.v;
+            float f3 = this.e.w;
+
+            if (packet10flying.h && packet10flying.b == -999.0D && packet10flying.d == -999.0D) {
+                packet10flying.h = false;
+            }
 
             if (packet10flying.h) {
                 d0 = packet10flying.a;
@@ -73,40 +110,40 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
 
             if (packet10flying.i) {
-                f = packet10flying.e;
-                f1 = packet10flying.f;
+                f2 = packet10flying.e;
+                f3 = packet10flying.f;
             }
 
             this.e.k();
             this.e.Q = 0.0F;
-            this.e.b(this.g, this.h, this.i, f, f1);
+            this.e.b(this.g, this.h, this.i, f2, f3);
             d3 = d0 - this.e.p;
-            double d4 = d1 - this.e.q;
-            double d5 = d2 - this.e.r;
-            float f2 = 0.0625F;
-            boolean flag = this.d.e.a(this.e, this.e.z.b().e((double) f2, (double) f2, (double) f2)).size() == 0;
+            d4 = d1 - this.e.q;
+            double d6 = d2 - this.e.r;
+            float f4 = 0.0625F;
+            boolean flag = this.d.e.a(this.e, this.e.z.b().e((double) f4, (double) f4, (double) f4)).size() == 0;
 
-            this.e.c(d3, d4, d5);
+            this.e.c(d3, d4, d6);
             d3 = d0 - this.e.p;
             d4 = d1 - this.e.q;
             if (d4 > -0.5D || d4 < 0.5D) {
                 d4 = 0.0D;
             }
 
-            d5 = d2 - this.e.r;
-            double d6 = d3 * d3 + d4 * d4 + d5 * d5;
+            d6 = d2 - this.e.r;
+            double d7 = d3 * d3 + d4 * d4 + d6 * d6;
             boolean flag1 = false;
 
-            if (d6 > 0.0625D) {
+            if (d7 > 0.0625D) {
                 flag1 = true;
                 a.warning(this.e.ar + " moved wrongly!");
             }
 
-            this.e.b(d0, d1, d2, f, f1);
-            boolean flag2 = this.d.e.a(this.e, this.e.z.b().e((double) f2, (double) f2, (double) f2)).size() == 0;
+            this.e.b(d0, d1, d2, f2, f3);
+            boolean flag2 = this.d.e.a(this.e, this.e.z.b().e((double) f4, (double) f4, (double) f4)).size() == 0;
 
             if (flag && (flag1 || !flag2)) {
-                this.a(this.g, this.h, this.i, f, f1);
+                this.a(this.g, this.h, this.i, f2, f3);
                 return;
             }
 
@@ -190,24 +227,57 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void a(Packet15Place packet15place) {
         boolean flag = this.d.e.B = this.d.f.g(this.e.ar);
-        int i = packet15place.b;
-        int j = packet15place.c;
-        int k = packet15place.d;
-        int l = packet15place.e;
-        int i1 = (int) MathHelper.e((float) (i - this.d.e.m));
-        int j1 = (int) MathHelper.e((float) (k - this.d.e.o));
 
-        if (i1 > j1) {
-            j1 = i1;
-        }
-
-        if (j1 > 16 || flag) {
+        if (packet15place.e == 255) {
             ItemStack itemstack = packet15place.a >= 0 ? new ItemStack(packet15place.a) : null;
 
-            this.e.c.a(this.e, this.d.e, itemstack, i, j, k, l);
+            this.e.c.a(this.e, this.d.e, itemstack);
+        } else {
+            int i = packet15place.b;
+            int j = packet15place.c;
+            int k = packet15place.d;
+            int l = packet15place.e;
+            int i1 = (int) MathHelper.e((float) (i - this.d.e.m));
+            int j1 = (int) MathHelper.e((float) (k - this.d.e.o));
+
+            if (i1 > j1) {
+                j1 = i1;
+            }
+
+            if (j1 > 16 || flag) {
+                ItemStack itemstack1 = packet15place.a >= 0 ? new ItemStack(packet15place.a) : null;
+
+                this.e.c.a(this.e, this.d.e, itemstack1, i, j, k, l);
+            }
+
+            this.e.a.b((Packet) (new Packet53BlockChange(i, j, k, this.d.e)));
+            if (l == 0) {
+                --j;
+            }
+
+            if (l == 1) {
+                ++j;
+            }
+
+            if (l == 2) {
+                --k;
+            }
+
+            if (l == 3) {
+                ++k;
+            }
+
+            if (l == 4) {
+                --i;
+            }
+
+            if (l == 5) {
+                ++i;
+            }
+
+            this.e.a.b((Packet) (new Packet53BlockChange(i, j, k, this.d.e)));
         }
 
-        this.e.a.b((Packet) (new Packet53BlockChange(i, j, k, this.d.e)));
         this.d.e.B = false;
     }
 
@@ -373,6 +443,14 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                     }
                 }
             }
+        }
+    }
+
+    public void a(Packet7 packet7) {
+        Entity entity = this.d.e.a(packet7.b);
+
+        if (entity != null && this.e.g(entity)) {
+            entity.a((EntityHuman) this.e);
         }
     }
 }

@@ -33,6 +33,15 @@ public class EntityPig extends EntityAnimal {
         return "mob.pigdeath";
     }
 
+    public boolean a(EntityHuman entityhuman) {
+        if (this.a) {
+            entityhuman.e(this);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     protected int g() {
         return Item.PORK.aW;
     }

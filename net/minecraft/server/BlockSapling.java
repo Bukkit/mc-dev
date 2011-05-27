@@ -27,7 +27,7 @@ public class BlockSapling extends BlockFlower {
                 }
 
                 if (!((WorldGenerator) object).a(world, random, i, j, k)) {
-                    world.a(i, j, k, this.bi);
+                    world.a(i, j, k, this.bh);
                 }
             }
         }

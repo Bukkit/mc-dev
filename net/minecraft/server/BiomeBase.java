@@ -24,8 +24,8 @@ public class BiomeBase {
     private static BiomeBase[] t = new BiomeBase[4096];
 
     public BiomeBase() {
-        this.o = (byte) Block.GRASS.bi;
-        this.p = (byte) Block.DIRT.bi;
+        this.o = (byte) Block.GRASS.bh;
+        this.p = (byte) Block.DIRT.bh;
         this.q = 5169201;
         this.r = new Class[] { EntitySpider.class, EntityZombie.class, EntitySkeleton.class, EntityCreeper.class};
         this.s = new Class[] { EntitySheep.class, EntityPig.class, EntityChicken.class, EntityCow.class};
@@ -38,8 +38,8 @@ public class BiomeBase {
             }
         }
 
-        DESERT.o = DESERT.p = (byte) Block.SAND.bi;
-        ICE_DESERT.o = ICE_DESERT.p = (byte) Block.SAND.bi;
+        DESERT.o = DESERT.p = (byte) Block.SAND.bh;
+        ICE_DESERT.o = ICE_DESERT.p = (byte) Block.SAND.bh;
     }
 
     protected BiomeBase b() {

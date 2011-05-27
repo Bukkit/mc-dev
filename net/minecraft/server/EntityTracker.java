@@ -31,19 +31,23 @@ public class EntityTracker {
                 }
             }
         } else if (entity instanceof EntityFish) {
-            this.a(entity, 64, 20);
+            this.a(entity, 64, 5, true);
         } else if (entity instanceof EntityItem) {
-            this.a(entity, 64, 20);
+            this.a(entity, 64, 20, true);
         } else if (entity instanceof EntityMinecart) {
-            this.a(entity, 160, 4);
+            this.a(entity, 160, 5, true);
         } else if (entity instanceof EntityBoat) {
-            this.a(entity, 160, 4);
+            this.a(entity, 160, 5, true);
         } else if (entity instanceof IAnimal) {
-            this.a(entity, 160, 2);
+            this.a(entity, 160, 3);
         }
     }
 
     public void a(Entity entity, int i, int j) {
+        this.a(entity, i, j, false);
+    }
+
+    public void a(Entity entity, int i, int j, boolean flag) {
         if (i > this.d) {
             i = this.d;
         }
@@ -51,7 +55,7 @@ public class EntityTracker {
         if (this.b.b(entity.g)) {
             throw new IllegalStateException("Entity is already tracked!");
         } else {
-            EntityTrackerEntry entitytrackerentry = new EntityTrackerEntry(entity, i, j);
+            EntityTrackerEntry entitytrackerentry = new EntityTrackerEntry(entity, i, j, flag);
 
             this.a.add(entitytrackerentry);
             this.b.a(entity.g, entitytrackerentry);
@@ -76,7 +80,7 @@ public class EntityTracker {
             EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
 
             entitytrackerentry.a(this.c.e.d);
-            if (entitytrackerentry.j && entitytrackerentry.a instanceof EntityPlayer) {
+            if (entitytrackerentry.n && entitytrackerentry.a instanceof EntityPlayer) {
                 arraylist.add((EntityPlayer) entitytrackerentry.a);
             }
         }

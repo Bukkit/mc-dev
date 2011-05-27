@@ -13,10 +13,10 @@ public class EntitySlime extends EntityLiving implements IMonster {
         this.c = 1 << this.V.nextInt(3);
         this.G = 0.0F;
         this.d = this.V.nextInt(20) + 10;
-        this.c(this.c);
+        this.d(this.c);
     }
 
-    public void c(int i) {
+    public void d(int i) {
         this.c = i;
         this.a(0.6F * (float) i, 0.6F * (float) i);
         this.aP = i * i;
@@ -71,18 +71,18 @@ public class EntitySlime extends EntityLiving implements IMonster {
                 this.d /= 3;
             }
 
-            this.bj = true;
+            this.bp = true;
             if (this.c > 1) {
                 this.l.a(this, "mob.slime", this.h(), ((this.V.nextFloat() - this.V.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.a = 1.0F;
-            this.bg = 1.0F - this.V.nextFloat() * 2.0F;
-            this.bh = (float) (1 * this.c);
+            this.bm = 1.0F - this.V.nextFloat() * 2.0F;
+            this.bn = (float) (1 * this.c);
         } else {
-            this.bj = false;
+            this.bp = false;
             if (this.A) {
-                this.bg = this.bh = 0.0F;
+                this.bm = this.bn = 0.0F;
             }
         }
     }
@@ -94,7 +94,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
                 float f1 = ((float) (i / 2) - 0.5F) * (float) this.c / 4.0F;
                 EntitySlime entityslime = new EntitySlime(this.l);
 
-                entityslime.c(this.c / 2);
+                entityslime.d(this.c / 2);
                 entityslime.c(this.p + (double) f, this.q + 0.5D, this.r + (double) f1, this.V.nextFloat() * 360.0F, 0.0F);
                 this.l.a((Entity) entityslime);
             }
@@ -103,8 +103,8 @@ public class EntitySlime extends EntityLiving implements IMonster {
         super.l();
     }
 
-    public void a(EntityHuman entityhuman) {
-        if (this.c > 1 && this.g(entityhuman) && (double) this.a((Entity) entityhuman) < 0.6D * (double) this.c && entityhuman.a(this, this.c)) {
+    public void b(EntityHuman entityhuman) {
+        if (this.c > 1 && this.g(entityhuman) && (double) this.a(entityhuman) < 0.6D * (double) this.c && entityhuman.a(this, this.c)) {
             this.l.a(this, "mob.slimeattack", 1.0F, (this.V.nextFloat() - this.V.nextFloat()) * 0.2F + 1.0F);
         }
     }
@@ -122,7 +122,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
     }
 
     public boolean a() {
-        Chunk chunk = this.l.b(MathHelper.b(this.p), MathHelper.b(this.q));
+        Chunk chunk = this.l.b(MathHelper.b(this.p), MathHelper.b(this.r));
 
         return (this.c == 1 || this.l.k > 0) && this.V.nextInt(10) == 0 && chunk.a(987234911L).nextInt(10) == 0 && this.q < 16.0D;
     }

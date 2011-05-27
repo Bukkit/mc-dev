@@ -36,14 +36,14 @@ public class BlockRedstoneOre extends Block {
 
     private void g(World world, int i, int j, int k) {
         this.h(world, i, j, k);
-        if (this.bi == Block.REDSTONE_ORE.bi) {
-            world.d(i, j, k, Block.GLOWING_REDSTONE_ORE.bi);
+        if (this.bh == Block.REDSTONE_ORE.bh) {
+            world.d(i, j, k, Block.GLOWING_REDSTONE_ORE.bh);
         }
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        if (this.bi == Block.GLOWING_REDSTONE_ORE.bi) {
-            world.d(i, j, k, Block.REDSTONE_ORE.bi);
+        if (this.bh == Block.GLOWING_REDSTONE_ORE.bh) {
+            world.d(i, j, k, Block.REDSTONE_ORE.bh);
         }
     }
 

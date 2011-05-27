@@ -79,6 +79,7 @@ public abstract class Packet {
         a(4, Packet4UpdateTime.class);
         a(5, Packet5PlayerInventory.class);
         a(6, Packet6SpawnPosition.class);
+        a(7, Packet7.class);
         a(10, Packet10Flying.class);
         a(11, Packet11PlayerPosition.class);
         a(12, Packet12PlayerLook.class);
@@ -93,12 +94,14 @@ public abstract class Packet {
         a(22, Packet22Collect.class);
         a(23, Packet23VehicleSpawn.class);
         a(24, Packet24MobSpawn.class);
+        a(28, Packet28.class);
         a(29, Packet29DestroyEntity.class);
         a(30, Packet30Entity.class);
         a(31, Packet31RelEntityMove.class);
         a(32, Packet32EntityLook.class);
         a(33, Packet33RelEntityMoveLook.class);
         a(34, Packet34EntityTeleport.class);
+        a(39, Packet39.class);
         a(50, Packet50PreChunk.class);
         a(51, Packet51MapChunk.class);
         a(52, Packet52MultiBlockChange.class);

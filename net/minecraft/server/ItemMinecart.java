@@ -13,8 +13,11 @@ public class ItemMinecart extends Item {
     public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
         int i1 = world.a(i, j, k);
 
-        if (i1 == Block.RAILS.bi) {
-            world.a((Entity) (new EntityMinecart(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.a)));
+        if (i1 == Block.RAILS.bh) {
+            if (!world.z) {
+                world.a((Entity) (new EntityMinecart(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.a)));
+            }
+
             --itemstack.a;
             return true;
         } else {

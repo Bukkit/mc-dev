@@ -6,9 +6,9 @@ public class BlockDoor extends Block {
 
     protected BlockDoor(int i, Material material) {
         super(i, material);
-        this.bh = 97;
+        this.bg = 97;
         if (material == Material.e) {
-            ++this.bh;
+            ++this.bg;
         }
 
         float f = 0.5F;
@@ -56,19 +56,19 @@ public class BlockDoor extends Block {
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (this.bt == Material.e) {
+        if (this.bs == Material.e) {
             return true;
         } else {
             int l = world.b(i, j, k);
 
             if ((l & 8) != 0) {
-                if (world.a(i, j - 1, k) == this.bi) {
+                if (world.a(i, j - 1, k) == this.bh) {
                     this.a(world, i, j - 1, k, entityhuman);
                 }
 
                 return true;
             } else {
-                if (world.a(i, j + 1, k) == this.bi) {
+                if (world.a(i, j + 1, k) == this.bh) {
                     world.b(i, j + 1, k, (l ^ 4) + 8);
                 }
 
@@ -89,14 +89,14 @@ public class BlockDoor extends Block {
         int l = world.b(i, j, k);
 
         if ((l & 8) != 0) {
-            if (world.a(i, j - 1, k) == this.bi) {
+            if (world.a(i, j - 1, k) == this.bh) {
                 this.a(world, i, j - 1, k, flag);
             }
         } else {
             boolean flag1 = (world.b(i, j, k) & 4) > 0;
 
             if (flag1 != flag) {
-                if (world.a(i, j + 1, k) == this.bi) {
+                if (world.a(i, j + 1, k) == this.bh) {
                     world.b(i, j + 1, k, (l ^ 4) + 8);
                 }
 
@@ -115,17 +115,17 @@ public class BlockDoor extends Block {
         int i1 = world.b(i, j, k);
 
         if ((i1 & 8) != 0) {
-            if (world.a(i, j - 1, k) != this.bi) {
+            if (world.a(i, j - 1, k) != this.bh) {
                 world.d(i, j, k, 0);
             }
 
-            if (l > 0 && Block.n[l].c()) {
+            if (l > 0 && Block.m[l].c()) {
                 this.b(world, i, j - 1, k, l);
             }
         } else {
             boolean flag = false;
 
-            if (world.a(i, j + 1, k) != this.bi) {
+            if (world.a(i, j + 1, k) != this.bh) {
                 world.d(i, j, k, 0);
                 flag = true;
             }
@@ -133,14 +133,14 @@ public class BlockDoor extends Block {
             if (!world.d(i, j - 1, k)) {
                 world.d(i, j, k, 0);
                 flag = true;
-                if (world.a(i, j + 1, k) == this.bi) {
+                if (world.a(i, j + 1, k) == this.bh) {
                     world.d(i, j + 1, k, 0);
                 }
             }
 
             if (flag) {
                 this.a_(world, i, j, k, i1);
-            } else if (l > 0 && Block.n[l].c()) {
+            } else if (l > 0 && Block.m[l].c()) {
                 boolean flag1 = world.n(i, j, k) || world.n(i, j + 1, k);
 
                 this.a(world, i, j, k, flag1);
@@ -149,7 +149,7 @@ public class BlockDoor extends Block {
     }
 
     public int a(int i, Random random) {
-        return (i & 8) != 0 ? 0 : (this.bt == Material.e ? Item.IRON_DOOR.aW : Item.WOOD_DOOR.aW);
+        return (i & 8) != 0 ? 0 : (this.bs == Material.e ? Item.IRON_DOOR.aW : Item.WOOD_DOOR.aW);
     }
 
     public MovingObjectPosition a(World world, int i, int j, int k, Vec3D vec3d, Vec3D vec3d1) {

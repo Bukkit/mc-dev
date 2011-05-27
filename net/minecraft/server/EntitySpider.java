@@ -6,7 +6,7 @@ public class EntitySpider extends EntityMonster {
         super(world);
         this.aF = "/mob/spider.png";
         this.a(1.4F, 0.9F);
-        this.bl = 0.8F;
+        this.br = 0.8F;
     }
 
     public double j() {

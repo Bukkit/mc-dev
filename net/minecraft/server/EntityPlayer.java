@@ -22,7 +22,7 @@ public class EntityPlayer extends EntityHuman {
         int j = world.o;
         int k = world.n;
 
-        if (!world.q.c) {
+        if (!world.q.e) {
             i += this.V.nextInt(20) - 10;
             k = world.e(i, j);
             j += this.V.nextInt(20) - 10;
@@ -89,7 +89,7 @@ public class EntityPlayer extends EntityHuman {
 
     public void D() {
         this.s = this.t = this.u = 0.0D;
-        this.bj = false;
+        this.bp = false;
         super.D();
     }
 
@@ -110,7 +110,13 @@ public class EntityPlayer extends EntityHuman {
         }
     }
 
-    protected float s() {
+    public float s() {
         return 1.62F;
+    }
+
+    public void e(Entity entity) {
+        super.e(entity);
+        this.a.b((Packet) (new Packet39(this, this.k)));
+        this.a.a(this.p, this.q, this.r, this.v, this.w);
     }
 }

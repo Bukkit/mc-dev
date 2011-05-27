@@ -82,8 +82,8 @@ public class EntityTypes {
         a(EntityPigZombie.class, "PigZombie", 57);
         a(EntityPig.class, "Pig", 90);
         a(EntitySheep.class, "Sheep", 91);
-        a(EntityCow.class, "Cow", 91);
-        a(EntityChicken.class, "Chicken", 91);
+        a(EntityCow.class, "Cow", 92);
+        a(EntityChicken.class, "Chicken", 93);
         a(EntityTNTPrimed.class, "PrimedTnt", 20);
         a(EntityFallingSand.class, "FallingSand", 21);
         a(EntityMinecart.class, "Minecart", 40);

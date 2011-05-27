@@ -38,9 +38,9 @@ public class ItemSign extends Item {
                 return false;
             } else {
                 if (l == 1) {
-                    world.b(i, j, k, Block.SIGN_POST.bi, MathHelper.b((double) ((entityhuman.v + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15);
+                    world.b(i, j, k, Block.SIGN_POST.bh, MathHelper.b((double) ((entityhuman.v + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15);
                 } else {
-                    world.b(i, j, k, Block.WALL_SIGN.bi, l);
+                    world.b(i, j, k, Block.WALL_SIGN.bh, l);
                 }
 
                 --itemstack.a;

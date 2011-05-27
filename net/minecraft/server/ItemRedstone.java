@@ -36,7 +36,7 @@ public class ItemRedstone extends Item {
         } else {
             if (Block.REDSTONE_WIRE.a(world, i, j, k)) {
                 --itemstack.a;
-                world.d(i, j, k, Block.REDSTONE_WIRE.bi);
+                world.d(i, j, k, Block.REDSTONE_WIRE.bh);
             }
 
             return true;

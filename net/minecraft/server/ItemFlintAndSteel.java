@@ -37,7 +37,7 @@ public class ItemFlintAndSteel extends Item {
 
         if (i1 == 0) {
             world.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, b.nextFloat() * 0.4F + 0.8F);
-            world.d(i, j, k, Block.FIRE.bi);
+            world.d(i, j, k, Block.FIRE.bh);
         }
 
         itemstack.a(1);

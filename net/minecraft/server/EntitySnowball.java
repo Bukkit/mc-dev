@@ -19,6 +19,46 @@ public class EntitySnowball extends Entity {
         this.a(0.25F, 0.25F);
     }
 
+    public EntitySnowball(World world, EntityLiving entityliving) {
+        super(world);
+        this.ai = entityliving;
+        this.a(0.25F, 0.25F);
+        this.c(entityliving.p, entityliving.q, entityliving.r, entityliving.v, entityliving.w);
+        this.p -= (double) (MathHelper.b(this.v / 180.0F * 3.1415927F) * 0.16F);
+        this.q -= 0.10000000149011612D;
+        this.r -= (double) (MathHelper.a(this.v / 180.0F * 3.1415927F) * 0.16F);
+        this.a(this.p, this.q, this.r);
+        this.G = 0.0F;
+        float f = 0.4F;
+
+        this.s = (double) (-MathHelper.a(this.v / 180.0F * 3.1415927F) * MathHelper.b(this.w / 180.0F * 3.1415927F) * f);
+        this.u = (double) (MathHelper.b(this.v / 180.0F * 3.1415927F) * MathHelper.b(this.w / 180.0F * 3.1415927F) * f);
+        this.t = (double) (-MathHelper.a(this.w / 180.0F * 3.1415927F) * f);
+        this.a(this.s, this.t, this.u, 1.5F, 1.0F);
+    }
+
+    public void a(double d0, double d1, double d2, float f, float f1) {
+        float f2 = MathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);
+
+        d0 /= (double) f2;
+        d1 /= (double) f2;
+        d2 /= (double) f2;
+        d0 += this.V.nextGaussian() * 0.007499999832361937D * (double) f1;
+        d1 += this.V.nextGaussian() * 0.007499999832361937D * (double) f1;
+        d2 += this.V.nextGaussian() * 0.007499999832361937D * (double) f1;
+        d0 *= (double) f;
+        d1 *= (double) f;
+        d2 *= (double) f;
+        this.s = d0;
+        this.t = d1;
+        this.u = d2;
+        float f3 = MathHelper.a(d0 * d0 + d2 * d2);
+
+        this.x = this.v = (float) (Math.atan2(d0, d2) * 180.0D / 3.1415927410125732D);
+        this.y = this.w = (float) (Math.atan2(d1, (double) f3) * 180.0D / 3.1415927410125732D);
+        this.aj = 0;
+    }
+
     public void b_() {
         super.b_();
         if (this.a > 0) {
@@ -162,7 +202,7 @@ public class EntitySnowball extends Entity {
         this.f = nbttagcompound.b("inGround") == 1;
     }
 
-    public void a(EntityHuman entityhuman) {
+    public void b(EntityHuman entityhuman) {
         if (this.f && this.ai == entityhuman && this.a <= 0 && entityhuman.ak.a(new ItemStack(Item.ARROW.aW, 1))) {
             this.l.a(this, "random.pop", 0.2F, ((this.V.nextFloat() - this.V.nextFloat()) * 0.7F + 1.0F) * 2.0F);
             entityhuman.c(this, 1);

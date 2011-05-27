@@ -7,9 +7,11 @@ public class WorldProvider {
     public World a;
     public WorldChunkManager b;
     public boolean c = false;
-    public float[] d = new float[16];
-    public int e = 0;
-    private float[] f = new float[4];
+    public boolean d = false;
+    public boolean e = false;
+    public float[] f = new float[16];
+    public int g = 0;
+    private float[] h = new float[4];
 
     public WorldProvider() {}
 
@@ -25,7 +27,7 @@ public class WorldProvider {
         for (int i = 0; i <= 15; ++i) {
             float f1 = 1.0F - (float) i / 15.0F;
 
-            this.d[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
+            this.f[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
         }
     }
 
@@ -44,7 +46,7 @@ public class WorldProvider {
     public boolean a(int i, int j) {
         int k = this.a.a(i, j);
 
-        return k == Block.SAND.bi;
+        return k == Block.SAND.bh;
     }
 
     public float a(long i, float f) {

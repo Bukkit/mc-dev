@@ -17,7 +17,17 @@ public class InventoryPlayer implements IInventory {
         return this.a[this.d];
     }
 
-    private int c(int i) {
+    private int d(int i) {
+        for (int j = 0; j < this.a.length; ++j) {
+            if (this.a[j] != null && this.a[j].c == i) {
+                return j;
+            }
+        }
+
+        return -1;
+    }
+
+    private int e(int i) {
         for (int j = 0; j < this.a.length; ++j) {
             if (this.a[j] != null && this.a[j].c == i && this.a[j].a < this.a[j].b() && this.a[j].a < this.d()) {
                 return j;
@@ -38,7 +48,7 @@ public class InventoryPlayer implements IInventory {
     }
 
     private int a(int i, int j) {
-        int k = this.c(i);
+        int k = this.e(i);
 
         if (k < 0) {
             k = this.g();
@@ -77,6 +87,20 @@ public class InventoryPlayer implements IInventory {
             if (this.a[i] != null && this.a[i].b > 0) {
                 --this.a[i].b;
             }
+        }
+    }
+
+    public boolean b(int i) {
+        int j = this.d(i);
+
+        if (j < 0) {
+            return false;
+        } else {
+            if (--this.a[j].a <= 0) {
+                this.a[j] = null;
+            }
+
+            return true;
         }
     }
 
@@ -207,7 +231,7 @@ public class InventoryPlayer implements IInventory {
     }
 
     public boolean b(Block block) {
-        if (block.bt != Material.d && block.bt != Material.e && block.bt != Material.t && block.bt != Material.s) {
+        if (block.bs != Material.d && block.bs != Material.e && block.bs != Material.t && block.bs != Material.s) {
             return true;
         } else {
             ItemStack itemstack = this.a(this.d);
@@ -242,7 +266,7 @@ public class InventoryPlayer implements IInventory {
         }
     }
 
-    public void b(int i) {
+    public void c(int i) {
         for (int j = 0; j < this.b.length; ++j) {
             if (this.b[j] != null && this.b[j].a() instanceof ItemArmor) {
                 this.b[j].a(i);

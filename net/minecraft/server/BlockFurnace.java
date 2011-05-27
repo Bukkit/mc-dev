@@ -9,11 +9,11 @@ public class BlockFurnace extends BlockContainer {
     protected BlockFurnace(int i, boolean flag) {
         super(i, Material.d);
         this.a = flag;
-        this.bh = 45;
+        this.bg = 45;
     }
 
     public int a(int i, Random random) {
-        return Block.FURNACE.bi;
+        return Block.FURNACE.bh;
     }
 
     public void e(World world, int i, int j, int k) {
@@ -28,19 +28,19 @@ public class BlockFurnace extends BlockContainer {
         int k1 = world.a(i + 1, j, k);
         byte b0 = 3;
 
-        if (Block.p[l] && !Block.p[i1]) {
+        if (Block.o[l] && !Block.o[i1]) {
             b0 = 3;
         }
 
-        if (Block.p[i1] && !Block.p[l]) {
+        if (Block.o[i1] && !Block.o[l]) {
             b0 = 2;
         }
 
-        if (Block.p[j1] && !Block.p[k1]) {
+        if (Block.o[j1] && !Block.o[k1]) {
             b0 = 5;
         }
 
-        if (Block.p[k1] && !Block.p[j1]) {
+        if (Block.o[k1] && !Block.o[j1]) {
             b0 = 4;
         }
 
@@ -48,7 +48,7 @@ public class BlockFurnace extends BlockContainer {
     }
 
     public int a(int i) {
-        return i == 1 ? Block.STONE.bi : (i == 0 ? Block.STONE.bi : (i == 3 ? this.bh - 1 : this.bh));
+        return i == 1 ? Block.STONE.bh : (i == 0 ? Block.STONE.bh : (i == 3 ? this.bg - 1 : this.bg));
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
@@ -63,9 +63,9 @@ public class BlockFurnace extends BlockContainer {
         TileEntity tileentity = world.k(i, j, k);
 
         if (flag) {
-            world.d(i, j, k, Block.BURNING_FURNACE.bi);
+            world.d(i, j, k, Block.BURNING_FURNACE.bh);
         } else {
-            world.d(i, j, k, Block.FURNACE.bi);
+            world.d(i, j, k, Block.FURNACE.bh);
         }
 
         world.b(i, j, k, l);

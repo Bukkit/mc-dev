@@ -13,7 +13,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
         float f = this.b(1.0F);
 
         if (f > 0.5F) {
-            this.bf += 2;
+            this.bl += 2;
         }
 
         super.D();

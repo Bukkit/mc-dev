@@ -16,7 +16,7 @@ public class EntitySheep extends EntityAnimal {
             int j = 1 + this.V.nextInt(3);
 
             for (int k = 0; k < j; ++k) {
-                EntityItem entityitem = this.a(Block.WOOL.bi, 1, 1.0F);
+                EntityItem entityitem = this.a(Block.WOOL.bh, 1, 1.0F);
 
                 entityitem.t += (double) (this.V.nextFloat() * 0.05F);
                 entityitem.s += (double) ((this.V.nextFloat() - this.V.nextFloat()) * 0.1F);

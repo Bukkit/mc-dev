@@ -35,7 +35,7 @@ public class MetadataChunkBlock {
                                 int l1 = world.a(this.a, i1, k1, j1);
                                 boolean flag = false;
                                 int i2 = world.a(i1, k1, j1);
-                                int j2 = Block.r[i2];
+                                int j2 = Block.q[i2];
 
                                 if (j2 == 0) {
                                     j2 = 1;
@@ -48,7 +48,7 @@ public class MetadataChunkBlock {
                                         k2 = 15;
                                     }
                                 } else if (this.a == EnumSkyBlock.BLOCK) {
-                                    k2 = Block.t[i2];
+                                    k2 = Block.s[i2];
                                 }
 
                                 int l2;

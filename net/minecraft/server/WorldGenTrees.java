@@ -31,7 +31,7 @@ public class WorldGenTrees extends WorldGenerator {
                     for (k1 = k - b0; k1 <= k + b0 && flag; ++k1) {
                         if (i1 >= 0 && i1 < 128) {
                             l1 = world.a(j1, i1, k1);
-                            if (l1 != 0 && l1 != Block.LEAVES.bi) {
+                            if (l1 != 0 && l1 != Block.LEAVES.bh) {
                                 flag = false;
                             }
                         } else {
@@ -45,8 +45,8 @@ public class WorldGenTrees extends WorldGenerator {
                 return false;
             } else {
                 i1 = world.a(i, j - 1, k);
-                if ((i1 == Block.GRASS.bi || i1 == Block.DIRT.bi) && j < 128 - l - 1) {
-                    world.a(i, j - 1, k, Block.DIRT.bi);
+                if ((i1 == Block.GRASS.bh || i1 == Block.DIRT.bh) && j < 128 - l - 1) {
+                    world.a(i, j - 1, k, Block.DIRT.bh);
 
                     int i2;
 
@@ -60,8 +60,8 @@ public class WorldGenTrees extends WorldGenerator {
                             for (int k2 = k - k1; k2 <= k + k1; ++k2) {
                                 int l2 = k2 - k;
 
-                                if ((Math.abs(j2) != k1 || Math.abs(l2) != k1 || random.nextInt(2) != 0 && j1 != 0) && !Block.p[world.a(l1, i2, k2)]) {
-                                    world.a(l1, i2, k2, Block.LEAVES.bi);
+                                if ((Math.abs(j2) != k1 || Math.abs(l2) != k1 || random.nextInt(2) != 0 && j1 != 0) && !Block.o[world.a(l1, i2, k2)]) {
+                                    world.a(l1, i2, k2, Block.LEAVES.bh);
                                 }
                             }
                         }
@@ -69,8 +69,8 @@ public class WorldGenTrees extends WorldGenerator {
 
                     for (i2 = 0; i2 < l; ++i2) {
                         j1 = world.a(i, j + i2, k);
-                        if (j1 == 0 || j1 == Block.LEAVES.bi) {
-                            world.a(i, j + i2, k, Block.LOG.bi);
+                        if (j1 == 0 || j1 == Block.LEAVES.bh) {
+                            world.a(i, j + i2, k, Block.LOG.bh);
                         }
                     }
 

@@ -131,7 +131,7 @@ class PlayerInstance {
                 j = this.j;
                 k = this.d * 16 + this.l;
                 this.a((Packet) (new Packet53BlockChange(i, j, k, PlayerManager.a(this.a).e)));
-                if (Block.q[PlayerManager.a(this.a).e.a(i, j, k)]) {
+                if (Block.p[PlayerManager.a(this.a).e.a(i, j, k)]) {
                     this.a((Packet) (new Packet59ComplexEntity(i, j, k, PlayerManager.a(this.a).e.k(i, j, k))));
                 }
             } else {
@@ -162,7 +162,7 @@ class PlayerInstance {
                         j = this.c * 16 + (this.g >> 12 & 15);
                         k = this.g & 255;
                         l = this.d * 16 + (this.g >> 8 & 15);
-                        if (Block.q[PlayerManager.a(this.a).e.a(j, k, l)]) {
+                        if (Block.p[PlayerManager.a(this.a).e.a(j, k, l)]) {
                             this.a((Packet) (new Packet59ComplexEntity(j, k, l, PlayerManager.a(this.a).e.k(j, k, l))));
                         }
                     }

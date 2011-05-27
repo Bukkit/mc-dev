@@ -24,7 +24,7 @@ public class EntityHuman extends EntityLiving {
         this.aI = "humanoid";
         this.aH = 180.0F;
         this.X = 20;
-        this.aF = "/char.png";
+        this.aF = "/mob/char.png";
     }
 
     public void y() {
@@ -84,7 +84,7 @@ public class EntityHuman extends EntityLiving {
     }
 
     private void h(Entity entity) {
-        entity.a(this);
+        entity.b(this);
     }
 
     public void f(Entity entity) {
@@ -188,12 +188,12 @@ public class EntityHuman extends EntityLiving {
 
     public void c(Entity entity, int i) {}
 
-    protected float s() {
+    public float s() {
         return 0.12F;
     }
 
     public boolean a(Entity entity, int i) {
-        this.bf = 0;
+        this.bl = 0;
         if (this.aP <= 0) {
             return false;
         } else {
@@ -211,17 +211,18 @@ public class EntityHuman extends EntityLiving {
                 }
             }
 
-            if ((float) this.ab <= (float) this.au / 2.0F) {
-                int j = 25 - this.ak.e();
-                int k = i * j + this.a;
-
-                this.ak.b(i);
-                i = k / 25;
-                this.a = k % 25;
-            }
-
             return i == 0 ? false : super.a(entity, i);
         }
+    }
+
+    protected void c(int i) {
+        int j = 25 - this.ak.e();
+        int k = i * j + this.a;
+
+        this.ak.c(i);
+        i = k / 25;
+        this.a = k % 25;
+        super.c(i);
     }
 
     public void a(TileEntityFurnace tileentityfurnace) {}

@@ -8,7 +8,7 @@ public class WorldGenClay extends WorldGenerator {
     private int b;
 
     public WorldGenClay(int i) {
-        this.a = Block.CLAY.bi;
+        this.a = Block.CLAY.bh;
         this.b = i;
     }
 
@@ -42,7 +42,7 @@ public class WorldGenClay extends WorldGenerator {
                             if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D) {
                                 int l1 = world.a(i1, j1, k1);
 
-                                if (l1 == Block.SAND.bi) {
+                                if (l1 == Block.SAND.bh) {
                                     world.a(i1, j1, k1, this.a);
                                 }
                             }
