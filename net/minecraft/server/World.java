@@ -1747,7 +1747,7 @@ public class World implements IBlockAccess {
             EntityHuman entityhuman = (EntityHuman) iterator.next();
 
             if (entityhuman.isSleeping()) {
-                entityhuman.a(false, false, false);
+                entityhuman.a(false, false, true);
             }
         }
     }

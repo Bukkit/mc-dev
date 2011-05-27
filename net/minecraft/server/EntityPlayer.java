@@ -207,12 +207,12 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         super.a(d0, flag);
     }
 
-    private void aa() {
+    private void Z() {
         this.bH = this.bH % 100 + 1;
     }
 
     public void b(int i, int j, int k) {
-        this.aa();
+        this.Z();
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bH, 1, "Crafting", 9));
         this.activeContainer = new ContainerWorkbench(this.inventory, this.world, i, j, k);
         this.activeContainer.f = this.bH;
@@ -220,7 +220,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void a(IInventory iinventory) {
-        this.aa();
+        this.Z();
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bH, 0, iinventory.getName(), iinventory.getSize()));
         this.activeContainer = new ContainerChest(this.inventory, iinventory);
         this.activeContainer.f = this.bH;
@@ -228,7 +228,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void a(TileEntityFurnace tileentityfurnace) {
-        this.aa();
+        this.Z();
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bH, 2, tileentityfurnace.getName(), tileentityfurnace.getSize()));
         this.activeContainer = new ContainerFurnace(this.inventory, tileentityfurnace);
         this.activeContainer.f = this.bH;
@@ -236,7 +236,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void a(TileEntityDispenser tileentitydispenser) {
-        this.aa();
+        this.Z();
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bH, 3, tileentitydispenser.getName(), tileentitydispenser.getSize()));
         this.activeContainer = new ContainerDispenser(this.inventory, tileentitydispenser);
         this.activeContainer.f = this.bH;

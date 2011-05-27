@@ -71,7 +71,7 @@ public class EntityMinecart extends Entity implements IInventory {
         if (!this.world.isStatic && !this.dead) {
             this.c = -this.c;
             this.b = 10;
-            this.W();
+            this.V();
             this.damage += i * 10;
             if (this.damage > 40) {
                 this.a(Item.MINECART.id, 1, 0.0F);

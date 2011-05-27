@@ -454,7 +454,7 @@ public abstract class EntityHuman extends EntityLiving {
             }
 
             if (entity instanceof EntityLiving) {
-                if (entity.N()) {
+                if (entity.M()) {
                     this.a((EntityLiving) entity, true);
                 }
 
@@ -478,7 +478,7 @@ public abstract class EntityHuman extends EntityLiving {
     }
 
     public EnumBedError a(int i, int j, int k) {
-        if (!this.isSleeping() && this.N()) {
+        if (!this.isSleeping() && this.M()) {
             if (this.world.worldProvider.c) {
                 return EnumBedError.NOT_POSSIBLE_HERE;
             } else if (this.world.d()) {
@@ -680,6 +680,4 @@ public abstract class EntityHuman extends EntityLiving {
 
         super.a(f);
     }
-
-    public void J() {}
 }

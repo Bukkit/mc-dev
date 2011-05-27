@@ -108,7 +108,7 @@ public abstract class Entity {
 
     protected abstract void a();
 
-    public DataWatcher T() {
+    public DataWatcher S() {
         return this.datawatcher;
     }
 
@@ -145,10 +145,10 @@ public abstract class Entity {
     }
 
     public void f_() {
-        this.L();
+        this.K();
     }
 
-    public void L() {
+    public void K() {
         if (this.vehicle != null && this.vehicle.dead) {
             this.vehicle = null;
         }
@@ -212,12 +212,12 @@ public abstract class Entity {
             }
         }
 
-        if (this.V()) {
-            this.U();
+        if (this.U()) {
+            this.T();
         }
 
         if (this.locY < -64.0D) {
-            this.R();
+            this.Q();
         }
 
         if (!this.world.isStatic) {
@@ -228,14 +228,14 @@ public abstract class Entity {
         this.justCreated = false;
     }
 
-    protected void U() {
+    protected void T() {
         if (!this.by) {
             this.damageEntity((Entity) null, 4);
             this.fireTicks = 600;
         }
     }
 
-    protected void R() {
+    protected void Q() {
         this.die();
     }
 
@@ -526,7 +526,7 @@ public abstract class Entity {
         return 0.0F;
     }
 
-    public boolean V() {
+    public boolean U() {
         return this.world.a(this.boundingBox.b(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.LAVA);
     }
 
@@ -656,12 +656,12 @@ public abstract class Entity {
         this.motZ += d2;
     }
 
-    protected void W() {
+    protected void V() {
         this.velocityChanged = true;
     }
 
     public boolean damageEntity(Entity entity, int i) {
-        this.W();
+        this.V();
         return false;
     }
 
@@ -676,7 +676,7 @@ public abstract class Entity {
     public void c(Entity entity, int i) {}
 
     public boolean c(NBTTagCompound nbttagcompound) {
-        String s = this.X();
+        String s = this.W();
 
         if (!this.dead && s != null) {
             nbttagcompound.setString("id", s);
@@ -732,7 +732,7 @@ public abstract class Entity {
         this.b(nbttagcompound);
     }
 
-    protected final String X() {
+    protected final String W() {
         return EntityTypes.b(this);
     }
 
@@ -784,7 +784,7 @@ public abstract class Entity {
         return entityitem;
     }
 
-    public boolean N() {
+    public boolean M() {
         return !this.dead;
     }
 
@@ -898,11 +898,11 @@ public abstract class Entity {
         }
     }
 
-    public Vec3D S() {
+    public Vec3D R() {
         return null;
     }
 
-    public void Y() {}
+    public void X() {}
 
     public ItemStack[] getEquipment() {
         return null;

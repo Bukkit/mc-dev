@@ -135,7 +135,7 @@ public class BlockPortal extends BlockBreakable {
 
     public void a(World world, int i, int j, int k, Entity entity) {
         if (!world.isStatic) {
-            entity.Y();
+            entity.X();
         }
     }
 }

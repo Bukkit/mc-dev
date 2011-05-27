@@ -115,7 +115,7 @@ public class Block {
     public static final Block CAKE_BLOCK = (new BlockCake(92, 121)).c(0.5F).a(k).a("cake");
     public static final Block DIODE_OFF = (new BlockDiode(93, false)).c(0.0F).a(e).a("diode");
     public static final Block DIODE_ON = (new BlockDiode(94, true)).c(0.0F).a(0.625F).a(e).a("diode");
-    public static final Block LOCKED_CHEST = (new BlockLockedChest(95)).c(-1.0F).a(1.0F).a(e).a("lockedchest");
+    public static final Block LOCKED_CHEST = (new BlockLockedChest(95)).c(0.0F).a(1.0F).a(e).a("lockedchest").a(true);
     public int textureId;
     public final int id;
     protected float strength;
@@ -184,8 +184,9 @@ public class Block {
         return this;
     }
 
-    protected void a(boolean flag) {
+    protected Block a(boolean flag) {
         n[this.id] = flag;
+        return this;
     }
 
     public void a(float f, float f1, float f2, float f3, float f4, float f5) {

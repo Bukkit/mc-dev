@@ -23,7 +23,7 @@ public class EntityCreature extends EntityLiving {
             if (this.target != null) {
                 this.pathEntity = this.world.findPath(this, this.target, f);
             }
-        } else if (!this.target.N()) {
+        } else if (!this.target.M()) {
             this.target = null;
         } else {
             float f1 = this.target.f(this);
@@ -64,7 +64,7 @@ public class EntityCreature extends EntityLiving {
 
         int l1 = MathHelper.floor(this.boundingBox.b);
         boolean flag1 = this.g_();
-        boolean flag2 = this.V();
+        boolean flag2 = this.U();
 
         this.pitch = 0.0F;
         if (this.pathEntity != null && this.random.nextInt(100) != 0) {

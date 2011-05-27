@@ -15,7 +15,7 @@ public class EntityFlying extends EntityLiving {
             this.motX *= 0.800000011920929D;
             this.motY *= 0.800000011920929D;
             this.motZ *= 0.800000011920929D;
-        } else if (this.V()) {
+        } else if (this.U()) {
             this.a(f, f1, 0.02F);
             this.move(this.motX, this.motY, this.motZ);
             this.motX *= 0.5D;

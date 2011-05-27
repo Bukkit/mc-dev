@@ -113,8 +113,8 @@ public class EntityWolf extends EntityAnimal {
     public void r() {
         super.r();
         this.a = false;
-        if (this.O() && !this.z() && !this.x()) {
-            Entity entity = this.P();
+        if (this.N() && !this.z() && !this.x()) {
+            Entity entity = this.O();
 
             if (entity instanceof EntityHuman) {
                 EntityHuman entityhuman = (EntityHuman) entity;

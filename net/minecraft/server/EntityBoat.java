@@ -62,7 +62,7 @@ public class EntityBoat extends Entity {
             this.c = -this.c;
             this.b = 10;
             this.damage += i * 10;
-            this.W();
+            this.V();
             if (this.damage > 40) {
                 int j;
 

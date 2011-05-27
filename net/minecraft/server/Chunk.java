@@ -586,12 +586,6 @@ public class Chunk {
     }
 
     public void h() {
-        for (int i = 0; i < this.b.length; ++i) {
-            byte b0 = this.b[i];
-
-            if (b0 != 0 && Block.byId[b0 & 255] == null) {
-                this.b[i] = 0;
-            }
-        }
+        BlockRegister.a(this.b);
     }
 }

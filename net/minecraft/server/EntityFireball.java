@@ -187,9 +187,9 @@ public class EntityFireball extends Entity {
     }
 
     public boolean damageEntity(Entity entity, int i) {
-        this.W();
+        this.V();
         if (entity != null) {
-            Vec3D vec3d = entity.S();
+            Vec3D vec3d = entity.R();
 
             if (vec3d != null) {
                 this.motX = vec3d.a;

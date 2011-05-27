@@ -164,7 +164,7 @@ public class EntityItem extends Entity {
     }
 
     public boolean damageEntity(Entity entity, int i) {
-        this.W();
+        this.V();
         this.f -= i;
         if (this.f <= 0) {
             this.die();

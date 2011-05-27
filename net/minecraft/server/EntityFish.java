@@ -96,7 +96,7 @@ public class EntityFish extends Entity {
             if (!this.world.isStatic) {
                 ItemStack itemstack = this.owner.A();
 
-                if (this.owner.dead || !this.owner.N() || itemstack == null || itemstack.getItem() != Item.FISHING_ROD || this.g(this.owner) > 1024.0D) {
+                if (this.owner.dead || !this.owner.M() || itemstack == null || itemstack.getItem() != Item.FISHING_ROD || this.g(this.owner) > 1024.0D) {
                     this.die();
                     this.owner.hookedFish = null;
                     return;

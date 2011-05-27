@@ -233,7 +233,7 @@ public final class SpawnerCreature {
                                     world.addEntity(entityliving);
                                     a(entityliving, world, (float) chunkcoordinates.x + 0.5F, (float) chunkcoordinates.y, (float) chunkcoordinates.z + 0.5F);
                                     entityhuman.a(true, false, false);
-                                    entityliving.K();
+                                    entityliving.J();
                                     flag = true;
                                     flag1 = true;
                                 }
