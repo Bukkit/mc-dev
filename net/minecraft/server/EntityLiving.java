@@ -4,69 +4,69 @@ import java.util.List;
 
 public class EntityLiving extends Entity {
 
-    public int av = 20;
-    public float aw;
+    public int aw = 20;
     public float ax;
     public float ay;
-    public float az = 0.0F;
+    public float az;
     public float aA = 0.0F;
-    protected float aB;
+    public float aB = 0.0F;
     protected float aC;
     protected float aD;
     protected float aE;
-    protected boolean aF = true;
-    protected String aG = "/mob/char.png";
-    protected boolean aH = true;
-    protected float aI = 0.0F;
-    protected String aJ = null;
-    protected float aK = 1.0F;
-    protected int aL = 0;
-    protected float aM = 0.0F;
-    public boolean aN = false;
-    public float aO;
+    protected float aF;
+    protected boolean aG = true;
+    protected String aH = "/mob/char.png";
+    protected boolean aI = true;
+    protected float aJ = 0.0F;
+    protected String aK = null;
+    protected float aL = 1.0F;
+    protected int aM = 0;
+    protected float aN = 0.0F;
+    public boolean aO = false;
     public float aP;
-    public int aQ = 10;
-    public int aR;
-    private int a;
+    public float aQ;
+    public int aR = 10;
     public int aS;
+    private int a;
     public int aT;
-    public float aU = 0.0F;
-    public int aV = 0;
+    public int aU;
+    public float aV = 0.0F;
     public int aW = 0;
-    public float aX;
+    public int aX = 0;
     public float aY;
-    protected boolean aZ = false;
-    public int ba = -1;
-    public float bb = (float) (Math.random() * 0.8999999761581421D + 0.10000000149011612D);
-    public float bc;
+    public float aZ;
+    protected boolean ba = false;
+    public int bb = -1;
+    public float bc = (float) (Math.random() * 0.8999999761581421D + 0.10000000149011612D);
     public float bd;
     public float be;
-    protected int bf;
-    protected double bg;
+    public float bf;
+    protected int bg;
     protected double bh;
     protected double bi;
     protected double bj;
     protected double bk;
-    float bl = 0.0F;
-    protected int bm = 0;
+    protected double bl;
+    float bm = 0.0F;
     protected int bn = 0;
-    protected float bo;
+    protected int bo = 0;
     protected float bp;
     protected float bq;
-    protected boolean br = false;
-    protected float bs = 0.0F;
-    protected float bt = 0.7F;
+    protected float br;
+    protected boolean bs = false;
+    protected float bt = 0.0F;
+    protected float bu = 0.7F;
     private Entity b;
     private int c = 0;
 
     public EntityLiving(World world) {
         super(world);
         this.i = true;
-        this.ay = (float) (Math.random() + 1.0D) * 0.01F;
+        this.az = (float) (Math.random() + 1.0D) * 0.01F;
         this.a(this.p, this.q, this.r);
-        this.aw = (float) Math.random() * 12398.0F;
+        this.ax = (float) Math.random() * 12398.0F;
         this.v = (float) (Math.random() * 3.1415927410125732D * 2.0D);
-        this.ax = 1.0F;
+        this.ay = 1.0F;
         this.S = 0.5F;
     }
 
@@ -91,7 +91,7 @@ public class EntityLiving extends Entity {
     }
 
     public void m() {
-        this.aO = this.aP;
+        this.aP = this.aQ;
         super.m();
         if (this.W.nextInt(1000) < this.a++) {
             this.a = -this.b();
@@ -133,22 +133,22 @@ public class EntityLiving extends Entity {
             this.ad = this.aa;
         }
 
-        this.aX = this.aY;
-        if (this.aW > 0) {
-            --this.aW;
+        this.aY = this.aZ;
+        if (this.aX > 0) {
+            --this.aX;
         }
 
-        if (this.aS > 0) {
-            --this.aS;
+        if (this.aT > 0) {
+            --this.aT;
         }
 
         if (this.ac > 0) {
             --this.ac;
         }
 
-        if (this.aQ <= 0) {
-            ++this.aV;
-            if (this.aV > 20) {
+        if (this.aR <= 0) {
+            ++this.aW;
+            if (this.aW > 20) {
                 this.L();
                 this.l();
 
@@ -162,8 +162,8 @@ public class EntityLiving extends Entity {
             }
         }
 
-        this.aE = this.aD;
-        this.aA = this.az;
+        this.aF = this.aE;
+        this.aB = this.aA;
         this.x = this.v;
         this.y = this.w;
     }
@@ -181,8 +181,8 @@ public class EntityLiving extends Entity {
 
     public void z() {
         super.z();
-        this.aB = this.aC;
-        this.aC = 0.0F;
+        this.aC = this.aD;
+        this.aD = 0.0F;
     }
 
     public void b_() {
@@ -191,10 +191,10 @@ public class EntityLiving extends Entity {
         double d0 = this.p - this.m;
         double d1 = this.r - this.o;
         float f = MathHelper.a(d0 * d0 + d1 * d1);
-        float f1 = this.az;
+        float f1 = this.aA;
         float f2 = 0.0F;
 
-        this.aB = this.aC;
+        this.aC = this.aD;
         float f3 = 0.0F;
 
         if (f > 0.05F) {
@@ -203,7 +203,7 @@ public class EntityLiving extends Entity {
             f1 = (float) Math.atan2(d1, d0) * 180.0F / 3.1415927F - 90.0F;
         }
 
-        if (this.aP > 0.0F) {
+        if (this.aQ > 0.0F) {
             f1 = this.v;
         }
 
@@ -211,11 +211,11 @@ public class EntityLiving extends Entity {
             f3 = 0.0F;
         }
 
-        this.aC += (f3 - this.aC) * 0.3F;
+        this.aD += (f3 - this.aD) * 0.3F;
 
         float f4;
 
-        for (f4 = f1 - this.az; f4 < -180.0F; f4 += 360.0F) {
+        for (f4 = f1 - this.aA; f4 < -180.0F; f4 += 360.0F) {
             ;
         }
 
@@ -223,11 +223,11 @@ public class EntityLiving extends Entity {
             f4 -= 360.0F;
         }
 
-        this.az += f4 * 0.3F;
+        this.aA += f4 * 0.3F;
 
         float f5;
 
-        for (f5 = this.v - this.az; f5 < -180.0F; f5 += 360.0F) {
+        for (f5 = this.v - this.aA; f5 < -180.0F; f5 += 360.0F) {
             ;
         }
 
@@ -245,9 +245,9 @@ public class EntityLiving extends Entity {
             f5 = 75.0F;
         }
 
-        this.az = this.v - f5;
+        this.aA = this.v - f5;
         if (f5 * f5 > 2500.0F) {
-            this.az += f5 * 0.2F;
+            this.aA += f5 * 0.2F;
         }
 
         if (flag) {
@@ -262,12 +262,12 @@ public class EntityLiving extends Entity {
             this.x += 360.0F;
         }
 
-        while (this.az - this.aA < -180.0F) {
-            this.aA -= 360.0F;
+        while (this.aA - this.aB < -180.0F) {
+            this.aB -= 360.0F;
         }
 
-        while (this.az - this.aA >= 180.0F) {
-            this.aA += 360.0F;
+        while (this.aA - this.aB >= 180.0F) {
+            this.aB += 360.0F;
         }
 
         while (this.w - this.y < -180.0F) {
@@ -278,7 +278,7 @@ public class EntityLiving extends Entity {
             this.y += 360.0F;
         }
 
-        this.aD += f2;
+        this.aE += f2;
     }
 
     protected void a(float f, float f1) {
@@ -286,13 +286,13 @@ public class EntityLiving extends Entity {
     }
 
     public void a(int i) {
-        if (this.aQ > 0) {
-            this.aQ += i;
-            if (this.aQ > 20) {
-                this.aQ = 20;
+        if (this.aR > 0) {
+            this.aR += i;
+            if (this.aR > 20) {
+                this.aR = 20;
             }
 
-            this.ac = this.av / 2;
+            this.ac = this.aw / 2;
         }
     }
 
@@ -300,31 +300,32 @@ public class EntityLiving extends Entity {
         if (this.l.z) {
             return false;
         } else {
-            this.bn = 0;
-            if (this.aQ <= 0) {
+            this.bo = 0;
+            if (this.aR <= 0) {
                 return false;
             } else {
-                this.bd = 1.5F;
+                this.be = 1.5F;
                 boolean flag = true;
 
-                if ((float) this.ac > (float) this.av / 2.0F) {
-                    if (i <= this.bm) {
+                if ((float) this.ac > (float) this.aw / 2.0F) {
+                    if (i <= this.bn) {
                         return false;
                     }
 
-                    this.c(i - this.bm);
-                    this.bm = i;
+                    this.c(i - this.bn);
+                    this.bn = i;
                     flag = false;
                 } else {
-                    this.bm = i;
-                    this.aR = this.aQ;
-                    this.ac = this.av;
+                    this.bn = i;
+                    this.aS = this.aR;
+                    this.ac = this.aw;
                     this.c(i);
-                    this.aS = this.aT = 10;
+                    this.aT = this.aU = 10;
                 }
 
-                this.aU = 0.0F;
+                this.aV = 0.0F;
                 if (flag) {
+                    this.l.a(this, (byte) 2);
                     this.u();
                     if (entity != null) {
                         double d0 = entity.p - this.p;
@@ -335,14 +336,14 @@ public class EntityLiving extends Entity {
                             d0 = (Math.random() - Math.random()) * 0.01D;
                         }
 
-                        this.aU = (float) (Math.atan2(d1, d0) * 180.0D / 3.1415927410125732D) - this.v;
+                        this.aV = (float) (Math.atan2(d1, d0) * 180.0D / 3.1415927410125732D) - this.v;
                         this.a(entity, i, d0, d1);
                     } else {
-                        this.aU = (float) ((int) (Math.random() * 2.0D) * 180);
+                        this.aV = (float) ((int) (Math.random() * 2.0D) * 180);
                     }
                 }
 
-                if (this.aQ <= 0) {
+                if (this.aR <= 0) {
                     if (flag) {
                         this.l.a(this, this.f(), this.h(), (this.W.nextFloat() - this.W.nextFloat()) * 0.2F + 1.0F);
                     }
@@ -358,7 +359,7 @@ public class EntityLiving extends Entity {
     }
 
     protected void c(int i) {
-        this.aQ -= i;
+        this.aR -= i;
     }
 
     protected float h() {
@@ -393,11 +394,11 @@ public class EntityLiving extends Entity {
     }
 
     public void f(Entity entity) {
-        if (this.aL > 0 && entity != null) {
-            entity.b(this, this.aL);
+        if (this.aM > 0 && entity != null) {
+            entity.b(this, this.aM);
         }
 
-        this.aZ = true;
+        this.ba = true;
         if (!this.l.z) {
             int i = this.g();
 
@@ -500,7 +501,7 @@ public class EntityLiving extends Entity {
             this.u *= (double) f2;
         }
 
-        this.bc = this.bd;
+        this.bd = this.be;
         d0 = this.p - this.m;
         double d1 = this.r - this.o;
         float f4 = MathHelper.a(d0 * d0 + d1 * d1) * 4.0F;
@@ -509,8 +510,8 @@ public class EntityLiving extends Entity {
             f4 = 1.0F;
         }
 
-        this.bd += (f4 - this.bd) * 0.4F;
-        this.be += this.bd;
+        this.be += (f4 - this.be) * 0.4F;
+        this.bf += this.be;
     }
 
     public boolean d_() {
@@ -522,36 +523,36 @@ public class EntityLiving extends Entity {
     }
 
     public void a(NBTTagCompound nbttagcompound) {
-        nbttagcompound.a("Health", (short) this.aQ);
-        nbttagcompound.a("HurtTime", (short) this.aS);
-        nbttagcompound.a("DeathTime", (short) this.aV);
-        nbttagcompound.a("AttackTime", (short) this.aW);
+        nbttagcompound.a("Health", (short) this.aR);
+        nbttagcompound.a("HurtTime", (short) this.aT);
+        nbttagcompound.a("DeathTime", (short) this.aW);
+        nbttagcompound.a("AttackTime", (short) this.aX);
     }
 
     public void b(NBTTagCompound nbttagcompound) {
-        this.aQ = nbttagcompound.c("Health");
+        this.aR = nbttagcompound.c("Health");
         if (!nbttagcompound.a("Health")) {
-            this.aQ = 10;
+            this.aR = 10;
         }
 
-        this.aS = nbttagcompound.c("HurtTime");
-        this.aV = nbttagcompound.c("DeathTime");
-        this.aW = nbttagcompound.c("AttackTime");
+        this.aT = nbttagcompound.c("HurtTime");
+        this.aW = nbttagcompound.c("DeathTime");
+        this.aX = nbttagcompound.c("AttackTime");
     }
 
     public boolean x() {
-        return !this.G && this.aQ > 0;
+        return !this.G && this.aR > 0;
     }
 
     public void E() {
-        if (this.bf > 0) {
-            double d0 = this.p + (this.bg - this.p) / (double) this.bf;
-            double d1 = this.q + (this.bh - this.q) / (double) this.bf;
-            double d2 = this.r + (this.bi - this.r) / (double) this.bf;
+        if (this.bg > 0) {
+            double d0 = this.p + (this.bh - this.p) / (double) this.bg;
+            double d1 = this.q + (this.bi - this.q) / (double) this.bg;
+            double d2 = this.r + (this.bj - this.r) / (double) this.bg;
 
             double d3;
 
-            for (d3 = this.bj - (double) this.v; d3 < -180.0D; d3 += 360.0D) {
+            for (d3 = this.bk - (double) this.v; d3 < -180.0D; d3 += 360.0D) {
                 ;
             }
 
@@ -559,26 +560,26 @@ public class EntityLiving extends Entity {
                 d3 -= 360.0D;
             }
 
-            this.v = (float) ((double) this.v + d3 / (double) this.bf);
-            this.w = (float) ((double) this.w + (this.bk - (double) this.w) / (double) this.bf);
-            --this.bf;
+            this.v = (float) ((double) this.v + d3 / (double) this.bg);
+            this.w = (float) ((double) this.w + (this.bl - (double) this.w) / (double) this.bg);
+            --this.bg;
             this.a(d0, d1, d2);
             this.b(this.v, this.w);
         }
 
-        if (this.aQ <= 0) {
-            this.br = false;
-            this.bo = 0.0F;
+        if (this.aR <= 0) {
+            this.bs = false;
             this.bp = 0.0F;
             this.bq = 0.0F;
-        } else if (!this.aN) {
+            this.br = 0.0F;
+        } else if (!this.aO) {
             this.c();
         }
 
         boolean flag = this.r();
         boolean flag1 = this.t();
 
-        if (this.br) {
+        if (this.bs) {
             if (flag) {
                 this.t += 0.03999999910593033D;
             } else if (flag1) {
@@ -588,10 +589,10 @@ public class EntityLiving extends Entity {
             }
         }
 
-        this.bo *= 0.98F;
         this.bp *= 0.98F;
-        this.bq *= 0.9F;
-        this.c(this.bo, this.bp);
+        this.bq *= 0.98F;
+        this.br *= 0.9F;
+        this.c(this.bp, this.bq);
         List list = this.l.b((Entity) this, this.z.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
 
         if (list != null && list.size() > 0) {
@@ -610,7 +611,7 @@ public class EntityLiving extends Entity {
     }
 
     protected void c() {
-        ++this.bn;
+        ++this.bo;
         EntityHuman entityhuman = this.l.a(this, -1.0D);
 
         if (entityhuman != null) {
@@ -623,17 +624,17 @@ public class EntityLiving extends Entity {
                 this.l();
             }
 
-            if (this.bn > 600 && this.W.nextInt(800) == 0) {
+            if (this.bo > 600 && this.W.nextInt(800) == 0) {
                 if (d3 < 1024.0D) {
-                    this.bn = 0;
+                    this.bo = 0;
                 } else {
                     this.l();
                 }
             }
         }
 
-        this.bo = 0.0F;
         this.bp = 0.0F;
+        this.bq = 0.0F;
         float f = 8.0F;
 
         if (this.W.nextFloat() < 0.02F) {
@@ -642,7 +643,7 @@ public class EntityLiving extends Entity {
                 this.b = entityhuman;
                 this.c = 10 + this.W.nextInt(20);
             } else {
-                this.bq = (this.W.nextFloat() - 0.5F) * 20.0F;
+                this.br = (this.W.nextFloat() - 0.5F) * 20.0F;
             }
         }
 
@@ -653,18 +654,18 @@ public class EntityLiving extends Entity {
             }
         } else {
             if (this.W.nextFloat() < 0.05F) {
-                this.bq = (this.W.nextFloat() - 0.5F) * 20.0F;
+                this.br = (this.W.nextFloat() - 0.5F) * 20.0F;
             }
 
-            this.v += this.bq;
-            this.w = this.bs;
+            this.v += this.br;
+            this.w = this.bt;
         }
 
         boolean flag = this.r();
         boolean flag1 = this.t();
 
         if (flag || flag1) {
-            this.br = this.W.nextFloat() < 0.8F;
+            this.bs = this.W.nextFloat() < 0.8F;
         }
     }
 
@@ -685,7 +686,7 @@ public class EntityLiving extends Entity {
         float f1 = (float) (Math.atan2(d1, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
         float f2 = (float) (Math.atan2(d2, d3) * 180.0D / 3.1415927410125732D);
 
-        this.w = this.b(this.w, f2, f);
+        this.w = -this.b(this.w, f2, f);
         this.v = this.b(this.v, f1, f);
     }
 

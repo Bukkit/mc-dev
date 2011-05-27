@@ -6,7 +6,7 @@ public class EntityPig extends EntityAnimal {
 
     public EntityPig(World world) {
         super(world);
-        this.aG = "/mob/pig.png";
+        this.aH = "/mob/pig.png";
         this.a(0.9F, 0.9F);
         this.a = false;
     }

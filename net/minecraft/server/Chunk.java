@@ -277,6 +277,7 @@ public class Chunk {
                 Block.m[l].e(this.d, l1, j, i2);
             }
 
+            this.e.a(i, j, k, i1);
             this.o = true;
             return true;
         }

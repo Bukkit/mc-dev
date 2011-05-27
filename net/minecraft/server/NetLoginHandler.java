@@ -52,8 +52,12 @@ public class NetLoginHandler extends NetHandler {
 
     public void a(Packet1Login packet1login) {
         this.g = packet1login.b;
-        if (packet1login.a != 5) {
-            this.b("Outdated client!");
+        if (packet1login.a != 6) {
+            if (packet1login.a > 6) {
+                this.b("Outdated server!");
+            } else {
+                this.b("Outdated client!");
+            }
         } else {
             if (!this.e.l) {
                 this.b(packet1login);
@@ -72,12 +76,13 @@ public class NetLoginHandler extends NetHandler {
 
             netserverhandler.b((Packet) (new Packet1Login("", "", entityplayer.g, this.e.e.u, (byte) this.e.e.q.g)));
             netserverhandler.b((Packet) (new Packet6SpawnPosition(this.e.e.m, this.e.e.n, this.e.e.o)));
-            this.e.f.a((Packet) (new Packet3Chat("\u00A7e" + entityplayer.as + " joined the game.")));
+            this.e.f.a((Packet) (new Packet3Chat("\u00A7e" + entityplayer.at + " joined the game.")));
             this.e.f.a(entityplayer);
             netserverhandler.a(entityplayer.p, entityplayer.q, entityplayer.r, entityplayer.v, entityplayer.w);
             netserverhandler.d();
             this.e.c.a(netserverhandler);
             netserverhandler.b((Packet) (new Packet4UpdateTime(this.e.e.e)));
+            entityplayer.a(new ItemStack(Item.SNOW_BALL, 64));
         }
 
         this.c = true;

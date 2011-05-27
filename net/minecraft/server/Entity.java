@@ -393,12 +393,12 @@ public abstract class Entity {
 
             d9 = this.p - d3;
             d10 = this.r - d4;
-            this.L = (float) ((double) this.L + (double) MathHelper.a(d9 * d9 + d10 * d10) * 0.6D);
             int l;
             int i1;
             int j1;
 
             if (this.M && !flag) {
+                this.L = (float) ((double) this.L + (double) MathHelper.a(d9 * d9 + d10 * d10) * 0.6D);
                 l = MathHelper.b(this.p);
                 i1 = MathHelper.b(this.q - 0.20000000298023224D - (double) this.H);
                 j1 = MathHelper.b(this.r);

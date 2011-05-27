@@ -110,6 +110,7 @@ public abstract class Packet {
         a(52, Packet52MultiBlockChange.class);
         a(53, Packet53BlockChange.class);
         a(59, Packet59ComplexEntity.class);
+        a(60, Packet60.class);
         a(255, Packet255KickDisconnect.class);
     }
 }

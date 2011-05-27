@@ -32,6 +32,10 @@ public class EntityTracker {
             }
         } else if (entity instanceof EntityFish) {
             this.a(entity, 64, 5, true);
+        } else if (entity instanceof EntityArrow) {
+            this.a(entity, 64, 5, true);
+        } else if (entity instanceof EntitySnowball) {
+            this.a(entity, 64, 5, true);
         } else if (entity instanceof EntityItem) {
             this.a(entity, 64, 20, true);
         } else if (entity instanceof EntityMinecart) {
@@ -82,7 +86,7 @@ public class EntityTracker {
             EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
 
             entitytrackerentry.a(this.c.e.d);
-            if (entitytrackerentry.o && entitytrackerentry.a instanceof EntityPlayer) {
+            if (entitytrackerentry.p && entitytrackerentry.a instanceof EntityPlayer) {
                 arraylist.add((EntityPlayer) entitytrackerentry.a);
             }
         }
@@ -106,6 +110,14 @@ public class EntityTracker {
 
         if (entitytrackerentry != null) {
             entitytrackerentry.a(packet);
+        }
+    }
+
+    public void b(Entity entity, Packet packet) {
+        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.b.a(entity.g);
+
+        if (entitytrackerentry != null) {
+            entitytrackerentry.b(packet);
         }
     }
 

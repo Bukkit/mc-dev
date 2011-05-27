@@ -34,7 +34,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     public void c(String s) {
         this.b.a((Packet) (new Packet255KickDisconnect(s)));
         this.b.c();
-        this.d.f.a((Packet) (new Packet3Chat("\u00A7e" + this.e.as + " left the game.")));
+        this.d.f.a((Packet) (new Packet3Chat("\u00A7e" + this.e.at + " left the game.")));
         this.d.f.c(this.e);
         this.c = true;
     }
@@ -107,7 +107,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 d4 = packet10flying.d - packet10flying.b;
                 if (d4 > 1.65D || d4 < 0.1D) {
                     this.c("Illegal stance");
-                    a.warning(this.e.as + " had an illegal stance: " + d4);
+                    a.warning(this.e.at + " had an illegal stance: " + d4);
                 }
 
                 this.e.ak = packet10flying.d;
@@ -140,7 +140,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
             if (d8 > 0.0625D) {
                 flag1 = true;
-                a.warning(this.e.as + " moved wrongly!");
+                a.warning(this.e.at + " moved wrongly!");
                 System.out.println("Got position " + d1 + ", " + d2 + ", " + d3);
                 System.out.println("Expected " + this.e.p + ", " + this.e.q + ", " + this.e.r);
             }
@@ -169,8 +169,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(Packet14BlockDig packet14blockdig) {
-        this.e.al.a[this.e.al.d] = this.k;
-        boolean flag = this.d.e.B = this.d.f.g(this.e.as);
+        this.e.am.a[this.e.am.d] = this.k;
+        boolean flag = this.d.e.B = this.d.f.g(this.e.at);
         boolean flag1 = false;
 
         if (packet14blockdig.e == 0) {
@@ -234,7 +234,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(Packet15Place packet15place) {
-        boolean flag = this.d.e.B = this.d.f.g(this.e.as);
+        boolean flag = this.d.e.B = this.d.f.g(this.e.at);
 
         if (packet15place.e == 255) {
             ItemStack itemstack = packet15place.a >= 0 ? new ItemStack(packet15place.a) : null;
@@ -290,8 +290,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(String s) {
-        a.info(this.e.as + " lost connection: " + s);
-        this.d.f.a((Packet) (new Packet3Chat("\u00A7e" + this.e.as + " left the game.")));
+        a.info(this.e.at + " lost connection: " + s);
+        this.d.f.a((Packet) (new Packet3Chat("\u00A7e" + this.e.at + " left the game.")));
         this.d.f.c(this.e);
         this.c = true;
     }
@@ -308,14 +308,14 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     public void a(Packet16BlockItemSwitch packet16blockitemswitch) {
         int i = packet16blockitemswitch.b;
 
-        this.e.al.d = this.e.al.a.length - 1;
+        this.e.am.d = this.e.am.a.length - 1;
         if (i == 0) {
             this.k = null;
         } else {
             this.k = new ItemStack(i);
         }
 
-        this.e.al.a[this.e.al.d] = this.k;
+        this.e.am.a[this.e.am.d] = this.k;
         this.d.k.a(this.e, new Packet16BlockItemSwitch(this.e.g, i));
     }
 
@@ -350,7 +350,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             if (s.startsWith("/")) {
                 this.d(s);
             } else {
-                s = "<" + this.e.as + "> " + s;
+                s = "<" + this.e.at + "> " + s;
                 a.info(s);
                 this.d.f.a((Packet) (new Packet3Chat(s)));
             }
@@ -359,7 +359,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     private void d(String s) {
         if (s.toLowerCase().startsWith("/me ")) {
-            s = "* " + this.e.as + " " + s.substring(s.indexOf(" ")).trim();
+            s = "* " + this.e.at + " " + s.substring(s.indexOf(" ")).trim();
             a.info(s);
             this.d.f.a((Packet) (new Packet3Chat(s)));
         } else if (s.toLowerCase().startsWith("/tell ")) {
@@ -368,27 +368,27 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             if (astring.length >= 3) {
                 s = s.substring(s.indexOf(" ")).trim();
                 s = s.substring(s.indexOf(" ")).trim();
-                s = "\u00A77" + this.e.as + " whispers " + s;
+                s = "\u00A77" + this.e.at + " whispers " + s;
                 a.info(s + " to " + astring[1]);
                 if (!this.d.f.a(astring[1], (Packet) (new Packet3Chat(s)))) {
                     this.b((Packet) (new Packet3Chat("\u00A7cThere\'s no player by that name online.")));
                 }
             }
         } else if (s.toLowerCase().equalsIgnoreCase("/home")) {
-            a.info(this.e.as + " returned home");
+            a.info(this.e.at + " returned home");
             int i = this.d.e.e(this.d.e.m, this.d.e.o);
 
             this.a((double) this.d.e.m + 0.5D, (double) i + 1.5D, (double) this.d.e.o + 0.5D, 0.0F, 0.0F);
         } else {
             String s1;
 
-            if (this.d.f.g(this.e.as)) {
+            if (this.d.f.g(this.e.at)) {
                 s1 = s.substring(1);
-                a.info(this.e.as + " issued server command: " + s1);
+                a.info(this.e.at + " issued server command: " + s1);
                 this.d.a(s1, (ICommandListener) this);
             } else {
                 s1 = s.substring(1);
-                a.info(this.e.as + " tried command: " + s1);
+                a.info(this.e.at + " tried command: " + s1);
             }
         }
     }
@@ -396,6 +396,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     public void a(Packet18ArmAnimation packet18armanimation) {
         if (packet18armanimation.b == 1) {
             this.e.F();
+        } else if (packet18armanimation.b == 104) {
+            this.e.al = true;
+        } else if (packet18armanimation.b == 105) {
+            this.e.al = false;
         }
     }
 
@@ -412,27 +416,27 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public String c() {
-        return this.e.as;
+        return this.e.at;
     }
 
     public void a(Packet5PlayerInventory packet5playerinventory) {
         if (packet5playerinventory.a == -1) {
-            this.e.al.a = packet5playerinventory.b;
+            this.e.am.a = packet5playerinventory.b;
         }
 
         if (packet5playerinventory.a == -2) {
-            this.e.al.c = packet5playerinventory.b;
+            this.e.am.c = packet5playerinventory.b;
         }
 
         if (packet5playerinventory.a == -3) {
-            this.e.al.b = packet5playerinventory.b;
+            this.e.am.b = packet5playerinventory.b;
         }
     }
 
     public void d() {
-        this.b.a((Packet) (new Packet5PlayerInventory(-1, this.e.al.a)));
-        this.b.a((Packet) (new Packet5PlayerInventory(-2, this.e.al.c)));
-        this.b.a((Packet) (new Packet5PlayerInventory(-3, this.e.al.b)));
+        this.b.a((Packet) (new Packet5PlayerInventory(-1, this.e.am.a)));
+        this.b.a((Packet) (new Packet5PlayerInventory(-2, this.e.am.c)));
+        this.b.a((Packet) (new Packet5PlayerInventory(-3, this.e.am.b)));
     }
 
     public void a(Packet59ComplexEntity packet59complexentity) {
@@ -458,6 +462,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     public void a(Packet7 packet7) {
         Entity entity = this.d.e.a(packet7.b);
 
+        this.e.am.a[this.e.am.d] = this.k;
         if (entity != null && this.e.i(entity)) {
             if (packet7.c == 0) {
                 this.e.g(entity);
@@ -468,7 +473,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(Packet9 packet9) {
-        if (this.e.aQ <= 0) {
+        if (this.e.aR <= 0) {
             this.e = this.d.f.d(this.e);
         }
     }

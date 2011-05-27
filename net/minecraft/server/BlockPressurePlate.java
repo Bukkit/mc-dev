@@ -48,14 +48,18 @@ public class BlockPressurePlate extends Block {
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        if (world.b(i, j, k) != 0) {
-            this.g(world, i, j, k);
+        if (!world.z) {
+            if (world.b(i, j, k) != 0) {
+                this.g(world, i, j, k);
+            }
         }
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        if (world.b(i, j, k) != 1) {
-            this.g(world, i, j, k);
+        if (!world.z) {
+            if (world.b(i, j, k) != 1) {
+                this.g(world, i, j, k);
+            }
         }
     }
 

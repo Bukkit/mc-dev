@@ -130,31 +130,35 @@ public class BlockButton extends Block {
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        int l = world.b(i, j, k);
-        int i1 = l & 7;
-        int j1 = 8 - (l & 8);
-
-        if (j1 == 0) {
+        if (world.z) {
             return true;
         } else {
-            world.b(i, j, k, i1 + j1);
-            world.b(i, j, k, i, j, k);
-            world.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.click", 0.3F, 0.6F);
-            world.g(i, j, k, this.bh);
-            if (i1 == 1) {
-                world.g(i - 1, j, k, this.bh);
-            } else if (i1 == 2) {
-                world.g(i + 1, j, k, this.bh);
-            } else if (i1 == 3) {
-                world.g(i, j, k - 1, this.bh);
-            } else if (i1 == 4) {
-                world.g(i, j, k + 1, this.bh);
-            } else {
-                world.g(i, j - 1, k, this.bh);
-            }
+            int l = world.b(i, j, k);
+            int i1 = l & 7;
+            int j1 = 8 - (l & 8);
 
-            world.h(i, j, k, this.bh);
-            return true;
+            if (j1 == 0) {
+                return true;
+            } else {
+                world.b(i, j, k, i1 + j1);
+                world.b(i, j, k, i, j, k);
+                world.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.click", 0.3F, 0.6F);
+                world.g(i, j, k, this.bh);
+                if (i1 == 1) {
+                    world.g(i - 1, j, k, this.bh);
+                } else if (i1 == 2) {
+                    world.g(i + 1, j, k, this.bh);
+                } else if (i1 == 3) {
+                    world.g(i, j, k - 1, this.bh);
+                } else if (i1 == 4) {
+                    world.g(i, j, k + 1, this.bh);
+                } else {
+                    world.g(i, j - 1, k, this.bh);
+                }
+
+                world.h(i, j, k, this.bh);
+                return true;
+            }
         }
     }
 
@@ -202,27 +206,29 @@ public class BlockButton extends Block {
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        int l = world.b(i, j, k);
+        if (!world.z) {
+            int l = world.b(i, j, k);
 
-        if ((l & 8) != 0) {
-            world.b(i, j, k, l & 7);
-            world.g(i, j, k, this.bh);
-            int i1 = l & 7;
+            if ((l & 8) != 0) {
+                world.b(i, j, k, l & 7);
+                world.g(i, j, k, this.bh);
+                int i1 = l & 7;
 
-            if (i1 == 1) {
-                world.g(i - 1, j, k, this.bh);
-            } else if (i1 == 2) {
-                world.g(i + 1, j, k, this.bh);
-            } else if (i1 == 3) {
-                world.g(i, j, k - 1, this.bh);
-            } else if (i1 == 4) {
-                world.g(i, j, k + 1, this.bh);
-            } else {
-                world.g(i, j - 1, k, this.bh);
+                if (i1 == 1) {
+                    world.g(i - 1, j, k, this.bh);
+                } else if (i1 == 2) {
+                    world.g(i + 1, j, k, this.bh);
+                } else if (i1 == 3) {
+                    world.g(i, j, k - 1, this.bh);
+                } else if (i1 == 4) {
+                    world.g(i, j, k + 1, this.bh);
+                } else {
+                    world.g(i, j - 1, k, this.bh);
+                }
+
+                world.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.click", 0.3F, 0.5F);
+                world.b(i, j, k, i, j, k);
             }
-
-            world.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.click", 0.3F, 0.5F);
-            world.b(i, j, k, i, j, k);
         }
     }
 }

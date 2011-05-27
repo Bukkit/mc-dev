@@ -15,7 +15,8 @@ public class EntityPlayer extends EntityHuman {
     public List f = new LinkedList();
     public Set aj = new HashSet();
     public double ak;
-    private int bu = -1;
+    public boolean al = false;
+    private int bv = -99999999;
 
     public EntityPlayer(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager) {
         super(world);
@@ -33,7 +34,7 @@ public class EntityPlayer extends EntityHuman {
         this.b = minecraftserver;
         this.S = 0.0F;
         iteminworldmanager.a = this;
-        this.as = s;
+        this.at = s;
         this.c = iteminworldmanager;
         this.H = 0.0F;
     }
@@ -41,7 +42,7 @@ public class EntityPlayer extends EntityHuman {
     public void b_() {}
 
     public void f(Entity entity) {
-        this.al.f();
+        this.am.f();
     }
 
     public boolean a(Entity entity, int i) {
@@ -105,31 +106,38 @@ public class EntityPlayer extends EntityHuman {
             }
         }
 
-        if (this.aQ != this.bu) {
-            this.a.b((Packet) (new Packet8(this.aQ)));
-            this.bu = this.aQ;
+        if (this.aR != this.bv) {
+            this.a.b((Packet) (new Packet8(this.aR)));
+            this.bv = this.aR;
         }
     }
 
     public void E() {
         this.s = this.t = this.u = 0.0D;
-        this.br = false;
+        this.bs = false;
         super.E();
     }
 
     public void c(Entity entity, int i) {
-        if (!entity.G && entity instanceof EntityItem) {
-            this.a.b((Packet) (new Packet17AddToInventory(((EntityItem) entity).a, i)));
-            this.b.k.a(entity, new Packet22Collect(entity.g, this.g));
+        if (!entity.G) {
+            if (entity instanceof EntityItem) {
+                this.a.b((Packet) (new Packet17AddToInventory(((EntityItem) entity).a, i)));
+                this.b.k.a(entity, new Packet22Collect(entity.g, this.g));
+            }
+
+            if (entity instanceof EntityArrow) {
+                this.a.b((Packet) (new Packet17AddToInventory(new ItemStack(Item.ARROW), 1)));
+                this.b.k.a(entity, new Packet22Collect(entity.g, this.g));
+            }
         }
 
         super.c(entity, i);
     }
 
     public void F() {
-        if (!this.aq) {
-            this.ar = -1;
-            this.aq = true;
+        if (!this.ar) {
+            this.as = -1;
+            this.ar = true;
             this.b.k.a(this, new Packet18ArmAnimation(this, 1));
         }
     }
@@ -148,5 +156,9 @@ public class EntityPlayer extends EntityHuman {
 
     public void b(double d0, boolean flag) {
         super.a(d0, flag);
+    }
+
+    public boolean p() {
+        return this.al;
     }
 }

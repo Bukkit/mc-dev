@@ -133,4 +133,8 @@ public class NetHandler {
     public void a(Packet9 packet9) {
         this.a((Packet) packet9);
     }
+
+    public void a(Packet60 packet60) {
+        this.a((Packet) packet60);
+    }
 }

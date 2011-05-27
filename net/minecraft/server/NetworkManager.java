@@ -133,18 +133,21 @@ public class NetworkManager {
 
             try {
                 this.f.close();
+                this.f = null;
             } catch (Throwable throwable) {
                 ;
             }
 
             try {
                 this.g.close();
+                this.g = null;
             } catch (Throwable throwable1) {
                 ;
             }
 
             try {
                 this.e.close();
+                this.e = null;
             } catch (Throwable throwable2) {
                 ;
             }

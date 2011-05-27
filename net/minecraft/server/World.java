@@ -1213,8 +1213,17 @@ public class World implements IBlockAccess {
         return false;
     }
 
-    public void a(Entity entity, double d0, double d1, double d2, float f) {
-        (new Explosion()).a(this, entity, d0, d1, d2, f);
+    public Explosion a(Entity entity, double d0, double d1, double d2, float f) {
+        return this.a(entity, d0, d1, d2, f, false);
+    }
+
+    public Explosion a(Entity entity, double d0, double d1, double d2, float f, boolean flag) {
+        Explosion explosion = new Explosion(this, entity, d0, d1, d2, f);
+
+        explosion.a = flag;
+        explosion.a();
+        explosion.b();
+        return explosion;
     }
 
     public float a(Vec3D vec3d, AxisAlignedBB axisalignedbb) {
@@ -1277,10 +1286,10 @@ public class World implements IBlockAccess {
         } else {
             ++this.J;
 
+            boolean flag;
+
             try {
                 int i = 5000;
-
-                boolean flag;
 
                 while (this.A.size() > 0) {
                     --i;
@@ -1293,10 +1302,11 @@ public class World implements IBlockAccess {
                 }
 
                 flag = false;
-                return flag;
             } finally {
                 --this.J;
             }
+
+            return flag;
         }
     }
 

@@ -30,7 +30,7 @@ public class EntityFish extends Entity {
     public EntityFish(World world, EntityHuman entityhuman) {
         super(world);
         this.b = entityhuman;
-        this.b.au = this;
+        this.b.av = this;
         this.a(0.25F, 0.25F);
         this.c(entityhuman.p, entityhuman.q + 1.62D - (double) entityhuman.H, entityhuman.r, entityhuman.v, entityhuman.w);
         this.p -= (double) (MathHelper.b(this.v / 180.0F * 3.1415927F) * 0.16F);
@@ -96,7 +96,7 @@ public class EntityFish extends Entity {
 
                 if (this.b.G || !this.b.x() || itemstack == null || itemstack.a() != Item.FISHING_ROD || this.b(this.b) > 1024.0D) {
                     this.l();
-                    this.b.au = null;
+                    this.b.av = null;
                     return;
                 }
 
@@ -327,7 +327,7 @@ public class EntityFish extends Entity {
         }
 
         this.l();
-        this.b.au = null;
+        this.b.av = null;
         return b0;
     }
 }

@@ -4,10 +4,10 @@ public class EntityGiantZombie extends EntityMonster {
 
     public EntityGiantZombie(World world) {
         super(world);
-        this.aG = "/mob/zombie.png";
-        this.bt = 0.5F;
-        this.e = 50;
-        this.aQ *= 10;
+        this.aH = "/mob/zombie.png";
+        this.bu = 0.5F;
+        this.f = 50;
+        this.aR *= 10;
         this.H *= 6.0F;
         this.a(this.I * 6.0F, this.J * 6.0F);
     }

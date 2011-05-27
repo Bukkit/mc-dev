@@ -7,14 +7,14 @@ public class EntityChicken extends EntityAnimal {
     public float c = 0.0F;
     public float d;
     public float e;
-    public float ak = 1.0F;
+    public float f = 1.0F;
     public int al;
 
     public EntityChicken(World world) {
         super(world);
-        this.aG = "/mob/chicken.png";
+        this.aH = "/mob/chicken.png";
         this.a(0.3F, 0.4F);
-        this.aQ = 4;
+        this.aR = 4;
         this.al = this.W.nextInt(6000) + 6000;
     }
 
@@ -31,16 +31,16 @@ public class EntityChicken extends EntityAnimal {
             this.c = 1.0F;
         }
 
-        if (!this.A && this.ak < 1.0F) {
-            this.ak = 1.0F;
+        if (!this.A && this.f < 1.0F) {
+            this.f = 1.0F;
         }
 
-        this.ak = (float) ((double) this.ak * 0.9D);
+        this.f = (float) ((double) this.f * 0.9D);
         if (!this.A && this.t < 0.0D) {
             this.t *= 0.6D;
         }
 
-        this.b += this.ak * 2.0F;
+        this.b += this.f * 2.0F;
         if (!this.l.z && --this.al <= 0) {
             this.l.a(this, "mob.chickenplop", 1.0F, (this.W.nextFloat() - this.W.nextFloat()) * 0.2F + 1.0F);
             this.a(Item.EGG.aW, 1);

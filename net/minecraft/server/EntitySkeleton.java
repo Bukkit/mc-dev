@@ -6,7 +6,7 @@ public class EntitySkeleton extends EntityMonster {
 
     public EntitySkeleton(World world) {
         super(world);
-        this.aG = "/mob/skeleton.png";
+        this.aH = "/mob/skeleton.png";
     }
 
     protected String d() {
@@ -38,7 +38,7 @@ public class EntitySkeleton extends EntityMonster {
             double d0 = entity.p - this.p;
             double d1 = entity.r - this.r;
 
-            if (this.aW == 0) {
+            if (this.aX == 0) {
                 EntityArrow entityarrow = new EntityArrow(this.l, this);
 
                 ++entityarrow.q;
@@ -48,11 +48,11 @@ public class EntitySkeleton extends EntityMonster {
                 this.l.a(this, "random.bow", 1.0F, 1.0F / (this.W.nextFloat() * 0.4F + 0.8F));
                 this.l.a((Entity) entityarrow);
                 entityarrow.a(d0, d2 + (double) f1, d1, 0.6F, 12.0F);
-                this.aW = 30;
+                this.aX = 30;
             }
 
             this.v = (float) (Math.atan2(d1, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
-            this.aj = true;
+            this.ak = true;
         }
     }
 

@@ -2,18 +2,18 @@ package net.minecraft.server;
 
 public class EntityMonster extends EntityCreature implements IMonster {
 
-    protected int e = 2;
+    protected int f = 2;
 
     public EntityMonster(World world) {
         super(world);
-        this.aQ = 20;
+        this.aR = 20;
     }
 
     public void E() {
         float f = this.b(1.0F);
 
         if (f > 0.5F) {
-            this.bn += 2;
+            this.bo += 2;
         }
 
         super.E();
@@ -36,7 +36,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
         if (super.a(entity, i)) {
             if (this.j != entity && this.k != entity) {
                 if (entity != this) {
-                    this.f = entity;
+                    this.aj = entity;
                 }
 
                 return true;
@@ -50,8 +50,8 @@ public class EntityMonster extends EntityCreature implements IMonster {
 
     protected void a(Entity entity, float f) {
         if ((double) f < 2.5D && entity.z.e > this.z.b && entity.z.b < this.z.e) {
-            this.aW = 20;
-            entity.a(this, this.e);
+            this.aX = 20;
+            entity.a(this, this.f);
         }
     }
 

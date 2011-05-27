@@ -6,10 +6,11 @@ public class EntityCreeper extends EntityMonster {
     int b;
     int c = 30;
     int d = -1;
+    int e = -1;
 
     public EntityCreeper(World world) {
         super(world);
-        this.aG = "/mob/creeper.png";
+        this.aH = "/mob/creeper.png";
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -20,19 +21,48 @@ public class EntityCreeper extends EntityMonster {
         super.b(nbttagcompound);
     }
 
-    protected void c() {
+    public void b_() {
         this.b = this.a;
-        if (this.a > 0 && this.d < 0) {
-            --this.a;
+        if (this.l.z) {
+            this.a += this.d;
+            if (this.a < 0) {
+                this.a = 0;
+            }
+
+            if (this.a >= this.c) {
+                this.a = this.c;
+            }
         }
 
-        if (this.d >= 0) {
-            this.d = 2;
+        super.b_();
+    }
+
+    protected void c() {
+        if (this.e != this.d) {
+            this.e = this.d;
+            if (this.d > 0) {
+                this.l.a(this, (byte) 4);
+            } else {
+                this.l.a(this, (byte) 5);
+            }
         }
 
-        super.c();
-        if (this.d != 1) {
-            this.d = -1;
+        this.b = this.a;
+        if (this.l.z) {
+            super.c();
+        } else {
+            if (this.a > 0 && this.d < 0) {
+                --this.a;
+            }
+
+            if (this.d >= 0) {
+                this.d = 2;
+            }
+
+            super.c();
+            if (this.d != 1) {
+                this.d = -1;
+            }
         }
     }
 
@@ -64,7 +94,7 @@ public class EntityCreeper extends EntityMonster {
                 this.l();
             }
 
-            this.aj = true;
+            this.ak = true;
         }
     }
 

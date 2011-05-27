@@ -159,7 +159,7 @@ public class ChunkProviderServer implements IChunkProvider {
                 this.b(chunk);
                 chunk.o = false;
                 ++i;
-                if (i == 2 && !flag) {
+                if (i == 32 && !flag) {
                     return false;
                 }
             }
@@ -178,7 +178,7 @@ public class ChunkProviderServer implements IChunkProvider {
 
     public boolean a() {
         if (!this.g.C) {
-            for (int i = 0; i < 16; ++i) {
+            for (int i = 0; i < 100; ++i) {
                 if (!this.a.isEmpty()) {
                     ChunkCoordinates chunkcoordinates = (ChunkCoordinates) this.a.iterator().next();
                     Chunk chunk = this.b(chunkcoordinates.a, chunkcoordinates.b);

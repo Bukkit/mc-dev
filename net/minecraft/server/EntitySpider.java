@@ -4,9 +4,9 @@ public class EntitySpider extends EntityMonster {
 
     public EntitySpider(World world) {
         super(world);
-        this.aG = "/mob/spider.png";
+        this.aH = "/mob/spider.png";
         this.a(1.4F, 0.9F);
-        this.bt = 0.8F;
+        this.bu = 0.8F;
     }
 
     public double j() {
@@ -41,7 +41,7 @@ public class EntitySpider extends EntityMonster {
         float f1 = this.b(1.0F);
 
         if (f1 > 0.5F && this.W.nextInt(100) == 0) {
-            this.f = null;
+            this.aj = null;
         } else {
             if (f > 2.0F && f < 6.0F && this.W.nextInt(10) == 0) {
                 if (this.A) {

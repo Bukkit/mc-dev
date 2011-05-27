@@ -93,7 +93,7 @@ public class ServerConfigurationManager {
                 for (int i = 0; i < this.b.size(); ++i) {
                     EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-                    if (entityplayer.as.equalsIgnoreCase(s)) {
+                    if (entityplayer.at.equalsIgnoreCase(s)) {
                         entityplayer.a.c("You logged in from another location");
                     }
                 }
@@ -109,7 +109,7 @@ public class ServerConfigurationManager {
         this.d.b(entityplayer);
         this.b.remove(entityplayer);
         this.c.e.e(entityplayer);
-        EntityPlayer entityplayer1 = new EntityPlayer(this.c, this.c.e, entityplayer.as, new ItemInWorldManager(this.c.e));
+        EntityPlayer entityplayer1 = new EntityPlayer(this.c, this.c.e, entityplayer.at, new ItemInWorldManager(this.c.e));
 
         entityplayer1.g = entityplayer.g;
         entityplayer1.a = entityplayer.a;
@@ -151,7 +151,7 @@ public class ServerConfigurationManager {
                 s = s + ", ";
             }
 
-            s = s + ((EntityPlayer) this.b.get(i)).as;
+            s = s + ((EntityPlayer) this.b.get(i)).at;
         }
 
         return s;
@@ -294,7 +294,7 @@ public class ServerConfigurationManager {
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-            if (entityplayer.as.equalsIgnoreCase(s)) {
+            if (entityplayer.at.equalsIgnoreCase(s)) {
                 return entityplayer;
             }
         }
@@ -310,13 +310,26 @@ public class ServerConfigurationManager {
         }
     }
 
+    public void a(double d0, double d1, double d2, double d3, Packet packet) {
+        for (int i = 0; i < this.b.size(); ++i) {
+            EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
+            double d4 = d0 - entityplayer.p;
+            double d5 = d1 - entityplayer.q;
+            double d6 = d2 - entityplayer.r;
+
+            if (d4 * d4 + d5 * d5 + d6 * d6 < d3 * d3) {
+                entityplayer.a.b(packet);
+            }
+        }
+    }
+
     public void i(String s) {
         Packet3Chat packet3chat = new Packet3Chat(s);
 
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-            if (this.g(entityplayer.as)) {
+            if (this.g(entityplayer.at)) {
                 entityplayer.a.b((Packet) packet3chat);
             }
         }

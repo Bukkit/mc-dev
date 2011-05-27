@@ -12,9 +12,13 @@ public class Packet28 extends Packet {
 
     public Packet28() {}
 
+    public Packet28(Entity entity) {
+        this(entity.g, entity.s, entity.t, entity.u);
+    }
+
     public Packet28(int i, double d0, double d1, double d2) {
         this.a = i;
-        double d3 = 0.9D;
+        double d3 = 3.9D;
 
         if (d0 < -d3) {
             d0 = -d3;
@@ -40,9 +44,9 @@ public class Packet28 extends Packet {
             d2 = d3;
         }
 
-        this.b = (int) (d0 * 32000.0D);
-        this.c = (int) (d1 * 32000.0D);
-        this.d = (int) (d2 * 32000.0D);
+        this.b = (int) (d0 * 8000.0D);
+        this.c = (int) (d1 * 8000.0D);
+        this.d = (int) (d2 * 8000.0D);
     }
 
     public void a(DataInputStream datainputstream) {
