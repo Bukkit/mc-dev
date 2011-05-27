@@ -42,11 +42,6 @@ public abstract class EntityHuman extends EntityLiving {
         this.O = 180.0F;
         this.maxFireTicks = 20;
         this.texture = "/mob/char.png";
-        this.inventory.a(new ItemStack(Block.TORCH, 64));
-        this.inventory.a(new ItemStack(Item.DIAMOND_PICKAXE));
-        this.inventory.a(new ItemStack(Item.DIAMOND_SPADE));
-        this.inventory.a(new ItemStack(Item.DIAMOND_AXE));
-        this.inventory.a(new ItemStack(Item.BED, 64));
     }
 
     protected void a() {
