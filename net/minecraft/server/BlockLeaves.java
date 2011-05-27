@@ -10,13 +10,14 @@ public class BlockLeaves extends BlockLeavesBase {
     protected BlockLeaves(int i, int j) {
         super(i, j, Material.h, false);
         this.b = j;
-        this.a(true);
     }
 
     public void b(World world, int i, int j, int k, int l) {
-        this.c = 0;
-        this.g(world, i, j, k);
-        super.b(world, i, j, k, l);
+        if (this == null) {
+            this.c = 0;
+            this.g(world, i, j, k);
+            super.b(world, i, j, k, l);
+        }
     }
 
     public void e(World world, int i, int j, int k, int l) {
@@ -30,34 +31,36 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     public void g(World world, int i, int j, int k) {
-        if (this.c++ < 100) {
-            int l = world.c(i, j - 1, k).a() ? 16 : 0;
-            int i1 = world.b(i, j, k);
+        if (this == null) {
+            if (this.c++ < 100) {
+                int l = world.c(i, j - 1, k).a() ? 16 : 0;
+                int i1 = world.b(i, j, k);
 
-            if (i1 == 0) {
-                i1 = 1;
-                world.b(i, j, k, 1);
-            }
+                if (i1 == 0) {
+                    i1 = 1;
+                    world.b(i, j, k, 1);
+                }
 
-            l = this.f(world, i, j - 1, k, l);
-            l = this.f(world, i, j, k - 1, l);
-            l = this.f(world, i, j, k + 1, l);
-            l = this.f(world, i - 1, j, k, l);
-            l = this.f(world, i + 1, j, k, l);
-            int j1 = l - 1;
+                l = this.f(world, i, j - 1, k, l);
+                l = this.f(world, i, j, k - 1, l);
+                l = this.f(world, i, j, k + 1, l);
+                l = this.f(world, i - 1, j, k, l);
+                l = this.f(world, i + 1, j, k, l);
+                int j1 = l - 1;
 
-            if (j1 < 10) {
-                j1 = 1;
-            }
+                if (j1 < 10) {
+                    j1 = 1;
+                }
 
-            if (j1 != i1) {
-                world.b(i, j, k, j1);
-                this.e(world, i, j - 1, k, i1);
-                this.e(world, i, j + 1, k, i1);
-                this.e(world, i, j, k - 1, i1);
-                this.e(world, i, j, k + 1, i1);
-                this.e(world, i - 1, j, k, i1);
-                this.e(world, i + 1, j, k, i1);
+                if (j1 != i1) {
+                    world.b(i, j, k, j1);
+                    this.e(world, i, j - 1, k, i1);
+                    this.e(world, i, j + 1, k, i1);
+                    this.e(world, i, j, k - 1, i1);
+                    this.e(world, i, j, k + 1, i1);
+                    this.e(world, i - 1, j, k, i1);
+                    this.e(world, i + 1, j, k, i1);
+                }
             }
         }
     }
@@ -81,15 +84,17 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        int l = world.b(i, j, k);
+        if (this == null) {
+            int l = world.b(i, j, k);
 
-        if (l == 0) {
-            this.c = 0;
-            this.g(world, i, j, k);
-        } else if (l == 1) {
-            this.h(world, i, j, k);
-        } else if (random.nextInt(10) == 0) {
-            this.g(world, i, j, k);
+            if (l == 0) {
+                this.c = 0;
+                this.g(world, i, j, k);
+            } else if (l == 1) {
+                this.h(world, i, j, k);
+            } else if (random.nextInt(10) == 0) {
+                this.g(world, i, j, k);
+            }
         }
     }
 

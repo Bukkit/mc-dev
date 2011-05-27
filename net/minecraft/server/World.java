@@ -1261,10 +1261,10 @@ public class World implements IBlockAccess {
         } else {
             ++this.J;
 
-            boolean flag;
-
             try {
                 int i = 5000;
+
+                boolean flag;
 
                 while (this.A.size() > 0) {
                     --i;
@@ -1277,11 +1277,10 @@ public class World implements IBlockAccess {
                 }
 
                 flag = false;
+                return flag;
             } finally {
                 --this.J;
             }
-
-            return flag;
         }
     }
 
