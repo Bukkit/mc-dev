@@ -14,7 +14,7 @@ public class ContainerWorkbench extends Container {
         this.h = i;
         this.i = j;
         this.j = k;
-        this.a((Slot) (new SlotResult(this.a, this.b, 0, 124, 35)));
+        this.a((Slot) (new SlotResult(inventoryplayer.d, this.a, this.b, 0, 124, 35)));
 
         int l;
         int i1;
@@ -39,14 +39,14 @@ public class ContainerWorkbench extends Container {
     }
 
     public void a(IInventory iinventory) {
-        this.b.a(0, CraftingManager.a().a(this.a));
+        this.b.setItem(0, CraftingManager.a().a(this.a));
     }
 
     public void a(EntityHuman entityhuman) {
         super.a(entityhuman);
 
         for (int i = 0; i < 9; ++i) {
-            ItemStack itemstack = this.a.c_(i);
+            ItemStack itemstack = this.a.getItem(i);
 
             if (itemstack != null) {
                 entityhuman.b(itemstack);

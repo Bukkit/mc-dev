@@ -16,6 +16,10 @@ public class ShapedRecipes implements CraftingRecipe {
         this.e = itemstack;
     }
 
+    public ItemStack b() {
+        return this.e;
+    }
+
     public boolean a(InventoryCrafting inventorycrafting) {
         for (int i = 0; i <= 3 - this.b; ++i) {
             for (int j = 0; j <= 3 - this.c; ++j) {
@@ -58,7 +62,7 @@ public class ShapedRecipes implements CraftingRecipe {
                         return false;
                     }
 
-                    if (itemstack.h() != -1 && itemstack.h() != itemstack1.h()) {
+                    if (itemstack.getData() != -1 && itemstack.getData() != itemstack1.getData()) {
                         return false;
                     }
                 }
@@ -69,7 +73,7 @@ public class ShapedRecipes implements CraftingRecipe {
     }
 
     public ItemStack b(InventoryCrafting inventorycrafting) {
-        return new ItemStack(this.e.id, this.e.count, this.e.h());
+        return new ItemStack(this.e.id, this.e.count, this.e.getData());
     }
 
     public int a() {

@@ -14,7 +14,7 @@ public class EntityTracker {
 
     public EntityTracker(MinecraftServer minecraftserver) {
         this.c = minecraftserver;
-        this.d = minecraftserver.f.a();
+        this.d = minecraftserver.serverConfigurationManager.a();
     }
 
     public void a(Entity entity) {
@@ -26,7 +26,7 @@ public class EntityTracker {
             while (iterator.hasNext()) {
                 EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
 
-                if (entitytrackerentry.a != entityplayer) {
+                if (entitytrackerentry.tracker != entityplayer) {
                     entitytrackerentry.b(entityplayer);
                 }
             }
@@ -73,11 +73,11 @@ public class EntityTracker {
 
             this.a.add(entitytrackerentry);
             this.b.a(entity.id, entitytrackerentry);
-            entitytrackerentry.b(this.c.e.d);
+            entitytrackerentry.scanPlayers(this.c.worldServer.players);
         }
     }
 
-    public void b(Entity entity) {
+    public void untrackEntity(Entity entity) {
         if (entity instanceof EntityPlayer) {
             EntityPlayer entityplayer = (EntityPlayer) entity;
             Iterator iterator = this.a.iterator();
@@ -104,9 +104,9 @@ public class EntityTracker {
         while (iterator.hasNext()) {
             EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
 
-            entitytrackerentry.a(this.c.e.d);
-            if (entitytrackerentry.m && entitytrackerentry.a instanceof EntityPlayer) {
-                arraylist.add((EntityPlayer) entitytrackerentry.a);
+            entitytrackerentry.track(this.c.worldServer.players);
+            if (entitytrackerentry.m && entitytrackerentry.tracker instanceof EntityPlayer) {
+                arraylist.add((EntityPlayer) entitytrackerentry.tracker);
             }
         }
 
@@ -117,7 +117,7 @@ public class EntityTracker {
             while (iterator1.hasNext()) {
                 EntityTrackerEntry entitytrackerentry1 = (EntityTrackerEntry) iterator1.next();
 
-                if (entitytrackerentry1.a != entityplayer) {
+                if (entitytrackerentry1.tracker != entityplayer) {
                     entitytrackerentry1.b(entityplayer);
                 }
             }
@@ -140,7 +140,7 @@ public class EntityTracker {
         }
     }
 
-    public void a(EntityPlayer entityplayer) {
+    public void trackPlayer(EntityPlayer entityplayer) {
         Iterator iterator = this.a.iterator();
 
         while (iterator.hasNext()) {

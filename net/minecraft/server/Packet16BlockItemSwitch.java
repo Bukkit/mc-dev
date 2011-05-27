@@ -5,16 +5,16 @@ import java.io.DataOutputStream;
 
 public class Packet16BlockItemSwitch extends Packet {
 
-    public int a;
+    public int itemInHandIndex;
 
     public Packet16BlockItemSwitch() {}
 
     public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readShort();
+        this.itemInHandIndex = datainputstream.readShort();
     }
 
     public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeShort(this.a);
+        dataoutputstream.writeShort(this.itemInHandIndex);
     }
 
     public void a(NetHandler nethandler) {

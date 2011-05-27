@@ -29,21 +29,21 @@ public class BlockRedstoneOre extends Block {
         super.b(world, i, j, k, entity);
     }
 
-    public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         this.g(world, i, j, k);
-        return super.a(world, i, j, k, entityhuman);
+        return super.interact(world, i, j, k, entityhuman);
     }
 
     private void g(World world, int i, int j, int k) {
         this.h(world, i, j, k);
         if (this.id == Block.REDSTONE_ORE.id) {
-            world.e(i, j, k, Block.GLOWING_REDSTONE_ORE.id);
+            world.setTypeId(i, j, k, Block.GLOWING_REDSTONE_ORE.id);
         }
     }
 
     public void a(World world, int i, int j, int k, Random random) {
         if (this.id == Block.GLOWING_REDSTONE_ORE.id) {
-            world.e(i, j, k, Block.REDSTONE_ORE.id);
+            world.setTypeId(i, j, k, Block.REDSTONE_ORE.id);
         }
     }
 
@@ -56,7 +56,7 @@ public class BlockRedstoneOre extends Block {
     }
 
     private void h(World world, int i, int j, int k) {
-        Random random = world.k;
+        Random random = world.random;
         double d0 = 0.0625D;
 
         for (int l = 0; l < 6; ++l) {

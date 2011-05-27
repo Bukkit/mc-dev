@@ -15,7 +15,7 @@ public class ItemArmor extends Item {
         this.bi = l;
         this.bk = k;
         this.bj = bl[l];
-        this.durability = bm[l] * 3 << j;
+        this.d(bm[l] * 3 << j);
         this.maxStackSize = 1;
     }
 }

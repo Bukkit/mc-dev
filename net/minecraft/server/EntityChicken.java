@@ -13,13 +13,13 @@ public class EntityChicken extends EntityAnimal {
     public EntityChicken(World world) {
         super(world);
         this.texture = "/mob/chicken.png";
-        this.a(0.3F, 0.4F);
+        this.b(0.3F, 0.4F);
         this.health = 4;
         this.i = this.random.nextInt(6000) + 6000;
     }
 
-    public void q() {
-        super.q();
+    public void r() {
+        super.r();
         this.g = this.b;
         this.f = this.c;
         this.c = (float) ((double) this.c + (double) (this.onGround ? -1 : 4) * 0.3D);
@@ -42,7 +42,7 @@ public class EntityChicken extends EntityAnimal {
 
         this.b += this.h * 2.0F;
         if (!this.world.isStatic && --this.i <= 0) {
-            this.world.a(this, "mob.chickenplop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.world.makeSound(this, "mob.chickenplop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             this.b(Item.EGG.id, 1);
             this.i = this.random.nextInt(6000) + 6000;
         }

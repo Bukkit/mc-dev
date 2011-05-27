@@ -2,12 +2,12 @@ package net.minecraft.server;
 
 public class ChunkCoordIntPair {
 
-    public final int a;
-    public final int b;
+    public final int x;
+    public final int z;
 
     public ChunkCoordIntPair(int i, int j) {
-        this.a = i;
-        this.b = j;
+        this.x = i;
+        this.z = j;
     }
 
     public static int a(int i, int j) {
@@ -15,12 +15,12 @@ public class ChunkCoordIntPair {
     }
 
     public int hashCode() {
-        return a(this.a, this.b);
+        return a(this.x, this.z);
     }
 
     public boolean equals(Object object) {
         ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) object;
 
-        return chunkcoordintpair.a == this.a && chunkcoordintpair.b == this.b;
+        return chunkcoordintpair.x == this.x && chunkcoordintpair.z == this.z;
     }
 }

@@ -21,11 +21,11 @@ public class BlockButton extends Block {
         return false;
     }
 
-    public boolean a(World world, int i, int j, int k) {
+    public boolean canPlace(World world, int i, int j, int k) {
         return world.d(i - 1, j, k) ? true : (world.d(i + 1, j, k) ? true : (world.d(i, j, k - 1) ? true : world.d(i, j, k + 1)));
     }
 
-    public void d(World world, int i, int j, int k, int l) {
+    public void postPlace(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
         int j1 = i1 & 8;
 
@@ -42,14 +42,14 @@ public class BlockButton extends Block {
             i1 = this.g(world, i, j, k);
         }
 
-        world.c(i, j, k, i1 + j1);
+        world.setData(i, j, k, i1 + j1);
     }
 
     private int g(World world, int i, int j, int k) {
         return world.d(i - 1, j, k) ? 1 : (world.d(i + 1, j, k) ? 2 : (world.d(i, j, k - 1) ? 3 : (world.d(i, j, k + 1) ? 4 : 1)));
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         if (this.h(world, i, j, k)) {
             int i1 = world.getData(i, j, k) & 7;
             boolean flag = false;
@@ -71,16 +71,16 @@ public class BlockButton extends Block {
             }
 
             if (flag) {
-                this.b_(world, i, j, k, world.getData(i, j, k));
-                world.e(i, j, k, 0);
+                this.a_(world, i, j, k, world.getData(i, j, k));
+                world.setTypeId(i, j, k, 0);
             }
         }
     }
 
     private boolean h(World world, int i, int j, int k) {
-        if (!this.a(world, i, j, k)) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
-            world.e(i, j, k, 0);
+        if (!this.canPlace(world, i, j, k)) {
+            this.a_(world, i, j, k, world.getData(i, j, k));
+            world.setTypeId(i, j, k, 0);
             return false;
         } else {
             return true;
@@ -112,10 +112,10 @@ public class BlockButton extends Block {
     }
 
     public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
-        this.a(world, i, j, k, entityhuman);
+        this.interact(world, i, j, k, entityhuman);
     }
 
-    public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         int l = world.getData(i, j, k);
         int i1 = l & 7;
         int j1 = 8 - (l & 8);
@@ -123,20 +123,20 @@ public class BlockButton extends Block {
         if (j1 == 0) {
             return true;
         } else {
-            world.c(i, j, k, i1 + j1);
+            world.setData(i, j, k, i1 + j1);
             world.b(i, j, k, i, j, k);
-            world.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.click", 0.3F, 0.6F);
-            world.h(i, j, k, this.id);
+            world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.click", 0.3F, 0.6F);
+            world.applyPhysics(i, j, k, this.id);
             if (i1 == 1) {
-                world.h(i - 1, j, k, this.id);
+                world.applyPhysics(i - 1, j, k, this.id);
             } else if (i1 == 2) {
-                world.h(i + 1, j, k, this.id);
+                world.applyPhysics(i + 1, j, k, this.id);
             } else if (i1 == 3) {
-                world.h(i, j, k - 1, this.id);
+                world.applyPhysics(i, j, k - 1, this.id);
             } else if (i1 == 4) {
-                world.h(i, j, k + 1, this.id);
+                world.applyPhysics(i, j, k + 1, this.id);
             } else {
-                world.h(i, j - 1, k, this.id);
+                world.applyPhysics(i, j - 1, k, this.id);
             }
 
             world.c(i, j, k, this.id, this.b());
@@ -144,27 +144,27 @@ public class BlockButton extends Block {
         }
     }
 
-    public void b(World world, int i, int j, int k) {
+    public void remove(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
 
         if ((l & 8) > 0) {
-            world.h(i, j, k, this.id);
+            world.applyPhysics(i, j, k, this.id);
             int i1 = l & 7;
 
             if (i1 == 1) {
-                world.h(i - 1, j, k, this.id);
+                world.applyPhysics(i - 1, j, k, this.id);
             } else if (i1 == 2) {
-                world.h(i + 1, j, k, this.id);
+                world.applyPhysics(i + 1, j, k, this.id);
             } else if (i1 == 3) {
-                world.h(i, j, k - 1, this.id);
+                world.applyPhysics(i, j, k - 1, this.id);
             } else if (i1 == 4) {
-                world.h(i, j, k + 1, this.id);
+                world.applyPhysics(i, j, k + 1, this.id);
             } else {
-                world.h(i, j - 1, k, this.id);
+                world.applyPhysics(i, j - 1, k, this.id);
             }
         }
 
-        super.b(world, i, j, k);
+        super.remove(world, i, j, k);
     }
 
     public boolean b(IBlockAccess iblockaccess, int i, int j, int k, int l) {
@@ -183,7 +183,7 @@ public class BlockButton extends Block {
         }
     }
 
-    public boolean c() {
+    public boolean isPowerSource() {
         return true;
     }
 
@@ -192,23 +192,23 @@ public class BlockButton extends Block {
             int l = world.getData(i, j, k);
 
             if ((l & 8) != 0) {
-                world.c(i, j, k, l & 7);
-                world.h(i, j, k, this.id);
+                world.setData(i, j, k, l & 7);
+                world.applyPhysics(i, j, k, this.id);
                 int i1 = l & 7;
 
                 if (i1 == 1) {
-                    world.h(i - 1, j, k, this.id);
+                    world.applyPhysics(i - 1, j, k, this.id);
                 } else if (i1 == 2) {
-                    world.h(i + 1, j, k, this.id);
+                    world.applyPhysics(i + 1, j, k, this.id);
                 } else if (i1 == 3) {
-                    world.h(i, j, k - 1, this.id);
+                    world.applyPhysics(i, j, k - 1, this.id);
                 } else if (i1 == 4) {
-                    world.h(i, j, k + 1, this.id);
+                    world.applyPhysics(i, j, k + 1, this.id);
                 } else {
-                    world.h(i, j - 1, k, this.id);
+                    world.applyPhysics(i, j - 1, k, this.id);
                 }
 
-                world.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.click", 0.3F, 0.5F);
+                world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.click", 0.3F, 0.5F);
                 world.b(i, j, k, i, j, k);
             }
         }

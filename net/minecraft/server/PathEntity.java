@@ -28,6 +28,6 @@ public class PathEntity {
         double d1 = (double) this.b[this.c].b;
         double d2 = (double) this.b[this.c].c + (double) ((int) (entity.length + 1.0F)) * 0.5D;
 
-        return Vec3D.b(d0, d1, d2);
+        return Vec3D.create(d0, d1, d2);
     }
 }

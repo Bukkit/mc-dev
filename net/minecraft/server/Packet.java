@@ -11,7 +11,7 @@ public abstract class Packet {
 
     private static Map a = new HashMap();
     private static Map b = new HashMap();
-    public final long j = System.currentTimeMillis();
+    public final long timestamp = System.currentTimeMillis();
     public boolean k = false;
     private static HashMap c;
     private static int d;
@@ -49,8 +49,6 @@ public abstract class Packet {
         boolean flag = false;
         Packet packet = null;
 
-        datainputstream.mark(16384);
-
         int i;
 
         try {
@@ -67,7 +65,6 @@ public abstract class Packet {
             packet.a(datainputstream);
         } catch (EOFException eofexception) {
             System.out.println("Reached end of stream");
-            datainputstream.reset();
             return null;
         }
 
@@ -144,6 +141,7 @@ public abstract class Packet {
         a(53, Packet53BlockChange.class);
         a(54, Packet54PlayNoteBlock.class);
         a(60, Packet60Explosion.class);
+        a(70, Packet70Bed.class);
         a(100, Packet100OpenWindow.class);
         a(101, Packet101CloseWindow.class);
         a(102, Packet102WindowClick.class);

@@ -170,4 +170,8 @@ public class CraftingManager {
 
         return null;
     }
+
+    public List b() {
+        return this.b;
+    }
 }

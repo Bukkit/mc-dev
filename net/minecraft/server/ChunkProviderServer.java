@@ -10,94 +10,94 @@ import java.util.Set;
 
 public class ChunkProviderServer implements IChunkProvider {
 
-    private Set a = new HashSet();
-    private Chunk b;
-    private IChunkProvider c;
+    private Set unloadQueue = new HashSet();
+    private Chunk emptyChunk;
+    private IChunkProvider chunkProvider;
     private IChunkLoader d;
-    private Map e = new HashMap();
-    private List f = new ArrayList();
-    private WorldServer g;
+    private Map chunks = new HashMap();
+    private List chunkList = new ArrayList();
+    private WorldServer world;
 
     public ChunkProviderServer(WorldServer worldserver, IChunkLoader ichunkloader, IChunkProvider ichunkprovider) {
-        this.b = new EmptyChunk(worldserver, new byte['\u8000'], 0, 0);
-        this.g = worldserver;
+        this.emptyChunk = new EmptyChunk(worldserver, new byte['\u8000'], 0, 0);
+        this.world = worldserver;
         this.d = ichunkloader;
-        this.c = ichunkprovider;
+        this.chunkProvider = ichunkprovider;
     }
 
-    public boolean a(int i, int j) {
-        return this.e.containsKey(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
+    public boolean isChunkLoaded(int i, int j) {
+        return this.chunks.containsKey(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
     }
 
-    public void c(int i, int j) {
-        ChunkCoordinates chunkcoordinates = this.g.l();
-        int k = i * 16 + 8 - chunkcoordinates.a;
-        int l = j * 16 + 8 - chunkcoordinates.c;
+    public void queueUnload(int i, int j) {
+        ChunkCoordinates chunkcoordinates = this.world.getSpawn();
+        int k = i * 16 + 8 - chunkcoordinates.x;
+        int l = j * 16 + 8 - chunkcoordinates.z;
         short short1 = 128;
 
         if (k < -short1 || k > short1 || l < -short1 || l > short1) {
-            this.a.add(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
+            this.unloadQueue.add(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
         }
     }
 
-    public Chunk d(int i, int j) {
+    public Chunk getChunkAt(int i, int j) {
         int k = ChunkCoordIntPair.a(i, j);
 
-        this.a.remove(Integer.valueOf(k));
-        Chunk chunk = (Chunk) this.e.get(Integer.valueOf(k));
+        this.unloadQueue.remove(Integer.valueOf(k));
+        Chunk chunk = (Chunk) this.chunks.get(Integer.valueOf(k));
 
         if (chunk == null) {
-            chunk = this.e(i, j);
+            chunk = this.loadChunk(i, j);
             if (chunk == null) {
-                if (this.c == null) {
-                    chunk = this.b;
+                if (this.chunkProvider == null) {
+                    chunk = this.emptyChunk;
                 } else {
-                    chunk = this.c.b(i, j);
+                    chunk = this.chunkProvider.getOrCreateChunk(i, j);
                 }
             }
 
-            this.e.put(Integer.valueOf(k), chunk);
-            this.f.add(chunk);
+            this.chunks.put(Integer.valueOf(k), chunk);
+            this.chunkList.add(chunk);
             if (chunk != null) {
-                chunk.c();
-                chunk.d();
+                chunk.loadNOP();
+                chunk.addEntities();
             }
 
-            if (!chunk.n && this.a(i + 1, j + 1) && this.a(i, j + 1) && this.a(i + 1, j)) {
-                this.a(this, i, j);
+            if (!chunk.done && this.isChunkLoaded(i + 1, j + 1) && this.isChunkLoaded(i, j + 1) && this.isChunkLoaded(i + 1, j)) {
+                this.getChunkAt(this, i, j);
             }
 
-            if (this.a(i - 1, j) && !this.b(i - 1, j).n && this.a(i - 1, j + 1) && this.a(i, j + 1) && this.a(i - 1, j)) {
-                this.a(this, i - 1, j);
+            if (this.isChunkLoaded(i - 1, j) && !this.getOrCreateChunk(i - 1, j).done && this.isChunkLoaded(i - 1, j + 1) && this.isChunkLoaded(i, j + 1) && this.isChunkLoaded(i - 1, j)) {
+                this.getChunkAt(this, i - 1, j);
             }
 
-            if (this.a(i, j - 1) && !this.b(i, j - 1).n && this.a(i + 1, j - 1) && this.a(i, j - 1) && this.a(i + 1, j)) {
-                this.a(this, i, j - 1);
+            if (this.isChunkLoaded(i, j - 1) && !this.getOrCreateChunk(i, j - 1).done && this.isChunkLoaded(i + 1, j - 1) && this.isChunkLoaded(i, j - 1) && this.isChunkLoaded(i + 1, j)) {
+                this.getChunkAt(this, i, j - 1);
             }
 
-            if (this.a(i - 1, j - 1) && !this.b(i - 1, j - 1).n && this.a(i - 1, j - 1) && this.a(i, j - 1) && this.a(i - 1, j)) {
-                this.a(this, i - 1, j - 1);
+            if (this.isChunkLoaded(i - 1, j - 1) && !this.getOrCreateChunk(i - 1, j - 1).done && this.isChunkLoaded(i - 1, j - 1) && this.isChunkLoaded(i, j - 1) && this.isChunkLoaded(i - 1, j)) {
+                this.getChunkAt(this, i - 1, j - 1);
             }
         }
 
         return chunk;
     }
 
-    public Chunk b(int i, int j) {
-        Chunk chunk = (Chunk) this.e.get(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
+    public Chunk getOrCreateChunk(int i, int j) {
+        Chunk chunk = (Chunk) this.chunks.get(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
 
-        return chunk == null ? (this.g.r ? this.d(i, j) : this.b) : chunk;
+        return chunk == null ? (this.world.isLoading ? this.getChunkAt(i, j) : this.emptyChunk) : chunk;
     }
 
-    private Chunk e(int i, int j) {
+    private Chunk loadChunk(int i, int j) {
         if (this.d == null) {
             return null;
         } else {
             try {
-                Chunk chunk = this.d.a(this.g, i, j);
+                Chunk chunk = this.d.a(this.world, i, j);
 
                 if (chunk != null) {
-                    chunk.r = this.g.k();
+                    chunk.r = this.world.getTime();
                 }
 
                 return chunk;
@@ -108,51 +108,51 @@ public class ChunkProviderServer implements IChunkProvider {
         }
     }
 
-    private void a(Chunk chunk) {
+    private void saveChunkNOP(Chunk chunk) {
         if (this.d != null) {
             try {
-                this.d.b(this.g, chunk);
+                this.d.b(this.world, chunk);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
         }
     }
 
-    private void b(Chunk chunk) {
+    private void saveChunk(Chunk chunk) {
         if (this.d != null) {
             try {
-                chunk.r = this.g.k();
-                this.d.a(this.g, chunk);
+                chunk.r = this.world.getTime();
+                this.d.a(this.world, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
             }
         }
     }
 
-    public void a(IChunkProvider ichunkprovider, int i, int j) {
-        Chunk chunk = this.b(i, j);
+    public void getChunkAt(IChunkProvider ichunkprovider, int i, int j) {
+        Chunk chunk = this.getOrCreateChunk(i, j);
 
-        if (!chunk.n) {
-            chunk.n = true;
-            if (this.c != null) {
-                this.c.a(ichunkprovider, i, j);
+        if (!chunk.done) {
+            chunk.done = true;
+            if (this.chunkProvider != null) {
+                this.chunkProvider.getChunkAt(ichunkprovider, i, j);
                 chunk.f();
             }
         }
     }
 
-    public boolean a(boolean flag, IProgressUpdate iprogressupdate) {
+    public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
         int i = 0;
 
-        for (int j = 0; j < this.f.size(); ++j) {
-            Chunk chunk = (Chunk) this.f.get(j);
+        for (int j = 0; j < this.chunkList.size(); ++j) {
+            Chunk chunk = (Chunk) this.chunkList.get(j);
 
             if (flag && !chunk.p) {
-                this.a(chunk);
+                this.saveChunkNOP(chunk);
             }
 
             if (chunk.a(flag)) {
-                this.b(chunk);
+                this.saveChunk(chunk);
                 chunk.o = false;
                 ++i;
                 if (i == 24 && !flag) {
@@ -172,19 +172,19 @@ public class ChunkProviderServer implements IChunkProvider {
         return true;
     }
 
-    public boolean a() {
-        if (!this.g.w) {
+    public boolean unloadChunks() {
+        if (!this.world.w) {
             for (int i = 0; i < 100; ++i) {
-                if (!this.a.isEmpty()) {
-                    Integer integer = (Integer) this.a.iterator().next();
-                    Chunk chunk = (Chunk) this.e.get(integer);
+                if (!this.unloadQueue.isEmpty()) {
+                    Integer integer = (Integer) this.unloadQueue.iterator().next();
+                    Chunk chunk = (Chunk) this.chunks.get(integer);
 
-                    chunk.e();
-                    this.b(chunk);
-                    this.a(chunk);
-                    this.a.remove(integer);
-                    this.e.remove(integer);
-                    this.f.remove(chunk);
+                    chunk.removeEntities();
+                    this.saveChunk(chunk);
+                    this.saveChunkNOP(chunk);
+                    this.unloadQueue.remove(integer);
+                    this.chunks.remove(integer);
+                    this.chunkList.remove(chunk);
                 }
             }
 
@@ -193,10 +193,10 @@ public class ChunkProviderServer implements IChunkProvider {
             }
         }
 
-        return this.c.a();
+        return this.chunkProvider.unloadChunks();
     }
 
     public boolean b() {
-        return !this.g.w;
+        return !this.world.w;
     }
 }

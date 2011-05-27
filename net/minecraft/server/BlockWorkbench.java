@@ -11,7 +11,7 @@ public class BlockWorkbench extends Block {
         return i == 1 ? this.textureId - 16 : (i == 0 ? Block.WOOD.a(0) : (i != 2 && i != 4 ? this.textureId : this.textureId + 1));
     }
 
-    public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         if (world.isStatic) {
             return true;
         } else {

@@ -14,7 +14,7 @@ final class ServerWindowAdapter extends WindowAdapter {
     public void windowClosing(WindowEvent windowevent) {
         this.a.a();
 
-        while (!this.a.g) {
+        while (!this.a.isStopped) {
             try {
                 Thread.sleep(100L);
             } catch (InterruptedException interruptedexception) {

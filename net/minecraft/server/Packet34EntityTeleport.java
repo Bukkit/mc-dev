@@ -16,9 +16,9 @@ public class Packet34EntityTeleport extends Packet {
 
     public Packet34EntityTeleport(Entity entity) {
         this.a = entity.id;
-        this.b = MathHelper.b(entity.locX * 32.0D);
-        this.c = MathHelper.b(entity.locY * 32.0D);
-        this.d = MathHelper.b(entity.locZ * 32.0D);
+        this.b = MathHelper.floor(entity.locX * 32.0D);
+        this.c = MathHelper.floor(entity.locY * 32.0D);
+        this.d = MathHelper.floor(entity.locZ * 32.0D);
         this.e = (byte) ((int) (entity.yaw * 256.0F / 360.0F));
         this.f = (byte) ((int) (entity.pitch * 256.0F / 360.0F));
     }

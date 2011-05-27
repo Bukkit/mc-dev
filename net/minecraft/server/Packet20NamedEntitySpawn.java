@@ -19,12 +19,12 @@ public class Packet20NamedEntitySpawn extends Packet {
     public Packet20NamedEntitySpawn(EntityHuman entityhuman) {
         this.a = entityhuman.id;
         this.b = entityhuman.name;
-        this.c = MathHelper.b(entityhuman.locX * 32.0D);
-        this.d = MathHelper.b(entityhuman.locY * 32.0D);
-        this.e = MathHelper.b(entityhuman.locZ * 32.0D);
+        this.c = MathHelper.floor(entityhuman.locX * 32.0D);
+        this.d = MathHelper.floor(entityhuman.locY * 32.0D);
+        this.e = MathHelper.floor(entityhuman.locZ * 32.0D);
         this.f = (byte) ((int) (entityhuman.yaw * 256.0F / 360.0F));
         this.g = (byte) ((int) (entityhuman.pitch * 256.0F / 360.0F));
-        ItemStack itemstack = entityhuman.inventory.b();
+        ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
         this.h = itemstack == null ? 0 : itemstack.id;
     }

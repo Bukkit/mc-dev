@@ -9,9 +9,9 @@ public class ItemSnowball extends Item {
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
         --itemstack.count;
-        world.a(entityhuman, "random.bow", 0.5F, 0.4F / (b.nextFloat() * 0.4F + 0.8F));
+        world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (b.nextFloat() * 0.4F + 0.8F));
         if (!world.isStatic) {
-            world.a((Entity) (new EntitySnowball(world, entityhuman)));
+            world.addEntity(new EntitySnowball(world, entityhuman));
         }
 
         return itemstack;

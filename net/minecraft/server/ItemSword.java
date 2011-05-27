@@ -7,7 +7,7 @@ public class ItemSword extends Item {
     public ItemSword(int i, EnumToolMaterial enumtoolmaterial) {
         super(i);
         this.maxStackSize = 1;
-        this.durability = enumtoolmaterial.a();
+        this.d(enumtoolmaterial.a());
         this.a = 4 + enumtoolmaterial.c() * 2;
     }
 
@@ -15,12 +15,14 @@ public class ItemSword extends Item {
         return 1.5F;
     }
 
-    public void a(ItemStack itemstack, EntityLiving entityliving) {
-        itemstack.b(1);
+    public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
+        itemstack.damage(1, entityliving1);
+        return true;
     }
 
-    public void a(ItemStack itemstack, int i, int j, int k, int l) {
-        itemstack.b(2);
+    public boolean a(ItemStack itemstack, int i, int j, int k, int l, EntityLiving entityliving) {
+        itemstack.damage(2, entityliving);
+        return true;
     }
 
     public int a(Entity entity) {

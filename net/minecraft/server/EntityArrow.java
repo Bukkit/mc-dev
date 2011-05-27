@@ -10,35 +10,35 @@ public class EntityArrow extends Entity {
     private int f = 0;
     private boolean g = false;
     public int a = 0;
-    public EntityLiving b;
+    public EntityLiving shooter;
     private int h;
     private int i = 0;
 
     public EntityArrow(World world) {
         super(world);
-        this.a(0.5F, 0.5F);
+        this.b(0.5F, 0.5F);
     }
 
     public EntityArrow(World world, double d0, double d1, double d2) {
         super(world);
-        this.a(0.5F, 0.5F);
-        this.a(d0, d1, d2);
+        this.b(0.5F, 0.5F);
+        this.setPosition(d0, d1, d2);
         this.height = 0.0F;
     }
 
     public EntityArrow(World world, EntityLiving entityliving) {
         super(world);
-        this.b = entityliving;
-        this.a(0.5F, 0.5F);
-        this.c(entityliving.locX, entityliving.locY + (double) entityliving.p(), entityliving.locZ, entityliving.yaw, entityliving.pitch);
-        this.locX -= (double) (MathHelper.b(this.yaw / 180.0F * 3.1415927F) * 0.16F);
+        this.shooter = entityliving;
+        this.b(0.5F, 0.5F);
+        this.setPositionRotation(entityliving.locX, entityliving.locY + (double) entityliving.q(), entityliving.locZ, entityliving.yaw, entityliving.pitch);
+        this.locX -= (double) (MathHelper.cos(this.yaw / 180.0F * 3.1415927F) * 0.16F);
         this.locY -= 0.10000000149011612D;
-        this.locZ -= (double) (MathHelper.a(this.yaw / 180.0F * 3.1415927F) * 0.16F);
-        this.a(this.locX, this.locY, this.locZ);
+        this.locZ -= (double) (MathHelper.sin(this.yaw / 180.0F * 3.1415927F) * 0.16F);
+        this.setPosition(this.locX, this.locY, this.locZ);
         this.height = 0.0F;
-        this.motX = (double) (-MathHelper.a(this.yaw / 180.0F * 3.1415927F) * MathHelper.b(this.pitch / 180.0F * 3.1415927F));
-        this.motZ = (double) (MathHelper.b(this.yaw / 180.0F * 3.1415927F) * MathHelper.b(this.pitch / 180.0F * 3.1415927F));
-        this.motY = (double) (-MathHelper.a(this.pitch / 180.0F * 3.1415927F));
+        this.motX = (double) (-MathHelper.sin(this.yaw / 180.0F * 3.1415927F) * MathHelper.cos(this.pitch / 180.0F * 3.1415927F));
+        this.motZ = (double) (MathHelper.cos(this.yaw / 180.0F * 3.1415927F) * MathHelper.cos(this.pitch / 180.0F * 3.1415927F));
+        this.motY = (double) (-MathHelper.sin(this.pitch / 180.0F * 3.1415927F));
         this.a(this.motX, this.motY, this.motZ, 1.5F, 1.0F);
     }
 
@@ -85,7 +85,7 @@ public class EntityArrow extends Entity {
             if (i == this.f) {
                 ++this.h;
                 if (this.h == 1200) {
-                    this.C();
+                    this.die();
                 }
 
                 return;
@@ -101,14 +101,14 @@ public class EntityArrow extends Entity {
             ++this.i;
         }
 
-        Vec3D vec3d = Vec3D.b(this.locX, this.locY, this.locZ);
-        Vec3D vec3d1 = Vec3D.b(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
+        Vec3D vec3d = Vec3D.create(this.locX, this.locY, this.locZ);
+        Vec3D vec3d1 = Vec3D.create(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
         MovingObjectPosition movingobjectposition = this.world.a(vec3d, vec3d1);
 
-        vec3d = Vec3D.b(this.locX, this.locY, this.locZ);
-        vec3d1 = Vec3D.b(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
+        vec3d = Vec3D.create(this.locX, this.locY, this.locZ);
+        vec3d1 = Vec3D.create(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
         if (movingobjectposition != null) {
-            vec3d1 = Vec3D.b(movingobjectposition.f.a, movingobjectposition.f.b, movingobjectposition.f.c);
+            vec3d1 = Vec3D.create(movingobjectposition.f.a, movingobjectposition.f.b, movingobjectposition.f.c);
         }
 
         Entity entity = null;
@@ -120,7 +120,7 @@ public class EntityArrow extends Entity {
         for (int j = 0; j < list.size(); ++j) {
             Entity entity1 = (Entity) list.get(j);
 
-            if (entity1.d_() && (entity1 != this.b || this.i >= 5)) {
+            if (entity1.d_() && (entity1 != this.shooter || this.i >= 5)) {
                 f1 = 0.3F;
                 AxisAlignedBB axisalignedbb = entity1.boundingBox.b((double) f1, (double) f1, (double) f1);
                 MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
@@ -143,10 +143,10 @@ public class EntityArrow extends Entity {
         float f2;
 
         if (movingobjectposition != null) {
-            if (movingobjectposition.g != null) {
-                if (movingobjectposition.g.a(this.b, 4)) {
-                    this.world.a(this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-                    this.C();
+            if (movingobjectposition.entity != null) {
+                if (movingobjectposition.entity.damageEntity(this.shooter, 4)) {
+                    this.world.makeSound(this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                    this.die();
                 } else {
                     this.motX *= -0.10000000149011612D;
                     this.motY *= -0.10000000149011612D;
@@ -167,7 +167,7 @@ public class EntityArrow extends Entity {
                 this.locX -= this.motX / (double) f2 * 0.05000000074505806D;
                 this.locY -= this.motY / (double) f2 * 0.05000000074505806D;
                 this.locZ -= this.motZ / (double) f2 * 0.05000000074505806D;
-                this.world.a(this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                this.world.makeSound(this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 this.g = true;
                 this.a = 7;
             }
@@ -214,7 +214,7 @@ public class EntityArrow extends Entity {
         this.motY *= (double) f3;
         this.motZ *= (double) f3;
         this.motY -= (double) f1;
-        this.a(this.locX, this.locY, this.locZ);
+        this.setPosition(this.locX, this.locY, this.locZ);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -237,10 +237,10 @@ public class EntityArrow extends Entity {
 
     public void b(EntityHuman entityhuman) {
         if (!this.world.isStatic) {
-            if (this.g && this.b == entityhuman && this.a <= 0 && entityhuman.inventory.a(new ItemStack(Item.ARROW, 1))) {
-                this.world.a(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                entityhuman.b(this, 1);
-                this.C();
+            if (this.g && this.shooter == entityhuman && this.a <= 0 && entityhuman.inventory.canHold(new ItemStack(Item.ARROW, 1))) {
+                this.world.makeSound(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                entityhuman.receive(this, 1);
+                this.die();
             }
         }
     }

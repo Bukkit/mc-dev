@@ -19,7 +19,7 @@ public class Vec3D {
         e = 0;
     }
 
-    public static Vec3D b(double d0, double d1, double d2) {
+    public static Vec3D create(double d0, double d1, double d2) {
         if (e >= d.size()) {
             d.add(a(0.0D, 0.0D, 0.0D));
         }
@@ -55,11 +55,11 @@ public class Vec3D {
     public Vec3D b() {
         double d0 = (double) MathHelper.a(this.a * this.a + this.b * this.b + this.c * this.c);
 
-        return d0 < 1.0E-4D ? b(0.0D, 0.0D, 0.0D) : b(this.a / d0, this.b / d0, this.c / d0);
+        return d0 < 1.0E-4D ? create(0.0D, 0.0D, 0.0D) : create(this.a / d0, this.b / d0, this.c / d0);
     }
 
-    public Vec3D c(double d0, double d1, double d2) {
-        return b(this.a + d0, this.b + d1, this.c + d2);
+    public Vec3D add(double d0, double d1, double d2) {
+        return create(this.a + d0, this.b + d1, this.c + d2);
     }
 
     public double a(Vec3D vec3d) {
@@ -100,7 +100,7 @@ public class Vec3D {
         } else {
             double d4 = (d0 - this.a) / d1;
 
-            return d4 >= 0.0D && d4 <= 1.0D ? b(this.a + d1 * d4, this.b + d2 * d4, this.c + d3 * d4) : null;
+            return d4 >= 0.0D && d4 <= 1.0D ? create(this.a + d1 * d4, this.b + d2 * d4, this.c + d3 * d4) : null;
         }
     }
 
@@ -114,7 +114,7 @@ public class Vec3D {
         } else {
             double d4 = (d0 - this.b) / d2;
 
-            return d4 >= 0.0D && d4 <= 1.0D ? b(this.a + d1 * d4, this.b + d2 * d4, this.c + d3 * d4) : null;
+            return d4 >= 0.0D && d4 <= 1.0D ? create(this.a + d1 * d4, this.b + d2 * d4, this.c + d3 * d4) : null;
         }
     }
 
@@ -128,7 +128,7 @@ public class Vec3D {
         } else {
             double d4 = (d0 - this.c) / d3;
 
-            return d4 >= 0.0D && d4 <= 1.0D ? b(this.a + d1 * d4, this.b + d2 * d4, this.c + d3 * d4) : null;
+            return d4 >= 0.0D && d4 <= 1.0D ? create(this.a + d1 * d4, this.b + d2 * d4, this.c + d3 * d4) : null;
         }
     }
 

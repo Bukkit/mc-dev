@@ -27,7 +27,7 @@ public abstract class Container {
         ArrayList arraylist = new ArrayList();
 
         for (int i = 0; i < this.e.size(); ++i) {
-            arraylist.add(((Slot) this.e.get(i)).b());
+            arraylist.add(((Slot) this.e.get(i)).getItem());
         }
 
         icrafting.a(this, arraylist);
@@ -36,10 +36,10 @@ public abstract class Container {
 
     public void a() {
         for (int i = 0; i < this.e.size(); ++i) {
-            ItemStack itemstack = ((Slot) this.e.get(i)).b();
+            ItemStack itemstack = ((Slot) this.e.get(i)).getItem();
             ItemStack itemstack1 = (ItemStack) this.d.get(i);
 
-            if (!ItemStack.a(itemstack1, itemstack)) {
+            if (!ItemStack.equals(itemstack1, itemstack)) {
                 itemstack1 = itemstack == null ? null : itemstack.j();
                 this.d.set(i, itemstack1);
 
@@ -73,15 +73,15 @@ public abstract class Container {
             InventoryPlayer inventoryplayer = entityhuman.inventory;
 
             if (i == -999) {
-                if (inventoryplayer.i() != null && i == -999) {
+                if (inventoryplayer.j() != null && i == -999) {
                     if (j == 0) {
-                        entityhuman.b(inventoryplayer.i());
+                        entityhuman.b(inventoryplayer.j());
                         inventoryplayer.b((ItemStack) null);
                     }
 
                     if (j == 1) {
-                        entityhuman.b(inventoryplayer.i().a(1));
-                        if (inventoryplayer.i().count == 0) {
+                        entityhuman.b(inventoryplayer.j().a(1));
+                        if (inventoryplayer.j().count == 0) {
                             inventoryplayer.b((ItemStack) null);
                         }
                     }
@@ -90,9 +90,9 @@ public abstract class Container {
                 Slot slot = (Slot) this.e.get(i);
 
                 if (slot != null) {
-                    slot.c();
-                    ItemStack itemstack1 = slot.b();
-                    ItemStack itemstack2 = inventoryplayer.i();
+                    slot.b();
+                    ItemStack itemstack1 = slot.getItem();
+                    ItemStack itemstack2 = inventoryplayer.j();
 
                     if (itemstack1 != null) {
                         itemstack = itemstack1.j();
@@ -101,56 +101,69 @@ public abstract class Container {
                     int k;
 
                     if (itemstack1 == null) {
-                        if (itemstack2 != null && slot.a(itemstack2)) {
+                        if (itemstack2 != null && slot.isAllowed(itemstack2)) {
                             k = j == 0 ? itemstack2.count : 1;
-                            if (k > slot.d()) {
-                                k = slot.d();
+                            if (k > slot.c()) {
+                                k = slot.c();
                             }
 
-                            slot.b(itemstack2.a(k));
+                            slot.c(itemstack2.a(k));
                             if (itemstack2.count == 0) {
                                 inventoryplayer.b((ItemStack) null);
                             }
                         }
-                    } else if (itemstack2 == null) {
-                        k = j == 0 ? itemstack1.count : (itemstack1.count + 1) / 2;
-                        inventoryplayer.b(slot.a(k));
-                        if (itemstack1.count == 0) {
-                            slot.b((ItemStack) null);
-                        }
+                    } else {
+                        ItemStack itemstack3;
 
-                        slot.a();
-                    } else if (slot.a(itemstack2)) {
-                        if (itemstack1.id == itemstack2.id && (!itemstack1.e() || itemstack1.h() == itemstack2.h())) {
-                            k = j == 0 ? itemstack2.count : 1;
-                            if (k > slot.d() - itemstack1.count) {
-                                k = slot.d() - itemstack1.count;
+                        if (itemstack2 == null) {
+                            k = j == 0 ? itemstack1.count : (itemstack1.count + 1) / 2;
+                            itemstack3 = slot.a(k);
+                            if (itemstack3 != null && slot.d()) {
+                                entityhuman.a(StatisticList.z[itemstack3.id], itemstack3.count);
                             }
 
-                            if (k > itemstack2.b() - itemstack1.count) {
-                                k = itemstack2.b() - itemstack1.count;
-                            }
-
-                            itemstack2.a(k);
-                            if (itemstack2.count == 0) {
-                                inventoryplayer.b((ItemStack) null);
-                            }
-
-                            itemstack1.count += k;
-                        } else if (itemstack2.count <= slot.d()) {
-                            slot.b(itemstack2);
-                            inventoryplayer.b(itemstack1);
-                        }
-                    } else if (itemstack1.id == itemstack2.id && itemstack2.b() > 1 && (!itemstack1.e() || itemstack1.h() == itemstack2.h())) {
-                        k = itemstack1.count;
-                        if (k > 0 && k + itemstack2.count <= itemstack2.b()) {
-                            itemstack2.count += k;
-                            itemstack1.a(k);
+                            inventoryplayer.b(itemstack3);
                             if (itemstack1.count == 0) {
-                                slot.b((ItemStack) null);
+                                slot.c((ItemStack) null);
                             }
 
-                            slot.a();
+                            slot.a(inventoryplayer.j());
+                        } else if (slot.isAllowed(itemstack2)) {
+                            if (itemstack1.id == itemstack2.id && (!itemstack1.e() || itemstack1.getData() == itemstack2.getData())) {
+                                k = j == 0 ? itemstack2.count : 1;
+                                if (k > slot.c() - itemstack1.count) {
+                                    k = slot.c() - itemstack1.count;
+                                }
+
+                                if (k > itemstack2.b() - itemstack1.count) {
+                                    k = itemstack2.b() - itemstack1.count;
+                                }
+
+                                itemstack2.a(k);
+                                if (itemstack2.count == 0) {
+                                    inventoryplayer.b((ItemStack) null);
+                                }
+
+                                itemstack1.count += k;
+                            } else if (itemstack2.count <= slot.c()) {
+                                slot.c(itemstack2);
+                                inventoryplayer.b(itemstack1);
+                            }
+                        } else if (itemstack1.id == itemstack2.id && itemstack2.b() > 1 && (!itemstack1.e() || itemstack1.getData() == itemstack2.getData())) {
+                            k = itemstack1.count;
+                            if (k > 0 && k + itemstack2.count <= itemstack2.b()) {
+                                itemstack2.count += k;
+                                itemstack3 = itemstack1.a(k);
+                                if (itemstack3 != null && slot.d()) {
+                                    entityhuman.a(StatisticList.z[itemstack3.id], itemstack3.count);
+                                }
+
+                                if (itemstack1.count == 0) {
+                                    slot.c((ItemStack) null);
+                                }
+
+                                slot.a(inventoryplayer.j());
+                            }
                         }
                     }
                 }
@@ -163,8 +176,8 @@ public abstract class Container {
     public void a(EntityHuman entityhuman) {
         InventoryPlayer inventoryplayer = entityhuman.inventory;
 
-        if (inventoryplayer.i() != null) {
-            entityhuman.b(inventoryplayer.i());
+        if (inventoryplayer.j() != null) {
+            entityhuman.b(inventoryplayer.j());
             inventoryplayer.b((ItemStack) null);
         }
     }

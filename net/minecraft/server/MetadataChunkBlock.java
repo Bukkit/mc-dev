@@ -45,7 +45,7 @@ public class MetadataChunkBlock {
                     } else {
                         flag2 = world.a(k1, 0, l1, 1);
                         if (flag2) {
-                            Chunk chunk = world.c(k1 >> 4, l1 >> 4);
+                            Chunk chunk = world.getChunkAt(k1 >> 4, l1 >> 4);
 
                             if (chunk.g()) {
                                 flag2 = false;

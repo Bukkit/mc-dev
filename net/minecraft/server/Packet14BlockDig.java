@@ -8,7 +8,7 @@ public class Packet14BlockDig extends Packet {
     public int a;
     public int b;
     public int c;
-    public int d;
+    public int face;
     public int e;
 
     public Packet14BlockDig() {}
@@ -18,7 +18,7 @@ public class Packet14BlockDig extends Packet {
         this.a = datainputstream.readInt();
         this.b = datainputstream.read();
         this.c = datainputstream.readInt();
-        this.d = datainputstream.read();
+        this.face = datainputstream.read();
     }
 
     public void a(DataOutputStream dataoutputstream) {
@@ -26,7 +26,7 @@ public class Packet14BlockDig extends Packet {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.write(this.b);
         dataoutputstream.writeInt(this.c);
-        dataoutputstream.write(this.d);
+        dataoutputstream.write(this.face);
     }
 
     public void a(NetHandler nethandler) {

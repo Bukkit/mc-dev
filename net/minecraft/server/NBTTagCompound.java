@@ -66,7 +66,7 @@ public class NBTTagCompound extends NBTBase {
         this.a.put(s, (new NBTTagDouble(d0)).a(s));
     }
 
-    public void a(String s, String s1) {
+    public void setString(String s, String s1) {
         this.a.put(s, (new NBTTagString(s1)).a(s));
     }
 
@@ -82,7 +82,7 @@ public class NBTTagCompound extends NBTBase {
         this.a(s, (byte) (flag ? 1 : 0));
     }
 
-    public boolean b(String s) {
+    public boolean hasKey(String s) {
         return this.a.containsKey(s);
     }
 
@@ -110,7 +110,7 @@ public class NBTTagCompound extends NBTBase {
         return !this.a.containsKey(s) ? 0.0D : ((NBTTagDouble) this.a.get(s)).a;
     }
 
-    public String i(String s) {
+    public String getString(String s) {
         return !this.a.containsKey(s) ? "" : ((NBTTagString) this.a.get(s)).a;
     }
 

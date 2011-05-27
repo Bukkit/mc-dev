@@ -6,11 +6,11 @@ public class MathHelper {
 
     public MathHelper() {}
 
-    public static final float a(float f) {
+    public static final float sin(float f) {
         return a[(int) (f * 10430.378F) & '\uffff'];
     }
 
-    public static final float b(float f) {
+    public static final float cos(float f) {
         return a[(int) (f * 10430.378F + 16384.0F) & '\uffff'];
     }
 
@@ -28,13 +28,13 @@ public class MathHelper {
         return f < (float) i ? i - 1 : i;
     }
 
-    public static int b(double d0) {
+    public static int floor(double d0) {
         int i = (int) d0;
 
         return d0 < (double) i ? i - 1 : i;
     }
 
-    public static float e(float f) {
+    public static float abs(float f) {
         return f >= 0.0F ? f : -f;
     }
 

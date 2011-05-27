@@ -4,22 +4,22 @@ public class ItemFishingRod extends Item {
 
     public ItemFishingRod(int i) {
         super(i);
-        this.durability = 64;
+        this.d(64);
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
         if (entityhuman.hookedFish != null) {
             int i = entityhuman.hookedFish.h();
 
-            itemstack.b(i);
-            entityhuman.r();
+            itemstack.damage(i, entityhuman);
+            entityhuman.m_();
         } else {
-            world.a(entityhuman, "random.bow", 0.5F, 0.4F / (b.nextFloat() * 0.4F + 0.8F));
+            world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (b.nextFloat() * 0.4F + 0.8F));
             if (!world.isStatic) {
-                world.a((Entity) (new EntityFish(world, entityhuman)));
+                world.addEntity(new EntityFish(world, entityhuman));
             }
 
-            entityhuman.r();
+            entityhuman.m_();
         }
 
         return itemstack;

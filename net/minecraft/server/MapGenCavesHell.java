@@ -33,14 +33,14 @@ public class MapGenCavesHell extends MapGenBase {
         int j1 = random.nextInt(l / 2) + l / 4;
 
         for (boolean flag1 = random.nextInt(6) == 0; k < l; ++k) {
-            double d6 = 1.5D + (double) (MathHelper.a((float) k * 3.1415927F / (float) l) * f * 1.0F);
+            double d6 = 1.5D + (double) (MathHelper.sin((float) k * 3.1415927F / (float) l) * f * 1.0F);
             double d7 = d6 * d3;
-            float f5 = MathHelper.b(f2);
-            float f6 = MathHelper.a(f2);
+            float f5 = MathHelper.cos(f2);
+            float f6 = MathHelper.sin(f2);
 
-            d0 += (double) (MathHelper.b(f1) * f5);
+            d0 += (double) (MathHelper.cos(f1) * f5);
             d1 += (double) f6;
-            d2 += (double) (MathHelper.a(f1) * f5);
+            d2 += (double) (MathHelper.sin(f1) * f5);
             if (flag1) {
                 f2 *= 0.92F;
             } else {
@@ -70,12 +70,12 @@ public class MapGenCavesHell extends MapGenBase {
                 }
 
                 if (d0 >= d4 - 16.0D - d6 * 2.0D && d2 >= d5 - 16.0D - d6 * 2.0D && d0 <= d4 + 16.0D + d6 * 2.0D && d2 <= d5 + 16.0D + d6 * 2.0D) {
-                    int k1 = MathHelper.b(d0 - d6) - i * 16 - 1;
-                    int l1 = MathHelper.b(d0 + d6) - i * 16 + 1;
-                    int i2 = MathHelper.b(d1 - d7) - 1;
-                    int j2 = MathHelper.b(d1 + d7) + 1;
-                    int k2 = MathHelper.b(d2 - d6) - j * 16 - 1;
-                    int l2 = MathHelper.b(d2 + d6) - j * 16 + 1;
+                    int k1 = MathHelper.floor(d0 - d6) - i * 16 - 1;
+                    int l1 = MathHelper.floor(d0 + d6) - i * 16 + 1;
+                    int i2 = MathHelper.floor(d1 - d7) - 1;
+                    int j2 = MathHelper.floor(d1 + d7) + 1;
+                    int k2 = MathHelper.floor(d2 - d6) - j * 16 - 1;
+                    int l2 = MathHelper.floor(d2 + d6) - j * 16 + 1;
 
                     if (k1 < 0) {
                         k1 = 0;

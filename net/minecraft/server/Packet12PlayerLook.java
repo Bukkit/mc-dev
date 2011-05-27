@@ -6,18 +6,18 @@ import java.io.DataOutputStream;
 public class Packet12PlayerLook extends Packet10Flying {
 
     public Packet12PlayerLook() {
-        this.i = true;
+        this.hasLook = true;
     }
 
     public void a(DataInputStream datainputstream) {
-        this.e = datainputstream.readFloat();
-        this.f = datainputstream.readFloat();
+        this.yaw = datainputstream.readFloat();
+        this.pitch = datainputstream.readFloat();
         super.a(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeFloat(this.e);
-        dataoutputstream.writeFloat(this.f);
+        dataoutputstream.writeFloat(this.yaw);
+        dataoutputstream.writeFloat(this.pitch);
         super.a(dataoutputstream);
     }
 

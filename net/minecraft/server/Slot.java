@@ -2,49 +2,53 @@ package net.minecraft.server;
 
 public class Slot {
 
-    private final int d;
-    private final IInventory e;
+    private final int index;
+    private final IInventory inventory;
     public int a;
     public int b;
     public int c;
 
     public Slot(IInventory iinventory, int i, int j, int k) {
-        this.e = iinventory;
-        this.d = i;
+        this.inventory = iinventory;
+        this.index = i;
         this.b = j;
         this.c = k;
     }
 
-    public void a() {
-        this.c();
+    public void a(ItemStack itemstack) {
+        this.b();
     }
 
-    public boolean a(ItemStack itemstack) {
+    public boolean isAllowed(ItemStack itemstack) {
         return true;
     }
 
-    public ItemStack b() {
-        return this.e.c_(this.d);
+    public ItemStack getItem() {
+        return this.inventory.getItem(this.index);
     }
 
-    public void b(ItemStack itemstack) {
-        this.e.a(this.d, itemstack);
-        this.c();
+    public void c(ItemStack itemstack) {
+        this.inventory.setItem(this.index, itemstack);
+        this.b();
     }
 
-    public void c() {
-        this.e.h();
+    public void b() {
+        this.inventory.update();
     }
 
-    public int d() {
-        return this.e.n_();
+    public int c() {
+        return this.inventory.getMaxStackSize();
     }
 
     public ItemStack a(int i) {
-        return this.e.a(this.d, i);
+        return this.inventory.a(this.index, i);
     }
 
     public boolean a(IInventory iinventory, int i) {
-        return iinventory == this.e && i == this.d;
+        return iinventory == this.inventory && i == this.index;
+    }
+
+    public boolean d() {
+        return false;
     }
 }

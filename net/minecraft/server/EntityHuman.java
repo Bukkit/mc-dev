@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class EntityHuman extends EntityLiving {
@@ -26,7 +27,8 @@ public abstract class EntityHuman extends EntityLiving {
     private int sleepTicks;
     public float z;
     public float A;
-    private int d = 0;
+    private ChunkCoordinates d;
+    private int e = 0;
     public EntityFish hookedFish = null;
 
     public EntityHuman(World world) {
@@ -34,9 +36,9 @@ public abstract class EntityHuman extends EntityLiving {
         this.defaultContainer = new ContainerPlayer(this.inventory, !world.isStatic);
         this.activeContainer = this.defaultContainer;
         this.height = 1.62F;
-        ChunkCoordinates chunkcoordinates = world.l();
+        ChunkCoordinates chunkcoordinates = world.getSpawn();
 
-        this.c((double) chunkcoordinates.a + 0.5D, (double) (chunkcoordinates.b + 1), (double) chunkcoordinates.c + 0.5D, 0.0F, 0.0F);
+        this.setPositionRotation((double) chunkcoordinates.x + 0.5D, (double) (chunkcoordinates.y + 1), (double) chunkcoordinates.z + 0.5D, 0.0F, 0.0F);
         this.health = 20;
         this.P = "humanoid";
         this.O = 180.0F;
@@ -50,16 +52,16 @@ public abstract class EntityHuman extends EntityLiving {
     }
 
     public void f_() {
-        if (this.E()) {
+        if (this.isSleeping()) {
             ++this.sleepTicks;
             if (this.sleepTicks > 100) {
                 this.sleepTicks = 100;
             }
 
-            if (!this.l()) {
-                this.a(true, true);
-            } else if (!this.world.isStatic && this.world.c()) {
-                this.a(false, true);
+            if (!this.m()) {
+                this.a(true, true, false);
+            } else if (!this.world.isStatic && this.world.d()) {
+                this.a(false, true, true);
             }
         } else if (this.sleepTicks > 0) {
             ++this.sleepTicks;
@@ -70,7 +72,7 @@ public abstract class EntityHuman extends EntityLiving {
 
         super.f_();
         if (!this.world.isStatic && this.activeContainer != null && !this.activeContainer.b(this)) {
-            this.t();
+            this.u();
             this.activeContainer = this.defaultContainer;
         }
 
@@ -109,18 +111,19 @@ public abstract class EntityHuman extends EntityLiving {
         this.w += d0 * 0.25D;
         this.y += d2 * 0.25D;
         this.x += d1 * 0.25D;
+        this.a(StatisticList.j, 1);
     }
 
-    protected boolean w() {
-        return this.health <= 0 || this.E();
+    protected boolean p_() {
+        return this.health <= 0 || this.isSleeping();
     }
 
-    protected void t() {
+    protected void u() {
         this.activeContainer = this.defaultContainer;
     }
 
-    public void x() {
-        super.x();
+    public void o_() {
+        super.o_();
         this.n = this.o;
         this.o = 0.0F;
     }
@@ -139,14 +142,14 @@ public abstract class EntityHuman extends EntityLiving {
         this.V = (float) this.q / 8.0F;
     }
 
-    public void q() {
-        if (this.world.j == 0 && this.health < 20 && this.ticksLived % 20 * 12 == 0) {
+    public void r() {
+        if (this.world.spawnMonsters == 0 && this.health < 20 && this.ticksLived % 20 * 12 == 0) {
             this.b(1);
         }
 
-        this.inventory.e();
+        this.inventory.f();
         this.n = this.o;
-        super.q();
+        super.r();
         float f = MathHelper.a(this.motX * this.motX + this.motZ * this.motZ);
         float f1 = (float) Math.atan(-this.motY * 0.20000000298023224D) * 15.0F;
 
@@ -185,30 +188,36 @@ public abstract class EntityHuman extends EntityLiving {
 
     public void a(Entity entity) {
         super.a(entity);
-        this.a(0.2F, 0.2F);
-        this.a(this.locX, this.locY, this.locZ);
+        this.b(0.2F, 0.2F);
+        this.setPosition(this.locX, this.locY, this.locZ);
         this.motY = 0.10000000149011612D;
         if (this.name.equals("Notch")) {
             this.a(new ItemStack(Item.APPLE, 1), true);
         }
 
-        this.inventory.g();
+        this.inventory.h();
         if (entity != null) {
-            this.motX = (double) (-MathHelper.b((this.aa + this.yaw) * 3.1415927F / 180.0F) * 0.1F);
-            this.motZ = (double) (-MathHelper.a((this.aa + this.yaw) * 3.1415927F / 180.0F) * 0.1F);
+            this.motX = (double) (-MathHelper.cos((this.aa + this.yaw) * 3.1415927F / 180.0F) * 0.1F);
+            this.motZ = (double) (-MathHelper.sin((this.aa + this.yaw) * 3.1415927F / 180.0F) * 0.1F);
         } else {
             this.motX = this.motZ = 0.0D;
         }
 
         this.height = 0.1F;
+        this.a(StatisticList.u, 1);
     }
 
     public void c(Entity entity, int i) {
         this.m += i;
+        if (entity instanceof EntityHuman) {
+            this.a(StatisticList.w, 1);
+        } else {
+            this.a(StatisticList.v, 1);
+        }
     }
 
-    public void y() {
-        this.a(this.inventory.a(this.inventory.c, 1), false);
+    public void z() {
+        this.a(this.inventory.a(this.inventory.itemInHandIndex, 1), false);
     }
 
     public void b(ItemStack itemstack) {
@@ -217,9 +226,9 @@ public abstract class EntityHuman extends EntityLiving {
 
     public void a(ItemStack itemstack, boolean flag) {
         if (itemstack != null) {
-            EntityItem entityitem = new EntityItem(this.world, this.locX, this.locY - 0.30000001192092896D + (double) this.p(), this.locZ, itemstack);
+            EntityItem entityitem = new EntityItem(this.world, this.locX, this.locY - 0.30000001192092896D + (double) this.q(), this.locZ, itemstack);
 
-            entityitem.c = 40;
+            entityitem.pickupDelay = 40;
             float f = 0.1F;
             float f1;
 
@@ -227,14 +236,14 @@ public abstract class EntityHuman extends EntityLiving {
                 f1 = this.random.nextFloat() * 0.5F;
                 float f2 = this.random.nextFloat() * 3.1415927F * 2.0F;
 
-                entityitem.motX = (double) (-MathHelper.a(f2) * f1);
-                entityitem.motZ = (double) (MathHelper.b(f2) * f1);
+                entityitem.motX = (double) (-MathHelper.sin(f2) * f1);
+                entityitem.motZ = (double) (MathHelper.cos(f2) * f1);
                 entityitem.motY = 0.20000000298023224D;
             } else {
                 f = 0.3F;
-                entityitem.motX = (double) (-MathHelper.a(this.yaw / 180.0F * 3.1415927F) * MathHelper.b(this.pitch / 180.0F * 3.1415927F) * f);
-                entityitem.motZ = (double) (MathHelper.b(this.yaw / 180.0F * 3.1415927F) * MathHelper.b(this.pitch / 180.0F * 3.1415927F) * f);
-                entityitem.motY = (double) (-MathHelper.a(this.pitch / 180.0F * 3.1415927F) * f + 0.1F);
+                entityitem.motX = (double) (-MathHelper.sin(this.yaw / 180.0F * 3.1415927F) * MathHelper.cos(this.pitch / 180.0F * 3.1415927F) * f);
+                entityitem.motZ = (double) (MathHelper.cos(this.yaw / 180.0F * 3.1415927F) * MathHelper.cos(this.pitch / 180.0F * 3.1415927F) * f);
+                entityitem.motY = (double) (-MathHelper.sin(this.pitch / 180.0F * 3.1415927F) * f + 0.1F);
                 f = 0.02F;
                 f1 = this.random.nextFloat() * 3.1415927F * 2.0F;
                 f *= this.random.nextFloat();
@@ -244,11 +253,12 @@ public abstract class EntityHuman extends EntityLiving {
             }
 
             this.a(entityitem);
+            this.a(StatisticList.r, 1);
         }
     }
 
     protected void a(EntityItem entityitem) {
-        this.world.a((Entity) entityitem);
+        this.world.addEntity(entityitem);
     }
 
     public float a(Block block) {
@@ -278,8 +288,12 @@ public abstract class EntityHuman extends EntityLiving {
         this.sleeping = nbttagcompound.m("Sleeping");
         this.sleepTicks = nbttagcompound.d("SleepTimer");
         if (this.sleeping) {
-            this.b = new ChunkCoordinates(MathHelper.b(this.locX), MathHelper.b(this.locY), MathHelper.b(this.locZ));
-            this.a(true, true);
+            this.b = new ChunkCoordinates(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ));
+            this.a(true, true, false);
+        }
+
+        if (nbttagcompound.hasKey("SpawnX") && nbttagcompound.hasKey("SpawnY") && nbttagcompound.hasKey("SpawnZ")) {
+            this.d = new ChunkCoordinates(nbttagcompound.e("SpawnX"), nbttagcompound.e("SpawnY"), nbttagcompound.e("SpawnZ"));
         }
     }
 
@@ -289,15 +303,20 @@ public abstract class EntityHuman extends EntityLiving {
         nbttagcompound.a("Dimension", this.dimension);
         nbttagcompound.a("Sleeping", this.sleeping);
         nbttagcompound.a("SleepTimer", (short) this.sleepTicks);
+        if (this.d != null) {
+            nbttagcompound.a("SpawnX", this.d.x);
+            nbttagcompound.a("SpawnY", this.d.y);
+            nbttagcompound.a("SpawnZ", this.d.z);
+        }
     }
 
     public void a(IInventory iinventory) {}
 
     public void b(int i, int j, int k) {}
 
-    public void b(Entity entity, int i) {}
+    public void receive(Entity entity, int i) {}
 
-    public float p() {
+    public float q() {
         return 0.12F;
     }
 
@@ -305,40 +324,80 @@ public abstract class EntityHuman extends EntityLiving {
         this.height = 1.62F;
     }
 
-    public boolean a(Entity entity, int i) {
+    public boolean damageEntity(Entity entity, int i) {
         this.at = 0;
         if (this.health <= 0) {
             return false;
         } else {
-            if (this.E()) {
-                this.a(true, true);
+            if (this.isSleeping()) {
+                this.a(true, true, false);
             }
 
             if (entity instanceof EntityMonster || entity instanceof EntityArrow) {
-                if (this.world.j == 0) {
+                if (this.world.spawnMonsters == 0) {
                     i = 0;
                 }
 
-                if (this.world.j == 1) {
+                if (this.world.spawnMonsters == 1) {
                     i = i / 3 + 1;
                 }
 
-                if (this.world.j == 3) {
+                if (this.world.spawnMonsters == 3) {
                     i = i * 3 / 2;
                 }
             }
 
-            return i == 0 ? false : super.a(entity, i);
+            if (i == 0) {
+                return false;
+            } else {
+                Object object = entity;
+
+                if (entity instanceof EntityArrow && ((EntityArrow) entity).shooter != null) {
+                    object = ((EntityArrow) entity).shooter;
+                }
+
+                if (object instanceof EntityLiving) {
+                    this.a((EntityLiving) object, false);
+                }
+
+                this.a(StatisticList.t, i);
+                return super.damageEntity(entity, i);
+            }
+        }
+    }
+
+    protected void a(EntityLiving entityliving, boolean flag) {
+        if (!(entityliving instanceof EntityCreeper) && !(entityliving instanceof EntityGhast)) {
+            if (entityliving instanceof EntityWolf) {
+                EntityWolf entitywolf = (EntityWolf) entityliving;
+
+                if (entitywolf.y() && this.name.equals(entitywolf.v())) {
+                    return;
+                }
+            }
+
+            List list = this.world.a(EntityWolf.class, AxisAlignedBB.b(this.locX, this.locY, this.locZ, this.locX + 1.0D, this.locY + 1.0D, this.locZ + 1.0D).b(16.0D, 4.0D, 16.0D));
+            Iterator iterator = list.iterator();
+
+            while (iterator.hasNext()) {
+                Entity entity = (Entity) iterator.next();
+                EntityWolf entitywolf1 = (EntityWolf) entity;
+
+                if (entitywolf1.y() && entitywolf1.A() == null && this.name.equals(entitywolf1.v()) && (!flag || !entitywolf1.w())) {
+                    entitywolf1.b(false);
+                    entitywolf1.c(entityliving);
+                }
+            }
         }
     }
 
     protected void c(int i) {
-        int j = 25 - this.inventory.f();
-        int k = i * j + this.d;
+        int j = 25 - this.inventory.g();
+        int k = i * j + this.e;
 
         this.inventory.c(i);
         i = k / 25;
-        this.d = k % 25;
+        this.e = k % 25;
         super.c(i);
     }
 
@@ -350,31 +409,31 @@ public abstract class EntityHuman extends EntityLiving {
 
     public void c(Entity entity) {
         if (!entity.a(this)) {
-            ItemStack itemstack = this.z();
+            ItemStack itemstack = this.A();
 
             if (itemstack != null && entity instanceof EntityLiving) {
-                itemstack.b((EntityLiving) entity);
+                itemstack.a((EntityLiving) entity);
                 if (itemstack.count <= 0) {
                     itemstack.a(this);
-                    this.A();
+                    this.B();
                 }
             }
         }
     }
 
-    public ItemStack z() {
-        return this.inventory.b();
+    public ItemStack A() {
+        return this.inventory.getItemInHand();
     }
 
-    public void A() {
-        this.inventory.a(this.inventory.c, (ItemStack) null);
+    public void B() {
+        this.inventory.setItem(this.inventory.itemInHandIndex, (ItemStack) null);
     }
 
-    public double B() {
+    public double C() {
         return (double) (this.height - 0.5F);
     }
 
-    public void r() {
+    public void m_() {
         this.q = -1;
         this.p = true;
     }
@@ -383,43 +442,51 @@ public abstract class EntityHuman extends EntityLiving {
         int i = this.inventory.a(entity);
 
         if (i > 0) {
-            entity.a(this, i);
-            ItemStack itemstack = this.z();
+            entity.damageEntity(this, i);
+            ItemStack itemstack = this.A();
 
             if (itemstack != null && entity instanceof EntityLiving) {
-                itemstack.a((EntityLiving) entity);
+                itemstack.a((EntityLiving) entity, this);
                 if (itemstack.count <= 0) {
                     itemstack.a(this);
-                    this.A();
+                    this.B();
                 }
+            }
+
+            if (entity instanceof EntityLiving) {
+                if (entity.N()) {
+                    this.a((EntityLiving) entity, true);
+                }
+
+                this.a(StatisticList.s, i);
             }
         }
     }
 
     public void a(ItemStack itemstack) {}
 
-    public void C() {
-        super.C();
+    public void die() {
+        super.die();
         this.defaultContainer.a(this);
         if (this.activeContainer != null) {
             this.activeContainer.a(this);
         }
     }
 
-    public boolean D() {
-        return !this.sleeping && super.D();
+    public boolean E() {
+        return !this.sleeping && super.E();
     }
 
-    public boolean a(int i, int j, int k) {
-        if (!this.E() && this.J()) {
-            if (this.world.m.c) {
-                return false;
-            } else if (this.world.c()) {
-                return false;
+    public EnumBedError a(int i, int j, int k) {
+        if (!this.isSleeping() && this.N()) {
+            if (this.world.worldProvider.c) {
+                return EnumBedError.NOT_POSSIBLE_HERE;
+            } else if (this.world.d()) {
+                return EnumBedError.NOT_POSSIBLE_NOW;
             } else if (Math.abs(this.locX - (double) i) <= 3.0D && Math.abs(this.locY - (double) j) <= 2.0D && Math.abs(this.locZ - (double) k) <= 3.0D) {
-                this.a(0.2F, 0.2F);
+                this.b(0.2F, 0.2F);
                 this.height = 0.2F;
-                if (this.world.f(i, j, k)) {
+                if (this.world.isLoaded(i, j, k)) {
                     int l = this.world.getData(i, j, k);
                     int i1 = BlockBed.c(l);
                     float f = 0.5F;
@@ -443,9 +510,9 @@ public abstract class EntityHuman extends EntityLiving {
                     }
 
                     this.e(i1);
-                    this.a((double) ((float) i + f), (double) ((float) j + 0.9375F), (double) ((float) k + f1));
+                    this.setPosition((double) ((float) i + f), (double) ((float) j + 0.9375F), (double) ((float) k + f1));
                 } else {
-                    this.a((double) ((float) i + 0.5F), (double) ((float) j + 0.9375F), (double) ((float) k + 0.5F));
+                    this.setPosition((double) ((float) i + 0.5F), (double) ((float) j + 0.9375F), (double) ((float) k + 0.5F));
                 }
 
                 this.sleeping = true;
@@ -453,15 +520,15 @@ public abstract class EntityHuman extends EntityLiving {
                 this.b = new ChunkCoordinates(i, j, k);
                 this.motX = this.motZ = this.motY = 0.0D;
                 if (!this.world.isStatic) {
-                    this.world.o();
+                    this.world.everyoneSleeping();
                 }
 
-                return true;
+                return EnumBedError.OK;
             } else {
-                return false;
+                return EnumBedError.TOO_FAR_AWAY;
             }
         } else {
-            return false;
+            return EnumBedError.OTHER_PROBLEM;
         }
     }
 
@@ -486,21 +553,25 @@ public abstract class EntityHuman extends EntityLiving {
         }
     }
 
-    public void a(boolean flag, boolean flag1) {
-        this.a(0.6F, 1.8F);
+    public void a(boolean flag, boolean flag1, boolean flag2) {
+        this.b(0.6F, 1.8F);
         this.l_();
         ChunkCoordinates chunkcoordinates = this.b;
+        ChunkCoordinates chunkcoordinates1 = this.b;
 
-        if (chunkcoordinates != null && this.world.getTypeId(chunkcoordinates.a, chunkcoordinates.b, chunkcoordinates.c) == Block.BED.id) {
-            BlockBed.a(this.world, chunkcoordinates.a, chunkcoordinates.b, chunkcoordinates.c, false);
-            ChunkCoordinates chunkcoordinates1 = BlockBed.g(this.world, chunkcoordinates.a, chunkcoordinates.b, chunkcoordinates.c, 0);
+        if (chunkcoordinates != null && this.world.getTypeId(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z) == Block.BED.id) {
+            BlockBed.a(this.world, chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, false);
+            chunkcoordinates1 = BlockBed.f(this.world, chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, 0);
+            if (chunkcoordinates1 == null) {
+                chunkcoordinates1 = new ChunkCoordinates(chunkcoordinates.x, chunkcoordinates.y + 1, chunkcoordinates.z);
+            }
 
-            this.a((double) ((float) chunkcoordinates1.a + 0.5F), (double) ((float) chunkcoordinates1.b + this.height + 0.1F), (double) ((float) chunkcoordinates1.c + 0.5F));
+            this.setPosition((double) ((float) chunkcoordinates1.x + 0.5F), (double) ((float) chunkcoordinates1.y + this.height + 0.1F), (double) ((float) chunkcoordinates1.z + 0.5F));
         }
 
         this.sleeping = false;
         if (!this.world.isStatic && flag1) {
-            this.world.o();
+            this.world.everyoneSleeping();
         }
 
         if (flag) {
@@ -508,19 +579,107 @@ public abstract class EntityHuman extends EntityLiving {
         } else {
             this.sleepTicks = 100;
         }
+
+        if (flag2) {
+            this.a(this.b);
+        }
     }
 
-    private boolean l() {
-        return this.world.getTypeId(this.b.a, this.b.b, this.b.c) == Block.BED.id;
+    private boolean m() {
+        return this.world.getTypeId(this.b.x, this.b.y, this.b.z) == Block.BED.id;
     }
 
-    public boolean E() {
+    public static ChunkCoordinates getBed(World world, ChunkCoordinates chunkcoordinates) {
+        IChunkProvider ichunkprovider = world.n();
+
+        ichunkprovider.getChunkAt(chunkcoordinates.x - 3 >> 4, chunkcoordinates.z - 3 >> 4);
+        ichunkprovider.getChunkAt(chunkcoordinates.x + 3 >> 4, chunkcoordinates.z - 3 >> 4);
+        ichunkprovider.getChunkAt(chunkcoordinates.x - 3 >> 4, chunkcoordinates.z + 3 >> 4);
+        ichunkprovider.getChunkAt(chunkcoordinates.x + 3 >> 4, chunkcoordinates.z + 3 >> 4);
+        if (world.getTypeId(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z) != Block.BED.id) {
+            return null;
+        } else {
+            ChunkCoordinates chunkcoordinates1 = BlockBed.f(world, chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, 0);
+
+            return chunkcoordinates1;
+        }
+    }
+
+    public boolean isSleeping() {
         return this.sleeping;
     }
 
-    public boolean F() {
+    public boolean isDeeplySleeping() {
         return this.sleeping && this.sleepTicks >= 100;
     }
 
     public void a(String s) {}
+
+    public ChunkCoordinates H() {
+        return this.d;
+    }
+
+    public void a(ChunkCoordinates chunkcoordinates) {
+        if (chunkcoordinates != null) {
+            this.d = new ChunkCoordinates(chunkcoordinates);
+        } else {
+            this.d = null;
+        }
+    }
+
+    public void a(Statistic statistic, int i) {}
+
+    protected void I() {
+        super.I();
+        this.a(StatisticList.q, 1);
+    }
+
+    public void a(float f, float f1) {
+        double d0 = this.locX;
+        double d1 = this.locY;
+        double d2 = this.locZ;
+
+        super.a(f, f1);
+        this.g(this.locX - d0, this.locY - d1, this.locZ - d2);
+    }
+
+    private void g(double d0, double d1, double d2) {
+        int i;
+
+        if (this.a(Material.WATER)) {
+            i = Math.round(MathHelper.a(d0 * d0 + d1 * d1 + d2 * d2) * 100.0F);
+            if (i > 0) {
+                this.a(StatisticList.p, i);
+            }
+        } else if (this.g_()) {
+            i = Math.round(MathHelper.a(d0 * d0 + d2 * d2) * 100.0F);
+            if (i > 0) {
+                this.a(StatisticList.l, i);
+            }
+        } else if (this.n()) {
+            if (d1 > 0.0D) {
+                this.a(StatisticList.n, (int) Math.round(d1 * 100.0D));
+            }
+        } else if (this.onGround) {
+            i = Math.round(MathHelper.a(d0 * d0 + d2 * d2) * 100.0F);
+            if (i > 0) {
+                this.a(StatisticList.k, i);
+            }
+        } else {
+            i = Math.round(MathHelper.a(d0 * d0 + d2 * d2) * 100.0F);
+            if (i > 25) {
+                this.a(StatisticList.o, i);
+            }
+        }
+    }
+
+    protected void a(float f) {
+        if (f >= 2.0F) {
+            this.a(StatisticList.m, (int) Math.round((double) f * 100.0D));
+        }
+
+        super.a(f);
+    }
+
+    public void J() {}
 }

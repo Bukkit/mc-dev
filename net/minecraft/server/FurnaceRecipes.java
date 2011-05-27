@@ -32,4 +32,8 @@ public class FurnaceRecipes {
     public ItemStack a(int i) {
         return (ItemStack) this.b.get(Integer.valueOf(i));
     }
+
+    public Map b() {
+        return this.b;
+    }
 }

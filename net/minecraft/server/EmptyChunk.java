@@ -17,7 +17,7 @@ public class EmptyChunk extends Chunk {
     }
 
     public boolean a(int i, int j) {
-        return i == this.j && j == this.k;
+        return i == this.x && j == this.z;
     }
 
     public int b(int i, int j) {
@@ -28,9 +28,9 @@ public class EmptyChunk extends Chunk {
 
     public void b() {}
 
-    public void c() {}
+    public void loadNOP() {}
 
-    public int a(int i, int j, int k) {
+    public int getTypeId(int i, int j, int k) {
         return 0;
     }
 
@@ -42,7 +42,7 @@ public class EmptyChunk extends Chunk {
         return true;
     }
 
-    public int b(int i, int j, int k) {
+    public int getData(int i, int j, int k) {
         return 0;
     }
 
@@ -78,9 +78,9 @@ public class EmptyChunk extends Chunk {
 
     public void e(int i, int j, int k) {}
 
-    public void d() {}
+    public void addEntities() {}
 
-    public void e() {}
+    public void removeEntities() {}
 
     public void f() {}
 
@@ -104,7 +104,7 @@ public class EmptyChunk extends Chunk {
     }
 
     public Random a(long i) {
-        return new Random(this.d.j() + (long) (this.j * this.j * 4987142) + (long) (this.j * 5947611) + (long) (this.k * this.k) * 4392871L + (long) (this.k * 389711) ^ i);
+        return new Random(this.world.getSeed() + (long) (this.x * this.x * 4987142) + (long) (this.x * 5947611) + (long) (this.z * this.z) * 4392871L + (long) (this.z * 389711) ^ i);
     }
 
     public boolean g() {

@@ -18,7 +18,7 @@ public class BlockMinecartTrack extends Block {
     }
 
     public MovingObjectPosition a(World world, int i, int j, int k, Vec3D vec3d, Vec3D vec3d1) {
-        this.a((IBlockAccess) world, i, j, k);
+        this.a(world, i, j, k);
         return super.a(world, i, j, k, vec3d, vec3d1);
     }
 
@@ -40,18 +40,18 @@ public class BlockMinecartTrack extends Block {
         return 1;
     }
 
-    public boolean a(World world, int i, int j, int k) {
+    public boolean canPlace(World world, int i, int j, int k) {
         return world.d(i, j - 1, k);
     }
 
     public void e(World world, int i, int j, int k) {
         if (!world.isStatic) {
-            world.c(i, j, k, 15);
+            world.setData(i, j, k, 15);
             this.g(world, i, j, k);
         }
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         if (!world.isStatic) {
             int i1 = world.getData(i, j, k);
             boolean flag = false;
@@ -77,9 +77,9 @@ public class BlockMinecartTrack extends Block {
             }
 
             if (flag) {
-                this.b_(world, i, j, k, world.getData(i, j, k));
-                world.e(i, j, k, 0);
-            } else if (l > 0 && Block.byId[l].c() && MinecartTrackLogic.a(new MinecartTrackLogic(this, world, i, j, k)) == 3) {
+                this.a_(world, i, j, k, world.getData(i, j, k));
+                world.setTypeId(i, j, k, 0);
+            } else if (l > 0 && Block.byId[l].isPowerSource() && MinecartTrackLogic.a(new MinecartTrackLogic(this, world, i, j, k)) == 3) {
                 this.g(world, i, j, k);
             }
         }
@@ -87,7 +87,7 @@ public class BlockMinecartTrack extends Block {
 
     private void g(World world, int i, int j, int k) {
         if (!world.isStatic) {
-            (new MinecartTrackLogic(this, world, i, j, k)).a(world.p(i, j, k));
+            (new MinecartTrackLogic(this, world, i, j, k)).a(world.isBlockIndirectlyPowered(i, j, k));
         }
     }
 }

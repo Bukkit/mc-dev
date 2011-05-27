@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.util.Calendar;
 import java.util.Random;
 
 public class ChunkProviderGenerate implements IChunkProvider {
@@ -190,13 +191,17 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
     }
 
-    public Chunk b(int i, int j) {
+    public Chunk getChunkAt(int i, int j) {
+        return this.getOrCreateChunk(i, j);
+    }
+
+    public Chunk getOrCreateChunk(int i, int j) {
         this.j.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
         byte[] abyte = new byte['\u8000'];
         Chunk chunk = new Chunk(this.p, abyte, i, j);
 
-        this.v = this.p.a().a(this.v, i * 16, j * 16, 16, 16);
-        double[] adouble = this.p.a().a;
+        this.v = this.p.getWorldChunkManager().a(this.v, i * 16, j * 16, 16, 16);
+        double[] adouble = this.p.getWorldChunkManager().a;
 
         this.a(i, j, abyte, this.v, adouble);
         this.a(i, j, abyte, this.v);
@@ -212,8 +217,8 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
         double d0 = 684.412D;
         double d1 = 684.412D;
-        double[] adouble1 = this.p.a().a;
-        double[] adouble2 = this.p.a().b;
+        double[] adouble1 = this.p.getWorldChunkManager().a;
+        double[] adouble2 = this.p.getWorldChunkManager().b;
 
         this.g = this.a.a(this.g, i, k, l, j1, 1.121D, 1.121D, 0.5D);
         this.h = this.b.a(this.h, i, k, l, j1, 200.0D, 200.0D, 0.5D);
@@ -313,21 +318,21 @@ public class ChunkProviderGenerate implements IChunkProvider {
         return adouble;
     }
 
-    public boolean a(int i, int j) {
+    public boolean isChunkLoaded(int i, int j) {
         return true;
     }
 
-    public void a(IChunkProvider ichunkprovider, int i, int j) {
+    public void getChunkAt(IChunkProvider ichunkprovider, int i, int j) {
         BlockSand.a = true;
         int k = i * 16;
         int l = j * 16;
-        BiomeBase biomebase = this.p.a().a(k + 16, l + 16);
+        BiomeBase biomebase = this.p.getWorldChunkManager().getBiome(k + 16, l + 16);
 
-        this.j.setSeed(this.p.j());
+        this.j.setSeed(this.p.getSeed());
         long i1 = this.j.nextLong() / 2L * 2L + 1L;
         long j1 = this.j.nextLong() / 2L * 2L + 1L;
 
-        this.j.setSeed((long) i * i1 + (long) j * j1 ^ this.p.j());
+        this.j.setSeed((long) i * i1 + (long) j * j1 ^ this.p.getSeed());
         double d0 = 0.25D;
         int k1;
         int l1;
@@ -464,7 +469,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
             WorldGenerator worldgenerator = biomebase.a(this.j);
 
             worldgenerator.a(1.0D, 1.0D, 1.0D);
-            worldgenerator.a(this.p, this.j, j2, this.p.d(j2, k2), k2);
+            worldgenerator.a(this.p, this.j, j2, this.p.getHighestBlockYAt(j2, k2), k2);
         }
 
         int l2;
@@ -539,7 +544,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
             (new WorldGenLiquids(Block.LAVA.id)).a(this.p, this.j, k2, l2, i3);
         }
 
-        this.w = this.p.a().a(this.w, k + 8, l + 8, 16, 16);
+        this.w = this.p.getWorldChunkManager().a(this.w, k + 8, l + 8, 16, 16);
 
         for (j2 = k + 8; j2 < k + 8 + 16; ++j2) {
             for (k2 = l + 8; k2 < l + 8 + 16; ++k2) {
@@ -549,19 +554,32 @@ public class ChunkProviderGenerate implements IChunkProvider {
                 double d1 = this.w[l2 * 16 + i3] - (double) (j3 - 64) / 64.0D * 0.3D;
 
                 if (d1 < 0.5D && j3 > 0 && j3 < 128 && this.p.isEmpty(j2, j3, k2) && this.p.getMaterial(j2, j3 - 1, k2).isSolid() && this.p.getMaterial(j2, j3 - 1, k2) != Material.ICE) {
-                    this.p.e(j2, j3, k2, Block.SNOW.id);
+                    this.p.setTypeId(j2, j3, k2, Block.SNOW.id);
                 }
+            }
+        }
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        if (calendar.get(2) == 3 && calendar.get(5) == 1) {
+            k2 = k + this.j.nextInt(16) + 8;
+            l2 = this.j.nextInt(128);
+            i3 = l + this.j.nextInt(16) + 8;
+            if (this.p.getTypeId(k2, l2, i3) == 0 && this.p.d(k2, l2 - 1, i3)) {
+                System.out.println("added a chest!!");
+                this.p.setTypeId(k2, l2, i3, Block.LOCKED_CHEST.id);
             }
         }
 
         BlockSand.a = false;
     }
 
-    public boolean a(boolean flag, IProgressUpdate iprogressupdate) {
+    public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
         return true;
     }
 
-    public boolean a() {
+    public boolean unloadChunks() {
         return false;
     }
 

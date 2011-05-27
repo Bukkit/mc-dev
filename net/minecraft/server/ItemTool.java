@@ -12,7 +12,7 @@ public class ItemTool extends Item {
         this.a = enumtoolmaterial;
         this.bi = ablock;
         this.maxStackSize = 1;
-        this.durability = enumtoolmaterial.a();
+        this.d(enumtoolmaterial.a());
         this.bj = enumtoolmaterial.b();
         this.bk = j + enumtoolmaterial.c();
     }
@@ -27,12 +27,14 @@ public class ItemTool extends Item {
         return 1.0F;
     }
 
-    public void a(ItemStack itemstack, EntityLiving entityliving) {
-        itemstack.b(2);
+    public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
+        itemstack.damage(2, entityliving1);
+        return true;
     }
 
-    public void a(ItemStack itemstack, int i, int j, int k, int l) {
-        itemstack.b(1);
+    public boolean a(ItemStack itemstack, int i, int j, int k, int l, EntityLiving entityliving) {
+        itemstack.damage(1, entityliving);
+        return true;
     }
 
     public int a(Entity entity) {

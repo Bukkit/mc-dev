@@ -19,11 +19,11 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
     }
 
     public boolean b() {
-        int i = MathHelper.b(this.locX);
-        int j = MathHelper.b(this.boundingBox.b);
-        int k = MathHelper.b(this.locZ);
+        int i = MathHelper.floor(this.locX);
+        int j = MathHelper.floor(this.boundingBox.b);
+        int k = MathHelper.floor(this.locZ);
 
-        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.j(i, j, k) > 8 && super.b();
+        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.getLightLevel(i, j, k) > 8 && super.b();
     }
 
     public int c() {

@@ -8,7 +8,7 @@ public class ItemCloth extends ItemBlock {
         this.a(true);
     }
 
-    public int a(int i) {
+    public int filterData(int i) {
         return i;
     }
 }

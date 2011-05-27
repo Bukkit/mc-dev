@@ -7,7 +7,6 @@ public class ItemDoor extends Item {
     public ItemDoor(int i, Material material) {
         super(i);
         this.a = material;
-        this.durability = 64;
         this.maxStackSize = 1;
     }
 
@@ -24,10 +23,10 @@ public class ItemDoor extends Item {
                 block = Block.IRON_DOOR_BLOCK;
             }
 
-            if (!block.a(world, i, j, k)) {
+            if (!block.canPlace(world, i, j, k)) {
                 return false;
             } else {
-                int i1 = MathHelper.b((double) ((entityhuman.yaw + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
+                int i1 = MathHelper.floor((double) ((entityhuman.yaw + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
                 byte b0 = 0;
                 byte b1 = 0;
 
@@ -64,10 +63,10 @@ public class ItemDoor extends Item {
                     i1 += 4;
                 }
 
-                world.e(i, j, k, block.id);
-                world.c(i, j, k, i1);
-                world.e(i, j + 1, k, block.id);
-                world.c(i, j + 1, k, i1 + 8);
+                world.setTypeId(i, j, k, block.id);
+                world.setData(i, j, k, i1);
+                world.setTypeId(i, j + 1, k, block.id);
+                world.setData(i, j + 1, k, i1 + 8);
                 --itemstack.count;
                 return true;
             }

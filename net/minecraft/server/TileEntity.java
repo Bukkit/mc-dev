@@ -7,7 +7,7 @@ public class TileEntity {
 
     private static Map a = new HashMap();
     private static Map b = new HashMap();
-    public World d;
+    public World world;
     public int e;
     public int f;
     public int g;
@@ -35,7 +35,7 @@ public class TileEntity {
         if (s == null) {
             throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
         } else {
-            nbttagcompound.a("id", s);
+            nbttagcompound.setString("id", s);
             nbttagcompound.a("x", this.e);
             nbttagcompound.a("y", this.f);
             nbttagcompound.a("z", this.g);
@@ -48,7 +48,7 @@ public class TileEntity {
         TileEntity tileentity = null;
 
         try {
-            Class oclass = (Class) a.get(nbttagcompound.i("id"));
+            Class oclass = (Class) a.get(nbttagcompound.getString("id"));
 
             if (oclass != null) {
                 tileentity = (TileEntity) oclass.newInstance();
@@ -60,15 +60,15 @@ public class TileEntity {
         if (tileentity != null) {
             tileentity.a(nbttagcompound);
         } else {
-            System.out.println("Skipping TileEntity with id " + nbttagcompound.i("id"));
+            System.out.println("Skipping TileEntity with id " + nbttagcompound.getString("id"));
         }
 
         return tileentity;
     }
 
-    public void h() {
-        if (this.d != null) {
-            this.d.b(this.e, this.f, this.g, this);
+    public void update() {
+        if (this.world != null) {
+            this.world.b(this.e, this.f, this.g, this);
         }
     }
 

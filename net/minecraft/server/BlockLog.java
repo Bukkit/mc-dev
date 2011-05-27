@@ -17,7 +17,12 @@ public class BlockLog extends Block {
         return Block.LOG.id;
     }
 
-    public void b(World world, int i, int j, int k) {
+    public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
+        super.a(world, entityhuman, i, j, k, l);
+        entityhuman.a(AchievementList.c, 1);
+    }
+
+    public void remove(World world, int i, int j, int k) {
         byte b0 = 4;
         int l = b0 + 1;
 
@@ -31,7 +36,7 @@ public class BlockLog extends Block {
                             int i2 = world.getData(i + i1, j + j1, k + k1);
 
                             if ((i2 & 4) == 0) {
-                                world.d(i + i1, j + j1, k + k1, i2 | 4);
+                                world.setRawData(i + i1, j + j1, k + k1, i2 | 4);
                             }
                         }
                     }

@@ -77,7 +77,7 @@ public class BlockPortal extends BlockBreakable {
 
             for (l = 0; l < 2; ++l) {
                 for (i1 = 0; i1 < 3; ++i1) {
-                    world.e(i + b0 * l, j + i1, k + b1 * l, Block.PORTAL.id);
+                    world.setTypeId(i + b0 * l, j + i1, k + b1 * l, Block.PORTAL.id);
                 }
             }
 
@@ -86,7 +86,7 @@ public class BlockPortal extends BlockBreakable {
         }
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         byte b0 = 0;
         byte b1 = 1;
 
@@ -102,7 +102,7 @@ public class BlockPortal extends BlockBreakable {
         }
 
         if (world.getTypeId(i, i1 - 1, k) != Block.OBSIDIAN.id) {
-            world.e(i, j, k, 0);
+            world.setTypeId(i, j, k, 0);
         } else {
             int j1;
 
@@ -115,12 +115,12 @@ public class BlockPortal extends BlockBreakable {
                 boolean flag1 = world.getTypeId(i, j, k - 1) == this.id || world.getTypeId(i, j, k + 1) == this.id;
 
                 if (flag && flag1) {
-                    world.e(i, j, k, 0);
+                    world.setTypeId(i, j, k, 0);
                 } else if ((world.getTypeId(i + b0, j, k + b1) != Block.OBSIDIAN.id || world.getTypeId(i - b0, j, k - b1) != this.id) && (world.getTypeId(i - b0, j, k - b1) != Block.OBSIDIAN.id || world.getTypeId(i + b0, j, k + b1) != this.id)) {
-                    world.e(i, j, k, 0);
+                    world.setTypeId(i, j, k, 0);
                 }
             } else {
-                world.e(i, j, k, 0);
+                world.setTypeId(i, j, k, 0);
             }
         }
     }
@@ -135,7 +135,7 @@ public class BlockPortal extends BlockBreakable {
 
     public void a(World world, int i, int j, int k, Entity entity) {
         if (!world.isStatic) {
-            entity.T();
+            entity.Y();
         }
     }
 }

@@ -35,11 +35,11 @@ public class BlockLadder extends Block {
         return false;
     }
 
-    public boolean a(World world, int i, int j, int k) {
+    public boolean canPlace(World world, int i, int j, int k) {
         return world.d(i - 1, j, k) ? true : (world.d(i + 1, j, k) ? true : (world.d(i, j, k - 1) ? true : world.d(i, j, k + 1)));
     }
 
-    public void d(World world, int i, int j, int k, int l) {
+    public void postPlace(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
 
         if ((i1 == 0 || l == 2) && world.d(i, j, k + 1)) {
@@ -58,10 +58,10 @@ public class BlockLadder extends Block {
             i1 = 5;
         }
 
-        world.c(i, j, k, i1);
+        world.setData(i, j, k, i1);
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
         boolean flag = false;
 
@@ -82,11 +82,11 @@ public class BlockLadder extends Block {
         }
 
         if (!flag) {
-            this.b_(world, i, j, k, i1);
-            world.e(i, j, k, 0);
+            this.a_(world, i, j, k, i1);
+            world.setTypeId(i, j, k, 0);
         }
 
-        super.a(world, i, j, k, l);
+        super.doPhysics(world, i, j, k, l);
     }
 
     public int a(Random random) {

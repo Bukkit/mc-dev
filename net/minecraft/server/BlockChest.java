@@ -15,7 +15,7 @@ public class BlockChest extends BlockContainer {
         return i == 1 ? this.textureId - 1 : (i == 0 ? this.textureId - 1 : (i == 3 ? this.textureId + 1 : this.textureId));
     }
 
-    public boolean a(World world, int i, int j, int k) {
+    public boolean canPlace(World world, int i, int j, int k) {
         int l = 0;
 
         if (world.getTypeId(i - 1, j, k) == this.id) {
@@ -41,11 +41,11 @@ public class BlockChest extends BlockContainer {
         return world.getTypeId(i, j, k) != this.id ? false : (world.getTypeId(i - 1, j, k) == this.id ? true : (world.getTypeId(i + 1, j, k) == this.id ? true : (world.getTypeId(i, j, k - 1) == this.id ? true : world.getTypeId(i, j, k + 1) == this.id)));
     }
 
-    public void b(World world, int i, int j, int k) {
+    public void remove(World world, int i, int j, int k) {
         TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i, j, k);
 
-        for (int l = 0; l < tileentitychest.m_(); ++l) {
-            ItemStack itemstack = tileentitychest.c_(l);
+        for (int l = 0; l < tileentitychest.getSize(); ++l) {
+            ItemStack itemstack = tileentitychest.getItem(l);
 
             if (itemstack != null) {
                 float f = this.a.nextFloat() * 0.8F + 0.1F;
@@ -60,21 +60,21 @@ public class BlockChest extends BlockContainer {
                     }
 
                     itemstack.count -= i1;
-                    EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, i1, itemstack.h()));
+                    EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, i1, itemstack.getData()));
                     float f3 = 0.05F;
 
                     entityitem.motX = (double) ((float) this.a.nextGaussian() * f3);
                     entityitem.motY = (double) ((float) this.a.nextGaussian() * f3 + 0.2F);
                     entityitem.motZ = (double) ((float) this.a.nextGaussian() * f3);
-                    world.a((Entity) entityitem);
+                    world.addEntity(entityitem);
                 }
             }
         }
 
-        super.b(world, i, j, k);
+        super.remove(world, i, j, k);
     }
 
-    public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         Object object = (TileEntityChest) world.getTileEntity(i, j, k);
 
         if (world.d(i, j + 1, k)) {

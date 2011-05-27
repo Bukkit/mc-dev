@@ -15,16 +15,16 @@ public class BlockFlowing extends BlockFluids {
     private void i(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
 
-        world.setTypeIdAndData(i, j, k, this.id + 1, l);
+        world.setRawTypeIdAndData(i, j, k, this.id + 1, l);
         world.b(i, j, k, i, j, k);
-        world.g(i, j, k);
+        world.notify(i, j, k);
     }
 
     public void a(World world, int i, int j, int k, Random random) {
         int l = this.g(world, i, j, k);
         byte b0 = 1;
 
-        if (this.material == Material.LAVA && !world.m.d) {
+        if (this.material == Material.LAVA && !world.worldProvider.d) {
             b0 = 2;
         }
 
@@ -35,11 +35,11 @@ public class BlockFlowing extends BlockFluids {
             byte b1 = -100;
 
             this.a = 0;
-            int j1 = this.f(world, i - 1, j, k, b1);
+            int j1 = this.e(world, i - 1, j, k, b1);
 
-            j1 = this.f(world, i + 1, j, k, j1);
-            j1 = this.f(world, i, j, k - 1, j1);
-            j1 = this.f(world, i, j, k + 1, j1);
+            j1 = this.e(world, i + 1, j, k, j1);
+            j1 = this.e(world, i, j, k - 1, j1);
+            j1 = this.e(world, i, j, k + 1, j1);
             i1 = j1 + b0;
             if (i1 >= 8 || j1 < 0) {
                 i1 = -1;
@@ -71,11 +71,11 @@ public class BlockFlowing extends BlockFluids {
             if (i1 != l) {
                 l = i1;
                 if (i1 < 0) {
-                    world.e(i, j, k, 0);
+                    world.setTypeId(i, j, k, 0);
                 } else {
-                    world.c(i, j, k, i1);
+                    world.setData(i, j, k, i1);
                     world.c(i, j, k, this.id, this.b());
-                    world.h(i, j, k, this.id);
+                    world.applyPhysics(i, j, k, this.id);
                 }
             } else if (flag) {
                 this.i(world, i, j, k);
@@ -86,9 +86,9 @@ public class BlockFlowing extends BlockFluids {
 
         if (this.l(world, i, j - 1, k)) {
             if (l >= 8) {
-                world.b(i, j - 1, k, this.id, l);
+                world.setTypeIdAndData(i, j - 1, k, this.id, l);
             } else {
-                world.b(i, j - 1, k, this.id, l + 8);
+                world.setTypeIdAndData(i, j - 1, k, this.id, l + 8);
             }
         } else if (l >= 0 && (l == 0 || this.k(world, i, j - 1, k))) {
             boolean[] aboolean = this.j(world, i, j, k);
@@ -103,24 +103,24 @@ public class BlockFlowing extends BlockFluids {
             }
 
             if (aboolean[0]) {
-                this.g(world, i - 1, j, k, i1);
+                this.flow(world, i - 1, j, k, i1);
             }
 
             if (aboolean[1]) {
-                this.g(world, i + 1, j, k, i1);
+                this.flow(world, i + 1, j, k, i1);
             }
 
             if (aboolean[2]) {
-                this.g(world, i, j, k - 1, i1);
+                this.flow(world, i, j, k - 1, i1);
             }
 
             if (aboolean[3]) {
-                this.g(world, i, j, k + 1, i1);
+                this.flow(world, i, j, k + 1, i1);
             }
         }
     }
 
-    private void g(World world, int i, int j, int k, int l) {
+    private void flow(World world, int i, int j, int k, int l) {
         if (this.l(world, i, j, k)) {
             int i1 = world.getTypeId(i, j, k);
 
@@ -128,11 +128,11 @@ public class BlockFlowing extends BlockFluids {
                 if (this.material == Material.LAVA) {
                     this.h(world, i, j, k);
                 } else {
-                    Block.byId[i1].b_(world, i, j, k, world.getData(i, j, k));
+                    Block.byId[i1].a_(world, i, j, k, world.getData(i, j, k));
                 }
             }
 
-            world.b(i, j, k, this.id, l);
+            world.setTypeIdAndData(i, j, k, this.id, l);
         }
     }
 
@@ -244,7 +244,7 @@ public class BlockFlowing extends BlockFluids {
         }
     }
 
-    protected int f(World world, int i, int j, int k, int l) {
+    protected int e(World world, int i, int j, int k, int l) {
         int i1 = this.g(world, i, j, k);
 
         if (i1 < 0) {

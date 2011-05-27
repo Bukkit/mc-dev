@@ -17,7 +17,7 @@ public class Block {
     public static final Block[] byId = new Block[256];
     public static final boolean[] n = new boolean[256];
     public static final boolean[] o = new boolean[256];
-    public static final boolean[] p = new boolean[256];
+    public static final boolean[] isTileEntity = new boolean[256];
     public static final int[] q = new int[256];
     public static final boolean[] r = new boolean[256];
     public static final int[] s = new int[256];
@@ -115,6 +115,7 @@ public class Block {
     public static final Block CAKE_BLOCK = (new BlockCake(92, 121)).c(0.5F).a(k).a("cake");
     public static final Block DIODE_OFF = (new BlockDiode(93, false)).c(0.0F).a(e).a("diode");
     public static final Block DIODE_ON = (new BlockDiode(94, true)).c(0.0F).a(0.625F).a(e).a("diode");
+    public static final Block LOCKED_CHEST = (new BlockLockedChest(95)).c(-1.0F).a(1.0F).a(e).a("lockedchest");
     public int textureId;
     public final int id;
     protected float strength;
@@ -126,14 +127,14 @@ public class Block {
     public double maxY;
     public double maxZ;
     public StepSound stepSound;
-    public float bu;
+    public float bv;
     public final Material material;
     public float frictionFactor;
     private String name;
 
     protected Block(int i, Material material) {
         this.stepSound = d;
-        this.bu = 1.0F;
+        this.bv = 1.0F;
         this.frictionFactor = 0.6F;
         if (byId[i] != null) {
             throw new IllegalArgumentException("Slot " + i + " is already occupied by " + byId[i] + " when adding " + this);
@@ -145,7 +146,7 @@ public class Block {
             o[i] = this.a();
             q[i] = this.a() ? 255 : 0;
             r[i] = !material.blocksLight();
-            p[i] = false;
+            isTileEntity[i] = false;
         }
     }
 
@@ -234,9 +235,9 @@ public class Block {
 
     public void a(World world, int i, int j, int k, Random random) {}
 
-    public void b(World world, int i, int j, int k, int l) {}
+    public void postBreak(World world, int i, int j, int k, int l) {}
 
-    public void a(World world, int i, int j, int k, int l) {}
+    public void doPhysics(World world, int i, int j, int k, int l) {}
 
     public int b() {
         return 10;
@@ -244,7 +245,7 @@ public class Block {
 
     public void e(World world, int i, int j, int k) {}
 
-    public void b(World world, int i, int j, int k) {}
+    public void remove(World world, int i, int j, int k) {}
 
     public int a(Random random) {
         return 1;
@@ -254,31 +255,31 @@ public class Block {
         return this.id;
     }
 
-    public float a(EntityHuman entityhuman) {
+    public float getDamage(EntityHuman entityhuman) {
         return this.strength < 0.0F ? 0.0F : (!entityhuman.b(this) ? 1.0F / this.strength / 100.0F : entityhuman.a(this) / this.strength / 30.0F);
     }
 
-    public void b_(World world, int i, int j, int k, int l) {
-        this.a(world, i, j, k, l, 1.0F);
+    public void a_(World world, int i, int j, int k, int l) {
+        this.dropNaturally(world, i, j, k, l, 1.0F);
     }
 
-    public void a(World world, int i, int j, int k, int l, float f) {
+    public void dropNaturally(World world, int i, int j, int k, int l, float f) {
         if (!world.isStatic) {
-            int i1 = this.a(world.k);
+            int i1 = this.a(world.random);
 
             for (int j1 = 0; j1 < i1; ++j1) {
-                if (world.k.nextFloat() <= f) {
-                    int k1 = this.a(l, world.k);
+                if (world.random.nextFloat() <= f) {
+                    int k1 = this.a(l, world.random);
 
                     if (k1 > 0) {
                         float f1 = 0.7F;
-                        double d0 = (double) (world.k.nextFloat() * f1) + (double) (1.0F - f1) * 0.5D;
-                        double d1 = (double) (world.k.nextFloat() * f1) + (double) (1.0F - f1) * 0.5D;
-                        double d2 = (double) (world.k.nextFloat() * f1) + (double) (1.0F - f1) * 0.5D;
+                        double d0 = (double) (world.random.nextFloat() * f1) + (double) (1.0F - f1) * 0.5D;
+                        double d1 = (double) (world.random.nextFloat() * f1) + (double) (1.0F - f1) * 0.5D;
+                        double d2 = (double) (world.random.nextFloat() * f1) + (double) (1.0F - f1) * 0.5D;
                         EntityItem entityitem = new EntityItem(world, (double) i + d0, (double) j + d1, (double) k + d2, new ItemStack(k1, 1, this.b(l)));
 
-                        entityitem.c = 10;
-                        world.a((Entity) entityitem);
+                        entityitem.pickupDelay = 10;
+                        world.addEntity(entityitem);
                     }
                 }
             }
@@ -294,9 +295,9 @@ public class Block {
     }
 
     public MovingObjectPosition a(World world, int i, int j, int k, Vec3D vec3d, Vec3D vec3d1) {
-        this.a((IBlockAccess) world, i, j, k);
-        vec3d = vec3d.c((double) (-i), (double) (-j), (double) (-k));
-        vec3d1 = vec3d1.c((double) (-i), (double) (-j), (double) (-k));
+        this.a(world, i, j, k);
+        vec3d = vec3d.add((double) (-i), (double) (-j), (double) (-k));
+        vec3d1 = vec3d1.add((double) (-i), (double) (-j), (double) (-k));
         Vec3D vec3d2 = vec3d.a(vec3d1, this.minX);
         Vec3D vec3d3 = vec3d.a(vec3d1, this.maxX);
         Vec3D vec3d4 = vec3d.b(vec3d1, this.minY);
@@ -383,7 +384,7 @@ public class Block {
                 b0 = 3;
             }
 
-            return new MovingObjectPosition(i, j, k, b0, vec3d8.c((double) i, (double) j, (double) k));
+            return new MovingObjectPosition(i, j, k, b0, vec3d8.add((double) i, (double) j, (double) k));
         }
     }
 
@@ -401,19 +402,19 @@ public class Block {
 
     public void c(World world, int i, int j, int k) {}
 
-    public boolean a(World world, int i, int j, int k) {
+    public boolean canPlace(World world, int i, int j, int k) {
         int l = world.getTypeId(i, j, k);
 
         return l == 0 || byId[l].material.isLiquid();
     }
 
-    public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         return false;
     }
 
     public void b(World world, int i, int j, int k, Entity entity) {}
 
-    public void d(World world, int i, int j, int k, int l) {}
+    public void postPlace(World world, int i, int j, int k, int l) {}
 
     public void b(World world, int i, int j, int k, EntityHuman entityhuman) {}
 
@@ -425,7 +426,7 @@ public class Block {
         return false;
     }
 
-    public boolean c() {
+    public boolean isPowerSource() {
         return false;
     }
 
@@ -435,15 +436,16 @@ public class Block {
         return false;
     }
 
-    public void a_(World world, int i, int j, int k, int l) {
-        this.b_(world, i, j, k, l);
+    public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
+        entityhuman.a(StatisticList.y[this.id], 1);
+        this.a_(world, i, j, k, l);
     }
 
     public boolean f(World world, int i, int j, int k) {
         return true;
     }
 
-    public void a(World world, int i, int j, int k, EntityLiving entityliving) {}
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {}
 
     public Block a(String s) {
         this.name = "tile." + s;
@@ -451,6 +453,10 @@ public class Block {
     }
 
     public String e() {
+        return StatisticCollector.a(this.f() + ".name");
+    }
+
+    public String f() {
         return this.name;
     }
 
@@ -468,5 +474,6 @@ public class Block {
         }
 
         r[0] = true;
+        StatisticList.a();
     }
 }

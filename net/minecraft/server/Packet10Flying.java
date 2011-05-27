@@ -5,15 +5,15 @@ import java.io.DataOutputStream;
 
 public class Packet10Flying extends Packet {
 
-    public double a;
-    public double b;
-    public double c;
-    public double d;
-    public float e;
-    public float f;
+    public double x;
+    public double y;
+    public double z;
+    public double stance;
+    public float yaw;
+    public float pitch;
     public boolean g;
     public boolean h;
-    public boolean i;
+    public boolean hasLook;
 
     public Packet10Flying() {}
 

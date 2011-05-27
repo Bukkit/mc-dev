@@ -40,8 +40,8 @@ public class BlockStep extends Block {
 
         if (i1 == j1) {
             if (l == STEP.id) {
-                world.e(i, j, k, 0);
-                world.b(i, j - 1, k, Block.DOUBLE_STEP.id, i1);
+                world.setTypeId(i, j, k, 0);
+                world.setTypeIdAndData(i, j - 1, k, Block.DOUBLE_STEP.id, i1);
             }
         }
     }

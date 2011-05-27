@@ -14,10 +14,10 @@ public class WorldGenMinable extends WorldGenerator {
 
     public boolean a(World world, Random random, int i, int j, int k) {
         float f = random.nextFloat() * 3.1415927F;
-        double d0 = (double) ((float) (i + 8) + MathHelper.a(f) * (float) this.b / 8.0F);
-        double d1 = (double) ((float) (i + 8) - MathHelper.a(f) * (float) this.b / 8.0F);
-        double d2 = (double) ((float) (k + 8) + MathHelper.b(f) * (float) this.b / 8.0F);
-        double d3 = (double) ((float) (k + 8) - MathHelper.b(f) * (float) this.b / 8.0F);
+        double d0 = (double) ((float) (i + 8) + MathHelper.sin(f) * (float) this.b / 8.0F);
+        double d1 = (double) ((float) (i + 8) - MathHelper.sin(f) * (float) this.b / 8.0F);
+        double d2 = (double) ((float) (k + 8) + MathHelper.cos(f) * (float) this.b / 8.0F);
+        double d3 = (double) ((float) (k + 8) - MathHelper.cos(f) * (float) this.b / 8.0F);
         double d4 = (double) (j + random.nextInt(3) + 2);
         double d5 = (double) (j + random.nextInt(3) + 2);
 
@@ -26,8 +26,8 @@ public class WorldGenMinable extends WorldGenerator {
             double d7 = d4 + (d5 - d4) * (double) l / (double) this.b;
             double d8 = d2 + (d3 - d2) * (double) l / (double) this.b;
             double d9 = random.nextDouble() * (double) this.b / 16.0D;
-            double d10 = (double) (MathHelper.a((float) l * 3.1415927F / (float) this.b) + 1.0F) * d9 + 1.0D;
-            double d11 = (double) (MathHelper.a((float) l * 3.1415927F / (float) this.b) + 1.0F) * d9 + 1.0D;
+            double d10 = (double) (MathHelper.sin((float) l * 3.1415927F / (float) this.b) + 1.0F) * d9 + 1.0D;
+            double d11 = (double) (MathHelper.sin((float) l * 3.1415927F / (float) this.b) + 1.0F) * d9 + 1.0D;
             int i1 = (int) (d6 - d10 / 2.0D);
             int j1 = (int) (d7 - d11 / 2.0D);
             int k1 = (int) (d8 - d10 / 2.0D);
@@ -47,7 +47,7 @@ public class WorldGenMinable extends WorldGenerator {
                                 double d14 = ((double) i3 + 0.5D - d8) / (d10 / 2.0D);
 
                                 if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && world.getTypeId(k2, l2, i3) == Block.STONE.id) {
-                                    world.setTypeId(k2, l2, i3, this.a);
+                                    world.setRawTypeId(k2, l2, i3, this.a);
                                 }
                             }
                         }

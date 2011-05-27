@@ -13,11 +13,11 @@ public class BlockSapling extends BlockFlower {
 
     public void a(World world, int i, int j, int k, Random random) {
         super.a(world, i, j, k, random);
-        if (world.j(i, j + 1, k) >= 9 && random.nextInt(5) == 0) {
+        if (world.getLightLevel(i, j + 1, k) >= 9 && random.nextInt(5) == 0) {
             int l = world.getData(i, j, k);
 
             if (l < 15) {
-                world.c(i, j, k, l + 1);
+                world.setData(i, j, k, l + 1);
             } else {
                 this.b(world, i, j, k, random);
             }
@@ -25,7 +25,7 @@ public class BlockSapling extends BlockFlower {
     }
 
     public void b(World world, int i, int j, int k, Random random) {
-        world.setTypeId(i, j, k, 0);
+        world.setRawTypeId(i, j, k, 0);
         Object object = new WorldGenTrees();
 
         if (random.nextInt(10) == 0) {
@@ -33,7 +33,7 @@ public class BlockSapling extends BlockFlower {
         }
 
         if (!((WorldGenerator) object).a(world, random, i, j, k)) {
-            world.setTypeId(i, j, k, this.id);
+            world.setRawTypeId(i, j, k, this.id);
         }
     }
 }

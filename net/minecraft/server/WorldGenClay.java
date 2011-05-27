@@ -17,10 +17,10 @@ public class WorldGenClay extends WorldGenerator {
             return false;
         } else {
             float f = random.nextFloat() * 3.1415927F;
-            double d0 = (double) ((float) (i + 8) + MathHelper.a(f) * (float) this.b / 8.0F);
-            double d1 = (double) ((float) (i + 8) - MathHelper.a(f) * (float) this.b / 8.0F);
-            double d2 = (double) ((float) (k + 8) + MathHelper.b(f) * (float) this.b / 8.0F);
-            double d3 = (double) ((float) (k + 8) - MathHelper.b(f) * (float) this.b / 8.0F);
+            double d0 = (double) ((float) (i + 8) + MathHelper.sin(f) * (float) this.b / 8.0F);
+            double d1 = (double) ((float) (i + 8) - MathHelper.sin(f) * (float) this.b / 8.0F);
+            double d2 = (double) ((float) (k + 8) + MathHelper.cos(f) * (float) this.b / 8.0F);
+            double d3 = (double) ((float) (k + 8) - MathHelper.cos(f) * (float) this.b / 8.0F);
             double d4 = (double) (j + random.nextInt(3) + 2);
             double d5 = (double) (j + random.nextInt(3) + 2);
 
@@ -29,8 +29,8 @@ public class WorldGenClay extends WorldGenerator {
                 double d7 = d4 + (d5 - d4) * (double) l / (double) this.b;
                 double d8 = d2 + (d3 - d2) * (double) l / (double) this.b;
                 double d9 = random.nextDouble() * (double) this.b / 16.0D;
-                double d10 = (double) (MathHelper.a((float) l * 3.1415927F / (float) this.b) + 1.0F) * d9 + 1.0D;
-                double d11 = (double) (MathHelper.a((float) l * 3.1415927F / (float) this.b) + 1.0F) * d9 + 1.0D;
+                double d10 = (double) (MathHelper.sin((float) l * 3.1415927F / (float) this.b) + 1.0F) * d9 + 1.0D;
+                double d11 = (double) (MathHelper.sin((float) l * 3.1415927F / (float) this.b) + 1.0F) * d9 + 1.0D;
 
                 for (int i1 = (int) (d6 - d10 / 2.0D); i1 <= (int) (d6 + d10 / 2.0D); ++i1) {
                     for (int j1 = (int) (d7 - d11 / 2.0D); j1 <= (int) (d7 + d11 / 2.0D); ++j1) {
@@ -43,7 +43,7 @@ public class WorldGenClay extends WorldGenerator {
                                 int l1 = world.getTypeId(i1, j1, k1);
 
                                 if (l1 == Block.SAND.id) {
-                                    world.setTypeId(i1, j1, k1, this.a);
+                                    world.setRawTypeId(i1, j1, k1, this.a);
                                 }
                             }
                         }

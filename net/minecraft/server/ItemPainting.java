@@ -4,7 +4,6 @@ public class ItemPainting extends Item {
 
     public ItemPainting(int i) {
         super(i);
-        this.durability = 64;
     }
 
     public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
@@ -31,7 +30,7 @@ public class ItemPainting extends Item {
 
             if (entitypainting.h()) {
                 if (!world.isStatic) {
-                    world.a((Entity) entitypainting);
+                    world.addEntity(entitypainting);
                 }
 
                 --itemstack.count;

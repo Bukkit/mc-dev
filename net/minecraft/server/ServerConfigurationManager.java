@@ -15,30 +15,30 @@ import java.util.logging.Logger;
 public class ServerConfigurationManager {
 
     public static Logger a = Logger.getLogger("Minecraft");
-    public List b = new ArrayList();
-    private MinecraftServer c;
+    public List players = new ArrayList();
+    private MinecraftServer server;
     private PlayerManager d;
-    private int e;
-    private Set f = new HashSet();
-    private Set g = new HashSet();
+    private int maxPlayers;
+    private Set banByName = new HashSet();
+    private Set banByIP = new HashSet();
     private Set h = new HashSet();
     private Set i = new HashSet();
     private File j;
     private File k;
     private File l;
     private File m;
-    private PlayerFileData n;
+    private PlayerFileData playerFileData;
     private boolean o;
 
     public ServerConfigurationManager(MinecraftServer minecraftserver) {
-        this.c = minecraftserver;
+        this.server = minecraftserver;
         this.j = minecraftserver.a("banned-players.txt");
         this.k = minecraftserver.a("banned-ips.txt");
         this.l = minecraftserver.a("ops.txt");
         this.m = minecraftserver.a("white-list.txt");
         this.d = new PlayerManager(minecraftserver);
-        this.e = minecraftserver.d.a("max-players", 20);
-        this.o = minecraftserver.d.a("white-list", false);
+        this.maxPlayers = minecraftserver.propertyManager.getInt("max-players", 20);
+        this.o = minecraftserver.propertyManager.getBoolean("white-list", false);
         this.g();
         this.i();
         this.k();
@@ -49,8 +49,8 @@ public class ServerConfigurationManager {
         this.n();
     }
 
-    public void a(WorldServer worldserver) {
-        this.n = worldserver.m().d();
+    public void setPlayerFileData(WorldServer worldserver) {
+        this.playerFileData = worldserver.o().d();
     }
 
     public int a() {
@@ -58,135 +58,147 @@ public class ServerConfigurationManager {
     }
 
     public void a(EntityPlayer entityplayer) {
-        this.b.add(entityplayer);
-        this.n.b(entityplayer);
-        this.c.e.u.d((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
+        this.players.add(entityplayer);
+        this.playerFileData.b(entityplayer);
+        this.server.worldServer.chunkProviderServer.getChunkAt((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
 
-        while (this.c.e.a(entityplayer, entityplayer.boundingBox).size() != 0) {
-            entityplayer.a(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
+        while (this.server.worldServer.getEntities(entityplayer, entityplayer.boundingBox).size() != 0) {
+            entityplayer.setPosition(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
         }
 
-        this.c.e.a(entityplayer);
-        this.d.a(entityplayer);
+        this.server.worldServer.addEntity(entityplayer);
+        this.d.addPlayer(entityplayer);
     }
 
     public void b(EntityPlayer entityplayer) {
-        this.d.c(entityplayer);
+        this.d.movePlayer(entityplayer);
     }
 
-    public void c(EntityPlayer entityplayer) {
-        this.n.a(entityplayer);
-        this.c.e.d(entityplayer);
-        this.b.remove(entityplayer);
-        this.d.b(entityplayer);
+    public void disconnect(EntityPlayer entityplayer) {
+        this.playerFileData.a(entityplayer);
+        this.server.worldServer.kill(entityplayer);
+        this.players.remove(entityplayer);
+        this.d.removePlayer(entityplayer);
     }
 
     public EntityPlayer a(NetLoginHandler netloginhandler, String s, String s1) {
-        if (this.f.contains(s.trim().toLowerCase())) {
-            netloginhandler.a("You are banned from this server!");
+        if (this.banByName.contains(s.trim().toLowerCase())) {
+            netloginhandler.disconnect("You are banned from this server!");
             return null;
-        } else if (!this.g(s)) {
-            netloginhandler.a("You are not white-listed on this server!");
+        } else if (!this.isWhitelisted(s)) {
+            netloginhandler.disconnect("You are not white-listed on this server!");
             return null;
         } else {
-            String s2 = netloginhandler.b.b().toString();
+            String s2 = netloginhandler.networkManager.getSocketAddress().toString();
 
             s2 = s2.substring(s2.indexOf("/") + 1);
             s2 = s2.substring(0, s2.indexOf(":"));
-            if (this.g.contains(s2)) {
-                netloginhandler.a("Your IP address is banned from this server!");
+            if (this.banByIP.contains(s2)) {
+                netloginhandler.disconnect("Your IP address is banned from this server!");
                 return null;
-            } else if (this.b.size() >= this.e) {
-                netloginhandler.a("The server is full!");
+            } else if (this.players.size() >= this.maxPlayers) {
+                netloginhandler.disconnect("The server is full!");
                 return null;
             } else {
-                for (int i = 0; i < this.b.size(); ++i) {
-                    EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
+                for (int i = 0; i < this.players.size(); ++i) {
+                    EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
 
                     if (entityplayer.name.equalsIgnoreCase(s)) {
-                        entityplayer.a.a("You logged in from another location");
+                        entityplayer.netServerHandler.disconnect("You logged in from another location");
                     }
                 }
 
-                return new EntityPlayer(this.c, this.c.e, s, new ItemInWorldManager(this.c.e));
+                return new EntityPlayer(this.server, this.server.worldServer, s, new ItemInWorldManager(this.server.worldServer));
             }
         }
     }
 
     public EntityPlayer d(EntityPlayer entityplayer) {
-        this.c.k.a(entityplayer);
-        this.c.k.b(entityplayer);
-        this.d.b(entityplayer);
-        this.b.remove(entityplayer);
-        this.c.e.e(entityplayer);
-        EntityPlayer entityplayer1 = new EntityPlayer(this.c, this.c.e, entityplayer.name, new ItemInWorldManager(this.c.e));
+        this.server.tracker.trackPlayer(entityplayer);
+        this.server.tracker.untrackEntity(entityplayer);
+        this.d.removePlayer(entityplayer);
+        this.players.remove(entityplayer);
+        this.server.worldServer.removeEntity(entityplayer);
+        ChunkCoordinates chunkcoordinates = entityplayer.H();
+        EntityPlayer entityplayer1 = new EntityPlayer(this.server, this.server.worldServer, entityplayer.name, new ItemInWorldManager(this.server.worldServer));
 
         entityplayer1.id = entityplayer.id;
-        entityplayer1.a = entityplayer.a;
-        this.c.e.u.d((int) entityplayer1.locX >> 4, (int) entityplayer1.locZ >> 4);
+        entityplayer1.netServerHandler = entityplayer.netServerHandler;
+        if (chunkcoordinates != null) {
+            ChunkCoordinates chunkcoordinates1 = EntityHuman.getBed(this.server.worldServer, chunkcoordinates);
 
-        while (this.c.e.a(entityplayer1, entityplayer1.boundingBox).size() != 0) {
-            entityplayer1.a(entityplayer1.locX, entityplayer1.locY + 1.0D, entityplayer1.locZ);
+            if (chunkcoordinates1 != null) {
+                entityplayer1.setPositionRotation((double) ((float) chunkcoordinates1.x + 0.5F), (double) ((float) chunkcoordinates1.y + 0.1F), (double) ((float) chunkcoordinates1.z + 0.5F), 0.0F, 0.0F);
+                entityplayer1.a(chunkcoordinates);
+            } else {
+                entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0));
+            }
         }
 
-        entityplayer1.a.b((Packet) (new Packet9Respawn()));
-        entityplayer1.a.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
-        this.d.a(entityplayer1);
-        this.c.e.a(entityplayer1);
-        this.b.add(entityplayer1);
-        entityplayer1.l();
-        entityplayer1.s();
+        this.server.worldServer.chunkProviderServer.getChunkAt((int) entityplayer1.locX >> 4, (int) entityplayer1.locZ >> 4);
+
+        while (this.server.worldServer.getEntities(entityplayer1, entityplayer1.boundingBox).size() != 0) {
+            entityplayer1.setPosition(entityplayer1.locX, entityplayer1.locY + 1.0D, entityplayer1.locZ);
+        }
+
+        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn());
+        entityplayer1.netServerHandler.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
+        this.d.addPlayer(entityplayer1);
+        this.server.worldServer.addEntity(entityplayer1);
+        this.players.add(entityplayer1);
+        entityplayer1.syncInventory();
+        entityplayer1.t();
         return entityplayer1;
     }
 
     public void b() {
-        this.d.a();
+        this.d.flush();
     }
 
-    public void a(int i, int j, int k) {
-        this.d.a(i, j, k);
+    public void flagDirty(int i, int j, int k) {
+        this.d.flagDirty(i, j, k);
     }
 
-    public void a(Packet packet) {
-        for (int i = 0; i < this.b.size(); ++i) {
-            EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
+    public void sendAll(Packet packet) {
+        for (int i = 0; i < this.players.size(); ++i) {
+            EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
 
-            entityplayer.a.b(packet);
+            entityplayer.netServerHandler.sendPacket(packet);
         }
     }
 
     public String c() {
         String s = "";
 
-        for (int i = 0; i < this.b.size(); ++i) {
+        for (int i = 0; i < this.players.size(); ++i) {
             if (i > 0) {
                 s = s + ", ";
             }
 
-            s = s + ((EntityPlayer) this.b.get(i)).name;
+            s = s + ((EntityPlayer) this.players.get(i)).name;
         }
 
         return s;
     }
 
     public void a(String s) {
-        this.f.add(s.toLowerCase());
+        this.banByName.add(s.toLowerCase());
         this.h();
     }
 
     public void b(String s) {
-        this.f.remove(s.toLowerCase());
+        this.banByName.remove(s.toLowerCase());
         this.h();
     }
 
     private void g() {
         try {
-            this.f.clear();
+            this.banByName.clear();
             BufferedReader bufferedreader = new BufferedReader(new FileReader(this.j));
             String s = "";
 
             while ((s = bufferedreader.readLine()) != null) {
-                this.f.add(s.trim().toLowerCase());
+                this.banByName.add(s.trim().toLowerCase());
             }
 
             bufferedreader.close();
@@ -198,7 +210,7 @@ public class ServerConfigurationManager {
     private void h() {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.j, false));
-            Iterator iterator = this.f.iterator();
+            Iterator iterator = this.banByName.iterator();
 
             while (iterator.hasNext()) {
                 String s = (String) iterator.next();
@@ -213,23 +225,23 @@ public class ServerConfigurationManager {
     }
 
     public void c(String s) {
-        this.g.add(s.toLowerCase());
+        this.banByIP.add(s.toLowerCase());
         this.j();
     }
 
     public void d(String s) {
-        this.g.remove(s.toLowerCase());
+        this.banByIP.remove(s.toLowerCase());
         this.j();
     }
 
     private void i() {
         try {
-            this.g.clear();
+            this.banByIP.clear();
             BufferedReader bufferedreader = new BufferedReader(new FileReader(this.k));
             String s = "";
 
             while ((s = bufferedreader.readLine()) != null) {
-                this.g.add(s.trim().toLowerCase());
+                this.banByIP.add(s.trim().toLowerCase());
             }
 
             bufferedreader.close();
@@ -241,7 +253,7 @@ public class ServerConfigurationManager {
     private void j() {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.k, false));
-            Iterator iterator = this.g.iterator();
+            Iterator iterator = this.banByIP.iterator();
 
             while (iterator.hasNext()) {
                 String s = (String) iterator.next();
@@ -331,18 +343,18 @@ public class ServerConfigurationManager {
         }
     }
 
-    public boolean g(String s) {
+    public boolean isWhitelisted(String s) {
         s = s.trim().toLowerCase();
         return !this.o || this.h.contains(s) || this.i.contains(s);
     }
 
-    public boolean h(String s) {
+    public boolean isOp(String s) {
         return this.h.contains(s.trim().toLowerCase());
     }
 
     public EntityPlayer i(String s) {
-        for (int i = 0; i < this.b.size(); ++i) {
-            EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
+        for (int i = 0; i < this.players.size(); ++i) {
+            EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
 
             if (entityplayer.name.equalsIgnoreCase(s)) {
                 return entityplayer;
@@ -356,19 +368,19 @@ public class ServerConfigurationManager {
         EntityPlayer entityplayer = this.i(s);
 
         if (entityplayer != null) {
-            entityplayer.a.b((Packet) (new Packet3Chat(s1)));
+            entityplayer.netServerHandler.sendPacket(new Packet3Chat(s1));
         }
     }
 
     public void a(double d0, double d1, double d2, double d3, Packet packet) {
-        for (int i = 0; i < this.b.size(); ++i) {
-            EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
+        for (int i = 0; i < this.players.size(); ++i) {
+            EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
             double d4 = d0 - entityplayer.locX;
             double d5 = d1 - entityplayer.locY;
             double d6 = d2 - entityplayer.locZ;
 
             if (d4 * d4 + d5 * d5 + d6 * d6 < d3 * d3) {
-                entityplayer.a.b(packet);
+                entityplayer.netServerHandler.sendPacket(packet);
             }
         }
     }
@@ -376,11 +388,11 @@ public class ServerConfigurationManager {
     public void j(String s) {
         Packet3Chat packet3chat = new Packet3Chat(s);
 
-        for (int i = 0; i < this.b.size(); ++i) {
-            EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
+        for (int i = 0; i < this.players.size(); ++i) {
+            EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
 
-            if (this.h(entityplayer.name)) {
-                entityplayer.a.b((Packet) packet3chat);
+            if (this.isOp(entityplayer.name)) {
+                entityplayer.netServerHandler.sendPacket(packet3chat);
             }
         }
     }
@@ -389,16 +401,16 @@ public class ServerConfigurationManager {
         EntityPlayer entityplayer = this.i(s);
 
         if (entityplayer != null) {
-            entityplayer.a.b(packet);
+            entityplayer.netServerHandler.sendPacket(packet);
             return true;
         } else {
             return false;
         }
     }
 
-    public void d() {
-        for (int i = 0; i < this.b.size(); ++i) {
-            this.n.a((EntityHuman) this.b.get(i));
+    public void savePlayers() {
+        for (int i = 0; i < this.players.size(); ++i) {
+            this.playerFileData.a((EntityHuman) this.players.get(i));
         }
     }
 

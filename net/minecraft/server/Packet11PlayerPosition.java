@@ -10,18 +10,18 @@ public class Packet11PlayerPosition extends Packet10Flying {
     }
 
     public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readDouble();
-        this.b = datainputstream.readDouble();
-        this.d = datainputstream.readDouble();
-        this.c = datainputstream.readDouble();
+        this.x = datainputstream.readDouble();
+        this.y = datainputstream.readDouble();
+        this.stance = datainputstream.readDouble();
+        this.z = datainputstream.readDouble();
         super.a(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeDouble(this.a);
-        dataoutputstream.writeDouble(this.b);
-        dataoutputstream.writeDouble(this.d);
-        dataoutputstream.writeDouble(this.c);
+        dataoutputstream.writeDouble(this.x);
+        dataoutputstream.writeDouble(this.y);
+        dataoutputstream.writeDouble(this.stance);
+        dataoutputstream.writeDouble(this.z);
         super.a(dataoutputstream);
     }
 

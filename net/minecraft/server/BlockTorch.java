@@ -17,11 +17,11 @@ public class BlockTorch extends Block {
         return false;
     }
 
-    public boolean a(World world, int i, int j, int k) {
+    public boolean canPlace(World world, int i, int j, int k) {
         return world.d(i - 1, j, k) ? true : (world.d(i + 1, j, k) ? true : (world.d(i, j, k - 1) ? true : (world.d(i, j, k + 1) ? true : world.d(i, j - 1, k))));
     }
 
-    public void d(World world, int i, int j, int k, int l) {
+    public void postPlace(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
 
         if (l == 1 && world.d(i, j - 1, k)) {
@@ -44,7 +44,7 @@ public class BlockTorch extends Block {
             i1 = 1;
         }
 
-        world.c(i, j, k, i1);
+        world.setData(i, j, k, i1);
     }
 
     public void a(World world, int i, int j, int k, Random random) {
@@ -56,21 +56,21 @@ public class BlockTorch extends Block {
 
     public void e(World world, int i, int j, int k) {
         if (world.d(i - 1, j, k)) {
-            world.c(i, j, k, 1);
+            world.setData(i, j, k, 1);
         } else if (world.d(i + 1, j, k)) {
-            world.c(i, j, k, 2);
+            world.setData(i, j, k, 2);
         } else if (world.d(i, j, k - 1)) {
-            world.c(i, j, k, 3);
+            world.setData(i, j, k, 3);
         } else if (world.d(i, j, k + 1)) {
-            world.c(i, j, k, 4);
+            world.setData(i, j, k, 4);
         } else if (world.d(i, j - 1, k)) {
-            world.c(i, j, k, 5);
+            world.setData(i, j, k, 5);
         }
 
         this.g(world, i, j, k);
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         if (this.g(world, i, j, k)) {
             int i1 = world.getData(i, j, k);
             boolean flag = false;
@@ -96,16 +96,16 @@ public class BlockTorch extends Block {
             }
 
             if (flag) {
-                this.b_(world, i, j, k, world.getData(i, j, k));
-                world.e(i, j, k, 0);
+                this.a_(world, i, j, k, world.getData(i, j, k));
+                world.setTypeId(i, j, k, 0);
             }
         }
     }
 
     private boolean g(World world, int i, int j, int k) {
-        if (!this.a(world, i, j, k)) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
-            world.e(i, j, k, 0);
+        if (!this.canPlace(world, i, j, k)) {
+            this.a_(world, i, j, k, world.getData(i, j, k));
+            world.setTypeId(i, j, k, 0);
             return false;
         } else {
             return true;

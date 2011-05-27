@@ -8,16 +8,16 @@ public class EntityFlying extends EntityLiving {
 
     protected void a(float f) {}
 
-    public void b(float f, float f1) {
+    public void a(float f, float f1) {
         if (this.g_()) {
             this.a(f, f1, 0.02F);
-            this.c(this.motX, this.motY, this.motZ);
+            this.move(this.motX, this.motY, this.motZ);
             this.motX *= 0.800000011920929D;
             this.motY *= 0.800000011920929D;
             this.motZ *= 0.800000011920929D;
-        } else if (this.Q()) {
+        } else if (this.V()) {
             this.a(f, f1, 0.02F);
-            this.c(this.motX, this.motY, this.motZ);
+            this.move(this.motX, this.motY, this.motZ);
             this.motX *= 0.5D;
             this.motY *= 0.5D;
             this.motZ *= 0.5D;
@@ -26,7 +26,7 @@ public class EntityFlying extends EntityLiving {
 
             if (this.onGround) {
                 f2 = 0.54600006F;
-                int i = this.world.getTypeId(MathHelper.b(this.locX), MathHelper.b(this.boundingBox.b) - 1, MathHelper.b(this.locZ));
+                int i = this.world.getTypeId(MathHelper.floor(this.locX), MathHelper.floor(this.boundingBox.b) - 1, MathHelper.floor(this.locZ));
 
                 if (i > 0) {
                     f2 = Block.byId[i].frictionFactor * 0.91F;
@@ -39,14 +39,14 @@ public class EntityFlying extends EntityLiving {
             f2 = 0.91F;
             if (this.onGround) {
                 f2 = 0.54600006F;
-                int j = this.world.getTypeId(MathHelper.b(this.locX), MathHelper.b(this.boundingBox.b) - 1, MathHelper.b(this.locZ));
+                int j = this.world.getTypeId(MathHelper.floor(this.locX), MathHelper.floor(this.boundingBox.b) - 1, MathHelper.floor(this.locZ));
 
                 if (j > 0) {
                     f2 = Block.byId[j].frictionFactor * 0.91F;
                 }
             }
 
-            this.c(this.motX, this.motY, this.motZ);
+            this.move(this.motX, this.motY, this.motZ);
             this.motX *= (double) f2;
             this.motY *= (double) f2;
             this.motZ *= (double) f2;
@@ -65,7 +65,7 @@ public class EntityFlying extends EntityLiving {
         this.ak += this.aj;
     }
 
-    public boolean m() {
+    public boolean n() {
         return false;
     }
 }

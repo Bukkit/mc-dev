@@ -84,11 +84,11 @@ public class ServerGUI extends JComponent implements ICommandListener {
         return jpanel;
     }
 
-    public void b(String s) {
+    public void sendMessage(String s) {
         a.info(s);
     }
 
-    public String c() {
+    public String getName() {
         return "CONSOLE";
     }
 

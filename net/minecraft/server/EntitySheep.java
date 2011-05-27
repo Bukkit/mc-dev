@@ -9,7 +9,7 @@ public class EntitySheep extends EntityAnimal {
     public EntitySheep(World world) {
         super(world);
         this.texture = "/mob/sheep.png";
-        this.a(0.9F, 1.3F);
+        this.b(0.9F, 1.3F);
     }
 
     protected void a() {
@@ -17,13 +17,13 @@ public class EntitySheep extends EntityAnimal {
         this.datawatcher.a(16, new Byte((byte) 0));
     }
 
-    public boolean a(Entity entity, int i) {
-        if (!this.world.isStatic && !this.j_() && entity instanceof EntityLiving) {
-            this.a(true);
+    public boolean damageEntity(Entity entity, int i) {
+        if (!this.world.isStatic && !this.isSheared() && entity instanceof EntityLiving) {
+            this.setSheared(true);
             int j = 1 + this.random.nextInt(3);
 
             for (int k = 0; k < j; ++k) {
-                EntityItem entityitem = this.a(new ItemStack(Block.WOOL.id, 1, this.n()), 1.0F);
+                EntityItem entityitem = this.a(new ItemStack(Block.WOOL.id, 1, this.getColor()), 1.0F);
 
                 entityitem.motY += (double) (this.random.nextFloat() * 0.05F);
                 entityitem.motX += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
@@ -31,19 +31,19 @@ public class EntitySheep extends EntityAnimal {
             }
         }
 
-        return super.a(entity, i);
+        return super.damageEntity(entity, i);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        nbttagcompound.a("Sheared", this.j_());
-        nbttagcompound.a("Color", (byte) this.n());
+        nbttagcompound.a("Sheared", this.isSheared());
+        nbttagcompound.a("Color", (byte) this.getColor());
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        this.a(nbttagcompound.m("Sheared"));
-        this.a_(nbttagcompound.c("Color"));
+        this.setSheared(nbttagcompound.m("Sheared"));
+        this.setColor(nbttagcompound.c("Color"));
     }
 
     protected String e() {
@@ -58,21 +58,21 @@ public class EntitySheep extends EntityAnimal {
         return "mob.sheep";
     }
 
-    public int n() {
+    public int getColor() {
         return this.datawatcher.a(16) & 15;
     }
 
-    public void a_(int i) {
+    public void setColor(int i) {
         byte b0 = this.datawatcher.a(16);
 
         this.datawatcher.b(16, Byte.valueOf((byte) (b0 & 240 | i & 15)));
     }
 
-    public boolean j_() {
+    public boolean isSheared() {
         return (this.datawatcher.a(16) & 16) != 0;
     }
 
-    public void a(boolean flag) {
+    public void setSheared(boolean flag) {
         byte b0 = this.datawatcher.a(16);
 
         if (flag) {
@@ -85,6 +85,6 @@ public class EntitySheep extends EntityAnimal {
     public static int a(Random random) {
         int i = random.nextInt(100);
 
-        return i < 5 ? 15 : (i < 10 ? 7 : (i < 15 ? 8 : 0));
+        return i < 5 ? 15 : (i < 10 ? 7 : (i < 15 ? 8 : (i < 18 ? 12 : (random.nextInt(500) == 0 ? 6 : 0))));
     }
 }

@@ -5,10 +5,10 @@ import java.io.DataOutputStream;
 
 public class Packet130UpdateSign extends Packet {
 
-    public int a;
-    public int b;
-    public int c;
-    public String[] d;
+    public int x;
+    public int y;
+    public int z;
+    public String[] lines;
 
     public Packet130UpdateSign() {
         this.k = true;
@@ -16,30 +16,30 @@ public class Packet130UpdateSign extends Packet {
 
     public Packet130UpdateSign(int i, int j, int k, String[] astring) {
         this.k = true;
-        this.a = i;
-        this.b = j;
-        this.c = k;
-        this.d = astring;
+        this.x = i;
+        this.y = j;
+        this.z = k;
+        this.lines = astring;
     }
 
     public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.readShort();
-        this.c = datainputstream.readInt();
-        this.d = new String[4];
+        this.x = datainputstream.readInt();
+        this.y = datainputstream.readShort();
+        this.z = datainputstream.readInt();
+        this.lines = new String[4];
 
         for (int i = 0; i < 4; ++i) {
-            this.d[i] = datainputstream.readUTF();
+            this.lines[i] = datainputstream.readUTF();
         }
     }
 
     public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeShort(this.b);
-        dataoutputstream.writeInt(this.c);
+        dataoutputstream.writeInt(this.x);
+        dataoutputstream.writeShort(this.y);
+        dataoutputstream.writeInt(this.z);
 
         for (int i = 0; i < 4; ++i) {
-            dataoutputstream.writeUTF(this.d[i]);
+            dataoutputstream.writeUTF(this.lines[i]);
         }
     }
 
@@ -51,7 +51,7 @@ public class Packet130UpdateSign extends Packet {
         int i = 0;
 
         for (int j = 0; j < 4; ++j) {
-            i += this.d[j].length();
+            i += this.lines[j].length();
         }
 
         return i;

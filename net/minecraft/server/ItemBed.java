@@ -12,7 +12,7 @@ public class ItemBed extends Item {
         } else {
             ++j;
             BlockBed blockbed = (BlockBed) Block.BED;
-            int i1 = MathHelper.b((double) (entityhuman.yaw * 4.0F / 360.0F) + 0.5D) & 3;
+            int i1 = MathHelper.floor((double) (entityhuman.yaw * 4.0F / 360.0F) + 0.5D) & 3;
             byte b0 = 0;
             byte b1 = 0;
 
@@ -33,8 +33,8 @@ public class ItemBed extends Item {
             }
 
             if (world.isEmpty(i, j, k) && world.isEmpty(i + b0, j, k + b1) && world.d(i, j - 1, k) && world.d(i + b0, j - 1, k + b1)) {
-                world.b(i, j, k, blockbed.id, i1);
-                world.b(i + b0, j, k + b1, blockbed.id, i1 + 8);
+                world.setTypeIdAndData(i, j, k, blockbed.id, i1);
+                world.setTypeIdAndData(i + b0, j, k + b1, blockbed.id, i1 + 8);
                 --itemstack.count;
                 return true;
             } else {

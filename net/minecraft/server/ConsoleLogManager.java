@@ -11,7 +11,7 @@ public class ConsoleLogManager {
 
     public ConsoleLogManager() {}
 
-    public static void a() {
+    public static void init() {
         ConsoleLogFormatter consolelogformatter = new ConsoleLogFormatter();
 
         a.setUseParentHandlers(false);

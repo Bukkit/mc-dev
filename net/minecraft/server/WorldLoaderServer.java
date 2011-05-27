@@ -20,13 +20,13 @@ public class WorldLoaderServer extends WorldLoader {
         return new ServerNBTManager(this.a, s, flag);
     }
 
-    public boolean a(String s) {
+    public boolean isConvertable(String s) {
         WorldData worlddata = this.b(s);
 
         return worlddata != null && worlddata.i() == 0;
     }
 
-    public boolean a(String s, IProgressUpdate iprogressupdate) {
+    public boolean convert(String s, IProgressUpdate iprogressupdate) {
         iprogressupdate.a(0);
         ArrayList arraylist = new ArrayList();
         ArrayList arraylist1 = new ArrayList();

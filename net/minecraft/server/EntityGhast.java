@@ -14,13 +14,13 @@ public class EntityGhast extends EntityFlying implements IMonster {
     public EntityGhast(World world) {
         super(world);
         this.texture = "/mob/ghast.png";
-        this.a(4.0F, 4.0F);
+        this.b(4.0F, 4.0F);
         this.by = true;
     }
 
     protected void c_() {
-        if (this.world.j == 0) {
-            this.C();
+        if (this.world.spawnMonsters == 0) {
+            this.die();
         }
 
         this.e = this.f;
@@ -69,12 +69,12 @@ public class EntityGhast extends EntityFlying implements IMonster {
             this.F = this.yaw = -((float) Math.atan2(d5, d7)) * 180.0F / 3.1415927F;
             if (this.e(this.g)) {
                 if (this.f == 10) {
-                    this.world.a(this, "mob.ghast.charge", this.i(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                    this.world.makeSound(this, "mob.ghast.charge", this.i(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 }
 
                 ++this.f;
                 if (this.f == 20) {
-                    this.world.a(this, "mob.ghast.fireball", this.i(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                    this.world.makeSound(this, "mob.ghast.fireball", this.i(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     EntityFireball entityfireball = new EntityFireball(this.world, this, d5, d6, d7);
                     double d8 = 4.0D;
                     Vec3D vec3d = this.b(1.0F);
@@ -82,7 +82,7 @@ public class EntityGhast extends EntityFlying implements IMonster {
                     entityfireball.locX = this.locX + vec3d.a * d8;
                     entityfireball.locY = this.locY + (double) (this.width / 2.0F) + 0.5D;
                     entityfireball.locZ = this.locZ + vec3d.c * d8;
-                    this.world.a((Entity) entityfireball);
+                    this.world.addEntity(entityfireball);
                     this.f = -40;
                 }
             } else if (this.f > 0) {
@@ -102,11 +102,11 @@ public class EntityGhast extends EntityFlying implements IMonster {
         double d4 = (this.b - this.locX) / d3;
         double d5 = (this.c - this.locY) / d3;
         double d6 = (this.d - this.locZ) / d3;
-        AxisAlignedBB axisalignedbb = this.boundingBox.b();
+        AxisAlignedBB axisalignedbb = this.boundingBox.clone();
 
         for (int i = 1; (double) i < d3; ++i) {
             axisalignedbb.d(d4, d5, d6);
-            if (this.world.a((Entity) this, axisalignedbb).size() > 0) {
+            if (this.world.getEntities(this, axisalignedbb).size() > 0) {
                 return false;
             }
         }
@@ -135,7 +135,7 @@ public class EntityGhast extends EntityFlying implements IMonster {
     }
 
     public boolean b() {
-        return this.random.nextInt(20) == 0 && super.b() && this.world.j > 0;
+        return this.random.nextInt(20) == 0 && super.b() && this.world.spawnMonsters > 0;
     }
 
     public int j() {

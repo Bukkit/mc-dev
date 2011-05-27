@@ -50,7 +50,7 @@ public class Packet104WindowItems extends Packet {
             } else {
                 dataoutputstream.writeShort((short) this.b[i].id);
                 dataoutputstream.writeByte((byte) this.b[i].count);
-                dataoutputstream.writeShort((short) this.b[i].h());
+                dataoutputstream.writeShort((short) this.b[i].getData());
             }
         }
     }

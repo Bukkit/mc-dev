@@ -197,7 +197,7 @@ public class AxisAlignedBB {
         return this;
     }
 
-    public AxisAlignedBB e(double d0, double d1, double d2) {
+    public AxisAlignedBB shrink(double d0, double d1, double d2) {
         double d3 = this.a;
         double d4 = this.b;
         double d5 = this.c;
@@ -232,7 +232,7 @@ public class AxisAlignedBB {
         return b(d3, d4, d5, d6, d7, d8);
     }
 
-    public AxisAlignedBB b() {
+    public AxisAlignedBB clone() {
         return b(this.a, this.b, this.c, this.d, this.e, this.f);
     }
 

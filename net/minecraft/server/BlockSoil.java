@@ -27,22 +27,22 @@ public class BlockSoil extends Block {
     public void a(World world, int i, int j, int k, Random random) {
         if (random.nextInt(5) == 0) {
             if (this.h(world, i, j, k)) {
-                world.c(i, j, k, 7);
+                world.setData(i, j, k, 7);
             } else {
                 int l = world.getData(i, j, k);
 
                 if (l > 0) {
-                    world.c(i, j, k, l - 1);
+                    world.setData(i, j, k, l - 1);
                 } else if (!this.g(world, i, j, k)) {
-                    world.e(i, j, k, Block.DIRT.id);
+                    world.setTypeId(i, j, k, Block.DIRT.id);
                 }
             }
         }
     }
 
     public void b(World world, int i, int j, int k, Entity entity) {
-        if (world.k.nextInt(4) == 0) {
-            world.e(i, j, k, Block.DIRT.id);
+        if (world.random.nextInt(4) == 0) {
+            world.setTypeId(i, j, k, Block.DIRT.id);
         }
     }
 
@@ -74,12 +74,12 @@ public class BlockSoil extends Block {
         return false;
     }
 
-    public void a(World world, int i, int j, int k, int l) {
-        super.a(world, i, j, k, l);
+    public void doPhysics(World world, int i, int j, int k, int l) {
+        super.doPhysics(world, i, j, k, l);
         Material material = world.getMaterial(i, j + 1, k);
 
         if (material.isBuildable()) {
-            world.e(i, j, k, Block.DIRT.id);
+            world.setTypeId(i, j, k, Block.DIRT.id);
         }
     }
 

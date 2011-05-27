@@ -39,7 +39,7 @@ public class BlockCake extends Block {
         return false;
     }
 
-    public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         this.c(world, i, j, k, entityhuman);
         return true;
     }
@@ -54,22 +54,22 @@ public class BlockCake extends Block {
             int l = world.getData(i, j, k) + 1;
 
             if (l >= 6) {
-                world.e(i, j, k, 0);
+                world.setTypeId(i, j, k, 0);
             } else {
-                world.c(i, j, k, l);
+                world.setData(i, j, k, l);
                 world.h(i, j, k);
             }
         }
     }
 
-    public boolean a(World world, int i, int j, int k) {
-        return !super.a(world, i, j, k) ? false : this.f(world, i, j, k);
+    public boolean canPlace(World world, int i, int j, int k) {
+        return !super.canPlace(world, i, j, k) ? false : this.f(world, i, j, k);
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         if (!this.f(world, i, j, k)) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
-            world.e(i, j, k, 0);
+            this.a_(world, i, j, k, world.getData(i, j, k));
+            world.setTypeId(i, j, k, 0);
         }
     }
 

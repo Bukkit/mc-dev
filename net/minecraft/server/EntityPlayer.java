@@ -7,9 +7,9 @@ import java.util.Set;
 
 public class EntityPlayer extends EntityHuman implements ICrafting {
 
-    public NetServerHandler a;
+    public NetServerHandler netServerHandler;
     public MinecraftServer b;
-    public ItemInWorldManager c;
+    public ItemInWorldManager itemInWorldManager;
     public double d;
     public double e;
     public List f = new LinkedList();
@@ -22,31 +22,31 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public EntityPlayer(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager) {
         super(world);
-        ChunkCoordinates chunkcoordinates = world.l();
-        int i = chunkcoordinates.a;
-        int j = chunkcoordinates.c;
-        int k = chunkcoordinates.b;
+        ChunkCoordinates chunkcoordinates = world.getSpawn();
+        int i = chunkcoordinates.x;
+        int j = chunkcoordinates.z;
+        int k = chunkcoordinates.y;
 
-        if (!world.m.e) {
+        if (!world.worldProvider.e) {
             i += this.random.nextInt(20) - 10;
             k = world.e(i, j);
             j += this.random.nextInt(20) - 10;
         }
 
-        this.c((double) i + 0.5D, (double) k, (double) j + 0.5D, 0.0F, 0.0F);
+        this.setPositionRotation((double) i + 0.5D, (double) k, (double) j + 0.5D, 0.0F, 0.0F);
         this.b = minecraftserver;
         this.bm = 0.0F;
-        iteminworldmanager.a = this;
+        iteminworldmanager.player = this;
         this.name = s;
-        this.c = iteminworldmanager;
+        this.itemInWorldManager = iteminworldmanager;
         this.height = 0.0F;
     }
 
-    public void l() {
+    public void syncInventory() {
         this.activeContainer.a((ICrafting) this);
     }
 
-    public ItemStack[] k_() {
+    public ItemStack[] getEquipment() {
         return this.bG;
     }
 
@@ -54,12 +54,12 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.height = 0.0F;
     }
 
-    public float p() {
+    public float q() {
         return 1.62F;
     }
 
     public void f_() {
-        this.c.a();
+        this.itemInWorldManager.a();
         --this.bF;
         this.activeContainer.a();
 
@@ -67,25 +67,25 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             ItemStack itemstack = this.b_(i);
 
             if (itemstack != this.bG[i]) {
-                this.b.k.a(this, new Packet5EntityEquipment(this.id, i, itemstack));
+                this.b.tracker.a(this, new Packet5EntityEquipment(this.id, i, itemstack));
                 this.bG[i] = itemstack;
             }
         }
     }
 
     public ItemStack b_(int i) {
-        return i == 0 ? this.inventory.b() : this.inventory.b[i - 1];
+        return i == 0 ? this.inventory.getItemInHand() : this.inventory.armor[i - 1];
     }
 
     public void a(Entity entity) {
-        this.inventory.g();
+        this.inventory.h();
     }
 
-    public boolean a(Entity entity, int i) {
+    public boolean damageEntity(Entity entity, int i) {
         if (this.bF > 0) {
             return false;
         } else {
-            if (!this.b.n) {
+            if (!this.b.pvpMode) {
                 if (entity instanceof EntityHuman) {
                     return false;
                 }
@@ -93,13 +93,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                 if (entity instanceof EntityArrow) {
                     EntityArrow entityarrow = (EntityArrow) entity;
 
-                    if (entityarrow.b instanceof EntityHuman) {
+                    if (entityarrow.shooter instanceof EntityHuman) {
                         return false;
                     }
                 }
             }
 
-            return super.a(entity, i);
+            return super.damageEntity(entity, i);
         }
     }
 
@@ -115,14 +115,14 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             if (chunkcoordintpair != null) {
                 boolean flag1 = false;
 
-                if (this.a.b() < 2) {
+                if (this.netServerHandler.b() < 2) {
                     flag1 = true;
                 }
 
                 if (flag1) {
                     this.f.remove(chunkcoordintpair);
-                    this.a.b((Packet) (new Packet51MapChunk(chunkcoordintpair.a * 16, 0, chunkcoordintpair.b * 16, 16, 128, 16, this.b.e)));
-                    List list = this.b.e.d(chunkcoordintpair.a * 16, 0, chunkcoordintpair.b * 16, chunkcoordintpair.a * 16 + 16, 128, chunkcoordintpair.b * 16 + 16);
+                    this.netServerHandler.sendPacket(new Packet51MapChunk(chunkcoordintpair.x * 16, 0, chunkcoordintpair.z * 16, 16, 128, 16, this.b.worldServer));
+                    List list = this.b.worldServer.getTileEntities(chunkcoordintpair.x * 16, 0, chunkcoordintpair.z * 16, chunkcoordintpair.x * 16 + 16, 128, chunkcoordintpair.z * 16 + 16);
 
                     for (int i = 0; i < list.size(); ++i) {
                         this.a((TileEntity) list.get(i));
@@ -132,7 +132,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
 
         if (this.health != this.bE) {
-            this.a.b((Packet) (new Packet8UpdateHealth(this.health)));
+            this.netServerHandler.sendPacket(new Packet8UpdateHealth(this.health));
             this.bE = this.health;
         }
     }
@@ -142,62 +142,63 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             Packet packet = tileentity.e();
 
             if (packet != null) {
-                this.a.b(packet);
+                this.netServerHandler.sendPacket(packet);
             }
         }
-    }
-
-    public void q() {
-        super.q();
-    }
-
-    public void b(Entity entity, int i) {
-        if (!entity.dead) {
-            if (entity instanceof EntityItem) {
-                this.b.k.a(entity, new Packet22Collect(entity.id, this.id));
-            }
-
-            if (entity instanceof EntityArrow) {
-                this.b.k.a(entity, new Packet22Collect(entity.id, this.id));
-            }
-        }
-
-        super.b(entity, i);
-        this.activeContainer.a();
     }
 
     public void r() {
+        super.r();
+    }
+
+    public void receive(Entity entity, int i) {
+        if (!entity.dead) {
+            if (entity instanceof EntityItem) {
+                this.b.tracker.a(entity, new Packet22Collect(entity.id, this.id));
+            }
+
+            if (entity instanceof EntityArrow) {
+                this.b.tracker.a(entity, new Packet22Collect(entity.id, this.id));
+            }
+        }
+
+        super.receive(entity, i);
+        this.activeContainer.a();
+    }
+
+    public void m_() {
         if (!this.p) {
             this.q = -1;
             this.p = true;
-            this.b.k.a(this, new Packet18ArmAnimation(this, 1));
+            this.b.tracker.a(this, new Packet18ArmAnimation(this, 1));
         }
     }
 
-    public void s() {}
+    public void t() {}
 
-    public boolean a(int i, int j, int k) {
-        if (super.a(i, j, k)) {
-            this.b.k.a(this, new Packet17(this, 0, i, j, k));
-            return true;
-        } else {
-            return false;
-        }
-    }
+    public EnumBedError a(int i, int j, int k) {
+        EnumBedError enumbederror = super.a(i, j, k);
 
-    public void a(boolean flag, boolean flag1) {
-        if (this.E()) {
-            this.b.k.b(this, new Packet18ArmAnimation(this, 3));
+        if (enumbederror == EnumBedError.OK) {
+            this.b.tracker.a(this, new Packet17(this, 0, i, j, k));
         }
 
-        super.a(flag, flag1);
-        this.a.a(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
+        return enumbederror;
     }
 
-    public void b(Entity entity) {
-        super.b(entity);
-        this.a.b((Packet) (new Packet39AttachEntity(this, this.vehicle)));
-        this.a.a(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
+    public void a(boolean flag, boolean flag1, boolean flag2) {
+        if (this.isSleeping()) {
+            this.b.tracker.b(this, new Packet18ArmAnimation(this, 3));
+        }
+
+        super.a(flag, flag1, flag2);
+        this.netServerHandler.a(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
+    }
+
+    public void mount(Entity entity) {
+        super.mount(entity);
+        this.netServerHandler.sendPacket(new Packet39AttachEntity(this, this.vehicle));
+        this.netServerHandler.a(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
     }
 
     protected void a(double d0, boolean flag) {}
@@ -206,37 +207,37 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         super.a(d0, flag);
     }
 
-    private void V() {
+    private void aa() {
         this.bH = this.bH % 100 + 1;
     }
 
     public void b(int i, int j, int k) {
-        this.V();
-        this.a.b((Packet) (new Packet100OpenWindow(this.bH, 1, "Crafting", 9)));
+        this.aa();
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bH, 1, "Crafting", 9));
         this.activeContainer = new ContainerWorkbench(this.inventory, this.world, i, j, k);
         this.activeContainer.f = this.bH;
         this.activeContainer.a((ICrafting) this);
     }
 
     public void a(IInventory iinventory) {
-        this.V();
-        this.a.b((Packet) (new Packet100OpenWindow(this.bH, 0, iinventory.c(), iinventory.m_())));
+        this.aa();
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bH, 0, iinventory.getName(), iinventory.getSize()));
         this.activeContainer = new ContainerChest(this.inventory, iinventory);
         this.activeContainer.f = this.bH;
         this.activeContainer.a((ICrafting) this);
     }
 
     public void a(TileEntityFurnace tileentityfurnace) {
-        this.V();
-        this.a.b((Packet) (new Packet100OpenWindow(this.bH, 2, tileentityfurnace.c(), tileentityfurnace.m_())));
+        this.aa();
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bH, 2, tileentityfurnace.getName(), tileentityfurnace.getSize()));
         this.activeContainer = new ContainerFurnace(this.inventory, tileentityfurnace);
         this.activeContainer.f = this.bH;
         this.activeContainer.a((ICrafting) this);
     }
 
     public void a(TileEntityDispenser tileentitydispenser) {
-        this.V();
-        this.a.b((Packet) (new Packet100OpenWindow(this.bH, 3, tileentitydispenser.c(), tileentitydispenser.m_())));
+        this.aa();
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bH, 3, tileentitydispenser.getName(), tileentitydispenser.getSize()));
         this.activeContainer = new ContainerDispenser(this.inventory, tileentitydispenser);
         this.activeContainer.f = this.bH;
         this.activeContainer.a((ICrafting) this);
@@ -245,34 +246,34 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     public void a(Container container, int i, ItemStack itemstack) {
         if (!(container.a(i) instanceof SlotResult)) {
             if (!this.h) {
-                this.a.b((Packet) (new Packet103SetSlot(container.f, i, itemstack)));
+                this.netServerHandler.sendPacket(new Packet103SetSlot(container.f, i, itemstack));
             }
         }
     }
 
     public void a(Container container, List list) {
-        this.a.b((Packet) (new Packet104WindowItems(container.f, list)));
-        this.a.b((Packet) (new Packet103SetSlot(-1, -1, this.inventory.i())));
+        this.netServerHandler.sendPacket(new Packet104WindowItems(container.f, list));
+        this.netServerHandler.sendPacket(new Packet103SetSlot(-1, -1, this.inventory.j()));
     }
 
     public void a(Container container, int i, int j) {
-        this.a.b((Packet) (new Packet105CraftProgressBar(container.f, i, j)));
+        this.netServerHandler.sendPacket(new Packet105CraftProgressBar(container.f, i, j));
     }
 
     public void a(ItemStack itemstack) {}
 
-    public void t() {
-        this.a.b((Packet) (new Packet101CloseWindow(this.activeContainer.f)));
-        this.v();
-    }
-
     public void u() {
-        if (!this.h) {
-            this.a.b((Packet) (new Packet103SetSlot(-1, -1, this.inventory.i())));
-        }
+        this.netServerHandler.sendPacket(new Packet101CloseWindow(this.activeContainer.f));
+        this.w();
     }
 
     public void v() {
+        if (!this.h) {
+            this.netServerHandler.sendPacket(new Packet103SetSlot(-1, -1, this.inventory.j()));
+        }
+    }
+
+    public void w() {
         this.activeContainer.a((EntityHuman) this);
         this.activeContainer = this.defaultContainer;
     }
@@ -281,7 +282,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.au = f;
         this.av = f1;
         this.ax = flag;
-        this.b(flag1);
+        this.setSneak(flag1);
         this.pitch = f2;
         this.yaw = f3;
     }

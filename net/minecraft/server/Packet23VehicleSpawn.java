@@ -15,9 +15,9 @@ public class Packet23VehicleSpawn extends Packet {
 
     public Packet23VehicleSpawn(Entity entity, int i) {
         this.a = entity.id;
-        this.b = MathHelper.b(entity.locX * 32.0D);
-        this.c = MathHelper.b(entity.locY * 32.0D);
-        this.d = MathHelper.b(entity.locZ * 32.0D);
+        this.b = MathHelper.floor(entity.locX * 32.0D);
+        this.c = MathHelper.floor(entity.locY * 32.0D);
+        this.d = MathHelper.floor(entity.locZ * 32.0D);
         this.e = i;
     }
 

@@ -11,7 +11,7 @@ public class ContainerFurnace extends Container {
         this.a = tileentityfurnace;
         this.a(new Slot(tileentityfurnace, 0, 56, 17));
         this.a(new Slot(tileentityfurnace, 1, 56, 53));
-        this.a(new Slot(tileentityfurnace, 2, 116, 35));
+        this.a(new SlotResult2(tileentityfurnace, 2, 116, 35));
 
         int i;
 
@@ -28,8 +28,8 @@ public class ContainerFurnace extends Container {
 
     public void a(ICrafting icrafting) {
         super.a(icrafting);
-        icrafting.a(this, 0, this.a.c);
-        icrafting.a(this, 1, this.a.a);
+        icrafting.a(this, 0, this.a.cookTime);
+        icrafting.a(this, 1, this.a.burnTime);
         icrafting.a(this, 2, this.a.b);
     }
 
@@ -39,12 +39,12 @@ public class ContainerFurnace extends Container {
         for (int i = 0; i < this.g.size(); ++i) {
             ICrafting icrafting = (ICrafting) this.g.get(i);
 
-            if (this.b != this.a.c) {
-                icrafting.a(this, 0, this.a.c);
+            if (this.b != this.a.cookTime) {
+                icrafting.a(this, 0, this.a.cookTime);
             }
 
-            if (this.c != this.a.a) {
-                icrafting.a(this, 1, this.a.a);
+            if (this.c != this.a.burnTime) {
+                icrafting.a(this, 1, this.a.burnTime);
             }
 
             if (this.h != this.a.b) {
@@ -52,8 +52,8 @@ public class ContainerFurnace extends Container {
             }
         }
 
-        this.b = this.a.c;
-        this.c = this.a.a;
+        this.b = this.a.cookTime;
+        this.c = this.a.burnTime;
         this.h = this.a.b;
     }
 

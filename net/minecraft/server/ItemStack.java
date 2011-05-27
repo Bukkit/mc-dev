@@ -48,20 +48,26 @@ public final class ItemStack {
         return new ItemStack(this.id, i, this.damage);
     }
 
-    public Item a() {
+    public Item getItem() {
         return Item.byId[this.id];
     }
 
-    public boolean a(EntityHuman entityhuman, World world, int i, int j, int k, int l) {
-        return this.a().a(this, entityhuman, world, i, j, k, l);
+    public boolean placeItem(EntityHuman entityhuman, World world, int i, int j, int k, int l) {
+        boolean flag = this.getItem().a(this, entityhuman, world, i, j, k, l);
+
+        if (flag) {
+            entityhuman.a(StatisticList.A[this.id], 1);
+        }
+
+        return flag;
     }
 
     public float a(Block block) {
-        return this.a().a(this, block);
+        return this.getItem().a(this, block);
     }
 
     public ItemStack a(World world, EntityHuman entityhuman) {
-        return this.a().a(this, world, entityhuman);
+        return this.getItem().a(this, world, entityhuman);
     }
 
     public NBTTagCompound a(NBTTagCompound nbttagcompound) {
@@ -78,7 +84,7 @@ public final class ItemStack {
     }
 
     public int b() {
-        return this.a().b();
+        return this.getItem().getMaxStackSize();
     }
 
     public boolean c() {
@@ -101,7 +107,7 @@ public final class ItemStack {
         return this.damage;
     }
 
-    public int h() {
+    public int getData() {
         return this.damage;
     }
 
@@ -109,10 +115,14 @@ public final class ItemStack {
         return Item.byId[this.id].d();
     }
 
-    public void b(int i) {
+    public void damage(int i, Entity entity) {
         if (this.d()) {
             this.damage += i;
             if (this.damage > this.i()) {
+                if (entity instanceof EntityHuman) {
+                    ((EntityHuman) entity).a(StatisticList.B[this.id], 1);
+                }
+
                 --this.count;
                 if (this.count < 0) {
                     this.count = 0;
@@ -123,12 +133,20 @@ public final class ItemStack {
         }
     }
 
-    public void a(EntityLiving entityliving) {
-        Item.byId[this.id].a(this, entityliving);
+    public void a(EntityLiving entityliving, EntityHuman entityhuman) {
+        boolean flag = Item.byId[this.id].a(this, entityliving, (EntityLiving) entityhuman);
+
+        if (flag) {
+            entityhuman.a(StatisticList.A[this.id], 1);
+        }
     }
 
-    public void a(int i, int j, int k, int l) {
-        Item.byId[this.id].a(this, i, j, k, l);
+    public void a(int i, int j, int k, int l, EntityHuman entityhuman) {
+        boolean flag = Item.byId[this.id].a(this, i, j, k, l, entityhuman);
+
+        if (flag) {
+            entityhuman.a(StatisticList.A[this.id], 1);
+        }
     }
 
     public int a(Entity entity) {
@@ -141,15 +159,15 @@ public final class ItemStack {
 
     public void a(EntityHuman entityhuman) {}
 
-    public void b(EntityLiving entityliving) {
-        Item.byId[this.id].b(this, entityliving);
+    public void a(EntityLiving entityliving) {
+        Item.byId[this.id].a(this, entityliving);
     }
 
     public ItemStack j() {
         return new ItemStack(this.id, this.count, this.damage);
     }
 
-    public static boolean a(ItemStack itemstack, ItemStack itemstack1) {
+    public static boolean equals(ItemStack itemstack, ItemStack itemstack1) {
         return itemstack == null && itemstack1 == null ? true : (itemstack != null && itemstack1 != null ? itemstack.c(itemstack1) : false);
     }
 

@@ -5,21 +5,21 @@ public class ItemSaddle extends Item {
     public ItemSaddle(int i) {
         super(i);
         this.maxStackSize = 1;
-        this.durability = 64;
     }
 
-    public void b(ItemStack itemstack, EntityLiving entityliving) {
+    public void a(ItemStack itemstack, EntityLiving entityliving) {
         if (entityliving instanceof EntityPig) {
             EntityPig entitypig = (EntityPig) entityliving;
 
-            if (!entitypig.r()) {
+            if (!entitypig.v()) {
                 entitypig.a(true);
                 --itemstack.count;
             }
         }
     }
 
-    public void a(ItemStack itemstack, EntityLiving entityliving) {
-        this.b(itemstack, entityliving);
+    public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
+        this.a(itemstack, entityliving);
+        return true;
     }
 }

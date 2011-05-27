@@ -5,7 +5,7 @@ public class EntityCow extends EntityAnimal {
     public EntityCow(World world) {
         super(world);
         this.texture = "/mob/cow.png";
-        this.a(0.9F, 1.3F);
+        this.b(0.9F, 1.3F);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -37,10 +37,10 @@ public class EntityCow extends EntityAnimal {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        ItemStack itemstack = entityhuman.inventory.b();
+        ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
         if (itemstack != null && itemstack.id == Item.BUCKET.id) {
-            entityhuman.inventory.a(entityhuman.inventory.c, new ItemStack(Item.MILK_BUCKET));
+            entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, new ItemStack(Item.MILK_BUCKET));
             return true;
         } else {
             return false;

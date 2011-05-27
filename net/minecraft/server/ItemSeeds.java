@@ -2,11 +2,11 @@ package net.minecraft.server;
 
 public class ItemSeeds extends Item {
 
-    private int a;
+    private int id;
 
     public ItemSeeds(int i, int j) {
         super(i);
-        this.a = j;
+        this.id = j;
     }
 
     public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
@@ -16,7 +16,7 @@ public class ItemSeeds extends Item {
             int i1 = world.getTypeId(i, j, k);
 
             if (i1 == Block.SOIL.id && world.isEmpty(i, j + 1, k)) {
-                world.e(i, j + 1, k, this.a);
+                world.setTypeId(i, j + 1, k, this.id);
                 --itemstack.count;
                 return true;
             } else {

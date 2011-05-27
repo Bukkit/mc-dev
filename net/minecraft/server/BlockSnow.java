@@ -18,37 +18,38 @@ public class BlockSnow extends Block {
         return false;
     }
 
-    public boolean a(World world, int i, int j, int k) {
+    public boolean canPlace(World world, int i, int j, int k) {
         int l = world.getTypeId(i, j - 1, k);
 
         return l != 0 && Block.byId[l].a() ? world.getMaterial(i, j - 1, k).isSolid() : false;
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         this.g(world, i, j, k);
     }
 
     private boolean g(World world, int i, int j, int k) {
-        if (!this.a(world, i, j, k)) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
-            world.e(i, j, k, 0);
+        if (!this.canPlace(world, i, j, k)) {
+            this.a_(world, i, j, k, world.getData(i, j, k));
+            world.setTypeId(i, j, k, 0);
             return false;
         } else {
             return true;
         }
     }
 
-    public void a_(World world, int i, int j, int k, int l) {
+    public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
         int i1 = Item.SNOW_BALL.id;
         float f = 0.7F;
-        double d0 = (double) (world.k.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-        double d1 = (double) (world.k.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-        double d2 = (double) (world.k.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+        double d0 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+        double d1 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+        double d2 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
         EntityItem entityitem = new EntityItem(world, (double) i + d0, (double) j + d1, (double) k + d2, new ItemStack(i1, 1, 0));
 
-        entityitem.c = 10;
-        world.a((Entity) entityitem);
-        world.e(i, j, k, 0);
+        entityitem.pickupDelay = 10;
+        world.addEntity(entityitem);
+        world.setTypeId(i, j, k, 0);
+        entityhuman.a(StatisticList.y[this.id], 1);
     }
 
     public int a(int i, Random random) {
@@ -61,8 +62,8 @@ public class BlockSnow extends Block {
 
     public void a(World world, int i, int j, int k, Random random) {
         if (world.a(EnumSkyBlock.BLOCK, i, j, k) > 11) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
-            world.e(i, j, k, 0);
+            this.a_(world, i, j, k, world.getData(i, j, k));
+            world.setTypeId(i, j, k, 0);
         }
     }
 

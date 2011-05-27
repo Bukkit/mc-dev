@@ -6,18 +6,18 @@ import java.io.DataOutputStream;
 public class Packet19EntityAction extends Packet {
 
     public int a;
-    public int b;
+    public int animation;
 
     public Packet19EntityAction() {}
 
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readInt();
-        this.b = datainputstream.readByte();
+        this.animation = datainputstream.readByte();
     }
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeByte(this.b);
+        dataoutputstream.writeByte(this.animation);
     }
 
     public void a(NetHandler nethandler) {

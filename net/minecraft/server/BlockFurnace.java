@@ -44,14 +44,14 @@ public class BlockFurnace extends BlockContainer {
             b0 = 4;
         }
 
-        world.c(i, j, k, b0);
+        world.setData(i, j, k, b0);
     }
 
     public int a(int i) {
         return i == 1 ? this.textureId + 17 : (i == 0 ? this.textureId + 17 : (i == 3 ? this.textureId - 1 : this.textureId));
     }
 
-    public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         if (world.isStatic) {
             return true;
         } else {
@@ -67,12 +67,12 @@ public class BlockFurnace extends BlockContainer {
         TileEntity tileentity = world.getTileEntity(i, j, k);
 
         if (flag) {
-            world.e(i, j, k, Block.BURNING_FURNACE.id);
+            world.setTypeId(i, j, k, Block.BURNING_FURNACE.id);
         } else {
-            world.e(i, j, k, Block.FURNACE.id);
+            world.setTypeId(i, j, k, Block.FURNACE.id);
         }
 
-        world.c(i, j, k, l);
+        world.setData(i, j, k, l);
         world.setTileEntity(i, j, k, tileentity);
     }
 
@@ -80,23 +80,23 @@ public class BlockFurnace extends BlockContainer {
         return new TileEntityFurnace();
     }
 
-    public void a(World world, int i, int j, int k, EntityLiving entityliving) {
-        int l = MathHelper.b((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
+        int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         if (l == 0) {
-            world.c(i, j, k, 2);
+            world.setData(i, j, k, 2);
         }
 
         if (l == 1) {
-            world.c(i, j, k, 5);
+            world.setData(i, j, k, 5);
         }
 
         if (l == 2) {
-            world.c(i, j, k, 3);
+            world.setData(i, j, k, 3);
         }
 
         if (l == 3) {
-            world.c(i, j, k, 4);
+            world.setData(i, j, k, 4);
         }
     }
 }

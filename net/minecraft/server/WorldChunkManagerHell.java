@@ -18,7 +18,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
         return this.e;
     }
 
-    public BiomeBase a(int i, int j) {
+    public BiomeBase getBiome(int i, int j) {
         return this.e;
     }
 

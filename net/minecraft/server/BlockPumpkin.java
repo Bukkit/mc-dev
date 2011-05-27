@@ -35,15 +35,15 @@ public class BlockPumpkin extends Block {
         super.e(world, i, j, k);
     }
 
-    public boolean a(World world, int i, int j, int k) {
+    public boolean canPlace(World world, int i, int j, int k) {
         int l = world.getTypeId(i, j, k);
 
         return (l == 0 || Block.byId[l].material.isLiquid()) && world.d(i, j - 1, k);
     }
 
-    public void a(World world, int i, int j, int k, EntityLiving entityliving) {
-        int l = MathHelper.b((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
+        int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
 
-        world.c(i, j, k, l);
+        world.setData(i, j, k, l);
     }
 }

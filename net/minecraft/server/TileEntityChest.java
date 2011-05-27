@@ -2,34 +2,34 @@ package net.minecraft.server;
 
 public class TileEntityChest extends TileEntity implements IInventory {
 
-    private ItemStack[] a = new ItemStack[36];
+    private ItemStack[] items = new ItemStack[36];
 
     public TileEntityChest() {}
 
-    public int m_() {
+    public int getSize() {
         return 27;
     }
 
-    public ItemStack c_(int i) {
-        return this.a[i];
+    public ItemStack getItem(int i) {
+        return this.items[i];
     }
 
     public ItemStack a(int i, int j) {
-        if (this.a[i] != null) {
+        if (this.items[i] != null) {
             ItemStack itemstack;
 
-            if (this.a[i].count <= j) {
-                itemstack = this.a[i];
-                this.a[i] = null;
-                this.h();
+            if (this.items[i].count <= j) {
+                itemstack = this.items[i];
+                this.items[i] = null;
+                this.update();
                 return itemstack;
             } else {
-                itemstack = this.a[i].a(j);
-                if (this.a[i].count == 0) {
-                    this.a[i] = null;
+                itemstack = this.items[i].a(j);
+                if (this.items[i].count == 0) {
+                    this.items[i] = null;
                 }
 
-                this.h();
+                this.update();
                 return itemstack;
             }
         } else {
@@ -37,16 +37,16 @@ public class TileEntityChest extends TileEntity implements IInventory {
         }
     }
 
-    public void a(int i, ItemStack itemstack) {
-        this.a[i] = itemstack;
-        if (itemstack != null && itemstack.count > this.n_()) {
-            itemstack.count = this.n_();
+    public void setItem(int i, ItemStack itemstack) {
+        this.items[i] = itemstack;
+        if (itemstack != null && itemstack.count > this.getMaxStackSize()) {
+            itemstack.count = this.getMaxStackSize();
         }
 
-        this.h();
+        this.update();
     }
 
-    public String c() {
+    public String getName() {
         return "Chest";
     }
 
@@ -54,14 +54,14 @@ public class TileEntityChest extends TileEntity implements IInventory {
         super.a(nbttagcompound);
         NBTTagList nbttaglist = nbttagcompound.l("Items");
 
-        this.a = new ItemStack[this.m_()];
+        this.items = new ItemStack[this.getSize()];
 
         for (int i = 0; i < nbttaglist.c(); ++i) {
             NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.a(i);
             int j = nbttagcompound1.c("Slot") & 255;
 
-            if (j >= 0 && j < this.a.length) {
-                this.a[j] = new ItemStack(nbttagcompound1);
+            if (j >= 0 && j < this.items.length) {
+                this.items[j] = new ItemStack(nbttagcompound1);
             }
         }
     }
@@ -70,12 +70,12 @@ public class TileEntityChest extends TileEntity implements IInventory {
         super.b(nbttagcompound);
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (int i = 0; i < this.a.length; ++i) {
-            if (this.a[i] != null) {
+        for (int i = 0; i < this.items.length; ++i) {
+            if (this.items[i] != null) {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
                 nbttagcompound1.a("Slot", (byte) i);
-                this.a[i].a(nbttagcompound1);
+                this.items[i].a(nbttagcompound1);
                 nbttaglist.a((NBTBase) nbttagcompound1);
             }
         }
@@ -83,11 +83,11 @@ public class TileEntityChest extends TileEntity implements IInventory {
         nbttagcompound.a("Items", (NBTBase) nbttaglist);
     }
 
-    public int n_() {
+    public int getMaxStackSize() {
         return 64;
     }
 
     public boolean a_(EntityHuman entityhuman) {
-        return this.d.getTileEntity(this.e, this.f, this.g) != this ? false : entityhuman.d((double) this.e + 0.5D, (double) this.f + 0.5D, (double) this.g + 0.5D) <= 64.0D;
+        return this.world.getTileEntity(this.e, this.f, this.g) != this ? false : entityhuman.d((double) this.e + 0.5D, (double) this.f + 0.5D, (double) this.g + 0.5D) <= 64.0D;
     }
 }

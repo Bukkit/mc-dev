@@ -8,7 +8,7 @@ public class WorldProvider {
     public boolean d = false;
     public boolean e = false;
     public float[] f = new float[16];
-    public int g = 0;
+    public int dimension = 0;
     private float[] h = new float[4];
 
     public WorldProvider() {}
@@ -34,7 +34,7 @@ public class WorldProvider {
     }
 
     public IChunkProvider c() {
-        return new ChunkProviderGenerate(this.a, this.a.j());
+        return new ChunkProviderGenerate(this.a, this.a.getSeed());
     }
 
     public boolean a(int i, int j) {

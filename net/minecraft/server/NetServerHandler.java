@@ -8,45 +8,45 @@ import java.util.logging.Logger;
 public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public static Logger a = Logger.getLogger("Minecraft");
-    public NetworkManager b;
-    public boolean c = false;
-    private MinecraftServer d;
-    private EntityPlayer e;
+    public NetworkManager networkManager;
+    public boolean disconnected = false;
+    private MinecraftServer minecraftServer;
+    private EntityPlayer player;
     private int f;
     private int g;
     private boolean h;
-    private double i;
-    private double j;
-    private double k;
+    private double x;
+    private double y;
+    private double z;
     private boolean l = true;
     private Map m = new HashMap();
 
     public NetServerHandler(MinecraftServer minecraftserver, NetworkManager networkmanager, EntityPlayer entityplayer) {
-        this.d = minecraftserver;
-        this.b = networkmanager;
+        this.minecraftServer = minecraftserver;
+        this.networkManager = networkmanager;
         networkmanager.a((NetHandler) this);
-        this.e = entityplayer;
-        entityplayer.a = this;
+        this.player = entityplayer;
+        entityplayer.netServerHandler = this;
     }
 
     public void a() {
         this.h = false;
-        this.b.a();
+        this.networkManager.a();
         if (this.f - this.g > 20) {
-            this.b((Packet) (new Packet0KeepAlive()));
+            this.sendPacket(new Packet0KeepAlive());
         }
     }
 
-    public void a(String s) {
-        this.b((Packet) (new Packet255KickDisconnect(s)));
-        this.b.c();
-        this.d.f.a((Packet) (new Packet3Chat("\u00A7e" + this.e.name + " left the game.")));
-        this.d.f.c(this.e);
-        this.c = true;
+    public void disconnect(String s) {
+        this.sendPacket(new Packet255KickDisconnect(s));
+        this.networkManager.c();
+        this.minecraftServer.serverConfigurationManager.sendAll(new Packet3Chat("\u00A7e" + this.player.name + " left the game."));
+        this.minecraftServer.serverConfigurationManager.disconnect(this.player);
+        this.disconnected = true;
     }
 
     public void a(Packet27 packet27) {
-        this.e.a(packet27.c(), packet27.e(), packet27.g(), packet27.h(), packet27.d(), packet27.f());
+        this.player.a(packet27.c(), packet27.e(), packet27.g(), packet27.h(), packet27.d(), packet27.f());
     }
 
     public void a(Packet10Flying packet10flying) {
@@ -54,8 +54,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         double d0;
 
         if (!this.l) {
-            d0 = packet10flying.b - this.j;
-            if (packet10flying.a == this.i && d0 * d0 < 0.01D && packet10flying.c == this.k) {
+            d0 = packet10flying.y - this.y;
+            if (packet10flying.x == this.x && d0 * d0 < 0.01D && packet10flying.z == this.z) {
                 this.l = true;
             }
         }
@@ -66,134 +66,134 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             double d3;
             double d4;
 
-            if (this.e.vehicle != null) {
-                float f = this.e.yaw;
-                float f1 = this.e.pitch;
+            if (this.player.vehicle != null) {
+                float f = this.player.yaw;
+                float f1 = this.player.pitch;
 
-                this.e.vehicle.h_();
-                d1 = this.e.locX;
-                d2 = this.e.locY;
-                d3 = this.e.locZ;
+                this.player.vehicle.h_();
+                d1 = this.player.locX;
+                d2 = this.player.locY;
+                d3 = this.player.locZ;
                 double d5 = 0.0D;
 
                 d4 = 0.0D;
-                if (packet10flying.i) {
-                    f = packet10flying.e;
-                    f1 = packet10flying.f;
+                if (packet10flying.hasLook) {
+                    f = packet10flying.yaw;
+                    f1 = packet10flying.pitch;
                 }
 
-                if (packet10flying.h && packet10flying.b == -999.0D && packet10flying.d == -999.0D) {
-                    d5 = packet10flying.a;
-                    d4 = packet10flying.c;
+                if (packet10flying.h && packet10flying.y == -999.0D && packet10flying.stance == -999.0D) {
+                    d5 = packet10flying.x;
+                    d4 = packet10flying.z;
                 }
 
-                this.e.onGround = packet10flying.g;
-                this.e.a(true);
-                this.e.c(d5, 0.0D, d4);
-                this.e.b(d1, d2, d3, f, f1);
-                this.e.motX = d5;
-                this.e.motZ = d4;
-                if (this.e.vehicle != null) {
-                    this.d.e.b(this.e.vehicle, true);
+                this.player.onGround = packet10flying.g;
+                this.player.a(true);
+                this.player.move(d5, 0.0D, d4);
+                this.player.setLocation(d1, d2, d3, f, f1);
+                this.player.motX = d5;
+                this.player.motZ = d4;
+                if (this.player.vehicle != null) {
+                    this.minecraftServer.worldServer.vehicleEnteredWorld(this.player.vehicle, true);
                 }
 
-                if (this.e.vehicle != null) {
-                    this.e.vehicle.h_();
+                if (this.player.vehicle != null) {
+                    this.player.vehicle.h_();
                 }
 
-                this.d.f.b(this.e);
-                this.i = this.e.locX;
-                this.j = this.e.locY;
-                this.k = this.e.locZ;
-                this.d.e.f(this.e);
+                this.minecraftServer.serverConfigurationManager.b(this.player);
+                this.x = this.player.locX;
+                this.y = this.player.locY;
+                this.z = this.player.locZ;
+                this.minecraftServer.worldServer.playerJoinedWorld(this.player);
                 return;
             }
 
-            d0 = this.e.locY;
-            this.i = this.e.locX;
-            this.j = this.e.locY;
-            this.k = this.e.locZ;
-            d1 = this.e.locX;
-            d2 = this.e.locY;
-            d3 = this.e.locZ;
-            float f2 = this.e.yaw;
-            float f3 = this.e.pitch;
+            d0 = this.player.locY;
+            this.x = this.player.locX;
+            this.y = this.player.locY;
+            this.z = this.player.locZ;
+            d1 = this.player.locX;
+            d2 = this.player.locY;
+            d3 = this.player.locZ;
+            float f2 = this.player.yaw;
+            float f3 = this.player.pitch;
 
-            if (packet10flying.h && packet10flying.b == -999.0D && packet10flying.d == -999.0D) {
+            if (packet10flying.h && packet10flying.y == -999.0D && packet10flying.stance == -999.0D) {
                 packet10flying.h = false;
             }
 
             if (packet10flying.h) {
-                d1 = packet10flying.a;
-                d2 = packet10flying.b;
-                d3 = packet10flying.c;
-                d4 = packet10flying.d - packet10flying.b;
+                d1 = packet10flying.x;
+                d2 = packet10flying.y;
+                d3 = packet10flying.z;
+                d4 = packet10flying.stance - packet10flying.y;
                 if (d4 > 1.65D || d4 < 0.1D) {
-                    this.a("Illegal stance");
-                    a.warning(this.e.name + " had an illegal stance: " + d4);
+                    this.disconnect("Illegal stance");
+                    a.warning(this.player.name + " had an illegal stance: " + d4);
                 }
             }
 
-            if (packet10flying.i) {
-                f2 = packet10flying.e;
-                f3 = packet10flying.f;
+            if (packet10flying.hasLook) {
+                f2 = packet10flying.yaw;
+                f3 = packet10flying.pitch;
             }
 
-            this.e.a(true);
-            this.e.bl = 0.0F;
-            this.e.b(this.i, this.j, this.k, f2, f3);
-            d4 = d1 - this.e.locX;
-            double d6 = d2 - this.e.locY;
-            double d7 = d3 - this.e.locZ;
+            this.player.a(true);
+            this.player.bl = 0.0F;
+            this.player.setLocation(this.x, this.y, this.z, f2, f3);
+            d4 = d1 - this.player.locX;
+            double d6 = d2 - this.player.locY;
+            double d7 = d3 - this.player.locZ;
             float f4 = 0.0625F;
-            boolean flag = this.d.e.a(this.e, this.e.boundingBox.b().e((double) f4, (double) f4, (double) f4)).size() == 0;
+            boolean flag = this.minecraftServer.worldServer.getEntities(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
 
-            this.e.c(d4, d6, d7);
-            d4 = d1 - this.e.locX;
-            d6 = d2 - this.e.locY;
+            this.player.move(d4, d6, d7);
+            d4 = d1 - this.player.locX;
+            d6 = d2 - this.player.locY;
             if (d6 > -0.5D || d6 < 0.5D) {
                 d6 = 0.0D;
             }
 
-            d7 = d3 - this.e.locZ;
+            d7 = d3 - this.player.locZ;
             double d8 = d4 * d4 + d6 * d6 + d7 * d7;
             boolean flag1 = false;
 
-            if (d8 > 0.0625D && !this.e.E()) {
+            if (d8 > 0.0625D && !this.player.isSleeping()) {
                 flag1 = true;
-                a.warning(this.e.name + " moved wrongly!");
+                a.warning(this.player.name + " moved wrongly!");
                 System.out.println("Got position " + d1 + ", " + d2 + ", " + d3);
-                System.out.println("Expected " + this.e.locX + ", " + this.e.locY + ", " + this.e.locZ);
+                System.out.println("Expected " + this.player.locX + ", " + this.player.locY + ", " + this.player.locZ);
             }
 
-            this.e.b(d1, d2, d3, f2, f3);
-            boolean flag2 = this.d.e.a(this.e, this.e.boundingBox.b().e((double) f4, (double) f4, (double) f4)).size() == 0;
+            this.player.setLocation(d1, d2, d3, f2, f3);
+            boolean flag2 = this.minecraftServer.worldServer.getEntities(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
 
-            if (flag && (flag1 || !flag2) && !this.e.E()) {
-                this.a(this.i, this.j, this.k, f2, f3);
+            if (flag && (flag1 || !flag2) && !this.player.isSleeping()) {
+                this.a(this.x, this.y, this.z, f2, f3);
                 return;
             }
 
-            this.e.onGround = packet10flying.g;
-            this.d.f.b(this.e);
-            this.e.b(this.e.locY - d0, packet10flying.g);
+            this.player.onGround = packet10flying.g;
+            this.minecraftServer.serverConfigurationManager.b(this.player);
+            this.player.b(this.player.locY - d0, packet10flying.g);
         }
     }
 
     public void a(double d0, double d1, double d2, float f, float f1) {
         this.l = false;
-        this.i = d0;
-        this.j = d1;
-        this.k = d2;
-        this.e.b(d0, d1, d2, f, f1);
-        this.e.a.b((Packet) (new Packet13PlayerLookMove(d0, d1 + 1.6200000047683716D, d1, d2, f, f1, false)));
+        this.x = d0;
+        this.y = d1;
+        this.z = d2;
+        this.player.setLocation(d0, d1, d2, f, f1);
+        this.player.netServerHandler.sendPacket(new Packet13PlayerLookMove(d0, d1 + 1.6200000047683716D, d1, d2, f, f1, false));
     }
 
     public void a(Packet14BlockDig packet14blockdig) {
         if (packet14blockdig.e == 4) {
-            this.e.y();
+            this.player.z();
         } else {
-            boolean flag = this.d.e.v = this.d.f.h(this.e.name);
+            boolean flag = this.minecraftServer.worldServer.weirdIsOpCache = this.minecraftServer.serverConfigurationManager.isOp(this.player.name);
             boolean flag1 = false;
 
             if (packet14blockdig.e == 0) {
@@ -209,9 +209,9 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             int k = packet14blockdig.c;
 
             if (flag1) {
-                double d0 = this.e.locX - ((double) i + 0.5D);
-                double d1 = this.e.locY - ((double) j + 0.5D);
-                double d2 = this.e.locZ - ((double) k + 0.5D);
+                double d0 = this.player.locX - ((double) i + 0.5D);
+                double d1 = this.player.locY - ((double) j + 0.5D);
+                double d2 = this.player.locZ - ((double) k + 0.5D);
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
                 if (d3 > 36.0D) {
@@ -219,9 +219,9 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 }
             }
 
-            ChunkCoordinates chunkcoordinates = this.d.e.l();
-            int l = (int) MathHelper.e((float) (i - chunkcoordinates.a));
-            int i1 = (int) MathHelper.e((float) (k - chunkcoordinates.c));
+            ChunkCoordinates chunkcoordinates = this.minecraftServer.worldServer.getSpawn();
+            int l = (int) MathHelper.abs((float) (i - chunkcoordinates.x));
+            int i1 = (int) MathHelper.abs((float) (k - chunkcoordinates.z));
 
             if (l > i1) {
                 i1 = l;
@@ -229,53 +229,53 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
             if (packet14blockdig.e == 0) {
                 if (i1 > 16 || flag) {
-                    this.e.c.a(i, j, k);
+                    this.player.itemInWorldManager.dig(i, j, k);
                 }
             } else if (packet14blockdig.e == 2) {
-                this.e.c.b(i, j, k);
+                this.player.itemInWorldManager.b(i, j, k);
             } else if (packet14blockdig.e == 3) {
-                double d4 = this.e.locX - ((double) i + 0.5D);
-                double d5 = this.e.locY - ((double) j + 0.5D);
-                double d6 = this.e.locZ - ((double) k + 0.5D);
+                double d4 = this.player.locX - ((double) i + 0.5D);
+                double d5 = this.player.locY - ((double) j + 0.5D);
+                double d6 = this.player.locZ - ((double) k + 0.5D);
                 double d7 = d4 * d4 + d5 * d5 + d6 * d6;
 
                 if (d7 < 256.0D) {
-                    this.e.a.b((Packet) (new Packet53BlockChange(i, j, k, this.d.e)));
+                    this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.minecraftServer.worldServer));
                 }
             }
 
-            this.d.e.v = false;
+            this.minecraftServer.worldServer.weirdIsOpCache = false;
         }
     }
 
     public void a(Packet15Place packet15place) {
-        ItemStack itemstack = this.e.inventory.b();
-        boolean flag = this.d.e.v = this.d.f.h(this.e.name);
+        ItemStack itemstack = this.player.inventory.getItemInHand();
+        boolean flag = this.minecraftServer.worldServer.weirdIsOpCache = this.minecraftServer.serverConfigurationManager.isOp(this.player.name);
 
-        if (packet15place.d == 255) {
+        if (packet15place.face == 255) {
             if (itemstack == null) {
                 return;
             }
 
-            this.e.c.a(this.e, this.d.e, itemstack);
+            this.player.itemInWorldManager.useItem(this.player, this.minecraftServer.worldServer, itemstack);
         } else {
             int i = packet15place.a;
             int j = packet15place.b;
             int k = packet15place.c;
-            int l = packet15place.d;
-            ChunkCoordinates chunkcoordinates = this.d.e.l();
-            int i1 = (int) MathHelper.e((float) (i - chunkcoordinates.a));
-            int j1 = (int) MathHelper.e((float) (k - chunkcoordinates.c));
+            int l = packet15place.face;
+            ChunkCoordinates chunkcoordinates = this.minecraftServer.worldServer.getSpawn();
+            int i1 = (int) MathHelper.abs((float) (i - chunkcoordinates.x));
+            int j1 = (int) MathHelper.abs((float) (k - chunkcoordinates.z));
 
             if (i1 > j1) {
                 j1 = i1;
             }
 
             if (j1 > 16 || flag) {
-                this.e.c.a(this.e, this.d.e, itemstack, i, j, k, l);
+                this.player.itemInWorldManager.interact(this.player, this.minecraftServer.worldServer, itemstack, i, j, k, l);
             }
 
-            this.e.a.b((Packet) (new Packet53BlockChange(i, j, k, this.d.e)));
+            this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.minecraftServer.worldServer));
             if (l == 0) {
                 --j;
             }
@@ -300,231 +300,244 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 ++i;
             }
 
-            this.e.a.b((Packet) (new Packet53BlockChange(i, j, k, this.d.e)));
+            this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.minecraftServer.worldServer));
         }
 
         if (itemstack != null && itemstack.count == 0) {
-            this.e.inventory.a[this.e.inventory.c] = null;
+            this.player.inventory.items[this.player.inventory.itemInHandIndex] = null;
         }
 
-        this.e.h = true;
-        this.e.inventory.a[this.e.inventory.c] = ItemStack.b(this.e.inventory.a[this.e.inventory.c]);
-        Slot slot = this.e.activeContainer.a(this.e.inventory, this.e.inventory.c);
+        this.player.h = true;
+        this.player.inventory.items[this.player.inventory.itemInHandIndex] = ItemStack.b(this.player.inventory.items[this.player.inventory.itemInHandIndex]);
+        Slot slot = this.player.activeContainer.a(this.player.inventory, this.player.inventory.itemInHandIndex);
 
-        this.e.activeContainer.a();
-        this.e.h = false;
-        if (!ItemStack.a(this.e.inventory.b(), packet15place.e)) {
-            this.b((Packet) (new Packet103SetSlot(this.e.activeContainer.f, slot.a, this.e.inventory.b())));
+        this.player.activeContainer.a();
+        this.player.h = false;
+        if (!ItemStack.equals(this.player.inventory.getItemInHand(), packet15place.itemstack)) {
+            this.sendPacket(new Packet103SetSlot(this.player.activeContainer.f, slot.a, this.player.inventory.getItemInHand()));
         }
 
-        this.d.e.v = false;
+        this.minecraftServer.worldServer.weirdIsOpCache = false;
     }
 
     public void a(String s, Object[] aobject) {
-        a.info(this.e.name + " lost connection: " + s);
-        this.d.f.a((Packet) (new Packet3Chat("\u00A7e" + this.e.name + " left the game.")));
-        this.d.f.c(this.e);
-        this.c = true;
+        a.info(this.player.name + " lost connection: " + s);
+        this.minecraftServer.serverConfigurationManager.sendAll(new Packet3Chat("\u00A7e" + this.player.name + " left the game."));
+        this.minecraftServer.serverConfigurationManager.disconnect(this.player);
+        this.disconnected = true;
     }
 
     public void a(Packet packet) {
         a.warning(this.getClass() + " wasn\'t prepared to deal with a " + packet.getClass());
-        this.a("Protocol error, unexpected packet");
+        this.disconnect("Protocol error, unexpected packet");
     }
 
-    public void b(Packet packet) {
-        this.b.a(packet);
+    public void sendPacket(Packet packet) {
+        this.networkManager.a(packet);
         this.g = this.f;
     }
 
     public void a(Packet16BlockItemSwitch packet16blockitemswitch) {
-        this.e.inventory.c = packet16blockitemswitch.a;
+        if (packet16blockitemswitch.itemInHandIndex >= 0 && packet16blockitemswitch.itemInHandIndex <= InventoryPlayer.e()) {
+            this.player.inventory.itemInHandIndex = packet16blockitemswitch.itemInHandIndex;
+        } else {
+            a.warning(this.player.name + " tried to set an invalid carried item");
+        }
     }
 
     public void a(Packet3Chat packet3chat) {
         String s = packet3chat.a;
 
         if (s.length() > 100) {
-            this.a("Chat message too long");
+            this.disconnect("Chat message too long");
         } else {
             s = s.trim();
 
             for (int i = 0; i < s.length(); ++i) {
                 if (FontAllowedCharacters.a.indexOf(s.charAt(i)) < 0) {
-                    this.a("Illegal characters in chat");
+                    this.disconnect("Illegal characters in chat");
                     return;
                 }
             }
 
             if (s.startsWith("/")) {
-                this.c(s);
+                this.handleCommand(s);
             } else {
-                s = "<" + this.e.name + "> " + s;
+                s = "<" + this.player.name + "> " + s;
                 a.info(s);
-                this.d.f.a((Packet) (new Packet3Chat(s)));
+                this.minecraftServer.serverConfigurationManager.sendAll(new Packet3Chat(s));
             }
         }
     }
 
-    private void c(String s) {
+    private void handleCommand(String s) {
         if (s.toLowerCase().startsWith("/me ")) {
-            s = "* " + this.e.name + " " + s.substring(s.indexOf(" ")).trim();
+            s = "* " + this.player.name + " " + s.substring(s.indexOf(" ")).trim();
             a.info(s);
-            this.d.f.a((Packet) (new Packet3Chat(s)));
+            this.minecraftServer.serverConfigurationManager.sendAll(new Packet3Chat(s));
         } else if (s.toLowerCase().startsWith("/kill")) {
-            this.e.a((Entity) null, 1000);
+            this.player.damageEntity((Entity) null, 1000);
         } else if (s.toLowerCase().startsWith("/tell ")) {
             String[] astring = s.split(" ");
 
             if (astring.length >= 3) {
                 s = s.substring(s.indexOf(" ")).trim();
                 s = s.substring(s.indexOf(" ")).trim();
-                s = "\u00A77" + this.e.name + " whispers " + s;
+                s = "\u00A77" + this.player.name + " whispers " + s;
                 a.info(s + " to " + astring[1]);
-                if (!this.d.f.a(astring[1], (Packet) (new Packet3Chat(s)))) {
-                    this.b((Packet) (new Packet3Chat("\u00A7cThere\'s no player by that name online.")));
+                if (!this.minecraftServer.serverConfigurationManager.a(astring[1], (Packet) (new Packet3Chat(s)))) {
+                    this.sendPacket(new Packet3Chat("\u00A7cThere\'s no player by that name online."));
                 }
             }
         } else {
             String s1;
 
-            if (this.d.f.h(this.e.name)) {
+            if (this.minecraftServer.serverConfigurationManager.isOp(this.player.name)) {
                 s1 = s.substring(1);
-                a.info(this.e.name + " issued server command: " + s1);
-                this.d.a(s1, (ICommandListener) this);
+                a.info(this.player.name + " issued server command: " + s1);
+                this.minecraftServer.issueCommand(s1, this);
             } else {
                 s1 = s.substring(1);
-                a.info(this.e.name + " tried command: " + s1);
+                a.info(this.player.name + " tried command: " + s1);
             }
         }
     }
 
     public void a(Packet18ArmAnimation packet18armanimation) {
         if (packet18armanimation.b == 1) {
-            this.e.r();
+            this.player.m_();
         }
     }
 
     public void a(Packet19EntityAction packet19entityaction) {
-        if (packet19entityaction.b == 1) {
-            this.e.b(true);
-        } else if (packet19entityaction.b == 2) {
-            this.e.b(false);
-        } else if (packet19entityaction.b == 3) {
-            this.e.a(false, true);
+        if (packet19entityaction.animation == 1) {
+            this.player.setSneak(true);
+        } else if (packet19entityaction.animation == 2) {
+            this.player.setSneak(false);
+        } else if (packet19entityaction.animation == 3) {
+            this.player.a(false, true, true);
             this.l = false;
         }
     }
 
     public void a(Packet255KickDisconnect packet255kickdisconnect) {
-        this.b.a("disconnect.quitting", new Object[0]);
+        this.networkManager.a("disconnect.quitting", new Object[0]);
     }
 
     public int b() {
-        return this.b.d();
+        return this.networkManager.d();
     }
 
-    public void b(String s) {
-        this.b((Packet) (new Packet3Chat("\u00A77" + s)));
+    public void sendMessage(String s) {
+        this.sendPacket(new Packet3Chat("\u00A77" + s));
     }
 
-    public String c() {
-        return this.e.name;
+    public String getName() {
+        return this.player.name;
     }
 
     public void a(Packet7UseEntity packet7useentity) {
-        Entity entity = this.d.e.a(packet7useentity.b);
+        Entity entity = this.minecraftServer.worldServer.getEntity(packet7useentity.target);
 
-        if (entity != null && this.e.e(entity) && this.e.f(entity) < 4.0F) {
+        if (entity != null && this.player.e(entity) && this.player.f(entity) < 4.0F) {
             if (packet7useentity.c == 0) {
-                this.e.c(entity);
+                this.player.c(entity);
             } else if (packet7useentity.c == 1) {
-                this.e.d(entity);
+                this.player.d(entity);
             }
         }
     }
 
     public void a(Packet9Respawn packet9respawn) {
-        if (this.e.health <= 0) {
-            this.e = this.d.f.d(this.e);
+        if (this.player.health <= 0) {
+            this.player = this.minecraftServer.serverConfigurationManager.d(this.player);
         }
     }
 
     public void a(Packet101CloseWindow packet101closewindow) {
-        this.e.v();
+        this.player.w();
     }
 
     public void a(Packet102WindowClick packet102windowclick) {
-        if (this.e.activeContainer.f == packet102windowclick.a && this.e.activeContainer.c(this.e)) {
-            ItemStack itemstack = this.e.activeContainer.a(packet102windowclick.b, packet102windowclick.c, this.e);
+        if (this.player.activeContainer.f == packet102windowclick.a && this.player.activeContainer.c(this.player)) {
+            ItemStack itemstack = this.player.activeContainer.a(packet102windowclick.b, packet102windowclick.c, this.player);
 
-            if (ItemStack.a(packet102windowclick.e, itemstack)) {
-                this.e.a.b((Packet) (new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, true)));
-                this.e.h = true;
-                this.e.activeContainer.a();
-                this.e.u();
-                this.e.h = false;
+            if (ItemStack.equals(packet102windowclick.e, itemstack)) {
+                this.player.netServerHandler.sendPacket(new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, true));
+                this.player.h = true;
+                this.player.activeContainer.a();
+                this.player.v();
+                this.player.h = false;
             } else {
-                this.m.put(Integer.valueOf(this.e.activeContainer.f), Short.valueOf(packet102windowclick.d));
-                this.e.a.b((Packet) (new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, false)));
-                this.e.activeContainer.a(this.e, false);
+                this.m.put(Integer.valueOf(this.player.activeContainer.f), Short.valueOf(packet102windowclick.d));
+                this.player.netServerHandler.sendPacket(new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, false));
+                this.player.activeContainer.a(this.player, false);
                 ArrayList arraylist = new ArrayList();
 
-                for (int i = 0; i < this.e.activeContainer.e.size(); ++i) {
-                    arraylist.add(((Slot) this.e.activeContainer.e.get(i)).b());
+                for (int i = 0; i < this.player.activeContainer.e.size(); ++i) {
+                    arraylist.add(((Slot) this.player.activeContainer.e.get(i)).getItem());
                 }
 
-                this.e.a(this.e.activeContainer, arraylist);
+                this.player.a(this.player.activeContainer, arraylist);
             }
         }
     }
 
     public void a(Packet106Transaction packet106transaction) {
-        Short oshort = (Short) this.m.get(Integer.valueOf(this.e.activeContainer.f));
+        Short oshort = (Short) this.m.get(Integer.valueOf(this.player.activeContainer.f));
 
-        if (oshort != null && packet106transaction.b == oshort.shortValue() && this.e.activeContainer.f == packet106transaction.a && !this.e.activeContainer.c(this.e)) {
-            this.e.activeContainer.a(this.e, true);
+        if (oshort != null && packet106transaction.b == oshort.shortValue() && this.player.activeContainer.f == packet106transaction.a && !this.player.activeContainer.c(this.player)) {
+            this.player.activeContainer.a(this.player, true);
         }
     }
 
     public void a(Packet130UpdateSign packet130updatesign) {
-        if (this.d.e.f(packet130updatesign.a, packet130updatesign.b, packet130updatesign.c)) {
-            TileEntity tileentity = this.d.e.getTileEntity(packet130updatesign.a, packet130updatesign.b, packet130updatesign.c);
+        if (this.minecraftServer.worldServer.isLoaded(packet130updatesign.x, packet130updatesign.y, packet130updatesign.z)) {
+            TileEntity tileentity = this.minecraftServer.worldServer.getTileEntity(packet130updatesign.x, packet130updatesign.y, packet130updatesign.z);
+
+            if (tileentity instanceof TileEntitySign) {
+                TileEntitySign tileentitysign = (TileEntitySign) tileentity;
+
+                if (!tileentitysign.a()) {
+                    this.minecraftServer.c("Player " + this.player.name + " just tried to change non-editable sign");
+                    return;
+                }
+            }
 
             int i;
             int j;
 
-            for (i = 0; i < 4; ++i) {
+            for (j = 0; j < 4; ++j) {
                 boolean flag = true;
 
-                if (packet130updatesign.d[i].length() > 15) {
+                if (packet130updatesign.lines[j].length() > 15) {
                     flag = false;
                 } else {
-                    for (j = 0; j < packet130updatesign.d[i].length(); ++j) {
-                        if (FontAllowedCharacters.a.indexOf(packet130updatesign.d[i].charAt(j)) < 0) {
+                    for (i = 0; i < packet130updatesign.lines[j].length(); ++i) {
+                        if (FontAllowedCharacters.a.indexOf(packet130updatesign.lines[j].charAt(i)) < 0) {
                             flag = false;
                         }
                     }
                 }
 
                 if (!flag) {
-                    packet130updatesign.d[i] = "!?";
+                    packet130updatesign.lines[j] = "!?";
                 }
             }
 
             if (tileentity instanceof TileEntitySign) {
-                i = packet130updatesign.a;
-                int k = packet130updatesign.b;
+                j = packet130updatesign.x;
+                int k = packet130updatesign.y;
 
-                j = packet130updatesign.c;
-                TileEntitySign tileentitysign = (TileEntitySign) tileentity;
+                i = packet130updatesign.z;
+                TileEntitySign tileentitysign1 = (TileEntitySign) tileentity;
 
                 for (int l = 0; l < 4; ++l) {
-                    tileentitysign.a[l] = packet130updatesign.d[l];
+                    tileentitysign1.lines[l] = packet130updatesign.lines[l];
                 }
 
-                tileentitysign.h();
-                this.d.e.g(i, k, j);
+                tileentitysign1.update();
+                this.minecraftServer.worldServer.notify(j, k, i);
             }
         }
     }

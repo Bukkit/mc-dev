@@ -14,7 +14,7 @@ public class BlockSand extends Block {
         world.c(i, j, k, this.id, this.b());
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         world.c(i, j, k, this.id, this.b());
     }
 
@@ -29,16 +29,16 @@ public class BlockSand extends Block {
             if (!a && world.a(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
                 EntityFallingSand entityfallingsand = new EntityFallingSand(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.id);
 
-                world.a((Entity) entityfallingsand);
+                world.addEntity(entityfallingsand);
             } else {
-                world.e(i, j, k, 0);
+                world.setTypeId(i, j, k, 0);
 
                 while (b_(world, i, j - 1, k) && j > 0) {
                     --j;
                 }
 
                 if (j > 0) {
-                    world.e(i, j, k, this.id);
+                    world.setTypeId(i, j, k, this.id);
                 }
             }
         }

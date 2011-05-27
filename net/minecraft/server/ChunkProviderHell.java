@@ -177,7 +177,11 @@ public class ChunkProviderHell implements IChunkProvider {
         }
     }
 
-    public Chunk b(int i, int j) {
+    public Chunk getChunkAt(int i, int j) {
+        return this.getOrCreateChunk(i, j);
+    }
+
+    public Chunk getOrCreateChunk(int i, int j) {
         this.h.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
         byte[] abyte = new byte['\u8000'];
 
@@ -304,11 +308,11 @@ public class ChunkProviderHell implements IChunkProvider {
         return adouble;
     }
 
-    public boolean a(int i, int j) {
+    public boolean isChunkLoaded(int i, int j) {
         return true;
     }
 
-    public void a(IChunkProvider ichunkprovider, int i, int j) {
+    public void getChunkAt(IChunkProvider ichunkprovider, int i, int j) {
         BlockSand.a = true;
         int k = i * 16;
         int l = j * 16;
@@ -369,11 +373,11 @@ public class ChunkProviderHell implements IChunkProvider {
         BlockSand.a = false;
     }
 
-    public boolean a(boolean flag, IProgressUpdate iprogressupdate) {
+    public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
         return true;
     }
 
-    public boolean a() {
+    public boolean unloadChunks() {
         return false;
     }
 

@@ -4,50 +4,50 @@ import java.util.List;
 
 public class EntityPigZombie extends EntityZombie {
 
-    private int a = 0;
-    private int b = 0;
+    private int angerLevel = 0;
+    private int soundDelay = 0;
     private static final ItemStack f = new ItemStack(Item.GOLD_SWORD, 1);
 
     public EntityPigZombie(World world) {
         super(world);
         this.texture = "/mob/pigzombie.png";
         this.az = 0.5F;
-        this.c = 5;
+        this.damage = 5;
         this.by = true;
     }
 
     public void f_() {
-        this.az = this.d != null ? 0.95F : 0.5F;
-        if (this.b > 0 && --this.b == 0) {
-            this.world.a(this, "mob.zombiepig.zpigangry", this.i() * 2.0F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+        this.az = this.target != null ? 0.95F : 0.5F;
+        if (this.soundDelay > 0 && --this.soundDelay == 0) {
+            this.world.makeSound(this, "mob.zombiepig.zpigangry", this.i() * 2.0F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
         super.f_();
     }
 
     public boolean b() {
-        return this.world.j > 0 && this.world.a(this.boundingBox) && this.world.a((Entity) this, this.boundingBox).size() == 0 && !this.world.b(this.boundingBox);
+        return this.world.spawnMonsters > 0 && this.world.containsEntity(this.boundingBox) && this.world.getEntities(this, this.boundingBox).size() == 0 && !this.world.b(this.boundingBox);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        nbttagcompound.a("Anger", (short) this.a);
+        nbttagcompound.a("Anger", (short) this.angerLevel);
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        this.a = nbttagcompound.d("Anger");
+        this.angerLevel = nbttagcompound.d("Anger");
     }
 
-    protected Entity l() {
-        return this.a == 0 ? null : super.l();
+    protected Entity findTarget() {
+        return this.angerLevel == 0 ? null : super.findTarget();
     }
 
-    public void q() {
-        super.q();
+    public void r() {
+        super.r();
     }
 
-    public boolean a(Entity entity, int i) {
+    public boolean damageEntity(Entity entity, int i) {
         if (entity instanceof EntityHuman) {
             List list = this.world.b((Entity) this, this.boundingBox.b(32.0D, 32.0D, 32.0D));
 
@@ -57,20 +57,20 @@ public class EntityPigZombie extends EntityZombie {
                 if (entity1 instanceof EntityPigZombie) {
                     EntityPigZombie entitypigzombie = (EntityPigZombie) entity1;
 
-                    entitypigzombie.c(entity);
+                    entitypigzombie.d(entity);
                 }
             }
 
-            this.c(entity);
+            this.d(entity);
         }
 
-        return super.a(entity, i);
+        return super.damageEntity(entity, i);
     }
 
-    private void c(Entity entity) {
-        this.d = entity;
-        this.a = 400 + this.random.nextInt(400);
-        this.b = this.random.nextInt(40);
+    private void d(Entity entity) {
+        this.target = entity;
+        this.angerLevel = 400 + this.random.nextInt(400);
+        this.soundDelay = this.random.nextInt(40);
     }
 
     protected String e() {

@@ -10,14 +10,14 @@ import java.util.logging.Logger;
 public class PropertyManager {
 
     public static Logger a = Logger.getLogger("Minecraft");
-    private Properties b = new Properties();
+    private Properties properties = new Properties();
     private File c;
 
     public PropertyManager(File file1) {
         this.c = file1;
         if (file1.exists()) {
             try {
-                this.b.load(new FileInputStream(file1));
+                this.properties.load(new FileInputStream(file1));
             } catch (Exception exception) {
                 a.log(Level.WARNING, "Failed to load " + file1, exception);
                 this.a();
@@ -35,42 +35,42 @@ public class PropertyManager {
 
     public void b() {
         try {
-            this.b.store(new FileOutputStream(this.c), "Minecraft server properties");
+            this.properties.store(new FileOutputStream(this.c), "Minecraft server properties");
         } catch (Exception exception) {
             a.log(Level.WARNING, "Failed to save " + this.c, exception);
             this.a();
         }
     }
 
-    public String a(String s, String s1) {
-        if (!this.b.containsKey(s)) {
-            this.b.setProperty(s, s1);
+    public String getString(String s, String s1) {
+        if (!this.properties.containsKey(s)) {
+            this.properties.setProperty(s, s1);
             this.b();
         }
 
-        return this.b.getProperty(s, s1);
+        return this.properties.getProperty(s, s1);
     }
 
-    public int a(String s, int i) {
+    public int getInt(String s, int i) {
         try {
-            return Integer.parseInt(this.a(s, "" + i));
+            return Integer.parseInt(this.getString(s, "" + i));
         } catch (Exception exception) {
-            this.b.setProperty(s, "" + i);
+            this.properties.setProperty(s, "" + i);
             return i;
         }
     }
 
-    public boolean a(String s, boolean flag) {
+    public boolean getBoolean(String s, boolean flag) {
         try {
-            return Boolean.parseBoolean(this.a(s, "" + flag));
+            return Boolean.parseBoolean(this.getString(s, "" + flag));
         } catch (Exception exception) {
-            this.b.setProperty(s, "" + flag);
+            this.properties.setProperty(s, "" + flag);
             return flag;
         }
     }
 
     public void b(String s, boolean flag) {
-        this.b.setProperty(s, "" + flag);
+        this.properties.setProperty(s, "" + flag);
         this.b();
     }
 }

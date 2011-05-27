@@ -44,16 +44,16 @@ public class BlockFire extends Block {
         int l = world.getData(i, j, k);
 
         if (l < 15) {
-            world.c(i, j, k, l + 1);
+            world.setData(i, j, k, l + 1);
             world.c(i, j, k, this.id, this.b());
         }
 
         if (!flag && !this.g(world, i, j, k)) {
             if (!world.d(i, j - 1, k) || l > 3) {
-                world.e(i, j, k, 0);
+                world.setTypeId(i, j, k, 0);
             }
         } else if (!flag && !this.b(world, i, j - 1, k) && l == 15 && random.nextInt(4) == 0) {
-            world.e(i, j, k, 0);
+            world.setTypeId(i, j, k, 0);
         } else {
             if (l % 2 == 0 && l > 2) {
                 this.a(world, i + 1, j, k, 300, random);
@@ -76,7 +76,7 @@ public class BlockFire extends Block {
                                 int i2 = this.h(world, i1, k1, j1);
 
                                 if (i2 > 0 && random.nextInt(l1) <= i2) {
-                                    world.e(i1, k1, j1, this.id);
+                                    world.setTypeId(i1, k1, j1, this.id);
                                 }
                             }
                         }
@@ -102,13 +102,13 @@ public class BlockFire extends Block {
             boolean flag = world.getTypeId(i, j, k) == Block.TNT.id;
 
             if (random.nextInt(2) == 0) {
-                world.e(i, j, k, this.id);
+                world.setTypeId(i, j, k, this.id);
             } else {
-                world.e(i, j, k, 0);
+                world.setTypeId(i, j, k, 0);
             }
 
             if (flag) {
-                Block.TNT.b(world, i, j, k, 0);
+                Block.TNT.postBreak(world, i, j, k, 0);
             }
         }
     }
@@ -123,13 +123,13 @@ public class BlockFire extends Block {
         if (!world.isEmpty(i, j, k)) {
             return 0;
         } else {
-            int l = this.g(world, i + 1, j, k, b0);
+            int l = this.f(world, i + 1, j, k, b0);
 
-            l = this.g(world, i - 1, j, k, l);
-            l = this.g(world, i, j - 1, k, l);
-            l = this.g(world, i, j + 1, k, l);
-            l = this.g(world, i, j, k - 1, l);
-            l = this.g(world, i, j, k + 1, l);
+            l = this.f(world, i - 1, j, k, l);
+            l = this.f(world, i, j - 1, k, l);
+            l = this.f(world, i, j + 1, k, l);
+            l = this.f(world, i, j, k - 1, l);
+            l = this.f(world, i, j, k + 1, l);
             return l;
         }
     }
@@ -142,26 +142,26 @@ public class BlockFire extends Block {
         return this.a[iblockaccess.getTypeId(i, j, k)] > 0;
     }
 
-    public int g(World world, int i, int j, int k, int l) {
+    public int f(World world, int i, int j, int k, int l) {
         int i1 = this.a[world.getTypeId(i, j, k)];
 
         return i1 > l ? i1 : l;
     }
 
-    public boolean a(World world, int i, int j, int k) {
+    public boolean canPlace(World world, int i, int j, int k) {
         return world.d(i, j - 1, k) || this.g(world, i, j, k);
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         if (!world.d(i, j - 1, k) && !this.g(world, i, j, k)) {
-            world.e(i, j, k, 0);
+            world.setTypeId(i, j, k, 0);
         }
     }
 
     public void e(World world, int i, int j, int k) {
         if (world.getTypeId(i, j - 1, k) != Block.OBSIDIAN.id || !Block.PORTAL.a_(world, i, j, k)) {
             if (!world.d(i, j - 1, k) && !this.g(world, i, j, k)) {
-                world.e(i, j, k, 0);
+                world.setTypeId(i, j, k, 0);
             } else {
                 world.c(i, j, k, this.id, this.b());
             }

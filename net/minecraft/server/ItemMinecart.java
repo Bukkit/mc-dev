@@ -15,7 +15,7 @@ public class ItemMinecart extends Item {
 
         if (i1 == Block.RAILS.id) {
             if (!world.isStatic) {
-                world.a((Entity) (new EntityMinecart(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.a)));
+                world.addEntity(new EntityMinecart(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.a));
             }
 
             --itemstack.count;

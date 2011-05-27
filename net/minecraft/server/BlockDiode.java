@@ -14,8 +14,8 @@ public class BlockDiode extends Block {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
-    public boolean a(World world, int i, int j, int k) {
-        return !world.d(i, j - 1, k) ? false : super.a(world, i, j, k);
+    public boolean canPlace(World world, int i, int j, int k) {
+        return !world.d(i, j - 1, k) ? false : super.canPlace(world, i, j, k);
     }
 
     public boolean f(World world, int i, int j, int k) {
@@ -24,12 +24,12 @@ public class BlockDiode extends Block {
 
     public void a(World world, int i, int j, int k, Random random) {
         int l = world.getData(i, j, k);
-        boolean flag = this.g(world, i, j, k, l);
+        boolean flag = this.f(world, i, j, k, l);
 
         if (this.c && !flag) {
-            world.b(i, j, k, Block.DIODE_OFF.id, l);
+            world.setTypeIdAndData(i, j, k, Block.DIODE_OFF.id, l);
         } else if (!this.c) {
-            world.b(i, j, k, Block.DIODE_ON.id, l);
+            world.setTypeIdAndData(i, j, k, Block.DIODE_ON.id, l);
             if (!flag) {
                 int i1 = (l & 12) >> 2;
 
@@ -64,13 +64,13 @@ public class BlockDiode extends Block {
         }
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         if (!this.f(world, i, j, k)) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
-            world.e(i, j, k, 0);
+            this.a_(world, i, j, k, world.getData(i, j, k));
+            world.setTypeId(i, j, k, 0);
         } else {
             int i1 = world.getData(i, j, k);
-            boolean flag = this.g(world, i, j, k, i1);
+            boolean flag = this.f(world, i, j, k, i1);
             int j1 = (i1 & 12) >> 2;
 
             if (this.c && !flag) {
@@ -81,45 +81,45 @@ public class BlockDiode extends Block {
         }
     }
 
-    private boolean g(World world, int i, int j, int k, int l) {
+    private boolean f(World world, int i, int j, int k, int l) {
         int i1 = l & 3;
 
         switch (i1) {
         case 0:
-            return world.j(i, j, k + 1, 3);
+            return world.isBlockFaceIndirectlyPowered(i, j, k + 1, 3);
 
         case 1:
-            return world.j(i - 1, j, k, 4);
+            return world.isBlockFaceIndirectlyPowered(i - 1, j, k, 4);
 
         case 2:
-            return world.j(i, j, k - 1, 2);
+            return world.isBlockFaceIndirectlyPowered(i, j, k - 1, 2);
 
         case 3:
-            return world.j(i + 1, j, k, 5);
+            return world.isBlockFaceIndirectlyPowered(i + 1, j, k, 5);
 
         default:
             return false;
         }
     }
 
-    public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         int l = world.getData(i, j, k);
         int i1 = (l & 12) >> 2;
 
         i1 = i1 + 1 << 2 & 12;
-        world.c(i, j, k, i1 | l & 3);
+        world.setData(i, j, k, i1 | l & 3);
         return true;
     }
 
-    public boolean c() {
+    public boolean isPowerSource() {
         return false;
     }
 
-    public void a(World world, int i, int j, int k, EntityLiving entityliving) {
-        int l = ((MathHelper.b((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
+        int l = ((MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
 
-        world.c(i, j, k, l);
-        boolean flag = this.g(world, i, j, k, l);
+        world.setData(i, j, k, l);
+        boolean flag = this.f(world, i, j, k, l);
 
         if (flag) {
             world.c(i, j, k, this.id, 1);
@@ -127,12 +127,12 @@ public class BlockDiode extends Block {
     }
 
     public void e(World world, int i, int j, int k) {
-        world.h(i + 1, j, k, this.id);
-        world.h(i - 1, j, k, this.id);
-        world.h(i, j, k + 1, this.id);
-        world.h(i, j, k - 1, this.id);
-        world.h(i, j - 1, k, this.id);
-        world.h(i, j + 1, k, this.id);
+        world.applyPhysics(i + 1, j, k, this.id);
+        world.applyPhysics(i - 1, j, k, this.id);
+        world.applyPhysics(i, j, k + 1, this.id);
+        world.applyPhysics(i, j, k - 1, this.id);
+        world.applyPhysics(i, j - 1, k, this.id);
+        world.applyPhysics(i, j + 1, k, this.id);
     }
 
     public boolean a() {

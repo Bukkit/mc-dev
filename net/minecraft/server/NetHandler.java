@@ -181,4 +181,6 @@ public class NetHandler {
     public void a(Packet17 packet17) {}
 
     public void a(Packet27 packet27) {}
+
+    public void a(Packet70Bed packet70bed) {}
 }

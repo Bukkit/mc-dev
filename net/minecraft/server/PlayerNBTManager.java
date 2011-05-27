@@ -174,19 +174,25 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
     }
 
     public void b(EntityHuman entityhuman) {
+        NBTTagCompound nbttagcompound = this.a(entityhuman.name);
+
+        if (nbttagcompound != null) {
+            entityhuman.e(nbttagcompound);
+        }
+    }
+
+    public NBTTagCompound a(String s) {
         try {
-            File file1 = new File(this.c, entityhuman.name + ".dat");
+            File file1 = new File(this.c, s + ".dat");
 
             if (file1.exists()) {
-                NBTTagCompound nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
-
-                if (nbttagcompound != null) {
-                    entityhuman.e(nbttagcompound);
-                }
+                return CompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
             }
         } catch (Exception exception) {
-            a.warning("Failed to load player data for " + entityhuman.name);
+            a.warning("Failed to load player data for " + s);
         }
+
+        return null;
     }
 
     public PlayerFileData d() {

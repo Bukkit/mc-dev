@@ -13,7 +13,7 @@ public class BlockFlower extends Block {
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 3.0F, 0.5F + f);
     }
 
-    public boolean a(World world, int i, int j, int k) {
+    public boolean canPlace(World world, int i, int j, int k) {
         return this.c(world.getTypeId(i, j - 1, k));
     }
 
@@ -21,8 +21,8 @@ public class BlockFlower extends Block {
         return i == Block.GRASS.id || i == Block.DIRT.id || i == Block.SOIL.id;
     }
 
-    public void a(World world, int i, int j, int k, int l) {
-        super.a(world, i, j, k, l);
+    public void doPhysics(World world, int i, int j, int k, int l) {
+        super.doPhysics(world, i, j, k, l);
         this.g(world, i, j, k);
     }
 
@@ -32,13 +32,13 @@ public class BlockFlower extends Block {
 
     protected final void g(World world, int i, int j, int k) {
         if (!this.f(world, i, j, k)) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
-            world.e(i, j, k, 0);
+            this.a_(world, i, j, k, world.getData(i, j, k));
+            world.setTypeId(i, j, k, 0);
         }
     }
 
     public boolean f(World world, int i, int j, int k) {
-        return (world.j(i, j, k) >= 8 || world.i(i, j, k)) && this.c(world.getTypeId(i, j - 1, k));
+        return (world.getLightLevel(i, j, k) >= 8 || world.isChunkLoaded(i, j, k)) && this.c(world.getTypeId(i, j - 1, k));
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {

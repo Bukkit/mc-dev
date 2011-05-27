@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public interface Convertable {
 
-    boolean a(String s);
+    boolean isConvertable(String s);
 
-    boolean a(String s, IProgressUpdate iprogressupdate);
+    boolean convert(String s, IProgressUpdate iprogressupdate);
 }

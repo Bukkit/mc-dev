@@ -12,15 +12,15 @@ public class StepSound {
         this.c = f1;
     }
 
-    public float a() {
+    public float getVolume1() {
         return this.b;
     }
 
-    public float b() {
+    public float getVolume2() {
         return this.c;
     }
 
-    public String c() {
+    public String getName() {
         return "step." + this.a;
     }
 }

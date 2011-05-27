@@ -19,7 +19,7 @@ public class BlockCrops extends BlockFlower {
 
     public void a(World world, int i, int j, int k, Random random) {
         super.a(world, i, j, k, random);
-        if (world.j(i, j + 1, k) >= 9) {
+        if (world.getLightLevel(i, j + 1, k) >= 9) {
             int l = world.getData(i, j, k);
 
             if (l < 7) {
@@ -27,14 +27,14 @@ public class BlockCrops extends BlockFlower {
 
                 if (random.nextInt((int) (100.0F / f)) == 0) {
                     ++l;
-                    world.c(i, j, k, l);
+                    world.setData(i, j, k, l);
                 }
             }
         }
     }
 
     public void c_(World world, int i, int j, int k) {
-        world.c(i, j, k, 7);
+        world.setData(i, j, k, 7);
     }
 
     private float h(World world, int i, int j, int k) {
@@ -86,19 +86,19 @@ public class BlockCrops extends BlockFlower {
         return this.textureId + j;
     }
 
-    public void b(World world, int i, int j, int k, int l) {
-        super.b(world, i, j, k, l);
+    public void postBreak(World world, int i, int j, int k, int l) {
+        super.postBreak(world, i, j, k, l);
         if (!world.isStatic) {
             for (int i1 = 0; i1 < 3; ++i1) {
-                if (world.k.nextInt(15) <= l) {
+                if (world.random.nextInt(15) <= l) {
                     float f = 0.7F;
-                    float f1 = world.k.nextFloat() * f + (1.0F - f) * 0.5F;
-                    float f2 = world.k.nextFloat() * f + (1.0F - f) * 0.5F;
-                    float f3 = world.k.nextFloat() * f + (1.0F - f) * 0.5F;
+                    float f1 = world.random.nextFloat() * f + (1.0F - f) * 0.5F;
+                    float f2 = world.random.nextFloat() * f + (1.0F - f) * 0.5F;
+                    float f3 = world.random.nextFloat() * f + (1.0F - f) * 0.5F;
                     EntityItem entityitem = new EntityItem(world, (double) ((float) i + f1), (double) ((float) j + f2), (double) ((float) k + f3), new ItemStack(Item.SEEDS));
 
-                    entityitem.c = 10;
-                    world.a((Entity) entityitem);
+                    entityitem.pickupDelay = 10;
+                    world.addEntity(entityitem);
                 }
             }
         }

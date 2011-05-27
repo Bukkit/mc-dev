@@ -22,8 +22,8 @@ public class Pathfinder {
     private PathEntity a(Entity entity, double d0, double d1, double d2, float f) {
         this.b.a();
         this.c.a();
-        PathPoint pathpoint = this.a(MathHelper.b(entity.boundingBox.a), MathHelper.b(entity.boundingBox.b), MathHelper.b(entity.boundingBox.c));
-        PathPoint pathpoint1 = this.a(MathHelper.b(d0 - (double) (entity.length / 2.0F)), MathHelper.b(d1), MathHelper.b(d2 - (double) (entity.length / 2.0F)));
+        PathPoint pathpoint = this.a(MathHelper.floor(entity.boundingBox.a), MathHelper.floor(entity.boundingBox.b), MathHelper.floor(entity.boundingBox.c));
+        PathPoint pathpoint1 = this.a(MathHelper.floor(d0 - (double) (entity.length / 2.0F)), MathHelper.floor(d1), MathHelper.floor(d2 - (double) (entity.length / 2.0F)));
         PathPoint pathpoint2 = new PathPoint(MathHelper.d(entity.length + 1.0F), MathHelper.d(entity.width + 1.0F), MathHelper.d(entity.length + 1.0F));
         PathEntity pathentity = this.a(entity, pathpoint, pathpoint1, pathpoint2, f);
 

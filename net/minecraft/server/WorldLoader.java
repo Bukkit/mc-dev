@@ -9,6 +9,10 @@ public class WorldLoader implements Convertable {
     protected final File a;
 
     public WorldLoader(File file1) {
+        if (!file1.exists()) {
+            file1.mkdirs();
+        }
+
         this.a = file1;
     }
 
@@ -49,11 +53,11 @@ public class WorldLoader implements Convertable {
         return new PlayerNBTManager(this.a, s, flag);
     }
 
-    public boolean a(String s) {
+    public boolean isConvertable(String s) {
         return false;
     }
 
-    public boolean a(String s, IProgressUpdate iprogressupdate) {
+    public boolean convert(String s, IProgressUpdate iprogressupdate) {
         return false;
     }
 }

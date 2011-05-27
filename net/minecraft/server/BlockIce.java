@@ -14,11 +14,11 @@ public class BlockIce extends BlockBreakable {
         return super.a(iblockaccess, i, j, k, 1 - l);
     }
 
-    public void b(World world, int i, int j, int k) {
+    public void remove(World world, int i, int j, int k) {
         Material material = world.getMaterial(i, j - 1, k);
 
         if (material.isSolid() || material.isLiquid()) {
-            world.e(i, j, k, Block.WATER.id);
+            world.setTypeId(i, j, k, Block.WATER.id);
         }
     }
 
@@ -28,8 +28,8 @@ public class BlockIce extends BlockBreakable {
 
     public void a(World world, int i, int j, int k, Random random) {
         if (world.a(EnumSkyBlock.BLOCK, i, j, k) > 11 - Block.q[this.id]) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
-            world.e(i, j, k, Block.STATIONARY_WATER.id);
+            this.a_(world, i, j, k, world.getData(i, j, k));
+            world.setTypeId(i, j, k, Block.STATIONARY_WATER.id);
         }
     }
 }

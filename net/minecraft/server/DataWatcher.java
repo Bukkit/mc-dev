@@ -36,6 +36,14 @@ public class DataWatcher {
         return ((Byte) ((WatchableObject) this.b.get(Integer.valueOf(i))).b()).byteValue();
     }
 
+    public int b(int i) {
+        return ((Integer) ((WatchableObject) this.b.get(Integer.valueOf(i))).b()).intValue();
+    }
+
+    public String c(int i) {
+        return (String) ((WatchableObject) this.b.get(Integer.valueOf(i))).b();
+    }
+
     public void b(int i, Object object) {
         WatchableObject watchableobject = (WatchableObject) this.b.get(Integer.valueOf(i));
 
@@ -128,16 +136,16 @@ public class DataWatcher {
         case 5:
             ItemStack itemstack = (ItemStack) watchableobject.b();
 
-            dataoutputstream.writeShort(itemstack.a().id);
+            dataoutputstream.writeShort(itemstack.getItem().id);
             dataoutputstream.writeByte(itemstack.count);
-            dataoutputstream.writeShort(itemstack.h());
+            dataoutputstream.writeShort(itemstack.getData());
 
         case 6:
             ChunkCoordinates chunkcoordinates = (ChunkCoordinates) watchableobject.b();
 
-            dataoutputstream.writeInt(chunkcoordinates.a);
-            dataoutputstream.writeInt(chunkcoordinates.b);
-            dataoutputstream.writeInt(chunkcoordinates.c);
+            dataoutputstream.writeInt(chunkcoordinates.x);
+            dataoutputstream.writeInt(chunkcoordinates.y);
+            dataoutputstream.writeInt(chunkcoordinates.z);
         }
     }
 

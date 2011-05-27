@@ -63,8 +63,8 @@ public class BlockStairs extends Block {
         this.a.b(world, i, j, k, entityhuman);
     }
 
-    public void b(World world, int i, int j, int k, int l) {
-        this.a.b(world, i, j, k, l);
+    public void postBreak(World world, int i, int j, int k, int l) {
+        this.a.postBreak(world, i, j, k, l);
     }
 
     public float a(Entity entity) {
@@ -103,25 +103,25 @@ public class BlockStairs extends Block {
         return this.a.a(i, flag);
     }
 
-    public boolean a(World world, int i, int j, int k) {
-        return this.a.a(world, i, j, k);
+    public boolean canPlace(World world, int i, int j, int k) {
+        return this.a.canPlace(world, i, j, k);
     }
 
     public void e(World world, int i, int j, int k) {
-        this.a(world, i, j, k, 0);
+        this.doPhysics(world, i, j, k, 0);
         this.a.e(world, i, j, k);
     }
 
-    public void b(World world, int i, int j, int k) {
-        this.a.b(world, i, j, k);
+    public void remove(World world, int i, int j, int k) {
+        this.a.remove(world, i, j, k);
     }
 
-    public void a(World world, int i, int j, int k, int l, float f) {
-        this.a.a(world, i, j, k, l, f);
+    public void dropNaturally(World world, int i, int j, int k, int l, float f) {
+        this.a.dropNaturally(world, i, j, k, l, f);
     }
 
-    public void b_(World world, int i, int j, int k, int l) {
-        this.a.b_(world, i, j, k, l);
+    public void a_(World world, int i, int j, int k, int l) {
+        this.a.a_(world, i, j, k, l);
     }
 
     public void b(World world, int i, int j, int k, Entity entity) {
@@ -132,31 +132,31 @@ public class BlockStairs extends Block {
         this.a.a(world, i, j, k, random);
     }
 
-    public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        return this.a.a(world, i, j, k, entityhuman);
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
+        return this.a.interact(world, i, j, k, entityhuman);
     }
 
     public void c(World world, int i, int j, int k) {
         this.a.c(world, i, j, k);
     }
 
-    public void a(World world, int i, int j, int k, EntityLiving entityliving) {
-        int l = MathHelper.b((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
+        int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         if (l == 0) {
-            world.c(i, j, k, 2);
+            world.setData(i, j, k, 2);
         }
 
         if (l == 1) {
-            world.c(i, j, k, 1);
+            world.setData(i, j, k, 1);
         }
 
         if (l == 2) {
-            world.c(i, j, k, 3);
+            world.setData(i, j, k, 3);
         }
 
         if (l == 3) {
-            world.c(i, j, k, 0);
+            world.setData(i, j, k, 0);
         }
     }
 }

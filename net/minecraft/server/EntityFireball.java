@@ -10,7 +10,7 @@ public class EntityFireball extends Entity {
     private int h = 0;
     private boolean i = false;
     public int a = 0;
-    private EntityLiving j;
+    private EntityLiving shooter;
     private int k;
     private int l = 0;
     public double b;
@@ -19,17 +19,17 @@ public class EntityFireball extends Entity {
 
     public EntityFireball(World world) {
         super(world);
-        this.a(1.0F, 1.0F);
+        this.b(1.0F, 1.0F);
     }
 
     protected void a() {}
 
     public EntityFireball(World world, EntityLiving entityliving, double d0, double d1, double d2) {
         super(world);
-        this.j = entityliving;
-        this.a(1.0F, 1.0F);
-        this.c(entityliving.locX, entityliving.locY, entityliving.locZ, entityliving.yaw, entityliving.pitch);
-        this.a(this.locX, this.locY, this.locZ);
+        this.shooter = entityliving;
+        this.b(1.0F, 1.0F);
+        this.setPositionRotation(entityliving.locX, entityliving.locY, entityliving.locZ, entityliving.yaw, entityliving.pitch);
+        this.setPosition(this.locX, this.locY, this.locZ);
         this.height = 0.0F;
         this.motX = this.motY = this.motZ = 0.0D;
         d0 += this.random.nextGaussian() * 0.4D;
@@ -55,7 +55,7 @@ public class EntityFireball extends Entity {
             if (i == this.h) {
                 ++this.k;
                 if (this.k == 1200) {
-                    this.C();
+                    this.die();
                 }
 
                 return;
@@ -71,14 +71,14 @@ public class EntityFireball extends Entity {
             ++this.l;
         }
 
-        Vec3D vec3d = Vec3D.b(this.locX, this.locY, this.locZ);
-        Vec3D vec3d1 = Vec3D.b(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
+        Vec3D vec3d = Vec3D.create(this.locX, this.locY, this.locZ);
+        Vec3D vec3d1 = Vec3D.create(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
         MovingObjectPosition movingobjectposition = this.world.a(vec3d, vec3d1);
 
-        vec3d = Vec3D.b(this.locX, this.locY, this.locZ);
-        vec3d1 = Vec3D.b(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
+        vec3d = Vec3D.create(this.locX, this.locY, this.locZ);
+        vec3d1 = Vec3D.create(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
         if (movingobjectposition != null) {
-            vec3d1 = Vec3D.b(movingobjectposition.f.a, movingobjectposition.f.b, movingobjectposition.f.c);
+            vec3d1 = Vec3D.create(movingobjectposition.f.a, movingobjectposition.f.b, movingobjectposition.f.c);
         }
 
         Entity entity = null;
@@ -88,7 +88,7 @@ public class EntityFireball extends Entity {
         for (int j = 0; j < list.size(); ++j) {
             Entity entity1 = (Entity) list.get(j);
 
-            if (entity1.d_() && (entity1 != this.j || this.l >= 25)) {
+            if (entity1.d_() && (entity1 != this.shooter || this.l >= 25)) {
                 float f = 0.3F;
                 AxisAlignedBB axisalignedbb = entity1.boundingBox.b((double) f, (double) f, (double) f);
                 MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
@@ -109,12 +109,12 @@ public class EntityFireball extends Entity {
         }
 
         if (movingobjectposition != null) {
-            if (movingobjectposition.g != null && movingobjectposition.g.a(this.j, 0)) {
+            if (movingobjectposition.entity != null && movingobjectposition.entity.damageEntity(this.shooter, 0)) {
                 ;
             }
 
-            this.world.a((Entity) null, this.locX, this.locY, this.locZ, 1.0F, true);
-            this.C();
+            this.world.createExplosion((Entity) null, this.locX, this.locY, this.locZ, 1.0F, true);
+            this.die();
         }
 
         this.locX += this.motX;
@@ -161,7 +161,7 @@ public class EntityFireball extends Entity {
         this.motY *= (double) f2;
         this.motZ *= (double) f2;
         this.world.a("smoke", this.locX, this.locY + 0.5D, this.locZ, 0.0D, 0.0D, 0.0D);
-        this.a(this.locX, this.locY, this.locZ);
+        this.setPosition(this.locX, this.locY, this.locZ);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -186,10 +186,10 @@ public class EntityFireball extends Entity {
         return true;
     }
 
-    public boolean a(Entity entity, int i) {
-        this.R();
+    public boolean damageEntity(Entity entity, int i) {
+        this.W();
         if (entity != null) {
-            Vec3D vec3d = entity.N();
+            Vec3D vec3d = entity.S();
 
             if (vec3d != null) {
                 this.motX = vec3d.a;

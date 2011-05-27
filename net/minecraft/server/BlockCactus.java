@@ -21,10 +21,10 @@ public class BlockCactus extends Block {
                 int i1 = world.getData(i, j, k);
 
                 if (i1 == 15) {
-                    world.e(i, j + 1, k, this.id);
-                    world.c(i, j, k, 0);
+                    world.setTypeId(i, j + 1, k, this.id);
+                    world.setData(i, j, k, 0);
                 } else {
-                    world.c(i, j, k, i1 + 1);
+                    world.setData(i, j, k, i1 + 1);
                 }
             }
         }
@@ -44,14 +44,14 @@ public class BlockCactus extends Block {
         return false;
     }
 
-    public boolean a(World world, int i, int j, int k) {
-        return !super.a(world, i, j, k) ? false : this.f(world, i, j, k);
+    public boolean canPlace(World world, int i, int j, int k) {
+        return !super.canPlace(world, i, j, k) ? false : this.f(world, i, j, k);
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         if (!this.f(world, i, j, k)) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
-            world.e(i, j, k, 0);
+            this.a_(world, i, j, k, world.getData(i, j, k));
+            world.setTypeId(i, j, k, 0);
         }
     }
 
@@ -72,6 +72,6 @@ public class BlockCactus extends Block {
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        entity.a((Entity) null, 1);
+        entity.damageEntity((Entity) null, 1);
     }
 }

@@ -58,9 +58,9 @@ public class Packet60Explosion extends Packet {
 
         while (iterator.hasNext()) {
             ChunkPosition chunkposition = (ChunkPosition) iterator.next();
-            int l = chunkposition.a - i;
-            int i1 = chunkposition.b - j;
-            int j1 = chunkposition.c - k;
+            int l = chunkposition.x - i;
+            int i1 = chunkposition.y - j;
+            int j1 = chunkposition.z - k;
 
             dataoutputstream.writeByte(l);
             dataoutputstream.writeByte(i1);

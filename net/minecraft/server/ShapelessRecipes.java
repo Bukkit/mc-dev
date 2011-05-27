@@ -14,6 +14,10 @@ public class ShapelessRecipes implements CraftingRecipe {
         this.b = list;
     }
 
+    public ItemStack b() {
+        return this.a;
+    }
+
     public boolean a(InventoryCrafting inventorycrafting) {
         ArrayList arraylist = new ArrayList(this.b);
 
@@ -28,7 +32,7 @@ public class ShapelessRecipes implements CraftingRecipe {
                     while (iterator.hasNext()) {
                         ItemStack itemstack1 = (ItemStack) iterator.next();
 
-                        if (itemstack.id == itemstack1.id && (itemstack1.h() == -1 || itemstack.h() == itemstack1.h())) {
+                        if (itemstack.id == itemstack1.id && (itemstack1.getData() == -1 || itemstack.getData() == itemstack1.getData())) {
                             flag = true;
                             arraylist.remove(itemstack1);
                             break;

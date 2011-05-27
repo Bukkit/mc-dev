@@ -4,7 +4,6 @@ public class ItemSign extends Item {
 
     public ItemSign(int i) {
         super(i);
-        this.durability = 64;
         this.maxStackSize = 1;
     }
 
@@ -34,13 +33,13 @@ public class ItemSign extends Item {
                 ++i;
             }
 
-            if (!Block.SIGN_POST.a(world, i, j, k)) {
+            if (!Block.SIGN_POST.canPlace(world, i, j, k)) {
                 return false;
             } else {
                 if (l == 1) {
-                    world.b(i, j, k, Block.SIGN_POST.id, MathHelper.b((double) ((entityhuman.yaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15);
+                    world.setTypeIdAndData(i, j, k, Block.SIGN_POST.id, MathHelper.floor((double) ((entityhuman.yaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15);
                 } else {
-                    world.b(i, j, k, Block.WALL_SIGN.id, l);
+                    world.setTypeIdAndData(i, j, k, Block.WALL_SIGN.id, l);
                 }
 
                 --itemstack.count;

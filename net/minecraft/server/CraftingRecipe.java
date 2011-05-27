@@ -7,4 +7,6 @@ public interface CraftingRecipe {
     ItemStack b(InventoryCrafting inventorycrafting);
 
     int a();
+
+    ItemStack b();
 }

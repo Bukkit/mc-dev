@@ -20,12 +20,12 @@ public class Packet21PickupSpawn extends Packet {
 
     public Packet21PickupSpawn(EntityItem entityitem) {
         this.a = entityitem.id;
-        this.h = entityitem.a.id;
-        this.i = entityitem.a.count;
-        this.l = entityitem.a.h();
-        this.b = MathHelper.b(entityitem.locX * 32.0D);
-        this.c = MathHelper.b(entityitem.locY * 32.0D);
-        this.d = MathHelper.b(entityitem.locZ * 32.0D);
+        this.h = entityitem.itemStack.id;
+        this.i = entityitem.itemStack.count;
+        this.l = entityitem.itemStack.getData();
+        this.b = MathHelper.floor(entityitem.locX * 32.0D);
+        this.c = MathHelper.floor(entityitem.locY * 32.0D);
+        this.d = MathHelper.floor(entityitem.locZ * 32.0D);
         this.e = (byte) ((int) (entityitem.motX * 128.0D));
         this.f = (byte) ((int) (entityitem.motY * 128.0D));
         this.g = (byte) ((int) (entityitem.motZ * 128.0D));

@@ -39,7 +39,7 @@ public class EntityTypes {
         Entity entity = null;
 
         try {
-            Class oclass = (Class) a.get(nbttagcompound.i("id"));
+            Class oclass = (Class) a.get(nbttagcompound.getString("id"));
 
             if (oclass != null) {
                 entity = (Entity) oclass.getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
@@ -51,7 +51,7 @@ public class EntityTypes {
         if (entity != null) {
             entity.e(nbttagcompound);
         } else {
-            System.out.println("Skipping Entity with id " + nbttagcompound.i("id"));
+            System.out.println("Skipping Entity with id " + nbttagcompound.getString("id"));
         }
 
         return entity;
@@ -85,6 +85,7 @@ public class EntityTypes {
         a(EntityCow.class, "Cow", 92);
         a(EntityChicken.class, "Chicken", 93);
         a(EntitySquid.class, "Squid", 94);
+        a(EntityWolf.class, "Wolf", 95);
         a(EntityTNTPrimed.class, "PrimedTnt", 20);
         a(EntityFallingSand.class, "FallingSand", 21);
         a(EntityMinecart.class, "Minecart", 40);

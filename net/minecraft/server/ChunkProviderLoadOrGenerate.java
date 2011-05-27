@@ -22,14 +22,14 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         this.d = ichunkprovider;
     }
 
-    public boolean c(int i, int j) {
+    public boolean d(int i, int j) {
         byte b0 = 15;
 
         return i >= this.i - b0 && j >= this.j - b0 && i <= this.i + b0 && j <= this.j + b0;
     }
 
-    public boolean a(int i, int j) {
-        if (!this.c(i, j)) {
+    public boolean isChunkLoaded(int i, int j) {
+        if (!this.d(i, j)) {
             return false;
         } else if (i == this.a && j == this.b && this.h != null) {
             return true;
@@ -42,53 +42,57 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         }
     }
 
-    public Chunk b(int i, int j) {
+    public Chunk getChunkAt(int i, int j) {
+        return this.getOrCreateChunk(i, j);
+    }
+
+    public Chunk getOrCreateChunk(int i, int j) {
         if (i == this.a && j == this.b && this.h != null) {
             return this.h;
-        } else if (!this.g.r && !this.c(i, j)) {
+        } else if (!this.g.isLoading && !this.d(i, j)) {
             return this.c;
         } else {
             int k = i & 31;
             int l = j & 31;
             int i1 = k + l * 32;
 
-            if (!this.a(i, j)) {
+            if (!this.isChunkLoaded(i, j)) {
                 if (this.f[i1] != null) {
-                    this.f[i1].e();
+                    this.f[i1].removeEntities();
                     this.b(this.f[i1]);
                     this.a(this.f[i1]);
                 }
 
-                Chunk chunk = this.d(i, j);
+                Chunk chunk = this.e(i, j);
 
                 if (chunk == null) {
                     if (this.d == null) {
                         chunk = this.c;
                     } else {
-                        chunk = this.d.b(i, j);
+                        chunk = this.d.getOrCreateChunk(i, j);
                     }
                 }
 
                 this.f[i1] = chunk;
-                chunk.c();
+                chunk.loadNOP();
                 if (this.f[i1] != null) {
-                    this.f[i1].d();
+                    this.f[i1].addEntities();
                 }
 
-                if (!this.f[i1].n && this.a(i + 1, j + 1) && this.a(i, j + 1) && this.a(i + 1, j)) {
-                    this.a(this, i, j);
+                if (!this.f[i1].done && this.isChunkLoaded(i + 1, j + 1) && this.isChunkLoaded(i, j + 1) && this.isChunkLoaded(i + 1, j)) {
+                    this.getChunkAt(this, i, j);
                 }
 
-                if (this.a(i - 1, j) && !this.b(i - 1, j).n && this.a(i - 1, j + 1) && this.a(i, j + 1) && this.a(i - 1, j)) {
-                    this.a(this, i - 1, j);
+                if (this.isChunkLoaded(i - 1, j) && !this.getOrCreateChunk(i - 1, j).done && this.isChunkLoaded(i - 1, j + 1) && this.isChunkLoaded(i, j + 1) && this.isChunkLoaded(i - 1, j)) {
+                    this.getChunkAt(this, i - 1, j);
                 }
 
-                if (this.a(i, j - 1) && !this.b(i, j - 1).n && this.a(i + 1, j - 1) && this.a(i, j - 1) && this.a(i + 1, j)) {
-                    this.a(this, i, j - 1);
+                if (this.isChunkLoaded(i, j - 1) && !this.getOrCreateChunk(i, j - 1).done && this.isChunkLoaded(i + 1, j - 1) && this.isChunkLoaded(i, j - 1) && this.isChunkLoaded(i + 1, j)) {
+                    this.getChunkAt(this, i, j - 1);
                 }
 
-                if (this.a(i - 1, j - 1) && !this.b(i - 1, j - 1).n && this.a(i - 1, j - 1) && this.a(i, j - 1) && this.a(i - 1, j)) {
-                    this.a(this, i - 1, j - 1);
+                if (this.isChunkLoaded(i - 1, j - 1) && !this.getOrCreateChunk(i - 1, j - 1).done && this.isChunkLoaded(i - 1, j - 1) && this.isChunkLoaded(i, j - 1) && this.isChunkLoaded(i - 1, j)) {
+                    this.getChunkAt(this, i - 1, j - 1);
                 }
             }
 
@@ -99,7 +103,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         }
     }
 
-    private Chunk d(int i, int j) {
+    private Chunk e(int i, int j) {
         if (this.e == null) {
             return this.c;
         } else {
@@ -107,7 +111,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                 Chunk chunk = this.e.a(this.g, i, j);
 
                 if (chunk != null) {
-                    chunk.r = this.g.k();
+                    chunk.r = this.g.getTime();
                 }
 
                 return chunk;
@@ -131,7 +135,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     private void b(Chunk chunk) {
         if (this.e != null) {
             try {
-                chunk.r = this.g.k();
+                chunk.r = this.g.getTime();
                 this.e.a(this.g, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
@@ -139,19 +143,19 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         }
     }
 
-    public void a(IChunkProvider ichunkprovider, int i, int j) {
-        Chunk chunk = this.b(i, j);
+    public void getChunkAt(IChunkProvider ichunkprovider, int i, int j) {
+        Chunk chunk = this.getOrCreateChunk(i, j);
 
-        if (!chunk.n) {
-            chunk.n = true;
+        if (!chunk.done) {
+            chunk.done = true;
             if (this.d != null) {
-                this.d.a(ichunkprovider, i, j);
+                this.d.getChunkAt(ichunkprovider, i, j);
                 chunk.f();
             }
         }
     }
 
-    public boolean a(boolean flag, IProgressUpdate iprogressupdate) {
+    public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
         int i = 0;
         int j = 0;
         int k;
@@ -201,12 +205,12 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         return true;
     }
 
-    public boolean a() {
+    public boolean unloadChunks() {
         if (this.e != null) {
             this.e.a();
         }
 
-        return this.d.a();
+        return this.d.unloadChunks();
     }
 
     public boolean b() {

@@ -72,7 +72,7 @@ public abstract class BlockFluids extends Block {
     }
 
     private Vec3D c(IBlockAccess iblockaccess, int i, int j, int k) {
-        Vec3D vec3d = Vec3D.b(0.0D, 0.0D, 0.0D);
+        Vec3D vec3d = Vec3D.create(0.0D, 0.0D, 0.0D);
         int l = this.b(iblockaccess, i, j, k);
 
         for (int i1 = 0; i1 < 4; ++i1) {
@@ -103,12 +103,12 @@ public abstract class BlockFluids extends Block {
                     l1 = this.b(iblockaccess, j1, j - 1, k1);
                     if (l1 >= 0) {
                         i2 = l1 - (l - 8);
-                        vec3d = vec3d.c((double) ((j1 - i) * i2), (double) ((j - j) * i2), (double) ((k1 - k) * i2));
+                        vec3d = vec3d.add((double) ((j1 - i) * i2), (double) ((j - j) * i2), (double) ((k1 - k) * i2));
                     }
                 }
             } else if (l1 >= 0) {
                 i2 = l1 - l;
-                vec3d = vec3d.c((double) ((j1 - i) * i2), (double) ((j - j) * i2), (double) ((k1 - k) * i2));
+                vec3d = vec3d.add((double) ((j1 - i) * i2), (double) ((j - j) * i2), (double) ((k1 - k) * i2));
             }
         }
 
@@ -148,7 +148,7 @@ public abstract class BlockFluids extends Block {
             }
 
             if (flag) {
-                vec3d = vec3d.b().c(0.0D, -6.0D, 0.0D);
+                vec3d = vec3d.b().add(0.0D, -6.0D, 0.0D);
             }
         }
 
@@ -176,7 +176,7 @@ public abstract class BlockFluids extends Block {
         this.i(world, i, j, k);
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         this.i(world, i, j, k);
     }
 
@@ -209,9 +209,9 @@ public abstract class BlockFluids extends Block {
                     int l = world.getData(i, j, k);
 
                     if (l == 0) {
-                        world.e(i, j, k, Block.OBSIDIAN.id);
+                        world.setTypeId(i, j, k, Block.OBSIDIAN.id);
                     } else if (l <= 4) {
-                        world.e(i, j, k, Block.COBBLESTONE.id);
+                        world.setTypeId(i, j, k, Block.COBBLESTONE.id);
                     }
 
                     this.h(world, i, j, k);
@@ -221,7 +221,7 @@ public abstract class BlockFluids extends Block {
     }
 
     protected void h(World world, int i, int j, int k) {
-        world.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (world.k.nextFloat() - world.k.nextFloat()) * 0.8F);
+        world.makeSound((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
 
         for (int l = 0; l < 8; ++l) {
             world.a("largesmoke", (double) i + Math.random(), (double) j + 1.2D, (double) k + Math.random(), 0.0D, 0.0D, 0.0D);

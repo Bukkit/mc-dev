@@ -18,7 +18,7 @@ public class ChunkCache implements IBlockAccess {
 
         for (int i2 = this.a; i2 <= k1; ++i2) {
             for (int j2 = this.b; j2 <= l1; ++j2) {
-                this.c[i2 - this.a][j2 - this.b] = world.c(i2, j2);
+                this.c[i2 - this.a][j2 - this.b] = world.getChunkAt(i2, j2);
             }
         }
     }
@@ -35,7 +35,7 @@ public class ChunkCache implements IBlockAccess {
             if (l >= 0 && l < this.c.length && i1 >= 0 && i1 < this.c[l].length) {
                 Chunk chunk = this.c[l][i1];
 
-                return chunk == null ? 0 : chunk.a(i & 15, j, k & 15);
+                return chunk == null ? 0 : chunk.getTypeId(i & 15, j, k & 15);
             } else {
                 return 0;
             }
@@ -51,7 +51,7 @@ public class ChunkCache implements IBlockAccess {
             int l = (i >> 4) - this.a;
             int i1 = (k >> 4) - this.b;
 
-            return this.c[l][i1].b(i & 15, j, k & 15);
+            return this.c[l][i1].getData(i & 15, j, k & 15);
         }
     }
 

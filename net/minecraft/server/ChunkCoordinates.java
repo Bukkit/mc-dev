@@ -2,16 +2,22 @@ package net.minecraft.server;
 
 public class ChunkCoordinates implements Comparable {
 
-    public int a;
-    public int b;
-    public int c;
+    public int x;
+    public int y;
+    public int z;
 
     public ChunkCoordinates() {}
 
     public ChunkCoordinates(int i, int j, int k) {
-        this.a = i;
-        this.b = j;
-        this.c = k;
+        this.x = i;
+        this.y = j;
+        this.z = k;
+    }
+
+    public ChunkCoordinates(ChunkCoordinates chunkcoordinates) {
+        this.x = chunkcoordinates.x;
+        this.y = chunkcoordinates.y;
+        this.z = chunkcoordinates.z;
     }
 
     public boolean equals(Object object) {
@@ -20,15 +26,15 @@ public class ChunkCoordinates implements Comparable {
         } else {
             ChunkCoordinates chunkcoordinates = (ChunkCoordinates) object;
 
-            return this.a == chunkcoordinates.a && this.b == chunkcoordinates.b && this.c == chunkcoordinates.c;
+            return this.x == chunkcoordinates.x && this.y == chunkcoordinates.y && this.z == chunkcoordinates.z;
         }
     }
 
     public int hashCode() {
-        return this.a + this.c << 8 + this.b << 16;
+        return this.x + this.z << 8 + this.y << 16;
     }
 
     public int compareTo(ChunkCoordinates chunkcoordinates) {
-        return this.b == chunkcoordinates.b ? (this.c == chunkcoordinates.c ? this.a - chunkcoordinates.a : this.c - chunkcoordinates.c) : this.b - chunkcoordinates.b;
+        return this.y == chunkcoordinates.y ? (this.z == chunkcoordinates.z ? this.x - chunkcoordinates.x : this.z - chunkcoordinates.z) : this.y - chunkcoordinates.y;
     }
 }

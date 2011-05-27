@@ -17,7 +17,7 @@ public class EntityPainting extends Entity {
         this.f = 0;
         this.a = 0;
         this.height = 0.0F;
-        this.a(0.5F, 0.5F);
+        this.b(0.5F, 0.5F);
     }
 
     public EntityPainting(World world, int i, int j, int k, int l) {
@@ -102,7 +102,7 @@ public class EntityPainting extends Entity {
         }
 
         f4 += this.c(this.e.B);
-        this.a((double) f3, (double) f4, (double) f5);
+        this.setPosition((double) f3, (double) f4, (double) f5);
         float f7 = -0.00625F;
 
         this.boundingBox.c((double) (f3 - f - f7), (double) (f4 - f1 - f7), (double) (f5 - f2 - f7), (double) (f3 + f + f7), (double) (f4 + f1 + f7), (double) (f5 + f2 + f7));
@@ -116,14 +116,14 @@ public class EntityPainting extends Entity {
         if (this.f++ == 100 && !this.world.isStatic) {
             this.f = 0;
             if (!this.h()) {
-                this.C();
-                this.world.a((Entity) (new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING))));
+                this.die();
+                this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING)));
             }
         }
     }
 
     public boolean h() {
-        if (this.world.a((Entity) this, this.boundingBox).size() > 0) {
+        if (this.world.getEntities(this, this.boundingBox).size() > 0) {
             return false;
         } else {
             int i = this.e.A / 16;
@@ -133,22 +133,22 @@ public class EntityPainting extends Entity {
             int i1 = this.d;
 
             if (this.a == 0) {
-                k = MathHelper.b(this.locX - (double) ((float) this.e.A / 32.0F));
+                k = MathHelper.floor(this.locX - (double) ((float) this.e.A / 32.0F));
             }
 
             if (this.a == 1) {
-                i1 = MathHelper.b(this.locZ - (double) ((float) this.e.A / 32.0F));
+                i1 = MathHelper.floor(this.locZ - (double) ((float) this.e.A / 32.0F));
             }
 
             if (this.a == 2) {
-                k = MathHelper.b(this.locX - (double) ((float) this.e.A / 32.0F));
+                k = MathHelper.floor(this.locX - (double) ((float) this.e.A / 32.0F));
             }
 
             if (this.a == 3) {
-                i1 = MathHelper.b(this.locZ - (double) ((float) this.e.A / 32.0F));
+                i1 = MathHelper.floor(this.locZ - (double) ((float) this.e.A / 32.0F));
             }
 
-            l = MathHelper.b(this.locY - (double) ((float) this.e.B / 32.0F));
+            l = MathHelper.floor(this.locY - (double) ((float) this.e.B / 32.0F));
 
             int j1;
 
@@ -184,11 +184,11 @@ public class EntityPainting extends Entity {
         return true;
     }
 
-    public boolean a(Entity entity, int i) {
+    public boolean damageEntity(Entity entity, int i) {
         if (!this.dead && !this.world.isStatic) {
-            this.C();
-            this.R();
-            this.world.a((Entity) (new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING))));
+            this.die();
+            this.W();
+            this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING)));
         }
 
         return true;
@@ -196,7 +196,7 @@ public class EntityPainting extends Entity {
 
     public void a(NBTTagCompound nbttagcompound) {
         nbttagcompound.a("Dir", (byte) this.a);
-        nbttagcompound.a("Motive", this.e.z);
+        nbttagcompound.setString("Motive", this.e.z);
         nbttagcompound.a("TileX", this.b);
         nbttagcompound.a("TileY", this.c);
         nbttagcompound.a("TileZ", this.d);
@@ -207,7 +207,7 @@ public class EntityPainting extends Entity {
         this.b = nbttagcompound.e("TileX");
         this.c = nbttagcompound.e("TileY");
         this.d = nbttagcompound.e("TileZ");
-        String s = nbttagcompound.i("Motive");
+        String s = nbttagcompound.getString("Motive");
         EnumArt[] aenumart = EnumArt.values();
         int i = aenumart.length;
 

@@ -77,14 +77,14 @@ class MinecartTrackLogic {
     }
 
     private MinecartTrackLogic a(ChunkPosition chunkposition) {
-        return this.b.getTypeId(chunkposition.a, chunkposition.b, chunkposition.c) == this.a.id ? new MinecartTrackLogic(this.a, this.b, chunkposition.a, chunkposition.b, chunkposition.c) : (this.b.getTypeId(chunkposition.a, chunkposition.b + 1, chunkposition.c) == this.a.id ? new MinecartTrackLogic(this.a, this.b, chunkposition.a, chunkposition.b + 1, chunkposition.c) : (this.b.getTypeId(chunkposition.a, chunkposition.b - 1, chunkposition.c) == this.a.id ? new MinecartTrackLogic(this.a, this.b, chunkposition.a, chunkposition.b - 1, chunkposition.c) : null));
+        return this.b.getTypeId(chunkposition.x, chunkposition.y, chunkposition.z) == this.a.id ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y, chunkposition.z) : (this.b.getTypeId(chunkposition.x, chunkposition.y + 1, chunkposition.z) == this.a.id ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y + 1, chunkposition.z) : (this.b.getTypeId(chunkposition.x, chunkposition.y - 1, chunkposition.z) == this.a.id ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y - 1, chunkposition.z) : null));
     }
 
     private boolean b(MinecartTrackLogic minecarttracklogic) {
         for (int i = 0; i < this.g.size(); ++i) {
             ChunkPosition chunkposition = (ChunkPosition) this.g.get(i);
 
-            if (chunkposition.a == minecarttracklogic.c && chunkposition.c == minecarttracklogic.e) {
+            if (chunkposition.x == minecarttracklogic.c && chunkposition.z == minecarttracklogic.e) {
                 return true;
             }
         }
@@ -96,7 +96,7 @@ class MinecartTrackLogic {
         for (int l = 0; l < this.g.size(); ++l) {
             ChunkPosition chunkposition = (ChunkPosition) this.g.get(l);
 
-            if (chunkposition.a == i && chunkposition.c == k) {
+            if (chunkposition.x == i && chunkposition.z == k) {
                 return true;
             }
         }
@@ -136,7 +136,7 @@ class MinecartTrackLogic {
         } else {
             ChunkPosition chunkposition = (ChunkPosition) this.g.get(0);
 
-            return minecarttracklogic.d == this.d && chunkposition.b == this.d ? true : true;
+            return minecarttracklogic.d == this.d && chunkposition.y == this.d ? true : true;
         }
     }
 
@@ -196,7 +196,7 @@ class MinecartTrackLogic {
             b0 = 0;
         }
 
-        this.b.c(this.c, this.d, this.e, b0);
+        this.b.setData(this.c, this.d, this.e, b0);
     }
 
     private boolean c(int i, int j, int k) {
@@ -311,7 +311,7 @@ class MinecartTrackLogic {
 
         this.f = b0;
         this.a();
-        this.b.c(this.c, this.d, this.e, b0);
+        this.b.setData(this.c, this.d, this.e, b0);
 
         for (int i = 0; i < this.g.size(); ++i) {
             MinecartTrackLogic minecarttracklogic = this.a((ChunkPosition) this.g.get(i));

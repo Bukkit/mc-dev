@@ -2,141 +2,138 @@ package net.minecraft.server;
 
 public class ItemInWorldManager {
 
-    private World b;
-    public EntityHuman a;
+    private World world;
+    public EntityHuman player;
     private float c = 0.0F;
     private int d;
-    private int e = 0;
-    private float f = 0.0F;
+    private int e;
+    private int f;
     private int g;
-    private int h;
-    private int i;
+    private int currentTick;
+    private boolean i;
     private int j;
-    private boolean k;
+    private int k;
     private int l;
     private int m;
-    private int n;
-    private int o;
 
     public ItemInWorldManager(World world) {
-        this.b = world;
+        this.world = world;
     }
 
     public void a() {
-        ++this.j;
-        if (this.k) {
-            int i = this.j - this.o;
-            int j = this.b.getTypeId(this.l, this.m, this.n);
+        ++this.currentTick;
+        if (this.i) {
+            int i = this.currentTick - this.m;
+            int j = this.world.getTypeId(this.j, this.k, this.l);
 
             if (j != 0) {
                 Block block = Block.byId[j];
-                float f = block.a(this.a) * (float) (i + 1);
+                float f = block.getDamage(this.player) * (float) (i + 1);
 
                 if (f >= 1.0F) {
-                    this.k = false;
-                    this.d(this.l, this.m, this.n);
+                    this.i = false;
+                    this.d(this.j, this.k, this.l);
                 }
             } else {
-                this.k = false;
+                this.i = false;
             }
         }
     }
 
-    public void a(int i, int j, int k) {
-        this.d = this.j;
-        int l = this.b.getTypeId(i, j, k);
+    public void dig(int i, int j, int k) {
+        this.d = this.currentTick;
+        int l = this.world.getTypeId(i, j, k);
 
         if (l > 0) {
-            Block.byId[l].b(this.b, i, j, k, this.a);
+            Block.byId[l].b(this.world, i, j, k, this.player);
         }
 
-        if (l > 0 && Block.byId[l].a(this.a) >= 1.0F) {
+        if (l > 0 && Block.byId[l].getDamage(this.player) >= 1.0F) {
             this.d(i, j, k);
         } else {
-            this.g = i;
-            this.h = j;
-            this.i = k;
+            this.e = i;
+            this.f = j;
+            this.g = k;
         }
     }
 
     public void b(int i, int j, int k) {
-        if (i == this.g && j == this.h && k == this.i) {
-            int l = this.j - this.d;
-            int i1 = this.b.getTypeId(i, j, k);
+        if (i == this.e && j == this.f && k == this.g) {
+            int l = this.currentTick - this.d;
+            int i1 = this.world.getTypeId(i, j, k);
 
             if (i1 != 0) {
                 Block block = Block.byId[i1];
-                float f = block.a(this.a) * (float) (l + 1);
+                float f = block.getDamage(this.player) * (float) (l + 1);
 
                 if (f >= 1.0F) {
                     this.d(i, j, k);
-                } else if (!this.k) {
-                    this.k = true;
-                    this.l = i;
-                    this.m = j;
-                    this.n = k;
-                    this.o = this.d;
+                } else if (!this.i) {
+                    this.i = true;
+                    this.j = i;
+                    this.k = j;
+                    this.l = k;
+                    this.m = this.d;
                 }
             }
         }
 
         this.c = 0.0F;
-        this.e = 0;
     }
 
     public boolean c(int i, int j, int k) {
-        Block block = Block.byId[this.b.getTypeId(i, j, k)];
-        int l = this.b.getData(i, j, k);
-        boolean flag = this.b.e(i, j, k, 0);
+        Block block = Block.byId[this.world.getTypeId(i, j, k)];
+        int l = this.world.getData(i, j, k);
+        boolean flag = this.world.setTypeId(i, j, k, 0);
 
         if (block != null && flag) {
-            block.b(this.b, i, j, k, l);
+            block.postBreak(this.world, i, j, k, l);
         }
 
         return flag;
     }
 
     public boolean d(int i, int j, int k) {
-        int l = this.b.getTypeId(i, j, k);
-        int i1 = this.b.getData(i, j, k);
+        int l = this.world.getTypeId(i, j, k);
+        int i1 = this.world.getData(i, j, k);
         boolean flag = this.c(i, j, k);
-        ItemStack itemstack = this.a.z();
+        ItemStack itemstack = this.player.A();
 
         if (itemstack != null) {
-            itemstack.a(l, i, j, k);
+            itemstack.a(l, i, j, k, this.player);
             if (itemstack.count == 0) {
-                itemstack.a(this.a);
-                this.a.A();
+                itemstack.a(this.player);
+                this.player.B();
             }
         }
 
-        if (flag && this.a.b(Block.byId[l])) {
-            Block.byId[l].a_(this.b, i, j, k, i1);
-            ((EntityPlayer) this.a).a.b((Packet) (new Packet53BlockChange(i, j, k, this.b)));
+        if (flag && this.player.b(Block.byId[l])) {
+            Block.byId[l].a(this.world, this.player, i, j, k, i1);
+            ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
         }
 
         return flag;
     }
 
-    public boolean a(EntityHuman entityhuman, World world, ItemStack itemstack) {
+    public boolean useItem(EntityHuman entityhuman, World world, ItemStack itemstack) {
         int i = itemstack.count;
         ItemStack itemstack1 = itemstack.a(world, entityhuman);
 
         if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.count == i)) {
             return false;
         } else {
-            entityhuman.inventory.a[entityhuman.inventory.c] = itemstack1;
+            entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = itemstack1;
             if (itemstack1.count == 0) {
-                entityhuman.inventory.a[entityhuman.inventory.c] = null;
+                entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = null;
             }
 
             return true;
         }
     }
 
-    public boolean a(EntityHuman entityhuman, World world, ItemStack itemstack, int i, int j, int k, int l) {
+    public boolean interact(EntityHuman entityhuman, World world, ItemStack itemstack, int i, int j, int k, int l) {
         int i1 = world.getTypeId(i, j, k);
 
-        return i1 > 0 && Block.byId[i1].a(world, i, j, k, entityhuman) ? true : (itemstack == null ? false : itemstack.a(entityhuman, world, i, j, k, l));
+        return i1 > 0 && Block.byId[i1].interact(world, i, j, k, entityhuman) ? true : (itemstack == null ? false : itemstack.placeItem(entityhuman, world, i, j, k, l));
     }
 }

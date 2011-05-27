@@ -9,7 +9,7 @@ public class WorldProviderHell extends WorldProvider {
         this.c = true;
         this.d = true;
         this.e = true;
-        this.g = -1;
+        this.dimension = -1;
     }
 
     protected void b() {
@@ -23,7 +23,7 @@ public class WorldProviderHell extends WorldProvider {
     }
 
     public IChunkProvider c() {
-        return new ChunkProviderHell(this.a, this.a.j());
+        return new ChunkProviderHell(this.a, this.a.getSeed());
     }
 
     public boolean a(int i, int j) {

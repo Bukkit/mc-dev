@@ -5,7 +5,7 @@ public class EntitySpider extends EntityMonster {
     public EntitySpider(World world) {
         super(world);
         this.texture = "/mob/spider.png";
-        this.a(1.4F, 0.9F);
+        this.b(1.4F, 0.9F);
         this.az = 0.8F;
     }
 
@@ -13,7 +13,11 @@ public class EntitySpider extends EntityMonster {
         return (double) this.width * 0.75D - 0.5D;
     }
 
-    protected Entity l() {
+    protected boolean l() {
+        return false;
+    }
+
+    protected Entity findTarget() {
         float f = this.c(1.0F);
 
         if (f < 0.5F) {
@@ -41,7 +45,7 @@ public class EntitySpider extends EntityMonster {
         float f1 = this.c(1.0F);
 
         if (f1 > 0.5F && this.random.nextInt(100) == 0) {
-            this.d = null;
+            this.target = null;
         } else {
             if (f > 2.0F && f < 6.0F && this.random.nextInt(10) == 0) {
                 if (this.onGround) {
@@ -71,7 +75,7 @@ public class EntitySpider extends EntityMonster {
         return Item.STRING.id;
     }
 
-    public boolean m() {
-        return this.aV;
+    public boolean n() {
+        return this.positionChanged;
     }
 }

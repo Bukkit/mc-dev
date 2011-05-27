@@ -21,16 +21,16 @@ public class EntitySkeleton extends EntityMonster {
         return "mob.skeletonhurt";
     }
 
-    public void q() {
-        if (this.world.c()) {
+    public void r() {
+        if (this.world.d()) {
             float f = this.c(1.0F);
 
-            if (f > 0.5F && this.world.i(MathHelper.b(this.locX), MathHelper.b(this.locY), MathHelper.b(this.locZ)) && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
+            if (f > 0.5F && this.world.isChunkLoaded(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ)) && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
                 this.fireTicks = 300;
             }
         }
 
-        super.q();
+        super.r();
     }
 
     protected void a(Entity entity, float f) {
@@ -45,8 +45,8 @@ public class EntitySkeleton extends EntityMonster {
                 double d2 = entity.locY - 0.20000000298023224D - entityarrow.locY;
                 float f1 = MathHelper.a(d0 * d0 + d1 * d1) * 0.2F;
 
-                this.world.a(this, "random.bow", 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
-                this.world.a((Entity) entityarrow);
+                this.world.makeSound(this, "random.bow", 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
+                this.world.addEntity(entityarrow);
                 entityarrow.a(d0, d2 + (double) f1, d1, 0.6F, 12.0F);
                 this.attackTicks = 30;
             }
@@ -68,7 +68,7 @@ public class EntitySkeleton extends EntityMonster {
         return Item.ARROW.id;
     }
 
-    protected void o() {
+    protected void p() {
         int i = this.random.nextInt(3);
 
         int j;

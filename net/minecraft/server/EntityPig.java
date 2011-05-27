@@ -5,7 +5,7 @@ public class EntityPig extends EntityAnimal {
     public EntityPig(World world) {
         super(world);
         this.texture = "/mob/pig.png";
-        this.a(0.9F, 0.9F);
+        this.b(0.9F, 0.9F);
     }
 
     protected void a() {
@@ -14,7 +14,7 @@ public class EntityPig extends EntityAnimal {
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        nbttagcompound.a("Saddle", this.r());
+        nbttagcompound.a("Saddle", this.v());
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -35,8 +35,8 @@ public class EntityPig extends EntityAnimal {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        if (this.r() && !this.world.isStatic && (this.passenger == null || this.passenger == entityhuman)) {
-            entityhuman.b((Entity) this);
+        if (this.v() && !this.world.isStatic && (this.passenger == null || this.passenger == entityhuman)) {
+            entityhuman.mount(this);
             return true;
         } else {
             return false;
@@ -47,7 +47,7 @@ public class EntityPig extends EntityAnimal {
         return Item.PORK.id;
     }
 
-    public boolean r() {
+    public boolean v() {
         return (this.datawatcher.a(16) & 1) != 0;
     }
 

@@ -14,6 +14,6 @@ public class BlockMushroom extends BlockFlower {
     }
 
     public boolean f(World world, int i, int j, int k) {
-        return world.j(i, j, k) <= 13 && this.c(world.getTypeId(i, j - 1, k));
+        return world.getLightLevel(i, j, k) <= 13 && this.c(world.getTypeId(i, j - 1, k));
     }
 }

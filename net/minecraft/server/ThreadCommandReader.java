@@ -6,10 +6,10 @@ import java.io.InputStreamReader;
 
 public class ThreadCommandReader extends Thread {
 
-    final MinecraftServer a;
+    final MinecraftServer server;
 
     public ThreadCommandReader(MinecraftServer minecraftserver) {
-        this.a = minecraftserver;
+        this.server = minecraftserver;
     }
 
     public void run() {
@@ -17,8 +17,8 @@ public class ThreadCommandReader extends Thread {
         String s = null;
 
         try {
-            while (!this.a.g && MinecraftServer.a(this.a) && (s = bufferedreader.readLine()) != null) {
-                this.a.a(s, (ICommandListener) this.a);
+            while (!this.server.isStopped && MinecraftServer.isRunning(this.server) && (s = bufferedreader.readLine()) != null) {
+                this.server.issueCommand(s, this.server);
             }
         } catch (IOException ioexception) {
             ioexception.printStackTrace();

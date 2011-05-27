@@ -2,14 +2,14 @@ package net.minecraft.server;
 
 public class ChunkPosition {
 
-    public final int a;
-    public final int b;
-    public final int c;
+    public final int x;
+    public final int y;
+    public final int z;
 
     public ChunkPosition(int i, int j, int k) {
-        this.a = i;
-        this.b = j;
-        this.c = k;
+        this.x = i;
+        this.y = j;
+        this.z = k;
     }
 
     public boolean equals(Object object) {
@@ -18,11 +18,11 @@ public class ChunkPosition {
         } else {
             ChunkPosition chunkposition = (ChunkPosition) object;
 
-            return chunkposition.a == this.a && chunkposition.b == this.b && chunkposition.c == this.c;
+            return chunkposition.x == this.x && chunkposition.y == this.y && chunkposition.z == this.z;
         }
     }
 
     public int hashCode() {
-        return this.a * 8976890 + this.b * 981131 + this.c;
+        return this.x * 8976890 + this.y * 981131 + this.z;
     }
 }

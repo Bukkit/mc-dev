@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BiomeBase {
@@ -21,18 +23,28 @@ public class BiomeBase {
     public byte o;
     public byte p;
     public int q;
-    protected Class[] r;
-    protected Class[] s;
-    protected Class[] t;
+    protected List r;
+    protected List s;
+    protected List t;
     private static BiomeBase[] u = new BiomeBase[4096];
 
-    public BiomeBase() {
+    protected BiomeBase() {
         this.o = (byte) Block.GRASS.id;
         this.p = (byte) Block.DIRT.id;
         this.q = 5169201;
-        this.r = new Class[] { EntitySpider.class, EntityZombie.class, EntitySkeleton.class, EntityCreeper.class, EntitySlime.class};
-        this.s = new Class[] { EntitySheep.class, EntityPig.class, EntityChicken.class, EntityCow.class};
-        this.t = new Class[] { EntitySquid.class};
+        this.r = new ArrayList();
+        this.s = new ArrayList();
+        this.t = new ArrayList();
+        this.r.add(new BiomeMeta(EntitySpider.class, 10));
+        this.r.add(new BiomeMeta(EntityZombie.class, 10));
+        this.r.add(new BiomeMeta(EntitySkeleton.class, 10));
+        this.r.add(new BiomeMeta(EntityCreeper.class, 10));
+        this.r.add(new BiomeMeta(EntitySlime.class, 10));
+        this.s.add(new BiomeMeta(EntitySheep.class, 12));
+        this.s.add(new BiomeMeta(EntityPig.class, 10));
+        this.s.add(new BiomeMeta(EntityChicken.class, 10));
+        this.s.add(new BiomeMeta(EntityCow.class, 8));
+        this.t.add(new BiomeMeta(EntitySquid.class, 10));
     }
 
     public static void a() {
@@ -81,7 +93,7 @@ public class BiomeBase {
         return f < 0.1F ? TUNDRA : (f1 < 0.2F ? (f < 0.5F ? TUNDRA : (f < 0.95F ? SAVANNA : DESERT)) : (f1 > 0.5F && f < 0.7F ? SWAMPLAND : (f < 0.5F ? TAIGA : (f < 0.97F ? (f1 < 0.35F ? SHRUBLAND : FOREST) : (f1 < 0.45F ? PLAINS : (f1 < 0.9F ? SEASONAL_FOREST : RAINFOREST))))));
     }
 
-    public Class[] a(EnumCreatureType enumcreaturetype) {
+    public List a(EnumCreatureType enumcreaturetype) {
         return enumcreaturetype == EnumCreatureType.MONSTER ? this.r : (enumcreaturetype == EnumCreatureType.CREATURE ? this.s : (enumcreaturetype == EnumCreatureType.WATER_CREATURE ? this.t : null));
     }
 

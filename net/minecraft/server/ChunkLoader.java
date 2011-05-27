@@ -52,12 +52,12 @@ public class ChunkLoader implements IChunkLoader {
                 FileInputStream fileinputstream = new FileInputStream(file1);
                 NBTTagCompound nbttagcompound = CompressedStreamTools.a((InputStream) fileinputstream);
 
-                if (!nbttagcompound.b("Level")) {
+                if (!nbttagcompound.hasKey("Level")) {
                     System.out.println("Chunk file at " + i + "," + j + " is missing level data, skipping");
                     return null;
                 }
 
-                if (!nbttagcompound.k("Level").b("Blocks")) {
+                if (!nbttagcompound.k("Level").hasKey("Blocks")) {
                     System.out.println("Chunk file at " + i + "," + j + " is missing block data, skipping");
                     return null;
                 }
@@ -65,12 +65,13 @@ public class ChunkLoader implements IChunkLoader {
                 Chunk chunk = a(world, nbttagcompound.k("Level"));
 
                 if (!chunk.a(i, j)) {
-                    System.out.println("Chunk file at " + i + "," + j + " is in the wrong location; relocating. (Expected " + i + ", " + j + ", got " + chunk.j + ", " + chunk.k + ")");
+                    System.out.println("Chunk file at " + i + "," + j + " is in the wrong location; relocating. (Expected " + i + ", " + j + ", got " + chunk.x + ", " + chunk.z + ")");
                     nbttagcompound.a("xPos", i);
                     nbttagcompound.a("zPos", j);
                     chunk = a(world, nbttagcompound.k("Level"));
                 }
 
+                chunk.h();
                 return chunk;
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -81,11 +82,11 @@ public class ChunkLoader implements IChunkLoader {
     }
 
     public void a(World world, Chunk chunk) {
-        world.i();
-        File file1 = this.a(chunk.j, chunk.k);
+        world.j();
+        File file1 = this.a(chunk.x, chunk.z);
 
         if (file1.exists()) {
-            WorldData worlddata = world.n();
+            WorldData worlddata = world.p();
 
             worlddata.b(worlddata.g() - file1.length());
         }
@@ -105,7 +106,7 @@ public class ChunkLoader implements IChunkLoader {
             }
 
             file2.renameTo(file1);
-            WorldData worlddata1 = world.n();
+            WorldData worlddata1 = world.p();
 
             worlddata1.b(worlddata1.g() + file1.length());
         } catch (Exception exception) {
@@ -114,24 +115,24 @@ public class ChunkLoader implements IChunkLoader {
     }
 
     public static void a(Chunk chunk, World world, NBTTagCompound nbttagcompound) {
-        world.i();
-        nbttagcompound.a("xPos", chunk.j);
-        nbttagcompound.a("zPos", chunk.k);
-        nbttagcompound.a("LastUpdate", world.k());
+        world.j();
+        nbttagcompound.a("xPos", chunk.x);
+        nbttagcompound.a("zPos", chunk.z);
+        nbttagcompound.a("LastUpdate", world.getTime());
         nbttagcompound.a("Blocks", chunk.b);
         nbttagcompound.a("Data", chunk.e.a);
         nbttagcompound.a("SkyLight", chunk.f.a);
         nbttagcompound.a("BlockLight", chunk.g.a);
         nbttagcompound.a("HeightMap", chunk.h);
-        nbttagcompound.a("TerrainPopulated", chunk.n);
+        nbttagcompound.a("TerrainPopulated", chunk.done);
         chunk.q = false;
         NBTTagList nbttaglist = new NBTTagList();
 
         Iterator iterator;
         NBTTagCompound nbttagcompound1;
 
-        for (int i = 0; i < chunk.m.length; ++i) {
-            iterator = chunk.m[i].iterator();
+        for (int i = 0; i < chunk.entitySlices.length; ++i) {
+            iterator = chunk.entitySlices[i].iterator();
 
             while (iterator.hasNext()) {
                 Entity entity = (Entity) iterator.next();
@@ -147,7 +148,7 @@ public class ChunkLoader implements IChunkLoader {
         nbttagcompound.a("Entities", (NBTBase) nbttaglist);
         NBTTagList nbttaglist1 = new NBTTagList();
 
-        iterator = chunk.l.values().iterator();
+        iterator = chunk.tileEntities.values().iterator();
 
         while (iterator.hasNext()) {
             TileEntity tileentity = (TileEntity) iterator.next();
@@ -170,7 +171,7 @@ public class ChunkLoader implements IChunkLoader {
         chunk.f = new NibbleArray(nbttagcompound.j("SkyLight"));
         chunk.g = new NibbleArray(nbttagcompound.j("BlockLight"));
         chunk.h = nbttagcompound.j("HeightMap");
-        chunk.n = nbttagcompound.m("TerrainPopulated");
+        chunk.done = nbttagcompound.m("TerrainPopulated");
         if (!chunk.e.a()) {
             chunk.e = new NibbleArray(chunk.b.length);
         }

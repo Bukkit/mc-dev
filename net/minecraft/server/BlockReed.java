@@ -25,34 +25,34 @@ public class BlockReed extends Block {
                 int i1 = world.getData(i, j, k);
 
                 if (i1 == 15) {
-                    world.e(i, j + 1, k, this.id);
-                    world.c(i, j, k, 0);
+                    world.setTypeId(i, j + 1, k, this.id);
+                    world.setData(i, j, k, 0);
                 } else {
-                    world.c(i, j, k, i1 + 1);
+                    world.setData(i, j, k, i1 + 1);
                 }
             }
         }
     }
 
-    public boolean a(World world, int i, int j, int k) {
+    public boolean canPlace(World world, int i, int j, int k) {
         int l = world.getTypeId(i, j - 1, k);
 
         return l == this.id ? true : (l != Block.GRASS.id && l != Block.DIRT.id ? false : (world.getMaterial(i - 1, j - 1, k) == Material.WATER ? true : (world.getMaterial(i + 1, j - 1, k) == Material.WATER ? true : (world.getMaterial(i, j - 1, k - 1) == Material.WATER ? true : world.getMaterial(i, j - 1, k + 1) == Material.WATER))));
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         this.g(world, i, j, k);
     }
 
     protected final void g(World world, int i, int j, int k) {
         if (!this.f(world, i, j, k)) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
-            world.e(i, j, k, 0);
+            this.a_(world, i, j, k, world.getData(i, j, k));
+            world.setTypeId(i, j, k, 0);
         }
     }
 
     public boolean f(World world, int i, int j, int k) {
-        return this.a(world, i, j, k);
+        return this.canPlace(world, i, j, k);
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {

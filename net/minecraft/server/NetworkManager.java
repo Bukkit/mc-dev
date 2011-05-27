@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,10 +15,10 @@ public class NetworkManager {
     public static int b;
     public static int c;
     private Object e = new Object();
-    private Socket f;
+    private Socket socket;
     private final SocketAddress g;
-    private DataInputStream h;
-    private DataOutputStream i;
+    private DataInputStream input;
+    private DataOutputStream output;
     private boolean j = true;
     private List k = Collections.synchronizedList(new ArrayList());
     private List l = Collections.synchronizedList(new ArrayList());
@@ -35,12 +36,18 @@ public class NetworkManager {
     private int w = 50;
 
     public NetworkManager(Socket socket, String s, NetHandler nethandler) {
-        this.f = socket;
+        this.socket = socket;
         this.g = socket.getRemoteSocketAddress();
         this.n = nethandler;
-        socket.setTrafficClass(24);
-        this.h = new DataInputStream(socket.getInputStream());
-        this.i = new DataOutputStream(socket.getOutputStream());
+
+        try {
+            socket.setTrafficClass(24);
+        } catch (SocketException socketexception) {
+            System.err.println(socketexception.getMessage());
+        }
+
+        this.input = new DataInputStream(socket.getInputStream());
+        this.output = new DataOutputStream(socket.getOutputStream());
         this.q = new NetworkReaderThread(this, s + " read thread");
         this.p = new NetworkWriterThread(this, s + " write thread");
         this.q.start();
@@ -72,7 +79,7 @@ public class NetworkManager {
             Object object;
             Packet packet;
 
-            if (!this.l.isEmpty() && (this.d == 0 || System.currentTimeMillis() - ((Packet) this.l.get(0)).j >= (long) this.d)) {
+            if (!this.l.isEmpty() && (this.d == 0 || System.currentTimeMillis() - ((Packet) this.l.get(0)).timestamp >= (long) this.d)) {
                 flag = false;
                 object = this.e;
                 synchronized (this.e) {
@@ -80,10 +87,10 @@ public class NetworkManager {
                     this.v -= packet.a() + 1;
                 }
 
-                Packet.a(packet, this.i);
+                Packet.a(packet, this.output);
             }
 
-            if ((flag || this.w-- <= 0) && !this.m.isEmpty() && (this.d == 0 || System.currentTimeMillis() - ((Packet) this.m.get(0)).j >= (long) this.d)) {
+            if ((flag || this.w-- <= 0) && !this.m.isEmpty() && (this.d == 0 || System.currentTimeMillis() - ((Packet) this.m.get(0)).timestamp >= (long) this.d)) {
                 flag = false;
                 object = this.e;
                 synchronized (this.e) {
@@ -91,7 +98,7 @@ public class NetworkManager {
                     this.v -= packet.a() + 1;
                 }
 
-                Packet.a(packet, this.i);
+                Packet.a(packet, this.output);
                 this.w = 50;
             }
 
@@ -109,7 +116,7 @@ public class NetworkManager {
 
     private void f() {
         try {
-            Packet packet = Packet.b(this.h);
+            Packet packet = Packet.b(this.input);
 
             if (packet != null) {
                 this.k.add(packet);
@@ -137,22 +144,22 @@ public class NetworkManager {
             this.j = false;
 
             try {
-                this.h.close();
-                this.h = null;
+                this.input.close();
+                this.input = null;
             } catch (Throwable throwable) {
                 ;
             }
 
             try {
-                this.i.close();
-                this.i = null;
+                this.output.close();
+                this.output = null;
             } catch (Throwable throwable1) {
                 ;
             }
 
             try {
-                this.f.close();
-                this.f = null;
+                this.socket.close();
+                this.socket = null;
             } catch (Throwable throwable2) {
                 ;
             }
@@ -185,7 +192,7 @@ public class NetworkManager {
         }
     }
 
-    public SocketAddress b() {
+    public SocketAddress getSocketAddress() {
         return this.g;
     }
 

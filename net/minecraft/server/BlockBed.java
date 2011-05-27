@@ -8,10 +8,10 @@ public class BlockBed extends Block {
 
     public BlockBed(int i) {
         super(i, 134, Material.CLOTH);
-        this.f();
+        this.g();
     }
 
-    public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         int l = world.getData(i, j, k);
 
         if (!d(l)) {
@@ -29,12 +29,19 @@ public class BlockBed extends Block {
         if (f(l)) {
             entityhuman.a("tile.bed.occupied");
             return true;
-        } else if (entityhuman.a(i, j, k)) {
-            a(world, i, j, k, true);
-            return true;
         } else {
-            entityhuman.a("tile.bed.noSleep");
-            return true;
+            EnumBedError enumbederror = entityhuman.a(i, j, k);
+
+            if (enumbederror == EnumBedError.OK) {
+                a(world, i, j, k, true);
+                return true;
+            } else {
+                if (enumbederror == EnumBedError.NOT_POSSIBLE_NOW) {
+                    entityhuman.a("tile.bed.noSleep");
+                }
+
+                return true;
+            }
         }
     }
 
@@ -54,21 +61,21 @@ public class BlockBed extends Block {
     }
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
-        this.f();
+        this.g();
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
         int j1 = c(i1);
 
         if (d(i1)) {
             if (world.getTypeId(i - a[j1][0], j, k - a[j1][1]) != this.id) {
-                world.e(i, j, k, 0);
+                world.setTypeId(i, j, k, 0);
             }
         } else if (world.getTypeId(i + a[j1][0], j, k + a[j1][1]) != this.id) {
-            world.e(i, j, k, 0);
+            world.setTypeId(i, j, k, 0);
             if (!world.isStatic) {
-                this.b_(world, i, j, k, i1);
+                this.a_(world, i, j, k, i1);
             }
         }
     }
@@ -77,7 +84,7 @@ public class BlockBed extends Block {
         return d(i) ? 0 : Item.BED.id;
     }
 
-    private void f() {
+    private void g() {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
     }
 
@@ -102,10 +109,10 @@ public class BlockBed extends Block {
             l &= -5;
         }
 
-        world.c(i, j, k, l);
+        world.setData(i, j, k, l);
     }
 
-    public static ChunkCoordinates g(World world, int i, int j, int k, int l) {
+    public static ChunkCoordinates f(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
         int j1 = c(i1);
 
@@ -128,6 +135,6 @@ public class BlockBed extends Block {
             }
         }
 
-        return new ChunkCoordinates(i, j + 1, k);
+        return null;
     }
 }

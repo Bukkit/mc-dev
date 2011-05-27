@@ -17,8 +17,8 @@ public class PlayerListBox extends JList implements IUpdatePlayerListBox {
         if (this.b++ % 20 == 0) {
             Vector vector = new Vector();
 
-            for (int i = 0; i < this.a.f.b.size(); ++i) {
-                vector.add(((EntityPlayer) this.a.f.b.get(i)).name);
+            for (int i = 0; i < this.a.serverConfigurationManager.players.size(); ++i) {
+                vector.add(((EntityPlayer) this.a.serverConfigurationManager.players.get(i)).name);
             }
 
             this.setListData(vector);
