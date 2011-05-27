@@ -410,7 +410,7 @@ public class Block {
     public boolean canPlace(World world, int i, int j, int k) {
         int l = world.getTypeId(i, j, k);
 
-        return l == 0 || byId[l].material.isLiquid();
+        return l == 0 || byId[l].material.isReplacable();
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
@@ -489,6 +489,6 @@ public class Block {
         }
 
         r[0] = true;
-        StatisticList.a();
+        StatisticList.b();
     }
 }

@@ -2,7 +2,9 @@ package net.minecraft.server;
 
 public class MaterialTransparent extends Material {
 
-    public MaterialTransparent() {}
+    public MaterialTransparent() {
+        this.f();
+    }
 
     public boolean isBuildable() {
         return false;

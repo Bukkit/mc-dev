@@ -239,6 +239,6 @@ public class Item {
     }
 
     static {
-        StatisticList.b();
+        StatisticList.c();
     }
 }

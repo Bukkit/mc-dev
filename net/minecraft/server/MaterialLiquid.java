@@ -2,7 +2,9 @@ package net.minecraft.server;
 
 public class MaterialLiquid extends Material {
 
-    public MaterialLiquid() {}
+    public MaterialLiquid() {
+        this.f();
+    }
 
     public boolean isLiquid() {
         return true;

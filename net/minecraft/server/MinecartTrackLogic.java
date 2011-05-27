@@ -335,15 +335,17 @@ class MinecartTrackLogic {
             i = this.b.getData(this.c, this.d, this.e) & 8 | b0;
         }
 
-        this.b.setData(this.c, this.d, this.e, i);
+        if (this.b.getData(this.c, this.d, this.e) != i) {
+            this.b.setData(this.c, this.d, this.e, i);
 
-        for (int j = 0; j < this.g.size(); ++j) {
-            MinecartTrackLogic minecarttracklogic = this.a((ChunkPosition) this.g.get(j));
+            for (int j = 0; j < this.g.size(); ++j) {
+                MinecartTrackLogic minecarttracklogic = this.a((ChunkPosition) this.g.get(j));
 
-            if (minecarttracklogic != null) {
-                minecarttracklogic.a();
-                if (minecarttracklogic.c(this)) {
-                    minecarttracklogic.d(this);
+                if (minecarttracklogic != null) {
+                    minecarttracklogic.a();
+                    if (minecarttracklogic.c(this)) {
+                        minecarttracklogic.d(this);
+                    }
                 }
             }
         }

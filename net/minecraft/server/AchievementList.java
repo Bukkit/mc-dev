@@ -10,7 +10,7 @@ public class AchievementList {
     public static int c;
     public static int d;
     public static List e = new ArrayList();
-    public static Achievement f = (new Achievement(0, "openInventory", 0, 0, Item.BOOK, (Achievement) null)).c();
+    public static Achievement f = (new Achievement(0, "openInventory", 0, 0, Item.BOOK, (Achievement) null)).a().c();
     public static Achievement g = (new Achievement(1, "mineWood", 2, 1, Block.LOG, f)).c();
     public static Achievement h = (new Achievement(2, "buildWorkBench", 4, -1, Block.WORKBENCH, g)).c();
     public static Achievement i = (new Achievement(3, "buildPickaxe", 4, 2, Item.WOOD_PICKAXE, h)).c();
@@ -29,7 +29,9 @@ public class AchievementList {
 
     public AchievementList() {}
 
-    public static void a() {
+    public static void a() {}
+
+    static {
         System.out.println(e.size() + " achievements");
     }
 }

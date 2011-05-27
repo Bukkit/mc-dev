@@ -23,15 +23,27 @@ public class WorldLoader implements Convertable {
             return null;
         } else {
             File file2 = new File(file1, "level.dat");
+            NBTTagCompound nbttagcompound;
+            NBTTagCompound nbttagcompound1;
 
             if (file2.exists()) {
                 try {
-                    NBTTagCompound nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file2)));
-                    NBTTagCompound nbttagcompound1 = nbttagcompound.k("Data");
-
+                    nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file2)));
+                    nbttagcompound1 = nbttagcompound.k("Data");
                     return new WorldData(nbttagcompound1);
                 } catch (Exception exception) {
                     exception.printStackTrace();
+                }
+            }
+
+            file2 = new File(file1, "level.dat_old");
+            if (file2.exists()) {
+                try {
+                    nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file2)));
+                    nbttagcompound1 = nbttagcompound.k("Data");
+                    return new WorldData(nbttagcompound1);
+                } catch (Exception exception1) {
+                    exception1.printStackTrace();
                 }
             }
 

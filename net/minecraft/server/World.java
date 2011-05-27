@@ -825,19 +825,14 @@ public class World implements IBlockAccess {
 
     public int e(int i, int j) {
         Chunk chunk = this.b(i, j);
-
-        int k;
-
-        for (k = 127; this.getMaterial(i, k, j).isSolid() && k > 0; --k) {
-            ;
-        }
+        int k = 127;
 
         i &= 15;
 
         for (j &= 15; k > 0; --k) {
             int l = chunk.getTypeId(i, k, j);
 
-            if (l != 0 && (Block.byId[l].material.isSolid() || Block.byId[l].material.isLiquid())) {
+            if (l != 0 && Block.byId[l].material.isSolid()) {
                 return k + 1;
             }
         }
@@ -1982,6 +1977,8 @@ public class World implements IBlockAccess {
         if (!this.v()) {
             return false;
         } else if (!this.isChunkLoaded(i, j, k)) {
+            return false;
+        } else if (this.e(i, k) > j) {
             return false;
         } else {
             BiomeBase biomebase = this.getWorldChunkManager().getBiome(i, k);

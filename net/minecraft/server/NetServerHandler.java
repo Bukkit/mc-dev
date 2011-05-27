@@ -189,7 +189,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 return;
             }
 
-            AxisAlignedBB axisalignedbb = this.player.boundingBox.clone().b((double) f4, (double) f4, (double) f4);
+            AxisAlignedBB axisalignedbb = this.player.boundingBox.clone().b((double) f4, (double) f4, (double) f4).a(0.0D, -0.55D, 0.0D);
 
             if (!this.minecraftServer.o && !this.minecraftServer.worldServer.b(axisalignedbb)) {
                 if (d6 >= -0.03125D) {

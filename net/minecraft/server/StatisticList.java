@@ -46,21 +46,23 @@ public class StatisticList {
 
     public StatisticList() {}
 
-    public static void a() {
+    public static void a() {}
+
+    public static void b() {
         E = a(E, "stat.useItem", 16908288, 0, Block.byId.length);
         F = b(F, "stat.breakItem", 16973824, 0, Block.byId.length);
         G = true;
-        c();
-    }
-
-    public static void b() {
-        E = a(E, "stat.useItem", 16908288, Block.byId.length, 32000);
-        F = b(F, "stat.breakItem", 16973824, Block.byId.length, 32000);
-        H = true;
-        c();
+        d();
     }
 
     public static void c() {
+        E = a(E, "stat.useItem", 16908288, Block.byId.length, 32000);
+        F = b(F, "stat.breakItem", 16973824, Block.byId.length, 32000);
+        H = true;
+        d();
+    }
+
+    public static void d() {
         if (G && H) {
             HashSet hashset = new HashSet();
             Iterator iterator = CraftingManager.a().b().iterator();
@@ -176,7 +178,6 @@ public class StatisticList {
 
     static {
         AchievementList.a();
-        System.out.println("Stats: " + b.size());
         G = false;
         H = false;
     }

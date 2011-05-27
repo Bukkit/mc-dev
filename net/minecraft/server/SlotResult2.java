@@ -9,6 +9,10 @@ public class SlotResult2 extends Slot {
         this.d = entityhuman;
     }
 
+    public boolean isAllowed(ItemStack itemstack) {
+        return false;
+    }
+
     public boolean e() {
         return true;
     }
