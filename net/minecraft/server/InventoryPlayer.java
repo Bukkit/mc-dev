@@ -118,6 +118,7 @@ public class InventoryPlayer implements IInventory {
             if (i >= 0) {
                 this.items[i] = itemstack;
                 this.items[i].b = 5;
+                itemstack.count = 0;
                 return true;
             } else {
                 return false;

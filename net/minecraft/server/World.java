@@ -1383,10 +1383,10 @@ public class World implements IBlockAccess {
         } else {
             ++this.K;
 
-            boolean flag;
-
             try {
                 int i = 500;
+
+                boolean flag;
 
                 while (this.C.size() > 0) {
                     --i;
@@ -1399,11 +1399,10 @@ public class World implements IBlockAccess {
                 }
 
                 flag = false;
+                return flag;
             } finally {
                 --this.K;
             }
-
-            return flag;
         }
     }
 
