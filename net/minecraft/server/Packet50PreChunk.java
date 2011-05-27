@@ -10,11 +10,11 @@ public class Packet50PreChunk extends Packet {
     public boolean c;
 
     public Packet50PreChunk() {
-        this.k = false;
+        this.l = false;
     }
 
     public Packet50PreChunk(int i, int j, boolean flag) {
-        this.k = false;
+        this.l = false;
         this.a = i;
         this.b = j;
         this.c = flag;

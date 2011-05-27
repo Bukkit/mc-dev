@@ -42,7 +42,7 @@ public class TileEntity {
         }
     }
 
-    public void e() {}
+    public void f() {}
 
     public static TileEntity c(NBTTagCompound nbttagcompound) {
         TileEntity tileentity = null;
@@ -72,14 +72,16 @@ public class TileEntity {
         }
     }
 
-    public Packet f() {
+    public Packet g() {
         return null;
     }
 
     static {
         a(TileEntityFurnace.class, "Furnace");
         a(TileEntityChest.class, "Chest");
+        a(TileEntityDispenser.class, "Trap");
         a(TileEntitySign.class, "Sign");
         a(TileEntityMobSpawner.class, "MobSpawner");
+        a(TileEntityNote.class, "Music");
     }
 }

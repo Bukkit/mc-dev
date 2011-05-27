@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.util.List;
 
 public class Packet24MobSpawn extends Packet {
 
@@ -12,6 +13,8 @@ public class Packet24MobSpawn extends Packet {
     public int e;
     public byte f;
     public byte g;
+    private DataWatcher h;
+    private List i;
 
     public Packet24MobSpawn() {}
 
@@ -23,6 +26,7 @@ public class Packet24MobSpawn extends Packet {
         this.e = MathHelper.b(entityliving.r * 32.0D);
         this.f = (byte) ((int) (entityliving.v * 256.0F / 360.0F));
         this.g = (byte) ((int) (entityliving.w * 256.0F / 360.0F));
+        this.h = entityliving.p();
     }
 
     public void a(DataInputStream datainputstream) {
@@ -33,6 +37,7 @@ public class Packet24MobSpawn extends Packet {
         this.e = datainputstream.readInt();
         this.f = datainputstream.readByte();
         this.g = datainputstream.readByte();
+        this.i = DataWatcher.a(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
@@ -43,6 +48,7 @@ public class Packet24MobSpawn extends Packet {
         dataoutputstream.writeInt(this.e);
         dataoutputstream.writeByte(this.f);
         dataoutputstream.writeByte(this.g);
+        this.h.a(dataoutputstream);
     }
 
     public void a(NetHandler nethandler) {
@@ -50,6 +56,6 @@ public class Packet24MobSpawn extends Packet {
     }
 
     public int a() {
-        return 19;
+        return 20;
     }
 }

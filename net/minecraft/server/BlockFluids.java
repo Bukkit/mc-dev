@@ -13,7 +13,7 @@ public abstract class BlockFluids extends Block {
         this.a(true);
     }
 
-    public static float b(int i) {
+    public static float c(int i) {
         if (i >= 8) {
             i = 0;
         }
@@ -24,15 +24,15 @@ public abstract class BlockFluids extends Block {
     }
 
     public int a(int i) {
-        return i != 0 && i != 1 ? this.bg + 1 : this.bg;
+        return i != 0 && i != 1 ? this.bh + 1 : this.bh;
     }
 
     protected int g(World world, int i, int j, int k) {
-        return world.c(i, j, k) != this.bs ? -1 : world.b(i, j, k);
+        return world.c(i, j, k) != this.bt ? -1 : world.b(i, j, k);
     }
 
     protected int b(IBlockAccess iblockaccess, int i, int j, int k) {
-        if (iblockaccess.c(i, j, k) != this.bs) {
+        if (iblockaccess.c(i, j, k) != this.bt) {
             return -1;
         } else {
             int l = iblockaccess.b(i, j, k);
@@ -56,7 +56,7 @@ public abstract class BlockFluids extends Block {
     public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         Material material = iblockaccess.c(i, j, k);
 
-        return material == this.bs ? false : (material == Material.r ? false : (l == 1 ? true : super.a(iblockaccess, i, j, k, l)));
+        return material == this.bt ? false : (material == Material.r ? false : (l == 1 ? true : super.a(iblockaccess, i, j, k, l)));
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {
@@ -165,7 +165,7 @@ public abstract class BlockFluids extends Block {
     }
 
     public int b() {
-        return this.bs == Material.f ? 5 : (this.bs == Material.g ? 30 : 0);
+        return this.bt == Material.f ? 5 : (this.bt == Material.g ? 30 : 0);
     }
 
     public void a(World world, int i, int j, int k, Random random) {
@@ -181,8 +181,8 @@ public abstract class BlockFluids extends Block {
     }
 
     private void i(World world, int i, int j, int k) {
-        if (world.a(i, j, k) == this.bh) {
-            if (this.bs == Material.g) {
+        if (world.a(i, j, k) == this.bi) {
+            if (this.bt == Material.g) {
                 boolean flag = false;
 
                 if (flag || world.c(i, j, k - 1) == Material.f) {
@@ -209,9 +209,9 @@ public abstract class BlockFluids extends Block {
                     int l = world.b(i, j, k);
 
                     if (l == 0) {
-                        world.d(i, j, k, Block.OBSIDIAN.bh);
+                        world.e(i, j, k, Block.OBSIDIAN.bi);
                     } else if (l <= 4) {
-                        world.d(i, j, k, Block.COBBLESTONE.bh);
+                        world.e(i, j, k, Block.COBBLESTONE.bi);
                     }
 
                     this.h(world, i, j, k);

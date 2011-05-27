@@ -28,6 +28,8 @@ public class EntityItem extends Entity {
         this.H = this.J / 2.0F;
     }
 
+    protected void a() {}
+
     public void b_() {
         super.b_();
         if (this.c > 0) {
@@ -46,7 +48,6 @@ public class EntityItem extends Entity {
         }
 
         this.g(this.p, this.q, this.r);
-        this.r();
         this.c(this.s, this.t, this.u);
         float f = 0.98F;
 
@@ -55,7 +56,7 @@ public class EntityItem extends Entity {
             int i = this.l.a(MathHelper.b(this.p), MathHelper.b(this.z.b) - 1, MathHelper.b(this.r));
 
             if (i > 0) {
-                f = Block.m[i].bt * 0.98F;
+                f = Block.m[i].bu * 0.98F;
             }
         }
 
@@ -69,11 +70,11 @@ public class EntityItem extends Entity {
         ++this.e;
         ++this.b;
         if (this.b >= 6000) {
-            this.l();
+            this.q();
         }
     }
 
-    public boolean r() {
+    public boolean v() {
         return this.l.a(this.z, Material.f, this);
     }
 
@@ -160,10 +161,10 @@ public class EntityItem extends Entity {
     }
 
     public boolean a(Entity entity, int i) {
-        this.u();
+        this.y();
         this.f -= i;
         if (this.f <= 0) {
-            this.l();
+            this.q();
         }
 
         return false;
@@ -190,7 +191,7 @@ public class EntityItem extends Entity {
             if (this.c == 0 && entityhuman.an.a(this.a)) {
                 this.l.a(this, "random.pop", 0.2F, ((this.W.nextFloat() - this.W.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 entityhuman.c(this, i);
-                this.l();
+                this.q();
             }
         }
     }

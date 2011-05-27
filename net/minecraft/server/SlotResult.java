@@ -14,9 +14,14 @@ public class SlotResult extends Slot {
     }
 
     public void b() {
-        for (int i = 0; i < this.a.a(); ++i) {
-            if (this.a.a(i) != null) {
-                this.a.a(i, 1);
+        for (int i = 0; i < this.a.h_(); ++i) {
+            ItemStack itemstack = this.a.a(i);
+
+            if (itemstack != null) {
+                this.a.b(i, 1);
+                if (itemstack.a().g()) {
+                    this.a.a(i, new ItemStack(itemstack.a().f()));
+                }
             }
         }
     }

@@ -8,11 +8,11 @@ public class BlockStairs extends Block {
     private Block a;
 
     protected BlockStairs(int i, Block block) {
-        super(i, block.bg, block.bs);
+        super(i, block.bh, block.bt);
         this.a = block;
-        this.c(block.bi);
-        this.b(block.bj / 3.0F);
-        this.a(block.bq);
+        this.c(block.bj);
+        this.b(block.bk / 3.0F);
+        this.a(block.br);
     }
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
@@ -132,27 +132,27 @@ public class BlockStairs extends Block {
         return this.a.a(world, i, j, k, entityhuman);
     }
 
-    public void c(World world, int i, int j, int k) {
-        this.a.c(world, i, j, k);
+    public void a_(World world, int i, int j, int k) {
+        this.a.a_(world, i, j, k);
     }
 
     public void a(World world, int i, int j, int k, EntityLiving entityliving) {
         int l = MathHelper.b((double) (entityliving.v * 4.0F / 360.0F) + 0.5D) & 3;
 
         if (l == 0) {
-            world.b(i, j, k, 2);
+            world.c(i, j, k, 2);
         }
 
         if (l == 1) {
-            world.b(i, j, k, 1);
+            world.c(i, j, k, 1);
         }
 
         if (l == 2) {
-            world.b(i, j, k, 3);
+            world.c(i, j, k, 3);
         }
 
         if (l == 3) {
-            world.b(i, j, k, 0);
+            world.c(i, j, k, 0);
         }
     }
 }

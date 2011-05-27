@@ -6,31 +6,31 @@ public class EntitySkeleton extends EntityMonster {
 
     public EntitySkeleton(World world) {
         super(world);
-        this.aQ = "/mob/skeleton.png";
-    }
-
-    protected String d() {
-        return "mob.skeleton";
+        this.aP = "/mob/skeleton.png";
     }
 
     protected String e() {
-        return "mob.skeletonhurt";
+        return "mob.skeleton";
     }
 
     protected String f() {
         return "mob.skeletonhurt";
     }
 
-    public void G() {
+    protected String g() {
+        return "mob.skeletonhurt";
+    }
+
+    public void o() {
         if (this.l.b()) {
             float f = this.b(1.0F);
 
-            if (f > 0.5F && this.l.h(MathHelper.b(this.p), MathHelper.b(this.q), MathHelper.b(this.r)) && this.W.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
+            if (f > 0.5F && this.l.i(MathHelper.b(this.p), MathHelper.b(this.q), MathHelper.b(this.r)) && this.W.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
                 this.Z = 300;
             }
         }
 
-        super.G();
+        super.o();
     }
 
     protected void a(Entity entity, float f) {
@@ -38,7 +38,7 @@ public class EntitySkeleton extends EntityMonster {
             double d0 = entity.p - this.p;
             double d1 = entity.r - this.r;
 
-            if (this.bg == 0) {
+            if (this.bf == 0) {
                 EntityArrow entityarrow = new EntityArrow(this.l, this);
 
                 ++entityarrow.q;
@@ -48,11 +48,11 @@ public class EntitySkeleton extends EntityMonster {
                 this.l.a(this, "random.bow", 1.0F, 1.0F / (this.W.nextFloat() * 0.4F + 0.8F));
                 this.l.a((Entity) entityarrow);
                 entityarrow.a(d0, d2 + (double) f1, d1, 0.6F, 12.0F);
-                this.bg = 30;
+                this.bf = 30;
             }
 
             this.v = (float) (Math.atan2(d1, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
-            this.ak = true;
+            this.e = true;
         }
     }
 
@@ -64,7 +64,23 @@ public class EntitySkeleton extends EntityMonster {
         super.b(nbttagcompound);
     }
 
-    protected int g() {
-        return Item.ARROW.aW;
+    protected int h() {
+        return Item.ARROW.ba;
+    }
+
+    protected void g_() {
+        int i = this.W.nextInt(3);
+
+        int j;
+
+        for (j = 0; j < i; ++j) {
+            this.a(Item.ARROW.ba, 1);
+        }
+
+        i = this.W.nextInt(3);
+
+        for (j = 0; j < i; ++j) {
+            this.a(Item.BONE.ba, 1);
+        }
     }
 }

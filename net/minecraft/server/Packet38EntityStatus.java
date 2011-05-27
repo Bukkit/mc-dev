@@ -3,22 +3,26 @@ package net.minecraft.server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
-public class Packet8 extends Packet {
+public class Packet38EntityStatus extends Packet {
 
     public int a;
+    public byte b;
 
-    public Packet8() {}
+    public Packet38EntityStatus() {}
 
-    public Packet8(int i) {
+    public Packet38EntityStatus(int i, byte b0) {
         this.a = i;
+        this.b = b0;
     }
 
     public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readShort();
+        this.a = datainputstream.readInt();
+        this.b = datainputstream.readByte();
     }
 
     public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeShort(this.a);
+        dataoutputstream.writeInt(this.a);
+        dataoutputstream.writeByte(this.b);
     }
 
     public void a(NetHandler nethandler) {
@@ -26,6 +30,6 @@ public class Packet8 extends Packet {
     }
 
     public int a() {
-        return 2;
+        return 5;
     }
 }

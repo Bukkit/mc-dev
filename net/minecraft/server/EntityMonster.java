@@ -2,31 +2,31 @@ package net.minecraft.server;
 
 public class EntityMonster extends EntityCreature implements IMonster {
 
-    protected int f = 2;
+    protected int c = 2;
 
     public EntityMonster(World world) {
         super(world);
-        this.ba = 20;
+        this.aZ = 20;
     }
 
-    public void G() {
+    public void o() {
         float f = this.b(1.0F);
 
         if (f > 0.5F) {
-            this.bx += 2;
+            this.bw += 2;
         }
 
-        super.G();
+        super.o();
     }
 
     public void b_() {
         super.b_();
         if (this.l.k == 0) {
-            this.l();
+            this.q();
         }
     }
 
-    protected Entity k() {
+    protected Entity l() {
         EntityHuman entityhuman = this.l.a(this, 16.0D);
 
         return entityhuman != null && this.i(entityhuman) ? entityhuman : null;
@@ -36,7 +36,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
         if (super.a(entity, i)) {
             if (this.j != entity && this.k != entity) {
                 if (entity != this) {
-                    this.aj = entity;
+                    this.d = entity;
                 }
 
                 return true;
@@ -50,13 +50,13 @@ public class EntityMonster extends EntityCreature implements IMonster {
 
     protected void a(Entity entity, float f) {
         if ((double) f < 2.5D && entity.z.e > this.z.b && entity.z.b < this.z.e) {
-            this.bg = 20;
-            entity.a(this, this.f);
+            this.bf = 20;
+            entity.a(this, this.c);
         }
     }
 
     protected float a(int i, int j, int k) {
-        return 0.5F - this.l.k(i, j, k);
+        return 0.5F - this.l.l(i, j, k);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -67,7 +67,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
         super.b(nbttagcompound);
     }
 
-    public boolean a() {
+    public boolean b() {
         int i = MathHelper.b(this.p);
         int j = MathHelper.b(this.z.b);
         int k = MathHelper.b(this.r);
@@ -75,9 +75,9 @@ public class EntityMonster extends EntityCreature implements IMonster {
         if (this.l.a(EnumSkyBlock.SKY, i, j, k) > this.W.nextInt(32)) {
             return false;
         } else {
-            int l = this.l.i(i, j, k);
+            int l = this.l.j(i, j, k);
 
-            return l <= this.W.nextInt(8) && super.a();
+            return l <= this.W.nextInt(8) && super.b();
         }
     }
 }

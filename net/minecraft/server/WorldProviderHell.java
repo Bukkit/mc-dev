@@ -38,7 +38,7 @@ public class WorldProviderHell extends WorldProvider {
     public boolean a(int i, int j) {
         int k = this.a.a(i, j);
 
-        return k == Block.BEDROCK.bh ? false : (k == 0 ? false : Block.o[k]);
+        return k == Block.BEDROCK.bi ? false : (k == 0 ? false : Block.o[k]);
     }
 
     public float a(long i, float f) {

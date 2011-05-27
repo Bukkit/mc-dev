@@ -347,4 +347,8 @@ public class AxisAlignedBB {
         this.e = axisalignedbb.e;
         this.f = axisalignedbb.f;
     }
+
+    public String toString() {
+        return "box[" + this.a + ", " + this.b + ", " + this.c + " -> " + this.d + ", " + this.e + ", " + this.f + "]";
+    }
 }

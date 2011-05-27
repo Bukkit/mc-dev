@@ -10,7 +10,7 @@ public class BlockSnowBlock extends Block {
     }
 
     public int a(int i, Random random) {
-        return Item.SNOW_BALL.aW;
+        return Item.SNOW_BALL.ba;
     }
 
     public int a(Random random) {
@@ -20,7 +20,7 @@ public class BlockSnowBlock extends Block {
     public void a(World world, int i, int j, int k, Random random) {
         if (world.a(EnumSkyBlock.BLOCK, i, j, k) > 11) {
             this.a_(world, i, j, k, world.b(i, j, k));
-            world.d(i, j, k, 0);
+            world.e(i, j, k, 0);
         }
     }
 }

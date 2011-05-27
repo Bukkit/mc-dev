@@ -4,7 +4,7 @@ public class ItemPainting extends Item {
 
     public ItemPainting(int i) {
         super(i);
-        this.aY = 64;
+        this.bc = 64;
     }
 
     public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
@@ -29,8 +29,11 @@ public class ItemPainting extends Item {
 
             EntityPainting entitypainting = new EntityPainting(world, i, j, k, b0);
 
-            if (entitypainting.c()) {
-                world.a((Entity) entitypainting);
+            if (entitypainting.d()) {
+                if (!world.z) {
+                    world.a((Entity) entitypainting);
+                }
+
                 --itemstack.a;
             }
 

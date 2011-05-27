@@ -62,7 +62,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 float f = this.e.v;
                 float f1 = this.e.w;
 
-                this.e.k.A();
+                this.e.k.E();
                 d1 = this.e.p;
                 d2 = this.e.q;
                 d3 = this.e.r;
@@ -80,7 +80,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 }
 
                 this.e.A = packet10flying.g;
-                this.e.F();
+                this.e.n();
                 this.e.c(d5, 0.0D, d4);
                 this.e.b(d1, d2, d3, f, f1);
                 this.e.s = d5;
@@ -90,7 +90,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 }
 
                 if (this.e.k != null) {
-                    this.e.k.A();
+                    this.e.k.E();
                 }
 
                 this.d.f.b(this.e);
@@ -125,7 +125,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                     a.warning(this.e.aw + " had an illegal stance: " + d4);
                 }
 
-                this.e.ak = packet10flying.d;
+                this.e.al = packet10flying.d;
             }
 
             if (packet10flying.i) {
@@ -133,7 +133,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 f3 = packet10flying.f;
             }
 
-            this.e.F();
+            this.e.n();
             this.e.R = 0.0F;
             this.e.b(this.g, this.h, this.i, f2, f3);
             d4 = d1 - this.e.p;
@@ -185,7 +185,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void a(Packet14BlockDig packet14blockdig) {
         if (packet14blockdig.e == 4) {
-            this.e.L();
+            this.e.O();
         } else {
             boolean flag = this.d.e.B = this.d.f.g(this.e.aw);
             boolean flag1 = false;
@@ -214,7 +214,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
                 double d4 = this.e.q;
 
-                this.e.q = this.e.ak;
+                this.e.q = this.e.al;
                 this.e.q = d4;
             }
 
@@ -310,13 +310,13 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
 
         this.e.am = true;
-        this.e.an.a[this.e.an.c] = ItemStack.a(this.e.an.a[this.e.an.c]);
+        this.e.an.a[this.e.an.c] = ItemStack.b(this.e.an.a[this.e.an.c]);
         Slot slot = this.e.ap.a(this.e.an, this.e.an.c);
 
         this.e.ap.a();
         this.e.am = false;
         if (!ItemStack.a(this.e.an.e(), packet15place.e)) {
-            this.b((Packet) (new Packet103(this.e.ap.f, slot.c, this.e.an.e())));
+            this.b((Packet) (new Packet103SetSlot(this.e.ap.f, slot.c, this.e.an.e())));
         }
 
         this.d.e.B = false;
@@ -402,11 +402,16 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void a(Packet18ArmAnimation packet18armanimation) {
         if (packet18armanimation.b == 1) {
-            this.e.H();
-        } else if (packet18armanimation.b == 104) {
-            this.e.al = true;
-        } else if (packet18armanimation.b == 105) {
-            this.e.al = false;
+            this.e.K();
+        }
+    }
+
+    public void a(Packet19EntityAction packet19entityaction) {
+        System.out.println("handlePlayerCommand " + packet19entityaction.a + " " + packet19entityaction.b);
+        if (packet19entityaction.b == 1) {
+            this.e.b(true);
+        } else if (packet19entityaction.b == 2) {
+            this.e.b(false);
         }
     }
 
@@ -426,41 +431,41 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         return this.e.aw;
     }
 
-    public void a(Packet7 packet7) {
-        Entity entity = this.d.e.a(packet7.b);
+    public void a(Packet7UseEntity packet7useentity) {
+        Entity entity = this.d.e.a(packet7useentity.b);
 
         if (entity != null && this.e.i(entity)) {
-            if (packet7.c == 0) {
+            if (packet7useentity.c == 0) {
                 this.e.g(entity);
-            } else if (packet7.c == 1) {
+            } else if (packet7useentity.c == 1) {
                 this.e.h(entity);
             }
         }
     }
 
-    public void a(Packet9 packet9) {
-        if (this.e.ba <= 0) {
+    public void a(Packet9Respawn packet9respawn) {
+        if (this.e.aZ <= 0) {
             this.e = this.d.f.d(this.e);
         }
     }
 
-    public void a(Packet101 packet101) {
-        this.e.K();
+    public void a(Packet101CloseWindow packet101closewindow) {
+        this.e.N();
     }
 
-    public void a(Packet102 packet102) {
-        if (this.e.ap.f == packet102.a && this.e.ap.c(this.e)) {
-            ItemStack itemstack = this.e.ap.a(packet102.b, packet102.c, this.e);
+    public void a(Packet102WindowClick packet102windowclick) {
+        if (this.e.ap.f == packet102windowclick.a && this.e.ap.c(this.e)) {
+            ItemStack itemstack = this.e.ap.a(packet102windowclick.b, packet102windowclick.c, this.e);
 
-            if (ItemStack.a(packet102.e, itemstack)) {
-                this.e.a.b((Packet) (new Packet106(packet102.a, packet102.d, true)));
+            if (ItemStack.a(packet102windowclick.e, itemstack)) {
+                this.e.a.b((Packet) (new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, true)));
                 this.e.am = true;
                 this.e.ap.a();
-                this.e.J();
+                this.e.M();
                 this.e.am = false;
             } else {
-                this.k.put(Integer.valueOf(this.e.ap.f), Short.valueOf(packet102.d));
-                this.e.a.b((Packet) (new Packet106(packet102.a, packet102.d, false)));
+                this.k.put(Integer.valueOf(this.e.ap.f), Short.valueOf(packet102windowclick.d));
+                this.e.a.b((Packet) (new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, false)));
                 this.e.ap.a(this.e, false);
                 ArrayList arraylist = new ArrayList();
 
@@ -473,17 +478,17 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
     }
 
-    public void a(Packet106 packet106) {
+    public void a(Packet106Transaction packet106transaction) {
         Short oshort = (Short) this.k.get(Integer.valueOf(this.e.ap.f));
 
-        if (oshort != null && packet106.b == oshort.shortValue() && this.e.ap.f == packet106.a && !this.e.ap.c(this.e)) {
+        if (oshort != null && packet106transaction.b == oshort.shortValue() && this.e.ap.f == packet106transaction.a && !this.e.ap.c(this.e)) {
             this.e.ap.a(this.e, true);
         }
     }
 
-    public void a(Packet130 packet130) {
-        if (this.d.e.f(packet130.a, packet130.b, packet130.c)) {
-            TileEntity tileentity = this.d.e.l(packet130.a, packet130.b, packet130.c);
+    public void a(Packet130UpdateSign packet130updatesign) {
+        if (this.d.e.f(packet130updatesign.a, packet130updatesign.b, packet130updatesign.c)) {
+            TileEntity tileentity = this.d.e.m(packet130updatesign.a, packet130updatesign.b, packet130updatesign.c);
 
             int i;
             int j;
@@ -491,30 +496,30 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             for (i = 0; i < 4; ++i) {
                 boolean flag = true;
 
-                if (packet130.d[i].length() > 15) {
+                if (packet130updatesign.d[i].length() > 15) {
                     flag = false;
                 } else {
-                    for (j = 0; j < packet130.d[i].length(); ++j) {
-                        if (FontAllowedCharacters.a.indexOf(packet130.d[i].charAt(j)) < 0) {
+                    for (j = 0; j < packet130updatesign.d[i].length(); ++j) {
+                        if (FontAllowedCharacters.a.indexOf(packet130updatesign.d[i].charAt(j)) < 0) {
                             flag = false;
                         }
                     }
                 }
 
                 if (!flag) {
-                    packet130.d[i] = "!?";
+                    packet130updatesign.d[i] = "!?";
                 }
             }
 
             if (tileentity instanceof TileEntitySign) {
-                i = packet130.a;
-                int k = packet130.b;
+                i = packet130updatesign.a;
+                int k = packet130updatesign.b;
 
-                j = packet130.c;
+                j = packet130updatesign.c;
                 TileEntitySign tileentitysign = (TileEntitySign) tileentity;
 
                 for (int l = 0; l < 4; ++l) {
-                    tileentitysign.e[l] = packet130.d[l];
+                    tileentitysign.e[l] = packet130updatesign.d[l];
                 }
 
                 tileentitysign.d();

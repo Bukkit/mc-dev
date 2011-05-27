@@ -10,8 +10,8 @@ public abstract class Packet {
 
     private static Map a = new HashMap();
     private static Map b = new HashMap();
-    public final long j = System.currentTimeMillis();
-    public boolean k = false;
+    public final long k = System.currentTimeMillis();
+    public boolean l = false;
 
     public Packet() {}
 
@@ -78,11 +78,11 @@ public abstract class Packet {
         a(2, Packet2Handshake.class);
         a(3, Packet3Chat.class);
         a(4, Packet4UpdateTime.class);
-        a(5, Packet5PlayerInventory.class);
+        a(5, Packet5EntityEquipment.class);
         a(6, Packet6SpawnPosition.class);
-        a(7, Packet7.class);
-        a(8, Packet8.class);
-        a(9, Packet9.class);
+        a(7, Packet7UseEntity.class);
+        a(8, Packet8UpdateHealth.class);
+        a(9, Packet9Respawn.class);
         a(10, Packet10Flying.class);
         a(11, Packet11PlayerPosition.class);
         a(12, Packet12PlayerLook.class);
@@ -91,33 +91,37 @@ public abstract class Packet {
         a(15, Packet15Place.class);
         a(16, Packet16BlockItemSwitch.class);
         a(18, Packet18ArmAnimation.class);
+        a(19, Packet19EntityAction.class);
         a(20, Packet20NamedEntitySpawn.class);
         a(21, Packet21PickupSpawn.class);
         a(22, Packet22Collect.class);
         a(23, Packet23VehicleSpawn.class);
         a(24, Packet24MobSpawn.class);
-        a(28, Packet28.class);
+        a(25, Packet25EntityPainting.class);
+        a(28, Packet28EntityVelocity.class);
         a(29, Packet29DestroyEntity.class);
         a(30, Packet30Entity.class);
         a(31, Packet31RelEntityMove.class);
         a(32, Packet32EntityLook.class);
         a(33, Packet33RelEntityMoveLook.class);
         a(34, Packet34EntityTeleport.class);
-        a(38, Packet38.class);
-        a(39, Packet39.class);
+        a(38, Packet38EntityStatus.class);
+        a(39, Packet39AttachEntity.class);
+        a(40, Packet40EntityMetadata.class);
         a(50, Packet50PreChunk.class);
         a(51, Packet51MapChunk.class);
         a(52, Packet52MultiBlockChange.class);
         a(53, Packet53BlockChange.class);
-        a(60, Packet60.class);
-        a(100, Packet100.class);
-        a(101, Packet101.class);
-        a(102, Packet102.class);
-        a(103, Packet103.class);
-        a(104, Packet104.class);
-        a(105, Packet105.class);
-        a(106, Packet106.class);
-        a(130, Packet130.class);
+        a(54, Packet54PlayNoteBlock.class);
+        a(60, Packet60Explosion.class);
+        a(100, Packet100OpenWindow.class);
+        a(101, Packet101CloseWindow.class);
+        a(102, Packet102WindowClick.class);
+        a(103, Packet103SetSlot.class);
+        a(104, Packet104WindowItems.class);
+        a(105, Packet105CraftProgressBar.class);
+        a(106, Packet106Transaction.class);
+        a(130, Packet130UpdateSign.class);
         a(255, Packet255KickDisconnect.class);
     }
 }

@@ -27,6 +27,8 @@ public class EntityTNTPrimed extends Entity {
         this.o = d2;
     }
 
+    protected void a() {}
+
     public boolean c_() {
         return !this.G;
     }
@@ -47,14 +49,14 @@ public class EntityTNTPrimed extends Entity {
         }
 
         if (this.a-- <= 0) {
-            this.l();
-            this.c();
+            this.q();
+            this.d();
         } else {
             this.l.a("smoke", this.p, this.q + 0.5D, this.r, 0.0D, 0.0D, 0.0D);
         }
     }
 
-    private void c() {
+    private void d() {
         float f = 4.0F;
 
         this.l.a((Entity) null, this.p, this.q, this.r, f);

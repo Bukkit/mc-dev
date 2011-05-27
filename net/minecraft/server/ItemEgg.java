@@ -4,7 +4,7 @@ public class ItemEgg extends Item {
 
     public ItemEgg(int i) {
         super(i);
-        this.aX = 16;
+        this.bb = 16;
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {

@@ -3,44 +3,38 @@ package net.minecraft.server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
-public class Packet130 extends Packet {
+public class Packet54PlayNoteBlock extends Packet {
 
     public int a;
     public int b;
     public int c;
-    public String[] d;
+    public int d;
+    public int e;
 
-    public Packet130() {
-        this.k = true;
-    }
+    public Packet54PlayNoteBlock() {}
 
-    public Packet130(int i, int j, int k, String[] astring) {
-        this.k = true;
+    public Packet54PlayNoteBlock(int i, int j, int k, int l, int i1) {
         this.a = i;
         this.b = j;
         this.c = k;
-        this.d = astring;
+        this.d = l;
+        this.e = i1;
     }
 
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readInt();
         this.b = datainputstream.readShort();
         this.c = datainputstream.readInt();
-        this.d = new String[4];
-
-        for (int i = 0; i < 4; ++i) {
-            this.d[i] = datainputstream.readUTF();
-        }
+        this.d = datainputstream.read();
+        this.e = datainputstream.read();
     }
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeShort(this.b);
         dataoutputstream.writeInt(this.c);
-
-        for (int i = 0; i < 4; ++i) {
-            dataoutputstream.writeUTF(this.d[i]);
-        }
+        dataoutputstream.write(this.d);
+        dataoutputstream.write(this.e);
     }
 
     public void a(NetHandler nethandler) {
@@ -48,12 +42,6 @@ public class Packet130 extends Packet {
     }
 
     public int a() {
-        int i = 0;
-
-        for (int j = 0; j < 4; ++j) {
-            i += this.d[j].length();
-        }
-
-        return i;
+        return 12;
     }
 }

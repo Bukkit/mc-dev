@@ -2,11 +2,11 @@ package net.minecraft.server;
 
 public interface IInventory {
 
-    int a();
+    int h_();
 
     ItemStack a(int i);
 
-    ItemStack a(int i, int j);
+    ItemStack b(int i, int j);
 
     void a(int i, ItemStack itemstack);
 

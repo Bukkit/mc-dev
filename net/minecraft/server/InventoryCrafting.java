@@ -7,24 +7,36 @@ public class InventoryCrafting implements IInventory {
     private Container c;
 
     public InventoryCrafting(Container container, int i, int j) {
-        this.b = i * j;
-        this.a = new ItemStack[this.b];
+        int k = i * j;
+
+        this.a = new ItemStack[k];
         this.c = container;
+        this.b = i;
     }
 
-    public int a() {
-        return this.b;
+    public int h_() {
+        return this.a.length;
     }
 
     public ItemStack a(int i) {
-        return this.a[i];
+        return i >= this.h_() ? null : this.a[i];
+    }
+
+    public ItemStack a(int i, int j) {
+        if (i >= 0 && i < this.b) {
+            int k = i + j * this.b;
+
+            return this.a(k);
+        } else {
+            return null;
+        }
     }
 
     public String b() {
         return "Crafting";
     }
 
-    public ItemStack a(int i, int j) {
+    public ItemStack b(int i, int j) {
         if (this.a[i] != null) {
             ItemStack itemstack;
 

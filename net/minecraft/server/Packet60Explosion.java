@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Packet60 extends Packet {
+public class Packet60Explosion extends Packet {
 
     public double a;
     public double b;
@@ -14,9 +14,9 @@ public class Packet60 extends Packet {
     public float d;
     public Set e;
 
-    public Packet60() {}
+    public Packet60Explosion() {}
 
-    public Packet60(double d0, double d1, double d2, float f, Set set) {
+    public Packet60Explosion(double d0, double d1, double d2, float f, Set set) {
         this.a = d0;
         this.b = d1;
         this.c = d2;

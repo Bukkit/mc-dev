@@ -13,7 +13,7 @@ public class BlockCactus extends Block {
         if (world.e(i, j + 1, k)) {
             int l;
 
-            for (l = 1; world.a(i, j - l, k) == this.bh; ++l) {
+            for (l = 1; world.a(i, j - l, k) == this.bi; ++l) {
                 ;
             }
 
@@ -21,10 +21,10 @@ public class BlockCactus extends Block {
                 int i1 = world.b(i, j, k);
 
                 if (i1 == 15) {
-                    world.d(i, j + 1, k, this.bh);
-                    world.b(i, j, k, 0);
+                    world.e(i, j + 1, k, this.bi);
+                    world.c(i, j, k, 0);
                 } else {
-                    world.b(i, j, k, i1 + 1);
+                    world.c(i, j, k, i1 + 1);
                 }
             }
         }
@@ -37,7 +37,7 @@ public class BlockCactus extends Block {
     }
 
     public int a(int i) {
-        return i == 1 ? this.bg - 1 : (i == 0 ? this.bg + 1 : this.bg);
+        return i == 1 ? this.bh - 1 : (i == 0 ? this.bh + 1 : this.bh);
     }
 
     public boolean a() {
@@ -51,7 +51,7 @@ public class BlockCactus extends Block {
     public void b(World world, int i, int j, int k, int l) {
         if (!this.f(world, i, j, k)) {
             this.a_(world, i, j, k, world.b(i, j, k));
-            world.d(i, j, k, 0);
+            world.e(i, j, k, 0);
         }
     }
 
@@ -67,7 +67,7 @@ public class BlockCactus extends Block {
         } else {
             int l = world.a(i, j - 1, k);
 
-            return l == Block.CACTUS.bh || l == Block.SAND.bh;
+            return l == Block.CACTUS.bi || l == Block.SAND.bi;
         }
     }
 

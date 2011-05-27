@@ -17,14 +17,16 @@ public class CraftingManager {
     private CraftingManager() {
         (new RecipesTools()).a(this);
         (new RecipesWeapons()).a(this);
-        (new RecipesIngots()).a(this);
+        (new RecipeIngots()).a(this);
         (new RecipesFood()).a(this);
         (new RecipesCrafting()).a(this);
         (new RecipesArmor()).a(this);
+        (new RecipesDyes()).a(this);
         this.a(new ItemStack(Item.PAPER, 3), new Object[] { "###", Character.valueOf('#'), Item.SUGAR_CANE});
         this.a(new ItemStack(Item.BOOK, 1), new Object[] { "#", "#", "#", Character.valueOf('#'), Item.PAPER});
         this.a(new ItemStack(Block.FENCE, 2), new Object[] { "###", "###", Character.valueOf('#'), Item.STICK});
         this.a(new ItemStack(Block.JUKEBOX, 1), new Object[] { "###", "#X#", "###", Character.valueOf('#'), Block.WOOD, Character.valueOf('X'), Item.DIAMOND});
+        this.a(new ItemStack(Block.NOTE_BLOCK, 1), new Object[] { "###", "#X#", "###", Character.valueOf('#'), Block.WOOD, Character.valueOf('X'), Item.REDSTONE});
         this.a(new ItemStack(Block.BOOKSHELF, 1), new Object[] { "###", "XXX", "###", Character.valueOf('#'), Block.WOOD, Character.valueOf('X'), Item.BOOK});
         this.a(new ItemStack(Block.SNOW_BLOCK, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.SNOW_BALL});
         this.a(new ItemStack(Block.CLAY, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.CLAY_BALL});
@@ -37,9 +39,12 @@ public class CraftingManager {
         this.a(new ItemStack(Item.WOOD_DOOR, 1), new Object[] { "##", "##", "##", Character.valueOf('#'), Block.WOOD});
         this.a(new ItemStack(Item.IRON_DOOR, 1), new Object[] { "##", "##", "##", Character.valueOf('#'), Item.IRON_INGOT});
         this.a(new ItemStack(Item.SIGN, 1), new Object[] { "###", "###", " X ", Character.valueOf('#'), Block.WOOD, Character.valueOf('X'), Item.STICK});
+        this.a(new ItemStack(Item.CAKE, 1), new Object[] { "AAA", "BEB", "CCC", Character.valueOf('A'), Item.MILK_BUCKET, Character.valueOf('B'), Item.SUGAR, Character.valueOf('C'), Item.WHEAT, Character.valueOf('E'), Item.EGG});
+        this.a(new ItemStack(Item.SUGAR, 1), new Object[] { "#", Character.valueOf('#'), Item.SUGAR_CANE});
         this.a(new ItemStack(Block.WOOD, 4), new Object[] { "#", Character.valueOf('#'), Block.LOG});
         this.a(new ItemStack(Item.STICK, 4), new Object[] { "#", "#", Character.valueOf('#'), Block.WOOD});
         this.a(new ItemStack(Block.TORCH, 4), new Object[] { "X", "#", Character.valueOf('X'), Item.COAL, Character.valueOf('#'), Item.STICK});
+        this.a(new ItemStack(Block.TORCH, 4), new Object[] { "X", "#", Character.valueOf('X'), new ItemStack(Item.COAL, 1, 1), Character.valueOf('#'), Item.STICK});
         this.a(new ItemStack(Item.BOWL, 4), new Object[] { "# #", " # ", Character.valueOf('#'), Block.WOOD});
         this.a(new ItemStack(Block.RAILS, 16), new Object[] { "X X", "X#X", "X X", Character.valueOf('X'), Item.IRON_INGOT, Character.valueOf('#'), Item.STICK});
         this.a(new ItemStack(Item.MINECART, 1), new Object[] { "# #", "###", Character.valueOf('#'), Item.IRON_INGOT});
@@ -62,6 +67,7 @@ public class CraftingManager {
         this.a(new ItemStack(Block.STONE_BUTTON, 1), new Object[] { "#", "#", Character.valueOf('#'), Block.STONE});
         this.a(new ItemStack(Block.STONE_PLATE, 1), new Object[] { "###", Character.valueOf('#'), Block.STONE});
         this.a(new ItemStack(Block.WOOD_PLATE, 1), new Object[] { "###", Character.valueOf('#'), Block.WOOD});
+        this.a(new ItemStack(Block.DISPENSER, 1), new Object[] { "###", "#X#", "#R#", Character.valueOf('#'), Block.COBBLESTONE, Character.valueOf('X'), Item.BOW, Character.valueOf('R'), Item.REDSTONE});
         Collections.sort(this.b, new RecipeSorter(this));
         System.out.println(this.b.size() + " recipes");
     }
@@ -93,42 +99,67 @@ public class CraftingManager {
         }
 
         HashMap hashmap;
-        int i1;
 
         for (hashmap = new HashMap(); i < aobject.length; i += 2) {
             Character character = (Character) aobject[i];
+            ItemStack itemstack1 = null;
 
-            i1 = 0;
             if (aobject[i + 1] instanceof Item) {
-                i1 = ((Item) aobject[i + 1]).aW;
+                itemstack1 = new ItemStack((Item) aobject[i + 1]);
             } else if (aobject[i + 1] instanceof Block) {
-                i1 = ((Block) aobject[i + 1]).bh;
+                itemstack1 = new ItemStack((Block) aobject[i + 1], 1, -1);
+            } else if (aobject[i + 1] instanceof ItemStack) {
+                itemstack1 = (ItemStack) aobject[i + 1];
             }
 
-            hashmap.put(character, Integer.valueOf(i1));
+            hashmap.put(character, itemstack1);
         }
 
-        int[] aint = new int[j * k];
+        ItemStack[] aitemstack = new ItemStack[j * k];
 
-        for (i1 = 0; i1 < j * k; ++i1) {
+        for (int i1 = 0; i1 < j * k; ++i1) {
             char c0 = s.charAt(i1);
 
             if (hashmap.containsKey(Character.valueOf(c0))) {
-                aint[i1] = ((Integer) hashmap.get(Character.valueOf(c0))).intValue();
+                aitemstack[i1] = ((ItemStack) hashmap.get(Character.valueOf(c0))).j();
             } else {
-                aint[i1] = -1;
+                aitemstack[i1] = null;
             }
         }
 
-        this.b.add(new CraftingRecipe(j, k, aint, itemstack));
+        this.b.add(new ShapedRecipes(j, k, aitemstack, itemstack));
     }
 
-    public ItemStack a(int[] aint) {
+    void b(ItemStack itemstack, Object... aobject) {
+        ArrayList arraylist = new ArrayList();
+        Object[] aobject1 = aobject;
+        int i = aobject.length;
+
+        for (int j = 0; j < i; ++j) {
+            Object object = aobject1[j];
+
+            if (object instanceof ItemStack) {
+                arraylist.add(((ItemStack) object).j());
+            } else if (object instanceof Item) {
+                arraylist.add(new ItemStack((Item) object));
+            } else {
+                if (!(object instanceof Block)) {
+                    throw new RuntimeException("Invalid shapeless recipy!");
+                }
+
+                arraylist.add(new ItemStack((Block) object));
+            }
+        }
+
+        this.b.add(new ShapelessRecipes(itemstack, arraylist));
+    }
+
+    public ItemStack a(InventoryCrafting inventorycrafting) {
         for (int i = 0; i < this.b.size(); ++i) {
             CraftingRecipe craftingrecipe = (CraftingRecipe) this.b.get(i);
 
-            if (craftingrecipe.a(aint)) {
-                return craftingrecipe.b(aint);
+            if (craftingrecipe.a(inventorycrafting)) {
+                return craftingrecipe.b(inventorycrafting);
             }
         }
 

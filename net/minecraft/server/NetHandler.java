@@ -82,6 +82,10 @@ public class NetHandler {
         this.a((Packet) packet18armanimation);
     }
 
+    public void a(Packet19EntityAction packet19entityaction) {
+        this.a((Packet) packet19entityaction);
+    }
+
     public void a(Packet2Handshake packet2handshake) {
         this.a((Packet) packet2handshake);
     }
@@ -98,67 +102,79 @@ public class NetHandler {
         this.a((Packet) packet6spawnposition);
     }
 
-    public void a(Packet28 packet28) {
-        this.a((Packet) packet28);
+    public void a(Packet28EntityVelocity packet28entityvelocity) {
+        this.a((Packet) packet28entityvelocity);
     }
 
-    public void a(Packet39 packet39) {
-        this.a((Packet) packet39);
+    public void a(Packet40EntityMetadata packet40entitymetadata) {
+        this.a((Packet) packet40entitymetadata);
     }
 
-    public void a(Packet7 packet7) {
-        this.a((Packet) packet7);
+    public void a(Packet39AttachEntity packet39attachentity) {
+        this.a((Packet) packet39attachentity);
     }
 
-    public void a(Packet38 packet38) {
-        this.a((Packet) packet38);
+    public void a(Packet7UseEntity packet7useentity) {
+        this.a((Packet) packet7useentity);
     }
 
-    public void a(Packet8 packet8) {
-        this.a((Packet) packet8);
+    public void a(Packet38EntityStatus packet38entitystatus) {
+        this.a((Packet) packet38entitystatus);
     }
 
-    public void a(Packet9 packet9) {
-        this.a((Packet) packet9);
+    public void a(Packet8UpdateHealth packet8updatehealth) {
+        this.a((Packet) packet8updatehealth);
     }
 
-    public void a(Packet60 packet60) {
-        this.a((Packet) packet60);
+    public void a(Packet9Respawn packet9respawn) {
+        this.a((Packet) packet9respawn);
     }
 
-    public void a(Packet100 packet100) {
-        this.a((Packet) packet100);
+    public void a(Packet60Explosion packet60explosion) {
+        this.a((Packet) packet60explosion);
     }
 
-    public void a(Packet101 packet101) {
-        this.a((Packet) packet101);
+    public void a(Packet100OpenWindow packet100openwindow) {
+        this.a((Packet) packet100openwindow);
     }
 
-    public void a(Packet102 packet102) {
-        this.a((Packet) packet102);
+    public void a(Packet101CloseWindow packet101closewindow) {
+        this.a((Packet) packet101closewindow);
     }
 
-    public void a(Packet103 packet103) {
-        this.a((Packet) packet103);
+    public void a(Packet102WindowClick packet102windowclick) {
+        this.a((Packet) packet102windowclick);
     }
 
-    public void a(Packet104 packet104) {
-        this.a((Packet) packet104);
+    public void a(Packet103SetSlot packet103setslot) {
+        this.a((Packet) packet103setslot);
     }
 
-    public void a(Packet130 packet130) {
-        this.a((Packet) packet130);
+    public void a(Packet104WindowItems packet104windowitems) {
+        this.a((Packet) packet104windowitems);
     }
 
-    public void a(Packet105 packet105) {
-        this.a((Packet) packet105);
+    public void a(Packet130UpdateSign packet130updatesign) {
+        this.a((Packet) packet130updatesign);
     }
 
-    public void a(Packet5PlayerInventory packet5playerinventory) {
-        this.a((Packet) packet5playerinventory);
+    public void a(Packet105CraftProgressBar packet105craftprogressbar) {
+        this.a((Packet) packet105craftprogressbar);
     }
 
-    public void a(Packet106 packet106) {
-        this.a((Packet) packet106);
+    public void a(Packet5EntityEquipment packet5entityequipment) {
+        this.a((Packet) packet5entityequipment);
+    }
+
+    public void a(Packet106Transaction packet106transaction) {
+        this.a((Packet) packet106transaction);
+    }
+
+    public void a(Packet25EntityPainting packet25entitypainting) {
+        this.a((Packet) packet25entitypainting);
+    }
+
+    public void a(Packet54PlayNoteBlock packet54playnoteblock) {
+        this.a((Packet) packet54playnoteblock);
     }
 }

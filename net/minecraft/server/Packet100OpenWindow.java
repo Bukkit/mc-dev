@@ -3,16 +3,16 @@ package net.minecraft.server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
-public class Packet100 extends Packet {
+public class Packet100OpenWindow extends Packet {
 
     public int a;
     public int b;
     public String c;
     public int d;
 
-    public Packet100() {}
+    public Packet100OpenWindow() {}
 
-    public Packet100(int i, int j, String s, int k) {
+    public Packet100OpenWindow(int i, int j, String s, int k) {
         this.a = i;
         this.b = j;
         this.c = s;

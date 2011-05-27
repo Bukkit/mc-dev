@@ -19,9 +19,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private WorldServer g;
 
     public ChunkProviderServer(WorldServer worldserver, IChunkLoader ichunkloader, IChunkProvider ichunkprovider) {
-        this.b = new Chunk(worldserver, new byte['\u8000'], 0, 0);
-        this.b.q = true;
-        this.b.p = true;
+        this.b = new EmptyChunk(worldserver, new byte['\u8000'], 0, 0);
         this.g = worldserver;
         this.d = ichunkloader;
         this.c = ichunkprovider;
@@ -61,8 +59,8 @@ public class ChunkProviderServer implements IChunkProvider {
 
             this.e.put(chunkcoordinates, chunk);
             this.f.add(chunk);
-            chunk.c();
             if (chunk != null) {
+                chunk.c();
                 chunk.d();
             }
 
@@ -101,7 +99,7 @@ public class ChunkProviderServer implements IChunkProvider {
                 Chunk chunk = this.d.a(this.g, i, j);
 
                 if (chunk != null) {
-                    chunk.s = this.g.e;
+                    chunk.r = this.g.e;
                 }
 
                 return chunk;
@@ -125,7 +123,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private void b(Chunk chunk) {
         if (this.d != null) {
             try {
-                chunk.s = this.g.e;
+                chunk.r = this.g.e;
                 this.d.a(this.g, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();

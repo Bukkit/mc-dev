@@ -10,9 +10,9 @@ public class EntityBoat extends Entity {
     private int d;
     private double e;
     private double f;
-    private double aj;
     private double ak;
     private double al;
+    private double am;
 
     public EntityBoat(World world) {
         super(world);
@@ -25,15 +25,17 @@ public class EntityBoat extends Entity {
         this.M = false;
     }
 
+    protected void a() {}
+
     public AxisAlignedBB d(Entity entity) {
         return entity.z;
     }
 
-    public AxisAlignedBB q() {
+    public AxisAlignedBB u() {
         return this.z;
     }
 
-    public boolean v() {
+    public boolean z() {
         return true;
     }
 
@@ -48,7 +50,7 @@ public class EntityBoat extends Entity {
         this.o = d2;
     }
 
-    public double j() {
+    public double k() {
         return (double) this.J * 0.0D - 0.30000001192092896D;
     }
 
@@ -57,19 +59,19 @@ public class EntityBoat extends Entity {
             this.c = -this.c;
             this.b = 10;
             this.a += i * 10;
-            this.u();
+            this.y();
             if (this.a > 40) {
                 int j;
 
                 for (j = 0; j < 3; ++j) {
-                    this.a(Block.WOOD.bh, 1, 0.0F);
+                    this.a(Block.WOOD.bi, 1, 0.0F);
                 }
 
                 for (j = 0; j < 2; ++j) {
-                    this.a(Item.STICK.aW, 1, 0.0F);
+                    this.a(Item.STICK.ba, 1, 0.0F);
                 }
 
-                this.l();
+                this.q();
             }
 
             return true;
@@ -117,9 +119,9 @@ public class EntityBoat extends Entity {
             if (this.d > 0) {
                 d3 = this.p + (this.e - this.p) / (double) this.d;
                 d4 = this.q + (this.f - this.q) / (double) this.d;
-                d5 = this.r + (this.aj - this.r) / (double) this.d;
+                d5 = this.r + (this.ak - this.r) / (double) this.d;
 
-                for (d6 = this.ak - (double) this.v; d6 < -180.0D; d6 += 360.0D) {
+                for (d6 = this.al - (double) this.v; d6 < -180.0D; d6 += 360.0D) {
                     ;
                 }
 
@@ -128,7 +130,7 @@ public class EntityBoat extends Entity {
                 }
 
                 this.v = (float) ((double) this.v + d6 / (double) this.d);
-                this.w = (float) ((double) this.w + (this.al - (double) this.w) / (double) this.d);
+                this.w = (float) ((double) this.w + (this.am - (double) this.w) / (double) this.d);
                 --this.d;
                 this.a(d3, d4, d5);
                 this.b(this.v, this.w);
@@ -206,16 +208,16 @@ public class EntityBoat extends Entity {
 
             if (this.B && d5 > 0.15D) {
                 if (!this.l.z) {
-                    this.l();
+                    this.q();
 
                     int k;
 
                     for (k = 0; k < 3; ++k) {
-                        this.a(Block.WOOD.bh, 1, 0.0F);
+                        this.a(Block.WOOD.bi, 1, 0.0F);
                     }
 
                     for (k = 0; k < 2; ++k) {
-                        this.a(Item.STICK.aW, 1, 0.0F);
+                        this.a(Item.STICK.ba, 1, 0.0F);
                     }
                 }
             } else {
@@ -259,7 +261,7 @@ public class EntityBoat extends Entity {
                 for (int l = 0; l < list.size(); ++l) {
                     Entity entity = (Entity) list.get(l);
 
-                    if (entity != this.j && entity.v() && entity instanceof EntityBoat) {
+                    if (entity != this.j && entity.z() && entity instanceof EntityBoat) {
                         entity.c((Entity) this);
                     }
                 }
@@ -271,12 +273,12 @@ public class EntityBoat extends Entity {
         }
     }
 
-    public void A() {
+    public void E() {
         if (this.j != null) {
             double d0 = Math.cos((double) this.v * 3.141592653589793D / 180.0D) * 0.4D;
             double d1 = Math.sin((double) this.v * 3.141592653589793D / 180.0D) * 0.4D;
 
-            this.j.a(this.p + d0, this.q + this.j() + this.j.B(), this.r + d1);
+            this.j.a(this.p + d0, this.q + this.k() + this.j.F(), this.r + d1);
         }
     }
 

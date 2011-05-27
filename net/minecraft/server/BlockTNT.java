@@ -9,13 +9,13 @@ public class BlockTNT extends Block {
     }
 
     public int a(int i) {
-        return i == 0 ? this.bg + 2 : (i == 1 ? this.bg + 1 : this.bg);
+        return i == 0 ? this.bh + 2 : (i == 1 ? this.bh + 1 : this.bh);
     }
 
     public void b(World world, int i, int j, int k, int l) {
-        if (l > 0 && Block.m[l].c() && world.o(i, j, k)) {
+        if (l > 0 && Block.m[l].c() && world.p(i, j, k)) {
             this.a(world, i, j, k, 0);
-            world.d(i, j, k, 0);
+            world.e(i, j, k, 0);
         }
     }
 
@@ -23,7 +23,7 @@ public class BlockTNT extends Block {
         return 0;
     }
 
-    public void c(World world, int i, int j, int k) {
+    public void a_(World world, int i, int j, int k) {
         EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F));
 
         entitytntprimed.a = world.l.nextInt(entitytntprimed.a / 4) + entitytntprimed.a / 8;

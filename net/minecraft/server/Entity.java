@@ -59,12 +59,13 @@ public abstract class Entity {
     public int ad;
     private boolean c;
     protected boolean ae;
+    protected DataWatcher af;
     private double d;
     private double e;
-    public boolean af;
-    public int ag;
+    public boolean ag;
     public int ah;
     public int ai;
+    public int aj;
 
     public Entity(World world) {
         this.g = a++;
@@ -99,9 +100,18 @@ public abstract class Entity {
         this.ad = 300;
         this.c = true;
         this.ae = false;
-        this.af = false;
+        this.af = new DataWatcher();
+        this.ag = false;
         this.l = world;
         this.a(0.0D, 0.0D, 0.0D);
+        this.af.a(0, Byte.valueOf((byte) 0));
+        this.a();
+    }
+
+    protected abstract void a();
+
+    public DataWatcher p() {
+        return this.af;
     }
 
     public boolean equals(Object object) {
@@ -112,7 +122,7 @@ public abstract class Entity {
         return this.g;
     }
 
-    public void l() {
+    public void q() {
         this.G = true;
     }
 
@@ -137,10 +147,10 @@ public abstract class Entity {
     }
 
     public void b_() {
-        this.m();
+        this.r();
     }
 
-    public void m() {
+    public void r() {
         if (this.k != null && this.k.G) {
             this.k = null;
         }
@@ -152,7 +162,7 @@ public abstract class Entity {
         this.o = this.r;
         this.y = this.w;
         this.x = this.v;
-        if (this.r()) {
+        if (this.v()) {
             if (!this.ab && !this.c) {
                 float f = MathHelper.a(this.s * this.s * 0.20000000298023224D + this.t * this.t + this.u * this.u * 0.20000000298023224D) * 0.2F;
 
@@ -204,26 +214,31 @@ public abstract class Entity {
             }
         }
 
-        if (this.t()) {
-            this.n();
+        if (this.x()) {
+            this.s();
         }
 
         if (this.q < -64.0D) {
-            this.o();
+            this.t();
+        }
+
+        if (!this.l.z) {
+            this.a(0, this.Z > 0);
+            this.a(2, this.k != null);
         }
 
         this.c = false;
     }
 
-    protected void n() {
+    protected void s() {
         if (!this.ae) {
             this.a((Entity) null, 4);
             this.Z = 600;
         }
     }
 
-    protected void o() {
-        this.l();
+    protected void t() {
+        this.q();
     }
 
     public boolean b(double d0, double d1, double d2) {
@@ -246,7 +261,7 @@ public abstract class Entity {
             double d6 = d1;
             double d7 = d2;
             AxisAlignedBB axisalignedbb = this.z.b();
-            boolean flag = this.A && this.p();
+            boolean flag = this.A && this.J();
 
             if (flag) {
                 double d8;
@@ -405,12 +420,12 @@ public abstract class Entity {
                 k = this.l.a(l, i1, j1);
                 if (this.L > (float) this.b && k > 0) {
                     ++this.b;
-                    StepSound stepsound = Block.m[k].bq;
+                    StepSound stepsound = Block.m[k].br;
 
-                    if (this.l.a(l, i1 + 1, j1) == Block.SNOW.bh) {
-                        stepsound = Block.SNOW.bq;
+                    if (this.l.a(l, i1 + 1, j1) == Block.SNOW.bi) {
+                        stepsound = Block.SNOW.br;
                         this.l.a(this, stepsound.c(), stepsound.a() * 0.15F, stepsound.b());
-                    } else if (!Block.m[k].bs.d()) {
+                    } else if (!Block.m[k].bt.d()) {
                         this.l.a(this, stepsound.c(), stepsound.a() * 0.15F, stepsound.b());
                     }
 
@@ -425,20 +440,22 @@ public abstract class Entity {
             int k1 = MathHelper.b(this.z.e);
             int l1 = MathHelper.b(this.z.f);
 
-            for (int i2 = l; i2 <= k; ++i2) {
-                for (int j2 = i1; j2 <= k1; ++j2) {
-                    for (int k2 = j1; k2 <= l1; ++k2) {
-                        int l2 = this.l.a(i2, j2, k2);
+            if (this.l.a(l, i1, j1, k, k1, l1)) {
+                for (int i2 = l; i2 <= k; ++i2) {
+                    for (int j2 = i1; j2 <= k1; ++j2) {
+                        for (int k2 = j1; k2 <= l1; ++k2) {
+                            int l2 = this.l.a(i2, j2, k2);
 
-                        if (l2 > 0) {
-                            Block.m[l2].a(this.l, i2, j2, k2, this);
+                            if (l2 > 0) {
+                                Block.m[l2].a(this.l, i2, j2, k2, this);
+                            }
                         }
                     }
                 }
             }
 
             this.R *= 0.4F;
-            boolean flag2 = this.r();
+            boolean flag2 = this.v();
 
             if (this.l.c(this.z)) {
                 this.b(1);
@@ -470,11 +487,7 @@ public abstract class Entity {
         }
     }
 
-    public boolean p() {
-        return false;
-    }
-
-    public AxisAlignedBB q() {
+    public AxisAlignedBB u() {
         return null;
     }
 
@@ -486,19 +499,19 @@ public abstract class Entity {
 
     protected void a(float f) {}
 
-    public boolean r() {
+    public boolean v() {
         return this.l.a(this.z.b(0.0D, -0.4000000059604645D, 0.0D), Material.f, this);
     }
 
     public boolean a(Material material) {
-        double d0 = this.q + (double) this.s();
+        double d0 = this.q + (double) this.w();
         int i = MathHelper.b(this.p);
         int j = MathHelper.d((float) MathHelper.b(d0));
         int k = MathHelper.b(this.r);
         int l = this.l.a(i, j, k);
 
-        if (l != 0 && Block.m[l].bs == material) {
-            float f = BlockFluids.b(this.l.b(i, j, k)) - 0.11111111F;
+        if (l != 0 && Block.m[l].bt == material) {
+            float f = BlockFluids.c(this.l.b(i, j, k)) - 0.11111111F;
             float f1 = (float) (j + 1) - f;
 
             return d0 < (double) f1;
@@ -507,12 +520,12 @@ public abstract class Entity {
         }
     }
 
-    public float s() {
+    public float w() {
         return 0.0F;
     }
 
-    public boolean t() {
-        return this.l.a(this.z.b(0.0D, -0.4000000059604645D, 0.0D), Material.g);
+    public boolean x() {
+        return this.l.a(this.z.b(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.g);
     }
 
     public void a(float f, float f1, float f2) {
@@ -540,7 +553,7 @@ public abstract class Entity {
         int j = MathHelper.b(this.q - (double) this.H + d0);
         int k = MathHelper.b(this.r);
 
-        return this.l.k(i, j, k);
+        return this.l.a(MathHelper.b(this.z.a), MathHelper.b(this.z.b), MathHelper.b(this.z.c), MathHelper.b(this.z.d), MathHelper.b(this.z.e), MathHelper.b(this.z.f)) ? this.l.l(i, j, k) : 0.0F;
     }
 
     public void b(double d0, double d1, double d2, float f, float f1) {
@@ -565,9 +578,9 @@ public abstract class Entity {
     }
 
     public void c(double d0, double d1, double d2, float f, float f1) {
-        this.m = this.p = d0;
-        this.n = this.q = d1 + (double) this.H;
-        this.o = this.r = d2;
+        this.O = this.m = this.p = d0;
+        this.P = this.n = this.q = d1 + (double) this.H;
+        this.Q = this.o = this.r = d2;
         this.v = f;
         this.w = f1;
         this.a(this.p, this.q, this.r);
@@ -641,12 +654,12 @@ public abstract class Entity {
         this.u += d2;
     }
 
-    protected void u() {
+    protected void y() {
         this.E = true;
     }
 
     public boolean a(Entity entity, int i) {
-        this.u();
+        this.y();
         return false;
     }
 
@@ -654,14 +667,14 @@ public abstract class Entity {
         return false;
     }
 
-    public boolean v() {
+    public boolean z() {
         return false;
     }
 
     public void b(Entity entity, int i) {}
 
     public boolean c(NBTTagCompound nbttagcompound) {
-        String s = this.w();
+        String s = this.A();
 
         if (!this.G && s != null) {
             nbttagcompound.a("id", s);
@@ -705,7 +718,7 @@ public abstract class Entity {
         this.b(nbttagcompound);
     }
 
-    protected final String w() {
+    protected final String A() {
         return EntityTypes.b(this);
     }
 
@@ -741,25 +754,29 @@ public abstract class Entity {
         return nbttaglist;
     }
 
-    public EntityItem b(int i, int j) {
+    public EntityItem a(int i, int j) {
         return this.a(i, j, 0.0F);
     }
 
     public EntityItem a(int i, int j, float f) {
-        EntityItem entityitem = new EntityItem(this.l, this.p, this.q + (double) f, this.r, new ItemStack(i, j));
+        return this.a(new ItemStack(i, j, 0), f);
+    }
+
+    public EntityItem a(ItemStack itemstack, float f) {
+        EntityItem entityitem = new EntityItem(this.l, this.p, this.q + (double) f, this.r, itemstack);
 
         entityitem.c = 10;
         this.l.a((Entity) entityitem);
         return entityitem;
     }
 
-    public boolean x() {
+    public boolean B() {
         return !this.G;
     }
 
-    public boolean y() {
+    public boolean C() {
         int i = MathHelper.b(this.p);
-        int j = MathHelper.b(this.q + (double) this.s());
+        int j = MathHelper.b(this.q + (double) this.w());
         int k = MathHelper.b(this.r);
 
         return this.l.d(i, j, k);
@@ -773,7 +790,7 @@ public abstract class Entity {
         return null;
     }
 
-    public void z() {
+    public void D() {
         if (this.k.G) {
             this.k = null;
         } else {
@@ -781,7 +798,7 @@ public abstract class Entity {
             this.t = 0.0D;
             this.u = 0.0D;
             this.b_();
-            this.k.A();
+            this.k.E();
             this.e += (double) (this.k.v - this.k.x);
 
             for (this.d += (double) (this.k.w - this.k.y); this.e >= 180.0D; this.e -= 360.0D) {
@@ -827,15 +844,15 @@ public abstract class Entity {
         }
     }
 
-    public void A() {
-        this.j.a(this.p, this.q + this.j() + this.j.B(), this.r);
+    public void E() {
+        this.j.a(this.p, this.q + this.k() + this.j.F(), this.r);
     }
 
-    public double B() {
+    public double F() {
         return (double) this.H;
     }
 
-    public double j() {
+    public double k() {
         return (double) this.J * 0.75D;
     }
 
@@ -867,13 +884,35 @@ public abstract class Entity {
         }
     }
 
-    public Vec3D C() {
+    public Vec3D G() {
         return null;
     }
 
-    public void D() {}
+    public void H() {}
 
-    public int[] E() {
+    public ItemStack[] I() {
         return null;
+    }
+
+    public boolean J() {
+        return this.c(1);
+    }
+
+    public void b(boolean flag) {
+        this.a(1, flag);
+    }
+
+    protected boolean c(int i) {
+        return (this.af.a(0) & 1 << i) != 0;
+    }
+
+    protected void a(int i, boolean flag) {
+        byte b0 = this.af.a(0);
+
+        if (flag) {
+            this.af.b(0, Byte.valueOf((byte) (b0 | 1 << i)));
+        } else {
+            this.af.b(0, Byte.valueOf((byte) (b0 & ~(1 << i))));
+        }
     }
 }

@@ -44,7 +44,7 @@ public class BlockTorch extends Block {
             i1 = 1;
         }
 
-        world.b(i, j, k, i1);
+        world.c(i, j, k, i1);
     }
 
     public void a(World world, int i, int j, int k, Random random) {
@@ -56,15 +56,15 @@ public class BlockTorch extends Block {
 
     public void e(World world, int i, int j, int k) {
         if (world.d(i - 1, j, k)) {
-            world.b(i, j, k, 1);
+            world.c(i, j, k, 1);
         } else if (world.d(i + 1, j, k)) {
-            world.b(i, j, k, 2);
+            world.c(i, j, k, 2);
         } else if (world.d(i, j, k - 1)) {
-            world.b(i, j, k, 3);
+            world.c(i, j, k, 3);
         } else if (world.d(i, j, k + 1)) {
-            world.b(i, j, k, 4);
+            world.c(i, j, k, 4);
         } else if (world.d(i, j - 1, k)) {
-            world.b(i, j, k, 5);
+            world.c(i, j, k, 5);
         }
 
         this.g(world, i, j, k);
@@ -97,7 +97,7 @@ public class BlockTorch extends Block {
 
             if (flag) {
                 this.a_(world, i, j, k, world.b(i, j, k));
-                world.d(i, j, k, 0);
+                world.e(i, j, k, 0);
             }
         }
     }
@@ -105,7 +105,7 @@ public class BlockTorch extends Block {
     private boolean g(World world, int i, int j, int k) {
         if (!this.a(world, i, j, k)) {
             this.a_(world, i, j, k, world.b(i, j, k));
-            world.d(i, j, k, 0);
+            world.e(i, j, k, 0);
             return false;
         } else {
             return true;

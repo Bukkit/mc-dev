@@ -23,8 +23,10 @@ public class BlockLeaves extends BlockLeavesBase {
                     for (int k1 = -b0; k1 <= b0; ++k1) {
                         int l1 = world.a(i + i1, j + j1, k + k1);
 
-                        if (l1 == Block.LEAVES.bh) {
-                            world.c(i + i1, j + j1, k + k1, 7);
+                        if (l1 == Block.LEAVES.bi) {
+                            int i2 = world.b(i + i1, j + j1, k + k1);
+
+                            world.d(i + i1, j + j1, k + k1, i2 | 4);
                         }
                     }
                 }
@@ -34,66 +36,68 @@ public class BlockLeaves extends BlockLeavesBase {
 
     public void a(World world, int i, int j, int k, Random random) {
         if (!world.z) {
-            if (world.b(i, j, k) == 7) {
+            int l = world.b(i, j, k);
+
+            if ((l & 4) != 0) {
                 byte b0 = 4;
-                int l = b0 + 1;
+                int i1 = b0 + 1;
                 byte b1 = 32;
-                int i1 = b1 * b1;
-                int j1 = b1 / 2;
+                int j1 = b1 * b1;
+                int k1 = b1 / 2;
 
                 if (this.b == null) {
                     this.b = new int[b1 * b1 * b1];
                 }
 
-                int k1;
+                int l1;
 
-                if (world.a(i - l, j - l, k - l, i + l, j + l, k + l)) {
-                    int l1;
+                if (world.a(i - i1, j - i1, k - i1, i + i1, j + i1, k + i1)) {
                     int i2;
                     int j2;
+                    int k2;
 
-                    for (k1 = -b0; k1 <= b0; ++k1) {
-                        for (l1 = -b0; l1 <= b0; ++l1) {
-                            for (i2 = -b0; i2 <= b0; ++i2) {
-                                j2 = world.a(i + k1, j + l1, k + i2);
-                                if (j2 == Block.LOG.bh) {
-                                    this.b[(k1 + j1) * i1 + (l1 + j1) * b1 + i2 + j1] = 0;
-                                } else if (j2 == Block.LEAVES.bh) {
-                                    this.b[(k1 + j1) * i1 + (l1 + j1) * b1 + i2 + j1] = -2;
+                    for (l1 = -b0; l1 <= b0; ++l1) {
+                        for (i2 = -b0; i2 <= b0; ++i2) {
+                            for (j2 = -b0; j2 <= b0; ++j2) {
+                                k2 = world.a(i + l1, j + i2, k + j2);
+                                if (k2 == Block.LOG.bi) {
+                                    this.b[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = 0;
+                                } else if (k2 == Block.LEAVES.bi) {
+                                    this.b[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -2;
                                 } else {
-                                    this.b[(k1 + j1) * i1 + (l1 + j1) * b1 + i2 + j1] = -1;
+                                    this.b[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -1;
                                 }
                             }
                         }
                     }
 
-                    for (k1 = 1; k1 <= 4; ++k1) {
-                        for (l1 = -b0; l1 <= b0; ++l1) {
-                            for (i2 = -b0; i2 <= b0; ++i2) {
-                                for (j2 = -b0; j2 <= b0; ++j2) {
-                                    if (this.b[(l1 + j1) * i1 + (i2 + j1) * b1 + j2 + j1] == k1 - 1) {
-                                        if (this.b[(l1 + j1 - 1) * i1 + (i2 + j1) * b1 + j2 + j1] == -2) {
-                                            this.b[(l1 + j1 - 1) * i1 + (i2 + j1) * b1 + j2 + j1] = k1;
+                    for (l1 = 1; l1 <= 4; ++l1) {
+                        for (i2 = -b0; i2 <= b0; ++i2) {
+                            for (j2 = -b0; j2 <= b0; ++j2) {
+                                for (k2 = -b0; k2 <= b0; ++k2) {
+                                    if (this.b[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1] == l1 - 1) {
+                                        if (this.b[(i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1] == -2) {
+                                            this.b[(i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.b[(l1 + j1 + 1) * i1 + (i2 + j1) * b1 + j2 + j1] == -2) {
-                                            this.b[(l1 + j1 + 1) * i1 + (i2 + j1) * b1 + j2 + j1] = k1;
+                                        if (this.b[(i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1] == -2) {
+                                            this.b[(i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.b[(l1 + j1) * i1 + (i2 + j1 - 1) * b1 + j2 + j1] == -2) {
-                                            this.b[(l1 + j1) * i1 + (i2 + j1 - 1) * b1 + j2 + j1] = k1;
+                                        if (this.b[(i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1] == -2) {
+                                            this.b[(i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.b[(l1 + j1) * i1 + (i2 + j1 + 1) * b1 + j2 + j1] == -2) {
-                                            this.b[(l1 + j1) * i1 + (i2 + j1 + 1) * b1 + j2 + j1] = k1;
+                                        if (this.b[(i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1] == -2) {
+                                            this.b[(i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.b[(l1 + j1) * i1 + (i2 + j1) * b1 + (j2 + j1 - 1)] == -2) {
-                                            this.b[(l1 + j1) * i1 + (i2 + j1) * b1 + (j2 + j1 - 1)] = k1;
+                                        if (this.b[(i2 + k1) * j1 + (j2 + k1) * b1 + (k2 + k1 - 1)] == -2) {
+                                            this.b[(i2 + k1) * j1 + (j2 + k1) * b1 + (k2 + k1 - 1)] = l1;
                                         }
 
-                                        if (this.b[(l1 + j1) * i1 + (i2 + j1) * b1 + j2 + j1 + 1] == -2) {
-                                            this.b[(l1 + j1) * i1 + (i2 + j1) * b1 + j2 + j1 + 1] = k1;
+                                        if (this.b[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1] == -2) {
+                                            this.b[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1] = l1;
                                         }
                                     }
                                 }
@@ -102,9 +106,9 @@ public class BlockLeaves extends BlockLeavesBase {
                     }
                 }
 
-                k1 = this.b[j1 * i1 + j1 * b1 + j1];
-                if (k1 >= 0) {
-                    world.b(i, j, k, 0);
+                l1 = this.b[k1 * j1 + k1 * b1 + k1];
+                if (l1 >= 0) {
+                    world.c(i, j, k, l & -5);
                 } else {
                     this.g(world, i, j, k);
                 }
@@ -114,7 +118,7 @@ public class BlockLeaves extends BlockLeavesBase {
 
     private void g(World world, int i, int j, int k) {
         this.a_(world, i, j, k, world.b(i, j, k));
-        world.d(i, j, k, 0);
+        world.e(i, j, k, 0);
     }
 
     public int a(Random random) {
@@ -122,7 +126,7 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     public int a(int i, Random random) {
-        return Block.SAPLING.bh;
+        return Block.SAPLING.bi;
     }
 
     public boolean a() {

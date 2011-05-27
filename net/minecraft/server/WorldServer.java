@@ -23,8 +23,8 @@ public class WorldServer extends World {
     }
 
     public void a(Entity entity, boolean flag) {
-        if (!this.D.m && entity instanceof EntityAnimal) {
-            entity.l();
+        if (!this.D.m && (entity instanceof EntityAnimal || entity instanceof EntityWaterAnimal)) {
+            entity.q();
         }
 
         if (entity.j == null || !(entity.j instanceof EntityHuman)) {
@@ -81,15 +81,20 @@ public class WorldServer extends World {
     }
 
     public void a(Entity entity, byte b0) {
-        Packet38 packet38 = new Packet38(entity.g, b0);
+        Packet38EntityStatus packet38entitystatus = new Packet38EntityStatus(entity.g, b0);
 
-        this.D.k.b(entity, packet38);
+        this.D.k.b(entity, packet38entitystatus);
     }
 
     public Explosion a(Entity entity, double d0, double d1, double d2, float f, boolean flag) {
         Explosion explosion = super.a(entity, d0, d1, d2, f, flag);
 
-        this.D.f.a(d0, d1, d2, 64.0D, new Packet60(d0, d1, d2, f, explosion.g));
+        this.D.f.a(d0, d1, d2, 64.0D, new Packet60Explosion(d0, d1, d2, f, explosion.g));
         return explosion;
+    }
+
+    public void c(int i, int j, int k, int l, int i1) {
+        super.c(i, j, k, l, i1);
+        this.D.f.a((double) i, (double) j, (double) k, 64.0D, new Packet54PlayNoteBlock(i, j, k, l, i1));
     }
 }

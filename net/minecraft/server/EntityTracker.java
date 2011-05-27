@@ -44,12 +44,16 @@ public class EntityTracker {
             this.a(entity, 160, 5, true);
         } else if (entity instanceof EntityBoat) {
             this.a(entity, 160, 5, true);
+        } else if (entity instanceof EntitySquid) {
+            this.a(entity, 160, 3, true);
         } else if (entity instanceof IAnimal) {
             this.a(entity, 160, 3);
         } else if (entity instanceof EntityTNTPrimed) {
             this.a(entity, 160, 10, true);
         } else if (entity instanceof EntityFallingSand) {
             this.a(entity, 160, 20, true);
+        } else if (entity instanceof EntityPainting) {
+            this.a(entity, 160, Integer.MAX_VALUE, false);
         }
     }
 
@@ -101,7 +105,7 @@ public class EntityTracker {
             EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
 
             entitytrackerentry.a(this.c.e.d);
-            if (entitytrackerentry.p && entitytrackerentry.a instanceof EntityPlayer) {
+            if (entitytrackerentry.m && entitytrackerentry.a instanceof EntityPlayer) {
                 arraylist.add((EntityPlayer) entitytrackerentry.a);
             }
         }

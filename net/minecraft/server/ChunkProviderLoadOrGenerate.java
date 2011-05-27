@@ -12,18 +12,26 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     int a = -999999999;
     int b = -999999999;
     private Chunk h;
+    private int i;
+    private int j;
 
     public ChunkProviderLoadOrGenerate(World world, IChunkLoader ichunkloader, IChunkProvider ichunkprovider) {
-        this.c = new Chunk(world, new byte['\u8000'], 0, 0);
-        this.c.q = true;
-        this.c.p = true;
+        this.c = new EmptyChunk(world, new byte['\u8000'], 0, 0);
         this.g = world;
         this.e = ichunkloader;
         this.d = ichunkprovider;
     }
 
+    public boolean c(int i, int j) {
+        byte b0 = 15;
+
+        return i >= this.i - b0 && j >= this.j - b0 && i <= this.i + b0 && j <= this.j + b0;
+    }
+
     public boolean a(int i, int j) {
-        if (i == this.a && j == this.b && this.h != null) {
+        if (!this.c(i, j)) {
+            return false;
+        } else if (i == this.a && j == this.b && this.h != null) {
             return true;
         } else {
             int k = i & 31;
@@ -37,6 +45,8 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     public Chunk b(int i, int j) {
         if (i == this.a && j == this.b && this.h != null) {
             return this.h;
+        } else if (!this.g.x && !this.c(i, j)) {
+            return this.c;
         } else {
             int k = i & 31;
             int l = j & 31;
@@ -49,7 +59,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                     this.a(this.f[i1]);
                 }
 
-                Chunk chunk = this.c(i, j);
+                Chunk chunk = this.d(i, j);
 
                 if (chunk == null) {
                     if (this.d == null) {
@@ -89,21 +99,21 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         }
     }
 
-    private Chunk c(int i, int j) {
+    private Chunk d(int i, int j) {
         if (this.e == null) {
-            return null;
+            return this.c;
         } else {
             try {
                 Chunk chunk = this.e.a(this.g, i, j);
 
                 if (chunk != null) {
-                    chunk.s = this.g.e;
+                    chunk.r = this.g.e;
                 }
 
                 return chunk;
             } catch (Exception exception) {
                 exception.printStackTrace();
-                return null;
+                return this.c;
             }
         }
     }
@@ -121,7 +131,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     private void b(Chunk chunk) {
         if (this.e != null) {
             try {
-                chunk.s = this.g.e;
+                chunk.r = this.g.e;
                 this.e.a(this.g, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();

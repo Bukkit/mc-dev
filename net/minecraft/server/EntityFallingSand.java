@@ -25,13 +25,15 @@ public class EntityFallingSand extends Entity {
         this.o = d2;
     }
 
+    protected void a() {}
+
     public boolean c_() {
         return !this.G;
     }
 
     public void b_() {
         if (this.a == 0) {
-            this.l();
+            this.q();
         } else {
             this.m = this.p;
             this.n = this.q;
@@ -47,20 +49,20 @@ public class EntityFallingSand extends Entity {
             int k = MathHelper.b(this.r);
 
             if (this.l.a(i, j, k) == this.a) {
-                this.l.d(i, j, k, 0);
+                this.l.e(i, j, k, 0);
             }
 
             if (this.A) {
                 this.s *= 0.699999988079071D;
                 this.u *= 0.699999988079071D;
                 this.t *= -0.5D;
-                this.l();
-                if (!this.l.a(this.a, i, j, k, true) || !this.l.d(i, j, k, this.a)) {
-                    this.b(this.a, 1);
+                this.q();
+                if ((!this.l.a(this.a, i, j, k, true) || !this.l.e(i, j, k, this.a)) && !this.l.z) {
+                    this.a(this.a, 1);
                 }
-            } else if (this.b > 100) {
-                this.b(this.a, 1);
-                this.l();
+            } else if (this.b > 100 && !this.l.z) {
+                this.a(this.a, 1);
+                this.q();
             }
         }
     }

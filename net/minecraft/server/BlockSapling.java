@@ -13,23 +13,27 @@ public class BlockSapling extends BlockFlower {
 
     public void a(World world, int i, int j, int k, Random random) {
         super.a(world, i, j, k, random);
-        if (world.i(i, j + 1, k) >= 9 && random.nextInt(5) == 0) {
+        if (world.j(i, j + 1, k) >= 9 && random.nextInt(5) == 0) {
             int l = world.b(i, j, k);
 
             if (l < 15) {
-                world.b(i, j, k, l + 1);
+                world.c(i, j, k, l + 1);
             } else {
-                world.a(i, j, k, 0);
-                Object object = new WorldGenTrees();
-
-                if (random.nextInt(10) == 0) {
-                    object = new WorldGenBigTree();
-                }
-
-                if (!((WorldGenerator) object).a(world, random, i, j, k)) {
-                    world.a(i, j, k, this.bh);
-                }
+                this.b(world, i, j, k, random);
             }
+        }
+    }
+
+    public void b(World world, int i, int j, int k, Random random) {
+        world.b(i, j, k, 0);
+        Object object = new WorldGenTrees();
+
+        if (random.nextInt(10) == 0) {
+            object = new WorldGenBigTree();
+        }
+
+        if (!((WorldGenerator) object).a(world, random, i, j, k)) {
+            world.b(i, j, k, this.bi);
         }
     }
 }

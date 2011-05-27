@@ -3,9 +3,9 @@ package net.minecraft.server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
-public class Packet9 extends Packet {
+public class Packet9Respawn extends Packet {
 
-    public Packet9() {}
+    public Packet9Respawn() {}
 
     public void a(NetHandler nethandler) {
         nethandler.a(this);

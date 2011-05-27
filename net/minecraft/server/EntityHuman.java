@@ -30,17 +30,17 @@ public abstract class EntityHuman extends EntityLiving {
         this.ap = this.ao;
         this.H = 1.62F;
         this.c((double) world.m + 0.5D, (double) (world.n + 1), (double) world.o + 0.5D, 0.0F, 0.0F);
-        this.ba = 20;
-        this.aT = "humanoid";
-        this.aS = 180.0F;
+        this.aZ = 20;
+        this.aS = "humanoid";
+        this.aR = 180.0F;
         this.Y = 20;
-        this.aQ = "/mob/char.png";
+        this.aP = "/mob/char.png";
     }
 
     public void b_() {
         super.b_();
         if (!this.l.z && this.ap != null && !this.ap.b(this)) {
-            this.I();
+            this.L();
             this.ap = this.ao;
         }
 
@@ -81,17 +81,17 @@ public abstract class EntityHuman extends EntityLiving {
         this.aC += d1 * 0.25D;
     }
 
-    protected void I() {
+    protected void L() {
         this.ap = this.ao;
     }
 
-    public void z() {
-        super.z();
+    public void D() {
+        super.D();
         this.as = this.at;
         this.at = 0.0F;
     }
 
-    protected void c() {
+    protected void d() {
         if (this.au) {
             ++this.av;
             if (this.av == 8) {
@@ -102,17 +102,17 @@ public abstract class EntityHuman extends EntityLiving {
             this.av = 0;
         }
 
-        this.aZ = (float) this.av / 8.0F;
+        this.aY = (float) this.av / 8.0F;
     }
 
-    public void G() {
-        if (this.l.k == 0 && this.ba < 20 && this.X % 20 * 12 == 0) {
-            this.c(1);
+    public void o() {
+        if (this.l.k == 0 && this.aZ < 20 && this.X % 20 * 12 == 0) {
+            this.d(1);
         }
 
         this.an.f();
         this.as = this.at;
-        super.G();
+        super.o();
         float f = MathHelper.a(this.s * this.s + this.u * this.u);
         float f1 = (float) Math.atan(-this.t * 0.20000000298023224D) * 15.0F;
 
@@ -120,17 +120,17 @@ public abstract class EntityHuman extends EntityLiving {
             f = 0.1F;
         }
 
-        if (!this.A || this.ba <= 0) {
+        if (!this.A || this.aZ <= 0) {
             f = 0.0F;
         }
 
-        if (this.A || this.ba <= 0) {
+        if (this.A || this.aZ <= 0) {
             f1 = 0.0F;
         }
 
         this.at += (f - this.at) * 0.4F;
-        this.bi += (f1 - this.bi) * 0.8F;
-        if (this.ba > 0) {
+        this.bh += (f1 - this.bh) * 0.8F;
+        if (this.aZ > 0) {
             List list = this.l.b((Entity) this, this.z.b(1.0D, 0.0D, 1.0D));
 
             if (list != null) {
@@ -160,8 +160,8 @@ public abstract class EntityHuman extends EntityLiving {
 
         this.an.h();
         if (entity != null) {
-            this.s = (double) (-MathHelper.b((this.be + this.v) * 3.1415927F / 180.0F) * 0.1F);
-            this.u = (double) (-MathHelper.a((this.be + this.v) * 3.1415927F / 180.0F) * 0.1F);
+            this.s = (double) (-MathHelper.b((this.bd + this.v) * 3.1415927F / 180.0F) * 0.1F);
+            this.u = (double) (-MathHelper.a((this.bd + this.v) * 3.1415927F / 180.0F) * 0.1F);
         } else {
             this.s = this.u = 0.0D;
         }
@@ -173,8 +173,8 @@ public abstract class EntityHuman extends EntityLiving {
         this.ar += i;
     }
 
-    public void L() {
-        this.a(this.an.a(this.an.c, 1), false);
+    public void O() {
+        this.a(this.an.b(this.an.c, 1), false);
     }
 
     public void b(ItemStack itemstack) {
@@ -183,7 +183,7 @@ public abstract class EntityHuman extends EntityLiving {
 
     public void a(ItemStack itemstack, boolean flag) {
         if (itemstack != null) {
-            EntityItem entityitem = new EntityItem(this.l, this.p, this.q - 0.30000001192092896D + (double) this.s(), this.r, itemstack);
+            EntityItem entityitem = new EntityItem(this.l, this.p, this.q - 0.30000001192092896D + (double) this.w(), this.r, itemstack);
 
             entityitem.c = 40;
             float f = 0.1F;
@@ -255,13 +255,13 @@ public abstract class EntityHuman extends EntityLiving {
 
     public void c(Entity entity, int i) {}
 
-    public float s() {
+    public float w() {
         return 0.12F;
     }
 
     public boolean a(Entity entity, int i) {
-        this.bx = 0;
-        if (this.ba <= 0) {
+        this.bw = 0;
+        if (this.aZ <= 0) {
             return false;
         } else {
             if (entity instanceof EntityMonster || entity instanceof EntityArrow) {
@@ -282,37 +282,49 @@ public abstract class EntityHuman extends EntityLiving {
         }
     }
 
-    protected void d(int i) {
+    protected void e(int i) {
         int j = 25 - this.an.g();
         int k = i * j + this.a;
 
         this.an.c(i);
         i = k / 25;
         this.a = k % 25;
-        super.d(i);
+        super.e(i);
     }
 
     public void a(TileEntityFurnace tileentityfurnace) {}
 
+    public void a(TileEntityDispenser tileentitydispenser) {}
+
     public void a(TileEntitySign tileentitysign) {}
 
     public void g(Entity entity) {
-        entity.a(this);
+        if (!entity.a(this)) {
+            ItemStack itemstack = this.P();
+
+            if (itemstack != null && entity instanceof EntityLiving) {
+                itemstack.b((EntityLiving) entity);
+                if (itemstack.a <= 0) {
+                    itemstack.a(this);
+                    this.Q();
+                }
+            }
+        }
     }
 
-    public ItemStack M() {
+    public ItemStack P() {
         return this.an.e();
     }
 
-    public void N() {
+    public void Q() {
         this.an.a(this.an.c, (ItemStack) null);
     }
 
-    public double B() {
+    public double F() {
         return (double) (this.H - 0.5F);
     }
 
-    public void H() {
+    public void K() {
         this.av = -1;
         this.au = true;
     }
@@ -322,13 +334,13 @@ public abstract class EntityHuman extends EntityLiving {
 
         if (i > 0) {
             entity.a(this, i);
-            ItemStack itemstack = this.M();
+            ItemStack itemstack = this.P();
 
             if (itemstack != null && entity instanceof EntityLiving) {
                 itemstack.a((EntityLiving) entity);
                 if (itemstack.a <= 0) {
                     itemstack.a(this);
-                    this.N();
+                    this.Q();
                 }
             }
         }
@@ -336,8 +348,8 @@ public abstract class EntityHuman extends EntityLiving {
 
     public void a(ItemStack itemstack) {}
 
-    public void l() {
-        super.l();
+    public void q() {
+        super.q();
         this.ao.a(this);
         if (this.ap != null) {
             this.ap.a(this);

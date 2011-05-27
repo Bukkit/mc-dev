@@ -4,16 +4,16 @@ public class EntitySpider extends EntityMonster {
 
     public EntitySpider(World world) {
         super(world);
-        this.aQ = "/mob/spider.png";
+        this.aP = "/mob/spider.png";
         this.a(1.4F, 0.9F);
-        this.bD = 0.8F;
+        this.bC = 0.8F;
     }
 
-    public double j() {
+    public double k() {
         return (double) this.J * 0.75D - 0.5D;
     }
 
-    protected Entity k() {
+    protected Entity l() {
         float f = this.b(1.0F);
 
         if (f < 0.5F) {
@@ -25,15 +25,15 @@ public class EntitySpider extends EntityMonster {
         }
     }
 
-    protected String d() {
-        return "mob.spider";
-    }
-
     protected String e() {
         return "mob.spider";
     }
 
     protected String f() {
+        return "mob.spider";
+    }
+
+    protected String g() {
         return "mob.spiderdeath";
     }
 
@@ -41,7 +41,7 @@ public class EntitySpider extends EntityMonster {
         float f1 = this.b(1.0F);
 
         if (f1 > 0.5F && this.W.nextInt(100) == 0) {
-            this.aj = null;
+            this.d = null;
         } else {
             if (f > 2.0F && f < 6.0F && this.W.nextInt(10) == 0) {
                 if (this.A) {
@@ -67,7 +67,11 @@ public class EntitySpider extends EntityMonster {
         super.b(nbttagcompound);
     }
 
-    protected int g() {
-        return Item.STRING.aW;
+    protected int h() {
+        return Item.STRING.ba;
+    }
+
+    public boolean m() {
+        return this.B;
     }
 }

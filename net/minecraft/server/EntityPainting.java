@@ -5,16 +5,16 @@ import java.util.List;
 
 public class EntityPainting extends Entity {
 
-    private int c;
-    public int a;
-    private int d;
-    private int e;
     private int f;
-    public EnumArt b;
+    public int a;
+    public int b;
+    public int c;
+    public int d;
+    public EnumArt e;
 
     public EntityPainting(World world) {
         super(world);
-        this.c = 0;
+        this.f = 0;
         this.a = 0;
         this.H = 0.0F;
         this.a(0.5F, 0.5F);
@@ -22,9 +22,9 @@ public class EntityPainting extends Entity {
 
     public EntityPainting(World world, int i, int j, int k, int l) {
         this(world);
-        this.d = i;
-        this.e = j;
-        this.f = k;
+        this.b = i;
+        this.c = j;
+        this.d = k;
         ArrayList arraylist = new ArrayList();
         EnumArt[] aenumart = EnumArt.values();
         int i1 = aenumart.length;
@@ -32,26 +32,28 @@ public class EntityPainting extends Entity {
         for (int j1 = 0; j1 < i1; ++j1) {
             EnumArt enumart = aenumart[j1];
 
-            this.b = enumart;
+            this.e = enumart;
             this.a(l);
-            if (this.c()) {
+            if (this.d()) {
                 arraylist.add(enumart);
             }
         }
 
         if (arraylist.size() > 0) {
-            this.b = (EnumArt) arraylist.get(this.W.nextInt(arraylist.size()));
+            this.e = (EnumArt) arraylist.get(this.W.nextInt(arraylist.size()));
         }
 
         this.a(l);
     }
 
+    protected void a() {}
+
     public void a(int i) {
         this.a = i;
         this.x = this.v = (float) (i * 90);
-        float f = (float) this.b.z;
-        float f1 = (float) this.b.A;
-        float f2 = (float) this.b.z;
+        float f = (float) this.e.z;
+        float f1 = (float) this.e.A;
+        float f2 = (float) this.e.z;
 
         if (i != 0 && i != 2) {
             f = 0.5F;
@@ -62,9 +64,9 @@ public class EntityPainting extends Entity {
         f /= 32.0F;
         f1 /= 32.0F;
         f2 /= 32.0F;
-        float f3 = (float) this.d + 0.5F;
-        float f4 = (float) this.e + 0.5F;
-        float f5 = (float) this.f + 0.5F;
+        float f3 = (float) this.b + 0.5F;
+        float f4 = (float) this.c + 0.5F;
+        float f5 = (float) this.d + 0.5F;
         float f6 = 0.5625F;
 
         if (i == 0) {
@@ -84,67 +86,69 @@ public class EntityPainting extends Entity {
         }
 
         if (i == 0) {
-            f3 -= this.c(this.b.z);
+            f3 -= this.d(this.e.z);
         }
 
         if (i == 1) {
-            f5 += this.c(this.b.z);
+            f5 += this.d(this.e.z);
         }
 
         if (i == 2) {
-            f3 += this.c(this.b.z);
+            f3 += this.d(this.e.z);
         }
 
         if (i == 3) {
-            f5 -= this.c(this.b.z);
+            f5 -= this.d(this.e.z);
         }
 
-        f4 += this.c(this.b.A);
+        f4 += this.d(this.e.A);
         this.a((double) f3, (double) f4, (double) f5);
         float f7 = -0.00625F;
 
         this.z.c((double) (f3 - f - f7), (double) (f4 - f1 - f7), (double) (f5 - f2 - f7), (double) (f3 + f + f7), (double) (f4 + f1 + f7), (double) (f5 + f2 + f7));
     }
 
-    private float c(int i) {
+    private float d(int i) {
         return i == 32 ? 0.5F : (i == 64 ? 0.5F : 0.0F);
     }
 
     public void b_() {
-        if (this.c++ == 100 && !this.c()) {
-            this.c = 0;
-            this.l();
-            this.l.a((Entity) (new EntityItem(this.l, this.p, this.q, this.r, new ItemStack(Item.PAINTING))));
+        if (this.f++ == 100 && !this.l.z) {
+            this.f = 0;
+            if (!this.d()) {
+                this.q();
+                this.l.a((Entity) (new EntityItem(this.l, this.p, this.q, this.r, new ItemStack(Item.PAINTING))));
+            }
         }
     }
 
-    public boolean c() {
+    public boolean d() {
         if (this.l.a((Entity) this, this.z).size() > 0) {
             return false;
         } else {
-            int i = this.b.z / 16;
-            int j = this.b.A / 16;
-            int k = this.d;
-            int l = this.e;
-            int i1 = this.f;
+            int i = this.e.z / 16;
+            int j = this.e.A / 16;
+            int k = this.b;
+            int l = this.c;
+            int i1 = this.d;
 
             if (this.a == 0) {
-                k = MathHelper.b(this.p - (double) ((float) this.b.z / 32.0F));
+                k = MathHelper.b(this.p - (double) ((float) this.e.z / 32.0F));
             }
 
             if (this.a == 1) {
-                i1 = MathHelper.b(this.r - (double) ((float) this.b.z / 32.0F));
+                i1 = MathHelper.b(this.r - (double) ((float) this.e.z / 32.0F));
             }
 
             if (this.a == 2) {
-                k = MathHelper.b(this.p - (double) ((float) this.b.z / 32.0F));
+                k = MathHelper.b(this.p - (double) ((float) this.e.z / 32.0F));
             }
 
             if (this.a == 3) {
-                i1 = MathHelper.b(this.r - (double) ((float) this.b.z / 32.0F));
+                i1 = MathHelper.b(this.r - (double) ((float) this.e.z / 32.0F));
             }
 
-            l = MathHelper.b(this.q - (double) ((float) this.b.A / 32.0F));
+            l = MathHelper.b(this.q - (double) ((float) this.e.A / 32.0F));
 
             int j1;
 
@@ -153,9 +157,9 @@ public class EntityPainting extends Entity {
                     Material material;
 
                     if (this.a != 0 && this.a != 2) {
-                        material = this.l.c(this.d, l + j1, i1 + k1);
+                        material = this.l.c(this.b, l + j1, i1 + k1);
                     } else {
-                        material = this.l.c(k + k1, l + j1, this.f);
+                        material = this.l.c(k + k1, l + j1, this.d);
                     }
 
                     if (!material.a()) {
@@ -181,25 +185,28 @@ public class EntityPainting extends Entity {
     }
 
     public boolean a(Entity entity, int i) {
-        this.l();
-        this.u();
-        this.l.a((Entity) (new EntityItem(this.l, this.p, this.q, this.r, new ItemStack(Item.PAINTING))));
+        if (!this.G && !this.l.z) {
+            this.q();
+            this.y();
+            this.l.a((Entity) (new EntityItem(this.l, this.p, this.q, this.r, new ItemStack(Item.PAINTING))));
+        }
+
         return true;
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         nbttagcompound.a("Dir", (byte) this.a);
-        nbttagcompound.a("Motive", this.b.y);
-        nbttagcompound.a("TileX", this.d);
-        nbttagcompound.a("TileY", this.e);
-        nbttagcompound.a("TileZ", this.f);
+        nbttagcompound.a("Motive", this.e.y);
+        nbttagcompound.a("TileX", this.b);
+        nbttagcompound.a("TileY", this.c);
+        nbttagcompound.a("TileZ", this.d);
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         this.a = nbttagcompound.b("Dir");
-        this.d = nbttagcompound.d("TileX");
-        this.e = nbttagcompound.d("TileY");
-        this.f = nbttagcompound.d("TileZ");
+        this.b = nbttagcompound.d("TileX");
+        this.c = nbttagcompound.d("TileY");
+        this.d = nbttagcompound.d("TileZ");
         String s = nbttagcompound.h("Motive");
         EnumArt[] aenumart = EnumArt.values();
         int i = aenumart.length;
@@ -208,12 +215,12 @@ public class EntityPainting extends Entity {
             EnumArt enumart = aenumart[j];
 
             if (enumart.y.equals(s)) {
-                this.b = enumart;
+                this.e = enumart;
             }
         }
 
-        if (this.b == null) {
-            this.b = EnumArt.KEBAB;
+        if (this.e == null) {
+            this.e = EnumArt.KEBAB;
         }
 
         this.a(this.a);

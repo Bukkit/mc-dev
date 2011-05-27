@@ -25,8 +25,7 @@ public class Chunk {
     public boolean o;
     public boolean p;
     public boolean q;
-    public boolean r;
-    public long s;
+    public long r;
 
     public Chunk(World world, int i, int j) {
         this.l = new HashMap();
@@ -34,8 +33,7 @@ public class Chunk {
         this.n = false;
         this.o = false;
         this.q = false;
-        this.r = false;
-        this.s = 0L;
+        this.r = 0L;
         this.d = world;
         this.j = i;
         this.k = j;
@@ -72,10 +70,15 @@ public class Chunk {
 
         for (j = 0; j < 16; ++j) {
             for (k = 0; k < 16; ++k) {
-                this.h[k << 4 | j] = -128;
-                this.g(j, 127, k);
-                if ((this.h[k << 4 | j] & 255) < i) {
-                    i = this.h[k << 4 | j] & 255;
+                int l = 127;
+
+                for (int i1 = j << 11 | k << 7; l > 0 && Block.q[this.b[i1 + l - 1]] == 0; --l) {
+                    ;
+                }
+
+                this.h[k << 4 | j] = (byte) l;
+                if (l < i) {
+                    i = l;
                 }
             }
         }
@@ -152,11 +155,11 @@ public class Chunk {
 
         if (l > k) {
             this.d.a(EnumSkyBlock.SKY, i, k, j, i, l, j);
+            this.o = true;
         } else if (l < k) {
             this.d.a(EnumSkyBlock.SKY, i, l, j, i, k, j);
+            this.o = true;
         }
-
-        this.o = true;
     }
 
     private void g(int i, int j, int k) {
@@ -172,7 +175,7 @@ public class Chunk {
         }
 
         if (i1 != l) {
-            this.d.f(i, k, i1, l);
+            this.d.g(i, k, i1, l);
             this.h[k << 4 | i] = (byte) i1;
             int k1;
             int l1;
@@ -364,36 +367,34 @@ public class Chunk {
     }
 
     public void a(Entity entity) {
-        if (!this.q) {
-            this.r = true;
-            int i = MathHelper.b(entity.p / 16.0D);
-            int j = MathHelper.b(entity.r / 16.0D);
+        this.q = true;
+        int i = MathHelper.b(entity.p / 16.0D);
+        int j = MathHelper.b(entity.r / 16.0D);
 
-            if (i != this.j || j != this.k) {
-                System.out.println("Wrong location! " + entity);
-                Thread.dumpStack();
-            }
-
-            int k = MathHelper.b(entity.q / 16.0D);
-
-            if (k < 0) {
-                k = 0;
-            }
-
-            if (k >= this.m.length) {
-                k = this.m.length - 1;
-            }
-
-            entity.af = true;
-            entity.ag = this.j;
-            entity.ah = k;
-            entity.ai = this.k;
-            this.m[k].add(entity);
+        if (i != this.j || j != this.k) {
+            System.out.println("Wrong location! " + entity);
+            Thread.dumpStack();
         }
+
+        int k = MathHelper.b(entity.q / 16.0D);
+
+        if (k < 0) {
+            k = 0;
+        }
+
+        if (k >= this.m.length) {
+            k = this.m.length - 1;
+        }
+
+        entity.ag = true;
+        entity.ah = this.j;
+        entity.ai = k;
+        entity.aj = this.k;
+        this.m[k].add(entity);
     }
 
     public void b(Entity entity) {
-        this.a(entity, entity.ah);
+        this.a(entity, entity.ai);
     }
 
     public void a(Entity entity, int i) {
@@ -547,10 +548,10 @@ public class Chunk {
             return false;
         } else {
             if (flag) {
-                if (this.r && this.d.e != this.s) {
+                if (this.q && this.d.e != this.r) {
                     return true;
                 }
-            } else if (this.r && this.d.e >= this.s + 600L) {
+            } else if (this.q && this.d.e >= this.r + 600L) {
                 return true;
             }
 
@@ -605,5 +606,9 @@ public class Chunk {
 
     public Random a(long i) {
         return new Random(this.d.u + (long) (this.j * this.j * 4987142) + (long) (this.j * 5947611) + (long) (this.k * this.k) * 4392871L + (long) (this.k * 389711) ^ i);
+    }
+
+    public boolean g() {
+        return false;
     }
 }

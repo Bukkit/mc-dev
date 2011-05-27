@@ -6,8 +6,8 @@ public class ItemBucket extends Item {
 
     public ItemBucket(int i, int j) {
         super(i);
-        this.aX = 1;
-        this.aY = 64;
+        this.bb = 1;
+        this.bc = 64;
         this.a = j;
     }
 
@@ -32,7 +32,7 @@ public class ItemBucket extends Item {
         if (movingobjectposition == null) {
             return itemstack;
         } else {
-            if (movingobjectposition.a == 0) {
+            if (movingobjectposition.a == EnumMovingObjectType.TILE) {
                 int i = movingobjectposition.b;
                 int j = movingobjectposition.c;
                 int k = movingobjectposition.d;
@@ -43,12 +43,12 @@ public class ItemBucket extends Item {
 
                 if (this.a == 0) {
                     if (world.c(i, j, k) == Material.f && world.b(i, j, k) == 0) {
-                        world.d(i, j, k, 0);
+                        world.e(i, j, k, 0);
                         return new ItemStack(Item.WATER_BUCKET);
                     }
 
                     if (world.c(i, j, k) == Material.g && world.b(i, j, k) == 0) {
-                        world.d(i, j, k, 0);
+                        world.e(i, j, k, 0);
                         return new ItemStack(Item.LAVA_BUCKET);
                     }
                 } else {
@@ -81,7 +81,7 @@ public class ItemBucket extends Item {
                     }
 
                     if (world.e(i, j, k) || !world.c(i, j, k).a()) {
-                        if (world.q.d && this.a == Block.WATER.bh) {
+                        if (world.q.d && this.a == Block.WATER.bi) {
                             world.a(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D, "random.fizz", 0.5F, 2.6F + (world.l.nextFloat() - world.l.nextFloat()) * 0.8F);
 
                             for (int l = 0; l < 8; ++l) {

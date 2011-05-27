@@ -3,34 +3,34 @@ package net.minecraft.server;
 public class EntityCreature extends EntityLiving {
 
     private PathEntity a;
-    protected Entity aj;
-    protected boolean ak = false;
+    protected Entity d;
+    protected boolean e = false;
 
     public EntityCreature(World world) {
         super(world);
     }
 
-    protected void c() {
-        this.ak = false;
+    protected void d() {
+        this.e = false;
         float f = 16.0F;
 
-        if (this.aj == null) {
-            this.aj = this.k();
-            if (this.aj != null) {
-                this.a = this.l.a(this, this.aj, f);
+        if (this.d == null) {
+            this.d = this.l();
+            if (this.d != null) {
+                this.a = this.l.a(this, this.d, f);
             }
-        } else if (!this.aj.x()) {
-            this.aj = null;
+        } else if (!this.d.B()) {
+            this.d = null;
         } else {
-            float f1 = this.aj.a((Entity) this);
+            float f1 = this.d.a((Entity) this);
 
-            if (this.i(this.aj)) {
-                this.a(this.aj, f1);
+            if (this.i(this.d)) {
+                this.a(this.d, f1);
             }
         }
 
-        if (!this.ak && this.aj != null && (this.a == null || this.W.nextInt(20) == 0)) {
-            this.a = this.l.a(this, this.aj, f);
+        if (!this.e && this.d != null && (this.a == null || this.W.nextInt(20) == 0)) {
+            this.a = this.l.a(this, this.d, f);
         } else if (this.a == null && this.W.nextInt(80) == 0 || this.W.nextInt(80) == 0) {
             boolean flag = false;
             int i = -1;
@@ -59,8 +59,8 @@ public class EntityCreature extends EntityLiving {
         }
 
         int l1 = MathHelper.b(this.z.b);
-        boolean flag1 = this.r();
-        boolean flag2 = this.t();
+        boolean flag1 = this.v();
+        boolean flag2 = this.x();
 
         this.w = 0.0F;
         if (this.a != null && this.W.nextInt(100) != 0) {
@@ -77,7 +77,7 @@ public class EntityCreature extends EntityLiving {
                 }
             }
 
-            this.bB = false;
+            this.bA = false;
             if (vec3d != null) {
                 double d1 = vec3d.a - this.p;
                 double d2 = vec3d.c - this.r;
@@ -85,7 +85,7 @@ public class EntityCreature extends EntityLiving {
                 float f4 = (float) (Math.atan2(d2, d1) * 180.0D / 3.1415927410125732D) - 90.0F;
                 float f5 = f4 - this.v;
 
-                for (this.bz = this.bD; f5 < -180.0F; f5 += 360.0F) {
+                for (this.by = this.bC; f5 < -180.0F; f5 += 360.0F) {
                     ;
                 }
 
@@ -102,35 +102,35 @@ public class EntityCreature extends EntityLiving {
                 }
 
                 this.v += f5;
-                if (this.ak && this.aj != null) {
-                    double d4 = this.aj.p - this.p;
-                    double d5 = this.aj.r - this.r;
+                if (this.e && this.d != null) {
+                    double d4 = this.d.p - this.p;
+                    double d5 = this.d.r - this.r;
                     float f6 = this.v;
 
                     this.v = (float) (Math.atan2(d5, d4) * 180.0D / 3.1415927410125732D) - 90.0F;
                     f5 = (f6 - this.v + 90.0F) * 3.1415927F / 180.0F;
-                    this.by = -MathHelper.a(f5) * this.bz * 1.0F;
-                    this.bz = MathHelper.b(f5) * this.bz * 1.0F;
+                    this.bx = -MathHelper.a(f5) * this.by * 1.0F;
+                    this.by = MathHelper.b(f5) * this.by * 1.0F;
                 }
 
                 if (d3 > 0.0D) {
-                    this.bB = true;
+                    this.bA = true;
                 }
             }
 
-            if (this.aj != null) {
-                this.b(this.aj, 30.0F);
+            if (this.d != null) {
+                this.b(this.d, 30.0F);
             }
 
             if (this.B) {
-                this.bB = true;
+                this.bA = true;
             }
 
             if (this.W.nextFloat() < 0.8F && (flag1 || flag2)) {
-                this.bB = true;
+                this.bA = true;
             }
         } else {
-            super.c();
+            super.d();
             this.a = null;
         }
     }
@@ -141,15 +141,15 @@ public class EntityCreature extends EntityLiving {
         return 0.0F;
     }
 
-    protected Entity k() {
+    protected Entity l() {
         return null;
     }
 
-    public boolean a() {
+    public boolean b() {
         int i = MathHelper.b(this.p);
         int j = MathHelper.b(this.z.b);
         int k = MathHelper.b(this.r);
 
-        return super.a() && this.a(i, j, k) >= 0.0F;
+        return super.b() && this.a(i, j, k) >= 0.0F;
     }
 }

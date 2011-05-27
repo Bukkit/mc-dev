@@ -35,7 +35,7 @@ class PlayerInstance {
         if (this.b.contains(entityplayer)) {
             throw new IllegalStateException("Failed to add player. " + entityplayer + " already is in chunk " + this.c + ", " + this.d);
         } else {
-            entityplayer.aj.add(this.e);
+            entityplayer.ak.add(this.e);
             entityplayer.a.b((Packet) (new Packet50PreChunk(this.e.a, this.e.b, true)));
             this.b.add(entityplayer);
             entityplayer.f.add(this.e);
@@ -59,7 +59,7 @@ class PlayerInstance {
             }
 
             entityplayer.f.remove(this.e);
-            if (entityplayer.aj.contains(this.e)) {
+            if (entityplayer.ak.contains(this.e)) {
                 entityplayer.a.b((Packet) (new Packet50PreChunk(this.c, this.d, false)));
             }
         }
@@ -114,7 +114,7 @@ class PlayerInstance {
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-            if (entityplayer.aj.contains(this.e)) {
+            if (entityplayer.ak.contains(this.e)) {
                 entityplayer.a.b(packet);
             }
         }
@@ -132,7 +132,7 @@ class PlayerInstance {
                 k = this.d * 16 + this.l;
                 this.a((Packet) (new Packet53BlockChange(i, j, k, PlayerManager.a(this.a).e)));
                 if (Block.p[PlayerManager.a(this.a).e.a(i, j, k)]) {
-                    this.a(PlayerManager.a(this.a).e.l(i, j, k));
+                    this.a(PlayerManager.a(this.a).e.m(i, j, k));
                 }
             } else {
                 int l;
@@ -162,7 +162,7 @@ class PlayerInstance {
                         l = this.d * 16 + (this.g >> 8 & 15);
                         if (Block.p[PlayerManager.a(this.a).e.a(j, k, l)]) {
                             System.out.println("Sending!");
-                            this.a(PlayerManager.a(this.a).e.l(j, k, l));
+                            this.a(PlayerManager.a(this.a).e.m(j, k, l));
                         }
                     }
                 }
@@ -174,7 +174,7 @@ class PlayerInstance {
 
     private void a(TileEntity tileentity) {
         if (tileentity != null) {
-            Packet packet = tileentity.f();
+            Packet packet = tileentity.g();
 
             if (packet != null) {
                 this.a(packet);

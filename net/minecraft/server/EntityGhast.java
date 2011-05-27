@@ -6,21 +6,21 @@ public class EntityGhast extends EntityFlying implements IMonster {
     public double b;
     public double c;
     public double d;
-    private Entity aj = null;
-    private int ak = 0;
+    private Entity ak = null;
+    private int al = 0;
     public int e = 0;
     public int f = 0;
 
     public EntityGhast(World world) {
         super(world);
-        this.aQ = "/mob/ghast.png";
+        this.aP = "/mob/ghast.png";
         this.a(4.0F, 4.0F);
         this.ae = true;
     }
 
-    protected void c() {
+    protected void d() {
         if (this.l.k == 0) {
-            this.l();
+            this.q();
         }
 
         this.e = this.f;
@@ -48,33 +48,33 @@ public class EntityGhast extends EntityFlying implements IMonster {
             }
         }
 
-        if (this.aj != null && this.aj.G) {
-            this.aj = null;
+        if (this.ak != null && this.ak.G) {
+            this.ak = null;
         }
 
-        if (this.aj == null || this.ak-- <= 0) {
-            this.aj = this.l.a(this, 100.0D);
-            if (this.aj != null) {
-                this.ak = 20;
+        if (this.ak == null || this.al-- <= 0) {
+            this.ak = this.l.a(this, 100.0D);
+            if (this.ak != null) {
+                this.al = 20;
             }
         }
 
         double d4 = 64.0D;
 
-        if (this.aj != null && this.aj.b((Entity) this) < d4 * d4) {
-            double d5 = this.aj.p - this.p;
-            double d6 = this.aj.z.b + (double) (this.aj.J / 2.0F) - (this.q + (double) (this.J / 2.0F));
-            double d7 = this.aj.r - this.r;
+        if (this.ak != null && this.ak.b((Entity) this) < d4 * d4) {
+            double d5 = this.ak.p - this.p;
+            double d6 = this.ak.z.b + (double) (this.ak.J / 2.0F) - (this.q + (double) (this.J / 2.0F));
+            double d7 = this.ak.r - this.r;
 
-            this.aJ = this.v = -((float) Math.atan2(d5, d7)) * 180.0F / 3.1415927F;
-            if (this.i(this.aj)) {
+            this.aI = this.v = -((float) Math.atan2(d5, d7)) * 180.0F / 3.1415927F;
+            if (this.i(this.ak)) {
                 if (this.f == 10) {
-                    this.l.a(this, "mob.ghast.charge", this.h(), (this.W.nextFloat() - this.W.nextFloat()) * 0.2F + 1.0F);
+                    this.l.a(this, "mob.ghast.charge", this.i(), (this.W.nextFloat() - this.W.nextFloat()) * 0.2F + 1.0F);
                 }
 
                 ++this.f;
                 if (this.f == 20) {
-                    this.l.a(this, "mob.ghast.fireball", this.h(), (this.W.nextFloat() - this.W.nextFloat()) * 0.2F + 1.0F);
+                    this.l.a(this, "mob.ghast.fireball", this.i(), (this.W.nextFloat() - this.W.nextFloat()) * 0.2F + 1.0F);
                     EntityFireball entityfireball = new EntityFireball(this.l, this, d5, d6, d7);
                     double d8 = 4.0D;
                     Vec3D vec3d = this.c(1.0F);
@@ -89,13 +89,13 @@ public class EntityGhast extends EntityFlying implements IMonster {
                 --this.f;
             }
         } else {
-            this.aJ = this.v = -((float) Math.atan2(this.s, this.u)) * 180.0F / 3.1415927F;
+            this.aI = this.v = -((float) Math.atan2(this.s, this.u)) * 180.0F / 3.1415927F;
             if (this.f > 0) {
                 --this.f;
             }
         }
 
-        this.aQ = this.f > 10 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
+        this.aP = this.f > 10 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
     }
 
     private boolean a(double d0, double d1, double d2, double d3) {
@@ -114,31 +114,31 @@ public class EntityGhast extends EntityFlying implements IMonster {
         return true;
     }
 
-    protected String d() {
+    protected String e() {
         return "mob.ghast.moan";
     }
 
-    protected String e() {
+    protected String f() {
         return "mob.ghast.scream";
     }
 
-    protected String f() {
+    protected String g() {
         return "mob.ghast.death";
     }
 
-    protected int g() {
-        return Item.SULPHUR.aW;
+    protected int h() {
+        return Item.SULPHUR.ba;
     }
 
-    protected float h() {
+    protected float i() {
         return 10.0F;
     }
 
-    public boolean a() {
-        return this.W.nextInt(20) == 0 && super.a() && this.l.k > 0;
+    public boolean b() {
+        return this.W.nextInt(20) == 0 && super.b() && this.l.k > 0;
     }
 
-    public int i() {
+    public int j() {
         return 1;
     }
 }

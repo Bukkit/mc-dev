@@ -6,7 +6,7 @@ public class InventoryCraftResult implements IInventory {
 
     public InventoryCraftResult() {}
 
-    public int a() {
+    public int h_() {
         return 1;
     }
 
@@ -18,7 +18,7 @@ public class InventoryCraftResult implements IInventory {
         return "Result";
     }
 
-    public ItemStack a(int i, int j) {
+    public ItemStack b(int i, int j) {
         if (this.a[i] != null) {
             ItemStack itemstack = this.a[i];
 

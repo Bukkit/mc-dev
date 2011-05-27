@@ -3,20 +3,20 @@ package net.minecraft.server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
-public class Packet28 extends Packet {
+public class Packet28EntityVelocity extends Packet {
 
     public int a;
     public int b;
     public int c;
     public int d;
 
-    public Packet28() {}
+    public Packet28EntityVelocity() {}
 
-    public Packet28(Entity entity) {
+    public Packet28EntityVelocity(Entity entity) {
         this(entity.g, entity.s, entity.t, entity.u);
     }
 
-    public Packet28(int i, double d0, double d1, double d2) {
+    public Packet28EntityVelocity(int i, double d0, double d1, double d2) {
         this.a = i;
         double d3 = 3.9D;
 

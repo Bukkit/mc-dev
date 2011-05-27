@@ -6,13 +6,13 @@ public class EntityFireball extends Entity {
 
     private int e = -1;
     private int f = -1;
-    private int aj = -1;
-    private int ak = 0;
-    private boolean al = false;
+    private int ak = -1;
+    private int al = 0;
+    private boolean am = false;
     public int a = 0;
-    private EntityLiving am;
-    private int an;
-    private int ao = 0;
+    private EntityLiving an;
+    private int ao;
+    private int ap = 0;
     public double b;
     public double c;
     public double d;
@@ -22,9 +22,11 @@ public class EntityFireball extends Entity {
         this.a(1.0F, 1.0F);
     }
 
+    protected void a() {}
+
     public EntityFireball(World world, EntityLiving entityliving, double d0, double d1, double d2) {
         super(world);
-        this.am = entityliving;
+        this.an = entityliving;
         this.a(1.0F, 1.0F);
         this.c(entityliving.p, entityliving.q, entityliving.r, entityliving.v, entityliving.w);
         this.a(this.p, this.q, this.r);
@@ -47,26 +49,26 @@ public class EntityFireball extends Entity {
             --this.a;
         }
 
-        if (this.al) {
-            int i = this.l.a(this.e, this.f, this.aj);
+        if (this.am) {
+            int i = this.l.a(this.e, this.f, this.ak);
 
-            if (i == this.ak) {
-                ++this.an;
-                if (this.an == 1200) {
-                    this.l();
+            if (i == this.al) {
+                ++this.ao;
+                if (this.ao == 1200) {
+                    this.q();
                 }
 
                 return;
             }
 
-            this.al = false;
+            this.am = false;
             this.s *= (double) (this.W.nextFloat() * 0.2F);
             this.t *= (double) (this.W.nextFloat() * 0.2F);
             this.u *= (double) (this.W.nextFloat() * 0.2F);
-            this.an = 0;
             this.ao = 0;
+            this.ap = 0;
         } else {
-            ++this.ao;
+            ++this.ap;
         }
 
         Vec3D vec3d = Vec3D.b(this.p, this.q, this.r);
@@ -86,7 +88,7 @@ public class EntityFireball extends Entity {
         for (int j = 0; j < list.size(); ++j) {
             Entity entity1 = (Entity) list.get(j);
 
-            if (entity1.c_() && (entity1 != this.am || this.ao >= 25)) {
+            if (entity1.c_() && (entity1 != this.an || this.ap >= 25)) {
                 float f = 0.3F;
                 AxisAlignedBB axisalignedbb = entity1.z.b((double) f, (double) f, (double) f);
                 MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
@@ -107,12 +109,12 @@ public class EntityFireball extends Entity {
         }
 
         if (movingobjectposition != null) {
-            if (movingobjectposition.g != null && movingobjectposition.g.a(this.am, 0)) {
+            if (movingobjectposition.g != null && movingobjectposition.g.a(this.an, 0)) {
                 ;
             }
 
             this.l.a((Entity) null, this.p, this.q, this.r, 1.0F, true);
-            this.l();
+            this.q();
         }
 
         this.p += this.s;
@@ -142,7 +144,7 @@ public class EntityFireball extends Entity {
         this.v = this.x + (this.v - this.x) * 0.2F;
         float f2 = 0.95F;
 
-        if (this.r()) {
+        if (this.v()) {
             for (int k = 0; k < 4; ++k) {
                 float f3 = 0.25F;
 
@@ -165,19 +167,19 @@ public class EntityFireball extends Entity {
     public void a(NBTTagCompound nbttagcompound) {
         nbttagcompound.a("xTile", (short) this.e);
         nbttagcompound.a("yTile", (short) this.f);
-        nbttagcompound.a("zTile", (short) this.aj);
-        nbttagcompound.a("inTile", (byte) this.ak);
+        nbttagcompound.a("zTile", (short) this.ak);
+        nbttagcompound.a("inTile", (byte) this.al);
         nbttagcompound.a("shake", (byte) this.a);
-        nbttagcompound.a("inGround", (byte) (this.al ? 1 : 0));
+        nbttagcompound.a("inGround", (byte) (this.am ? 1 : 0));
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         this.e = nbttagcompound.c("xTile");
         this.f = nbttagcompound.c("yTile");
-        this.aj = nbttagcompound.c("zTile");
-        this.ak = nbttagcompound.b("inTile") & 255;
+        this.ak = nbttagcompound.c("zTile");
+        this.al = nbttagcompound.b("inTile") & 255;
         this.a = nbttagcompound.b("shake") & 255;
-        this.al = nbttagcompound.b("inGround") == 1;
+        this.am = nbttagcompound.b("inGround") == 1;
     }
 
     public boolean c_() {
@@ -185,9 +187,9 @@ public class EntityFireball extends Entity {
     }
 
     public boolean a(Entity entity, int i) {
-        this.u();
+        this.y();
         if (entity != null) {
-            Vec3D vec3d = entity.C();
+            Vec3D vec3d = entity.G();
 
             if (vec3d != null) {
                 this.s = vec3d.a;

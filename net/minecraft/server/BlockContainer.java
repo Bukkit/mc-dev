@@ -9,6 +9,7 @@ public abstract class BlockContainer extends Block {
 
     protected BlockContainer(int i, int j, Material material) {
         super(i, j, material);
+        p[i] = true;
     }
 
     public void e(World world, int i, int j, int k) {
@@ -18,7 +19,7 @@ public abstract class BlockContainer extends Block {
 
     public void b(World world, int i, int j, int k) {
         super.b(world, i, j, k);
-        world.m(i, j, k);
+        world.n(i, j, k);
     }
 
     protected abstract TileEntity a_();

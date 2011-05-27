@@ -9,7 +9,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
     public TileEntityFurnace() {}
 
-    public int a() {
+    public int h_() {
         return this.h.length;
     }
 
@@ -17,7 +17,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         return this.h[i];
     }
 
-    public ItemStack a(int i, int j) {
+    public ItemStack b(int i, int j) {
         if (this.h[i] != null) {
             ItemStack itemstack;
 
@@ -53,7 +53,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         super.a(nbttagcompound);
         NBTTagList nbttaglist = nbttagcompound.k("Items");
 
-        this.h = new ItemStack[this.a()];
+        this.h = new ItemStack[this.h_()];
 
         for (int i = 0; i < nbttaglist.b(); ++i) {
             NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.a(i);
@@ -92,11 +92,11 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         return 64;
     }
 
-    public boolean g() {
+    public boolean e() {
         return this.e > 0;
     }
 
-    public void e() {
+    public void f() {
         boolean flag = this.e > 0;
         boolean flag1 = false;
 
@@ -118,7 +118,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
                 }
             }
 
-            if (this.g() && this.i()) {
+            if (this.e() && this.i()) {
                 ++this.g;
                 if (this.g == 200) {
                     this.g = 0;
@@ -144,19 +144,19 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         if (this.h[0] == null) {
             return false;
         } else {
-            int i = this.b(this.h[0].a().aW);
+            ItemStack itemstack = FurnaceRecipes.a().a(this.h[0].a().ba);
 
-            return i < 0 ? false : (this.h[2] == null ? true : (this.h[2].c != i ? false : (this.h[2].a < this.c() && this.h[2].a < this.h[2].b() ? true : this.h[2].a < Item.c[i].b())));
+            return itemstack == null ? false : (this.h[2] == null ? true : (!this.h[2].a(itemstack) ? false : (this.h[2].a < this.c() && this.h[2].a < this.h[2].b() ? true : this.h[2].a < itemstack.b())));
         }
     }
 
     public void h() {
         if (this.i()) {
-            int i = this.b(this.h[0].a().aW);
+            ItemStack itemstack = FurnaceRecipes.a().a(this.h[0].a().ba);
 
             if (this.h[2] == null) {
-                this.h[2] = new ItemStack(i, 1);
-            } else if (this.h[2].c == i) {
+                this.h[2] = itemstack.j();
+            } else if (this.h[2].c == itemstack.c) {
                 ++this.h[2].a;
             }
 
@@ -167,21 +167,17 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         }
     }
 
-    private int b(int i) {
-        return i == Block.IRON_ORE.bh ? Item.IRON_INGOT.aW : (i == Block.GOLD_ORE.bh ? Item.GOLD_INGOT.aW : (i == Block.DIAMOND_ORE.bh ? Item.DIAMOND.aW : (i == Block.SAND.bh ? Block.GLASS.bh : (i == Item.PORK.aW ? Item.GRILLED_PORK.aW : (i == Item.RAW_FISH.aW ? Item.COOKED_FISH.aW : (i == Block.COBBLESTONE.bh ? Block.STONE.bh : (i == Item.CLAY_BALL.aW ? Item.CLAY_BRICK.aW : -1)))))));
-    }
-
     private int a(ItemStack itemstack) {
         if (itemstack == null) {
             return 0;
         } else {
-            int i = itemstack.a().aW;
+            int i = itemstack.a().ba;
 
-            return i < 256 && Block.m[i].bs == Material.c ? 300 : (i == Item.STICK.aW ? 100 : (i == Item.COAL.aW ? 1600 : (i == Item.LAVA_BUCKET.aW ? 20000 : 0)));
+            return i < 256 && Block.m[i].bt == Material.c ? 300 : (i == Item.STICK.ba ? 100 : (i == Item.COAL.ba ? 1600 : (i == Item.LAVA_BUCKET.ba ? 20000 : 0)));
         }
     }
 
     public boolean a_(EntityHuman entityhuman) {
-        return this.a.l(this.b, this.c, this.d) != this ? false : entityhuman.d((double) this.b + 0.5D, (double) this.c + 0.5D, (double) this.d + 0.5D) <= 64.0D;
+        return this.a.m(this.b, this.c, this.d) != this ? false : entityhuman.d((double) this.b + 0.5D, (double) this.c + 0.5D, (double) this.d + 0.5D) <= 64.0D;
     }
 }

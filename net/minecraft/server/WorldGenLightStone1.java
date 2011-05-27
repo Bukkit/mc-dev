@@ -9,10 +9,10 @@ public class WorldGenLightStone1 extends WorldGenerator {
     public boolean a(World world, Random random, int i, int j, int k) {
         if (!world.e(i, j, k)) {
             return false;
-        } else if (world.a(i, j + 1, k) != Block.NETHERRACK.bh) {
+        } else if (world.a(i, j + 1, k) != Block.NETHERRACK.bi) {
             return false;
         } else {
-            world.d(i, j, k, Block.GLOWSTONE.bh);
+            world.e(i, j, k, Block.GLOWSTONE.bi);
 
             for (int l = 0; l < 1500; ++l) {
                 int i1 = i + random.nextInt(8) - random.nextInt(8);
@@ -49,13 +49,13 @@ public class WorldGenLightStone1 extends WorldGenerator {
                             j2 = world.a(i1, j1, k1 + 1);
                         }
 
-                        if (j2 == Block.GLOWSTONE.bh) {
+                        if (j2 == Block.GLOWSTONE.bi) {
                             ++l1;
                         }
                     }
 
                     if (l1 == 1) {
-                        world.d(i1, j1, k1, Block.GLOWSTONE.bh);
+                        world.e(i1, j1, k1, Block.GLOWSTONE.bi);
                     }
                 }
             }

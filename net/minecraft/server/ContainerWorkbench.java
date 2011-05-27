@@ -39,22 +39,7 @@ public class ContainerWorkbench extends Container {
     }
 
     public void a(IInventory iinventory) {
-        int[] aint = new int[9];
-
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                int k = i + j * 3;
-                ItemStack itemstack = this.a.a(k);
-
-                if (itemstack == null) {
-                    aint[k] = -1;
-                } else {
-                    aint[k] = itemstack.c;
-                }
-            }
-        }
-
-        this.b.a(0, CraftingManager.a().a(aint));
+        this.b.a(0, CraftingManager.a().a(this.a));
     }
 
     public void a(EntityHuman entityhuman) {
@@ -70,6 +55,6 @@ public class ContainerWorkbench extends Container {
     }
 
     public boolean b(EntityHuman entityhuman) {
-        return this.c.a(this.h, this.i, this.j) != Block.WORKBENCH.bh ? false : entityhuman.d((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
+        return this.c.a(this.h, this.i, this.j) != Block.WORKBENCH.bi ? false : entityhuman.d((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
     }
 }

@@ -6,46 +6,46 @@ public class Item {
 
     protected static Random b = new Random();
     public static Item[] c = new Item[32000];
-    public static Item IRON_SPADE = (new ItemSpade(0, 2)).a(2, 5).a("shovelIron");
-    public static Item IRON_PICKAXE = (new ItemPickaxe(1, 2)).a(2, 6).a("pickaxeIron");
-    public static Item IRON_AXE = (new ItemAxe(2, 2)).a(2, 7).a("hatchetIron");
+    public static Item IRON_SPADE = (new ItemSpade(0, EnumToolMaterial.IRON)).a(2, 5).a("shovelIron");
+    public static Item IRON_PICKAXE = (new ItemPickaxe(1, EnumToolMaterial.IRON)).a(2, 6).a("pickaxeIron");
+    public static Item IRON_AXE = (new ItemAxe(2, EnumToolMaterial.IRON)).a(2, 7).a("hatchetIron");
     public static Item FLINT_AND_STEEL = (new ItemFlintAndSteel(3)).a(5, 0).a("flintAndSteel");
     public static Item APPLE = (new ItemFood(4, 4)).a(10, 0).a("apple");
     public static Item BOW = (new ItemBow(5)).a(5, 1).a("bow");
     public static Item ARROW = (new Item(6)).a(5, 2).a("arrow");
-    public static Item COAL = (new Item(7)).a(7, 0).a("coal");
+    public static Item COAL = (new ItemCoal(7)).a(7, 0).a("coal");
     public static Item DIAMOND = (new Item(8)).a(7, 3).a("emerald");
     public static Item IRON_INGOT = (new Item(9)).a(7, 1).a("ingotIron");
     public static Item GOLD_INGOT = (new Item(10)).a(7, 2).a("ingotGold");
-    public static Item IRON_SWORD = (new ItemSword(11, 2)).a(2, 4).a("swordIron");
-    public static Item WOOD_SWORD = (new ItemSword(12, 0)).a(0, 4).a("swordWood");
-    public static Item WOOD_SPADE = (new ItemSpade(13, 0)).a(0, 5).a("shovelWood");
-    public static Item WOOD_PICKAXE = (new ItemPickaxe(14, 0)).a(0, 6).a("pickaxeWood");
-    public static Item WOOD_AXE = (new ItemAxe(15, 0)).a(0, 7).a("hatchetWood");
-    public static Item STONE_SWORD = (new ItemSword(16, 1)).a(1, 4).a("swordStone");
-    public static Item STONE_SPADE = (new ItemSpade(17, 1)).a(1, 5).a("shovelStone");
-    public static Item STONE_PICKAXE = (new ItemPickaxe(18, 1)).a(1, 6).a("pickaxeStone");
-    public static Item STONE_AXE = (new ItemAxe(19, 1)).a(1, 7).a("hatchetStone");
-    public static Item DIAMOND_SWORD = (new ItemSword(20, 3)).a(3, 4).a("swordDiamond");
-    public static Item DIAMOND_SPADE = (new ItemSpade(21, 3)).a(3, 5).a("shovelDiamond");
-    public static Item DIAMOND_PICKAXE = (new ItemPickaxe(22, 3)).a(3, 6).a("pickaxeDiamond");
-    public static Item DIAMOND_AXE = (new ItemAxe(23, 3)).a(3, 7).a("hatchetDiamond");
-    public static Item STICK = (new Item(24)).a(5, 3).d().a("stick");
+    public static Item IRON_SWORD = (new ItemSword(11, EnumToolMaterial.IRON)).a(2, 4).a("swordIron");
+    public static Item WOOD_SWORD = (new ItemSword(12, EnumToolMaterial.WOOD)).a(0, 4).a("swordWood");
+    public static Item WOOD_SPADE = (new ItemSpade(13, EnumToolMaterial.WOOD)).a(0, 5).a("shovelWood");
+    public static Item WOOD_PICKAXE = (new ItemPickaxe(14, EnumToolMaterial.WOOD)).a(0, 6).a("pickaxeWood");
+    public static Item WOOD_AXE = (new ItemAxe(15, EnumToolMaterial.WOOD)).a(0, 7).a("hatchetWood");
+    public static Item STONE_SWORD = (new ItemSword(16, EnumToolMaterial.STONE)).a(1, 4).a("swordStone");
+    public static Item STONE_SPADE = (new ItemSpade(17, EnumToolMaterial.STONE)).a(1, 5).a("shovelStone");
+    public static Item STONE_PICKAXE = (new ItemPickaxe(18, EnumToolMaterial.STONE)).a(1, 6).a("pickaxeStone");
+    public static Item STONE_AXE = (new ItemAxe(19, EnumToolMaterial.STONE)).a(1, 7).a("hatchetStone");
+    public static Item DIAMOND_SWORD = (new ItemSword(20, EnumToolMaterial.DIAMOND)).a(3, 4).a("swordDiamond");
+    public static Item DIAMOND_SPADE = (new ItemSpade(21, EnumToolMaterial.DIAMOND)).a(3, 5).a("shovelDiamond");
+    public static Item DIAMOND_PICKAXE = (new ItemPickaxe(22, EnumToolMaterial.DIAMOND)).a(3, 6).a("pickaxeDiamond");
+    public static Item DIAMOND_AXE = (new ItemAxe(23, EnumToolMaterial.DIAMOND)).a(3, 7).a("hatchetDiamond");
+    public static Item STICK = (new Item(24)).a(5, 3).e().a("stick");
     public static Item BOWL = (new Item(25)).a(7, 4).a("bowl");
     public static Item MUSHROOM_SOUP = (new ItemSoup(26, 10)).a(8, 4).a("mushroomStew");
-    public static Item GOLD_SWORD = (new ItemSword(27, 0)).a(4, 4).a("swordGold");
-    public static Item GOLD_SPADE = (new ItemSpade(28, 0)).a(4, 5).a("shovelGold");
-    public static Item GOLD_PICKAXE = (new ItemPickaxe(29, 0)).a(4, 6).a("pickaxeGold");
-    public static Item GOLD_AXE = (new ItemAxe(30, 0)).a(4, 7).a("hatchetGold");
+    public static Item GOLD_SWORD = (new ItemSword(27, EnumToolMaterial.GOLD)).a(4, 4).a("swordGold");
+    public static Item GOLD_SPADE = (new ItemSpade(28, EnumToolMaterial.GOLD)).a(4, 5).a("shovelGold");
+    public static Item GOLD_PICKAXE = (new ItemPickaxe(29, EnumToolMaterial.GOLD)).a(4, 6).a("pickaxeGold");
+    public static Item GOLD_AXE = (new ItemAxe(30, EnumToolMaterial.GOLD)).a(4, 7).a("hatchetGold");
     public static Item STRING = (new Item(31)).a(8, 0).a("string");
     public static Item FEATHER = (new Item(32)).a(8, 1).a("feather");
     public static Item SULPHUR = (new Item(33)).a(8, 2).a("sulphur");
-    public static Item WOOD_HOE = (new ItemHoe(34, 0)).a(0, 8).a("hoeWood");
-    public static Item STONE_HOE = (new ItemHoe(35, 1)).a(1, 8).a("hoeStone");
-    public static Item IRON_HOE = (new ItemHoe(36, 2)).a(2, 8).a("hoeIron");
-    public static Item DIAMOND_HOE = (new ItemHoe(37, 3)).a(3, 8).a("hoeDiamond");
-    public static Item GOLD_HOE = (new ItemHoe(38, 1)).a(4, 8).a("hoeGold");
-    public static Item SEEDS = (new ItemSeeds(39, Block.CROPS.bh)).a(9, 0).a("seeds");
+    public static Item WOOD_HOE = (new ItemHoe(34, EnumToolMaterial.WOOD)).a(0, 8).a("hoeWood");
+    public static Item STONE_HOE = (new ItemHoe(35, EnumToolMaterial.STONE)).a(1, 8).a("hoeStone");
+    public static Item IRON_HOE = (new ItemHoe(36, EnumToolMaterial.IRON)).a(2, 8).a("hoeIron");
+    public static Item DIAMOND_HOE = (new ItemHoe(37, EnumToolMaterial.DIAMOND)).a(3, 8).a("hoeDiamond");
+    public static Item GOLD_HOE = (new ItemHoe(38, EnumToolMaterial.GOLD)).a(4, 8).a("hoeGold");
+    public static Item SEEDS = (new ItemSeeds(39, Block.CROPS.bi)).a(9, 0).a("seeds");
     public static Item WHEAT = (new Item(40)).a(9, 1).a("wheat");
     public static Item BREAD = (new ItemFood(41, 5)).a(9, 2).a("bread");
     public static Item LEATHER_HELMET = (new ItemArmor(42, 0, 0, 0)).a(0, 0).a("helmetCloth");
@@ -76,8 +76,8 @@ public class Item {
     public static Item SIGN = (new ItemSign(67)).a(10, 2).a("sign");
     public static Item WOOD_DOOR = (new ItemDoor(68, Material.c)).a(11, 2).a("doorWood");
     public static Item BUCKET = (new ItemBucket(69, 0)).a(10, 4).a("bucket");
-    public static Item WATER_BUCKET = (new ItemBucket(70, Block.WATER.bh)).a(11, 4).a("bucketWater");
-    public static Item LAVA_BUCKET = (new ItemBucket(71, Block.LAVA.bh)).a(12, 4).a("bucketLava");
+    public static Item WATER_BUCKET = (new ItemBucket(70, Block.WATER.bi)).a(11, 4).a("bucketWater").a(BUCKET);
+    public static Item LAVA_BUCKET = (new ItemBucket(71, Block.LAVA.bi)).a(12, 4).a("bucketLava").a(BUCKET);
     public static Item MINECART = (new ItemMinecart(72, 0)).a(7, 8).a("minecart");
     public static Item SADDLE = (new ItemSaddle(73)).a(8, 6).a("saddle");
     public static Item IRON_DOOR = (new ItemDoor(74, Material.e)).a(12, 2).a("doorIron");
@@ -85,7 +85,7 @@ public class Item {
     public static Item SNOW_BALL = (new ItemSnowball(76)).a(14, 0).a("snowball");
     public static Item BOAT = (new ItemBoat(77)).a(8, 8).a("boat");
     public static Item LEATHER = (new Item(78)).a(7, 6).a("leather");
-    public static Item MILK_BUCKET = (new ItemBucket(79, -1)).a(13, 4).a("milk");
+    public static Item MILK_BUCKET = (new ItemBucket(79, -1)).a(13, 4).a("milk").a(BUCKET);
     public static Item CLAY_BRICK = (new Item(80)).a(6, 1).a("brick");
     public static Item CLAY_BALL = (new Item(81)).a(9, 3).a("clay");
     public static Item SUGAR_CANE = (new ItemReed(82, Block.SUGAR_CANE_BLOCK)).a(11, 1).a("reeds");
@@ -101,17 +101,23 @@ public class Item {
     public static Item GLOWSTONE_DUST = (new Item(92)).a(9, 4).a("yellowDust");
     public static Item RAW_FISH = (new ItemFood(93, 2)).a(9, 5).a("fishRaw");
     public static Item COOKED_FISH = (new ItemFood(94, 5)).a(10, 5).a("fishCooked");
+    public static Item INK_SACK = (new ItemDye(95)).a(14, 4).a("dyePowder");
+    public static Item BONE = (new Item(96)).a(12, 1).a("bone").e();
+    public static Item SUGAR = (new Item(97)).a(13, 0).a("sugar").e();
+    public static Item CAKE = (new ItemReed(98, Block.CAKE_BLOCK)).c(1).a(13, 1).a("cake");
     public static Item GOLD_RECORD = (new ItemRecord(2000, "13")).a(0, 15).a("record");
     public static Item GREEN_RECORD = (new ItemRecord(2001, "cat")).a(1, 15).a("record");
-    public final int aW;
-    protected int aX = 64;
-    protected int aY = 32;
-    protected int aZ;
-    protected boolean ba = false;
-    private String a;
+    public final int ba;
+    protected int bb = 64;
+    protected int bc = 32;
+    protected int bd;
+    protected boolean be = false;
+    protected boolean bf = false;
+    private Item a = null;
+    private String bg;
 
     protected Item(int i) {
-        this.aW = 256 + i;
+        this.ba = 256 + i;
         if (c[256 + i] != null) {
             System.out.println("CONFLICT @ " + i);
         }
@@ -119,13 +125,18 @@ public class Item {
         c[256 + i] = this;
     }
 
-    public Item a(int i) {
-        this.aZ = i;
+    public Item b(int i) {
+        this.bd = i;
+        return this;
+    }
+
+    public Item c(int i) {
+        this.bb = i;
         return this;
     }
 
     public Item a(int i, int j) {
-        this.aZ = i + j * 16;
+        this.bd = i + j * 16;
         return this;
     }
 
@@ -142,11 +153,29 @@ public class Item {
     }
 
     public int b() {
-        return this.aX;
+        return this.bb;
     }
 
-    public int c() {
-        return this.aY;
+    public int a(int i) {
+        return 0;
+    }
+
+    public boolean c() {
+        return this.bf;
+    }
+
+    protected Item a(boolean flag) {
+        this.bf = flag;
+        return this;
+    }
+
+    public int d() {
+        return this.bc;
+    }
+
+    protected Item d(int i) {
+        this.bc = i;
+        return this;
     }
 
     public void a(ItemStack itemstack, EntityLiving entityliving) {}
@@ -163,17 +192,34 @@ public class Item {
 
     public void b(ItemStack itemstack, EntityLiving entityliving) {}
 
-    public Item d() {
-        this.ba = true;
+    public Item e() {
+        this.be = true;
         return this;
     }
 
     public Item a(String s) {
-        this.a = "item." + s;
+        this.bg = "item." + s;
         return this;
     }
 
     public String a() {
+        return this.bg;
+    }
+
+    public Item a(Item item) {
+        if (this.bb > 1) {
+            throw new IllegalArgumentException("Max stack size must be 1 for items with crafting results");
+        } else {
+            this.a = item;
+            return this;
+        }
+    }
+
+    public Item f() {
         return this.a;
+    }
+
+    public boolean g() {
+        return this.a != null;
     }
 }

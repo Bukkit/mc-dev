@@ -83,14 +83,14 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
                                 if (k1 * 8 + l1 < b1) {
                                     if (d17 < 0.5D && k1 * 8 + l1 >= b1 - 1) {
-                                        l2 = Block.ICE.bh;
+                                        l2 = Block.ICE.bi;
                                     } else {
-                                        l2 = Block.STATIONARY_WATER.bh;
+                                        l2 = Block.STATIONARY_WATER.bi;
                                     }
                                 }
 
                                 if (d15 > 0.0D) {
-                                    l2 = Block.STONE.bh;
+                                    l2 = Block.STONE.bi;
                                 }
 
                                 abyte[j2] = (byte) l2;
@@ -134,17 +134,17 @@ public class ChunkProviderGenerate implements IChunkProvider {
                     int l1 = (k * 16 + l) * 128 + k1;
 
                     if (k1 <= 0 + this.j.nextInt(5)) {
-                        abyte[l1] = (byte) Block.BEDROCK.bh;
+                        abyte[l1] = (byte) Block.BEDROCK.bi;
                     } else {
                         byte b3 = abyte[l1];
 
                         if (b3 == 0) {
                             j1 = -1;
-                        } else if (b3 == Block.STONE.bh) {
+                        } else if (b3 == Block.STONE.bi) {
                             if (j1 == -1) {
                                 if (i1 <= 0) {
                                     b1 = 0;
-                                    b2 = (byte) Block.STONE.bh;
+                                    b2 = (byte) Block.STONE.bi;
                                 } else if (k1 >= b0 - 4 && k1 <= b0 + 1) {
                                     b1 = biomebase.o;
                                     b2 = biomebase.p;
@@ -153,20 +153,20 @@ public class ChunkProviderGenerate implements IChunkProvider {
                                     }
 
                                     if (flag1) {
-                                        b2 = (byte) Block.GRAVEL.bh;
+                                        b2 = (byte) Block.GRAVEL.bi;
                                     }
 
                                     if (flag) {
-                                        b1 = (byte) Block.SAND.bh;
+                                        b1 = (byte) Block.SAND.bi;
                                     }
 
                                     if (flag) {
-                                        b2 = (byte) Block.SAND.bh;
+                                        b2 = (byte) Block.SAND.bi;
                                     }
                                 }
 
                                 if (k1 < b0 && b1 == 0) {
-                                    b1 = (byte) Block.STATIONARY_WATER.bh;
+                                    b1 = (byte) Block.STATIONARY_WATER.bi;
                                 }
 
                                 j1 = i1;
@@ -333,7 +333,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
             k1 = k + this.j.nextInt(16) + 8;
             l1 = this.j.nextInt(128);
             i2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenLakes(Block.STATIONARY_WATER.bh)).a(this.p, this.j, k1, l1, i2);
+            (new WorldGenLakes(Block.STATIONARY_WATER.bi)).a(this.p, this.j, k1, l1, i2);
         }
 
         if (this.j.nextInt(8) == 0) {
@@ -341,7 +341,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
             l1 = this.j.nextInt(this.j.nextInt(120) + 8);
             i2 = l + this.j.nextInt(16) + 8;
             if (l1 < 64 || this.j.nextInt(10) == 0) {
-                (new WorldGenLakes(Block.STATIONARY_LAVA.bh)).a(this.p, this.j, k1, l1, i2);
+                (new WorldGenLakes(Block.STATIONARY_LAVA.bi)).a(this.p, this.j, k1, l1, i2);
             }
         }
 
@@ -365,49 +365,56 @@ public class ChunkProviderGenerate implements IChunkProvider {
             l1 = k + this.j.nextInt(16);
             i2 = this.j.nextInt(128);
             j2 = l + this.j.nextInt(16);
-            (new WorldGenMinable(Block.DIRT.bh, 32)).a(this.p, this.j, l1, i2, j2);
+            (new WorldGenMinable(Block.DIRT.bi, 32)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 10; ++k1) {
             l1 = k + this.j.nextInt(16);
             i2 = this.j.nextInt(128);
             j2 = l + this.j.nextInt(16);
-            (new WorldGenMinable(Block.GRAVEL.bh, 32)).a(this.p, this.j, l1, i2, j2);
+            (new WorldGenMinable(Block.GRAVEL.bi, 32)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 20; ++k1) {
             l1 = k + this.j.nextInt(16);
             i2 = this.j.nextInt(128);
             j2 = l + this.j.nextInt(16);
-            (new WorldGenMinable(Block.COAL_ORE.bh, 16)).a(this.p, this.j, l1, i2, j2);
+            (new WorldGenMinable(Block.COAL_ORE.bi, 16)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 20; ++k1) {
             l1 = k + this.j.nextInt(16);
             i2 = this.j.nextInt(64);
             j2 = l + this.j.nextInt(16);
-            (new WorldGenMinable(Block.IRON_ORE.bh, 8)).a(this.p, this.j, l1, i2, j2);
+            (new WorldGenMinable(Block.IRON_ORE.bi, 8)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 2; ++k1) {
             l1 = k + this.j.nextInt(16);
             i2 = this.j.nextInt(32);
             j2 = l + this.j.nextInt(16);
-            (new WorldGenMinable(Block.GOLD_ORE.bh, 8)).a(this.p, this.j, l1, i2, j2);
+            (new WorldGenMinable(Block.GOLD_ORE.bi, 8)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 8; ++k1) {
             l1 = k + this.j.nextInt(16);
             i2 = this.j.nextInt(16);
             j2 = l + this.j.nextInt(16);
-            (new WorldGenMinable(Block.REDSTONE_ORE.bh, 7)).a(this.p, this.j, l1, i2, j2);
+            (new WorldGenMinable(Block.REDSTONE_ORE.bi, 7)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 1; ++k1) {
             l1 = k + this.j.nextInt(16);
             i2 = this.j.nextInt(16);
             j2 = l + this.j.nextInt(16);
-            (new WorldGenMinable(Block.DIAMOND_ORE.bh, 7)).a(this.p, this.j, l1, i2, j2);
+            (new WorldGenMinable(Block.DIAMOND_ORE.bi, 7)).a(this.p, this.j, l1, i2, j2);
+        }
+
+        for (k1 = 0; k1 < 1; ++k1) {
+            l1 = k + this.j.nextInt(16);
+            i2 = this.j.nextInt(16) + this.j.nextInt(16);
+            j2 = l + this.j.nextInt(16);
+            (new WorldGenMinable(Block.LAPIS_ORE.bi, 6)).a(this.p, this.j, l1, i2, j2);
         }
 
         d0 = 0.5D;
@@ -445,109 +452,100 @@ public class ChunkProviderGenerate implements IChunkProvider {
             l1 -= 20;
         }
 
-        Object object = new WorldGenTrees();
-
-        if (this.j.nextInt(10) == 0) {
-            object = new WorldGenBigTree();
-        }
-
-        if (biomebase == BiomeBase.RAINFOREST && this.j.nextInt(3) == 0) {
-            object = new WorldGenBigTree();
-        }
-
         int k2;
+
+        for (i2 = 0; i2 < l1; ++i2) {
+            j2 = k + this.j.nextInt(16) + 8;
+            k2 = l + this.j.nextInt(16) + 8;
+            WorldGenerator worldgenerator = biomebase.a(this.j);
+
+            worldgenerator.a(1.0D, 1.0D, 1.0D);
+            worldgenerator.a(this.p, this.j, j2, this.p.d(j2, k2), k2);
+        }
+
         int l2;
 
-        for (j2 = 0; j2 < l1; ++j2) {
-            k2 = k + this.j.nextInt(16) + 8;
+        for (i2 = 0; i2 < 2; ++i2) {
+            j2 = k + this.j.nextInt(16) + 8;
+            k2 = this.j.nextInt(128);
             l2 = l + this.j.nextInt(16) + 8;
-            ((WorldGenerator) object).a(1.0D, 1.0D, 1.0D);
-            ((WorldGenerator) object).a(this.p, this.j, k2, this.p.d(k2, l2), l2);
+            (new WorldGenFlowers(Block.YELLOW_FLOWER.bi)).a(this.p, this.j, j2, k2, l2);
+        }
+
+        if (this.j.nextInt(2) == 0) {
+            i2 = k + this.j.nextInt(16) + 8;
+            j2 = this.j.nextInt(128);
+            k2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.RED_ROSE.bi)).a(this.p, this.j, i2, j2, k2);
+        }
+
+        if (this.j.nextInt(4) == 0) {
+            i2 = k + this.j.nextInt(16) + 8;
+            j2 = this.j.nextInt(128);
+            k2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.BROWN_MUSHROOM.bi)).a(this.p, this.j, i2, j2, k2);
+        }
+
+        if (this.j.nextInt(8) == 0) {
+            i2 = k + this.j.nextInt(16) + 8;
+            j2 = this.j.nextInt(128);
+            k2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.RED_MUSHROOM.bi)).a(this.p, this.j, i2, j2, k2);
+        }
+
+        for (i2 = 0; i2 < 10; ++i2) {
+            j2 = k + this.j.nextInt(16) + 8;
+            k2 = this.j.nextInt(128);
+            l2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenReed()).a(this.p, this.j, j2, k2, l2);
+        }
+
+        if (this.j.nextInt(32) == 0) {
+            i2 = k + this.j.nextInt(16) + 8;
+            j2 = this.j.nextInt(128);
+            k2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenPumpkin()).a(this.p, this.j, i2, j2, k2);
+        }
+
+        i2 = 0;
+        if (biomebase == BiomeBase.DESERT) {
+            i2 += 10;
         }
 
         int i3;
 
-        for (j2 = 0; j2 < 2; ++j2) {
+        for (j2 = 0; j2 < i2; ++j2) {
             k2 = k + this.j.nextInt(16) + 8;
             l2 = this.j.nextInt(128);
             i3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.YELLOW_FLOWER.bh)).a(this.p, this.j, k2, l2, i3);
+            (new WorldGenCactus()).a(this.p, this.j, k2, l2, i3);
         }
 
-        if (this.j.nextInt(2) == 0) {
-            j2 = k + this.j.nextInt(16) + 8;
-            k2 = this.j.nextInt(128);
-            l2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.RED_ROSE.bh)).a(this.p, this.j, j2, k2, l2);
-        }
-
-        if (this.j.nextInt(4) == 0) {
-            j2 = k + this.j.nextInt(16) + 8;
-            k2 = this.j.nextInt(128);
-            l2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.BROWN_MUSHROOM.bh)).a(this.p, this.j, j2, k2, l2);
-        }
-
-        if (this.j.nextInt(8) == 0) {
-            j2 = k + this.j.nextInt(16) + 8;
-            k2 = this.j.nextInt(128);
-            l2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.RED_MUSHROOM.bh)).a(this.p, this.j, j2, k2, l2);
-        }
-
-        for (j2 = 0; j2 < 10; ++j2) {
+        for (j2 = 0; j2 < 50; ++j2) {
             k2 = k + this.j.nextInt(16) + 8;
-            l2 = this.j.nextInt(128);
+            l2 = this.j.nextInt(this.j.nextInt(120) + 8);
             i3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenReed()).a(this.p, this.j, k2, l2, i3);
+            (new WorldGenLiquids(Block.WATER.bi)).a(this.p, this.j, k2, l2, i3);
         }
 
-        if (this.j.nextInt(32) == 0) {
-            j2 = k + this.j.nextInt(16) + 8;
-            k2 = this.j.nextInt(128);
-            l2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenPumpkin()).a(this.p, this.j, j2, k2, l2);
-        }
-
-        j2 = 0;
-        if (biomebase == BiomeBase.DESERT) {
-            j2 += 10;
-        }
-
-        int j3;
-
-        for (k2 = 0; k2 < j2; ++k2) {
-            l2 = k + this.j.nextInt(16) + 8;
-            i3 = this.j.nextInt(128);
-            j3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenCactus()).a(this.p, this.j, l2, i3, j3);
-        }
-
-        for (k2 = 0; k2 < 50; ++k2) {
-            l2 = k + this.j.nextInt(16) + 8;
-            i3 = this.j.nextInt(this.j.nextInt(120) + 8);
-            j3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.WATER.bh)).a(this.p, this.j, l2, i3, j3);
-        }
-
-        for (k2 = 0; k2 < 20; ++k2) {
-            l2 = k + this.j.nextInt(16) + 8;
-            i3 = this.j.nextInt(this.j.nextInt(this.j.nextInt(112) + 8) + 8);
-            j3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.LAVA.bh)).a(this.p, this.j, l2, i3, j3);
+        for (j2 = 0; j2 < 20; ++j2) {
+            k2 = k + this.j.nextInt(16) + 8;
+            l2 = this.j.nextInt(this.j.nextInt(this.j.nextInt(112) + 8) + 8);
+            i3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenLiquids(Block.LAVA.bi)).a(this.p, this.j, k2, l2, i3);
         }
 
         this.w = this.p.a().a(this.w, k + 8, l + 8, 16, 16);
 
-        for (k2 = k + 8; k2 < k + 8 + 16; ++k2) {
-            for (l2 = l + 8; l2 < l + 8 + 16; ++l2) {
-                i3 = k2 - (k + 8);
-                j3 = l2 - (l + 8);
-                int k3 = this.p.e(k2, l2);
-                double d1 = this.w[i3 * 16 + j3] - (double) (k3 - 64) / 64.0D * 0.3D;
+        for (j2 = k + 8; j2 < k + 8 + 16; ++j2) {
+            for (k2 = l + 8; k2 < l + 8 + 16; ++k2) {
+                l2 = j2 - (k + 8);
+                i3 = k2 - (l + 8);
+                int j3 = this.p.e(j2, k2);
+                double d1 = this.w[l2 * 16 + i3] - (double) (j3 - 64) / 64.0D * 0.3D;
 
-                if (d1 < 0.5D && k3 > 0 && k3 < 128 && this.p.e(k2, k3, l2) && this.p.c(k2, k3 - 1, l2).c() && this.p.c(k2, k3 - 1, l2) != Material.r) {
-                    this.p.d(k2, k3, l2, Block.SNOW.bh);
+                if (d1 < 0.5D && j3 > 0 && j3 < 128 && this.p.e(j2, j3, k2) && this.p.c(j2, j3 - 1, k2).c() && this.p.c(j2, j3 - 1, k2) != Material.r) {
+                    this.p.e(j2, j3, k2, Block.SNOW.bi);
                 }
             }
         }

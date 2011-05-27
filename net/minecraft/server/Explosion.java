@@ -126,7 +126,7 @@ public class Explosion {
                 int i4 = this.i.a(i3, j3 - 1, k3);
 
                 if (l3 == 0 && Block.o[i4] && this.h.nextInt(3) == 0) {
-                    this.i.d(i3, j3, k3, Block.FIRE.bh);
+                    this.i.e(i3, j3, k3, Block.FIRE.bi);
                 }
             }
         }
@@ -169,8 +169,8 @@ public class Explosion {
 
             if (i1 > 0) {
                 Block.m[i1].a(this.i, j, k, l, this.i.b(j, k, l), 0.3F);
-                this.i.d(j, k, l, 0);
-                Block.m[i1].c(this.i, j, k, l);
+                this.i.e(j, k, l, 0);
+                Block.m[i1].a_(this.i, j, k, l);
             }
         }
     }

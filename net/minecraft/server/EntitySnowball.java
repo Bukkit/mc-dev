@@ -10,20 +10,22 @@ public class EntitySnowball extends Entity {
     private int e = 0;
     private boolean f = false;
     public int a = 0;
-    private EntityLiving aj;
-    private int ak;
-    private int al = 0;
+    private EntityLiving ak;
+    private int al;
+    private int am = 0;
 
     public EntitySnowball(World world) {
         super(world);
         this.a(0.25F, 0.25F);
     }
 
+    protected void a() {}
+
     public EntitySnowball(World world, EntityLiving entityliving) {
         super(world);
-        this.aj = entityliving;
+        this.ak = entityliving;
         this.a(0.25F, 0.25F);
-        this.c(entityliving.p, entityliving.q + (double) entityliving.s(), entityliving.r, entityliving.v, entityliving.w);
+        this.c(entityliving.p, entityliving.q + (double) entityliving.w(), entityliving.r, entityliving.v, entityliving.w);
         this.p -= (double) (MathHelper.b(this.v / 180.0F * 3.1415927F) * 0.16F);
         this.q -= 0.10000000149011612D;
         this.r -= (double) (MathHelper.a(this.v / 180.0F * 3.1415927F) * 0.16F);
@@ -35,6 +37,14 @@ public class EntitySnowball extends Entity {
         this.u = (double) (MathHelper.b(this.v / 180.0F * 3.1415927F) * MathHelper.b(this.w / 180.0F * 3.1415927F) * f);
         this.t = (double) (-MathHelper.a(this.w / 180.0F * 3.1415927F) * f);
         this.a(this.s, this.t, this.u, 1.5F, 1.0F);
+    }
+
+    public EntitySnowball(World world, double d0, double d1, double d2) {
+        super(world);
+        this.al = 0;
+        this.a(0.25F, 0.25F);
+        this.a(d0, d1, d2);
+        this.H = 0.0F;
     }
 
     public void a(double d0, double d1, double d2, float f, float f1) {
@@ -56,7 +66,7 @@ public class EntitySnowball extends Entity {
 
         this.x = this.v = (float) (Math.atan2(d0, d2) * 180.0D / 3.1415927410125732D);
         this.y = this.w = (float) (Math.atan2(d1, (double) f3) * 180.0D / 3.1415927410125732D);
-        this.ak = 0;
+        this.al = 0;
     }
 
     public void b_() {
@@ -72,9 +82,9 @@ public class EntitySnowball extends Entity {
             int i = this.l.a(this.b, this.c, this.d);
 
             if (i == this.e) {
-                ++this.ak;
-                if (this.ak == 1200) {
-                    this.l();
+                ++this.al;
+                if (this.al == 1200) {
+                    this.q();
                 }
 
                 return;
@@ -84,10 +94,10 @@ public class EntitySnowball extends Entity {
             this.s *= (double) (this.W.nextFloat() * 0.2F);
             this.t *= (double) (this.W.nextFloat() * 0.2F);
             this.u *= (double) (this.W.nextFloat() * 0.2F);
-            this.ak = 0;
             this.al = 0;
+            this.am = 0;
         } else {
-            ++this.al;
+            ++this.am;
         }
 
         Vec3D vec3d = Vec3D.b(this.p, this.q, this.r);
@@ -108,7 +118,7 @@ public class EntitySnowball extends Entity {
             for (int j = 0; j < list.size(); ++j) {
                 Entity entity1 = (Entity) list.get(j);
 
-                if (entity1.c_() && (entity1 != this.aj || this.al >= 5)) {
+                if (entity1.c_() && (entity1 != this.ak || this.am >= 5)) {
                     float f = 0.3F;
                     AxisAlignedBB axisalignedbb = entity1.z.b((double) f, (double) f, (double) f);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
@@ -130,7 +140,7 @@ public class EntitySnowball extends Entity {
         }
 
         if (movingobjectposition != null) {
-            if (movingobjectposition.g != null && movingobjectposition.g.a(this.aj, 0)) {
+            if (movingobjectposition.g != null && movingobjectposition.g.a(this.ak, 0)) {
                 ;
             }
 
@@ -138,7 +148,7 @@ public class EntitySnowball extends Entity {
                 this.l.a("snowballpoof", this.p, this.q, this.r, 0.0D, 0.0D, 0.0D);
             }
 
-            this.l();
+            this.q();
         }
 
         this.p += this.s;
@@ -169,7 +179,7 @@ public class EntitySnowball extends Entity {
         float f2 = 0.99F;
         float f3 = 0.03F;
 
-        if (this.r()) {
+        if (this.v()) {
             for (int l = 0; l < 4; ++l) {
                 float f4 = 0.25F;
 
@@ -205,10 +215,10 @@ public class EntitySnowball extends Entity {
     }
 
     public void b(EntityHuman entityhuman) {
-        if (this.f && this.aj == entityhuman && this.a <= 0 && entityhuman.an.a(new ItemStack(Item.ARROW.aW, 1))) {
+        if (this.f && this.ak == entityhuman && this.a <= 0 && entityhuman.an.a(new ItemStack(Item.ARROW, 1))) {
             this.l.a(this, "random.pop", 0.2F, ((this.W.nextFloat() - this.W.nextFloat()) * 0.7F + 1.0F) * 2.0F);
             entityhuman.c(this, 1);
-            this.l();
+            this.q();
         }
     }
 }

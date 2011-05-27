@@ -9,6 +9,6 @@ public class BlockLightStone extends Block {
     }
 
     public int a(int i, Random random) {
-        return Item.GLOWSTONE_DUST.aW;
+        return Item.GLOWSTONE_DUST.ba;
     }
 }

@@ -27,7 +27,7 @@ public class ContainerPlayer extends Container {
         }
 
         for (i = 0; i < 4; ++i) {
-            this.a((Slot) (new SlotArmor(this, inventoryplayer, inventoryplayer.a() - 1 - i, 8, 8 + i * 18, i)));
+            this.a((Slot) (new SlotArmor(this, inventoryplayer, inventoryplayer.h_() - 1 - i, 8, 8 + i * 18, i)));
         }
 
         for (i = 0; i < 3; ++i) {
@@ -44,25 +44,7 @@ public class ContainerPlayer extends Container {
     }
 
     public void a(IInventory iinventory) {
-        int[] aint = new int[9];
-
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                int k = -1;
-
-                if (i < 2 && j < 2) {
-                    ItemStack itemstack = this.a.a(i + j * 2);
-
-                    if (itemstack != null) {
-                        k = itemstack.c;
-                    }
-                }
-
-                aint[i + j * 3] = k;
-            }
-        }
-
-        this.b.a(0, CraftingManager.a().a(aint));
+        this.b.a(0, CraftingManager.a().a(this.a));
     }
 
     public void a(EntityHuman entityhuman) {

@@ -1,14 +1,16 @@
 package net.minecraft.server;
 
+import java.util.Random;
+
 public class BiomeBase {
 
-    public static final BiomeBase RAINFOREST = (new BiomeBase()).b(588342).a("Rainforest").a(2094168);
+    public static final BiomeBase RAINFOREST = (new BiomeRainforest()).b(588342).a("Rainforest").a(2094168);
     public static final BiomeBase SWAMPLAND = (new BiomeSwamp()).b(522674).a("Swampland").a(9154376);
     public static final BiomeBase SEASONAL_FOREST = (new BiomeBase()).b(10215459).a("Seasonal Forest");
-    public static final BiomeBase FOREST = (new BiomeBase()).b(353825).a("Forest").a(5159473);
+    public static final BiomeBase FOREST = (new BiomeForest()).b(353825).a("Forest").a(5159473);
     public static final BiomeBase SAVANNA = (new BiomeDesert()).b(14278691).a("Savanna");
     public static final BiomeBase SHRUBLAND = (new BiomeBase()).b(10595616).a("Shrubland");
-    public static final BiomeBase TAIGA = (new BiomeBase()).b(3060051).a("Taiga").b().a(8107825);
+    public static final BiomeBase TAIGA = (new BiomeTaiga()).b(3060051).a("Taiga").b().a(8107825);
     public static final BiomeBase DESERT = (new BiomeDesert()).b(16421912).a("Desert");
     public static final BiomeBase PLAINS = (new BiomeDesert()).b(16767248).a("Plains");
     public static final BiomeBase ICE_DESERT = (new BiomeDesert()).b(16772499).a("Ice Desert").b().a(12899129);
@@ -21,25 +23,31 @@ public class BiomeBase {
     public int q;
     protected Class[] r;
     protected Class[] s;
-    private static BiomeBase[] t = new BiomeBase[4096];
+    protected Class[] t;
+    private static BiomeBase[] u = new BiomeBase[4096];
 
     public BiomeBase() {
-        this.o = (byte) Block.GRASS.bh;
-        this.p = (byte) Block.DIRT.bh;
+        this.o = (byte) Block.GRASS.bi;
+        this.p = (byte) Block.DIRT.bi;
         this.q = 5169201;
         this.r = new Class[] { EntitySpider.class, EntityZombie.class, EntitySkeleton.class, EntityCreeper.class};
         this.s = new Class[] { EntitySheep.class, EntityPig.class, EntityChicken.class, EntityCow.class};
+        this.t = new Class[] { EntitySquid.class};
     }
 
     public static void a() {
         for (int i = 0; i < 64; ++i) {
             for (int j = 0; j < 64; ++j) {
-                t[i + j * 64] = a((float) i / 63.0F, (float) j / 63.0F);
+                u[i + j * 64] = a((float) i / 63.0F, (float) j / 63.0F);
             }
         }
 
-        DESERT.o = DESERT.p = (byte) Block.SAND.bh;
-        ICE_DESERT.o = ICE_DESERT.p = (byte) Block.SAND.bh;
+        DESERT.o = DESERT.p = (byte) Block.SAND.bi;
+        ICE_DESERT.o = ICE_DESERT.p = (byte) Block.SAND.bi;
+    }
+
+    public WorldGenerator a(Random random) {
+        return (WorldGenerator) (random.nextInt(10) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
     }
 
     protected BiomeBase b() {
@@ -65,7 +73,7 @@ public class BiomeBase {
         int i = (int) (d0 * 63.0D);
         int j = (int) (d1 * 63.0D);
 
-        return t[i + j * 64];
+        return u[i + j * 64];
     }
 
     public static BiomeBase a(float f, float f1) {
@@ -74,7 +82,7 @@ public class BiomeBase {
     }
 
     public Class[] a(EnumCreatureType enumcreaturetype) {
-        return enumcreaturetype == EnumCreatureType.MONSTER ? this.r : (enumcreaturetype == EnumCreatureType.CREATURE ? this.s : null);
+        return enumcreaturetype == EnumCreatureType.MONSTER ? this.r : (enumcreaturetype == EnumCreatureType.CREATURE ? this.s : (enumcreaturetype == EnumCreatureType.WATER_CREATURE ? this.t : null));
     }
 
     static {

@@ -1,10 +1,14 @@
 package net.minecraft.server;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class BlockRedstoneWire extends Block {
 
     private boolean a = true;
+    private Set b = new HashSet();
 
     public BlockRedstoneWire(int i, int j) {
         super(i, j, Material.n);
@@ -24,119 +28,147 @@ public class BlockRedstoneWire extends Block {
     }
 
     private void g(World world, int i, int j, int k) {
-        int l = world.b(i, j, k);
-        int i1 = 0;
+        this.a(world, i, j, k, i, j, k);
+        ArrayList arraylist = new ArrayList(this.b);
+
+        this.b.clear();
+
+        for (int l = 0; l < arraylist.size(); ++l) {
+            ChunkPosition chunkposition = (ChunkPosition) arraylist.get(l);
+
+            world.h(chunkposition.a, chunkposition.b, chunkposition.c, this.bi);
+        }
+    }
+
+    private void a(World world, int i, int j, int k, int l, int i1, int j1) {
+        int k1 = world.b(i, j, k);
+        int l1 = 0;
 
         this.a = false;
-        boolean flag = world.o(i, j, k);
+        boolean flag = world.p(i, j, k);
 
         this.a = true;
-        int j1;
-        int k1;
-        int l1;
+        int i2;
+        int j2;
+        int k2;
 
         if (flag) {
-            i1 = 15;
+            l1 = 15;
         } else {
-            for (j1 = 0; j1 < 4; ++j1) {
-                k1 = i;
-                l1 = k;
-                if (j1 == 0) {
-                    k1 = i - 1;
+            for (i2 = 0; i2 < 4; ++i2) {
+                j2 = i;
+                k2 = k;
+                if (i2 == 0) {
+                    j2 = i - 1;
                 }
 
-                if (j1 == 1) {
-                    ++k1;
+                if (i2 == 1) {
+                    ++j2;
                 }
 
-                if (j1 == 2) {
-                    l1 = k - 1;
+                if (i2 == 2) {
+                    k2 = k - 1;
                 }
 
-                if (j1 == 3) {
-                    ++l1;
+                if (i2 == 3) {
+                    ++k2;
                 }
 
-                i1 = this.f(world, k1, j, l1, i1);
-                if (world.d(k1, j, l1) && !world.d(i, j + 1, k)) {
-                    i1 = this.f(world, k1, j + 1, l1, i1);
-                } else if (!world.d(k1, j, l1)) {
-                    i1 = this.f(world, k1, j - 1, l1, i1);
+                if (j2 != l || j != i1 || k2 != j1) {
+                    l1 = this.f(world, j2, j, k2, l1);
+                }
+
+                if (world.d(j2, j, k2) && !world.d(i, j + 1, k)) {
+                    if (j2 != l || j + 1 != i1 || k2 != j1) {
+                        l1 = this.f(world, j2, j + 1, k2, l1);
+                    }
+                } else if (!world.d(j2, j, k2) && (j2 != l || j - 1 != i1 || k2 != j1)) {
+                    l1 = this.f(world, j2, j - 1, k2, l1);
                 }
             }
 
-            if (i1 > 0) {
-                --i1;
+            if (l1 > 0) {
+                --l1;
             } else {
-                i1 = 0;
+                l1 = 0;
             }
         }
 
-        if (l != i1) {
-            world.b(i, j, k, i1);
+        if (k1 != l1) {
+            world.i = true;
+            world.c(i, j, k, l1);
             world.b(i, j, k, i, j, k);
-            if (i1 > 0) {
-                --i1;
+            world.i = false;
+
+            for (i2 = 0; i2 < 4; ++i2) {
+                j2 = i;
+                k2 = k;
+                int l2 = j - 1;
+
+                if (i2 == 0) {
+                    j2 = i - 1;
+                }
+
+                if (i2 == 1) {
+                    ++j2;
+                }
+
+                if (i2 == 2) {
+                    k2 = k - 1;
+                }
+
+                if (i2 == 3) {
+                    ++k2;
+                }
+
+                if (world.d(j2, j, k2)) {
+                    l2 += 2;
+                }
+
+                boolean flag1 = false;
+                int i3 = this.f(world, j2, j, k2, -1);
+
+                l1 = world.b(i, j, k);
+                if (l1 > 0) {
+                    --l1;
+                }
+
+                if (i3 >= 0 && i3 != l1) {
+                    this.a(world, j2, j, k2, i, j, k);
+                }
+
+                i3 = this.f(world, j2, l2, k2, -1);
+                l1 = world.b(i, j, k);
+                if (l1 > 0) {
+                    --l1;
+                }
+
+                if (i3 >= 0 && i3 != l1) {
+                    this.a(world, j2, l2, k2, i, j, k);
+                }
             }
 
-            for (j1 = 0; j1 < 4; ++j1) {
-                k1 = i;
-                l1 = k;
-                int i2 = j - 1;
-
-                if (j1 == 0) {
-                    k1 = i - 1;
-                }
-
-                if (j1 == 1) {
-                    ++k1;
-                }
-
-                if (j1 == 2) {
-                    l1 = k - 1;
-                }
-
-                if (j1 == 3) {
-                    ++l1;
-                }
-
-                if (world.d(k1, j, l1)) {
-                    i2 += 2;
-                }
-
-                int j2 = this.f(world, k1, j, l1, -1);
-
-                if (j2 >= 0 && j2 != i1) {
-                    this.g(world, k1, j, l1);
-                }
-
-                j2 = this.f(world, k1, i2, l1, -1);
-                if (j2 >= 0 && j2 != i1) {
-                    this.g(world, k1, i2, l1);
-                }
-            }
-
-            if (l == 0 || i1 == 0) {
-                world.g(i, j, k, this.bh);
-                world.g(i - 1, j, k, this.bh);
-                world.g(i + 1, j, k, this.bh);
-                world.g(i, j, k - 1, this.bh);
-                world.g(i, j, k + 1, this.bh);
-                world.g(i, j - 1, k, this.bh);
-                world.g(i, j + 1, k, this.bh);
+            if (k1 == 0 || l1 == 0) {
+                this.b.add(new ChunkPosition(i, j, k));
+                this.b.add(new ChunkPosition(i - 1, j, k));
+                this.b.add(new ChunkPosition(i + 1, j, k));
+                this.b.add(new ChunkPosition(i, j - 1, k));
+                this.b.add(new ChunkPosition(i, j + 1, k));
+                this.b.add(new ChunkPosition(i, j, k - 1));
+                this.b.add(new ChunkPosition(i, j, k + 1));
             }
         }
     }
 
     private void h(World world, int i, int j, int k) {
-        if (world.a(i, j, k) == this.bh) {
-            world.g(i, j, k, this.bh);
-            world.g(i - 1, j, k, this.bh);
-            world.g(i + 1, j, k, this.bh);
-            world.g(i, j, k - 1, this.bh);
-            world.g(i, j, k + 1, this.bh);
-            world.g(i, j - 1, k, this.bh);
-            world.g(i, j + 1, k, this.bh);
+        if (world.a(i, j, k) == this.bi) {
+            world.h(i, j, k, this.bi);
+            world.h(i - 1, j, k, this.bi);
+            world.h(i + 1, j, k, this.bi);
+            world.h(i, j, k - 1, this.bi);
+            world.h(i, j, k + 1, this.bi);
+            world.h(i, j - 1, k, this.bi);
+            world.h(i, j + 1, k, this.bi);
         }
     }
 
@@ -144,8 +176,8 @@ public class BlockRedstoneWire extends Block {
         super.e(world, i, j, k);
         if (!world.z) {
             this.g(world, i, j, k);
-            world.g(i, j + 1, k, this.bh);
-            world.g(i, j - 1, k, this.bh);
+            world.h(i, j + 1, k, this.bi);
+            world.h(i, j - 1, k, this.bi);
             this.h(world, i - 1, j, k);
             this.h(world, i + 1, j, k);
             this.h(world, i, j, k - 1);
@@ -179,8 +211,8 @@ public class BlockRedstoneWire extends Block {
     public void b(World world, int i, int j, int k) {
         super.b(world, i, j, k);
         if (!world.z) {
-            world.g(i, j + 1, k, this.bh);
-            world.g(i, j - 1, k, this.bh);
+            world.h(i, j + 1, k, this.bi);
+            world.h(i, j - 1, k, this.bi);
             this.g(world, i, j, k);
             this.h(world, i - 1, j, k);
             this.h(world, i + 1, j, k);
@@ -213,7 +245,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     private int f(World world, int i, int j, int k, int l) {
-        if (world.a(i, j, k) != this.bh) {
+        if (world.a(i, j, k) != this.bi) {
             return l;
         } else {
             int i1 = world.b(i, j, k);
@@ -229,7 +261,7 @@ public class BlockRedstoneWire extends Block {
 
             if (!flag) {
                 this.a_(world, i, j, k, i1);
-                world.d(i, j, k, 0);
+                world.e(i, j, k, 0);
             } else {
                 this.g(world, i, j, k);
             }
@@ -239,7 +271,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     public int a(int i, Random random) {
-        return Item.REDSTONE.aW;
+        return Item.REDSTONE.ba;
     }
 
     public boolean d(World world, int i, int j, int k, int l) {
@@ -288,6 +320,6 @@ public class BlockRedstoneWire extends Block {
     public static boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
         int l = iblockaccess.a(i, j, k);
 
-        return l == Block.REDSTONE_WIRE.bh ? true : (l == 0 ? false : Block.m[l].c());
+        return l == Block.REDSTONE_WIRE.bi ? true : (l == 0 ? false : Block.m[l].c());
     }
 }

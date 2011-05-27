@@ -42,7 +42,7 @@ public class BlockMinecartTrack extends Block {
 
     public void e(World world, int i, int j, int k) {
         if (!world.z) {
-            world.b(i, j, k, 15);
+            world.c(i, j, k, 15);
             this.g(world, i, j, k);
         }
     }
@@ -74,7 +74,7 @@ public class BlockMinecartTrack extends Block {
 
             if (flag) {
                 this.a_(world, i, j, k, world.b(i, j, k));
-                world.d(i, j, k, 0);
+                world.e(i, j, k, 0);
             } else if (l > 0 && Block.m[l].c() && MinecartTrackLogic.a(new MinecartTrackLogic(this, world, i, j, k)) == 3) {
                 this.g(world, i, j, k);
             }
@@ -83,7 +83,7 @@ public class BlockMinecartTrack extends Block {
 
     private void g(World world, int i, int j, int k) {
         if (!world.z) {
-            (new MinecartTrackLogic(this, world, i, j, k)).a(world.o(i, j, k));
+            (new MinecartTrackLogic(this, world, i, j, k)).a(world.p(i, j, k));
         }
     }
 }

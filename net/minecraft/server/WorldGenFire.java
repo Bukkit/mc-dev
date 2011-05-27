@@ -12,8 +12,8 @@ public class WorldGenFire extends WorldGenerator {
             int j1 = j + random.nextInt(4) - random.nextInt(4);
             int k1 = k + random.nextInt(8) - random.nextInt(8);
 
-            if (world.e(i1, j1, k1) && world.a(i1, j1 - 1, k1) == Block.NETHERRACK.bh) {
-                world.d(i1, j1, k1, Block.FIRE.bh);
+            if (world.e(i1, j1, k1) && world.a(i1, j1 - 1, k1) == Block.NETHERRACK.bi) {
+                world.e(i1, j1, k1, Block.FIRE.bi);
             }
         }
 

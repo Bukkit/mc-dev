@@ -5,32 +5,30 @@ public final class ItemStack {
     public int a;
     public int b;
     public int c;
-    public int d;
+    private int d;
 
     public ItemStack(Block block) {
         this(block, 1);
     }
 
     public ItemStack(Block block, int i) {
-        this(block.bh, i);
+        this(block.bi, i, 0);
+    }
+
+    public ItemStack(Block block, int i, int j) {
+        this(block.bi, i, j);
     }
 
     public ItemStack(Item item) {
-        this(item, 1);
+        this(item.ba, 1, 0);
     }
 
     public ItemStack(Item item, int i) {
-        this(item.aW, i);
+        this(item.ba, i, 0);
     }
 
-    public ItemStack(int i) {
-        this(i, 1);
-    }
-
-    public ItemStack(int i, int j) {
-        this.a = 0;
-        this.c = i;
-        this.a = j;
+    public ItemStack(Item item, int i, int j) {
+        this(item.ba, i, j);
     }
 
     public ItemStack(int i, int j, int k) {
@@ -83,19 +81,45 @@ public final class ItemStack {
         return this.a().b();
     }
 
-    public int c() {
+    public boolean c() {
+        return this.b() > 1 && (!this.d() || !this.f());
+    }
+
+    public boolean d() {
+        return Item.c[this.c].d() > 0;
+    }
+
+    public boolean e() {
         return Item.c[this.c].c();
     }
 
-    public void b(int i) {
-        this.d += i;
-        if (this.d > this.c()) {
-            --this.a;
-            if (this.a < 0) {
-                this.a = 0;
-            }
+    public boolean f() {
+        return this.d() && this.d > 0;
+    }
 
-            this.d = 0;
+    public int g() {
+        return this.d;
+    }
+
+    public int h() {
+        return this.d;
+    }
+
+    public int i() {
+        return Item.c[this.c].d();
+    }
+
+    public void b(int i) {
+        if (this.d()) {
+            this.d += i;
+            if (this.d > this.i()) {
+                --this.a;
+                if (this.a < 0) {
+                    this.a = 0;
+                }
+
+                this.d = 0;
+            }
         }
     }
 
@@ -117,20 +141,28 @@ public final class ItemStack {
 
     public void a(EntityHuman entityhuman) {}
 
-    public ItemStack d() {
+    public void b(EntityLiving entityliving) {
+        Item.c[this.c].b(this, entityliving);
+    }
+
+    public ItemStack j() {
         return new ItemStack(this.c, this.a, this.d);
     }
 
     public static boolean a(ItemStack itemstack, ItemStack itemstack1) {
-        return itemstack == null && itemstack1 == null ? true : (itemstack != null && itemstack1 != null ? itemstack.b(itemstack1) : false);
+        return itemstack == null && itemstack1 == null ? true : (itemstack != null && itemstack1 != null ? itemstack.c(itemstack1) : false);
     }
 
-    private boolean b(ItemStack itemstack) {
+    private boolean c(ItemStack itemstack) {
         return this.a != itemstack.a ? false : (this.c != itemstack.c ? false : this.d == itemstack.d);
     }
 
-    public static ItemStack a(ItemStack itemstack) {
-        return itemstack == null ? null : itemstack.d();
+    public boolean a(ItemStack itemstack) {
+        return this.c == itemstack.c && this.d == itemstack.d;
+    }
+
+    public static ItemStack b(ItemStack itemstack) {
+        return itemstack == null ? null : itemstack.j();
     }
 
     public String toString() {

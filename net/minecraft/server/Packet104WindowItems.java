@@ -4,21 +4,21 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.util.List;
 
-public class Packet104 extends Packet {
+public class Packet104WindowItems extends Packet {
 
     public int a;
     public ItemStack[] b;
 
-    public Packet104() {}
+    public Packet104WindowItems() {}
 
-    public Packet104(int i, List list) {
+    public Packet104WindowItems(int i, List list) {
         this.a = i;
         this.b = new ItemStack[list.size()];
 
         for (int j = 0; j < this.b.length; ++j) {
             ItemStack itemstack = (ItemStack) list.get(j);
 
-            this.b[j] = itemstack == null ? null : itemstack.d();
+            this.b[j] = itemstack == null ? null : itemstack.j();
         }
     }
 
@@ -50,7 +50,7 @@ public class Packet104 extends Packet {
             } else {
                 dataoutputstream.writeShort((short) this.b[i].c);
                 dataoutputstream.writeByte((byte) this.b[i].a);
-                dataoutputstream.writeShort((short) this.b[i].d);
+                dataoutputstream.writeShort((short) this.b[i].h());
             }
         }
     }

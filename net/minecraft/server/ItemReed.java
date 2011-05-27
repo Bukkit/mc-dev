@@ -6,11 +6,11 @@ public class ItemReed extends Item {
 
     public ItemReed(int i, Block block) {
         super(i);
-        this.a = block.bh;
+        this.a = block.bi;
     }
 
     public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
-        if (world.a(i, j, k) == Block.SNOW.bh) {
+        if (world.a(i, j, k) == Block.SNOW.bi) {
             l = 0;
         } else {
             if (l == 0) {
@@ -44,9 +44,9 @@ public class ItemReed extends Item {
             if (world.a(this.a, i, j, k, false)) {
                 Block block = Block.m[this.a];
 
-                if (world.d(i, j, k, this.a)) {
+                if (world.e(i, j, k, this.a)) {
                     Block.m[this.a].c(world, i, j, k, l);
-                    world.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), block.bq.c(), (block.bq.a() + 1.0F) / 2.0F, block.bq.b() * 0.8F);
+                    world.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), block.br.c(), (block.br.a() + 1.0F) / 2.0F, block.br.b() * 0.8F);
                     --itemstack.a;
                 }
             }

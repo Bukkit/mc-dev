@@ -2,27 +2,24 @@ package net.minecraft.server;
 
 public class EntityPig extends EntityAnimal {
 
-    public boolean a = false;
-
     public EntityPig(World world) {
         super(world);
-        this.aQ = "/mob/pig.png";
+        this.aP = "/mob/pig.png";
         this.a(0.9F, 0.9F);
-        this.a = false;
+    }
+
+    protected void a() {
+        this.af.a(16, Byte.valueOf((byte) 0));
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        nbttagcompound.a("Saddle", this.a);
+        nbttagcompound.a("Saddle", this.K());
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        this.a = nbttagcompound.l("Saddle");
-    }
-
-    protected String d() {
-        return "mob.pig";
+        this.a(nbttagcompound.l("Saddle"));
     }
 
     protected String e() {
@@ -30,11 +27,15 @@ public class EntityPig extends EntityAnimal {
     }
 
     protected String f() {
+        return "mob.pig";
+    }
+
+    protected String g() {
         return "mob.pigdeath";
     }
 
     public boolean a(EntityHuman entityhuman) {
-        if (this.a) {
+        if (this.K() && !this.l.z && (this.j == null || this.j == entityhuman)) {
             entityhuman.e(this);
             return true;
         } else {
@@ -42,7 +43,19 @@ public class EntityPig extends EntityAnimal {
         }
     }
 
-    protected int g() {
-        return Item.PORK.aW;
+    protected int h() {
+        return Item.PORK.ba;
+    }
+
+    public boolean K() {
+        return (this.af.a(16) & 1) != 0;
+    }
+
+    public void a(boolean flag) {
+        if (flag) {
+            this.af.b(16, Byte.valueOf((byte) 1));
+        } else {
+            this.af.b(16, Byte.valueOf((byte) 0));
+        }
     }
 }

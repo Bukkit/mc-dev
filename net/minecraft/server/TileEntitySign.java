@@ -26,13 +26,13 @@ public class TileEntitySign extends TileEntity {
         }
     }
 
-    public Packet f() {
+    public Packet g() {
         String[] astring = new String[4];
 
         for (int i = 0; i < 4; ++i) {
             astring[i] = this.e[i];
         }
 
-        return new Packet130(this.b, this.c, this.d, astring);
+        return new Packet130UpdateSign(this.b, this.c, this.d, astring);
     }
 }

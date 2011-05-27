@@ -18,64 +18,71 @@ public final class SpawnerCreature {
         return new ChunkPosition(k, l, i1);
     }
 
-    public static final int a(World world) {
-        a.clear();
+    public static final int a(World world, boolean flag, boolean flag1) {
+        if (!flag && !flag1) {
+            return 0;
+        } else {
+            a.clear();
 
-        int i;
+            int i;
+            int j;
+            int k;
 
-        for (i = 0; i < world.d.size(); ++i) {
-            EntityHuman entityhuman = (EntityHuman) world.d.get(i);
-            int j = MathHelper.b(entityhuman.p / 16.0D);
-            int k = MathHelper.b(entityhuman.r / 16.0D);
-            byte b0 = 8;
+            for (i = 0; i < world.d.size(); ++i) {
+                EntityHuman entityhuman = (EntityHuman) world.d.get(i);
 
-            for (int l = -b0; l <= b0; ++l) {
-                for (int i1 = -b0; i1 <= b0; ++i1) {
-                    a.add(new ChunkCoordIntPair(l + j, i1 + k));
+                j = MathHelper.b(entityhuman.p / 16.0D);
+                k = MathHelper.b(entityhuman.r / 16.0D);
+                byte b0 = 8;
+
+                for (int l = -b0; l <= b0; ++l) {
+                    for (int i1 = -b0; i1 <= b0; ++i1) {
+                        a.add(new ChunkCoordIntPair(l + j, i1 + k));
+                    }
                 }
             }
-        }
 
-        i = 0;
+            i = 0;
+            EnumCreatureType[] aenumcreaturetype = EnumCreatureType.values();
 
-        for (int j1 = 0; j1 < EnumCreatureType.values().length; ++j1) {
-            EnumCreatureType enumcreaturetype = EnumCreatureType.values()[j1];
+            j = aenumcreaturetype.length;
 
-            if (world.a(enumcreaturetype.WATER_CREATURE) <= enumcreaturetype.d * a.size() / 256) {
-                Iterator iterator = a.iterator();
+            for (k = 0; k < j; ++k) {
+                EnumCreatureType enumcreaturetype = aenumcreaturetype[k];
 
-                label90:
-                while (iterator.hasNext()) {
-                    ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) iterator.next();
+                if ((!enumcreaturetype.d() || flag1) && (enumcreaturetype.d() || flag) && world.a(enumcreaturetype.a()) <= enumcreaturetype.b() * a.size() / 256) {
+                    Iterator iterator = a.iterator();
 
-                    if (world.l.nextInt(50) == 0) {
+                    label91:
+                    while (iterator.hasNext()) {
+                        ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) iterator.next();
                         BiomeBase biomebase = world.a().a(chunkcoordintpair);
                         Class[] aclass = biomebase.a(enumcreaturetype);
 
                         if (aclass != null && aclass.length != 0) {
-                            int k1 = world.l.nextInt(aclass.length);
+                            int j1 = world.l.nextInt(aclass.length);
                             ChunkPosition chunkposition = a(world, chunkcoordintpair.a * 16, chunkcoordintpair.b * 16);
-                            int l1 = chunkposition.a;
-                            int i2 = chunkposition.b;
-                            int j2 = chunkposition.c;
+                            int k1 = chunkposition.a;
+                            int l1 = chunkposition.b;
+                            int i2 = chunkposition.c;
 
-                            if (!world.d(l1, i2, j2) && world.c(l1, i2, j2) == Material.a) {
-                                int k2 = 0;
+                            if (!world.d(k1, l1, i2) && world.c(k1, l1, i2) == enumcreaturetype.c()) {
+                                int j2 = 0;
 
-                                for (int l2 = 0; l2 < 3; ++l2) {
+                                for (int k2 = 0; k2 < 3; ++k2) {
+                                    int l2 = k1;
                                     int i3 = l1;
                                     int j3 = i2;
-                                    int k3 = j2;
                                     byte b1 = 6;
 
-                                    for (int l3 = 0; l3 < 4; ++l3) {
-                                        i3 += world.l.nextInt(b1) - world.l.nextInt(b1);
-                                        j3 += world.l.nextInt(1) - world.l.nextInt(1);
-                                        k3 += world.l.nextInt(b1) - world.l.nextInt(b1);
-                                        if (world.d(i3, j3 - 1, k3) && !world.d(i3, j3, k3) && !world.c(i3, j3, k3).d() && !world.d(i3, j3 + 1, k3)) {
-                                            float f = (float) i3 + 0.5F;
-                                            float f1 = (float) j3;
-                                            float f2 = (float) k3 + 0.5F;
+                                    for (int k3 = 0; k3 < 4; ++k3) {
+                                        l2 += world.l.nextInt(b1) - world.l.nextInt(b1);
+                                        i3 += world.l.nextInt(1) - world.l.nextInt(1);
+                                        j3 += world.l.nextInt(b1) - world.l.nextInt(b1);
+                                        if (a(enumcreaturetype, world, l2, i3, j3)) {
+                                            float f = (float) l2 + 0.5F;
+                                            float f1 = (float) i3;
+                                            float f2 = (float) j3 + 0.5F;
 
                                             if (world.a((double) f, (double) f1, (double) f2, 24.0D) == null) {
                                                 float f3 = f - (float) world.m;
@@ -87,30 +94,23 @@ public final class SpawnerCreature {
                                                     EntityLiving entityliving;
 
                                                     try {
-                                                        entityliving = (EntityLiving) aclass[k1].getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
+                                                        entityliving = (EntityLiving) aclass[j1].getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
                                                     } catch (Exception exception) {
                                                         exception.printStackTrace();
                                                         return i;
                                                     }
 
                                                     entityliving.c((double) f, (double) f1, (double) f2, world.l.nextFloat() * 360.0F, 0.0F);
-                                                    if (entityliving.a()) {
-                                                        ++k2;
+                                                    if (entityliving.b()) {
+                                                        ++j2;
                                                         world.a((Entity) entityliving);
-                                                        if (entityliving instanceof EntitySpider && world.l.nextInt(100) == 0) {
-                                                            EntitySkeleton entityskeleton = new EntitySkeleton(world);
-
-                                                            entityskeleton.c((double) f, (double) f1, (double) f2, entityliving.v, 0.0F);
-                                                            world.a((Entity) entityskeleton);
-                                                            entityskeleton.e(entityliving);
-                                                        }
-
-                                                        if (k2 >= entityliving.i()) {
-                                                            continue label90;
+                                                        a(entityliving, world, f, f1, f2);
+                                                        if (j2 >= entityliving.j()) {
+                                                            continue label91;
                                                         }
                                                     }
 
-                                                    i += k2;
+                                                    i += j2;
                                                 }
                                             }
                                         }
@@ -121,8 +121,24 @@ public final class SpawnerCreature {
                     }
                 }
             }
-        }
 
-        return i;
+            return i;
+        }
+    }
+
+    private static boolean a(EnumCreatureType enumcreaturetype, World world, int i, int j, int k) {
+        return enumcreaturetype.c() == Material.f ? world.c(i, j, k).d() && !world.d(i, j + 1, k) : world.d(i, j - 1, k) && !world.d(i, j, k) && !world.c(i, j, k).d() && !world.d(i, j + 1, k);
+    }
+
+    private static void a(EntityLiving entityliving, World world, float f, float f1, float f2) {
+        if (entityliving instanceof EntitySpider && world.l.nextInt(100) == 0) {
+            EntitySkeleton entityskeleton = new EntitySkeleton(world);
+
+            entityskeleton.c((double) f, (double) f1, (double) f2, entityliving.v, 0.0F);
+            world.a((Entity) entityskeleton);
+            entityskeleton.e(entityliving);
+        } else if (entityliving instanceof EntitySheep) {
+            ((EntitySheep) entityliving).a(EntitySheep.a(world.l));
+        }
     }
 }

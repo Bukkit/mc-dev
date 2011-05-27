@@ -4,45 +4,47 @@ import java.util.List;
 
 public class EntityMinecart extends Entity implements IInventory {
 
-    private ItemStack[] ak;
+    private ItemStack[] al;
     public int a;
     public int b;
     public int c;
-    private boolean al;
+    private boolean am;
     public int d;
     public int e;
     public double f;
-    public double aj;
-    private static final int[][][] am = new int[][][] { { { 0, 0, -1}, { 0, 0, 1}}, { { -1, 0, 0}, { 1, 0, 0}}, { { -1, -1, 0}, { 1, 0, 0}}, { { -1, 0, 0}, { 1, -1, 0}}, { { 0, 0, -1}, { 0, -1, 1}}, { { 0, -1, -1}, { 0, 0, 1}}, { { 0, 0, 1}, { 1, 0, 0}}, { { 0, 0, 1}, { -1, 0, 0}}, { { 0, 0, -1}, { -1, 0, 0}}, { { 0, 0, -1}, { 1, 0, 0}}};
-    private int an;
-    private double ao;
+    public double ak;
+    private static final int[][][] an = new int[][][] { { { 0, 0, -1}, { 0, 0, 1}}, { { -1, 0, 0}, { 1, 0, 0}}, { { -1, -1, 0}, { 1, 0, 0}}, { { -1, 0, 0}, { 1, -1, 0}}, { { 0, 0, -1}, { 0, -1, 1}}, { { 0, -1, -1}, { 0, 0, 1}}, { { 0, 0, 1}, { 1, 0, 0}}, { { 0, 0, 1}, { -1, 0, 0}}, { { 0, 0, -1}, { -1, 0, 0}}, { { 0, 0, -1}, { 1, 0, 0}}};
+    private int ao;
     private double ap;
     private double aq;
     private double ar;
     private double as;
+    private double at;
 
     public EntityMinecart(World world) {
         super(world);
-        this.ak = new ItemStack[36];
+        this.al = new ItemStack[36];
         this.a = 0;
         this.b = 0;
         this.c = 1;
-        this.al = false;
+        this.am = false;
         this.i = true;
         this.a(0.98F, 0.7F);
         this.H = this.J / 2.0F;
         this.M = false;
     }
 
+    protected void a() {}
+
     public AxisAlignedBB d(Entity entity) {
         return entity.z;
     }
 
-    public AxisAlignedBB q() {
+    public AxisAlignedBB u() {
         return null;
     }
 
-    public boolean v() {
+    public boolean z() {
         return true;
     }
 
@@ -58,7 +60,7 @@ public class EntityMinecart extends Entity implements IInventory {
         this.d = i;
     }
 
-    public double j() {
+    public double k() {
         return (double) this.J * 0.0D - 0.30000001192092896D;
     }
 
@@ -66,17 +68,17 @@ public class EntityMinecart extends Entity implements IInventory {
         if (!this.l.z && !this.G) {
             this.c = -this.c;
             this.b = 10;
-            this.u();
+            this.y();
             this.a += i * 10;
             if (this.a > 40) {
-                this.a(Item.MINECART.aW, 1, 0.0F);
+                this.a(Item.MINECART.ba, 1, 0.0F);
                 if (this.d == 1) {
-                    this.a(Block.CHEST.bh, 1, 0.0F);
+                    this.a(Block.CHEST.bi, 1, 0.0F);
                 } else if (this.d == 2) {
-                    this.a(Block.FURNACE.bh, 1, 0.0F);
+                    this.a(Block.FURNACE.bi, 1, 0.0F);
                 }
 
-                this.l();
+                this.q();
             }
 
             return true;
@@ -89,8 +91,8 @@ public class EntityMinecart extends Entity implements IInventory {
         return !this.G;
     }
 
-    public void l() {
-        for (int i = 0; i < this.a(); ++i) {
+    public void q() {
+        for (int i = 0; i < this.h_(); ++i) {
             ItemStack itemstack = this.a(i);
 
             if (itemstack != null) {
@@ -106,7 +108,7 @@ public class EntityMinecart extends Entity implements IInventory {
                     }
 
                     itemstack.a -= j;
-                    EntityItem entityitem = new EntityItem(this.l, this.p + (double) f, this.q + (double) f1, this.r + (double) f2, new ItemStack(itemstack.c, j, itemstack.d));
+                    EntityItem entityitem = new EntityItem(this.l, this.p + (double) f, this.q + (double) f1, this.r + (double) f2, new ItemStack(itemstack.c, j, itemstack.h()));
                     float f3 = 0.05F;
 
                     entityitem.s = (double) ((float) this.W.nextGaussian() * f3);
@@ -117,7 +119,7 @@ public class EntityMinecart extends Entity implements IInventory {
             }
         }
 
-        super.l();
+        super.q();
     }
 
     public void b_() {
@@ -131,13 +133,13 @@ public class EntityMinecart extends Entity implements IInventory {
 
         double d0;
 
-        if (this.l.z && this.an > 0) {
-            if (this.an > 0) {
-                double d1 = this.p + (this.ao - this.p) / (double) this.an;
-                double d2 = this.q + (this.ap - this.q) / (double) this.an;
-                double d3 = this.r + (this.aq - this.r) / (double) this.an;
+        if (this.l.z && this.ao > 0) {
+            if (this.ao > 0) {
+                double d1 = this.p + (this.ap - this.p) / (double) this.ao;
+                double d2 = this.q + (this.aq - this.q) / (double) this.ao;
+                double d3 = this.r + (this.ar - this.r) / (double) this.ao;
 
-                for (d0 = this.ar - (double) this.v; d0 < -180.0D; d0 += 360.0D) {
+                for (d0 = this.as - (double) this.v; d0 < -180.0D; d0 += 360.0D) {
                     ;
                 }
 
@@ -145,9 +147,9 @@ public class EntityMinecart extends Entity implements IInventory {
                     d0 -= 360.0D;
                 }
 
-                this.v = (float) ((double) this.v + d0 / (double) this.an);
-                this.w = (float) ((double) this.w + (this.as - (double) this.w) / (double) this.an);
-                --this.an;
+                this.v = (float) ((double) this.v + d0 / (double) this.ao);
+                this.w = (float) ((double) this.w + (this.at - (double) this.w) / (double) this.ao);
+                --this.ao;
                 this.a(d1, d2, d3);
                 this.b(this.v, this.w);
             } else {
@@ -163,7 +165,7 @@ public class EntityMinecart extends Entity implements IInventory {
             int j = MathHelper.b(this.q);
             int k = MathHelper.b(this.r);
 
-            if (this.l.a(i, j - 1, k) == Block.RAILS.bh) {
+            if (this.l.a(i, j - 1, k) == Block.RAILS.bi) {
                 --j;
             }
 
@@ -171,7 +173,7 @@ public class EntityMinecart extends Entity implements IInventory {
             boolean flag = false;
 
             d0 = 0.0078125D;
-            if (this.l.a(i, j, k) == Block.RAILS.bh) {
+            if (this.l.a(i, j, k) == Block.RAILS.bi) {
                 Vec3D vec3d = this.g(this.p, this.q, this.r);
                 int l = this.l.b(i, j, k);
 
@@ -196,7 +198,7 @@ public class EntityMinecart extends Entity implements IInventory {
                     this.u -= d0;
                 }
 
-                int[][] aint = am[l];
+                int[][] aint = an[l];
                 double d5 = (double) (aint[1][0] - aint[0][0]);
                 double d6 = (double) (aint[1][2] - aint[0][2]);
                 double d7 = Math.sqrt(d5 * d5 + d6 * d6);
@@ -275,18 +277,18 @@ public class EntityMinecart extends Entity implements IInventory {
                     this.u *= 0.996999979019165D;
                 } else {
                     if (this.d == 2) {
-                        d16 = (double) MathHelper.a(this.f * this.f + this.aj * this.aj);
+                        d16 = (double) MathHelper.a(this.f * this.f + this.ak * this.ak);
                         if (d16 > 0.01D) {
                             flag = true;
                             this.f /= d16;
-                            this.aj /= d16;
+                            this.ak /= d16;
                             double d18 = 0.04D;
 
                             this.s *= 0.800000011920929D;
                             this.t *= 0.0D;
                             this.u *= 0.800000011920929D;
                             this.s += this.f * d18;
-                            this.u += this.aj * d18;
+                            this.u += this.ak * d18;
                         } else {
                             this.s *= 0.8999999761581421D;
                             this.t *= 0.0D;
@@ -323,17 +325,17 @@ public class EntityMinecart extends Entity implements IInventory {
                 }
 
                 if (this.d == 2) {
-                    double d20 = (double) MathHelper.a(this.f * this.f + this.aj * this.aj);
+                    double d20 = (double) MathHelper.a(this.f * this.f + this.ak * this.ak);
 
                     if (d20 > 0.01D && this.s * this.s + this.u * this.u > 0.0010D) {
                         this.f /= d20;
-                        this.aj /= d20;
-                        if (this.f * this.s + this.aj * this.u < 0.0D) {
+                        this.ak /= d20;
+                        if (this.f * this.s + this.ak * this.u < 0.0D) {
                             this.f = 0.0D;
-                            this.aj = 0.0D;
+                            this.ak = 0.0D;
                         } else {
                             this.f = this.s;
-                            this.aj = this.u;
+                            this.ak = this.u;
                         }
                     }
                 }
@@ -374,7 +376,7 @@ public class EntityMinecart extends Entity implements IInventory {
 
             if (d21 * d21 + d22 * d22 > 0.0010D) {
                 this.v = (float) (Math.atan2(d22, d21) * 180.0D / 3.141592653589793D);
-                if (this.al) {
+                if (this.am) {
                     this.v += 180.0F;
                 }
             }
@@ -391,7 +393,7 @@ public class EntityMinecart extends Entity implements IInventory {
 
             if (d23 < -170.0D || d23 >= 170.0D) {
                 this.v += 180.0F;
-                this.al = !this.al;
+                this.am = !this.am;
             }
 
             this.b(this.v, this.w);
@@ -401,7 +403,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 for (int k1 = 0; k1 < list.size(); ++k1) {
                     Entity entity = (Entity) list.get(k1);
 
-                    if (entity != this.j && entity.v() && entity instanceof EntityMinecart) {
+                    if (entity != this.j && entity.z() && entity instanceof EntityMinecart) {
                         entity.c((Entity) this);
                     }
                 }
@@ -414,7 +416,7 @@ public class EntityMinecart extends Entity implements IInventory {
             if (flag && this.W.nextInt(4) == 0) {
                 --this.e;
                 if (this.e < 0) {
-                    this.f = this.aj = 0.0D;
+                    this.f = this.ak = 0.0D;
                 }
 
                 this.l.a("largesmoke", this.p, this.q + 0.8D, this.r, 0.0D, 0.0D, 0.0D);
@@ -427,11 +429,11 @@ public class EntityMinecart extends Entity implements IInventory {
         int j = MathHelper.b(d1);
         int k = MathHelper.b(d2);
 
-        if (this.l.a(i, j - 1, k) == Block.RAILS.bh) {
+        if (this.l.a(i, j - 1, k) == Block.RAILS.bi) {
             --j;
         }
 
-        if (this.l.a(i, j, k) == Block.RAILS.bh) {
+        if (this.l.a(i, j, k) == Block.RAILS.bi) {
             int l = this.l.b(i, j, k);
 
             d1 = (double) j;
@@ -439,7 +441,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 d1 = (double) (j + 1);
             }
 
-            int[][] aint = am[l];
+            int[][] aint = an[l];
             double d3 = 0.0D;
             double d4 = (double) i + 0.5D + (double) aint[0][0] * 0.5D;
             double d5 = (double) j + 0.5D + (double) aint[0][1] * 0.5D;
@@ -486,17 +488,17 @@ public class EntityMinecart extends Entity implements IInventory {
         nbttagcompound.a("Type", this.d);
         if (this.d == 2) {
             nbttagcompound.a("PushX", this.f);
-            nbttagcompound.a("PushZ", this.aj);
+            nbttagcompound.a("PushZ", this.ak);
             nbttagcompound.a("Fuel", (short) this.e);
         } else if (this.d == 1) {
             NBTTagList nbttaglist = new NBTTagList();
 
-            for (int i = 0; i < this.ak.length; ++i) {
-                if (this.ak[i] != null) {
+            for (int i = 0; i < this.al.length; ++i) {
+                if (this.al[i] != null) {
                     NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
                     nbttagcompound1.a("Slot", (byte) i);
-                    this.ak[i].a(nbttagcompound1);
+                    this.al[i].a(nbttagcompound1);
                     nbttaglist.a((NBTBase) nbttagcompound1);
                 }
             }
@@ -509,19 +511,19 @@ public class EntityMinecart extends Entity implements IInventory {
         this.d = nbttagcompound.d("Type");
         if (this.d == 2) {
             this.f = nbttagcompound.g("PushX");
-            this.aj = nbttagcompound.g("PushZ");
+            this.ak = nbttagcompound.g("PushZ");
             this.e = nbttagcompound.c("Fuel");
         } else if (this.d == 1) {
             NBTTagList nbttaglist = nbttagcompound.k("Items");
 
-            this.ak = new ItemStack[this.a()];
+            this.al = new ItemStack[this.h_()];
 
             for (int i = 0; i < nbttaglist.b(); ++i) {
                 NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.a(i);
                 int j = nbttagcompound1.b("Slot") & 255;
 
-                if (j >= 0 && j < this.ak.length) {
-                    this.ak[j] = new ItemStack(nbttagcompound1);
+                if (j >= 0 && j < this.al.length) {
+                    this.al[j] = new ItemStack(nbttagcompound1);
                 }
             }
         }
@@ -591,26 +593,26 @@ public class EntityMinecart extends Entity implements IInventory {
         }
     }
 
-    public int a() {
+    public int h_() {
         return 27;
     }
 
     public ItemStack a(int i) {
-        return this.ak[i];
+        return this.al[i];
     }
 
-    public ItemStack a(int i, int j) {
-        if (this.ak[i] != null) {
+    public ItemStack b(int i, int j) {
+        if (this.al[i] != null) {
             ItemStack itemstack;
 
-            if (this.ak[i].a <= j) {
-                itemstack = this.ak[i];
-                this.ak[i] = null;
+            if (this.al[i].a <= j) {
+                itemstack = this.al[i];
+                this.al[i] = null;
                 return itemstack;
             } else {
-                itemstack = this.ak[i].a(j);
-                if (this.ak[i].a == 0) {
-                    this.ak[i] = null;
+                itemstack = this.al[i].a(j);
+                if (this.al[i].a == 0) {
+                    this.al[i] = null;
                 }
 
                 return itemstack;
@@ -621,7 +623,7 @@ public class EntityMinecart extends Entity implements IInventory {
     }
 
     public void a(int i, ItemStack itemstack) {
-        this.ak[i] = itemstack;
+        this.al[i] = itemstack;
         if (itemstack != null && itemstack.a > this.c()) {
             itemstack.a = this.c();
         }
@@ -653,7 +655,7 @@ public class EntityMinecart extends Entity implements IInventory {
         } else if (this.d == 2) {
             ItemStack itemstack = entityhuman.an.e();
 
-            if (itemstack != null && itemstack.c == Item.COAL.aW) {
+            if (itemstack != null && itemstack.c == Item.COAL.ba) {
                 if (--itemstack.a == 0) {
                     entityhuman.an.a(entityhuman.an.c, (ItemStack) null);
                 }
@@ -662,7 +664,7 @@ public class EntityMinecart extends Entity implements IInventory {
             }
 
             this.f = this.p - entityhuman.p;
-            this.aj = this.r - entityhuman.r;
+            this.ak = this.r - entityhuman.r;
         }
 
         return true;

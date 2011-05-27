@@ -15,7 +15,7 @@ public class BlockFlowing extends BlockFluids {
     private void i(World world, int i, int j, int k) {
         int l = world.b(i, j, k);
 
-        world.a(i, j, k, this.bh + 1, l);
+        world.a(i, j, k, this.bi + 1, l);
         world.b(i, j, k, i, j, k);
         world.g(i, j, k);
     }
@@ -24,7 +24,7 @@ public class BlockFlowing extends BlockFluids {
         int l = this.g(world, i, j, k);
         byte b0 = 1;
 
-        if (this.bs == Material.g && !world.q.d) {
+        if (this.bt == Material.g && !world.q.d) {
             b0 = 2;
         }
 
@@ -55,15 +55,15 @@ public class BlockFlowing extends BlockFluids {
                 }
             }
 
-            if (this.a >= 2 && this.bs == Material.f) {
+            if (this.a >= 2 && this.bt == Material.f) {
                 if (world.d(i, j - 1, k)) {
                     i1 = 0;
-                } else if (world.c(i, j - 1, k) == this.bs && world.b(i, j, k) == 0) {
+                } else if (world.c(i, j - 1, k) == this.bt && world.b(i, j, k) == 0) {
                     i1 = 0;
                 }
             }
 
-            if (this.bs == Material.g && l < 8 && i1 < 8 && i1 > l && random.nextInt(4) != 0) {
+            if (this.bt == Material.g && l < 8 && i1 < 8 && i1 > l && random.nextInt(4) != 0) {
                 i1 = l;
                 flag = false;
             }
@@ -71,11 +71,11 @@ public class BlockFlowing extends BlockFluids {
             if (i1 != l) {
                 l = i1;
                 if (i1 < 0) {
-                    world.d(i, j, k, 0);
+                    world.e(i, j, k, 0);
                 } else {
-                    world.b(i, j, k, i1);
-                    world.h(i, j, k, this.bh);
-                    world.g(i, j, k, this.bh);
+                    world.c(i, j, k, i1);
+                    world.i(i, j, k, this.bi);
+                    world.h(i, j, k, this.bi);
                 }
             } else if (flag) {
                 this.i(world, i, j, k);
@@ -86,9 +86,9 @@ public class BlockFlowing extends BlockFluids {
 
         if (this.l(world, i, j - 1, k)) {
             if (l >= 8) {
-                world.b(i, j - 1, k, this.bh, l);
+                world.b(i, j - 1, k, this.bi, l);
             } else {
-                world.b(i, j - 1, k, this.bh, l + 8);
+                world.b(i, j - 1, k, this.bi, l + 8);
             }
         } else if (l >= 0 && (l == 0 || this.k(world, i, j - 1, k))) {
             boolean[] aboolean = this.j(world, i, j, k);
@@ -125,18 +125,18 @@ public class BlockFlowing extends BlockFluids {
             int i1 = world.a(i, j, k);
 
             if (i1 > 0) {
-                if (this.bs == Material.g) {
+                if (this.bt == Material.g) {
                     this.h(world, i, j, k);
                 } else {
                     Block.m[i1].a_(world, i, j, k, world.b(i, j, k));
                 }
             }
 
-            world.b(i, j, k, this.bh, l);
+            world.b(i, j, k, this.bi, l);
         }
     }
 
-    private int a(World world, int i, int j, int k, int l, int i1) {
+    private int b(World world, int i, int j, int k, int l, int i1) {
         int j1 = 1000;
 
         for (int k1 = 0; k1 < 4; ++k1) {
@@ -160,13 +160,13 @@ public class BlockFlowing extends BlockFluids {
                     ++i2;
                 }
 
-                if (!this.k(world, l1, j, i2) && (world.c(l1, j, i2) != this.bs || world.b(l1, j, i2) != 0)) {
+                if (!this.k(world, l1, j, i2) && (world.c(l1, j, i2) != this.bt || world.b(l1, j, i2) != 0)) {
                     if (!this.k(world, l1, j - 1, i2)) {
                         return l;
                     }
 
                     if (l < 4) {
-                        int j2 = this.a(world, l1, j, i2, l + 1, k1);
+                        int j2 = this.b(world, l1, j, i2, l + 1, k1);
 
                         if (j2 < j1) {
                             j1 = j2;
@@ -204,11 +204,11 @@ public class BlockFlowing extends BlockFluids {
                 ++j1;
             }
 
-            if (!this.k(world, i1, j, j1) && (world.c(i1, j, j1) != this.bs || world.b(i1, j, j1) != 0)) {
+            if (!this.k(world, i1, j, j1) && (world.c(i1, j, j1) != this.bt || world.b(i1, j, j1) != 0)) {
                 if (!this.k(world, i1, j - 1, j1)) {
                     this.c[l] = 0;
                 } else {
-                    this.c[l] = this.a(world, i1, j, j1, 1, l);
+                    this.c[l] = this.b(world, i1, j, j1, 1, l);
                 }
             }
         }
@@ -231,11 +231,11 @@ public class BlockFlowing extends BlockFluids {
     private boolean k(World world, int i, int j, int k) {
         int l = world.a(i, j, k);
 
-        if (l != Block.WOODEN_DOOR.bh && l != Block.IRON_DOOR_BLOCK.bh && l != Block.SIGN_POST.bh && l != Block.LADDER.bh && l != Block.SUGAR_CANE_BLOCK.bh) {
+        if (l != Block.WOODEN_DOOR.bi && l != Block.IRON_DOOR_BLOCK.bi && l != Block.SIGN_POST.bi && l != Block.LADDER.bi && l != Block.SUGAR_CANE_BLOCK.bi) {
             if (l == 0) {
                 return false;
             } else {
-                Material material = Block.m[l].bs;
+                Material material = Block.m[l].bt;
 
                 return material.a();
             }
@@ -265,13 +265,13 @@ public class BlockFlowing extends BlockFluids {
     private boolean l(World world, int i, int j, int k) {
         Material material = world.c(i, j, k);
 
-        return material == this.bs ? false : (material == Material.g ? false : !this.k(world, i, j, k));
+        return material == this.bt ? false : (material == Material.g ? false : !this.k(world, i, j, k));
     }
 
     public void e(World world, int i, int j, int k) {
         super.e(world, i, j, k);
-        if (world.a(i, j, k) == this.bh) {
-            world.h(i, j, k, this.bh);
+        if (world.a(i, j, k) == this.bi) {
+            world.i(i, j, k, this.bi);
         }
     }
 }
