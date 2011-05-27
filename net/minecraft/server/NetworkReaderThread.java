@@ -26,7 +26,7 @@ class NetworkReaderThread extends Thread {
                         NetworkManager.c(this.a);
 
                         try {
-                            sleep(0L);
+                            sleep(1L);
                         } catch (InterruptedException interruptedexception) {
                             ;
                         }

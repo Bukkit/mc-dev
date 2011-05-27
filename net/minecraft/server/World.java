@@ -255,11 +255,7 @@ public class World implements IBlockAccess {
         if (this.setRawData(i, j, k, l)) {
             int i1 = this.getTypeId(i, j, k);
 
-            if (Block.t[i1 & 255]) {
-                this.update(i, j, k, i1);
-            } else {
-                this.applyPhysics(i, j, k, i1);
-            }
+            this.update(i, j, k, i1);
         }
     }
 
@@ -1383,10 +1379,10 @@ public class World implements IBlockAccess {
         } else {
             ++this.K;
 
+            boolean flag;
+
             try {
                 int i = 500;
-
-                boolean flag;
 
                 while (this.C.size() > 0) {
                     --i;
@@ -1399,10 +1395,11 @@ public class World implements IBlockAccess {
                 }
 
                 flag = false;
-                return flag;
             } finally {
                 --this.K;
             }
+
+            return flag;
         }
     }
 

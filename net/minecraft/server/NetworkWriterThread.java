@@ -33,6 +33,12 @@ class NetworkWriterThread extends Thread {
                     NetworkManager.a(this.a, false);
 
                     try {
+                        sleep(1L);
+                    } catch (InterruptedException interruptedexception) {
+                        ;
+                    }
+
+                    try {
                         NetworkManager.f(this.a).flush();
                     } catch (IOException ioexception) {
                         ioexception.printStackTrace();
