@@ -469,7 +469,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void a(Packet9 packet9) {
         if (this.e.aQ <= 0) {
-            this.e = this.d.f.e(this.e);
+            this.e = this.d.f.d(this.e);
         }
     }
 }

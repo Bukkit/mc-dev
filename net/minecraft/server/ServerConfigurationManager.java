@@ -74,12 +74,6 @@ public class ServerConfigurationManager {
         this.d.b(entityplayer);
     }
 
-    public void d(EntityPlayer entityplayer) {
-        this.d.b(entityplayer);
-        this.b.remove(entityplayer);
-        this.c.e.e(entityplayer);
-    }
-
     public EntityPlayer a(NetLoginHandler netloginhandler, String s, String s1) {
         if (this.f.contains(s.trim().toLowerCase())) {
             netloginhandler.b("You are banned from this server!");
@@ -109,9 +103,12 @@ public class ServerConfigurationManager {
         }
     }
 
-    public EntityPlayer e(EntityPlayer entityplayer) {
-        this.d(entityplayer);
+    public EntityPlayer d(EntityPlayer entityplayer) {
         this.c.k.a(entityplayer);
+        this.c.k.b(entityplayer);
+        this.d.b(entityplayer);
+        this.b.remove(entityplayer);
+        this.c.e.e(entityplayer);
         EntityPlayer entityplayer1 = new EntityPlayer(this.c, this.c.e, entityplayer.as, new ItemInWorldManager(this.c.e));
 
         entityplayer1.g = entityplayer.g;
@@ -123,7 +120,6 @@ public class ServerConfigurationManager {
         }
 
         entityplayer1.a.b((Packet) (new Packet9()));
-        entityplayer1.a.d();
         entityplayer1.a.a(entityplayer1.p, entityplayer1.q, entityplayer1.r, entityplayer1.v, entityplayer1.w);
         this.d.a(entityplayer1);
         this.c.e.a(entityplayer1);
