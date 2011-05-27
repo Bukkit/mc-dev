@@ -46,14 +46,14 @@ public class EntityPainting extends Entity {
         this.b(l);
     }
 
-    protected void a() {}
+    protected void b() {}
 
     public void b(int i) {
         this.a = i;
         this.lastYaw = this.yaw = (float) (i * 90);
-        float f = (float) this.e.A;
-        float f1 = (float) this.e.B;
-        float f2 = (float) this.e.A;
+        float f = (float) this.e.B;
+        float f1 = (float) this.e.C;
+        float f2 = (float) this.e.B;
 
         if (i != 0 && i != 2) {
             f = 0.5F;
@@ -86,22 +86,22 @@ public class EntityPainting extends Entity {
         }
 
         if (i == 0) {
-            f3 -= this.c(this.e.A);
+            f3 -= this.c(this.e.B);
         }
 
         if (i == 1) {
-            f5 += this.c(this.e.A);
+            f5 += this.c(this.e.B);
         }
 
         if (i == 2) {
-            f3 += this.c(this.e.A);
+            f3 += this.c(this.e.B);
         }
 
         if (i == 3) {
-            f5 -= this.c(this.e.A);
+            f5 -= this.c(this.e.B);
         }
 
-        f4 += this.c(this.e.B);
+        f4 += this.c(this.e.C);
         this.setPosition((double) f3, (double) f4, (double) f5);
         float f7 = -0.00625F;
 
@@ -112,7 +112,7 @@ public class EntityPainting extends Entity {
         return i == 32 ? 0.5F : (i == 64 ? 0.5F : 0.0F);
     }
 
-    public void f_() {
+    public void p_() {
         if (this.f++ == 100 && !this.world.isStatic) {
             this.f = 0;
             if (!this.h()) {
@@ -126,29 +126,29 @@ public class EntityPainting extends Entity {
         if (this.world.getEntities(this, this.boundingBox).size() > 0) {
             return false;
         } else {
-            int i = this.e.A / 16;
-            int j = this.e.B / 16;
+            int i = this.e.B / 16;
+            int j = this.e.C / 16;
             int k = this.b;
             int l = this.c;
             int i1 = this.d;
 
             if (this.a == 0) {
-                k = MathHelper.floor(this.locX - (double) ((float) this.e.A / 32.0F));
+                k = MathHelper.floor(this.locX - (double) ((float) this.e.B / 32.0F));
             }
 
             if (this.a == 1) {
-                i1 = MathHelper.floor(this.locZ - (double) ((float) this.e.A / 32.0F));
+                i1 = MathHelper.floor(this.locZ - (double) ((float) this.e.B / 32.0F));
             }
 
             if (this.a == 2) {
-                k = MathHelper.floor(this.locX - (double) ((float) this.e.A / 32.0F));
+                k = MathHelper.floor(this.locX - (double) ((float) this.e.B / 32.0F));
             }
 
             if (this.a == 3) {
-                i1 = MathHelper.floor(this.locZ - (double) ((float) this.e.A / 32.0F));
+                i1 = MathHelper.floor(this.locZ - (double) ((float) this.e.B / 32.0F));
             }
 
-            l = MathHelper.floor(this.locY - (double) ((float) this.e.B / 32.0F));
+            l = MathHelper.floor(this.locY - (double) ((float) this.e.C / 32.0F));
 
             int j1;
 
@@ -180,29 +180,29 @@ public class EntityPainting extends Entity {
         }
     }
 
-    public boolean d_() {
+    public boolean o_() {
         return true;
     }
 
     public boolean damageEntity(Entity entity, int i) {
         if (!this.dead && !this.world.isStatic) {
             this.die();
-            this.V();
+            this.ab();
             this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING)));
         }
 
         return true;
     }
 
-    public void a(NBTTagCompound nbttagcompound) {
+    public void b(NBTTagCompound nbttagcompound) {
         nbttagcompound.a("Dir", (byte) this.a);
-        nbttagcompound.setString("Motive", this.e.z);
+        nbttagcompound.setString("Motive", this.e.A);
         nbttagcompound.a("TileX", this.b);
         nbttagcompound.a("TileY", this.c);
         nbttagcompound.a("TileZ", this.d);
     }
 
-    public void b(NBTTagCompound nbttagcompound) {
+    public void a(NBTTagCompound nbttagcompound) {
         this.a = nbttagcompound.c("Dir");
         this.b = nbttagcompound.e("TileX");
         this.c = nbttagcompound.e("TileY");
@@ -214,7 +214,7 @@ public class EntityPainting extends Entity {
         for (int j = 0; j < i; ++j) {
             EnumArt enumart = aenumart[j];
 
-            if (enumart.z.equals(s)) {
+            if (enumart.A.equals(s)) {
                 this.e = enumart;
             }
         }

@@ -7,22 +7,22 @@ public class ContainerFurnace extends Container {
     private int c = 0;
     private int h = 0;
 
-    public ContainerFurnace(IInventory iinventory, TileEntityFurnace tileentityfurnace) {
+    public ContainerFurnace(InventoryPlayer inventoryplayer, TileEntityFurnace tileentityfurnace) {
         this.a = tileentityfurnace;
         this.a(new Slot(tileentityfurnace, 0, 56, 17));
         this.a(new Slot(tileentityfurnace, 1, 56, 53));
-        this.a(new SlotResult2(tileentityfurnace, 2, 116, 35));
+        this.a(new SlotResult2(inventoryplayer.d, tileentityfurnace, 2, 116, 35));
 
         int i;
 
         for (i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.a(new Slot(iinventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.a(new Slot(inventoryplayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (i = 0; i < 9; ++i) {
-            this.a(new Slot(iinventory, i, 8 + i * 18, 142));
+            this.a(new Slot(inventoryplayer, i, 8 + i * 18, 142));
         }
     }
 

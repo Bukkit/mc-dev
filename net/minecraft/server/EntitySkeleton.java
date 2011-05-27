@@ -9,19 +9,19 @@ public class EntitySkeleton extends EntityMonster {
         this.texture = "/mob/skeleton.png";
     }
 
-    protected String e() {
+    protected String g() {
         return "mob.skeleton";
     }
 
-    protected String f() {
+    protected String h() {
         return "mob.skeletonhurt";
     }
 
-    protected String g() {
+    protected String i() {
         return "mob.skeletonhurt";
     }
 
-    public void r() {
+    public void u() {
         if (this.world.d()) {
             float f = this.c(1.0F);
 
@@ -30,7 +30,7 @@ public class EntitySkeleton extends EntityMonster {
             }
         }
 
-        super.r();
+        super.u();
     }
 
     protected void a(Entity entity, float f) {
@@ -56,19 +56,19 @@ public class EntitySkeleton extends EntityMonster {
         }
     }
 
-    public void a(NBTTagCompound nbttagcompound) {
-        super.a(nbttagcompound);
-    }
-
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
     }
 
-    protected int h() {
+    public void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+    }
+
+    protected int j() {
         return Item.ARROW.id;
     }
 
-    protected void p() {
+    protected void r() {
         int i = this.random.nextInt(3);
 
         int j;

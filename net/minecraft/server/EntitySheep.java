@@ -12,8 +12,8 @@ public class EntitySheep extends EntityAnimal {
         this.b(0.9F, 1.3F);
     }
 
-    protected void a() {
-        super.a();
+    protected void b() {
+        super.b();
         this.datawatcher.a(16, new Byte((byte) 0));
     }
 
@@ -34,27 +34,27 @@ public class EntitySheep extends EntityAnimal {
         return super.damageEntity(entity, i);
     }
 
-    public void a(NBTTagCompound nbttagcompound) {
-        super.a(nbttagcompound);
+    public void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
         nbttagcompound.a("Sheared", this.isSheared());
         nbttagcompound.a("Color", (byte) this.getColor());
     }
 
-    public void b(NBTTagCompound nbttagcompound) {
-        super.b(nbttagcompound);
+    public void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
         this.setSheared(nbttagcompound.m("Sheared"));
         this.setColor(nbttagcompound.c("Color"));
     }
 
-    protected String e() {
-        return "mob.sheep";
-    }
-
-    protected String f() {
-        return "mob.sheep";
-    }
-
     protected String g() {
+        return "mob.sheep";
+    }
+
+    protected String h() {
+        return "mob.sheep";
+    }
+
+    protected String i() {
         return "mob.sheep";
     }
 

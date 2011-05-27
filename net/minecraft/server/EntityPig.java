@@ -8,34 +8,34 @@ public class EntityPig extends EntityAnimal {
         this.b(0.9F, 0.9F);
     }
 
-    protected void a() {
+    protected void b() {
         this.datawatcher.a(16, Byte.valueOf((byte) 0));
-    }
-
-    public void a(NBTTagCompound nbttagcompound) {
-        super.a(nbttagcompound);
-        nbttagcompound.a("Saddle", this.v());
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
+        nbttagcompound.a("Saddle", this.x());
+    }
+
+    public void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
         this.a(nbttagcompound.m("Saddle"));
     }
 
-    protected String e() {
-        return "mob.pig";
-    }
-
-    protected String f() {
-        return "mob.pig";
-    }
-
     protected String g() {
+        return "mob.pig";
+    }
+
+    protected String h() {
+        return "mob.pig";
+    }
+
+    protected String i() {
         return "mob.pigdeath";
     }
 
     public boolean a(EntityHuman entityhuman) {
-        if (this.v() && !this.world.isStatic && (this.passenger == null || this.passenger == entityhuman)) {
+        if (this.x() && !this.world.isStatic && (this.passenger == null || this.passenger == entityhuman)) {
             entityhuman.mount(this);
             return true;
         } else {
@@ -43,11 +43,11 @@ public class EntityPig extends EntityAnimal {
         }
     }
 
-    protected int h() {
-        return Item.PORK.id;
+    protected int j() {
+        return this.fireTicks > 0 ? Item.GRILLED_PORK.id : Item.PORK.id;
     }
 
-    public boolean v() {
+    public boolean x() {
         return (this.datawatcher.a(16) & 1) != 0;
     }
 
@@ -56,6 +56,21 @@ public class EntityPig extends EntityAnimal {
             this.datawatcher.b(16, Byte.valueOf((byte) 1));
         } else {
             this.datawatcher.b(16, Byte.valueOf((byte) 0));
+        }
+    }
+
+    public void a(EntityWeatherStorm entityweatherstorm) {
+        EntityPigZombie entitypigzombie = new EntityPigZombie(this.world);
+
+        entitypigzombie.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
+        this.world.addEntity(entitypigzombie);
+        this.die();
+    }
+
+    protected void a(float f) {
+        super.a(f);
+        if (f > 5.0F && this.passenger instanceof EntityHuman) {
+            ((EntityHuman) this.passenger).a((Statistic) AchievementList.u);
         }
     }
 }

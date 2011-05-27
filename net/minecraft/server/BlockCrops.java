@@ -86,16 +86,16 @@ public class BlockCrops extends BlockFlower {
         return this.textureId + j;
     }
 
-    public void postBreak(World world, int i, int j, int k, int l) {
-        super.postBreak(world, i, j, k, l);
+    public void dropNaturally(World world, int i, int j, int k, int l, float f) {
+        super.dropNaturally(world, i, j, k, l, f);
         if (!world.isStatic) {
             for (int i1 = 0; i1 < 3; ++i1) {
                 if (world.random.nextInt(15) <= l) {
-                    float f = 0.7F;
-                    float f1 = world.random.nextFloat() * f + (1.0F - f) * 0.5F;
-                    float f2 = world.random.nextFloat() * f + (1.0F - f) * 0.5F;
-                    float f3 = world.random.nextFloat() * f + (1.0F - f) * 0.5F;
-                    EntityItem entityitem = new EntityItem(world, (double) ((float) i + f1), (double) ((float) j + f2), (double) ((float) k + f3), new ItemStack(Item.SEEDS));
+                    float f1 = 0.7F;
+                    float f2 = world.random.nextFloat() * f1 + (1.0F - f1) * 0.5F;
+                    float f3 = world.random.nextFloat() * f1 + (1.0F - f1) * 0.5F;
+                    float f4 = world.random.nextFloat() * f1 + (1.0F - f1) * 0.5F;
+                    EntityItem entityitem = new EntityItem(world, (double) ((float) i + f2), (double) ((float) j + f3), (double) ((float) k + f4), new ItemStack(Item.SEEDS));
 
                     entityitem.pickupDelay = 10;
                     world.addEntity(entityitem);

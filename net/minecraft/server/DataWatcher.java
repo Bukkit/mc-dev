@@ -130,7 +130,7 @@ public class DataWatcher {
             break;
 
         case 4:
-            dataoutputstream.writeUTF((String) watchableobject.b());
+            Packet.a((String) watchableobject.b(), dataoutputstream);
             break;
 
         case 5:
@@ -139,6 +139,7 @@ public class DataWatcher {
             dataoutputstream.writeShort(itemstack.getItem().id);
             dataoutputstream.writeByte(itemstack.count);
             dataoutputstream.writeShort(itemstack.getData());
+            break;
 
         case 6:
             ChunkCoordinates chunkcoordinates = (ChunkCoordinates) watchableobject.b();
@@ -179,7 +180,7 @@ public class DataWatcher {
                 break;
 
             case 4:
-                watchableobject = new WatchableObject(i, j, datainputstream.readUTF());
+                watchableobject = new WatchableObject(i, j, Packet.a(datainputstream, 64));
                 break;
 
             case 5:
@@ -187,7 +188,8 @@ public class DataWatcher {
                 byte b1 = datainputstream.readByte();
                 short short2 = datainputstream.readShort();
 
-                new WatchableObject(i, j, new ItemStack(short1, b1, short2));
+                watchableobject = new WatchableObject(i, j, new ItemStack(short1, b1, short2));
+                break;
 
             case 6:
                 int k = datainputstream.readInt();

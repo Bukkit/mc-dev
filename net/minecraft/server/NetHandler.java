@@ -1,8 +1,10 @@
 package net.minecraft.server;
 
-public class NetHandler {
+public abstract class NetHandler {
 
     public NetHandler() {}
+
+    public abstract boolean c();
 
     public void a(Packet51MapChunk packet51mapchunk) {}
 
@@ -178,9 +180,15 @@ public class NetHandler {
         this.a((Packet) packet54playnoteblock);
     }
 
+    public void a(Packet200Statistic packet200statistic) {
+        this.a((Packet) packet200statistic);
+    }
+
     public void a(Packet17 packet17) {}
 
     public void a(Packet27 packet27) {}
 
     public void a(Packet70Bed packet70bed) {}
+
+    public void a(Packet71Weather packet71weather) {}
 }

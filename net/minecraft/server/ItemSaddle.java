@@ -11,7 +11,7 @@ public class ItemSaddle extends Item {
         if (entityliving instanceof EntityPig) {
             EntityPig entitypig = (EntityPig) entityliving;
 
-            if (!entitypig.v()) {
+            if (!entitypig.x()) {
                 entitypig.a(true);
                 --itemstack.count;
             }

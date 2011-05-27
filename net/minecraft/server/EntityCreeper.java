@@ -10,23 +10,28 @@ public class EntityCreeper extends EntityMonster {
         this.texture = "/mob/creeper.png";
     }
 
-    protected void a() {
-        super.a();
+    protected void b() {
+        super.b();
         this.datawatcher.a(16, Byte.valueOf((byte) -1));
-    }
-
-    public void a(NBTTagCompound nbttagcompound) {
-        super.a(nbttagcompound);
+        this.datawatcher.a(17, Byte.valueOf((byte) 0));
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
+        if (this.datawatcher.a(17) == 1) {
+            nbttagcompound.a("powered", true);
+        }
     }
 
-    public void f_() {
+    public void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        this.datawatcher.b(17, Byte.valueOf((byte) (nbttagcompound.m("powered") ? 1 : 0)));
+    }
+
+    public void p_() {
         this.b = this.fuseTicks;
         if (this.world.isStatic) {
-            int i = this.v();
+            int i = this.x();
 
             if (i > 0 && this.fuseTicks == 0) {
                 this.world.makeSound(this, "random.fuse", 1.0F, 0.5F);
@@ -42,14 +47,14 @@ public class EntityCreeper extends EntityMonster {
             }
         }
 
-        super.f_();
+        super.p_();
     }
 
-    protected String f() {
+    protected String h() {
         return "mob.creeper";
     }
 
-    protected String g() {
+    protected String i() {
         return "mob.creeperdeath";
     }
 
@@ -61,7 +66,7 @@ public class EntityCreeper extends EntityMonster {
     }
 
     protected void a(Entity entity, float f) {
-        int i = this.v();
+        int i = this.x();
 
         if ((i > 0 || f >= 3.0F) && (i <= 0 || f >= 7.0F)) {
             this.e(-1);
@@ -77,7 +82,12 @@ public class EntityCreeper extends EntityMonster {
             this.e(1);
             ++this.fuseTicks;
             if (this.fuseTicks >= 30) {
-                this.world.a(this, this.locX, this.locY, this.locZ, 3.0F);
+                if (this.t()) {
+                    this.world.a(this, this.locX, this.locY, this.locZ, 6.0F);
+                } else {
+                    this.world.a(this, this.locX, this.locY, this.locZ, 3.0F);
+                }
+
                 this.die();
             }
 
@@ -85,15 +95,24 @@ public class EntityCreeper extends EntityMonster {
         }
     }
 
-    protected int h() {
+    public boolean t() {
+        return this.datawatcher.a(17) == 1;
+    }
+
+    protected int j() {
         return Item.SULPHUR.id;
     }
 
-    private int v() {
+    private int x() {
         return this.datawatcher.a(16);
     }
 
     private void e(int i) {
         this.datawatcher.b(16, Byte.valueOf((byte) i));
+    }
+
+    public void a(EntityWeatherStorm entityweatherstorm) {
+        super.a(entityweatherstorm);
+        this.datawatcher.b(17, Byte.valueOf((byte) 1));
     }
 }

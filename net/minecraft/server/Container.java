@@ -62,11 +62,17 @@ public abstract class Container {
         return null;
     }
 
-    public Slot a(int i) {
+    public Slot b(int i) {
         return (Slot) this.e.get(i);
     }
 
-    public ItemStack a(int i, int j, EntityHuman entityhuman) {
+    public ItemStack a(int i) {
+        Slot slot = (Slot) this.e.get(i);
+
+        return slot != null ? slot.getItem() : null;
+    }
+
+    public ItemStack a(int i, int j, boolean flag, EntityHuman entityhuman) {
         ItemStack itemstack = null;
 
         if (j == 0 || j == 1) {
@@ -86,79 +92,85 @@ public abstract class Container {
                         }
                     }
                 }
+            } else if (flag) {
+                ItemStack itemstack1 = this.a(i);
+
+                if (itemstack1 != null) {
+                    itemstack = itemstack1.j();
+                }
             } else {
                 Slot slot = (Slot) this.e.get(i);
 
                 if (slot != null) {
-                    slot.b();
-                    ItemStack itemstack1 = slot.getItem();
-                    ItemStack itemstack2 = inventoryplayer.j();
+                    slot.c();
+                    ItemStack itemstack2 = slot.getItem();
+                    ItemStack itemstack3 = inventoryplayer.j();
 
-                    if (itemstack1 != null) {
-                        itemstack = itemstack1.j();
+                    if (itemstack2 != null) {
+                        itemstack = itemstack2.j();
                     }
 
                     int k;
 
-                    if (itemstack1 == null) {
-                        if (itemstack2 != null && slot.isAllowed(itemstack2)) {
-                            k = j == 0 ? itemstack2.count : 1;
-                            if (k > slot.c()) {
-                                k = slot.c();
+                    if (itemstack2 == null) {
+                        if (itemstack3 != null && slot.isAllowed(itemstack3)) {
+                            k = j == 0 ? itemstack3.count : 1;
+                            if (k > slot.d()) {
+                                k = slot.d();
                             }
 
-                            slot.c(itemstack2.a(k));
-                            if (itemstack2.count == 0) {
+                            slot.c(itemstack3.a(k));
+                            if (itemstack3.count == 0) {
                                 inventoryplayer.b((ItemStack) null);
                             }
                         }
                     } else {
-                        ItemStack itemstack3;
+                        ItemStack itemstack4;
 
-                        if (itemstack2 == null) {
-                            k = j == 0 ? itemstack1.count : (itemstack1.count + 1) / 2;
-                            itemstack3 = slot.a(k);
-                            if (itemstack3 != null && slot.d()) {
-                                entityhuman.a(StatisticList.z[itemstack3.id], itemstack3.count);
+                        if (itemstack3 == null) {
+                            k = j == 0 ? itemstack2.count : (itemstack2.count + 1) / 2;
+                            itemstack4 = slot.a(k);
+                            if (itemstack4 != null && slot.e()) {
+                                entityhuman.a(StatisticList.D[itemstack4.id], itemstack4.count);
                             }
 
-                            inventoryplayer.b(itemstack3);
-                            if (itemstack1.count == 0) {
+                            inventoryplayer.b(itemstack4);
+                            if (itemstack2.count == 0) {
                                 slot.c((ItemStack) null);
                             }
 
                             slot.a(inventoryplayer.j());
-                        } else if (slot.isAllowed(itemstack2)) {
-                            if (itemstack1.id == itemstack2.id && (!itemstack1.e() || itemstack1.getData() == itemstack2.getData())) {
-                                k = j == 0 ? itemstack2.count : 1;
-                                if (k > slot.c() - itemstack1.count) {
-                                    k = slot.c() - itemstack1.count;
+                        } else if (slot.isAllowed(itemstack3)) {
+                            if (itemstack2.id == itemstack3.id && (!itemstack2.e() || itemstack2.getData() == itemstack3.getData())) {
+                                k = j == 0 ? itemstack3.count : 1;
+                                if (k > slot.d() - itemstack2.count) {
+                                    k = slot.d() - itemstack2.count;
                                 }
 
-                                if (k > itemstack2.b() - itemstack1.count) {
-                                    k = itemstack2.b() - itemstack1.count;
+                                if (k > itemstack3.b() - itemstack2.count) {
+                                    k = itemstack3.b() - itemstack2.count;
                                 }
 
-                                itemstack2.a(k);
-                                if (itemstack2.count == 0) {
+                                itemstack3.a(k);
+                                if (itemstack3.count == 0) {
                                     inventoryplayer.b((ItemStack) null);
                                 }
 
-                                itemstack1.count += k;
-                            } else if (itemstack2.count <= slot.c()) {
-                                slot.c(itemstack2);
-                                inventoryplayer.b(itemstack1);
-                            }
-                        } else if (itemstack1.id == itemstack2.id && itemstack2.b() > 1 && (!itemstack1.e() || itemstack1.getData() == itemstack2.getData())) {
-                            k = itemstack1.count;
-                            if (k > 0 && k + itemstack2.count <= itemstack2.b()) {
                                 itemstack2.count += k;
-                                itemstack3 = itemstack1.a(k);
-                                if (itemstack3 != null && slot.d()) {
-                                    entityhuman.a(StatisticList.z[itemstack3.id], itemstack3.count);
+                            } else if (itemstack3.count <= slot.d()) {
+                                slot.c(itemstack3);
+                                inventoryplayer.b(itemstack2);
+                            }
+                        } else if (itemstack2.id == itemstack3.id && itemstack3.b() > 1 && (!itemstack2.e() || itemstack2.getData() == itemstack3.getData())) {
+                            k = itemstack2.count;
+                            if (k > 0 && k + itemstack3.count <= itemstack3.b()) {
+                                itemstack3.count += k;
+                                itemstack4 = itemstack2.a(k);
+                                if (itemstack4 != null && slot.e()) {
+                                    entityhuman.a(StatisticList.D[itemstack4.id], itemstack4.count);
                                 }
 
-                                if (itemstack1.count == 0) {
+                                if (itemstack2.count == 0) {
                                     slot.c((ItemStack) null);
                                 }
 

@@ -10,19 +10,19 @@ public class EntityWaterAnimal extends EntityCreature implements IAnimal {
         return true;
     }
 
-    public void a(NBTTagCompound nbttagcompound) {
-        super.a(nbttagcompound);
-    }
-
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
     }
 
-    public boolean b() {
+    public void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+    }
+
+    public boolean d() {
         return this.world.containsEntity(this.boundingBox);
     }
 
-    public int c() {
+    public int e() {
         return 120;
     }
 }

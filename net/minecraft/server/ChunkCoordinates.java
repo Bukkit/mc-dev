@@ -37,4 +37,12 @@ public class ChunkCoordinates implements Comparable {
     public int compareTo(ChunkCoordinates chunkcoordinates) {
         return this.y == chunkcoordinates.y ? (this.z == chunkcoordinates.z ? this.x - chunkcoordinates.x : this.z - chunkcoordinates.z) : this.y - chunkcoordinates.y;
     }
+
+    public double a(int i, int j, int k) {
+        int l = this.x - i;
+        int i1 = this.y - j;
+        int j1 = this.z - k;
+
+        return Math.sqrt((double) (l * l + i1 * i1 + j1 * j1));
+    }
 }

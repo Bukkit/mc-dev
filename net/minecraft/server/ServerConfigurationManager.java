@@ -50,7 +50,7 @@ public class ServerConfigurationManager {
     }
 
     public void setPlayerFileData(WorldServer worldserver) {
-        this.playerFileData = worldserver.o().d();
+        this.playerFileData = worldserver.p().d();
     }
 
     public int a() {
@@ -81,7 +81,7 @@ public class ServerConfigurationManager {
         this.d.removePlayer(entityplayer);
     }
 
-    public EntityPlayer a(NetLoginHandler netloginhandler, String s, String s1) {
+    public EntityPlayer a(NetLoginHandler netloginhandler, String s) {
         if (this.banByName.contains(s.trim().toLowerCase())) {
             netloginhandler.disconnect("You are banned from this server!");
             return null;
@@ -89,11 +89,11 @@ public class ServerConfigurationManager {
             netloginhandler.disconnect("You are not white-listed on this server!");
             return null;
         } else {
-            String s2 = netloginhandler.networkManager.getSocketAddress().toString();
+            String s1 = netloginhandler.networkManager.getSocketAddress().toString();
 
-            s2 = s2.substring(s2.indexOf("/") + 1);
-            s2 = s2.substring(0, s2.indexOf(":"));
-            if (this.banByIP.contains(s2)) {
+            s1 = s1.substring(s1.indexOf("/") + 1);
+            s1 = s1.substring(0, s1.indexOf(":"));
+            if (this.banByIP.contains(s1)) {
                 netloginhandler.disconnect("Your IP address is banned from this server!");
                 return null;
             } else if (this.players.size() >= this.maxPlayers) {
@@ -119,7 +119,7 @@ public class ServerConfigurationManager {
         this.d.removePlayer(entityplayer);
         this.players.remove(entityplayer);
         this.server.worldServer.removeEntity(entityplayer);
-        ChunkCoordinates chunkcoordinates = entityplayer.H();
+        ChunkCoordinates chunkcoordinates = entityplayer.K();
         EntityPlayer entityplayer1 = new EntityPlayer(this.server, this.server.worldServer, entityplayer.name, new ItemInWorldManager(this.server.worldServer));
 
         entityplayer1.id = entityplayer.id;
@@ -147,7 +147,7 @@ public class ServerConfigurationManager {
         this.server.worldServer.addEntity(entityplayer1);
         this.players.add(entityplayer1);
         entityplayer1.syncInventory();
-        entityplayer1.t();
+        entityplayer1.w();
         return entityplayer1;
     }
 

@@ -42,7 +42,7 @@ public class TileEntity {
         }
     }
 
-    public void i_() {}
+    public void g_() {}
 
     public static TileEntity c(NBTTagCompound nbttagcompound) {
         TileEntity tileentity = null;

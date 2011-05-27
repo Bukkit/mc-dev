@@ -10,15 +10,19 @@ public class Packet3Chat extends Packet {
     public Packet3Chat() {}
 
     public Packet3Chat(String s) {
+        if (s.length() > 119) {
+            s = s.substring(0, 119);
+        }
+
         this.a = s;
     }
 
     public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readUTF();
+        this.a = a(datainputstream, 119);
     }
 
     public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeUTF(this.a);
+        a(this.a, dataoutputstream);
     }
 
     public void a(NetHandler nethandler) {

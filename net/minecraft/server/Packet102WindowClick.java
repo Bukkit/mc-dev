@@ -10,6 +10,7 @@ public class Packet102WindowClick extends Packet {
     public int c;
     public short d;
     public ItemStack e;
+    public boolean f;
 
     public Packet102WindowClick() {}
 
@@ -22,6 +23,7 @@ public class Packet102WindowClick extends Packet {
         this.b = datainputstream.readShort();
         this.c = datainputstream.readByte();
         this.d = datainputstream.readShort();
+        this.f = datainputstream.readBoolean();
         short short1 = datainputstream.readShort();
 
         if (short1 >= 0) {
@@ -39,6 +41,7 @@ public class Packet102WindowClick extends Packet {
         dataoutputstream.writeShort(this.b);
         dataoutputstream.writeByte(this.c);
         dataoutputstream.writeShort(this.d);
+        dataoutputstream.writeBoolean(this.f);
         if (this.e == null) {
             dataoutputstream.writeShort(-1);
         } else {

@@ -42,7 +42,7 @@ public class ServerGUI extends JComponent implements ICommandListener {
         this.setLayout(new BorderLayout());
 
         try {
-            this.add(this.d(), "Center");
+            this.add(this.c(), "Center");
             this.add(this.a(), "West");
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -66,7 +66,7 @@ public class ServerGUI extends JComponent implements ICommandListener {
         return jscrollpane;
     }
 
-    private JComponent d() {
+    private JComponent c() {
         JPanel jpanel = new JPanel(new BorderLayout());
         JTextArea jtextarea = new JTextArea();
 

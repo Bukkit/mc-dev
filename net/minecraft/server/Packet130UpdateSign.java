@@ -29,7 +29,7 @@ public class Packet130UpdateSign extends Packet {
         this.lines = new String[4];
 
         for (int i = 0; i < 4; ++i) {
-            this.lines[i] = datainputstream.readUTF();
+            this.lines[i] = a(datainputstream, 15);
         }
     }
 
@@ -39,7 +39,7 @@ public class Packet130UpdateSign extends Packet {
         dataoutputstream.writeInt(this.z);
 
         for (int i = 0; i < 4; ++i) {
-            dataoutputstream.writeUTF(this.lines[i]);
+            a(this.lines[i], dataoutputstream);
         }
     }
 

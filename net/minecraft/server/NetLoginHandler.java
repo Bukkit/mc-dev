@@ -57,8 +57,8 @@ public class NetLoginHandler extends NetHandler {
 
     public void a(Packet1Login packet1login) {
         this.g = packet1login.name;
-        if (packet1login.a != 10) {
-            if (packet1login.a > 10) {
+        if (packet1login.a != 11) {
+            if (packet1login.a > 11) {
                 this.disconnect("Outdated server!");
             } else {
                 this.disconnect("Outdated client!");
@@ -73,15 +73,19 @@ public class NetLoginHandler extends NetHandler {
     }
 
     public void b(Packet1Login packet1login) {
-        EntityPlayer entityplayer = this.server.serverConfigurationManager.a(this, packet1login.name, packet1login.c);
+        EntityPlayer entityplayer = this.server.serverConfigurationManager.a(this, packet1login.name);
 
         if (entityplayer != null) {
-            a.info(this.b() + " logged in with entity id " + entityplayer.id);
+            a.info(this.b() + " logged in with entity id " + entityplayer.id + " at (" + entityplayer.locX + ", " + entityplayer.locY + ", " + entityplayer.locZ + ")");
             ChunkCoordinates chunkcoordinates = this.server.worldServer.getSpawn();
             NetServerHandler netserverhandler = new NetServerHandler(this.server, this.networkManager, entityplayer);
 
-            netserverhandler.sendPacket(new Packet1Login("", "", entityplayer.id, this.server.worldServer.getSeed(), (byte) this.server.worldServer.worldProvider.dimension));
+            netserverhandler.sendPacket(new Packet1Login("", entityplayer.id, this.server.worldServer.getSeed(), (byte) this.server.worldServer.worldProvider.dimension));
             netserverhandler.sendPacket(new Packet6SpawnPosition(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z));
+            if (this.server.worldServer.v()) {
+                netserverhandler.sendPacket(new Packet70Bed(1));
+            }
+
             this.server.serverConfigurationManager.sendAll(new Packet3Chat("\u00A7e" + entityplayer.name + " joined the game."));
             this.server.serverConfigurationManager.a(entityplayer);
             netserverhandler.a(entityplayer.locX, entityplayer.locY, entityplayer.locZ, entityplayer.yaw, entityplayer.pitch);
@@ -104,6 +108,10 @@ public class NetLoginHandler extends NetHandler {
 
     public String b() {
         return this.g != null ? this.g + " [" + this.networkManager.getSocketAddress().toString() + "]" : this.networkManager.getSocketAddress().toString();
+    }
+
+    public boolean c() {
+        return true;
     }
 
     static String a(NetLoginHandler netloginhandler) {

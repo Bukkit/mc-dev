@@ -14,7 +14,7 @@ public class BlockStep extends Block {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
         }
 
-        this.e(255);
+        this.f(255);
     }
 
     public int a(int i, int j) {

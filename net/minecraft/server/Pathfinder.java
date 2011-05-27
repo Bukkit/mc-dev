@@ -81,7 +81,7 @@ public class Pathfinder {
         int i = 0;
         byte b0 = 0;
 
-        if (this.a(entity, pathpoint.a, pathpoint.b + 1, pathpoint.c, pathpoint1) > 0) {
+        if (this.a(entity, pathpoint.a, pathpoint.b + 1, pathpoint.c, pathpoint1) == 1) {
             b0 = 1;
         }
 
@@ -112,33 +112,33 @@ public class Pathfinder {
     private PathPoint a(Entity entity, int i, int j, int k, PathPoint pathpoint, int l) {
         PathPoint pathpoint1 = null;
 
-        if (this.a(entity, i, j, k, pathpoint) > 0) {
+        if (this.a(entity, i, j, k, pathpoint) == 1) {
             pathpoint1 = this.a(i, j, k);
         }
 
-        if (pathpoint1 == null && l > 0 && this.a(entity, i, j + l, k, pathpoint) > 0) {
+        if (pathpoint1 == null && l > 0 && this.a(entity, i, j + l, k, pathpoint) == 1) {
             pathpoint1 = this.a(i, j + l, k);
             j += l;
         }
 
         if (pathpoint1 != null) {
             int i1 = 0;
+            int j1 = 0;
 
-            int j1;
-
-            for (boolean flag = false; j > 0 && (j1 = this.a(entity, i, j - 1, k, pathpoint)) > 0; --j) {
-                if (j1 < 0) {
-                    return null;
-                }
-
+            while (j > 0 && (j1 = this.a(entity, i, j - 1, k, pathpoint)) == 1) {
                 ++i1;
                 if (i1 >= 4) {
                     return null;
                 }
+
+                --j;
+                if (j > 0) {
+                    pathpoint1 = this.a(i, j, k);
+                }
             }
 
-            if (j > 0) {
-                pathpoint1 = this.a(i, j, k);
+            if (j1 == -2) {
+                return null;
             }
         }
 
@@ -161,14 +161,30 @@ public class Pathfinder {
         for (int l = i; l < i + pathpoint.a; ++l) {
             for (int i1 = j; i1 < j + pathpoint.b; ++i1) {
                 for (int j1 = k; j1 < k + pathpoint.c; ++j1) {
-                    Material material = this.a.getMaterial(l, i1, j1);
+                    int k1 = this.a.getTypeId(l, i1, j1);
 
-                    if (material.isSolid()) {
-                        return 0;
-                    }
+                    if (k1 > 0) {
+                        if (k1 != Block.IRON_DOOR_BLOCK.id && k1 != Block.WOODEN_DOOR.id) {
+                            Material material = Block.byId[k1].material;
 
-                    if (material == Material.WATER || material == Material.LAVA) {
-                        return -1;
+                            if (material.isSolid()) {
+                                return 0;
+                            }
+
+                            if (material == Material.WATER) {
+                                return -1;
+                            }
+
+                            if (material == Material.LAVA) {
+                                return -2;
+                            }
+                        } else {
+                            int l1 = this.a.getData(l, i1, j1);
+
+                            if (!BlockDoor.e(l1)) {
+                                return 0;
+                            }
+                        }
                     }
                 }
             }

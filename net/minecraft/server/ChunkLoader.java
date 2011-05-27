@@ -82,11 +82,11 @@ public class ChunkLoader implements IChunkLoader {
     }
 
     public void a(World world, Chunk chunk) {
-        world.j();
+        world.k();
         File file1 = this.a(chunk.x, chunk.z);
 
         if (file1.exists()) {
-            WorldData worlddata = world.p();
+            WorldData worlddata = world.q();
 
             worlddata.b(worlddata.g() - file1.length());
         }
@@ -106,7 +106,7 @@ public class ChunkLoader implements IChunkLoader {
             }
 
             file2.renameTo(file1);
-            WorldData worlddata1 = world.p();
+            WorldData worlddata1 = world.q();
 
             worlddata1.b(worlddata1.g() + file1.length());
         } catch (Exception exception) {
@@ -115,7 +115,7 @@ public class ChunkLoader implements IChunkLoader {
     }
 
     public static void a(Chunk chunk, World world, NBTTagCompound nbttagcompound) {
-        world.j();
+        world.k();
         nbttagcompound.a("xPos", chunk.x);
         nbttagcompound.a("zPos", chunk.z);
         nbttagcompound.a("LastUpdate", world.getTime());

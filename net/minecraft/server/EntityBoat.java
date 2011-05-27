@@ -19,26 +19,26 @@ public class EntityBoat extends Entity {
         this.damage = 0;
         this.b = 0;
         this.c = 1;
-        this.aD = true;
+        this.aE = true;
         this.b(1.5F, 0.6F);
         this.height = this.width / 2.0F;
     }
 
-    protected boolean l() {
+    protected boolean n() {
         return false;
     }
 
-    protected void a() {}
+    protected void b() {}
 
     public AxisAlignedBB a_(Entity entity) {
         return entity.boundingBox;
     }
 
-    public AxisAlignedBB d() {
+    public AxisAlignedBB e_() {
         return this.boundingBox;
     }
 
-    public boolean e_() {
+    public boolean d_() {
         return true;
     }
 
@@ -53,7 +53,7 @@ public class EntityBoat extends Entity {
         this.lastZ = d2;
     }
 
-    public double k() {
+    public double m() {
         return (double) this.width * 0.0D - 0.30000001192092896D;
     }
 
@@ -62,7 +62,7 @@ public class EntityBoat extends Entity {
             this.c = -this.c;
             this.b = 10;
             this.damage += i * 10;
-            this.V();
+            this.ab();
             if (this.damage > 40) {
                 int j;
 
@@ -83,12 +83,12 @@ public class EntityBoat extends Entity {
         }
     }
 
-    public boolean d_() {
+    public boolean o_() {
         return !this.dead;
     }
 
-    public void f_() {
-        super.f_();
+    public void p_() {
+        super.p_();
         if (this.b > 0) {
             --this.b;
         }
@@ -264,7 +264,7 @@ public class EntityBoat extends Entity {
                 for (int l = 0; l < list.size(); ++l) {
                     Entity entity = (Entity) list.get(l);
 
-                    if (entity != this.passenger && entity.e_() && entity instanceof EntityBoat) {
+                    if (entity != this.passenger && entity.d_() && entity instanceof EntityBoat) {
                         entity.collide(this);
                     }
                 }
@@ -276,18 +276,18 @@ public class EntityBoat extends Entity {
         }
     }
 
-    public void h_() {
+    public void f() {
         if (this.passenger != null) {
             double d0 = Math.cos((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
             double d1 = Math.sin((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
 
-            this.passenger.setPosition(this.locX + d0, this.locY + this.k() + this.passenger.C(), this.locZ + d1);
+            this.passenger.setPosition(this.locX + d0, this.locY + this.m() + this.passenger.F(), this.locZ + d1);
         }
     }
 
-    protected void a(NBTTagCompound nbttagcompound) {}
-
     protected void b(NBTTagCompound nbttagcompound) {}
+
+    protected void a(NBTTagCompound nbttagcompound) {}
 
     public boolean a(EntityHuman entityhuman) {
         if (this.passenger != null && this.passenger instanceof EntityHuman && this.passenger != entityhuman) {

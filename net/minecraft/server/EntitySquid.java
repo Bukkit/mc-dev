@@ -24,35 +24,35 @@ public class EntitySquid extends EntityWaterAnimal {
         this.l = 1.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
     }
 
-    public void a(NBTTagCompound nbttagcompound) {
-        super.a(nbttagcompound);
-    }
-
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
     }
 
-    protected String e() {
-        return null;
-    }
-
-    protected String f() {
-        return null;
+    public void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
     }
 
     protected String g() {
         return null;
     }
 
-    protected float i() {
+    protected String h() {
+        return null;
+    }
+
+    protected String i() {
+        return null;
+    }
+
+    protected float k() {
         return 0.4F;
     }
 
-    protected int h() {
+    protected int j() {
         return 0;
     }
 
-    protected void p() {
+    protected void r() {
         int i = this.random.nextInt(3) + 1;
 
         for (int j = 0; j < i; ++j) {
@@ -64,12 +64,12 @@ public class EntitySquid extends EntityWaterAnimal {
         return false;
     }
 
-    public boolean g_() {
+    public boolean Z() {
         return this.world.a(this.boundingBox.b(0.0D, -0.6000000238418579D, 0.0D), Material.WATER, this);
     }
 
-    public void r() {
-        super.r();
+    public void u() {
+        super.u();
         this.b = this.a;
         this.f = this.c;
         this.h = this.g;
@@ -82,7 +82,7 @@ public class EntitySquid extends EntityWaterAnimal {
             }
         }
 
-        if (this.g_()) {
+        if (this.Z()) {
             float f;
 
             if (this.g < 3.1415927F) {
@@ -100,20 +100,20 @@ public class EntitySquid extends EntityWaterAnimal {
                 this.m *= 0.99F;
             }
 
-            if (!this.T) {
+            if (!this.U) {
                 this.motX = (double) (this.n * this.k);
                 this.motY = (double) (this.o * this.k);
                 this.motZ = (double) (this.p * this.k);
             }
 
             f = MathHelper.a(this.motX * this.motX + this.motZ * this.motZ);
-            this.F += (-((float) Math.atan2(this.motX, this.motZ)) * 180.0F / 3.1415927F - this.F) * 0.1F;
-            this.yaw = this.F;
+            this.G += (-((float) Math.atan2(this.motX, this.motZ)) * 180.0F / 3.1415927F - this.G) * 0.1F;
+            this.yaw = this.G;
             this.c += 3.1415927F * this.m * 1.5F;
             this.a += (-((float) Math.atan2((double) f, this.motY)) * 180.0F / 3.1415927F - this.a) * 0.1F;
         } else {
             this.i = MathHelper.abs(MathHelper.sin(this.g)) * 3.1415927F * 0.25F;
-            if (!this.T) {
+            if (!this.U) {
                 this.motX = 0.0D;
                 this.motY -= 0.08D;
                 this.motY *= 0.9800000190734863D;
@@ -129,7 +129,7 @@ public class EntitySquid extends EntityWaterAnimal {
     }
 
     protected void c_() {
-        if (this.random.nextInt(50) == 0 || !this.bv || this.n == 0.0F && this.o == 0.0F && this.p == 0.0F) {
+        if (this.random.nextInt(50) == 0 || !this.bw || this.n == 0.0F && this.o == 0.0F && this.p == 0.0F) {
             float f = this.random.nextFloat() * 3.1415927F * 2.0F;
 
             this.n = MathHelper.cos(f) * 0.2F;

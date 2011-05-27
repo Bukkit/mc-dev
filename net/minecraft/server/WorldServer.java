@@ -7,9 +7,9 @@ public class WorldServer extends World {
 
     public ChunkProviderServer chunkProviderServer;
     public boolean weirdIsOpCache = false;
-    public boolean w;
+    public boolean y;
     private MinecraftServer server;
-    private EntityList y = new EntityList();
+    private EntityList A = new EntityList();
 
     public WorldServer(MinecraftServer minecraftserver, IDataManager idatamanager, String s, int i, long j) {
         super(idatamanager, s, j, WorldProvider.a(i));
@@ -31,7 +31,7 @@ public class WorldServer extends World {
     }
 
     protected IChunkProvider b() {
-        IChunkLoader ichunkloader = this.p.a(this.worldProvider);
+        IChunkLoader ichunkloader = this.r.a(this.worldProvider);
 
         this.chunkProviderServer = new ChunkProviderServer(this, ichunkloader, this.worldProvider.c());
         return this.chunkProviderServer;
@@ -62,18 +62,27 @@ public class WorldServer extends World {
         return i1 > 16 || this.server.serverConfigurationManager.isOp(entityhuman.name);
     }
 
-    protected void b(Entity entity) {
-        super.b(entity);
-        this.y.a(entity.id, entity);
-    }
-
     protected void c(Entity entity) {
         super.c(entity);
-        this.y.d(entity.id);
+        this.A.a(entity.id, entity);
+    }
+
+    protected void d(Entity entity) {
+        super.d(entity);
+        this.A.d(entity.id);
     }
 
     public Entity getEntity(int i) {
-        return (Entity) this.y.a(i);
+        return (Entity) this.A.a(i);
+    }
+
+    public boolean a(Entity entity) {
+        if (super.a(entity)) {
+            this.server.serverConfigurationManager.a(entity.locX, entity.locY, entity.locZ, 512.0D, new Packet71Weather(entity));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void a(Entity entity, byte b0) {
@@ -83,8 +92,11 @@ public class WorldServer extends World {
     }
 
     public Explosion createExplosion(Entity entity, double d0, double d1, double d2, float f, boolean flag) {
-        Explosion explosion = super.createExplosion(entity, d0, d1, d2, f, flag);
+        Explosion explosion = new Explosion(this, entity, d0, d1, d2, f);
 
+        explosion.a = flag;
+        explosion.a();
+        explosion.a(false);
         this.server.serverConfigurationManager.a(d0, d1, d2, 64.0D, new Packet60Explosion(d0, d1, d2, f, explosion.g));
         return explosion;
     }
@@ -95,6 +107,19 @@ public class WorldServer extends World {
     }
 
     public void saveLevel() {
-        this.p.e();
+        this.r.e();
+    }
+
+    protected void i() {
+        boolean flag = this.v();
+
+        super.i();
+        if (flag != this.v()) {
+            if (flag) {
+                this.server.serverConfigurationManager.sendAll(new Packet70Bed(2));
+            } else {
+                this.server.serverConfigurationManager.sendAll(new Packet70Bed(1));
+            }
+        }
     }
 }

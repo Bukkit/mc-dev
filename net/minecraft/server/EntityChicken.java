@@ -18,8 +18,8 @@ public class EntityChicken extends EntityAnimal {
         this.i = this.random.nextInt(6000) + 6000;
     }
 
-    public void r() {
-        super.r();
+    public void u() {
+        super.u();
         this.g = this.b;
         this.f = this.c;
         this.c = (float) ((double) this.c + (double) (this.onGround ? -1 : 4) * 0.3D);
@@ -50,27 +50,27 @@ public class EntityChicken extends EntityAnimal {
 
     protected void a(float f) {}
 
-    public void a(NBTTagCompound nbttagcompound) {
-        super.a(nbttagcompound);
-    }
-
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
     }
 
-    protected String e() {
-        return "mob.chicken";
-    }
-
-    protected String f() {
-        return "mob.chickenhurt";
+    public void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
     }
 
     protected String g() {
+        return "mob.chicken";
+    }
+
+    protected String h() {
         return "mob.chickenhurt";
     }
 
-    protected int h() {
+    protected String i() {
+        return "mob.chickenhurt";
+    }
+
+    protected int j() {
         return Item.FEATHER.id;
     }
 }

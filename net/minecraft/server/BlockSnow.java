@@ -11,11 +11,20 @@ public class BlockSnow extends Block {
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {
-        return null;
+        int l = world.getData(i, j, k) & 7;
+
+        return l >= 3 ? AxisAlignedBB.b((double) i + this.minX, (double) j + this.minY, (double) k + this.minZ, (double) i + this.maxX, (double) ((float) j + 0.5F), (double) k + this.maxZ) : null;
     }
 
     public boolean a() {
         return false;
+    }
+
+    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+        int l = iblockaccess.getData(i, j, k) & 7;
+        float f = (float) (2 * (1 + l)) / 16.0F;
+
+        this.a(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
@@ -49,7 +58,7 @@ public class BlockSnow extends Block {
         entityitem.pickupDelay = 10;
         world.addEntity(entityitem);
         world.setTypeId(i, j, k, 0);
-        entityhuman.a(StatisticList.y[this.id], 1);
+        entityhuman.a(StatisticList.C[this.id], 1);
     }
 
     public int a(int i, Random random) {
@@ -68,8 +77,6 @@ public class BlockSnow extends Block {
     }
 
     public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        Material material = iblockaccess.getMaterial(i, j, k);
-
-        return l == 1 ? true : (material == this.material ? false : super.a(iblockaccess, i, j, k, l));
+        return l == 1 ? true : super.a(iblockaccess, i, j, k, l);
     }
 }

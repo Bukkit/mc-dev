@@ -12,7 +12,7 @@ public class EntityFallingSand extends Entity {
     public EntityFallingSand(World world, double d0, double d1, double d2, int i) {
         super(world);
         this.a = i;
-        this.aD = true;
+        this.aE = true;
         this.b(0.98F, 0.98F);
         this.height = this.width / 2.0F;
         this.setPosition(d0, d1, d2);
@@ -24,17 +24,17 @@ public class EntityFallingSand extends Entity {
         this.lastZ = d2;
     }
 
-    protected boolean l() {
+    protected boolean n() {
         return false;
     }
 
-    protected void a() {}
+    protected void b() {}
 
-    public boolean d_() {
+    public boolean o_() {
         return !this.dead;
     }
 
-    public void f_() {
+    public void p_() {
         if (this.a == 0) {
             this.die();
         } else {
@@ -70,11 +70,11 @@ public class EntityFallingSand extends Entity {
         }
     }
 
-    protected void a(NBTTagCompound nbttagcompound) {
+    protected void b(NBTTagCompound nbttagcompound) {
         nbttagcompound.a("Tile", (byte) this.a);
     }
 
-    protected void b(NBTTagCompound nbttagcompound) {
+    protected void a(NBTTagCompound nbttagcompound) {
         this.a = nbttagcompound.c("Tile") & 255;
     }
 }

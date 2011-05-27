@@ -105,6 +105,7 @@ options.guiScale.auto=Auto
 options.guiScale.small=Small
 options.guiScale.normal=Normal
 options.guiScale.large=Large
+options.advancedOpengl=Advanced OpenGL
 
 controls.title=Controls
 
@@ -224,6 +225,10 @@ tile.ladder.name=Ladder
 tile.ladder.desc=
 tile.rail.name=Rail
 tile.rail.desc=
+tile.goldenRail.name=Powered Rail
+tile.goldenRail.desc=
+tile.detectorRail.name=Detector Rail
+tile.detectorRail.desc=
 tile.stairsStone.name=Stone Stairs
 tile.stairsStone.desc=
 tile.lever.name=Lever

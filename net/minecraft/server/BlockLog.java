@@ -19,7 +19,6 @@ public class BlockLog extends Block {
 
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
         super.a(world, entityhuman, i, j, k, l);
-        entityhuman.a(AchievementList.c, 1);
     }
 
     public void remove(World world, int i, int j, int k) {
@@ -35,8 +34,8 @@ public class BlockLog extends Block {
                         if (l1 == Block.LEAVES.id) {
                             int i2 = world.getData(i + i1, j + j1, k + k1);
 
-                            if ((i2 & 4) == 0) {
-                                world.setRawData(i + i1, j + j1, k + k1, i2 | 4);
+                            if ((i2 & 8) == 0) {
+                                world.setRawData(i + i1, j + j1, k + k1, i2 | 8);
                             }
                         }
                     }

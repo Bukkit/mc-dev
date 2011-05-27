@@ -73,7 +73,7 @@ public class BlockPortal extends BlockBreakable {
                 }
             }
 
-            world.h = true;
+            world.j = true;
 
             for (l = 0; l < 2; ++l) {
                 for (i1 = 0; i1 < 3; ++i1) {
@@ -81,7 +81,7 @@ public class BlockPortal extends BlockBreakable {
                 }
             }
 
-            world.h = false;
+            world.j = false;
             return true;
         }
     }
@@ -135,7 +135,7 @@ public class BlockPortal extends BlockBreakable {
 
     public void a(World world, int i, int j, int k, Entity entity) {
         if (!world.isStatic) {
-            entity.X();
+            entity.ad();
         }
     }
 }

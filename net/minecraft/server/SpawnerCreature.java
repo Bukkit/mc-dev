@@ -125,11 +125,11 @@ public final class SpawnerCreature {
                                                     }
 
                                                     entityliving.setPositionRotation((double) f, (double) f1, (double) f2, world.random.nextFloat() * 360.0F, 0.0F);
-                                                    if (entityliving.b()) {
+                                                    if (entityliving.d()) {
                                                         ++l2;
                                                         world.addEntity(entityliving);
                                                         a(entityliving, world, f, f1, f2);
-                                                        if (l2 >= entityliving.j()) {
+                                                        if (l2 >= entityliving.l()) {
                                                             continue label113;
                                                         }
                                                     }
@@ -216,7 +216,7 @@ public final class SpawnerCreature {
                         }
 
                         entityliving.setPositionRotation((double) f, (double) f1, (double) f2, world.random.nextFloat() * 360.0F, 0.0F);
-                        if (entityliving.b()) {
+                        if (entityliving.d()) {
                             PathEntity pathentity = pathfinder.a(entityliving, entityhuman, 32.0F);
 
                             if (pathentity != null && pathentity.a > 1) {
@@ -233,7 +233,7 @@ public final class SpawnerCreature {
                                     world.addEntity(entityliving);
                                     a(entityliving, world, (float) chunkcoordinates.x + 0.5F, (float) chunkcoordinates.y, (float) chunkcoordinates.z + 0.5F);
                                     entityhuman.a(true, false, false);
-                                    entityliving.J();
+                                    entityliving.M();
                                     flag = true;
                                     flag1 = true;
                                 }

@@ -13,27 +13,45 @@ public class BlockSapling extends BlockFlower {
 
     public void a(World world, int i, int j, int k, Random random) {
         super.a(world, i, j, k, random);
-        if (world.getLightLevel(i, j + 1, k) >= 9 && random.nextInt(5) == 0) {
+        if (world.getLightLevel(i, j + 1, k) >= 9 && random.nextInt(30) == 0) {
             int l = world.getData(i, j, k);
 
-            if (l < 15) {
-                world.setData(i, j, k, l + 1);
+            if ((l & 8) == 0) {
+                world.setData(i, j, k, l | 8);
             } else {
                 this.b(world, i, j, k, random);
             }
         }
     }
 
-    public void b(World world, int i, int j, int k, Random random) {
-        world.setRawTypeId(i, j, k, 0);
-        Object object = new WorldGenTrees();
+    public int a(int i, int j) {
+        j &= 3;
+        return j == 1 ? 63 : (j == 2 ? 79 : super.a(i, j));
+    }
 
-        if (random.nextInt(10) == 0) {
-            object = new WorldGenBigTree();
+    public void b(World world, int i, int j, int k, Random random) {
+        int l = world.getData(i, j, k) & 3;
+
+        world.setRawTypeId(i, j, k, 0);
+        Object object = null;
+
+        if (l == 1) {
+            object = new WorldGenTaiga2();
+        } else if (l == 2) {
+            object = new WorldGenForest();
+        } else {
+            object = new WorldGenTrees();
+            if (random.nextInt(10) == 0) {
+                object = new WorldGenBigTree();
+            }
         }
 
         if (!((WorldGenerator) object).a(world, random, i, j, k)) {
-            world.setRawTypeId(i, j, k, this.id);
+            world.setRawTypeIdAndData(i, j, k, this.id, l);
         }
+    }
+
+    protected int b(int i) {
+        return i & 3;
     }
 }

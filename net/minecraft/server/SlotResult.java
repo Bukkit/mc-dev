@@ -16,9 +16,22 @@ public class SlotResult extends Slot {
     }
 
     public void a(ItemStack itemstack) {
-        this.e.a(StatisticList.z[itemstack.id], 1);
         if (itemstack.id == Block.WORKBENCH.id) {
-            this.e.a(AchievementList.d, 1);
+            this.e.a(AchievementList.h, 1);
+        } else if (itemstack.id == Item.WOOD_PICKAXE.id) {
+            this.e.a(AchievementList.i, 1);
+        } else if (itemstack.id == Block.FURNACE.id) {
+            this.e.a(AchievementList.j, 1);
+        } else if (itemstack.id == Item.WOOD_HOE.id) {
+            this.e.a(AchievementList.l, 1);
+        } else if (itemstack.id == Item.BREAD.id) {
+            this.e.a(AchievementList.m, 1);
+        } else if (itemstack.id == Item.CAKE.id) {
+            this.e.a(AchievementList.n, 1);
+        } else if (itemstack.id == Item.STONE_PICKAXE.id) {
+            this.e.a(AchievementList.o, 1);
+        } else if (itemstack.id == Item.WOOD_SWORD.id) {
+            this.e.a(AchievementList.r, 1);
         }
 
         for (int i = 0; i < this.d.getSize(); ++i) {
@@ -33,7 +46,7 @@ public class SlotResult extends Slot {
         }
     }
 
-    public boolean d() {
+    public boolean e() {
         return true;
     }
 }

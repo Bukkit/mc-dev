@@ -70,6 +70,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                         chunk = this.c;
                     } else {
                         chunk = this.d.getOrCreateChunk(i, j);
+                        chunk.h();
                     }
                 }
 

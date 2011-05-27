@@ -22,6 +22,8 @@ public class AchievementMap {
 
                 this.b.put(Integer.valueOf(i), astring[1]);
             }
+
+            bufferedreader.close();
         } catch (Exception exception) {
             exception.printStackTrace();
         }

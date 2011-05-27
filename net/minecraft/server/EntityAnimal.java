@@ -10,23 +10,23 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id ? 10.0F : this.world.l(i, j, k) - 0.5F;
     }
 
-    public void a(NBTTagCompound nbttagcompound) {
-        super.a(nbttagcompound);
-    }
-
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
     }
 
-    public boolean b() {
+    public void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+    }
+
+    public boolean d() {
         int i = MathHelper.floor(this.locX);
         int j = MathHelper.floor(this.boundingBox.b);
         int k = MathHelper.floor(this.locZ);
 
-        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.getLightLevel(i, j, k) > 8 && super.b();
+        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.getLightLevel(i, j, k) > 8 && super.d();
     }
 
-    public int c() {
+    public int e() {
         return 120;
     }
 }

@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 
 public class Packet70Bed extends Packet {
 
-    public static final String[] a = new String[] { "tile.bed.notValid"};
+    public static final String[] a = new String[] { "tile.bed.notValid", null, null};
     public int b;
 
     public Packet70Bed() {}

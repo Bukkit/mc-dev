@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
@@ -41,13 +43,14 @@ public class NetworkManager {
         this.n = nethandler;
 
         try {
+            socket.setSoTimeout(30000);
             socket.setTrafficClass(24);
         } catch (SocketException socketexception) {
             System.err.println(socketexception.getMessage());
         }
 
-        this.input = new DataInputStream(socket.getInputStream());
-        this.output = new DataOutputStream(socket.getOutputStream());
+        this.input = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        this.output = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         this.q = new NetworkReaderThread(this, s + " read thread");
         this.p = new NetworkWriterThread(this, s + " write thread");
         this.q.start();
@@ -104,6 +107,8 @@ public class NetworkManager {
 
             if (flag) {
                 Thread.sleep(10L);
+            } else {
+                this.output.flush();
             }
         } catch (InterruptedException interruptedexception) {
             ;
@@ -116,7 +121,7 @@ public class NetworkManager {
 
     private void f() {
         try {
-            Packet packet = Packet.b(this.input);
+            Packet packet = Packet.a(this.input, this.n.c());
 
             if (packet != null) {
                 this.k.add(packet);

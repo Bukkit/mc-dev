@@ -8,7 +8,7 @@ public class BlockBed extends Block {
 
     public BlockBed(int i) {
         super(i, 134, Material.CLOTH);
-        this.g();
+        this.i();
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
@@ -26,7 +26,7 @@ public class BlockBed extends Block {
             l = world.getData(i, j, k);
         }
 
-        if (f(l)) {
+        if (e(l)) {
             entityhuman.a("tile.bed.occupied");
             return true;
         } else {
@@ -61,7 +61,7 @@ public class BlockBed extends Block {
     }
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
-        this.g();
+        this.i();
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
@@ -84,7 +84,7 @@ public class BlockBed extends Block {
         return d(i) ? 0 : Item.BED.id;
     }
 
-    private void g() {
+    private void i() {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
     }
 
@@ -96,7 +96,7 @@ public class BlockBed extends Block {
         return (i & 8) != 0;
     }
 
-    public static boolean f(int i) {
+    public static boolean e(int i) {
         return (i & 4) != 0;
     }
 

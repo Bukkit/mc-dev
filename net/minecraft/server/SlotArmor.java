@@ -12,7 +12,7 @@ class SlotArmor extends Slot {
         this.d = l;
     }
 
-    public int c() {
+    public int d() {
         return 1;
     }
 

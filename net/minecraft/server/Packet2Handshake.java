@@ -14,11 +14,11 @@ public class Packet2Handshake extends Packet {
     }
 
     public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readUTF();
+        this.a = a(datainputstream, 32);
     }
 
     public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeUTF(this.a);
+        a(this.a, dataoutputstream);
     }
 
     public void a(NetHandler nethandler) {

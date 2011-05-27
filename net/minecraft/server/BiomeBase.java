@@ -13,11 +13,11 @@ public class BiomeBase {
     public static final BiomeBase SAVANNA = (new BiomeDesert()).b(14278691).a("Savanna");
     public static final BiomeBase SHRUBLAND = (new BiomeBase()).b(10595616).a("Shrubland");
     public static final BiomeBase TAIGA = (new BiomeTaiga()).b(3060051).a("Taiga").b().a(8107825);
-    public static final BiomeBase DESERT = (new BiomeDesert()).b(16421912).a("Desert");
+    public static final BiomeBase DESERT = (new BiomeDesert()).b(16421912).a("Desert").e();
     public static final BiomeBase PLAINS = (new BiomeDesert()).b(16767248).a("Plains");
-    public static final BiomeBase ICE_DESERT = (new BiomeDesert()).b(16772499).a("Ice Desert").b().a(12899129);
+    public static final BiomeBase ICE_DESERT = (new BiomeDesert()).b(16772499).a("Ice Desert").b().e().a(12899129);
     public static final BiomeBase TUNDRA = (new BiomeBase()).b(5762041).a("Tundra").b().a(12899129);
-    public static final BiomeBase HELL = (new BiomeHell()).b(16711680).a("Hell");
+    public static final BiomeBase HELL = (new BiomeHell()).b(16711680).a("Hell").e();
     public String m;
     public int n;
     public byte o;
@@ -26,7 +26,9 @@ public class BiomeBase {
     protected List r;
     protected List s;
     protected List t;
-    private static BiomeBase[] u = new BiomeBase[4096];
+    private boolean u;
+    private boolean v;
+    private static BiomeBase[] w = new BiomeBase[4096];
 
     protected BiomeBase() {
         this.o = (byte) Block.GRASS.id;
@@ -35,6 +37,7 @@ public class BiomeBase {
         this.r = new ArrayList();
         this.s = new ArrayList();
         this.t = new ArrayList();
+        this.v = true;
         this.r.add(new BiomeMeta(EntitySpider.class, 10));
         this.r.add(new BiomeMeta(EntityZombie.class, 10));
         this.r.add(new BiomeMeta(EntitySkeleton.class, 10));
@@ -47,10 +50,15 @@ public class BiomeBase {
         this.t.add(new BiomeMeta(EntitySquid.class, 10));
     }
 
+    private BiomeBase e() {
+        this.v = false;
+        return this;
+    }
+
     public static void a() {
         for (int i = 0; i < 64; ++i) {
             for (int j = 0; j < 64; ++j) {
-                u[i + j * 64] = a((float) i / 63.0F, (float) j / 63.0F);
+                w[i + j * 64] = a((float) i / 63.0F, (float) j / 63.0F);
             }
         }
 
@@ -63,6 +71,7 @@ public class BiomeBase {
     }
 
     protected BiomeBase b() {
+        this.u = true;
         return this;
     }
 
@@ -85,7 +94,7 @@ public class BiomeBase {
         int i = (int) (d0 * 63.0D);
         int j = (int) (d1 * 63.0D);
 
-        return u[i + j * 64];
+        return w[i + j * 64];
     }
 
     public static BiomeBase a(float f, float f1) {
@@ -95,6 +104,14 @@ public class BiomeBase {
 
     public List a(EnumCreatureType enumcreaturetype) {
         return enumcreaturetype == EnumCreatureType.MONSTER ? this.r : (enumcreaturetype == EnumCreatureType.CREATURE ? this.s : (enumcreaturetype == EnumCreatureType.WATER_CREATURE ? this.t : null));
+    }
+
+    public boolean c() {
+        return this.u;
+    }
+
+    public boolean d() {
+        return this.u ? false : this.v;
     }
 
     static {

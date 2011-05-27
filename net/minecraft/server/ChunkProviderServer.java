@@ -173,7 +173,7 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     public boolean unloadChunks() {
-        if (!this.world.w) {
+        if (!this.world.y) {
             for (int i = 0; i < 100; ++i) {
                 if (!this.unloadQueue.isEmpty()) {
                     Integer integer = (Integer) this.unloadQueue.iterator().next();
@@ -197,6 +197,6 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     public boolean b() {
-        return !this.world.w;
+        return !this.world.y;
     }
 }
