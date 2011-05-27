@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public enum EnumCreatureType {
 
-    MONSTER("monster", 0, IMonster.class, 200), CREATURE("creature", 1, EntityAnimal.class, 50);
+    MONSTER("monster", 0, IMonster.class, 100), CREATURE("creature", 1, EntityAnimal.class, 20);
     public final Class WATER_CREATURE;
     public final int d;
 

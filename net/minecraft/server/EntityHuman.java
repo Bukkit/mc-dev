@@ -197,19 +197,6 @@ public class EntityHuman extends EntityLiving {
         if (this.aP <= 0) {
             return false;
         } else {
-            if ((float) this.ab > (float) this.au / 2.0F) {
-                if (this.aQ - i >= this.aP) {
-                    return false;
-                }
-
-                this.aP = this.aQ - i;
-            } else {
-                this.aQ = this.aP;
-                this.ab = this.au;
-                this.aP -= i;
-                this.aR = this.aS = 10;
-            }
-
             if (entity instanceof EntityMonster || entity instanceof EntityArrow) {
                 if (this.l.k == 0) {
                     i = 0;
@@ -224,12 +211,15 @@ public class EntityHuman extends EntityLiving {
                 }
             }
 
-            int j = 25 - this.ak.e();
-            int k = i * j + this.a;
+            if ((float) this.ab <= (float) this.au / 2.0F) {
+                int j = 25 - this.ak.e();
+                int k = i * j + this.a;
 
-            this.ak.b(i);
-            i = k / 25;
-            this.a = k % 25;
+                this.ak.b(i);
+                i = k / 25;
+                this.a = k % 25;
+            }
+
             return i == 0 ? false : super.a(entity, i);
         }
     }

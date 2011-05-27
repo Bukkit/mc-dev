@@ -76,13 +76,8 @@ public class EntityMonster extends EntityCreature implements IMonster {
             return false;
         } else {
             int l = this.l.h(i, j, k);
-            int i1 = 16 - j * 16 / 128;
 
-            if (i1 < 1) {
-                i1 = 1;
-            }
-
-            return l <= this.V.nextInt(i1) && super.a();
+            return l <= this.V.nextInt(8) && super.a();
         }
     }
 }
