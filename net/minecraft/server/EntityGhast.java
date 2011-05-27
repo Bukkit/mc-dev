@@ -6,16 +6,16 @@ public class EntityGhast extends EntityFlying implements IMonster {
     public double b;
     public double c;
     public double d;
-    private Entity ai = null;
-    private int aj = 0;
+    private Entity aj = null;
+    private int ak = 0;
     public int e = 0;
     public int f = 0;
 
     public EntityGhast(World world) {
         super(world);
-        this.aF = "/mob/ghast.png";
+        this.aG = "/mob/ghast.png";
         this.a(4.0F, 4.0F);
-        this.ad = true;
+        this.ae = true;
     }
 
     protected void c() {
@@ -30,13 +30,13 @@ public class EntityGhast extends EntityFlying implements IMonster {
         double d3 = (double) MathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);
 
         if (d3 < 1.0D || d3 > 60.0D) {
-            this.b = this.p + (double) ((this.V.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.c = this.q + (double) ((this.V.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.d = this.r + (double) ((this.V.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            this.b = this.p + (double) ((this.W.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            this.c = this.q + (double) ((this.W.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            this.d = this.r + (double) ((this.W.nextFloat() * 2.0F - 1.0F) * 16.0F);
         }
 
         if (this.a-- <= 0) {
-            this.a += this.V.nextInt(5) + 2;
+            this.a += this.W.nextInt(5) + 2;
             if (this.a(this.b, this.c, this.d, d3)) {
                 this.s += d0 / d3 * 0.1D;
                 this.t += d1 / d3 * 0.1D;
@@ -48,39 +48,39 @@ public class EntityGhast extends EntityFlying implements IMonster {
             }
         }
 
-        if (this.ai != null && this.ai.F) {
-            this.ai = null;
+        if (this.aj != null && this.aj.G) {
+            this.aj = null;
         }
 
-        if (this.ai == null || this.aj-- <= 0) {
-            this.ai = this.l.a(this, 100.0D);
-            if (this.ai != null) {
-                this.aj = 20;
+        if (this.aj == null || this.ak-- <= 0) {
+            this.aj = this.l.a(this, 100.0D);
+            if (this.aj != null) {
+                this.ak = 20;
             }
         }
 
         double d4 = 64.0D;
 
-        if (this.ai != null && this.ai.b((Entity) this) < d4 * d4) {
-            double d5 = this.ai.p - this.p;
-            double d6 = this.ai.z.b + (double) (this.ai.I / 2.0F) - (this.q + (double) (this.I / 2.0F));
-            double d7 = this.ai.r - this.r;
+        if (this.aj != null && this.aj.b((Entity) this) < d4 * d4) {
+            double d5 = this.aj.p - this.p;
+            double d6 = this.aj.z.b + (double) (this.aj.J / 2.0F) - (this.q + (double) (this.J / 2.0F));
+            double d7 = this.aj.r - this.r;
 
-            this.ay = this.v = -((float) Math.atan2(d5, d7)) * 180.0F / 3.1415927F;
-            if (this.g(this.ai)) {
+            this.az = this.v = -((float) Math.atan2(d5, d7)) * 180.0F / 3.1415927F;
+            if (this.i(this.aj)) {
                 if (this.f == 10) {
-                    this.l.a(this, "mob.ghast.charge", this.h(), (this.V.nextFloat() - this.V.nextFloat()) * 0.2F + 1.0F);
+                    this.l.a(this, "mob.ghast.charge", this.h(), (this.W.nextFloat() - this.W.nextFloat()) * 0.2F + 1.0F);
                 }
 
                 ++this.f;
                 if (this.f == 20) {
-                    this.l.a(this, "mob.ghast.fireball", this.h(), (this.V.nextFloat() - this.V.nextFloat()) * 0.2F + 1.0F);
+                    this.l.a(this, "mob.ghast.fireball", this.h(), (this.W.nextFloat() - this.W.nextFloat()) * 0.2F + 1.0F);
                     EntityFireball entityfireball = new EntityFireball(this.l, this, d5, d6, d7);
                     double d8 = 4.0D;
-                    Vec3D vec3d = this.d(1.0F);
+                    Vec3D vec3d = this.c(1.0F);
 
                     entityfireball.p = this.p + vec3d.a * d8;
-                    entityfireball.q = this.q + (double) (this.I / 2.0F) + 0.5D;
+                    entityfireball.q = this.q + (double) (this.J / 2.0F) + 0.5D;
                     entityfireball.r = this.r + vec3d.c * d8;
                     this.l.a((Entity) entityfireball);
                     this.f = -40;
@@ -89,13 +89,13 @@ public class EntityGhast extends EntityFlying implements IMonster {
                 --this.f;
             }
         } else {
-            this.ay = this.v = -((float) Math.atan2(this.s, this.u)) * 180.0F / 3.1415927F;
+            this.az = this.v = -((float) Math.atan2(this.s, this.u)) * 180.0F / 3.1415927F;
             if (this.f > 0) {
                 --this.f;
             }
         }
 
-        this.aF = this.f > 10 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
+        this.aG = this.f > 10 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
     }
 
     private boolean a(double d0, double d1, double d2, double d3) {
@@ -135,7 +135,7 @@ public class EntityGhast extends EntityFlying implements IMonster {
     }
 
     public boolean a() {
-        return this.V.nextInt(20) == 0 && super.a() && this.l.k > 0;
+        return this.W.nextInt(20) == 0 && super.a() && this.l.k > 0;
     }
 
     public int i() {

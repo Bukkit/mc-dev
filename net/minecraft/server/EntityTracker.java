@@ -40,6 +40,8 @@ public class EntityTracker {
             this.a(entity, 160, 5, true);
         } else if (entity instanceof IAnimal) {
             this.a(entity, 160, 3);
+        } else if (entity instanceof EntityTNTPrimed) {
+            this.a(entity, 160, 10, true);
         }
     }
 
@@ -80,7 +82,7 @@ public class EntityTracker {
             EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
 
             entitytrackerentry.a(this.c.e.d);
-            if (entitytrackerentry.n && entitytrackerentry.a instanceof EntityPlayer) {
+            if (entitytrackerentry.o && entitytrackerentry.a instanceof EntityPlayer) {
                 arraylist.add((EntityPlayer) entitytrackerentry.a);
             }
         }

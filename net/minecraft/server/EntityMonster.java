@@ -6,17 +6,17 @@ public class EntityMonster extends EntityCreature implements IMonster {
 
     public EntityMonster(World world) {
         super(world);
-        this.aP = 20;
+        this.aQ = 20;
     }
 
-    public void D() {
+    public void E() {
         float f = this.b(1.0F);
 
         if (f > 0.5F) {
-            this.bl += 2;
+            this.bn += 2;
         }
 
-        super.D();
+        super.E();
     }
 
     public void b_() {
@@ -29,7 +29,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
     protected Entity k() {
         EntityHuman entityhuman = this.l.a(this, 16.0D);
 
-        return entityhuman != null && this.g(entityhuman) ? entityhuman : null;
+        return entityhuman != null && this.i(entityhuman) ? entityhuman : null;
     }
 
     public boolean a(Entity entity, int i) {
@@ -50,7 +50,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
 
     protected void a(Entity entity, float f) {
         if ((double) f < 2.5D && entity.z.e > this.z.b && entity.z.b < this.z.e) {
-            this.aV = 20;
+            this.aW = 20;
             entity.a(this, this.e);
         }
     }
@@ -72,12 +72,12 @@ public class EntityMonster extends EntityCreature implements IMonster {
         int j = MathHelper.b(this.z.b);
         int k = MathHelper.b(this.r);
 
-        if (this.l.a(EnumSkyBlock.SKY, i, j, k) > this.V.nextInt(32)) {
+        if (this.l.a(EnumSkyBlock.SKY, i, j, k) > this.W.nextInt(32)) {
             return false;
         } else {
             int l = this.l.h(i, j, k);
 
-            return l <= this.V.nextInt(8) && super.a();
+            return l <= this.W.nextInt(8) && super.a();
         }
     }
 }

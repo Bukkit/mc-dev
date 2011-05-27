@@ -12,20 +12,20 @@ public class EntityItem extends Entity {
     public EntityItem(World world, double d0, double d1, double d2, ItemStack itemstack) {
         super(world);
         this.a(0.25F, 0.25F);
-        this.G = this.I / 2.0F;
+        this.H = this.J / 2.0F;
         this.a(d0, d1, d2);
         this.a = itemstack;
         this.v = (float) (Math.random() * 360.0D);
         this.s = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
         this.t = 0.20000000298023224D;
         this.u = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
-        this.L = false;
+        this.M = false;
     }
 
     public EntityItem(World world) {
         super(world);
         this.a(0.25F, 0.25F);
-        this.G = this.I / 2.0F;
+        this.H = this.J / 2.0F;
     }
 
     public void b_() {
@@ -40,9 +40,9 @@ public class EntityItem extends Entity {
         this.t -= 0.03999999910593033D;
         if (this.l.c(MathHelper.b(this.p), MathHelper.b(this.q), MathHelper.b(this.r)) == Material.g) {
             this.t = 0.20000000298023224D;
-            this.s = (double) ((this.V.nextFloat() - this.V.nextFloat()) * 0.2F);
-            this.u = (double) ((this.V.nextFloat() - this.V.nextFloat()) * 0.2F);
-            this.l.a(this, "random.fizz", 0.4F, 2.0F + this.V.nextFloat() * 0.4F);
+            this.s = (double) ((this.W.nextFloat() - this.W.nextFloat()) * 0.2F);
+            this.u = (double) ((this.W.nextFloat() - this.W.nextFloat()) * 0.2F);
+            this.l.a(this, "random.fizz", 0.4F, 2.0F + this.W.nextFloat() * 0.4F);
         }
 
         this.g(this.p, this.q, this.r);
@@ -125,7 +125,7 @@ public class EntityItem extends Entity {
                 b0 = 5;
             }
 
-            float f = this.V.nextFloat() * 0.2F + 0.1F;
+            float f = this.W.nextFloat() * 0.2F + 0.1F;
 
             if (b0 == 0) {
                 this.s = (double) (-f);
@@ -160,6 +160,7 @@ public class EntityItem extends Entity {
     }
 
     public boolean a(Entity entity, int i) {
+        this.u();
         this.f -= i;
         if (this.f <= 0) {
             this.l();
@@ -186,8 +187,8 @@ public class EntityItem extends Entity {
         if (!this.l.z) {
             int i = this.a.a;
 
-            if (this.c == 0 && entityhuman.ak.a(this.a)) {
-                this.l.a(this, "random.pop", 0.2F, ((this.V.nextFloat() - this.V.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+            if (this.c == 0 && entityhuman.al.a(this.a)) {
+                this.l.a(this, "random.pop", 0.2F, ((this.W.nextFloat() - this.W.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 entityhuman.c(this, i);
                 this.l();
             }

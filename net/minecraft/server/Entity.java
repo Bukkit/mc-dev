@@ -32,38 +32,39 @@ public abstract class Entity {
     public boolean D;
     public boolean E;
     public boolean F;
-    public float G;
+    public boolean G;
     public float H;
     public float I;
     public float J;
     public float K;
-    protected boolean L;
-    protected float M;
+    public float L;
+    protected boolean M;
+    protected float N;
     private int b;
-    public double N;
     public double O;
     public double P;
-    public float Q;
+    public double Q;
     public float R;
-    public boolean S;
-    public float T;
-    public boolean U;
-    protected Random V;
-    public int W;
+    public float S;
+    public boolean T;
+    public float U;
+    public boolean V;
+    protected Random W;
     public int X;
     public int Y;
-    protected int Z;
-    protected boolean aa;
-    public int ab;
+    public int Z;
+    protected int aa;
+    protected boolean ab;
     public int ac;
+    public int ad;
     private boolean c;
-    protected boolean ad;
+    protected boolean ae;
     private double d;
     private double e;
-    public boolean ae;
-    public int af;
+    public boolean af;
     public int ag;
     public int ah;
+    public int ai;
 
     public Entity(World world) {
         this.g = a++;
@@ -72,32 +73,33 @@ public abstract class Entity {
         this.z = AxisAlignedBB.a(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
         this.A = false;
         this.D = false;
-        this.E = true;
-        this.F = false;
-        this.G = 0.0F;
-        this.H = 0.6F;
-        this.I = 1.8F;
-        this.J = 0.0F;
+        this.E = false;
+        this.F = true;
+        this.G = false;
+        this.H = 0.0F;
+        this.I = 0.6F;
+        this.J = 1.8F;
         this.K = 0.0F;
-        this.L = true;
-        this.M = 0.0F;
+        this.L = 0.0F;
+        this.M = true;
+        this.N = 0.0F;
         this.b = 1;
-        this.Q = 0.0F;
         this.R = 0.0F;
-        this.S = false;
-        this.T = 0.0F;
-        this.U = false;
-        this.V = new Random();
-        this.W = 0;
-        this.X = 1;
-        this.Y = 0;
-        this.Z = 300;
-        this.aa = false;
-        this.ab = 0;
-        this.ac = 300;
+        this.S = 0.0F;
+        this.T = false;
+        this.U = 0.0F;
+        this.V = false;
+        this.W = new Random();
+        this.X = 0;
+        this.Y = 1;
+        this.Z = 0;
+        this.aa = 300;
+        this.ab = false;
+        this.ac = 0;
+        this.ad = 300;
         this.c = true;
-        this.ad = false;
         this.ae = false;
+        this.af = false;
         this.l = world;
         this.a(0.0D, 0.0D, 0.0D);
     }
@@ -111,12 +113,12 @@ public abstract class Entity {
     }
 
     public void l() {
-        this.F = true;
+        this.G = true;
     }
 
     protected void a(float f, float f1) {
-        this.H = f;
-        this.I = f1;
+        this.I = f;
+        this.J = f1;
     }
 
     protected void b(float f, float f1) {
@@ -128,10 +130,10 @@ public abstract class Entity {
         this.p = d0;
         this.q = d1;
         this.r = d2;
-        float f = this.H / 2.0F;
-        float f1 = this.I;
+        float f = this.I / 2.0F;
+        float f1 = this.J;
 
-        this.z.c(d0 - (double) f, d1 - (double) this.G + (double) this.Q, d2 - (double) f, d0 + (double) f, d1 - (double) this.G + (double) this.Q + (double) f1, d2 + (double) f);
+        this.z.c(d0 - (double) f, d1 - (double) this.H + (double) this.R, d2 - (double) f, d0 + (double) f, d1 - (double) this.H + (double) this.R + (double) f1, d2 + (double) f);
     }
 
     public void b_() {
@@ -139,64 +141,66 @@ public abstract class Entity {
     }
 
     public void m() {
-        if (this.k != null && this.k.F) {
+        if (this.k != null && this.k.G) {
             this.k = null;
         }
 
-        ++this.W;
-        this.J = this.K;
+        ++this.X;
+        this.K = this.L;
         this.m = this.p;
         this.n = this.q;
         this.o = this.r;
         this.y = this.w;
         this.x = this.v;
         if (this.r()) {
-            if (!this.aa && !this.c) {
+            if (!this.ab && !this.c) {
                 float f = MathHelper.a(this.s * this.s * 0.20000000298023224D + this.t * this.t + this.u * this.u * 0.20000000298023224D) * 0.2F;
 
                 if (f > 1.0F) {
                     f = 1.0F;
                 }
 
-                this.l.a(this, "random.splash", f, 1.0F + (this.V.nextFloat() - this.V.nextFloat()) * 0.4F);
+                this.l.a(this, "random.splash", f, 1.0F + (this.W.nextFloat() - this.W.nextFloat()) * 0.4F);
                 float f1 = (float) MathHelper.b(this.z.b);
 
                 int i;
                 float f2;
                 float f3;
 
-                for (i = 0; (float) i < 1.0F + this.H * 20.0F; ++i) {
-                    f2 = (this.V.nextFloat() * 2.0F - 1.0F) * this.H;
-                    f3 = (this.V.nextFloat() * 2.0F - 1.0F) * this.H;
-                    this.l.a("bubble", this.p + (double) f2, (double) (f1 + 1.0F), this.r + (double) f3, this.s, this.t - (double) (this.V.nextFloat() * 0.2F), this.u);
+                for (i = 0; (float) i < 1.0F + this.I * 20.0F; ++i) {
+                    f2 = (this.W.nextFloat() * 2.0F - 1.0F) * this.I;
+                    f3 = (this.W.nextFloat() * 2.0F - 1.0F) * this.I;
+                    this.l.a("bubble", this.p + (double) f2, (double) (f1 + 1.0F), this.r + (double) f3, this.s, this.t - (double) (this.W.nextFloat() * 0.2F), this.u);
                 }
 
-                for (i = 0; (float) i < 1.0F + this.H * 20.0F; ++i) {
-                    f2 = (this.V.nextFloat() * 2.0F - 1.0F) * this.H;
-                    f3 = (this.V.nextFloat() * 2.0F - 1.0F) * this.H;
+                for (i = 0; (float) i < 1.0F + this.I * 20.0F; ++i) {
+                    f2 = (this.W.nextFloat() * 2.0F - 1.0F) * this.I;
+                    f3 = (this.W.nextFloat() * 2.0F - 1.0F) * this.I;
                     this.l.a("splash", this.p + (double) f2, (double) (f1 + 1.0F), this.r + (double) f3, this.s, this.t, this.u);
                 }
             }
 
-            this.M = 0.0F;
-            this.aa = true;
-            this.Y = 0;
+            this.N = 0.0F;
+            this.ab = true;
+            this.Z = 0;
         } else {
-            this.aa = false;
+            this.ab = false;
         }
 
-        if (this.Y > 0) {
-            if (this.ad) {
-                this.Y -= 4;
-                if (this.Y < 0) {
-                    this.Y = 0;
+        if (this.l.z) {
+            this.Z = 0;
+        } else if (this.Z > 0) {
+            if (this.ae) {
+                this.Z -= 4;
+                if (this.Z < 0) {
+                    this.Z = 0;
                 }
             } else {
-                if (this.Y % 20 == 0) {
+                if (this.Z % 20 == 0) {
                     this.a((Entity) null, 1);
                 }
 
-                --this.Y;
+                --this.Z;
             }
         }
 
@@ -212,9 +216,9 @@ public abstract class Entity {
     }
 
     protected void n() {
-        if (!this.ad) {
+        if (!this.ae) {
             this.a((Entity) null, 4);
-            this.Y = 600;
+            this.Z = 600;
         }
     }
 
@@ -230,10 +234,10 @@ public abstract class Entity {
     }
 
     public void c(double d0, double d1, double d2) {
-        if (this.S) {
+        if (this.T) {
             this.z.d(d0, d1, d2);
             this.p = (this.z.a + this.z.d) / 2.0D;
-            this.q = this.z.b + (double) this.G - (double) this.Q;
+            this.q = this.z.b + (double) this.H - (double) this.R;
             this.r = (this.z.c + this.z.f) / 2.0D;
         } else {
             double d3 = this.p;
@@ -275,7 +279,7 @@ public abstract class Entity {
             }
 
             this.z.d(0.0D, d1, 0.0D);
-            if (!this.E && d6 != d1) {
+            if (!this.F && d6 != d1) {
                 d2 = 0.0D;
                 d1 = 0.0D;
                 d0 = 0.0D;
@@ -290,7 +294,7 @@ public abstract class Entity {
             }
 
             this.z.d(d0, 0.0D, 0.0D);
-            if (!this.E && d5 != d0) {
+            if (!this.F && d5 != d0) {
                 d2 = 0.0D;
                 d1 = 0.0D;
                 d0 = 0.0D;
@@ -301,7 +305,7 @@ public abstract class Entity {
             }
 
             this.z.d(0.0D, 0.0D, d2);
-            if (!this.E && d7 != d2) {
+            if (!this.F && d7 != d2) {
                 d2 = 0.0D;
                 d1 = 0.0D;
                 d0 = 0.0D;
@@ -311,13 +315,13 @@ public abstract class Entity {
             double d10;
             int k;
 
-            if (this.R > 0.0F && flag1 && this.Q < 0.05F && (d5 != d0 || d7 != d2)) {
+            if (this.S > 0.0F && flag1 && this.R < 0.05F && (d5 != d0 || d7 != d2)) {
                 d9 = d0;
                 d10 = d1;
                 double d11 = d2;
 
                 d0 = d5;
-                d1 = (double) this.R;
+                d1 = (double) this.S;
                 d2 = d7;
                 AxisAlignedBB axisalignedbb1 = this.z.b();
 
@@ -329,7 +333,7 @@ public abstract class Entity {
                 }
 
                 this.z.d(0.0D, d1, 0.0D);
-                if (!this.E && d6 != d1) {
+                if (!this.F && d6 != d1) {
                     d2 = 0.0D;
                     d1 = 0.0D;
                     d0 = 0.0D;
@@ -340,7 +344,7 @@ public abstract class Entity {
                 }
 
                 this.z.d(d0, 0.0D, 0.0D);
-                if (!this.E && d5 != d0) {
+                if (!this.F && d5 != d0) {
                     d2 = 0.0D;
                     d1 = 0.0D;
                     d0 = 0.0D;
@@ -351,7 +355,7 @@ public abstract class Entity {
                 }
 
                 this.z.d(0.0D, 0.0D, d2);
-                if (!this.E && d7 != d2) {
+                if (!this.F && d7 != d2) {
                     d2 = 0.0D;
                     d1 = 0.0D;
                     d0 = 0.0D;
@@ -363,26 +367,18 @@ public abstract class Entity {
                     d2 = d11;
                     this.z.b(axisalignedbb1);
                 } else {
-                    this.Q = (float) ((double) this.Q + 0.5D);
+                    this.R = (float) ((double) this.R + 0.5D);
                 }
             }
 
             this.p = (this.z.a + this.z.d) / 2.0D;
-            this.q = this.z.b + (double) this.G - (double) this.Q;
+            this.q = this.z.b + (double) this.H - (double) this.R;
             this.r = (this.z.c + this.z.f) / 2.0D;
             this.B = d5 != d0 || d7 != d2;
             this.C = d6 != d1;
             this.A = d6 != d1 && d6 < 0.0D;
             this.D = this.B || this.C;
-            if (this.A) {
-                if (this.M > 0.0F) {
-                    this.a(this.M);
-                    this.M = 0.0F;
-                }
-            } else if (d1 < 0.0D) {
-                this.M = (float) ((double) this.M - d1);
-            }
-
+            this.a(d1, this.A);
             if (d5 != d0) {
                 this.s = 0.0D;
             }
@@ -397,17 +393,17 @@ public abstract class Entity {
 
             d9 = this.p - d3;
             d10 = this.r - d4;
-            this.K = (float) ((double) this.K + (double) MathHelper.a(d9 * d9 + d10 * d10) * 0.6D);
+            this.L = (float) ((double) this.L + (double) MathHelper.a(d9 * d9 + d10 * d10) * 0.6D);
             int l;
             int i1;
             int j1;
 
-            if (this.L && !flag) {
+            if (this.M && !flag) {
                 l = MathHelper.b(this.p);
-                i1 = MathHelper.b(this.q - 0.20000000298023224D - (double) this.G);
+                i1 = MathHelper.b(this.q - 0.20000000298023224D - (double) this.H);
                 j1 = MathHelper.b(this.r);
                 k = this.l.a(l, i1, j1);
-                if (this.K > (float) this.b && k > 0) {
+                if (this.L > (float) this.b && k > 0) {
                     ++this.b;
                     StepSound stepsound = Block.m[k].bq;
 
@@ -441,25 +437,36 @@ public abstract class Entity {
                 }
             }
 
-            this.Q *= 0.4F;
+            this.R *= 0.4F;
             boolean flag2 = this.r();
 
             if (this.l.c(this.z)) {
                 this.b(1);
                 if (!flag2) {
-                    ++this.Y;
-                    if (this.Y == 0) {
-                        this.Y = 300;
+                    ++this.Z;
+                    if (this.Z == 0) {
+                        this.Z = 300;
                     }
                 }
-            } else if (this.Y <= 0) {
-                this.Y = -this.X;
+            } else if (this.Z <= 0) {
+                this.Z = -this.Y;
             }
 
-            if (flag2 && this.Y > 0) {
-                this.l.a(this, "random.fizz", 0.7F, 1.6F + (this.V.nextFloat() - this.V.nextFloat()) * 0.4F);
-                this.Y = -this.X;
+            if (flag2 && this.Z > 0) {
+                this.l.a(this, "random.fizz", 0.7F, 1.6F + (this.W.nextFloat() - this.W.nextFloat()) * 0.4F);
+                this.Z = -this.Y;
             }
+        }
+    }
+
+    protected void a(double d0, boolean flag) {
+        if (flag) {
+            if (this.N > 0.0F) {
+                this.a(this.N);
+                this.N = 0.0F;
+            }
+        } else if (d0 < 0.0D) {
+            this.N = (float) ((double) this.N - d0);
         }
     }
 
@@ -472,7 +479,7 @@ public abstract class Entity {
     }
 
     protected void b(int i) {
-        if (!this.ad) {
+        if (!this.ae) {
             this.a((Entity) null, i);
         }
     }
@@ -530,7 +537,7 @@ public abstract class Entity {
     public float b(float f) {
         int i = MathHelper.b(this.p);
         double d0 = (this.z.e - this.z.b) * 0.66D;
-        int j = MathHelper.b(this.q - (double) this.G + d0);
+        int j = MathHelper.b(this.q - (double) this.H + d0);
         int k = MathHelper.b(this.r);
 
         return this.l.j(i, j, k);
@@ -542,7 +549,7 @@ public abstract class Entity {
         this.o = this.r = d2;
         this.x = this.v = f;
         this.y = this.w = f1;
-        this.Q = 0.0F;
+        this.R = 0.0F;
         double d3 = (double) (this.x - f);
 
         if (d3 < -180.0D) {
@@ -559,7 +566,7 @@ public abstract class Entity {
 
     public void c(double d0, double d1, double d2, float f, float f1) {
         this.m = this.p = d0;
-        this.n = this.q = d1 + (double) this.G;
+        this.n = this.q = d1 + (double) this.H;
         this.o = this.r = d2;
         this.v = f;
         this.w = f1;
@@ -620,8 +627,8 @@ public abstract class Entity {
                 d1 *= d3;
                 d0 *= 0.05000000074505806D;
                 d1 *= 0.05000000074505806D;
-                d0 *= (double) (1.0F - this.T);
-                d1 *= (double) (1.0F - this.T);
+                d0 *= (double) (1.0F - this.U);
+                d1 *= (double) (1.0F - this.U);
                 this.f(-d0, 0.0D, -d1);
                 entity.f(d0, 0.0D, d1);
             }
@@ -634,7 +641,12 @@ public abstract class Entity {
         this.u += d2;
     }
 
+    protected void u() {
+        this.E = true;
+    }
+
     public boolean a(Entity entity, int i) {
+        this.u();
         return false;
     }
 
@@ -642,16 +654,16 @@ public abstract class Entity {
         return false;
     }
 
-    public boolean u() {
+    public boolean v() {
         return false;
     }
 
     public void b(Entity entity, int i) {}
 
     public boolean c(NBTTagCompound nbttagcompound) {
-        String s = this.v();
+        String s = this.w();
 
-        if (!this.F && s != null) {
+        if (!this.G && s != null) {
             nbttagcompound.a("id", s);
             this.d(nbttagcompound);
             return true;
@@ -664,9 +676,9 @@ public abstract class Entity {
         nbttagcompound.a("Pos", (NBTBase) this.a(new double[] { this.p, this.q, this.r}));
         nbttagcompound.a("Motion", (NBTBase) this.a(new double[] { this.s, this.t, this.u}));
         nbttagcompound.a("Rotation", (NBTBase) this.a(new float[] { this.v, this.w}));
-        nbttagcompound.a("FallDistance", this.M);
-        nbttagcompound.a("Fire", (short) this.Y);
-        nbttagcompound.a("Air", (short) this.ac);
+        nbttagcompound.a("FallDistance", this.N);
+        nbttagcompound.a("Fire", (short) this.Z);
+        nbttagcompound.a("Air", (short) this.ad);
         nbttagcompound.a("OnGround", this.A);
         this.a(nbttagcompound);
     }
@@ -680,20 +692,20 @@ public abstract class Entity {
         this.s = ((NBTTagDouble) nbttaglist1.a(0)).a;
         this.t = ((NBTTagDouble) nbttaglist1.a(1)).a;
         this.u = ((NBTTagDouble) nbttaglist1.a(2)).a;
-        this.m = this.N = this.p = ((NBTTagDouble) nbttaglist.a(0)).a;
-        this.n = this.O = this.q = ((NBTTagDouble) nbttaglist.a(1)).a;
-        this.o = this.P = this.r = ((NBTTagDouble) nbttaglist.a(2)).a;
+        this.m = this.O = this.p = ((NBTTagDouble) nbttaglist.a(0)).a;
+        this.n = this.P = this.q = ((NBTTagDouble) nbttaglist.a(1)).a;
+        this.o = this.Q = this.r = ((NBTTagDouble) nbttaglist.a(2)).a;
         this.x = this.v = ((NBTTagFloat) nbttaglist2.a(0)).a;
         this.y = this.w = ((NBTTagFloat) nbttaglist2.a(1)).a;
-        this.M = nbttagcompound.f("FallDistance");
-        this.Y = nbttagcompound.c("Fire");
-        this.ac = nbttagcompound.c("Air");
+        this.N = nbttagcompound.f("FallDistance");
+        this.Z = nbttagcompound.c("Fire");
+        this.ad = nbttagcompound.c("Air");
         this.A = nbttagcompound.l("OnGround");
         this.a(this.p, this.q, this.r);
         this.b(nbttagcompound);
     }
 
-    protected final String v() {
+    protected final String w() {
         return EntityTypes.b(this);
     }
 
@@ -741,11 +753,11 @@ public abstract class Entity {
         return entityitem;
     }
 
-    public boolean w() {
-        return !this.F;
+    public boolean x() {
+        return !this.G;
     }
 
-    public boolean x() {
+    public boolean y() {
         int i = MathHelper.b(this.p);
         int j = MathHelper.b(this.q + (double) this.s());
         int k = MathHelper.b(this.r);
@@ -761,15 +773,15 @@ public abstract class Entity {
         return null;
     }
 
-    public void y() {
-        if (this.k.F) {
+    public void z() {
+        if (this.k.G) {
             this.k = null;
         } else {
             this.s = 0.0D;
             this.t = 0.0D;
             this.u = 0.0D;
             this.b_();
-            this.k.z();
+            this.k.A();
             this.e += (double) (this.k.v - this.k.x);
 
             for (this.d += (double) (this.k.w - this.k.y); this.e >= 180.0D; this.e -= 360.0D) {
@@ -815,16 +827,16 @@ public abstract class Entity {
         }
     }
 
-    public void z() {
-        this.j.a(this.p, this.q + this.j() + this.j.A(), this.r);
+    public void A() {
+        this.j.a(this.p, this.q + this.j() + this.j.B(), this.r);
     }
 
-    public double A() {
-        return (double) this.G;
+    public double B() {
+        return (double) this.H;
     }
 
     public double j() {
-        return (double) this.I * 0.75D;
+        return (double) this.J * 0.75D;
     }
 
     public void e(Entity entity) {
@@ -832,7 +844,7 @@ public abstract class Entity {
         this.e = 0.0D;
         if (entity == null) {
             if (this.k != null) {
-                this.c(this.k.p, this.k.z.b + (double) this.k.I, this.k.r, this.v, this.w);
+                this.c(this.k.p, this.k.z.b + (double) this.k.J, this.k.r, this.v, this.w);
                 this.k.j = null;
             }
 
@@ -840,7 +852,7 @@ public abstract class Entity {
         } else if (this.k == entity) {
             this.k.j = null;
             this.k = null;
-            this.c(entity.p, entity.z.b + (double) entity.I, entity.r, this.v, this.w);
+            this.c(entity.p, entity.z.b + (double) entity.J, entity.r, this.v, this.w);
         } else {
             if (this.k != null) {
                 this.k.j = null;
@@ -855,9 +867,9 @@ public abstract class Entity {
         }
     }
 
-    public Vec3D B() {
+    public Vec3D C() {
         return null;
     }
 
-    public void C() {}
+    public void D() {}
 }

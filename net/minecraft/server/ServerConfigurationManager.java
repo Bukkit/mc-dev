@@ -93,7 +93,7 @@ public class ServerConfigurationManager {
                 for (int i = 0; i < this.b.size(); ++i) {
                     EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-                    if (entityplayer.ar.equalsIgnoreCase(s)) {
+                    if (entityplayer.as.equalsIgnoreCase(s)) {
                         entityplayer.a.c("You logged in from another location");
                     }
                 }
@@ -127,7 +127,7 @@ public class ServerConfigurationManager {
                 s = s + ", ";
             }
 
-            s = s + ((EntityPlayer) this.b.get(i)).ar;
+            s = s + ((EntityPlayer) this.b.get(i)).as;
         }
 
         return s;
@@ -270,7 +270,7 @@ public class ServerConfigurationManager {
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-            if (entityplayer.ar.equalsIgnoreCase(s)) {
+            if (entityplayer.as.equalsIgnoreCase(s)) {
                 return entityplayer;
             }
         }
@@ -292,7 +292,7 @@ public class ServerConfigurationManager {
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-            if (this.g(entityplayer.ar)) {
+            if (this.g(entityplayer.as)) {
                 entityplayer.a.b((Packet) packet3chat);
             }
         }

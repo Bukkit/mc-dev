@@ -121,4 +121,16 @@ public class NetHandler {
     public void a(Packet7 packet7) {
         this.a((Packet) packet7);
     }
+
+    public void a(Packet38 packet38) {
+        this.a((Packet) packet38);
+    }
+
+    public void a(Packet8 packet8) {
+        this.a((Packet) packet8);
+    }
+
+    public void a(Packet9 packet9) {
+        this.a((Packet) packet9);
+    }
 }

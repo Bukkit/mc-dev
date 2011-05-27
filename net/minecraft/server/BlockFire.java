@@ -58,7 +58,7 @@ public class BlockFire extends Block {
             if (l % 2 == 0 && l > 2) {
                 this.a(world, i + 1, j, k, 300, random);
                 this.a(world, i - 1, j, k, 300, random);
-                this.a(world, i, j - 1, k, 200, random);
+                this.a(world, i, j - 1, k, 250, random);
                 this.a(world, i, j + 1, k, 250, random);
                 this.a(world, i, j, k - 1, 300, random);
                 this.a(world, i, j, k + 1, 300, random);

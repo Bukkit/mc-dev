@@ -12,7 +12,7 @@ public class BlockWorkbench extends Block {
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        entityhuman.F();
+        entityhuman.H();
         return true;
     }
 }

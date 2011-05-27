@@ -10,16 +10,16 @@ public class EntityPigZombie extends EntityZombie {
 
     public EntityPigZombie(World world) {
         super(world);
-        this.aF = "/mob/pigzombie.png";
-        this.br = 0.5F;
+        this.aG = "/mob/pigzombie.png";
+        this.bt = 0.5F;
         this.e = 5;
-        this.ad = true;
+        this.ae = true;
     }
 
     public void b_() {
-        this.br = this.f != null ? 0.95F : 0.5F;
+        this.bt = this.f != null ? 0.95F : 0.5F;
         if (this.b > 0 && --this.b == 0) {
-            this.l.a(this, "mob.zombiepig.zpigangry", this.h() * 2.0F, ((this.V.nextFloat() - this.V.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+            this.l.a(this, "mob.zombiepig.zpigangry", this.h() * 2.0F, ((this.W.nextFloat() - this.W.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
         super.b_();
@@ -43,8 +43,8 @@ public class EntityPigZombie extends EntityZombie {
         return this.a == 0 ? null : super.k();
     }
 
-    public void D() {
-        super.D();
+    public void E() {
+        super.E();
     }
 
     public boolean a(Entity entity, int i) {
@@ -57,20 +57,20 @@ public class EntityPigZombie extends EntityZombie {
                 if (entity1 instanceof EntityPigZombie) {
                     EntityPigZombie entitypigzombie = (EntityPigZombie) entity1;
 
-                    entitypigzombie.h(entity);
+                    entitypigzombie.g(entity);
                 }
             }
 
-            this.h(entity);
+            this.g(entity);
         }
 
         return super.a(entity, i);
     }
 
-    private void h(Entity entity) {
+    private void g(Entity entity) {
         this.f = entity;
-        this.a = 400 + this.V.nextInt(400);
-        this.b = this.V.nextInt(40);
+        this.a = 400 + this.W.nextInt(400);
+        this.b = this.W.nextInt(40);
     }
 
     protected String d() {

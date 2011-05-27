@@ -724,7 +724,7 @@ public class World implements IBlockAccess {
 
     public void a(Entity entity, String s, float f, float f1) {
         for (int i = 0; i < this.r.size(); ++i) {
-            ((IWorldAccess) this.r.get(i)).a(s, entity.p, entity.q - (double) entity.G, entity.r, f, f1);
+            ((IWorldAccess) this.r.get(i)).a(s, entity.p, entity.q - (double) entity.H, entity.r, f, f1);
         }
     }
 
@@ -913,9 +913,9 @@ public class World implements IBlockAccess {
 
         for (i = 0; i < this.B.size(); ++i) {
             entity = (Entity) this.B.get(i);
-            j = entity.af;
-            k = entity.ah;
-            if (entity.ae && this.f(j, k)) {
+            j = entity.ag;
+            k = entity.ai;
+            if (entity.af && this.f(j, k)) {
                 this.c(j, k).b(entity);
             }
         }
@@ -929,7 +929,7 @@ public class World implements IBlockAccess {
         for (i = 0; i < this.b.size(); ++i) {
             entity = (Entity) this.b.get(i);
             if (entity.k != null) {
-                if (!entity.k.F && entity.k.j == entity) {
+                if (!entity.k.G && entity.k.j == entity) {
                     continue;
                 }
 
@@ -937,14 +937,14 @@ public class World implements IBlockAccess {
                 entity.k = null;
             }
 
-            if (!entity.F) {
+            if (!entity.G) {
                 this.e(entity);
             }
 
-            if (entity.F) {
-                j = entity.af;
-                k = entity.ah;
-                if (entity.ae && this.f(j, k)) {
+            if (entity.G) {
+                j = entity.ag;
+                k = entity.ai;
+                if (entity.af && this.f(j, k)) {
                     this.c(j, k).b(entity);
                 }
 
@@ -970,14 +970,14 @@ public class World implements IBlockAccess {
         byte b0 = 16;
 
         if (flag || this.a(i - b0, 0, j - b0, i + b0, 128, j + b0)) {
-            entity.N = entity.p;
-            entity.O = entity.q;
-            entity.P = entity.r;
+            entity.O = entity.p;
+            entity.P = entity.q;
+            entity.Q = entity.r;
             entity.x = entity.v;
             entity.y = entity.w;
-            if (flag && entity.ae) {
+            if (flag && entity.af) {
                 if (entity.k != null) {
-                    entity.y();
+                    entity.z();
                 } else {
                     entity.b_();
                 }
@@ -987,21 +987,21 @@ public class World implements IBlockAccess {
             int l = MathHelper.b(entity.q / 16.0D);
             int i1 = MathHelper.b(entity.r / 16.0D);
 
-            if (!entity.ae || entity.af != k || entity.ag != l || entity.ah != i1) {
-                if (entity.ae && this.f(entity.af, entity.ah)) {
-                    this.c(entity.af, entity.ah).a(entity, entity.ag);
+            if (!entity.af || entity.ag != k || entity.ah != l || entity.ai != i1) {
+                if (entity.af && this.f(entity.ag, entity.ai)) {
+                    this.c(entity.ag, entity.ai).a(entity, entity.ah);
                 }
 
                 if (this.f(k, i1)) {
-                    entity.ae = true;
+                    entity.af = true;
                     this.c(k, i1).a(entity);
                 } else {
-                    entity.ae = false;
+                    entity.af = false;
                 }
             }
 
-            if (flag && entity.ae && entity.j != null) {
-                if (!entity.j.F && entity.j.k == entity) {
+            if (flag && entity.af && entity.j != null) {
+                if (!entity.j.G && entity.j.k == entity) {
                     this.e(entity.j);
                 } else {
                     entity.j.k = null;
@@ -1010,15 +1010,15 @@ public class World implements IBlockAccess {
             }
 
             if (Double.isNaN(entity.p) || Double.isInfinite(entity.p)) {
-                entity.p = entity.N;
+                entity.p = entity.O;
             }
 
             if (Double.isNaN(entity.q) || Double.isInfinite(entity.q)) {
-                entity.q = entity.O;
+                entity.q = entity.P;
             }
 
             if (Double.isNaN(entity.r) || Double.isInfinite(entity.r)) {
-                entity.r = entity.P;
+                entity.r = entity.Q;
             }
 
             if (Double.isNaN((double) entity.w) || Double.isInfinite((double) entity.w)) {
@@ -1037,7 +1037,7 @@ public class World implements IBlockAccess {
         for (int i = 0; i < list.size(); ++i) {
             Entity entity = (Entity) list.get(i);
 
-            if (!entity.F && entity.i) {
+            if (!entity.G && entity.i) {
                 return false;
             }
         }
@@ -1698,4 +1698,6 @@ public class World implements IBlockAccess {
     public boolean a(EntityHuman entityhuman, int i, int j, int k) {
         return true;
     }
+
+    public void a(Entity entity, byte b0) {}
 }

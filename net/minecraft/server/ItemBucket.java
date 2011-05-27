@@ -16,7 +16,7 @@ public class ItemBucket extends Item {
         float f1 = entityhuman.y + (entityhuman.w - entityhuman.y) * f;
         float f2 = entityhuman.x + (entityhuman.v - entityhuman.x) * f;
         double d0 = entityhuman.m + (entityhuman.p - entityhuman.m) * (double) f;
-        double d1 = entityhuman.n + (entityhuman.q - entityhuman.n) * (double) f + 1.62D - (double) entityhuman.G;
+        double d1 = entityhuman.n + (entityhuman.q - entityhuman.n) * (double) f + 1.62D - (double) entityhuman.H;
         double d2 = entityhuman.o + (entityhuman.r - entityhuman.o) * (double) f;
         Vec3D vec3d = Vec3D.b(d0, d1, d2);
         float f3 = MathHelper.b(-f2 * 0.017453292F - 3.1415927F);

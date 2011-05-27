@@ -143,11 +143,19 @@ public class Item {
         return this.aY;
     }
 
+    public void a(ItemStack itemstack, EntityLiving entityliving) {}
+
     public void a(ItemStack itemstack, int i, int j, int k, int l) {}
+
+    public int a(Entity entity) {
+        return 1;
+    }
 
     public boolean a(Block block) {
         return false;
     }
+
+    public void b(ItemStack itemstack, EntityLiving entityliving) {}
 
     public Item c() {
         this.ba = true;

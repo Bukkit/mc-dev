@@ -6,7 +6,7 @@ public class EntityCow extends EntityAnimal {
 
     public EntityCow(World world) {
         super(world);
-        this.aF = "/mob/cow.png";
+        this.aG = "/mob/cow.png";
         this.a(0.9F, 1.3F);
     }
 
@@ -39,10 +39,10 @@ public class EntityCow extends EntityAnimal {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        ItemStack itemstack = entityhuman.ak.b();
+        ItemStack itemstack = entityhuman.al.b();
 
         if (itemstack != null && itemstack.c == Item.BUCKET.aW) {
-            entityhuman.ak.a(entityhuman.ak.d, new ItemStack(Item.MILK_BUCKET));
+            entityhuman.al.a(entityhuman.al.d, new ItemStack(Item.MILK_BUCKET));
             return true;
         } else {
             return false;

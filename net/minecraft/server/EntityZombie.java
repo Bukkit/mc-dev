@@ -4,21 +4,21 @@ public class EntityZombie extends EntityMonster {
 
     public EntityZombie(World world) {
         super(world);
-        this.aF = "/mob/zombie.png";
-        this.br = 0.5F;
+        this.aG = "/mob/zombie.png";
+        this.bt = 0.5F;
         this.e = 5;
     }
 
-    public void D() {
+    public void E() {
         if (this.l.b()) {
             float f = this.b(1.0F);
 
-            if (f > 0.5F && this.l.g(MathHelper.b(this.p), MathHelper.b(this.q), MathHelper.b(this.r)) && this.V.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
-                this.Y = 300;
+            if (f > 0.5F && this.l.g(MathHelper.b(this.p), MathHelper.b(this.q), MathHelper.b(this.r)) && this.W.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
+                this.Z = 300;
             }
         }
 
-        super.D();
+        super.E();
     }
 
     protected String d() {

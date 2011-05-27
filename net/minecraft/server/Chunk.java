@@ -382,16 +382,16 @@ public class Chunk {
                 k = this.m.length - 1;
             }
 
-            entity.ae = true;
-            entity.af = this.j;
-            entity.ag = k;
-            entity.ah = this.k;
+            entity.af = true;
+            entity.ag = this.j;
+            entity.ah = k;
+            entity.ai = this.k;
             this.m[k].add(entity);
         }
     }
 
     public void b(Entity entity) {
-        this.a(entity, entity.ag);
+        this.a(entity, entity.ah);
     }
 
     public void a(Entity entity, int i) {

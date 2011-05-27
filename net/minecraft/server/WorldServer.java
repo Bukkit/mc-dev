@@ -23,7 +23,7 @@ public class WorldServer extends World {
     }
 
     public void a(Entity entity, boolean flag) {
-        if (this.D.m && entity instanceof EntityAnimal) {
+        if (!this.D.m && entity instanceof EntityAnimal) {
             entity.l();
         }
 
@@ -59,7 +59,7 @@ public class WorldServer extends World {
             i1 = l;
         }
 
-        return i1 > 16 || this.D.f.g(entityhuman.ar);
+        return i1 > 16 || this.D.f.g(entityhuman.as);
     }
 
     protected void b(Entity entity) {
@@ -74,5 +74,9 @@ public class WorldServer extends World {
 
     public Entity a(int i) {
         return (Entity) this.E.a(i);
+    }
+
+    public void a(Entity entity, byte b0) {
+        this.D.k.a(entity, new Packet38(entity.g, b0));
     }
 }

@@ -16,7 +16,7 @@ public class EntityPainting extends Entity {
         super(world);
         this.c = 0;
         this.a = 0;
-        this.G = 0.0F;
+        this.H = 0.0F;
         this.a(0.5F, 0.5F);
     }
 
@@ -40,7 +40,7 @@ public class EntityPainting extends Entity {
         }
 
         if (arraylist.size() > 0) {
-            this.b = (EnumArt) arraylist.get(this.V.nextInt(arraylist.size()));
+            this.b = (EnumArt) arraylist.get(this.W.nextInt(arraylist.size()));
         }
 
         this.a(l);
@@ -182,6 +182,7 @@ public class EntityPainting extends Entity {
 
     public boolean a(Entity entity, int i) {
         this.l();
+        this.u();
         this.l.a((Entity) (new EntityItem(this.l, this.p, this.q, this.r, new ItemStack(Item.PAINTING))));
         return true;
     }

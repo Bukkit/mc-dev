@@ -10,9 +10,9 @@ public class EntityBoat extends Entity {
     private int d;
     private double e;
     private double f;
-    private double ai;
     private double aj;
     private double ak;
+    private double al;
 
     public EntityBoat(World world) {
         super(world);
@@ -21,8 +21,8 @@ public class EntityBoat extends Entity {
         this.c = 1;
         this.i = true;
         this.a(1.5F, 0.6F);
-        this.G = this.I / 2.0F;
-        this.L = false;
+        this.H = this.J / 2.0F;
+        this.M = false;
     }
 
     public AxisAlignedBB d(Entity entity) {
@@ -33,13 +33,13 @@ public class EntityBoat extends Entity {
         return this.z;
     }
 
-    public boolean u() {
+    public boolean v() {
         return true;
     }
 
     public EntityBoat(World world, double d0, double d1, double d2) {
         this(world);
-        this.a(d0, d1 + (double) this.G, d2);
+        this.a(d0, d1 + (double) this.H, d2);
         this.s = 0.0D;
         this.t = 0.0D;
         this.u = 0.0D;
@@ -49,7 +49,7 @@ public class EntityBoat extends Entity {
     }
 
     public double j() {
-        return (double) this.I * 0.0D - 0.30000001192092896D;
+        return (double) this.J * 0.0D - 0.30000001192092896D;
     }
 
     public boolean a(Entity entity, int i) {
@@ -59,6 +59,7 @@ public class EntityBoat extends Entity {
             this.c = -this.c;
             this.b = 10;
             this.a += i * 10;
+            this.u();
             if (this.a > 40) {
                 int j;
 
@@ -78,7 +79,7 @@ public class EntityBoat extends Entity {
     }
 
     public boolean c_() {
-        return !this.F;
+        return !this.G;
     }
 
     public void b_() {
@@ -116,9 +117,9 @@ public class EntityBoat extends Entity {
             if (this.d > 0) {
                 d3 = this.p + (this.e - this.p) / (double) this.d;
                 d4 = this.q + (this.f - this.q) / (double) this.d;
-                d5 = this.r + (this.ai - this.r) / (double) this.d;
+                d5 = this.r + (this.aj - this.r) / (double) this.d;
 
-                for (d6 = this.aj - (double) this.v; d6 < -180.0D; d6 += 360.0D) {
+                for (d6 = this.ak - (double) this.v; d6 < -180.0D; d6 += 360.0D) {
                     ;
                 }
 
@@ -127,7 +128,7 @@ public class EntityBoat extends Entity {
                 }
 
                 this.v = (float) ((double) this.v + d6 / (double) this.d);
-                this.w = (float) ((double) this.w + (this.ak - (double) this.w) / (double) this.d);
+                this.w = (float) ((double) this.w + (this.al - (double) this.w) / (double) this.d);
                 --this.d;
                 this.a(d3, d4, d5);
                 this.b(this.v, this.w);
@@ -186,12 +187,12 @@ public class EntityBoat extends Entity {
                 d7 = Math.sin((double) this.v * 3.141592653589793D / 180.0D);
 
                 for (int j = 0; (double) j < 1.0D + d5 * 60.0D; ++j) {
-                    double d8 = (double) (this.V.nextFloat() * 2.0F - 1.0F);
-                    double d9 = (double) (this.V.nextInt(2) * 2 - 1) * 0.7D;
+                    double d8 = (double) (this.W.nextFloat() * 2.0F - 1.0F);
+                    double d9 = (double) (this.W.nextInt(2) * 2 - 1) * 0.7D;
                     double d10;
                     double d11;
 
-                    if (this.V.nextBoolean()) {
+                    if (this.W.nextBoolean()) {
                         d10 = this.p - d6 * d8 * 0.8D + d7 * d9;
                         d11 = this.r - d7 * d8 * 0.8D - d6 * d9;
                         this.l.a("splash", d10, this.q - 0.125D, d11, this.s, this.t, this.u);
@@ -258,23 +259,25 @@ public class EntityBoat extends Entity {
                 for (int l = 0; l < list.size(); ++l) {
                     Entity entity = (Entity) list.get(l);
 
-                    if (entity != this.j && entity.u() && entity instanceof EntityBoat) {
+                    if (entity != this.j && entity.v() && entity instanceof EntityBoat) {
                         entity.c((Entity) this);
                     }
                 }
             }
 
-            if (this.j != null && this.j.F) {
+            if (this.j != null && this.j.G) {
                 this.j = null;
             }
         }
     }
 
-    public void z() {
-        double d0 = Math.cos((double) this.v * 3.141592653589793D / 180.0D) * 0.4D;
-        double d1 = Math.sin((double) this.v * 3.141592653589793D / 180.0D) * 0.4D;
+    public void A() {
+        if (this.j != null) {
+            double d0 = Math.cos((double) this.v * 3.141592653589793D / 180.0D) * 0.4D;
+            double d1 = Math.sin((double) this.v * 3.141592653589793D / 180.0D) * 0.4D;
 
-        this.j.a(this.p + d0, this.q + this.j() + this.j.A(), this.r + d1);
+            this.j.a(this.p + d0, this.q + this.j() + this.j.B(), this.r + d1);
+        }
     }
 
     protected void a(NBTTagCompound nbttagcompound) {}

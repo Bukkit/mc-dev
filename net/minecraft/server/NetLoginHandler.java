@@ -52,7 +52,7 @@ public class NetLoginHandler extends NetHandler {
 
     public void a(Packet1Login packet1login) {
         this.g = packet1login.b;
-        if (packet1login.a != 4) {
+        if (packet1login.a != 5) {
             this.b("Outdated client!");
         } else {
             if (!this.e.l) {

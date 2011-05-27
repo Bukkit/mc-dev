@@ -13,8 +13,9 @@ public class EntityPlayer extends EntityHuman {
     public double d;
     public double e;
     public List f = new LinkedList();
-    public Set ai = new HashSet();
-    public double aj;
+    public Set aj = new HashSet();
+    public double ak;
+    private int bu = -1;
 
     public EntityPlayer(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager) {
         super(world);
@@ -23,29 +24,47 @@ public class EntityPlayer extends EntityHuman {
         int k = world.n;
 
         if (!world.q.e) {
-            i += this.V.nextInt(20) - 10;
+            i += this.W.nextInt(20) - 10;
             k = world.e(i, j);
-            j += this.V.nextInt(20) - 10;
+            j += this.W.nextInt(20) - 10;
         }
 
         this.c((double) i + 0.5D, (double) k, (double) j + 0.5D, 0.0F, 0.0F);
         this.b = minecraftserver;
-        this.R = 0.0F;
+        this.S = 0.0F;
         iteminworldmanager.a = this;
-        this.ar = s;
+        this.as = s;
         this.c = iteminworldmanager;
-        this.G = 0.0F;
+        this.H = 0.0F;
     }
 
     public void b_() {}
 
-    public void f(Entity entity) {}
-
-    public boolean a(Entity entity, int i) {
-        return false;
+    public void f(Entity entity) {
+        this.al.f();
     }
 
-    public void a(int i) {}
+    public boolean a(Entity entity, int i) {
+        if (!this.b.n) {
+            if (entity instanceof EntityHuman) {
+                return false;
+            }
+
+            if (entity instanceof EntityArrow) {
+                EntityArrow entityarrow = (EntityArrow) entity;
+
+                if (entityarrow.b instanceof EntityHuman) {
+                    return false;
+                }
+            }
+        }
+
+        return super.a(entity, i);
+    }
+
+    public void a(int i) {
+        super.a(i);
+    }
 
     public void k() {
         super.b_();
@@ -85,16 +104,21 @@ public class EntityPlayer extends EntityHuman {
                 }
             }
         }
+
+        if (this.aQ != this.bu) {
+            this.a.b((Packet) (new Packet8(this.aQ)));
+            this.bu = this.aQ;
+        }
     }
 
-    public void D() {
+    public void E() {
         this.s = this.t = this.u = 0.0D;
-        this.bp = false;
-        super.D();
+        this.br = false;
+        super.E();
     }
 
     public void c(Entity entity, int i) {
-        if (!entity.F && entity instanceof EntityItem) {
+        if (!entity.G && entity instanceof EntityItem) {
             this.a.b((Packet) (new Packet17AddToInventory(((EntityItem) entity).a, i)));
             this.b.k.a(entity, new Packet22Collect(entity.g, this.g));
         }
@@ -102,10 +126,10 @@ public class EntityPlayer extends EntityHuman {
         super.c(entity, i);
     }
 
-    public void E() {
-        if (!this.ap) {
-            this.aq = -1;
-            this.ap = true;
+    public void F() {
+        if (!this.aq) {
+            this.ar = -1;
+            this.aq = true;
             this.b.k.a(this, new Packet18ArmAnimation(this, 1));
         }
     }
@@ -118,5 +142,34 @@ public class EntityPlayer extends EntityHuman {
         super.e(entity);
         this.a.b((Packet) (new Packet39(this, this.k)));
         this.a.a(this.p, this.q, this.r, this.v, this.w);
+    }
+
+    public void G() {
+        this.aQ = 20;
+        int i = this.l.m;
+        int j = this.l.o;
+        int k = this.l.n;
+
+        if (!this.l.q.e) {
+            i += this.W.nextInt(20) - 10;
+            k = this.l.e(i, j);
+            j += this.W.nextInt(20) - 10;
+        }
+
+        this.a.a((double) i + 0.5D, (double) k, (double) j + 0.5D, 0.0F, 0.0F);
+        this.a.b((Packet) (new Packet6SpawnPosition(i, k, j)));
+        this.bu = -1;
+        this.Z = 0;
+        this.A = true;
+        this.ad = 300;
+        this.aa = 300;
+        this.aZ = false;
+        this.G = false;
+    }
+
+    protected void a(double d0, boolean flag) {}
+
+    public void b(double d0, boolean flag) {
+        super.a(d0, flag);
     }
 }

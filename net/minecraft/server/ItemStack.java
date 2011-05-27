@@ -94,8 +94,16 @@ public final class ItemStack {
         }
     }
 
+    public void a(EntityLiving entityliving) {
+        Item.c[this.c].a(this, entityliving);
+    }
+
     public void a(int i, int j, int k, int l) {
         Item.c[this.c].a(this, i, j, k, l);
+    }
+
+    public int a(Entity entity) {
+        return Item.c[this.c].a(entity);
     }
 
     public boolean b(Block block) {

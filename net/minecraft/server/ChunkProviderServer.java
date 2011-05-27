@@ -36,9 +36,9 @@ public class ChunkProviderServer implements IChunkProvider {
     public void c(int i, int j) {
         int k = i * 16 + 8 - this.g.m;
         int l = j * 16 + 8 - this.g.o;
-        byte b0 = 20;
+        short short1 = 128;
 
-        if (k < -b0 || k > b0 || l < -b0 || l > b0) {
+        if (k < -short1 || k > short1 || l < -short1 || l > short1) {
             this.a.add(new ChunkCoordinates(i, j));
         }
     }
