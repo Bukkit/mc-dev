@@ -49,14 +49,14 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
 
         if (this.j) {
-            this.g = this.e.l;
-            this.h = this.e.m;
-            this.i = this.e.n;
-            d0 = this.e.l;
-            double d1 = this.e.m;
-            double d2 = this.e.n;
-            float f = this.e.r;
-            float f1 = this.e.s;
+            this.g = this.e.p;
+            this.h = this.e.q;
+            this.i = this.e.r;
+            d0 = this.e.p;
+            double d1 = this.e.q;
+            double d2 = this.e.r;
+            float f = this.e.v;
+            float f1 = this.e.w;
             double d3;
 
             if (packet10flying.h) {
@@ -66,10 +66,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 d3 = packet10flying.d - packet10flying.b;
                 if (d3 > 1.65D || d3 < 0.1D) {
                     this.c("Illegal stance");
-                    a.warning(this.e.aq + " had an illegal stance: " + d3);
+                    a.warning(this.e.ar + " had an illegal stance: " + d3);
                 }
 
-                this.e.ai = packet10flying.d;
+                this.e.aj = packet10flying.d;
             }
 
             if (packet10flying.i) {
@@ -77,40 +77,40 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 f1 = packet10flying.f;
             }
 
-            this.e.i();
-            this.e.M = 0.0F;
+            this.e.k();
+            this.e.Q = 0.0F;
             this.e.b(this.g, this.h, this.i, f, f1);
-            d3 = d0 - this.e.l;
-            double d4 = d1 - this.e.m;
-            double d5 = d2 - this.e.n;
+            d3 = d0 - this.e.p;
+            double d4 = d1 - this.e.q;
+            double d5 = d2 - this.e.r;
             float f2 = 0.0625F;
-            boolean flag = this.d.e.a(this.e, this.e.v.b().e((double) f2, (double) f2, (double) f2)).size() == 0;
+            boolean flag = this.d.e.a(this.e, this.e.z.b().e((double) f2, (double) f2, (double) f2)).size() == 0;
 
             this.e.c(d3, d4, d5);
-            d3 = d0 - this.e.l;
-            d4 = d1 - this.e.m;
+            d3 = d0 - this.e.p;
+            d4 = d1 - this.e.q;
             if (d4 > -0.5D || d4 < 0.5D) {
                 d4 = 0.0D;
             }
 
-            d5 = d2 - this.e.n;
+            d5 = d2 - this.e.r;
             double d6 = d3 * d3 + d4 * d4 + d5 * d5;
             boolean flag1 = false;
 
             if (d6 > 0.0625D) {
                 flag1 = true;
-                a.warning(this.e.aq + " moved wrongly!");
+                a.warning(this.e.ar + " moved wrongly!");
             }
 
             this.e.b(d0, d1, d2, f, f1);
-            boolean flag2 = this.d.e.a(this.e, this.e.v.b().e((double) f2, (double) f2, (double) f2)).size() == 0;
+            boolean flag2 = this.d.e.a(this.e, this.e.z.b().e((double) f2, (double) f2, (double) f2)).size() == 0;
 
             if (flag && (flag1 || !flag2)) {
                 this.a(this.g, this.h, this.i, f, f1);
                 return;
             }
 
-            this.e.w = packet10flying.g;
+            this.e.A = packet10flying.g;
             this.d.f.b(this.e);
         }
     }
@@ -125,8 +125,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(Packet14BlockDig packet14blockdig) {
-        this.e.aj.a[this.e.aj.d] = this.k;
-        boolean flag = this.d.e.z = this.d.f.g(this.e.aq);
+        this.e.ak.a[this.e.ak.d] = this.k;
+        boolean flag = this.d.e.B = this.d.f.g(this.e.ar);
         boolean flag1 = false;
 
         if (packet14blockdig.e == 0) {
@@ -138,12 +138,12 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
 
         if (flag1) {
-            double d0 = this.e.m;
+            double d0 = this.e.q;
 
-            this.e.m = this.e.ai;
+            this.e.q = this.e.aj;
             MovingObjectPosition movingobjectposition = this.e.a(4.0D, 1.0F);
 
-            this.e.m = d0;
+            this.e.q = d0;
             if (movingobjectposition == null) {
                 return;
             }
@@ -157,8 +157,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         int j = packet14blockdig.b;
         int k = packet14blockdig.c;
         int l = packet14blockdig.d;
-        int i1 = (int) MathHelper.e((float) (i - this.d.e.n));
-        int j1 = (int) MathHelper.e((float) (k - this.d.e.p));
+        int i1 = (int) MathHelper.e((float) (i - this.d.e.m));
+        int j1 = (int) MathHelper.e((float) (k - this.d.e.o));
 
         if (i1 > j1) {
             j1 = i1;
@@ -166,18 +166,18 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
         if (packet14blockdig.e == 0) {
             if (j1 > 16 || flag) {
-                this.e.ad.a(i, j, k);
+                this.e.c.a(i, j, k);
             }
         } else if (packet14blockdig.e == 2) {
-            this.e.ad.a();
+            this.e.c.a();
         } else if (packet14blockdig.e == 1) {
             if (j1 > 16 || flag) {
-                this.e.ad.a(i, j, k, l);
+                this.e.c.a(i, j, k, l);
             }
         } else if (packet14blockdig.e == 3) {
-            double d1 = this.e.l - ((double) i + 0.5D);
-            double d2 = this.e.m - ((double) j + 0.5D);
-            double d3 = this.e.n - ((double) k + 0.5D);
+            double d1 = this.e.p - ((double) i + 0.5D);
+            double d2 = this.e.q - ((double) j + 0.5D);
+            double d3 = this.e.r - ((double) k + 0.5D);
             double d4 = d1 * d1 + d2 * d2 + d3 * d3;
 
             if (d4 < 256.0D) {
@@ -185,17 +185,17 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
         }
 
-        this.d.e.z = false;
+        this.d.e.B = false;
     }
 
     public void a(Packet15Place packet15place) {
-        boolean flag = this.d.e.z = this.d.f.g(this.e.aq);
+        boolean flag = this.d.e.B = this.d.f.g(this.e.ar);
         int i = packet15place.b;
         int j = packet15place.c;
         int k = packet15place.d;
         int l = packet15place.e;
-        int i1 = (int) MathHelper.e((float) (i - this.d.e.n));
-        int j1 = (int) MathHelper.e((float) (k - this.d.e.p));
+        int i1 = (int) MathHelper.e((float) (i - this.d.e.m));
+        int j1 = (int) MathHelper.e((float) (k - this.d.e.o));
 
         if (i1 > j1) {
             j1 = i1;
@@ -204,15 +204,15 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         if (j1 > 16 || flag) {
             ItemStack itemstack = packet15place.a >= 0 ? new ItemStack(packet15place.a) : null;
 
-            this.e.ad.a(this.e, this.d.e, itemstack, i, j, k, l);
+            this.e.c.a(this.e, this.d.e, itemstack, i, j, k, l);
         }
 
         this.e.a.b((Packet) (new Packet53BlockChange(i, j, k, this.d.e)));
-        this.d.e.z = false;
+        this.d.e.B = false;
     }
 
     public void a(String s) {
-        a.info(this.e.aq + " lost connection: " + s);
+        a.info(this.e.ar + " lost connection: " + s);
         this.d.f.c(this.e);
         this.c = true;
     }
@@ -229,15 +229,15 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     public void a(Packet16BlockItemSwitch packet16blockitemswitch) {
         int i = packet16blockitemswitch.b;
 
-        this.e.aj.d = this.e.aj.a.length - 1;
+        this.e.ak.d = this.e.ak.a.length - 1;
         if (i == 0) {
             this.k = null;
         } else {
             this.k = new ItemStack(i);
         }
 
-        this.e.aj.a[this.e.aj.d] = this.k;
-        this.d.k.a(this.e, new Packet16BlockItemSwitch(this.e.c, i));
+        this.e.ak.a[this.e.ak.d] = this.k;
+        this.d.k.a(this.e, new Packet16BlockItemSwitch(this.e.g, i));
     }
 
     public void a(Packet21PickupSpawn packet21pickupspawn) {
@@ -246,10 +246,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         double d2 = (double) packet21pickupspawn.d / 32.0D;
         EntityItem entityitem = new EntityItem(this.d.e, d0, d1, d2, new ItemStack(packet21pickupspawn.h, packet21pickupspawn.i));
 
-        entityitem.o = (double) packet21pickupspawn.e / 128.0D;
-        entityitem.p = (double) packet21pickupspawn.f / 128.0D;
-        entityitem.q = (double) packet21pickupspawn.g / 128.0D;
-        entityitem.ad = 10;
+        entityitem.s = (double) packet21pickupspawn.e / 128.0D;
+        entityitem.t = (double) packet21pickupspawn.f / 128.0D;
+        entityitem.u = (double) packet21pickupspawn.g / 128.0D;
+        entityitem.c = 10;
         this.d.e.a(entityitem);
     }
 
@@ -271,7 +271,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             if (s.startsWith("/")) {
                 this.d(s);
             } else {
-                s = "<" + this.e.aq + "> " + s;
+                s = "<" + this.e.ar + "> " + s;
                 a.info(s);
                 this.d.f.a((Packet) (new Packet3Chat(s)));
             }
@@ -280,7 +280,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     private void d(String s) {
         if (s.toLowerCase().startsWith("/me ")) {
-            s = "* " + this.e.aq + " " + s.substring(s.indexOf(" ")).trim();
+            s = "* " + this.e.ar + " " + s.substring(s.indexOf(" ")).trim();
             a.info(s);
             this.d.f.a((Packet) (new Packet3Chat(s)));
         } else if (s.toLowerCase().startsWith("/tell ")) {
@@ -289,61 +289,34 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             if (astring.length >= 3) {
                 s = s.substring(s.indexOf(" ")).trim();
                 s = s.substring(s.indexOf(" ")).trim();
-                s = "\u00A77" + this.e.aq + " whispers " + s;
+                s = "\u00A77" + this.e.ar + " whispers " + s;
                 a.info(s + " to " + astring[1]);
                 if (!this.d.f.a(astring[1], (Packet) (new Packet3Chat(s)))) {
                     this.b((Packet) (new Packet3Chat("\u00A7cThere\'s no player by that name online.")));
                 }
             }
+        } else if (s.toLowerCase().equalsIgnoreCase("/home")) {
+            a.info(this.e.ar + " returned home");
+            int i = this.d.e.e(this.d.e.m, this.d.e.o);
+
+            this.a((double) this.d.e.m + 0.5D, (double) i + 1.5D, (double) this.d.e.o + 0.5D, 0.0F, 0.0F);
         } else {
-            int i;
+            String s1;
 
-            if (s.toLowerCase().equalsIgnoreCase("/home")) {
-                a.info(this.e.aq + " returned home");
-                i = this.d.e.d(this.d.e.n, this.d.e.p);
-                this.a((double) this.d.e.n + 0.5D, (double) i + 1.5D, (double) this.d.e.p + 0.5D, 0.0F, 0.0F);
-            } else if (s.toLowerCase().equalsIgnoreCase("/iron")) {
-                if (MinecraftServer.b.containsKey(this.e.aq)) {
-                    a.info(this.e.aq + " failed to iron!");
-                    this.b((Packet) (new Packet3Chat("\u00A7cYou can\'t /iron again so soon!")));
-                } else {
-                    MinecraftServer.b.put(this.e.aq, Integer.valueOf(6000));
-                    a.info(this.e.aq + " ironed!");
-
-                    for (i = 0; i < 4; ++i) {
-                        this.e.a(new ItemStack(Item.IRON_INGOT, 1));
-                    }
-                }
-            } else if (s.toLowerCase().equalsIgnoreCase("/wood")) {
-                if (MinecraftServer.b.containsKey(this.e.aq)) {
-                    a.info(this.e.aq + " failed to wood!");
-                    this.b((Packet) (new Packet3Chat("\u00A7cYou can\'t /wood again so soon!")));
-                } else {
-                    MinecraftServer.b.put(this.e.aq, Integer.valueOf(6000));
-                    a.info(this.e.aq + " wooded!");
-
-                    for (i = 0; i < 4; ++i) {
-                        this.e.a(new ItemStack(Block.SAPLING, 1));
-                    }
-                }
+            if (this.d.f.g(this.e.ar)) {
+                s1 = s.substring(1);
+                a.info(this.e.ar + " issued server command: " + s1);
+                this.d.a(s1, (ICommandListener) this);
             } else {
-                String s1;
-
-                if (this.d.f.g(this.e.aq)) {
-                    s1 = s.substring(1);
-                    a.info(this.e.aq + " issued server command: " + s1);
-                    this.d.a(s1, (ICommandListener) this);
-                } else {
-                    s1 = s.substring(1);
-                    a.info(this.e.aq + " tried command: " + s1);
-                }
+                s1 = s.substring(1);
+                a.info(this.e.ar + " tried command: " + s1);
             }
         }
     }
 
     public void a(Packet18ArmAnimation packet18armanimation) {
         if (packet18armanimation.b == 1) {
-            this.e.z();
+            this.e.E();
         }
     }
 
@@ -360,35 +333,46 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public String c() {
-        return this.e.aq;
+        return this.e.ar;
     }
 
     public void a(Packet5PlayerInventory packet5playerinventory) {
         if (packet5playerinventory.a == -1) {
-            this.e.aj.a = packet5playerinventory.b;
+            this.e.ak.a = packet5playerinventory.b;
         }
 
         if (packet5playerinventory.a == -2) {
-            this.e.aj.c = packet5playerinventory.b;
+            this.e.ak.c = packet5playerinventory.b;
         }
 
         if (packet5playerinventory.a == -3) {
-            this.e.aj.b = packet5playerinventory.b;
+            this.e.ak.b = packet5playerinventory.b;
         }
     }
 
     public void d() {
-        this.b.a((Packet) (new Packet5PlayerInventory(-1, this.e.aj.a)));
-        this.b.a((Packet) (new Packet5PlayerInventory(-2, this.e.aj.c)));
-        this.b.a((Packet) (new Packet5PlayerInventory(-3, this.e.aj.b)));
+        this.b.a((Packet) (new Packet5PlayerInventory(-1, this.e.ak.a)));
+        this.b.a((Packet) (new Packet5PlayerInventory(-2, this.e.ak.c)));
+        this.b.a((Packet) (new Packet5PlayerInventory(-3, this.e.ak.b)));
     }
 
     public void a(Packet59ComplexEntity packet59complexentity) {
-        TileEntity tileentity = this.d.e.k(packet59complexentity.a, packet59complexentity.b, packet59complexentity.c);
+        if (packet59complexentity.e.d("x") == packet59complexentity.a) {
+            if (packet59complexentity.e.d("y") == packet59complexentity.b) {
+                if (packet59complexentity.e.d("z") == packet59complexentity.c) {
+                    TileEntity tileentity = this.d.e.k(packet59complexentity.a, packet59complexentity.b, packet59complexentity.c);
 
-        if (tileentity != null) {
-            tileentity.a(packet59complexentity.e);
-            tileentity.c();
+                    if (tileentity != null) {
+                        try {
+                            tileentity.a(packet59complexentity.e);
+                        } catch (Exception exception) {
+                            ;
+                        }
+
+                        tileentity.c();
+                    }
+                }
+            }
         }
     }
 }

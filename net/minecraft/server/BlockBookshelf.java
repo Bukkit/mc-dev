@@ -9,7 +9,7 @@ public class BlockBookshelf extends Block {
     }
 
     public int a(int i) {
-        return i <= 1 ? 4 : this.bb;
+        return i <= 1 ? 4 : this.bh;
     }
 
     public int a(Random random) {

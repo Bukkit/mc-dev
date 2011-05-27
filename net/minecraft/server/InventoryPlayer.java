@@ -207,7 +207,7 @@ public class InventoryPlayer implements IInventory {
     }
 
     public boolean b(Block block) {
-        if (block.bn != Material.d && block.bn != Material.e && block.bn != Material.t && block.bn != Material.s) {
+        if (block.bt != Material.d && block.bt != Material.e && block.bt != Material.t && block.bt != Material.s) {
             return true;
         } else {
             ItemStack itemstack = this.a(this.d);
@@ -229,7 +229,7 @@ public class InventoryPlayer implements IInventory {
 
                 j += k1;
                 k += i1;
-                int l1 = ((ItemArmor) this.b[l].a()).aY;
+                int l1 = ((ItemArmor) this.b[l].a()).bc;
 
                 i += l1;
             }

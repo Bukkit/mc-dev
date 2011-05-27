@@ -4,7 +4,7 @@ public class BlockSponge extends Block {
 
     protected BlockSponge(int i) {
         super(i, Material.j);
-        this.bb = 48;
+        this.bh = 48;
     }
 
     public void e(World world, int i, int j, int k) {

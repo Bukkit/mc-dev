@@ -18,7 +18,7 @@ public class ChunkCache implements IBlockAccess {
 
         for (int i2 = this.a; i2 <= k1; ++i2) {
             for (int j2 = this.b; j2 <= l1; ++j2) {
-                this.c[i2 - this.a][j2 - this.b] = world.b(i2, j2);
+                this.c[i2 - this.a][j2 - this.b] = world.c(i2, j2);
             }
         }
     }
@@ -52,12 +52,12 @@ public class ChunkCache implements IBlockAccess {
     public Material c(int i, int j, int k) {
         int l = this.a(i, j, k);
 
-        return l == 0 ? Material.a : Block.n[l].bn;
+        return l == 0 ? Material.a : Block.n[l].bt;
     }
 
     public boolean d(int i, int j, int k) {
         Block block = Block.n[this.a(i, j, k)];
 
-        return block == null ? false : block.b();
+        return block == null ? false : block.a();
     }
 }

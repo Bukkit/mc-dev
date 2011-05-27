@@ -3,11 +3,11 @@ package net.minecraft.server;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-class ServerGuiFocusadapter extends FocusAdapter {
+class ServerGuiFocusAdapter extends FocusAdapter {
 
     final ServerGUI a;
 
-    ServerGuiFocusadapter(ServerGUI servergui) {
+    ServerGuiFocusAdapter(ServerGUI servergui) {
         this.a = servergui;
     }
 

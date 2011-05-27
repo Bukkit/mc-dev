@@ -6,7 +6,7 @@ public class BlockReed extends Block {
 
     protected BlockReed(int i, int j) {
         super(i, Material.i);
-        this.bb = j;
+        this.bh = j;
         float f = 0.375F;
 
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
@@ -17,7 +17,7 @@ public class BlockReed extends Block {
         if (world.a(i, j + 1, k) == 0) {
             int l;
 
-            for (l = 1; world.a(i, j - l, k) == this.bc; ++l) {
+            for (l = 1; world.a(i, j - l, k) == this.bi; ++l) {
                 ;
             }
 
@@ -25,7 +25,7 @@ public class BlockReed extends Block {
                 int i1 = world.b(i, j, k);
 
                 if (i1 == 15) {
-                    world.d(i, j + 1, k, this.bc);
+                    world.d(i, j + 1, k, this.bi);
                     world.b(i, j, k, 0);
                 } else {
                     world.b(i, j, k, i1 + 1);
@@ -37,7 +37,7 @@ public class BlockReed extends Block {
     public boolean a(World world, int i, int j, int k) {
         int l = world.a(i, j - 1, k);
 
-        return l == this.bc ? true : (l != Block.GRASS.bc && l != Block.DIRT.bc ? false : (world.c(i - 1, j - 1, k) == Material.f ? true : (world.c(i + 1, j - 1, k) == Material.f ? true : (world.c(i, j - 1, k - 1) == Material.f ? true : world.c(i, j - 1, k + 1) == Material.f))));
+        return l == this.bi ? true : (l != Block.GRASS.bi && l != Block.DIRT.bi ? false : (world.c(i - 1, j - 1, k) == Material.f ? true : (world.c(i + 1, j - 1, k) == Material.f ? true : (world.c(i, j - 1, k - 1) == Material.f ? true : world.c(i, j - 1, k + 1) == Material.f))));
     }
 
     public void b(World world, int i, int j, int k, int l) {
@@ -60,14 +60,10 @@ public class BlockReed extends Block {
     }
 
     public int a(int i, Random random) {
-        return Item.SUGAR_CANE.aS;
+        return Item.SUGAR_CANE.aW;
     }
 
-    public boolean b() {
+    public boolean a() {
         return false;
-    }
-
-    public int a() {
-        return 1;
     }
 }

@@ -6,10 +6,10 @@ public class ItemSword extends Item {
 
     public ItemSword(int i, int j) {
         super(i);
-        this.aT = 1;
-        this.aU = 32 << j;
+        this.aX = 1;
+        this.aY = 32 << j;
         if (j == 3) {
-            this.aU *= 4;
+            this.aY *= 4;
         }
 
         this.a = 4 + j * 2;

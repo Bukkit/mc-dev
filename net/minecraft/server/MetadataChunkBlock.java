@@ -21,9 +21,9 @@ public class MetadataChunkBlock {
     }
 
     public void a(World world) {
-        int i = this.e - this.b;
-        int j = this.f - this.c;
-        int k = this.g - this.d;
+        int i = this.e - this.b + 1;
+        int j = this.f - this.c + 1;
+        int k = this.g - this.d + 1;
         int l = i * j * k;
 
         if (l <= '\u8000') {

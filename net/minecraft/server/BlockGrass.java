@@ -6,7 +6,7 @@ public class BlockGrass extends Block {
 
     protected BlockGrass(int i) {
         super(i, Material.b);
-        this.bb = 3;
+        this.bh = 3;
         this.a(true);
     }
 
@@ -16,14 +16,14 @@ public class BlockGrass extends Block {
                 return;
             }
 
-            world.d(i, j, k, Block.DIRT.bc);
+            world.d(i, j, k, Block.DIRT.bi);
         } else if (world.h(i, j + 1, k) >= 9) {
             int l = i + random.nextInt(3) - 1;
             int i1 = j + random.nextInt(5) - 3;
             int j1 = k + random.nextInt(3) - 1;
 
-            if (world.a(l, i1, j1) == Block.DIRT.bc && world.h(l, i1 + 1, j1) >= 4 && !world.c(l, i1 + 1, j1).b()) {
-                world.d(l, i1, j1, Block.GRASS.bc);
+            if (world.a(l, i1, j1) == Block.DIRT.bi && world.h(l, i1 + 1, j1) >= 4 && !world.c(l, i1 + 1, j1).b()) {
+                world.d(l, i1, j1, Block.GRASS.bi);
             }
         }
     }

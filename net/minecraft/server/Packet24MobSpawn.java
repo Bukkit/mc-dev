@@ -16,13 +16,13 @@ public class Packet24MobSpawn extends Packet {
     public Packet24MobSpawn() {}
 
     public Packet24MobSpawn(EntityLiving entityliving) {
-        this.a = entityliving.c;
+        this.a = entityliving.g;
         this.b = (byte) EntityTypes.a(entityliving);
-        this.c = MathHelper.b(entityliving.l * 32.0D);
-        this.d = MathHelper.b(entityliving.m * 32.0D);
-        this.e = MathHelper.b(entityliving.n * 32.0D);
-        this.f = (byte) ((int) (entityliving.r * 256.0F / 360.0F));
-        this.g = (byte) ((int) (entityliving.s * 256.0F / 360.0F));
+        this.c = MathHelper.b(entityliving.p * 32.0D);
+        this.d = MathHelper.b(entityliving.q * 32.0D);
+        this.e = MathHelper.b(entityliving.r * 32.0D);
+        this.f = (byte) ((int) (entityliving.v * 256.0F / 360.0F));
+        this.g = (byte) ((int) (entityliving.w * 256.0F / 360.0F));
     }
 
     public void a(DataInputStream datainputstream) {

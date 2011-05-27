@@ -20,7 +20,7 @@ public class BlockMobSpawner extends BlockContainer {
         return 0;
     }
 
-    public boolean b() {
+    public boolean a() {
         return false;
     }
 }

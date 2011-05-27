@@ -77,7 +77,7 @@ public class ServerGUI extends JComponent implements ICommandListener {
         JTextField jtextfield = new JTextField();
 
         jtextfield.addActionListener(new ServerGuiCommandListener(this, jtextfield));
-        jtextarea.addFocusListener(new ServerGuiFocusadapter(this));
+        jtextarea.addFocusListener(new ServerGuiFocusAdapter(this));
         jpanel.add(jscrollpane, "Center");
         jpanel.add(jtextfield, "South");
         jpanel.setBorder(new TitledBorder(new EtchedBorder(), "Log and chat"));

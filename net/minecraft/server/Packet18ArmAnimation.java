@@ -11,7 +11,7 @@ public class Packet18ArmAnimation extends Packet {
     public Packet18ArmAnimation() {}
 
     public Packet18ArmAnimation(Entity entity, int i) {
-        this.a = entity.c;
+        this.a = entity.g;
         this.b = i;
     }
 

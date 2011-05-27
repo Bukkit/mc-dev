@@ -9,6 +9,6 @@ public class BlockGravel extends BlockSand {
     }
 
     public int a(int i, Random random) {
-        return random.nextInt(10) == 0 ? Item.FLINT.aS : this.bc;
+        return random.nextInt(10) == 0 ? Item.FLINT.aW : this.bi;
     }
 }

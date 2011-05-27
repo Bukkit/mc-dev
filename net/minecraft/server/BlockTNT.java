@@ -9,11 +9,11 @@ public class BlockTNT extends Block {
     }
 
     public int a(int i) {
-        return i == 0 ? this.bb + 2 : (i == 1 ? this.bb + 1 : this.bb);
+        return i == 0 ? this.bh + 2 : (i == 1 ? this.bh + 1 : this.bh);
     }
 
     public void b(World world, int i, int j, int k, int l) {
-        if (l > 0 && Block.n[l].d() && world.n(i, j, k)) {
+        if (l > 0 && Block.n[l].c() && world.n(i, j, k)) {
             this.a(world, i, j, k, 0);
             world.d(i, j, k, 0);
         }
@@ -26,7 +26,7 @@ public class BlockTNT extends Block {
     public void c(World world, int i, int j, int k) {
         EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F);
 
-        entitytntprimed.a = world.m.nextInt(entitytntprimed.a / 4) + entitytntprimed.a / 8;
+        entitytntprimed.a = world.l.nextInt(entitytntprimed.a / 4) + entitytntprimed.a / 8;
         world.a((Entity) entitytntprimed);
     }
 

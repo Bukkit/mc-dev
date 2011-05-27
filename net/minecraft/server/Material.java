@@ -24,7 +24,9 @@ public class Material {
     public static final Material t = new Material();
     public static final Material u = new Material();
     public static final Material v = new Material();
-    private boolean w;
+    public static final Material w = new Material();
+    public static final Material x = new Material();
+    private boolean y;
 
     public Material() {}
 
@@ -45,11 +47,11 @@ public class Material {
     }
 
     private Material f() {
-        this.w = true;
+        this.y = true;
         return this;
     }
 
     public boolean e() {
-        return this.w;
+        return this.y;
     }
 }

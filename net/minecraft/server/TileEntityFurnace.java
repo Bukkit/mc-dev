@@ -72,7 +72,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
             --this.f;
         }
 
-        if (!this.a.x) {
+        if (!this.a.z) {
             if (this.f == 0 && this.g()) {
                 this.g = this.f = this.a(this.e[1]);
                 if (this.f > 0) {
@@ -112,7 +112,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         if (this.e[0] == null) {
             return false;
         } else {
-            int i = this.b(this.e[0].a().aS);
+            int i = this.b(this.e[0].a().aW);
 
             return i < 0 ? false : (this.e[2] == null ? true : (this.e[2].c != i ? false : (this.e[2].a < this.d() && this.e[2].a < this.e[2].b() ? true : this.e[2].a < Item.c[i].a())));
         }
@@ -120,7 +120,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
     public void f() {
         if (this.g()) {
-            int i = this.b(this.e[0].a().aS);
+            int i = this.b(this.e[0].a().aW);
 
             if (this.e[2] == null) {
                 this.e[2] = new ItemStack(i, 1);
@@ -136,16 +136,16 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
     }
 
     private int b(int i) {
-        return i == Block.IRON_ORE.bc ? Item.IRON_INGOT.aS : (i == Block.GOLD_ORE.bc ? Item.GOLD_INGOT.aS : (i == Block.DIAMOND_ORE.bc ? Item.DIAMOND.aS : (i == Block.SAND.bc ? Block.GLASS.bc : (i == Item.PORK.aS ? Item.GRILLED_PORK.aS : (i == Block.COBBLESTONE.bc ? Block.STONE.bc : (i == Item.CLAY_BALL.aS ? Item.CLAY_BRICK.aS : -1))))));
+        return i == Block.IRON_ORE.bi ? Item.IRON_INGOT.aW : (i == Block.GOLD_ORE.bi ? Item.GOLD_INGOT.aW : (i == Block.DIAMOND_ORE.bi ? Item.DIAMOND.aW : (i == Block.SAND.bi ? Block.GLASS.bi : (i == Item.PORK.aW ? Item.GRILLED_PORK.aW : (i == Item.RAW_FISH.aW ? Item.COOKED_FISH.aW : (i == Block.COBBLESTONE.bi ? Block.STONE.bi : (i == Item.CLAY_BALL.aW ? Item.CLAY_BRICK.aW : -1)))))));
     }
 
     private int a(ItemStack itemstack) {
         if (itemstack == null) {
             return 0;
         } else {
-            int i = itemstack.a().aS;
+            int i = itemstack.a().aW;
 
-            return i < 256 && Block.n[i].bn == Material.c ? 300 : (i == Item.STICK.aS ? 100 : (i == Item.COAL.aS ? 1600 : (i == Item.LAVA_BUCKET.aS ? 20000 : 0)));
+            return i < 256 && Block.n[i].bt == Material.c ? 300 : (i == Item.STICK.aW ? 100 : (i == Item.COAL.aW ? 1600 : (i == Item.LAVA_BUCKET.aW ? 20000 : 0)));
         }
     }
 }

@@ -12,7 +12,7 @@ public final class ItemStack {
     }
 
     public ItemStack(Block block, int i) {
-        this(block.bc, i);
+        this(block.bi, i);
     }
 
     public ItemStack(Item item) {
@@ -20,7 +20,7 @@ public final class ItemStack {
     }
 
     public ItemStack(Item item, int i) {
-        this(item.aS, i);
+        this(item.aW, i);
     }
 
     public ItemStack(int i) {

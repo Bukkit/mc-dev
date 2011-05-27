@@ -44,7 +44,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
 
             if (!this.a(i, j)) {
                 if (this.f[i1] != null) {
-                    this.f[i1].d();
+                    this.f[i1].e();
                     this.b(this.f[i1]);
                     this.a(this.f[i1]);
                 }
@@ -60,8 +60,9 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                 }
 
                 this.f[i1] = chunk;
+                chunk.c();
                 if (this.f[i1] != null) {
-                    this.f[i1].c();
+                    this.f[i1].d();
                 }
 
                 if (!this.f[i1].n && this.a(i + 1, j + 1) && this.a(i, j + 1) && this.a(i + 1, j)) {
@@ -96,7 +97,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                 Chunk chunk = this.e.a(this.g, i, j);
 
                 if (chunk != null) {
-                    chunk.s = this.g.c;
+                    chunk.s = this.g.e;
                 }
 
                 return chunk;
@@ -120,7 +121,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     private void b(Chunk chunk) {
         if (this.e != null) {
             try {
-                chunk.s = this.g.c;
+                chunk.s = this.g.e;
                 this.e.a(this.g, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
@@ -135,7 +136,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
             chunk.n = true;
             if (this.d != null) {
                 this.d.a(ichunkprovider, i, j);
-                chunk.e();
+                chunk.f();
             }
         }
     }

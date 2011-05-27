@@ -4,122 +4,115 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class SpawnerCreature {
+public final class SpawnerCreature {
 
-    private int a;
-    private Class b;
-    private Class[] c;
-    private Set d = new HashSet();
+    private static Set a = new HashSet();
 
-    public SpawnerCreature(int i, Class oclass, Class[] aclass) {
-        this.a = i;
-        this.b = oclass;
-        this.c = aclass;
-    }
+    public SpawnerCreature() {}
 
-    public void a(World world) {
-        int i = world.a(this.b);
-
-        if (i < this.a) {
-            for (int j = 0; j < 3; ++j) {
-                this.a(world, 1, (IProgressUpdate) null);
-            }
-        }
-    }
-
-    protected ChunkPosition a(World world, int i, int j) {
-        int k = i + world.m.nextInt(16);
-        int l = world.m.nextInt(128);
-        int i1 = j + world.m.nextInt(16);
+    protected static ChunkPosition a(World world, int i, int j) {
+        int k = i + world.l.nextInt(16);
+        int l = world.l.nextInt(128);
+        int i1 = j + world.l.nextInt(16);
 
         return new ChunkPosition(k, l, i1);
     }
 
-    private int a(World world, int i, IProgressUpdate iprogressupdate) {
-        this.d.clear();
+    public static final int a(World world) {
+        a.clear();
 
-        int j;
-        int k;
-        int l;
-        int i1;
+        int i;
 
-        for (j = 0; j < world.k.size(); ++j) {
-            EntityHuman entityhuman = (EntityHuman) world.k.get(j);
-            int j1 = MathHelper.b(entityhuman.l / 16.0D);
+        for (i = 0; i < world.d.size(); ++i) {
+            EntityHuman entityhuman = (EntityHuman) world.d.get(i);
+            int j = MathHelper.b(entityhuman.p / 16.0D);
+            int k = MathHelper.b(entityhuman.r / 16.0D);
+            byte b0 = 8;
 
-            k = MathHelper.b(entityhuman.n / 16.0D);
-            byte b0 = 4;
-
-            for (l = -b0; l <= b0; ++l) {
-                for (i1 = -b0; i1 <= b0; ++i1) {
-                    this.d.add(new ChunkCoordIntPair(l + j1, i1 + k));
+            for (int l = -b0; l <= b0; ++l) {
+                for (int i1 = -b0; i1 <= b0; ++i1) {
+                    a.add(new ChunkCoordIntPair(l + j, i1 + k));
                 }
             }
         }
 
-        j = 0;
-        Iterator iterator = this.d.iterator();
+        i = 0;
 
-        while (iterator.hasNext()) {
-            ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) iterator.next();
+        for (int j1 = 0; j1 < EnumCreatureType.values().length; ++j1) {
+            EnumCreatureType enumcreaturetype = EnumCreatureType.values()[j1];
 
-            if (world.m.nextInt(10) == 0) {
-                k = world.m.nextInt(this.c.length);
-                ChunkPosition chunkposition = this.a(world, chunkcoordintpair.a * 16, chunkcoordintpair.b * 16);
+            if (world.a(enumcreaturetype.WATER_CREATURE) <= enumcreaturetype.d * a.size() / 256) {
+                Iterator iterator = a.iterator();
 
-                l = chunkposition.a;
-                i1 = chunkposition.b;
-                int k1 = chunkposition.c;
+                label90:
+                while (iterator.hasNext()) {
+                    ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) iterator.next();
 
-                if (world.d(l, i1, k1)) {
-                    return 0;
-                }
+                    if (world.l.nextInt(50) == 0) {
+                        BiomeBase biomebase = world.a().a(chunkcoordintpair);
+                        Class[] aclass = biomebase.a(enumcreaturetype);
 
-                if (world.c(l, i1, k1) != Material.a) {
-                    return 0;
-                }
+                        if (aclass != null && aclass.length != 0) {
+                            int k1 = world.l.nextInt(aclass.length);
+                            ChunkPosition chunkposition = a(world, chunkcoordintpair.a * 16, chunkcoordintpair.b * 16);
+                            int l1 = chunkposition.a;
+                            int i2 = chunkposition.b;
+                            int j2 = chunkposition.c;
 
-                for (int l1 = 0; l1 < 3; ++l1) {
-                    int i2 = l;
-                    int j2 = i1;
-                    int k2 = k1;
-                    byte b1 = 6;
+                            if (!world.d(l1, i2, j2) && world.c(l1, i2, j2) == Material.a) {
+                                int k2 = 0;
 
-                    for (int l2 = 0; l2 < 2; ++l2) {
-                        i2 += world.m.nextInt(b1) - world.m.nextInt(b1);
-                        j2 += world.m.nextInt(1) - world.m.nextInt(1);
-                        k2 += world.m.nextInt(b1) - world.m.nextInt(b1);
-                        if (world.d(i2, j2 - 1, k2) && !world.d(i2, j2, k2) && !world.c(i2, j2, k2).d() && !world.d(i2, j2 + 1, k2)) {
-                            float f = (float) i2 + 0.5F;
-                            float f1 = (float) j2;
-                            float f2 = (float) k2 + 0.5F;
+                                for (int l2 = 0; l2 < 3; ++l2) {
+                                    int i3 = l1;
+                                    int j3 = i2;
+                                    int k3 = j2;
+                                    byte b1 = 6;
 
-                            if (world.a((double) f, (double) f1, (double) f2, 24.0D) == null) {
-                                float f3 = f - (float) world.n;
-                                float f4 = f1 - (float) world.o;
-                                float f5 = f2 - (float) world.p;
-                                float f6 = f3 * f3 + f4 * f4 + f5 * f5;
+                                    for (int l3 = 0; l3 < 4; ++l3) {
+                                        i3 += world.l.nextInt(b1) - world.l.nextInt(b1);
+                                        j3 += world.l.nextInt(1) - world.l.nextInt(1);
+                                        k3 += world.l.nextInt(b1) - world.l.nextInt(b1);
+                                        if (world.d(i3, j3 - 1, k3) && !world.d(i3, j3, k3) && !world.c(i3, j3, k3).d() && !world.d(i3, j3 + 1, k3)) {
+                                            float f = (float) i3 + 0.5F;
+                                            float f1 = (float) j3;
+                                            float f2 = (float) k3 + 0.5F;
 
-                                if (f6 >= 576.0F) {
-                                    EntityLiving entityliving;
+                                            if (world.a((double) f, (double) f1, (double) f2, 24.0D) == null) {
+                                                float f3 = f - (float) world.m;
+                                                float f4 = f1 - (float) world.n;
+                                                float f5 = f2 - (float) world.o;
+                                                float f6 = f3 * f3 + f4 * f4 + f5 * f5;
 
-                                    try {
-                                        entityliving = (EntityLiving) this.c[k].getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
-                                    } catch (Exception exception) {
-                                        exception.printStackTrace();
-                                        return j;
-                                    }
+                                                if (f6 >= 576.0F) {
+                                                    EntityLiving entityliving;
 
-                                    entityliving.c((double) f, (double) f1, (double) f2, world.m.nextFloat() * 360.0F, 0.0F);
-                                    if (entityliving.a()) {
-                                        ++j;
-                                        world.a((Entity) entityliving);
-                                        if (entityliving instanceof EntitySpider && world.m.nextInt(100) == 0) {
-                                            EntitySkeleton entityskeleton = new EntitySkeleton(world);
+                                                    try {
+                                                        entityliving = (EntityLiving) aclass[k1].getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
+                                                    } catch (Exception exception) {
+                                                        exception.printStackTrace();
+                                                        return i;
+                                                    }
 
-                                            entityskeleton.c((double) f, (double) f1, (double) f2, entityliving.r, 0.0F);
-                                            world.a((Entity) entityskeleton);
-                                            entityskeleton.e(entityliving);
+                                                    entityliving.c((double) f, (double) f1, (double) f2, world.l.nextFloat() * 360.0F, 0.0F);
+                                                    if (entityliving.a()) {
+                                                        ++k2;
+                                                        world.a((Entity) entityliving);
+                                                        if (entityliving instanceof EntitySpider && world.l.nextInt(100) == 0) {
+                                                            EntitySkeleton entityskeleton = new EntitySkeleton(world);
+
+                                                            entityskeleton.c((double) f, (double) f1, (double) f2, entityliving.v, 0.0F);
+                                                            world.a((Entity) entityskeleton);
+                                                            entityskeleton.e(entityliving);
+                                                        }
+
+                                                        if (k2 >= entityliving.i()) {
+                                                            continue label90;
+                                                        }
+                                                    }
+
+                                                    i += k2;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -130,6 +123,6 @@ public class SpawnerCreature {
             }
         }
 
-        return j;
+        return i;
     }
 }

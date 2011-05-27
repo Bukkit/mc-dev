@@ -36,7 +36,7 @@ public class WorldGenMinable extends WorldGenerator {
                         double d13 = ((double) j1 + 0.5D - d7) / (d11 / 2.0D);
                         double d14 = ((double) k1 + 0.5D - d8) / (d10 / 2.0D);
 
-                        if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && world.a(i1, j1, k1) == Block.STONE.bc) {
+                        if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && world.a(i1, j1, k1) == Block.STONE.bi) {
                             world.a(i1, j1, k1, this.a);
                         }
                     }

@@ -28,17 +28,17 @@ class PlayerInstance {
         this.c = i;
         this.d = j;
         this.e = new ChunkCoordIntPair(i, j);
-        PlayerManager.a(playermanager).e.y.d(i, j);
+        PlayerManager.a(playermanager).e.A.d(i, j);
     }
 
     public void a(EntityPlayer entityplayer) {
         if (this.b.contains(entityplayer)) {
             throw new IllegalStateException("Failed to add player. " + entityplayer + " already is in chunk " + this.c + ", " + this.d);
         } else {
-            entityplayer.ah.add(this.e);
+            entityplayer.ai.add(this.e);
             entityplayer.a.b((Packet) (new Packet50PreChunk(this.e.a, this.e.b, true)));
             this.b.add(entityplayer);
-            entityplayer.ag.add(this.e);
+            entityplayer.f.add(this.e);
         }
     }
 
@@ -55,11 +55,11 @@ class PlayerInstance {
                     PlayerManager.c(this.a).remove(this);
                 }
 
-                PlayerManager.a(this.a).e.y.c(this.c, this.d);
+                PlayerManager.a(this.a).e.A.c(this.c, this.d);
             }
 
-            entityplayer.ag.remove(this.e);
-            if (entityplayer.ah.contains(this.e)) {
+            entityplayer.f.remove(this.e);
+            if (entityplayer.ai.contains(this.e)) {
                 entityplayer.a.b((Packet) (new Packet50PreChunk(this.c, this.d, false)));
             }
         }
@@ -114,7 +114,7 @@ class PlayerInstance {
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-            if (entityplayer.ah.contains(this.e)) {
+            if (entityplayer.ai.contains(this.e)) {
                 entityplayer.a.b(packet);
             }
         }

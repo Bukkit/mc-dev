@@ -43,7 +43,7 @@ public class ServerConfigurationManager {
     }
 
     public void a(WorldServer worldserver) {
-        this.l = new PlayerNBTManager(new File(worldserver.s, "players"));
+        this.l = new PlayerNBTManager(new File(worldserver.t, "players"));
     }
 
     public int a() {
@@ -53,10 +53,10 @@ public class ServerConfigurationManager {
     public void a(EntityPlayer entityplayer) {
         this.b.add(entityplayer);
         this.l.b(entityplayer);
-        this.c.e.y.d((int) entityplayer.l >> 4, (int) entityplayer.n >> 4);
+        this.c.e.A.d((int) entityplayer.p >> 4, (int) entityplayer.r >> 4);
 
-        while (this.c.e.a(entityplayer, entityplayer.v).size() != 0) {
-            entityplayer.a(entityplayer.l, entityplayer.m + 1.0D, entityplayer.n);
+        while (this.c.e.a(entityplayer, entityplayer.z).size() != 0) {
+            entityplayer.a(entityplayer.p, entityplayer.q + 1.0D, entityplayer.r);
         }
 
         this.c.e.a(entityplayer);
@@ -93,7 +93,7 @@ public class ServerConfigurationManager {
                 for (int i = 0; i < this.b.size(); ++i) {
                     EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-                    if (entityplayer.aq.equalsIgnoreCase(s)) {
+                    if (entityplayer.ar.equalsIgnoreCase(s)) {
                         entityplayer.a.c("You logged in from another location");
                     }
                 }
@@ -127,7 +127,7 @@ public class ServerConfigurationManager {
                 s = s + ", ";
             }
 
-            s = s + ((EntityPlayer) this.b.get(i)).aq;
+            s = s + ((EntityPlayer) this.b.get(i)).ar;
         }
 
         return s;
@@ -270,7 +270,7 @@ public class ServerConfigurationManager {
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-            if (entityplayer.aq.equalsIgnoreCase(s)) {
+            if (entityplayer.ar.equalsIgnoreCase(s)) {
                 return entityplayer;
             }
         }
@@ -292,7 +292,7 @@ public class ServerConfigurationManager {
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-            if (this.g(entityplayer.aq)) {
+            if (this.g(entityplayer.ar)) {
                 entityplayer.a.b((Packet) packet3chat);
             }
         }

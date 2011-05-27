@@ -13,12 +13,8 @@ public class BlockTorch extends Block {
         return null;
     }
 
-    public boolean b() {
+    public boolean a() {
         return false;
-    }
-
-    public int a() {
-        return 2;
     }
 
     public boolean a(World world, int i, int j, int k) {

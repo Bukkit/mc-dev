@@ -30,9 +30,13 @@ public class EntityTracker {
                     entitytrackerentry.a(entityplayer);
                 }
             }
+        } else if (entity instanceof EntityFish) {
+            this.a(entity, 64, 20);
         } else if (entity instanceof EntityItem) {
             this.a(entity, 64, 20);
         } else if (entity instanceof EntityMinecart) {
+            this.a(entity, 160, 4);
+        } else if (entity instanceof EntityBoat) {
             this.a(entity, 160, 4);
         } else if (entity instanceof IAnimal) {
             this.a(entity, 160, 2);
@@ -44,19 +48,19 @@ public class EntityTracker {
             i = this.d;
         }
 
-        if (this.b.b(entity.c)) {
+        if (this.b.b(entity.g)) {
             throw new IllegalStateException("Entity is already tracked!");
         } else {
             EntityTrackerEntry entitytrackerentry = new EntityTrackerEntry(entity, i, j);
 
             this.a.add(entitytrackerentry);
-            this.b.a(entity.c, entitytrackerentry);
-            entitytrackerentry.b(this.c.e.k);
+            this.b.a(entity.g, entitytrackerentry);
+            entitytrackerentry.b(this.c.e.d);
         }
     }
 
     public void b(Entity entity) {
-        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.b.d(entity.c);
+        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.b.d(entity.g);
 
         if (entitytrackerentry != null) {
             this.a.remove(entitytrackerentry);
@@ -71,7 +75,7 @@ public class EntityTracker {
         while (iterator.hasNext()) {
             EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
 
-            entitytrackerentry.a(this.c.e.k);
+            entitytrackerentry.a(this.c.e.d);
             if (entitytrackerentry.j && entitytrackerentry.a instanceof EntityPlayer) {
                 arraylist.add((EntityPlayer) entitytrackerentry.a);
             }
@@ -92,7 +96,7 @@ public class EntityTracker {
     }
 
     public void a(Entity entity, Packet packet) {
-        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.b.a(entity.c);
+        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.b.a(entity.g);
 
         if (entitytrackerentry != null) {
             entitytrackerentry.a(packet);

@@ -4,36 +4,36 @@ public class EntityZombie extends EntityMonster {
 
     public EntityZombie(World world) {
         super(world);
-        this.aC = "/mob/zombie.png";
-        this.bi = 0.5F;
-        this.af = 5;
+        this.aF = "/mob/zombie.png";
+        this.bl = 0.5F;
+        this.e = 5;
     }
 
-    public void y() {
-        if (this.h.a()) {
+    public void D() {
+        if (this.l.b()) {
             float f = this.b(1.0F);
 
-            if (f > 0.5F && this.h.g(MathHelper.b(this.l), MathHelper.b(this.m), MathHelper.b(this.n)) && this.R.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
-                this.U = 300;
+            if (f > 0.5F && this.l.g(MathHelper.b(this.p), MathHelper.b(this.q), MathHelper.b(this.r)) && this.V.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
+                this.Y = 300;
             }
         }
 
-        super.y();
-    }
-
-    protected String c() {
-        return "mob.zombie";
+        super.D();
     }
 
     protected String d() {
-        return "mob.zombiehurt";
+        return "mob.zombie";
     }
 
     protected String e() {
+        return "mob.zombiehurt";
+    }
+
+    protected String f() {
         return "mob.zombiedeath";
     }
 
     protected int g() {
-        return Item.FEATHER.aS;
+        return Item.FEATHER.aW;
     }
 }

@@ -81,11 +81,11 @@ public class ChunkLoader implements IChunkLoader {
     }
 
     public void a(World world, Chunk chunk) {
-        world.g();
+        world.h();
         File file1 = this.a(chunk.j, chunk.k);
 
         if (file1.exists()) {
-            world.u -= file1.length();
+            world.v -= file1.length();
         }
 
         try {
@@ -103,17 +103,17 @@ public class ChunkLoader implements IChunkLoader {
             }
 
             file2.renameTo(file1);
-            world.u += file1.length();
+            world.v += file1.length();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
 
     public void a(Chunk chunk, World world, NBTTagCompound nbttagcompound) {
-        world.g();
+        world.h();
         nbttagcompound.a("xPos", chunk.j);
         nbttagcompound.a("zPos", chunk.k);
-        nbttagcompound.a("LastUpdate", world.c);
+        nbttagcompound.a("LastUpdate", world.e);
         nbttagcompound.a("Blocks", chunk.b);
         nbttagcompound.a("Data", chunk.e.a);
         nbttagcompound.a("SkyLight", chunk.f.a);

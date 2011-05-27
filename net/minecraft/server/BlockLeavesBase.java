@@ -9,13 +9,13 @@ public class BlockLeavesBase extends Block {
         this.a = flag;
     }
 
-    public boolean b() {
+    public boolean a() {
         return false;
     }
 
     public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         int i1 = iblockaccess.a(i, j, k);
 
-        return !this.a && i1 == this.bc ? false : super.a(iblockaccess, i, j, k, l);
+        return !this.a && i1 == this.bi ? false : super.a(iblockaccess, i, j, k, l);
     }
 }

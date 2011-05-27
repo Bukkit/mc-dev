@@ -13,14 +13,10 @@ public class BlockFence extends Block {
     }
 
     public boolean a(World world, int i, int j, int k) {
-        return world.a(i, j - 1, k) == this.bc ? false : (!world.c(i, j - 1, k).a() ? false : super.a(world, i, j, k));
+        return world.a(i, j - 1, k) == this.bi ? false : (!world.c(i, j - 1, k).a() ? false : super.a(world, i, j, k));
     }
 
-    public boolean b() {
+    public boolean a() {
         return false;
-    }
-
-    public int a() {
-        return 11;
     }
 }

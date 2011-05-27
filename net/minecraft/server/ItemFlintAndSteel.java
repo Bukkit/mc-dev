@@ -4,8 +4,8 @@ public class ItemFlintAndSteel extends Item {
 
     public ItemFlintAndSteel(int i) {
         super(i);
-        this.aT = 1;
-        this.aU = 64;
+        this.aX = 1;
+        this.aY = 64;
     }
 
     public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
@@ -37,7 +37,7 @@ public class ItemFlintAndSteel extends Item {
 
         if (i1 == 0) {
             world.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, b.nextFloat() * 0.4F + 0.8F);
-            world.d(i, j, k, Block.FIRE.bc);
+            world.d(i, j, k, Block.FIRE.bi);
         }
 
         itemstack.a(1);

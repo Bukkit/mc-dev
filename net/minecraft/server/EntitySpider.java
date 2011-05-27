@@ -4,29 +4,25 @@ public class EntitySpider extends EntityMonster {
 
     public EntitySpider(World world) {
         super(world);
-        this.aC = "/mob/spider.png";
+        this.aF = "/mob/spider.png";
         this.a(1.4F, 0.9F);
-        this.bi = 0.8F;
+        this.bl = 0.8F;
     }
 
-    public double h() {
-        return (double) this.E * 0.75D - 0.5D;
+    public double j() {
+        return (double) this.I * 0.75D - 0.5D;
     }
 
-    protected Entity i() {
+    protected Entity k() {
         float f = this.b(1.0F);
 
         if (f < 0.5F) {
             double d0 = 16.0D;
 
-            return this.h.a(this, d0);
+            return this.l.a(this, d0);
         } else {
             return null;
         }
-    }
-
-    protected String c() {
-        return "mob.spider";
     }
 
     protected String d() {
@@ -34,24 +30,28 @@ public class EntitySpider extends EntityMonster {
     }
 
     protected String e() {
+        return "mob.spider";
+    }
+
+    protected String f() {
         return "mob.spiderdeath";
     }
 
     protected void a(Entity entity, float f) {
         float f1 = this.b(1.0F);
 
-        if (f1 > 0.5F && this.R.nextInt(100) == 0) {
-            this.ag = null;
+        if (f1 > 0.5F && this.V.nextInt(100) == 0) {
+            this.f = null;
         } else {
-            if (f > 2.0F && f < 6.0F && this.R.nextInt(10) == 0) {
-                if (this.w) {
-                    double d0 = entity.l - this.l;
-                    double d1 = entity.n - this.n;
+            if (f > 2.0F && f < 6.0F && this.V.nextInt(10) == 0) {
+                if (this.A) {
+                    double d0 = entity.p - this.p;
+                    double d1 = entity.r - this.r;
                     float f2 = MathHelper.a(d0 * d0 + d1 * d1);
 
-                    this.o = d0 / (double) f2 * 0.5D * 0.800000011920929D + this.o * 0.20000000298023224D;
-                    this.q = d1 / (double) f2 * 0.5D * 0.800000011920929D + this.q * 0.20000000298023224D;
-                    this.p = 0.4000000059604645D;
+                    this.s = d0 / (double) f2 * 0.5D * 0.800000011920929D + this.s * 0.20000000298023224D;
+                    this.u = d1 / (double) f2 * 0.5D * 0.800000011920929D + this.u * 0.20000000298023224D;
+                    this.t = 0.4000000059604645D;
                 }
             } else {
                 super.a(entity, f);
@@ -68,6 +68,6 @@ public class EntitySpider extends EntityMonster {
     }
 
     protected int g() {
-        return Item.STRING.aS;
+        return Item.STRING.aW;
     }
 }

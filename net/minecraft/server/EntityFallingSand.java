@@ -12,55 +12,55 @@ public class EntityFallingSand extends Entity {
     public EntityFallingSand(World world, float f, float f1, float f2, int i) {
         super(world);
         this.a = i;
-        this.e = true;
+        this.i = true;
         this.a(0.98F, 0.98F);
-        this.C = this.E / 2.0F;
+        this.G = this.I / 2.0F;
         this.a((double) f, (double) f1, (double) f2);
-        this.o = 0.0D;
-        this.p = 0.0D;
-        this.q = 0.0D;
-        this.H = false;
-        this.i = (double) f;
-        this.j = (double) f1;
-        this.k = (double) f2;
+        this.s = 0.0D;
+        this.t = 0.0D;
+        this.u = 0.0D;
+        this.L = false;
+        this.m = (double) f;
+        this.n = (double) f1;
+        this.o = (double) f2;
     }
 
     public boolean c_() {
-        return !this.B;
+        return !this.F;
     }
 
     public void b_() {
         if (this.a == 0) {
-            this.j();
+            this.l();
         } else {
-            this.i = this.l;
-            this.j = this.m;
-            this.k = this.n;
+            this.m = this.p;
+            this.n = this.q;
+            this.o = this.r;
             ++this.b;
-            this.p -= 0.03999999910593033D;
-            this.c(this.o, this.p, this.q);
-            this.o *= 0.9800000190734863D;
-            this.p *= 0.9800000190734863D;
-            this.q *= 0.9800000190734863D;
-            int i = MathHelper.b(this.l);
-            int j = MathHelper.b(this.m);
-            int k = MathHelper.b(this.n);
+            this.t -= 0.03999999910593033D;
+            this.c(this.s, this.t, this.u);
+            this.s *= 0.9800000190734863D;
+            this.t *= 0.9800000190734863D;
+            this.u *= 0.9800000190734863D;
+            int i = MathHelper.b(this.p);
+            int j = MathHelper.b(this.q);
+            int k = MathHelper.b(this.r);
 
-            if (this.h.a(i, j, k) == this.a) {
-                this.h.d(i, j, k, 0);
+            if (this.l.a(i, j, k) == this.a) {
+                this.l.d(i, j, k, 0);
             }
 
-            if (this.w) {
-                this.o *= 0.699999988079071D;
-                this.q *= 0.699999988079071D;
-                this.p *= -0.5D;
-                this.j();
-                if (!this.h.a(this.a, i, j, k, true) || !this.h.d(i, j, k, this.a)) {
+            if (this.A) {
+                this.s *= 0.699999988079071D;
+                this.u *= 0.699999988079071D;
+                this.t *= -0.5D;
+                this.l();
+                if (!this.l.a(this.a, i, j, k, true) || !this.l.d(i, j, k, this.a)) {
                     this.a(this.a, 1);
                 }
             } else if (this.b > 100) {
                 this.a(this.a, 1);
-                this.j();
+                this.l();
             }
         }
     }

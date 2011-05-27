@@ -14,10 +14,10 @@ public class Packet23VehicleSpawn extends Packet {
     public Packet23VehicleSpawn() {}
 
     public Packet23VehicleSpawn(Entity entity, int i) {
-        this.a = entity.c;
-        this.b = MathHelper.b(entity.l * 32.0D);
-        this.c = MathHelper.b(entity.m * 32.0D);
-        this.d = MathHelper.b(entity.n * 32.0D);
+        this.a = entity.g;
+        this.b = MathHelper.b(entity.p * 32.0D);
+        this.c = MathHelper.b(entity.q * 32.0D);
+        this.d = MathHelper.b(entity.r * 32.0D);
         this.e = i;
     }
 

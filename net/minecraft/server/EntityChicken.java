@@ -4,47 +4,47 @@ public class EntityChicken extends EntityAnimal {
 
     public boolean a = false;
     public float b = 0.0F;
-    public float ad = 0.0F;
-    public float ae;
-    public float af;
-    public float ai = 1.0F;
-    public int aj;
+    public float c = 0.0F;
+    public float d;
+    public float e;
+    public float aj = 1.0F;
+    public int ak;
 
     public EntityChicken(World world) {
         super(world);
-        this.aC = "/mob/chicken.png";
+        this.aF = "/mob/chicken.png";
         this.a(0.3F, 0.4F);
-        this.aM = 4;
-        this.aj = this.R.nextInt(6000) + 6000;
+        this.aP = 4;
+        this.ak = this.V.nextInt(6000) + 6000;
     }
 
-    public void y() {
-        super.y();
-        this.af = this.b;
-        this.ae = this.ad;
-        this.ad = (float) ((double) this.ad + (double) (this.w ? -1 : 4) * 0.3D);
-        if (this.ad < 0.0F) {
-            this.ad = 0.0F;
+    public void D() {
+        super.D();
+        this.e = this.b;
+        this.d = this.c;
+        this.c = (float) ((double) this.c + (double) (this.A ? -1 : 4) * 0.3D);
+        if (this.c < 0.0F) {
+            this.c = 0.0F;
         }
 
-        if (this.ad > 1.0F) {
-            this.ad = 1.0F;
+        if (this.c > 1.0F) {
+            this.c = 1.0F;
         }
 
-        if (!this.w && this.ai < 1.0F) {
-            this.ai = 1.0F;
+        if (!this.A && this.aj < 1.0F) {
+            this.aj = 1.0F;
         }
 
-        this.ai = (float) ((double) this.ai * 0.9D);
-        if (!this.w && this.p < 0.0D) {
-            this.p *= 0.6D;
+        this.aj = (float) ((double) this.aj * 0.9D);
+        if (!this.A && this.t < 0.0D) {
+            this.t *= 0.6D;
         }
 
-        this.b += this.ai * 2.0F;
-        if (!this.h.x && --this.aj <= 0) {
-            this.h.a(this, "mob.chickenplop", 1.0F, (this.R.nextFloat() - this.R.nextFloat()) * 0.2F + 1.0F);
-            this.a(Item.EGG.aS, 1);
-            this.aj = this.R.nextInt(6000) + 6000;
+        this.b += this.aj * 2.0F;
+        if (!this.l.z && --this.ak <= 0) {
+            this.l.a(this, "mob.chickenplop", 1.0F, (this.V.nextFloat() - this.V.nextFloat()) * 0.2F + 1.0F);
+            this.a(Item.EGG.aW, 1);
+            this.ak = this.V.nextInt(6000) + 6000;
         }
     }
 
@@ -58,19 +58,19 @@ public class EntityChicken extends EntityAnimal {
         super.b(nbttagcompound);
     }
 
-    protected String c() {
-        return "mob.chicken";
-    }
-
     protected String d() {
-        return "mob.chickenhurt";
+        return "mob.chicken";
     }
 
     protected String e() {
         return "mob.chickenhurt";
     }
 
+    protected String f() {
+        return "mob.chickenhurt";
+    }
+
     protected int g() {
-        return Item.FEATHER.aS;
+        return Item.FEATHER.aW;
     }
 }

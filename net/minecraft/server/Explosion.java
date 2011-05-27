@@ -3,13 +3,17 @@ package net.minecraft.server;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 public class Explosion {
+
+    public boolean a = false;
+    private Random b = new Random();
 
     public Explosion() {}
 
     public void a(World world, Entity entity, double d0, double d1, double d2, float f) {
-        world.a(d0, d1, d2, "random.explode", 4.0F, (1.0F + (world.m.nextFloat() - world.m.nextFloat()) * 0.2F) * 0.7F);
+        world.a(d0, d1, d2, "random.explode", 4.0F, (1.0F + (world.l.nextFloat() - world.l.nextFloat()) * 0.2F) * 0.7F);
         HashSet hashset = new HashSet();
         float f1 = f;
         byte b0 = 16;
@@ -33,7 +37,7 @@ public class Explosion {
                         d6 /= d9;
                         d7 /= d9;
                         d8 /= d9;
-                        float f2 = f * (0.7F + world.m.nextFloat() * 0.6F);
+                        float f2 = f * (0.7F + world.l.nextFloat() * 0.6F);
 
                         d3 = d0;
                         d4 = d1;
@@ -81,19 +85,19 @@ public class Explosion {
             double d13 = entity1.e(d0, d1, d2) / (double) f;
 
             if (d13 <= 1.0D) {
-                d3 = entity1.l - d0;
-                d4 = entity1.m - d1;
-                d5 = entity1.n - d2;
+                d3 = entity1.p - d0;
+                d4 = entity1.q - d1;
+                d5 = entity1.r - d2;
                 d11 = (double) MathHelper.a(d3 * d3 + d4 * d4 + d5 * d5);
                 d3 /= d11;
                 d4 /= d11;
                 d5 /= d11;
-                d10 = (double) world.a(vec3d, entity1.v);
+                d10 = (double) world.a(vec3d, entity1.z);
                 d12 = (1.0D - d13) * d10;
                 entity1.a(entity, (int) ((d12 * d12 + d12) / 2.0D * 8.0D * (double) f + 1.0D));
-                entity1.o += d3 * d12;
-                entity1.p += d4 * d12;
-                entity1.q += d5 * d12;
+                entity1.s += d3 * d12;
+                entity1.t += d4 * d12;
+                entity1.u += d5 * d12;
             }
         }
 
@@ -102,17 +106,25 @@ public class Explosion {
 
         arraylist.addAll(hashset);
 
-        for (int l2 = arraylist.size() - 1; l2 >= 0; --l2) {
-            ChunkPosition chunkposition = (ChunkPosition) arraylist.get(l2);
-            int i3 = chunkposition.a;
-            int j3 = chunkposition.b;
-            int k3 = chunkposition.c;
-            int l3 = world.a(i3, j3, k3);
+        int l2;
+        int i3;
+        ChunkPosition chunkposition;
+        int j3;
+        int k3;
+        int l3;
+        int i4;
 
-            for (int i4 = 0; i4 < 1; ++i4) {
-                d5 = (double) ((float) i3 + world.m.nextFloat());
-                d11 = (double) ((float) j3 + world.m.nextFloat());
-                d10 = (double) ((float) k3 + world.m.nextFloat());
+        for (l3 = arraylist.size() - 1; l3 >= 0; --l3) {
+            chunkposition = (ChunkPosition) arraylist.get(l3);
+            i4 = chunkposition.a;
+            i3 = chunkposition.b;
+            l2 = chunkposition.c;
+            k3 = world.a(i4, i3, l2);
+
+            for (j3 = 0; j3 < 1; ++j3) {
+                d5 = (double) ((float) i4 + world.l.nextFloat());
+                d11 = (double) ((float) i3 + world.l.nextFloat());
+                d10 = (double) ((float) l2 + world.l.nextFloat());
                 d12 = d5 - d0;
                 double d14 = d11 - d1;
                 double d15 = d10 - d2;
@@ -123,7 +135,7 @@ public class Explosion {
                 d15 /= d16;
                 double d17 = 0.5D / (d16 / (double) f + 0.1D);
 
-                d17 *= (double) (world.m.nextFloat() * world.m.nextFloat() + 0.3F);
+                d17 *= (double) (world.l.nextFloat() * world.l.nextFloat() + 0.3F);
                 d12 *= d17;
                 d14 *= d17;
                 d15 *= d17;
@@ -131,10 +143,24 @@ public class Explosion {
                 world.a("smoke", d5, d11, d10, d12, d14, d15);
             }
 
-            if (l3 > 0) {
-                Block.n[l3].a(world, i3, j3, k3, world.b(i3, j3, k3), 0.3F);
-                world.d(i3, j3, k3, 0);
-                Block.n[l3].c(world, i3, j3, k3);
+            if (k3 > 0) {
+                Block.n[k3].a(world, i4, i3, l2, world.b(i4, i3, l2), 0.3F);
+                world.d(i4, i3, l2, 0);
+                Block.n[k3].c(world, i4, i3, l2);
+            }
+        }
+
+        if (this.a) {
+            for (l3 = arraylist.size() - 1; l3 >= 0; --l3) {
+                chunkposition = (ChunkPosition) arraylist.get(l3);
+                i4 = chunkposition.a;
+                i3 = chunkposition.b;
+                l2 = chunkposition.c;
+                k3 = world.a(i4, i3, l2);
+                j3 = world.a(i4, i3 - 1, l2);
+                if (k3 == 0 && Block.p[j3] && this.b.nextInt(3) == 0) {
+                    world.d(i4, i3, l2, Block.FIRE.bi);
+                }
             }
         }
     }

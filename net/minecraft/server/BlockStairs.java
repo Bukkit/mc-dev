@@ -8,19 +8,15 @@ public class BlockStairs extends Block {
     private Block a;
 
     protected BlockStairs(int i, Block block) {
-        super(i, block.bb, block.bn);
+        super(i, block.bh, block.bt);
         this.a = block;
-        this.c(block.bd);
-        this.b(block.be / 3.0F);
-        this.a(block.bl);
+        this.c(block.bj);
+        this.b(block.bk / 3.0F);
+        this.a(block.br);
     }
 
-    public boolean b() {
+    public boolean a() {
         return false;
-    }
-
-    public int a() {
-        return 10;
     }
 
     public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
@@ -55,98 +51,6 @@ public class BlockStairs extends Block {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public void b(World world, int i, int j, int k, int l) {
-        if (!world.x) {
-            if (world.c(i, j + 1, k).a()) {
-                world.d(i, j, k, this.a.bc);
-            } else {
-                this.g(world, i, j, k);
-                this.g(world, i + 1, j - 1, k);
-                this.g(world, i - 1, j - 1, k);
-                this.g(world, i, j - 1, k - 1);
-                this.g(world, i, j - 1, k + 1);
-                this.g(world, i + 1, j + 1, k);
-                this.g(world, i - 1, j + 1, k);
-                this.g(world, i, j + 1, k - 1);
-                this.g(world, i, j + 1, k + 1);
-            }
-
-            this.a.b(world, i, j, k, l);
-        }
-    }
-
-    private void g(World world, int i, int j, int k) {
-        if (this.i(world, i, j, k)) {
-            byte b0 = -1;
-
-            if (this.i(world, i + 1, j + 1, k)) {
-                b0 = 0;
-            }
-
-            if (this.i(world, i - 1, j + 1, k)) {
-                b0 = 1;
-            }
-
-            if (this.i(world, i, j + 1, k + 1)) {
-                b0 = 2;
-            }
-
-            if (this.i(world, i, j + 1, k - 1)) {
-                b0 = 3;
-            }
-
-            if (b0 < 0) {
-                if (this.h(world, i + 1, j, k) && !this.h(world, i - 1, j, k)) {
-                    b0 = 0;
-                }
-
-                if (this.h(world, i - 1, j, k) && !this.h(world, i + 1, j, k)) {
-                    b0 = 1;
-                }
-
-                if (this.h(world, i, j, k + 1) && !this.h(world, i, j, k - 1)) {
-                    b0 = 2;
-                }
-
-                if (this.h(world, i, j, k - 1) && !this.h(world, i, j, k + 1)) {
-                    b0 = 3;
-                }
-            }
-
-            if (b0 < 0) {
-                if (this.i(world, i - 1, j - 1, k)) {
-                    b0 = 0;
-                }
-
-                if (this.i(world, i + 1, j - 1, k)) {
-                    b0 = 1;
-                }
-
-                if (this.i(world, i, j - 1, k - 1)) {
-                    b0 = 2;
-                }
-
-                if (this.i(world, i, j - 1, k + 1)) {
-                    b0 = 3;
-                }
-            }
-
-            if (b0 >= 0) {
-                world.b(i, j, k, b0);
-            }
-        }
-    }
-
-    private boolean h(World world, int i, int j, int k) {
-        return world.c(i, j, k).a();
-    }
-
-    private boolean i(World world, int i, int j, int k) {
-        int l = world.a(i, j, k);
-
-        return l == 0 ? false : Block.n[l].a() == 10;
-    }
-
     public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
         this.a.b(world, i, j, k, entityhuman);
     }
@@ -171,16 +75,16 @@ public class BlockStairs extends Block {
         return this.a.a(i);
     }
 
-    public int c() {
-        return this.a.c();
+    public int b() {
+        return this.a.b();
     }
 
     public void a(World world, int i, int j, int k, Entity entity, Vec3D vec3d) {
         this.a.a(world, i, j, k, entity, vec3d);
     }
 
-    public boolean e() {
-        return this.a.e();
+    public boolean d() {
+        return this.a.d();
     }
 
     public boolean a(int i, boolean flag) {
@@ -222,5 +126,25 @@ public class BlockStairs extends Block {
 
     public void c(World world, int i, int j, int k) {
         this.a.c(world, i, j, k);
+    }
+
+    public void a(World world, int i, int j, int k, EntityLiving entityliving) {
+        int l = MathHelper.b((double) (entityliving.v * 4.0F / 360.0F) + 0.5D) & 3;
+
+        if (l == 0) {
+            world.b(i, j, k, 2);
+        }
+
+        if (l == 1) {
+            world.b(i, j, k, 1);
+        }
+
+        if (l == 2) {
+            world.b(i, j, k, 3);
+        }
+
+        if (l == 3) {
+            world.b(i, j, k, 0);
+        }
     }
 }

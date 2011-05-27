@@ -4,6 +4,6 @@ public class ItemBoat extends Item {
 
     public ItemBoat(int i) {
         super(i);
-        this.aT = 1;
+        this.aX = 1;
     }
 }

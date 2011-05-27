@@ -2,41 +2,41 @@ package net.minecraft.server;
 
 public class EntityMonster extends EntityCreature implements IMonster {
 
-    protected int af = 2;
+    protected int e = 2;
 
     public EntityMonster(World world) {
         super(world);
-        this.aM = 20;
+        this.aP = 20;
     }
 
-    public void y() {
+    public void D() {
         float f = this.b(1.0F);
 
         if (f > 0.5F) {
-            this.bc += 2;
+            this.bf += 2;
         }
 
-        super.y();
+        super.D();
     }
 
     public void b_() {
         super.b_();
-        if (this.h.l == 0) {
-            this.j();
+        if (this.l.k == 0) {
+            this.l();
         }
     }
 
-    protected Entity i() {
-        EntityHuman entityhuman = this.h.a(this, 16.0D);
+    protected Entity k() {
+        EntityHuman entityhuman = this.l.a(this, 16.0D);
 
         return entityhuman != null && this.g(entityhuman) ? entityhuman : null;
     }
 
     public boolean a(Entity entity, int i) {
         if (super.a(entity, i)) {
-            if (this.f != entity && this.g != entity) {
+            if (this.j != entity && this.k != entity) {
                 if (entity != this) {
-                    this.ag = entity;
+                    this.f = entity;
                 }
 
                 return true;
@@ -49,14 +49,14 @@ public class EntityMonster extends EntityCreature implements IMonster {
     }
 
     protected void a(Entity entity, float f) {
-        if ((double) f < 2.5D && entity.v.e > this.v.b && entity.v.b < this.v.e) {
-            this.aS = 20;
-            entity.a(this, this.af);
+        if ((double) f < 2.5D && entity.z.e > this.z.b && entity.z.b < this.z.e) {
+            this.aV = 20;
+            entity.a(this, this.e);
         }
     }
 
     protected float a(int i, int j, int k) {
-        return 0.5F - this.h.j(i, j, k);
+        return 0.5F - this.l.j(i, j, k);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -68,16 +68,21 @@ public class EntityMonster extends EntityCreature implements IMonster {
     }
 
     public boolean a() {
-        int i = MathHelper.b(this.l);
-        int j = MathHelper.b(this.v.b);
-        int k = MathHelper.b(this.n);
+        int i = MathHelper.b(this.p);
+        int j = MathHelper.b(this.z.b);
+        int k = MathHelper.b(this.r);
 
-        if (this.h.a(EnumSkyBlock.SKY, i, j, k) > this.R.nextInt(32)) {
+        if (this.l.a(EnumSkyBlock.SKY, i, j, k) > this.V.nextInt(32)) {
             return false;
         } else {
-            int l = this.h.h(i, j, k);
+            int l = this.l.h(i, j, k);
+            int i1 = 16 - j * 16 / 128;
 
-            return l <= this.R.nextInt(8) && super.a();
+            if (i1 < 1) {
+                i1 = 1;
+            }
+
+            return l <= this.V.nextInt(i1) && super.a();
         }
     }
 }

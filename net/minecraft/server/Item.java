@@ -45,7 +45,7 @@ public class Item {
     public static Item IRON_HOE = (new ItemHoe(36, 2)).a(130);
     public static Item DIAMOND_HOE = (new ItemHoe(37, 3)).a(131);
     public static Item GOLD_HOE = (new ItemHoe(38, 1)).a(132);
-    public static Item SEEDS = (new ItemSeeds(39, Block.CROPS.bc)).a(9);
+    public static Item SEEDS = (new ItemSeeds(39, Block.CROPS.bi)).a(9);
     public static Item WHEAT = (new Item(40)).a(25);
     public static Item BREAD = (new ItemFood(41, 5)).a(41);
     public static Item LEATHER_HELMET = (new ItemArmor(42, 0, 0, 0)).a(0);
@@ -76,8 +76,8 @@ public class Item {
     public static Item SIGN = (new ItemSign(67)).a(42);
     public static Item WOOD_DOOR = (new ItemDoor(68, Material.c)).a(43);
     public static Item BUCKET = (new ItemBucket(69, 0)).a(74);
-    public static Item WATER_BUCKET = (new ItemBucket(70, Block.WATER.bc)).a(75);
-    public static Item LAVA_BUCKET = (new ItemBucket(71, Block.LAVA.bc)).a(76);
+    public static Item WATER_BUCKET = (new ItemBucket(70, Block.WATER.bi)).a(75);
+    public static Item LAVA_BUCKET = (new ItemBucket(71, Block.LAVA.bi)).a(76);
     public static Item MINECART = (new ItemMinecart(72, 0)).a(135);
     public static Item SADDLE = (new ItemSaddle(73)).a(104);
     public static Item IRON_DOOR = (new ItemDoor(74, Material.e)).a(44);
@@ -96,17 +96,21 @@ public class Item {
     public static Item POWERED_MINECART = (new ItemMinecart(87, 2)).a(167);
     public static Item EGG = (new Item(88)).a(12);
     public static Item COMPASS = (new Item(89)).a(54);
-    public static Item FISHING_ROD = (new Item(90)).a(69);
+    public static Item FISHING_ROD = (new ItemFishingRod(90)).a(69);
+    public static Item WATCH = (new Item(91)).a(70);
+    public static Item GLOWSTONE_DUST = (new Item(92)).a(73);
+    public static Item RAW_FISH = (new ItemFood(93, 2)).a(89);
+    public static Item COOKED_FISH = (new ItemFood(94, 5)).a(90);
     public static Item GOLD_RECORD = (new ItemRecord(2000, "13")).a(240);
     public static Item GREEN_RECORD = (new ItemRecord(2001, "cat")).a(241);
-    public final int aS;
-    protected int aT = 64;
-    protected int aU = 32;
-    protected int aV;
-    protected boolean aW = false;
+    public final int aW;
+    protected int aX = 64;
+    protected int aY = 32;
+    protected int aZ;
+    protected boolean ba = false;
 
     protected Item(int i) {
-        this.aS = 256 + i;
+        this.aW = 256 + i;
         if (c[256 + i] != null) {
             System.out.println("CONFLICT @ " + i);
         }
@@ -115,7 +119,7 @@ public class Item {
     }
 
     public Item a(int i) {
-        this.aV = i;
+        this.aZ = i;
         return this;
     }
 
@@ -128,11 +132,11 @@ public class Item {
     }
 
     public int a() {
-        return this.aT;
+        return this.aX;
     }
 
     public int b() {
-        return this.aU;
+        return this.aY;
     }
 
     public void a(ItemStack itemstack, int i, int j, int k, int l) {}
@@ -142,7 +146,7 @@ public class Item {
     }
 
     public Item c() {
-        this.aW = true;
+        this.ba = true;
         return this;
     }
 }

@@ -11,7 +11,7 @@ public class ItemBlock extends Item {
     }
 
     public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
-        if (world.a(i, j, k) == Block.SNOW.bc) {
+        if (world.a(i, j, k) == Block.SNOW.bi) {
             l = 0;
         } else {
             if (l == 0) {
@@ -47,7 +47,8 @@ public class ItemBlock extends Item {
 
                 if (world.d(i, j, k, this.a)) {
                     Block.n[this.a].c(world, i, j, k, l);
-                    world.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), block.bl.c(), (block.bl.a() + 1.0F) / 2.0F, block.bl.b() * 0.8F);
+                    Block.n[this.a].a(world, i, j, k, (EntityLiving) entityhuman);
+                    world.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), block.br.c(), (block.br.a() + 1.0F) / 2.0F, block.br.b() * 0.8F);
                     --itemstack.a;
                 }
             }

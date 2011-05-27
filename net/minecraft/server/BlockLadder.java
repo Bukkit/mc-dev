@@ -31,12 +31,8 @@ public class BlockLadder extends Block {
         return super.d(world, i, j, k);
     }
 
-    public boolean b() {
+    public boolean a() {
         return false;
-    }
-
-    public int a() {
-        return 8;
     }
 
     public boolean a(World world, int i, int j, int k) {

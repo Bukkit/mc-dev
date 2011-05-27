@@ -46,9 +46,9 @@ public class WorldGenDungeons extends WorldGenerator {
                             world.d(k1, l1, i2, 0);
                         } else if (world.c(k1, l1, i2).a()) {
                             if (l1 == j - 1 && random.nextInt(4) != 0) {
-                                world.d(k1, l1, i2, Block.MOSSY_COBBLESTONE.bc);
+                                world.d(k1, l1, i2, Block.MOSSY_COBBLESTONE.bi);
                             } else {
-                                world.d(k1, l1, i2, Block.COBBLESTONE.bc);
+                                world.d(k1, l1, i2, Block.COBBLESTONE.bi);
                             }
                         }
                     }
@@ -86,7 +86,7 @@ public class WorldGenDungeons extends WorldGenerator {
                                 }
 
                                 if (k2 == 1) {
-                                    world.d(i2, j, j2, Block.CHEST.bc);
+                                    world.d(i2, j, j2, Block.CHEST.bi);
                                     TileEntityChest tileentitychest = (TileEntityChest) world.k(i2, j, j2);
 
                                     for (int l2 = 0; l2 < 8; ++l2) {
@@ -110,7 +110,7 @@ public class WorldGenDungeons extends WorldGenerator {
                 }
             }
 
-            world.d(i, j, k, Block.MOB_SPAWNER.bc);
+            world.d(i, j, k, Block.MOB_SPAWNER.bi);
             TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.k(i, j, k);
 
             tileentitymobspawner.f = this.b(random);
@@ -123,7 +123,7 @@ public class WorldGenDungeons extends WorldGenerator {
     private ItemStack a(Random random) {
         int i = random.nextInt(11);
 
-        return i == 0 ? new ItemStack(Item.SADDLE) : (i == 1 ? new ItemStack(Item.IRON_INGOT, random.nextInt(4) + 1) : (i == 2 ? new ItemStack(Item.BREAD) : (i == 3 ? new ItemStack(Item.WHEAT, random.nextInt(4) + 1) : (i == 4 ? new ItemStack(Item.SULPHUR, random.nextInt(4) + 1) : (i == 5 ? new ItemStack(Item.STRING, random.nextInt(4) + 1) : (i == 6 ? new ItemStack(Item.BUCKET) : (i == 7 && random.nextInt(100) == 0 ? new ItemStack(Item.GOLDEN_APPLE) : (i == 8 && random.nextInt(2) == 0 ? new ItemStack(Item.REDSTONE, random.nextInt(4) + 1) : (i == 9 && random.nextInt(10) == 0 ? new ItemStack(Item.c[Item.GOLD_RECORD.aS + random.nextInt(2)]) : null)))))))));
+        return i == 0 ? new ItemStack(Item.SADDLE) : (i == 1 ? new ItemStack(Item.IRON_INGOT, random.nextInt(4) + 1) : (i == 2 ? new ItemStack(Item.BREAD) : (i == 3 ? new ItemStack(Item.WHEAT, random.nextInt(4) + 1) : (i == 4 ? new ItemStack(Item.SULPHUR, random.nextInt(4) + 1) : (i == 5 ? new ItemStack(Item.STRING, random.nextInt(4) + 1) : (i == 6 ? new ItemStack(Item.BUCKET) : (i == 7 && random.nextInt(100) == 0 ? new ItemStack(Item.GOLDEN_APPLE) : (i == 8 && random.nextInt(2) == 0 ? new ItemStack(Item.REDSTONE, random.nextInt(4) + 1) : (i == 9 && random.nextInt(10) == 0 ? new ItemStack(Item.c[Item.GOLD_RECORD.aW + random.nextInt(2)]) : null)))))))));
     }
 
     private String b(Random random) {

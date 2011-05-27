@@ -55,12 +55,12 @@ public class PlayerManager {
     }
 
     public void a(EntityPlayer entityplayer) {
-        this.d.f.a((Packet) (new Packet3Chat("\u00A7e" + entityplayer.aq + " joined the game.")));
-        int i = (int) entityplayer.l >> 4;
-        int j = (int) entityplayer.n >> 4;
+        this.d.f.a((Packet) (new Packet3Chat("\u00A7e" + entityplayer.ar + " joined the game.")));
+        int i = (int) entityplayer.p >> 4;
+        int j = (int) entityplayer.r >> 4;
 
-        entityplayer.ae = entityplayer.l;
-        entityplayer.af = entityplayer.n;
+        entityplayer.d = entityplayer.p;
+        entityplayer.e = entityplayer.r;
 
         for (int k = i - 10; k <= i + 10; ++k) {
             for (int l = j - 10; l <= j + 10; ++l) {
@@ -72,9 +72,9 @@ public class PlayerManager {
     }
 
     public void b(EntityPlayer entityplayer) {
-        this.d.f.a((Packet) (new Packet3Chat("\u00A7e" + entityplayer.aq + " left the game.")));
-        int i = (int) entityplayer.l >> 4;
-        int j = (int) entityplayer.n >> 4;
+        this.d.f.a((Packet) (new Packet3Chat("\u00A7e" + entityplayer.ar + " left the game.")));
+        int i = (int) entityplayer.p >> 4;
+        int j = (int) entityplayer.r >> 4;
 
         for (int k = i - 10; k <= i + 10; ++k) {
             for (int l = j - 10; l <= j + 10; ++l) {
@@ -97,15 +97,15 @@ public class PlayerManager {
     }
 
     public void c(EntityPlayer entityplayer) {
-        int i = (int) entityplayer.l >> 4;
-        int j = (int) entityplayer.n >> 4;
-        double d0 = entityplayer.ae - entityplayer.l;
-        double d1 = entityplayer.af - entityplayer.n;
+        int i = (int) entityplayer.p >> 4;
+        int j = (int) entityplayer.r >> 4;
+        double d0 = entityplayer.d - entityplayer.p;
+        double d1 = entityplayer.e - entityplayer.r;
         double d2 = d0 * d0 + d1 * d1;
 
         if (d2 >= 64.0D) {
-            int k = (int) entityplayer.ae >> 4;
-            int l = (int) entityplayer.af >> 4;
+            int k = (int) entityplayer.d >> 4;
+            int l = (int) entityplayer.e >> 4;
             int i1 = i - k;
             int j1 = j - l;
 
@@ -126,8 +126,8 @@ public class PlayerManager {
                     }
                 }
 
-                entityplayer.ae = entityplayer.l;
-                entityplayer.af = entityplayer.n;
+                entityplayer.d = entityplayer.p;
+                entityplayer.e = entityplayer.r;
             }
         }
     }

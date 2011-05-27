@@ -30,15 +30,15 @@ public abstract class BlockFluids extends Block {
     }
 
     public int a(int i) {
-        return i != 0 && i != 1 ? this.bb + 1 : this.bb;
+        return i != 0 && i != 1 ? this.bh + 1 : this.bh;
     }
 
     protected int g(World world, int i, int j, int k) {
-        return world.c(i, j, k) != this.bn ? -1 : world.b(i, j, k);
+        return world.c(i, j, k) != this.bt ? -1 : world.b(i, j, k);
     }
 
     protected int b(IBlockAccess iblockaccess, int i, int j, int k) {
-        if (iblockaccess.c(i, j, k) != this.bn) {
+        if (iblockaccess.c(i, j, k) != this.bt) {
             return -1;
         } else {
             int l = iblockaccess.b(i, j, k);
@@ -51,7 +51,7 @@ public abstract class BlockFluids extends Block {
         }
     }
 
-    public boolean b() {
+    public boolean a() {
         return false;
     }
 
@@ -62,15 +62,11 @@ public abstract class BlockFluids extends Block {
     public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         Material material = iblockaccess.c(i, j, k);
 
-        return material == this.bn ? false : (material == Material.r ? false : (l == 1 ? true : super.a(iblockaccess, i, j, k, l)));
+        return material == this.bt ? false : (material == Material.r ? false : (l == 1 ? true : super.a(iblockaccess, i, j, k, l)));
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {
         return null;
-    }
-
-    public int a() {
-        return 4;
     }
 
     public int a(int i, Random random) {
@@ -174,8 +170,8 @@ public abstract class BlockFluids extends Block {
         vec3d.c += vec3d1.c;
     }
 
-    public int c() {
-        return this.bn == Material.f ? 5 : (this.bn == Material.g ? 30 : 0);
+    public int b() {
+        return this.bt == Material.f ? 5 : (this.bt == Material.g ? 30 : 0);
     }
 
     public void a(World world, int i, int j, int k, Random random) {
@@ -191,8 +187,8 @@ public abstract class BlockFluids extends Block {
     }
 
     private void i(World world, int i, int j, int k) {
-        if (world.a(i, j, k) == this.bc) {
-            if (this.bn == Material.g) {
+        if (world.a(i, j, k) == this.bi) {
+            if (this.bt == Material.g) {
                 boolean flag = false;
 
                 if (flag || world.c(i, j, k - 1) == Material.f) {
@@ -219,9 +215,9 @@ public abstract class BlockFluids extends Block {
                     int l = world.b(i, j, k);
 
                     if (l == 0) {
-                        world.d(i, j, k, Block.OBSIDIAN.bc);
+                        world.d(i, j, k, Block.OBSIDIAN.bi);
                     } else if (l <= 4) {
-                        world.d(i, j, k, Block.COBBLESTONE.bc);
+                        world.d(i, j, k, Block.COBBLESTONE.bi);
                     }
 
                     this.h(world, i, j, k);
@@ -231,7 +227,7 @@ public abstract class BlockFluids extends Block {
     }
 
     protected void h(World world, int i, int j, int k) {
-        world.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (world.m.nextFloat() - world.m.nextFloat()) * 0.8F);
+        world.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (world.l.nextFloat() - world.l.nextFloat()) * 0.8F);
 
         for (int l = 0; l < 8; ++l) {
             world.a("largesmoke", (double) i + Math.random(), (double) j + 1.2D, (double) k + Math.random(), 0.0D, 0.0D, 0.0D);

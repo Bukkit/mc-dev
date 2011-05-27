@@ -4,6 +4,6 @@ public class ItemSnowball extends Item {
 
     public ItemSnowball(int i) {
         super(i);
-        this.aT = 16;
+        this.aX = 16;
     }
 }

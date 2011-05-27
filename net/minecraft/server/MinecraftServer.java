@@ -40,7 +40,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
         ConsoleLogManager.a();
-        a.info("Starting minecraft server version 0.2.1");
+        a.info("Starting minecraft server version 0.2.2");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             a.warning("**** NOT ENOUGH RAM!");
             a.warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
@@ -89,9 +89,9 @@ public class MinecraftServer implements ICommandListener, Runnable {
 
     private void c(String s) {
         a.info("Preparing start region");
-        this.e = new WorldServer(new File("."), s, this.d.a("monsters", false));
+        this.e = new WorldServer(new File("."), s, this.d.a("hellworld", false) ? -1 : 0);
         this.e.a(new WorldManager(this));
-        this.e.l = 1;
+        this.e.k = this.d.a("monsters", false) ? 1 : 0;
         this.f.a(this.e);
         byte b0 = 10;
 
@@ -103,7 +103,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
                     return;
                 }
 
-                this.e.y.d((this.e.n >> 4) + i, (this.e.p >> 4) + j);
+                this.e.A.d((this.e.m >> 4) + i, (this.e.o >> 4) + j);
             }
         }
 
@@ -227,16 +227,16 @@ public class MinecraftServer implements ICommandListener, Runnable {
         Vec3D.a();
         ++this.h;
         if (this.h % 20 == 0) {
-            this.f.a((Packet) (new Packet4UpdateTime(this.e.c)));
+            this.f.a((Packet) (new Packet4UpdateTime(this.e.e)));
         }
 
-        this.e.e();
+        this.e.f();
 
-        while (this.e.c()) {
+        while (this.e.d()) {
             ;
         }
 
-        this.e.b();
+        this.e.c();
         this.c.a();
         this.f.b();
         this.k.a();
@@ -275,10 +275,10 @@ public class MinecraftServer implements ICommandListener, Runnable {
                     this.a(s1, "Save complete.");
                 } else if (s.toLowerCase().startsWith("save-off")) {
                     this.a(s1, "Disabling level saving..");
-                    this.e.A = true;
+                    this.e.C = true;
                 } else if (s.toLowerCase().startsWith("save-on")) {
                     this.a(s1, "Enabling level saving..");
-                    this.e.A = false;
+                    this.e.C = false;
                 } else {
                     String s2;
 
@@ -322,14 +322,14 @@ public class MinecraftServer implements ICommandListener, Runnable {
                             for (int i = 0; i < this.f.b.size(); ++i) {
                                 EntityPlayer entityplayer1 = (EntityPlayer) this.f.b.get(i);
 
-                                if (entityplayer1.aq.equalsIgnoreCase(s2)) {
+                                if (entityplayer1.ar.equalsIgnoreCase(s2)) {
                                     entityplayer = entityplayer1;
                                 }
                             }
 
                             if (entityplayer != null) {
                                 entityplayer.a.c("Kicked by admin");
-                                this.a(s1, "Kicking " + entityplayer.aq);
+                                this.a(s1, "Kicking " + entityplayer.ar);
                             } else {
                                 icommandlistener.b("Can\'t find user " + s2 + ". No kick.");
                             }
@@ -347,7 +347,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
                                     } else if (entityplayer2 == null) {
                                         icommandlistener.b("Can\'t find user " + astring[2] + ". No tp.");
                                     } else {
-                                        entityplayer.a.a(entityplayer2.l, entityplayer2.m, entityplayer2.n, entityplayer2.r, entityplayer2.s);
+                                        entityplayer.a.a(entityplayer2.p, entityplayer2.q, entityplayer2.r, entityplayer2.v, entityplayer2.w);
                                         this.a(s1, "Teleporting " + astring[1] + " to " + astring[2] + ".");
                                     }
                                 } else {
@@ -367,7 +367,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
                                         int j = Integer.parseInt(astring[2]);
 
                                         if (Item.c[j] != null) {
-                                            this.a(s1, "Giving " + entityplayer2.aq + " some " + j);
+                                            this.a(s1, "Giving " + entityplayer2.ar + " some " + j);
                                             int k = 1;
 
                                             if (astring.length > 3) {
@@ -402,7 +402,6 @@ public class MinecraftServer implements ICommandListener, Runnable {
                                     s = s.substring(s.indexOf(" ")).trim();
                                     s = s.substring(s.indexOf(" ")).trim();
                                     a.info("[" + s1 + "->" + astring[1] + "] " + s);
-                                    this.f.a((Packet) (new Packet3Chat("\u00A7d[Server] " + s)));
                                     s = "\u00A77" + s1 + " whispers " + s;
                                     a.info(s);
                                     if (!this.f.a(astring[1], (Packet) (new Packet3Chat(s)))) {

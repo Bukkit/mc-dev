@@ -34,8 +34,8 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     public void c(int i, int j) {
-        int k = i * 16 + 8 - this.g.n;
-        int l = j * 16 + 8 - this.g.p;
+        int k = i * 16 + 8 - this.g.m;
+        int l = j * 16 + 8 - this.g.o;
         byte b0 = 20;
 
         if (k < -b0 || k > b0 || l < -b0 || l > b0) {
@@ -61,8 +61,9 @@ public class ChunkProviderServer implements IChunkProvider {
 
             this.e.put(chunkcoordinates, chunk);
             this.f.add(chunk);
+            chunk.c();
             if (chunk != null) {
-                chunk.c();
+                chunk.d();
             }
 
             if (!chunk.n && this.a(i + 1, j + 1) && this.a(i, j + 1) && this.a(i + 1, j)) {
@@ -89,7 +90,7 @@ public class ChunkProviderServer implements IChunkProvider {
         ChunkCoordinates chunkcoordinates = new ChunkCoordinates(i, j);
         Chunk chunk = (Chunk) this.e.get(chunkcoordinates);
 
-        return chunk == null ? (this.g.w ? this.d(i, j) : this.b) : chunk;
+        return chunk == null ? (this.g.x ? this.d(i, j) : this.b) : chunk;
     }
 
     private Chunk e(int i, int j) {
@@ -100,7 +101,7 @@ public class ChunkProviderServer implements IChunkProvider {
                 Chunk chunk = this.d.a(this.g, i, j);
 
                 if (chunk != null) {
-                    chunk.s = this.g.c;
+                    chunk.s = this.g.e;
                 }
 
                 return chunk;
@@ -124,7 +125,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private void b(Chunk chunk) {
         if (this.d != null) {
             try {
-                chunk.s = this.g.c;
+                chunk.s = this.g.e;
                 this.d.a(this.g, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
@@ -139,7 +140,7 @@ public class ChunkProviderServer implements IChunkProvider {
             chunk.n = true;
             if (this.c != null) {
                 this.c.a(ichunkprovider, i, j);
-                chunk.e();
+                chunk.f();
             }
         }
     }
@@ -176,13 +177,13 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     public boolean a() {
-        if (!this.g.A) {
+        if (!this.g.C) {
             for (int i = 0; i < 16; ++i) {
                 if (!this.a.isEmpty()) {
                     ChunkCoordinates chunkcoordinates = (ChunkCoordinates) this.a.iterator().next();
                     Chunk chunk = this.b(chunkcoordinates.a, chunkcoordinates.b);
 
-                    chunk.d();
+                    chunk.e();
                     this.b(chunk);
                     this.a(chunk);
                     this.a.remove(chunkcoordinates);
@@ -200,6 +201,6 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     public boolean b() {
-        return !this.g.A;
+        return !this.g.C;
     }
 }

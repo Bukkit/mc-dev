@@ -15,12 +15,8 @@ public class BlockRedstoneWire extends Block {
         return null;
     }
 
-    public boolean b() {
+    public boolean a() {
         return false;
-    }
-
-    public int a() {
-        return 5;
     }
 
     public boolean a(World world, int i, int j, int k) {
@@ -121,99 +117,103 @@ public class BlockRedstoneWire extends Block {
             }
 
             if (l == 0 || i1 == 0) {
-                world.g(i, j, k, this.bc);
-                world.g(i - 1, j, k, this.bc);
-                world.g(i + 1, j, k, this.bc);
-                world.g(i, j, k - 1, this.bc);
-                world.g(i, j, k + 1, this.bc);
-                world.g(i, j - 1, k, this.bc);
-                world.g(i, j + 1, k, this.bc);
+                world.g(i, j, k, this.bi);
+                world.g(i - 1, j, k, this.bi);
+                world.g(i + 1, j, k, this.bi);
+                world.g(i, j, k - 1, this.bi);
+                world.g(i, j, k + 1, this.bi);
+                world.g(i, j - 1, k, this.bi);
+                world.g(i, j + 1, k, this.bi);
             }
         }
     }
 
     private void h(World world, int i, int j, int k) {
-        if (world.a(i, j, k) == this.bc) {
-            world.g(i, j, k, this.bc);
-            world.g(i - 1, j, k, this.bc);
-            world.g(i + 1, j, k, this.bc);
-            world.g(i, j, k - 1, this.bc);
-            world.g(i, j, k + 1, this.bc);
-            world.g(i, j - 1, k, this.bc);
-            world.g(i, j + 1, k, this.bc);
+        if (world.a(i, j, k) == this.bi) {
+            world.g(i, j, k, this.bi);
+            world.g(i - 1, j, k, this.bi);
+            world.g(i + 1, j, k, this.bi);
+            world.g(i, j, k - 1, this.bi);
+            world.g(i, j, k + 1, this.bi);
+            world.g(i, j - 1, k, this.bi);
+            world.g(i, j + 1, k, this.bi);
         }
     }
 
     public void e(World world, int i, int j, int k) {
         super.e(world, i, j, k);
-        this.g(world, i, j, k);
-        world.g(i, j + 1, k, this.bc);
-        world.g(i, j - 1, k, this.bc);
-        this.h(world, i - 1, j, k);
-        this.h(world, i + 1, j, k);
-        this.h(world, i, j, k - 1);
-        this.h(world, i, j, k + 1);
-        if (world.d(i - 1, j, k)) {
-            this.h(world, i - 1, j + 1, k);
-        } else {
-            this.h(world, i - 1, j - 1, k);
-        }
+        if (!world.z) {
+            this.g(world, i, j, k);
+            world.g(i, j + 1, k, this.bi);
+            world.g(i, j - 1, k, this.bi);
+            this.h(world, i - 1, j, k);
+            this.h(world, i + 1, j, k);
+            this.h(world, i, j, k - 1);
+            this.h(world, i, j, k + 1);
+            if (world.d(i - 1, j, k)) {
+                this.h(world, i - 1, j + 1, k);
+            } else {
+                this.h(world, i - 1, j - 1, k);
+            }
 
-        if (world.d(i + 1, j, k)) {
-            this.h(world, i + 1, j + 1, k);
-        } else {
-            this.h(world, i + 1, j - 1, k);
-        }
+            if (world.d(i + 1, j, k)) {
+                this.h(world, i + 1, j + 1, k);
+            } else {
+                this.h(world, i + 1, j - 1, k);
+            }
 
-        if (world.d(i, j, k - 1)) {
-            this.h(world, i, j + 1, k - 1);
-        } else {
-            this.h(world, i, j - 1, k - 1);
-        }
+            if (world.d(i, j, k - 1)) {
+                this.h(world, i, j + 1, k - 1);
+            } else {
+                this.h(world, i, j - 1, k - 1);
+            }
 
-        if (world.d(i, j, k + 1)) {
-            this.h(world, i, j + 1, k + 1);
-        } else {
-            this.h(world, i, j - 1, k + 1);
+            if (world.d(i, j, k + 1)) {
+                this.h(world, i, j + 1, k + 1);
+            } else {
+                this.h(world, i, j - 1, k + 1);
+            }
         }
     }
 
     public void b(World world, int i, int j, int k) {
         super.b(world, i, j, k);
-        world.g(i, j + 1, k, this.bc);
-        world.g(i, j - 1, k, this.bc);
-        this.g(world, i, j, k);
-        this.h(world, i - 1, j, k);
-        this.h(world, i + 1, j, k);
-        this.h(world, i, j, k - 1);
-        this.h(world, i, j, k + 1);
-        if (world.d(i - 1, j, k)) {
-            this.h(world, i - 1, j + 1, k);
-        } else {
-            this.h(world, i - 1, j - 1, k);
-        }
+        if (!world.z) {
+            world.g(i, j + 1, k, this.bi);
+            world.g(i, j - 1, k, this.bi);
+            this.g(world, i, j, k);
+            this.h(world, i - 1, j, k);
+            this.h(world, i + 1, j, k);
+            this.h(world, i, j, k - 1);
+            this.h(world, i, j, k + 1);
+            if (world.d(i - 1, j, k)) {
+                this.h(world, i - 1, j + 1, k);
+            } else {
+                this.h(world, i - 1, j - 1, k);
+            }
 
-        if (world.d(i + 1, j, k)) {
-            this.h(world, i + 1, j + 1, k);
-        } else {
-            this.h(world, i + 1, j - 1, k);
-        }
+            if (world.d(i + 1, j, k)) {
+                this.h(world, i + 1, j + 1, k);
+            } else {
+                this.h(world, i + 1, j - 1, k);
+            }
 
-        if (world.d(i, j, k - 1)) {
-            this.h(world, i, j + 1, k - 1);
-        } else {
-            this.h(world, i, j - 1, k - 1);
-        }
+            if (world.d(i, j, k - 1)) {
+                this.h(world, i, j + 1, k - 1);
+            } else {
+                this.h(world, i, j - 1, k - 1);
+            }
 
-        if (world.d(i, j, k + 1)) {
-            this.h(world, i, j + 1, k + 1);
-        } else {
-            this.h(world, i, j - 1, k + 1);
+            if (world.d(i, j, k + 1)) {
+                this.h(world, i, j + 1, k + 1);
+            } else {
+                this.h(world, i, j - 1, k + 1);
+            }
         }
     }
 
     private int f(World world, int i, int j, int k, int l) {
-        if (world.a(i, j, k) != this.bc) {
+        if (world.a(i, j, k) != this.bi) {
             return l;
         } else {
             int i1 = world.b(i, j, k);
@@ -223,21 +223,23 @@ public class BlockRedstoneWire extends Block {
     }
 
     public void b(World world, int i, int j, int k, int l) {
-        int i1 = world.b(i, j, k);
-        boolean flag = this.a(world, i, j, k);
+        if (!world.z) {
+            int i1 = world.b(i, j, k);
+            boolean flag = this.a(world, i, j, k);
 
-        if (!flag) {
-            this.a_(world, i, j, k, i1);
-            world.d(i, j, k, 0);
-        } else {
-            this.g(world, i, j, k);
+            if (!flag) {
+                this.a_(world, i, j, k, i1);
+                world.d(i, j, k, 0);
+            } else {
+                this.g(world, i, j, k);
+            }
+
+            super.b(world, i, j, k, l);
         }
-
-        super.b(world, i, j, k, l);
     }
 
     public int a(int i, Random random) {
-        return Item.REDSTONE.aS;
+        return Item.REDSTONE.aW;
     }
 
     public boolean d(World world, int i, int j, int k, int l) {
@@ -279,13 +281,13 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
-    public boolean d() {
+    public boolean c() {
         return this.a;
     }
 
     public static boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
         int l = iblockaccess.a(i, j, k);
 
-        return l == Block.REDSTONE_WIRE.bc ? true : (l == 0 ? false : Block.n[l].d());
+        return l == Block.REDSTONE_WIRE.bi ? true : (l == 0 ? false : Block.n[l].c());
     }
 }

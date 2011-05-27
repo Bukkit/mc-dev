@@ -6,7 +6,7 @@ public class BlockSoil extends Block {
 
     protected BlockSoil(int i) {
         super(i, Material.b);
-        this.bb = 87;
+        this.bh = 87;
         this.a(true);
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
         this.c(255);
@@ -16,7 +16,7 @@ public class BlockSoil extends Block {
         return AxisAlignedBB.b((double) (i + 0), (double) (j + 0), (double) (k + 0), (double) (i + 1), (double) (j + 1), (double) (k + 1));
     }
 
-    public boolean b() {
+    public boolean a() {
         return false;
     }
 
@@ -30,15 +30,15 @@ public class BlockSoil extends Block {
                 if (l > 0) {
                     world.b(i, j, k, l - 1);
                 } else if (!this.g(world, i, j, k)) {
-                    world.d(i, j, k, Block.DIRT.bc);
+                    world.d(i, j, k, Block.DIRT.bi);
                 }
             }
         }
     }
 
     public void b(World world, int i, int j, int k, Entity entity) {
-        if (world.m.nextInt(4) == 0) {
-            world.d(i, j, k, Block.DIRT.bc);
+        if (world.l.nextInt(4) == 0) {
+            world.d(i, j, k, Block.DIRT.bi);
         }
     }
 
@@ -47,7 +47,7 @@ public class BlockSoil extends Block {
 
         for (int l = i - b0; l <= i + b0; ++l) {
             for (int i1 = k - b0; i1 <= k + b0; ++i1) {
-                if (world.a(l, j + 1, i1) == Block.CROPS.bc) {
+                if (world.a(l, j + 1, i1) == Block.CROPS.bi) {
                     return true;
                 }
             }
@@ -75,7 +75,7 @@ public class BlockSoil extends Block {
         Material material = world.c(i, j + 1, k);
 
         if (material.a()) {
-            world.d(i, j, k, Block.DIRT.bc);
+            world.d(i, j, k, Block.DIRT.bi);
         }
     }
 

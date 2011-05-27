@@ -111,7 +111,7 @@ public class MapGenCaves extends MapGenBase {
                             for (int l3 = j2 + 1; !flag2 && l3 >= i2 - 1; --l3) {
                                 i3 = (j3 * 16 + k3) * 128 + l3;
                                 if (l3 >= 0 && l3 < 128) {
-                                    if (abyte[i3] == Block.WATER.bc || abyte[i3] == Block.STATIONARY_WATER.bc) {
+                                    if (abyte[i3] == Block.WATER.bi || abyte[i3] == Block.STATIONARY_WATER.bi) {
                                         flag2 = true;
                                     }
 
@@ -138,17 +138,17 @@ public class MapGenCaves extends MapGenBase {
                                     if (d14 > -0.7D && d12 * d12 + d14 * d14 + d13 * d13 < 1.0D) {
                                         byte b0 = abyte[i4];
 
-                                        if (b0 == Block.GRASS.bc) {
+                                        if (b0 == Block.GRASS.bi) {
                                             flag3 = true;
                                         }
 
-                                        if (b0 == Block.STONE.bc || b0 == Block.DIRT.bc || b0 == Block.GRASS.bc) {
+                                        if (b0 == Block.STONE.bi || b0 == Block.DIRT.bi || b0 == Block.GRASS.bi) {
                                             if (j4 < 10) {
-                                                abyte[i4] = (byte) Block.LAVA.bc;
+                                                abyte[i4] = (byte) Block.LAVA.bi;
                                             } else {
                                                 abyte[i4] = 0;
-                                                if (flag3 && abyte[i4 - 1] == Block.DIRT.bc) {
-                                                    abyte[i4 - 1] = (byte) Block.GRASS.bc;
+                                                if (flag3 && abyte[i4 - 1] == Block.DIRT.bi) {
+                                                    abyte[i4 - 1] = (byte) Block.GRASS.bi;
                                                 }
                                             }
                                         }
