@@ -82,13 +82,13 @@ public class ItemInWorldManager {
         int l = this.b.a(i, j, k);
         int i1 = this.b.b(i, j, k);
         boolean flag = this.b(i, j, k);
-        ItemStack itemstack = this.a.I();
+        ItemStack itemstack = this.a.H();
 
         if (itemstack != null) {
             itemstack.a(l, i, j, k);
             if (itemstack.a == 0) {
                 itemstack.a(this.a);
-                this.a.J();
+                this.a.I();
             }
         }
 

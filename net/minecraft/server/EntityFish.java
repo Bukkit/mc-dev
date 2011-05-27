@@ -92,7 +92,7 @@ public class EntityFish extends Entity {
             this.b(this.v, this.w);
         } else {
             if (!this.l.z) {
-                ItemStack itemstack = this.b.I();
+                ItemStack itemstack = this.b.H();
 
                 if (this.b.G || !this.b.x() || itemstack == null || itemstack.a() != Item.FISHING_ROD || this.b(this.b) > 1024.0D) {
                     this.l();

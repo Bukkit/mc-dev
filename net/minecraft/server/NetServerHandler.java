@@ -34,6 +34,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     public void c(String s) {
         this.b.a((Packet) (new Packet255KickDisconnect(s)));
         this.b.c();
+        this.d.f.a((Packet) (new Packet3Chat("\u00A7e" + this.e.as + " left the game.")));
         this.d.f.c(this.e);
         this.c = true;
     }
@@ -290,6 +291,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void a(String s) {
         a.info(this.e.as + " lost connection: " + s);
+        this.d.f.a((Packet) (new Packet3Chat("\u00A7e" + this.e.as + " left the game.")));
         this.d.f.c(this.e);
         this.c = true;
     }
@@ -466,7 +468,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(Packet9 packet9) {
-        this.e.G();
-        this.b((Packet) (new Packet9()));
+        if (this.e.aQ <= 0) {
+            this.e = this.d.f.e(this.e);
+        }
     }
 }

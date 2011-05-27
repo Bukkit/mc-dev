@@ -185,7 +185,7 @@ public class EntityHuman extends EntityLiving {
 
     public void a(IInventory iinventory) {}
 
-    public void H() {}
+    public void G() {}
 
     public void c(Entity entity, int i) {}
 
@@ -234,11 +234,11 @@ public class EntityHuman extends EntityLiving {
         entity.a(this);
     }
 
-    public ItemStack I() {
+    public ItemStack H() {
         return this.al.b();
     }
 
-    public void J() {
+    public void I() {
         this.al.a(this.al.d, (ItemStack) null);
     }
 
@@ -256,17 +256,15 @@ public class EntityHuman extends EntityLiving {
 
         if (i > 0) {
             entity.a(this, i);
-            ItemStack itemstack = this.I();
+            ItemStack itemstack = this.H();
 
             if (itemstack != null && entity instanceof EntityLiving) {
                 itemstack.a((EntityLiving) entity);
                 if (itemstack.a <= 0) {
                     itemstack.a(this);
-                    this.J();
+                    this.I();
                 }
             }
         }
     }
-
-    public void G() {}
 }

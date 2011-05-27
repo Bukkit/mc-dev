@@ -144,29 +144,6 @@ public class EntityPlayer extends EntityHuman {
         this.a.a(this.p, this.q, this.r, this.v, this.w);
     }
 
-    public void G() {
-        this.aQ = 20;
-        int i = this.l.m;
-        int j = this.l.o;
-        int k = this.l.n;
-
-        if (!this.l.q.e) {
-            i += this.W.nextInt(20) - 10;
-            k = this.l.e(i, j);
-            j += this.W.nextInt(20) - 10;
-        }
-
-        this.a.a((double) i + 0.5D, (double) k, (double) j + 0.5D, 0.0F, 0.0F);
-        this.a.b((Packet) (new Packet6SpawnPosition(i, k, j)));
-        this.bu = -1;
-        this.Z = 0;
-        this.A = true;
-        this.ad = 300;
-        this.aa = 300;
-        this.aZ = false;
-        this.G = false;
-    }
-
     protected void a(double d0, boolean flag) {}
 
     public void b(double d0, boolean flag) {

@@ -224,4 +224,11 @@ public class EntityTrackerEntry {
             }
         }
     }
+
+    public void b(EntityPlayer entityplayer) {
+        if (this.p.contains(entityplayer)) {
+            this.p.remove(entityplayer);
+            entityplayer.a.b((Packet) (new Packet29DestroyEntity(this.a.g)));
+        }
+    }
 }

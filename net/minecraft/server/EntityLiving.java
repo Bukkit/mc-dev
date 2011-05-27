@@ -149,7 +149,7 @@ public class EntityLiving extends Entity {
         if (this.aQ <= 0) {
             ++this.aV;
             if (this.aV > 20) {
-                this.M();
+                this.L();
                 this.l();
 
                 for (i = 0; i < 20; ++i) {
@@ -168,7 +168,7 @@ public class EntityLiving extends Entity {
         this.y = this.w;
     }
 
-    public void K() {
+    public void J() {
         for (int i = 0; i < 20; ++i) {
             double d0 = this.W.nextGaussian() * 0.02D;
             double d1 = this.W.nextGaussian() * 0.02D;
@@ -584,7 +584,7 @@ public class EntityLiving extends Entity {
             } else if (flag1) {
                 this.t += 0.03999999910593033D;
             } else if (this.A) {
-                this.L();
+                this.K();
             }
         }
 
@@ -605,7 +605,7 @@ public class EntityLiving extends Entity {
         }
     }
 
-    protected void L() {
+    protected void K() {
         this.t = 0.41999998688697815D;
     }
 
@@ -711,7 +711,7 @@ public class EntityLiving extends Entity {
         return f + f3;
     }
 
-    public void M() {}
+    public void L() {}
 
     public boolean a() {
         return this.l.a(this.z) && this.l.a((Entity) this, this.z).size() == 0 && !this.l.b(this.z);
