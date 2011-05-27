@@ -38,19 +38,19 @@ public class WorldGenLiquids extends WorldGenerator {
 
             int i1 = 0;
 
-            if (world.a(i - 1, j, k) == 0) {
+            if (world.e(i - 1, j, k)) {
                 ++i1;
             }
 
-            if (world.a(i + 1, j, k) == 0) {
+            if (world.e(i + 1, j, k)) {
                 ++i1;
             }
 
-            if (world.a(i, j, k - 1) == 0) {
+            if (world.e(i, j, k - 1)) {
                 ++i1;
             }
 
-            if (world.a(i, j, k + 1) == 0) {
+            if (world.e(i, j, k + 1)) {
                 ++i1;
             }
 

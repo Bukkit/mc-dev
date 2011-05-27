@@ -63,7 +63,7 @@ public class WorldServer extends World {
             i1 = l;
         }
 
-        return i1 > 16 || this.D.f.g(entityhuman.at);
+        return i1 > 16 || this.D.f.g(entityhuman.aw);
     }
 
     protected void b(Entity entity) {

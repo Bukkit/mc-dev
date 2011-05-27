@@ -122,7 +122,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
         for (int k = 0; k < 16; ++k) {
             for (int l = 0; l < 16; ++l) {
-                BiomeBase biomebase = abiomebase[k * 16 + l];
+                BiomeBase biomebase = abiomebase[k + l * 16];
                 boolean flag = this.r[k + l * 16] + this.j.nextDouble() * 0.2D > 0.0D;
                 boolean flag1 = this.s[k + l * 16] + this.j.nextDouble() * 0.2D > 3.0D;
                 int i1 = (int) (this.t[k + l * 16] / 3.0D + 3.0D + this.j.nextDouble() * 0.25D);
@@ -546,7 +546,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
                 int k3 = this.p.e(k2, l2);
                 double d1 = this.w[i3 * 16 + j3] - (double) (k3 - 64) / 64.0D * 0.3D;
 
-                if (d1 < 0.5D && k3 > 0 && k3 < 128 && this.p.a(k2, k3, l2) == 0 && this.p.c(k2, k3 - 1, l2).c() && this.p.c(k2, k3 - 1, l2) != Material.r) {
+                if (d1 < 0.5D && k3 > 0 && k3 < 128 && this.p.e(k2, k3, l2) && this.p.c(k2, k3 - 1, l2).c() && this.p.c(k2, k3 - 1, l2) != Material.r) {
                     this.p.d(k2, k3, l2, Block.SNOW.bh);
                 }
             }

@@ -9,17 +9,17 @@ public class EntitySlime extends EntityLiving implements IMonster {
 
     public EntitySlime(World world) {
         super(world);
-        this.aH = "/mob/slime.png";
+        this.aQ = "/mob/slime.png";
         this.c = 1 << this.W.nextInt(3);
         this.H = 0.0F;
         this.d = this.W.nextInt(20) + 10;
-        this.d(this.c);
+        this.a(this.c);
     }
 
-    public void d(int i) {
+    public void a(int i) {
         this.c = i;
         this.a(0.6F * (float) i, 0.6F * (float) i);
-        this.aR = i * i;
+        this.ba = i * i;
         this.a(this.p, this.q, this.r);
     }
 
@@ -71,30 +71,30 @@ public class EntitySlime extends EntityLiving implements IMonster {
                 this.d /= 3;
             }
 
-            this.bs = true;
+            this.bB = true;
             if (this.c > 1) {
                 this.l.a(this, "mob.slime", this.h(), ((this.W.nextFloat() - this.W.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.a = 1.0F;
-            this.bp = 1.0F - this.W.nextFloat() * 2.0F;
-            this.bq = (float) (1 * this.c);
+            this.by = 1.0F - this.W.nextFloat() * 2.0F;
+            this.bz = (float) (1 * this.c);
         } else {
-            this.bs = false;
+            this.bB = false;
             if (this.A) {
-                this.bp = this.bq = 0.0F;
+                this.by = this.bz = 0.0F;
             }
         }
     }
 
     public void l() {
-        if (this.c > 1 && this.aR == 0) {
+        if (this.c > 1 && this.ba == 0) {
             for (int i = 0; i < 4; ++i) {
                 float f = ((float) (i % 2) - 0.5F) * (float) this.c / 4.0F;
                 float f1 = ((float) (i / 2) - 0.5F) * (float) this.c / 4.0F;
                 EntitySlime entityslime = new EntitySlime(this.l);
 
-                entityslime.d(this.c / 2);
+                entityslime.a(this.c / 2);
                 entityslime.c(this.p + (double) f, this.q + 0.5D, this.r + (double) f1, this.W.nextFloat() * 360.0F, 0.0F);
                 this.l.a((Entity) entityslime);
             }

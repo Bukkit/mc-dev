@@ -52,7 +52,7 @@ public class EntityFlying extends EntityLiving {
             this.u *= (double) f2;
         }
 
-        this.bd = this.be;
+        this.bm = this.bn;
         double d0 = this.p - this.m;
         double d1 = this.r - this.o;
         float f4 = MathHelper.a(d0 * d0 + d1 * d1) * 4.0F;
@@ -61,8 +61,8 @@ public class EntityFlying extends EntityLiving {
             f4 = 1.0F;
         }
 
-        this.be += (f4 - this.be) * 0.4F;
-        this.bf += this.be;
+        this.bn += (f4 - this.bn) * 0.4F;
+        this.bo += this.bn;
     }
 
     public boolean d_() {

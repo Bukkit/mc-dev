@@ -13,7 +13,7 @@ public class BlockTNT extends Block {
     }
 
     public void b(World world, int i, int j, int k, int l) {
-        if (l > 0 && Block.m[l].c() && world.n(i, j, k)) {
+        if (l > 0 && Block.m[l].c() && world.o(i, j, k)) {
             this.a(world, i, j, k, 0);
             world.d(i, j, k, 0);
         }

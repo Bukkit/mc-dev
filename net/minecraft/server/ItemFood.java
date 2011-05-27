@@ -12,7 +12,7 @@ public class ItemFood extends Item {
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
         --itemstack.a;
-        entityhuman.a(this.a);
+        entityhuman.c(this.a);
         return itemstack;
     }
 }

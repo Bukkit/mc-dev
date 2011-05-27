@@ -197,6 +197,14 @@ public class EntityTrackerEntry {
                     if (this.v) {
                         entityplayer.a.b((Packet) (new Packet28(this.a.g, this.a.s, this.a.t, this.a.u)));
                     }
+
+                    int[] aint = this.a.E();
+
+                    if (aint != null) {
+                        for (int i = 0; i < aint.length; ++i) {
+                            entityplayer.a.b((Packet) (new Packet5PlayerInventory(this.a.g, i, aint[i])));
+                        }
+                    }
                 }
             } else if (this.q.contains(entityplayer)) {
                 this.q.remove(entityplayer);
@@ -249,9 +257,23 @@ public class EntityTrackerEntry {
                 return new Packet23VehicleSpawn(this.a, 60);
             } else if (this.a instanceof EntitySnowball) {
                 return new Packet23VehicleSpawn(this.a, 61);
+            } else if (this.a instanceof EntityEgg) {
+                return new Packet23VehicleSpawn(this.a, 62);
             } else if (this.a instanceof EntityTNTPrimed) {
                 return new Packet23VehicleSpawn(this.a, 50);
             } else {
+                if (this.a instanceof EntityFallingSand) {
+                    EntityFallingSand entityfallingsand = (EntityFallingSand) this.a;
+
+                    if (entityfallingsand.a == Block.SAND.bh) {
+                        return new Packet23VehicleSpawn(this.a, 70);
+                    }
+
+                    if (entityfallingsand.a == Block.GRAVEL.bh) {
+                        return new Packet23VehicleSpawn(this.a, 71);
+                    }
+                }
+
                 throw new IllegalArgumentException("Don\'t know how to add " + this.a.getClass() + "!");
             }
         }

@@ -19,6 +19,7 @@ public class NetLoginHandler extends NetHandler {
     public NetLoginHandler(MinecraftServer minecraftserver, Socket socket, String s) {
         this.e = minecraftserver;
         this.b = new NetworkManager(socket, s, this);
+        this.b.d = 0;
     }
 
     public void a() {
@@ -28,13 +29,13 @@ public class NetLoginHandler extends NetHandler {
         }
 
         if (this.f++ == 600) {
-            this.b("Took too long to log in");
+            this.a("Took too long to log in");
         } else {
             this.b.a();
         }
     }
 
-    public void b(String s) {
+    public void a(String s) {
         try {
             a.info("Disconnecting " + this.b() + ": " + s);
             this.b.a((Packet) (new Packet255KickDisconnect(s)));
@@ -56,11 +57,11 @@ public class NetLoginHandler extends NetHandler {
 
     public void a(Packet1Login packet1login) {
         this.g = packet1login.b;
-        if (packet1login.a != 6) {
-            if (packet1login.a > 6) {
-                this.b("Outdated server!");
+        if (packet1login.a != 8) {
+            if (packet1login.a > 8) {
+                this.a("Outdated server!");
             } else {
-                this.b("Outdated client!");
+                this.a("Outdated client!");
             }
         } else {
             if (!this.e.l) {
@@ -80,24 +81,24 @@ public class NetLoginHandler extends NetHandler {
 
             netserverhandler.b((Packet) (new Packet1Login("", "", entityplayer.g, this.e.e.u, (byte) this.e.e.q.g)));
             netserverhandler.b((Packet) (new Packet6SpawnPosition(this.e.e.m, this.e.e.n, this.e.e.o)));
-            this.e.f.a((Packet) (new Packet3Chat("\u00A7e" + entityplayer.at + " joined the game.")));
+            this.e.f.a((Packet) (new Packet3Chat("\u00A7e" + entityplayer.aw + " joined the game.")));
             this.e.f.a(entityplayer);
             netserverhandler.a(entityplayer.p, entityplayer.q, entityplayer.r, entityplayer.v, entityplayer.w);
-            netserverhandler.d();
             this.e.c.a(netserverhandler);
             netserverhandler.b((Packet) (new Packet4UpdateTime(this.e.e.e)));
+            entityplayer.k();
         }
 
         this.c = true;
     }
 
-    public void a(String s) {
+    public void a(String s, Object[] aobject) {
         a.info(this.b() + " lost connection");
         this.c = true;
     }
 
     public void a(Packet packet) {
-        this.b("Protocol error");
+        this.a("Protocol error");
     }
 
     public String b() {

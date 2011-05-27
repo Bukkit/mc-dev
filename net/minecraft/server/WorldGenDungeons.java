@@ -29,7 +29,7 @@ public class WorldGenDungeons extends WorldGenerator {
                         return false;
                     }
 
-                    if ((k1 == i - l - 1 || k1 == i + l + 1 || i2 == k - i1 - 1 || i2 == k + i1 + 1) && l1 == j && world.a(k1, l1, i2) == 0 && world.a(k1, l1 + 1, i2) == 0) {
+                    if ((k1 == i - l - 1 || k1 == i + l + 1 || i2 == k - i1 - 1 || i2 == k + i1 + 1) && l1 == j && world.e(k1, l1, i2) && world.e(k1, l1 + 1, i2)) {
                         ++j1;
                     }
                 }
@@ -66,7 +66,7 @@ public class WorldGenDungeons extends WorldGenerator {
                             i2 = i + random.nextInt(l * 2 + 1) - l;
                             int j2 = k + random.nextInt(i1 * 2 + 1) - i1;
 
-                            if (world.a(i2, j, j2) == 0) {
+                            if (world.e(i2, j, j2)) {
                                 int k2 = 0;
 
                                 if (world.c(i2 - 1, j, j2).a()) {
@@ -87,7 +87,7 @@ public class WorldGenDungeons extends WorldGenerator {
 
                                 if (k2 == 1) {
                                     world.d(i2, j, j2, Block.CHEST.bh);
-                                    TileEntityChest tileentitychest = (TileEntityChest) world.k(i2, j, j2);
+                                    TileEntityChest tileentitychest = (TileEntityChest) world.l(i2, j, j2);
 
                                     for (int l2 = 0; l2 < 8; ++l2) {
                                         ItemStack itemstack = this.a(random);
@@ -111,7 +111,7 @@ public class WorldGenDungeons extends WorldGenerator {
             }
 
             world.d(i, j, k, Block.MOB_SPAWNER.bh);
-            TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.k(i, j, k);
+            TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.l(i, j, k);
 
             tileentitymobspawner.f = this.b(random);
             return true;

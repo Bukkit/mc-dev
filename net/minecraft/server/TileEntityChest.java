@@ -14,13 +14,40 @@ public class TileEntityChest extends TileEntity implements IInventory {
         return this.e[i];
     }
 
+    public ItemStack a(int i, int j) {
+        if (this.e[i] != null) {
+            ItemStack itemstack;
+
+            if (this.e[i].a <= j) {
+                itemstack = this.e[i];
+                this.e[i] = null;
+                this.d();
+                return itemstack;
+            } else {
+                itemstack = this.e[i].a(j);
+                if (this.e[i].a == 0) {
+                    this.e[i] = null;
+                }
+
+                this.d();
+                return itemstack;
+            }
+        } else {
+            return null;
+        }
+    }
+
     public void a(int i, ItemStack itemstack) {
         this.e[i] = itemstack;
-        if (itemstack != null && itemstack.a > this.d()) {
-            itemstack.a = this.d();
+        if (itemstack != null && itemstack.a > this.c()) {
+            itemstack.a = this.c();
         }
 
-        this.c();
+        this.d();
+    }
+
+    public String b() {
+        return "Chest";
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -56,7 +83,11 @@ public class TileEntityChest extends TileEntity implements IInventory {
         nbttagcompound.a("Items", (NBTBase) nbttaglist);
     }
 
-    public int d() {
+    public int c() {
         return 64;
+    }
+
+    public boolean a_(EntityHuman entityhuman) {
+        return this.a.l(this.b, this.c, this.d) != this ? false : entityhuman.d((double) this.b + 0.5D, (double) this.c + 0.5D, (double) this.d + 0.5D) <= 64.0D;
     }
 }

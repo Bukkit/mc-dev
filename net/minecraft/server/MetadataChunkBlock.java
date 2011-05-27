@@ -29,7 +29,7 @@ public class MetadataChunkBlock {
         if (l <= '\u8000') {
             for (int i1 = this.b; i1 <= this.e; ++i1) {
                 for (int j1 = this.d; j1 <= this.g; ++j1) {
-                    if (world.e(i1, 0, j1)) {
+                    if (world.f(i1, 0, j1)) {
                         for (int k1 = this.c; k1 <= this.f; ++k1) {
                             if (k1 >= 0 && k1 < 128) {
                                 int l1 = world.a(this.a, i1, k1, j1);
@@ -44,7 +44,7 @@ public class MetadataChunkBlock {
                                 int k2 = 0;
 
                                 if (this.a == EnumSkyBlock.SKY) {
-                                    if (world.i(i1, k1, j1)) {
+                                    if (world.j(i1, k1, j1)) {
                                         k2 = 15;
                                     }
                                 } else if (this.a == EnumSkyBlock.BLOCK) {

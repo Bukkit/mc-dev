@@ -12,7 +12,11 @@ public class BlockWorkbench extends Block {
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        entityhuman.G();
-        return true;
+        if (world.z) {
+            return true;
+        } else {
+            entityhuman.a(i, j, k);
+            return true;
+        }
     }
 }

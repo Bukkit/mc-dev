@@ -32,11 +32,11 @@ public class ItemTool extends Item {
     }
 
     public void a(ItemStack itemstack, EntityLiving entityliving) {
-        itemstack.a(2);
+        itemstack.b(2);
     }
 
     public void a(ItemStack itemstack, int i, int j, int k, int l) {
-        itemstack.a(1);
+        itemstack.b(1);
     }
 
     public int a(Entity entity) {

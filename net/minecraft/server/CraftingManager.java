@@ -1,0 +1,137 @@
+package net.minecraft.server;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+
+public class CraftingManager {
+
+    private static final CraftingManager a = new CraftingManager();
+    private List b = new ArrayList();
+
+    public static final CraftingManager a() {
+        return a;
+    }
+
+    private CraftingManager() {
+        (new RecipesTools()).a(this);
+        (new RecipesWeapons()).a(this);
+        (new RecipesIngots()).a(this);
+        (new RecipesFood()).a(this);
+        (new RecipesCrafting()).a(this);
+        (new RecipesArmor()).a(this);
+        this.a(new ItemStack(Item.PAPER, 3), new Object[] { "###", Character.valueOf('#'), Item.SUGAR_CANE});
+        this.a(new ItemStack(Item.BOOK, 1), new Object[] { "#", "#", "#", Character.valueOf('#'), Item.PAPER});
+        this.a(new ItemStack(Block.FENCE, 2), new Object[] { "###", "###", Character.valueOf('#'), Item.STICK});
+        this.a(new ItemStack(Block.JUKEBOX, 1), new Object[] { "###", "#X#", "###", Character.valueOf('#'), Block.WOOD, Character.valueOf('X'), Item.DIAMOND});
+        this.a(new ItemStack(Block.BOOKSHELF, 1), new Object[] { "###", "XXX", "###", Character.valueOf('#'), Block.WOOD, Character.valueOf('X'), Item.BOOK});
+        this.a(new ItemStack(Block.SNOW_BLOCK, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.SNOW_BALL});
+        this.a(new ItemStack(Block.CLAY, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.CLAY_BALL});
+        this.a(new ItemStack(Block.BRICK, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.CLAY_BRICK});
+        this.a(new ItemStack(Block.GLOWSTONE, 1), new Object[] { "###", "###", "###", Character.valueOf('#'), Item.GLOWSTONE_DUST});
+        this.a(new ItemStack(Block.WOOL, 1), new Object[] { "###", "###", "###", Character.valueOf('#'), Item.STRING});
+        this.a(new ItemStack(Block.TNT, 1), new Object[] { "X#X", "#X#", "X#X", Character.valueOf('X'), Item.SULPHUR, Character.valueOf('#'), Block.SAND});
+        this.a(new ItemStack(Block.STEP, 3), new Object[] { "###", Character.valueOf('#'), Block.COBBLESTONE});
+        this.a(new ItemStack(Block.LADDER, 1), new Object[] { "# #", "###", "# #", Character.valueOf('#'), Item.STICK});
+        this.a(new ItemStack(Item.WOOD_DOOR, 1), new Object[] { "##", "##", "##", Character.valueOf('#'), Block.WOOD});
+        this.a(new ItemStack(Item.IRON_DOOR, 1), new Object[] { "##", "##", "##", Character.valueOf('#'), Item.IRON_INGOT});
+        this.a(new ItemStack(Item.SIGN, 1), new Object[] { "###", "###", " X ", Character.valueOf('#'), Block.WOOD, Character.valueOf('X'), Item.STICK});
+        this.a(new ItemStack(Block.WOOD, 4), new Object[] { "#", Character.valueOf('#'), Block.LOG});
+        this.a(new ItemStack(Item.STICK, 4), new Object[] { "#", "#", Character.valueOf('#'), Block.WOOD});
+        this.a(new ItemStack(Block.TORCH, 4), new Object[] { "X", "#", Character.valueOf('X'), Item.COAL, Character.valueOf('#'), Item.STICK});
+        this.a(new ItemStack(Item.BOWL, 4), new Object[] { "# #", " # ", Character.valueOf('#'), Block.WOOD});
+        this.a(new ItemStack(Block.RAILS, 16), new Object[] { "X X", "X#X", "X X", Character.valueOf('X'), Item.IRON_INGOT, Character.valueOf('#'), Item.STICK});
+        this.a(new ItemStack(Item.MINECART, 1), new Object[] { "# #", "###", Character.valueOf('#'), Item.IRON_INGOT});
+        this.a(new ItemStack(Block.JACK_O_LANTERN, 1), new Object[] { "A", "B", Character.valueOf('A'), Block.PUMPKIN, Character.valueOf('B'), Block.TORCH});
+        this.a(new ItemStack(Item.STORAGE_MINECART, 1), new Object[] { "A", "B", Character.valueOf('A'), Block.CHEST, Character.valueOf('B'), Item.MINECART});
+        this.a(new ItemStack(Item.POWERED_MINECART, 1), new Object[] { "A", "B", Character.valueOf('A'), Block.FURNACE, Character.valueOf('B'), Item.MINECART});
+        this.a(new ItemStack(Item.BOAT, 1), new Object[] { "# #", "###", Character.valueOf('#'), Block.WOOD});
+        this.a(new ItemStack(Item.BUCKET, 1), new Object[] { "# #", " # ", Character.valueOf('#'), Item.IRON_INGOT});
+        this.a(new ItemStack(Item.FLINT_AND_STEEL, 1), new Object[] { "A ", " B", Character.valueOf('A'), Item.IRON_INGOT, Character.valueOf('B'), Item.FLINT});
+        this.a(new ItemStack(Item.BREAD, 1), new Object[] { "###", Character.valueOf('#'), Item.WHEAT});
+        this.a(new ItemStack(Block.WOOD_STAIRS, 4), new Object[] { "#  ", "## ", "###", Character.valueOf('#'), Block.WOOD});
+        this.a(new ItemStack(Item.FISHING_ROD, 1), new Object[] { "  #", " #X", "# X", Character.valueOf('#'), Item.STICK, Character.valueOf('X'), Item.STRING});
+        this.a(new ItemStack(Block.COBBLESTONE_STAIRS, 4), new Object[] { "#  ", "## ", "###", Character.valueOf('#'), Block.COBBLESTONE});
+        this.a(new ItemStack(Item.PAINTING, 1), new Object[] { "###", "#X#", "###", Character.valueOf('#'), Item.STICK, Character.valueOf('X'), Block.WOOL});
+        this.a(new ItemStack(Item.GOLDEN_APPLE, 1), new Object[] { "###", "#X#", "###", Character.valueOf('#'), Block.GOLD_BLOCK, Character.valueOf('X'), Item.APPLE});
+        this.a(new ItemStack(Block.LEVER, 1), new Object[] { "X", "#", Character.valueOf('#'), Block.COBBLESTONE, Character.valueOf('X'), Item.STICK});
+        this.a(new ItemStack(Block.REDSTONE_TORCH_ON, 1), new Object[] { "X", "#", Character.valueOf('#'), Item.STICK, Character.valueOf('X'), Item.REDSTONE});
+        this.a(new ItemStack(Item.WATCH, 1), new Object[] { " # ", "#X#", " # ", Character.valueOf('#'), Item.GOLD_INGOT, Character.valueOf('X'), Item.REDSTONE});
+        this.a(new ItemStack(Item.COMPASS, 1), new Object[] { " # ", "#X#", " # ", Character.valueOf('#'), Item.IRON_INGOT, Character.valueOf('X'), Item.REDSTONE});
+        this.a(new ItemStack(Block.STONE_BUTTON, 1), new Object[] { "#", "#", Character.valueOf('#'), Block.STONE});
+        this.a(new ItemStack(Block.STONE_PLATE, 1), new Object[] { "###", Character.valueOf('#'), Block.STONE});
+        this.a(new ItemStack(Block.WOOD_PLATE, 1), new Object[] { "###", Character.valueOf('#'), Block.WOOD});
+        Collections.sort(this.b, new RecipeSorter(this));
+        System.out.println(this.b.size() + " recipes");
+    }
+
+    void a(ItemStack itemstack, Object... aobject) {
+        String s = "";
+        int i = 0;
+        int j = 0;
+        int k = 0;
+
+        if (aobject[i] instanceof String[]) {
+            String[] astring = (String[]) ((String[]) aobject[i++]);
+
+            for (int l = 0; l < astring.length; ++l) {
+                String s1 = astring[l];
+
+                ++k;
+                j = s1.length();
+                s = s + s1;
+            }
+        } else {
+            while (aobject[i] instanceof String) {
+                String s2 = (String) aobject[i++];
+
+                ++k;
+                j = s2.length();
+                s = s + s2;
+            }
+        }
+
+        HashMap hashmap;
+        int i1;
+
+        for (hashmap = new HashMap(); i < aobject.length; i += 2) {
+            Character character = (Character) aobject[i];
+
+            i1 = 0;
+            if (aobject[i + 1] instanceof Item) {
+                i1 = ((Item) aobject[i + 1]).aW;
+            } else if (aobject[i + 1] instanceof Block) {
+                i1 = ((Block) aobject[i + 1]).bh;
+            }
+
+            hashmap.put(character, Integer.valueOf(i1));
+        }
+
+        int[] aint = new int[j * k];
+
+        for (i1 = 0; i1 < j * k; ++i1) {
+            char c0 = s.charAt(i1);
+
+            if (hashmap.containsKey(Character.valueOf(c0))) {
+                aint[i1] = ((Integer) hashmap.get(Character.valueOf(c0))).intValue();
+            } else {
+                aint[i1] = -1;
+            }
+        }
+
+        this.b.add(new CraftingRecipe(j, k, aint, itemstack));
+    }
+
+    public ItemStack a(int[] aint) {
+        for (int i = 0; i < this.b.size(); ++i) {
+            CraftingRecipe craftingrecipe = (CraftingRecipe) this.b.get(i);
+
+            if (craftingrecipe.a(aint)) {
+                return craftingrecipe.b(aint);
+            }
+        }
+
+        return null;
+    }
+}

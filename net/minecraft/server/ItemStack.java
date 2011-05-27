@@ -45,6 +45,11 @@ public final class ItemStack {
         this.b(nbttagcompound);
     }
 
+    public ItemStack a(int i) {
+        this.a -= i;
+        return new ItemStack(this.c, i, this.d);
+    }
+
     public Item a() {
         return Item.c[this.c];
     }
@@ -75,14 +80,14 @@ public final class ItemStack {
     }
 
     public int b() {
-        return this.a().a();
+        return this.a().b();
     }
 
     public int c() {
-        return Item.c[this.c].b();
+        return Item.c[this.c].c();
     }
 
-    public void a(int i) {
+    public void b(int i) {
         this.d += i;
         if (this.d > this.c()) {
             --this.a;
@@ -114,5 +119,21 @@ public final class ItemStack {
 
     public ItemStack d() {
         return new ItemStack(this.c, this.a, this.d);
+    }
+
+    public static boolean a(ItemStack itemstack, ItemStack itemstack1) {
+        return itemstack == null && itemstack1 == null ? true : (itemstack != null && itemstack1 != null ? itemstack.b(itemstack1) : false);
+    }
+
+    private boolean b(ItemStack itemstack) {
+        return this.a != itemstack.a ? false : (this.c != itemstack.c ? false : this.d == itemstack.d);
+    }
+
+    public static ItemStack a(ItemStack itemstack) {
+        return itemstack == null ? null : itemstack.d();
+    }
+
+    public String toString() {
+        return this.a + "x" + Item.c[this.c].a() + "@" + this.d;
     }
 }

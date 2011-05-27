@@ -42,7 +42,7 @@ public class TileEntity {
         }
     }
 
-    public void b() {}
+    public void e() {}
 
     public static TileEntity c(NBTTagCompound nbttagcompound) {
         TileEntity tileentity = null;
@@ -66,8 +66,14 @@ public class TileEntity {
         return tileentity;
     }
 
-    public void c() {
-        this.a.b(this.b, this.c, this.d, this);
+    public void d() {
+        if (this.a != null) {
+            this.a.b(this.b, this.c, this.d, this);
+        }
+    }
+
+    public Packet f() {
+        return null;
     }
 
     static {

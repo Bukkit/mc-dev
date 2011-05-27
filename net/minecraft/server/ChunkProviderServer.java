@@ -159,7 +159,7 @@ public class ChunkProviderServer implements IChunkProvider {
                 this.b(chunk);
                 chunk.o = false;
                 ++i;
-                if (i == 32 && !flag) {
+                if (i == 24 && !flag) {
                     return false;
                 }
             }

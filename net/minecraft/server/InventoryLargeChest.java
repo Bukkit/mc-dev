@@ -16,7 +16,36 @@ public class InventoryLargeChest implements IInventory {
         return this.b.a() + this.c.a();
     }
 
+    public String b() {
+        return this.a;
+    }
+
     public ItemStack a(int i) {
         return i >= this.b.a() ? this.c.a(i - this.b.a()) : this.b.a(i);
+    }
+
+    public ItemStack a(int i, int j) {
+        return i >= this.b.a() ? this.c.a(i - this.b.a(), j) : this.b.a(i, j);
+    }
+
+    public void a(int i, ItemStack itemstack) {
+        if (i >= this.b.a()) {
+            this.c.a(i - this.b.a(), itemstack);
+        } else {
+            this.b.a(i, itemstack);
+        }
+    }
+
+    public int c() {
+        return this.b.c();
+    }
+
+    public void d() {
+        this.b.d();
+        this.c.d();
+    }
+
+    public boolean a_(EntityHuman entityhuman) {
+        return this.b.a_(entityhuman) && this.c.a_(entityhuman);
     }
 }

@@ -2,59 +2,117 @@ package net.minecraft.server;
 
 import java.util.List;
 
-public class EntityHuman extends EntityLiving {
+public abstract class EntityHuman extends EntityLiving {
 
-    public InventoryPlayer am = new InventoryPlayer(this);
-    public byte an = 0;
-    public int ao = 0;
-    public float ap;
-    public float aq;
-    public boolean ar = false;
-    public int as = 0;
-    public String at;
-    public int au;
+    public InventoryPlayer an = new InventoryPlayer(this);
+    public Container ao;
+    public Container ap;
+    public byte aq = 0;
+    public int ar = 0;
+    public float as;
+    public float at;
+    public boolean au = false;
+    public int av = 0;
+    public String aw;
+    public int ax;
+    public double ay;
+    public double az;
+    public double aA;
+    public double aB;
+    public double aC;
+    public double aD;
     private int a = 0;
-    public EntityFish av = null;
+    public EntityFish aE = null;
 
     public EntityHuman(World world) {
         super(world);
+        this.ao = new ContainerPlayer(this.an, !world.z);
+        this.ap = this.ao;
         this.H = 1.62F;
         this.c((double) world.m + 0.5D, (double) (world.n + 1), (double) world.o + 0.5D, 0.0F, 0.0F);
-        this.aR = 20;
-        this.aK = "humanoid";
-        this.aJ = 180.0F;
+        this.ba = 20;
+        this.aT = "humanoid";
+        this.aS = 180.0F;
         this.Y = 20;
-        this.aH = "/mob/char.png";
+        this.aQ = "/mob/char.png";
+    }
+
+    public void b_() {
+        super.b_();
+        if (!this.l.z && this.ap != null && !this.ap.b(this)) {
+            this.I();
+            this.ap = this.ao;
+        }
+
+        this.ay = this.aB;
+        this.az = this.aC;
+        this.aA = this.aD;
+        double d0 = this.p - this.aB;
+        double d1 = this.q - this.aC;
+        double d2 = this.r - this.aD;
+        double d3 = 10.0D;
+
+        if (d0 > d3) {
+            this.ay = this.aB = this.p;
+        }
+
+        if (d2 > d3) {
+            this.aA = this.aD = this.r;
+        }
+
+        if (d1 > d3) {
+            this.az = this.aC = this.q;
+        }
+
+        if (d0 < -d3) {
+            this.ay = this.aB = this.p;
+        }
+
+        if (d2 < -d3) {
+            this.aA = this.aD = this.r;
+        }
+
+        if (d1 < -d3) {
+            this.az = this.aC = this.q;
+        }
+
+        this.aB += d0 * 0.25D;
+        this.aD += d2 * 0.25D;
+        this.aC += d1 * 0.25D;
+    }
+
+    protected void I() {
+        this.ap = this.ao;
     }
 
     public void z() {
         super.z();
-        this.ap = this.aq;
-        this.aq = 0.0F;
+        this.as = this.at;
+        this.at = 0.0F;
     }
 
     protected void c() {
-        if (this.ar) {
-            ++this.as;
-            if (this.as == 8) {
-                this.as = 0;
-                this.ar = false;
+        if (this.au) {
+            ++this.av;
+            if (this.av == 8) {
+                this.av = 0;
+                this.au = false;
             }
         } else {
-            this.as = 0;
+            this.av = 0;
         }
 
-        this.aQ = (float) this.as / 8.0F;
+        this.aZ = (float) this.av / 8.0F;
     }
 
-    public void E() {
-        if (this.l.k == 0 && this.aR < 20 && this.X % 20 * 4 == 0) {
-            this.a(1);
+    public void G() {
+        if (this.l.k == 0 && this.ba < 20 && this.X % 20 * 12 == 0) {
+            this.c(1);
         }
 
-        this.am.c();
-        this.ap = this.aq;
-        super.E();
+        this.an.f();
+        this.as = this.at;
+        super.G();
         float f = MathHelper.a(this.s * this.s + this.u * this.u);
         float f1 = (float) Math.atan(-this.t * 0.20000000298023224D) * 15.0F;
 
@@ -62,22 +120,26 @@ public class EntityHuman extends EntityLiving {
             f = 0.1F;
         }
 
-        if (!this.A || this.aR <= 0) {
+        if (!this.A || this.ba <= 0) {
             f = 0.0F;
         }
 
-        if (this.A || this.aR <= 0) {
+        if (this.A || this.ba <= 0) {
             f1 = 0.0F;
         }
 
-        this.aq += (f - this.aq) * 0.4F;
-        this.aZ += (f1 - this.aZ) * 0.8F;
-        if (this.aR > 0) {
+        this.at += (f - this.at) * 0.4F;
+        this.bi += (f1 - this.bi) * 0.8F;
+        if (this.ba > 0) {
             List list = this.l.b((Entity) this, this.z.b(1.0D, 0.0D, 1.0D));
 
             if (list != null) {
                 for (int i = 0; i < list.size(); ++i) {
-                    this.j((Entity) list.get(i));
+                    Entity entity = (Entity) list.get(i);
+
+                    if (!entity.G) {
+                        this.j(entity);
+                    }
                 }
             }
         }
@@ -92,14 +154,14 @@ public class EntityHuman extends EntityLiving {
         this.a(0.2F, 0.2F);
         this.a(this.p, this.q, this.r);
         this.t = 0.10000000149011612D;
-        if (this.at.equals("Notch")) {
+        if (this.aw.equals("Notch")) {
             this.a(new ItemStack(Item.APPLE, 1), true);
         }
 
-        this.am.f();
+        this.an.h();
         if (entity != null) {
-            this.s = (double) (-MathHelper.b((this.aV + this.v) * 3.1415927F / 180.0F) * 0.1F);
-            this.u = (double) (-MathHelper.a((this.aV + this.v) * 3.1415927F / 180.0F) * 0.1F);
+            this.s = (double) (-MathHelper.b((this.be + this.v) * 3.1415927F / 180.0F) * 0.1F);
+            this.u = (double) (-MathHelper.a((this.be + this.v) * 3.1415927F / 180.0F) * 0.1F);
         } else {
             this.s = this.u = 0.0D;
         }
@@ -108,10 +170,14 @@ public class EntityHuman extends EntityLiving {
     }
 
     public void b(Entity entity, int i) {
-        this.ao += i;
+        this.ar += i;
     }
 
-    public void a(ItemStack itemstack) {
+    public void L() {
+        this.a(this.an.a(this.an.c, 1), false);
+    }
+
+    public void b(ItemStack itemstack) {
         this.a(itemstack, false);
     }
 
@@ -152,7 +218,7 @@ public class EntityHuman extends EntityLiving {
     }
 
     public float a(Block block) {
-        float f = this.am.a(block);
+        float f = this.an.a(block);
 
         if (this.a(Material.f)) {
             f /= 5.0F;
@@ -166,26 +232,26 @@ public class EntityHuman extends EntityLiving {
     }
 
     public boolean b(Block block) {
-        return this.am.b(block);
+        return this.an.b(block);
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
         NBTTagList nbttaglist = nbttagcompound.k("Inventory");
 
-        this.am.b(nbttaglist);
-        this.au = nbttagcompound.d("Dimension");
+        this.an.b(nbttaglist);
+        this.ax = nbttagcompound.d("Dimension");
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        nbttagcompound.a("Inventory", (NBTBase) this.am.a(new NBTTagList()));
-        nbttagcompound.a("Dimension", this.au);
+        nbttagcompound.a("Inventory", (NBTBase) this.an.a(new NBTTagList()));
+        nbttagcompound.a("Dimension", this.ax);
     }
 
     public void a(IInventory iinventory) {}
 
-    public void G() {}
+    public void a(int i, int j, int k) {}
 
     public void c(Entity entity, int i) {}
 
@@ -194,8 +260,8 @@ public class EntityHuman extends EntityLiving {
     }
 
     public boolean a(Entity entity, int i) {
-        this.bo = 0;
-        if (this.aR <= 0) {
+        this.bx = 0;
+        if (this.ba <= 0) {
             return false;
         } else {
             if (entity instanceof EntityMonster || entity instanceof EntityArrow) {
@@ -216,14 +282,14 @@ public class EntityHuman extends EntityLiving {
         }
     }
 
-    protected void c(int i) {
-        int j = 25 - this.am.e();
+    protected void d(int i) {
+        int j = 25 - this.an.g();
         int k = i * j + this.a;
 
-        this.am.c(i);
+        this.an.c(i);
         i = k / 25;
         this.a = k % 25;
-        super.c(i);
+        super.d(i);
     }
 
     public void a(TileEntityFurnace tileentityfurnace) {}
@@ -234,37 +300,47 @@ public class EntityHuman extends EntityLiving {
         entity.a(this);
     }
 
-    public ItemStack H() {
-        return this.am.b();
+    public ItemStack M() {
+        return this.an.e();
     }
 
-    public void I() {
-        this.am.a(this.am.d, (ItemStack) null);
+    public void N() {
+        this.an.a(this.an.c, (ItemStack) null);
     }
 
     public double B() {
         return (double) (this.H - 0.5F);
     }
 
-    public void F() {
-        this.as = -1;
-        this.ar = true;
+    public void H() {
+        this.av = -1;
+        this.au = true;
     }
 
     public void h(Entity entity) {
-        int i = this.am.a(entity);
+        int i = this.an.a(entity);
 
         if (i > 0) {
             entity.a(this, i);
-            ItemStack itemstack = this.H();
+            ItemStack itemstack = this.M();
 
             if (itemstack != null && entity instanceof EntityLiving) {
                 itemstack.a((EntityLiving) entity);
                 if (itemstack.a <= 0) {
                     itemstack.a(this);
-                    this.I();
+                    this.N();
                 }
             }
+        }
+    }
+
+    public void a(ItemStack itemstack) {}
+
+    public void l() {
+        super.l();
+        this.ao.a(this);
+        if (this.ap != null) {
+            this.ap.a(this);
         }
     }
 }

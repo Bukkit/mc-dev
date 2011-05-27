@@ -13,7 +13,7 @@ public class BlockSapling extends BlockFlower {
 
     public void a(World world, int i, int j, int k, Random random) {
         super.a(world, i, j, k, random);
-        if (world.h(i, j + 1, k) >= 9 && random.nextInt(5) == 0) {
+        if (world.i(i, j + 1, k) >= 9 && random.nextInt(5) == 0) {
             int l = world.b(i, j, k);
 
             if (l < 15) {

@@ -47,7 +47,7 @@ public class NetworkListenThread {
             try {
                 netloginhandler.a();
             } catch (Exception exception) {
-                netloginhandler.b("Internal server error");
+                netloginhandler.a("Internal server error");
                 a.log(Level.WARNING, "Failed to handle packet: " + exception, exception);
             }
 
@@ -63,7 +63,7 @@ public class NetworkListenThread {
                 netserverhandler.a();
             } catch (Exception exception1) {
                 a.log(Level.WARNING, "Failed to handle packet: " + exception1, exception1);
-                netserverhandler.c("Internal server error");
+                netserverhandler.a("Internal server error");
             }
 
             if (netserverhandler.c) {

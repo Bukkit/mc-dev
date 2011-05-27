@@ -38,7 +38,7 @@ public class BlockFlower extends Block {
     }
 
     public boolean f(World world, int i, int j, int k) {
-        return (world.h(i, j, k) >= 8 || world.g(i, j, k)) && this.b(world.a(i, j - 1, k));
+        return (world.i(i, j, k) >= 8 || world.h(i, j, k)) && this.b(world.a(i, j - 1, k));
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {

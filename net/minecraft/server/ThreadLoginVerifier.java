@@ -23,11 +23,10 @@ class ThreadLoginVerifier extends Thread {
             String s1 = bufferedreader.readLine();
 
             bufferedreader.close();
-            System.out.println("THE REPLY IS " + s1);
             if (s1.equals("YES")) {
                 NetLoginHandler.a(this.b, this.a);
             } else {
-                this.b.b("Failed to verify username!");
+                this.b.a("Failed to verify username!");
             }
         } catch (Exception exception) {
             exception.printStackTrace();

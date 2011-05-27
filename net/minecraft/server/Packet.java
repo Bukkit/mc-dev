@@ -10,7 +10,8 @@ public abstract class Packet {
 
     private static Map a = new HashMap();
     private static Map b = new HashMap();
-    public boolean j = false;
+    public final long j = System.currentTimeMillis();
+    public boolean k = false;
 
     public Packet() {}
 
@@ -89,7 +90,6 @@ public abstract class Packet {
         a(14, Packet14BlockDig.class);
         a(15, Packet15Place.class);
         a(16, Packet16BlockItemSwitch.class);
-        a(17, Packet17AddToInventory.class);
         a(18, Packet18ArmAnimation.class);
         a(20, Packet20NamedEntitySpawn.class);
         a(21, Packet21PickupSpawn.class);
@@ -109,8 +109,15 @@ public abstract class Packet {
         a(51, Packet51MapChunk.class);
         a(52, Packet52MultiBlockChange.class);
         a(53, Packet53BlockChange.class);
-        a(59, Packet59ComplexEntity.class);
         a(60, Packet60.class);
+        a(100, Packet100.class);
+        a(101, Packet101.class);
+        a(102, Packet102.class);
+        a(103, Packet103.class);
+        a(104, Packet104.class);
+        a(105, Packet105.class);
+        a(106, Packet106.class);
+        a(130, Packet130.class);
         a(255, Packet255KickDisconnect.class);
     }
 }

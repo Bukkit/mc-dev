@@ -8,7 +8,7 @@ public class NetHandler {
 
     public void a(Packet packet) {}
 
-    public void a(String s) {}
+    public void a(String s, Object[] aobject) {}
 
     public void a(Packet255KickDisconnect packet255kickdisconnect) {
         this.a((Packet) packet255kickdisconnect);
@@ -74,10 +74,6 @@ public class NetHandler {
         this.a((Packet) packet3chat);
     }
 
-    public void a(Packet17AddToInventory packet17addtoinventory) {
-        this.a((Packet) packet17addtoinventory);
-    }
-
     public void a(Packet23VehicleSpawn packet23vehiclespawn) {
         this.a((Packet) packet23vehiclespawn);
     }
@@ -96,14 +92,6 @@ public class NetHandler {
 
     public void a(Packet4UpdateTime packet4updatetime) {
         this.a((Packet) packet4updatetime);
-    }
-
-    public void a(Packet5PlayerInventory packet5playerinventory) {
-        this.a((Packet) packet5playerinventory);
-    }
-
-    public void a(Packet59ComplexEntity packet59complexentity) {
-        this.a((Packet) packet59complexentity);
     }
 
     public void a(Packet6SpawnPosition packet6spawnposition) {
@@ -136,5 +124,41 @@ public class NetHandler {
 
     public void a(Packet60 packet60) {
         this.a((Packet) packet60);
+    }
+
+    public void a(Packet100 packet100) {
+        this.a((Packet) packet100);
+    }
+
+    public void a(Packet101 packet101) {
+        this.a((Packet) packet101);
+    }
+
+    public void a(Packet102 packet102) {
+        this.a((Packet) packet102);
+    }
+
+    public void a(Packet103 packet103) {
+        this.a((Packet) packet103);
+    }
+
+    public void a(Packet104 packet104) {
+        this.a((Packet) packet104);
+    }
+
+    public void a(Packet130 packet130) {
+        this.a((Packet) packet130);
+    }
+
+    public void a(Packet105 packet105) {
+        this.a((Packet) packet105);
+    }
+
+    public void a(Packet5PlayerInventory packet5playerinventory) {
+        this.a((Packet) packet5playerinventory);
+    }
+
+    public void a(Packet106 packet106) {
+        this.a((Packet) packet106);
     }
 }

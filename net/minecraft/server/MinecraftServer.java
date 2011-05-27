@@ -42,7 +42,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
         ConsoleLogManager.a();
-        a.info("Starting minecraft server version 0.2.8");
+        a.info("Starting minecraft server version Beta 1.1_02");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             a.warning("**** NOT ENOUGH RAM!");
             a.warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
@@ -313,7 +313,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
                             this.a(s1, "Banning " + s2);
                             entityplayer = this.f.h(s2);
                             if (entityplayer != null) {
-                                entityplayer.a.c("Banned by admin");
+                                entityplayer.a.a("Banned by admin");
                             }
                         } else if (s.toLowerCase().startsWith("pardon ")) {
                             s2 = s.substring(s.indexOf(" ")).trim();
@@ -326,14 +326,14 @@ public class MinecraftServer implements ICommandListener, Runnable {
                             for (int i = 0; i < this.f.b.size(); ++i) {
                                 EntityPlayer entityplayer1 = (EntityPlayer) this.f.b.get(i);
 
-                                if (entityplayer1.at.equalsIgnoreCase(s2)) {
+                                if (entityplayer1.aw.equalsIgnoreCase(s2)) {
                                     entityplayer = entityplayer1;
                                 }
                             }
 
                             if (entityplayer != null) {
-                                entityplayer.a.c("Kicked by admin");
-                                this.a(s1, "Kicking " + entityplayer.at);
+                                entityplayer.a.a("Kicked by admin");
+                                this.a(s1, "Kicking " + entityplayer.aw);
                             } else {
                                 icommandlistener.b("Can\'t find user " + s2 + ". No kick.");
                             }
@@ -371,7 +371,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
                                         int j = Integer.parseInt(astring[2]);
 
                                         if (Item.c[j] != null) {
-                                            this.a(s1, "Giving " + entityplayer2.at + " some " + j);
+                                            this.a(s1, "Giving " + entityplayer2.aw + " some " + j);
                                             int k = 1;
 
                                             if (astring.length > 3) {
@@ -386,7 +386,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
                                                 k = 64;
                                             }
 
-                                            entityplayer2.a(new ItemStack(j, k));
+                                            entityplayer2.b(new ItemStack(j, k));
                                         } else {
                                             icommandlistener.b("There\'s no item with id " + j);
                                         }

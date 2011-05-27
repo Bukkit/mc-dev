@@ -150,7 +150,7 @@ public class World implements IBlockAccess {
     public int a(int i, int j) {
         int k;
 
-        for (k = 63; this.a(i, k + 1, j) != 0; ++k) {
+        for (k = 63; !this.e(i, k + 1, j); ++k) {
             ;
         }
 
@@ -229,6 +229,10 @@ public class World implements IBlockAccess {
     }
 
     public boolean e(int i, int j, int k) {
+        return this.a(i, j, k) == 0;
+    }
+
+    public boolean f(int i, int j, int k) {
         return j >= 0 && j < 128 ? this.f(i >> 4, k >> 4) : false;
     }
 
@@ -366,14 +370,14 @@ public class World implements IBlockAccess {
         }
     }
 
-    public void f(int i, int j, int k) {
+    public void g(int i, int j, int k) {
         for (int l = 0; l < this.r.size(); ++l) {
             ((IWorldAccess) this.r.get(l)).a(i, j, k);
         }
     }
 
     protected void e(int i, int j, int k, int l) {
-        this.f(i, j, k);
+        this.g(i, j, k);
         this.g(i, j, k, l);
     }
 
@@ -413,11 +417,11 @@ public class World implements IBlockAccess {
         }
     }
 
-    public boolean g(int i, int j, int k) {
+    public boolean h(int i, int j, int k) {
         return this.c(i >> 4, k >> 4).c(i & 15, j, k & 15);
     }
 
-    public int h(int i, int j, int k) {
+    public int i(int i, int j, int k) {
         return this.a(i, j, k, true);
     }
 
@@ -475,7 +479,7 @@ public class World implements IBlockAccess {
         }
     }
 
-    public boolean i(int i, int j, int k) {
+    public boolean j(int i, int j, int k) {
         if (i >= -32000000 && k >= -32000000 && i < 32000000 && k <= 32000000) {
             if (j < 0) {
                 return false;
@@ -511,9 +515,9 @@ public class World implements IBlockAccess {
 
     public void a(EnumSkyBlock enumskyblock, int i, int j, int k, int l) {
         if (!this.q.e || enumskyblock != EnumSkyBlock.SKY) {
-            if (this.e(i, j, k)) {
+            if (this.f(i, j, k)) {
                 if (enumskyblock == EnumSkyBlock.SKY) {
-                    if (this.i(i, j, k)) {
+                    if (this.j(i, j, k)) {
                         l = 15;
                     }
                 } else if (enumskyblock == EnumSkyBlock.BLOCK) {
@@ -566,8 +570,8 @@ public class World implements IBlockAccess {
         }
     }
 
-    public float j(int i, int j, int k) {
-        return this.q.f[this.h(i, j, k)];
+    public float k(int i, int j, int k) {
+        return this.q.f[this.i(i, j, k)];
     }
 
     public boolean b() {
@@ -821,7 +825,7 @@ public class World implements IBlockAccess {
 
         for (int k1 = i; k1 < j; ++k1) {
             for (int l1 = i1; l1 < j1; ++l1) {
-                if (this.e(k1, 64, l1)) {
+                if (this.f(k1, 64, l1)) {
                     for (int i2 = k - 1; i2 < l; ++i2) {
                         Block block = Block.m[this.a(k1, i2, l1)];
 
@@ -972,7 +976,7 @@ public class World implements IBlockAccess {
         for (i = 0; i < this.c.size(); ++i) {
             TileEntity tileentity = (TileEntity) this.c.get(i);
 
-            tileentity.b();
+            tileentity.e();
         }
     }
 
@@ -1252,7 +1256,7 @@ public class World implements IBlockAccess {
         return (float) i / (float) j;
     }
 
-    public TileEntity k(int i, int j, int k) {
+    public TileEntity l(int i, int j, int k) {
         Chunk chunk = this.c(i >> 4, k >> 4);
 
         return chunk != null ? chunk.d(i & 15, j, k & 15) : null;
@@ -1266,7 +1270,7 @@ public class World implements IBlockAccess {
         }
     }
 
-    public void l(int i, int j, int k) {
+    public void m(int i, int j, int k) {
         Chunk chunk = this.c(i >> 4, k >> 4);
 
         if (chunk != null) {
@@ -1323,7 +1327,7 @@ public class World implements IBlockAccess {
                 int k1 = (l + i) / 2;
                 int l1 = (j1 + k) / 2;
 
-                if (!this.e(k1, 64, l1)) {
+                if (!this.f(k1, 64, l1)) {
                     --y;
                 } else {
                     int i2 = this.A.size();
@@ -1433,7 +1437,7 @@ public class World implements IBlockAccess {
                 l1 = chunk.a(l, k1, j1);
                 l += i;
                 j1 += j;
-                if (l1 == 0 && this.h(l, k1, j1) <= this.l.nextInt(8) && this.a(EnumSkyBlock.SKY, l, k1, j1) <= 0) {
+                if (l1 == 0 && this.i(l, k1, j1) <= this.l.nextInt(8) && this.a(EnumSkyBlock.SKY, l, k1, j1) <= 0) {
                     EntityHuman entityhuman1 = this.a((double) l + 0.5D, (double) k1 + 0.5D, (double) j1 + 0.5D, 8.0D);
 
                     if (entityhuman1 != null && entityhuman1.d((double) l + 0.5D, (double) k1 + 0.5D, (double) j1 + 0.5D) > 4.0D) {
@@ -1529,7 +1533,7 @@ public class World implements IBlockAccess {
     }
 
     public void b(int i, int j, int k, TileEntity tileentity) {
-        if (this.e(i, j, k)) {
+        if (this.f(i, j, k)) {
             this.b(i, k).f();
         }
 
@@ -1615,13 +1619,13 @@ public class World implements IBlockAccess {
         return i1 == 0 ? false : Block.m[i1].d(this, i, j, k, l);
     }
 
-    public boolean m(int i, int j, int k) {
+    public boolean n(int i, int j, int k) {
         return this.i(i, j - 1, k, 0) ? true : (this.i(i, j + 1, k, 1) ? true : (this.i(i, j, k - 1, 2) ? true : (this.i(i, j, k + 1, 3) ? true : (this.i(i - 1, j, k, 4) ? true : this.i(i + 1, j, k, 5)))));
     }
 
     public boolean j(int i, int j, int k, int l) {
         if (this.d(i, j, k)) {
-            return this.m(i, j, k);
+            return this.n(i, j, k);
         } else {
             int i1 = this.a(i, j, k);
 
@@ -1629,7 +1633,7 @@ public class World implements IBlockAccess {
         }
     }
 
-    public boolean n(int i, int j, int k) {
+    public boolean o(int i, int j, int k) {
         return this.j(i, j - 1, k, 0) ? true : (this.j(i, j + 1, k, 1) ? true : (this.j(i, j, k - 1, 2) ? true : (this.j(i, j, k + 1, 3) ? true : (this.j(i - 1, j, k, 4) ? true : this.j(i + 1, j, k, 5)))));
     }
 

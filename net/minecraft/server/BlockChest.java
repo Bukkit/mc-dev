@@ -42,7 +42,7 @@ public class BlockChest extends BlockContainer {
     }
 
     public void b(World world, int i, int j, int k) {
-        TileEntityChest tileentitychest = (TileEntityChest) world.k(i, j, k);
+        TileEntityChest tileentitychest = (TileEntityChest) world.l(i, j, k);
 
         for (int l = 0; l < tileentitychest.a(); ++l) {
             ItemStack itemstack = tileentitychest.a(l);
@@ -75,7 +75,7 @@ public class BlockChest extends BlockContainer {
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        Object object = (TileEntityChest) world.k(i, j, k);
+        Object object = (TileEntityChest) world.l(i, j, k);
 
         if (world.d(i, j + 1, k)) {
             return true;
@@ -89,23 +89,27 @@ public class BlockChest extends BlockContainer {
             return true;
         } else {
             if (world.a(i - 1, j, k) == this.bh) {
-                object = new InventoryLargeChest("Large chest", (TileEntityChest) world.k(i - 1, j, k), (IInventory) object);
+                object = new InventoryLargeChest("Large chest", (TileEntityChest) world.l(i - 1, j, k), (IInventory) object);
             }
 
             if (world.a(i + 1, j, k) == this.bh) {
-                object = new InventoryLargeChest("Large chest", (IInventory) object, (TileEntityChest) world.k(i + 1, j, k));
+                object = new InventoryLargeChest("Large chest", (IInventory) object, (TileEntityChest) world.l(i + 1, j, k));
             }
 
             if (world.a(i, j, k - 1) == this.bh) {
-                object = new InventoryLargeChest("Large chest", (TileEntityChest) world.k(i, j, k - 1), (IInventory) object);
+                object = new InventoryLargeChest("Large chest", (TileEntityChest) world.l(i, j, k - 1), (IInventory) object);
             }
 
             if (world.a(i, j, k + 1) == this.bh) {
-                object = new InventoryLargeChest("Large chest", (IInventory) object, (TileEntityChest) world.k(i, j, k + 1));
+                object = new InventoryLargeChest("Large chest", (IInventory) object, (TileEntityChest) world.l(i, j, k + 1));
             }
 
-            entityhuman.a((IInventory) object);
-            return true;
+            if (world.z) {
+                return true;
+            } else {
+                entityhuman.a((IInventory) object);
+                return true;
+            }
         }
     }
 

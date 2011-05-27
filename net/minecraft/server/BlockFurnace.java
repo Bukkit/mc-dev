@@ -52,15 +52,19 @@ public class BlockFurnace extends BlockContainer {
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        TileEntityFurnace tileentityfurnace = (TileEntityFurnace) world.k(i, j, k);
+        if (world.z) {
+            return true;
+        } else {
+            TileEntityFurnace tileentityfurnace = (TileEntityFurnace) world.l(i, j, k);
 
-        entityhuman.a(tileentityfurnace);
-        return true;
+            entityhuman.a(tileentityfurnace);
+            return true;
+        }
     }
 
     public static void a(boolean flag, World world, int i, int j, int k) {
         int l = world.b(i, j, k);
-        TileEntity tileentity = world.k(i, j, k);
+        TileEntity tileentity = world.l(i, j, k);
 
         if (flag) {
             world.d(i, j, k, Block.BURNING_FURNACE.bh);

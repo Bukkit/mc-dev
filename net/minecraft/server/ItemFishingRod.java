@@ -8,18 +8,18 @@ public class ItemFishingRod extends Item {
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        if (entityhuman.av != null) {
-            int i = entityhuman.av.c();
+        if (entityhuman.aE != null) {
+            int i = entityhuman.aE.c();
 
-            itemstack.a(i);
-            entityhuman.F();
+            itemstack.b(i);
+            entityhuman.H();
         } else {
             world.a(entityhuman, "random.bow", 0.5F, 0.4F / (b.nextFloat() * 0.4F + 0.8F));
             if (!world.z) {
                 world.a((Entity) (new EntityFish(world, entityhuman)));
             }
 
-            entityhuman.F();
+            entityhuman.H();
         }
 
         return itemstack;

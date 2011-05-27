@@ -132,7 +132,7 @@ class PlayerInstance {
                 k = this.d * 16 + this.l;
                 this.a((Packet) (new Packet53BlockChange(i, j, k, PlayerManager.a(this.a).e)));
                 if (Block.p[PlayerManager.a(this.a).e.a(i, j, k)]) {
-                    this.a((Packet) (new Packet59ComplexEntity(i, j, k, PlayerManager.a(this.a).e.k(i, j, k))));
+                    this.a(PlayerManager.a(this.a).e.l(i, j, k));
                 }
             } else {
                 int l;
@@ -151,9 +151,7 @@ class PlayerInstance {
                     List list = PlayerManager.a(this.a).e.d(i, j, k, i + l, j + i1, k + j1);
 
                     for (int k1 = 0; k1 < list.size(); ++k1) {
-                        TileEntity tileentity = (TileEntity) list.get(k1);
-
-                        this.a((Packet) (new Packet59ComplexEntity(tileentity.b, tileentity.c, tileentity.d, tileentity)));
+                        this.a((TileEntity) list.get(k1));
                     }
                 } else {
                     this.a((Packet) (new Packet52MultiBlockChange(this.c, this.d, this.f, this.g, PlayerManager.a(this.a).e)));
@@ -163,13 +161,24 @@ class PlayerInstance {
                         k = this.g & 255;
                         l = this.d * 16 + (this.g >> 8 & 15);
                         if (Block.p[PlayerManager.a(this.a).e.a(j, k, l)]) {
-                            this.a((Packet) (new Packet59ComplexEntity(j, k, l, PlayerManager.a(this.a).e.k(j, k, l))));
+                            System.out.println("Sending!");
+                            this.a(PlayerManager.a(this.a).e.l(j, k, l));
                         }
                     }
                 }
             }
 
             this.g = 0;
+        }
+    }
+
+    private void a(TileEntity tileentity) {
+        if (tileentity != null) {
+            Packet packet = tileentity.f();
+
+            if (packet != null) {
+                this.a(packet);
+            }
         }
     }
 }

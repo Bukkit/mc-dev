@@ -82,13 +82,13 @@ public class ItemInWorldManager {
         int l = this.b.a(i, j, k);
         int i1 = this.b.b(i, j, k);
         boolean flag = this.b(i, j, k);
-        ItemStack itemstack = this.a.H();
+        ItemStack itemstack = this.a.M();
 
         if (itemstack != null) {
             itemstack.a(l, i, j, k);
             if (itemstack.a == 0) {
                 itemstack.a(this.a);
-                this.a.I();
+                this.a.N();
             }
         }
 
@@ -106,9 +106,9 @@ public class ItemInWorldManager {
         if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.a == i)) {
             return false;
         } else {
-            entityhuman.am.a[entityhuman.am.d] = itemstack1;
+            entityhuman.an.a[entityhuman.an.c] = itemstack1;
             if (itemstack1.a == 0) {
-                entityhuman.am.a[entityhuman.am.d] = null;
+                entityhuman.an.a[entityhuman.an.c] = null;
             }
 
             return true;

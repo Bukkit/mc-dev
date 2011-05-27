@@ -22,7 +22,7 @@ public class ItemHoe extends Item {
                 return true;
             } else {
                 world.d(i, j, k, block.bh);
-                itemstack.a(1);
+                itemstack.b(1);
                 if (world.l.nextInt(8) == 0 && i1 == Block.GRASS.bh) {
                     byte b0 = 1;
 

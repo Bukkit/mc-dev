@@ -44,7 +44,7 @@ public class ItemSign extends Item {
                 }
 
                 --itemstack.a;
-                TileEntitySign tileentitysign = (TileEntitySign) world.k(i, j, k);
+                TileEntitySign tileentitysign = (TileEntitySign) world.l(i, j, k);
 
                 if (tileentitysign != null) {
                     entityhuman.a(tileentitysign);

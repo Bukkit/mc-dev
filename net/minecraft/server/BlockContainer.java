@@ -18,7 +18,7 @@ public abstract class BlockContainer extends Block {
 
     public void b(World world, int i, int j, int k) {
         super.b(world, i, j, k);
-        world.l(i, j, k);
+        world.m(i, j, k);
     }
 
     protected abstract TileEntity a_();

@@ -23,7 +23,7 @@ public class PlayerNBTManager {
 
             entityplayer.d(nbttagcompound);
             File file1 = new File(this.b, "_tmp_.dat");
-            File file2 = new File(this.b, entityplayer.at + ".dat");
+            File file2 = new File(this.b, entityplayer.aw + ".dat");
 
             CompressedStreamTools.a(nbttagcompound, (OutputStream) (new FileOutputStream(file1)));
             if (file2.exists()) {
@@ -32,13 +32,13 @@ public class PlayerNBTManager {
 
             file1.renameTo(file2);
         } catch (Exception exception) {
-            a.warning("Failed to save player data for " + entityplayer.at);
+            a.warning("Failed to save player data for " + entityplayer.aw);
         }
     }
 
     public void b(EntityPlayer entityplayer) {
         try {
-            File file1 = new File(this.b, entityplayer.at + ".dat");
+            File file1 = new File(this.b, entityplayer.aw + ".dat");
 
             if (file1.exists()) {
                 NBTTagCompound nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
@@ -48,7 +48,7 @@ public class PlayerNBTManager {
                 }
             }
         } catch (Exception exception) {
-            a.warning("Failed to load player data for " + entityplayer.at);
+            a.warning("Failed to load player data for " + entityplayer.aw);
         }
     }
 }

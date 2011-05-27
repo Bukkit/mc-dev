@@ -4,9 +4,9 @@ public class EntitySpider extends EntityMonster {
 
     public EntitySpider(World world) {
         super(world);
-        this.aH = "/mob/spider.png";
+        this.aQ = "/mob/spider.png";
         this.a(1.4F, 0.9F);
-        this.bu = 0.8F;
+        this.bD = 0.8F;
     }
 
     public double j() {

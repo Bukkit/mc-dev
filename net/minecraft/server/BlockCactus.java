@@ -10,7 +10,7 @@ public class BlockCactus extends Block {
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        if (world.a(i, j + 1, k) == 0) {
+        if (world.e(i, j + 1, k)) {
             int l;
 
             for (l = 1; world.a(i, j - l, k) == this.bh; ++l) {

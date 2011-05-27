@@ -599,6 +599,44 @@ public class EntityMinecart extends Entity implements IInventory {
         return this.ak[i];
     }
 
+    public ItemStack a(int i, int j) {
+        if (this.ak[i] != null) {
+            ItemStack itemstack;
+
+            if (this.ak[i].a <= j) {
+                itemstack = this.ak[i];
+                this.ak[i] = null;
+                return itemstack;
+            } else {
+                itemstack = this.ak[i].a(j);
+                if (this.ak[i].a == 0) {
+                    this.ak[i] = null;
+                }
+
+                return itemstack;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public void a(int i, ItemStack itemstack) {
+        this.ak[i] = itemstack;
+        if (itemstack != null && itemstack.a > this.c()) {
+            itemstack.a = this.c();
+        }
+    }
+
+    public String b() {
+        return "Minecart";
+    }
+
+    public int c() {
+        return 64;
+    }
+
+    public void d() {}
+
     public boolean a(EntityHuman entityhuman) {
         if (this.d == 0) {
             if (this.j != null && this.j instanceof EntityHuman && this.j != entityhuman) {
@@ -609,13 +647,15 @@ public class EntityMinecart extends Entity implements IInventory {
                 entityhuman.e(this);
             }
         } else if (this.d == 1) {
-            entityhuman.a((IInventory) this);
+            if (!this.l.z) {
+                entityhuman.a((IInventory) this);
+            }
         } else if (this.d == 2) {
-            ItemStack itemstack = entityhuman.am.b();
+            ItemStack itemstack = entityhuman.an.e();
 
             if (itemstack != null && itemstack.c == Item.COAL.aW) {
                 if (--itemstack.a == 0) {
-                    entityhuman.am.a(entityhuman.am.d, (ItemStack) null);
+                    entityhuman.an.a(entityhuman.an.c, (ItemStack) null);
                 }
 
                 this.e += 1200;
@@ -626,5 +666,9 @@ public class EntityMinecart extends Entity implements IInventory {
         }
 
         return true;
+    }
+
+    public boolean a_(EntityHuman entityhuman) {
+        return this.G ? false : entityhuman.b((Entity) this) <= 64.0D;
     }
 }

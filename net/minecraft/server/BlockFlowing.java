@@ -17,7 +17,7 @@ public class BlockFlowing extends BlockFluids {
 
         world.a(i, j, k, this.bh + 1, l);
         world.b(i, j, k, i, j, k);
-        world.f(i, j, k);
+        world.g(i, j, k);
     }
 
     public void a(World world, int i, int j, int k, Random random) {

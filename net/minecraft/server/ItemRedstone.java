@@ -31,7 +31,7 @@ public class ItemRedstone extends Item {
             ++i;
         }
 
-        if (world.a(i, j, k) != 0) {
+        if (!world.e(i, j, k)) {
             return false;
         } else {
             if (Block.REDSTONE_WIRE.a(world, i, j, k)) {

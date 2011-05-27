@@ -6,17 +6,17 @@ public class EntityMonster extends EntityCreature implements IMonster {
 
     public EntityMonster(World world) {
         super(world);
-        this.aR = 20;
+        this.ba = 20;
     }
 
-    public void E() {
+    public void G() {
         float f = this.b(1.0F);
 
         if (f > 0.5F) {
-            this.bo += 2;
+            this.bx += 2;
         }
 
-        super.E();
+        super.G();
     }
 
     public void b_() {
@@ -50,13 +50,13 @@ public class EntityMonster extends EntityCreature implements IMonster {
 
     protected void a(Entity entity, float f) {
         if ((double) f < 2.5D && entity.z.e > this.z.b && entity.z.b < this.z.e) {
-            this.aX = 20;
+            this.bg = 20;
             entity.a(this, this.f);
         }
     }
 
     protected float a(int i, int j, int k) {
-        return 0.5F - this.l.j(i, j, k);
+        return 0.5F - this.l.k(i, j, k);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -75,7 +75,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
         if (this.l.a(EnumSkyBlock.SKY, i, j, k) > this.W.nextInt(32)) {
             return false;
         } else {
-            int l = this.l.h(i, j, k);
+            int l = this.l.i(i, j, k);
 
             return l <= this.W.nextInt(8) && super.a();
         }

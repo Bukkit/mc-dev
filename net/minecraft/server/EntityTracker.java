@@ -36,6 +36,8 @@ public class EntityTracker {
             this.a(entity, 64, 5, true);
         } else if (entity instanceof EntitySnowball) {
             this.a(entity, 64, 5, true);
+        } else if (entity instanceof EntityEgg) {
+            this.a(entity, 64, 5, true);
         } else if (entity instanceof EntityItem) {
             this.a(entity, 64, 20, true);
         } else if (entity instanceof EntityMinecart) {
@@ -46,6 +48,8 @@ public class EntityTracker {
             this.a(entity, 160, 3);
         } else if (entity instanceof EntityTNTPrimed) {
             this.a(entity, 160, 10, true);
+        } else if (entity instanceof EntityFallingSand) {
+            this.a(entity, 160, 20, true);
         }
     }
 

@@ -187,7 +187,7 @@ public class EntityItem extends Entity {
         if (!this.l.z) {
             int i = this.a.a;
 
-            if (this.c == 0 && entityhuman.am.a(this.a)) {
+            if (this.c == 0 && entityhuman.an.a(this.a)) {
                 this.l.a(this, "random.pop", 0.2F, ((this.W.nextFloat() - this.W.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 entityhuman.c(this, i);
                 this.l();

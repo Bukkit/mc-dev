@@ -40,7 +40,7 @@ public class ItemFlintAndSteel extends Item {
             world.d(i, j, k, Block.FIRE.bh);
         }
 
-        itemstack.a(1);
+        itemstack.b(1);
         return true;
     }
 }

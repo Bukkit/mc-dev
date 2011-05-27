@@ -24,7 +24,7 @@ public class BlockSand extends Block {
 
     private void h(World world, int i, int j, int k) {
         if (g(world, i, j - 1, k) && j >= 0) {
-            EntityFallingSand entityfallingsand = new EntityFallingSand(world, (float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F, this.bh);
+            EntityFallingSand entityfallingsand = new EntityFallingSand(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.bh);
 
             if (a) {
                 while (!entityfallingsand.G) {

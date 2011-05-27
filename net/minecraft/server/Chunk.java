@@ -543,7 +543,19 @@ public class Chunk {
     }
 
     public boolean a(boolean flag) {
-        return this.p ? false : (this.r && this.d.e != this.s ? true : this.o);
+        if (this.p) {
+            return false;
+        } else {
+            if (flag) {
+                if (this.r && this.d.e != this.s) {
+                    return true;
+                }
+            } else if (this.r && this.d.e >= this.s + 600L) {
+                return true;
+            }
+
+            return this.o;
+        }
     }
 
     public int a(byte[] abyte, int i, int j, int k, int l, int i1, int j1, int k1) {
