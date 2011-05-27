@@ -12,14 +12,14 @@ public class EntityFallingSand extends Entity {
     public EntityFallingSand(World world, double d0, double d1, double d2, int i) {
         super(world);
         this.a = i;
-        this.i = true;
+        this.aC = true;
         this.a(0.98F, 0.98F);
         this.height = this.width / 2.0F;
         this.a(d0, d1, d2);
         this.motX = 0.0D;
         this.motY = 0.0D;
         this.motZ = 0.0D;
-        this.M = false;
+        this.bg = false;
         this.lastX = d0;
         this.lastY = d1;
         this.lastZ = d2;
@@ -27,13 +27,13 @@ public class EntityFallingSand extends Entity {
 
     protected void a() {}
 
-    public boolean c_() {
+    public boolean d_() {
         return !this.dead;
     }
 
-    public void b_() {
+    public void f_() {
         if (this.a == 0) {
-            this.q();
+            this.C();
         } else {
             this.lastX = this.locX;
             this.lastY = this.locY;
@@ -56,13 +56,13 @@ public class EntityFallingSand extends Entity {
                 this.motX *= 0.699999988079071D;
                 this.motZ *= 0.699999988079071D;
                 this.motY *= -0.5D;
-                this.q();
+                this.C();
                 if ((!this.world.a(this.a, i, j, k, true) || !this.world.e(i, j, k, this.a)) && !this.world.isStatic) {
-                    this.a(this.a, 1);
+                    this.b(this.a, 1);
                 }
             } else if (this.b > 100 && !this.world.isStatic) {
-                this.a(this.a, 1);
-                this.q();
+                this.b(this.a, 1);
+                this.C();
             }
         }
     }
@@ -72,6 +72,6 @@ public class EntityFallingSand extends Entity {
     }
 
     protected void b(NBTTagCompound nbttagcompound) {
-        this.a = nbttagcompound.b("Tile") & 255;
+        this.a = nbttagcompound.c("Tile") & 255;
     }
 }

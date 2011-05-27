@@ -31,7 +31,7 @@ public class BlockPortal extends BlockBreakable {
         return false;
     }
 
-    public boolean b_(World world, int i, int j, int k) {
+    public boolean a_(World world, int i, int j, int k) {
         byte b0 = 0;
         byte b1 = 0;
 
@@ -73,7 +73,7 @@ public class BlockPortal extends BlockBreakable {
                 }
             }
 
-            world.i = true;
+            world.h = true;
 
             for (l = 0; l < 2; ++l) {
                 for (i1 = 0; i1 < 3; ++i1) {
@@ -81,12 +81,12 @@ public class BlockPortal extends BlockBreakable {
                 }
             }
 
-            world.i = false;
+            world.h = false;
             return true;
         }
     }
 
-    public void b(World world, int i, int j, int k, int l) {
+    public void a(World world, int i, int j, int k, int l) {
         byte b0 = 0;
         byte b1 = 1;
 
@@ -135,7 +135,7 @@ public class BlockPortal extends BlockBreakable {
 
     public void a(World world, int i, int j, int k, Entity entity) {
         if (!world.isStatic) {
-            entity.H();
+            entity.T();
         }
     }
 }

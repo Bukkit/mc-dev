@@ -9,27 +9,27 @@ public class EntityMonster extends EntityCreature implements IMonster {
         this.health = 20;
     }
 
-    public void o() {
-        float f = this.b(1.0F);
+    public void q() {
+        float f = this.c(1.0F);
 
         if (f > 0.5F) {
-            this.bw += 2;
+            this.at += 2;
         }
 
-        super.o();
+        super.q();
     }
 
-    public void b_() {
-        super.b_();
-        if (this.world.k == 0) {
-            this.q();
+    public void f_() {
+        super.f_();
+        if (this.world.j == 0) {
+            this.C();
         }
     }
 
     protected Entity l() {
         EntityHuman entityhuman = this.world.a(this, 16.0D);
 
-        return entityhuman != null && this.i(entityhuman) ? entityhuman : null;
+        return entityhuman != null && this.e(entityhuman) ? entityhuman : null;
     }
 
     public boolean a(Entity entity, int i) {
@@ -49,7 +49,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
     }
 
     protected void a(Entity entity, float f) {
-        if ((double) f < 2.5D && entity.boundingBox.e > this.boundingBox.b && entity.boundingBox.b < this.boundingBox.e) {
+        if ((double) f < 1.5D && entity.boundingBox.e > this.boundingBox.b && entity.boundingBox.b < this.boundingBox.e) {
             this.attackTicks = 20;
             entity.a(this, this.c);
         }

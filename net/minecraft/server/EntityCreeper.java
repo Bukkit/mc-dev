@@ -23,10 +23,10 @@ public class EntityCreeper extends EntityMonster {
         super.b(nbttagcompound);
     }
 
-    public void b_() {
+    public void f_() {
         this.b = this.a;
         if (this.world.isStatic) {
-            int i = this.K();
+            int i = this.r();
 
             if (i > 0 && this.a == 0) {
                 this.world.a(this, "random.fuse", 1.0F, 0.5F);
@@ -42,7 +42,7 @@ public class EntityCreeper extends EntityMonster {
             }
         }
 
-        super.b_();
+        super.f_();
     }
 
     protected String f() {
@@ -53,18 +53,18 @@ public class EntityCreeper extends EntityMonster {
         return "mob.creeperdeath";
     }
 
-    public void f(Entity entity) {
-        super.f(entity);
+    public void a(Entity entity) {
+        super.a(entity);
         if (entity instanceof EntitySkeleton) {
-            this.a(Item.GOLD_RECORD.id + this.random.nextInt(2), 1);
+            this.b(Item.GOLD_RECORD.id + this.random.nextInt(2), 1);
         }
     }
 
     protected void a(Entity entity, float f) {
-        int i = this.K();
+        int i = this.r();
 
         if ((i > 0 || f >= 3.0F) && (i <= 0 || f >= 7.0F)) {
-            this.a(-1);
+            this.e(-1);
             --this.a;
             if (this.a < 0) {
                 this.a = 0;
@@ -74,11 +74,11 @@ public class EntityCreeper extends EntityMonster {
                 this.world.a(this, "random.fuse", 1.0F, 0.5F);
             }
 
-            this.a(1);
+            this.e(1);
             ++this.a;
             if (this.a >= 30) {
                 this.world.a(this, this.locX, this.locY, this.locZ, 3.0F);
-                this.q();
+                this.C();
             }
 
             this.e = true;
@@ -89,11 +89,11 @@ public class EntityCreeper extends EntityMonster {
         return Item.SULPHUR.id;
     }
 
-    private int K() {
+    private int r() {
         return this.datawatcher.a(16);
     }
 
-    private void a(int i) {
+    private void e(int i) {
         this.datawatcher.b(16, Byte.valueOf((byte) i));
     }
 }

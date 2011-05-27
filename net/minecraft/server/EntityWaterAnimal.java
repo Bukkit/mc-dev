@@ -6,7 +6,7 @@ public class EntityWaterAnimal extends EntityCreature implements IAnimal {
         super(world);
     }
 
-    public boolean d_() {
+    public boolean b_() {
         return true;
     }
 

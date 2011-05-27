@@ -1,7 +1,5 @@
 package net.minecraft.server;
 
-import java.io.File;
-
 public class WorldProviderHell extends WorldProvider {
 
     public WorldProviderHell() {}
@@ -25,14 +23,7 @@ public class WorldProviderHell extends WorldProvider {
     }
 
     public IChunkProvider c() {
-        return new ChunkProviderHell(this.a, this.a.u);
-    }
-
-    public IChunkLoader a(File file1) {
-        File file2 = new File(file1, "DIM-1");
-
-        file2.mkdirs();
-        return new ChunkLoader(file2, true);
+        return new ChunkProviderHell(this.a, this.a.j());
     }
 
     public boolean a(int i, int j) {

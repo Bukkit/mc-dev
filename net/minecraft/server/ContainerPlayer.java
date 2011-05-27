@@ -27,7 +27,7 @@ public class ContainerPlayer extends Container {
         }
 
         for (i = 0; i < 4; ++i) {
-            this.a((Slot) (new SlotArmor(this, inventoryplayer, inventoryplayer.h_() - 1 - i, 8, 8 + i * 18, i)));
+            this.a((Slot) (new SlotArmor(this, inventoryplayer, inventoryplayer.m_() - 1 - i, 8, 8 + i * 18, i)));
         }
 
         for (i = 0; i < 3; ++i) {
@@ -51,7 +51,7 @@ public class ContainerPlayer extends Container {
         super.a(entityhuman);
 
         for (int i = 0; i < 4; ++i) {
-            ItemStack itemstack = this.a.a(i);
+            ItemStack itemstack = this.a.c_(i);
 
             if (itemstack != null) {
                 entityhuman.b(itemstack);

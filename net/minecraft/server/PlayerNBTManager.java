@@ -1,29 +1,166 @@
 package net.minecraft.server;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.logging.Logger;
 
-public class PlayerNBTManager {
+public class PlayerNBTManager implements PlayerFileData, IDataManager {
 
-    public static Logger a = Logger.getLogger("Minecraft");
-    private File b;
+    private static final Logger a = Logger.getLogger("Minecraft");
+    private final File b;
+    private final File c;
+    private final long d = System.currentTimeMillis();
 
-    public PlayerNBTManager(File file1) {
-        this.b = file1;
-        file1.mkdir();
+    public PlayerNBTManager(File file1, String s, boolean flag) {
+        this.b = new File(file1, s);
+        this.b.mkdirs();
+        this.c = new File(this.b, "players");
+        if (flag) {
+            this.c.mkdirs();
+        }
+
+        this.f();
     }
 
-    public void a(EntityPlayer entityplayer) {
+    private void f() {
+        try {
+            File file1 = new File(this.b, "session.lock");
+            DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file1));
+
+            try {
+                dataoutputstream.writeLong(this.d);
+            } finally {
+                dataoutputstream.close();
+            }
+        } catch (IOException ioexception) {
+            ioexception.printStackTrace();
+            throw new RuntimeException("Failed to check session lock, aborting");
+        }
+    }
+
+    protected File a() {
+        return this.b;
+    }
+
+    public void b() {
+        try {
+            File file1 = new File(this.b, "session.lock");
+            DataInputStream datainputstream = new DataInputStream(new FileInputStream(file1));
+
+            try {
+                if (datainputstream.readLong() != this.d) {
+                    throw new MinecraftException("The save is being accessed from another location, aborting");
+                }
+            } finally {
+                datainputstream.close();
+            }
+        } catch (IOException ioexception) {
+            throw new MinecraftException("Failed to check session lock, aborting");
+        }
+    }
+
+    public IChunkLoader a(WorldProvider worldprovider) {
+        if (worldprovider instanceof WorldProviderHell) {
+            File file1 = new File(this.b, "DIM-1");
+
+            file1.mkdirs();
+            return new ChunkLoader(file1, true);
+        } else {
+            return new ChunkLoader(this.b, true);
+        }
+    }
+
+    public WorldData c() {
+        File file1 = new File(this.b, "level.dat");
+
+        if (file1.exists()) {
+            try {
+                NBTTagCompound nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
+                NBTTagCompound nbttagcompound1 = nbttagcompound.k("Data");
+
+                return new WorldData(nbttagcompound1);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
+    public void a(WorldData worlddata, List list) {
+        NBTTagCompound nbttagcompound = worlddata.a(list);
+        NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+
+        nbttagcompound1.a("Data", (NBTBase) nbttagcompound);
+
+        try {
+            File file1 = new File(this.b, "level.dat_new");
+            File file2 = new File(this.b, "level.dat_old");
+            File file3 = new File(this.b, "level.dat");
+
+            CompressedStreamTools.a(nbttagcompound1, (OutputStream) (new FileOutputStream(file1)));
+            if (file2.exists()) {
+                file2.delete();
+            }
+
+            file3.renameTo(file2);
+            if (file3.exists()) {
+                file3.delete();
+            }
+
+            file1.renameTo(file3);
+            if (file1.exists()) {
+                file1.delete();
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void a(WorldData worlddata) {
+        NBTTagCompound nbttagcompound = worlddata.a();
+        NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+
+        nbttagcompound1.a("Data", (NBTBase) nbttagcompound);
+
+        try {
+            File file1 = new File(this.b, "level.dat_new");
+            File file2 = new File(this.b, "level.dat_old");
+            File file3 = new File(this.b, "level.dat");
+
+            CompressedStreamTools.a(nbttagcompound1, (OutputStream) (new FileOutputStream(file1)));
+            if (file2.exists()) {
+                file2.delete();
+            }
+
+            file3.renameTo(file2);
+            if (file3.exists()) {
+                file3.delete();
+            }
+
+            file1.renameTo(file3);
+            if (file1.exists()) {
+                file1.delete();
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void a(EntityHuman entityhuman) {
         try {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-            entityplayer.d(nbttagcompound);
-            File file1 = new File(this.b, "_tmp_.dat");
-            File file2 = new File(this.b, entityplayer.name + ".dat");
+            entityhuman.d(nbttagcompound);
+            File file1 = new File(this.c, "_tmp_.dat");
+            File file2 = new File(this.c, entityhuman.name + ".dat");
 
             CompressedStreamTools.a(nbttagcompound, (OutputStream) (new FileOutputStream(file1)));
             if (file2.exists()) {
@@ -32,23 +169,29 @@ public class PlayerNBTManager {
 
             file1.renameTo(file2);
         } catch (Exception exception) {
-            a.warning("Failed to save player data for " + entityplayer.name);
+            a.warning("Failed to save player data for " + entityhuman.name);
         }
     }
 
-    public void b(EntityPlayer entityplayer) {
+    public void b(EntityHuman entityhuman) {
         try {
-            File file1 = new File(this.b, entityplayer.name + ".dat");
+            File file1 = new File(this.c, entityhuman.name + ".dat");
 
             if (file1.exists()) {
                 NBTTagCompound nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
 
                 if (nbttagcompound != null) {
-                    entityplayer.e(nbttagcompound);
+                    entityhuman.e(nbttagcompound);
                 }
             }
         } catch (Exception exception) {
-            a.warning("Failed to load player data for " + entityplayer.name);
+            a.warning("Failed to load player data for " + entityhuman.name);
         }
     }
+
+    public PlayerFileData d() {
+        return this;
+    }
+
+    public void e() {}
 }

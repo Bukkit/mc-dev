@@ -5,19 +5,23 @@ public class PathPoint {
     public final int a;
     public final int b;
     public final int c;
-    public final int d;
-    int e = -1;
+    private final int j;
+    int d = -1;
+    float e;
     float f;
     float g;
-    float h;
-    PathPoint i;
-    public boolean j = false;
+    PathPoint h;
+    public boolean i = false;
 
     public PathPoint(int i, int j, int k) {
         this.a = i;
         this.b = j;
         this.c = k;
-        this.d = i | j << 10 | k << 20;
+        this.j = a(i, j, k);
+    }
+
+    public static int a(int i, int j, int k) {
+        return j & 255 | (i & 32767) << 8 | (k & 32767) << 24 | (i < 0 ? Integer.MIN_VALUE : 0) | (k < 0 ? '\u8000' : 0);
     }
 
     public float a(PathPoint pathpoint) {
@@ -29,15 +33,21 @@ public class PathPoint {
     }
 
     public boolean equals(Object object) {
-        return ((PathPoint) object).d == this.d;
+        if (!(object instanceof PathPoint)) {
+            return false;
+        } else {
+            PathPoint pathpoint = (PathPoint) object;
+
+            return this.j == pathpoint.j && this.a == pathpoint.a && this.b == pathpoint.b && this.c == pathpoint.c;
+        }
     }
 
     public int hashCode() {
-        return this.d;
+        return this.j;
     }
 
     public boolean a() {
-        return this.e >= 0;
+        return this.d >= 0;
     }
 
     public String toString() {

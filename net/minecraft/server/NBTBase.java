@@ -15,11 +15,11 @@ public abstract class NBTBase {
 
     public abstract byte a();
 
-    public String c() {
+    public String b() {
         return this.a == null ? "" : this.a;
     }
 
-    public NBTBase m(String s) {
+    public NBTBase a(String s) {
         this.a = s;
         return this;
     }
@@ -41,7 +41,7 @@ public abstract class NBTBase {
     public static void a(NBTBase nbtbase, DataOutput dataoutput) {
         dataoutput.writeByte(nbtbase.a());
         if (nbtbase.a() != 0) {
-            dataoutput.writeUTF(nbtbase.c());
+            dataoutput.writeUTF(nbtbase.b());
             nbtbase.a(dataoutput);
         }
     }

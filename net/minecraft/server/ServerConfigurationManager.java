@@ -22,28 +22,35 @@ public class ServerConfigurationManager {
     private Set f = new HashSet();
     private Set g = new HashSet();
     private Set h = new HashSet();
-    private File i;
+    private Set i = new HashSet();
     private File j;
     private File k;
-    private PlayerNBTManager l;
+    private File l;
+    private File m;
+    private PlayerFileData n;
+    private boolean o;
 
     public ServerConfigurationManager(MinecraftServer minecraftserver) {
         this.c = minecraftserver;
-        this.i = minecraftserver.a("banned-players.txt");
-        this.j = minecraftserver.a("banned-ips.txt");
-        this.k = minecraftserver.a("ops.txt");
+        this.j = minecraftserver.a("banned-players.txt");
+        this.k = minecraftserver.a("banned-ips.txt");
+        this.l = minecraftserver.a("ops.txt");
+        this.m = minecraftserver.a("white-list.txt");
         this.d = new PlayerManager(minecraftserver);
         this.e = minecraftserver.d.a("max-players", 20);
-        this.e();
+        this.o = minecraftserver.d.a("white-list", false);
         this.g();
         this.i();
-        this.f();
+        this.k();
+        this.m();
         this.h();
         this.j();
+        this.l();
+        this.n();
     }
 
     public void a(WorldServer worldserver) {
-        this.l = new PlayerNBTManager(new File(worldserver.t, "players"));
+        this.n = worldserver.m().d();
     }
 
     public int a() {
@@ -52,8 +59,8 @@ public class ServerConfigurationManager {
 
     public void a(EntityPlayer entityplayer) {
         this.b.add(entityplayer);
-        this.l.b(entityplayer);
-        this.c.e.A.d((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
+        this.n.b(entityplayer);
+        this.c.e.u.d((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
 
         while (this.c.e.a(entityplayer, entityplayer.boundingBox).size() != 0) {
             entityplayer.a(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
@@ -68,7 +75,7 @@ public class ServerConfigurationManager {
     }
 
     public void c(EntityPlayer entityplayer) {
-        this.l.a(entityplayer);
+        this.n.a(entityplayer);
         this.c.e.d(entityplayer);
         this.b.remove(entityplayer);
         this.d.b(entityplayer);
@@ -77,6 +84,9 @@ public class ServerConfigurationManager {
     public EntityPlayer a(NetLoginHandler netloginhandler, String s, String s1) {
         if (this.f.contains(s.trim().toLowerCase())) {
             netloginhandler.a("You are banned from this server!");
+            return null;
+        } else if (!this.g(s)) {
+            netloginhandler.a("You are not white-listed on this server!");
             return null;
         } else {
             String s2 = netloginhandler.b.b().toString();
@@ -113,7 +123,7 @@ public class ServerConfigurationManager {
 
         entityplayer1.id = entityplayer.id;
         entityplayer1.a = entityplayer.a;
-        this.c.e.A.d((int) entityplayer1.locX >> 4, (int) entityplayer1.locZ >> 4);
+        this.c.e.u.d((int) entityplayer1.locX >> 4, (int) entityplayer1.locZ >> 4);
 
         while (this.c.e.a(entityplayer1, entityplayer1.boundingBox).size() != 0) {
             entityplayer1.a(entityplayer1.locX, entityplayer1.locY + 1.0D, entityplayer1.locZ);
@@ -125,6 +135,7 @@ public class ServerConfigurationManager {
         this.c.e.a(entityplayer1);
         this.b.add(entityplayer1);
         entityplayer1.l();
+        entityplayer1.s();
         return entityplayer1;
     }
 
@@ -160,18 +171,18 @@ public class ServerConfigurationManager {
 
     public void a(String s) {
         this.f.add(s.toLowerCase());
-        this.f();
+        this.h();
     }
 
     public void b(String s) {
         this.f.remove(s.toLowerCase());
-        this.f();
+        this.h();
     }
 
-    private void e() {
+    private void g() {
         try {
             this.f.clear();
-            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.i));
+            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.j));
             String s = "";
 
             while ((s = bufferedreader.readLine()) != null) {
@@ -184,9 +195,9 @@ public class ServerConfigurationManager {
         }
     }
 
-    private void f() {
+    private void h() {
         try {
-            PrintWriter printwriter = new PrintWriter(new FileWriter(this.i, false));
+            PrintWriter printwriter = new PrintWriter(new FileWriter(this.j, false));
             Iterator iterator = this.f.iterator();
 
             while (iterator.hasNext()) {
@@ -203,18 +214,18 @@ public class ServerConfigurationManager {
 
     public void c(String s) {
         this.g.add(s.toLowerCase());
-        this.h();
+        this.j();
     }
 
     public void d(String s) {
         this.g.remove(s.toLowerCase());
-        this.h();
+        this.j();
     }
 
-    private void g() {
+    private void i() {
         try {
             this.g.clear();
-            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.j));
+            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.k));
             String s = "";
 
             while ((s = bufferedreader.readLine()) != null) {
@@ -227,9 +238,9 @@ public class ServerConfigurationManager {
         }
     }
 
-    private void h() {
+    private void j() {
         try {
-            PrintWriter printwriter = new PrintWriter(new FileWriter(this.j, false));
+            PrintWriter printwriter = new PrintWriter(new FileWriter(this.k, false));
             Iterator iterator = this.g.iterator();
 
             while (iterator.hasNext()) {
@@ -246,18 +257,18 @@ public class ServerConfigurationManager {
 
     public void e(String s) {
         this.h.add(s.toLowerCase());
-        this.j();
+        this.l();
     }
 
     public void f(String s) {
         this.h.remove(s.toLowerCase());
-        this.j();
+        this.l();
     }
 
-    private void i() {
+    private void k() {
         try {
             this.h.clear();
-            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.k));
+            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.l));
             String s = "";
 
             while ((s = bufferedreader.readLine()) != null) {
@@ -270,9 +281,9 @@ public class ServerConfigurationManager {
         }
     }
 
-    private void j() {
+    private void l() {
         try {
-            PrintWriter printwriter = new PrintWriter(new FileWriter(this.k, false));
+            PrintWriter printwriter = new PrintWriter(new FileWriter(this.l, false));
             Iterator iterator = this.h.iterator();
 
             while (iterator.hasNext()) {
@@ -287,11 +298,49 @@ public class ServerConfigurationManager {
         }
     }
 
+    private void m() {
+        try {
+            this.i.clear();
+            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.m));
+            String s = "";
+
+            while ((s = bufferedreader.readLine()) != null) {
+                this.i.add(s.trim().toLowerCase());
+            }
+
+            bufferedreader.close();
+        } catch (Exception exception) {
+            a.warning("Failed to load white-list: " + exception);
+        }
+    }
+
+    private void n() {
+        try {
+            PrintWriter printwriter = new PrintWriter(new FileWriter(this.m, false));
+            Iterator iterator = this.i.iterator();
+
+            while (iterator.hasNext()) {
+                String s = (String) iterator.next();
+
+                printwriter.println(s);
+            }
+
+            printwriter.close();
+        } catch (Exception exception) {
+            a.warning("Failed to save white-list: " + exception);
+        }
+    }
+
     public boolean g(String s) {
+        s = s.trim().toLowerCase();
+        return !this.o || this.h.contains(s) || this.i.contains(s);
+    }
+
+    public boolean h(String s) {
         return this.h.contains(s.trim().toLowerCase());
     }
 
-    public EntityPlayer h(String s) {
+    public EntityPlayer i(String s) {
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
@@ -304,7 +353,7 @@ public class ServerConfigurationManager {
     }
 
     public void a(String s, String s1) {
-        EntityPlayer entityplayer = this.h(s);
+        EntityPlayer entityplayer = this.i(s);
 
         if (entityplayer != null) {
             entityplayer.a.b((Packet) (new Packet3Chat(s1)));
@@ -324,20 +373,20 @@ public class ServerConfigurationManager {
         }
     }
 
-    public void i(String s) {
+    public void j(String s) {
         Packet3Chat packet3chat = new Packet3Chat(s);
 
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-            if (this.g(entityplayer.name)) {
+            if (this.h(entityplayer.name)) {
                 entityplayer.a.b((Packet) packet3chat);
             }
         }
     }
 
     public boolean a(String s, Packet packet) {
-        EntityPlayer entityplayer = this.h(s);
+        EntityPlayer entityplayer = this.i(s);
 
         if (entityplayer != null) {
             entityplayer.a.b(packet);
@@ -349,9 +398,27 @@ public class ServerConfigurationManager {
 
     public void d() {
         for (int i = 0; i < this.b.size(); ++i) {
-            this.l.a((EntityPlayer) this.b.get(i));
+            this.n.a((EntityHuman) this.b.get(i));
         }
     }
 
     public void a(int i, int j, int k, TileEntity tileentity) {}
+
+    public void k(String s) {
+        this.i.add(s);
+        this.n();
+    }
+
+    public void l(String s) {
+        this.i.remove(s);
+        this.n();
+    }
+
+    public Set e() {
+        return this.i;
+    }
+
+    public void f() {
+        this.m();
+    }
 }

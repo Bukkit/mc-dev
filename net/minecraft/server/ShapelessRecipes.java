@@ -19,7 +19,7 @@ public class ShapelessRecipes implements CraftingRecipe {
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                ItemStack itemstack = inventorycrafting.a(j, i);
+                ItemStack itemstack = inventorycrafting.b(j, i);
 
                 if (itemstack != null) {
                     boolean flag = false;

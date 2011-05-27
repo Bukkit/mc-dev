@@ -6,13 +6,13 @@ public class EntityFireball extends Entity {
 
     private int e = -1;
     private int f = -1;
-    private int ak = -1;
-    private int al = 0;
-    private boolean am = false;
+    private int g = -1;
+    private int h = 0;
+    private boolean i = false;
     public int a = 0;
-    private EntityLiving an;
-    private int ao;
-    private int ap = 0;
+    private EntityLiving j;
+    private int k;
+    private int l = 0;
     public double b;
     public double c;
     public double d;
@@ -26,7 +26,7 @@ public class EntityFireball extends Entity {
 
     public EntityFireball(World world, EntityLiving entityliving, double d0, double d1, double d2) {
         super(world);
-        this.an = entityliving;
+        this.j = entityliving;
         this.a(1.0F, 1.0F);
         this.c(entityliving.locX, entityliving.locY, entityliving.locZ, entityliving.yaw, entityliving.pitch);
         this.a(this.locX, this.locY, this.locZ);
@@ -42,33 +42,33 @@ public class EntityFireball extends Entity {
         this.d = d2 / d3 * 0.1D;
     }
 
-    public void b_() {
-        super.b_();
+    public void f_() {
+        super.f_();
         this.fireTicks = 10;
         if (this.a > 0) {
             --this.a;
         }
 
-        if (this.am) {
-            int i = this.world.getTypeId(this.e, this.f, this.ak);
+        if (this.i) {
+            int i = this.world.getTypeId(this.e, this.f, this.g);
 
-            if (i == this.al) {
-                ++this.ao;
-                if (this.ao == 1200) {
-                    this.q();
+            if (i == this.h) {
+                ++this.k;
+                if (this.k == 1200) {
+                    this.C();
                 }
 
                 return;
             }
 
-            this.am = false;
+            this.i = false;
             this.motX *= (double) (this.random.nextFloat() * 0.2F);
             this.motY *= (double) (this.random.nextFloat() * 0.2F);
             this.motZ *= (double) (this.random.nextFloat() * 0.2F);
-            this.ao = 0;
-            this.ap = 0;
+            this.k = 0;
+            this.l = 0;
         } else {
-            ++this.ap;
+            ++this.l;
         }
 
         Vec3D vec3d = Vec3D.b(this.locX, this.locY, this.locZ);
@@ -88,7 +88,7 @@ public class EntityFireball extends Entity {
         for (int j = 0; j < list.size(); ++j) {
             Entity entity1 = (Entity) list.get(j);
 
-            if (entity1.c_() && (entity1 != this.an || this.ap >= 25)) {
+            if (entity1.d_() && (entity1 != this.j || this.l >= 25)) {
                 float f = 0.3F;
                 AxisAlignedBB axisalignedbb = entity1.boundingBox.b((double) f, (double) f, (double) f);
                 MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
@@ -109,12 +109,12 @@ public class EntityFireball extends Entity {
         }
 
         if (movingobjectposition != null) {
-            if (movingobjectposition.g != null && movingobjectposition.g.a(this.an, 0)) {
+            if (movingobjectposition.g != null && movingobjectposition.g.a(this.j, 0)) {
                 ;
             }
 
             this.world.a((Entity) null, this.locX, this.locY, this.locZ, 1.0F, true);
-            this.q();
+            this.C();
         }
 
         this.locX += this.motX;
@@ -144,7 +144,7 @@ public class EntityFireball extends Entity {
         this.yaw = this.lastYaw + (this.yaw - this.lastYaw) * 0.2F;
         float f2 = 0.95F;
 
-        if (this.v()) {
+        if (this.g_()) {
             for (int k = 0; k < 4; ++k) {
                 float f3 = 0.25F;
 
@@ -167,29 +167,29 @@ public class EntityFireball extends Entity {
     public void a(NBTTagCompound nbttagcompound) {
         nbttagcompound.a("xTile", (short) this.e);
         nbttagcompound.a("yTile", (short) this.f);
-        nbttagcompound.a("zTile", (short) this.ak);
-        nbttagcompound.a("inTile", (byte) this.al);
+        nbttagcompound.a("zTile", (short) this.g);
+        nbttagcompound.a("inTile", (byte) this.h);
         nbttagcompound.a("shake", (byte) this.a);
-        nbttagcompound.a("inGround", (byte) (this.am ? 1 : 0));
+        nbttagcompound.a("inGround", (byte) (this.i ? 1 : 0));
     }
 
     public void b(NBTTagCompound nbttagcompound) {
-        this.e = nbttagcompound.c("xTile");
-        this.f = nbttagcompound.c("yTile");
-        this.ak = nbttagcompound.c("zTile");
-        this.al = nbttagcompound.b("inTile") & 255;
-        this.a = nbttagcompound.b("shake") & 255;
-        this.am = nbttagcompound.b("inGround") == 1;
+        this.e = nbttagcompound.d("xTile");
+        this.f = nbttagcompound.d("yTile");
+        this.g = nbttagcompound.d("zTile");
+        this.h = nbttagcompound.c("inTile") & 255;
+        this.a = nbttagcompound.c("shake") & 255;
+        this.i = nbttagcompound.c("inGround") == 1;
     }
 
-    public boolean c_() {
+    public boolean d_() {
         return true;
     }
 
     public boolean a(Entity entity, int i) {
-        this.y();
+        this.R();
         if (entity != null) {
-            Vec3D vec3d = entity.G();
+            Vec3D vec3d = entity.N();
 
             if (vec3d != null) {
                 this.motX = vec3d.a;

@@ -47,7 +47,7 @@ public class ShapedRecipes implements CraftingRecipe {
                     }
                 }
 
-                ItemStack itemstack1 = inventorycrafting.a(k, l);
+                ItemStack itemstack1 = inventorycrafting.b(k, l);
 
                 if (itemstack1 != null || itemstack != null) {
                     if (itemstack1 == null && itemstack != null || itemstack1 != null && itemstack == null) {

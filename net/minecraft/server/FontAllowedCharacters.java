@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 public class FontAllowedCharacters {
 
     public static final String a = a();
+    public static final char[] b = new char[] { '/', '\n', '\r', '\t', '\u0000', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':'};
 
     public FontAllowedCharacters() {}
 

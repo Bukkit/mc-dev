@@ -14,12 +14,12 @@ public class EntityPig extends EntityAnimal {
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        nbttagcompound.a("Saddle", this.K());
+        nbttagcompound.a("Saddle", this.r());
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        this.a(nbttagcompound.l("Saddle"));
+        this.a(nbttagcompound.m("Saddle"));
     }
 
     protected String e() {
@@ -35,8 +35,8 @@ public class EntityPig extends EntityAnimal {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        if (this.K() && !this.world.isStatic && (this.passenger == null || this.passenger == entityhuman)) {
-            entityhuman.e(this);
+        if (this.r() && !this.world.isStatic && (this.passenger == null || this.passenger == entityhuman)) {
+            entityhuman.b((Entity) this);
             return true;
         } else {
             return false;
@@ -47,7 +47,7 @@ public class EntityPig extends EntityAnimal {
         return Item.PORK.id;
     }
 
-    public boolean K() {
+    public boolean r() {
         return (this.datawatcher.a(16) & 1) != 0;
     }
 

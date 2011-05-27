@@ -2,31 +2,31 @@ package net.minecraft.server;
 
 public class TileEntityNote extends TileEntity {
 
-    public byte e = 0;
-    public boolean f = false;
+    public byte a = 0;
+    public boolean b = false;
 
     public TileEntityNote() {}
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.a("note", this.e);
+        nbttagcompound.a("note", this.a);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.e = nbttagcompound.b("note");
-        if (this.e < 0) {
-            this.e = 0;
+        this.a = nbttagcompound.c("note");
+        if (this.a < 0) {
+            this.a = 0;
         }
 
-        if (this.e > 24) {
-            this.e = 24;
+        if (this.a > 24) {
+            this.a = 24;
         }
     }
 
     public void a() {
-        this.e = (byte) ((this.e + 1) % 25);
-        this.d();
+        this.a = (byte) ((this.a + 1) % 25);
+        this.h();
     }
 
     public void a(World world, int i, int j, int k) {
@@ -50,7 +50,7 @@ public class TileEntityNote extends TileEntity {
                 b0 = 4;
             }
 
-            world.c(i, j, k, b0, this.e);
+            world.d(i, j, k, b0, this.a);
         }
     }
 }

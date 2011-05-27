@@ -19,11 +19,11 @@ public class Packet51MapChunk extends Packet {
     private int h;
 
     public Packet51MapChunk() {
-        this.l = true;
+        this.k = true;
     }
 
     public Packet51MapChunk(int i, int j, int k, int l, int i1, int j1, World world) {
-        this.l = true;
+        this.k = true;
         this.a = i;
         this.b = j;
         this.c = k;
@@ -50,8 +50,8 @@ public class Packet51MapChunk extends Packet {
         this.d = datainputstream.read() + 1;
         this.e = datainputstream.read() + 1;
         this.f = datainputstream.read() + 1;
-        int i = datainputstream.readInt();
-        byte[] abyte = new byte[i];
+        this.h = datainputstream.readInt();
+        byte[] abyte = new byte[this.h];
 
         datainputstream.readFully(abyte);
         this.g = new byte[this.d * this.e * this.f * 5 / 2];

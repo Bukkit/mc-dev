@@ -104,7 +104,7 @@ public class EmptyChunk extends Chunk {
     }
 
     public Random a(long i) {
-        return new Random(this.d.u + (long) (this.j * this.j * 4987142) + (long) (this.j * 5947611) + (long) (this.k * this.k) * 4392871L + (long) (this.k * 389711) ^ i);
+        return new Random(this.d.j() + (long) (this.j * this.j * 4987142) + (long) (this.j * 5947611) + (long) (this.k * this.k) * 4392871L + (long) (this.k * 389711) ^ i);
     }
 
     public boolean g() {

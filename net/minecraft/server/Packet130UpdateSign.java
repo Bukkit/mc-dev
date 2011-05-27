@@ -11,11 +11,11 @@ public class Packet130UpdateSign extends Packet {
     public String[] d;
 
     public Packet130UpdateSign() {
-        this.l = true;
+        this.k = true;
     }
 
     public Packet130UpdateSign(int i, int j, int k, String[] astring) {
-        this.l = true;
+        this.k = true;
         this.a = i;
         this.b = j;
         this.c = k;

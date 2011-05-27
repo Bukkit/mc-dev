@@ -20,6 +20,10 @@ public class BlockSoil extends Block {
         return false;
     }
 
+    public int a(int i, int j) {
+        return i == 1 && j > 0 ? this.textureId - 1 : (i == 1 ? this.textureId : 2);
+    }
+
     public void a(World world, int i, int j, int k, Random random) {
         if (random.nextInt(5) == 0) {
             if (this.h(world, i, j, k)) {
@@ -37,7 +41,7 @@ public class BlockSoil extends Block {
     }
 
     public void b(World world, int i, int j, int k, Entity entity) {
-        if (world.l.nextInt(4) == 0) {
+        if (world.k.nextInt(4) == 0) {
             world.e(i, j, k, Block.DIRT.id);
         }
     }
@@ -70,8 +74,8 @@ public class BlockSoil extends Block {
         return false;
     }
 
-    public void b(World world, int i, int j, int k, int l) {
-        super.b(world, i, j, k, l);
+    public void a(World world, int i, int j, int k, int l) {
+        super.a(world, i, j, k, l);
         Material material = world.getMaterial(i, j + 1, k);
 
         if (material.isBuildable()) {

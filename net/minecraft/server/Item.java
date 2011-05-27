@@ -105,14 +105,16 @@ public class Item {
     public static Item BONE = (new Item(96)).a(12, 1).a("bone").e();
     public static Item SUGAR = (new Item(97)).a(13, 0).a("sugar").e();
     public static Item CAKE = (new ItemReed(98, Block.CAKE_BLOCK)).c(1).a(13, 1).a("cake");
+    public static Item BED = (new ItemBed(99)).c(1).a(13, 2).a("bed");
+    public static Item DIODE = (new ItemReed(100, Block.DIODE_OFF)).a(6, 5).a("diode");
     public static Item GOLD_RECORD = (new ItemRecord(2000, "13")).a(0, 15).a("record");
     public static Item GREEN_RECORD = (new ItemRecord(2001, "cat")).a(1, 15).a("record");
     public final int id;
     protected int maxStackSize = 64;
     protected int durability = 32;
     protected int textureId;
-    protected boolean be = false;
-    protected boolean bf = false;
+    protected boolean bg = false;
+    protected boolean bh = false;
     private Item craftingResult = null;
     private String name;
 
@@ -161,11 +163,11 @@ public class Item {
     }
 
     public boolean c() {
-        return this.bf;
+        return this.bh;
     }
 
     protected Item a(boolean flag) {
-        this.bf = flag;
+        this.bh = flag;
         return this;
     }
 
@@ -193,7 +195,7 @@ public class Item {
     public void b(ItemStack itemstack, EntityLiving entityliving) {}
 
     public Item e() {
-        this.be = true;
+        this.bg = true;
         return this;
     }
 

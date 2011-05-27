@@ -107,7 +107,7 @@ public class ChunkProviderHell implements IChunkProvider {
         double d0 = 0.03125D;
 
         this.p = this.l.a(this.p, (double) (i * 16), (double) (j * 16), 0.0D, 16, 16, 1, d0, d0, 1.0D);
-        this.q = this.l.a(this.q, (double) (j * 16), 109.0134D, (double) (i * 16), 16, 1, 16, d0, 1.0D, d0);
+        this.q = this.l.a(this.q, (double) (i * 16), 109.0134D, (double) (j * 16), 16, 1, 16, d0, 1.0D, d0);
         this.r = this.m.a(this.r, (double) (i * 16), (double) (j * 16), 0.0D, 16, 16, 1, d0 * 2.0D, d0 * 2.0D, d0 * 2.0D);
 
         for (int k = 0; k < 16; ++k) {
@@ -120,7 +120,7 @@ public class ChunkProviderHell implements IChunkProvider {
                 byte b2 = (byte) Block.NETHERRACK.id;
 
                 for (int k1 = 127; k1 >= 0; --k1) {
-                    int l1 = (k * 16 + l) * 128 + k1;
+                    int l1 = (l * 16 + k) * 128 + k1;
 
                     if (k1 >= 127 - this.h.nextInt(5)) {
                         abyte[l1] = (byte) Block.BEDROCK.id;

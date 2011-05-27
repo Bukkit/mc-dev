@@ -12,9 +12,9 @@ public class BlockTNT extends Block {
         return i == 0 ? this.textureId + 2 : (i == 1 ? this.textureId + 1 : this.textureId);
     }
 
-    public void b(World world, int i, int j, int k, int l) {
+    public void a(World world, int i, int j, int k, int l) {
         if (l > 0 && Block.byId[l].c() && world.p(i, j, k)) {
-            this.a(world, i, j, k, 0);
+            this.b(world, i, j, k, 0);
             world.e(i, j, k, 0);
         }
     }
@@ -23,14 +23,14 @@ public class BlockTNT extends Block {
         return 0;
     }
 
-    public void a_(World world, int i, int j, int k) {
+    public void c(World world, int i, int j, int k) {
         EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F));
 
-        entitytntprimed.a = world.l.nextInt(entitytntprimed.a / 4) + entitytntprimed.a / 8;
+        entitytntprimed.a = world.k.nextInt(entitytntprimed.a / 4) + entitytntprimed.a / 8;
         world.a((Entity) entitytntprimed);
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void b(World world, int i, int j, int k, int l) {
         if (!world.isStatic) {
             EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F));
 

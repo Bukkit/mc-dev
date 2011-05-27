@@ -32,6 +32,10 @@ public class BlockMinecartTrack extends Block {
         }
     }
 
+    public int a(int i, int j) {
+        return j >= 6 ? this.textureId - 16 : this.textureId;
+    }
+
     public int a(Random random) {
         return 1;
     }
@@ -47,7 +51,7 @@ public class BlockMinecartTrack extends Block {
         }
     }
 
-    public void b(World world, int i, int j, int k, int l) {
+    public void a(World world, int i, int j, int k, int l) {
         if (!world.isStatic) {
             int i1 = world.getData(i, j, k);
             boolean flag = false;
@@ -73,7 +77,7 @@ public class BlockMinecartTrack extends Block {
             }
 
             if (flag) {
-                this.a_(world, i, j, k, world.getData(i, j, k));
+                this.b_(world, i, j, k, world.getData(i, j, k));
                 world.e(i, j, k, 0);
             } else if (l > 0 && Block.byId[l].c() && MinecartTrackLogic.a(new MinecartTrackLogic(this, world, i, j, k)) == 3) {
                 this.g(world, i, j, k);

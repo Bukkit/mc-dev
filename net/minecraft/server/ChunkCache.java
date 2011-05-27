@@ -31,9 +31,14 @@ public class ChunkCache implements IBlockAccess {
         } else {
             int l = (i >> 4) - this.a;
             int i1 = (k >> 4) - this.b;
-            Chunk chunk = this.c[l][i1];
 
-            return chunk == null ? 0 : chunk.a(i & 15, j, k & 15);
+            if (l >= 0 && l < this.c.length && i1 >= 0 && i1 < this.c[l].length) {
+                Chunk chunk = this.c[l][i1];
+
+                return chunk == null ? 0 : chunk.a(i & 15, j, k & 15);
+            } else {
+                return 0;
+            }
         }
     }
 

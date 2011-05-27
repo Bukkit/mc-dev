@@ -17,7 +17,7 @@ public abstract class Container {
     public Container() {}
 
     protected void a(Slot slot) {
-        slot.c = this.e.size();
+        slot.a = this.e.size();
         this.e.add(slot);
         this.d.add(null);
     }
@@ -27,7 +27,7 @@ public abstract class Container {
         ArrayList arraylist = new ArrayList();
 
         for (int i = 0; i < this.e.size(); ++i) {
-            arraylist.add(((Slot) this.e.get(i)).c());
+            arraylist.add(((Slot) this.e.get(i)).b());
         }
 
         icrafting.a(this, arraylist);
@@ -36,7 +36,7 @@ public abstract class Container {
 
     public void a() {
         for (int i = 0; i < this.e.size(); ++i) {
-            ItemStack itemstack = ((Slot) this.e.get(i)).c();
+            ItemStack itemstack = ((Slot) this.e.get(i)).b();
             ItemStack itemstack1 = (ItemStack) this.d.get(i);
 
             if (!ItemStack.a(itemstack1, itemstack)) {
@@ -90,93 +90,67 @@ public abstract class Container {
                 Slot slot = (Slot) this.e.get(i);
 
                 if (slot != null) {
-                    slot.d();
-                    ItemStack itemstack1 = slot.c();
+                    slot.c();
+                    ItemStack itemstack1 = slot.b();
+                    ItemStack itemstack2 = inventoryplayer.i();
 
                     if (itemstack1 != null) {
                         itemstack = itemstack1.j();
                     }
 
-                    if (itemstack1 != null || inventoryplayer.i() != null) {
-                        int k;
+                    int k;
 
-                        if (itemstack1 != null && inventoryplayer.i() == null) {
-                            k = j == 0 ? itemstack1.count : (itemstack1.count + 1) / 2;
-                            inventoryplayer.b(slot.a(k));
+                    if (itemstack1 == null) {
+                        if (itemstack2 != null && slot.a(itemstack2)) {
+                            k = j == 0 ? itemstack2.count : 1;
+                            if (k > slot.d()) {
+                                k = slot.d();
+                            }
+
+                            slot.b(itemstack2.a(k));
+                            if (itemstack2.count == 0) {
+                                inventoryplayer.b((ItemStack) null);
+                            }
+                        }
+                    } else if (itemstack2 == null) {
+                        k = j == 0 ? itemstack1.count : (itemstack1.count + 1) / 2;
+                        inventoryplayer.b(slot.a(k));
+                        if (itemstack1.count == 0) {
+                            slot.b((ItemStack) null);
+                        }
+
+                        slot.a();
+                    } else if (slot.a(itemstack2)) {
+                        if (itemstack1.id == itemstack2.id && (!itemstack1.e() || itemstack1.h() == itemstack2.h())) {
+                            k = j == 0 ? itemstack2.count : 1;
+                            if (k > slot.d() - itemstack1.count) {
+                                k = slot.d() - itemstack1.count;
+                            }
+
+                            if (k > itemstack2.b() - itemstack1.count) {
+                                k = itemstack2.b() - itemstack1.count;
+                            }
+
+                            itemstack2.a(k);
+                            if (itemstack2.count == 0) {
+                                inventoryplayer.b((ItemStack) null);
+                            }
+
+                            itemstack1.count += k;
+                        } else if (itemstack2.count <= slot.d()) {
+                            slot.b(itemstack2);
+                            inventoryplayer.b(itemstack1);
+                        }
+                    } else if (itemstack1.id == itemstack2.id && itemstack2.b() > 1 && (!itemstack1.e() || itemstack1.h() == itemstack2.h())) {
+                        k = itemstack1.count;
+                        if (k > 0 && k + itemstack2.count <= itemstack2.b()) {
+                            itemstack2.count += k;
+                            itemstack1.a(k);
                             if (itemstack1.count == 0) {
                                 slot.b((ItemStack) null);
                             }
 
-                            slot.b();
-                        } else if (itemstack1 == null && inventoryplayer.i() != null && slot.a(inventoryplayer.i())) {
-                            k = j == 0 ? inventoryplayer.i().count : 1;
-                            if (k > slot.a()) {
-                                k = slot.a();
-                            }
-
-                            slot.b(inventoryplayer.i().a(k));
-                            if (inventoryplayer.i().count == 0) {
-                                inventoryplayer.b((ItemStack) null);
-                            }
-                        } else if (itemstack1 != null && inventoryplayer.i() != null) {
-                            if (slot.a(inventoryplayer.i())) {
-                                if (itemstack1.id == inventoryplayer.i().id && (!itemstack1.e() || itemstack1.h() == inventoryplayer.i().h())) {
-                                    if (itemstack1.id == inventoryplayer.i().id) {
-                                        if (j == 0) {
-                                            k = inventoryplayer.i().count;
-                                            if (k > slot.a() - itemstack1.count) {
-                                                k = slot.a() - itemstack1.count;
-                                            }
-
-                                            if (k > inventoryplayer.i().b() - itemstack1.count) {
-                                                k = inventoryplayer.i().b() - itemstack1.count;
-                                            }
-
-                                            inventoryplayer.i().a(k);
-                                            if (inventoryplayer.i().count == 0) {
-                                                inventoryplayer.b((ItemStack) null);
-                                            }
-
-                                            itemstack1.count += k;
-                                        } else if (j == 1) {
-                                            k = 1;
-                                            if (k > slot.a() - itemstack1.count) {
-                                                k = slot.a() - itemstack1.count;
-                                            }
-
-                                            if (k > inventoryplayer.i().b() - itemstack1.count) {
-                                                k = inventoryplayer.i().b() - itemstack1.count;
-                                            }
-
-                                            inventoryplayer.i().a(k);
-                                            if (inventoryplayer.i().count == 0) {
-                                                inventoryplayer.b((ItemStack) null);
-                                            }
-
-                                            itemstack1.count += k;
-                                        }
-                                    }
-                                } else if (inventoryplayer.i().count <= slot.a()) {
-                                    slot.b(inventoryplayer.i());
-                                    inventoryplayer.b(itemstack1);
-                                }
-                            } else {
-                                ItemStack itemstack2 = inventoryplayer.i();
-
-                                if (itemstack1.id == itemstack2.id && itemstack2.b() > 1 && (!itemstack1.e() || itemstack1.h() == itemstack2.h())) {
-                                    int l = itemstack1.count;
-
-                                    if (l > 0 && l + itemstack2.count <= itemstack2.b()) {
-                                        itemstack2.count += l;
-                                        itemstack1.a(l);
-                                        if (itemstack1.count == 0) {
-                                            slot.b((ItemStack) null);
-                                        }
-
-                                        slot.b();
-                                    }
-                                }
-                            }
+                            slot.a();
                         }
                     }
                 }

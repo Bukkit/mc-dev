@@ -5,50 +5,50 @@ import java.util.Map;
 
 public class TileEntity {
 
-    private static Map e = new HashMap();
-    private static Map f = new HashMap();
-    public World a;
-    public int b;
-    public int c;
-    public int d;
+    private static Map a = new HashMap();
+    private static Map b = new HashMap();
+    public World d;
+    public int e;
+    public int f;
+    public int g;
 
     public TileEntity() {}
 
     private static void a(Class oclass, String s) {
-        if (f.containsKey(s)) {
+        if (b.containsKey(s)) {
             throw new IllegalArgumentException("Duplicate id: " + s);
         } else {
-            e.put(s, oclass);
-            f.put(oclass, s);
+            a.put(s, oclass);
+            b.put(oclass, s);
         }
     }
 
     public void a(NBTTagCompound nbttagcompound) {
-        this.b = nbttagcompound.d("x");
-        this.c = nbttagcompound.d("y");
-        this.d = nbttagcompound.d("z");
+        this.e = nbttagcompound.e("x");
+        this.f = nbttagcompound.e("y");
+        this.g = nbttagcompound.e("z");
     }
 
     public void b(NBTTagCompound nbttagcompound) {
-        String s = (String) f.get(this.getClass());
+        String s = (String) b.get(this.getClass());
 
         if (s == null) {
             throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
         } else {
             nbttagcompound.a("id", s);
-            nbttagcompound.a("x", this.b);
-            nbttagcompound.a("y", this.c);
-            nbttagcompound.a("z", this.d);
+            nbttagcompound.a("x", this.e);
+            nbttagcompound.a("y", this.f);
+            nbttagcompound.a("z", this.g);
         }
     }
 
-    public void f() {}
+    public void i_() {}
 
     public static TileEntity c(NBTTagCompound nbttagcompound) {
         TileEntity tileentity = null;
 
         try {
-            Class oclass = (Class) e.get(nbttagcompound.h("id"));
+            Class oclass = (Class) a.get(nbttagcompound.i("id"));
 
             if (oclass != null) {
                 tileentity = (TileEntity) oclass.newInstance();
@@ -60,19 +60,19 @@ public class TileEntity {
         if (tileentity != null) {
             tileentity.a(nbttagcompound);
         } else {
-            System.out.println("Skipping TileEntity with id " + nbttagcompound.h("id"));
+            System.out.println("Skipping TileEntity with id " + nbttagcompound.i("id"));
         }
 
         return tileentity;
     }
 
-    public void d() {
-        if (this.a != null) {
-            this.a.b(this.b, this.c, this.d, this);
+    public void h() {
+        if (this.d != null) {
+            this.d.b(this.e, this.f, this.g, this);
         }
     }
 
-    public Packet g() {
+    public Packet e() {
         return null;
     }
 

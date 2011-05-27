@@ -32,7 +32,7 @@ public class NetworkManager {
     private int u = 0;
     private int v = 0;
     public int d = 0;
-    private int w = 0;
+    private int w = 50;
 
     public NetworkManager(Socket socket, String s, NetHandler nethandler) {
         this.f = socket;
@@ -57,7 +57,7 @@ public class NetworkManager {
 
             synchronized (this.e) {
                 this.v += packet.a() + 1;
-                if (packet.l) {
+                if (packet.k) {
                     this.m.add(packet);
                 } else {
                     this.l.add(packet);
@@ -72,7 +72,7 @@ public class NetworkManager {
             Object object;
             Packet packet;
 
-            if (!this.l.isEmpty() && (this.d == 0 || System.currentTimeMillis() - ((Packet) this.l.get(0)).k >= (long) this.d)) {
+            if (!this.l.isEmpty() && (this.d == 0 || System.currentTimeMillis() - ((Packet) this.l.get(0)).j >= (long) this.d)) {
                 flag = false;
                 object = this.e;
                 synchronized (this.e) {
@@ -83,7 +83,7 @@ public class NetworkManager {
                 Packet.a(packet, this.i);
             }
 
-            if ((flag || this.w-- <= 0) && !this.m.isEmpty() && (this.d == 0 || System.currentTimeMillis() - ((Packet) this.m.get(0)).k >= (long) this.d)) {
+            if ((flag || this.w-- <= 0) && !this.m.isEmpty() && (this.d == 0 || System.currentTimeMillis() - ((Packet) this.m.get(0)).j >= (long) this.d)) {
                 flag = false;
                 object = this.e;
                 synchronized (this.e) {

@@ -19,7 +19,7 @@ public class EntityItem extends Entity {
         this.motX = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
         this.motY = 0.20000000298023224D;
         this.motZ = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
-        this.M = false;
+        this.bg = false;
     }
 
     public EntityItem(World world) {
@@ -30,8 +30,8 @@ public class EntityItem extends Entity {
 
     protected void a() {}
 
-    public void b_() {
-        super.b_();
+    public void f_() {
+        super.f_();
         if (this.c > 0) {
             --this.c;
         }
@@ -70,11 +70,11 @@ public class EntityItem extends Entity {
         ++this.e;
         ++this.b;
         if (this.b >= 6000) {
-            this.q();
+            this.C();
         }
     }
 
-    public boolean v() {
+    public boolean g_() {
         return this.world.a(this.boundingBox, Material.WATER, this);
     }
 
@@ -156,15 +156,15 @@ public class EntityItem extends Entity {
         return false;
     }
 
-    protected void b(int i) {
+    protected void a(int i) {
         this.a((Entity) null, i);
     }
 
     public boolean a(Entity entity, int i) {
-        this.y();
+        this.R();
         this.f -= i;
         if (this.f <= 0) {
-            this.q();
+            this.C();
         }
 
         return false;
@@ -177,9 +177,9 @@ public class EntityItem extends Entity {
     }
 
     public void b(NBTTagCompound nbttagcompound) {
-        this.f = nbttagcompound.c("Health") & 255;
-        this.b = nbttagcompound.c("Age");
-        NBTTagCompound nbttagcompound1 = nbttagcompound.j("Item");
+        this.f = nbttagcompound.d("Health") & 255;
+        this.b = nbttagcompound.d("Age");
+        NBTTagCompound nbttagcompound1 = nbttagcompound.k("Item");
 
         this.a = new ItemStack(nbttagcompound1);
     }
@@ -190,8 +190,8 @@ public class EntityItem extends Entity {
 
             if (this.c == 0 && entityhuman.inventory.a(this.a)) {
                 this.world.a(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                entityhuman.c(this, i);
-                this.q();
+                entityhuman.b(this, i);
+                this.C();
             }
         }
     }

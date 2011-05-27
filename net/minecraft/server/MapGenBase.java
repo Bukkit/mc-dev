@@ -12,13 +12,13 @@ public class MapGenBase {
     public void a(IChunkProvider ichunkprovider, World world, int i, int j, byte[] abyte) {
         int k = this.a;
 
-        this.b.setSeed(world.u);
+        this.b.setSeed(world.j());
         long l = this.b.nextLong() / 2L * 2L + 1L;
         long i1 = this.b.nextLong() / 2L * 2L + 1L;
 
         for (int j1 = i - k; j1 <= i + k; ++j1) {
             for (int k1 = j - k; k1 <= j + k; ++k1) {
-                this.b.setSeed((long) j1 * l + (long) k1 * i1 ^ world.u);
+                this.b.setSeed((long) j1 * l + (long) k1 * i1 ^ world.j());
                 this.a(world, j1, k1, i, j, abyte);
             }
         }

@@ -176,7 +176,7 @@ public abstract class BlockFluids extends Block {
         this.i(world, i, j, k);
     }
 
-    public void b(World world, int i, int j, int k, int l) {
+    public void a(World world, int i, int j, int k, int l) {
         this.i(world, i, j, k);
     }
 
@@ -221,7 +221,7 @@ public abstract class BlockFluids extends Block {
     }
 
     protected void h(World world, int i, int j, int k) {
-        world.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (world.l.nextFloat() - world.l.nextFloat()) * 0.8F);
+        world.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (world.k.nextFloat() - world.k.nextFloat()) * 0.8F);
 
         for (int l = 0; l < 8; ++l) {
             world.a("largesmoke", (double) i + Math.random(), (double) j + 1.2D, (double) k + Math.random(), 0.0D, 0.0D, 0.0D);

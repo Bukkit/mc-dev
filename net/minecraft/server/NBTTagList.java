@@ -58,7 +58,7 @@ public class NBTTagList extends NBTBase {
         return (NBTBase) this.a.get(i);
     }
 
-    public int b() {
+    public int c() {
         return this.a.size();
     }
 }

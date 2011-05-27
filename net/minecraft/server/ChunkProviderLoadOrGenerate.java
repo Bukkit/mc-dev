@@ -45,7 +45,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     public Chunk b(int i, int j) {
         if (i == this.a && j == this.b && this.h != null) {
             return this.h;
-        } else if (!this.g.x && !this.c(i, j)) {
+        } else if (!this.g.r && !this.c(i, j)) {
             return this.c;
         } else {
             int k = i & 31;
@@ -107,7 +107,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                 Chunk chunk = this.e.a(this.g, i, j);
 
                 if (chunk != null) {
-                    chunk.r = this.g.e;
+                    chunk.r = this.g.k();
                 }
 
                 return chunk;
@@ -131,7 +131,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     private void b(Chunk chunk) {
         if (this.e != null) {
             try {
-                chunk.r = this.g.e;
+                chunk.r = this.g.k();
                 this.e.a(this.g, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();

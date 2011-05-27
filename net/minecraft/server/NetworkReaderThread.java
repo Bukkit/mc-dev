@@ -24,6 +24,12 @@ class NetworkReaderThread extends Thread {
                 if (NetworkManager.a(this.a)) {
                     if (!NetworkManager.b(this.a)) {
                         NetworkManager.c(this.a);
+
+                        try {
+                            sleep(0L);
+                        } catch (InterruptedException interruptedexception) {
+                            ;
+                        }
                         continue;
                     }
 

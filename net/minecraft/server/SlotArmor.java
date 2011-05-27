@@ -2,21 +2,21 @@ package net.minecraft.server;
 
 class SlotArmor extends Slot {
 
-    final int a;
+    final int d;
 
-    final ContainerPlayer b;
+    final ContainerPlayer e;
 
     SlotArmor(ContainerPlayer containerplayer, IInventory iinventory, int i, int j, int k, int l) {
         super(iinventory, i, j, k);
-        this.b = containerplayer;
-        this.a = l;
+        this.e = containerplayer;
+        this.d = l;
     }
 
-    public int a() {
+    public int d() {
         return 1;
     }
 
     public boolean a(ItemStack itemstack) {
-        return itemstack.a() instanceof ItemArmor ? ((ItemArmor) itemstack.a()).bg == this.a : (itemstack.a().id == Block.PUMPKIN.id ? this.a == 0 : false);
+        return itemstack.a() instanceof ItemArmor ? ((ItemArmor) itemstack.a()).bi == this.d : (itemstack.a().id == Block.PUMPKIN.id ? this.d == 0 : false);
     }
 }

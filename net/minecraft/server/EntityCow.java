@@ -37,7 +37,7 @@ public class EntityCow extends EntityAnimal {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        ItemStack itemstack = entityhuman.inventory.e();
+        ItemStack itemstack = entityhuman.inventory.b();
 
         if (itemstack != null && itemstack.id == Item.BUCKET.id) {
             entityhuman.inventory.a(entityhuman.inventory.c, new ItemStack(Item.MILK_BUCKET));

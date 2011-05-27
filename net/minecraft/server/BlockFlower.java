@@ -21,8 +21,8 @@ public class BlockFlower extends Block {
         return i == Block.GRASS.id || i == Block.DIRT.id || i == Block.SOIL.id;
     }
 
-    public void b(World world, int i, int j, int k, int l) {
-        super.b(world, i, j, k, l);
+    public void a(World world, int i, int j, int k, int l) {
+        super.a(world, i, j, k, l);
         this.g(world, i, j, k);
     }
 
@@ -32,7 +32,7 @@ public class BlockFlower extends Block {
 
     protected final void g(World world, int i, int j, int k) {
         if (!this.f(world, i, j, k)) {
-            this.a_(world, i, j, k, world.getData(i, j, k));
+            this.b_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
         }
     }

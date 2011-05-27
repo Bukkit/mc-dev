@@ -34,7 +34,7 @@ public class BlockPressurePlate extends Block {
 
     public void e(World world, int i, int j, int k) {}
 
-    public void b(World world, int i, int j, int k, int l) {
+    public void a(World world, int i, int j, int k, int l) {
         boolean flag = false;
 
         if (!world.d(i, j - 1, k)) {
@@ -42,7 +42,7 @@ public class BlockPressurePlate extends Block {
         }
 
         if (flag) {
-            this.a_(world, i, j, k, world.getData(i, j, k));
+            this.b_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
         }
     }
@@ -102,7 +102,7 @@ public class BlockPressurePlate extends Block {
         }
 
         if (flag1) {
-            world.i(i, j, k, this.id);
+            world.c(i, j, k, this.id, this.b());
         }
     }
 
@@ -132,7 +132,7 @@ public class BlockPressurePlate extends Block {
         return iblockaccess.getData(i, j, k) > 0;
     }
 
-    public boolean d(World world, int i, int j, int k, int l) {
+    public boolean c(World world, int i, int j, int k, int l) {
         return world.getData(i, j, k) == 0 ? false : l == 1;
     }
 

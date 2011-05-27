@@ -21,7 +21,7 @@ public class BlockTorch extends Block {
         return world.d(i - 1, j, k) ? true : (world.d(i + 1, j, k) ? true : (world.d(i, j, k - 1) ? true : (world.d(i, j, k + 1) ? true : world.d(i, j - 1, k))));
     }
 
-    public void c(World world, int i, int j, int k, int l) {
+    public void d(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
 
         if (l == 1 && world.d(i, j - 1, k)) {
@@ -70,7 +70,7 @@ public class BlockTorch extends Block {
         this.g(world, i, j, k);
     }
 
-    public void b(World world, int i, int j, int k, int l) {
+    public void a(World world, int i, int j, int k, int l) {
         if (this.g(world, i, j, k)) {
             int i1 = world.getData(i, j, k);
             boolean flag = false;
@@ -96,7 +96,7 @@ public class BlockTorch extends Block {
             }
 
             if (flag) {
-                this.a_(world, i, j, k, world.getData(i, j, k));
+                this.b_(world, i, j, k, world.getData(i, j, k));
                 world.e(i, j, k, 0);
             }
         }
@@ -104,7 +104,7 @@ public class BlockTorch extends Block {
 
     private boolean g(World world, int i, int j, int k) {
         if (!this.a(world, i, j, k)) {
-            this.a_(world, i, j, k, world.getData(i, j, k));
+            this.b_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
             return false;
         } else {

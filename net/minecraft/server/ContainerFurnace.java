@@ -28,9 +28,9 @@ public class ContainerFurnace extends Container {
 
     public void a(ICrafting icrafting) {
         super.a(icrafting);
-        icrafting.a(this, 0, this.a.g);
-        icrafting.a(this, 1, this.a.e);
-        icrafting.a(this, 2, this.a.f);
+        icrafting.a(this, 0, this.a.c);
+        icrafting.a(this, 1, this.a.a);
+        icrafting.a(this, 2, this.a.b);
     }
 
     public void a() {
@@ -39,22 +39,22 @@ public class ContainerFurnace extends Container {
         for (int i = 0; i < this.g.size(); ++i) {
             ICrafting icrafting = (ICrafting) this.g.get(i);
 
-            if (this.b != this.a.g) {
-                icrafting.a(this, 0, this.a.g);
+            if (this.b != this.a.c) {
+                icrafting.a(this, 0, this.a.c);
             }
 
-            if (this.c != this.a.e) {
-                icrafting.a(this, 1, this.a.e);
+            if (this.c != this.a.a) {
+                icrafting.a(this, 1, this.a.a);
             }
 
-            if (this.h != this.a.f) {
-                icrafting.a(this, 2, this.a.f);
+            if (this.h != this.a.b) {
+                icrafting.a(this, 2, this.a.b);
             }
         }
 
-        this.b = this.a.g;
-        this.c = this.a.e;
-        this.h = this.a.f;
+        this.b = this.a.c;
+        this.c = this.a.a;
+        this.h = this.a.b;
     }
 
     public boolean b(EntityHuman entityhuman) {

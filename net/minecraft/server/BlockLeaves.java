@@ -5,7 +5,7 @@ import java.util.Random;
 public class BlockLeaves extends BlockLeavesBase {
 
     private int c;
-    int[] b;
+    int[] a;
 
     protected BlockLeaves(int i, int j) {
         super(i, j, Material.LEAVES, false);
@@ -45,8 +45,8 @@ public class BlockLeaves extends BlockLeavesBase {
                 int j1 = b1 * b1;
                 int k1 = b1 / 2;
 
-                if (this.b == null) {
-                    this.b = new int[b1 * b1 * b1];
+                if (this.a == null) {
+                    this.a = new int[b1 * b1 * b1];
                 }
 
                 int l1;
@@ -61,11 +61,11 @@ public class BlockLeaves extends BlockLeavesBase {
                             for (j2 = -b0; j2 <= b0; ++j2) {
                                 k2 = world.getTypeId(i + l1, j + i2, k + j2);
                                 if (k2 == Block.LOG.id) {
-                                    this.b[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = 0;
+                                    this.a[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = 0;
                                 } else if (k2 == Block.LEAVES.id) {
-                                    this.b[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -2;
+                                    this.a[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -2;
                                 } else {
-                                    this.b[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -1;
+                                    this.a[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -1;
                                 }
                             }
                         }
@@ -75,29 +75,29 @@ public class BlockLeaves extends BlockLeavesBase {
                         for (i2 = -b0; i2 <= b0; ++i2) {
                             for (j2 = -b0; j2 <= b0; ++j2) {
                                 for (k2 = -b0; k2 <= b0; ++k2) {
-                                    if (this.b[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1] == l1 - 1) {
-                                        if (this.b[(i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1] == -2) {
-                                            this.b[(i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1] = l1;
+                                    if (this.a[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1] == l1 - 1) {
+                                        if (this.a[(i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1] == -2) {
+                                            this.a[(i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.b[(i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1] == -2) {
-                                            this.b[(i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1] = l1;
+                                        if (this.a[(i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1] == -2) {
+                                            this.a[(i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.b[(i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1] == -2) {
-                                            this.b[(i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1] = l1;
+                                        if (this.a[(i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1] == -2) {
+                                            this.a[(i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.b[(i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1] == -2) {
-                                            this.b[(i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1] = l1;
+                                        if (this.a[(i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1] == -2) {
+                                            this.a[(i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.b[(i2 + k1) * j1 + (j2 + k1) * b1 + (k2 + k1 - 1)] == -2) {
-                                            this.b[(i2 + k1) * j1 + (j2 + k1) * b1 + (k2 + k1 - 1)] = l1;
+                                        if (this.a[(i2 + k1) * j1 + (j2 + k1) * b1 + (k2 + k1 - 1)] == -2) {
+                                            this.a[(i2 + k1) * j1 + (j2 + k1) * b1 + (k2 + k1 - 1)] = l1;
                                         }
 
-                                        if (this.b[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1] == -2) {
-                                            this.b[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1] = l1;
+                                        if (this.a[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1] == -2) {
+                                            this.a[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1] = l1;
                                         }
                                     }
                                 }
@@ -106,7 +106,7 @@ public class BlockLeaves extends BlockLeavesBase {
                     }
                 }
 
-                l1 = this.b[k1 * j1 + k1 * b1 + k1];
+                l1 = this.a[k1 * j1 + k1 * b1 + k1];
                 if (l1 >= 0) {
                     world.c(i, j, k, l & -5);
                 } else {
@@ -117,7 +117,7 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     private void g(World world, int i, int j, int k) {
-        this.a_(world, i, j, k, world.getData(i, j, k));
+        this.b_(world, i, j, k, world.getData(i, j, k));
         world.e(i, j, k, 0);
     }
 
@@ -130,7 +130,11 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     public boolean a() {
-        return !this.a;
+        return !this.b;
+    }
+
+    public int a(int i, int j) {
+        return (j & 3) == 1 ? this.textureId + 80 : this.textureId;
     }
 
     public void b(World world, int i, int j, int k, Entity entity) {

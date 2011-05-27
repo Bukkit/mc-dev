@@ -11,6 +11,22 @@ public class BlockPumpkin extends Block {
         this.a = flag;
     }
 
+    public int a(int i, int j) {
+        if (i == 1) {
+            return this.textureId;
+        } else if (i == 0) {
+            return this.textureId;
+        } else {
+            int k = this.textureId + 1 + 16;
+
+            if (this.a) {
+                ++k;
+            }
+
+            return j == 0 && i == 2 ? k : (j == 1 && i == 5 ? k : (j == 2 && i == 3 ? k : (j == 3 && i == 4 ? k : this.textureId + 16)));
+        }
+    }
+
     public int a(int i) {
         return i == 1 ? this.textureId : (i == 0 ? this.textureId : (i == 3 ? this.textureId + 1 + 16 : this.textureId + 16));
     }

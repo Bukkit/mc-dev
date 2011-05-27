@@ -66,7 +66,7 @@ public class BlockSign extends BlockContainer {
         return Item.SIGN.id;
     }
 
-    public void b(World world, int i, int j, int k, int l) {
+    public void a(World world, int i, int j, int k, int l) {
         boolean flag = false;
 
         if (this.b) {
@@ -95,10 +95,10 @@ public class BlockSign extends BlockContainer {
         }
 
         if (flag) {
-            this.a_(world, i, j, k, world.getData(i, j, k));
+            this.b_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
         }
 
-        super.b(world, i, j, k, l);
+        super.a(world, i, j, k, l);
     }
 }

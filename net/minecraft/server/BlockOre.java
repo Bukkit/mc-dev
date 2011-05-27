@@ -13,7 +13,7 @@ public class BlockOre extends Block {
     }
 
     public int a(Random random) {
-        return 1;
+        return this.id == Block.LAPIS_ORE.id ? 4 + random.nextInt(5) : 1;
     }
 
     protected int b(int i) {

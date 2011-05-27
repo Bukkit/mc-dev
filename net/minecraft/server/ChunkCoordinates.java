@@ -1,13 +1,17 @@
 package net.minecraft.server;
 
-final class ChunkCoordinates {
+public class ChunkCoordinates implements Comparable {
 
-    public final int a;
-    public final int b;
+    public int a;
+    public int b;
+    public int c;
 
-    public ChunkCoordinates(int i, int j) {
+    public ChunkCoordinates() {}
+
+    public ChunkCoordinates(int i, int j, int k) {
         this.a = i;
         this.b = j;
+        this.c = k;
     }
 
     public boolean equals(Object object) {
@@ -16,11 +20,15 @@ final class ChunkCoordinates {
         } else {
             ChunkCoordinates chunkcoordinates = (ChunkCoordinates) object;
 
-            return this.a == chunkcoordinates.a && this.b == chunkcoordinates.b;
+            return this.a == chunkcoordinates.a && this.b == chunkcoordinates.b && this.c == chunkcoordinates.c;
         }
     }
 
     public int hashCode() {
-        return this.a << 16 ^ this.b;
+        return this.a + this.c << 8 + this.b << 16;
+    }
+
+    public int compareTo(ChunkCoordinates chunkcoordinates) {
+        return this.b == chunkcoordinates.b ? (this.c == chunkcoordinates.c ? this.a - chunkcoordinates.a : this.c - chunkcoordinates.c) : this.b - chunkcoordinates.b;
     }
 }

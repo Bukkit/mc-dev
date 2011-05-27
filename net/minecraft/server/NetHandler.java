@@ -177,4 +177,8 @@ public class NetHandler {
     public void a(Packet54PlayNoteBlock packet54playnoteblock) {
         this.a((Packet) packet54playnoteblock);
     }
+
+    public void a(Packet17 packet17) {}
+
+    public void a(Packet27 packet27) {}
 }

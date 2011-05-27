@@ -131,6 +131,13 @@ public class DataWatcher {
             dataoutputstream.writeShort(itemstack.a().id);
             dataoutputstream.writeByte(itemstack.count);
             dataoutputstream.writeShort(itemstack.h());
+
+        case 6:
+            ChunkCoordinates chunkcoordinates = (ChunkCoordinates) watchableobject.b();
+
+            dataoutputstream.writeInt(chunkcoordinates.a);
+            dataoutputstream.writeInt(chunkcoordinates.b);
+            dataoutputstream.writeInt(chunkcoordinates.c);
         }
     }
 
@@ -172,7 +179,14 @@ public class DataWatcher {
                 byte b1 = datainputstream.readByte();
                 short short2 = datainputstream.readShort();
 
-                watchableobject = new WatchableObject(i, j, new ItemStack(short1, b1, short2));
+                new WatchableObject(i, j, new ItemStack(short1, b1, short2));
+
+            case 6:
+                int k = datainputstream.readInt();
+                int l = datainputstream.readInt();
+                int i1 = datainputstream.readInt();
+
+                watchableobject = new WatchableObject(i, j, new ChunkCoordinates(k, l, i1));
             }
 
             arraylist.add(watchableobject);
@@ -188,5 +202,6 @@ public class DataWatcher {
         a.put(Float.class, Integer.valueOf(3));
         a.put(String.class, Integer.valueOf(4));
         a.put(ItemStack.class, Integer.valueOf(5));
+        a.put(ChunkCoordinates.class, Integer.valueOf(6));
     }
 }

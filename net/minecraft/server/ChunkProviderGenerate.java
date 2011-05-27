@@ -117,7 +117,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         double d0 = 0.03125D;
 
         this.r = this.n.a(this.r, (double) (i * 16), (double) (j * 16), 0.0D, 16, 16, 1, d0, d0, 1.0D);
-        this.s = this.n.a(this.s, (double) (j * 16), 109.0134D, (double) (i * 16), 16, 1, 16, d0, 1.0D, d0);
+        this.s = this.n.a(this.s, (double) (i * 16), 109.0134D, (double) (j * 16), 16, 1, 16, d0, 1.0D, d0);
         this.t = this.o.a(this.t, (double) (i * 16), (double) (j * 16), 0.0D, 16, 16, 1, d0 * 2.0D, d0 * 2.0D, d0 * 2.0D);
 
         for (int k = 0; k < 16; ++k) {
@@ -131,7 +131,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
                 byte b2 = biomebase.p;
 
                 for (int k1 = 127; k1 >= 0; --k1) {
-                    int l1 = (k * 16 + l) * 128 + k1;
+                    int l1 = (l * 16 + k) * 128 + k1;
 
                     if (k1 <= 0 + this.j.nextInt(5)) {
                         abyte[l1] = (byte) Block.BEDROCK.id;
@@ -178,6 +178,10 @@ public class ChunkProviderGenerate implements IChunkProvider {
                             } else if (j1 > 0) {
                                 --j1;
                                 abyte[l1] = b2;
+                                if (j1 == 0 && b2 == Block.SAND.id) {
+                                    j1 = this.j.nextInt(4);
+                                    b2 = (byte) Block.SANDSTONE.id;
+                                }
                             }
                         }
                     }
@@ -319,11 +323,11 @@ public class ChunkProviderGenerate implements IChunkProvider {
         int l = j * 16;
         BiomeBase biomebase = this.p.a().a(k + 16, l + 16);
 
-        this.j.setSeed(this.p.u);
+        this.j.setSeed(this.p.j());
         long i1 = this.j.nextLong() / 2L * 2L + 1L;
         long j1 = this.j.nextLong() / 2L * 2L + 1L;
 
-        this.j.setSeed((long) i * i1 + (long) j * j1 ^ this.p.u);
+        this.j.setSeed((long) i * i1 + (long) j * j1 ^ this.p.j());
         double d0 = 0.25D;
         int k1;
         int l1;

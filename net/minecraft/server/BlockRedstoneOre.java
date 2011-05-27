@@ -56,7 +56,7 @@ public class BlockRedstoneOre extends Block {
     }
 
     private void h(World world, int i, int j, int k) {
-        Random random = world.l;
+        Random random = world.k;
         double d0 = 0.0625D;
 
         for (int l = 0; l < 6; ++l) {

@@ -30,7 +30,7 @@ public class NBTTagCompound extends NBTBase {
         NBTBase nbtbase;
 
         while ((nbtbase = NBTBase.b(datainput)).a() != 0) {
-            this.a.put(nbtbase.c(), nbtbase);
+            this.a.put(nbtbase.b(), nbtbase);
         }
     }
 
@@ -39,95 +39,95 @@ public class NBTTagCompound extends NBTBase {
     }
 
     public void a(String s, NBTBase nbtbase) {
-        this.a.put(s, nbtbase.m(s));
+        this.a.put(s, nbtbase.a(s));
     }
 
     public void a(String s, byte b0) {
-        this.a.put(s, (new NBTTagByte(b0)).m(s));
+        this.a.put(s, (new NBTTagByte(b0)).a(s));
     }
 
     public void a(String s, short short1) {
-        this.a.put(s, (new NBTTagShort(short1)).m(s));
+        this.a.put(s, (new NBTTagShort(short1)).a(s));
     }
 
     public void a(String s, int i) {
-        this.a.put(s, (new NBTTagInt(i)).m(s));
+        this.a.put(s, (new NBTTagInt(i)).a(s));
     }
 
     public void a(String s, long i) {
-        this.a.put(s, (new NBTTagLong(i)).m(s));
+        this.a.put(s, (new NBTTagLong(i)).a(s));
     }
 
     public void a(String s, float f) {
-        this.a.put(s, (new NBTTagFloat(f)).m(s));
+        this.a.put(s, (new NBTTagFloat(f)).a(s));
     }
 
     public void a(String s, double d0) {
-        this.a.put(s, (new NBTTagDouble(d0)).m(s));
+        this.a.put(s, (new NBTTagDouble(d0)).a(s));
     }
 
     public void a(String s, String s1) {
-        this.a.put(s, (new NBTTagString(s1)).m(s));
+        this.a.put(s, (new NBTTagString(s1)).a(s));
     }
 
     public void a(String s, byte[] abyte) {
-        this.a.put(s, (new NBTTagByteArray(abyte)).m(s));
+        this.a.put(s, (new NBTTagByteArray(abyte)).a(s));
     }
 
     public void a(String s, NBTTagCompound nbttagcompound) {
-        this.a.put(s, nbttagcompound.m(s));
+        this.a.put(s, nbttagcompound.a(s));
     }
 
     public void a(String s, boolean flag) {
         this.a(s, (byte) (flag ? 1 : 0));
     }
 
-    public boolean a(String s) {
+    public boolean b(String s) {
         return this.a.containsKey(s);
     }
 
-    public byte b(String s) {
+    public byte c(String s) {
         return !this.a.containsKey(s) ? 0 : ((NBTTagByte) this.a.get(s)).a;
     }
 
-    public short c(String s) {
+    public short d(String s) {
         return !this.a.containsKey(s) ? 0 : ((NBTTagShort) this.a.get(s)).a;
     }
 
-    public int d(String s) {
+    public int e(String s) {
         return !this.a.containsKey(s) ? 0 : ((NBTTagInt) this.a.get(s)).a;
     }
 
-    public long e(String s) {
+    public long f(String s) {
         return !this.a.containsKey(s) ? 0L : ((NBTTagLong) this.a.get(s)).a;
     }
 
-    public float f(String s) {
+    public float g(String s) {
         return !this.a.containsKey(s) ? 0.0F : ((NBTTagFloat) this.a.get(s)).a;
     }
 
-    public double g(String s) {
+    public double h(String s) {
         return !this.a.containsKey(s) ? 0.0D : ((NBTTagDouble) this.a.get(s)).a;
     }
 
-    public String h(String s) {
+    public String i(String s) {
         return !this.a.containsKey(s) ? "" : ((NBTTagString) this.a.get(s)).a;
     }
 
-    public byte[] i(String s) {
+    public byte[] j(String s) {
         return !this.a.containsKey(s) ? new byte[0] : ((NBTTagByteArray) this.a.get(s)).a;
     }
 
-    public NBTTagCompound j(String s) {
+    public NBTTagCompound k(String s) {
         return !this.a.containsKey(s) ? new NBTTagCompound() : (NBTTagCompound) this.a.get(s);
     }
 
-    public NBTTagList k(String s) {
+    public NBTTagList l(String s) {
         return !this.a.containsKey(s) ? new NBTTagList() : (NBTTagList) this.a.get(s);
     }
 
-    public boolean l(String s) {
-        return this.b(s) != 0;
+    public boolean m(String s) {
+        return this.c(s) != 0;
     }
 
     public String toString() {

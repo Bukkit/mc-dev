@@ -6,7 +6,7 @@ public class ContainerChest extends Container {
 
     public ContainerChest(IInventory iinventory, IInventory iinventory1) {
         this.a = iinventory1;
-        int i = iinventory1.h_() / 9;
+        int i = iinventory1.m_() / 9;
         int j = (i - 4) * 18;
 
         int k;

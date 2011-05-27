@@ -40,6 +40,10 @@ public class BlockLog extends Block {
         }
     }
 
+    public int a(int i, int j) {
+        return i == 1 ? 21 : (i == 0 ? 21 : (j == 1 ? 116 : (j == 2 ? 117 : 20)));
+    }
+
     protected int b(int i) {
         return i;
     }

@@ -31,9 +31,9 @@ public class Pathfinder {
     }
 
     private PathEntity a(Entity entity, PathPoint pathpoint, PathPoint pathpoint1, PathPoint pathpoint2, float f) {
-        pathpoint.f = 0.0F;
-        pathpoint.g = pathpoint.a(pathpoint1);
-        pathpoint.h = pathpoint.g;
+        pathpoint.e = 0.0F;
+        pathpoint.f = pathpoint.a(pathpoint1);
+        pathpoint.g = pathpoint.f;
         this.b.a();
         this.b.a(pathpoint);
         PathPoint pathpoint3 = pathpoint;
@@ -41,7 +41,7 @@ public class Pathfinder {
         while (!this.b.c()) {
             PathPoint pathpoint4 = this.b.b();
 
-            if (pathpoint4.d == pathpoint1.d) {
+            if (pathpoint4.equals(pathpoint1)) {
                 return this.a(pathpoint, pathpoint1);
             }
 
@@ -49,21 +49,21 @@ public class Pathfinder {
                 pathpoint3 = pathpoint4;
             }
 
-            pathpoint4.j = true;
+            pathpoint4.i = true;
             int i = this.b(entity, pathpoint4, pathpoint2, pathpoint1, f);
 
             for (int j = 0; j < i; ++j) {
                 PathPoint pathpoint5 = this.d[j];
-                float f1 = pathpoint4.f + pathpoint4.a(pathpoint5);
+                float f1 = pathpoint4.e + pathpoint4.a(pathpoint5);
 
-                if (!pathpoint5.a() || f1 < pathpoint5.f) {
-                    pathpoint5.i = pathpoint4;
-                    pathpoint5.f = f1;
-                    pathpoint5.g = pathpoint5.a(pathpoint1);
+                if (!pathpoint5.a() || f1 < pathpoint5.e) {
+                    pathpoint5.h = pathpoint4;
+                    pathpoint5.e = f1;
+                    pathpoint5.f = pathpoint5.a(pathpoint1);
                     if (pathpoint5.a()) {
-                        this.b.a(pathpoint5, pathpoint5.f + pathpoint5.g);
+                        this.b.a(pathpoint5, pathpoint5.e + pathpoint5.f);
                     } else {
-                        pathpoint5.h = pathpoint5.f + pathpoint5.g;
+                        pathpoint5.g = pathpoint5.e + pathpoint5.f;
                         this.b.a(pathpoint5);
                     }
                 }
@@ -90,19 +90,19 @@ public class Pathfinder {
         PathPoint pathpoint5 = this.a(entity, pathpoint.a + 1, pathpoint.b, pathpoint.c, pathpoint1, b0);
         PathPoint pathpoint6 = this.a(entity, pathpoint.a, pathpoint.b, pathpoint.c - 1, pathpoint1, b0);
 
-        if (pathpoint3 != null && !pathpoint3.j && pathpoint3.a(pathpoint2) < f) {
+        if (pathpoint3 != null && !pathpoint3.i && pathpoint3.a(pathpoint2) < f) {
             this.d[i++] = pathpoint3;
         }
 
-        if (pathpoint4 != null && !pathpoint4.j && pathpoint4.a(pathpoint2) < f) {
+        if (pathpoint4 != null && !pathpoint4.i && pathpoint4.a(pathpoint2) < f) {
             this.d[i++] = pathpoint4;
         }
 
-        if (pathpoint5 != null && !pathpoint5.j && pathpoint5.a(pathpoint2) < f) {
+        if (pathpoint5 != null && !pathpoint5.i && pathpoint5.a(pathpoint2) < f) {
             this.d[i++] = pathpoint5;
         }
 
-        if (pathpoint6 != null && !pathpoint6.j && pathpoint6.a(pathpoint2) < f) {
+        if (pathpoint6 != null && !pathpoint6.i && pathpoint6.a(pathpoint2) < f) {
             this.d[i++] = pathpoint6;
         }
 
@@ -116,7 +116,7 @@ public class Pathfinder {
             pathpoint1 = this.a(i, j, k);
         }
 
-        if (pathpoint1 == null && this.a(entity, i, j + l, k, pathpoint) > 0) {
+        if (pathpoint1 == null && l > 0 && this.a(entity, i, j + l, k, pathpoint) > 0) {
             pathpoint1 = this.a(i, j + l, k);
             j += l;
         }
@@ -146,7 +146,7 @@ public class Pathfinder {
     }
 
     private final PathPoint a(int i, int j, int k) {
-        int l = i | j << 10 | k << 20;
+        int l = PathPoint.a(i, j, k);
         PathPoint pathpoint = (PathPoint) this.c.a(l);
 
         if (pathpoint == null) {
@@ -161,7 +161,7 @@ public class Pathfinder {
         for (int l = i; l < i + pathpoint.a; ++l) {
             for (int i1 = j; i1 < j + pathpoint.b; ++i1) {
                 for (int j1 = k; j1 < k + pathpoint.c; ++j1) {
-                    Material material = this.a.getMaterial(i, j, k);
+                    Material material = this.a.getMaterial(l, i1, j1);
 
                     if (material.isSolid()) {
                         return 0;
@@ -182,7 +182,7 @@ public class Pathfinder {
 
         PathPoint pathpoint2;
 
-        for (pathpoint2 = pathpoint1; pathpoint2.i != null; pathpoint2 = pathpoint2.i) {
+        for (pathpoint2 = pathpoint1; pathpoint2.h != null; pathpoint2 = pathpoint2.h) {
             ++i;
         }
 
@@ -191,8 +191,8 @@ public class Pathfinder {
         pathpoint2 = pathpoint1;
         --i;
 
-        for (apathpoint[i] = pathpoint1; pathpoint2.i != null; apathpoint[i] = pathpoint2) {
-            pathpoint2 = pathpoint2.i;
+        for (apathpoint[i] = pathpoint1; pathpoint2.h != null; apathpoint[i] = pathpoint2) {
+            pathpoint2 = pathpoint2.h;
             --i;
         }
 

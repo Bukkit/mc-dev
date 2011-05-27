@@ -24,7 +24,7 @@ public class Packet20NamedEntitySpawn extends Packet {
         this.e = MathHelper.b(entityhuman.locZ * 32.0D);
         this.f = (byte) ((int) (entityhuman.yaw * 256.0F / 360.0F));
         this.g = (byte) ((int) (entityhuman.pitch * 256.0F / 360.0F));
-        ItemStack itemstack = entityhuman.inventory.e();
+        ItemStack itemstack = entityhuman.inventory.b();
 
         this.h = itemstack == null ? 0 : itemstack.id;
     }

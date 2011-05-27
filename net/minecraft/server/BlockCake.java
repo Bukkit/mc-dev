@@ -27,6 +27,10 @@ public class BlockCake extends Block {
         return AxisAlignedBB.b((double) ((float) i + f1), (double) j, (double) ((float) k + f), (double) ((float) (i + 1) - f), (double) ((float) j + f2 - f), (double) ((float) (k + 1) - f));
     }
 
+    public int a(int i, int j) {
+        return i == 1 ? this.textureId : (i == 0 ? this.textureId + 3 : (j > 0 && i == 4 ? this.textureId + 2 : this.textureId + 1));
+    }
+
     public int a(int i) {
         return i == 1 ? this.textureId : (i == 0 ? this.textureId + 3 : this.textureId + 1);
     }
@@ -46,7 +50,7 @@ public class BlockCake extends Block {
 
     private void c(World world, int i, int j, int k, EntityHuman entityhuman) {
         if (entityhuman.health < 20) {
-            entityhuman.d(3);
+            entityhuman.b(3);
             int l = world.getData(i, j, k) + 1;
 
             if (l >= 6) {
@@ -62,9 +66,9 @@ public class BlockCake extends Block {
         return !super.a(world, i, j, k) ? false : this.f(world, i, j, k);
     }
 
-    public void b(World world, int i, int j, int k, int l) {
+    public void a(World world, int i, int j, int k, int l) {
         if (!this.f(world, i, j, k)) {
-            this.a_(world, i, j, k, world.getData(i, j, k));
+            this.b_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
         }
     }

@@ -2,37 +2,37 @@ package net.minecraft.server;
 
 public class TileEntitySign extends TileEntity {
 
-    public String[] e = new String[] { "", "", "", ""};
-    public int f = -1;
+    public String[] a = new String[] { "", "", "", ""};
+    public int b = -1;
 
     public TileEntitySign() {}
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.a("Text1", this.e[0]);
-        nbttagcompound.a("Text2", this.e[1]);
-        nbttagcompound.a("Text3", this.e[2]);
-        nbttagcompound.a("Text4", this.e[3]);
+        nbttagcompound.a("Text1", this.a[0]);
+        nbttagcompound.a("Text2", this.a[1]);
+        nbttagcompound.a("Text3", this.a[2]);
+        nbttagcompound.a("Text4", this.a[3]);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
 
         for (int i = 0; i < 4; ++i) {
-            this.e[i] = nbttagcompound.h("Text" + (i + 1));
-            if (this.e[i].length() > 15) {
-                this.e[i] = this.e[i].substring(0, 15);
+            this.a[i] = nbttagcompound.i("Text" + (i + 1));
+            if (this.a[i].length() > 15) {
+                this.a[i] = this.a[i].substring(0, 15);
             }
         }
     }
 
-    public Packet g() {
+    public Packet e() {
         String[] astring = new String[4];
 
         for (int i = 0; i < 4; ++i) {
-            astring[i] = this.e[i];
+            astring[i] = this.a[i];
         }
 
-        return new Packet130UpdateSign(this.b, this.c, this.d, astring);
+        return new Packet130UpdateSign(this.e, this.f, this.g, astring);
     }
 }

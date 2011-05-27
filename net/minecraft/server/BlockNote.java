@@ -10,17 +10,17 @@ public class BlockNote extends BlockContainer {
         return this.textureId;
     }
 
-    public void b(World world, int i, int j, int k, int l) {
+    public void a(World world, int i, int j, int k, int l) {
         if (l > 0 && Block.byId[l].c()) {
             boolean flag = world.o(i, j, k);
             TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 
-            if (tileentitynote.f != flag) {
+            if (tileentitynote.b != flag) {
                 if (flag) {
                     tileentitynote.a(world, i, j, k);
                 }
 
-                tileentitynote.f = flag;
+                tileentitynote.b = flag;
             }
         }
     }

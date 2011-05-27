@@ -46,7 +46,7 @@ public class ContainerWorkbench extends Container {
         super.a(entityhuman);
 
         for (int i = 0; i < 9; ++i) {
-            ItemStack itemstack = this.a.a(i);
+            ItemStack itemstack = this.a.c_(i);
 
             if (itemstack != null) {
                 entityhuman.b(itemstack);

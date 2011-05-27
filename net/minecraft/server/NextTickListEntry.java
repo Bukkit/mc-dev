@@ -37,7 +37,7 @@ public class NextTickListEntry implements Comparable {
         return this;
     }
 
-    public int a(NextTickListEntry nextticklistentry) {
+    public int compareTo(NextTickListEntry nextticklistentry) {
         return this.e < nextticklistentry.e ? -1 : (this.e > nextticklistentry.e ? 1 : (this.g < nextticklistentry.g ? -1 : (this.g > nextticklistentry.g ? 1 : 0)));
     }
 }

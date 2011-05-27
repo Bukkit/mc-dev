@@ -15,13 +15,13 @@ public class ItemDye extends Item {
             int i1 = world.getTypeId(i, j, k);
 
             if (i1 == Block.SAPLING.id) {
-                ((BlockSapling) Block.SAPLING).b(world, i, j, k, world.l);
+                ((BlockSapling) Block.SAPLING).b(world, i, j, k, world.k);
                 --itemstack.count;
                 return true;
             }
 
             if (i1 == Block.CROPS.id) {
-                ((BlockCrops) Block.CROPS).c(world, i, j, k);
+                ((BlockCrops) Block.CROPS).c_(world, i, j, k);
                 --itemstack.count;
                 return true;
             }
@@ -35,8 +35,8 @@ public class ItemDye extends Item {
             EntitySheep entitysheep = (EntitySheep) entityliving;
             int i = BlockCloth.c(itemstack.h());
 
-            if (!entitysheep.f_() && entitysheep.e_() != i) {
-                entitysheep.a(i);
+            if (!entitysheep.j_() && entitysheep.n() != i) {
+                entitysheep.a_(i);
                 --itemstack.count;
             }
         }

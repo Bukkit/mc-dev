@@ -19,6 +19,10 @@ public class PathEntity {
         return this.c >= this.b.length;
     }
 
+    public PathPoint c() {
+        return this.a > 0 ? this.b[this.a - 1] : null;
+    }
+
     public Vec3D a(Entity entity) {
         double d0 = (double) this.b[this.c].a + (double) ((int) (entity.length + 1.0F)) * 0.5D;
         double d1 = (double) this.b[this.c].b;

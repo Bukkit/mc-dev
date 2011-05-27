@@ -21,16 +21,16 @@ public class EntitySkeleton extends EntityMonster {
         return "mob.skeletonhurt";
     }
 
-    public void o() {
-        if (this.world.b()) {
-            float f = this.b(1.0F);
+    public void q() {
+        if (this.world.c()) {
+            float f = this.c(1.0F);
 
             if (f > 0.5F && this.world.i(MathHelper.b(this.locX), MathHelper.b(this.locY), MathHelper.b(this.locZ)) && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
                 this.fireTicks = 300;
             }
         }
 
-        super.o();
+        super.q();
     }
 
     protected void a(Entity entity, float f) {
@@ -68,19 +68,19 @@ public class EntitySkeleton extends EntityMonster {
         return Item.ARROW.id;
     }
 
-    protected void g_() {
+    protected void o() {
         int i = this.random.nextInt(3);
 
         int j;
 
         for (j = 0; j < i; ++j) {
-            this.a(Item.ARROW.id, 1);
+            this.b(Item.ARROW.id, 1);
         }
 
         i = this.random.nextInt(3);
 
         for (j = 0; j < i; ++j) {
-            this.a(Item.BONE.id, 1);
+            this.b(Item.BONE.id, 1);
         }
     }
 }

@@ -1,7 +1,5 @@
 package net.minecraft.server;
 
-import java.io.File;
-
 public class WorldProvider {
 
     public World a;
@@ -36,11 +34,7 @@ public class WorldProvider {
     }
 
     public IChunkProvider c() {
-        return new ChunkProviderGenerate(this.a, this.a.u);
-    }
-
-    public IChunkLoader a(File file1) {
-        return new ChunkLoader(file1, true);
+        return new ChunkProviderGenerate(this.a, this.a.j());
     }
 
     public boolean a(int i, int j) {

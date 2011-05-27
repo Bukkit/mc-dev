@@ -30,7 +30,7 @@ public class BiomeBase {
         this.o = (byte) Block.GRASS.id;
         this.p = (byte) Block.DIRT.id;
         this.q = 5169201;
-        this.r = new Class[] { EntitySpider.class, EntityZombie.class, EntitySkeleton.class, EntityCreeper.class};
+        this.r = new Class[] { EntitySpider.class, EntityZombie.class, EntitySkeleton.class, EntityCreeper.class, EntitySlime.class};
         this.s = new Class[] { EntitySheep.class, EntityPig.class, EntityChicken.class, EntityCow.class};
         this.t = new Class[] { EntitySquid.class};
     }

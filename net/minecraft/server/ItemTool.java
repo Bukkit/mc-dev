@@ -2,25 +2,25 @@ package net.minecraft.server;
 
 public class ItemTool extends Item {
 
-    private Block[] bg;
-    private float bh = 4.0F;
-    private int bi;
+    private Block[] bi;
+    private float bj = 4.0F;
+    private int bk;
     protected EnumToolMaterial a;
 
     protected ItemTool(int i, int j, EnumToolMaterial enumtoolmaterial, Block[] ablock) {
         super(i);
         this.a = enumtoolmaterial;
-        this.bg = ablock;
+        this.bi = ablock;
         this.maxStackSize = 1;
         this.durability = enumtoolmaterial.a();
-        this.bh = enumtoolmaterial.b();
-        this.bi = j + enumtoolmaterial.c();
+        this.bj = enumtoolmaterial.b();
+        this.bk = j + enumtoolmaterial.c();
     }
 
     public float a(ItemStack itemstack, Block block) {
-        for (int i = 0; i < this.bg.length; ++i) {
-            if (this.bg[i] == block) {
-                return this.bh;
+        for (int i = 0; i < this.bi.length; ++i) {
+            if (this.bi[i] == block) {
+                return this.bj;
             }
         }
 
@@ -36,6 +36,6 @@ public class ItemTool extends Item {
     }
 
     public int a(Entity entity) {
-        return this.bi;
+        return this.bk;
     }
 }

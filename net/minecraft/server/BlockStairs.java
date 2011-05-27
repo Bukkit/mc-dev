@@ -63,8 +63,8 @@ public class BlockStairs extends Block {
         this.a.b(world, i, j, k, entityhuman);
     }
 
-    public void a(World world, int i, int j, int k, int l) {
-        this.a.a(world, i, j, k, l);
+    public void b(World world, int i, int j, int k, int l) {
+        this.a.b(world, i, j, k, l);
     }
 
     public float a(Entity entity) {
@@ -77,6 +77,10 @@ public class BlockStairs extends Block {
 
     public int a(Random random) {
         return this.a.a(random);
+    }
+
+    public int a(int i, int j) {
+        return this.a.a(i, j);
     }
 
     public int a(int i) {
@@ -104,7 +108,7 @@ public class BlockStairs extends Block {
     }
 
     public void e(World world, int i, int j, int k) {
-        this.b(world, i, j, k, 0);
+        this.a(world, i, j, k, 0);
         this.a.e(world, i, j, k);
     }
 
@@ -116,8 +120,8 @@ public class BlockStairs extends Block {
         this.a.a(world, i, j, k, l, f);
     }
 
-    public void a_(World world, int i, int j, int k, int l) {
-        this.a.a_(world, i, j, k, l);
+    public void b_(World world, int i, int j, int k, int l) {
+        this.a.b_(world, i, j, k, l);
     }
 
     public void b(World world, int i, int j, int k, Entity entity) {
@@ -132,8 +136,8 @@ public class BlockStairs extends Block {
         return this.a.a(world, i, j, k, entityhuman);
     }
 
-    public void a_(World world, int i, int j, int k) {
-        this.a.a_(world, i, j, k);
+    public void c(World world, int i, int j, int k) {
+        this.a.c(world, i, j, k);
     }
 
     public void a(World world, int i, int j, int k, EntityLiving entityliving) {

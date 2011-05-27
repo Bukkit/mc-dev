@@ -29,7 +29,7 @@ public class ItemPainting extends Item {
 
             EntityPainting entitypainting = new EntityPainting(world, i, j, k, b0);
 
-            if (entitypainting.d()) {
+            if (entitypainting.h()) {
                 if (!world.isStatic) {
                     world.a((Entity) entitypainting);
                 }

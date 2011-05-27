@@ -11,19 +11,19 @@ public class BlockSand extends Block {
     }
 
     public void e(World world, int i, int j, int k) {
-        world.i(i, j, k, this.id);
+        world.c(i, j, k, this.id, this.b());
     }
 
-    public void b(World world, int i, int j, int k, int l) {
-        world.i(i, j, k, this.id);
+    public void a(World world, int i, int j, int k, int l) {
+        world.c(i, j, k, this.id, this.b());
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        this.h(world, i, j, k);
+        this.g(world, i, j, k);
     }
 
-    private void h(World world, int i, int j, int k) {
-        if (g(world, i, j - 1, k) && j >= 0) {
+    private void g(World world, int i, int j, int k) {
+        if (b_(world, i, j - 1, k) && j >= 0) {
             byte b0 = 32;
 
             if (!a && world.a(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
@@ -33,7 +33,7 @@ public class BlockSand extends Block {
             } else {
                 world.e(i, j, k, 0);
 
-                while (g(world, i, j - 1, k) && j > 0) {
+                while (b_(world, i, j - 1, k) && j > 0) {
                     --j;
                 }
 
@@ -48,7 +48,7 @@ public class BlockSand extends Block {
         return 3;
     }
 
-    public static boolean g(World world, int i, int j, int k) {
+    public static boolean b_(World world, int i, int j, int k) {
         int l = world.getTypeId(i, j, k);
 
         if (l == 0) {

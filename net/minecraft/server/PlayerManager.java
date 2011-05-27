@@ -9,6 +9,7 @@ public class PlayerManager {
     private PlayerList b = new PlayerList();
     private List c = new ArrayList();
     private MinecraftServer d;
+    private final int[][] e = new int[][] { { 1, 0}, { 0, 1}, { -1, 0}, { 0, -1}};
 
     public PlayerManager(MinecraftServer minecraftserver) {
         this.d = minecraftserver;
@@ -50,11 +51,33 @@ public class PlayerManager {
 
         entityplayer.d = entityplayer.locX;
         entityplayer.e = entityplayer.locZ;
+        int k = 0;
+        byte b0 = 10;
+        int l = 0;
+        int i1 = 0;
 
-        for (int k = i - 10; k <= i + 10; ++k) {
-            for (int l = j - 10; l <= j + 10; ++l) {
-                this.a(k, l, true).a(entityplayer);
+        this.a(i, j, true).a(entityplayer);
+
+        int j1;
+
+        for (j1 = 1; j1 <= b0 * 2; ++j1) {
+            for (int k1 = 0; k1 < 2; ++k1) {
+                int[] aint = this.e[k++ % 4];
+
+                for (int l1 = 0; l1 < j1; ++l1) {
+                    l += aint[0];
+                    i1 += aint[1];
+                    this.a(i + l, j + i1, true).a(entityplayer);
+                }
             }
+        }
+
+        k %= 4;
+
+        for (j1 = 0; j1 < b0 * 2; ++j1) {
+            l += this.e[k][0];
+            i1 += this.e[k][1];
+            this.a(i + l, j + i1, true).a(entityplayer);
         }
 
         this.a.add(entityplayer);

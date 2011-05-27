@@ -18,12 +18,12 @@ public class EntitySheep extends EntityAnimal {
     }
 
     public boolean a(Entity entity, int i) {
-        if (!this.world.isStatic && !this.f_() && entity instanceof EntityLiving) {
+        if (!this.world.isStatic && !this.j_() && entity instanceof EntityLiving) {
             this.a(true);
             int j = 1 + this.random.nextInt(3);
 
             for (int k = 0; k < j; ++k) {
-                EntityItem entityitem = this.a(new ItemStack(Block.WOOL.id, 1, this.e_()), 1.0F);
+                EntityItem entityitem = this.a(new ItemStack(Block.WOOL.id, 1, this.n()), 1.0F);
 
                 entityitem.motY += (double) (this.random.nextFloat() * 0.05F);
                 entityitem.motX += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
@@ -36,14 +36,14 @@ public class EntitySheep extends EntityAnimal {
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        nbttagcompound.a("Sheared", this.f_());
-        nbttagcompound.a("Color", (byte) this.e_());
+        nbttagcompound.a("Sheared", this.j_());
+        nbttagcompound.a("Color", (byte) this.n());
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        this.a(nbttagcompound.l("Sheared"));
-        this.a(nbttagcompound.b("Color"));
+        this.a(nbttagcompound.m("Sheared"));
+        this.a_(nbttagcompound.c("Color"));
     }
 
     protected String e() {
@@ -58,17 +58,17 @@ public class EntitySheep extends EntityAnimal {
         return "mob.sheep";
     }
 
-    public int e_() {
+    public int n() {
         return this.datawatcher.a(16) & 15;
     }
 
-    public void a(int i) {
+    public void a_(int i) {
         byte b0 = this.datawatcher.a(16);
 
         this.datawatcher.b(16, Byte.valueOf((byte) (b0 & 240 | i & 15)));
     }
 
-    public boolean f_() {
+    public boolean j_() {
         return (this.datawatcher.a(16) & 16) != 0;
     }
 

@@ -33,8 +33,8 @@ public class EntityPainting extends Entity {
             EnumArt enumart = aenumart[j1];
 
             this.e = enumart;
-            this.a(l);
-            if (this.d()) {
+            this.b(l);
+            if (this.h()) {
                 arraylist.add(enumart);
             }
         }
@@ -43,12 +43,12 @@ public class EntityPainting extends Entity {
             this.e = (EnumArt) arraylist.get(this.random.nextInt(arraylist.size()));
         }
 
-        this.a(l);
+        this.b(l);
     }
 
     protected void a() {}
 
-    public void a(int i) {
+    public void b(int i) {
         this.a = i;
         this.lastYaw = this.yaw = (float) (i * 90);
         float f = (float) this.e.A;
@@ -86,43 +86,43 @@ public class EntityPainting extends Entity {
         }
 
         if (i == 0) {
-            f3 -= this.d(this.e.A);
+            f3 -= this.c(this.e.A);
         }
 
         if (i == 1) {
-            f5 += this.d(this.e.A);
+            f5 += this.c(this.e.A);
         }
 
         if (i == 2) {
-            f3 += this.d(this.e.A);
+            f3 += this.c(this.e.A);
         }
 
         if (i == 3) {
-            f5 -= this.d(this.e.A);
+            f5 -= this.c(this.e.A);
         }
 
-        f4 += this.d(this.e.B);
+        f4 += this.c(this.e.B);
         this.a((double) f3, (double) f4, (double) f5);
         float f7 = -0.00625F;
 
         this.boundingBox.c((double) (f3 - f - f7), (double) (f4 - f1 - f7), (double) (f5 - f2 - f7), (double) (f3 + f + f7), (double) (f4 + f1 + f7), (double) (f5 + f2 + f7));
     }
 
-    private float d(int i) {
+    private float c(int i) {
         return i == 32 ? 0.5F : (i == 64 ? 0.5F : 0.0F);
     }
 
-    public void b_() {
+    public void f_() {
         if (this.f++ == 100 && !this.world.isStatic) {
             this.f = 0;
-            if (!this.d()) {
-                this.q();
+            if (!this.h()) {
+                this.C();
                 this.world.a((Entity) (new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING))));
             }
         }
     }
 
-    public boolean d() {
+    public boolean h() {
         if (this.world.a((Entity) this, this.boundingBox).size() > 0) {
             return false;
         } else {
@@ -180,14 +180,14 @@ public class EntityPainting extends Entity {
         }
     }
 
-    public boolean c_() {
+    public boolean d_() {
         return true;
     }
 
     public boolean a(Entity entity, int i) {
         if (!this.dead && !this.world.isStatic) {
-            this.q();
-            this.y();
+            this.C();
+            this.R();
             this.world.a((Entity) (new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING))));
         }
 
@@ -203,11 +203,11 @@ public class EntityPainting extends Entity {
     }
 
     public void b(NBTTagCompound nbttagcompound) {
-        this.a = nbttagcompound.b("Dir");
-        this.b = nbttagcompound.d("TileX");
-        this.c = nbttagcompound.d("TileY");
-        this.d = nbttagcompound.d("TileZ");
-        String s = nbttagcompound.h("Motive");
+        this.a = nbttagcompound.c("Dir");
+        this.b = nbttagcompound.e("TileX");
+        this.c = nbttagcompound.e("TileY");
+        this.d = nbttagcompound.e("TileZ");
+        String s = nbttagcompound.i("Motive");
         EnumArt[] aenumart = EnumArt.values();
         int i = aenumart.length;
 
@@ -223,6 +223,6 @@ public class EntityPainting extends Entity {
             this.e = EnumArt.KEBAB;
         }
 
-        this.a(this.a);
+        this.b(this.a);
     }
 }

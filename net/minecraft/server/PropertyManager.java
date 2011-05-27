@@ -68,4 +68,9 @@ public class PropertyManager {
             return flag;
         }
     }
+
+    public void b(String s, boolean flag) {
+        this.b.setProperty(s, "" + flag);
+        this.b();
+    }
 }

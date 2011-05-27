@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +11,10 @@ public abstract class Packet {
 
     private static Map a = new HashMap();
     private static Map b = new HashMap();
-    public final long k = System.currentTimeMillis();
-    public boolean l = false;
+    public final long j = System.currentTimeMillis();
+    public boolean k = false;
+    private static HashMap c;
+    private static int d;
 
     public Packet() {}
 
@@ -43,20 +46,45 @@ public abstract class Packet {
     }
 
     public static Packet b(DataInputStream datainputstream) {
-        int i = datainputstream.read();
+        boolean flag = false;
+        Packet packet = null;
 
-        if (i == -1) {
-            return null;
-        } else {
-            Packet packet = a(i);
+        datainputstream.mark(16384);
 
+        int i;
+
+        try {
+            i = datainputstream.read();
+            if (i == -1) {
+                return null;
+            }
+
+            packet = a(i);
             if (packet == null) {
                 throw new IOException("Bad packet id " + i);
-            } else {
-                packet.a(datainputstream);
-                return packet;
             }
+
+            packet.a(datainputstream);
+        } catch (EOFException eofexception) {
+            System.out.println("Reached end of stream");
+            datainputstream.reset();
+            return null;
         }
+
+        PacketCounter packetcounter = (PacketCounter) c.get(Integer.valueOf(i));
+
+        if (packetcounter == null) {
+            packetcounter = new PacketCounter((EmptyClass1) null);
+            c.put(Integer.valueOf(i), packetcounter);
+        }
+
+        packetcounter.a(packet.a());
+        ++d;
+        if (d % 1000 == 0) {
+            ;
+        }
+
+        return packet;
     }
 
     public static void a(Packet packet, DataOutputStream dataoutputstream) {
@@ -90,6 +118,7 @@ public abstract class Packet {
         a(14, Packet14BlockDig.class);
         a(15, Packet15Place.class);
         a(16, Packet16BlockItemSwitch.class);
+        a(17, Packet17.class);
         a(18, Packet18ArmAnimation.class);
         a(19, Packet19EntityAction.class);
         a(20, Packet20NamedEntitySpawn.class);
@@ -98,6 +127,7 @@ public abstract class Packet {
         a(23, Packet23VehicleSpawn.class);
         a(24, Packet24MobSpawn.class);
         a(25, Packet25EntityPainting.class);
+        a(27, Packet27.class);
         a(28, Packet28EntityVelocity.class);
         a(29, Packet29DestroyEntity.class);
         a(30, Packet30Entity.class);
@@ -123,5 +153,7 @@ public abstract class Packet {
         a(106, Packet106Transaction.class);
         a(130, Packet130UpdateSign.class);
         a(255, Packet255KickDisconnect.class);
+        c = new HashMap();
+        d = 0;
     }
 }

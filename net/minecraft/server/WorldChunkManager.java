@@ -15,13 +15,13 @@ public class WorldChunkManager {
     protected WorldChunkManager() {}
 
     public WorldChunkManager(World world) {
-        this.e = new NoiseGeneratorOctaves2(new Random(world.u * 9871L), 4);
-        this.f = new NoiseGeneratorOctaves2(new Random(world.u * 39811L), 4);
-        this.g = new NoiseGeneratorOctaves2(new Random(world.u * 543321L), 2);
+        this.e = new NoiseGeneratorOctaves2(new Random(world.j() * 9871L), 4);
+        this.f = new NoiseGeneratorOctaves2(new Random(world.j() * 39811L), 4);
+        this.g = new NoiseGeneratorOctaves2(new Random(world.j() * 543321L), 2);
     }
 
     public BiomeBase a(ChunkCoordIntPair chunkcoordintpair) {
-        return this.a(chunkcoordintpair.a, chunkcoordintpair.b);
+        return this.a(chunkcoordintpair.a >> 4, chunkcoordintpair.b >> 4);
     }
 
     public BiomeBase a(int i, int j) {
@@ -38,8 +38,8 @@ public class WorldChunkManager {
             adouble = new double[k * l];
         }
 
-        adouble = this.e.a(adouble, (double) i, (double) j, k, k, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
-        this.c = this.g.a(this.c, (double) i, (double) j, k, k, 0.25D, 0.25D, 0.5882352941176471D);
+        adouble = this.e.a(adouble, (double) i, (double) j, k, l, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
+        this.c = this.g.a(this.c, (double) i, (double) j, k, l, 0.25D, 0.25D, 0.5882352941176471D);
         int i1 = 0;
 
         for (int j1 = 0; j1 < k; ++j1) {

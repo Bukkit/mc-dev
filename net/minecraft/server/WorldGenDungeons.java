@@ -93,7 +93,7 @@ public class WorldGenDungeons extends WorldGenerator {
                                         ItemStack itemstack = this.a(random);
 
                                         if (itemstack != null) {
-                                            tileentitychest.a(random.nextInt(tileentitychest.h_()), itemstack);
+                                            tileentitychest.a(random.nextInt(tileentitychest.m_()), itemstack);
                                         }
                                     }
                                     break label204;
