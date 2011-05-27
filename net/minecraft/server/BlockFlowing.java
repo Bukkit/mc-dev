@@ -13,120 +13,116 @@ public class BlockFlowing extends BlockFluids {
     }
 
     private void i(World world, int i, int j, int k) {
-        int i = world.b(i, j, k);
+        int l = world.b(i, j, k);
 
-        world.a(i, j, k, this.bc + 1, i);
+        world.a(i, j, k, this.bc + 1, l);
         world.b(i, j, k, i, j, k);
         world.f(i, j, k);
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        if (this.bc != 10 && this.bc != 11 || world.a(i, j - 1, k) <= 1) {
-            int i = this.g(world, i, j, k);
-            boolean j = true;
-            int l;
+        int l = this.g(world, i, j, k);
+        boolean flag = true;
+        int i1;
 
-            if (i > 0) {
-                byte arrayOfBoolean = -100;
+        if (l > 0) {
+            byte b0 = -100;
 
-                this.a = 0;
-                int arrayOfBoolean1 = this.e(world, i - 1, j, k, arrayOfBoolean);
+            this.a = 0;
+            int j1 = this.e(world, i - 1, j, k, b0);
 
-                arrayOfBoolean1 = this.e(world, i + 1, j, k, arrayOfBoolean1);
-                arrayOfBoolean1 = this.e(world, i, j, k - 1, arrayOfBoolean1);
-                arrayOfBoolean1 = this.e(world, i, j, k + 1, arrayOfBoolean1);
-                l = arrayOfBoolean1 + this.d;
-                if (l >= 8 || arrayOfBoolean1 < 0) {
-                    l = -1;
-                }
-
-                if (this.g(world, i, j + 1, k) >= 0) {
-                    int i1 = this.g(world, i, j + 1, k);
-
-                    if (i1 >= 8) {
-                        l = i1;
-                    } else {
-                        l = i1 + 8;
-                    }
-                }
-
-                if (this.a >= 2 && this.bn == Material.f) {
-                    if (world.d(i, j - 1, k)) {
-                        l = 0;
-                    } else if (world.c(i, j - 1, k) == this.bn && world.b(i, j, k) == 0) {
-                        l = 0;
-                    }
-                }
-
-                if (this.bn == Material.g && i < 8 && l < 8 && l > i && random.nextInt(4) != 0) {
-                    l = i;
-                    j = false;
-                }
-
-                if (l != i) {
-                    i = l;
-                    if (l < 0) {
-                        world.d(i, j, k, 0);
-                    } else {
-                        world.b(i, j, k, l);
-                        world.h(i, j, k, this.bc);
-                        world.g(i, j, k, this.bc);
-                    }
-                } else if (j) {
-                    this.i(world, i, j, k);
-                }
-            } else {
-                this.i(world, i, j, k);
+            j1 = this.e(world, i + 1, j, k, j1);
+            j1 = this.e(world, i, j, k - 1, j1);
+            j1 = this.e(world, i, j, k + 1, j1);
+            i1 = j1 + this.d;
+            if (i1 >= 8 || j1 < 0) {
+                i1 = -1;
             }
 
-            if (this.l(world, i, j - 1, k)) {
-                if (i >= 8) {
-                    world.b(i, j - 1, k, this.bc, i);
+            if (this.g(world, i, j + 1, k) >= 0) {
+                int k1 = this.g(world, i, j + 1, k);
+
+                if (k1 >= 8) {
+                    i1 = k1;
                 } else {
-                    world.b(i, j - 1, k, this.bc, i + 8);
+                    i1 = k1 + 8;
                 }
-            } else if (i >= 0 && (i == 0 || this.k(world, i, j - 1, k))) {
-                boolean[] arrayOfBoolean2 = this.j(world, i, j, k);
+            }
 
-                l = i + this.d;
-                if (i >= 8) {
-                    l = 1;
+            if (this.a >= 2 && this.bn == Material.f) {
+                if (world.d(i, j - 1, k)) {
+                    i1 = 0;
+                } else if (world.c(i, j - 1, k) == this.bn && world.b(i, j, k) == 0) {
+                    i1 = 0;
                 }
+            }
 
-                if (l >= 8) {
-                    return;
+            if (this.bn == Material.g && l < 8 && i1 < 8 && i1 > l && random.nextInt(4) != 0) {
+                i1 = l;
+                flag = false;
+            }
+
+            if (i1 != l) {
+                l = i1;
+                if (i1 < 0) {
+                    world.d(i, j, k, 0);
+                } else {
+                    world.b(i, j, k, i1);
+                    world.h(i, j, k, this.bc);
+                    world.g(i, j, k, this.bc);
                 }
+            } else if (flag) {
+                this.i(world, i, j, k);
+            }
+        } else {
+            this.i(world, i, j, k);
+        }
 
-                if (arrayOfBoolean2[0]) {
-                    this.f(world, i - 1, j, k, l);
-                }
+        if (this.l(world, i, j - 1, k)) {
+            if (l >= 8) {
+                world.b(i, j - 1, k, this.bc, l);
+            } else {
+                world.b(i, j - 1, k, this.bc, l + 8);
+            }
+        } else if (l >= 0 && (l == 0 || this.k(world, i, j - 1, k))) {
+            boolean[] aboolean = this.j(world, i, j, k);
 
-                if (arrayOfBoolean2[1]) {
-                    this.f(world, i + 1, j, k, l);
-                }
+            i1 = l + this.d;
+            if (l >= 8) {
+                i1 = 1;
+            }
 
-                if (arrayOfBoolean2[2]) {
-                    this.f(world, i, j, k - 1, l);
-                }
+            if (i1 >= 8) {
+                return;
+            }
 
-                if (!arrayOfBoolean2[3]) {
-                    return;
-                }
+            if (aboolean[0]) {
+                this.f(world, i - 1, j, k, i1);
+            }
 
-                this.f(world, i, j, k + 1, l);
+            if (aboolean[1]) {
+                this.f(world, i + 1, j, k, i1);
+            }
+
+            if (aboolean[2]) {
+                this.f(world, i, j, k - 1, i1);
+            }
+
+            if (aboolean[3]) {
+                this.f(world, i, j, k + 1, i1);
             }
         }
     }
 
     private void f(World world, int i, int j, int k, int l) {
         if (this.l(world, i, j, k)) {
-            int i = world.a(i, j, k);
+            int i1 = world.a(i, j, k);
 
-            if (i > 0) {
+            if (i1 > 0) {
                 if (this.bn == Material.g) {
                     this.h(world, i, j, k);
                 } else {
-                    Block.n[i].a_(world, i, j, k, world.b(i, j, k));
+                    Block.n[i1].a_(world, i, j, k, world.b(i, j, k));
                 }
             }
 
@@ -135,107 +131,107 @@ public class BlockFlowing extends BlockFluids {
     }
 
     private int a(World world, int i, int j, int k, int l, int i1) {
-        int i = 1000;
+        int j1 = 1000;
 
-        for (int j = 0; j < 4; ++j) {
-            if ((j != 0 || i1 != 1) && (j != 1 || i1 != 0) && (j != 2 || i1 != 3) && (j != 3 || i1 != 2)) {
-                int k = i;
-                int i1 = k;
+        for (int k1 = 0; k1 < 4; ++k1) {
+            if ((k1 != 0 || i1 != 1) && (k1 != 1 || i1 != 0) && (k1 != 2 || i1 != 3) && (k1 != 3 || i1 != 2)) {
+                int l1 = i;
+                int i2 = k;
 
-                if (j == 0) {
-                    k = i - 1;
+                if (k1 == 0) {
+                    l1 = i - 1;
                 }
 
-                if (j == 1) {
-                    ++k;
+                if (k1 == 1) {
+                    ++l1;
                 }
 
-                if (j == 2) {
-                    i1 = k - 1;
+                if (k1 == 2) {
+                    i2 = k - 1;
                 }
 
-                if (j == 3) {
-                    ++i1;
+                if (k1 == 3) {
+                    ++i2;
                 }
 
-                if (!this.k(world, k, j, i1) && (world.c(k, j, i1) != this.bn || world.b(k, j, i1) != 0)) {
-                    if (!this.k(world, k, j - 1, i1)) {
+                if (!this.k(world, l1, j, i2) && (world.c(l1, j, i2) != this.bn || world.b(l1, j, i2) != 0)) {
+                    if (!this.k(world, l1, j - 1, i2)) {
                         return l;
                     }
 
                     if (l < 4) {
-                        int i2 = this.a(world, k, j, i1, l + 1, j);
+                        int j2 = this.a(world, l1, j, i2, l + 1, k1);
 
-                        if (i2 < i) {
-                            i = i2;
+                        if (j2 < j1) {
+                            j1 = j2;
                         }
                     }
                 }
             }
         }
 
-        return i;
+        return j1;
     }
 
     private boolean[] j(World world, int i, int j, int k) {
-        int i;
-        int j;
+        int l;
+        int i1;
 
-        for (i = 0; i < 4; ++i) {
-            this.c[i] = 1000;
-            j = i;
-            int l = k;
+        for (l = 0; l < 4; ++l) {
+            this.c[l] = 1000;
+            i1 = i;
+            int j1 = k;
 
-            if (i == 0) {
-                j = i - 1;
+            if (l == 0) {
+                i1 = i - 1;
             }
 
-            if (i == 1) {
-                ++j;
+            if (l == 1) {
+                ++i1;
             }
 
-            if (i == 2) {
-                l = k - 1;
+            if (l == 2) {
+                j1 = k - 1;
             }
 
-            if (i == 3) {
-                ++l;
+            if (l == 3) {
+                ++j1;
             }
 
-            if (!this.k(world, j, j, l) && (world.c(j, j, l) != this.bn || world.b(j, j, l) != 0)) {
-                if (!this.k(world, j, j - 1, l)) {
-                    this.c[i] = 0;
+            if (!this.k(world, i1, j, j1) && (world.c(i1, j, j1) != this.bn || world.b(i1, j, j1) != 0)) {
+                if (!this.k(world, i1, j - 1, j1)) {
+                    this.c[l] = 0;
                 } else {
-                    this.c[i] = this.a(world, j, j, l, 1, i);
+                    this.c[l] = this.a(world, i1, j, j1, 1, l);
                 }
             }
         }
 
-        i = this.c[0];
+        l = this.c[0];
 
-        for (j = 1; j < 4; ++j) {
-            if (this.c[j] < i) {
-                i = this.c[j];
+        for (i1 = 1; i1 < 4; ++i1) {
+            if (this.c[i1] < l) {
+                l = this.c[i1];
             }
         }
 
-        for (j = 0; j < 4; ++j) {
-            this.b[j] = this.c[j] == i;
+        for (i1 = 0; i1 < 4; ++i1) {
+            this.b[i1] = this.c[i1] == l;
         }
 
         return this.b;
     }
 
     private boolean k(World world, int i, int j, int k) {
-        int i = world.a(i, j, k);
+        int l = world.a(i, j, k);
 
-        if (i != Block.WOODEN_DOOR.bc && i != Block.IRON_DOOR_BLOCK.bc && i != Block.SIGN_POST.bc && i != Block.LADDER.bc && i != Block.SUGAR_CANE_BLOCK.bc) {
-            if (i == 0) {
+        if (l != Block.WOODEN_DOOR.bc && l != Block.IRON_DOOR_BLOCK.bc && l != Block.SIGN_POST.bc && l != Block.LADDER.bc && l != Block.SUGAR_CANE_BLOCK.bc) {
+            if (l == 0) {
                 return false;
             } else {
-                Material localiq = Block.n[i].bn;
+                Material material = Block.n[l].bn;
 
-                return localiq.a();
+                return material.a();
             }
         } else {
             return true;
@@ -243,27 +239,27 @@ public class BlockFlowing extends BlockFluids {
     }
 
     protected int e(World world, int i, int j, int k, int l) {
-        int i = this.g(world, i, j, k);
+        int i1 = this.g(world, i, j, k);
 
-        if (i < 0) {
+        if (i1 < 0) {
             return l;
         } else {
-            if (i == 0) {
+            if (i1 == 0) {
                 ++this.a;
             }
 
-            if (i >= 8) {
-                i = 0;
+            if (i1 >= 8) {
+                i1 = 0;
             }
 
-            return l >= 0 && i >= l ? l : i;
+            return l >= 0 && i1 >= l ? l : i1;
         }
     }
 
     private boolean l(World world, int i, int j, int k) {
-        Material localiq = world.c(i, j, k);
+        Material material = world.c(i, j, k);
 
-        return localiq == this.bn ? false : (localiq == Material.g ? false : !this.k(world, i, j, k));
+        return material == this.bn ? false : (material == Material.g ? false : !this.k(world, i, j, k));
     }
 
     public void e(World world, int i, int j, int k) {

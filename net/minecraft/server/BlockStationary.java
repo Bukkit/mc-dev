@@ -20,10 +20,10 @@ public class BlockStationary extends BlockFluids {
     }
 
     private void i(World world, int i, int j, int k) {
-        int i = world.b(i, j, k);
+        int l = world.b(i, j, k);
 
         world.h = true;
-        world.a(i, j, k, this.bc - 1, i);
+        world.a(i, j, k, this.bc - 1, l);
         world.b(i, j, k, i, j, k);
         world.h(i, j, k, this.bc - 1);
         world.h = false;
@@ -31,19 +31,20 @@ public class BlockStationary extends BlockFluids {
 
     public void a(World world, int i, int j, int k, Random random) {
         if (this.bn == Material.g) {
-            int i = random.nextInt(3);
+            int l = random.nextInt(3);
 
-            for (int j = 0; j < i; ++j) {
+            for (int i1 = 0; i1 < l; ++i1) {
                 i += random.nextInt(3) - 1;
                 ++j;
                 k += random.nextInt(3) - 1;
-                int k = world.a(i, j, k);
+                int j1 = world.a(i, j, k);
 
-                if (k == 0) {
+                if (j1 == 0) {
                     if (this.j(world, i - 1, j, k) || this.j(world, i + 1, j, k) || this.j(world, i, j, k - 1) || this.j(world, i, j, k + 1) || this.j(world, i, j - 1, k) || this.j(world, i, j + 1, k)) {
+                        world.d(i, j, k, Block.FIRE.bc);
                         return;
                     }
-                } else if (Block.n[k].bn.c()) {
+                } else if (Block.n[j1].bn.c()) {
                     return;
                 }
             }

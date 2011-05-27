@@ -14,12 +14,12 @@ public class EntityTNTPrimed extends Entity {
 
     public EntityTNTPrimed(World world, float f, float f1, float f2) {
         this(world);
-        this.a(f, f1, f2);
-        float f = (float) (Math.random() * 3.141592741012573D * 2.0D);
+        this.a((double) f, (double) f1, (double) f2);
+        float f3 = (float) (Math.random() * 3.1415927410125732D * 2.0D);
 
-        this.o = (double) (-MathHelper.a(f * 3.141593F / 180.0F) * 0.02F);
-        this.p = 0.2000000029802322D;
-        this.q = (double) (-MathHelper.b(f * 3.141593F / 180.0F) * 0.02F);
+        this.o = (double) (-MathHelper.a(f3 * 3.1415927F / 180.0F) * 0.02F);
+        this.p = 0.20000000298023224D;
+        this.q = (double) (-MathHelper.b(f3 * 3.1415927F / 180.0F) * 0.02F);
         this.H = false;
         this.a = 80;
         this.i = (double) f;
@@ -48,6 +48,7 @@ public class EntityTNTPrimed extends Entity {
 
         if (this.a-- <= 0) {
             this.j();
+            this.b();
         } else {
             this.h.a("smoke", this.l, this.m + 0.5D, this.n, 0.0D, 0.0D, 0.0D);
         }

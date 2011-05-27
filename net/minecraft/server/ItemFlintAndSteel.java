@@ -9,16 +9,6 @@ public class ItemFlintAndSteel extends Item {
     }
 
     public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
-        int dbl = world.a(i, j, k);
-
-        if (dbl == 52 || dbl == 46) {
-            world.d(i, j, k, 0);
-        }
-
-        if (dbl == 7 && j > 5) {
-            world.d(i, j, k, 0);
-        }
-
         if (l == 0) {
             --j;
         }
@@ -43,11 +33,11 @@ public class ItemFlintAndSteel extends Item {
             ++i;
         }
 
-        int i = world.a(i, j, k);
+        int i1 = world.a(i, j, k);
 
-        if (i == 0) {
-            world.d(i, j, k, 20);
-            world.d(i, j, k, 0);
+        if (i1 == 0) {
+            world.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, b.nextFloat() * 0.4F + 0.8F);
+            world.d(i, j, k, Block.FIRE.bc);
         }
 
         itemstack.a(1);
