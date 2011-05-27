@@ -128,7 +128,7 @@ public class InventoryPlayer implements IInventory {
                 itemstack.count = this.e(itemstack);
             } while (itemstack.count > 0 && itemstack.count < i);
 
-            return true;
+            return itemstack.count < i;
         }
     }
 
