@@ -78,11 +78,17 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
                 this.e.A = packet10flying.g;
                 this.e.k();
+                this.e.c(d5, 0.0D, d4);
                 this.e.b(d1, d2, d3, f, f1);
                 this.e.s = d5;
                 this.e.u = d4;
-                this.e.k.b_();
+                this.d.e.b(this.e.k, true);
+                this.e.k.A();
                 this.d.f.b(this.e);
+                this.g = this.e.p;
+                this.h = this.e.q;
+                this.i = this.e.r;
+                this.d.e.f(this.e);
                 return;
             }
 
@@ -374,11 +380,6 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                     this.b((Packet) (new Packet3Chat("\u00A7cThere\'s no player by that name online.")));
                 }
             }
-        } else if (s.toLowerCase().equalsIgnoreCase("/home")) {
-            a.info(this.e.at + " returned home");
-            int i = this.d.e.e(this.d.e.m, this.d.e.o);
-
-            this.a((double) this.d.e.m + 0.5D, (double) i + 1.5D, (double) this.d.e.o + 0.5D, 0.0F, 0.0F);
         } else {
             String s1;
 

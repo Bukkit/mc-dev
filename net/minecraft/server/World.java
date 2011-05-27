@@ -999,6 +999,26 @@ public class World implements IBlockAccess {
                 }
             }
 
+            if (Double.isNaN(entity.p) || Double.isInfinite(entity.p)) {
+                entity.p = entity.O;
+            }
+
+            if (Double.isNaN(entity.q) || Double.isInfinite(entity.q)) {
+                entity.q = entity.P;
+            }
+
+            if (Double.isNaN(entity.r) || Double.isInfinite(entity.r)) {
+                entity.r = entity.Q;
+            }
+
+            if (Double.isNaN((double) entity.w) || Double.isInfinite((double) entity.w)) {
+                entity.w = entity.y;
+            }
+
+            if (Double.isNaN((double) entity.v) || Double.isInfinite((double) entity.v)) {
+                entity.v = entity.x;
+            }
+
             int k = MathHelper.b(entity.p / 16.0D);
             int l = MathHelper.b(entity.q / 16.0D);
             int i1 = MathHelper.b(entity.r / 16.0D);
@@ -1023,26 +1043,6 @@ public class World implements IBlockAccess {
                     entity.j.k = null;
                     entity.j = null;
                 }
-            }
-
-            if (Double.isNaN(entity.p) || Double.isInfinite(entity.p)) {
-                entity.p = entity.O;
-            }
-
-            if (Double.isNaN(entity.q) || Double.isInfinite(entity.q)) {
-                entity.q = entity.P;
-            }
-
-            if (Double.isNaN(entity.r) || Double.isInfinite(entity.r)) {
-                entity.r = entity.Q;
-            }
-
-            if (Double.isNaN((double) entity.w) || Double.isInfinite((double) entity.w)) {
-                entity.w = entity.y;
-            }
-
-            if (Double.isNaN((double) entity.v) || Double.isInfinite((double) entity.v)) {
-                entity.v = entity.x;
             }
         }
     }

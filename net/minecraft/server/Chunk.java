@@ -371,6 +371,7 @@ public class Chunk {
 
             if (i != this.j || j != this.k) {
                 System.out.println("Wrong location! " + entity);
+                Thread.dumpStack();
             }
 
             int k = MathHelper.b(entity.q / 16.0D);

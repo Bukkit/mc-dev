@@ -38,6 +38,19 @@ public class BlockSnow extends Block {
         }
     }
 
+    public void g(World world, int i, int j, int k, int l) {
+        int i1 = Item.SNOW_BALL.aW;
+        float f = 0.7F;
+        double d0 = (double) (world.l.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+        double d1 = (double) (world.l.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+        double d2 = (double) (world.l.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+        EntityItem entityitem = new EntityItem(world, (double) i + d0, (double) j + d1, (double) k + d2, new ItemStack(i1));
+
+        entityitem.c = 10;
+        world.a((Entity) entityitem);
+        world.d(i, j, k, 0);
+    }
+
     public int a(int i, Random random) {
         return Item.SNOW_BALL.aW;
     }

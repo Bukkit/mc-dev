@@ -32,6 +32,10 @@ public class WorldServer extends World {
         }
     }
 
+    public void b(Entity entity, boolean flag) {
+        super.a(entity, flag);
+    }
+
     protected IChunkProvider a(File file1) {
         this.A = new ChunkProviderServer(this, this.q.a(file1), this.q.c());
         return this.A;

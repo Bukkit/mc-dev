@@ -427,6 +427,10 @@ public class Block {
         return false;
     }
 
+    public void g(World world, int i, int j, int k, int l) {
+        this.a_(world, i, j, k, l);
+    }
+
     public boolean f(World world, int i, int j, int k) {
         return true;
     }
