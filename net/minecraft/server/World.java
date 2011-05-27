@@ -36,9 +36,9 @@ public class World implements IBlockAccess {
     protected int j = 40;
     public int k;
     public Random l = new Random();
-    public int m;
-    public int n;
-    public int o;
+    public int spawnX;
+    public int spawnY;
+    public int spawnZ;
     public boolean p = false;
     public final WorldProvider q;
     protected List r = new ArrayList();
@@ -58,7 +58,7 @@ public class World implements IBlockAccess {
     private Set M = new HashSet();
     private int N;
     private List O;
-    public boolean z;
+    public boolean isStatic;
 
     public WorldChunkManager a() {
         return this.q.b;
@@ -67,7 +67,7 @@ public class World implements IBlockAccess {
     public World(File file1, String s, long i, WorldProvider worldprovider) {
         this.N = this.l.nextInt(12000);
         this.O = new ArrayList();
-        this.z = false;
+        this.isStatic = false;
         this.s = file1;
         this.w = s;
         file1.mkdirs();
@@ -98,9 +98,9 @@ public class World implements IBlockAccess {
                 NBTTagCompound nbttagcompound1 = nbttagcompound.j("Data");
 
                 this.u = nbttagcompound1.e("RandomSeed");
-                this.m = nbttagcompound1.d("SpawnX");
-                this.n = nbttagcompound1.d("SpawnY");
-                this.o = nbttagcompound1.d("SpawnZ");
+                this.spawnX = nbttagcompound1.d("SpawnX");
+                this.spawnY = nbttagcompound1.d("SpawnY");
+                this.spawnZ = nbttagcompound1.d("SpawnZ");
                 this.e = nbttagcompound1.e("Time");
                 this.v = nbttagcompound1.e("SizeOnDisk");
                 if (nbttagcompound1.a("Player")) {
@@ -132,11 +132,11 @@ public class World implements IBlockAccess {
         this.G = this.a(this.t);
         if (flag) {
             this.x = true;
-            this.m = 0;
-            this.n = 64;
+            this.spawnX = 0;
+            this.spawnY = 64;
 
-            for (this.o = 0; !this.q.a(this.m, this.o); this.o += this.l.nextInt(64) - this.l.nextInt(64)) {
-                this.m += this.l.nextInt(64) - this.l.nextInt(64);
+            for (this.spawnZ = 0; !this.q.a(this.spawnX, this.spawnZ); this.spawnZ += this.l.nextInt(64) - this.l.nextInt(64)) {
+                this.spawnX += this.l.nextInt(64) - this.l.nextInt(64);
             }
 
             this.x = false;
@@ -152,11 +152,11 @@ public class World implements IBlockAccess {
     public int a(int i, int j) {
         int k;
 
-        for (k = 63; !this.e(i, k + 1, j); ++k) {
+        for (k = 63; !this.isEmpty(i, k + 1, j); ++k) {
             ;
         }
 
-        return this.a(i, k, j);
+        return this.getTypeId(i, k, j);
     }
 
     public void a(boolean flag, IProgressUpdate iprogressupdate) {
@@ -179,9 +179,9 @@ public class World implements IBlockAccess {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 
         nbttagcompound.a("RandomSeed", this.u);
-        nbttagcompound.a("SpawnX", this.m);
-        nbttagcompound.a("SpawnY", this.n);
-        nbttagcompound.a("SpawnZ", this.o);
+        nbttagcompound.a("SpawnX", this.spawnX);
+        nbttagcompound.a("SpawnY", this.spawnY);
+        nbttagcompound.a("SpawnZ", this.spawnZ);
         nbttagcompound.a("Time", this.e);
         nbttagcompound.a("SizeOnDisk", this.v);
         nbttagcompound.a("LastPlayed", System.currentTimeMillis());
@@ -226,12 +226,12 @@ public class World implements IBlockAccess {
         }
     }
 
-    public int a(int i, int j, int k) {
+    public int getTypeId(int i, int j, int k) {
         return i >= -32000000 && k >= -32000000 && i < 32000000 && k <= 32000000 ? (j < 0 ? 0 : (j >= 128 ? 0 : this.c(i >> 4, k >> 4).a(i & 15, j, k & 15))) : 0;
     }
 
-    public boolean e(int i, int j, int k) {
-        return this.a(i, j, k) == 0;
+    public boolean isEmpty(int i, int j, int k) {
+        return this.getTypeId(i, j, k) == 0;
     }
 
     public boolean f(int i, int j, int k) {
@@ -277,7 +277,7 @@ public class World implements IBlockAccess {
         return this.G.b(i, j);
     }
 
-    public boolean a(int i, int j, int k, int l, int i1) {
+    public boolean setTypeIdAndData(int i, int j, int k, int l, int i1) {
         if (i >= -32000000 && k >= -32000000 && i < 32000000 && k <= 32000000) {
             if (j < 0) {
                 return false;
@@ -293,7 +293,7 @@ public class World implements IBlockAccess {
         }
     }
 
-    public boolean b(int i, int j, int k, int l) {
+    public boolean setTypeId(int i, int j, int k, int l) {
         if (i >= -32000000 && k >= -32000000 && i < 32000000 && k <= 32000000) {
             if (j < 0) {
                 return false;
@@ -309,13 +309,13 @@ public class World implements IBlockAccess {
         }
     }
 
-    public Material c(int i, int j, int k) {
-        int l = this.a(i, j, k);
+    public Material getMaterial(int i, int j, int k) {
+        int l = this.getTypeId(i, j, k);
 
-        return l == 0 ? Material.a : Block.m[l].bt;
+        return l == 0 ? Material.AIR : Block.byId[l].material;
     }
 
-    public int b(int i, int j, int k) {
+    public int getData(int i, int j, int k) {
         if (i >= -32000000 && k >= -32000000 && i < 32000000 && k <= 32000000) {
             if (j < 0) {
                 return 0;
@@ -335,7 +335,7 @@ public class World implements IBlockAccess {
 
     public void c(int i, int j, int k, int l) {
         if (this.d(i, j, k, l)) {
-            this.f(i, j, k, this.a(i, j, k));
+            this.f(i, j, k, this.getTypeId(i, j, k));
         }
     }
 
@@ -359,7 +359,7 @@ public class World implements IBlockAccess {
     }
 
     public boolean e(int i, int j, int k, int l) {
-        if (this.b(i, j, k, l)) {
+        if (this.setTypeId(i, j, k, l)) {
             this.f(i, j, k, l);
             return true;
         } else {
@@ -368,7 +368,7 @@ public class World implements IBlockAccess {
     }
 
     public boolean b(int i, int j, int k, int l, int i1) {
-        if (this.a(i, j, k, l, i1)) {
+        if (this.setTypeIdAndData(i, j, k, l, i1)) {
             this.f(i, j, k, l);
             return true;
         } else {
@@ -420,8 +420,8 @@ public class World implements IBlockAccess {
     }
 
     private void l(int i, int j, int k, int l) {
-        if (!this.i && !this.z) {
-            Block block = Block.m[this.a(i, j, k)];
+        if (!this.i && !this.isStatic) {
+            Block block = Block.byId[this.getTypeId(i, j, k)];
 
             if (block != null) {
                 block.b(this, i, j, k, l);
@@ -442,8 +442,8 @@ public class World implements IBlockAccess {
             int l;
 
             if (flag) {
-                l = this.a(i, j, k);
-                if (l == Block.STEP.bi || l == Block.SOIL.bi) {
+                l = this.getTypeId(i, j, k);
+                if (l == Block.STEP.id || l == Block.SOIL.id) {
                     int i1 = this.a(i, j + 1, k, false);
                     int j1 = this.a(i + 1, j, k, false);
                     int k1 = this.a(i - 1, j, k, false);
@@ -533,7 +533,7 @@ public class World implements IBlockAccess {
                         l = 15;
                     }
                 } else if (enumskyblock == EnumSkyBlock.BLOCK) {
-                    int i1 = this.a(i, j, k);
+                    int i1 = this.getTypeId(i, j, k);
 
                     if (Block.s[i1] > l) {
                         l = Block.s[i1];
@@ -716,9 +716,9 @@ public class World implements IBlockAccess {
                         ++vec3d2.c;
                     }
 
-                    int l1 = this.a(l, i1, j1);
-                    int i2 = this.b(l, i1, j1);
-                    Block block = Block.m[l1];
+                    int l1 = this.getTypeId(l, i1, j1);
+                    int i2 = this.getData(l, i1, j1);
+                    Block block = Block.byId[l1];
 
                     if (l1 > 0 && block.a(i2, flag)) {
                         MovingObjectPosition movingobjectposition = block.a(this, l, i1, j1, vec3d, vec3d1);
@@ -740,7 +740,7 @@ public class World implements IBlockAccess {
 
     public void a(Entity entity, String s, float f, float f1) {
         for (int i = 0; i < this.r.size(); ++i) {
-            ((IWorldAccess) this.r.get(i)).a(s, entity.p, entity.q - (double) entity.H, entity.r, f, f1);
+            ((IWorldAccess) this.r.get(i)).a(s, entity.locX, entity.locY - (double) entity.height, entity.locZ, f, f1);
         }
     }
 
@@ -763,8 +763,8 @@ public class World implements IBlockAccess {
     }
 
     public boolean a(Entity entity) {
-        int i = MathHelper.b(entity.p / 16.0D);
-        int j = MathHelper.b(entity.r / 16.0D);
+        int i = MathHelper.b(entity.locX / 16.0D);
+        int j = MathHelper.b(entity.locZ / 16.0D);
         boolean flag = false;
 
         if (entity instanceof EntityHuman) {
@@ -801,11 +801,11 @@ public class World implements IBlockAccess {
     }
 
     public void d(Entity entity) {
-        if (entity.j != null) {
-            entity.j.e((Entity) null);
+        if (entity.passenger != null) {
+            entity.passenger.e((Entity) null);
         }
 
-        if (entity.k != null) {
+        if (entity.vehicle != null) {
             entity.e((Entity) null);
         }
 
@@ -821,8 +821,8 @@ public class World implements IBlockAccess {
             this.d.remove((EntityHuman) entity);
         }
 
-        int i = entity.ah;
-        int j = entity.aj;
+        int i = entity.chunkX;
+        int j = entity.chunkZ;
 
         if (entity.ag && this.f(i, j)) {
             this.c(i, j).b(entity);
@@ -849,7 +849,7 @@ public class World implements IBlockAccess {
             for (int l1 = i1; l1 < j1; ++l1) {
                 if (this.f(k1, 64, l1)) {
                     for (int i2 = k - 1; i2 < l; ++i2) {
-                        Block block = Block.m[this.a(k1, i2, l1)];
+                        Block block = Block.byId[this.getTypeId(k1, i2, l1)];
 
                         if (block != null) {
                             block.a(this, k1, i2, l1, axisalignedbb, this.I);
@@ -902,7 +902,7 @@ public class World implements IBlockAccess {
 
         int k;
 
-        for (k = 127; this.c(i, k, j).c() && k > 0; --k) {
+        for (k = 127; this.getMaterial(i, k, j).isSolid() && k > 0; --k) {
             ;
         }
 
@@ -911,7 +911,7 @@ public class World implements IBlockAccess {
         for (j &= 15; k > 0; --k) {
             int l = chunk.a(i, k, j);
 
-            if (l != 0 && (Block.m[l].bt.c() || Block.m[l].bt.d())) {
+            if (l != 0 && (Block.byId[l].material.isSolid() || Block.byId[l].material.isLiquid())) {
                 return k + 1;
             }
         }
@@ -925,16 +925,16 @@ public class World implements IBlockAccess {
 
         if (this.a) {
             if (this.a(nextticklistentry.a - b0, nextticklistentry.b - b0, nextticklistentry.c - b0, nextticklistentry.a + b0, nextticklistentry.b + b0, nextticklistentry.c + b0)) {
-                int i1 = this.a(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
+                int i1 = this.getTypeId(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
 
                 if (i1 == nextticklistentry.d && i1 > 0) {
-                    Block.m[i1].a(this, nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, this.l);
+                    Block.byId[i1].a(this, nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, this.l);
                 }
             }
         } else {
             if (this.a(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
                 if (l > 0) {
-                    nextticklistentry.a((long) Block.m[l].b() + this.e);
+                    nextticklistentry.a((long) Block.byId[l].b() + this.e);
                 }
 
                 if (!this.D.contains(nextticklistentry)) {
@@ -955,8 +955,8 @@ public class World implements IBlockAccess {
 
         for (i = 0; i < this.B.size(); ++i) {
             entity = (Entity) this.B.get(i);
-            j = entity.ah;
-            k = entity.aj;
+            j = entity.chunkX;
+            k = entity.chunkZ;
             if (entity.ag && this.f(j, k)) {
                 this.c(j, k).b(entity);
             }
@@ -970,22 +970,22 @@ public class World implements IBlockAccess {
 
         for (i = 0; i < this.b.size(); ++i) {
             entity = (Entity) this.b.get(i);
-            if (entity.k != null) {
-                if (!entity.k.G && entity.k.j == entity) {
+            if (entity.vehicle != null) {
+                if (!entity.vehicle.dead && entity.vehicle.passenger == entity) {
                     continue;
                 }
 
-                entity.k.j = null;
-                entity.k = null;
+                entity.vehicle.passenger = null;
+                entity.vehicle = null;
             }
 
-            if (!entity.G) {
+            if (!entity.dead) {
                 this.f(entity);
             }
 
-            if (entity.G) {
-                j = entity.ah;
-                k = entity.aj;
+            if (entity.dead) {
+                j = entity.chunkX;
+                k = entity.chunkZ;
                 if (entity.ag && this.f(j, k)) {
                     this.c(j, k).b(entity);
                 }
@@ -1007,51 +1007,51 @@ public class World implements IBlockAccess {
     }
 
     public void a(Entity entity, boolean flag) {
-        int i = MathHelper.b(entity.p);
-        int j = MathHelper.b(entity.r);
+        int i = MathHelper.b(entity.locX);
+        int j = MathHelper.b(entity.locZ);
         byte b0 = 32;
 
         if (!flag || this.a(i - b0, 0, j - b0, i + b0, 128, j + b0)) {
-            entity.O = entity.p;
-            entity.P = entity.q;
-            entity.Q = entity.r;
-            entity.x = entity.v;
-            entity.y = entity.w;
+            entity.O = entity.locX;
+            entity.P = entity.locY;
+            entity.Q = entity.locZ;
+            entity.lastYaw = entity.yaw;
+            entity.lastPitch = entity.pitch;
             if (flag && entity.ag) {
-                if (entity.k != null) {
+                if (entity.vehicle != null) {
                     entity.D();
                 } else {
                     entity.b_();
                 }
             }
 
-            if (Double.isNaN(entity.p) || Double.isInfinite(entity.p)) {
-                entity.p = entity.O;
+            if (Double.isNaN(entity.locX) || Double.isInfinite(entity.locX)) {
+                entity.locX = entity.O;
             }
 
-            if (Double.isNaN(entity.q) || Double.isInfinite(entity.q)) {
-                entity.q = entity.P;
+            if (Double.isNaN(entity.locY) || Double.isInfinite(entity.locY)) {
+                entity.locY = entity.P;
             }
 
-            if (Double.isNaN(entity.r) || Double.isInfinite(entity.r)) {
-                entity.r = entity.Q;
+            if (Double.isNaN(entity.locZ) || Double.isInfinite(entity.locZ)) {
+                entity.locZ = entity.Q;
             }
 
-            if (Double.isNaN((double) entity.w) || Double.isInfinite((double) entity.w)) {
-                entity.w = entity.y;
+            if (Double.isNaN((double) entity.pitch) || Double.isInfinite((double) entity.pitch)) {
+                entity.pitch = entity.lastPitch;
             }
 
-            if (Double.isNaN((double) entity.v) || Double.isInfinite((double) entity.v)) {
-                entity.v = entity.x;
+            if (Double.isNaN((double) entity.yaw) || Double.isInfinite((double) entity.yaw)) {
+                entity.yaw = entity.lastYaw;
             }
 
-            int k = MathHelper.b(entity.p / 16.0D);
-            int l = MathHelper.b(entity.q / 16.0D);
-            int i1 = MathHelper.b(entity.r / 16.0D);
+            int k = MathHelper.b(entity.locX / 16.0D);
+            int l = MathHelper.b(entity.locY / 16.0D);
+            int i1 = MathHelper.b(entity.locZ / 16.0D);
 
-            if (!entity.ag || entity.ah != k || entity.ai != l || entity.aj != i1) {
-                if (entity.ag && this.f(entity.ah, entity.aj)) {
-                    this.c(entity.ah, entity.aj).a(entity, entity.ai);
+            if (!entity.ag || entity.chunkX != k || entity.ai != l || entity.chunkZ != i1) {
+                if (entity.ag && this.f(entity.chunkX, entity.chunkZ)) {
+                    this.c(entity.chunkX, entity.chunkZ).a(entity, entity.ai);
                 }
 
                 if (this.f(k, i1)) {
@@ -1062,12 +1062,12 @@ public class World implements IBlockAccess {
                 }
             }
 
-            if (flag && entity.ag && entity.j != null) {
-                if (!entity.j.G && entity.j.k == entity) {
-                    this.f(entity.j);
+            if (flag && entity.ag && entity.passenger != null) {
+                if (!entity.passenger.dead && entity.passenger.vehicle == entity) {
+                    this.f(entity.passenger);
                 } else {
-                    entity.j.k = null;
-                    entity.j = null;
+                    entity.passenger.vehicle = null;
+                    entity.passenger = null;
                 }
             }
         }
@@ -1079,7 +1079,7 @@ public class World implements IBlockAccess {
         for (int i = 0; i < list.size(); ++i) {
             Entity entity = (Entity) list.get(i);
 
-            if (!entity.G && entity.i) {
+            if (!entity.dead && entity.i) {
                 return false;
             }
         }
@@ -1110,9 +1110,9 @@ public class World implements IBlockAccess {
         for (int k1 = i; k1 < j; ++k1) {
             for (int l1 = k; l1 < l; ++l1) {
                 for (int i2 = i1; i2 < j1; ++i2) {
-                    Block block = Block.m[this.a(k1, l1, i2)];
+                    Block block = Block.byId[this.getTypeId(k1, l1, i2)];
 
-                    if (block != null && block.bt.d()) {
+                    if (block != null && block.material.isLiquid()) {
                         return true;
                     }
                 }
@@ -1134,9 +1134,9 @@ public class World implements IBlockAccess {
             for (int k1 = i; k1 < j; ++k1) {
                 for (int l1 = k; l1 < l; ++l1) {
                     for (int i2 = i1; i2 < j1; ++i2) {
-                        int j2 = this.a(k1, l1, i2);
+                        int j2 = this.getTypeId(k1, l1, i2);
 
-                        if (j2 == Block.FIRE.bi || j2 == Block.LAVA.bi || j2 == Block.STATIONARY_LAVA.bi) {
+                        if (j2 == Block.FIRE.id || j2 == Block.LAVA.id || j2 == Block.STATIONARY_LAVA.id) {
                             return true;
                         }
                     }
@@ -1164,10 +1164,10 @@ public class World implements IBlockAccess {
             for (int k1 = i; k1 < j; ++k1) {
                 for (int l1 = k; l1 < l; ++l1) {
                     for (int i2 = i1; i2 < j1; ++i2) {
-                        Block block = Block.m[this.a(k1, l1, i2)];
+                        Block block = Block.byId[this.getTypeId(k1, l1, i2)];
 
-                        if (block != null && block.bt == material) {
-                            double d0 = (double) ((float) (l1 + 1) - BlockFluids.c(this.b(k1, l1, i2)));
+                        if (block != null && block.material == material) {
+                            double d0 = (double) ((float) (l1 + 1) - BlockFluids.c(this.getData(k1, l1, i2)));
 
                             if ((double) l >= d0) {
                                 flag = true;
@@ -1182,9 +1182,9 @@ public class World implements IBlockAccess {
                 vec3d = vec3d.b();
                 double d1 = 0.0040D;
 
-                entity.s += vec3d.a * d1;
-                entity.t += vec3d.b * d1;
-                entity.u += vec3d.c * d1;
+                entity.motX += vec3d.a * d1;
+                entity.motY += vec3d.b * d1;
+                entity.motZ += vec3d.c * d1;
             }
 
             return flag;
@@ -1202,9 +1202,9 @@ public class World implements IBlockAccess {
         for (int k1 = i; k1 < j; ++k1) {
             for (int l1 = k; l1 < l; ++l1) {
                 for (int i2 = i1; i2 < j1; ++i2) {
-                    Block block = Block.m[this.a(k1, l1, i2)];
+                    Block block = Block.byId[this.getTypeId(k1, l1, i2)];
 
-                    if (block != null && block.bt == material) {
+                    if (block != null && block.material == material) {
                         return true;
                     }
                 }
@@ -1225,10 +1225,10 @@ public class World implements IBlockAccess {
         for (int k1 = i; k1 < j; ++k1) {
             for (int l1 = k; l1 < l; ++l1) {
                 for (int i2 = i1; i2 < j1; ++i2) {
-                    Block block = Block.m[this.a(k1, l1, i2)];
+                    Block block = Block.byId[this.getTypeId(k1, l1, i2)];
 
-                    if (block != null && block.bt == material) {
-                        int j2 = this.b(k1, l1, i2);
+                    if (block != null && block.material == material) {
+                        int j2 = this.getData(k1, l1, i2);
                         double d0 = (double) (l1 + 1);
 
                         if (j2 < 8) {
@@ -1285,13 +1285,13 @@ public class World implements IBlockAccess {
         return (float) i / (float) j;
     }
 
-    public TileEntity m(int i, int j, int k) {
+    public TileEntity getTileEntity(int i, int j, int k) {
         Chunk chunk = this.c(i >> 4, k >> 4);
 
         return chunk != null ? chunk.d(i & 15, j, k & 15) : null;
     }
 
-    public void a(int i, int j, int k, TileEntity tileentity) {
+    public void setTileEntity(int i, int j, int k, TileEntity tileentity) {
         Chunk chunk = this.c(i >> 4, k >> 4);
 
         if (chunk != null) {
@@ -1308,7 +1308,7 @@ public class World implements IBlockAccess {
     }
 
     public boolean d(int i, int j, int k) {
-        Block block = Block.m[this.a(i, j, k)];
+        Block block = Block.byId[this.getTypeId(i, j, k)];
 
         return block == null ? false : block.a();
     }
@@ -1319,10 +1319,10 @@ public class World implements IBlockAccess {
         } else {
             ++this.J;
 
+            boolean flag;
+
             try {
                 int i = 500;
-
-                boolean flag;
 
                 while (this.A.size() > 0) {
                     --i;
@@ -1335,10 +1335,11 @@ public class World implements IBlockAccess {
                 }
 
                 flag = false;
-                return flag;
             } finally {
                 --this.J;
             }
+
+            return flag;
         }
     }
 
@@ -1362,7 +1363,7 @@ public class World implements IBlockAccess {
                     int j2;
 
                     if (flag) {
-                        j2 = 10;
+                        j2 = 5;
                         if (j2 > i2) {
                             j2 = i2;
                         }
@@ -1436,8 +1437,8 @@ public class World implements IBlockAccess {
         for (int i1 = 0; i1 < this.d.size(); ++i1) {
             EntityHuman entityhuman = (EntityHuman) this.d.get(i1);
 
-            i = MathHelper.b(entityhuman.p / 16.0D);
-            j = MathHelper.b(entityhuman.r / 16.0D);
+            i = MathHelper.b(entityhuman.locX / 16.0D);
+            j = MathHelper.b(entityhuman.locZ / 16.0D);
             byte b0 = 9;
 
             for (k = -b0; k <= b0; ++k) {
@@ -1491,7 +1492,7 @@ public class World implements IBlockAccess {
                 byte b1 = chunk.b[j1 << 11 | k1 << 7 | l1];
 
                 if (Block.n[b1]) {
-                    Block.m[b1].a(this, j1 + i, l1, k1 + j, this.l);
+                    Block.byId[b1].a(this, j1 + i, l1, k1 + j, this.l);
                 }
             }
         }
@@ -1519,10 +1520,10 @@ public class World implements IBlockAccess {
                 byte b0 = 8;
 
                 if (this.a(nextticklistentry.a - b0, nextticklistentry.b - b0, nextticklistentry.c - b0, nextticklistentry.a + b0, nextticklistentry.b + b0, nextticklistentry.c + b0)) {
-                    int k = this.a(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
+                    int k = this.getTypeId(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
 
                     if (k == nextticklistentry.d && k > 0) {
-                        Block.m[k].a(this, nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, this.l);
+                        Block.byId[k].a(this, nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, this.l);
                     }
                 }
             }
@@ -1604,9 +1605,9 @@ public class World implements IBlockAccess {
     }
 
     public boolean a(int i, int j, int k, int l, boolean flag) {
-        int i1 = this.a(j, k, l);
-        Block block = Block.m[i1];
-        Block block1 = Block.m[i];
+        int i1 = this.getTypeId(j, k, l);
+        Block block = Block.byId[i1];
+        Block block1 = Block.byId[i];
         AxisAlignedBB axisalignedbb = block1.d(this, j, k, l);
 
         if (flag) {
@@ -1617,9 +1618,9 @@ public class World implements IBlockAccess {
     }
 
     public PathEntity a(Entity entity, Entity entity1, float f) {
-        int i = MathHelper.b(entity.p);
-        int j = MathHelper.b(entity.q);
-        int k = MathHelper.b(entity.r);
+        int i = MathHelper.b(entity.locX);
+        int j = MathHelper.b(entity.locY);
+        int k = MathHelper.b(entity.locZ);
         int l = (int) (f + 16.0F);
         int i1 = i - l;
         int j1 = j - l;
@@ -1633,9 +1634,9 @@ public class World implements IBlockAccess {
     }
 
     public PathEntity a(Entity entity, int i, int j, int k, float f) {
-        int l = MathHelper.b(entity.p);
-        int i1 = MathHelper.b(entity.q);
-        int j1 = MathHelper.b(entity.r);
+        int l = MathHelper.b(entity.locX);
+        int i1 = MathHelper.b(entity.locY);
+        int j1 = MathHelper.b(entity.locZ);
         int k1 = (int) (f + 8.0F);
         int l1 = l - k1;
         int i2 = i1 - k1;
@@ -1649,9 +1650,9 @@ public class World implements IBlockAccess {
     }
 
     public boolean j(int i, int j, int k, int l) {
-        int i1 = this.a(i, j, k);
+        int i1 = this.getTypeId(i, j, k);
 
-        return i1 == 0 ? false : Block.m[i1].d(this, i, j, k, l);
+        return i1 == 0 ? false : Block.byId[i1].d(this, i, j, k, l);
     }
 
     public boolean o(int i, int j, int k) {
@@ -1662,9 +1663,9 @@ public class World implements IBlockAccess {
         if (this.d(i, j, k)) {
             return this.o(i, j, k);
         } else {
-            int i1 = this.a(i, j, k);
+            int i1 = this.getTypeId(i, j, k);
 
-            return i1 == 0 ? false : Block.m[i1].b((IBlockAccess) this, i, j, k, l);
+            return i1 == 0 ? false : Block.byId[i1].b((IBlockAccess) this, i, j, k, l);
         }
     }
 
@@ -1673,7 +1674,7 @@ public class World implements IBlockAccess {
     }
 
     public EntityHuman a(Entity entity, double d0) {
-        return this.a(entity.p, entity.q, entity.r, d0);
+        return this.a(entity.locX, entity.locY, entity.locZ, d0);
     }
 
     public EntityHuman a(double d0, double d1, double d2, double d3) {
@@ -1766,10 +1767,10 @@ public class World implements IBlockAccess {
     public void a(Entity entity, byte b0) {}
 
     public void c(int i, int j, int k, int l, int i1) {
-        int j1 = this.a(i, j, k);
+        int j1 = this.getTypeId(i, j, k);
 
         if (j1 > 0) {
-            Block.m[j1].a(this, i, j, k, l, i1);
+            Block.byId[j1].a(this, i, j, k, l, i1);
         }
     }
 }

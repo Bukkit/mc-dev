@@ -12,20 +12,20 @@ public class EntityItem extends Entity {
     public EntityItem(World world, double d0, double d1, double d2, ItemStack itemstack) {
         super(world);
         this.a(0.25F, 0.25F);
-        this.H = this.J / 2.0F;
+        this.height = this.width / 2.0F;
         this.a(d0, d1, d2);
         this.a = itemstack;
-        this.v = (float) (Math.random() * 360.0D);
-        this.s = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
-        this.t = 0.20000000298023224D;
-        this.u = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
+        this.yaw = (float) (Math.random() * 360.0D);
+        this.motX = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
+        this.motY = 0.20000000298023224D;
+        this.motZ = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
         this.M = false;
     }
 
     public EntityItem(World world) {
         super(world);
         this.a(0.25F, 0.25F);
-        this.H = this.J / 2.0F;
+        this.height = this.width / 2.0F;
     }
 
     protected void a() {}
@@ -36,35 +36,35 @@ public class EntityItem extends Entity {
             --this.c;
         }
 
-        this.m = this.p;
-        this.n = this.q;
-        this.o = this.r;
-        this.t -= 0.03999999910593033D;
-        if (this.l.c(MathHelper.b(this.p), MathHelper.b(this.q), MathHelper.b(this.r)) == Material.g) {
-            this.t = 0.20000000298023224D;
-            this.s = (double) ((this.W.nextFloat() - this.W.nextFloat()) * 0.2F);
-            this.u = (double) ((this.W.nextFloat() - this.W.nextFloat()) * 0.2F);
-            this.l.a(this, "random.fizz", 0.4F, 2.0F + this.W.nextFloat() * 0.4F);
+        this.lastX = this.locX;
+        this.lastY = this.locY;
+        this.lastZ = this.locZ;
+        this.motY -= 0.03999999910593033D;
+        if (this.world.getMaterial(MathHelper.b(this.locX), MathHelper.b(this.locY), MathHelper.b(this.locZ)) == Material.LAVA) {
+            this.motY = 0.20000000298023224D;
+            this.motX = (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+            this.motZ = (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+            this.world.a(this, "random.fizz", 0.4F, 2.0F + this.random.nextFloat() * 0.4F);
         }
 
-        this.g(this.p, this.q, this.r);
-        this.c(this.s, this.t, this.u);
+        this.g(this.locX, this.locY, this.locZ);
+        this.c(this.motX, this.motY, this.motZ);
         float f = 0.98F;
 
-        if (this.A) {
+        if (this.onGround) {
             f = 0.58800006F;
-            int i = this.l.a(MathHelper.b(this.p), MathHelper.b(this.z.b) - 1, MathHelper.b(this.r));
+            int i = this.world.getTypeId(MathHelper.b(this.locX), MathHelper.b(this.boundingBox.b) - 1, MathHelper.b(this.locZ));
 
             if (i > 0) {
-                f = Block.m[i].bu * 0.98F;
+                f = Block.byId[i].frictionFactor * 0.98F;
             }
         }
 
-        this.s *= (double) f;
-        this.t *= 0.9800000190734863D;
-        this.u *= (double) f;
-        if (this.A) {
-            this.t *= -0.5D;
+        this.motX *= (double) f;
+        this.motY *= 0.9800000190734863D;
+        this.motZ *= (double) f;
+        if (this.onGround) {
+            this.motY *= -0.5D;
         }
 
         ++this.e;
@@ -75,7 +75,7 @@ public class EntityItem extends Entity {
     }
 
     public boolean v() {
-        return this.l.a(this.z, Material.f, this);
+        return this.world.a(this.boundingBox, Material.WATER, this);
     }
 
     private boolean g(double d0, double d1, double d2) {
@@ -86,13 +86,13 @@ public class EntityItem extends Entity {
         double d4 = d1 - (double) j;
         double d5 = d2 - (double) k;
 
-        if (Block.o[this.l.a(i, j, k)]) {
-            boolean flag = !Block.o[this.l.a(i - 1, j, k)];
-            boolean flag1 = !Block.o[this.l.a(i + 1, j, k)];
-            boolean flag2 = !Block.o[this.l.a(i, j - 1, k)];
-            boolean flag3 = !Block.o[this.l.a(i, j + 1, k)];
-            boolean flag4 = !Block.o[this.l.a(i, j, k - 1)];
-            boolean flag5 = !Block.o[this.l.a(i, j, k + 1)];
+        if (Block.o[this.world.getTypeId(i, j, k)]) {
+            boolean flag = !Block.o[this.world.getTypeId(i - 1, j, k)];
+            boolean flag1 = !Block.o[this.world.getTypeId(i + 1, j, k)];
+            boolean flag2 = !Block.o[this.world.getTypeId(i, j - 1, k)];
+            boolean flag3 = !Block.o[this.world.getTypeId(i, j + 1, k)];
+            boolean flag4 = !Block.o[this.world.getTypeId(i, j, k - 1)];
+            boolean flag5 = !Block.o[this.world.getTypeId(i, j, k + 1)];
             byte b0 = -1;
             double d6 = 9999.0D;
 
@@ -126,30 +126,30 @@ public class EntityItem extends Entity {
                 b0 = 5;
             }
 
-            float f = this.W.nextFloat() * 0.2F + 0.1F;
+            float f = this.random.nextFloat() * 0.2F + 0.1F;
 
             if (b0 == 0) {
-                this.s = (double) (-f);
+                this.motX = (double) (-f);
             }
 
             if (b0 == 1) {
-                this.s = (double) f;
+                this.motX = (double) f;
             }
 
             if (b0 == 2) {
-                this.t = (double) (-f);
+                this.motY = (double) (-f);
             }
 
             if (b0 == 3) {
-                this.t = (double) f;
+                this.motY = (double) f;
             }
 
             if (b0 == 4) {
-                this.u = (double) (-f);
+                this.motZ = (double) (-f);
             }
 
             if (b0 == 5) {
-                this.u = (double) f;
+                this.motZ = (double) f;
             }
         }
 
@@ -185,11 +185,11 @@ public class EntityItem extends Entity {
     }
 
     public void b(EntityHuman entityhuman) {
-        if (!this.l.z) {
-            int i = this.a.a;
+        if (!this.world.isStatic) {
+            int i = this.a.count;
 
-            if (this.c == 0 && entityhuman.an.a(this.a)) {
-                this.l.a(this, "random.pop", 0.2F, ((this.W.nextFloat() - this.W.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+            if (this.c == 0 && entityhuman.inventory.a(this.a)) {
+                this.world.a(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 entityhuman.c(this, i);
                 this.q();
             }

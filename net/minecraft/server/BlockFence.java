@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class BlockFence extends Block {
 
     public BlockFence(int i, int j) {
-        super(i, j, Material.c);
+        super(i, j, Material.WOOD);
     }
 
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist) {
@@ -13,7 +13,7 @@ public class BlockFence extends Block {
     }
 
     public boolean a(World world, int i, int j, int k) {
-        return world.a(i, j - 1, k) == this.bi ? false : (!world.c(i, j - 1, k).a() ? false : super.a(world, i, j, k));
+        return world.getTypeId(i, j - 1, k) == this.id ? false : (!world.getMaterial(i, j - 1, k).isBuildable() ? false : super.a(world, i, j, k));
     }
 
     public boolean a() {

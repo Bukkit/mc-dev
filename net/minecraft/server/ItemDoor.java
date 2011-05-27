@@ -7,8 +7,8 @@ public class ItemDoor extends Item {
     public ItemDoor(int i, Material material) {
         super(i);
         this.a = material;
-        this.bc = 64;
-        this.bb = 1;
+        this.durability = 64;
+        this.maxStackSize = 1;
     }
 
     public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
@@ -18,7 +18,7 @@ public class ItemDoor extends Item {
             ++j;
             Block block;
 
-            if (this.a == Material.c) {
+            if (this.a == Material.WOOD) {
                 block = Block.WOODEN_DOOR;
             } else {
                 block = Block.IRON_DOOR_BLOCK;
@@ -27,7 +27,7 @@ public class ItemDoor extends Item {
             if (!block.a(world, i, j, k)) {
                 return false;
             } else {
-                int i1 = MathHelper.b((double) ((entityhuman.v + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
+                int i1 = MathHelper.b((double) ((entityhuman.yaw + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
                 byte b0 = 0;
                 byte b1 = 0;
 
@@ -49,8 +49,8 @@ public class ItemDoor extends Item {
 
                 int j1 = (world.d(i - b0, j, k - b1) ? 1 : 0) + (world.d(i - b0, j + 1, k - b1) ? 1 : 0);
                 int k1 = (world.d(i + b0, j, k + b1) ? 1 : 0) + (world.d(i + b0, j + 1, k + b1) ? 1 : 0);
-                boolean flag = world.a(i - b0, j, k - b1) == block.bi || world.a(i - b0, j + 1, k - b1) == block.bi;
-                boolean flag1 = world.a(i + b0, j, k + b1) == block.bi || world.a(i + b0, j + 1, k + b1) == block.bi;
+                boolean flag = world.getTypeId(i - b0, j, k - b1) == block.id || world.getTypeId(i - b0, j + 1, k - b1) == block.id;
+                boolean flag1 = world.getTypeId(i + b0, j, k + b1) == block.id || world.getTypeId(i + b0, j + 1, k + b1) == block.id;
                 boolean flag2 = false;
 
                 if (flag && !flag1) {
@@ -64,11 +64,11 @@ public class ItemDoor extends Item {
                     i1 += 4;
                 }
 
-                world.e(i, j, k, block.bi);
+                world.e(i, j, k, block.id);
                 world.c(i, j, k, i1);
-                world.e(i, j + 1, k, block.bi);
+                world.e(i, j + 1, k, block.id);
                 world.c(i, j + 1, k, i1 + 8);
-                --itemstack.a;
+                --itemstack.count;
                 return true;
             }
         }

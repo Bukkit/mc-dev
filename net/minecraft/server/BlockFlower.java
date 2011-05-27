@@ -5,8 +5,8 @@ import java.util.Random;
 public class BlockFlower extends Block {
 
     protected BlockFlower(int i, int j) {
-        super(i, Material.i);
-        this.bh = j;
+        super(i, Material.PLANT);
+        this.textureId = j;
         this.a(true);
         float f = 0.2F;
 
@@ -14,11 +14,11 @@ public class BlockFlower extends Block {
     }
 
     public boolean a(World world, int i, int j, int k) {
-        return this.c(world.a(i, j - 1, k));
+        return this.c(world.getTypeId(i, j - 1, k));
     }
 
     protected boolean c(int i) {
-        return i == Block.GRASS.bi || i == Block.DIRT.bi || i == Block.SOIL.bi;
+        return i == Block.GRASS.id || i == Block.DIRT.id || i == Block.SOIL.id;
     }
 
     public void b(World world, int i, int j, int k, int l) {
@@ -32,13 +32,13 @@ public class BlockFlower extends Block {
 
     protected final void g(World world, int i, int j, int k) {
         if (!this.f(world, i, j, k)) {
-            this.a_(world, i, j, k, world.b(i, j, k));
+            this.a_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
         }
     }
 
     public boolean f(World world, int i, int j, int k) {
-        return (world.j(i, j, k) >= 8 || world.i(i, j, k)) && this.c(world.a(i, j - 1, k));
+        return (world.j(i, j, k) >= 8 || world.i(i, j, k)) && this.c(world.getTypeId(i, j - 1, k));
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {

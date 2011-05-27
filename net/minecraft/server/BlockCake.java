@@ -5,12 +5,12 @@ import java.util.Random;
 public class BlockCake extends Block {
 
     protected BlockCake(int i, int j) {
-        super(i, j, Material.y);
+        super(i, j, Material.CAKE);
         this.a(true);
     }
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
-        int l = iblockaccess.b(i, j, k);
+        int l = iblockaccess.getData(i, j, k);
         float f = 0.0625F;
         float f1 = (float) (1 + l * 2) / 16.0F;
         float f2 = 0.5F;
@@ -19,7 +19,7 @@ public class BlockCake extends Block {
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {
-        int l = world.b(i, j, k);
+        int l = world.getData(i, j, k);
         float f = 0.0625F;
         float f1 = (float) (1 + l * 2) / 16.0F;
         float f2 = 0.5F;
@@ -28,7 +28,7 @@ public class BlockCake extends Block {
     }
 
     public int a(int i) {
-        return i == 1 ? this.bh : (i == 0 ? this.bh + 3 : this.bh + 1);
+        return i == 1 ? this.textureId : (i == 0 ? this.textureId + 3 : this.textureId + 1);
     }
 
     public boolean a() {
@@ -45,9 +45,9 @@ public class BlockCake extends Block {
     }
 
     private void c(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (entityhuman.aZ < 20) {
+        if (entityhuman.health < 20) {
             entityhuman.d(3);
-            int l = world.b(i, j, k) + 1;
+            int l = world.getData(i, j, k) + 1;
 
             if (l >= 6) {
                 world.e(i, j, k, 0);
@@ -64,13 +64,13 @@ public class BlockCake extends Block {
 
     public void b(World world, int i, int j, int k, int l) {
         if (!this.f(world, i, j, k)) {
-            this.a_(world, i, j, k, world.b(i, j, k));
+            this.a_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
         }
     }
 
     public boolean f(World world, int i, int j, int k) {
-        return world.c(i, j - 1, k).a();
+        return world.getMaterial(i, j - 1, k).isBuildable();
     }
 
     public int a(Random random) {

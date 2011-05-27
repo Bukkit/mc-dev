@@ -5,7 +5,7 @@ import java.util.Random;
 public class BlockMobSpawner extends BlockContainer {
 
     protected BlockMobSpawner(int i, int j) {
-        super(i, j, Material.d);
+        super(i, j, Material.STONE);
     }
 
     protected TileEntity a_() {

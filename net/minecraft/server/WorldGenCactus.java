@@ -12,12 +12,12 @@ public class WorldGenCactus extends WorldGenerator {
             int j1 = j + random.nextInt(4) - random.nextInt(4);
             int k1 = k + random.nextInt(8) - random.nextInt(8);
 
-            if (world.e(i1, j1, k1)) {
+            if (world.isEmpty(i1, j1, k1)) {
                 int l1 = 1 + random.nextInt(random.nextInt(3) + 1);
 
                 for (int i2 = 0; i2 < l1; ++i2) {
                     if (Block.CACTUS.f(world, i1, j1 + i2, k1)) {
-                        world.b(i1, j1 + i2, k1, Block.CACTUS.bi);
+                        world.setTypeId(i1, j1 + i2, k1, Block.CACTUS.id);
                     }
                 }
             }

@@ -2,57 +2,57 @@ package net.minecraft.server;
 
 public class Material {
 
-    public static final Material a = new MaterialTransparent();
-    public static final Material b = new Material();
-    public static final Material c = (new Material()).f();
-    public static final Material d = new Material();
-    public static final Material e = new Material();
-    public static final Material f = new MaterialLiquid();
-    public static final Material g = new MaterialLiquid();
-    public static final Material h = (new Material()).f();
-    public static final Material i = new MaterialLogic();
-    public static final Material j = new Material();
-    public static final Material k = (new Material()).f();
-    public static final Material l = new MaterialTransparent();
-    public static final Material m = new Material();
-    public static final Material n = new MaterialLogic();
-    public static final Material o = new Material();
-    public static final Material p = (new Material()).f();
-    public static final Material q = new Material();
-    public static final Material r = new Material();
-    public static final Material s = new MaterialLogic();
-    public static final Material t = new Material();
-    public static final Material u = new Material();
-    public static final Material v = new Material();
-    public static final Material w = new Material();
-    public static final Material x = new Material();
-    public static final Material y = new Material();
-    private boolean z;
+    public static final Material AIR = new MaterialTransparent();
+    public static final Material EARTH = new Material();
+    public static final Material WOOD = (new Material()).f();
+    public static final Material STONE = new Material();
+    public static final Material ORE = new Material();
+    public static final Material WATER = new MaterialLiquid();
+    public static final Material LAVA = new MaterialLiquid();
+    public static final Material LEAVES = (new Material()).f();
+    public static final Material PLANT = new MaterialLogic();
+    public static final Material SPONGE = new Material();
+    public static final Material CLOTH = (new Material()).f();
+    public static final Material FIRE = new MaterialTransparent();
+    public static final Material SAND = new Material();
+    public static final Material ORIENTABLE = new MaterialLogic();
+    public static final Material SHATTERABLE = new Material();
+    public static final Material TNT = (new Material()).f();
+    public static final Material CORAL = new Material();
+    public static final Material ICE = new Material();
+    public static final Material SNOW_LAYER = new MaterialLogic();
+    public static final Material SNOW_BLOCK = new Material();
+    public static final Material CACTUS = new Material();
+    public static final Material CLAY = new Material();
+    public static final Material PUMPKIN = new Material();
+    public static final Material PORTAL = new Material();
+    public static final Material CAKE = new Material();
+    private boolean canBurn;
 
     public Material() {}
 
-    public boolean d() {
+    public boolean isLiquid() {
         return false;
     }
 
-    public boolean a() {
+    public boolean isBuildable() {
         return true;
     }
 
-    public boolean b() {
+    public boolean blocksLight() {
         return true;
     }
 
-    public boolean c() {
+    public boolean isSolid() {
         return true;
     }
 
     private Material f() {
-        this.z = true;
+        this.canBurn = true;
         return this;
     }
 
-    public boolean e() {
-        return this.z;
+    public boolean isBurnable() {
+        return this.canBurn;
     }
 }

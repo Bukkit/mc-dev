@@ -13,11 +13,11 @@ public class ItemSeeds extends Item {
         if (l != 1) {
             return false;
         } else {
-            int i1 = world.a(i, j, k);
+            int i1 = world.getTypeId(i, j, k);
 
-            if (i1 == Block.SOIL.bi && world.e(i, j + 1, k)) {
+            if (i1 == Block.SOIL.id && world.isEmpty(i, j + 1, k)) {
                 world.e(i, j + 1, k, this.a);
-                --itemstack.a;
+                --itemstack.count;
                 return true;
             } else {
                 return false;

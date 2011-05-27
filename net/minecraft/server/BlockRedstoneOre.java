@@ -7,7 +7,7 @@ public class BlockRedstoneOre extends Block {
     private boolean a;
 
     public BlockRedstoneOre(int i, int j, boolean flag) {
-        super(i, j, Material.d);
+        super(i, j, Material.STONE);
         if (flag) {
             this.a(true);
         }
@@ -36,19 +36,19 @@ public class BlockRedstoneOre extends Block {
 
     private void g(World world, int i, int j, int k) {
         this.h(world, i, j, k);
-        if (this.bi == Block.REDSTONE_ORE.bi) {
-            world.e(i, j, k, Block.GLOWING_REDSTONE_ORE.bi);
+        if (this.id == Block.REDSTONE_ORE.id) {
+            world.e(i, j, k, Block.GLOWING_REDSTONE_ORE.id);
         }
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        if (this.bi == Block.GLOWING_REDSTONE_ORE.bi) {
-            world.e(i, j, k, Block.REDSTONE_ORE.bi);
+        if (this.id == Block.GLOWING_REDSTONE_ORE.id) {
+            world.e(i, j, k, Block.REDSTONE_ORE.id);
         }
     }
 
     public int a(int i, Random random) {
-        return Item.REDSTONE.ba;
+        return Item.REDSTONE.id;
     }
 
     public int a(Random random) {

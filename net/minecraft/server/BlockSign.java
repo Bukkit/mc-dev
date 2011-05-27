@@ -8,9 +8,9 @@ public class BlockSign extends BlockContainer {
     private boolean b;
 
     protected BlockSign(int i, Class oclass, boolean flag) {
-        super(i, Material.c);
+        super(i, Material.WOOD);
         this.b = flag;
-        this.bh = 4;
+        this.textureId = 4;
         this.a = oclass;
         float f = 0.25F;
         float f1 = 1.0F;
@@ -24,7 +24,7 @@ public class BlockSign extends BlockContainer {
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
         if (!this.b) {
-            int l = iblockaccess.b(i, j, k);
+            int l = iblockaccess.getData(i, j, k);
             float f = 0.28125F;
             float f1 = 0.78125F;
             float f2 = 0.0F;
@@ -63,39 +63,39 @@ public class BlockSign extends BlockContainer {
     }
 
     public int a(int i, Random random) {
-        return Item.SIGN.ba;
+        return Item.SIGN.id;
     }
 
     public void b(World world, int i, int j, int k, int l) {
         boolean flag = false;
 
         if (this.b) {
-            if (!world.c(i, j - 1, k).a()) {
+            if (!world.getMaterial(i, j - 1, k).isBuildable()) {
                 flag = true;
             }
         } else {
-            int i1 = world.b(i, j, k);
+            int i1 = world.getData(i, j, k);
 
             flag = true;
-            if (i1 == 2 && world.c(i, j, k + 1).a()) {
+            if (i1 == 2 && world.getMaterial(i, j, k + 1).isBuildable()) {
                 flag = false;
             }
 
-            if (i1 == 3 && world.c(i, j, k - 1).a()) {
+            if (i1 == 3 && world.getMaterial(i, j, k - 1).isBuildable()) {
                 flag = false;
             }
 
-            if (i1 == 4 && world.c(i + 1, j, k).a()) {
+            if (i1 == 4 && world.getMaterial(i + 1, j, k).isBuildable()) {
                 flag = false;
             }
 
-            if (i1 == 5 && world.c(i - 1, j, k).a()) {
+            if (i1 == 5 && world.getMaterial(i - 1, j, k).isBuildable()) {
                 flag = false;
             }
         }
 
         if (flag) {
-            this.a_(world, i, j, k, world.b(i, j, k));
+            this.a_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
         }
 

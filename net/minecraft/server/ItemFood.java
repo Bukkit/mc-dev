@@ -7,11 +7,11 @@ public class ItemFood extends Item {
     public ItemFood(int i, int j) {
         super(i);
         this.a = j;
-        this.bb = 1;
+        this.maxStackSize = 1;
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        --itemstack.a;
+        --itemstack.count;
         entityhuman.d(this.a);
         return itemstack;
     }

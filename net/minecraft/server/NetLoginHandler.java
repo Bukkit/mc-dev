@@ -76,14 +76,14 @@ public class NetLoginHandler extends NetHandler {
         EntityPlayer entityplayer = this.e.f.a(this, packet1login.b, packet1login.c);
 
         if (entityplayer != null) {
-            a.info(this.b() + " logged in with entity id " + entityplayer.g);
+            a.info(this.b() + " logged in with entity id " + entityplayer.id);
             NetServerHandler netserverhandler = new NetServerHandler(this.e, this.b, entityplayer);
 
-            netserverhandler.b((Packet) (new Packet1Login("", "", entityplayer.g, this.e.e.u, (byte) this.e.e.q.g)));
-            netserverhandler.b((Packet) (new Packet6SpawnPosition(this.e.e.m, this.e.e.n, this.e.e.o)));
-            this.e.f.a((Packet) (new Packet3Chat("\u00A7e" + entityplayer.aw + " joined the game.")));
+            netserverhandler.b((Packet) (new Packet1Login("", "", entityplayer.id, this.e.e.u, (byte) this.e.e.q.g)));
+            netserverhandler.b((Packet) (new Packet6SpawnPosition(this.e.e.spawnX, this.e.e.spawnY, this.e.e.spawnZ)));
+            this.e.f.a((Packet) (new Packet3Chat("\u00A7e" + entityplayer.name + " joined the game.")));
             this.e.f.a(entityplayer);
-            netserverhandler.a(entityplayer.p, entityplayer.q, entityplayer.r, entityplayer.v, entityplayer.w);
+            netserverhandler.a(entityplayer.locX, entityplayer.locY, entityplayer.locZ, entityplayer.yaw, entityplayer.pitch);
             this.e.c.a(netserverhandler);
             netserverhandler.b((Packet) (new Packet4UpdateTime(this.e.e.e)));
             entityplayer.l();

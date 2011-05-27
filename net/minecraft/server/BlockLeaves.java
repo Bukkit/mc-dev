@@ -8,7 +8,7 @@ public class BlockLeaves extends BlockLeavesBase {
     int[] b;
 
     protected BlockLeaves(int i, int j) {
-        super(i, j, Material.h, false);
+        super(i, j, Material.LEAVES, false);
         this.c = j;
         this.a(true);
     }
@@ -21,10 +21,10 @@ public class BlockLeaves extends BlockLeavesBase {
             for (int i1 = -b0; i1 <= b0; ++i1) {
                 for (int j1 = -b0; j1 <= b0; ++j1) {
                     for (int k1 = -b0; k1 <= b0; ++k1) {
-                        int l1 = world.a(i + i1, j + j1, k + k1);
+                        int l1 = world.getTypeId(i + i1, j + j1, k + k1);
 
-                        if (l1 == Block.LEAVES.bi) {
-                            int i2 = world.b(i + i1, j + j1, k + k1);
+                        if (l1 == Block.LEAVES.id) {
+                            int i2 = world.getData(i + i1, j + j1, k + k1);
 
                             world.d(i + i1, j + j1, k + k1, i2 | 4);
                         }
@@ -35,8 +35,8 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        if (!world.z) {
-            int l = world.b(i, j, k);
+        if (!world.isStatic) {
+            int l = world.getData(i, j, k);
 
             if ((l & 4) != 0) {
                 byte b0 = 4;
@@ -59,10 +59,10 @@ public class BlockLeaves extends BlockLeavesBase {
                     for (l1 = -b0; l1 <= b0; ++l1) {
                         for (i2 = -b0; i2 <= b0; ++i2) {
                             for (j2 = -b0; j2 <= b0; ++j2) {
-                                k2 = world.a(i + l1, j + i2, k + j2);
-                                if (k2 == Block.LOG.bi) {
+                                k2 = world.getTypeId(i + l1, j + i2, k + j2);
+                                if (k2 == Block.LOG.id) {
                                     this.b[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = 0;
-                                } else if (k2 == Block.LEAVES.bi) {
+                                } else if (k2 == Block.LEAVES.id) {
                                     this.b[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -2;
                                 } else {
                                     this.b[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -1;
@@ -117,7 +117,7 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     private void g(World world, int i, int j, int k) {
-        this.a_(world, i, j, k, world.b(i, j, k));
+        this.a_(world, i, j, k, world.getData(i, j, k));
         world.e(i, j, k, 0);
     }
 
@@ -126,7 +126,7 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     public int a(int i, Random random) {
-        return Block.SAPLING.bi;
+        return Block.SAPLING.id;
     }
 
     public boolean a() {

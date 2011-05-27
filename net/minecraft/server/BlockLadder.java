@@ -5,11 +5,11 @@ import java.util.Random;
 public class BlockLadder extends Block {
 
     protected BlockLadder(int i, int j) {
-        super(i, j, Material.n);
+        super(i, j, Material.ORIENTABLE);
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {
-        int l = world.b(i, j, k);
+        int l = world.getData(i, j, k);
         float f = 0.125F;
 
         if (l == 2) {
@@ -40,7 +40,7 @@ public class BlockLadder extends Block {
     }
 
     public void c(World world, int i, int j, int k, int l) {
-        int i1 = world.b(i, j, k);
+        int i1 = world.getData(i, j, k);
 
         if ((i1 == 0 || l == 2) && world.d(i, j, k + 1)) {
             i1 = 2;
@@ -62,7 +62,7 @@ public class BlockLadder extends Block {
     }
 
     public void b(World world, int i, int j, int k, int l) {
-        int i1 = world.b(i, j, k);
+        int i1 = world.getData(i, j, k);
         boolean flag = false;
 
         if (i1 == 2 && world.d(i, j, k + 1)) {

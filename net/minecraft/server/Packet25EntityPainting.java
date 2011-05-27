@@ -15,12 +15,12 @@ public class Packet25EntityPainting extends Packet {
     public Packet25EntityPainting() {}
 
     public Packet25EntityPainting(EntityPainting entitypainting) {
-        this.a = entitypainting.g;
+        this.a = entitypainting.id;
         this.b = entitypainting.b;
         this.c = entitypainting.c;
         this.d = entitypainting.d;
         this.e = entitypainting.a;
-        this.f = entitypainting.e.y;
+        this.f = entitypainting.e.z;
     }
 
     public void a(DataInputStream datainputstream) {

@@ -14,8 +14,8 @@ public class BlockBreakable extends Block {
     }
 
     public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        int i1 = iblockaccess.a(i, j, k);
+        int i1 = iblockaccess.getTypeId(i, j, k);
 
-        return !this.a && i1 == this.bi ? false : super.a(iblockaccess, i, j, k, l);
+        return !this.a && i1 == this.id ? false : super.a(iblockaccess, i, j, k, l);
     }
 }

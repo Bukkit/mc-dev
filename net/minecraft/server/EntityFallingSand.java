@@ -14,53 +14,53 @@ public class EntityFallingSand extends Entity {
         this.a = i;
         this.i = true;
         this.a(0.98F, 0.98F);
-        this.H = this.J / 2.0F;
+        this.height = this.width / 2.0F;
         this.a(d0, d1, d2);
-        this.s = 0.0D;
-        this.t = 0.0D;
-        this.u = 0.0D;
+        this.motX = 0.0D;
+        this.motY = 0.0D;
+        this.motZ = 0.0D;
         this.M = false;
-        this.m = d0;
-        this.n = d1;
-        this.o = d2;
+        this.lastX = d0;
+        this.lastY = d1;
+        this.lastZ = d2;
     }
 
     protected void a() {}
 
     public boolean c_() {
-        return !this.G;
+        return !this.dead;
     }
 
     public void b_() {
         if (this.a == 0) {
             this.q();
         } else {
-            this.m = this.p;
-            this.n = this.q;
-            this.o = this.r;
+            this.lastX = this.locX;
+            this.lastY = this.locY;
+            this.lastZ = this.locZ;
             ++this.b;
-            this.t -= 0.03999999910593033D;
-            this.c(this.s, this.t, this.u);
-            this.s *= 0.9800000190734863D;
-            this.t *= 0.9800000190734863D;
-            this.u *= 0.9800000190734863D;
-            int i = MathHelper.b(this.p);
-            int j = MathHelper.b(this.q);
-            int k = MathHelper.b(this.r);
+            this.motY -= 0.03999999910593033D;
+            this.c(this.motX, this.motY, this.motZ);
+            this.motX *= 0.9800000190734863D;
+            this.motY *= 0.9800000190734863D;
+            this.motZ *= 0.9800000190734863D;
+            int i = MathHelper.b(this.locX);
+            int j = MathHelper.b(this.locY);
+            int k = MathHelper.b(this.locZ);
 
-            if (this.l.a(i, j, k) == this.a) {
-                this.l.e(i, j, k, 0);
+            if (this.world.getTypeId(i, j, k) == this.a) {
+                this.world.e(i, j, k, 0);
             }
 
-            if (this.A) {
-                this.s *= 0.699999988079071D;
-                this.u *= 0.699999988079071D;
-                this.t *= -0.5D;
+            if (this.onGround) {
+                this.motX *= 0.699999988079071D;
+                this.motZ *= 0.699999988079071D;
+                this.motY *= -0.5D;
                 this.q();
-                if ((!this.l.a(this.a, i, j, k, true) || !this.l.e(i, j, k, this.a)) && !this.l.z) {
+                if ((!this.world.a(this.a, i, j, k, true) || !this.world.e(i, j, k, this.a)) && !this.world.isStatic) {
                     this.a(this.a, 1);
                 }
-            } else if (this.b > 100 && !this.l.z) {
+            } else if (this.b > 100 && !this.world.isStatic) {
                 this.a(this.a, 1);
                 this.q();
             }

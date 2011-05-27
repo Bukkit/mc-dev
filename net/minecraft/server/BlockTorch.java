@@ -5,7 +5,7 @@ import java.util.Random;
 public class BlockTorch extends Block {
 
     protected BlockTorch(int i, int j) {
-        super(i, j, Material.n);
+        super(i, j, Material.ORIENTABLE);
         this.a(true);
     }
 
@@ -22,7 +22,7 @@ public class BlockTorch extends Block {
     }
 
     public void c(World world, int i, int j, int k, int l) {
-        int i1 = world.b(i, j, k);
+        int i1 = world.getData(i, j, k);
 
         if (l == 1 && world.d(i, j - 1, k)) {
             i1 = 5;
@@ -49,7 +49,7 @@ public class BlockTorch extends Block {
 
     public void a(World world, int i, int j, int k, Random random) {
         super.a(world, i, j, k, random);
-        if (world.b(i, j, k) == 0) {
+        if (world.getData(i, j, k) == 0) {
             this.e(world, i, j, k);
         }
     }
@@ -72,7 +72,7 @@ public class BlockTorch extends Block {
 
     public void b(World world, int i, int j, int k, int l) {
         if (this.g(world, i, j, k)) {
-            int i1 = world.b(i, j, k);
+            int i1 = world.getData(i, j, k);
             boolean flag = false;
 
             if (!world.d(i - 1, j, k) && i1 == 1) {
@@ -96,7 +96,7 @@ public class BlockTorch extends Block {
             }
 
             if (flag) {
-                this.a_(world, i, j, k, world.b(i, j, k));
+                this.a_(world, i, j, k, world.getData(i, j, k));
                 world.e(i, j, k, 0);
             }
         }
@@ -104,7 +104,7 @@ public class BlockTorch extends Block {
 
     private boolean g(World world, int i, int j, int k) {
         if (!this.a(world, i, j, k)) {
-            this.a_(world, i, j, k, world.b(i, j, k));
+            this.a_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
             return false;
         } else {
@@ -113,7 +113,7 @@ public class BlockTorch extends Block {
     }
 
     public MovingObjectPosition a(World world, int i, int j, int k, Vec3D vec3d, Vec3D vec3d1) {
-        int l = world.b(i, j, k) & 7;
+        int l = world.getData(i, j, k) & 7;
         float f = 0.15F;
 
         if (l == 1) {

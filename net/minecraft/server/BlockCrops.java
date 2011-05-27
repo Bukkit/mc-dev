@@ -6,7 +6,7 @@ public class BlockCrops extends BlockFlower {
 
     protected BlockCrops(int i, int j) {
         super(i, j);
-        this.bh = j;
+        this.textureId = j;
         this.a(true);
         float f = 0.5F;
 
@@ -14,13 +14,13 @@ public class BlockCrops extends BlockFlower {
     }
 
     protected boolean c(int i) {
-        return i == Block.SOIL.bi;
+        return i == Block.SOIL.id;
     }
 
     public void a(World world, int i, int j, int k, Random random) {
         super.a(world, i, j, k, random);
         if (world.j(i, j + 1, k) >= 9) {
-            int l = world.b(i, j, k);
+            int l = world.getData(i, j, k);
 
             if (l < 7) {
                 float f = this.h(world, i, j, k);
@@ -39,26 +39,26 @@ public class BlockCrops extends BlockFlower {
 
     private float h(World world, int i, int j, int k) {
         float f = 1.0F;
-        int l = world.a(i, j, k - 1);
-        int i1 = world.a(i, j, k + 1);
-        int j1 = world.a(i - 1, j, k);
-        int k1 = world.a(i + 1, j, k);
-        int l1 = world.a(i - 1, j, k - 1);
-        int i2 = world.a(i + 1, j, k - 1);
-        int j2 = world.a(i + 1, j, k + 1);
-        int k2 = world.a(i - 1, j, k + 1);
-        boolean flag = j1 == this.bi || k1 == this.bi;
-        boolean flag1 = l == this.bi || i1 == this.bi;
-        boolean flag2 = l1 == this.bi || i2 == this.bi || j2 == this.bi || k2 == this.bi;
+        int l = world.getTypeId(i, j, k - 1);
+        int i1 = world.getTypeId(i, j, k + 1);
+        int j1 = world.getTypeId(i - 1, j, k);
+        int k1 = world.getTypeId(i + 1, j, k);
+        int l1 = world.getTypeId(i - 1, j, k - 1);
+        int i2 = world.getTypeId(i + 1, j, k - 1);
+        int j2 = world.getTypeId(i + 1, j, k + 1);
+        int k2 = world.getTypeId(i - 1, j, k + 1);
+        boolean flag = j1 == this.id || k1 == this.id;
+        boolean flag1 = l == this.id || i1 == this.id;
+        boolean flag2 = l1 == this.id || i2 == this.id || j2 == this.id || k2 == this.id;
 
         for (int l2 = i - 1; l2 <= i + 1; ++l2) {
             for (int i3 = k - 1; i3 <= k + 1; ++i3) {
-                int j3 = world.a(l2, j - 1, i3);
+                int j3 = world.getTypeId(l2, j - 1, i3);
                 float f1 = 0.0F;
 
-                if (j3 == Block.SOIL.bi) {
+                if (j3 == Block.SOIL.id) {
                     f1 = 1.0F;
-                    if (world.b(l2, j - 1, i3) > 0) {
+                    if (world.getData(l2, j - 1, i3) > 0) {
                         f1 = 3.0F;
                     }
                 }
@@ -80,7 +80,7 @@ public class BlockCrops extends BlockFlower {
 
     public void a(World world, int i, int j, int k, int l) {
         super.a(world, i, j, k, l);
-        if (!world.z) {
+        if (!world.isStatic) {
             for (int i1 = 0; i1 < 3; ++i1) {
                 if (world.l.nextInt(15) <= l) {
                     float f = 0.7F;
@@ -97,7 +97,7 @@ public class BlockCrops extends BlockFlower {
     }
 
     public int a(int i, Random random) {
-        return i == 7 ? Item.WHEAT.ba : -1;
+        return i == 7 ? Item.WHEAT.id : -1;
     }
 
     public int a(Random random) {

@@ -53,10 +53,10 @@ public class ServerConfigurationManager {
     public void a(EntityPlayer entityplayer) {
         this.b.add(entityplayer);
         this.l.b(entityplayer);
-        this.c.e.A.d((int) entityplayer.p >> 4, (int) entityplayer.r >> 4);
+        this.c.e.A.d((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
 
-        while (this.c.e.a(entityplayer, entityplayer.z).size() != 0) {
-            entityplayer.a(entityplayer.p, entityplayer.q + 1.0D, entityplayer.r);
+        while (this.c.e.a(entityplayer, entityplayer.boundingBox).size() != 0) {
+            entityplayer.a(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
         }
 
         this.c.e.a(entityplayer);
@@ -93,7 +93,7 @@ public class ServerConfigurationManager {
                 for (int i = 0; i < this.b.size(); ++i) {
                     EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-                    if (entityplayer.aw.equalsIgnoreCase(s)) {
+                    if (entityplayer.name.equalsIgnoreCase(s)) {
                         entityplayer.a.a("You logged in from another location");
                     }
                 }
@@ -109,18 +109,18 @@ public class ServerConfigurationManager {
         this.d.b(entityplayer);
         this.b.remove(entityplayer);
         this.c.e.e(entityplayer);
-        EntityPlayer entityplayer1 = new EntityPlayer(this.c, this.c.e, entityplayer.aw, new ItemInWorldManager(this.c.e));
+        EntityPlayer entityplayer1 = new EntityPlayer(this.c, this.c.e, entityplayer.name, new ItemInWorldManager(this.c.e));
 
-        entityplayer1.g = entityplayer.g;
+        entityplayer1.id = entityplayer.id;
         entityplayer1.a = entityplayer.a;
-        this.c.e.A.d((int) entityplayer1.p >> 4, (int) entityplayer1.r >> 4);
+        this.c.e.A.d((int) entityplayer1.locX >> 4, (int) entityplayer1.locZ >> 4);
 
-        while (this.c.e.a(entityplayer1, entityplayer1.z).size() != 0) {
-            entityplayer1.a(entityplayer1.p, entityplayer1.q + 1.0D, entityplayer1.r);
+        while (this.c.e.a(entityplayer1, entityplayer1.boundingBox).size() != 0) {
+            entityplayer1.a(entityplayer1.locX, entityplayer1.locY + 1.0D, entityplayer1.locZ);
         }
 
         entityplayer1.a.b((Packet) (new Packet9Respawn()));
-        entityplayer1.a.a(entityplayer1.p, entityplayer1.q, entityplayer1.r, entityplayer1.v, entityplayer1.w);
+        entityplayer1.a.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
         this.d.a(entityplayer1);
         this.c.e.a(entityplayer1);
         this.b.add(entityplayer1);
@@ -152,7 +152,7 @@ public class ServerConfigurationManager {
                 s = s + ", ";
             }
 
-            s = s + ((EntityPlayer) this.b.get(i)).aw;
+            s = s + ((EntityPlayer) this.b.get(i)).name;
         }
 
         return s;
@@ -295,7 +295,7 @@ public class ServerConfigurationManager {
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-            if (entityplayer.aw.equalsIgnoreCase(s)) {
+            if (entityplayer.name.equalsIgnoreCase(s)) {
                 return entityplayer;
             }
         }
@@ -314,9 +314,9 @@ public class ServerConfigurationManager {
     public void a(double d0, double d1, double d2, double d3, Packet packet) {
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
-            double d4 = d0 - entityplayer.p;
-            double d5 = d1 - entityplayer.q;
-            double d6 = d2 - entityplayer.r;
+            double d4 = d0 - entityplayer.locX;
+            double d5 = d1 - entityplayer.locY;
+            double d6 = d2 - entityplayer.locZ;
 
             if (d4 * d4 + d5 * d5 + d6 * d6 < d3 * d3) {
                 entityplayer.a.b(packet);
@@ -330,7 +330,7 @@ public class ServerConfigurationManager {
         for (int i = 0; i < this.b.size(); ++i) {
             EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
 
-            if (this.g(entityplayer.aw)) {
+            if (this.g(entityplayer.name)) {
                 entityplayer.a.b((Packet) packet3chat);
             }
         }

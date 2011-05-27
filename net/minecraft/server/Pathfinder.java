@@ -12,7 +12,7 @@ public class Pathfinder {
     }
 
     public PathEntity a(Entity entity, Entity entity1, float f) {
-        return this.a(entity, entity1.p, entity1.z.b, entity1.r, f);
+        return this.a(entity, entity1.locX, entity1.boundingBox.b, entity1.locZ, f);
     }
 
     public PathEntity a(Entity entity, int i, int j, int k, float f) {
@@ -22,9 +22,9 @@ public class Pathfinder {
     private PathEntity a(Entity entity, double d0, double d1, double d2, float f) {
         this.b.a();
         this.c.a();
-        PathPoint pathpoint = this.a(MathHelper.b(entity.z.a), MathHelper.b(entity.z.b), MathHelper.b(entity.z.c));
-        PathPoint pathpoint1 = this.a(MathHelper.b(d0 - (double) (entity.I / 2.0F)), MathHelper.b(d1), MathHelper.b(d2 - (double) (entity.I / 2.0F)));
-        PathPoint pathpoint2 = new PathPoint(MathHelper.d(entity.I + 1.0F), MathHelper.d(entity.J + 1.0F), MathHelper.d(entity.I + 1.0F));
+        PathPoint pathpoint = this.a(MathHelper.b(entity.boundingBox.a), MathHelper.b(entity.boundingBox.b), MathHelper.b(entity.boundingBox.c));
+        PathPoint pathpoint1 = this.a(MathHelper.b(d0 - (double) (entity.length / 2.0F)), MathHelper.b(d1), MathHelper.b(d2 - (double) (entity.length / 2.0F)));
+        PathPoint pathpoint2 = new PathPoint(MathHelper.d(entity.length + 1.0F), MathHelper.d(entity.width + 1.0F), MathHelper.d(entity.length + 1.0F));
         PathEntity pathentity = this.a(entity, pathpoint, pathpoint1, pathpoint2, f);
 
         return pathentity;
@@ -161,13 +161,13 @@ public class Pathfinder {
         for (int l = i; l < i + pathpoint.a; ++l) {
             for (int i1 = j; i1 < j + pathpoint.b; ++i1) {
                 for (int j1 = k; j1 < k + pathpoint.c; ++j1) {
-                    Material material = this.a.c(i, j, k);
+                    Material material = this.a.getMaterial(i, j, k);
 
-                    if (material.c()) {
+                    if (material.isSolid()) {
                         return 0;
                     }
 
-                    if (material == Material.f || material == Material.g) {
+                    if (material == Material.WATER || material == Material.LAVA) {
                         return -1;
                     }
                 }

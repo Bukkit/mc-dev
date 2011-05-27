@@ -17,13 +17,13 @@ public class ItemInWorldManager {
     }
 
     public void a(int i, int j, int k) {
-        int l = this.b.a(i, j, k);
+        int l = this.b.getTypeId(i, j, k);
 
         if (l > 0 && this.d == 0.0F) {
-            Block.m[l].b(this.b, i, j, k, this.a);
+            Block.byId[l].b(this.b, i, j, k, this.a);
         }
 
-        if (l > 0 && Block.m[l].a(this.a) >= 1.0F) {
+        if (l > 0 && Block.byId[l].a(this.a) >= 1.0F) {
             this.c(i, j, k);
         }
     }
@@ -38,13 +38,13 @@ public class ItemInWorldManager {
             --this.e;
         } else {
             if (i == this.g && j == this.h && k == this.i) {
-                int i1 = this.b.a(i, j, k);
+                int i1 = this.b.getTypeId(i, j, k);
 
                 if (i1 == 0) {
                     return;
                 }
 
-                Block block = Block.m[i1];
+                Block block = Block.byId[i1];
 
                 this.d += block.a(this.a);
                 ++this.f;
@@ -67,8 +67,8 @@ public class ItemInWorldManager {
     }
 
     public boolean b(int i, int j, int k) {
-        Block block = Block.m[this.b.a(i, j, k)];
-        int l = this.b.b(i, j, k);
+        Block block = Block.byId[this.b.getTypeId(i, j, k)];
+        int l = this.b.getData(i, j, k);
         boolean flag = this.b.e(i, j, k, 0);
 
         if (block != null && flag) {
@@ -79,36 +79,36 @@ public class ItemInWorldManager {
     }
 
     public boolean c(int i, int j, int k) {
-        int l = this.b.a(i, j, k);
-        int i1 = this.b.b(i, j, k);
+        int l = this.b.getTypeId(i, j, k);
+        int i1 = this.b.getData(i, j, k);
         boolean flag = this.b(i, j, k);
         ItemStack itemstack = this.a.P();
 
         if (itemstack != null) {
             itemstack.a(l, i, j, k);
-            if (itemstack.a == 0) {
+            if (itemstack.count == 0) {
                 itemstack.a(this.a);
                 this.a.Q();
             }
         }
 
-        if (flag && this.a.b(Block.m[l])) {
-            Block.m[l].g(this.b, i, j, k, i1);
+        if (flag && this.a.b(Block.byId[l])) {
+            Block.byId[l].g(this.b, i, j, k, i1);
         }
 
         return flag;
     }
 
     public boolean a(EntityHuman entityhuman, World world, ItemStack itemstack) {
-        int i = itemstack.a;
+        int i = itemstack.count;
         ItemStack itemstack1 = itemstack.a(world, entityhuman);
 
-        if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.a == i)) {
+        if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.count == i)) {
             return false;
         } else {
-            entityhuman.an.a[entityhuman.an.c] = itemstack1;
-            if (itemstack1.a == 0) {
-                entityhuman.an.a[entityhuman.an.c] = null;
+            entityhuman.inventory.a[entityhuman.inventory.c] = itemstack1;
+            if (itemstack1.count == 0) {
+                entityhuman.inventory.a[entityhuman.inventory.c] = null;
             }
 
             return true;
@@ -116,8 +116,8 @@ public class ItemInWorldManager {
     }
 
     public boolean a(EntityHuman entityhuman, World world, ItemStack itemstack, int i, int j, int k, int l) {
-        int i1 = world.a(i, j, k);
+        int i1 = world.getTypeId(i, j, k);
 
-        return i1 > 0 && Block.m[i1].a(world, i, j, k, entityhuman) ? true : (itemstack == null ? false : itemstack.a(entityhuman, world, i, j, k, l));
+        return i1 > 0 && Block.byId[i1].a(world, i, j, k, entityhuman) ? true : (itemstack == null ? false : itemstack.a(entityhuman, world, i, j, k, l));
     }
 }

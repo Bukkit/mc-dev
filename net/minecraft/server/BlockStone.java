@@ -5,10 +5,10 @@ import java.util.Random;
 public class BlockStone extends Block {
 
     public BlockStone(int i, int j) {
-        super(i, j, Material.d);
+        super(i, j, Material.STONE);
     }
 
     public int a(int i, Random random) {
-        return Block.COBBLESTONE.bi;
+        return Block.COBBLESTONE.id;
     }
 }

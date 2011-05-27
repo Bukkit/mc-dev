@@ -31,8 +31,8 @@ public final class SpawnerCreature {
             for (i = 0; i < world.d.size(); ++i) {
                 EntityHuman entityhuman = (EntityHuman) world.d.get(i);
 
-                j = MathHelper.b(entityhuman.p / 16.0D);
-                k = MathHelper.b(entityhuman.r / 16.0D);
+                j = MathHelper.b(entityhuman.locX / 16.0D);
+                k = MathHelper.b(entityhuman.locZ / 16.0D);
                 byte b0 = 8;
 
                 for (int l = -b0; l <= b0; ++l) {
@@ -66,7 +66,7 @@ public final class SpawnerCreature {
                             int l1 = chunkposition.b;
                             int i2 = chunkposition.c;
 
-                            if (!world.d(k1, l1, i2) && world.c(k1, l1, i2) == enumcreaturetype.c()) {
+                            if (!world.d(k1, l1, i2) && world.getMaterial(k1, l1, i2) == enumcreaturetype.c()) {
                                 int j2 = 0;
 
                                 for (int k2 = 0; k2 < 3; ++k2) {
@@ -85,9 +85,9 @@ public final class SpawnerCreature {
                                             float f2 = (float) j3 + 0.5F;
 
                                             if (world.a((double) f, (double) f1, (double) f2, 24.0D) == null) {
-                                                float f3 = f - (float) world.m;
-                                                float f4 = f1 - (float) world.n;
-                                                float f5 = f2 - (float) world.o;
+                                                float f3 = f - (float) world.spawnX;
+                                                float f4 = f1 - (float) world.spawnY;
+                                                float f5 = f2 - (float) world.spawnZ;
                                                 float f6 = f3 * f3 + f4 * f4 + f5 * f5;
 
                                                 if (f6 >= 576.0F) {
@@ -127,14 +127,14 @@ public final class SpawnerCreature {
     }
 
     private static boolean a(EnumCreatureType enumcreaturetype, World world, int i, int j, int k) {
-        return enumcreaturetype.c() == Material.f ? world.c(i, j, k).d() && !world.d(i, j + 1, k) : world.d(i, j - 1, k) && !world.d(i, j, k) && !world.c(i, j, k).d() && !world.d(i, j + 1, k);
+        return enumcreaturetype.c() == Material.WATER ? world.getMaterial(i, j, k).isLiquid() && !world.d(i, j + 1, k) : world.d(i, j - 1, k) && !world.d(i, j, k) && !world.getMaterial(i, j, k).isLiquid() && !world.d(i, j + 1, k);
     }
 
     private static void a(EntityLiving entityliving, World world, float f, float f1, float f2) {
         if (entityliving instanceof EntitySpider && world.l.nextInt(100) == 0) {
             EntitySkeleton entityskeleton = new EntitySkeleton(world);
 
-            entityskeleton.c((double) f, (double) f1, (double) f2, entityliving.v, 0.0F);
+            entityskeleton.c((double) f, (double) f1, (double) f2, entityliving.yaw, 0.0F);
             world.a((Entity) entityskeleton);
             entityskeleton.e(entityliving);
         } else if (entityliving instanceof EntitySheep) {

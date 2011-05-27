@@ -45,11 +45,11 @@ public class PlayerManager {
     }
 
     public void a(EntityPlayer entityplayer) {
-        int i = (int) entityplayer.p >> 4;
-        int j = (int) entityplayer.r >> 4;
+        int i = (int) entityplayer.locX >> 4;
+        int j = (int) entityplayer.locZ >> 4;
 
-        entityplayer.d = entityplayer.p;
-        entityplayer.e = entityplayer.r;
+        entityplayer.d = entityplayer.locX;
+        entityplayer.e = entityplayer.locZ;
 
         for (int k = i - 10; k <= i + 10; ++k) {
             for (int l = j - 10; l <= j + 10; ++l) {
@@ -85,10 +85,10 @@ public class PlayerManager {
     }
 
     public void c(EntityPlayer entityplayer) {
-        int i = (int) entityplayer.p >> 4;
-        int j = (int) entityplayer.r >> 4;
-        double d0 = entityplayer.d - entityplayer.p;
-        double d1 = entityplayer.e - entityplayer.r;
+        int i = (int) entityplayer.locX >> 4;
+        int j = (int) entityplayer.locZ >> 4;
+        double d0 = entityplayer.d - entityplayer.locX;
+        double d1 = entityplayer.e - entityplayer.locZ;
         double d2 = d0 * d0 + d1 * d1;
 
         if (d2 >= 64.0D) {
@@ -114,8 +114,8 @@ public class PlayerManager {
                     }
                 }
 
-                entityplayer.d = entityplayer.p;
-                entityplayer.e = entityplayer.r;
+                entityplayer.d = entityplayer.locX;
+                entityplayer.e = entityplayer.locZ;
             }
         }
     }

@@ -60,10 +60,10 @@ public class Explosion {
                             int l = MathHelper.b(d0);
                             int i1 = MathHelper.b(d1);
                             int j1 = MathHelper.b(d2);
-                            int k1 = this.i.a(l, i1, j1);
+                            int k1 = this.i.getTypeId(l, i1, j1);
 
                             if (k1 > 0) {
-                                f1 -= (Block.m[k1].a(this.e) + 0.3F) * f2;
+                                f1 -= (Block.byId[k1].a(this.e) + 0.3F) * f2;
                             }
 
                             if (f1 > 0.0F) {
@@ -94,21 +94,21 @@ public class Explosion {
             double d7 = entity.e(this.b, this.c, this.d) / (double) this.f;
 
             if (d7 <= 1.0D) {
-                d0 = entity.p - this.b;
-                d1 = entity.q - this.c;
-                d2 = entity.r - this.d;
+                d0 = entity.locX - this.b;
+                d1 = entity.locY - this.c;
+                d2 = entity.locZ - this.d;
                 double d8 = (double) MathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);
 
                 d0 /= d8;
                 d1 /= d8;
                 d2 /= d8;
-                double d9 = (double) this.i.a(vec3d, entity.z);
+                double d9 = (double) this.i.a(vec3d, entity.boundingBox);
                 double d10 = (1.0D - d7) * d9;
 
                 entity.a(this.e, (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.f + 1.0D));
-                entity.s += d0 * d10;
-                entity.t += d1 * d10;
-                entity.u += d2 * d10;
+                entity.motX += d0 * d10;
+                entity.motY += d1 * d10;
+                entity.motZ += d2 * d10;
             }
         }
 
@@ -122,11 +122,11 @@ public class Explosion {
                 int i3 = chunkposition.a;
                 int j3 = chunkposition.b;
                 int k3 = chunkposition.c;
-                int l3 = this.i.a(i3, j3, k3);
-                int i4 = this.i.a(i3, j3 - 1, k3);
+                int l3 = this.i.getTypeId(i3, j3, k3);
+                int i4 = this.i.getTypeId(i3, j3 - 1, k3);
 
                 if (l3 == 0 && Block.o[i4] && this.h.nextInt(3) == 0) {
-                    this.i.e(i3, j3, k3, Block.FIRE.bi);
+                    this.i.e(i3, j3, k3, Block.FIRE.id);
                 }
             }
         }
@@ -143,7 +143,7 @@ public class Explosion {
             int j = chunkposition.a;
             int k = chunkposition.b;
             int l = chunkposition.c;
-            int i1 = this.i.a(j, k, l);
+            int i1 = this.i.getTypeId(j, k, l);
 
             for (int j1 = 0; j1 < 1; ++j1) {
                 double d0 = (double) ((float) j + this.i.l.nextFloat());
@@ -168,9 +168,9 @@ public class Explosion {
             }
 
             if (i1 > 0) {
-                Block.m[i1].a(this.i, j, k, l, this.i.b(j, k, l), 0.3F);
+                Block.byId[i1].a(this.i, j, k, l, this.i.getData(j, k, l), 0.3F);
                 this.i.e(j, k, l, 0);
-                Block.m[i1].a_(this.i, j, k, l);
+                Block.byId[i1].a_(this.i, j, k, l);
             }
         }
     }

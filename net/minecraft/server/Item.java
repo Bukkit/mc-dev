@@ -5,7 +5,7 @@ import java.util.Random;
 public class Item {
 
     protected static Random b = new Random();
-    public static Item[] c = new Item[32000];
+    public static Item[] byId = new Item[32000];
     public static Item IRON_SPADE = (new ItemSpade(0, EnumToolMaterial.IRON)).a(2, 5).a("shovelIron");
     public static Item IRON_PICKAXE = (new ItemPickaxe(1, EnumToolMaterial.IRON)).a(2, 6).a("pickaxeIron");
     public static Item IRON_AXE = (new ItemAxe(2, EnumToolMaterial.IRON)).a(2, 7).a("hatchetIron");
@@ -45,7 +45,7 @@ public class Item {
     public static Item IRON_HOE = (new ItemHoe(36, EnumToolMaterial.IRON)).a(2, 8).a("hoeIron");
     public static Item DIAMOND_HOE = (new ItemHoe(37, EnumToolMaterial.DIAMOND)).a(3, 8).a("hoeDiamond");
     public static Item GOLD_HOE = (new ItemHoe(38, EnumToolMaterial.GOLD)).a(4, 8).a("hoeGold");
-    public static Item SEEDS = (new ItemSeeds(39, Block.CROPS.bi)).a(9, 0).a("seeds");
+    public static Item SEEDS = (new ItemSeeds(39, Block.CROPS.id)).a(9, 0).a("seeds");
     public static Item WHEAT = (new Item(40)).a(9, 1).a("wheat");
     public static Item BREAD = (new ItemFood(41, 5)).a(9, 2).a("bread");
     public static Item LEATHER_HELMET = (new ItemArmor(42, 0, 0, 0)).a(0, 0).a("helmetCloth");
@@ -74,13 +74,13 @@ public class Item {
     public static Item PAINTING = (new ItemPainting(65)).a(10, 1).a("painting");
     public static Item GOLDEN_APPLE = (new ItemFood(66, 42)).a(11, 0).a("appleGold");
     public static Item SIGN = (new ItemSign(67)).a(10, 2).a("sign");
-    public static Item WOOD_DOOR = (new ItemDoor(68, Material.c)).a(11, 2).a("doorWood");
+    public static Item WOOD_DOOR = (new ItemDoor(68, Material.WOOD)).a(11, 2).a("doorWood");
     public static Item BUCKET = (new ItemBucket(69, 0)).a(10, 4).a("bucket");
-    public static Item WATER_BUCKET = (new ItemBucket(70, Block.WATER.bi)).a(11, 4).a("bucketWater").a(BUCKET);
-    public static Item LAVA_BUCKET = (new ItemBucket(71, Block.LAVA.bi)).a(12, 4).a("bucketLava").a(BUCKET);
+    public static Item WATER_BUCKET = (new ItemBucket(70, Block.WATER.id)).a(11, 4).a("bucketWater").a(BUCKET);
+    public static Item LAVA_BUCKET = (new ItemBucket(71, Block.LAVA.id)).a(12, 4).a("bucketLava").a(BUCKET);
     public static Item MINECART = (new ItemMinecart(72, 0)).a(7, 8).a("minecart");
     public static Item SADDLE = (new ItemSaddle(73)).a(8, 6).a("saddle");
-    public static Item IRON_DOOR = (new ItemDoor(74, Material.e)).a(12, 2).a("doorIron");
+    public static Item IRON_DOOR = (new ItemDoor(74, Material.ORE)).a(12, 2).a("doorIron");
     public static Item REDSTONE = (new ItemRedstone(75)).a(8, 3).a("redstone");
     public static Item SNOW_BALL = (new ItemSnowball(76)).a(14, 0).a("snowball");
     public static Item BOAT = (new ItemBoat(77)).a(8, 8).a("boat");
@@ -107,36 +107,36 @@ public class Item {
     public static Item CAKE = (new ItemReed(98, Block.CAKE_BLOCK)).c(1).a(13, 1).a("cake");
     public static Item GOLD_RECORD = (new ItemRecord(2000, "13")).a(0, 15).a("record");
     public static Item GREEN_RECORD = (new ItemRecord(2001, "cat")).a(1, 15).a("record");
-    public final int ba;
-    protected int bb = 64;
-    protected int bc = 32;
-    protected int bd;
+    public final int id;
+    protected int maxStackSize = 64;
+    protected int durability = 32;
+    protected int textureId;
     protected boolean be = false;
     protected boolean bf = false;
-    private Item a = null;
-    private String bg;
+    private Item craftingResult = null;
+    private String name;
 
     protected Item(int i) {
-        this.ba = 256 + i;
-        if (c[256 + i] != null) {
+        this.id = 256 + i;
+        if (byId[256 + i] != null) {
             System.out.println("CONFLICT @ " + i);
         }
 
-        c[256 + i] = this;
+        byId[256 + i] = this;
     }
 
     public Item b(int i) {
-        this.bd = i;
+        this.textureId = i;
         return this;
     }
 
     public Item c(int i) {
-        this.bb = i;
+        this.maxStackSize = i;
         return this;
     }
 
     public Item a(int i, int j) {
-        this.bd = i + j * 16;
+        this.textureId = i + j * 16;
         return this;
     }
 
@@ -153,7 +153,7 @@ public class Item {
     }
 
     public int b() {
-        return this.bb;
+        return this.maxStackSize;
     }
 
     public int a(int i) {
@@ -170,11 +170,11 @@ public class Item {
     }
 
     public int d() {
-        return this.bc;
+        return this.durability;
     }
 
     protected Item d(int i) {
-        this.bc = i;
+        this.durability = i;
         return this;
     }
 
@@ -198,28 +198,28 @@ public class Item {
     }
 
     public Item a(String s) {
-        this.bg = "item." + s;
+        this.name = "item." + s;
         return this;
     }
 
     public String a() {
-        return this.bg;
+        return this.name;
     }
 
     public Item a(Item item) {
-        if (this.bb > 1) {
+        if (this.maxStackSize > 1) {
             throw new IllegalArgumentException("Max stack size must be 1 for items with crafting results");
         } else {
-            this.a = item;
+            this.craftingResult = item;
             return this;
         }
     }
 
     public Item f() {
-        return this.a;
+        return this.craftingResult;
     }
 
     public boolean g() {
-        return this.a != null;
+        return this.craftingResult != null;
     }
 }

@@ -66,13 +66,13 @@ public class EntityTracker {
             i = this.d;
         }
 
-        if (this.b.b(entity.g)) {
+        if (this.b.b(entity.id)) {
             throw new IllegalStateException("Entity is already tracked!");
         } else {
             EntityTrackerEntry entitytrackerentry = new EntityTrackerEntry(entity, i, j, flag);
 
             this.a.add(entitytrackerentry);
-            this.b.a(entity.g, entitytrackerentry);
+            this.b.a(entity.id, entitytrackerentry);
             entitytrackerentry.b(this.c.e.d);
         }
     }
@@ -89,7 +89,7 @@ public class EntityTracker {
             }
         }
 
-        EntityTrackerEntry entitytrackerentry1 = (EntityTrackerEntry) this.b.d(entity.g);
+        EntityTrackerEntry entitytrackerentry1 = (EntityTrackerEntry) this.b.d(entity.id);
 
         if (entitytrackerentry1 != null) {
             this.a.remove(entitytrackerentry1);
@@ -125,7 +125,7 @@ public class EntityTracker {
     }
 
     public void a(Entity entity, Packet packet) {
-        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.b.a(entity.g);
+        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.b.a(entity.id);
 
         if (entitytrackerentry != null) {
             entitytrackerentry.a(packet);
@@ -133,7 +133,7 @@ public class EntityTracker {
     }
 
     public void b(Entity entity, Packet packet) {
-        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.b.a(entity.g);
+        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.b.a(entity.id);
 
         if (entitytrackerentry != null) {
             entitytrackerentry.b(packet);

@@ -9,6 +9,6 @@ public class ItemPickaxe extends ItemTool {
     }
 
     public boolean a(Block block) {
-        return block == Block.OBSIDIAN ? this.a.d() == 3 : (block != Block.DIAMOND_BLOCK && block != Block.DIAMOND_ORE ? (block != Block.GOLD_BLOCK && block != Block.GOLD_ORE ? (block != Block.IRON_BLOCK && block != Block.IRON_ORE ? (block != Block.LAPIS_BLOCK && block != Block.LAPIS_ORE ? (block != Block.REDSTONE_ORE && block != Block.GLOWING_REDSTONE_ORE ? (block.bt == Material.d ? true : block.bt == Material.e) : this.a.d() >= 2) : this.a.d() >= 1) : this.a.d() >= 1) : this.a.d() >= 2) : this.a.d() >= 2);
+        return block == Block.OBSIDIAN ? this.a.d() == 3 : (block != Block.DIAMOND_BLOCK && block != Block.DIAMOND_ORE ? (block != Block.GOLD_BLOCK && block != Block.GOLD_ORE ? (block != Block.IRON_BLOCK && block != Block.IRON_ORE ? (block != Block.LAPIS_BLOCK && block != Block.LAPIS_ORE ? (block != Block.REDSTONE_ORE && block != Block.GLOWING_REDSTONE_ORE ? (block.material == Material.STONE ? true : block.material == Material.ORE) : this.a.d() >= 2) : this.a.d() >= 1) : this.a.d() >= 1) : this.a.d() >= 2) : this.a.d() >= 2);
     }
 }

@@ -16,8 +16,8 @@ public class WorldGenFlowers extends WorldGenerator {
             int j1 = j + random.nextInt(4) - random.nextInt(4);
             int k1 = k + random.nextInt(8) - random.nextInt(8);
 
-            if (world.e(i1, j1, k1) && ((BlockFlower) Block.m[this.a]).f(world, i1, j1, k1)) {
-                world.b(i1, j1, k1, this.a);
+            if (world.isEmpty(i1, j1, k1) && ((BlockFlower) Block.byId[this.a]).f(world, i1, j1, k1)) {
+                world.setTypeId(i1, j1, k1, this.a);
             }
         }
 

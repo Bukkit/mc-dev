@@ -28,7 +28,7 @@ public class ShapelessRecipes implements CraftingRecipe {
                     while (iterator.hasNext()) {
                         ItemStack itemstack1 = (ItemStack) iterator.next();
 
-                        if (itemstack.c == itemstack1.c && (itemstack1.h() == -1 || itemstack.h() == itemstack1.h())) {
+                        if (itemstack.id == itemstack1.id && (itemstack1.h() == -1 || itemstack.h() == itemstack1.h())) {
                             flag = true;
                             arraylist.remove(itemstack1);
                             break;

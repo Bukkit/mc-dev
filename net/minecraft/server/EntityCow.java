@@ -4,7 +4,7 @@ public class EntityCow extends EntityAnimal {
 
     public EntityCow(World world) {
         super(world);
-        this.aP = "/mob/cow.png";
+        this.texture = "/mob/cow.png";
         this.a(0.9F, 1.3F);
     }
 
@@ -33,14 +33,14 @@ public class EntityCow extends EntityAnimal {
     }
 
     protected int h() {
-        return Item.LEATHER.ba;
+        return Item.LEATHER.id;
     }
 
     public boolean a(EntityHuman entityhuman) {
-        ItemStack itemstack = entityhuman.an.e();
+        ItemStack itemstack = entityhuman.inventory.e();
 
-        if (itemstack != null && itemstack.c == Item.BUCKET.ba) {
-            entityhuman.an.a(entityhuman.an.c, new ItemStack(Item.MILK_BUCKET));
+        if (itemstack != null && itemstack.id == Item.BUCKET.id) {
+            entityhuman.inventory.a(entityhuman.inventory.c, new ItemStack(Item.MILK_BUCKET));
             return true;
         } else {
             return false;

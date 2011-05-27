@@ -32,20 +32,20 @@ public class EntityFish extends Entity {
     public EntityFish(World world, EntityHuman entityhuman) {
         super(world);
         this.b = entityhuman;
-        this.b.aE = this;
+        this.b.hookedFish = this;
         this.a(0.25F, 0.25F);
-        this.c(entityhuman.p, entityhuman.q + 1.62D - (double) entityhuman.H, entityhuman.r, entityhuman.v, entityhuman.w);
-        this.p -= (double) (MathHelper.b(this.v / 180.0F * 3.1415927F) * 0.16F);
-        this.q -= 0.10000000149011612D;
-        this.r -= (double) (MathHelper.a(this.v / 180.0F * 3.1415927F) * 0.16F);
-        this.a(this.p, this.q, this.r);
-        this.H = 0.0F;
+        this.c(entityhuman.locX, entityhuman.locY + 1.62D - (double) entityhuman.height, entityhuman.locZ, entityhuman.yaw, entityhuman.pitch);
+        this.locX -= (double) (MathHelper.b(this.yaw / 180.0F * 3.1415927F) * 0.16F);
+        this.locY -= 0.10000000149011612D;
+        this.locZ -= (double) (MathHelper.a(this.yaw / 180.0F * 3.1415927F) * 0.16F);
+        this.a(this.locX, this.locY, this.locZ);
+        this.height = 0.0F;
         float f = 0.4F;
 
-        this.s = (double) (-MathHelper.a(this.v / 180.0F * 3.1415927F) * MathHelper.b(this.w / 180.0F * 3.1415927F) * f);
-        this.u = (double) (MathHelper.b(this.v / 180.0F * 3.1415927F) * MathHelper.b(this.w / 180.0F * 3.1415927F) * f);
-        this.t = (double) (-MathHelper.a(this.w / 180.0F * 3.1415927F) * f);
-        this.a(this.s, this.t, this.u, 1.5F, 1.0F);
+        this.motX = (double) (-MathHelper.a(this.yaw / 180.0F * 3.1415927F) * MathHelper.b(this.pitch / 180.0F * 3.1415927F) * f);
+        this.motZ = (double) (MathHelper.b(this.yaw / 180.0F * 3.1415927F) * MathHelper.b(this.pitch / 180.0F * 3.1415927F) * f);
+        this.motY = (double) (-MathHelper.a(this.pitch / 180.0F * 3.1415927F) * f);
+        this.a(this.motX, this.motY, this.motZ, 1.5F, 1.0F);
     }
 
     public void a(double d0, double d1, double d2, float f, float f1) {
@@ -54,32 +54,32 @@ public class EntityFish extends Entity {
         d0 /= (double) f2;
         d1 /= (double) f2;
         d2 /= (double) f2;
-        d0 += this.W.nextGaussian() * 0.007499999832361937D * (double) f1;
-        d1 += this.W.nextGaussian() * 0.007499999832361937D * (double) f1;
-        d2 += this.W.nextGaussian() * 0.007499999832361937D * (double) f1;
+        d0 += this.random.nextGaussian() * 0.007499999832361937D * (double) f1;
+        d1 += this.random.nextGaussian() * 0.007499999832361937D * (double) f1;
+        d2 += this.random.nextGaussian() * 0.007499999832361937D * (double) f1;
         d0 *= (double) f;
         d1 *= (double) f;
         d2 *= (double) f;
-        this.s = d0;
-        this.t = d1;
-        this.u = d2;
+        this.motX = d0;
+        this.motY = d1;
+        this.motZ = d2;
         float f3 = MathHelper.a(d0 * d0 + d2 * d2);
 
-        this.x = this.v = (float) (Math.atan2(d0, d2) * 180.0D / 3.1415927410125732D);
-        this.y = this.w = (float) (Math.atan2(d1, (double) f3) * 180.0D / 3.1415927410125732D);
+        this.lastYaw = this.yaw = (float) (Math.atan2(d0, d2) * 180.0D / 3.1415927410125732D);
+        this.lastPitch = this.pitch = (float) (Math.atan2(d1, (double) f3) * 180.0D / 3.1415927410125732D);
         this.am = 0;
     }
 
     public void b_() {
         super.b_();
         if (this.ap > 0) {
-            double d0 = this.p + (this.aq - this.p) / (double) this.ap;
-            double d1 = this.q + (this.ar - this.q) / (double) this.ap;
-            double d2 = this.r + (this.as - this.r) / (double) this.ap;
+            double d0 = this.locX + (this.aq - this.locX) / (double) this.ap;
+            double d1 = this.locY + (this.ar - this.locY) / (double) this.ap;
+            double d2 = this.locZ + (this.as - this.locZ) / (double) this.ap;
 
             double d3;
 
-            for (d3 = this.at - (double) this.v; d3 < -180.0D; d3 += 360.0D) {
+            for (d3 = this.at - (double) this.yaw; d3 < -180.0D; d3 += 360.0D) {
                 ;
             }
 
@@ -87,26 +87,26 @@ public class EntityFish extends Entity {
                 d3 -= 360.0D;
             }
 
-            this.v = (float) ((double) this.v + d3 / (double) this.ap);
-            this.w = (float) ((double) this.w + (this.au - (double) this.w) / (double) this.ap);
+            this.yaw = (float) ((double) this.yaw + d3 / (double) this.ap);
+            this.pitch = (float) ((double) this.pitch + (this.au - (double) this.pitch) / (double) this.ap);
             --this.ap;
             this.a(d0, d1, d2);
-            this.b(this.v, this.w);
+            this.b(this.yaw, this.pitch);
         } else {
-            if (!this.l.z) {
+            if (!this.world.isStatic) {
                 ItemStack itemstack = this.b.P();
 
-                if (this.b.G || !this.b.B() || itemstack == null || itemstack.a() != Item.FISHING_ROD || this.b(this.b) > 1024.0D) {
+                if (this.b.dead || !this.b.B() || itemstack == null || itemstack.a() != Item.FISHING_ROD || this.b(this.b) > 1024.0D) {
                     this.q();
-                    this.b.aE = null;
+                    this.b.hookedFish = null;
                     return;
                 }
 
                 if (this.c != null) {
-                    if (!this.c.G) {
-                        this.p = this.c.p;
-                        this.q = this.c.z.b + (double) this.c.J * 0.8D;
-                        this.r = this.c.r;
+                    if (!this.c.dead) {
+                        this.locX = this.c.locX;
+                        this.locY = this.c.boundingBox.b + (double) this.c.width * 0.8D;
+                        this.locZ = this.c.locZ;
                         return;
                     }
 
@@ -119,7 +119,7 @@ public class EntityFish extends Entity {
             }
 
             if (this.al) {
-                int i = this.l.a(this.d, this.e, this.f);
+                int i = this.world.getTypeId(this.d, this.e, this.f);
 
                 if (i == this.ak) {
                     ++this.am;
@@ -131,27 +131,27 @@ public class EntityFish extends Entity {
                 }
 
                 this.al = false;
-                this.s *= (double) (this.W.nextFloat() * 0.2F);
-                this.t *= (double) (this.W.nextFloat() * 0.2F);
-                this.u *= (double) (this.W.nextFloat() * 0.2F);
+                this.motX *= (double) (this.random.nextFloat() * 0.2F);
+                this.motY *= (double) (this.random.nextFloat() * 0.2F);
+                this.motZ *= (double) (this.random.nextFloat() * 0.2F);
                 this.am = 0;
                 this.an = 0;
             } else {
                 ++this.an;
             }
 
-            Vec3D vec3d = Vec3D.b(this.p, this.q, this.r);
-            Vec3D vec3d1 = Vec3D.b(this.p + this.s, this.q + this.t, this.r + this.u);
-            MovingObjectPosition movingobjectposition = this.l.a(vec3d, vec3d1);
+            Vec3D vec3d = Vec3D.b(this.locX, this.locY, this.locZ);
+            Vec3D vec3d1 = Vec3D.b(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
+            MovingObjectPosition movingobjectposition = this.world.a(vec3d, vec3d1);
 
-            vec3d = Vec3D.b(this.p, this.q, this.r);
-            vec3d1 = Vec3D.b(this.p + this.s, this.q + this.t, this.r + this.u);
+            vec3d = Vec3D.b(this.locX, this.locY, this.locZ);
+            vec3d1 = Vec3D.b(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
             if (movingobjectposition != null) {
                 vec3d1 = Vec3D.b(movingobjectposition.f.a, movingobjectposition.f.b, movingobjectposition.f.c);
             }
 
             Entity entity = null;
-            List list = this.l.b((Entity) this, this.z.a(this.s, this.t, this.u).b(1.0D, 1.0D, 1.0D));
+            List list = this.world.b((Entity) this, this.boundingBox.a(this.motX, this.motY, this.motZ).b(1.0D, 1.0D, 1.0D));
             double d4 = 0.0D;
 
             double d5;
@@ -161,7 +161,7 @@ public class EntityFish extends Entity {
 
                 if (entity1.c_() && (entity1 != this.b || this.an >= 5)) {
                     float f = 0.3F;
-                    AxisAlignedBB axisalignedbb = entity1.z.b((double) f, (double) f, (double) f);
+                    AxisAlignedBB axisalignedbb = entity1.boundingBox.b((double) f, (double) f, (double) f);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
 
                     if (movingobjectposition1 != null) {
@@ -189,32 +189,32 @@ public class EntityFish extends Entity {
             }
 
             if (!this.al) {
-                this.c(this.s, this.t, this.u);
-                float f1 = MathHelper.a(this.s * this.s + this.u * this.u);
+                this.c(this.motX, this.motY, this.motZ);
+                float f1 = MathHelper.a(this.motX * this.motX + this.motZ * this.motZ);
 
-                this.v = (float) (Math.atan2(this.s, this.u) * 180.0D / 3.1415927410125732D);
+                this.yaw = (float) (Math.atan2(this.motX, this.motZ) * 180.0D / 3.1415927410125732D);
 
-                for (this.w = (float) (Math.atan2(this.t, (double) f1) * 180.0D / 3.1415927410125732D); this.w - this.y < -180.0F; this.y -= 360.0F) {
+                for (this.pitch = (float) (Math.atan2(this.motY, (double) f1) * 180.0D / 3.1415927410125732D); this.pitch - this.lastPitch < -180.0F; this.lastPitch -= 360.0F) {
                     ;
                 }
 
-                while (this.w - this.y >= 180.0F) {
-                    this.y += 360.0F;
+                while (this.pitch - this.lastPitch >= 180.0F) {
+                    this.lastPitch += 360.0F;
                 }
 
-                while (this.v - this.x < -180.0F) {
-                    this.x -= 360.0F;
+                while (this.yaw - this.lastYaw < -180.0F) {
+                    this.lastYaw -= 360.0F;
                 }
 
-                while (this.v - this.x >= 180.0F) {
-                    this.x += 360.0F;
+                while (this.yaw - this.lastYaw >= 180.0F) {
+                    this.lastYaw += 360.0F;
                 }
 
-                this.w = this.y + (this.w - this.y) * 0.2F;
-                this.v = this.x + (this.v - this.x) * 0.2F;
+                this.pitch = this.lastPitch + (this.pitch - this.lastPitch) * 0.2F;
+                this.yaw = this.lastYaw + (this.yaw - this.lastYaw) * 0.2F;
                 float f2 = 0.92F;
 
-                if (this.A || this.B) {
+                if (this.onGround || this.B) {
                     f2 = 0.5F;
                 }
 
@@ -222,11 +222,11 @@ public class EntityFish extends Entity {
                 double d6 = 0.0D;
 
                 for (int k = 0; k < b0; ++k) {
-                    double d7 = this.z.b + (this.z.e - this.z.b) * (double) (k + 0) / (double) b0 - 0.125D + 0.125D;
-                    double d8 = this.z.b + (this.z.e - this.z.b) * (double) (k + 1) / (double) b0 - 0.125D + 0.125D;
-                    AxisAlignedBB axisalignedbb1 = AxisAlignedBB.b(this.z.a, d7, this.z.c, this.z.d, d8, this.z.f);
+                    double d7 = this.boundingBox.b + (this.boundingBox.e - this.boundingBox.b) * (double) (k + 0) / (double) b0 - 0.125D + 0.125D;
+                    double d8 = this.boundingBox.b + (this.boundingBox.e - this.boundingBox.b) * (double) (k + 1) / (double) b0 - 0.125D + 0.125D;
+                    AxisAlignedBB axisalignedbb1 = AxisAlignedBB.b(this.boundingBox.a, d7, this.boundingBox.c, this.boundingBox.d, d8, this.boundingBox.f);
 
-                    if (this.l.b(axisalignedbb1, Material.f)) {
+                    if (this.world.b(axisalignedbb1, Material.WATER)) {
                         d6 += 1.0D / (double) b0;
                     }
                 }
@@ -234,45 +234,45 @@ public class EntityFish extends Entity {
                 if (d6 > 0.0D) {
                     if (this.ao > 0) {
                         --this.ao;
-                    } else if (this.W.nextInt(500) == 0) {
-                        this.ao = this.W.nextInt(30) + 10;
-                        this.t -= 0.20000000298023224D;
-                        this.l.a(this, "random.splash", 0.25F, 1.0F + (this.W.nextFloat() - this.W.nextFloat()) * 0.4F);
-                        float f3 = (float) MathHelper.b(this.z.b);
+                    } else if (this.random.nextInt(500) == 0) {
+                        this.ao = this.random.nextInt(30) + 10;
+                        this.motY -= 0.20000000298023224D;
+                        this.world.a(this, "random.splash", 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+                        float f3 = (float) MathHelper.b(this.boundingBox.b);
 
                         int l;
                         float f4;
                         float f5;
 
-                        for (l = 0; (float) l < 1.0F + this.I * 20.0F; ++l) {
-                            f4 = (this.W.nextFloat() * 2.0F - 1.0F) * this.I;
-                            f5 = (this.W.nextFloat() * 2.0F - 1.0F) * this.I;
-                            this.l.a("bubble", this.p + (double) f4, (double) (f3 + 1.0F), this.r + (double) f5, this.s, this.t - (double) (this.W.nextFloat() * 0.2F), this.u);
+                        for (l = 0; (float) l < 1.0F + this.length * 20.0F; ++l) {
+                            f4 = (this.random.nextFloat() * 2.0F - 1.0F) * this.length;
+                            f5 = (this.random.nextFloat() * 2.0F - 1.0F) * this.length;
+                            this.world.a("bubble", this.locX + (double) f4, (double) (f3 + 1.0F), this.locZ + (double) f5, this.motX, this.motY - (double) (this.random.nextFloat() * 0.2F), this.motZ);
                         }
 
-                        for (l = 0; (float) l < 1.0F + this.I * 20.0F; ++l) {
-                            f4 = (this.W.nextFloat() * 2.0F - 1.0F) * this.I;
-                            f5 = (this.W.nextFloat() * 2.0F - 1.0F) * this.I;
-                            this.l.a("splash", this.p + (double) f4, (double) (f3 + 1.0F), this.r + (double) f5, this.s, this.t, this.u);
+                        for (l = 0; (float) l < 1.0F + this.length * 20.0F; ++l) {
+                            f4 = (this.random.nextFloat() * 2.0F - 1.0F) * this.length;
+                            f5 = (this.random.nextFloat() * 2.0F - 1.0F) * this.length;
+                            this.world.a("splash", this.locX + (double) f4, (double) (f3 + 1.0F), this.locZ + (double) f5, this.motX, this.motY, this.motZ);
                         }
                     }
                 }
 
                 if (this.ao > 0) {
-                    this.t -= (double) (this.W.nextFloat() * this.W.nextFloat() * this.W.nextFloat()) * 0.2D;
+                    this.motY -= (double) (this.random.nextFloat() * this.random.nextFloat() * this.random.nextFloat()) * 0.2D;
                 }
 
                 d5 = d6 * 2.0D - 1.0D;
-                this.t += 0.03999999910593033D * d5;
+                this.motY += 0.03999999910593033D * d5;
                 if (d6 > 0.0D) {
                     f2 = (float) ((double) f2 * 0.9D);
-                    this.t *= 0.8D;
+                    this.motY *= 0.8D;
                 }
 
-                this.s *= (double) f2;
-                this.t *= (double) f2;
-                this.u *= (double) f2;
-                this.a(this.p, this.q, this.r);
+                this.motX *= (double) f2;
+                this.motY *= (double) f2;
+                this.motZ *= (double) f2;
+                this.a(this.locX, this.locY, this.locZ);
             }
         }
     }
@@ -299,28 +299,28 @@ public class EntityFish extends Entity {
         byte b0 = 0;
 
         if (this.c != null) {
-            double d0 = this.b.p - this.p;
-            double d1 = this.b.q - this.q;
-            double d2 = this.b.r - this.r;
+            double d0 = this.b.locX - this.locX;
+            double d1 = this.b.locY - this.locY;
+            double d2 = this.b.locZ - this.locZ;
             double d3 = (double) MathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);
             double d4 = 0.1D;
 
-            this.c.s += d0 * d4;
-            this.c.t += d1 * d4 + (double) MathHelper.a(d3) * 0.08D;
-            this.c.u += d2 * d4;
+            this.c.motX += d0 * d4;
+            this.c.motY += d1 * d4 + (double) MathHelper.a(d3) * 0.08D;
+            this.c.motZ += d2 * d4;
             b0 = 3;
         } else if (this.ao > 0) {
-            EntityItem entityitem = new EntityItem(this.l, this.p, this.q, this.r, new ItemStack(Item.RAW_FISH));
-            double d5 = this.b.p - this.p;
-            double d6 = this.b.q - this.q;
-            double d7 = this.b.r - this.r;
+            EntityItem entityitem = new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.RAW_FISH));
+            double d5 = this.b.locX - this.locX;
+            double d6 = this.b.locY - this.locY;
+            double d7 = this.b.locZ - this.locZ;
             double d8 = (double) MathHelper.a(d5 * d5 + d6 * d6 + d7 * d7);
             double d9 = 0.1D;
 
-            entityitem.s = d5 * d9;
-            entityitem.t = d6 * d9 + (double) MathHelper.a(d8) * 0.08D;
-            entityitem.u = d7 * d9;
-            this.l.a((Entity) entityitem);
+            entityitem.motX = d5 * d9;
+            entityitem.motY = d6 * d9 + (double) MathHelper.a(d8) * 0.08D;
+            entityitem.motZ = d7 * d9;
+            this.world.a((Entity) entityitem);
             b0 = 1;
         }
 
@@ -329,7 +329,7 @@ public class EntityFish extends Entity {
         }
 
         this.q();
-        this.b.aE = null;
+        this.b.hookedFish = null;
         return b0;
     }
 }

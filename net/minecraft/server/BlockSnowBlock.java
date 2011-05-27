@@ -5,12 +5,12 @@ import java.util.Random;
 public class BlockSnowBlock extends Block {
 
     protected BlockSnowBlock(int i, int j) {
-        super(i, j, Material.t);
+        super(i, j, Material.SNOW_BLOCK);
         this.a(true);
     }
 
     public int a(int i, Random random) {
-        return Item.SNOW_BALL.ba;
+        return Item.SNOW_BALL.id;
     }
 
     public int a(Random random) {
@@ -19,7 +19,7 @@ public class BlockSnowBlock extends Block {
 
     public void a(World world, int i, int j, int k, Random random) {
         if (world.a(EnumSkyBlock.BLOCK, i, j, k) > 11) {
-            this.a_(world, i, j, k, world.b(i, j, k));
+            this.a_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
         }
     }

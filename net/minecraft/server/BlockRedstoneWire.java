@@ -11,7 +11,7 @@ public class BlockRedstoneWire extends Block {
     private Set b = new HashSet();
 
     public BlockRedstoneWire(int i, int j) {
-        super(i, j, Material.n);
+        super(i, j, Material.ORIENTABLE);
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
     }
 
@@ -36,12 +36,12 @@ public class BlockRedstoneWire extends Block {
         for (int l = 0; l < arraylist.size(); ++l) {
             ChunkPosition chunkposition = (ChunkPosition) arraylist.get(l);
 
-            world.h(chunkposition.a, chunkposition.b, chunkposition.c, this.bi);
+            world.h(chunkposition.a, chunkposition.b, chunkposition.c, this.id);
         }
     }
 
     private void a(World world, int i, int j, int k, int l, int i1, int j1) {
-        int k1 = world.b(i, j, k);
+        int k1 = world.getData(i, j, k);
         int l1 = 0;
 
         this.a = false;
@@ -128,7 +128,7 @@ public class BlockRedstoneWire extends Block {
                 boolean flag1 = false;
                 int i3 = this.f(world, j2, j, k2, -1);
 
-                l1 = world.b(i, j, k);
+                l1 = world.getData(i, j, k);
                 if (l1 > 0) {
                     --l1;
                 }
@@ -138,7 +138,7 @@ public class BlockRedstoneWire extends Block {
                 }
 
                 i3 = this.f(world, j2, l2, k2, -1);
-                l1 = world.b(i, j, k);
+                l1 = world.getData(i, j, k);
                 if (l1 > 0) {
                     --l1;
                 }
@@ -161,23 +161,23 @@ public class BlockRedstoneWire extends Block {
     }
 
     private void h(World world, int i, int j, int k) {
-        if (world.a(i, j, k) == this.bi) {
-            world.h(i, j, k, this.bi);
-            world.h(i - 1, j, k, this.bi);
-            world.h(i + 1, j, k, this.bi);
-            world.h(i, j, k - 1, this.bi);
-            world.h(i, j, k + 1, this.bi);
-            world.h(i, j - 1, k, this.bi);
-            world.h(i, j + 1, k, this.bi);
+        if (world.getTypeId(i, j, k) == this.id) {
+            world.h(i, j, k, this.id);
+            world.h(i - 1, j, k, this.id);
+            world.h(i + 1, j, k, this.id);
+            world.h(i, j, k - 1, this.id);
+            world.h(i, j, k + 1, this.id);
+            world.h(i, j - 1, k, this.id);
+            world.h(i, j + 1, k, this.id);
         }
     }
 
     public void e(World world, int i, int j, int k) {
         super.e(world, i, j, k);
-        if (!world.z) {
+        if (!world.isStatic) {
             this.g(world, i, j, k);
-            world.h(i, j + 1, k, this.bi);
-            world.h(i, j - 1, k, this.bi);
+            world.h(i, j + 1, k, this.id);
+            world.h(i, j - 1, k, this.id);
             this.h(world, i - 1, j, k);
             this.h(world, i + 1, j, k);
             this.h(world, i, j, k - 1);
@@ -210,9 +210,9 @@ public class BlockRedstoneWire extends Block {
 
     public void b(World world, int i, int j, int k) {
         super.b(world, i, j, k);
-        if (!world.z) {
-            world.h(i, j + 1, k, this.bi);
-            world.h(i, j - 1, k, this.bi);
+        if (!world.isStatic) {
+            world.h(i, j + 1, k, this.id);
+            world.h(i, j - 1, k, this.id);
             this.g(world, i, j, k);
             this.h(world, i - 1, j, k);
             this.h(world, i + 1, j, k);
@@ -245,18 +245,18 @@ public class BlockRedstoneWire extends Block {
     }
 
     private int f(World world, int i, int j, int k, int l) {
-        if (world.a(i, j, k) != this.bi) {
+        if (world.getTypeId(i, j, k) != this.id) {
             return l;
         } else {
-            int i1 = world.b(i, j, k);
+            int i1 = world.getData(i, j, k);
 
             return i1 > l ? i1 : l;
         }
     }
 
     public void b(World world, int i, int j, int k, int l) {
-        if (!world.z) {
-            int i1 = world.b(i, j, k);
+        if (!world.isStatic) {
+            int i1 = world.getData(i, j, k);
             boolean flag = this.a(world, i, j, k);
 
             if (!flag) {
@@ -271,7 +271,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     public int a(int i, Random random) {
-        return Item.REDSTONE.ba;
+        return Item.REDSTONE.id;
     }
 
     public boolean d(World world, int i, int j, int k, int l) {
@@ -281,7 +281,7 @@ public class BlockRedstoneWire extends Block {
     public boolean b(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         if (!this.a) {
             return false;
-        } else if (iblockaccess.b(i, j, k) == 0) {
+        } else if (iblockaccess.getData(i, j, k) == 0) {
             return false;
         } else if (l == 1) {
             return true;
@@ -318,8 +318,8 @@ public class BlockRedstoneWire extends Block {
     }
 
     public static boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
-        int l = iblockaccess.a(i, j, k);
+        int l = iblockaccess.getTypeId(i, j, k);
 
-        return l == Block.REDSTONE_WIRE.bi ? true : (l == 0 ? false : Block.m[l].c());
+        return l == Block.REDSTONE_WIRE.id ? true : (l == 0 ? false : Block.byId[l].c());
     }
 }

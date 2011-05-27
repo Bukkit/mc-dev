@@ -3,7 +3,7 @@ package net.minecraft.server;
 public class BlockLever extends Block {
 
     protected BlockLever(int i, int j) {
-        super(i, j, Material.n);
+        super(i, j, Material.ORIENTABLE);
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {
@@ -19,7 +19,7 @@ public class BlockLever extends Block {
     }
 
     public void c(World world, int i, int j, int k, int l) {
-        int i1 = world.b(i, j, k);
+        int i1 = world.getData(i, j, k);
         int j1 = i1 & 8;
 
         i1 &= 7;
@@ -64,7 +64,7 @@ public class BlockLever extends Block {
 
     public void b(World world, int i, int j, int k, int l) {
         if (this.g(world, i, j, k)) {
-            int i1 = world.b(i, j, k) & 7;
+            int i1 = world.getData(i, j, k) & 7;
             boolean flag = false;
 
             if (!world.d(i - 1, j, k) && i1 == 1) {
@@ -88,7 +88,7 @@ public class BlockLever extends Block {
             }
 
             if (flag) {
-                this.a_(world, i, j, k, world.b(i, j, k));
+                this.a_(world, i, j, k, world.getData(i, j, k));
                 world.e(i, j, k, 0);
             }
         }
@@ -96,7 +96,7 @@ public class BlockLever extends Block {
 
     private boolean g(World world, int i, int j, int k) {
         if (!this.a(world, i, j, k)) {
-            this.a_(world, i, j, k, world.b(i, j, k));
+            this.a_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
             return false;
         } else {
@@ -105,7 +105,7 @@ public class BlockLever extends Block {
     }
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
-        int l = iblockaccess.b(i, j, k) & 7;
+        int l = iblockaccess.getData(i, j, k) & 7;
         float f = 0.1875F;
 
         if (l == 1) {
@@ -127,27 +127,27 @@ public class BlockLever extends Block {
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (world.z) {
+        if (world.isStatic) {
             return true;
         } else {
-            int l = world.b(i, j, k);
+            int l = world.getData(i, j, k);
             int i1 = l & 7;
             int j1 = 8 - (l & 8);
 
             world.c(i, j, k, i1 + j1);
             world.b(i, j, k, i, j, k);
             world.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.click", 0.3F, j1 > 0 ? 0.6F : 0.5F);
-            world.h(i, j, k, this.bi);
+            world.h(i, j, k, this.id);
             if (i1 == 1) {
-                world.h(i - 1, j, k, this.bi);
+                world.h(i - 1, j, k, this.id);
             } else if (i1 == 2) {
-                world.h(i + 1, j, k, this.bi);
+                world.h(i + 1, j, k, this.id);
             } else if (i1 == 3) {
-                world.h(i, j, k - 1, this.bi);
+                world.h(i, j, k - 1, this.id);
             } else if (i1 == 4) {
-                world.h(i, j, k + 1, this.bi);
+                world.h(i, j, k + 1, this.id);
             } else {
-                world.h(i, j - 1, k, this.bi);
+                world.h(i, j - 1, k, this.id);
             }
 
             return true;
@@ -155,22 +155,22 @@ public class BlockLever extends Block {
     }
 
     public void b(World world, int i, int j, int k) {
-        int l = world.b(i, j, k);
+        int l = world.getData(i, j, k);
 
         if ((l & 8) > 0) {
-            world.h(i, j, k, this.bi);
+            world.h(i, j, k, this.id);
             int i1 = l & 7;
 
             if (i1 == 1) {
-                world.h(i - 1, j, k, this.bi);
+                world.h(i - 1, j, k, this.id);
             } else if (i1 == 2) {
-                world.h(i + 1, j, k, this.bi);
+                world.h(i + 1, j, k, this.id);
             } else if (i1 == 3) {
-                world.h(i, j, k - 1, this.bi);
+                world.h(i, j, k - 1, this.id);
             } else if (i1 == 4) {
-                world.h(i, j, k + 1, this.bi);
+                world.h(i, j, k + 1, this.id);
             } else {
-                world.h(i, j - 1, k, this.bi);
+                world.h(i, j - 1, k, this.id);
             }
         }
 
@@ -178,11 +178,11 @@ public class BlockLever extends Block {
     }
 
     public boolean b(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        return (iblockaccess.b(i, j, k) & 8) > 0;
+        return (iblockaccess.getData(i, j, k) & 8) > 0;
     }
 
     public boolean d(World world, int i, int j, int k, int l) {
-        int i1 = world.b(i, j, k);
+        int i1 = world.getData(i, j, k);
 
         if ((i1 & 8) == 0) {
             return false;

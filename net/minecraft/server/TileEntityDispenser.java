@@ -21,14 +21,14 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
         if (this.e[i] != null) {
             ItemStack itemstack;
 
-            if (this.e[i].a <= j) {
+            if (this.e[i].count <= j) {
                 itemstack = this.e[i];
                 this.e[i] = null;
                 this.d();
                 return itemstack;
             } else {
                 itemstack = this.e[i].a(j);
-                if (this.e[i].a == 0) {
+                if (this.e[i].count == 0) {
                     this.e[i] = null;
                 }
 
@@ -60,8 +60,8 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
 
     public void a(int i, ItemStack itemstack) {
         this.e[i] = itemstack;
-        if (itemstack != null && itemstack.a > this.c()) {
-            itemstack.a = this.c();
+        if (itemstack != null && itemstack.count > this.c()) {
+            itemstack.count = this.c();
         }
 
         this.d();
@@ -109,6 +109,6 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
     }
 
     public boolean a_(EntityHuman entityhuman) {
-        return this.a.m(this.b, this.c, this.d) != this ? false : entityhuman.d((double) this.b + 0.5D, (double) this.c + 0.5D, (double) this.d + 0.5D) <= 64.0D;
+        return this.a.getTileEntity(this.b, this.c, this.d) != this ? false : entityhuman.d((double) this.b + 0.5D, (double) this.c + 0.5D, (double) this.d + 0.5D) <= 64.0D;
     }
 }

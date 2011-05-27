@@ -23,7 +23,7 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
-    public int a(int i, int j, int k) {
+    public int getTypeId(int i, int j, int k) {
         if (j < 0) {
             return 0;
         } else if (j >= 128) {
@@ -37,7 +37,7 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
-    public int b(int i, int j, int k) {
+    public int getData(int i, int j, int k) {
         if (j < 0) {
             return 0;
         } else if (j >= 128) {
@@ -50,14 +50,14 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
-    public Material c(int i, int j, int k) {
-        int l = this.a(i, j, k);
+    public Material getMaterial(int i, int j, int k) {
+        int l = this.getTypeId(i, j, k);
 
-        return l == 0 ? Material.a : Block.m[l].bt;
+        return l == 0 ? Material.AIR : Block.byId[l].material;
     }
 
     public boolean d(int i, int j, int k) {
-        Block block = Block.m[this.a(i, j, k)];
+        Block block = Block.byId[this.getTypeId(i, j, k)];
 
         return block == null ? false : block.a();
     }

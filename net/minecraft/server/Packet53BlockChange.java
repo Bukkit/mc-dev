@@ -20,8 +20,8 @@ public class Packet53BlockChange extends Packet {
         this.a = i;
         this.b = j;
         this.c = k;
-        this.d = world.a(i, j, k);
-        this.e = world.b(i, j, k);
+        this.d = world.getTypeId(i, j, k);
+        this.e = world.getData(i, j, k);
     }
 
     public void a(DataInputStream datainputstream) {

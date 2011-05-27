@@ -5,15 +5,15 @@ import java.util.Random;
 public class BlockTNT extends Block {
 
     public BlockTNT(int i, int j) {
-        super(i, j, Material.p);
+        super(i, j, Material.TNT);
     }
 
     public int a(int i) {
-        return i == 0 ? this.bh + 2 : (i == 1 ? this.bh + 1 : this.bh);
+        return i == 0 ? this.textureId + 2 : (i == 1 ? this.textureId + 1 : this.textureId);
     }
 
     public void b(World world, int i, int j, int k, int l) {
-        if (l > 0 && Block.m[l].c() && world.p(i, j, k)) {
+        if (l > 0 && Block.byId[l].c() && world.p(i, j, k)) {
             this.a(world, i, j, k, 0);
             world.e(i, j, k, 0);
         }
@@ -31,7 +31,7 @@ public class BlockTNT extends Block {
     }
 
     public void a(World world, int i, int j, int k, int l) {
-        if (!world.z) {
+        if (!world.isStatic) {
             EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F));
 
             world.a((Entity) entitytntprimed);

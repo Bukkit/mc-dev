@@ -128,8 +128,8 @@ public class DataWatcher {
         case 5:
             ItemStack itemstack = (ItemStack) watchableobject.b();
 
-            dataoutputstream.writeShort(itemstack.a().ba);
-            dataoutputstream.writeByte(itemstack.a);
+            dataoutputstream.writeShort(itemstack.a().id);
+            dataoutputstream.writeByte(itemstack.count);
             dataoutputstream.writeShort(itemstack.h());
         }
     }

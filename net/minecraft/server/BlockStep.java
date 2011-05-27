@@ -7,7 +7,7 @@ public class BlockStep extends Block {
     private boolean a;
 
     public BlockStep(int i, boolean flag) {
-        super(i, 6, Material.d);
+        super(i, 6, Material.STONE);
         this.a = flag;
         if (!flag) {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
@@ -35,16 +35,16 @@ public class BlockStep extends Block {
             super.e(world, i, j, k);
         }
 
-        int l = world.a(i, j - 1, k);
+        int l = world.getTypeId(i, j - 1, k);
 
-        if (l == STEP.bi) {
+        if (l == STEP.id) {
             world.e(i, j, k, 0);
-            world.e(i, j - 1, k, Block.DOUBLE_STEP.bi);
+            world.e(i, j - 1, k, Block.DOUBLE_STEP.id);
         }
     }
 
     public int a(int i, Random random) {
-        return Block.STEP.bi;
+        return Block.STEP.id;
     }
 
     public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
@@ -52,6 +52,6 @@ public class BlockStep extends Block {
             super.a(iblockaccess, i, j, k, l);
         }
 
-        return l == 1 ? true : (!super.a(iblockaccess, i, j, k, l) ? false : (l == 0 ? true : iblockaccess.a(i, j, k) != this.bi));
+        return l == 1 ? true : (!super.a(iblockaccess, i, j, k, l) ? false : (l == 0 ? true : iblockaccess.getTypeId(i, j, k) != this.id));
     }
 }

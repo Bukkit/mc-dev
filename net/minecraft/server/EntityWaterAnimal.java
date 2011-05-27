@@ -19,7 +19,7 @@ public class EntityWaterAnimal extends EntityCreature implements IAnimal {
     }
 
     public boolean b() {
-        return this.l.a(this.z);
+        return this.world.a(this.boundingBox);
     }
 
     public int c() {

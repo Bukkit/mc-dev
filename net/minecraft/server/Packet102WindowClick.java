@@ -42,8 +42,8 @@ public class Packet102WindowClick extends Packet {
         if (this.e == null) {
             dataoutputstream.writeShort(-1);
         } else {
-            dataoutputstream.writeShort(this.e.c);
-            dataoutputstream.writeByte(this.e.a);
+            dataoutputstream.writeShort(this.e.id);
+            dataoutputstream.writeByte(this.e.count);
             dataoutputstream.writeShort(this.e.h());
         }
     }

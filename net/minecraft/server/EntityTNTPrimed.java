@@ -9,7 +9,7 @@ public class EntityTNTPrimed extends Entity {
         this.a = 0;
         this.i = true;
         this.a(0.98F, 0.98F);
-        this.H = this.J / 2.0F;
+        this.height = this.width / 2.0F;
     }
 
     public EntityTNTPrimed(World world, double d0, double d1, double d2) {
@@ -17,49 +17,49 @@ public class EntityTNTPrimed extends Entity {
         this.a(d0, d1, d2);
         float f = (float) (Math.random() * 3.1415927410125732D * 2.0D);
 
-        this.s = (double) (-MathHelper.a(f * 3.1415927F / 180.0F) * 0.02F);
-        this.t = 0.20000000298023224D;
-        this.u = (double) (-MathHelper.b(f * 3.1415927F / 180.0F) * 0.02F);
+        this.motX = (double) (-MathHelper.a(f * 3.1415927F / 180.0F) * 0.02F);
+        this.motY = 0.20000000298023224D;
+        this.motZ = (double) (-MathHelper.b(f * 3.1415927F / 180.0F) * 0.02F);
         this.M = false;
         this.a = 80;
-        this.m = d0;
-        this.n = d1;
-        this.o = d2;
+        this.lastX = d0;
+        this.lastY = d1;
+        this.lastZ = d2;
     }
 
     protected void a() {}
 
     public boolean c_() {
-        return !this.G;
+        return !this.dead;
     }
 
     public void b_() {
-        this.m = this.p;
-        this.n = this.q;
-        this.o = this.r;
-        this.t -= 0.03999999910593033D;
-        this.c(this.s, this.t, this.u);
-        this.s *= 0.9800000190734863D;
-        this.t *= 0.9800000190734863D;
-        this.u *= 0.9800000190734863D;
-        if (this.A) {
-            this.s *= 0.699999988079071D;
-            this.u *= 0.699999988079071D;
-            this.t *= -0.5D;
+        this.lastX = this.locX;
+        this.lastY = this.locY;
+        this.lastZ = this.locZ;
+        this.motY -= 0.03999999910593033D;
+        this.c(this.motX, this.motY, this.motZ);
+        this.motX *= 0.9800000190734863D;
+        this.motY *= 0.9800000190734863D;
+        this.motZ *= 0.9800000190734863D;
+        if (this.onGround) {
+            this.motX *= 0.699999988079071D;
+            this.motZ *= 0.699999988079071D;
+            this.motY *= -0.5D;
         }
 
         if (this.a-- <= 0) {
             this.q();
             this.d();
         } else {
-            this.l.a("smoke", this.p, this.q + 0.5D, this.r, 0.0D, 0.0D, 0.0D);
+            this.world.a("smoke", this.locX, this.locY + 0.5D, this.locZ, 0.0D, 0.0D, 0.0D);
         }
     }
 
     private void d() {
         float f = 4.0F;
 
-        this.l.a((Entity) null, this.p, this.q, this.r, f);
+        this.world.a((Entity) null, this.locX, this.locY, this.locZ, f);
     }
 
     protected void a(NBTTagCompound nbttagcompound) {

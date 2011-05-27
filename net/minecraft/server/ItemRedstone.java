@@ -31,12 +31,12 @@ public class ItemRedstone extends Item {
             ++i;
         }
 
-        if (!world.e(i, j, k)) {
+        if (!world.isEmpty(i, j, k)) {
             return false;
         } else {
             if (Block.REDSTONE_WIRE.a(world, i, j, k)) {
-                --itemstack.a;
-                world.e(i, j, k, Block.REDSTONE_WIRE.bi);
+                --itemstack.count;
+                world.e(i, j, k, Block.REDSTONE_WIRE.id);
             }
 
             return true;

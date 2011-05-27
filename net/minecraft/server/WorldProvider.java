@@ -46,7 +46,7 @@ public class WorldProvider {
     public boolean a(int i, int j) {
         int k = this.a.a(i, j);
 
-        return k == Block.SAND.bi;
+        return k == Block.SAND.id;
     }
 
     public float a(long i, float f) {

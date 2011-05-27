@@ -3,17 +3,17 @@ package net.minecraft.server;
 public class BlockNote extends BlockContainer {
 
     public BlockNote(int i) {
-        super(i, 74, Material.c);
+        super(i, 74, Material.WOOD);
     }
 
     public int a(int i) {
-        return this.bh;
+        return this.textureId;
     }
 
     public void b(World world, int i, int j, int k, int l) {
-        if (l > 0 && Block.m[l].c()) {
+        if (l > 0 && Block.byId[l].c()) {
             boolean flag = world.o(i, j, k);
-            TileEntityNote tileentitynote = (TileEntityNote) world.m(i, j, k);
+            TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 
             if (tileentitynote.f != flag) {
                 if (flag) {
@@ -26,10 +26,10 @@ public class BlockNote extends BlockContainer {
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (world.z) {
+        if (world.isStatic) {
             return true;
         } else {
-            TileEntityNote tileentitynote = (TileEntityNote) world.m(i, j, k);
+            TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 
             tileentitynote.a();
             tileentitynote.a(world, i, j, k);
@@ -38,8 +38,8 @@ public class BlockNote extends BlockContainer {
     }
 
     public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (!world.z) {
-            TileEntityNote tileentitynote = (TileEntityNote) world.m(i, j, k);
+        if (!world.isStatic) {
+            TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 
             tileentitynote.a(world, i, j, k);
         }

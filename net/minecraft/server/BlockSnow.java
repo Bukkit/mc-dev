@@ -5,7 +5,7 @@ import java.util.Random;
 public class BlockSnow extends Block {
 
     protected BlockSnow(int i, int j) {
-        super(i, j, Material.s);
+        super(i, j, Material.SNOW_LAYER);
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
         this.a(true);
     }
@@ -19,9 +19,9 @@ public class BlockSnow extends Block {
     }
 
     public boolean a(World world, int i, int j, int k) {
-        int l = world.a(i, j - 1, k);
+        int l = world.getTypeId(i, j - 1, k);
 
-        return l != 0 && Block.m[l].a() ? world.c(i, j - 1, k).c() : false;
+        return l != 0 && Block.byId[l].a() ? world.getMaterial(i, j - 1, k).isSolid() : false;
     }
 
     public void b(World world, int i, int j, int k, int l) {
@@ -30,7 +30,7 @@ public class BlockSnow extends Block {
 
     private boolean g(World world, int i, int j, int k) {
         if (!this.a(world, i, j, k)) {
-            this.a_(world, i, j, k, world.b(i, j, k));
+            this.a_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
             return false;
         } else {
@@ -39,7 +39,7 @@ public class BlockSnow extends Block {
     }
 
     public void g(World world, int i, int j, int k, int l) {
-        int i1 = Item.SNOW_BALL.ba;
+        int i1 = Item.SNOW_BALL.id;
         float f = 0.7F;
         double d0 = (double) (world.l.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
         double d1 = (double) (world.l.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
@@ -52,7 +52,7 @@ public class BlockSnow extends Block {
     }
 
     public int a(int i, Random random) {
-        return Item.SNOW_BALL.ba;
+        return Item.SNOW_BALL.id;
     }
 
     public int a(Random random) {
@@ -61,14 +61,14 @@ public class BlockSnow extends Block {
 
     public void a(World world, int i, int j, int k, Random random) {
         if (world.a(EnumSkyBlock.BLOCK, i, j, k) > 11) {
-            this.a_(world, i, j, k, world.b(i, j, k));
+            this.a_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
         }
     }
 
     public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        Material material = iblockaccess.c(i, j, k);
+        Material material = iblockaccess.getMaterial(i, j, k);
 
-        return l == 1 ? true : (material == this.bt ? false : super.a(iblockaccess, i, j, k, l));
+        return l == 1 ? true : (material == this.material ? false : super.a(iblockaccess, i, j, k, l));
     }
 }

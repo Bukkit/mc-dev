@@ -23,23 +23,23 @@ public class EntityArrow extends Entity {
         super(world);
         this.a(0.5F, 0.5F);
         this.a(d0, d1, d2);
-        this.H = 0.0F;
+        this.height = 0.0F;
     }
 
     public EntityArrow(World world, EntityLiving entityliving) {
         super(world);
         this.b = entityliving;
         this.a(0.5F, 0.5F);
-        this.c(entityliving.p, entityliving.q + (double) entityliving.w(), entityliving.r, entityliving.v, entityliving.w);
-        this.p -= (double) (MathHelper.b(this.v / 180.0F * 3.1415927F) * 0.16F);
-        this.q -= 0.10000000149011612D;
-        this.r -= (double) (MathHelper.a(this.v / 180.0F * 3.1415927F) * 0.16F);
-        this.a(this.p, this.q, this.r);
-        this.H = 0.0F;
-        this.s = (double) (-MathHelper.a(this.v / 180.0F * 3.1415927F) * MathHelper.b(this.w / 180.0F * 3.1415927F));
-        this.u = (double) (MathHelper.b(this.v / 180.0F * 3.1415927F) * MathHelper.b(this.w / 180.0F * 3.1415927F));
-        this.t = (double) (-MathHelper.a(this.w / 180.0F * 3.1415927F));
-        this.a(this.s, this.t, this.u, 1.5F, 1.0F);
+        this.c(entityliving.locX, entityliving.locY + (double) entityliving.w(), entityliving.locZ, entityliving.yaw, entityliving.pitch);
+        this.locX -= (double) (MathHelper.b(this.yaw / 180.0F * 3.1415927F) * 0.16F);
+        this.locY -= 0.10000000149011612D;
+        this.locZ -= (double) (MathHelper.a(this.yaw / 180.0F * 3.1415927F) * 0.16F);
+        this.a(this.locX, this.locY, this.locZ);
+        this.height = 0.0F;
+        this.motX = (double) (-MathHelper.a(this.yaw / 180.0F * 3.1415927F) * MathHelper.b(this.pitch / 180.0F * 3.1415927F));
+        this.motZ = (double) (MathHelper.b(this.yaw / 180.0F * 3.1415927F) * MathHelper.b(this.pitch / 180.0F * 3.1415927F));
+        this.motY = (double) (-MathHelper.a(this.pitch / 180.0F * 3.1415927F));
+        this.a(this.motX, this.motY, this.motZ, 1.5F, 1.0F);
     }
 
     protected void a() {}
@@ -50,29 +50,29 @@ public class EntityArrow extends Entity {
         d0 /= (double) f2;
         d1 /= (double) f2;
         d2 /= (double) f2;
-        d0 += this.W.nextGaussian() * 0.007499999832361937D * (double) f1;
-        d1 += this.W.nextGaussian() * 0.007499999832361937D * (double) f1;
-        d2 += this.W.nextGaussian() * 0.007499999832361937D * (double) f1;
+        d0 += this.random.nextGaussian() * 0.007499999832361937D * (double) f1;
+        d1 += this.random.nextGaussian() * 0.007499999832361937D * (double) f1;
+        d2 += this.random.nextGaussian() * 0.007499999832361937D * (double) f1;
         d0 *= (double) f;
         d1 *= (double) f;
         d2 *= (double) f;
-        this.s = d0;
-        this.t = d1;
-        this.u = d2;
+        this.motX = d0;
+        this.motY = d1;
+        this.motZ = d2;
         float f3 = MathHelper.a(d0 * d0 + d2 * d2);
 
-        this.x = this.v = (float) (Math.atan2(d0, d2) * 180.0D / 3.1415927410125732D);
-        this.y = this.w = (float) (Math.atan2(d1, (double) f3) * 180.0D / 3.1415927410125732D);
+        this.lastYaw = this.yaw = (float) (Math.atan2(d0, d2) * 180.0D / 3.1415927410125732D);
+        this.lastPitch = this.pitch = (float) (Math.atan2(d1, (double) f3) * 180.0D / 3.1415927410125732D);
         this.al = 0;
     }
 
     public void b_() {
         super.b_();
-        if (this.y == 0.0F && this.x == 0.0F) {
-            float f = MathHelper.a(this.s * this.s + this.u * this.u);
+        if (this.lastPitch == 0.0F && this.lastYaw == 0.0F) {
+            float f = MathHelper.a(this.motX * this.motX + this.motZ * this.motZ);
 
-            this.x = this.v = (float) (Math.atan2(this.s, this.u) * 180.0D / 3.1415927410125732D);
-            this.y = this.w = (float) (Math.atan2(this.t, (double) f) * 180.0D / 3.1415927410125732D);
+            this.lastYaw = this.yaw = (float) (Math.atan2(this.motX, this.motZ) * 180.0D / 3.1415927410125732D);
+            this.lastPitch = this.pitch = (float) (Math.atan2(this.motY, (double) f) * 180.0D / 3.1415927410125732D);
         }
 
         if (this.a > 0) {
@@ -80,7 +80,7 @@ public class EntityArrow extends Entity {
         }
 
         if (this.ak) {
-            int i = this.l.a(this.c, this.d, this.e);
+            int i = this.world.getTypeId(this.c, this.d, this.e);
 
             if (i == this.f) {
                 ++this.al;
@@ -92,27 +92,27 @@ public class EntityArrow extends Entity {
             }
 
             this.ak = false;
-            this.s *= (double) (this.W.nextFloat() * 0.2F);
-            this.t *= (double) (this.W.nextFloat() * 0.2F);
-            this.u *= (double) (this.W.nextFloat() * 0.2F);
+            this.motX *= (double) (this.random.nextFloat() * 0.2F);
+            this.motY *= (double) (this.random.nextFloat() * 0.2F);
+            this.motZ *= (double) (this.random.nextFloat() * 0.2F);
             this.al = 0;
             this.am = 0;
         } else {
             ++this.am;
         }
 
-        Vec3D vec3d = Vec3D.b(this.p, this.q, this.r);
-        Vec3D vec3d1 = Vec3D.b(this.p + this.s, this.q + this.t, this.r + this.u);
-        MovingObjectPosition movingobjectposition = this.l.a(vec3d, vec3d1);
+        Vec3D vec3d = Vec3D.b(this.locX, this.locY, this.locZ);
+        Vec3D vec3d1 = Vec3D.b(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
+        MovingObjectPosition movingobjectposition = this.world.a(vec3d, vec3d1);
 
-        vec3d = Vec3D.b(this.p, this.q, this.r);
-        vec3d1 = Vec3D.b(this.p + this.s, this.q + this.t, this.r + this.u);
+        vec3d = Vec3D.b(this.locX, this.locY, this.locZ);
+        vec3d1 = Vec3D.b(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
         if (movingobjectposition != null) {
             vec3d1 = Vec3D.b(movingobjectposition.f.a, movingobjectposition.f.b, movingobjectposition.f.c);
         }
 
         Entity entity = null;
-        List list = this.l.b((Entity) this, this.z.a(this.s, this.t, this.u).b(1.0D, 1.0D, 1.0D));
+        List list = this.world.b((Entity) this, this.boundingBox.a(this.motX, this.motY, this.motZ).b(1.0D, 1.0D, 1.0D));
         double d0 = 0.0D;
 
         float f1;
@@ -122,7 +122,7 @@ public class EntityArrow extends Entity {
 
             if (entity1.c_() && (entity1 != this.b || this.am >= 5)) {
                 f1 = 0.3F;
-                AxisAlignedBB axisalignedbb = entity1.z.b((double) f1, (double) f1, (double) f1);
+                AxisAlignedBB axisalignedbb = entity1.boundingBox.b((double) f1, (double) f1, (double) f1);
                 MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
 
                 if (movingobjectposition1 != null) {
@@ -145,58 +145,58 @@ public class EntityArrow extends Entity {
         if (movingobjectposition != null) {
             if (movingobjectposition.g != null) {
                 if (movingobjectposition.g.a(this.b, 4)) {
-                    this.l.a(this, "random.drr", 1.0F, 1.2F / (this.W.nextFloat() * 0.2F + 0.9F));
+                    this.world.a(this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                     this.q();
                 } else {
-                    this.s *= -0.10000000149011612D;
-                    this.t *= -0.10000000149011612D;
-                    this.u *= -0.10000000149011612D;
-                    this.v += 180.0F;
-                    this.x += 180.0F;
+                    this.motX *= -0.10000000149011612D;
+                    this.motY *= -0.10000000149011612D;
+                    this.motZ *= -0.10000000149011612D;
+                    this.yaw += 180.0F;
+                    this.lastYaw += 180.0F;
                     this.am = 0;
                 }
             } else {
                 this.c = movingobjectposition.b;
                 this.d = movingobjectposition.c;
                 this.e = movingobjectposition.d;
-                this.f = this.l.a(this.c, this.d, this.e);
-                this.s = (double) ((float) (movingobjectposition.f.a - this.p));
-                this.t = (double) ((float) (movingobjectposition.f.b - this.q));
-                this.u = (double) ((float) (movingobjectposition.f.c - this.r));
-                f2 = MathHelper.a(this.s * this.s + this.t * this.t + this.u * this.u);
-                this.p -= this.s / (double) f2 * 0.05000000074505806D;
-                this.q -= this.t / (double) f2 * 0.05000000074505806D;
-                this.r -= this.u / (double) f2 * 0.05000000074505806D;
-                this.l.a(this, "random.drr", 1.0F, 1.2F / (this.W.nextFloat() * 0.2F + 0.9F));
+                this.f = this.world.getTypeId(this.c, this.d, this.e);
+                this.motX = (double) ((float) (movingobjectposition.f.a - this.locX));
+                this.motY = (double) ((float) (movingobjectposition.f.b - this.locY));
+                this.motZ = (double) ((float) (movingobjectposition.f.c - this.locZ));
+                f2 = MathHelper.a(this.motX * this.motX + this.motY * this.motY + this.motZ * this.motZ);
+                this.locX -= this.motX / (double) f2 * 0.05000000074505806D;
+                this.locY -= this.motY / (double) f2 * 0.05000000074505806D;
+                this.locZ -= this.motZ / (double) f2 * 0.05000000074505806D;
+                this.world.a(this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 this.ak = true;
                 this.a = 7;
             }
         }
 
-        this.p += this.s;
-        this.q += this.t;
-        this.r += this.u;
-        f2 = MathHelper.a(this.s * this.s + this.u * this.u);
-        this.v = (float) (Math.atan2(this.s, this.u) * 180.0D / 3.1415927410125732D);
+        this.locX += this.motX;
+        this.locY += this.motY;
+        this.locZ += this.motZ;
+        f2 = MathHelper.a(this.motX * this.motX + this.motZ * this.motZ);
+        this.yaw = (float) (Math.atan2(this.motX, this.motZ) * 180.0D / 3.1415927410125732D);
 
-        for (this.w = (float) (Math.atan2(this.t, (double) f2) * 180.0D / 3.1415927410125732D); this.w - this.y < -180.0F; this.y -= 360.0F) {
+        for (this.pitch = (float) (Math.atan2(this.motY, (double) f2) * 180.0D / 3.1415927410125732D); this.pitch - this.lastPitch < -180.0F; this.lastPitch -= 360.0F) {
             ;
         }
 
-        while (this.w - this.y >= 180.0F) {
-            this.y += 360.0F;
+        while (this.pitch - this.lastPitch >= 180.0F) {
+            this.lastPitch += 360.0F;
         }
 
-        while (this.v - this.x < -180.0F) {
-            this.x -= 360.0F;
+        while (this.yaw - this.lastYaw < -180.0F) {
+            this.lastYaw -= 360.0F;
         }
 
-        while (this.v - this.x >= 180.0F) {
-            this.x += 360.0F;
+        while (this.yaw - this.lastYaw >= 180.0F) {
+            this.lastYaw += 360.0F;
         }
 
-        this.w = this.y + (this.w - this.y) * 0.2F;
-        this.v = this.x + (this.v - this.x) * 0.2F;
+        this.pitch = this.lastPitch + (this.pitch - this.lastPitch) * 0.2F;
+        this.yaw = this.lastYaw + (this.yaw - this.lastYaw) * 0.2F;
         float f3 = 0.99F;
 
         f1 = 0.03F;
@@ -204,17 +204,17 @@ public class EntityArrow extends Entity {
             for (int k = 0; k < 4; ++k) {
                 float f4 = 0.25F;
 
-                this.l.a("bubble", this.p - this.s * (double) f4, this.q - this.t * (double) f4, this.r - this.u * (double) f4, this.s, this.t, this.u);
+                this.world.a("bubble", this.locX - this.motX * (double) f4, this.locY - this.motY * (double) f4, this.locZ - this.motZ * (double) f4, this.motX, this.motY, this.motZ);
             }
 
             f3 = 0.8F;
         }
 
-        this.s *= (double) f3;
-        this.t *= (double) f3;
-        this.u *= (double) f3;
-        this.t -= (double) f1;
-        this.a(this.p, this.q, this.r);
+        this.motX *= (double) f3;
+        this.motY *= (double) f3;
+        this.motZ *= (double) f3;
+        this.motY -= (double) f1;
+        this.a(this.locX, this.locY, this.locZ);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -236,9 +236,9 @@ public class EntityArrow extends Entity {
     }
 
     public void b(EntityHuman entityhuman) {
-        if (!this.l.z) {
-            if (this.ak && this.b == entityhuman && this.a <= 0 && entityhuman.an.a(new ItemStack(Item.ARROW, 1))) {
-                this.l.a(this, "random.pop", 0.2F, ((this.W.nextFloat() - this.W.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        if (!this.world.isStatic) {
+            if (this.ak && this.b == entityhuman && this.a <= 0 && entityhuman.inventory.a(new ItemStack(Item.ARROW, 1))) {
+                this.world.a(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 entityhuman.c(this, 1);
                 this.q();
             }

@@ -27,7 +27,7 @@ public class WorldServer extends World {
             entity.q();
         }
 
-        if (entity.j == null || !(entity.j instanceof EntityHuman)) {
+        if (entity.passenger == null || !(entity.passenger instanceof EntityHuman)) {
             super.a(entity, flag);
         }
     }
@@ -56,24 +56,24 @@ public class WorldServer extends World {
     }
 
     public boolean a(EntityHuman entityhuman, int i, int j, int k) {
-        int l = (int) MathHelper.e((float) (i - this.m));
-        int i1 = (int) MathHelper.e((float) (k - this.o));
+        int l = (int) MathHelper.e((float) (i - this.spawnX));
+        int i1 = (int) MathHelper.e((float) (k - this.spawnZ));
 
         if (l > i1) {
             i1 = l;
         }
 
-        return i1 > 16 || this.D.f.g(entityhuman.aw);
+        return i1 > 16 || this.D.f.g(entityhuman.name);
     }
 
     protected void b(Entity entity) {
         super.b(entity);
-        this.E.a(entity.g, entity);
+        this.E.a(entity.id, entity);
     }
 
     protected void c(Entity entity) {
         super.c(entity);
-        this.E.d(entity.g);
+        this.E.d(entity.id);
     }
 
     public Entity a(int i) {
@@ -81,7 +81,7 @@ public class WorldServer extends World {
     }
 
     public void a(Entity entity, byte b0) {
-        Packet38EntityStatus packet38entitystatus = new Packet38EntityStatus(entity.g, b0);
+        Packet38EntityStatus packet38entitystatus = new Packet38EntityStatus(entity.id, b0);
 
         this.D.k.b(entity, packet38entitystatus);
     }

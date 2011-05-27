@@ -42,7 +42,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
         ConsoleLogManager.a();
-        a.info("Starting minecraft server version Beta 1.2");
+        a.info("Starting minecraft server version Beta 1.2_01");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             a.warning("**** NOT ENOUGH RAM!");
             a.warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
@@ -117,7 +117,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
                     i = l;
                 }
 
-                this.e.A.d(this.e.m + j >> 4, this.e.o + k >> 4);
+                this.e.A.d(this.e.spawnX + j >> 4, this.e.spawnZ + k >> 4);
 
                 while (this.e.d() && this.o) {
                     ;
@@ -343,14 +343,14 @@ public class MinecraftServer implements ICommandListener, Runnable {
                             for (int i = 0; i < this.f.b.size(); ++i) {
                                 EntityPlayer entityplayer1 = (EntityPlayer) this.f.b.get(i);
 
-                                if (entityplayer1.aw.equalsIgnoreCase(s2)) {
+                                if (entityplayer1.name.equalsIgnoreCase(s2)) {
                                     entityplayer = entityplayer1;
                                 }
                             }
 
                             if (entityplayer != null) {
                                 entityplayer.a.a("Kicked by admin");
-                                this.a(s1, "Kicking " + entityplayer.aw);
+                                this.a(s1, "Kicking " + entityplayer.name);
                             } else {
                                 icommandlistener.b("Can\'t find user " + s2 + ". No kick.");
                             }
@@ -368,7 +368,7 @@ public class MinecraftServer implements ICommandListener, Runnable {
                                     } else if (entityplayer2 == null) {
                                         icommandlistener.b("Can\'t find user " + astring[2] + ". No tp.");
                                     } else {
-                                        entityplayer.a.a(entityplayer2.p, entityplayer2.q, entityplayer2.r, entityplayer2.v, entityplayer2.w);
+                                        entityplayer.a.a(entityplayer2.locX, entityplayer2.locY, entityplayer2.locZ, entityplayer2.yaw, entityplayer2.pitch);
                                         this.a(s1, "Teleporting " + astring[1] + " to " + astring[2] + ".");
                                     }
                                 } else {
@@ -387,8 +387,8 @@ public class MinecraftServer implements ICommandListener, Runnable {
                                     try {
                                         int j = Integer.parseInt(astring[2]);
 
-                                        if (Item.c[j] != null) {
-                                            this.a(s1, "Giving " + entityplayer2.aw + " some " + j);
+                                        if (Item.byId[j] != null) {
+                                            this.a(s1, "Giving " + entityplayer2.name + " some " + j);
                                             int k = 1;
 
                                             if (astring.length > 3) {

@@ -48,8 +48,8 @@ public class Packet104WindowItems extends Packet {
             if (this.b[i] == null) {
                 dataoutputstream.writeShort(-1);
             } else {
-                dataoutputstream.writeShort((short) this.b[i].c);
-                dataoutputstream.writeByte((byte) this.b[i].a);
+                dataoutputstream.writeShort((short) this.b[i].id);
+                dataoutputstream.writeByte((byte) this.b[i].count);
                 dataoutputstream.writeShort((short) this.b[i].h());
             }
         }

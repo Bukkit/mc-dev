@@ -31,8 +31,8 @@ public class WorldGenTaiga2 extends WorldGenerator {
                 for (i2 = i - k2; i2 <= i + k2 && flag; ++i2) {
                     for (int l2 = k - k2; l2 <= k + k2 && flag; ++l2) {
                         if (l1 >= 0 && l1 < 128) {
-                            j2 = world.a(i2, l1, l2);
-                            if (j2 != 0 && j2 != Block.LEAVES.bi) {
+                            j2 = world.getTypeId(i2, l1, l2);
+                            if (j2 != 0 && j2 != Block.LEAVES.id) {
                                 flag = false;
                             }
                         } else {
@@ -45,9 +45,9 @@ public class WorldGenTaiga2 extends WorldGenerator {
             if (!flag) {
                 return false;
             } else {
-                l1 = world.a(i, j - 1, k);
-                if ((l1 == Block.GRASS.bi || l1 == Block.DIRT.bi) && j < 128 - l - 1) {
-                    world.b(i, j - 1, k, Block.DIRT.bi);
+                l1 = world.getTypeId(i, j - 1, k);
+                if ((l1 == Block.GRASS.id || l1 == Block.DIRT.id) && j < 128 - l - 1) {
+                    world.setTypeId(i, j - 1, k, Block.DIRT.id);
                     k2 = random.nextInt(2);
                     i2 = 1;
                     byte b0 = 0;
@@ -64,8 +64,8 @@ public class WorldGenTaiga2 extends WorldGenerator {
                             for (int l3 = k - k2; l3 <= k + k2; ++l3) {
                                 int i4 = l3 - k;
 
-                                if ((Math.abs(k3) != k2 || Math.abs(i4) != k2 || k2 <= 0) && !Block.o[world.a(i3, j3, l3)]) {
-                                    world.a(i3, j3, l3, Block.LEAVES.bi, 1);
+                                if ((Math.abs(k3) != k2 || Math.abs(i4) != k2 || k2 <= 0) && !Block.o[world.getTypeId(i3, j3, l3)]) {
+                                    world.setTypeIdAndData(i3, j3, l3, Block.LEAVES.id, 1);
                                 }
                             }
                         }
@@ -85,9 +85,9 @@ public class WorldGenTaiga2 extends WorldGenerator {
                     j2 = random.nextInt(3);
 
                     for (j3 = 0; j3 < l - j2; ++j3) {
-                        i3 = world.a(i, j + j3, k);
-                        if (i3 == 0 || i3 == Block.LEAVES.bi) {
-                            world.a(i, j + j3, k, Block.LOG.bi, 1);
+                        i3 = world.getTypeId(i, j + j3, k);
+                        if (i3 == 0 || i3 == Block.LEAVES.id) {
+                            world.setTypeIdAndData(i, j + j3, k, Block.LOG.id, 1);
                         }
                     }
 

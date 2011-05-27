@@ -3,15 +3,15 @@ package net.minecraft.server;
 public class BlockJukeBox extends Block {
 
     protected BlockJukeBox(int i, int j) {
-        super(i, j, Material.c);
+        super(i, j, Material.WOOD);
     }
 
     public int a(int i) {
-        return this.bh + (i == 1 ? 1 : 0);
+        return this.textureId + (i == 1 ? 1 : 0);
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        int l = world.b(i, j, k);
+        int l = world.getData(i, j, k);
 
         if (l > 0) {
             this.f(world, i, j, k, l);
@@ -24,7 +24,7 @@ public class BlockJukeBox extends Block {
     public void f(World world, int i, int j, int k, int l) {
         world.a((String) null, i, j, k);
         world.c(i, j, k, 0);
-        int i1 = Item.GOLD_RECORD.ba + l - 1;
+        int i1 = Item.GOLD_RECORD.id + l - 1;
         float f = 0.7F;
         double d0 = (double) (world.l.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
         double d1 = (double) (world.l.nextFloat() * f) + (double) (1.0F - f) * 0.2D + 0.6D;
@@ -36,7 +36,7 @@ public class BlockJukeBox extends Block {
     }
 
     public void a(World world, int i, int j, int k, int l, float f) {
-        if (!world.z) {
+        if (!world.isStatic) {
             if (l > 0) {
                 this.f(world, i, j, k, l);
             }

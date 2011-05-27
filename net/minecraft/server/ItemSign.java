@@ -4,14 +4,14 @@ public class ItemSign extends Item {
 
     public ItemSign(int i) {
         super(i);
-        this.bc = 64;
-        this.bb = 1;
+        this.durability = 64;
+        this.maxStackSize = 1;
     }
 
     public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
         if (l == 0) {
             return false;
-        } else if (!world.c(i, j, k).a()) {
+        } else if (!world.getMaterial(i, j, k).isBuildable()) {
             return false;
         } else {
             if (l == 1) {
@@ -38,13 +38,13 @@ public class ItemSign extends Item {
                 return false;
             } else {
                 if (l == 1) {
-                    world.b(i, j, k, Block.SIGN_POST.bi, MathHelper.b((double) ((entityhuman.v + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15);
+                    world.b(i, j, k, Block.SIGN_POST.id, MathHelper.b((double) ((entityhuman.yaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15);
                 } else {
-                    world.b(i, j, k, Block.WALL_SIGN.bi, l);
+                    world.b(i, j, k, Block.WALL_SIGN.id, l);
                 }
 
-                --itemstack.a;
-                TileEntitySign tileentitysign = (TileEntitySign) world.m(i, j, k);
+                --itemstack.count;
+                TileEntitySign tileentitysign = (TileEntitySign) world.getTileEntity(i, j, k);
 
                 if (tileentitysign != null) {
                     entityhuman.a(tileentitysign);

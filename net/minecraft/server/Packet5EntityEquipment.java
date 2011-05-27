@@ -19,7 +19,7 @@ public class Packet5EntityEquipment extends Packet {
             this.c = -1;
             this.d = 0;
         } else {
-            this.c = itemstack.c;
+            this.c = itemstack.id;
             this.d = itemstack.h();
         }
     }

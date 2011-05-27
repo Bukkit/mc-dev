@@ -8,12 +8,12 @@ public class WorldGenClay extends WorldGenerator {
     private int b;
 
     public WorldGenClay(int i) {
-        this.a = Block.CLAY.bi;
+        this.a = Block.CLAY.id;
         this.b = i;
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
-        if (world.c(i, j, k) != Material.f) {
+        if (world.getMaterial(i, j, k) != Material.WATER) {
             return false;
         } else {
             float f = random.nextFloat() * 3.1415927F;
@@ -40,10 +40,10 @@ public class WorldGenClay extends WorldGenerator {
                             double d14 = ((double) k1 + 0.5D - d8) / (d10 / 2.0D);
 
                             if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D) {
-                                int l1 = world.a(i1, j1, k1);
+                                int l1 = world.getTypeId(i1, j1, k1);
 
-                                if (l1 == Block.SAND.bi) {
-                                    world.b(i1, j1, k1, this.a);
+                                if (l1 == Block.SAND.id) {
+                                    world.setTypeId(i1, j1, k1, this.a);
                                 }
                             }
                         }

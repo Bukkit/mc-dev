@@ -3,7 +3,7 @@ package net.minecraft.server;
 public class BlockCloth extends Block {
 
     public BlockCloth() {
-        super(35, 64, Material.k);
+        super(35, 64, Material.CLOTH);
     }
 
     protected int b(int i) {

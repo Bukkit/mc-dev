@@ -19,7 +19,7 @@ public class InventoryPlayer implements IInventory {
 
     private int d(int i) {
         for (int j = 0; j < this.a.length; ++j) {
-            if (this.a[j] != null && this.a[j].c == i) {
+            if (this.a[j] != null && this.a[j].id == i) {
                 return j;
             }
         }
@@ -29,7 +29,7 @@ public class InventoryPlayer implements IInventory {
 
     private int c(ItemStack itemstack) {
         for (int i = 0; i < this.a.length; ++i) {
-            if (this.a[i] != null && this.a[i].c == itemstack.c && this.a[i].c() && this.a[i].a < this.a[i].b() && this.a[i].a < this.c() && (!this.a[i].e() || this.a[i].h() == itemstack.h())) {
+            if (this.a[i] != null && this.a[i].id == itemstack.id && this.a[i].c() && this.a[i].count < this.a[i].b() && this.a[i].count < this.c() && (!this.a[i].e() || this.a[i].h() == itemstack.h())) {
                 return i;
             }
         }
@@ -48,8 +48,8 @@ public class InventoryPlayer implements IInventory {
     }
 
     private int d(ItemStack itemstack) {
-        int i = itemstack.c;
-        int j = itemstack.a;
+        int i = itemstack.id;
+        int j = itemstack.count;
         int k = this.c(itemstack);
 
         if (k < 0) {
@@ -65,19 +65,19 @@ public class InventoryPlayer implements IInventory {
 
             int l = j;
 
-            if (j > this.a[k].b() - this.a[k].a) {
-                l = this.a[k].b() - this.a[k].a;
+            if (j > this.a[k].b() - this.a[k].count) {
+                l = this.a[k].b() - this.a[k].count;
             }
 
-            if (l > this.c() - this.a[k].a) {
-                l = this.c() - this.a[k].a;
+            if (l > this.c() - this.a[k].count) {
+                l = this.c() - this.a[k].count;
             }
 
             if (l == 0) {
                 return j;
             } else {
                 j -= l;
-                this.a[k].a += l;
+                this.a[k].count += l;
                 this.a[k].b = 5;
                 return j;
             }
@@ -98,7 +98,7 @@ public class InventoryPlayer implements IInventory {
         if (j < 0) {
             return false;
         } else {
-            if (--this.a[j].a <= 0) {
+            if (--this.a[j].count <= 0) {
                 this.a[j] = null;
             }
 
@@ -108,8 +108,8 @@ public class InventoryPlayer implements IInventory {
 
     public boolean a(ItemStack itemstack) {
         if (!itemstack.f()) {
-            itemstack.a = this.d(itemstack);
-            if (itemstack.a == 0) {
+            itemstack.count = this.d(itemstack);
+            if (itemstack.count == 0) {
                 return true;
             }
         }
@@ -136,13 +136,13 @@ public class InventoryPlayer implements IInventory {
         if (aitemstack[i] != null) {
             ItemStack itemstack;
 
-            if (aitemstack[i].a <= j) {
+            if (aitemstack[i].count <= j) {
                 itemstack = aitemstack[i];
                 aitemstack[i] = null;
                 return itemstack;
             } else {
                 itemstack = aitemstack[i].a(j);
-                if (aitemstack[i].a == 0) {
+                if (aitemstack[i].count == 0) {
                     aitemstack[i] = null;
                 }
 
@@ -250,7 +250,7 @@ public class InventoryPlayer implements IInventory {
     }
 
     public boolean b(Block block) {
-        if (block.bt != Material.d && block.bt != Material.e && block.bt != Material.t && block.bt != Material.s) {
+        if (block.material != Material.STONE && block.material != Material.ORE && block.material != Material.SNOW_BLOCK && block.material != Material.SNOW_LAYER) {
             return true;
         } else {
             ItemStack itemstack = this.a(this.c);
@@ -289,7 +289,7 @@ public class InventoryPlayer implements IInventory {
         for (int j = 0; j < this.b.length; ++j) {
             if (this.b[j] != null && this.b[j].a() instanceof ItemArmor) {
                 this.b[j].b(i);
-                if (this.b[j].a == 0) {
+                if (this.b[j].count == 0) {
                     this.b[j].a(this.e);
                     this.b[j] = null;
                 }
@@ -329,6 +329,6 @@ public class InventoryPlayer implements IInventory {
     }
 
     public boolean a_(EntityHuman entityhuman) {
-        return this.e.G ? false : entityhuman.b((Entity) this.e) <= 64.0D;
+        return this.e.dead ? false : entityhuman.b((Entity) this.e) <= 64.0D;
     }
 }

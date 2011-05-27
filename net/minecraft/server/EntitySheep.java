@@ -8,26 +8,26 @@ public class EntitySheep extends EntityAnimal {
 
     public EntitySheep(World world) {
         super(world);
-        this.aP = "/mob/sheep.png";
+        this.texture = "/mob/sheep.png";
         this.a(0.9F, 1.3F);
     }
 
     protected void a() {
         super.a();
-        this.af.a(16, new Byte((byte) 0));
+        this.datawatcher.a(16, new Byte((byte) 0));
     }
 
     public boolean a(Entity entity, int i) {
-        if (!this.l.z && !this.f_() && entity instanceof EntityLiving) {
+        if (!this.world.isStatic && !this.f_() && entity instanceof EntityLiving) {
             this.a(true);
-            int j = 1 + this.W.nextInt(3);
+            int j = 1 + this.random.nextInt(3);
 
             for (int k = 0; k < j; ++k) {
-                EntityItem entityitem = this.a(new ItemStack(Block.WOOL.bi, 1, this.e_()), 1.0F);
+                EntityItem entityitem = this.a(new ItemStack(Block.WOOL.id, 1, this.e_()), 1.0F);
 
-                entityitem.t += (double) (this.W.nextFloat() * 0.05F);
-                entityitem.s += (double) ((this.W.nextFloat() - this.W.nextFloat()) * 0.1F);
-                entityitem.u += (double) ((this.W.nextFloat() - this.W.nextFloat()) * 0.1F);
+                entityitem.motY += (double) (this.random.nextFloat() * 0.05F);
+                entityitem.motX += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
+                entityitem.motZ += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
             }
         }
 
@@ -59,26 +59,26 @@ public class EntitySheep extends EntityAnimal {
     }
 
     public int e_() {
-        return this.af.a(16) & 15;
+        return this.datawatcher.a(16) & 15;
     }
 
     public void a(int i) {
-        byte b0 = this.af.a(16);
+        byte b0 = this.datawatcher.a(16);
 
-        this.af.b(16, Byte.valueOf((byte) (b0 & 240 | i & 15)));
+        this.datawatcher.b(16, Byte.valueOf((byte) (b0 & 240 | i & 15)));
     }
 
     public boolean f_() {
-        return (this.af.a(16) & 16) != 0;
+        return (this.datawatcher.a(16) & 16) != 0;
     }
 
     public void a(boolean flag) {
-        byte b0 = this.af.a(16);
+        byte b0 = this.datawatcher.a(16);
 
         if (flag) {
-            this.af.b(16, Byte.valueOf((byte) (b0 | 16)));
+            this.datawatcher.b(16, Byte.valueOf((byte) (b0 | 16)));
         } else {
-            this.af.b(16, Byte.valueOf((byte) (b0 & -17)));
+            this.datawatcher.b(16, Byte.valueOf((byte) (b0 & -17)));
         }
     }
 

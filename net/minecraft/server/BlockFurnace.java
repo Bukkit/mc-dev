@@ -7,13 +7,13 @@ public class BlockFurnace extends BlockContainer {
     private final boolean a;
 
     protected BlockFurnace(int i, boolean flag) {
-        super(i, Material.d);
+        super(i, Material.STONE);
         this.a = flag;
-        this.bh = 45;
+        this.textureId = 45;
     }
 
     public int a(int i, Random random) {
-        return Block.FURNACE.bi;
+        return Block.FURNACE.id;
     }
 
     public void e(World world, int i, int j, int k) {
@@ -22,10 +22,10 @@ public class BlockFurnace extends BlockContainer {
     }
 
     private void g(World world, int i, int j, int k) {
-        int l = world.a(i, j, k - 1);
-        int i1 = world.a(i, j, k + 1);
-        int j1 = world.a(i - 1, j, k);
-        int k1 = world.a(i + 1, j, k);
+        int l = world.getTypeId(i, j, k - 1);
+        int i1 = world.getTypeId(i, j, k + 1);
+        int j1 = world.getTypeId(i - 1, j, k);
+        int k1 = world.getTypeId(i + 1, j, k);
         byte b0 = 3;
 
         if (Block.o[l] && !Block.o[i1]) {
@@ -48,14 +48,14 @@ public class BlockFurnace extends BlockContainer {
     }
 
     public int a(int i) {
-        return i == 1 ? this.bh + 17 : (i == 0 ? this.bh + 17 : (i == 3 ? this.bh - 1 : this.bh));
+        return i == 1 ? this.textureId + 17 : (i == 0 ? this.textureId + 17 : (i == 3 ? this.textureId - 1 : this.textureId));
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (world.z) {
+        if (world.isStatic) {
             return true;
         } else {
-            TileEntityFurnace tileentityfurnace = (TileEntityFurnace) world.m(i, j, k);
+            TileEntityFurnace tileentityfurnace = (TileEntityFurnace) world.getTileEntity(i, j, k);
 
             entityhuman.a(tileentityfurnace);
             return true;
@@ -63,17 +63,17 @@ public class BlockFurnace extends BlockContainer {
     }
 
     public static void a(boolean flag, World world, int i, int j, int k) {
-        int l = world.b(i, j, k);
-        TileEntity tileentity = world.m(i, j, k);
+        int l = world.getData(i, j, k);
+        TileEntity tileentity = world.getTileEntity(i, j, k);
 
         if (flag) {
-            world.e(i, j, k, Block.BURNING_FURNACE.bi);
+            world.e(i, j, k, Block.BURNING_FURNACE.id);
         } else {
-            world.e(i, j, k, Block.FURNACE.bi);
+            world.e(i, j, k, Block.FURNACE.id);
         }
 
         world.c(i, j, k, l);
-        world.a(i, j, k, tileentity);
+        world.setTileEntity(i, j, k, tileentity);
     }
 
     protected TileEntity a_() {
@@ -81,7 +81,7 @@ public class BlockFurnace extends BlockContainer {
     }
 
     public void a(World world, int i, int j, int k, EntityLiving entityliving) {
-        int l = MathHelper.b((double) (entityliving.v * 4.0F / 360.0F) + 0.5D) & 3;
+        int l = MathHelper.b((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         if (l == 0) {
             world.c(i, j, k, 2);

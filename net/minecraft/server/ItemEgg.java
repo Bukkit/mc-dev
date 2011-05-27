@@ -4,13 +4,13 @@ public class ItemEgg extends Item {
 
     public ItemEgg(int i) {
         super(i);
-        this.bb = 16;
+        this.maxStackSize = 16;
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        --itemstack.a;
+        --itemstack.count;
         world.a(entityhuman, "random.bow", 0.5F, 0.4F / (b.nextFloat() * 0.4F + 0.8F));
-        if (!world.z) {
+        if (!world.isStatic) {
             world.a((Entity) (new EntityEgg(world, entityhuman)));
         }
 

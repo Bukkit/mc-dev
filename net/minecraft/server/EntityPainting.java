@@ -16,7 +16,7 @@ public class EntityPainting extends Entity {
         super(world);
         this.f = 0;
         this.a = 0;
-        this.H = 0.0F;
+        this.height = 0.0F;
         this.a(0.5F, 0.5F);
     }
 
@@ -40,7 +40,7 @@ public class EntityPainting extends Entity {
         }
 
         if (arraylist.size() > 0) {
-            this.e = (EnumArt) arraylist.get(this.W.nextInt(arraylist.size()));
+            this.e = (EnumArt) arraylist.get(this.random.nextInt(arraylist.size()));
         }
 
         this.a(l);
@@ -50,10 +50,10 @@ public class EntityPainting extends Entity {
 
     public void a(int i) {
         this.a = i;
-        this.x = this.v = (float) (i * 90);
-        float f = (float) this.e.z;
-        float f1 = (float) this.e.A;
-        float f2 = (float) this.e.z;
+        this.lastYaw = this.yaw = (float) (i * 90);
+        float f = (float) this.e.A;
+        float f1 = (float) this.e.B;
+        float f2 = (float) this.e.A;
 
         if (i != 0 && i != 2) {
             f = 0.5F;
@@ -86,26 +86,26 @@ public class EntityPainting extends Entity {
         }
 
         if (i == 0) {
-            f3 -= this.d(this.e.z);
+            f3 -= this.d(this.e.A);
         }
 
         if (i == 1) {
-            f5 += this.d(this.e.z);
+            f5 += this.d(this.e.A);
         }
 
         if (i == 2) {
-            f3 += this.d(this.e.z);
+            f3 += this.d(this.e.A);
         }
 
         if (i == 3) {
-            f5 -= this.d(this.e.z);
+            f5 -= this.d(this.e.A);
         }
 
-        f4 += this.d(this.e.A);
+        f4 += this.d(this.e.B);
         this.a((double) f3, (double) f4, (double) f5);
         float f7 = -0.00625F;
 
-        this.z.c((double) (f3 - f - f7), (double) (f4 - f1 - f7), (double) (f5 - f2 - f7), (double) (f3 + f + f7), (double) (f4 + f1 + f7), (double) (f5 + f2 + f7));
+        this.boundingBox.c((double) (f3 - f - f7), (double) (f4 - f1 - f7), (double) (f5 - f2 - f7), (double) (f3 + f + f7), (double) (f4 + f1 + f7), (double) (f5 + f2 + f7));
     }
 
     private float d(int i) {
@@ -113,42 +113,42 @@ public class EntityPainting extends Entity {
     }
 
     public void b_() {
-        if (this.f++ == 100 && !this.l.z) {
+        if (this.f++ == 100 && !this.world.isStatic) {
             this.f = 0;
             if (!this.d()) {
                 this.q();
-                this.l.a((Entity) (new EntityItem(this.l, this.p, this.q, this.r, new ItemStack(Item.PAINTING))));
+                this.world.a((Entity) (new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING))));
             }
         }
     }
 
     public boolean d() {
-        if (this.l.a((Entity) this, this.z).size() > 0) {
+        if (this.world.a((Entity) this, this.boundingBox).size() > 0) {
             return false;
         } else {
-            int i = this.e.z / 16;
-            int j = this.e.A / 16;
+            int i = this.e.A / 16;
+            int j = this.e.B / 16;
             int k = this.b;
             int l = this.c;
             int i1 = this.d;
 
             if (this.a == 0) {
-                k = MathHelper.b(this.p - (double) ((float) this.e.z / 32.0F));
+                k = MathHelper.b(this.locX - (double) ((float) this.e.A / 32.0F));
             }
 
             if (this.a == 1) {
-                i1 = MathHelper.b(this.r - (double) ((float) this.e.z / 32.0F));
+                i1 = MathHelper.b(this.locZ - (double) ((float) this.e.A / 32.0F));
             }
 
             if (this.a == 2) {
-                k = MathHelper.b(this.p - (double) ((float) this.e.z / 32.0F));
+                k = MathHelper.b(this.locX - (double) ((float) this.e.A / 32.0F));
             }
 
             if (this.a == 3) {
-                i1 = MathHelper.b(this.r - (double) ((float) this.e.z / 32.0F));
+                i1 = MathHelper.b(this.locZ - (double) ((float) this.e.A / 32.0F));
             }
 
-            l = MathHelper.b(this.q - (double) ((float) this.e.A / 32.0F));
+            l = MathHelper.b(this.locY - (double) ((float) this.e.B / 32.0F));
 
             int j1;
 
@@ -157,18 +157,18 @@ public class EntityPainting extends Entity {
                     Material material;
 
                     if (this.a != 0 && this.a != 2) {
-                        material = this.l.c(this.b, l + j1, i1 + k1);
+                        material = this.world.getMaterial(this.b, l + j1, i1 + k1);
                     } else {
-                        material = this.l.c(k + k1, l + j1, this.d);
+                        material = this.world.getMaterial(k + k1, l + j1, this.d);
                     }
 
-                    if (!material.a()) {
+                    if (!material.isBuildable()) {
                         return false;
                     }
                 }
             }
 
-            List list = this.l.b((Entity) this, this.z);
+            List list = this.world.b((Entity) this, this.boundingBox);
 
             for (j1 = 0; j1 < list.size(); ++j1) {
                 if (list.get(j1) instanceof EntityPainting) {
@@ -185,10 +185,10 @@ public class EntityPainting extends Entity {
     }
 
     public boolean a(Entity entity, int i) {
-        if (!this.G && !this.l.z) {
+        if (!this.dead && !this.world.isStatic) {
             this.q();
             this.y();
-            this.l.a((Entity) (new EntityItem(this.l, this.p, this.q, this.r, new ItemStack(Item.PAINTING))));
+            this.world.a((Entity) (new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING))));
         }
 
         return true;
@@ -196,7 +196,7 @@ public class EntityPainting extends Entity {
 
     public void a(NBTTagCompound nbttagcompound) {
         nbttagcompound.a("Dir", (byte) this.a);
-        nbttagcompound.a("Motive", this.e.y);
+        nbttagcompound.a("Motive", this.e.z);
         nbttagcompound.a("TileX", this.b);
         nbttagcompound.a("TileY", this.c);
         nbttagcompound.a("TileZ", this.d);
@@ -214,7 +214,7 @@ public class EntityPainting extends Entity {
         for (int j = 0; j < i; ++j) {
             EnumArt enumart = aenumart[j];
 
-            if (enumart.y.equals(s)) {
+            if (enumart.z.equals(s)) {
                 this.e = enumart;
             }
         }

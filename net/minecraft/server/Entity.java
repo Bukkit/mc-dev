@@ -5,41 +5,41 @@ import java.util.Random;
 
 public abstract class Entity {
 
-    private static int a = 0;
-    public int g;
+    private static int entityCount = 0;
+    public int id;
     public double h;
     public boolean i;
-    public Entity j;
-    public Entity k;
-    public World l;
-    public double m;
-    public double n;
-    public double o;
-    public double p;
-    public double q;
-    public double r;
-    public double s;
-    public double t;
-    public double u;
-    public float v;
-    public float w;
-    public float x;
-    public float y;
-    public final AxisAlignedBB z;
-    public boolean A;
+    public Entity passenger;
+    public Entity vehicle;
+    public World world;
+    public double lastX;
+    public double lastY;
+    public double lastZ;
+    public double locX;
+    public double locY;
+    public double locZ;
+    public double motX;
+    public double motY;
+    public double motZ;
+    public float yaw;
+    public float pitch;
+    public float lastYaw;
+    public float lastPitch;
+    public final AxisAlignedBB boundingBox;
+    public boolean onGround;
     public boolean B;
     public boolean C;
     public boolean D;
     public boolean E;
     public boolean F;
-    public boolean G;
-    public float H;
-    public float I;
-    public float J;
+    public boolean dead;
+    public float height;
+    public float length;
+    public float width;
     public float K;
     public float L;
     protected boolean M;
-    protected float N;
+    protected float fallDistance;
     private int b;
     public double O;
     public double P;
@@ -49,101 +49,101 @@ public abstract class Entity {
     public boolean T;
     public float U;
     public boolean V;
-    protected Random W;
-    public int X;
-    public int Y;
-    public int Z;
-    protected int aa;
+    protected Random random;
+    public int ticksLived;
+    public int maxFireTicks;
+    public int fireTicks;
+    protected int maxAirTicks;
     protected boolean ab;
-    public int ac;
-    public int ad;
-    private boolean c;
+    public int noDamageTicks;
+    public int airTicks;
+    private boolean justCreated;
     protected boolean ae;
-    protected DataWatcher af;
+    protected DataWatcher datawatcher;
     private double d;
     private double e;
     public boolean ag;
-    public int ah;
+    public int chunkX;
     public int ai;
-    public int aj;
+    public int chunkZ;
 
     public Entity(World world) {
-        this.g = a++;
+        this.id = entityCount++;
         this.h = 1.0D;
         this.i = false;
-        this.z = AxisAlignedBB.a(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
-        this.A = false;
+        this.boundingBox = AxisAlignedBB.a(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+        this.onGround = false;
         this.D = false;
         this.E = false;
         this.F = true;
-        this.G = false;
-        this.H = 0.0F;
-        this.I = 0.6F;
-        this.J = 1.8F;
+        this.dead = false;
+        this.height = 0.0F;
+        this.length = 0.6F;
+        this.width = 1.8F;
         this.K = 0.0F;
         this.L = 0.0F;
         this.M = true;
-        this.N = 0.0F;
+        this.fallDistance = 0.0F;
         this.b = 1;
         this.R = 0.0F;
         this.S = 0.0F;
         this.T = false;
         this.U = 0.0F;
         this.V = false;
-        this.W = new Random();
-        this.X = 0;
-        this.Y = 1;
-        this.Z = 0;
-        this.aa = 300;
+        this.random = new Random();
+        this.ticksLived = 0;
+        this.maxFireTicks = 1;
+        this.fireTicks = 0;
+        this.maxAirTicks = 300;
         this.ab = false;
-        this.ac = 0;
-        this.ad = 300;
-        this.c = true;
+        this.noDamageTicks = 0;
+        this.airTicks = 300;
+        this.justCreated = true;
         this.ae = false;
-        this.af = new DataWatcher();
+        this.datawatcher = new DataWatcher();
         this.ag = false;
-        this.l = world;
+        this.world = world;
         this.a(0.0D, 0.0D, 0.0D);
-        this.af.a(0, Byte.valueOf((byte) 0));
+        this.datawatcher.a(0, Byte.valueOf((byte) 0));
         this.a();
     }
 
     protected abstract void a();
 
     public DataWatcher p() {
-        return this.af;
+        return this.datawatcher;
     }
 
     public boolean equals(Object object) {
-        return object instanceof Entity ? ((Entity) object).g == this.g : false;
+        return object instanceof Entity ? ((Entity) object).id == this.id : false;
     }
 
     public int hashCode() {
-        return this.g;
+        return this.id;
     }
 
     public void q() {
-        this.G = true;
+        this.dead = true;
     }
 
     protected void a(float f, float f1) {
-        this.I = f;
-        this.J = f1;
+        this.length = f;
+        this.width = f1;
     }
 
     protected void b(float f, float f1) {
-        this.v = f;
-        this.w = f1;
+        this.yaw = f;
+        this.pitch = f1;
     }
 
     public void a(double d0, double d1, double d2) {
-        this.p = d0;
-        this.q = d1;
-        this.r = d2;
-        float f = this.I / 2.0F;
-        float f1 = this.J;
+        this.locX = d0;
+        this.locY = d1;
+        this.locZ = d2;
+        float f = this.length / 2.0F;
+        float f1 = this.width;
 
-        this.z.c(d0 - (double) f, d1 - (double) this.H + (double) this.R, d2 - (double) f, d0 + (double) f, d1 - (double) this.H + (double) this.R + (double) f1, d2 + (double) f);
+        this.boundingBox.c(d0 - (double) f, d1 - (double) this.height + (double) this.R, d2 - (double) f, d0 + (double) f, d1 - (double) this.height + (double) this.R + (double) f1, d2 + (double) f);
     }
 
     public void b_() {
@@ -151,66 +151,66 @@ public abstract class Entity {
     }
 
     public void r() {
-        if (this.k != null && this.k.G) {
-            this.k = null;
+        if (this.vehicle != null && this.vehicle.dead) {
+            this.vehicle = null;
         }
 
-        ++this.X;
+        ++this.ticksLived;
         this.K = this.L;
-        this.m = this.p;
-        this.n = this.q;
-        this.o = this.r;
-        this.y = this.w;
-        this.x = this.v;
+        this.lastX = this.locX;
+        this.lastY = this.locY;
+        this.lastZ = this.locZ;
+        this.lastPitch = this.pitch;
+        this.lastYaw = this.yaw;
         if (this.v()) {
-            if (!this.ab && !this.c) {
-                float f = MathHelper.a(this.s * this.s * 0.20000000298023224D + this.t * this.t + this.u * this.u * 0.20000000298023224D) * 0.2F;
+            if (!this.ab && !this.justCreated) {
+                float f = MathHelper.a(this.motX * this.motX * 0.20000000298023224D + this.motY * this.motY + this.motZ * this.motZ * 0.20000000298023224D) * 0.2F;
 
                 if (f > 1.0F) {
                     f = 1.0F;
                 }
 
-                this.l.a(this, "random.splash", f, 1.0F + (this.W.nextFloat() - this.W.nextFloat()) * 0.4F);
-                float f1 = (float) MathHelper.b(this.z.b);
+                this.world.a(this, "random.splash", f, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+                float f1 = (float) MathHelper.b(this.boundingBox.b);
 
                 int i;
                 float f2;
                 float f3;
 
-                for (i = 0; (float) i < 1.0F + this.I * 20.0F; ++i) {
-                    f2 = (this.W.nextFloat() * 2.0F - 1.0F) * this.I;
-                    f3 = (this.W.nextFloat() * 2.0F - 1.0F) * this.I;
-                    this.l.a("bubble", this.p + (double) f2, (double) (f1 + 1.0F), this.r + (double) f3, this.s, this.t - (double) (this.W.nextFloat() * 0.2F), this.u);
+                for (i = 0; (float) i < 1.0F + this.length * 20.0F; ++i) {
+                    f2 = (this.random.nextFloat() * 2.0F - 1.0F) * this.length;
+                    f3 = (this.random.nextFloat() * 2.0F - 1.0F) * this.length;
+                    this.world.a("bubble", this.locX + (double) f2, (double) (f1 + 1.0F), this.locZ + (double) f3, this.motX, this.motY - (double) (this.random.nextFloat() * 0.2F), this.motZ);
                 }
 
-                for (i = 0; (float) i < 1.0F + this.I * 20.0F; ++i) {
-                    f2 = (this.W.nextFloat() * 2.0F - 1.0F) * this.I;
-                    f3 = (this.W.nextFloat() * 2.0F - 1.0F) * this.I;
-                    this.l.a("splash", this.p + (double) f2, (double) (f1 + 1.0F), this.r + (double) f3, this.s, this.t, this.u);
+                for (i = 0; (float) i < 1.0F + this.length * 20.0F; ++i) {
+                    f2 = (this.random.nextFloat() * 2.0F - 1.0F) * this.length;
+                    f3 = (this.random.nextFloat() * 2.0F - 1.0F) * this.length;
+                    this.world.a("splash", this.locX + (double) f2, (double) (f1 + 1.0F), this.locZ + (double) f3, this.motX, this.motY, this.motZ);
                 }
             }
 
-            this.N = 0.0F;
+            this.fallDistance = 0.0F;
             this.ab = true;
-            this.Z = 0;
+            this.fireTicks = 0;
         } else {
             this.ab = false;
         }
 
-        if (this.l.z) {
-            this.Z = 0;
-        } else if (this.Z > 0) {
+        if (this.world.isStatic) {
+            this.fireTicks = 0;
+        } else if (this.fireTicks > 0) {
             if (this.ae) {
-                this.Z -= 4;
-                if (this.Z < 0) {
-                    this.Z = 0;
+                this.fireTicks -= 4;
+                if (this.fireTicks < 0) {
+                    this.fireTicks = 0;
                 }
             } else {
-                if (this.Z % 20 == 0) {
+                if (this.fireTicks % 20 == 0) {
                     this.a((Entity) null, 1);
                 }
 
-                --this.Z;
+                --this.fireTicks;
             }
         }
 
@@ -218,22 +218,22 @@ public abstract class Entity {
             this.s();
         }
 
-        if (this.q < -64.0D) {
+        if (this.locY < -64.0D) {
             this.t();
         }
 
-        if (!this.l.z) {
-            this.a(0, this.Z > 0);
-            this.a(2, this.k != null);
+        if (!this.world.isStatic) {
+            this.a(0, this.fireTicks > 0);
+            this.a(2, this.vehicle != null);
         }
 
-        this.c = false;
+        this.justCreated = false;
     }
 
     protected void s() {
         if (!this.ae) {
             this.a((Entity) null, 4);
-            this.Z = 600;
+            this.fireTicks = 600;
         }
     }
 
@@ -242,31 +242,31 @@ public abstract class Entity {
     }
 
     public boolean b(double d0, double d1, double d2) {
-        AxisAlignedBB axisalignedbb = this.z.c(d0, d1, d2);
-        List list = this.l.a(this, axisalignedbb);
+        AxisAlignedBB axisalignedbb = this.boundingBox.c(d0, d1, d2);
+        List list = this.world.a(this, axisalignedbb);
 
-        return list.size() > 0 ? false : !this.l.b(axisalignedbb);
+        return list.size() > 0 ? false : !this.world.b(axisalignedbb);
     }
 
     public void c(double d0, double d1, double d2) {
         if (this.T) {
-            this.z.d(d0, d1, d2);
-            this.p = (this.z.a + this.z.d) / 2.0D;
-            this.q = this.z.b + (double) this.H - (double) this.R;
-            this.r = (this.z.c + this.z.f) / 2.0D;
+            this.boundingBox.d(d0, d1, d2);
+            this.locX = (this.boundingBox.a + this.boundingBox.d) / 2.0D;
+            this.locY = this.boundingBox.b + (double) this.height - (double) this.R;
+            this.locZ = (this.boundingBox.c + this.boundingBox.f) / 2.0D;
         } else {
-            double d3 = this.p;
-            double d4 = this.r;
+            double d3 = this.locX;
+            double d4 = this.locZ;
             double d5 = d0;
             double d6 = d1;
             double d7 = d2;
-            AxisAlignedBB axisalignedbb = this.z.b();
-            boolean flag = this.A && this.J();
+            AxisAlignedBB axisalignedbb = this.boundingBox.b();
+            boolean flag = this.onGround && this.J();
 
             if (flag) {
                 double d8;
 
-                for (d8 = 0.05D; d0 != 0.0D && this.l.a(this, this.z.c(d0, -1.0D, 0.0D)).size() == 0; d5 = d0) {
+                for (d8 = 0.05D; d0 != 0.0D && this.world.a(this, this.boundingBox.c(d0, -1.0D, 0.0D)).size() == 0; d5 = d0) {
                     if (d0 < d8 && d0 >= -d8) {
                         d0 = 0.0D;
                     } else if (d0 > 0.0D) {
@@ -276,7 +276,7 @@ public abstract class Entity {
                     }
                 }
 
-                for (; d2 != 0.0D && this.l.a(this, this.z.c(0.0D, -1.0D, d2)).size() == 0; d7 = d2) {
+                for (; d2 != 0.0D && this.world.a(this, this.boundingBox.c(0.0D, -1.0D, d2)).size() == 0; d7 = d2) {
                     if (d2 < d8 && d2 >= -d8) {
                         d2 = 0.0D;
                     } else if (d2 > 0.0D) {
@@ -287,28 +287,28 @@ public abstract class Entity {
                 }
             }
 
-            List list = this.l.a(this, this.z.a(d0, d1, d2));
+            List list = this.world.a(this, this.boundingBox.a(d0, d1, d2));
 
             for (int i = 0; i < list.size(); ++i) {
-                d1 = ((AxisAlignedBB) list.get(i)).b(this.z, d1);
+                d1 = ((AxisAlignedBB) list.get(i)).b(this.boundingBox, d1);
             }
 
-            this.z.d(0.0D, d1, 0.0D);
+            this.boundingBox.d(0.0D, d1, 0.0D);
             if (!this.F && d6 != d1) {
                 d2 = 0.0D;
                 d1 = 0.0D;
                 d0 = 0.0D;
             }
 
-            boolean flag1 = this.A || d6 != d1 && d6 < 0.0D;
+            boolean flag1 = this.onGround || d6 != d1 && d6 < 0.0D;
 
             int j;
 
             for (j = 0; j < list.size(); ++j) {
-                d0 = ((AxisAlignedBB) list.get(j)).a(this.z, d0);
+                d0 = ((AxisAlignedBB) list.get(j)).a(this.boundingBox, d0);
             }
 
-            this.z.d(d0, 0.0D, 0.0D);
+            this.boundingBox.d(d0, 0.0D, 0.0D);
             if (!this.F && d5 != d0) {
                 d2 = 0.0D;
                 d1 = 0.0D;
@@ -316,10 +316,10 @@ public abstract class Entity {
             }
 
             for (j = 0; j < list.size(); ++j) {
-                d2 = ((AxisAlignedBB) list.get(j)).c(this.z, d2);
+                d2 = ((AxisAlignedBB) list.get(j)).c(this.boundingBox, d2);
             }
 
-            this.z.d(0.0D, 0.0D, d2);
+            this.boundingBox.d(0.0D, 0.0D, d2);
             if (!this.F && d7 != d2) {
                 d2 = 0.0D;
                 d1 = 0.0D;
@@ -338,16 +338,16 @@ public abstract class Entity {
                 d0 = d5;
                 d1 = (double) this.S;
                 d2 = d7;
-                AxisAlignedBB axisalignedbb1 = this.z.b();
+                AxisAlignedBB axisalignedbb1 = this.boundingBox.b();
 
-                this.z.b(axisalignedbb);
-                list = this.l.a(this, this.z.a(d5, d1, d7));
+                this.boundingBox.b(axisalignedbb);
+                list = this.world.a(this, this.boundingBox.a(d5, d1, d7));
 
                 for (k = 0; k < list.size(); ++k) {
-                    d1 = ((AxisAlignedBB) list.get(k)).b(this.z, d1);
+                    d1 = ((AxisAlignedBB) list.get(k)).b(this.boundingBox, d1);
                 }
 
-                this.z.d(0.0D, d1, 0.0D);
+                this.boundingBox.d(0.0D, d1, 0.0D);
                 if (!this.F && d6 != d1) {
                     d2 = 0.0D;
                     d1 = 0.0D;
@@ -355,10 +355,10 @@ public abstract class Entity {
                 }
 
                 for (k = 0; k < list.size(); ++k) {
-                    d0 = ((AxisAlignedBB) list.get(k)).a(this.z, d0);
+                    d0 = ((AxisAlignedBB) list.get(k)).a(this.boundingBox, d0);
                 }
 
-                this.z.d(d0, 0.0D, 0.0D);
+                this.boundingBox.d(d0, 0.0D, 0.0D);
                 if (!this.F && d5 != d0) {
                     d2 = 0.0D;
                     d1 = 0.0D;
@@ -366,10 +366,10 @@ public abstract class Entity {
                 }
 
                 for (k = 0; k < list.size(); ++k) {
-                    d2 = ((AxisAlignedBB) list.get(k)).c(this.z, d2);
+                    d2 = ((AxisAlignedBB) list.get(k)).c(this.boundingBox, d2);
                 }
 
-                this.z.d(0.0D, 0.0D, d2);
+                this.boundingBox.d(0.0D, 0.0D, d2);
                 if (!this.F && d7 != d2) {
                     d2 = 0.0D;
                     d1 = 0.0D;
@@ -380,74 +380,74 @@ public abstract class Entity {
                     d0 = d9;
                     d1 = d10;
                     d2 = d11;
-                    this.z.b(axisalignedbb1);
+                    this.boundingBox.b(axisalignedbb1);
                 } else {
                     this.R = (float) ((double) this.R + 0.5D);
                 }
             }
 
-            this.p = (this.z.a + this.z.d) / 2.0D;
-            this.q = this.z.b + (double) this.H - (double) this.R;
-            this.r = (this.z.c + this.z.f) / 2.0D;
+            this.locX = (this.boundingBox.a + this.boundingBox.d) / 2.0D;
+            this.locY = this.boundingBox.b + (double) this.height - (double) this.R;
+            this.locZ = (this.boundingBox.c + this.boundingBox.f) / 2.0D;
             this.B = d5 != d0 || d7 != d2;
             this.C = d6 != d1;
-            this.A = d6 != d1 && d6 < 0.0D;
+            this.onGround = d6 != d1 && d6 < 0.0D;
             this.D = this.B || this.C;
-            this.a(d1, this.A);
+            this.a(d1, this.onGround);
             if (d5 != d0) {
-                this.s = 0.0D;
+                this.motX = 0.0D;
             }
 
             if (d6 != d1) {
-                this.t = 0.0D;
+                this.motY = 0.0D;
             }
 
             if (d7 != d2) {
-                this.u = 0.0D;
+                this.motZ = 0.0D;
             }
 
-            d9 = this.p - d3;
-            d10 = this.r - d4;
+            d9 = this.locX - d3;
+            d10 = this.locZ - d4;
             int l;
             int i1;
             int j1;
 
             if (this.M && !flag) {
                 this.L = (float) ((double) this.L + (double) MathHelper.a(d9 * d9 + d10 * d10) * 0.6D);
-                l = MathHelper.b(this.p);
-                i1 = MathHelper.b(this.q - 0.20000000298023224D - (double) this.H);
-                j1 = MathHelper.b(this.r);
-                k = this.l.a(l, i1, j1);
+                l = MathHelper.b(this.locX);
+                i1 = MathHelper.b(this.locY - 0.20000000298023224D - (double) this.height);
+                j1 = MathHelper.b(this.locZ);
+                k = this.world.getTypeId(l, i1, j1);
                 if (this.L > (float) this.b && k > 0) {
                     ++this.b;
-                    StepSound stepsound = Block.m[k].br;
+                    StepSound stepsound = Block.byId[k].stepSound;
 
-                    if (this.l.a(l, i1 + 1, j1) == Block.SNOW.bi) {
-                        stepsound = Block.SNOW.br;
-                        this.l.a(this, stepsound.c(), stepsound.a() * 0.15F, stepsound.b());
-                    } else if (!Block.m[k].bt.d()) {
-                        this.l.a(this, stepsound.c(), stepsound.a() * 0.15F, stepsound.b());
+                    if (this.world.getTypeId(l, i1 + 1, j1) == Block.SNOW.id) {
+                        stepsound = Block.SNOW.stepSound;
+                        this.world.a(this, stepsound.c(), stepsound.a() * 0.15F, stepsound.b());
+                    } else if (!Block.byId[k].material.isLiquid()) {
+                        this.world.a(this, stepsound.c(), stepsound.a() * 0.15F, stepsound.b());
                     }
 
-                    Block.m[k].b(this.l, l, i1, j1, this);
+                    Block.byId[k].b(this.world, l, i1, j1, this);
                 }
             }
 
-            l = MathHelper.b(this.z.a);
-            i1 = MathHelper.b(this.z.b);
-            j1 = MathHelper.b(this.z.c);
-            k = MathHelper.b(this.z.d);
-            int k1 = MathHelper.b(this.z.e);
-            int l1 = MathHelper.b(this.z.f);
+            l = MathHelper.b(this.boundingBox.a);
+            i1 = MathHelper.b(this.boundingBox.b);
+            j1 = MathHelper.b(this.boundingBox.c);
+            k = MathHelper.b(this.boundingBox.d);
+            int k1 = MathHelper.b(this.boundingBox.e);
+            int l1 = MathHelper.b(this.boundingBox.f);
 
-            if (this.l.a(l, i1, j1, k, k1, l1)) {
+            if (this.world.a(l, i1, j1, k, k1, l1)) {
                 for (int i2 = l; i2 <= k; ++i2) {
                     for (int j2 = i1; j2 <= k1; ++j2) {
                         for (int k2 = j1; k2 <= l1; ++k2) {
-                            int l2 = this.l.a(i2, j2, k2);
+                            int l2 = this.world.getTypeId(i2, j2, k2);
 
                             if (l2 > 0) {
-                                Block.m[l2].a(this.l, i2, j2, k2, this);
+                                Block.byId[l2].a(this.world, i2, j2, k2, this);
                             }
                         }
                     }
@@ -457,33 +457,33 @@ public abstract class Entity {
             this.R *= 0.4F;
             boolean flag2 = this.v();
 
-            if (this.l.c(this.z)) {
+            if (this.world.c(this.boundingBox)) {
                 this.b(1);
                 if (!flag2) {
-                    ++this.Z;
-                    if (this.Z == 0) {
-                        this.Z = 300;
+                    ++this.fireTicks;
+                    if (this.fireTicks == 0) {
+                        this.fireTicks = 300;
                     }
                 }
-            } else if (this.Z <= 0) {
-                this.Z = -this.Y;
+            } else if (this.fireTicks <= 0) {
+                this.fireTicks = -this.maxFireTicks;
             }
 
-            if (flag2 && this.Z > 0) {
-                this.l.a(this, "random.fizz", 0.7F, 1.6F + (this.W.nextFloat() - this.W.nextFloat()) * 0.4F);
-                this.Z = -this.Y;
+            if (flag2 && this.fireTicks > 0) {
+                this.world.a(this, "random.fizz", 0.7F, 1.6F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+                this.fireTicks = -this.maxFireTicks;
             }
         }
     }
 
     protected void a(double d0, boolean flag) {
         if (flag) {
-            if (this.N > 0.0F) {
-                this.a(this.N);
-                this.N = 0.0F;
+            if (this.fallDistance > 0.0F) {
+                this.a(this.fallDistance);
+                this.fallDistance = 0.0F;
             }
         } else if (d0 < 0.0D) {
-            this.N = (float) ((double) this.N - d0);
+            this.fallDistance = (float) ((double) this.fallDistance - d0);
         }
     }
 
@@ -500,18 +500,18 @@ public abstract class Entity {
     protected void a(float f) {}
 
     public boolean v() {
-        return this.l.a(this.z.b(0.0D, -0.4000000059604645D, 0.0D), Material.f, this);
+        return this.world.a(this.boundingBox.b(0.0D, -0.4000000059604645D, 0.0D), Material.WATER, this);
     }
 
     public boolean a(Material material) {
-        double d0 = this.q + (double) this.w();
-        int i = MathHelper.b(this.p);
+        double d0 = this.locY + (double) this.w();
+        int i = MathHelper.b(this.locX);
         int j = MathHelper.d((float) MathHelper.b(d0));
-        int k = MathHelper.b(this.r);
-        int l = this.l.a(i, j, k);
+        int k = MathHelper.b(this.locZ);
+        int l = this.world.getTypeId(i, j, k);
 
-        if (l != 0 && Block.m[l].bt == material) {
-            float f = BlockFluids.c(this.l.b(i, j, k)) - 0.11111111F;
+        if (l != 0 && Block.byId[l].material == material) {
+            float f = BlockFluids.c(this.world.getData(i, j, k)) - 0.11111111F;
             float f1 = (float) (j + 1) - f;
 
             return d0 < (double) f1;
@@ -525,7 +525,7 @@ public abstract class Entity {
     }
 
     public boolean x() {
-        return this.l.a(this.z.b(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.g);
+        return this.world.a(this.boundingBox.b(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.LAVA);
     }
 
     public void a(float f, float f1, float f2) {
@@ -539,81 +539,81 @@ public abstract class Entity {
             f3 = f2 / f3;
             f *= f3;
             f1 *= f3;
-            float f4 = MathHelper.a(this.v * 3.1415927F / 180.0F);
-            float f5 = MathHelper.b(this.v * 3.1415927F / 180.0F);
+            float f4 = MathHelper.a(this.yaw * 3.1415927F / 180.0F);
+            float f5 = MathHelper.b(this.yaw * 3.1415927F / 180.0F);
 
-            this.s += (double) (f * f5 - f1 * f4);
-            this.u += (double) (f1 * f5 + f * f4);
+            this.motX += (double) (f * f5 - f1 * f4);
+            this.motZ += (double) (f1 * f5 + f * f4);
         }
     }
 
     public float b(float f) {
-        int i = MathHelper.b(this.p);
-        double d0 = (this.z.e - this.z.b) * 0.66D;
-        int j = MathHelper.b(this.q - (double) this.H + d0);
-        int k = MathHelper.b(this.r);
+        int i = MathHelper.b(this.locX);
+        double d0 = (this.boundingBox.e - this.boundingBox.b) * 0.66D;
+        int j = MathHelper.b(this.locY - (double) this.height + d0);
+        int k = MathHelper.b(this.locZ);
 
-        return this.l.a(MathHelper.b(this.z.a), MathHelper.b(this.z.b), MathHelper.b(this.z.c), MathHelper.b(this.z.d), MathHelper.b(this.z.e), MathHelper.b(this.z.f)) ? this.l.l(i, j, k) : 0.0F;
+        return this.world.a(MathHelper.b(this.boundingBox.a), MathHelper.b(this.boundingBox.b), MathHelper.b(this.boundingBox.c), MathHelper.b(this.boundingBox.d), MathHelper.b(this.boundingBox.e), MathHelper.b(this.boundingBox.f)) ? this.world.l(i, j, k) : 0.0F;
     }
 
     public void b(double d0, double d1, double d2, float f, float f1) {
-        this.m = this.p = d0;
-        this.n = this.q = d1;
-        this.o = this.r = d2;
-        this.x = this.v = f;
-        this.y = this.w = f1;
+        this.lastX = this.locX = d0;
+        this.lastY = this.locY = d1;
+        this.lastZ = this.locZ = d2;
+        this.lastYaw = this.yaw = f;
+        this.lastPitch = this.pitch = f1;
         this.R = 0.0F;
-        double d3 = (double) (this.x - f);
+        double d3 = (double) (this.lastYaw - f);
 
         if (d3 < -180.0D) {
-            this.x += 360.0F;
+            this.lastYaw += 360.0F;
         }
 
         if (d3 >= 180.0D) {
-            this.x -= 360.0F;
+            this.lastYaw -= 360.0F;
         }
 
-        this.a(this.p, this.q, this.r);
+        this.a(this.locX, this.locY, this.locZ);
         this.b(f, f1);
     }
 
     public void c(double d0, double d1, double d2, float f, float f1) {
-        this.O = this.m = this.p = d0;
-        this.P = this.n = this.q = d1 + (double) this.H;
-        this.Q = this.o = this.r = d2;
-        this.v = f;
-        this.w = f1;
-        this.a(this.p, this.q, this.r);
+        this.O = this.lastX = this.locX = d0;
+        this.P = this.lastY = this.locY = d1 + (double) this.height;
+        this.Q = this.lastZ = this.locZ = d2;
+        this.yaw = f;
+        this.pitch = f1;
+        this.a(this.locX, this.locY, this.locZ);
     }
 
     public float a(Entity entity) {
-        float f = (float) (this.p - entity.p);
-        float f1 = (float) (this.q - entity.q);
-        float f2 = (float) (this.r - entity.r);
+        float f = (float) (this.locX - entity.locX);
+        float f1 = (float) (this.locY - entity.locY);
+        float f2 = (float) (this.locZ - entity.locZ);
 
         return MathHelper.c(f * f + f1 * f1 + f2 * f2);
     }
 
     public double d(double d0, double d1, double d2) {
-        double d3 = this.p - d0;
-        double d4 = this.q - d1;
-        double d5 = this.r - d2;
+        double d3 = this.locX - d0;
+        double d4 = this.locY - d1;
+        double d5 = this.locZ - d2;
 
         return d3 * d3 + d4 * d4 + d5 * d5;
     }
 
     public double e(double d0, double d1, double d2) {
-        double d3 = this.p - d0;
-        double d4 = this.q - d1;
-        double d5 = this.r - d2;
+        double d3 = this.locX - d0;
+        double d4 = this.locY - d1;
+        double d5 = this.locZ - d2;
 
         return (double) MathHelper.a(d3 * d3 + d4 * d4 + d5 * d5);
     }
 
     public double b(Entity entity) {
-        double d0 = this.p - entity.p;
-        double d1 = this.q - entity.q;
-        double d2 = this.r - entity.r;
+        double d0 = this.locX - entity.locX;
+        double d1 = this.locY - entity.locY;
+        double d2 = this.locZ - entity.locZ;
 
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
@@ -621,9 +621,9 @@ public abstract class Entity {
     public void b(EntityHuman entityhuman) {}
 
     public void c(Entity entity) {
-        if (entity.j != this && entity.k != this) {
-            double d0 = entity.p - this.p;
-            double d1 = entity.r - this.r;
+        if (entity.passenger != this && entity.vehicle != this) {
+            double d0 = entity.locX - this.locX;
+            double d1 = entity.locZ - this.locZ;
             double d2 = MathHelper.a(d0, d1);
 
             if (d2 >= 0.009999999776482582D) {
@@ -649,9 +649,9 @@ public abstract class Entity {
     }
 
     public void f(double d0, double d1, double d2) {
-        this.s += d0;
-        this.t += d1;
-        this.u += d2;
+        this.motX += d0;
+        this.motY += d1;
+        this.motZ += d2;
     }
 
     protected void y() {
@@ -676,7 +676,7 @@ public abstract class Entity {
     public boolean c(NBTTagCompound nbttagcompound) {
         String s = this.A();
 
-        if (!this.G && s != null) {
+        if (!this.dead && s != null) {
             nbttagcompound.a("id", s);
             this.d(nbttagcompound);
             return true;
@@ -686,13 +686,13 @@ public abstract class Entity {
     }
 
     public void d(NBTTagCompound nbttagcompound) {
-        nbttagcompound.a("Pos", (NBTBase) this.a(new double[] { this.p, this.q, this.r}));
-        nbttagcompound.a("Motion", (NBTBase) this.a(new double[] { this.s, this.t, this.u}));
-        nbttagcompound.a("Rotation", (NBTBase) this.a(new float[] { this.v, this.w}));
-        nbttagcompound.a("FallDistance", this.N);
-        nbttagcompound.a("Fire", (short) this.Z);
-        nbttagcompound.a("Air", (short) this.ad);
-        nbttagcompound.a("OnGround", this.A);
+        nbttagcompound.a("Pos", (NBTBase) this.a(new double[] { this.locX, this.locY, this.locZ}));
+        nbttagcompound.a("Motion", (NBTBase) this.a(new double[] { this.motX, this.motY, this.motZ}));
+        nbttagcompound.a("Rotation", (NBTBase) this.a(new float[] { this.yaw, this.pitch}));
+        nbttagcompound.a("FallDistance", this.fallDistance);
+        nbttagcompound.a("Fire", (short) this.fireTicks);
+        nbttagcompound.a("Air", (short) this.airTicks);
+        nbttagcompound.a("OnGround", this.onGround);
         this.a(nbttagcompound);
     }
 
@@ -702,19 +702,19 @@ public abstract class Entity {
         NBTTagList nbttaglist2 = nbttagcompound.k("Rotation");
 
         this.a(0.0D, 0.0D, 0.0D);
-        this.s = ((NBTTagDouble) nbttaglist1.a(0)).a;
-        this.t = ((NBTTagDouble) nbttaglist1.a(1)).a;
-        this.u = ((NBTTagDouble) nbttaglist1.a(2)).a;
-        this.m = this.O = this.p = ((NBTTagDouble) nbttaglist.a(0)).a;
-        this.n = this.P = this.q = ((NBTTagDouble) nbttaglist.a(1)).a;
-        this.o = this.Q = this.r = ((NBTTagDouble) nbttaglist.a(2)).a;
-        this.x = this.v = ((NBTTagFloat) nbttaglist2.a(0)).a;
-        this.y = this.w = ((NBTTagFloat) nbttaglist2.a(1)).a;
-        this.N = nbttagcompound.f("FallDistance");
-        this.Z = nbttagcompound.c("Fire");
-        this.ad = nbttagcompound.c("Air");
-        this.A = nbttagcompound.l("OnGround");
-        this.a(this.p, this.q, this.r);
+        this.motX = ((NBTTagDouble) nbttaglist1.a(0)).a;
+        this.motY = ((NBTTagDouble) nbttaglist1.a(1)).a;
+        this.motZ = ((NBTTagDouble) nbttaglist1.a(2)).a;
+        this.lastX = this.O = this.locX = ((NBTTagDouble) nbttaglist.a(0)).a;
+        this.lastY = this.P = this.locY = ((NBTTagDouble) nbttaglist.a(1)).a;
+        this.lastZ = this.Q = this.locZ = ((NBTTagDouble) nbttaglist.a(2)).a;
+        this.lastYaw = this.yaw = ((NBTTagFloat) nbttaglist2.a(0)).a;
+        this.lastPitch = this.pitch = ((NBTTagFloat) nbttaglist2.a(1)).a;
+        this.fallDistance = nbttagcompound.f("FallDistance");
+        this.fireTicks = nbttagcompound.c("Fire");
+        this.airTicks = nbttagcompound.c("Air");
+        this.onGround = nbttagcompound.l("OnGround");
+        this.a(this.locX, this.locY, this.locZ);
         this.b(nbttagcompound);
     }
 
@@ -763,23 +763,23 @@ public abstract class Entity {
     }
 
     public EntityItem a(ItemStack itemstack, float f) {
-        EntityItem entityitem = new EntityItem(this.l, this.p, this.q + (double) f, this.r, itemstack);
+        EntityItem entityitem = new EntityItem(this.world, this.locX, this.locY + (double) f, this.locZ, itemstack);
 
         entityitem.c = 10;
-        this.l.a((Entity) entityitem);
+        this.world.a((Entity) entityitem);
         return entityitem;
     }
 
     public boolean B() {
-        return !this.G;
+        return !this.dead;
     }
 
     public boolean C() {
-        int i = MathHelper.b(this.p);
-        int j = MathHelper.b(this.q + (double) this.w());
-        int k = MathHelper.b(this.r);
+        int i = MathHelper.b(this.locX);
+        int j = MathHelper.b(this.locY + (double) this.w());
+        int k = MathHelper.b(this.locZ);
 
-        return this.l.d(i, j, k);
+        return this.world.d(i, j, k);
     }
 
     public boolean a(EntityHuman entityhuman) {
@@ -791,17 +791,17 @@ public abstract class Entity {
     }
 
     public void D() {
-        if (this.k.G) {
-            this.k = null;
+        if (this.vehicle.dead) {
+            this.vehicle = null;
         } else {
-            this.s = 0.0D;
-            this.t = 0.0D;
-            this.u = 0.0D;
+            this.motX = 0.0D;
+            this.motY = 0.0D;
+            this.motZ = 0.0D;
             this.b_();
-            this.k.E();
-            this.e += (double) (this.k.v - this.k.x);
+            this.vehicle.E();
+            this.e += (double) (this.vehicle.yaw - this.vehicle.lastYaw);
 
-            for (this.d += (double) (this.k.w - this.k.y); this.e >= 180.0D; this.e -= 360.0D) {
+            for (this.d += (double) (this.vehicle.pitch - this.vehicle.lastPitch); this.e >= 180.0D; this.e -= 360.0D) {
                 ;
             }
 
@@ -839,48 +839,48 @@ public abstract class Entity {
 
             this.e -= d0;
             this.d -= d1;
-            this.v = (float) ((double) this.v + d0);
-            this.w = (float) ((double) this.w + d1);
+            this.yaw = (float) ((double) this.yaw + d0);
+            this.pitch = (float) ((double) this.pitch + d1);
         }
     }
 
     public void E() {
-        this.j.a(this.p, this.q + this.k() + this.j.F(), this.r);
+        this.passenger.a(this.locX, this.locY + this.k() + this.passenger.F(), this.locZ);
     }
 
     public double F() {
-        return (double) this.H;
+        return (double) this.height;
     }
 
     public double k() {
-        return (double) this.J * 0.75D;
+        return (double) this.width * 0.75D;
     }
 
     public void e(Entity entity) {
         this.d = 0.0D;
         this.e = 0.0D;
         if (entity == null) {
-            if (this.k != null) {
-                this.c(this.k.p, this.k.z.b + (double) this.k.J, this.k.r, this.v, this.w);
-                this.k.j = null;
+            if (this.vehicle != null) {
+                this.c(this.vehicle.locX, this.vehicle.boundingBox.b + (double) this.vehicle.width, this.vehicle.locZ, this.yaw, this.pitch);
+                this.vehicle.passenger = null;
             }
 
-            this.k = null;
-        } else if (this.k == entity) {
-            this.k.j = null;
-            this.k = null;
-            this.c(entity.p, entity.z.b + (double) entity.J, entity.r, this.v, this.w);
+            this.vehicle = null;
+        } else if (this.vehicle == entity) {
+            this.vehicle.passenger = null;
+            this.vehicle = null;
+            this.c(entity.locX, entity.boundingBox.b + (double) entity.width, entity.locZ, this.yaw, this.pitch);
         } else {
-            if (this.k != null) {
-                this.k.j = null;
+            if (this.vehicle != null) {
+                this.vehicle.passenger = null;
             }
 
-            if (entity.j != null) {
-                entity.j.k = null;
+            if (entity.passenger != null) {
+                entity.passenger.vehicle = null;
             }
 
-            this.k = entity;
-            entity.j = this;
+            this.vehicle = entity;
+            entity.passenger = this;
         }
     }
 
@@ -903,16 +903,16 @@ public abstract class Entity {
     }
 
     protected boolean c(int i) {
-        return (this.af.a(0) & 1 << i) != 0;
+        return (this.datawatcher.a(0) & 1 << i) != 0;
     }
 
     protected void a(int i, boolean flag) {
-        byte b0 = this.af.a(0);
+        byte b0 = this.datawatcher.a(0);
 
         if (flag) {
-            this.af.b(0, Byte.valueOf((byte) (b0 | 1 << i)));
+            this.datawatcher.b(0, Byte.valueOf((byte) (b0 | 1 << i)));
         } else {
-            this.af.b(0, Byte.valueOf((byte) (b0 & ~(1 << i))));
+            this.datawatcher.b(0, Byte.valueOf((byte) (b0 & ~(1 << i))));
         }
     }
 }

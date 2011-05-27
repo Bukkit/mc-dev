@@ -32,8 +32,8 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     public void c(int i, int j) {
-        int k = i * 16 + 8 - this.g.m;
-        int l = j * 16 + 8 - this.g.o;
+        int k = i * 16 + 8 - this.g.spawnX;
+        int l = j * 16 + 8 - this.g.spawnZ;
         short short1 = 128;
 
         if (k < -short1 || k > short1 || l < -short1 || l > short1) {

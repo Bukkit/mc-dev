@@ -9,7 +9,7 @@ public class ShapedRecipes implements CraftingRecipe {
     public final int a;
 
     public ShapedRecipes(int i, int j, ItemStack[] aitemstack, ItemStack itemstack) {
-        this.a = itemstack.c;
+        this.a = itemstack.id;
         this.b = i;
         this.c = j;
         this.d = aitemstack;
@@ -54,7 +54,7 @@ public class ShapedRecipes implements CraftingRecipe {
                         return false;
                     }
 
-                    if (itemstack.c != itemstack1.c) {
+                    if (itemstack.id != itemstack1.id) {
                         return false;
                     }
 
@@ -69,7 +69,7 @@ public class ShapedRecipes implements CraftingRecipe {
     }
 
     public ItemStack b(InventoryCrafting inventorycrafting) {
-        return new ItemStack(this.e.c, this.e.a, this.e.h());
+        return new ItemStack(this.e.id, this.e.count, this.e.h());
     }
 
     public int a() {

@@ -4,8 +4,8 @@ public class ItemSaddle extends Item {
 
     public ItemSaddle(int i) {
         super(i);
-        this.bb = 1;
-        this.bc = 64;
+        this.maxStackSize = 1;
+        this.durability = 64;
     }
 
     public void b(ItemStack itemstack, EntityLiving entityliving) {
@@ -14,7 +14,7 @@ public class ItemSaddle extends Item {
 
             if (!entitypig.K()) {
                 entitypig.a(true);
-                --itemstack.a;
+                --itemstack.count;
             }
         }
     }

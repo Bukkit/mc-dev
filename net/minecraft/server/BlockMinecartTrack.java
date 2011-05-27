@@ -5,7 +5,7 @@ import java.util.Random;
 public class BlockMinecartTrack extends Block {
 
     protected BlockMinecartTrack(int i, int j) {
-        super(i, j, Material.n);
+        super(i, j, Material.ORIENTABLE);
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
@@ -23,7 +23,7 @@ public class BlockMinecartTrack extends Block {
     }
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
-        int l = iblockaccess.b(i, j, k);
+        int l = iblockaccess.getData(i, j, k);
 
         if (l >= 2 && l <= 5) {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.625F, 1.0F);
@@ -41,15 +41,15 @@ public class BlockMinecartTrack extends Block {
     }
 
     public void e(World world, int i, int j, int k) {
-        if (!world.z) {
+        if (!world.isStatic) {
             world.c(i, j, k, 15);
             this.g(world, i, j, k);
         }
     }
 
     public void b(World world, int i, int j, int k, int l) {
-        if (!world.z) {
-            int i1 = world.b(i, j, k);
+        if (!world.isStatic) {
+            int i1 = world.getData(i, j, k);
             boolean flag = false;
 
             if (!world.d(i, j - 1, k)) {
@@ -73,16 +73,16 @@ public class BlockMinecartTrack extends Block {
             }
 
             if (flag) {
-                this.a_(world, i, j, k, world.b(i, j, k));
+                this.a_(world, i, j, k, world.getData(i, j, k));
                 world.e(i, j, k, 0);
-            } else if (l > 0 && Block.m[l].c() && MinecartTrackLogic.a(new MinecartTrackLogic(this, world, i, j, k)) == 3) {
+            } else if (l > 0 && Block.byId[l].c() && MinecartTrackLogic.a(new MinecartTrackLogic(this, world, i, j, k)) == 3) {
                 this.g(world, i, j, k);
             }
         }
     }
 
     private void g(World world, int i, int j, int k) {
-        if (!world.z) {
+        if (!world.isStatic) {
             (new MinecartTrackLogic(this, world, i, j, k)).a(world.p(i, j, k));
         }
     }

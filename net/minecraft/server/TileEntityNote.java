@@ -30,23 +30,23 @@ public class TileEntityNote extends TileEntity {
     }
 
     public void a(World world, int i, int j, int k) {
-        if (world.c(i, j + 1, k) == Material.a) {
-            Material material = world.c(i, j - 1, k);
+        if (world.getMaterial(i, j + 1, k) == Material.AIR) {
+            Material material = world.getMaterial(i, j - 1, k);
             byte b0 = 0;
 
-            if (material == Material.d) {
+            if (material == Material.STONE) {
                 b0 = 1;
             }
 
-            if (material == Material.m) {
+            if (material == Material.SAND) {
                 b0 = 2;
             }
 
-            if (material == Material.o) {
+            if (material == Material.SHATTERABLE) {
                 b0 = 3;
             }
 
-            if (material == Material.c) {
+            if (material == Material.WOOD) {
                 b0 = 4;
             }
 

@@ -72,13 +72,29 @@ public class Chunk {
             for (k = 0; k < 16; ++k) {
                 int l = 127;
 
-                for (int i1 = j << 11 | k << 7; l > 0 && Block.q[this.b[i1 + l - 1]] == 0; --l) {
+                int i1;
+
+                for (i1 = j << 11 | k << 7; l > 0 && Block.q[this.b[i1 + l - 1]] == 0; --l) {
                     ;
                 }
 
                 this.h[k << 4 | j] = (byte) l;
                 if (l < i) {
                     i = l;
+                }
+
+                if (!this.d.q.e) {
+                    int j1 = 15;
+                    int k1 = 127;
+
+                    do {
+                        j1 -= Block.q[this.b[i1 + k1]];
+                        if (j1 > 0) {
+                            this.f.a(j, k1, k, j1);
+                        }
+
+                        --k1;
+                    } while (k1 > 0 && j1 > 0);
                 }
             }
         }
@@ -257,8 +273,8 @@ public class Chunk {
             int i2 = this.k * 16 + k;
 
             this.b[i << 11 | k << 7 | j] = b0;
-            if (k1 != 0 && !this.d.z) {
-                Block.m[k1].b(this.d, l1, j, i2);
+            if (k1 != 0 && !this.d.isStatic) {
+                Block.byId[k1].b(this.d, l1, j, i2);
             }
 
             this.e.a(i, j, k, i1);
@@ -276,11 +292,11 @@ public class Chunk {
 
             this.d.a(EnumSkyBlock.BLOCK, l1, j, i2, l1, j, i2);
             this.c(i, k);
+            this.e.a(i, j, k, i1);
             if (l != 0) {
-                Block.m[l].e(this.d, l1, j, i2);
+                Block.byId[l].e(this.d, l1, j, i2);
             }
 
-            this.e.a(i, j, k, i1);
             this.o = true;
             return true;
         }
@@ -299,7 +315,7 @@ public class Chunk {
 
             this.b[i << 11 | k << 7 | j] = b0;
             if (j1 != 0) {
-                Block.m[j1].b(this.d, k1, j, l1);
+                Block.byId[j1].b(this.d, k1, j, l1);
             }
 
             this.e.a(i, j, k, 0);
@@ -314,8 +330,8 @@ public class Chunk {
             this.d.a(EnumSkyBlock.SKY, k1, j, l1, k1, j, l1);
             this.d.a(EnumSkyBlock.BLOCK, k1, j, l1, k1, j, l1);
             this.c(i, k);
-            if (l != 0 && !this.d.z) {
-                Block.m[l].e(this.d, k1, j, l1);
+            if (l != 0 && !this.d.isStatic) {
+                Block.byId[l].e(this.d, k1, j, l1);
             }
 
             this.o = true;
@@ -368,15 +384,15 @@ public class Chunk {
 
     public void a(Entity entity) {
         this.q = true;
-        int i = MathHelper.b(entity.p / 16.0D);
-        int j = MathHelper.b(entity.r / 16.0D);
+        int i = MathHelper.b(entity.locX / 16.0D);
+        int j = MathHelper.b(entity.locZ / 16.0D);
 
         if (i != this.j || j != this.k) {
             System.out.println("Wrong location! " + entity);
             Thread.dumpStack();
         }
 
-        int k = MathHelper.b(entity.q / 16.0D);
+        int k = MathHelper.b(entity.locY / 16.0D);
 
         if (k < 0) {
             k = 0;
@@ -387,9 +403,9 @@ public class Chunk {
         }
 
         entity.ag = true;
-        entity.ah = this.j;
+        entity.chunkX = this.j;
         entity.ai = k;
-        entity.aj = this.k;
+        entity.chunkZ = this.k;
         this.m[k].add(entity);
     }
 
@@ -424,7 +440,7 @@ public class Chunk {
                 return null;
             }
 
-            BlockContainer blockcontainer = (BlockContainer) Block.m[l];
+            BlockContainer blockcontainer = (BlockContainer) Block.byId[l];
 
             blockcontainer.e(this.d, this.j * 16 + i, j, this.k * 16 + k);
             tileentity = (TileEntity) this.l.get(chunkposition);
@@ -448,7 +464,7 @@ public class Chunk {
         tileentity.b = this.j * 16 + i;
         tileentity.c = j;
         tileentity.d = this.k * 16 + k;
-        if (this.a(i, j, k) != 0 && Block.m[this.a(i, j, k)] instanceof BlockContainer) {
+        if (this.a(i, j, k) != 0 && Block.byId[this.a(i, j, k)] instanceof BlockContainer) {
             if (this.c) {
                 if (this.l.get(chunkposition) != null) {
                     this.d.c.remove(this.l.get(chunkposition));
@@ -511,7 +527,7 @@ public class Chunk {
             for (int l = 0; l < list1.size(); ++l) {
                 Entity entity1 = (Entity) list1.get(l);
 
-                if (entity1 != entity && entity1.z.a(axisalignedbb)) {
+                if (entity1 != entity && entity1.boundingBox.a(axisalignedbb)) {
                     list.add(entity1);
                 }
             }
@@ -536,7 +552,7 @@ public class Chunk {
             for (int l = 0; l < list1.size(); ++l) {
                 Entity entity = (Entity) list1.get(l);
 
-                if (oclass.isAssignableFrom(entity.getClass()) && entity.z.a(axisalignedbb)) {
+                if (oclass.isAssignableFrom(entity.getClass()) && entity.boundingBox.a(axisalignedbb)) {
                     list.add(entity);
                 }
             }

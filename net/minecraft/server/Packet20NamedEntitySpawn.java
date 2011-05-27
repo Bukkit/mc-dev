@@ -17,16 +17,16 @@ public class Packet20NamedEntitySpawn extends Packet {
     public Packet20NamedEntitySpawn() {}
 
     public Packet20NamedEntitySpawn(EntityHuman entityhuman) {
-        this.a = entityhuman.g;
-        this.b = entityhuman.aw;
-        this.c = MathHelper.b(entityhuman.p * 32.0D);
-        this.d = MathHelper.b(entityhuman.q * 32.0D);
-        this.e = MathHelper.b(entityhuman.r * 32.0D);
-        this.f = (byte) ((int) (entityhuman.v * 256.0F / 360.0F));
-        this.g = (byte) ((int) (entityhuman.w * 256.0F / 360.0F));
-        ItemStack itemstack = entityhuman.an.e();
+        this.a = entityhuman.id;
+        this.b = entityhuman.name;
+        this.c = MathHelper.b(entityhuman.locX * 32.0D);
+        this.d = MathHelper.b(entityhuman.locY * 32.0D);
+        this.e = MathHelper.b(entityhuman.locZ * 32.0D);
+        this.f = (byte) ((int) (entityhuman.yaw * 256.0F / 360.0F));
+        this.g = (byte) ((int) (entityhuman.pitch * 256.0F / 360.0F));
+        ItemStack itemstack = entityhuman.inventory.e();
 
-        this.h = itemstack == null ? 0 : itemstack.c;
+        this.h = itemstack == null ? 0 : itemstack.id;
     }
 
     public void a(DataInputStream datainputstream) {

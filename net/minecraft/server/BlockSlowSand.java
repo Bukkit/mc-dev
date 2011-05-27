@@ -3,7 +3,7 @@ package net.minecraft.server;
 public class BlockSlowSand extends Block {
 
     public BlockSlowSand(int i, int j) {
-        super(i, j, Material.m);
+        super(i, j, Material.SAND);
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {
@@ -13,7 +13,7 @@ public class BlockSlowSand extends Block {
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        entity.s *= 0.4D;
-        entity.u *= 0.4D;
+        entity.motX *= 0.4D;
+        entity.motZ *= 0.4D;
     }
 }

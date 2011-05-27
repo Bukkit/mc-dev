@@ -42,8 +42,8 @@ public class Packet103SetSlot extends Packet {
         if (this.c == null) {
             dataoutputstream.writeShort(-1);
         } else {
-            dataoutputstream.writeShort(this.c.c);
-            dataoutputstream.writeByte(this.c.a);
+            dataoutputstream.writeShort(this.c.id);
+            dataoutputstream.writeByte(this.c.count);
             dataoutputstream.writeShort(this.c.h());
         }
     }

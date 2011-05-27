@@ -6,8 +6,8 @@ public class ItemSword extends Item {
 
     public ItemSword(int i, EnumToolMaterial enumtoolmaterial) {
         super(i);
-        this.bb = 1;
-        this.bc = enumtoolmaterial.a();
+        this.maxStackSize = 1;
+        this.durability = enumtoolmaterial.a();
         this.a = 4 + enumtoolmaterial.c() * 2;
     }
 

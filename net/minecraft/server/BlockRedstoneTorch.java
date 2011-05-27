@@ -41,28 +41,28 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public void e(World world, int i, int j, int k) {
-        if (world.b(i, j, k) == 0) {
+        if (world.getData(i, j, k) == 0) {
             super.e(world, i, j, k);
         }
 
         if (this.a) {
-            world.h(i, j - 1, k, this.bi);
-            world.h(i, j + 1, k, this.bi);
-            world.h(i - 1, j, k, this.bi);
-            world.h(i + 1, j, k, this.bi);
-            world.h(i, j, k - 1, this.bi);
-            world.h(i, j, k + 1, this.bi);
+            world.h(i, j - 1, k, this.id);
+            world.h(i, j + 1, k, this.id);
+            world.h(i - 1, j, k, this.id);
+            world.h(i + 1, j, k, this.id);
+            world.h(i, j, k - 1, this.id);
+            world.h(i, j, k + 1, this.id);
         }
     }
 
     public void b(World world, int i, int j, int k) {
         if (this.a) {
-            world.h(i, j - 1, k, this.bi);
-            world.h(i, j + 1, k, this.bi);
-            world.h(i - 1, j, k, this.bi);
-            world.h(i + 1, j, k, this.bi);
-            world.h(i, j, k - 1, this.bi);
-            world.h(i, j, k + 1, this.bi);
+            world.h(i, j - 1, k, this.id);
+            world.h(i, j + 1, k, this.id);
+            world.h(i - 1, j, k, this.id);
+            world.h(i + 1, j, k, this.id);
+            world.h(i, j, k - 1, this.id);
+            world.h(i, j, k + 1, this.id);
         }
     }
 
@@ -70,14 +70,14 @@ public class BlockRedstoneTorch extends BlockTorch {
         if (!this.a) {
             return false;
         } else {
-            int i1 = iblockaccess.b(i, j, k);
+            int i1 = iblockaccess.getData(i, j, k);
 
             return i1 == 5 && l == 1 ? false : (i1 == 3 && l == 3 ? false : (i1 == 4 && l == 2 ? false : (i1 == 1 && l == 5 ? false : i1 != 2 || l != 4)));
         }
     }
 
     private boolean g(World world, int i, int j, int k) {
-        int l = world.b(i, j, k);
+        int l = world.getData(i, j, k);
 
         return l == 5 && world.k(i, j - 1, k, 0) ? true : (l == 3 && world.k(i, j, k - 1, 2) ? true : (l == 4 && world.k(i, j, k + 1, 3) ? true : (l == 1 && world.k(i - 1, j, k, 4) ? true : l == 2 && world.k(i + 1, j, k, 5))));
     }
@@ -91,7 +91,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 
         if (this.a) {
             if (flag) {
-                world.b(i, j, k, Block.REDSTONE_TORCH_OFF.bi, world.b(i, j, k));
+                world.b(i, j, k, Block.REDSTONE_TORCH_OFF.id, world.getData(i, j, k));
                 if (this.a(world, i, j, k, true)) {
                     world.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (world.l.nextFloat() - world.l.nextFloat()) * 0.8F);
 
@@ -105,13 +105,13 @@ public class BlockRedstoneTorch extends BlockTorch {
                 }
             }
         } else if (!flag && !this.a(world, i, j, k, false)) {
-            world.b(i, j, k, Block.REDSTONE_TORCH_ON.bi, world.b(i, j, k));
+            world.b(i, j, k, Block.REDSTONE_TORCH_ON.id, world.getData(i, j, k));
         }
     }
 
     public void b(World world, int i, int j, int k, int l) {
         super.b(world, i, j, k, l);
-        world.i(i, j, k, this.bi);
+        world.i(i, j, k, this.id);
     }
 
     public boolean d(World world, int i, int j, int k, int l) {
@@ -119,7 +119,7 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public int a(int i, Random random) {
-        return Block.REDSTONE_TORCH_ON.bi;
+        return Block.REDSTONE_TORCH_ON.id;
     }
 
     public boolean c() {

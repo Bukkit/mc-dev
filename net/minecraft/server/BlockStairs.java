@@ -8,11 +8,11 @@ public class BlockStairs extends Block {
     private Block a;
 
     protected BlockStairs(int i, Block block) {
-        super(i, block.bh, block.bt);
+        super(i, block.textureId, block.material);
         this.a = block;
-        this.c(block.bj);
-        this.b(block.bk / 3.0F);
-        this.a(block.br);
+        this.c(block.strength);
+        this.b(block.durability / 3.0F);
+        this.a(block.stepSound);
     }
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
@@ -32,7 +32,7 @@ public class BlockStairs extends Block {
     }
 
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist) {
-        int l = world.b(i, j, k);
+        int l = world.getData(i, j, k);
 
         if (l == 0) {
             this.a(0.0F, 0.0F, 0.0F, 0.5F, 0.5F, 1.0F);
@@ -137,7 +137,7 @@ public class BlockStairs extends Block {
     }
 
     public void a(World world, int i, int j, int k, EntityLiving entityliving) {
-        int l = MathHelper.b((double) (entityliving.v * 4.0F / 360.0F) + 0.5D) & 3;
+        int l = MathHelper.b((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         if (l == 0) {
             world.c(i, j, k, 2);

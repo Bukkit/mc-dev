@@ -6,7 +6,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
 
     public EntityMonster(World world) {
         super(world);
-        this.aZ = 20;
+        this.health = 20;
     }
 
     public void o() {
@@ -21,20 +21,20 @@ public class EntityMonster extends EntityCreature implements IMonster {
 
     public void b_() {
         super.b_();
-        if (this.l.k == 0) {
+        if (this.world.k == 0) {
             this.q();
         }
     }
 
     protected Entity l() {
-        EntityHuman entityhuman = this.l.a(this, 16.0D);
+        EntityHuman entityhuman = this.world.a(this, 16.0D);
 
         return entityhuman != null && this.i(entityhuman) ? entityhuman : null;
     }
 
     public boolean a(Entity entity, int i) {
         if (super.a(entity, i)) {
-            if (this.j != entity && this.k != entity) {
+            if (this.passenger != entity && this.vehicle != entity) {
                 if (entity != this) {
                     this.d = entity;
                 }
@@ -49,14 +49,14 @@ public class EntityMonster extends EntityCreature implements IMonster {
     }
 
     protected void a(Entity entity, float f) {
-        if ((double) f < 2.5D && entity.z.e > this.z.b && entity.z.b < this.z.e) {
-            this.bf = 20;
+        if ((double) f < 2.5D && entity.boundingBox.e > this.boundingBox.b && entity.boundingBox.b < this.boundingBox.e) {
+            this.attackTicks = 20;
             entity.a(this, this.c);
         }
     }
 
     protected float a(int i, int j, int k) {
-        return 0.5F - this.l.l(i, j, k);
+        return 0.5F - this.world.l(i, j, k);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -68,16 +68,16 @@ public class EntityMonster extends EntityCreature implements IMonster {
     }
 
     public boolean b() {
-        int i = MathHelper.b(this.p);
-        int j = MathHelper.b(this.z.b);
-        int k = MathHelper.b(this.r);
+        int i = MathHelper.b(this.locX);
+        int j = MathHelper.b(this.boundingBox.b);
+        int k = MathHelper.b(this.locZ);
 
-        if (this.l.a(EnumSkyBlock.SKY, i, j, k) > this.W.nextInt(32)) {
+        if (this.world.a(EnumSkyBlock.SKY, i, j, k) > this.random.nextInt(32)) {
             return false;
         } else {
-            int l = this.l.j(i, j, k);
+            int l = this.world.j(i, j, k);
 
-            return l <= this.W.nextInt(8) && super.b();
+            return l <= this.random.nextInt(8) && super.b();
         }
     }
 }

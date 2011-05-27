@@ -112,12 +112,12 @@ public class WorldGenBigTree extends WorldGenerator {
                     ++k1;
                 } else {
                     aint1[b2] = aint[b2] + k1;
-                    int l1 = this.c.a(aint1[0], aint1[1], aint1[2]);
+                    int l1 = this.c.getTypeId(aint1[0], aint1[1], aint1[2]);
 
                     if (l1 != 0 && l1 != 18) {
                         ++k1;
                     } else {
-                        this.c.b(aint1[0], aint1[1], aint1[2], l);
+                        this.c.setTypeId(aint1[0], aint1[1], aint1[2], l);
                         ++k1;
                     }
                 }
@@ -193,7 +193,7 @@ public class WorldGenBigTree extends WorldGenerator {
                 aint3[b1] = MathHelper.b((double) (aint[b1] + j) + 0.5D);
                 aint3[b2] = MathHelper.b((double) aint[b2] + (double) j * d0 + 0.5D);
                 aint3[b3] = MathHelper.b((double) aint[b3] + (double) j * d1 + 0.5D);
-                this.c.b(aint3[0], aint3[1], aint3[2], i);
+                this.c.setTypeId(aint3[0], aint3[1], aint3[2], i);
             }
         }
     }
@@ -290,7 +290,7 @@ public class WorldGenBigTree extends WorldGenerator {
                 aint3[b1] = aint[b1] + i;
                 aint3[b2] = (int) ((double) aint[b2] + (double) i * d0);
                 aint3[b3] = (int) ((double) aint[b3] + (double) i * d1);
-                int k = this.c.a(aint3[0], aint3[1], aint3[2]);
+                int k = this.c.getTypeId(aint3[0], aint3[1], aint3[2]);
 
                 if (k != 0 && k != 18) {
                     break;
@@ -304,7 +304,7 @@ public class WorldGenBigTree extends WorldGenerator {
     boolean e() {
         int[] aint = new int[] { this.d[0], this.d[1], this.d[2]};
         int[] aint1 = new int[] { this.d[0], this.d[1] + this.e - 1, this.d[2]};
-        int i = this.c.a(this.d[0], this.d[1] - 1, this.d[2]);
+        int i = this.c.getTypeId(this.d[0], this.d[1] - 1, this.d[2]);
 
         if (i != 2 && i != 3) {
             return false;

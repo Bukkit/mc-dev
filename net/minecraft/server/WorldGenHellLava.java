@@ -11,59 +11,59 @@ public class WorldGenHellLava extends WorldGenerator {
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
-        if (world.a(i, j + 1, k) != Block.NETHERRACK.bi) {
+        if (world.getTypeId(i, j + 1, k) != Block.NETHERRACK.id) {
             return false;
-        } else if (world.a(i, j, k) != 0 && world.a(i, j, k) != Block.NETHERRACK.bi) {
+        } else if (world.getTypeId(i, j, k) != 0 && world.getTypeId(i, j, k) != Block.NETHERRACK.id) {
             return false;
         } else {
             int l = 0;
 
-            if (world.a(i - 1, j, k) == Block.NETHERRACK.bi) {
+            if (world.getTypeId(i - 1, j, k) == Block.NETHERRACK.id) {
                 ++l;
             }
 
-            if (world.a(i + 1, j, k) == Block.NETHERRACK.bi) {
+            if (world.getTypeId(i + 1, j, k) == Block.NETHERRACK.id) {
                 ++l;
             }
 
-            if (world.a(i, j, k - 1) == Block.NETHERRACK.bi) {
+            if (world.getTypeId(i, j, k - 1) == Block.NETHERRACK.id) {
                 ++l;
             }
 
-            if (world.a(i, j, k + 1) == Block.NETHERRACK.bi) {
+            if (world.getTypeId(i, j, k + 1) == Block.NETHERRACK.id) {
                 ++l;
             }
 
-            if (world.a(i, j - 1, k) == Block.NETHERRACK.bi) {
+            if (world.getTypeId(i, j - 1, k) == Block.NETHERRACK.id) {
                 ++l;
             }
 
             int i1 = 0;
 
-            if (world.e(i - 1, j, k)) {
+            if (world.isEmpty(i - 1, j, k)) {
                 ++i1;
             }
 
-            if (world.e(i + 1, j, k)) {
+            if (world.isEmpty(i + 1, j, k)) {
                 ++i1;
             }
 
-            if (world.e(i, j, k - 1)) {
+            if (world.isEmpty(i, j, k - 1)) {
                 ++i1;
             }
 
-            if (world.e(i, j, k + 1)) {
+            if (world.isEmpty(i, j, k + 1)) {
                 ++i1;
             }
 
-            if (world.e(i, j - 1, k)) {
+            if (world.isEmpty(i, j - 1, k)) {
                 ++i1;
             }
 
             if (l == 4 && i1 == 1) {
                 world.e(i, j, k, this.a);
                 world.a = true;
-                Block.m[this.a].a(world, i, j, k, random);
+                Block.byId[this.a].a(world, i, j, k, random);
                 world.a = false;
             }
 

@@ -21,13 +21,13 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         if (this.h[i] != null) {
             ItemStack itemstack;
 
-            if (this.h[i].a <= j) {
+            if (this.h[i].count <= j) {
                 itemstack = this.h[i];
                 this.h[i] = null;
                 return itemstack;
             } else {
                 itemstack = this.h[i].a(j);
-                if (this.h[i].a == 0) {
+                if (this.h[i].count == 0) {
                     this.h[i] = null;
                 }
 
@@ -40,8 +40,8 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
     public void a(int i, ItemStack itemstack) {
         this.h[i] = itemstack;
-        if (itemstack != null && itemstack.a > this.c()) {
-            itemstack.a = this.c();
+        if (itemstack != null && itemstack.count > this.c()) {
+            itemstack.count = this.c();
         }
     }
 
@@ -104,14 +104,14 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
             --this.e;
         }
 
-        if (!this.a.z) {
+        if (!this.a.isStatic) {
             if (this.e == 0 && this.i()) {
                 this.f = this.e = this.a(this.h[1]);
                 if (this.e > 0) {
                     flag1 = true;
                     if (this.h[1] != null) {
-                        --this.h[1].a;
-                        if (this.h[1].a == 0) {
+                        --this.h[1].count;
+                        if (this.h[1].count == 0) {
                             this.h[1] = null;
                         }
                     }
@@ -144,24 +144,24 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         if (this.h[0] == null) {
             return false;
         } else {
-            ItemStack itemstack = FurnaceRecipes.a().a(this.h[0].a().ba);
+            ItemStack itemstack = FurnaceRecipes.a().a(this.h[0].a().id);
 
-            return itemstack == null ? false : (this.h[2] == null ? true : (!this.h[2].a(itemstack) ? false : (this.h[2].a < this.c() && this.h[2].a < this.h[2].b() ? true : this.h[2].a < itemstack.b())));
+            return itemstack == null ? false : (this.h[2] == null ? true : (!this.h[2].a(itemstack) ? false : (this.h[2].count < this.c() && this.h[2].count < this.h[2].b() ? true : this.h[2].count < itemstack.b())));
         }
     }
 
     public void h() {
         if (this.i()) {
-            ItemStack itemstack = FurnaceRecipes.a().a(this.h[0].a().ba);
+            ItemStack itemstack = FurnaceRecipes.a().a(this.h[0].a().id);
 
             if (this.h[2] == null) {
                 this.h[2] = itemstack.j();
-            } else if (this.h[2].c == itemstack.c) {
-                ++this.h[2].a;
+            } else if (this.h[2].id == itemstack.id) {
+                ++this.h[2].count;
             }
 
-            --this.h[0].a;
-            if (this.h[0].a <= 0) {
+            --this.h[0].count;
+            if (this.h[0].count <= 0) {
                 this.h[0] = null;
             }
         }
@@ -171,13 +171,13 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         if (itemstack == null) {
             return 0;
         } else {
-            int i = itemstack.a().ba;
+            int i = itemstack.a().id;
 
-            return i < 256 && Block.m[i].bt == Material.c ? 300 : (i == Item.STICK.ba ? 100 : (i == Item.COAL.ba ? 1600 : (i == Item.LAVA_BUCKET.ba ? 20000 : 0)));
+            return i < 256 && Block.byId[i].material == Material.WOOD ? 300 : (i == Item.STICK.id ? 100 : (i == Item.COAL.id ? 1600 : (i == Item.LAVA_BUCKET.id ? 20000 : 0)));
         }
     }
 
     public boolean a_(EntityHuman entityhuman) {
-        return this.a.m(this.b, this.c, this.d) != this ? false : entityhuman.d((double) this.b + 0.5D, (double) this.c + 0.5D, (double) this.d + 0.5D) <= 64.0D;
+        return this.a.getTileEntity(this.b, this.c, this.d) != this ? false : entityhuman.d((double) this.b + 0.5D, (double) this.c + 0.5D, (double) this.d + 0.5D) <= 64.0D;
     }
 }

@@ -7,12 +7,12 @@ public class EntityCreeper extends EntityMonster {
 
     public EntityCreeper(World world) {
         super(world);
-        this.aP = "/mob/creeper.png";
+        this.texture = "/mob/creeper.png";
     }
 
     protected void a() {
         super.a();
-        this.af.a(16, Byte.valueOf((byte) -1));
+        this.datawatcher.a(16, Byte.valueOf((byte) -1));
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -25,11 +25,11 @@ public class EntityCreeper extends EntityMonster {
 
     public void b_() {
         this.b = this.a;
-        if (this.l.z) {
+        if (this.world.isStatic) {
             int i = this.K();
 
             if (i > 0 && this.a == 0) {
-                this.l.a(this, "random.fuse", 1.0F, 0.5F);
+                this.world.a(this, "random.fuse", 1.0F, 0.5F);
             }
 
             this.a += i;
@@ -56,7 +56,7 @@ public class EntityCreeper extends EntityMonster {
     public void f(Entity entity) {
         super.f(entity);
         if (entity instanceof EntitySkeleton) {
-            this.a(Item.GOLD_RECORD.ba + this.W.nextInt(2), 1);
+            this.a(Item.GOLD_RECORD.id + this.random.nextInt(2), 1);
         }
     }
 
@@ -71,13 +71,13 @@ public class EntityCreeper extends EntityMonster {
             }
         } else {
             if (this.a == 0) {
-                this.l.a(this, "random.fuse", 1.0F, 0.5F);
+                this.world.a(this, "random.fuse", 1.0F, 0.5F);
             }
 
             this.a(1);
             ++this.a;
             if (this.a >= 30) {
-                this.l.a(this, this.p, this.q, this.r, 3.0F);
+                this.world.a(this, this.locX, this.locY, this.locZ, 3.0F);
                 this.q();
             }
 
@@ -86,14 +86,14 @@ public class EntityCreeper extends EntityMonster {
     }
 
     protected int h() {
-        return Item.SULPHUR.ba;
+        return Item.SULPHUR.id;
     }
 
     private int K() {
-        return this.af.a(16);
+        return this.datawatcher.a(16);
     }
 
     private void a(int i) {
-        this.af.b(16, Byte.valueOf((byte) i));
+        this.datawatcher.b(16, Byte.valueOf((byte) i));
     }
 }

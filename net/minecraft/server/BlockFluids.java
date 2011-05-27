@@ -5,7 +5,7 @@ import java.util.Random;
 public abstract class BlockFluids extends Block {
 
     protected BlockFluids(int i, Material material) {
-        super(i, (material == Material.g ? 14 : 12) * 16 + 13, material);
+        super(i, (material == Material.LAVA ? 14 : 12) * 16 + 13, material);
         float f = 0.0F;
         float f1 = 0.0F;
 
@@ -24,18 +24,18 @@ public abstract class BlockFluids extends Block {
     }
 
     public int a(int i) {
-        return i != 0 && i != 1 ? this.bh + 1 : this.bh;
+        return i != 0 && i != 1 ? this.textureId + 1 : this.textureId;
     }
 
     protected int g(World world, int i, int j, int k) {
-        return world.c(i, j, k) != this.bt ? -1 : world.b(i, j, k);
+        return world.getMaterial(i, j, k) != this.material ? -1 : world.getData(i, j, k);
     }
 
     protected int b(IBlockAccess iblockaccess, int i, int j, int k) {
-        if (iblockaccess.c(i, j, k) != this.bt) {
+        if (iblockaccess.getMaterial(i, j, k) != this.material) {
             return -1;
         } else {
-            int l = iblockaccess.b(i, j, k);
+            int l = iblockaccess.getData(i, j, k);
 
             if (l >= 8) {
                 l = 0;
@@ -54,9 +54,9 @@ public abstract class BlockFluids extends Block {
     }
 
     public boolean a(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        Material material = iblockaccess.c(i, j, k);
+        Material material = iblockaccess.getMaterial(i, j, k);
 
-        return material == this.bt ? false : (material == Material.r ? false : (l == 1 ? true : super.a(iblockaccess, i, j, k, l)));
+        return material == this.material ? false : (material == Material.ICE ? false : (l == 1 ? true : super.a(iblockaccess, i, j, k, l)));
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {
@@ -99,7 +99,7 @@ public abstract class BlockFluids extends Block {
             int i2;
 
             if (l1 < 0) {
-                if (!iblockaccess.c(j1, j, k1).c()) {
+                if (!iblockaccess.getMaterial(j1, j, k1).isSolid()) {
                     l1 = this.b(iblockaccess, j1, j - 1, k1);
                     if (l1 >= 0) {
                         i2 = l1 - (l - 8);
@@ -112,7 +112,7 @@ public abstract class BlockFluids extends Block {
             }
         }
 
-        if (iblockaccess.b(i, j, k) >= 8) {
+        if (iblockaccess.getData(i, j, k) >= 8) {
             boolean flag = false;
 
             if (flag || this.a(iblockaccess, i, j, k - 1, 2)) {
@@ -165,7 +165,7 @@ public abstract class BlockFluids extends Block {
     }
 
     public int b() {
-        return this.bt == Material.f ? 5 : (this.bt == Material.g ? 30 : 0);
+        return this.material == Material.WATER ? 5 : (this.material == Material.LAVA ? 30 : 0);
     }
 
     public void a(World world, int i, int j, int k, Random random) {
@@ -181,37 +181,37 @@ public abstract class BlockFluids extends Block {
     }
 
     private void i(World world, int i, int j, int k) {
-        if (world.a(i, j, k) == this.bi) {
-            if (this.bt == Material.g) {
+        if (world.getTypeId(i, j, k) == this.id) {
+            if (this.material == Material.LAVA) {
                 boolean flag = false;
 
-                if (flag || world.c(i, j, k - 1) == Material.f) {
+                if (flag || world.getMaterial(i, j, k - 1) == Material.WATER) {
                     flag = true;
                 }
 
-                if (flag || world.c(i, j, k + 1) == Material.f) {
+                if (flag || world.getMaterial(i, j, k + 1) == Material.WATER) {
                     flag = true;
                 }
 
-                if (flag || world.c(i - 1, j, k) == Material.f) {
+                if (flag || world.getMaterial(i - 1, j, k) == Material.WATER) {
                     flag = true;
                 }
 
-                if (flag || world.c(i + 1, j, k) == Material.f) {
+                if (flag || world.getMaterial(i + 1, j, k) == Material.WATER) {
                     flag = true;
                 }
 
-                if (flag || world.c(i, j + 1, k) == Material.f) {
+                if (flag || world.getMaterial(i, j + 1, k) == Material.WATER) {
                     flag = true;
                 }
 
                 if (flag) {
-                    int l = world.b(i, j, k);
+                    int l = world.getData(i, j, k);
 
                     if (l == 0) {
-                        world.e(i, j, k, Block.OBSIDIAN.bi);
+                        world.e(i, j, k, Block.OBSIDIAN.id);
                     } else if (l <= 4) {
-                        world.e(i, j, k, Block.COBBLESTONE.bi);
+                        world.e(i, j, k, Block.COBBLESTONE.id);
                     }
 
                     this.h(world, i, j, k);

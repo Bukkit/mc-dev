@@ -4,15 +4,15 @@ public class MaterialLiquid extends Material {
 
     public MaterialLiquid() {}
 
-    public boolean d() {
+    public boolean isLiquid() {
         return true;
     }
 
-    public boolean c() {
+    public boolean isSolid() {
         return false;
     }
 
-    public boolean a() {
+    public boolean isBuildable() {
         return false;
     }
 }

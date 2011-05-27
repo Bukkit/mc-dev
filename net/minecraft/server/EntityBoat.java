@@ -21,18 +21,18 @@ public class EntityBoat extends Entity {
         this.c = 1;
         this.i = true;
         this.a(1.5F, 0.6F);
-        this.H = this.J / 2.0F;
+        this.height = this.width / 2.0F;
         this.M = false;
     }
 
     protected void a() {}
 
     public AxisAlignedBB d(Entity entity) {
-        return entity.z;
+        return entity.boundingBox;
     }
 
     public AxisAlignedBB u() {
-        return this.z;
+        return this.boundingBox;
     }
 
     public boolean z() {
@@ -41,21 +41,21 @@ public class EntityBoat extends Entity {
 
     public EntityBoat(World world, double d0, double d1, double d2) {
         this(world);
-        this.a(d0, d1 + (double) this.H, d2);
-        this.s = 0.0D;
-        this.t = 0.0D;
-        this.u = 0.0D;
-        this.m = d0;
-        this.n = d1;
-        this.o = d2;
+        this.a(d0, d1 + (double) this.height, d2);
+        this.motX = 0.0D;
+        this.motY = 0.0D;
+        this.motZ = 0.0D;
+        this.lastX = d0;
+        this.lastY = d1;
+        this.lastZ = d2;
     }
 
     public double k() {
-        return (double) this.J * 0.0D - 0.30000001192092896D;
+        return (double) this.width * 0.0D - 0.30000001192092896D;
     }
 
     public boolean a(Entity entity, int i) {
-        if (!this.l.z && !this.G) {
+        if (!this.world.isStatic && !this.dead) {
             this.c = -this.c;
             this.b = 10;
             this.a += i * 10;
@@ -64,11 +64,11 @@ public class EntityBoat extends Entity {
                 int j;
 
                 for (j = 0; j < 3; ++j) {
-                    this.a(Block.WOOD.bi, 1, 0.0F);
+                    this.a(Block.WOOD.id, 1, 0.0F);
                 }
 
                 for (j = 0; j < 2; ++j) {
-                    this.a(Item.STICK.ba, 1, 0.0F);
+                    this.a(Item.STICK.id, 1, 0.0F);
                 }
 
                 this.q();
@@ -81,7 +81,7 @@ public class EntityBoat extends Entity {
     }
 
     public boolean c_() {
-        return !this.G;
+        return !this.dead;
     }
 
     public void b_() {
@@ -94,18 +94,18 @@ public class EntityBoat extends Entity {
             --this.a;
         }
 
-        this.m = this.p;
-        this.n = this.q;
-        this.o = this.r;
+        this.lastX = this.locX;
+        this.lastY = this.locY;
+        this.lastZ = this.locZ;
         byte b0 = 5;
         double d0 = 0.0D;
 
         for (int i = 0; i < b0; ++i) {
-            double d1 = this.z.b + (this.z.e - this.z.b) * (double) (i + 0) / (double) b0 - 0.125D;
-            double d2 = this.z.b + (this.z.e - this.z.b) * (double) (i + 1) / (double) b0 - 0.125D;
-            AxisAlignedBB axisalignedbb = AxisAlignedBB.b(this.z.a, d1, this.z.c, this.z.d, d2, this.z.f);
+            double d1 = this.boundingBox.b + (this.boundingBox.e - this.boundingBox.b) * (double) (i + 0) / (double) b0 - 0.125D;
+            double d2 = this.boundingBox.b + (this.boundingBox.e - this.boundingBox.b) * (double) (i + 1) / (double) b0 - 0.125D;
+            AxisAlignedBB axisalignedbb = AxisAlignedBB.b(this.boundingBox.a, d1, this.boundingBox.c, this.boundingBox.d, d2, this.boundingBox.f);
 
-            if (this.l.b(axisalignedbb, Material.f)) {
+            if (this.world.b(axisalignedbb, Material.WATER)) {
                 d0 += 1.0D / (double) b0;
             }
         }
@@ -115,13 +115,13 @@ public class EntityBoat extends Entity {
         double d5;
         double d6;
 
-        if (this.l.z) {
+        if (this.world.isStatic) {
             if (this.d > 0) {
-                d3 = this.p + (this.e - this.p) / (double) this.d;
-                d4 = this.q + (this.f - this.q) / (double) this.d;
-                d5 = this.r + (this.ak - this.r) / (double) this.d;
+                d3 = this.locX + (this.e - this.locX) / (double) this.d;
+                d4 = this.locY + (this.f - this.locY) / (double) this.d;
+                d5 = this.locZ + (this.ak - this.locZ) / (double) this.d;
 
-                for (d6 = this.al - (double) this.v; d6 < -180.0D; d6 += 360.0D) {
+                for (d6 = this.al - (double) this.yaw; d6 < -180.0D; d6 += 360.0D) {
                     ;
                 }
 
@@ -129,107 +129,107 @@ public class EntityBoat extends Entity {
                     d6 -= 360.0D;
                 }
 
-                this.v = (float) ((double) this.v + d6 / (double) this.d);
-                this.w = (float) ((double) this.w + (this.am - (double) this.w) / (double) this.d);
+                this.yaw = (float) ((double) this.yaw + d6 / (double) this.d);
+                this.pitch = (float) ((double) this.pitch + (this.am - (double) this.pitch) / (double) this.d);
                 --this.d;
                 this.a(d3, d4, d5);
-                this.b(this.v, this.w);
+                this.b(this.yaw, this.pitch);
             } else {
-                d3 = this.p + this.s;
-                d4 = this.q + this.t;
-                d5 = this.r + this.u;
+                d3 = this.locX + this.motX;
+                d4 = this.locY + this.motY;
+                d5 = this.locZ + this.motZ;
                 this.a(d3, d4, d5);
-                if (this.A) {
-                    this.s *= 0.5D;
-                    this.t *= 0.5D;
-                    this.u *= 0.5D;
+                if (this.onGround) {
+                    this.motX *= 0.5D;
+                    this.motY *= 0.5D;
+                    this.motZ *= 0.5D;
                 }
 
-                this.s *= 0.9900000095367432D;
-                this.t *= 0.949999988079071D;
-                this.u *= 0.9900000095367432D;
+                this.motX *= 0.9900000095367432D;
+                this.motY *= 0.949999988079071D;
+                this.motZ *= 0.9900000095367432D;
             }
         } else {
             d3 = d0 * 2.0D - 1.0D;
-            this.t += 0.03999999910593033D * d3;
-            if (this.j != null) {
-                this.s += this.j.s * 0.2D;
-                this.u += this.j.u * 0.2D;
+            this.motY += 0.03999999910593033D * d3;
+            if (this.passenger != null) {
+                this.motX += this.passenger.motX * 0.2D;
+                this.motZ += this.passenger.motZ * 0.2D;
             }
 
             d4 = 0.4D;
-            if (this.s < -d4) {
-                this.s = -d4;
+            if (this.motX < -d4) {
+                this.motX = -d4;
             }
 
-            if (this.s > d4) {
-                this.s = d4;
+            if (this.motX > d4) {
+                this.motX = d4;
             }
 
-            if (this.u < -d4) {
-                this.u = -d4;
+            if (this.motZ < -d4) {
+                this.motZ = -d4;
             }
 
-            if (this.u > d4) {
-                this.u = d4;
+            if (this.motZ > d4) {
+                this.motZ = d4;
             }
 
-            if (this.A) {
-                this.s *= 0.5D;
-                this.t *= 0.5D;
-                this.u *= 0.5D;
+            if (this.onGround) {
+                this.motX *= 0.5D;
+                this.motY *= 0.5D;
+                this.motZ *= 0.5D;
             }
 
-            this.c(this.s, this.t, this.u);
-            d5 = Math.sqrt(this.s * this.s + this.u * this.u);
+            this.c(this.motX, this.motY, this.motZ);
+            d5 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ);
             double d7;
 
             if (d5 > 0.15D) {
-                d6 = Math.cos((double) this.v * 3.141592653589793D / 180.0D);
-                d7 = Math.sin((double) this.v * 3.141592653589793D / 180.0D);
+                d6 = Math.cos((double) this.yaw * 3.141592653589793D / 180.0D);
+                d7 = Math.sin((double) this.yaw * 3.141592653589793D / 180.0D);
 
                 for (int j = 0; (double) j < 1.0D + d5 * 60.0D; ++j) {
-                    double d8 = (double) (this.W.nextFloat() * 2.0F - 1.0F);
-                    double d9 = (double) (this.W.nextInt(2) * 2 - 1) * 0.7D;
+                    double d8 = (double) (this.random.nextFloat() * 2.0F - 1.0F);
+                    double d9 = (double) (this.random.nextInt(2) * 2 - 1) * 0.7D;
                     double d10;
                     double d11;
 
-                    if (this.W.nextBoolean()) {
-                        d10 = this.p - d6 * d8 * 0.8D + d7 * d9;
-                        d11 = this.r - d7 * d8 * 0.8D - d6 * d9;
-                        this.l.a("splash", d10, this.q - 0.125D, d11, this.s, this.t, this.u);
+                    if (this.random.nextBoolean()) {
+                        d10 = this.locX - d6 * d8 * 0.8D + d7 * d9;
+                        d11 = this.locZ - d7 * d8 * 0.8D - d6 * d9;
+                        this.world.a("splash", d10, this.locY - 0.125D, d11, this.motX, this.motY, this.motZ);
                     } else {
-                        d10 = this.p + d6 + d7 * d8 * 0.7D;
-                        d11 = this.r + d7 - d6 * d8 * 0.7D;
-                        this.l.a("splash", d10, this.q - 0.125D, d11, this.s, this.t, this.u);
+                        d10 = this.locX + d6 + d7 * d8 * 0.7D;
+                        d11 = this.locZ + d7 - d6 * d8 * 0.7D;
+                        this.world.a("splash", d10, this.locY - 0.125D, d11, this.motX, this.motY, this.motZ);
                     }
                 }
             }
 
             if (this.B && d5 > 0.15D) {
-                if (!this.l.z) {
+                if (!this.world.isStatic) {
                     this.q();
 
                     int k;
 
                     for (k = 0; k < 3; ++k) {
-                        this.a(Block.WOOD.bi, 1, 0.0F);
+                        this.a(Block.WOOD.id, 1, 0.0F);
                     }
 
                     for (k = 0; k < 2; ++k) {
-                        this.a(Item.STICK.ba, 1, 0.0F);
+                        this.a(Item.STICK.id, 1, 0.0F);
                     }
                 }
             } else {
-                this.s *= 0.9900000095367432D;
-                this.t *= 0.949999988079071D;
-                this.u *= 0.9900000095367432D;
+                this.motX *= 0.9900000095367432D;
+                this.motY *= 0.949999988079071D;
+                this.motZ *= 0.9900000095367432D;
             }
 
-            this.w = 0.0F;
-            d6 = (double) this.v;
-            d7 = this.m - this.p;
-            double d12 = this.o - this.r;
+            this.pitch = 0.0F;
+            d6 = (double) this.yaw;
+            d7 = this.lastX - this.locX;
+            double d12 = this.lastZ - this.locZ;
 
             if (d7 * d7 + d12 * d12 > 0.0010D) {
                 d6 = (double) ((float) (Math.atan2(d12, d7) * 180.0D / 3.141592653589793D));
@@ -237,7 +237,7 @@ public class EntityBoat extends Entity {
 
             double d13;
 
-            for (d13 = d6 - (double) this.v; d13 >= 180.0D; d13 -= 360.0D) {
+            for (d13 = d6 - (double) this.yaw; d13 >= 180.0D; d13 -= 360.0D) {
                 ;
             }
 
@@ -253,32 +253,32 @@ public class EntityBoat extends Entity {
                 d13 = -20.0D;
             }
 
-            this.v = (float) ((double) this.v + d13);
-            this.b(this.v, this.w);
-            List list = this.l.b((Entity) this, this.z.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+            this.yaw = (float) ((double) this.yaw + d13);
+            this.b(this.yaw, this.pitch);
+            List list = this.world.b((Entity) this, this.boundingBox.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
 
             if (list != null && list.size() > 0) {
                 for (int l = 0; l < list.size(); ++l) {
                     Entity entity = (Entity) list.get(l);
 
-                    if (entity != this.j && entity.z() && entity instanceof EntityBoat) {
+                    if (entity != this.passenger && entity.z() && entity instanceof EntityBoat) {
                         entity.c((Entity) this);
                     }
                 }
             }
 
-            if (this.j != null && this.j.G) {
-                this.j = null;
+            if (this.passenger != null && this.passenger.dead) {
+                this.passenger = null;
             }
         }
     }
 
     public void E() {
-        if (this.j != null) {
-            double d0 = Math.cos((double) this.v * 3.141592653589793D / 180.0D) * 0.4D;
-            double d1 = Math.sin((double) this.v * 3.141592653589793D / 180.0D) * 0.4D;
+        if (this.passenger != null) {
+            double d0 = Math.cos((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
+            double d1 = Math.sin((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
 
-            this.j.a(this.p + d0, this.q + this.k() + this.j.F(), this.r + d1);
+            this.passenger.a(this.locX + d0, this.locY + this.k() + this.passenger.F(), this.locZ + d1);
         }
     }
 
@@ -287,10 +287,10 @@ public class EntityBoat extends Entity {
     protected void b(NBTTagCompound nbttagcompound) {}
 
     public boolean a(EntityHuman entityhuman) {
-        if (this.j != null && this.j instanceof EntityHuman && this.j != entityhuman) {
+        if (this.passenger != null && this.passenger instanceof EntityHuman && this.passenger != entityhuman) {
             return true;
         } else {
-            if (!this.l.z) {
+            if (!this.world.isStatic) {
                 entityhuman.e(this);
             }
 

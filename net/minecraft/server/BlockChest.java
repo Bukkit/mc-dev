@@ -7,30 +7,30 @@ public class BlockChest extends BlockContainer {
     private Random a = new Random();
 
     protected BlockChest(int i) {
-        super(i, Material.c);
-        this.bh = 26;
+        super(i, Material.WOOD);
+        this.textureId = 26;
     }
 
     public int a(int i) {
-        return i == 1 ? this.bh - 1 : (i == 0 ? this.bh - 1 : (i == 3 ? this.bh + 1 : this.bh));
+        return i == 1 ? this.textureId - 1 : (i == 0 ? this.textureId - 1 : (i == 3 ? this.textureId + 1 : this.textureId));
     }
 
     public boolean a(World world, int i, int j, int k) {
         int l = 0;
 
-        if (world.a(i - 1, j, k) == this.bi) {
+        if (world.getTypeId(i - 1, j, k) == this.id) {
             ++l;
         }
 
-        if (world.a(i + 1, j, k) == this.bi) {
+        if (world.getTypeId(i + 1, j, k) == this.id) {
             ++l;
         }
 
-        if (world.a(i, j, k - 1) == this.bi) {
+        if (world.getTypeId(i, j, k - 1) == this.id) {
             ++l;
         }
 
-        if (world.a(i, j, k + 1) == this.bi) {
+        if (world.getTypeId(i, j, k + 1) == this.id) {
             ++l;
         }
 
@@ -38,11 +38,11 @@ public class BlockChest extends BlockContainer {
     }
 
     private boolean g(World world, int i, int j, int k) {
-        return world.a(i, j, k) != this.bi ? false : (world.a(i - 1, j, k) == this.bi ? true : (world.a(i + 1, j, k) == this.bi ? true : (world.a(i, j, k - 1) == this.bi ? true : world.a(i, j, k + 1) == this.bi)));
+        return world.getTypeId(i, j, k) != this.id ? false : (world.getTypeId(i - 1, j, k) == this.id ? true : (world.getTypeId(i + 1, j, k) == this.id ? true : (world.getTypeId(i, j, k - 1) == this.id ? true : world.getTypeId(i, j, k + 1) == this.id)));
     }
 
     public void b(World world, int i, int j, int k) {
-        TileEntityChest tileentitychest = (TileEntityChest) world.m(i, j, k);
+        TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i, j, k);
 
         for (int l = 0; l < tileentitychest.h_(); ++l) {
             ItemStack itemstack = tileentitychest.a(l);
@@ -52,20 +52,20 @@ public class BlockChest extends BlockContainer {
                 float f1 = this.a.nextFloat() * 0.8F + 0.1F;
                 float f2 = this.a.nextFloat() * 0.8F + 0.1F;
 
-                while (itemstack.a > 0) {
+                while (itemstack.count > 0) {
                     int i1 = this.a.nextInt(21) + 10;
 
-                    if (i1 > itemstack.a) {
-                        i1 = itemstack.a;
+                    if (i1 > itemstack.count) {
+                        i1 = itemstack.count;
                     }
 
-                    itemstack.a -= i1;
-                    EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.c, i1, itemstack.h()));
+                    itemstack.count -= i1;
+                    EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, i1, itemstack.h()));
                     float f3 = 0.05F;
 
-                    entityitem.s = (double) ((float) this.a.nextGaussian() * f3);
-                    entityitem.t = (double) ((float) this.a.nextGaussian() * f3 + 0.2F);
-                    entityitem.u = (double) ((float) this.a.nextGaussian() * f3);
+                    entityitem.motX = (double) ((float) this.a.nextGaussian() * f3);
+                    entityitem.motY = (double) ((float) this.a.nextGaussian() * f3 + 0.2F);
+                    entityitem.motZ = (double) ((float) this.a.nextGaussian() * f3);
                     world.a((Entity) entityitem);
                 }
             }
@@ -75,36 +75,36 @@ public class BlockChest extends BlockContainer {
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        Object object = (TileEntityChest) world.m(i, j, k);
+        Object object = (TileEntityChest) world.getTileEntity(i, j, k);
 
         if (world.d(i, j + 1, k)) {
             return true;
-        } else if (world.a(i - 1, j, k) == this.bi && world.d(i - 1, j + 1, k)) {
+        } else if (world.getTypeId(i - 1, j, k) == this.id && world.d(i - 1, j + 1, k)) {
             return true;
-        } else if (world.a(i + 1, j, k) == this.bi && world.d(i + 1, j + 1, k)) {
+        } else if (world.getTypeId(i + 1, j, k) == this.id && world.d(i + 1, j + 1, k)) {
             return true;
-        } else if (world.a(i, j, k - 1) == this.bi && world.d(i, j + 1, k - 1)) {
+        } else if (world.getTypeId(i, j, k - 1) == this.id && world.d(i, j + 1, k - 1)) {
             return true;
-        } else if (world.a(i, j, k + 1) == this.bi && world.d(i, j + 1, k + 1)) {
+        } else if (world.getTypeId(i, j, k + 1) == this.id && world.d(i, j + 1, k + 1)) {
             return true;
         } else {
-            if (world.a(i - 1, j, k) == this.bi) {
-                object = new InventoryLargeChest("Large chest", (TileEntityChest) world.m(i - 1, j, k), (IInventory) object);
+            if (world.getTypeId(i - 1, j, k) == this.id) {
+                object = new InventoryLargeChest("Large chest", (TileEntityChest) world.getTileEntity(i - 1, j, k), (IInventory) object);
             }
 
-            if (world.a(i + 1, j, k) == this.bi) {
-                object = new InventoryLargeChest("Large chest", (IInventory) object, (TileEntityChest) world.m(i + 1, j, k));
+            if (world.getTypeId(i + 1, j, k) == this.id) {
+                object = new InventoryLargeChest("Large chest", (IInventory) object, (TileEntityChest) world.getTileEntity(i + 1, j, k));
             }
 
-            if (world.a(i, j, k - 1) == this.bi) {
-                object = new InventoryLargeChest("Large chest", (TileEntityChest) world.m(i, j, k - 1), (IInventory) object);
+            if (world.getTypeId(i, j, k - 1) == this.id) {
+                object = new InventoryLargeChest("Large chest", (TileEntityChest) world.getTileEntity(i, j, k - 1), (IInventory) object);
             }
 
-            if (world.a(i, j, k + 1) == this.bi) {
-                object = new InventoryLargeChest("Large chest", (IInventory) object, (TileEntityChest) world.m(i, j, k + 1));
+            if (world.getTypeId(i, j, k + 1) == this.id) {
+                object = new InventoryLargeChest("Large chest", (IInventory) object, (TileEntityChest) world.getTileEntity(i, j, k + 1));
             }
 
-            if (world.z) {
+            if (world.isStatic) {
                 return true;
             } else {
                 entityhuman.a((IInventory) object);

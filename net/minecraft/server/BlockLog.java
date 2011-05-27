@@ -5,8 +5,8 @@ import java.util.Random;
 public class BlockLog extends Block {
 
     protected BlockLog(int i) {
-        super(i, Material.c);
-        this.bh = 20;
+        super(i, Material.WOOD);
+        this.textureId = 20;
     }
 
     public int a(Random random) {
@@ -14,7 +14,7 @@ public class BlockLog extends Block {
     }
 
     public int a(int i, Random random) {
-        return Block.LOG.bi;
+        return Block.LOG.id;
     }
 
     public void b(World world, int i, int j, int k) {
@@ -25,10 +25,10 @@ public class BlockLog extends Block {
             for (int i1 = -b0; i1 <= b0; ++i1) {
                 for (int j1 = -b0; j1 <= b0; ++j1) {
                     for (int k1 = -b0; k1 <= b0; ++k1) {
-                        int l1 = world.a(i + i1, j + j1, k + k1);
+                        int l1 = world.getTypeId(i + i1, j + j1, k + k1);
 
-                        if (l1 == Block.LEAVES.bi) {
-                            int i2 = world.b(i + i1, j + j1, k + k1);
+                        if (l1 == Block.LEAVES.id) {
+                            int i2 = world.getData(i + i1, j + j1, k + k1);
 
                             if ((i2 & 4) == 0) {
                                 world.d(i + i1, j + j1, k + k1, i2 | 4);

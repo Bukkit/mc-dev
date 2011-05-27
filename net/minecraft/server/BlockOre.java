@@ -5,11 +5,11 @@ import java.util.Random;
 public class BlockOre extends Block {
 
     public BlockOre(int i, int j) {
-        super(i, j, Material.d);
+        super(i, j, Material.STONE);
     }
 
     public int a(int i, Random random) {
-        return this.bi == Block.COAL_ORE.bi ? Item.COAL.ba : (this.bi == Block.DIAMOND_ORE.bi ? Item.DIAMOND.ba : (this.bi == Block.LAPIS_ORE.bi ? Item.INK_SACK.ba : this.bi));
+        return this.id == Block.COAL_ORE.id ? Item.COAL.id : (this.id == Block.DIAMOND_ORE.id ? Item.DIAMOND.id : (this.id == Block.LAPIS_ORE.id ? Item.INK_SACK.id : this.id));
     }
 
     public int a(Random random) {
@@ -17,6 +17,6 @@ public class BlockOre extends Block {
     }
 
     protected int b(int i) {
-        return this.bi == Block.LAPIS_ORE.bi ? 4 : 0;
+        return this.id == Block.LAPIS_ORE.id ? 4 : 0;
     }
 }

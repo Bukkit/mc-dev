@@ -5,8 +5,8 @@ import java.util.Random;
 public class BlockSoil extends Block {
 
     protected BlockSoil(int i) {
-        super(i, Material.b);
-        this.bh = 87;
+        super(i, Material.EARTH);
+        this.textureId = 87;
         this.a(true);
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
         this.e(255);
@@ -25,12 +25,12 @@ public class BlockSoil extends Block {
             if (this.h(world, i, j, k)) {
                 world.c(i, j, k, 7);
             } else {
-                int l = world.b(i, j, k);
+                int l = world.getData(i, j, k);
 
                 if (l > 0) {
                     world.c(i, j, k, l - 1);
                 } else if (!this.g(world, i, j, k)) {
-                    world.e(i, j, k, Block.DIRT.bi);
+                    world.e(i, j, k, Block.DIRT.id);
                 }
             }
         }
@@ -38,7 +38,7 @@ public class BlockSoil extends Block {
 
     public void b(World world, int i, int j, int k, Entity entity) {
         if (world.l.nextInt(4) == 0) {
-            world.e(i, j, k, Block.DIRT.bi);
+            world.e(i, j, k, Block.DIRT.id);
         }
     }
 
@@ -47,7 +47,7 @@ public class BlockSoil extends Block {
 
         for (int l = i - b0; l <= i + b0; ++l) {
             for (int i1 = k - b0; i1 <= k + b0; ++i1) {
-                if (world.a(l, j + 1, i1) == Block.CROPS.bi) {
+                if (world.getTypeId(l, j + 1, i1) == Block.CROPS.id) {
                     return true;
                 }
             }
@@ -60,7 +60,7 @@ public class BlockSoil extends Block {
         for (int l = i - 4; l <= i + 4; ++l) {
             for (int i1 = j; i1 <= j + 1; ++i1) {
                 for (int j1 = k - 4; j1 <= k + 4; ++j1) {
-                    if (world.c(l, i1, j1) == Material.f) {
+                    if (world.getMaterial(l, i1, j1) == Material.WATER) {
                         return true;
                     }
                 }
@@ -72,10 +72,10 @@ public class BlockSoil extends Block {
 
     public void b(World world, int i, int j, int k, int l) {
         super.b(world, i, j, k, l);
-        Material material = world.c(i, j + 1, k);
+        Material material = world.getMaterial(i, j + 1, k);
 
-        if (material.a()) {
-            world.e(i, j, k, Block.DIRT.bi);
+        if (material.isBuildable()) {
+            world.e(i, j, k, Block.DIRT.id);
         }
     }
 

@@ -69,7 +69,7 @@ public class MetadataChunkBlock {
                         for (int k2 = this.c; k2 <= this.f; ++k2) {
                             int l2 = world.a(this.a, k1, k2, l1);
                             boolean flag3 = false;
-                            int i3 = world.a(k1, k2, l1);
+                            int i3 = world.getTypeId(k1, k2, l1);
                             int j3 = Block.q[i3];
 
                             if (j3 == 0) {

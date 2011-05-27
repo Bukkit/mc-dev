@@ -5,23 +5,23 @@ import java.util.Random;
 public class BlockCactus extends Block {
 
     protected BlockCactus(int i, int j) {
-        super(i, j, Material.u);
+        super(i, j, Material.CACTUS);
         this.a(true);
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        if (world.e(i, j + 1, k)) {
+        if (world.isEmpty(i, j + 1, k)) {
             int l;
 
-            for (l = 1; world.a(i, j - l, k) == this.bi; ++l) {
+            for (l = 1; world.getTypeId(i, j - l, k) == this.id; ++l) {
                 ;
             }
 
             if (l < 3) {
-                int i1 = world.b(i, j, k);
+                int i1 = world.getData(i, j, k);
 
                 if (i1 == 15) {
-                    world.e(i, j + 1, k, this.bi);
+                    world.e(i, j + 1, k, this.id);
                     world.c(i, j, k, 0);
                 } else {
                     world.c(i, j, k, i1 + 1);
@@ -37,7 +37,7 @@ public class BlockCactus extends Block {
     }
 
     public int a(int i) {
-        return i == 1 ? this.bh - 1 : (i == 0 ? this.bh + 1 : this.bh);
+        return i == 1 ? this.textureId - 1 : (i == 0 ? this.textureId + 1 : this.textureId);
     }
 
     public boolean a() {
@@ -50,24 +50,24 @@ public class BlockCactus extends Block {
 
     public void b(World world, int i, int j, int k, int l) {
         if (!this.f(world, i, j, k)) {
-            this.a_(world, i, j, k, world.b(i, j, k));
+            this.a_(world, i, j, k, world.getData(i, j, k));
             world.e(i, j, k, 0);
         }
     }
 
     public boolean f(World world, int i, int j, int k) {
-        if (world.c(i - 1, j, k).a()) {
+        if (world.getMaterial(i - 1, j, k).isBuildable()) {
             return false;
-        } else if (world.c(i + 1, j, k).a()) {
+        } else if (world.getMaterial(i + 1, j, k).isBuildable()) {
             return false;
-        } else if (world.c(i, j, k - 1).a()) {
+        } else if (world.getMaterial(i, j, k - 1).isBuildable()) {
             return false;
-        } else if (world.c(i, j, k + 1).a()) {
+        } else if (world.getMaterial(i, j, k + 1).isBuildable()) {
             return false;
         } else {
-            int l = world.a(i, j - 1, k);
+            int l = world.getTypeId(i, j - 1, k);
 
-            return l == Block.CACTUS.bi || l == Block.SAND.bi;
+            return l == Block.CACTUS.id || l == Block.SAND.id;
         }
     }
 

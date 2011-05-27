@@ -4,17 +4,17 @@ public class EntityZombie extends EntityMonster {
 
     public EntityZombie(World world) {
         super(world);
-        this.aP = "/mob/zombie.png";
+        this.texture = "/mob/zombie.png";
         this.bC = 0.5F;
         this.c = 5;
     }
 
     public void o() {
-        if (this.l.b()) {
+        if (this.world.b()) {
             float f = this.b(1.0F);
 
-            if (f > 0.5F && this.l.i(MathHelper.b(this.p), MathHelper.b(this.q), MathHelper.b(this.r)) && this.W.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
-                this.Z = 300;
+            if (f > 0.5F && this.world.i(MathHelper.b(this.locX), MathHelper.b(this.locY), MathHelper.b(this.locZ)) && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
+                this.fireTicks = 300;
             }
         }
 
@@ -34,6 +34,6 @@ public class EntityZombie extends EntityMonster {
     }
 
     protected int h() {
-        return Item.FEATHER.ba;
+        return Item.FEATHER.id;
     }
 }

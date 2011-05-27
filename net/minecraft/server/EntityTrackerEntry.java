@@ -32,38 +32,38 @@ public class EntityTrackerEntry {
         this.b = i;
         this.c = j;
         this.s = flag;
-        this.d = MathHelper.b(entity.p * 32.0D);
-        this.e = MathHelper.b(entity.q * 32.0D);
-        this.f = MathHelper.b(entity.r * 32.0D);
-        this.g = MathHelper.d(entity.v * 256.0F / 360.0F);
-        this.h = MathHelper.d(entity.w * 256.0F / 360.0F);
+        this.d = MathHelper.b(entity.locX * 32.0D);
+        this.e = MathHelper.b(entity.locY * 32.0D);
+        this.f = MathHelper.b(entity.locZ * 32.0D);
+        this.g = MathHelper.d(entity.yaw * 256.0F / 360.0F);
+        this.h = MathHelper.d(entity.pitch * 256.0F / 360.0F);
     }
 
     public boolean equals(Object object) {
-        return object instanceof EntityTrackerEntry ? ((EntityTrackerEntry) object).a.g == this.a.g : false;
+        return object instanceof EntityTrackerEntry ? ((EntityTrackerEntry) object).a.id == this.a.id : false;
     }
 
     public int hashCode() {
-        return this.a.g;
+        return this.a.id;
     }
 
     public void a(List list) {
         this.m = false;
         if (!this.r || this.a.d(this.o, this.p, this.q) > 16.0D) {
-            this.o = this.a.p;
-            this.p = this.a.q;
-            this.q = this.a.r;
+            this.o = this.a.locX;
+            this.p = this.a.locY;
+            this.q = this.a.locZ;
             this.r = true;
             this.m = true;
             this.b(list);
         }
 
         if (++this.l % this.c == 0) {
-            int i = MathHelper.b(this.a.p * 32.0D);
-            int j = MathHelper.b(this.a.q * 32.0D);
-            int k = MathHelper.b(this.a.r * 32.0D);
-            int l = MathHelper.d(this.a.v * 256.0F / 360.0F);
-            int i1 = MathHelper.d(this.a.w * 256.0F / 360.0F);
+            int i = MathHelper.b(this.a.locX * 32.0D);
+            int j = MathHelper.b(this.a.locY * 32.0D);
+            int k = MathHelper.b(this.a.locZ * 32.0D);
+            int l = MathHelper.d(this.a.yaw * 256.0F / 360.0F);
+            int i1 = MathHelper.d(this.a.pitch * 256.0F / 360.0F);
             boolean flag = i != this.d || j != this.e || k != this.f;
             boolean flag1 = l != this.g || i1 != this.h;
             int j1 = i - this.d;
@@ -73,30 +73,30 @@ public class EntityTrackerEntry {
 
             if (j1 >= -128 && j1 < 128 && k1 >= -128 && k1 < 128 && l1 >= -128 && l1 < 128) {
                 if (flag && flag1) {
-                    object = new Packet33RelEntityMoveLook(this.a.g, (byte) j1, (byte) k1, (byte) l1, (byte) l, (byte) i1);
+                    object = new Packet33RelEntityMoveLook(this.a.id, (byte) j1, (byte) k1, (byte) l1, (byte) l, (byte) i1);
                 } else if (flag) {
-                    object = new Packet31RelEntityMove(this.a.g, (byte) j1, (byte) k1, (byte) l1);
+                    object = new Packet31RelEntityMove(this.a.id, (byte) j1, (byte) k1, (byte) l1);
                 } else if (flag1) {
-                    object = new Packet32EntityLook(this.a.g, (byte) l, (byte) i1);
+                    object = new Packet32EntityLook(this.a.id, (byte) l, (byte) i1);
                 } else {
-                    object = new Packet30Entity(this.a.g);
+                    object = new Packet30Entity(this.a.id);
                 }
             } else {
-                object = new Packet34EntityTeleport(this.a.g, i, j, k, (byte) l, (byte) i1);
+                object = new Packet34EntityTeleport(this.a.id, i, j, k, (byte) l, (byte) i1);
             }
 
             if (this.s) {
-                double d0 = this.a.s - this.i;
-                double d1 = this.a.t - this.j;
-                double d2 = this.a.u - this.k;
+                double d0 = this.a.motX - this.i;
+                double d1 = this.a.motY - this.j;
+                double d2 = this.a.motZ - this.k;
                 double d3 = 0.02D;
                 double d4 = d0 * d0 + d1 * d1 + d2 * d2;
 
-                if (d4 > d3 * d3 || d4 > 0.0D && this.a.s == 0.0D && this.a.t == 0.0D && this.a.u == 0.0D) {
-                    this.i = this.a.s;
-                    this.j = this.a.t;
-                    this.k = this.a.u;
-                    this.a((Packet) (new Packet28EntityVelocity(this.a.g, this.i, this.j, this.k)));
+                if (d4 > d3 * d3 || d4 > 0.0D && this.a.motX == 0.0D && this.a.motY == 0.0D && this.a.motZ == 0.0D) {
+                    this.i = this.a.motX;
+                    this.j = this.a.motY;
+                    this.k = this.a.motZ;
+                    this.a((Packet) (new Packet28EntityVelocity(this.a.id, this.i, this.j, this.k)));
                 }
             }
 
@@ -107,7 +107,7 @@ public class EntityTrackerEntry {
             DataWatcher datawatcher = this.a.p();
 
             if (datawatcher.a()) {
-                this.b((Packet) (new Packet40EntityMetadata(this.a.g, datawatcher)));
+                this.b((Packet) (new Packet40EntityMetadata(this.a.id, datawatcher)));
             }
 
             this.d = i;
@@ -141,7 +141,7 @@ public class EntityTrackerEntry {
     }
 
     public void a() {
-        this.a((Packet) (new Packet29DestroyEntity(this.a.g)));
+        this.a((Packet) (new Packet29DestroyEntity(this.a.id)));
     }
 
     public void a(EntityPlayer entityplayer) {
@@ -152,28 +152,28 @@ public class EntityTrackerEntry {
 
     public void b(EntityPlayer entityplayer) {
         if (entityplayer != this.a) {
-            double d0 = entityplayer.p - (double) (this.d / 32);
-            double d1 = entityplayer.r - (double) (this.f / 32);
+            double d0 = entityplayer.locX - (double) (this.d / 32);
+            double d1 = entityplayer.locZ - (double) (this.f / 32);
 
             if (d0 >= (double) (-this.b) && d0 <= (double) this.b && d1 >= (double) (-this.b) && d1 <= (double) this.b) {
                 if (!this.n.contains(entityplayer)) {
                     this.n.add(entityplayer);
                     entityplayer.a.b(this.b());
                     if (this.s) {
-                        entityplayer.a.b((Packet) (new Packet28EntityVelocity(this.a.g, this.a.s, this.a.t, this.a.u)));
+                        entityplayer.a.b((Packet) (new Packet28EntityVelocity(this.a.id, this.a.motX, this.a.motY, this.a.motZ)));
                     }
 
                     ItemStack[] aitemstack = this.a.I();
 
                     if (aitemstack != null) {
                         for (int i = 0; i < aitemstack.length; ++i) {
-                            entityplayer.a.b((Packet) (new Packet5EntityEquipment(this.a.g, i, aitemstack[i])));
+                            entityplayer.a.b((Packet) (new Packet5EntityEquipment(this.a.id, i, aitemstack[i])));
                         }
                     }
                 }
             } else if (this.n.contains(entityplayer)) {
                 this.n.remove(entityplayer);
-                entityplayer.a.b((Packet) (new Packet29DestroyEntity(this.a.g)));
+                entityplayer.a.b((Packet) (new Packet29DestroyEntity(this.a.id)));
             }
         }
     }
@@ -189,9 +189,9 @@ public class EntityTrackerEntry {
             EntityItem entityitem = (EntityItem) this.a;
             Packet21PickupSpawn packet21pickupspawn = new Packet21PickupSpawn(entityitem);
 
-            entityitem.p = (double) packet21pickupspawn.b / 32.0D;
-            entityitem.q = (double) packet21pickupspawn.c / 32.0D;
-            entityitem.r = (double) packet21pickupspawn.d / 32.0D;
+            entityitem.locX = (double) packet21pickupspawn.b / 32.0D;
+            entityitem.locY = (double) packet21pickupspawn.c / 32.0D;
+            entityitem.locZ = (double) packet21pickupspawn.d / 32.0D;
             return packet21pickupspawn;
         } else if (this.a instanceof EntityPlayer) {
             return new Packet20NamedEntitySpawn((EntityHuman) this.a);
@@ -230,11 +230,11 @@ public class EntityTrackerEntry {
                 if (this.a instanceof EntityFallingSand) {
                     EntityFallingSand entityfallingsand = (EntityFallingSand) this.a;
 
-                    if (entityfallingsand.a == Block.SAND.bi) {
+                    if (entityfallingsand.a == Block.SAND.id) {
                         return new Packet23VehicleSpawn(this.a, 70);
                     }
 
-                    if (entityfallingsand.a == Block.GRAVEL.bi) {
+                    if (entityfallingsand.a == Block.GRAVEL.id) {
                         return new Packet23VehicleSpawn(this.a, 71);
                     }
                 }
@@ -251,7 +251,7 @@ public class EntityTrackerEntry {
     public void c(EntityPlayer entityplayer) {
         if (this.n.contains(entityplayer)) {
             this.n.remove(entityplayer);
-            entityplayer.a.b((Packet) (new Packet29DestroyEntity(this.a.g)));
+            entityplayer.a.b((Packet) (new Packet29DestroyEntity(this.a.id)));
         }
     }
 }

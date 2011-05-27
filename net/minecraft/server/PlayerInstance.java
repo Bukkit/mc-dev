@@ -131,8 +131,8 @@ class PlayerInstance {
                 j = this.j;
                 k = this.d * 16 + this.l;
                 this.a((Packet) (new Packet53BlockChange(i, j, k, PlayerManager.a(this.a).e)));
-                if (Block.p[PlayerManager.a(this.a).e.a(i, j, k)]) {
-                    this.a(PlayerManager.a(this.a).e.m(i, j, k));
+                if (Block.p[PlayerManager.a(this.a).e.getTypeId(i, j, k)]) {
+                    this.a(PlayerManager.a(this.a).e.getTileEntity(i, j, k));
                 }
             } else {
                 int l;
@@ -160,9 +160,9 @@ class PlayerInstance {
                         j = this.c * 16 + (this.g >> 12 & 15);
                         k = this.g & 255;
                         l = this.d * 16 + (this.g >> 8 & 15);
-                        if (Block.p[PlayerManager.a(this.a).e.a(j, k, l)]) {
+                        if (Block.p[PlayerManager.a(this.a).e.getTypeId(j, k, l)]) {
                             System.out.println("Sending!");
-                            this.a(PlayerManager.a(this.a).e.m(j, k, l));
+                            this.a(PlayerManager.a(this.a).e.getTileEntity(j, k, l));
                         }
                     }
                 }

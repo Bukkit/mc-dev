@@ -5,8 +5,8 @@ import java.util.Random;
 public class BlockDispenser extends BlockContainer {
 
     protected BlockDispenser(int i) {
-        super(i, Material.d);
-        this.bh = 45;
+        super(i, Material.STONE);
+        this.textureId = 45;
     }
 
     public int b() {
@@ -14,7 +14,7 @@ public class BlockDispenser extends BlockContainer {
     }
 
     public int a(int i, Random random) {
-        return Block.DISPENSER.bi;
+        return Block.DISPENSER.id;
     }
 
     public void e(World world, int i, int j, int k) {
@@ -23,10 +23,10 @@ public class BlockDispenser extends BlockContainer {
     }
 
     private void g(World world, int i, int j, int k) {
-        int l = world.a(i, j, k - 1);
-        int i1 = world.a(i, j, k + 1);
-        int j1 = world.a(i - 1, j, k);
-        int k1 = world.a(i + 1, j, k);
+        int l = world.getTypeId(i, j, k - 1);
+        int i1 = world.getTypeId(i, j, k + 1);
+        int j1 = world.getTypeId(i - 1, j, k);
+        int k1 = world.getTypeId(i + 1, j, k);
         byte b0 = 3;
 
         if (Block.o[l] && !Block.o[i1]) {
@@ -49,14 +49,14 @@ public class BlockDispenser extends BlockContainer {
     }
 
     public int a(int i) {
-        return i == 1 ? this.bh + 17 : (i == 0 ? this.bh + 17 : (i == 3 ? this.bh + 1 : this.bh));
+        return i == 1 ? this.textureId + 17 : (i == 0 ? this.textureId + 17 : (i == 3 ? this.textureId + 1 : this.textureId));
     }
 
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (world.z) {
+        if (world.isStatic) {
             return true;
         } else {
-            TileEntityDispenser tileentitydispenser = (TileEntityDispenser) world.m(i, j, k);
+            TileEntityDispenser tileentitydispenser = (TileEntityDispenser) world.getTileEntity(i, j, k);
 
             entityhuman.a(tileentitydispenser);
             return true;
@@ -64,7 +64,7 @@ public class BlockDispenser extends BlockContainer {
     }
 
     private void b(World world, int i, int j, int k, Random random) {
-        int l = world.b(i, j, k);
+        int l = world.getData(i, j, k);
         float f = 0.0F;
         float f1 = 0.0F;
 
@@ -78,7 +78,7 @@ public class BlockDispenser extends BlockContainer {
             f = -1.0F;
         }
 
-        TileEntityDispenser tileentitydispenser = (TileEntityDispenser) world.m(i, j, k);
+        TileEntityDispenser tileentitydispenser = (TileEntityDispenser) world.getTileEntity(i, j, k);
         ItemStack itemstack = tileentitydispenser.e();
         double d0 = (double) i + (double) f * 0.5D + 0.5D;
         double d1 = (double) j + 0.5D;
@@ -89,19 +89,19 @@ public class BlockDispenser extends BlockContainer {
         } else {
             double d3;
 
-            if (itemstack.c == Item.ARROW.ba) {
+            if (itemstack.id == Item.ARROW.id) {
                 EntityArrow entityarrow = new EntityArrow(world, d0, d1, d2);
 
                 entityarrow.a((double) f, 0.10000000149011612D, (double) f1, 1.1F, 6.0F);
                 world.a((Entity) entityarrow);
                 world.a((double) i, (double) j, (double) k, "random.bow", 1.0F, 1.2F);
-            } else if (itemstack.c == Item.EGG.ba) {
+            } else if (itemstack.id == Item.EGG.id) {
                 EntityEgg entityegg = new EntityEgg(world, d0, d1, d2);
 
                 entityegg.a((double) f, 0.10000000149011612D, (double) f1, 1.1F, 6.0F);
                 world.a((Entity) entityegg);
                 world.a((double) i, (double) j, (double) k, "random.bow", 1.0F, 1.2F);
-            } else if (itemstack.c == Item.SNOW_BALL.ba) {
+            } else if (itemstack.id == Item.SNOW_BALL.id) {
                 EntitySnowball entitysnowball = new EntitySnowball(world, d0, d1, d2);
 
                 entitysnowball.a((double) f, 0.10000000149011612D, (double) f1, 1.1F, 6.0F);
@@ -111,12 +111,12 @@ public class BlockDispenser extends BlockContainer {
                 EntityItem entityitem = new EntityItem(world, d0, d1 - 0.3D, d2, itemstack);
 
                 d3 = random.nextDouble() * 0.1D + 0.2D;
-                entityitem.s = (double) f * d3;
-                entityitem.t = 0.20000000298023224D;
-                entityitem.u = (double) f1 * d3;
-                entityitem.s += random.nextGaussian() * 0.007499999832361937D * 6.0D;
-                entityitem.t += random.nextGaussian() * 0.007499999832361937D * 6.0D;
-                entityitem.u += random.nextGaussian() * 0.007499999832361937D * 6.0D;
+                entityitem.motX = (double) f * d3;
+                entityitem.motY = 0.20000000298023224D;
+                entityitem.motZ = (double) f1 * d3;
+                entityitem.motX += random.nextGaussian() * 0.007499999832361937D * 6.0D;
+                entityitem.motY += random.nextGaussian() * 0.007499999832361937D * 6.0D;
+                entityitem.motZ += random.nextGaussian() * 0.007499999832361937D * 6.0D;
                 world.a((Entity) entityitem);
                 world.a((double) i, (double) j, (double) k, "random.click", 1.0F, 1.0F);
             }
@@ -136,11 +136,11 @@ public class BlockDispenser extends BlockContainer {
     }
 
     public void b(World world, int i, int j, int k, int l) {
-        if (l > 0 && Block.m[l].c()) {
+        if (l > 0 && Block.byId[l].c()) {
             boolean flag = world.p(i, j, k) || world.p(i, j + 1, k);
 
             if (flag) {
-                world.i(i, j, k, this.bi);
+                world.i(i, j, k, this.id);
             }
         }
     }
@@ -156,7 +156,7 @@ public class BlockDispenser extends BlockContainer {
     }
 
     public void a(World world, int i, int j, int k, EntityLiving entityliving) {
-        int l = MathHelper.b((double) (entityliving.v * 4.0F / 360.0F) + 0.5D) & 3;
+        int l = MathHelper.b((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         if (l == 0) {
             world.c(i, j, k, 2);

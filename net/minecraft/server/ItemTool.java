@@ -11,8 +11,8 @@ public class ItemTool extends Item {
         super(i);
         this.a = enumtoolmaterial;
         this.bg = ablock;
-        this.bb = 1;
-        this.bc = enumtoolmaterial.a();
+        this.maxStackSize = 1;
+        this.durability = enumtoolmaterial.a();
         this.bh = enumtoolmaterial.b();
         this.bi = j + enumtoolmaterial.c();
     }
