@@ -28,15 +28,20 @@ class NetworkWriterThread extends Thread {
                     break;
                 }
 
-                NetworkManager.d(this.a);
+                for (int i = 100; i > 0; --i) {
+                    if (!NetworkManager.d(this.a)) {
+                        i = 0;
+                    }
+                }
+
+                try {
+                    sleep(1L);
+                } catch (InterruptedException interruptedexception) {
+                    ;
+                }
+
                 if (NetworkManager.e(this.a)) {
                     NetworkManager.a(this.a, false);
-
-                    try {
-                        sleep(1L);
-                    } catch (InterruptedException interruptedexception) {
-                        ;
-                    }
 
                     try {
                         NetworkManager.f(this.a).flush();

@@ -21,24 +21,27 @@ class NetworkReaderThread extends Thread {
 
             try {
                 flag = true;
-                if (NetworkManager.a(this.a)) {
-                    if (!NetworkManager.b(this.a)) {
-                        NetworkManager.c(this.a);
-
-                        try {
-                            sleep(1L);
-                        } catch (InterruptedException interruptedexception) {
-                            ;
-                        }
-                        continue;
-                    }
-
+                if (!NetworkManager.a(this.a)) {
                     flag = false;
                     break;
                 }
 
-                flag = false;
-                break;
+                if (NetworkManager.b(this.a)) {
+                    flag = false;
+                    break;
+                }
+
+                for (int i = 100; i > 0; --i) {
+                    if (!NetworkManager.c(this.a)) {
+                        i = 0;
+                    }
+                }
+
+                try {
+                    sleep(1L);
+                } catch (InterruptedException interruptedexception) {
+                    ;
+                }
             } finally {
                 if (flag) {
                     Object object1 = NetworkManager.a;

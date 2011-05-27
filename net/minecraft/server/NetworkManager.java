@@ -79,7 +79,9 @@ public class NetworkManager {
         }
     }
 
-    private void f() {
+    private boolean f() {
+        boolean flag = false;
+
         try {
             Object object;
             Packet packet;
@@ -97,6 +99,7 @@ public class NetworkManager {
                 aint = e;
                 i = packet.b();
                 aint[i] += packet.a();
+                flag = true;
             }
 
             if (this.z-- <= 0 && !this.o.isEmpty() && (this.f == 0 || System.currentTimeMillis() - ((Packet) this.o.get(0)).timestamp >= (long) this.f)) {
@@ -111,19 +114,24 @@ public class NetworkManager {
                 i = packet.b();
                 aint[i] += packet.a();
                 this.z = 50;
+                flag = true;
             }
         } catch (Exception exception) {
             if (!this.t) {
                 this.a(exception);
             }
         }
+
+        return flag;
     }
 
     public void a() {
         this.y = true;
     }
 
-    private void g() {
+    private boolean g() {
+        boolean flag = false;
+
         try {
             Packet packet = Packet.a(this.input, this.p.c());
 
@@ -133,6 +141,7 @@ public class NetworkManager {
 
                 aint[i] += packet.a();
                 this.m.add(packet);
+                flag = true;
             } else {
                 this.a("disconnect.endOfStream", new Object[0]);
             }
@@ -141,6 +150,8 @@ public class NetworkManager {
                 this.a(exception);
             }
         }
+
+        return flag;
     }
 
     private void a(Exception exception) {
@@ -228,12 +239,12 @@ public class NetworkManager {
         return networkmanager.q;
     }
 
-    static void c(NetworkManager networkmanager) {
-        networkmanager.g();
+    static boolean c(NetworkManager networkmanager) {
+        return networkmanager.g();
     }
 
-    static void d(NetworkManager networkmanager) {
-        networkmanager.f();
+    static boolean d(NetworkManager networkmanager) {
+        return networkmanager.f();
     }
 
     static boolean e(NetworkManager networkmanager) {
