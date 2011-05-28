@@ -19,7 +19,7 @@ public class EntityBoat extends Entity {
         this.damage = 0;
         this.b = 0;
         this.c = 1;
-        this.aH = true;
+        this.aI = true;
         this.b(1.5F, 0.6F);
         this.height = this.width / 2.0F;
     }
@@ -62,7 +62,7 @@ public class EntityBoat extends Entity {
             this.c = -this.c;
             this.b = 10;
             this.damage += i * 10;
-            this.ac();
+            this.ae();
             if (this.damage > 40) {
                 int j;
 
@@ -83,12 +83,12 @@ public class EntityBoat extends Entity {
         }
     }
 
-    public boolean o_() {
+    public boolean n_() {
         return !this.dead;
     }
 
-    public void p_() {
-        super.p_();
+    public void o_() {
+        super.o_();
         if (this.b > 0) {
             --this.b;
         }
@@ -295,7 +295,7 @@ public class EntityBoat extends Entity {
             double d0 = Math.cos((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
             double d1 = Math.sin((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
 
-            this.passenger.setPosition(this.locX + d0, this.locY + this.m() + this.passenger.F(), this.locZ + d1);
+            this.passenger.setPosition(this.locX + d0, this.locY + this.m() + this.passenger.H(), this.locZ + d1);
         }
     }
 

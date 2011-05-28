@@ -244,10 +244,10 @@ public class Block {
     }
 
     public boolean a(int i, boolean flag) {
-        return this.n_();
+        return this.m_();
     }
 
-    public boolean n_() {
+    public boolean m_() {
         return true;
     }
 

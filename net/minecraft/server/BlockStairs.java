@@ -96,8 +96,8 @@ public class BlockStairs extends Block {
         this.a.a(world, i, j, k, entity, vec3d);
     }
 
-    public boolean n_() {
-        return this.a.n_();
+    public boolean m_() {
+        return this.a.m_();
     }
 
     public boolean a(int i, boolean flag) {

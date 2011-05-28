@@ -202,36 +202,12 @@ public class AxisAlignedBB {
     }
 
     public AxisAlignedBB shrink(double d0, double d1, double d2) {
-        double d3 = this.a;
-        double d4 = this.b;
-        double d5 = this.c;
-        double d6 = this.d;
-        double d7 = this.e;
-        double d8 = this.f;
-
-        if (d0 < 0.0D) {
-            d3 -= d0;
-        }
-
-        if (d0 > 0.0D) {
-            d6 -= d0;
-        }
-
-        if (d1 < 0.0D) {
-            d4 -= d1;
-        }
-
-        if (d1 > 0.0D) {
-            d7 -= d1;
-        }
-
-        if (d2 < 0.0D) {
-            d5 -= d2;
-        }
-
-        if (d2 > 0.0D) {
-            d8 -= d2;
-        }
+        double d3 = this.a + d0;
+        double d4 = this.b + d1;
+        double d5 = this.c + d2;
+        double d6 = this.d - d0;
+        double d7 = this.e - d1;
+        double d8 = this.f - d2;
 
         return b(d3, d4, d5, d6, d7, d8);
     }

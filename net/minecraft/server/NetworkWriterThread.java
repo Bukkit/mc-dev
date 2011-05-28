@@ -28,26 +28,26 @@ class NetworkWriterThread extends Thread {
                     break;
                 }
 
-                for (int i = 100; i > 0; --i) {
-                    if (!NetworkManager.d(this.a)) {
-                        i = 0;
-                    }
+                while (NetworkManager.d(this.a)) {
+                    ;
                 }
 
                 try {
-                    sleep(1L);
+                    sleep(100L);
                 } catch (InterruptedException interruptedexception) {
                     ;
                 }
 
-                if (NetworkManager.e(this.a)) {
-                    NetworkManager.a(this.a, false);
-
-                    try {
-                        NetworkManager.f(this.a).flush();
-                    } catch (IOException ioexception) {
-                        ioexception.printStackTrace();
+                try {
+                    if (NetworkManager.e(this.a) != null) {
+                        NetworkManager.e(this.a).flush();
                     }
+                } catch (IOException ioexception) {
+                    if (!NetworkManager.f(this.a)) {
+                        NetworkManager.a(this.a, (Exception) ioexception);
+                    }
+
+                    ioexception.printStackTrace();
                 }
             } finally {
                 if (flag) {

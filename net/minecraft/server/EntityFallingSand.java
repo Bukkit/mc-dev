@@ -12,7 +12,7 @@ public class EntityFallingSand extends Entity {
     public EntityFallingSand(World world, double d0, double d1, double d2, int i) {
         super(world);
         this.a = i;
-        this.aH = true;
+        this.aI = true;
         this.b(0.98F, 0.98F);
         this.height = this.width / 2.0F;
         this.setPosition(d0, d1, d2);
@@ -30,11 +30,11 @@ public class EntityFallingSand extends Entity {
 
     protected void b() {}
 
-    public boolean o_() {
+    public boolean n_() {
         return !this.dead;
     }
 
-    public void p_() {
+    public void o_() {
         if (this.a == 0) {
             this.die();
         } else {

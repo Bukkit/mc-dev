@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.util.Iterator;
 import java.util.Random;
 
 public class BlockBed extends Block {
@@ -12,28 +13,51 @@ public class BlockBed extends Block {
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
-        int l = world.getData(i, j, k);
-
-        if (!world.worldProvider.d()) {
-            world.createExplosion((Entity) null, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), 5.0F, true);
+        if (world.isStatic) {
             return true;
         } else {
-            if (!d(l)) {
-                int i1 = c(l);
+            int l = world.getData(i, j, k);
 
-                i += a[i1][0];
-                k += a[i1][1];
-                if (world.getTypeId(i, j, k) != this.id) {
-                    return true;
-                }
-
-                l = world.getData(i, j, k);
-            }
-
-            if (e(l)) {
-                entityhuman.a("tile.bed.occupied");
+            if (!world.worldProvider.d()) {
+                world.createExplosion((Entity) null, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), 5.0F, true);
                 return true;
             } else {
+                if (!d(l)) {
+                    int i1 = c(l);
+
+                    i += a[i1][0];
+                    k += a[i1][1];
+                    if (world.getTypeId(i, j, k) != this.id) {
+                        return true;
+                    }
+
+                    l = world.getData(i, j, k);
+                }
+
+                if (e(l)) {
+                    EntityHuman entityhuman1 = null;
+                    Iterator iterator = world.players.iterator();
+
+                    while (iterator.hasNext()) {
+                        EntityHuman entityhuman2 = (EntityHuman) iterator.next();
+
+                        if (entityhuman2.isSleeping()) {
+                            ChunkCoordinates chunkcoordinates = entityhuman2.A;
+
+                            if (chunkcoordinates.x == i && chunkcoordinates.y == j && chunkcoordinates.z == k) {
+                                entityhuman1 = entityhuman2;
+                            }
+                        }
+                    }
+
+                    if (entityhuman1 != null) {
+                        entityhuman.a("tile.bed.occupied");
+                        return true;
+                    }
+
+                    a(world, i, j, k, false);
+                }
+
                 EnumBedError enumbederror = entityhuman.a(i, j, k);
 
                 if (enumbederror == EnumBedError.OK) {

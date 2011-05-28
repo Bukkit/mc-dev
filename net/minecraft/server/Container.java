@@ -100,84 +100,91 @@ public abstract class Container {
                         }
                     }
                 }
-            } else if (flag) {
-                ItemStack itemstack1 = this.a(i);
-
-                if (itemstack1 != null) {
-                    itemstack = itemstack1.j();
-                    Slot slot = (Slot) this.e.get(i);
-
-                    if (slot != null && slot.getItem() != null) {
-                        this.a(i, j, flag, entityhuman);
-                    }
-                }
             } else {
-                Slot slot1 = (Slot) this.e.get(i);
+                int k;
 
-                if (slot1 != null) {
-                    slot1.c();
-                    ItemStack itemstack2 = slot1.getItem();
-                    ItemStack itemstack3 = inventoryplayer.j();
+                if (flag) {
+                    ItemStack itemstack1 = this.a(i);
 
-                    if (itemstack2 != null) {
-                        itemstack = itemstack2.j();
+                    if (itemstack1 != null) {
+                        int l = itemstack1.count;
+
+                        itemstack = itemstack1.j();
+                        Slot slot = (Slot) this.e.get(i);
+
+                        if (slot != null && slot.getItem() != null) {
+                            k = slot.getItem().count;
+                            if (k < l) {
+                                this.a(i, j, flag, entityhuman);
+                            }
+                        }
                     }
+                } else {
+                    Slot slot1 = (Slot) this.e.get(i);
 
-                    int k;
+                    if (slot1 != null) {
+                        slot1.c();
+                        ItemStack itemstack2 = slot1.getItem();
+                        ItemStack itemstack3 = inventoryplayer.j();
 
-                    if (itemstack2 == null) {
-                        if (itemstack3 != null && slot1.isAllowed(itemstack3)) {
-                            k = j == 0 ? itemstack3.count : 1;
-                            if (k > slot1.d()) {
-                                k = slot1.d();
-                            }
-
-                            slot1.c(itemstack3.a(k));
-                            if (itemstack3.count == 0) {
-                                inventoryplayer.b((ItemStack) null);
-                            }
-                        }
-                    } else if (itemstack3 == null) {
-                        k = j == 0 ? itemstack2.count : (itemstack2.count + 1) / 2;
-                        ItemStack itemstack4 = slot1.a(k);
-
-                        inventoryplayer.b(itemstack4);
-                        if (itemstack2.count == 0) {
-                            slot1.c((ItemStack) null);
+                        if (itemstack2 != null) {
+                            itemstack = itemstack2.j();
                         }
 
-                        slot1.a(inventoryplayer.j());
-                    } else if (slot1.isAllowed(itemstack3)) {
-                        if (itemstack2.id == itemstack3.id && (!itemstack2.e() || itemstack2.getData() == itemstack3.getData())) {
-                            k = j == 0 ? itemstack3.count : 1;
-                            if (k > slot1.d() - itemstack2.count) {
-                                k = slot1.d() - itemstack2.count;
-                            }
+                        if (itemstack2 == null) {
+                            if (itemstack3 != null && slot1.isAllowed(itemstack3)) {
+                                k = j == 0 ? itemstack3.count : 1;
+                                if (k > slot1.d()) {
+                                    k = slot1.d();
+                                }
 
-                            if (k > itemstack3.b() - itemstack2.count) {
-                                k = itemstack3.b() - itemstack2.count;
+                                slot1.c(itemstack3.a(k));
+                                if (itemstack3.count == 0) {
+                                    inventoryplayer.b((ItemStack) null);
+                                }
                             }
+                        } else if (itemstack3 == null) {
+                            k = j == 0 ? itemstack2.count : (itemstack2.count + 1) / 2;
+                            ItemStack itemstack4 = slot1.a(k);
 
-                            itemstack3.a(k);
-                            if (itemstack3.count == 0) {
-                                inventoryplayer.b((ItemStack) null);
-                            }
-
-                            itemstack2.count += k;
-                        } else if (itemstack3.count <= slot1.d()) {
-                            slot1.c(itemstack3);
-                            inventoryplayer.b(itemstack2);
-                        }
-                    } else if (itemstack2.id == itemstack3.id && itemstack3.b() > 1 && (!itemstack2.e() || itemstack2.getData() == itemstack3.getData())) {
-                        k = itemstack2.count;
-                        if (k > 0 && k + itemstack3.count <= itemstack3.b()) {
-                            itemstack3.count += k;
-                            itemstack2.a(k);
+                            inventoryplayer.b(itemstack4);
                             if (itemstack2.count == 0) {
                                 slot1.c((ItemStack) null);
                             }
 
                             slot1.a(inventoryplayer.j());
+                        } else if (slot1.isAllowed(itemstack3)) {
+                            if (itemstack2.id == itemstack3.id && (!itemstack2.e() || itemstack2.getData() == itemstack3.getData())) {
+                                k = j == 0 ? itemstack3.count : 1;
+                                if (k > slot1.d() - itemstack2.count) {
+                                    k = slot1.d() - itemstack2.count;
+                                }
+
+                                if (k > itemstack3.b() - itemstack2.count) {
+                                    k = itemstack3.b() - itemstack2.count;
+                                }
+
+                                itemstack3.a(k);
+                                if (itemstack3.count == 0) {
+                                    inventoryplayer.b((ItemStack) null);
+                                }
+
+                                itemstack2.count += k;
+                            } else if (itemstack3.count <= slot1.d()) {
+                                slot1.c(itemstack3);
+                                inventoryplayer.b(itemstack2);
+                            }
+                        } else if (itemstack2.id == itemstack3.id && itemstack3.b() > 1 && (!itemstack2.e() || itemstack2.getData() == itemstack3.getData())) {
+                            k = itemstack2.count;
+                            if (k > 0 && k + itemstack3.count <= itemstack3.b()) {
+                                itemstack3.count += k;
+                                itemstack2.a(k);
+                                if (itemstack2.count == 0) {
+                                    slot1.c((ItemStack) null);
+                                }
+
+                                slot1.a(inventoryplayer.j());
+                            }
                         }
                     }
                 }

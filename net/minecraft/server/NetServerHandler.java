@@ -39,6 +39,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void disconnect(String s) {
+        this.player.A();
         this.sendPacket(new Packet255KickDisconnect(s));
         this.networkManager.d();
         this.minecraftServer.serverConfigurationManager.sendAll(new Packet3Chat("\u00A7e" + this.player.name + " left the game."));
@@ -149,7 +150,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
 
             this.player.a(true);
-            this.player.bq = 0.0F;
+            this.player.br = 0.0F;
             this.player.setLocation(this.x, this.y, this.z, f2, f3);
             if (!this.m) {
                 return;
@@ -229,7 +230,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         WorldServer worldserver = this.minecraftServer.a(this.player.dimension);
 
         if (packet14blockdig.e == 4) {
-            this.player.C();
+            this.player.E();
         } else {
             boolean flag = worldserver.weirdIsOpCache = worldserver.worldProvider.dimension != 0 || this.minecraftServer.serverConfigurationManager.isOp(this.player.name);
             boolean flag1 = false;

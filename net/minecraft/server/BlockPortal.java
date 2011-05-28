@@ -134,7 +134,7 @@ public class BlockPortal extends BlockBreakable {
 
     public void a(World world, int i, int j, int k, Entity entity) {
         if (entity.vehicle == null && entity.passenger == null) {
-            entity.M();
+            entity.O();
         }
     }
 }

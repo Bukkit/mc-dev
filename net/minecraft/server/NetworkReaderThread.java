@@ -31,14 +31,12 @@ class NetworkReaderThread extends Thread {
                     break;
                 }
 
-                for (int i = 100; i > 0; --i) {
-                    if (!NetworkManager.c(this.a)) {
-                        i = 0;
-                    }
+                while (NetworkManager.c(this.a)) {
+                    ;
                 }
 
                 try {
-                    sleep(1L);
+                    sleep(100L);
                 } catch (InterruptedException interruptedexception) {
                     ;
                 }

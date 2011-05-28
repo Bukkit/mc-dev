@@ -7,7 +7,7 @@ public class EntityTNTPrimed extends Entity {
     public EntityTNTPrimed(World world) {
         super(world);
         this.a = 0;
-        this.aH = true;
+        this.aI = true;
         this.b(0.98F, 0.98F);
         this.height = this.width / 2.0F;
     }
@@ -32,11 +32,11 @@ public class EntityTNTPrimed extends Entity {
         return false;
     }
 
-    public boolean o_() {
+    public boolean n_() {
         return !this.dead;
     }
 
-    public void p_() {
+    public void o_() {
         this.lastX = this.locX;
         this.lastY = this.locY;
         this.lastZ = this.locZ;
@@ -55,6 +55,8 @@ public class EntityTNTPrimed extends Entity {
             if (!this.world.isStatic) {
                 this.die();
                 this.explode();
+            } else {
+                this.die();
             }
         } else {
             this.world.a("smoke", this.locX, this.locY + 0.5D, this.locZ, 0.0D, 0.0D, 0.0D);

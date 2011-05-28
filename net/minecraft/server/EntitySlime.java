@@ -42,11 +42,11 @@ public class EntitySlime extends EntityLiving implements IMonster {
         this.setSize(nbttagcompound.e("Size") + 1);
     }
 
-    public void p_() {
+    public void o_() {
         this.b = this.a;
         boolean flag = this.onGround;
 
-        super.p_();
+        super.o_();
         if (this.onGround && !flag) {
             int i = this.getSize();
 
@@ -70,7 +70,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
     }
 
     protected void c_() {
-        this.R();
+        this.T();
         EntityHuman entityhuman = this.world.a(this, 16.0D);
 
         if (entityhuman != null) {
@@ -83,18 +83,18 @@ public class EntitySlime extends EntityLiving implements IMonster {
                 this.size /= 3;
             }
 
-            this.aB = true;
+            this.aC = true;
             if (this.getSize() > 1) {
                 this.world.makeSound(this, "mob.slime", this.k(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.a = 1.0F;
-            this.ay = 1.0F - this.random.nextFloat() * 2.0F;
-            this.az = (float) (1 * this.getSize());
+            this.az = 1.0F - this.random.nextFloat() * 2.0F;
+            this.aA = (float) (1 * this.getSize());
         } else {
-            this.aB = false;
+            this.aC = false;
             if (this.onGround) {
-                this.ay = this.az = 0.0F;
+                this.az = this.aA = 0.0F;
             }
         }
     }

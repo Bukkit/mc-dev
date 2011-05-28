@@ -28,7 +28,7 @@ public class EntityMinecart extends Entity implements IInventory {
         this.b = 0;
         this.c = 1;
         this.i = false;
-        this.aH = true;
+        this.aI = true;
         this.b(0.98F, 0.7F);
         this.height = this.width / 2.0F;
     }
@@ -71,7 +71,7 @@ public class EntityMinecart extends Entity implements IInventory {
         if (!this.world.isStatic && !this.dead) {
             this.c = -this.c;
             this.b = 10;
-            this.ac();
+            this.ae();
             this.damage += i * 10;
             if (this.damage > 40) {
                 if (this.passenger != null) {
@@ -122,7 +122,7 @@ public class EntityMinecart extends Entity implements IInventory {
         }
     }
 
-    public boolean o_() {
+    public boolean n_() {
         return !this.dead;
     }
 
@@ -157,7 +157,7 @@ public class EntityMinecart extends Entity implements IInventory {
         super.die();
     }
 
-    public void p_() {
+    public void o_() {
         if (this.b > 0) {
             --this.b;
         }
@@ -647,8 +647,8 @@ public class EntityMinecart extends Entity implements IInventory {
                     d1 *= d3;
                     d0 *= 0.10000000149011612D;
                     d1 *= 0.10000000149011612D;
-                    d0 *= (double) (1.0F - this.bt);
-                    d1 *= (double) (1.0F - this.bt);
+                    d0 *= (double) (1.0F - this.bu);
+                    d1 *= (double) (1.0F - this.bu);
                     d0 *= 0.5D;
                     d1 *= 0.5D;
                     if (entity instanceof EntityMinecart) {

@@ -46,7 +46,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
         ConsoleLogManager.init();
-        log.info("Starting minecraft server version Beta 1.6.4");
+        log.info("Starting minecraft server version Beta 1.6.5");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             log.warning("**** NOT ENOUGH RAM!");
             log.warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");

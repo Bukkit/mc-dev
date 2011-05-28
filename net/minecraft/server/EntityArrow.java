@@ -69,8 +69,8 @@ public class EntityArrow extends Entity {
         this.j = 0;
     }
 
-    public void p_() {
-        super.p_();
+    public void o_() {
+        super.o_();
         if (this.lastPitch == 0.0F && this.lastYaw == 0.0F) {
             float f = MathHelper.a(this.motX * this.motX + this.motZ * this.motZ);
 
@@ -129,7 +129,7 @@ public class EntityArrow extends Entity {
             for (int k = 0; k < list.size(); ++k) {
                 Entity entity1 = (Entity) list.get(k);
 
-                if (entity1.o_() && (entity1 != this.shooter || this.k >= 5)) {
+                if (entity1.n_() && (entity1 != this.shooter || this.k >= 5)) {
                     f1 = 0.3F;
                     AxisAlignedBB axisalignedbb = entity1.boundingBox.b((double) f1, (double) f1, (double) f1);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
@@ -210,7 +210,7 @@ public class EntityArrow extends Entity {
             float f3 = 0.99F;
 
             f1 = 0.03F;
-            if (this.aa()) {
+            if (this.ac()) {
                 for (int l = 0; l < 4; ++l) {
                     float f4 = 0.25F;
 

@@ -87,7 +87,7 @@ public class ItemWorldMap extends ItemWorldMapBase {
                                         k4 = chunk.b(l4 + k3, j4 + l3) + 1;
                                         int j5 = 0;
 
-                                        if (k4 > 0) {
+                                        if (k4 > 1) {
                                             boolean flag1 = false;
 
                                             do {
