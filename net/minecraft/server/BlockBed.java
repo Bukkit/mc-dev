@@ -18,22 +18,38 @@ public class BlockBed extends Block {
         } else {
             int l = world.getData(i, j, k);
 
+            if (!d(l)) {
+                int i1 = c(l);
+
+                i += a[i1][0];
+                k += a[i1][1];
+                if (world.getTypeId(i, j, k) != this.id) {
+                    return true;
+                }
+
+                l = world.getData(i, j, k);
+            }
+
             if (!world.worldProvider.d()) {
+                double d0 = (double) i + 0.5D;
+                double d1 = (double) j + 0.5D;
+                double d2 = (double) k + 0.5D;
+
+                world.setTypeId(i, j, k, 0);
+                int j1 = c(l);
+
+                i += a[j1][0];
+                k += a[j1][1];
+                if (world.getTypeId(i, j, k) == this.id) {
+                    world.setTypeId(i, j, k, 0);
+                    d0 = (d0 + (double) i + 0.5D) / 2.0D;
+                    d1 = (d1 + (double) j + 0.5D) / 2.0D;
+                    d2 = (d2 + (double) k + 0.5D) / 2.0D;
+                }
+
                 world.createExplosion((Entity) null, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), 5.0F, true);
                 return true;
             } else {
-                if (!d(l)) {
-                    int i1 = c(l);
-
-                    i += a[i1][0];
-                    k += a[i1][1];
-                    if (world.getTypeId(i, j, k) != this.id) {
-                        return true;
-                    }
-
-                    l = world.getData(i, j, k);
-                }
-
                 if (e(l)) {
                     EntityHuman entityhuman1 = null;
                     Iterator iterator = world.players.iterator();

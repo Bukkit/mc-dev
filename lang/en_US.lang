@@ -91,7 +91,7 @@ options.renderDistance.far=Far
 options.viewBobbing=View Bobbing
 options.ao=Smooth Lighting
 options.anaglyph=3D Anaglyph
-options.framerateLimit=Framerate cap
+options.framerateLimit=Performance
 options.difficulty=Difficulty
 options.difficulty.peaceful=Peaceful
 options.difficulty.easy=Easy
@@ -106,6 +106,10 @@ options.guiScale.small=Small
 options.guiScale.normal=Normal
 options.guiScale.large=Large
 options.advancedOpengl=Advanced OpenGL
+
+performance.max=Max FPS
+performance.balanced=Balanced
+performance.powersaver=Power saver
 
 controls.title=Controls
 

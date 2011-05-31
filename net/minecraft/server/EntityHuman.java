@@ -62,10 +62,12 @@ public abstract class EntityHuman extends EntityLiving {
                 this.sleepTicks = 100;
             }
 
-            if (!this.o()) {
-                this.a(true, true, false);
-            } else if (!this.world.isStatic && this.world.d()) {
-                this.a(false, true, true);
+            if (!this.world.isStatic) {
+                if (!this.o()) {
+                    this.a(true, true, false);
+                } else if (this.world.d()) {
+                    this.a(false, true, true);
+                }
             }
         } else if (this.sleepTicks > 0) {
             ++this.sleepTicks;
@@ -341,7 +343,7 @@ public abstract class EntityHuman extends EntityLiving {
         if (this.health <= 0) {
             return false;
         } else {
-            if (this.isSleeping()) {
+            if (this.isSleeping() && !this.world.isStatic) {
                 this.a(true, true, false);
             }
 
@@ -500,58 +502,64 @@ public abstract class EntityHuman extends EntityLiving {
     }
 
     public EnumBedError a(int i, int j, int k) {
-        if (!this.isSleeping() && this.S()) {
+        if (!this.world.isStatic) {
+            if (this.isSleeping() || !this.S()) {
+                return EnumBedError.OTHER_PROBLEM;
+            }
+
             if (this.world.worldProvider.c) {
                 return EnumBedError.NOT_POSSIBLE_HERE;
-            } else if (this.world.d()) {
+            }
+
+            if (this.world.d()) {
                 return EnumBedError.NOT_POSSIBLE_NOW;
-            } else if (Math.abs(this.locX - (double) i) <= 3.0D && Math.abs(this.locY - (double) j) <= 2.0D && Math.abs(this.locZ - (double) k) <= 3.0D) {
-                this.b(0.2F, 0.2F);
-                this.height = 0.2F;
-                if (this.world.isLoaded(i, j, k)) {
-                    int l = this.world.getData(i, j, k);
-                    int i1 = BlockBed.c(l);
-                    float f = 0.5F;
-                    float f1 = 0.5F;
+            }
 
-                    switch (i1) {
-                    case 0:
-                        f1 = 0.9F;
-                        break;
-
-                    case 1:
-                        f = 0.1F;
-                        break;
-
-                    case 2:
-                        f1 = 0.1F;
-                        break;
-
-                    case 3:
-                        f = 0.9F;
-                    }
-
-                    this.e(i1);
-                    this.setPosition((double) ((float) i + f), (double) ((float) j + 0.9375F), (double) ((float) k + f1));
-                } else {
-                    this.setPosition((double) ((float) i + 0.5F), (double) ((float) j + 0.9375F), (double) ((float) k + 0.5F));
-                }
-
-                this.sleeping = true;
-                this.sleepTicks = 0;
-                this.A = new ChunkCoordinates(i, j, k);
-                this.motX = this.motZ = this.motY = 0.0D;
-                if (!this.world.isStatic) {
-                    this.world.everyoneSleeping();
-                }
-
-                return EnumBedError.OK;
-            } else {
+            if (Math.abs(this.locX - (double) i) > 3.0D || Math.abs(this.locY - (double) j) > 2.0D || Math.abs(this.locZ - (double) k) > 3.0D) {
                 return EnumBedError.TOO_FAR_AWAY;
             }
-        } else {
-            return EnumBedError.OTHER_PROBLEM;
         }
+
+        this.b(0.2F, 0.2F);
+        this.height = 0.2F;
+        if (this.world.isLoaded(i, j, k)) {
+            int l = this.world.getData(i, j, k);
+            int i1 = BlockBed.c(l);
+            float f = 0.5F;
+            float f1 = 0.5F;
+
+            switch (i1) {
+            case 0:
+                f1 = 0.9F;
+                break;
+
+            case 1:
+                f = 0.1F;
+                break;
+
+            case 2:
+                f1 = 0.1F;
+                break;
+
+            case 3:
+                f = 0.9F;
+            }
+
+            this.e(i1);
+            this.setPosition((double) ((float) i + f), (double) ((float) j + 0.9375F), (double) ((float) k + f1));
+        } else {
+            this.setPosition((double) ((float) i + 0.5F), (double) ((float) j + 0.9375F), (double) ((float) k + 0.5F));
+        }
+
+        this.sleeping = true;
+        this.sleepTicks = 0;
+        this.A = new ChunkCoordinates(i, j, k);
+        this.motX = this.motZ = this.motY = 0.0D;
+        if (!this.world.isStatic) {
+            this.world.everyoneSleeping();
+        }
+
+        return EnumBedError.OK;
     }
 
     private void e(int i) {

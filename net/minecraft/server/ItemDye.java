@@ -31,6 +31,40 @@ public class ItemDye extends Item {
 
                 return true;
             }
+
+            if (i1 == Block.GRASS.id) {
+                if (!world.isStatic) {
+                    --itemstack.count;
+
+                    label53:
+                    for (int j1 = 0; j1 < 128; ++j1) {
+                        int k1 = i;
+                        int l1 = j + 1;
+                        int i2 = k;
+
+                        for (int j2 = 0; j2 < j1 / 16; ++j2) {
+                            k1 += b.nextInt(3) - 1;
+                            l1 += (b.nextInt(3) - 1) * b.nextInt(3) / 2;
+                            i2 += b.nextInt(3) - 1;
+                            if (world.getTypeId(k1, l1 - 1, i2) != Block.GRASS.id || world.d(k1, l1, i2)) {
+                                continue label53;
+                            }
+                        }
+
+                        if (world.getTypeId(k1, l1, i2) == 0) {
+                            if (b.nextInt(10) != 0) {
+                                world.setTypeIdAndData(k1, l1, i2, Block.LONG_GRASS.id, 1);
+                            } else if (b.nextInt(3) != 0) {
+                                world.setTypeId(k1, l1, i2, Block.YELLOW_FLOWER.id);
+                            } else {
+                                world.setTypeId(k1, l1, i2, Block.RED_ROSE.id);
+                            }
+                        }
+                    }
+                }
+
+                return true;
+            }
         }
 
         return false;
