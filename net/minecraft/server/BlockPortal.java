@@ -76,7 +76,7 @@ public class BlockPortal extends BlockBreakable {
                 }
             }
 
-            world.o = true;
+            world.suppressPhysics = true;
 
             for (l = 0; l < 2; ++l) {
                 for (i1 = 0; i1 < 3; ++i1) {
@@ -84,7 +84,7 @@ public class BlockPortal extends BlockBreakable {
                 }
             }
 
-            world.o = false;
+            world.suppressPhysics = false;
             return true;
         }
     }

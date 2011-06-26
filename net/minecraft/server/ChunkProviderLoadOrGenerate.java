@@ -183,7 +183,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         return this.c.unloadChunks();
     }
 
-    public boolean b() {
+    public boolean canSave() {
         return true;
     }
 }

@@ -30,14 +30,14 @@ public class ContainerFurnace extends Container {
         super.a(icrafting);
         icrafting.a(this, 0, this.a.cookTime);
         icrafting.a(this, 1, this.a.burnTime);
-        icrafting.a(this, 2, this.a.b);
+        icrafting.a(this, 2, this.a.ticksForCurrentFuel);
     }
 
     public void a() {
         super.a();
 
-        for (int i = 0; i < this.g.size(); ++i) {
-            ICrafting icrafting = (ICrafting) this.g.get(i);
+        for (int i = 0; i < this.listeners.size(); ++i) {
+            ICrafting icrafting = (ICrafting) this.listeners.get(i);
 
             if (this.b != this.a.cookTime) {
                 icrafting.a(this, 0, this.a.cookTime);
@@ -47,14 +47,14 @@ public class ContainerFurnace extends Container {
                 icrafting.a(this, 1, this.a.burnTime);
             }
 
-            if (this.h != this.a.b) {
-                icrafting.a(this, 2, this.a.b);
+            if (this.h != this.a.ticksForCurrentFuel) {
+                icrafting.a(this, 2, this.a.ticksForCurrentFuel);
             }
         }
 
         this.b = this.a.cookTime;
         this.c = this.a.burnTime;
-        this.h = this.a.b;
+        this.h = this.a.ticksForCurrentFuel;
     }
 
     public boolean b(EntityHuman entityhuman) {
@@ -68,7 +68,7 @@ public class ContainerFurnace extends Container {
         if (slot != null && slot.b()) {
             ItemStack itemstack1 = slot.getItem();
 
-            itemstack = itemstack1.j();
+            itemstack = itemstack1.cloneItemStack();
             if (i == 2) {
                 this.a(itemstack1, 3, 39, true);
             } else if (i >= 3 && i < 30) {

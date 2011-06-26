@@ -25,7 +25,7 @@ public class EntityCreeper extends EntityMonster {
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.datawatcher.b(17, Byte.valueOf((byte) (nbttagcompound.m("powered") ? 1 : 0)));
+        this.datawatcher.watch(17, Byte.valueOf((byte) (nbttagcompound.m("powered") ? 1 : 0)));
     }
 
     protected void b(Entity entity, float f) {
@@ -77,8 +77,8 @@ public class EntityCreeper extends EntityMonster {
         return "mob.creeperdeath";
     }
 
-    public void a(Entity entity) {
-        super.a(entity);
+    public void die(Entity entity) {
+        super.die(entity);
         if (entity instanceof EntitySkeleton) {
             this.b(Item.GOLD_RECORD.id + this.random.nextInt(2), 1);
         }
@@ -102,7 +102,7 @@ public class EntityCreeper extends EntityMonster {
                 this.e(1);
                 ++this.fuseTicks;
                 if (this.fuseTicks >= 30) {
-                    if (this.t()) {
+                    if (this.isPowered()) {
                         this.world.a(this, this.locX, this.locY, this.locZ, 6.0F);
                     } else {
                         this.world.a(this, this.locX, this.locY, this.locZ, 3.0F);
@@ -116,7 +116,7 @@ public class EntityCreeper extends EntityMonster {
         }
     }
 
-    public boolean t() {
+    public boolean isPowered() {
         return this.datawatcher.a(17) == 1;
     }
 
@@ -129,11 +129,11 @@ public class EntityCreeper extends EntityMonster {
     }
 
     private void e(int i) {
-        this.datawatcher.b(16, Byte.valueOf((byte) i));
+        this.datawatcher.watch(16, Byte.valueOf((byte) i));
     }
 
     public void a(EntityWeatherStorm entityweatherstorm) {
         super.a(entityweatherstorm);
-        this.datawatcher.b(17, Byte.valueOf((byte) 1));
+        this.datawatcher.watch(17, Byte.valueOf((byte) 1));
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PlayerManager {
 
-    public List a = new ArrayList();
+    public List managedPlayers = new ArrayList();
     private PlayerList b = new PlayerList();
     private List c = new ArrayList();
     private MinecraftServer server;
@@ -26,7 +26,7 @@ public class PlayerManager {
     }
 
     public WorldServer a() {
-        return this.server.a(this.e);
+        return this.server.getWorldServer(this.e);
     }
 
     public void flush() {
@@ -94,7 +94,7 @@ public class PlayerManager {
             this.a(i + i1, j + j1, true).a(entityplayer);
         }
 
-        this.a.add(entityplayer);
+        this.managedPlayers.add(entityplayer);
     }
 
     public void removePlayer(EntityPlayer entityplayer) {
@@ -111,7 +111,7 @@ public class PlayerManager {
             }
         }
 
-        this.a.remove(entityplayer);
+        this.managedPlayers.remove(entityplayer);
     }
 
     private boolean a(int i, int j, int k, int l) {
@@ -157,7 +157,7 @@ public class PlayerManager {
         }
     }
 
-    public int c() {
+    public int getFurthestViewableBlock() {
         return this.f * 16 - 16;
     }
 

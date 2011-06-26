@@ -26,7 +26,7 @@ public class EmptyChunk extends Chunk {
 
     public void a() {}
 
-    public void b() {}
+    public void initLighting() {}
 
     public void loadNOP() {}
 
@@ -92,7 +92,7 @@ public class EmptyChunk extends Chunk {
         return false;
     }
 
-    public int a(byte[] abyte, int i, int j, int k, int l, int i1, int j1, int k1) {
+    public int getData(byte[] abyte, int i, int j, int k, int l, int i1, int j1, int k1) {
         int l1 = l - i;
         int i2 = i1 - j;
         int j2 = j1 - k;
@@ -107,7 +107,7 @@ public class EmptyChunk extends Chunk {
         return new Random(this.world.getSeed() + (long) (this.x * this.x * 4987142) + (long) (this.x * 5947611) + (long) (this.z * this.z) * 4392871L + (long) (this.z * 389711) ^ i);
     }
 
-    public boolean g() {
+    public boolean isEmpty() {
         return true;
     }
 }

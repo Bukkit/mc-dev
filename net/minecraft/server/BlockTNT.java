@@ -26,7 +26,7 @@ public class BlockTNT extends Block {
     public void c(World world, int i, int j, int k) {
         EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F));
 
-        entitytntprimed.a = world.random.nextInt(entitytntprimed.a / 4) + entitytntprimed.a / 8;
+        entitytntprimed.fuseTicks = world.random.nextInt(entitytntprimed.fuseTicks / 4) + entitytntprimed.fuseTicks / 8;
         world.addEntity(entitytntprimed);
     }
 

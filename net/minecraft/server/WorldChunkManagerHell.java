@@ -22,7 +22,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
         return this.e;
     }
 
-    public BiomeBase[] a(int i, int j, int k, int l) {
+    public BiomeBase[] getBiomeData(int i, int j, int k, int l) {
         this.d = this.a(this.d, i, j, k, l);
         return this.d;
     }
@@ -41,14 +41,14 @@ public class WorldChunkManagerHell extends WorldChunkManager {
             abiomebase = new BiomeBase[k * l];
         }
 
-        if (this.a == null || this.a.length < k * l) {
-            this.a = new double[k * l];
-            this.b = new double[k * l];
+        if (this.temperature == null || this.temperature.length < k * l) {
+            this.temperature = new double[k * l];
+            this.rain = new double[k * l];
         }
 
         Arrays.fill(abiomebase, 0, k * l, this.e);
-        Arrays.fill(this.b, 0, k * l, this.g);
-        Arrays.fill(this.a, 0, k * l, this.f);
+        Arrays.fill(this.rain, 0, k * l, this.g);
+        Arrays.fill(this.temperature, 0, k * l, this.f);
         return abiomebase;
     }
 }

@@ -39,7 +39,7 @@ public class SlotResult extends Slot {
             ItemStack itemstack1 = this.d.getItem(i);
 
             if (itemstack1 != null) {
-                this.d.a(i, 1);
+                this.d.splitStack(i, 1);
                 if (itemstack1.getItem().i()) {
                     this.d.setItem(i, new ItemStack(itemstack1.getItem().h()));
                 }

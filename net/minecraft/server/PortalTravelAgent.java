@@ -243,7 +243,7 @@ public class PortalTravelAgent {
         }
 
         for (l2 = 0; l2 < 4; ++l2) {
-            world.o = true;
+            world.suppressPhysics = true;
 
             for (k2 = 0; k2 < 4; ++k2) {
                 for (j3 = -1; j3 < 4; ++j3) {
@@ -255,7 +255,7 @@ public class PortalTravelAgent {
                 }
             }
 
-            world.o = false;
+            world.suppressPhysics = false;
 
             for (k2 = 0; k2 < 4; ++k2) {
                 for (j3 = -1; j3 < 4; ++j3) {

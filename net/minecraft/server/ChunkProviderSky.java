@@ -160,12 +160,12 @@ public class ChunkProviderSky implements IChunkProvider {
         Chunk chunk = new Chunk(this.p, abyte, i, j);
 
         this.v = this.p.getWorldChunkManager().a(this.v, i * 16, j * 16, 16, 16);
-        double[] adouble = this.p.getWorldChunkManager().a;
+        double[] adouble = this.p.getWorldChunkManager().temperature;
 
         this.a(i, j, abyte, this.v, adouble);
         this.a(i, j, abyte, this.v);
         this.u.a(this, this.p, i, j, abyte);
-        chunk.b();
+        chunk.initLighting();
         return chunk;
     }
 
@@ -176,8 +176,8 @@ public class ChunkProviderSky implements IChunkProvider {
 
         double d0 = 684.412D;
         double d1 = 684.412D;
-        double[] adouble1 = this.p.getWorldChunkManager().a;
-        double[] adouble2 = this.p.getWorldChunkManager().b;
+        double[] adouble1 = this.p.getWorldChunkManager().temperature;
+        double[] adouble2 = this.p.getWorldChunkManager().rain;
 
         this.g = this.a.a(this.g, i, k, l, j1, 1.121D, 1.121D, 0.5D);
         this.h = this.b.a(this.h, i, k, l, j1, 200.0D, 200.0D, 0.5D);
@@ -279,7 +279,7 @@ public class ChunkProviderSky implements IChunkProvider {
     }
 
     public void getChunkAt(IChunkProvider ichunkprovider, int i, int j) {
-        BlockSand.a = true;
+        BlockSand.instaFall = true;
         int k = i * 16;
         int l = j * 16;
         BiomeBase biomebase = this.p.getWorldChunkManager().getBiome(k + 16, l + 16);
@@ -515,7 +515,7 @@ public class ChunkProviderSky implements IChunkProvider {
             }
         }
 
-        BlockSand.a = false;
+        BlockSand.instaFall = false;
     }
 
     public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
@@ -526,7 +526,7 @@ public class ChunkProviderSky implements IChunkProvider {
         return false;
     }
 
-    public boolean b() {
+    public boolean canSave() {
         return true;
     }
 }

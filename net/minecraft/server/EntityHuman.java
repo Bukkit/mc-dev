@@ -200,8 +200,8 @@ public abstract class EntityHuman extends EntityLiving {
         entity.b(this);
     }
 
-    public void a(Entity entity) {
-        super.a(entity);
+    public void die(Entity entity) {
+        super.die(entity);
         this.b(0.2F, 0.2F);
         this.setPosition(this.locX, this.locY, this.locZ);
         this.motY = 0.10000000149011612D;
@@ -231,7 +231,7 @@ public abstract class EntityHuman extends EntityLiving {
     }
 
     public void E() {
-        this.a(this.inventory.a(this.inventory.itemInHandIndex, 1), false);
+        this.a(this.inventory.splitStack(this.inventory.itemInHandIndex, 1), false);
     }
 
     public void b(ItemStack itemstack) {
@@ -389,7 +389,7 @@ public abstract class EntityHuman extends EntityLiving {
             if (entityliving instanceof EntityWolf) {
                 EntityWolf entitywolf = (EntityWolf) entityliving;
 
-                if (entitywolf.A() && this.name.equals(entitywolf.x())) {
+                if (entitywolf.isTamed() && this.name.equals(entitywolf.getOwnerName())) {
                     return;
                 }
             }
@@ -402,9 +402,9 @@ public abstract class EntityHuman extends EntityLiving {
                     Entity entity = (Entity) iterator.next();
                     EntityWolf entitywolf1 = (EntityWolf) entity;
 
-                    if (entitywolf1.A() && entitywolf1.E() == null && this.name.equals(entitywolf1.x()) && (!flag || !entitywolf1.isSitting())) {
+                    if (entitywolf1.isTamed() && entitywolf1.E() == null && this.name.equals(entitywolf1.getOwnerName()) && (!flag || !entitywolf1.isSitting())) {
                         entitywolf1.setSitting(false);
-                        entitywolf1.c(entityliving);
+                        entitywolf1.setTarget(entityliving);
                     }
                 }
             }
@@ -645,7 +645,7 @@ public abstract class EntityHuman extends EntityLiving {
 
     public void a(String s) {}
 
-    public ChunkCoordinates M() {
+    public ChunkCoordinates getBed() {
         return this.b;
     }
 

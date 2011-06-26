@@ -2,11 +2,11 @@ package net.minecraft.server;
 
 public class EntityTNTPrimed extends Entity {
 
-    public int a;
+    public int fuseTicks;
 
     public EntityTNTPrimed(World world) {
         super(world);
-        this.a = 0;
+        this.fuseTicks = 0;
         this.aI = true;
         this.b(0.98F, 0.98F);
         this.height = this.width / 2.0F;
@@ -20,7 +20,7 @@ public class EntityTNTPrimed extends Entity {
         this.motX = (double) (-MathHelper.sin(f * 3.1415927F / 180.0F) * 0.02F);
         this.motY = 0.20000000298023224D;
         this.motZ = (double) (-MathHelper.cos(f * 3.1415927F / 180.0F) * 0.02F);
-        this.a = 80;
+        this.fuseTicks = 80;
         this.lastX = d0;
         this.lastY = d1;
         this.lastZ = d2;
@@ -51,7 +51,7 @@ public class EntityTNTPrimed extends Entity {
             this.motY *= -0.5D;
         }
 
-        if (this.a-- <= 0) {
+        if (this.fuseTicks-- <= 0) {
             if (!this.world.isStatic) {
                 this.die();
                 this.explode();
@@ -70,10 +70,10 @@ public class EntityTNTPrimed extends Entity {
     }
 
     protected void b(NBTTagCompound nbttagcompound) {
-        nbttagcompound.a("Fuse", (byte) this.a);
+        nbttagcompound.a("Fuse", (byte) this.fuseTicks);
     }
 
     protected void a(NBTTagCompound nbttagcompound) {
-        this.a = nbttagcompound.c("Fuse");
+        this.fuseTicks = nbttagcompound.c("Fuse");
     }
 }

@@ -14,5 +14,5 @@ public interface IChunkProvider {
 
     boolean unloadChunks();
 
-    boolean b();
+    boolean canSave();
 }

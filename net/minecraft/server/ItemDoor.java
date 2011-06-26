@@ -63,10 +63,10 @@ public class ItemDoor extends Item {
                     i1 += 4;
                 }
 
-                world.o = true;
+                world.suppressPhysics = true;
                 world.setTypeIdAndData(i, j, k, block.id, i1);
                 world.setTypeIdAndData(i, j + 1, k, block.id, i1 + 8);
-                world.o = false;
+                world.suppressPhysics = false;
                 world.applyPhysics(i, j, k, block.id);
                 world.applyPhysics(i, j + 1, k, block.id);
                 --itemstack.count;

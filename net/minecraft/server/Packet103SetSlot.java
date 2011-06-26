@@ -14,7 +14,7 @@ public class Packet103SetSlot extends Packet {
     public Packet103SetSlot(int i, int j, ItemStack itemstack) {
         this.a = i;
         this.b = j;
-        this.c = itemstack == null ? itemstack : itemstack.j();
+        this.c = itemstack == null ? itemstack : itemstack.cloneItemStack();
     }
 
     public void a(NetHandler nethandler) {

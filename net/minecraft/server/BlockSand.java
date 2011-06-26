@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockSand extends Block {
 
-    public static boolean a = false;
+    public static boolean instaFall = false;
 
     public BlockSand(int i, int j) {
         super(i, j, Material.SAND);
@@ -26,7 +26,7 @@ public class BlockSand extends Block {
         if (c_(world, i, j - 1, k) && j >= 0) {
             byte b0 = 32;
 
-            if (!a && world.a(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
+            if (!instaFall && world.a(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
                 EntityFallingSand entityfallingsand = new EntityFallingSand(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.id);
 
                 world.addEntity(entityfallingsand);

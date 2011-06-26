@@ -16,7 +16,7 @@ public class Explosion {
     public double posZ;
     public Entity source;
     public float size;
-    public Set g = new HashSet();
+    public Set blocks = new HashSet();
 
     public Explosion(World world, Entity entity, double d0, double d1, double d2, float f) {
         this.world = world;
@@ -67,7 +67,7 @@ public class Explosion {
                             }
 
                             if (f1 > 0.0F) {
-                                this.g.add(new ChunkPosition(l, i1, j1));
+                                this.blocks.add(new ChunkPosition(l, i1, j1));
                             }
 
                             d0 += d3 * (double) f2;
@@ -115,7 +115,7 @@ public class Explosion {
         this.size = f;
         ArrayList arraylist = new ArrayList();
 
-        arraylist.addAll(this.g);
+        arraylist.addAll(this.blocks);
         if (this.a) {
             for (int l2 = arraylist.size() - 1; l2 >= 0; --l2) {
                 ChunkPosition chunkposition = (ChunkPosition) arraylist.get(l2);
@@ -136,7 +136,7 @@ public class Explosion {
         this.world.makeSound(this.posX, this.posY, this.posZ, "random.explode", 4.0F, (1.0F + (this.world.random.nextFloat() - this.world.random.nextFloat()) * 0.2F) * 0.7F);
         ArrayList arraylist = new ArrayList();
 
-        arraylist.addAll(this.g);
+        arraylist.addAll(this.blocks);
 
         for (int i = arraylist.size() - 1; i >= 0; --i) {
             ChunkPosition chunkposition = (ChunkPosition) arraylist.get(i);

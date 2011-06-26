@@ -59,7 +59,7 @@ public class NBTTagCompound extends NBTBase {
         this.a.put(s, (new NBTTagInt(i)).a(s));
     }
 
-    public void a(String s, long i) {
+    public void setLong(String s, long i) {
         this.a.put(s, (new NBTTagLong(i)).a(s));
     }
 
@@ -103,7 +103,7 @@ public class NBTTagCompound extends NBTBase {
         return !this.a.containsKey(s) ? 0 : ((NBTTagInt) this.a.get(s)).a;
     }
 
-    public long f(String s) {
+    public long getLong(String s) {
         return !this.a.containsKey(s) ? 0L : ((NBTTagLong) this.a.get(s)).a;
     }
 

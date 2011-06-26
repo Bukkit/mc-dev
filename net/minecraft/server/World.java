@@ -29,7 +29,7 @@ public class World implements IBlockAccess {
     protected float l;
     protected int m = 0;
     public int n = 0;
-    public boolean o = false;
+    public boolean suppressPhysics = false;
     private long H = System.currentTimeMillis();
     protected int p = 40;
     public int spawnMonsters;
@@ -42,7 +42,7 @@ public class World implements IBlockAccess {
     protected WorldData worldData;
     public boolean isLoading;
     private boolean I;
-    public WorldMapCollection z;
+    public WorldMapCollection worldMaps;
     private ArrayList J = new ArrayList();
     private int K = 0;
     private boolean allowMonsters = true;
@@ -62,15 +62,15 @@ public class World implements IBlockAccess {
         this.P = new ArrayList();
         this.isStatic = false;
         this.w = idatamanager;
-        this.z = new WorldMapCollection(idatamanager);
+        this.worldMaps = new WorldMapCollection(idatamanager);
         this.worldData = idatamanager.c();
         this.s = this.worldData == null;
         if (worldprovider != null) {
             this.worldProvider = worldprovider;
         } else if (this.worldData != null && this.worldData.h() == -1) {
-            this.worldProvider = WorldProvider.a(-1);
+            this.worldProvider = WorldProvider.byDimension(-1);
         } else {
-            this.worldProvider = WorldProvider.a(0);
+            this.worldProvider = WorldProvider.byDimension(0);
         }
 
         boolean flag = false;
@@ -95,7 +95,7 @@ public class World implements IBlockAccess {
     protected IChunkProvider b() {
         IChunkLoader ichunkloader = this.w.a(this.worldProvider);
 
-        return new ChunkProviderLoadOrGenerate(this, ichunkloader, this.worldProvider.b());
+        return new ChunkProviderLoadOrGenerate(this, ichunkloader, this.worldProvider.getChunkProvider());
     }
 
     protected void c() {
@@ -105,7 +105,7 @@ public class World implements IBlockAccess {
 
         int j;
 
-        for (j = 0; !this.worldProvider.a(i, j); j += this.random.nextInt(64) - this.random.nextInt(64)) {
+        for (j = 0; !this.worldProvider.canSpawn(i, j); j += this.random.nextInt(64) - this.random.nextInt(64)) {
             i += this.random.nextInt(64) - this.random.nextInt(64);
         }
 
@@ -124,7 +124,7 @@ public class World implements IBlockAccess {
     }
 
     public void save(boolean flag, IProgressUpdate iprogressupdate) {
-        if (this.chunkProvider.b()) {
+        if (this.chunkProvider.canSave()) {
             if (iprogressupdate != null) {
                 iprogressupdate.a("Saving level");
             }
@@ -141,7 +141,7 @@ public class World implements IBlockAccess {
     private void w() {
         this.k();
         this.w.a(this.worldData, this.players);
-        this.z.a();
+        this.worldMaps.a();
     }
 
     public int getTypeId(int i, int j, int k) {
@@ -156,7 +156,7 @@ public class World implements IBlockAccess {
         return j >= 0 && j < 128 ? this.isChunkLoaded(i >> 4, k >> 4) : false;
     }
 
-    public boolean a(int i, int j, int k, int l) {
+    public boolean areChunksLoaded(int i, int j, int k, int l) {
         return this.a(i - l, j - l, k - l, i + l, j + l, k + l);
     }
 
@@ -187,7 +187,7 @@ public class World implements IBlockAccess {
         return this.chunkProvider.isChunkLoaded(i, j);
     }
 
-    public Chunk b(int i, int j) {
+    public Chunk getChunkAtWorldCoords(int i, int j) {
         return this.getChunkAt(i >> 4, j >> 4);
     }
 
@@ -344,7 +344,7 @@ public class World implements IBlockAccess {
     }
 
     private void k(int i, int j, int k, int l) {
-        if (!this.o && !this.isStatic) {
+        if (!this.suppressPhysics && !this.isStatic) {
             Block block = Block.byId[this.getTypeId(i, j, k)];
 
             if (block != null) {
@@ -721,7 +721,7 @@ public class World implements IBlockAccess {
         }
     }
 
-    public boolean a(Entity entity) {
+    public boolean strikeLightning(Entity entity) {
         this.e.add(entity);
         return true;
     }
@@ -868,7 +868,7 @@ public class World implements IBlockAccess {
     }
 
     public int e(int i, int j) {
-        Chunk chunk = this.b(i, j);
+        Chunk chunk = this.getChunkAtWorldCoords(i, j);
         int k = 127;
 
         i &= 15;
@@ -886,7 +886,7 @@ public class World implements IBlockAccess {
     }
 
     public int f(int i, int j) {
-        Chunk chunk = this.b(i, j);
+        Chunk chunk = this.getChunkAtWorldCoords(i, j);
         int k = 127;
 
         i &= 15;
@@ -1312,7 +1312,7 @@ public class World implements IBlockAccess {
         return (float) i / (float) j;
     }
 
-    public void a(EntityHuman entityhuman, int i, int j, int k, int l) {
+    public void douseFire(EntityHuman entityhuman, int i, int j, int k, int l) {
         if (l == 0) {
             --j;
         }
@@ -1427,33 +1427,33 @@ public class World implements IBlockAccess {
                     return;
                 }
 
-                if (this.b(k1, l1).g()) {
-                    return;
-                }
+                if (!this.getChunkAtWorldCoords(k1, l1).isEmpty()) {
+                    int i2 = this.C.size();
+                    int j2;
 
-                int i2 = this.C.size();
-                int j2;
+                    if (flag) {
+                        j2 = 5;
+                        if (j2 > i2) {
+                            j2 = i2;
+                        }
 
-                if (flag) {
-                    j2 = 5;
-                    if (j2 > i2) {
-                        j2 = i2;
-                    }
+                        for (int k2 = 0; k2 < j2; ++k2) {
+                            MetadataChunkBlock metadatachunkblock = (MetadataChunkBlock) this.C.get(this.C.size() - k2 - 1);
 
-                    for (int k2 = 0; k2 < j2; ++k2) {
-                        MetadataChunkBlock metadatachunkblock = (MetadataChunkBlock) this.C.get(this.C.size() - k2 - 1);
-
-                        if (metadatachunkblock.a == enumskyblock && metadatachunkblock.a(i, j, k, l, i1, j1)) {
-                            return;
+                            if (metadatachunkblock.a == enumskyblock && metadatachunkblock.a(i, j, k, l, i1, j1)) {
+                                return;
+                            }
                         }
                     }
-                }
 
-                this.C.add(new MetadataChunkBlock(enumskyblock, i, j, k, l, i1, j1));
-                j2 = 1000000;
-                if (this.C.size() > 1000000) {
-                    System.out.println("More than " + j2 + " updates, aborting lighting updates");
-                    this.C.clear();
+                    this.C.add(new MetadataChunkBlock(enumskyblock, i, j, k, l, i1, j1));
+                    j2 = 1000000;
+                    if (this.C.size() > 1000000) {
+                        System.out.println("More than " + j2 + " updates, aborting lighting updates");
+                        this.C.clear();
+                    }
+
+                    return;
                 }
             } finally {
                 --A;
@@ -1515,9 +1515,9 @@ public class World implements IBlockAccess {
     }
 
     private void x() {
-        if (this.worldData.l()) {
+        if (this.worldData.hasStorm()) {
             this.j = 1.0F;
-            if (this.worldData.j()) {
+            if (this.worldData.isThundering()) {
                 this.l = 1.0F;
             }
         }
@@ -1529,40 +1529,40 @@ public class World implements IBlockAccess {
                 --this.m;
             }
 
-            int i = this.worldData.k();
+            int i = this.worldData.getThunderDuration();
 
             if (i <= 0) {
-                if (this.worldData.j()) {
-                    this.worldData.b(this.random.nextInt(12000) + 3600);
+                if (this.worldData.isThundering()) {
+                    this.worldData.setThunderDuration(this.random.nextInt(12000) + 3600);
                 } else {
-                    this.worldData.b(this.random.nextInt(168000) + 12000);
+                    this.worldData.setThunderDuration(this.random.nextInt(168000) + 12000);
                 }
             } else {
                 --i;
-                this.worldData.b(i);
+                this.worldData.setThunderDuration(i);
                 if (i <= 0) {
-                    this.worldData.a(!this.worldData.j());
+                    this.worldData.setThundering(!this.worldData.isThundering());
                 }
             }
 
-            int j = this.worldData.m();
+            int j = this.worldData.getWeatherDuration();
 
             if (j <= 0) {
-                if (this.worldData.l()) {
-                    this.worldData.c(this.random.nextInt(12000) + 12000);
+                if (this.worldData.hasStorm()) {
+                    this.worldData.setWeatherDuration(this.random.nextInt(12000) + 12000);
                 } else {
-                    this.worldData.c(this.random.nextInt(168000) + 12000);
+                    this.worldData.setWeatherDuration(this.random.nextInt(168000) + 12000);
                 }
             } else {
                 --j;
-                this.worldData.c(j);
+                this.worldData.setWeatherDuration(j);
                 if (j <= 0) {
-                    this.worldData.b(!this.worldData.l());
+                    this.worldData.setStorm(!this.worldData.hasStorm());
                 }
             }
 
             this.i = this.j;
-            if (this.worldData.l()) {
+            if (this.worldData.hasStorm()) {
                 this.j = (float) ((double) this.j + 0.01D);
             } else {
                 this.j = (float) ((double) this.j - 0.01D);
@@ -1577,7 +1577,7 @@ public class World implements IBlockAccess {
             }
 
             this.k = this.l;
-            if (this.worldData.j()) {
+            if (this.worldData.isThundering()) {
                 this.l = (float) ((double) this.l + 0.01D);
             } else {
                 this.l = (float) ((double) this.l - 0.01D);
@@ -1594,10 +1594,10 @@ public class World implements IBlockAccess {
     }
 
     private void y() {
-        this.worldData.c(0);
-        this.worldData.b(false);
-        this.worldData.b(0);
-        this.worldData.a(false);
+        this.worldData.setWeatherDuration(0);
+        this.worldData.setStorm(false);
+        this.worldData.setThunderDuration(0);
+        this.worldData.setThundering(false);
     }
 
     protected void j() {
@@ -1664,7 +1664,7 @@ public class World implements IBlockAccess {
                 j1 = j + (k >> 8 & 15);
                 k1 = this.e(l, j1);
                 if (this.s(l, k1, j1)) {
-                    this.a((Entity) (new EntityWeatherStorm(this, (double) l, (double) k1, (double) j1)));
+                    this.strikeLightning(new EntityWeatherStorm(this, (double) l, (double) k1, (double) j1));
                     this.m = 2;
                 }
             }
@@ -1776,7 +1776,7 @@ public class World implements IBlockAccess {
 
     public void b(int i, int j, int k, TileEntity tileentity) {
         if (this.isLoaded(i, j, k)) {
-            this.b(i, k).f();
+            this.getChunkAtWorldCoords(i, k).f();
         }
 
         for (int l = 0; l < this.u.size(); ++l) {
@@ -1887,7 +1887,7 @@ public class World implements IBlockAccess {
         return this.isBlockFaceIndirectlyPowered(i, j - 1, k, 0) ? true : (this.isBlockFaceIndirectlyPowered(i, j + 1, k, 1) ? true : (this.isBlockFaceIndirectlyPowered(i, j, k - 1, 2) ? true : (this.isBlockFaceIndirectlyPowered(i, j, k + 1, 3) ? true : (this.isBlockFaceIndirectlyPowered(i - 1, j, k, 4) ? true : this.isBlockFaceIndirectlyPowered(i + 1, j, k, 5)))));
     }
 
-    public EntityHuman a(Entity entity, double d0) {
+    public EntityHuman findNearbyPlayer(Entity entity, double d0) {
         return this.a(entity.locX, entity.locY, entity.locZ, d0);
     }
 
@@ -1918,7 +1918,7 @@ public class World implements IBlockAccess {
         return null;
     }
 
-    public byte[] c(int i, int j, int k, int l, int i1, int j1) {
+    public byte[] getMultiChunkData(int i, int j, int k, int l, int i1, int j1) {
         byte[] abyte = new byte[l * i1 * j1 * 5 / 2];
         int k1 = i >> 4;
         int l1 = k >> 4;
@@ -1960,7 +1960,7 @@ public class World implements IBlockAccess {
                     k4 = 16;
                 }
 
-                k2 = this.getChunkAt(j3, i4).a(abyte, k3, l2, j4, l3, i3, k4, k2);
+                k2 = this.getChunkAt(j3, i4).getData(abyte, k3, l2, j4, l3, i3, k4, k2);
             }
         }
 
@@ -1976,7 +1976,7 @@ public class World implements IBlockAccess {
     }
 
     public long getSeed() {
-        return this.worldData.b();
+        return this.worldData.getSeed();
     }
 
     public long getTime() {
@@ -1997,7 +1997,7 @@ public class World implements IBlockAccess {
         return this.chunkProvider;
     }
 
-    public void d(int i, int j, int k, int l, int i1) {
+    public void playNote(int i, int j, int k, int l, int i1) {
         int j1 = this.getTypeId(i, j, k);
 
         if (j1 > 0) {
@@ -2093,15 +2093,15 @@ public class World implements IBlockAccess {
     }
 
     public void a(String s, WorldMapBase worldmapbase) {
-        this.z.a(s, worldmapbase);
+        this.worldMaps.a(s, worldmapbase);
     }
 
     public WorldMapBase a(Class oclass, String s) {
-        return this.z.a(oclass, s);
+        return this.worldMaps.a(oclass, s);
     }
 
     public int b(String s) {
-        return this.z.a(s);
+        return this.worldMaps.a(s);
     }
 
     public void e(int i, int j, int k, int l, int i1) {

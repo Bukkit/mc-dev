@@ -43,11 +43,11 @@ public class MetadataChunkBlock {
                     if (flag && i2 == i1 && j2 == j1) {
                         flag2 = flag1;
                     } else {
-                        flag2 = world.a(k1, 0, l1, 1);
+                        flag2 = world.areChunksLoaded(k1, 0, l1, 1);
                         if (flag2) {
                             Chunk chunk = world.getChunkAt(k1 >> 4, l1 >> 4);
 
-                            if (chunk.g()) {
+                            if (chunk.isEmpty()) {
                                 flag2 = false;
                             }
                         }

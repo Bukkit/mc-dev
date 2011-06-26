@@ -215,7 +215,7 @@ public class EntitySnowball extends Entity {
     }
 
     public void b(EntityHuman entityhuman) {
-        if (this.f && this.shooter == entityhuman && this.a <= 0 && entityhuman.inventory.canHold(new ItemStack(Item.ARROW, 1))) {
+        if (this.f && this.shooter == entityhuman && this.a <= 0 && entityhuman.inventory.pickup(new ItemStack(Item.ARROW, 1))) {
             this.world.makeSound(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
             entityhuman.receive(this, 1);
             this.die();

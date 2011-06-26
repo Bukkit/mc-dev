@@ -81,7 +81,7 @@ public class EntityItem extends Entity {
         return this.world.a(this.boundingBox, Material.WATER, this);
     }
 
-    protected void a(int i) {
+    protected void burn(int i) {
         this.damageEntity((Entity) null, i);
     }
 
@@ -113,7 +113,7 @@ public class EntityItem extends Entity {
         if (!this.world.isStatic) {
             int i = this.itemStack.count;
 
-            if (this.pickupDelay == 0 && entityhuman.inventory.canHold(this.itemStack)) {
+            if (this.pickupDelay == 0 && entityhuman.inventory.pickup(this.itemStack)) {
                 if (this.itemStack.id == Block.LOG.id) {
                     entityhuman.a((Statistic) AchievementList.g);
                 }

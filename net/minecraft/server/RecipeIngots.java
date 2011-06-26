@@ -13,8 +13,8 @@ public class RecipeIngots {
             Block block = (Block) this.a[i][0];
             ItemStack itemstack = (ItemStack) this.a[i][1];
 
-            craftingmanager.a(new ItemStack(block), new Object[] { "###", "###", "###", Character.valueOf('#'), itemstack});
-            craftingmanager.a(itemstack, new Object[] { "#", Character.valueOf('#'), block});
+            craftingmanager.registerShapedRecipe(new ItemStack(block), new Object[] { "###", "###", "###", Character.valueOf('#'), itemstack});
+            craftingmanager.registerShapedRecipe(itemstack, new Object[] { "#", Character.valueOf('#'), block});
         }
     }
 }

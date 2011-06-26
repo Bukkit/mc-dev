@@ -95,7 +95,7 @@ public class BlockDispenser extends BlockContainer {
                 EntityArrow entityarrow = new EntityArrow(world, d0, d1, d2);
 
                 entityarrow.a((double) b0, 0.10000000149011612D, (double) b1, 1.1F, 6.0F);
-                entityarrow.a = true;
+                entityarrow.fromPlayer = true;
                 world.addEntity(entityarrow);
                 world.e(1002, i, j, k, 0);
             } else if (itemstack.id == Item.EGG.id) {

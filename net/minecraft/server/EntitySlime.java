@@ -22,7 +22,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
     }
 
     public void setSize(int i) {
-        this.datawatcher.b(16, new Byte((byte) i));
+        this.datawatcher.watch(16, new Byte((byte) i));
         this.b(0.6F * (float) i, 0.6F * (float) i);
         this.health = i * i;
         this.setPosition(this.locX, this.locY, this.locZ);
@@ -71,7 +71,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
 
     protected void c_() {
         this.T();
-        EntityHuman entityhuman = this.world.a(this, 16.0D);
+        EntityHuman entityhuman = this.world.findNearbyPlayer(this, 16.0D);
 
         if (entityhuman != null) {
             this.a(entityhuman, 10.0F, 20.0F);
@@ -138,7 +138,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
     }
 
     public boolean d() {
-        Chunk chunk = this.world.b(MathHelper.floor(this.locX), MathHelper.floor(this.locZ));
+        Chunk chunk = this.world.getChunkAtWorldCoords(MathHelper.floor(this.locX), MathHelper.floor(this.locZ));
 
         return (this.getSize() == 1 || this.world.spawnMonsters > 0) && this.random.nextInt(10) == 0 && chunk.a(987234911L).nextInt(10) == 0 && this.locY < 16.0D;
     }

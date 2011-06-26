@@ -313,7 +313,7 @@ public class ChunkProviderHell implements IChunkProvider {
     }
 
     public void getChunkAt(IChunkProvider ichunkprovider, int i, int j) {
-        BlockSand.a = true;
+        BlockSand.instaFall = true;
         int k = i * 16;
         int l = j * 16;
 
@@ -370,7 +370,7 @@ public class ChunkProviderHell implements IChunkProvider {
             (new WorldGenFlowers(Block.RED_MUSHROOM.id)).a(this.n, this.h, j1, k1, l1);
         }
 
-        BlockSand.a = false;
+        BlockSand.instaFall = false;
     }
 
     public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
@@ -381,7 +381,7 @@ public class ChunkProviderHell implements IChunkProvider {
         return false;
     }
 
-    public boolean b() {
+    public boolean canSave() {
         return true;
     }
 }

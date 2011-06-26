@@ -22,11 +22,11 @@ public class BlockStationary extends BlockFluids {
     private void i(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
 
-        world.o = true;
+        world.suppressPhysics = true;
         world.setRawTypeIdAndData(i, j, k, this.id - 1, l);
         world.b(i, j, k, i, j, k);
         world.c(i, j, k, this.id - 1, this.c());
-        world.o = false;
+        world.suppressPhysics = false;
     }
 
     public void a(World world, int i, int j, int k, Random random) {

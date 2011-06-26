@@ -6,7 +6,7 @@ public class EntityGhast extends EntityFlying implements IMonster {
     public double b;
     public double c;
     public double d;
-    private Entity g = null;
+    private Entity target = null;
     private int h = 0;
     public int e = 0;
     public int f = 0;
@@ -15,7 +15,7 @@ public class EntityGhast extends EntityFlying implements IMonster {
         super(world);
         this.texture = "/mob/ghast.png";
         this.b(4.0F, 4.0F);
-        this.bD = true;
+        this.fireProof = true;
     }
 
     protected void b() {
@@ -61,26 +61,26 @@ public class EntityGhast extends EntityFlying implements IMonster {
             }
         }
 
-        if (this.g != null && this.g.dead) {
-            this.g = null;
+        if (this.target != null && this.target.dead) {
+            this.target = null;
         }
 
-        if (this.g == null || this.h-- <= 0) {
-            this.g = this.world.a(this, 100.0D);
-            if (this.g != null) {
+        if (this.target == null || this.h-- <= 0) {
+            this.target = this.world.findNearbyPlayer(this, 100.0D);
+            if (this.target != null) {
                 this.h = 20;
             }
         }
 
         double d4 = 64.0D;
 
-        if (this.g != null && this.g.g(this) < d4 * d4) {
-            double d5 = this.g.locX - this.locX;
-            double d6 = this.g.boundingBox.b + (double) (this.g.width / 2.0F) - (this.locY + (double) (this.width / 2.0F));
-            double d7 = this.g.locZ - this.locZ;
+        if (this.target != null && this.target.g(this) < d4 * d4) {
+            double d5 = this.target.locX - this.locX;
+            double d6 = this.target.boundingBox.b + (double) (this.target.width / 2.0F) - (this.locY + (double) (this.width / 2.0F));
+            double d7 = this.target.locZ - this.locZ;
 
             this.K = this.yaw = -((float) Math.atan2(d5, d7)) * 180.0F / 3.1415927F;
-            if (this.e(this.g)) {
+            if (this.e(this.target)) {
                 if (this.f == 10) {
                     this.world.makeSound(this, "mob.ghast.charge", this.k(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 }
@@ -113,7 +113,7 @@ public class EntityGhast extends EntityFlying implements IMonster {
             byte b1 = (byte) (this.f > 10 ? 1 : 0);
 
             if (b0 != b1) {
-                this.datawatcher.b(16, Byte.valueOf(b1));
+                this.datawatcher.watch(16, Byte.valueOf(b1));
             }
         }
     }

@@ -14,7 +14,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private Chunk emptyChunk;
     private IChunkProvider chunkProvider;
     private IChunkLoader e;
-    public boolean a = false;
+    public boolean forceChunkLoad = false;
     private Map chunks = new HashMap();
     private List chunkList = new ArrayList();
     private WorldServer world;
@@ -87,7 +87,7 @@ public class ChunkProviderServer implements IChunkProvider {
     public Chunk getOrCreateChunk(int i, int j) {
         Chunk chunk = (Chunk) this.chunks.get(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
 
-        return chunk == null ? (!this.world.isLoading && !this.a ? this.emptyChunk : this.getChunkAt(i, j)) : chunk;
+        return chunk == null ? (!this.world.isLoading && !this.forceChunkLoad ? this.emptyChunk : this.getChunkAt(i, j)) : chunk;
     }
 
     private Chunk loadChunk(int i, int j) {
@@ -174,7 +174,7 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     public boolean unloadChunks() {
-        if (!this.world.E) {
+        if (!this.world.canSave) {
             for (int i = 0; i < 100; ++i) {
                 if (!this.unloadQueue.isEmpty()) {
                     Integer integer = (Integer) this.unloadQueue.iterator().next();
@@ -197,7 +197,7 @@ public class ChunkProviderServer implements IChunkProvider {
         return this.chunkProvider.unloadChunks();
     }
 
-    public boolean b() {
-        return !this.world.E;
+    public boolean canSave() {
+        return !this.world.canSave;
     }
 }

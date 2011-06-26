@@ -27,7 +27,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
     }
 
     protected Entity findTarget() {
-        EntityHuman entityhuman = this.world.a(this, 16.0D);
+        EntityHuman entityhuman = this.world.findNearbyPlayer(this, 16.0D);
 
         return entityhuman != null && this.e(entityhuman) ? entityhuman : null;
     }

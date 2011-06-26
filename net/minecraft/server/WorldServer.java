@@ -7,12 +7,12 @@ public class WorldServer extends World {
 
     public ChunkProviderServer chunkProviderServer;
     public boolean weirdIsOpCache = false;
-    public boolean E;
+    public boolean canSave;
     private MinecraftServer server;
     private EntityList G = new EntityList();
 
     public WorldServer(MinecraftServer minecraftserver, IDataManager idatamanager, String s, int i, long j) {
-        super(idatamanager, s, j, WorldProvider.a(i));
+        super(idatamanager, s, j, WorldProvider.byDimension(i));
         this.server = minecraftserver;
     }
 
@@ -33,7 +33,7 @@ public class WorldServer extends World {
     protected IChunkProvider b() {
         IChunkLoader ichunkloader = this.w.a(this.worldProvider);
 
-        this.chunkProviderServer = new ChunkProviderServer(this, ichunkloader, this.worldProvider.b());
+        this.chunkProviderServer = new ChunkProviderServer(this, ichunkloader, this.worldProvider.getChunkProvider());
         return this.chunkProviderServer;
     }
 
@@ -43,7 +43,7 @@ public class WorldServer extends World {
         for (int k1 = 0; k1 < this.c.size(); ++k1) {
             TileEntity tileentity = (TileEntity) this.c.get(k1);
 
-            if (tileentity.e >= i && tileentity.f >= j && tileentity.g >= k && tileentity.e < l && tileentity.f < i1 && tileentity.g < j1) {
+            if (tileentity.x >= i && tileentity.y >= j && tileentity.z >= k && tileentity.x < l && tileentity.y < i1 && tileentity.z < j1) {
                 arraylist.add(tileentity);
             }
         }
@@ -76,9 +76,9 @@ public class WorldServer extends World {
         return (Entity) this.G.a(i);
     }
 
-    public boolean a(Entity entity) {
-        if (super.a(entity)) {
-            this.server.serverConfigurationManager.a(entity.locX, entity.locY, entity.locZ, 512.0D, this.worldProvider.dimension, new Packet71Weather(entity));
+    public boolean strikeLightning(Entity entity) {
+        if (super.strikeLightning(entity)) {
+            this.server.serverConfigurationManager.sendPacketNearby(entity.locX, entity.locY, entity.locZ, 512.0D, this.worldProvider.dimension, new Packet71Weather(entity));
             return true;
         } else {
             return false;
@@ -88,7 +88,7 @@ public class WorldServer extends World {
     public void a(Entity entity, byte b0) {
         Packet38EntityStatus packet38entitystatus = new Packet38EntityStatus(entity.id, b0);
 
-        this.server.b(this.worldProvider.dimension).b(entity, packet38entitystatus);
+        this.server.getTracker(this.worldProvider.dimension).sendPacketToEntity(entity, packet38entitystatus);
     }
 
     public Explosion createExplosion(Entity entity, double d0, double d1, double d2, float f, boolean flag) {
@@ -97,13 +97,13 @@ public class WorldServer extends World {
         explosion.a = flag;
         explosion.a();
         explosion.a(false);
-        this.server.serverConfigurationManager.a(d0, d1, d2, 64.0D, this.worldProvider.dimension, new Packet60Explosion(d0, d1, d2, f, explosion.g));
+        this.server.serverConfigurationManager.sendPacketNearby(d0, d1, d2, 64.0D, this.worldProvider.dimension, new Packet60Explosion(d0, d1, d2, f, explosion.blocks));
         return explosion;
     }
 
-    public void d(int i, int j, int k, int l, int i1) {
-        super.d(i, j, k, l, i1);
-        this.server.serverConfigurationManager.a((double) i, (double) j, (double) k, 64.0D, this.worldProvider.dimension, new Packet54PlayNoteBlock(i, j, k, l, i1));
+    public void playNote(int i, int j, int k, int l, int i1) {
+        super.playNote(i, j, k, l, i1);
+        this.server.serverConfigurationManager.sendPacketNearby((double) i, (double) j, (double) k, 64.0D, this.worldProvider.dimension, new Packet54PlayNoteBlock(i, j, k, l, i1));
     }
 
     public void saveLevel() {

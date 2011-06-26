@@ -41,7 +41,7 @@ public class ContainerChest extends Container {
         if (slot != null && slot.b()) {
             ItemStack itemstack1 = slot.getItem();
 
-            itemstack = itemstack1.j();
+            itemstack = itemstack1.cloneItemStack();
             if (i < this.b * 9) {
                 this.a(itemstack1, this.b * 9, this.e.size(), true);
             } else {

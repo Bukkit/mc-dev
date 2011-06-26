@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class MinecraftServer implements Runnable, ICommandListener {
 
     public static Logger log = Logger.getLogger("Minecraft");
-    public static HashMap b = new HashMap();
+    public static HashMap trackerList = new HashMap();
     public NetworkListenThread networkListenThread;
     public PropertyManager propertyManager;
     public WorldServer[] worldServer;
@@ -33,7 +33,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
     public boolean onlineMode;
     public boolean spawnAnimals;
     public boolean pvpMode;
-    public boolean o;
+    public boolean allowFlight;
 
     public MinecraftServer() {
         new ThreadSleepForever(this);
@@ -59,7 +59,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         this.onlineMode = this.propertyManager.getBoolean("online-mode", true);
         this.spawnAnimals = this.propertyManager.getBoolean("spawn-animals", true);
         this.pvpMode = this.propertyManager.getBoolean("pvp", true);
-        this.o = this.propertyManager.getBoolean("allow-flight", false);
+        this.allowFlight = this.propertyManager.getBoolean("allow-flight", false);
         InetAddress inetaddress = null;
 
         if (s.length() > 0) {
@@ -278,14 +278,14 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
     private void h() {
         ArrayList arraylist = new ArrayList();
-        Iterator iterator = b.keySet().iterator();
+        Iterator iterator = trackerList.keySet().iterator();
 
         while (iterator.hasNext()) {
             String s = (String) iterator.next();
-            int i = ((Integer) b.get(s)).intValue();
+            int i = ((Integer) trackerList.get(s)).intValue();
 
             if (i > 0) {
-                b.put(s, Integer.valueOf(i - 1));
+                trackerList.put(s, Integer.valueOf(i - 1));
             } else {
                 arraylist.add(s);
             }
@@ -294,7 +294,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         int j;
 
         for (j = 0; j < arraylist.size(); ++j) {
-            b.remove(arraylist.get(j));
+            trackerList.remove(arraylist.get(j));
         }
 
         AxisAlignedBB.a();
@@ -306,7 +306,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
                 WorldServer worldserver = this.worldServer[j];
 
                 if (this.ticks % 20 == 0) {
-                    this.serverConfigurationManager.a((Packet) (new Packet4UpdateTime(worldserver.getTime())), worldserver.worldProvider.dimension);
+                    this.serverConfigurationManager.a(new Packet4UpdateTime(worldserver.getTime()), worldserver.worldProvider.dimension);
                 }
 
                 worldserver.doTick();
@@ -323,7 +323,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         this.serverConfigurationManager.b();
 
         for (j = 0; j < this.tracker.length; ++j) {
-            this.tracker[j].a();
+            this.tracker[j].updatePlayers();
         }
 
         for (j = 0; j < this.r.size(); ++j) {
@@ -385,11 +385,11 @@ public class MinecraftServer implements Runnable, ICommandListener {
         return "CONSOLE";
     }
 
-    public WorldServer a(int i) {
+    public WorldServer getWorldServer(int i) {
         return i == -1 ? this.worldServer[1] : this.worldServer[0];
     }
 
-    public EntityTracker b(int i) {
+    public EntityTracker getTracker(int i) {
         return i == -1 ? this.tracker[1] : this.tracker[0];
     }
 

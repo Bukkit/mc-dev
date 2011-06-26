@@ -22,11 +22,11 @@ public class WorldProviderHell extends WorldProvider {
         }
     }
 
-    public IChunkProvider b() {
+    public IChunkProvider getChunkProvider() {
         return new ChunkProviderHell(this.a, this.a.getSeed());
     }
 
-    public boolean a(int i, int j) {
+    public boolean canSpawn(int i, int j) {
         int k = this.a.a(i, j);
 
         return k == Block.BEDROCK.id ? false : (k == 0 ? false : Block.o[k]);

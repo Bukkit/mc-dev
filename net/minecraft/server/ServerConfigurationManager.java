@@ -59,17 +59,17 @@ public class ServerConfigurationManager {
     public void a(EntityPlayer entityplayer) {
         this.d[0].removePlayer(entityplayer);
         this.d[1].removePlayer(entityplayer);
-        this.a(entityplayer.dimension).addPlayer(entityplayer);
-        WorldServer worldserver = this.server.a(entityplayer.dimension);
+        this.getPlayerManager(entityplayer.dimension).addPlayer(entityplayer);
+        WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
 
         worldserver.chunkProviderServer.getChunkAt((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
     }
 
     public int a() {
-        return this.d[0].c();
+        return this.d[0].getFurthestViewableBlock();
     }
 
-    private PlayerManager a(int i) {
+    private PlayerManager getPlayerManager(int i) {
         return i == -1 ? this.d[1] : this.d[0];
     }
 
@@ -79,7 +79,7 @@ public class ServerConfigurationManager {
 
     public void c(EntityPlayer entityplayer) {
         this.players.add(entityplayer);
-        WorldServer worldserver = this.server.a(entityplayer.dimension);
+        WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
 
         worldserver.chunkProviderServer.getChunkAt((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
 
@@ -88,18 +88,18 @@ public class ServerConfigurationManager {
         }
 
         worldserver.addEntity(entityplayer);
-        this.a(entityplayer.dimension).addPlayer(entityplayer);
+        this.getPlayerManager(entityplayer.dimension).addPlayer(entityplayer);
     }
 
     public void d(EntityPlayer entityplayer) {
-        this.a(entityplayer.dimension).movePlayer(entityplayer);
+        this.getPlayerManager(entityplayer.dimension).movePlayer(entityplayer);
     }
 
     public void disconnect(EntityPlayer entityplayer) {
         this.playerFileData.a(entityplayer);
-        this.server.a(entityplayer.dimension).kill(entityplayer);
+        this.server.getWorldServer(entityplayer.dimension).kill(entityplayer);
         this.players.remove(entityplayer);
-        this.a(entityplayer.dimension).removePlayer(entityplayer);
+        this.getPlayerManager(entityplayer.dimension).removePlayer(entityplayer);
     }
 
     public EntityPlayer a(NetLoginHandler netloginhandler, String s) {
@@ -129,28 +129,28 @@ public class ServerConfigurationManager {
                     }
                 }
 
-                return new EntityPlayer(this.server, this.server.a(0), s, new ItemInWorldManager(this.server.a(0)));
+                return new EntityPlayer(this.server, this.server.getWorldServer(0), s, new ItemInWorldManager(this.server.getWorldServer(0)));
             }
         }
     }
 
-    public EntityPlayer a(EntityPlayer entityplayer, int i) {
-        this.server.b(entityplayer.dimension).trackPlayer(entityplayer);
-        this.server.b(entityplayer.dimension).untrackEntity(entityplayer);
-        this.a(entityplayer.dimension).removePlayer(entityplayer);
+    public EntityPlayer moveToWorld(EntityPlayer entityplayer, int i) {
+        this.server.getTracker(entityplayer.dimension).untrackPlayer(entityplayer);
+        this.server.getTracker(entityplayer.dimension).untrackEntity(entityplayer);
+        this.getPlayerManager(entityplayer.dimension).removePlayer(entityplayer);
         this.players.remove(entityplayer);
-        this.server.a(entityplayer.dimension).removeEntity(entityplayer);
-        ChunkCoordinates chunkcoordinates = entityplayer.M();
+        this.server.getWorldServer(entityplayer.dimension).removeEntity(entityplayer);
+        ChunkCoordinates chunkcoordinates = entityplayer.getBed();
 
         entityplayer.dimension = i;
-        EntityPlayer entityplayer1 = new EntityPlayer(this.server, this.server.a(entityplayer.dimension), entityplayer.name, new ItemInWorldManager(this.server.a(entityplayer.dimension)));
+        EntityPlayer entityplayer1 = new EntityPlayer(this.server, this.server.getWorldServer(entityplayer.dimension), entityplayer.name, new ItemInWorldManager(this.server.getWorldServer(entityplayer.dimension)));
 
         entityplayer1.id = entityplayer.id;
         entityplayer1.netServerHandler = entityplayer.netServerHandler;
-        WorldServer worldserver = this.server.a(entityplayer.dimension);
+        WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
 
         if (chunkcoordinates != null) {
-            ChunkCoordinates chunkcoordinates1 = EntityHuman.getBed(this.server.a(entityplayer.dimension), chunkcoordinates);
+            ChunkCoordinates chunkcoordinates1 = EntityHuman.getBed(this.server.getWorldServer(entityplayer.dimension), chunkcoordinates);
 
             if (chunkcoordinates1 != null) {
                 entityplayer1.setPositionRotation((double) ((float) chunkcoordinates1.x + 0.5F), (double) ((float) chunkcoordinates1.y + 0.1F), (double) ((float) chunkcoordinates1.z + 0.5F), 0.0F, 0.0F);
@@ -169,7 +169,7 @@ public class ServerConfigurationManager {
         entityplayer1.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer1.dimension));
         entityplayer1.netServerHandler.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
         this.a(entityplayer1, worldserver);
-        this.a(entityplayer1.dimension).addPlayer(entityplayer1);
+        this.getPlayerManager(entityplayer1.dimension).addPlayer(entityplayer1);
         worldserver.addEntity(entityplayer1);
         this.players.add(entityplayer1);
         entityplayer1.syncInventory();
@@ -178,7 +178,7 @@ public class ServerConfigurationManager {
     }
 
     public void f(EntityPlayer entityplayer) {
-        WorldServer worldserver = this.server.a(entityplayer.dimension);
+        WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
         boolean flag = false;
         byte b0;
 
@@ -189,7 +189,7 @@ public class ServerConfigurationManager {
         }
 
         entityplayer.dimension = b0;
-        WorldServer worldserver1 = this.server.a(entityplayer.dimension);
+        WorldServer worldserver1 = this.server.getWorldServer(entityplayer.dimension);
 
         entityplayer.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer.dimension));
         worldserver.removeEntity(entityplayer);
@@ -218,16 +218,16 @@ public class ServerConfigurationManager {
             worldserver1.addEntity(entityplayer);
             entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
             worldserver1.entityJoinedWorld(entityplayer, false);
-            worldserver1.chunkProviderServer.a = true;
+            worldserver1.chunkProviderServer.forceChunkLoad = true;
             (new PortalTravelAgent()).a(worldserver1, entityplayer);
-            worldserver1.chunkProviderServer.a = false;
+            worldserver1.chunkProviderServer.forceChunkLoad = false;
         }
 
         this.a(entityplayer);
         entityplayer.netServerHandler.a(entityplayer.locX, entityplayer.locY, entityplayer.locZ, entityplayer.yaw, entityplayer.pitch);
-        entityplayer.a((World) worldserver1);
+        entityplayer.spawnIn(worldserver1);
         this.a(entityplayer, worldserver1);
-        this.g(entityplayer);
+        this.updateClient(entityplayer);
     }
 
     public void b() {
@@ -237,7 +237,7 @@ public class ServerConfigurationManager {
     }
 
     public void flagDirty(int i, int j, int k, int l) {
-        this.a(l).flagDirty(i, j, k);
+        this.getPlayerManager(l).flagDirty(i, j, k);
     }
 
     public void sendAll(Packet packet) {
@@ -463,11 +463,11 @@ public class ServerConfigurationManager {
         }
     }
 
-    public void a(double d0, double d1, double d2, double d3, int i, Packet packet) {
-        this.a((EntityHuman) null, d0, d1, d2, d3, i, packet);
+    public void sendPacketNearby(double d0, double d1, double d2, double d3, int i, Packet packet) {
+        this.sendPacketNearby((EntityHuman) null, d0, d1, d2, d3, i, packet);
     }
 
-    public void a(EntityHuman entityhuman, double d0, double d1, double d2, double d3, int i, Packet packet) {
+    public void sendPacketNearby(EntityHuman entityhuman, double d0, double d1, double d2, double d3, int i, Packet packet) {
         for (int j = 0; j < this.players.size(); ++j) {
             EntityPlayer entityplayer = (EntityPlayer) this.players.get(j);
 
@@ -539,8 +539,8 @@ public class ServerConfigurationManager {
         }
     }
 
-    public void g(EntityPlayer entityplayer) {
-        entityplayer.a(entityplayer.defaultContainer);
+    public void updateClient(EntityPlayer entityplayer) {
+        entityplayer.updateInventory(entityplayer.defaultContainer);
         entityplayer.B();
     }
 }

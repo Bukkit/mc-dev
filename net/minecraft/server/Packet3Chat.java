@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 
 public class Packet3Chat extends Packet {
 
-    public String a;
+    public String message;
 
     public Packet3Chat() {}
 
@@ -14,15 +14,15 @@ public class Packet3Chat extends Packet {
             s = s.substring(0, 119);
         }
 
-        this.a = s;
+        this.message = s;
     }
 
     public void a(DataInputStream datainputstream) {
-        this.a = a(datainputstream, 119);
+        this.message = a(datainputstream, 119);
     }
 
     public void a(DataOutputStream dataoutputstream) {
-        a(this.a, dataoutputstream);
+        a(this.message, dataoutputstream);
     }
 
     public void a(NetHandler nethandler) {
@@ -30,6 +30,6 @@ public class Packet3Chat extends Packet {
     }
 
     public int a() {
-        return this.a.length();
+        return this.message.length();
     }
 }

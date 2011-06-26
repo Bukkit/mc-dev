@@ -9,9 +9,9 @@ public class EntityArrow extends Entity {
     private int f = -1;
     private int g = 0;
     private int h = 0;
-    private boolean i = false;
-    public boolean a = false;
-    public int b = 0;
+    private boolean inGround = false;
+    public boolean fromPlayer = false;
+    public int shake = 0;
     public EntityLiving shooter;
     private int j;
     private int k = 0;
@@ -31,7 +31,7 @@ public class EntityArrow extends Entity {
     public EntityArrow(World world, EntityLiving entityliving) {
         super(world);
         this.shooter = entityliving;
-        this.a = entityliving instanceof EntityHuman;
+        this.fromPlayer = entityliving instanceof EntityHuman;
         this.b(0.5F, 0.5F);
         this.setPositionRotation(entityliving.locX, entityliving.locY + (double) entityliving.s(), entityliving.locZ, entityliving.yaw, entityliving.pitch);
         this.locX -= (double) (MathHelper.cos(this.yaw / 180.0F * 3.1415927F) * 0.16F);
@@ -85,15 +85,15 @@ public class EntityArrow extends Entity {
             AxisAlignedBB axisalignedbb = Block.byId[i].d(this.world, this.d, this.e, this.f);
 
             if (axisalignedbb != null && axisalignedbb.a(Vec3D.create(this.locX, this.locY, this.locZ))) {
-                this.i = true;
+                this.inGround = true;
             }
         }
 
-        if (this.b > 0) {
-            --this.b;
+        if (this.shake > 0) {
+            --this.shake;
         }
 
-        if (this.i) {
+        if (this.inGround) {
             i = this.world.getTypeId(this.d, this.e, this.f);
             int j = this.world.getData(this.d, this.e, this.f);
 
@@ -103,7 +103,7 @@ public class EntityArrow extends Entity {
                     this.die();
                 }
             } else {
-                this.i = false;
+                this.inGround = false;
                 this.motX *= (double) (this.random.nextFloat() * 0.2F);
                 this.motY *= (double) (this.random.nextFloat() * 0.2F);
                 this.motZ *= (double) (this.random.nextFloat() * 0.2F);
@@ -180,8 +180,8 @@ public class EntityArrow extends Entity {
                     this.locY -= this.motY / (double) f2 * 0.05000000074505806D;
                     this.locZ -= this.motZ / (double) f2 * 0.05000000074505806D;
                     this.world.makeSound(this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-                    this.i = true;
-                    this.b = 7;
+                    this.inGround = true;
+                    this.shake = 7;
                 }
             }
 
@@ -236,9 +236,9 @@ public class EntityArrow extends Entity {
         nbttagcompound.a("zTile", (short) this.f);
         nbttagcompound.a("inTile", (byte) this.g);
         nbttagcompound.a("inData", (byte) this.h);
-        nbttagcompound.a("shake", (byte) this.b);
-        nbttagcompound.a("inGround", (byte) (this.i ? 1 : 0));
-        nbttagcompound.a("player", this.a);
+        nbttagcompound.a("shake", (byte) this.shake);
+        nbttagcompound.a("inGround", (byte) (this.inGround ? 1 : 0));
+        nbttagcompound.a("player", this.fromPlayer);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -247,14 +247,14 @@ public class EntityArrow extends Entity {
         this.f = nbttagcompound.d("zTile");
         this.g = nbttagcompound.c("inTile") & 255;
         this.h = nbttagcompound.c("inData") & 255;
-        this.b = nbttagcompound.c("shake") & 255;
-        this.i = nbttagcompound.c("inGround") == 1;
-        this.a = nbttagcompound.m("player");
+        this.shake = nbttagcompound.c("shake") & 255;
+        this.inGround = nbttagcompound.c("inGround") == 1;
+        this.fromPlayer = nbttagcompound.m("player");
     }
 
     public void b(EntityHuman entityhuman) {
         if (!this.world.isStatic) {
-            if (this.i && this.a && this.b <= 0 && entityhuman.inventory.canHold(new ItemStack(Item.ARROW, 1))) {
+            if (this.inGround && this.fromPlayer && this.shake <= 0 && entityhuman.inventory.pickup(new ItemStack(Item.ARROW, 1))) {
                 this.world.makeSound(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 entityhuman.receive(this, 1);
                 this.die();

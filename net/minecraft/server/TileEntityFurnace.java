@@ -4,7 +4,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
     private ItemStack[] items = new ItemStack[3];
     public int burnTime = 0;
-    public int b = 0;
+    public int ticksForCurrentFuel = 0;
     public int cookTime = 0;
 
     public TileEntityFurnace() {}
@@ -17,7 +17,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         return this.items[i];
     }
 
-    public ItemStack a(int i, int j) {
+    public ItemStack splitStack(int i, int j) {
         if (this.items[i] != null) {
             ItemStack itemstack;
 
@@ -66,7 +66,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
         this.burnTime = nbttagcompound.d("BurnTime");
         this.cookTime = nbttagcompound.d("CookTime");
-        this.b = this.a(this.items[1]);
+        this.ticksForCurrentFuel = this.fuelTime(this.items[1]);
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -92,7 +92,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         return 64;
     }
 
-    public boolean f() {
+    public boolean isBurning() {
         return this.burnTime > 0;
     }
 
@@ -105,8 +105,8 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         }
 
         if (!this.world.isStatic) {
-            if (this.burnTime == 0 && this.h()) {
-                this.b = this.burnTime = this.a(this.items[1]);
+            if (this.burnTime == 0 && this.canBurn()) {
+                this.ticksForCurrentFuel = this.burnTime = this.fuelTime(this.items[1]);
                 if (this.burnTime > 0) {
                     flag1 = true;
                     if (this.items[1] != null) {
@@ -118,11 +118,11 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
                 }
             }
 
-            if (this.f() && this.h()) {
+            if (this.isBurning() && this.canBurn()) {
                 ++this.cookTime;
                 if (this.cookTime == 200) {
                     this.cookTime = 0;
-                    this.g();
+                    this.burn();
                     flag1 = true;
                 }
             } else {
@@ -131,7 +131,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
             if (flag != this.burnTime > 0) {
                 flag1 = true;
-                BlockFurnace.a(this.burnTime > 0, this.world, this.e, this.f, this.g);
+                BlockFurnace.a(this.burnTime > 0, this.world, this.x, this.y, this.z);
             }
         }
 
@@ -140,22 +140,22 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         }
     }
 
-    private boolean h() {
+    private boolean canBurn() {
         if (this.items[0] == null) {
             return false;
         } else {
-            ItemStack itemstack = FurnaceRecipes.a().a(this.items[0].getItem().id);
+            ItemStack itemstack = FurnaceRecipes.getInstance().a(this.items[0].getItem().id);
 
-            return itemstack == null ? false : (this.items[2] == null ? true : (!this.items[2].a(itemstack) ? false : (this.items[2].count < this.getMaxStackSize() && this.items[2].count < this.items[2].b() ? true : this.items[2].count < itemstack.b())));
+            return itemstack == null ? false : (this.items[2] == null ? true : (!this.items[2].doMaterialsMatch(itemstack) ? false : (this.items[2].count < this.getMaxStackSize() && this.items[2].count < this.items[2].getMaxStackSize() ? true : this.items[2].count < itemstack.getMaxStackSize())));
         }
     }
 
-    public void g() {
-        if (this.h()) {
-            ItemStack itemstack = FurnaceRecipes.a().a(this.items[0].getItem().id);
+    public void burn() {
+        if (this.canBurn()) {
+            ItemStack itemstack = FurnaceRecipes.getInstance().a(this.items[0].getItem().id);
 
             if (this.items[2] == null) {
-                this.items[2] = itemstack.j();
+                this.items[2] = itemstack.cloneItemStack();
             } else if (this.items[2].id == itemstack.id) {
                 ++this.items[2].count;
             }
@@ -167,7 +167,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         }
     }
 
-    private int a(ItemStack itemstack) {
+    private int fuelTime(ItemStack itemstack) {
         if (itemstack == null) {
             return 0;
         } else {
@@ -178,6 +178,6 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
     }
 
     public boolean a_(EntityHuman entityhuman) {
-        return this.world.getTileEntity(this.e, this.f, this.g) != this ? false : entityhuman.d((double) this.e + 0.5D, (double) this.f + 0.5D, (double) this.g + 0.5D) <= 64.0D;
+        return this.world.getTileEntity(this.x, this.y, this.z) != this ? false : entityhuman.d((double) this.x + 0.5D, (double) this.y + 0.5D, (double) this.z + 0.5D) <= 64.0D;
     }
 }

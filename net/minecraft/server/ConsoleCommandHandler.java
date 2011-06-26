@@ -46,14 +46,14 @@ public class ConsoleCommandHandler {
 
                     for (i = 0; i < this.server.worldServer.length; ++i) {
                         worldserver = this.server.worldServer[i];
-                        worldserver.E = true;
+                        worldserver.canSave = true;
                     }
                 } else if (s.toLowerCase().startsWith("save-on")) {
                     this.print(s1, "Enabling level saving..");
 
                     for (i = 0; i < this.server.worldServer.length; ++i) {
                         worldserver = this.server.worldServer[i];
-                        worldserver.E = false;
+                        worldserver.canSave = false;
                     }
                 } else {
                     String s2;

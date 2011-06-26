@@ -5,7 +5,7 @@ public class ItemInWorldManager {
     private WorldServer world;
     public EntityHuman player;
     private float c = 0.0F;
-    private int d;
+    private int lastDigTick;
     private int e;
     private int f;
     private int g;
@@ -41,8 +41,8 @@ public class ItemInWorldManager {
     }
 
     public void dig(int i, int j, int k, int l) {
-        this.world.a((EntityHuman) null, i, j, k, l);
-        this.d = this.currentTick;
+        this.world.douseFire((EntityHuman) null, i, j, k, l);
+        this.lastDigTick = this.currentTick;
         int i1 = this.world.getTypeId(i, j, k);
 
         if (i1 > 0) {
@@ -60,7 +60,7 @@ public class ItemInWorldManager {
 
     public void a(int i, int j, int k) {
         if (i == this.e && j == this.f && k == this.g) {
-            int l = this.currentTick - this.d;
+            int l = this.currentTick - this.lastDigTick;
             int i1 = this.world.getTypeId(i, j, k);
 
             if (i1 != 0) {
@@ -74,7 +74,7 @@ public class ItemInWorldManager {
                     this.j = i;
                     this.k = j;
                     this.l = k;
-                    this.m = this.d;
+                    this.m = this.lastDigTick;
                 }
             }
         }

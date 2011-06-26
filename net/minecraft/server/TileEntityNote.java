@@ -50,7 +50,7 @@ public class TileEntityNote extends TileEntity {
                 b0 = 4;
             }
 
-            world.d(i, j, k, b0, this.note);
+            world.playNote(i, j, k, b0, this.note);
         }
     }
 }

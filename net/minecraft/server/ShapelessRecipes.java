@@ -50,7 +50,7 @@ public class ShapelessRecipes implements CraftingRecipe {
     }
 
     public ItemStack b(InventoryCrafting inventorycrafting) {
-        return this.a.j();
+        return this.a.cloneItemStack();
     }
 
     public int a() {

@@ -13,7 +13,7 @@ public class EntityPigZombie extends EntityZombie {
         this.texture = "/mob/pigzombie.png";
         this.aE = 0.5F;
         this.damage = 5;
-        this.bD = true;
+        this.fireProof = true;
     }
 
     public void o_() {

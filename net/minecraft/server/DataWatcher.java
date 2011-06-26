@@ -44,7 +44,7 @@ public class DataWatcher {
         return (String) ((WatchableObject) this.b.get(Integer.valueOf(i))).b();
     }
 
-    public void b(int i, Object object) {
+    public void watch(int i, Object object) {
         WatchableObject watchableobject = (WatchableObject) this.b.get(Integer.valueOf(i));
 
         if (!object.equals(watchableobject.b())) {

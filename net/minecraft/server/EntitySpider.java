@@ -23,7 +23,7 @@ public class EntitySpider extends EntityMonster {
         if (f < 0.5F) {
             double d0 = 16.0D;
 
-            return this.world.a(this, d0);
+            return this.world.findNearbyPlayer(this, d0);
         } else {
             return null;
         }

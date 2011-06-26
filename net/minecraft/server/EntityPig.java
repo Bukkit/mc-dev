@@ -14,12 +14,12 @@ public class EntityPig extends EntityAnimal {
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.a("Saddle", this.x());
+        nbttagcompound.a("Saddle", this.hasSaddle());
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.a(nbttagcompound.m("Saddle"));
+        this.setSaddle(nbttagcompound.m("Saddle"));
     }
 
     protected String g() {
@@ -35,7 +35,7 @@ public class EntityPig extends EntityAnimal {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        if (this.x() && !this.world.isStatic && (this.passenger == null || this.passenger == entityhuman)) {
+        if (this.hasSaddle() && !this.world.isStatic && (this.passenger == null || this.passenger == entityhuman)) {
             entityhuman.mount(this);
             return true;
         } else {
@@ -47,15 +47,15 @@ public class EntityPig extends EntityAnimal {
         return this.fireTicks > 0 ? Item.GRILLED_PORK.id : Item.PORK.id;
     }
 
-    public boolean x() {
+    public boolean hasSaddle() {
         return (this.datawatcher.a(16) & 1) != 0;
     }
 
-    public void a(boolean flag) {
+    public void setSaddle(boolean flag) {
         if (flag) {
-            this.datawatcher.b(16, Byte.valueOf((byte) 1));
+            this.datawatcher.watch(16, Byte.valueOf((byte) 1));
         } else {
-            this.datawatcher.b(16, Byte.valueOf((byte) 0));
+            this.datawatcher.watch(16, Byte.valueOf((byte) 0));
         }
     }
 

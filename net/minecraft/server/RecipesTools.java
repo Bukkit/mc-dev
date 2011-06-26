@@ -16,7 +16,7 @@ public class RecipesTools {
             for (int j = 0; j < this.b.length - 1; ++j) {
                 Item item = (Item) this.b[j + 1][i];
 
-                craftingmanager.a(new ItemStack(item), new Object[] { this.a[j], Character.valueOf('#'), Item.STICK, Character.valueOf('X'), object});
+                craftingmanager.registerShapedRecipe(new ItemStack(item), new Object[] { this.a[j], Character.valueOf('#'), Item.STICK, Character.valueOf('X'), object});
             }
         }
     }

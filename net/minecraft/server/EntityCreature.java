@@ -165,7 +165,7 @@ public class EntityCreature extends EntityLiving {
         return this.pathEntity != null;
     }
 
-    public void a(PathEntity pathentity) {
+    public void setPathEntity(PathEntity pathentity) {
         this.pathEntity = pathentity;
     }
 
@@ -173,7 +173,7 @@ public class EntityCreature extends EntityLiving {
         return this.target;
     }
 
-    public void c(Entity entity) {
+    public void setTarget(Entity entity) {
         this.target = entity;
     }
 }

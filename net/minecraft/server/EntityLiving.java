@@ -110,7 +110,7 @@ public abstract class EntityLiving extends Entity {
             this.damageEntity((Entity) null, 1);
         }
 
-        if (this.bD || this.world.isStatic) {
+        if (this.fireProof || this.world.isStatic) {
             this.fireTicks = 0;
         }
 
@@ -352,7 +352,7 @@ public abstract class EntityLiving extends Entity {
                         this.world.makeSound(this, this.i(), this.k(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     }
 
-                    this.a(entity);
+                    this.die(entity);
                 } else if (flag) {
                     this.world.makeSound(this, this.h(), this.k(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 }
@@ -397,7 +397,7 @@ public abstract class EntityLiving extends Entity {
         }
     }
 
-    public void a(Entity entity) {
+    public void die(Entity entity) {
         if (this.W >= 0 && entity != null) {
             entity.c(this, this.W);
         }
@@ -674,7 +674,7 @@ public abstract class EntityLiving extends Entity {
     }
 
     protected void T() {
-        EntityHuman entityhuman = this.world.a(this, -1.0D);
+        EntityHuman entityhuman = this.world.findNearbyPlayer(this, -1.0D);
 
         if (this.l_() && entityhuman != null) {
             double d0 = entityhuman.locX - this.locX;
@@ -698,7 +698,7 @@ public abstract class EntityLiving extends Entity {
 
     protected void c_() {
         ++this.ay;
-        EntityHuman entityhuman = this.world.a(this, -1.0D);
+        EntityHuman entityhuman = this.world.findNearbyPlayer(this, -1.0D);
 
         this.T();
         this.az = 0.0F;
@@ -706,7 +706,7 @@ public abstract class EntityLiving extends Entity {
         float f = 8.0F;
 
         if (this.random.nextFloat() < 0.02F) {
-            entityhuman = this.world.a(this, (double) f);
+            entityhuman = this.world.findNearbyPlayer(this, (double) f);
             if (entityhuman != null) {
                 this.b = entityhuman;
                 this.aF = 10 + this.random.nextInt(20);

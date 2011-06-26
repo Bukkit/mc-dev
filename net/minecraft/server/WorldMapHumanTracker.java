@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public class WorldMapHumanTracker {
 
-    public final EntityHuman a;
+    public final EntityHuman trackee;
     public int[] b;
     public int[] c;
     private int e;
@@ -17,7 +17,7 @@ public class WorldMapHumanTracker {
         this.c = new int[128];
         this.e = 0;
         this.f = 0;
-        this.a = entityhuman;
+        this.trackee = entityhuman;
 
         for (int i = 0; i < this.b.length; ++i) {
             this.b[i] = 0;

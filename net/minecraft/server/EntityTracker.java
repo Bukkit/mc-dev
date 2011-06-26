@@ -19,7 +19,7 @@ public class EntityTracker {
         this.d = minecraftserver.serverConfigurationManager.a();
     }
 
-    public void a(Entity entity) {
+    public void track(Entity entity) {
         if (entity instanceof EntityPlayer) {
             this.a(entity, 512, 2);
             EntityPlayer entityplayer = (EntityPlayer) entity;
@@ -77,7 +77,7 @@ public class EntityTracker {
 
             this.a.add(entitytrackerentry);
             this.b.a(entity.id, entitytrackerentry);
-            entitytrackerentry.scanPlayers(this.c.a(this.e).players);
+            entitytrackerentry.scanPlayers(this.c.getWorldServer(this.e).players);
         }
     }
 
@@ -101,14 +101,14 @@ public class EntityTracker {
         }
     }
 
-    public void a() {
+    public void updatePlayers() {
         ArrayList arraylist = new ArrayList();
         Iterator iterator = this.a.iterator();
 
         while (iterator.hasNext()) {
             EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
 
-            entitytrackerentry.track(this.c.a(this.e).players);
+            entitytrackerentry.track(this.c.getWorldServer(this.e).players);
             if (entitytrackerentry.m && entitytrackerentry.tracker instanceof EntityPlayer) {
                 arraylist.add((EntityPlayer) entitytrackerentry.tracker);
             }
@@ -136,7 +136,7 @@ public class EntityTracker {
         }
     }
 
-    public void b(Entity entity, Packet packet) {
+    public void sendPacketToEntity(Entity entity, Packet packet) {
         EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.b.a(entity.id);
 
         if (entitytrackerentry != null) {
@@ -144,7 +144,7 @@ public class EntityTracker {
         }
     }
 
-    public void trackPlayer(EntityPlayer entityplayer) {
+    public void untrackPlayer(EntityPlayer entityplayer) {
         Iterator iterator = this.a.iterator();
 
         while (iterator.hasNext()) {

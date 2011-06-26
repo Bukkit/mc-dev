@@ -18,7 +18,7 @@ public class Packet104WindowItems extends Packet {
         for (int j = 0; j < this.b.length; ++j) {
             ItemStack itemstack = (ItemStack) list.get(j);
 
-            this.b[j] = itemstack == null ? null : itemstack.j();
+            this.b[j] = itemstack == null ? null : itemstack.cloneItemStack();
         }
     }
 

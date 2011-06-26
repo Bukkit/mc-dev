@@ -30,10 +30,10 @@ public class PropertyManager {
 
     public void a() {
         a.log(Level.INFO, "Generating new properties file");
-        this.b();
+        this.savePropertiesFile();
     }
 
-    public void b() {
+    public void savePropertiesFile() {
         try {
             this.properties.store(new FileOutputStream(this.c), "Minecraft server properties");
         } catch (Exception exception) {
@@ -45,7 +45,7 @@ public class PropertyManager {
     public String getString(String s, String s1) {
         if (!this.properties.containsKey(s)) {
             this.properties.setProperty(s, s1);
-            this.b();
+            this.savePropertiesFile();
         }
 
         return this.properties.getProperty(s, s1);
@@ -71,6 +71,6 @@ public class PropertyManager {
 
     public void b(String s, boolean flag) {
         this.properties.setProperty(s, "" + flag);
-        this.b();
+        this.savePropertiesFile();
     }
 }

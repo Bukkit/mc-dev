@@ -33,11 +33,11 @@ public abstract class WorldProvider {
         this.b = new WorldChunkManager(this.a);
     }
 
-    public IChunkProvider b() {
+    public IChunkProvider getChunkProvider() {
         return new ChunkProviderGenerate(this.a, this.a.getSeed());
     }
 
-    public boolean a(int i, int j) {
+    public boolean canSpawn(int i, int j) {
         int k = this.a.a(i, j);
 
         return k == Block.SAND.id;
@@ -66,7 +66,7 @@ public abstract class WorldProvider {
         return true;
     }
 
-    public static WorldProvider a(int i) {
+    public static WorldProvider byDimension(int i) {
         return (WorldProvider) (i == -1 ? new WorldProviderHell() : (i == 0 ? new WorldProviderNormal() : (i == 1 ? new WorldProviderSky() : null)));
     }
 }

@@ -57,7 +57,7 @@ public abstract class Entity {
     public int noDamageTicks;
     public int airTicks;
     private boolean justCreated;
-    protected boolean bD;
+    protected boolean fireProof;
     protected DataWatcher datawatcher;
     private double d;
     private double e;
@@ -97,7 +97,7 @@ public abstract class Entity {
         this.noDamageTicks = 0;
         this.airTicks = 300;
         this.justCreated = true;
-        this.bD = false;
+        this.fireProof = false;
         this.datawatcher = new DataWatcher();
         this.bF = false;
         this.world = world;
@@ -198,7 +198,7 @@ public abstract class Entity {
         if (this.world.isStatic) {
             this.fireTicks = 0;
         } else if (this.fireTicks > 0) {
-            if (this.bD) {
+            if (this.fireProof) {
                 this.fireTicks -= 4;
                 if (this.fireTicks < 0) {
                     this.fireTicks = 0;
@@ -229,7 +229,7 @@ public abstract class Entity {
     }
 
     protected void aa() {
-        if (!this.bD) {
+        if (!this.fireProof) {
             this.damageEntity((Entity) null, 4);
             this.fireTicks = 600;
         }
@@ -489,7 +489,7 @@ public abstract class Entity {
             boolean flag2 = this.ab();
 
             if (this.world.d(this.boundingBox.shrink(0.0010D, 0.0010D, 0.0010D))) {
-                this.a(1);
+                this.burn(1);
                 if (!flag2) {
                     ++this.fireTicks;
                     if (this.fireTicks == 0) {
@@ -526,8 +526,8 @@ public abstract class Entity {
         return null;
     }
 
-    protected void a(int i) {
-        if (!this.bD) {
+    protected void burn(int i) {
+        if (!this.fireProof) {
             this.damageEntity((Entity) null, i);
         }
     }
@@ -603,7 +603,7 @@ public abstract class Entity {
         return this.world.a(MathHelper.floor(this.boundingBox.a), MathHelper.floor(this.boundingBox.b), MathHelper.floor(this.boundingBox.c), MathHelper.floor(this.boundingBox.d), MathHelper.floor(this.boundingBox.e), MathHelper.floor(this.boundingBox.f)) ? this.world.m(i, j, k) : 0.0F;
     }
 
-    public void a(World world) {
+    public void spawnIn(World world) {
         this.world = world;
     }
 
@@ -984,14 +984,14 @@ public abstract class Entity {
         byte b0 = this.datawatcher.a(0);
 
         if (flag) {
-            this.datawatcher.b(0, Byte.valueOf((byte) (b0 | 1 << i)));
+            this.datawatcher.watch(0, Byte.valueOf((byte) (b0 | 1 << i)));
         } else {
-            this.datawatcher.b(0, Byte.valueOf((byte) (b0 & ~(1 << i))));
+            this.datawatcher.watch(0, Byte.valueOf((byte) (b0 & ~(1 << i))));
         }
     }
 
     public void a(EntityWeatherStorm entityweatherstorm) {
-        this.a(5);
+        this.burn(5);
         ++this.fireTicks;
         if (this.fireTicks == 0) {
             this.fireTicks = 300;

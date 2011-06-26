@@ -118,12 +118,12 @@ public class ChunkLoader implements IChunkLoader {
         world.k();
         nbttagcompound.a("xPos", chunk.x);
         nbttagcompound.a("zPos", chunk.z);
-        nbttagcompound.a("LastUpdate", world.getTime());
+        nbttagcompound.setLong("LastUpdate", world.getTime());
         nbttagcompound.a("Blocks", chunk.b);
         nbttagcompound.a("Data", chunk.e.a);
         nbttagcompound.a("SkyLight", chunk.f.a);
         nbttagcompound.a("BlockLight", chunk.g.a);
-        nbttagcompound.a("HeightMap", chunk.h);
+        nbttagcompound.a("HeightMap", chunk.heightMap);
         nbttagcompound.a("TerrainPopulated", chunk.done);
         chunk.q = false;
         NBTTagList nbttaglist = new NBTTagList();
@@ -170,16 +170,16 @@ public class ChunkLoader implements IChunkLoader {
         chunk.e = new NibbleArray(nbttagcompound.j("Data"));
         chunk.f = new NibbleArray(nbttagcompound.j("SkyLight"));
         chunk.g = new NibbleArray(nbttagcompound.j("BlockLight"));
-        chunk.h = nbttagcompound.j("HeightMap");
+        chunk.heightMap = nbttagcompound.j("HeightMap");
         chunk.done = nbttagcompound.m("TerrainPopulated");
         if (!chunk.e.a()) {
             chunk.e = new NibbleArray(chunk.b.length);
         }
 
-        if (chunk.h == null || !chunk.f.a()) {
-            chunk.h = new byte[256];
+        if (chunk.heightMap == null || !chunk.f.a()) {
+            chunk.heightMap = new byte[256];
             chunk.f = new NibbleArray(chunk.b.length);
-            chunk.b();
+            chunk.initLighting();
         }
 
         if (!chunk.g.a()) {

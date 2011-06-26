@@ -38,7 +38,7 @@ public class NetLoginHandler extends NetHandler {
     public void disconnect(String s) {
         try {
             a.info("Disconnecting " + this.b() + ": " + s);
-            this.networkManager.a((Packet) (new Packet255KickDisconnect(s)));
+            this.networkManager.queue(new Packet255KickDisconnect(s));
             this.networkManager.d();
             this.c = true;
         } catch (Exception exception) {
@@ -49,9 +49,9 @@ public class NetLoginHandler extends NetHandler {
     public void a(Packet2Handshake packet2handshake) {
         if (this.server.onlineMode) {
             this.i = Long.toHexString(d.nextLong());
-            this.networkManager.a((Packet) (new Packet2Handshake(this.i)));
+            this.networkManager.queue(new Packet2Handshake(this.i));
         } else {
-            this.networkManager.a((Packet) (new Packet2Handshake("-")));
+            this.networkManager.queue(new Packet2Handshake("-"));
         }
     }
 
@@ -77,9 +77,9 @@ public class NetLoginHandler extends NetHandler {
 
         if (entityplayer != null) {
             this.server.serverConfigurationManager.b(entityplayer);
-            entityplayer.a((World) this.server.a(entityplayer.dimension));
+            entityplayer.spawnIn(this.server.getWorldServer(entityplayer.dimension));
             a.info(this.b() + " logged in with entity id " + entityplayer.id + " at (" + entityplayer.locX + ", " + entityplayer.locY + ", " + entityplayer.locZ + ")");
-            WorldServer worldserver = this.server.a(entityplayer.dimension);
+            WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
             ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
             NetServerHandler netserverhandler = new NetServerHandler(this.server, this.networkManager, entityplayer);
 

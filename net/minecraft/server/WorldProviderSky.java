@@ -9,7 +9,7 @@ public class WorldProviderSky extends WorldProvider {
         this.dimension = 1;
     }
 
-    public IChunkProvider b() {
+    public IChunkProvider getChunkProvider() {
         return new ChunkProviderSky(this.a, this.a.getSeed());
     }
 
@@ -17,7 +17,7 @@ public class WorldProviderSky extends WorldProvider {
         return 0.0F;
     }
 
-    public boolean a(int i, int j) {
+    public boolean canSpawn(int i, int j) {
         int k = this.a.a(i, j);
 
         return k == 0 ? false : Block.byId[k].material.isSolid();

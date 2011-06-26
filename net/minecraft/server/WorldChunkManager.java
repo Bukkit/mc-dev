@@ -7,8 +7,8 @@ public class WorldChunkManager {
     private NoiseGeneratorOctaves2 e;
     private NoiseGeneratorOctaves2 f;
     private NoiseGeneratorOctaves2 g;
-    public double[] a;
-    public double[] b;
+    public double[] temperature;
+    public double[] rain;
     public double[] c;
     public BiomeBase[] d;
 
@@ -25,10 +25,10 @@ public class WorldChunkManager {
     }
 
     public BiomeBase getBiome(int i, int j) {
-        return this.a(i, j, 1, 1)[0];
+        return this.getBiomeData(i, j, 1, 1)[0];
     }
 
-    public BiomeBase[] a(int i, int j, int k, int l) {
+    public BiomeBase[] getBiomeData(int i, int j, int k, int l) {
         this.d = this.a(this.d, i, j, k, l);
         return this.d;
     }
@@ -71,8 +71,8 @@ public class WorldChunkManager {
             abiomebase = new BiomeBase[k * l];
         }
 
-        this.a = this.e.a(this.a, (double) i, (double) j, k, k, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
-        this.b = this.f.a(this.b, (double) i, (double) j, k, k, 0.05000000074505806D, 0.05000000074505806D, 0.3333333333333333D);
+        this.temperature = this.e.a(this.temperature, (double) i, (double) j, k, k, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
+        this.rain = this.f.a(this.rain, (double) i, (double) j, k, k, 0.05000000074505806D, 0.05000000074505806D, 0.3333333333333333D);
         this.c = this.g.a(this.c, (double) i, (double) j, k, k, 0.25D, 0.25D, 0.5882352941176471D);
         int i1 = 0;
 
@@ -81,11 +81,11 @@ public class WorldChunkManager {
                 double d0 = this.c[i1] * 1.1D + 0.5D;
                 double d1 = 0.01D;
                 double d2 = 1.0D - d1;
-                double d3 = (this.a[i1] * 0.15D + 0.7D) * d2 + d0 * d1;
+                double d3 = (this.temperature[i1] * 0.15D + 0.7D) * d2 + d0 * d1;
 
                 d1 = 0.0020D;
                 d2 = 1.0D - d1;
-                double d4 = (this.b[i1] * 0.15D + 0.5D) * d2 + d0 * d1;
+                double d4 = (this.rain[i1] * 0.15D + 0.5D) * d2 + d0 * d1;
 
                 d3 = 1.0D - (1.0D - d3) * (1.0D - d3);
                 if (d3 < 0.0D) {
@@ -104,8 +104,8 @@ public class WorldChunkManager {
                     d4 = 1.0D;
                 }
 
-                this.a[i1] = d3;
-                this.b[i1] = d4;
+                this.temperature[i1] = d3;
+                this.rain[i1] = d4;
                 abiomebase[i1++] = BiomeBase.a(d3, d4);
             }
         }
