@@ -29,7 +29,7 @@ public class BlockFire extends Block {
         this.b[i] = k;
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         return null;
     }
 
@@ -182,7 +182,7 @@ public class BlockFire extends Block {
         }
     }
 
-    public void e(World world, int i, int j, int k) {
+    public void c(World world, int i, int j, int k) {
         if (world.getTypeId(i, j - 1, k) != Block.OBSIDIAN.id || !Block.PORTAL.a_(world, i, j, k)) {
             if (!world.e(i, j - 1, k) && !this.g(world, i, j, k)) {
                 world.setTypeId(i, j, k, 0);

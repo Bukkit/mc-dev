@@ -81,7 +81,9 @@ public class TileEntityPiston extends TileEntity {
             this.l = this.k = 1.0F;
             this.world.o(this.x, this.y, this.z);
             this.h();
-            this.world.setTypeIdAndData(this.x, this.y, this.z, this.a, this.b);
+            if (this.world.getTypeId(this.x, this.y, this.z) == Block.PISTON_MOVING.id) {
+                this.world.setTypeIdAndData(this.x, this.y, this.z, this.a, this.b);
+            }
         }
     }
 
@@ -91,7 +93,9 @@ public class TileEntityPiston extends TileEntity {
             this.a(1.0F, 0.25F);
             this.world.o(this.x, this.y, this.z);
             this.h();
-            this.world.setTypeIdAndData(this.x, this.y, this.z, this.a, this.b);
+            if (this.world.getTypeId(this.x, this.y, this.z) == Block.PISTON_MOVING.id) {
+                this.world.setTypeIdAndData(this.x, this.y, this.z, this.a, this.b);
+            }
         } else {
             this.k += 0.5F;
             if (this.k >= 1.0F) {

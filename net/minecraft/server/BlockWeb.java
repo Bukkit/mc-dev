@@ -16,7 +16,7 @@ public class BlockWeb extends Block {
         return false;
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         return null;
     }
 

@@ -8,7 +8,7 @@ public class BlockLadder extends Block {
         super(i, j, Material.ORIENTABLE);
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
         float f = 0.125F;
 
@@ -28,7 +28,7 @@ public class BlockLadder extends Block {
             this.a(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
         }
 
-        return super.d(world, i, j, k);
+        return super.e(world, i, j, k);
     }
 
     public boolean a() {

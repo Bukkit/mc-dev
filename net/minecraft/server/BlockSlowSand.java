@@ -6,7 +6,7 @@ public class BlockSlowSand extends Block {
         super(i, j, Material.SAND);
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         float f = 0.125F;
 
         return AxisAlignedBB.b((double) i, (double) j, (double) k, (double) (i + 1), (double) ((float) (j + 1) - f), (double) (k + 1));

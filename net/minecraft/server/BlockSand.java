@@ -10,7 +10,7 @@ public class BlockSand extends Block {
         super(i, j, Material.SAND);
     }
 
-    public void e(World world, int i, int j, int k) {
+    public void c(World world, int i, int j, int k) {
         world.c(i, j, k, this.id, this.c());
     }
 

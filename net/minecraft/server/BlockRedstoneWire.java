@@ -19,7 +19,7 @@ public class BlockRedstoneWire extends Block {
         return this.textureId;
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         return null;
     }
 
@@ -180,8 +180,8 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
-    public void e(World world, int i, int j, int k) {
-        super.e(world, i, j, k);
+    public void c(World world, int i, int j, int k) {
+        super.c(world, i, j, k);
         if (!world.isStatic) {
             this.g(world, i, j, k);
             world.applyPhysics(i, j + 1, k, this.id);

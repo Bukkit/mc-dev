@@ -20,7 +20,7 @@ public class BlockPressurePlate extends Block {
         return 20;
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         return null;
     }
 
@@ -36,7 +36,7 @@ public class BlockPressurePlate extends Block {
         return world.e(i, j - 1, k);
     }
 
-    public void e(World world, int i, int j, int k) {}
+    public void c(World world, int i, int j, int k) {}
 
     public void doPhysics(World world, int i, int j, int k, int l) {
         boolean flag = false;

@@ -8,7 +8,7 @@ public class BlockPortal extends BlockBreakable {
         super(i, j, Material.PORTAL, false);
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         return null;
     }
 

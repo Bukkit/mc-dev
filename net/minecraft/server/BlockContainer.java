@@ -12,8 +12,8 @@ public abstract class BlockContainer extends Block {
         isTileEntity[i] = true;
     }
 
-    public void e(World world, int i, int j, int k) {
-        super.e(world, i, j, k);
+    public void c(World world, int i, int j, int k) {
+        super.c(world, i, j, k);
         world.setTileEntity(i, j, k, this.a_());
     }
 

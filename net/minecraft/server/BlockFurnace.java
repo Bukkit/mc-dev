@@ -18,8 +18,8 @@ public class BlockFurnace extends BlockContainer {
         return Block.FURNACE.id;
     }
 
-    public void e(World world, int i, int j, int k) {
-        super.e(world, i, j, k);
+    public void c(World world, int i, int j, int k) {
+        super.c(world, i, j, k);
         this.g(world, i, j, k);
     }
 

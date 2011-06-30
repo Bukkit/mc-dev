@@ -13,7 +13,7 @@ public class BlockPistonMoving extends BlockContainer {
         return null;
     }
 
-    public void e(World world, int i, int j, int k) {}
+    public void c(World world, int i, int j, int k) {}
 
     public void remove(World world, int i, int j, int k) {
         TileEntity tileentity = world.getTileEntity(i, j, k);
@@ -65,7 +65,7 @@ public class BlockPistonMoving extends BlockContainer {
         return new TileEntityPiston(i, j, k, flag, flag1);
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         TileEntityPiston tileentitypiston = this.b(world, i, j, k);
 
         if (tileentitypiston == null) {
@@ -106,7 +106,7 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     public AxisAlignedBB a(World world, int i, int j, int k, int l, float f, int i1) {
-        AxisAlignedBB axisalignedbb = Block.byId[l].d(world, i, j, k);
+        AxisAlignedBB axisalignedbb = Block.byId[l].e(world, i, j, k);
 
         if (axisalignedbb == null) {
             return null;

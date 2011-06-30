@@ -158,6 +158,10 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
         if (this.E) {
             if (this.b.propertyManager.getBoolean("allow-nether", true)) {
+                if (this.activeContainer != this.defaultContainer) {
+                    this.y();
+                }
+
                 if (this.vehicle != null) {
                     this.mount(this.vehicle);
                 } else {

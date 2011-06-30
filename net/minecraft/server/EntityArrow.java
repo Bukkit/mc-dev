@@ -82,7 +82,7 @@ public class EntityArrow extends Entity {
 
         if (i > 0) {
             Block.byId[i].a(this.world, this.d, this.e, this.f);
-            AxisAlignedBB axisalignedbb = Block.byId[i].d(this.world, this.d, this.e, this.f);
+            AxisAlignedBB axisalignedbb = Block.byId[i].e(this.world, this.d, this.e, this.f);
 
             if (axisalignedbb != null && axisalignedbb.a(Vec3D.create(this.locX, this.locY, this.locZ))) {
                 this.inGround = true;

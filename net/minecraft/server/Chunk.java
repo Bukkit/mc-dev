@@ -252,7 +252,7 @@ public class Chunk {
             this.c(i, k);
             this.e.a(i, j, k, i1);
             if (l != 0) {
-                Block.byId[l].e(this.world, l1, j, i2);
+                Block.byId[l].c(this.world, l1, j, i2);
             }
 
             this.o = true;
@@ -289,7 +289,7 @@ public class Chunk {
             this.world.a(EnumSkyBlock.BLOCK, k1, j, l1, k1, j, l1);
             this.c(i, k);
             if (l != 0 && !this.world.isStatic) {
-                Block.byId[l].e(this.world, k1, j, l1);
+                Block.byId[l].c(this.world, k1, j, l1);
             }
 
             this.o = true;
@@ -400,7 +400,7 @@ public class Chunk {
 
             BlockContainer blockcontainer = (BlockContainer) Block.byId[l];
 
-            blockcontainer.e(this.world, this.x * 16 + i, j, this.z * 16 + k);
+            blockcontainer.c(this.world, this.x * 16 + i, j, this.z * 16 + k);
             tileentity = (TileEntity) this.tileEntities.get(chunkposition);
         }
 

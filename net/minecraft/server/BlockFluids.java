@@ -63,7 +63,7 @@ public abstract class BlockFluids extends Block {
         return material == this.material ? false : (material == Material.ICE ? false : (l == 1 ? true : super.b(iblockaccess, i, j, k, l)));
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         return null;
     }
 
@@ -161,7 +161,7 @@ public abstract class BlockFluids extends Block {
     }
 
     public void a(World world, int i, int j, int k, Entity entity, Vec3D vec3d) {
-        Vec3D vec3d1 = this.c(world, i, j, k);
+        Vec3D vec3d1 = this.c((IBlockAccess) world, i, j, k);
 
         vec3d.a += vec3d1.a;
         vec3d.b += vec3d1.b;
@@ -176,7 +176,7 @@ public abstract class BlockFluids extends Block {
         super.a(world, i, j, k, random);
     }
 
-    public void e(World world, int i, int j, int k) {
+    public void c(World world, int i, int j, int k) {
         this.i(world, i, j, k);
     }
 

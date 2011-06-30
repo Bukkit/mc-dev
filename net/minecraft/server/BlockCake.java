@@ -18,7 +18,7 @@ public class BlockCake extends Block {
         this.a(f1, 0.0F, f, 1.0F - f, f2, 1.0F - f);
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
         float f = 0.0625F;
         float f1 = (float) (1 + l * 2) / 16.0F;

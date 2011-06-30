@@ -170,7 +170,7 @@ public class Explosion {
             if (i1 > 0) {
                 Block.byId[i1].dropNaturally(this.world, j, k, l, this.world.getData(j, k, l), 0.3F);
                 this.world.setTypeId(j, k, l, 0);
-                Block.byId[i1].c(this.world, j, k, l);
+                Block.byId[i1].d(this.world, j, k, l);
             }
         }
     }

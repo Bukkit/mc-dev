@@ -20,8 +20,8 @@ public class BlockStairs extends Block {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
-        return super.d(world, i, j, k);
+    public AxisAlignedBB e(World world, int i, int j, int k) {
+        return super.e(world, i, j, k);
     }
 
     public boolean a() {
@@ -108,9 +108,9 @@ public class BlockStairs extends Block {
         return this.a.canPlace(world, i, j, k);
     }
 
-    public void e(World world, int i, int j, int k) {
+    public void c(World world, int i, int j, int k) {
         this.doPhysics(world, i, j, k, 0);
-        this.a.e(world, i, j, k);
+        this.a.c(world, i, j, k);
     }
 
     public void remove(World world, int i, int j, int k) {
@@ -133,8 +133,8 @@ public class BlockStairs extends Block {
         return this.a.interact(world, i, j, k, entityhuman);
     }
 
-    public void c(World world, int i, int j, int k) {
-        this.a.c(world, i, j, k);
+    public void d(World world, int i, int j, int k) {
+        this.a.d(world, i, j, k);
     }
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {

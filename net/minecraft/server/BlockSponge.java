@@ -7,7 +7,7 @@ public class BlockSponge extends Block {
         this.textureId = 48;
     }
 
-    public void e(World world, int i, int j, int k) {
+    public void c(World world, int i, int j, int k) {
         byte b0 = 2;
 
         for (int l = i - b0; l <= i + b0; ++l) {

@@ -237,14 +237,14 @@ public class Block {
     }
 
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist) {
-        AxisAlignedBB axisalignedbb1 = this.d(world, i, j, k);
+        AxisAlignedBB axisalignedbb1 = this.e(world, i, j, k);
 
         if (axisalignedbb1 != null && axisalignedbb.a(axisalignedbb1)) {
             arraylist.add(axisalignedbb1);
         }
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         return AxisAlignedBB.b((double) i + this.minX, (double) j + this.minY, (double) k + this.minZ, (double) i + this.maxX, (double) j + this.maxY, (double) k + this.maxZ);
     }
 
@@ -270,7 +270,7 @@ public class Block {
         return 10;
     }
 
-    public void e(World world, int i, int j, int k) {}
+    public void c(World world, int i, int j, int k) {}
 
     public void remove(World world, int i, int j, int k) {}
 
@@ -433,7 +433,7 @@ public class Block {
         return vec3d == null ? false : vec3d.a >= this.minX && vec3d.a <= this.maxX && vec3d.b >= this.minY && vec3d.b <= this.maxY;
     }
 
-    public void c(World world, int i, int j, int k) {}
+    public void d(World world, int i, int j, int k) {}
 
     public boolean canPlace(World world, int i, int j, int k, int l) {
         return this.canPlace(world, i, j, k);

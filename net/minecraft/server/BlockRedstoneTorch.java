@@ -44,9 +44,9 @@ public class BlockRedstoneTorch extends BlockTorch {
         return 2;
     }
 
-    public void e(World world, int i, int j, int k) {
+    public void c(World world, int i, int j, int k) {
         if (world.getData(i, j, k) == 0) {
-            super.e(world, i, j, k);
+            super.c(world, i, j, k);
         }
 
         if (this.isOn) {

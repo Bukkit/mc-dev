@@ -26,7 +26,7 @@ public class BlockMinecartTrack extends Block {
         return this.a;
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         return null;
     }
 
@@ -73,7 +73,7 @@ public class BlockMinecartTrack extends Block {
         return world.e(i, j - 1, k);
     }
 
-    public void e(World world, int i, int j, int k) {
+    public void c(World world, int i, int j, int k) {
         if (!world.isStatic) {
             this.a(world, i, j, k, true);
         }

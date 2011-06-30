@@ -29,9 +29,9 @@ public class BlockStep extends Block {
         return this.b;
     }
 
-    public void e(World world, int i, int j, int k) {
+    public void c(World world, int i, int j, int k) {
         if (this != Block.STEP) {
-            super.e(world, i, j, k);
+            super.c(world, i, j, k);
         }
 
         int l = world.getTypeId(i, j - 1, k);

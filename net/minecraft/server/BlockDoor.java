@@ -48,9 +48,9 @@ public class BlockDoor extends Block {
         return false;
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         this.a(world, i, j, k);
-        return super.d(world, i, j, k);
+        return super.e(world, i, j, k);
     }
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {

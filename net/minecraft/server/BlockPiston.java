@@ -38,24 +38,40 @@ public class BlockPiston extends Block {
 
     public void doPhysics(World world, int i, int j, int k, int l) {
         if (!world.isStatic) {
+            int i1 = world.getData(i, j, k);
+
+            if (d(i1)) {
+                int j1 = c(i1);
+                int k1 = i + PistonBlockTextures.b[j1];
+                int l1 = j + PistonBlockTextures.c[j1];
+                int i2 = k + PistonBlockTextures.d[j1];
+                int j2 = world.getTypeId(k1, l1, i2);
+
+                if (j2 != Block.PISTON_EXTENSION.id && j2 != Block.PISTON_MOVING.id) {
+                    this.g(world, i, j, k, i1);
+                    world.setTypeId(i, j, k, 0);
+                    return;
+                }
+            }
+
             this.g(world, i, j, k);
         }
     }
 
-    public void e(World world, int i, int j, int k) {
+    public void c(World world, int i, int j, int k) {
         if (!world.isStatic && world.getTileEntity(i, j, k) == null) {
             this.g(world, i, j, k);
         }
     }
 
     private void g(World world, int i, int j, int k) {
-        boolean flag = world.isBlockIndirectlyPowered(i, j, k) || world.isBlockIndirectlyPowered(i, j + 1, k) || world.isBlockFaceIndirectlyPowered(i, j - 1, k, 0);
         int l = world.getData(i, j, k);
         int i1 = c(l);
+        boolean flag = this.f(world, i, j, k, i1);
 
         if (l != 7) {
             if (flag && !d(l)) {
-                if (f(world, i, j, k, i1)) {
+                if (h(world, i, j, k, i1)) {
                     world.setRawData(i, j, k, i1 | 8);
                     world.playNote(i, j, k, 0, i1);
                 }
@@ -66,9 +82,13 @@ public class BlockPiston extends Block {
         }
     }
 
+    private boolean f(World world, int i, int j, int k, int l) {
+        return l != 0 && world.isBlockFaceIndirectlyPowered(i, j - 1, k, 0) ? true : (l != 1 && world.isBlockFaceIndirectlyPowered(i, j + 1, k, 1) ? true : (l != 2 && world.isBlockFaceIndirectlyPowered(i, j, k - 1, 2) ? true : (l != 3 && world.isBlockFaceIndirectlyPowered(i, j, k + 1, 3) ? true : (l != 5 && world.isBlockFaceIndirectlyPowered(i + 1, j, k, 5) ? true : (l != 4 && world.isBlockFaceIndirectlyPowered(i - 1, j, k, 4) ? true : (world.isBlockFaceIndirectlyPowered(i, j, k, 0) ? true : (world.isBlockFaceIndirectlyPowered(i, j + 2, k, 1) ? true : (world.isBlockFaceIndirectlyPowered(i, j + 1, k - 1, 2) ? true : (world.isBlockFaceIndirectlyPowered(i, j + 1, k + 1, 3) ? true : (world.isBlockFaceIndirectlyPowered(i - 1, j + 1, k, 4) ? true : world.isBlockFaceIndirectlyPowered(i + 1, j + 1, k, 5)))))))))));
+    }
+
     public void a(World world, int i, int j, int k, int l, int i1) {
         if (l == 0) {
-            if (this.h(world, i, j, k, i1)) {
+            if (this.i(world, i, j, k, i1)) {
                 world.setData(i, j, k, i1 | 8);
                 world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "tile.piston.out", 0.5F, world.random.nextFloat() * 0.25F + 0.6F);
             }
@@ -212,7 +232,7 @@ public class BlockPiston extends Block {
         }
     }
 
-    private static boolean f(World world, int i, int j, int k, int l) {
+    private static boolean h(World world, int i, int j, int k, int l) {
         int i1 = i + PistonBlockTextures.b[l];
         int j1 = j + PistonBlockTextures.c[l];
         int k1 = k + PistonBlockTextures.d[l];
@@ -249,7 +269,7 @@ public class BlockPiston extends Block {
         }
     }
 
-    private boolean h(World world, int i, int j, int k, int l) {
+    private boolean i(World world, int i, int j, int k, int l) {
         int i1 = i + PistonBlockTextures.b[l];
         int j1 = j + PistonBlockTextures.c[l];
         int k1 = k + PistonBlockTextures.d[l];

@@ -9,7 +9,7 @@ public class BlockButton extends Block {
         this.a(true);
     }
 
-    public AxisAlignedBB d(World world, int i, int j, int k) {
+    public AxisAlignedBB e(World world, int i, int j, int k) {
         return null;
     }
 

@@ -10,7 +10,7 @@ public class BlockPistonExtension extends Block {
     public BlockPistonExtension(int i, int j) {
         super(i, j, Material.PISTON);
         this.a(h);
-        this.c(-1.0F);
+        this.c(0.5F);
     }
 
     public int a(int i, int j) {

@@ -126,7 +126,7 @@ public class BlockDiode extends Block {
         }
     }
 
-    public void e(World world, int i, int j, int k) {
+    public void c(World world, int i, int j, int k) {
         world.applyPhysics(i + 1, j, k, this.id);
         world.applyPhysics(i - 1, j, k, this.id);
         world.applyPhysics(i, j, k + 1, this.id);
