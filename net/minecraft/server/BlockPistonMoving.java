@@ -87,6 +87,10 @@ public class BlockPistonMoving extends BlockContainer {
         if (tileentitypiston != null) {
             Block block = Block.byId[tileentitypiston.a()];
 
+            if (block == null) {
+                return;
+            }
+
             block.a(iblockaccess, i, j, k);
             float f = tileentitypiston.a(0.0F);
 
@@ -106,18 +110,22 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     public AxisAlignedBB a(World world, int i, int j, int k, int l, float f, int i1) {
-        AxisAlignedBB axisalignedbb = Block.byId[l].e(world, i, j, k);
-
-        if (axisalignedbb == null) {
+        if (l == 0) {
             return null;
         } else {
-            axisalignedbb.a -= (double) ((float) PistonBlockTextures.b[i1] * f);
-            axisalignedbb.d -= (double) ((float) PistonBlockTextures.b[i1] * f);
-            axisalignedbb.b -= (double) ((float) PistonBlockTextures.c[i1] * f);
-            axisalignedbb.e -= (double) ((float) PistonBlockTextures.c[i1] * f);
-            axisalignedbb.c -= (double) ((float) PistonBlockTextures.d[i1] * f);
-            axisalignedbb.f -= (double) ((float) PistonBlockTextures.d[i1] * f);
-            return axisalignedbb;
+            AxisAlignedBB axisalignedbb = Block.byId[l].e(world, i, j, k);
+
+            if (axisalignedbb == null) {
+                return null;
+            } else {
+                axisalignedbb.a -= (double) ((float) PistonBlockTextures.b[i1] * f);
+                axisalignedbb.d -= (double) ((float) PistonBlockTextures.b[i1] * f);
+                axisalignedbb.b -= (double) ((float) PistonBlockTextures.c[i1] * f);
+                axisalignedbb.e -= (double) ((float) PistonBlockTextures.c[i1] * f);
+                axisalignedbb.c -= (double) ((float) PistonBlockTextures.d[i1] * f);
+                axisalignedbb.f -= (double) ((float) PistonBlockTextures.d[i1] * f);
+                return axisalignedbb;
+            }
         }
     }
 

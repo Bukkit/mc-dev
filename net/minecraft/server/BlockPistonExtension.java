@@ -13,6 +13,25 @@ public class BlockPistonExtension extends Block {
         this.c(0.5F);
     }
 
+    public void remove(World world, int i, int j, int k) {
+        super.remove(world, i, j, k);
+        int l = world.getData(i, j, k);
+        int i1 = PistonBlockTextures.a[b(l)];
+
+        i += PistonBlockTextures.b[i1];
+        j += PistonBlockTextures.c[i1];
+        k += PistonBlockTextures.d[i1];
+        int j1 = world.getTypeId(i, j, k);
+
+        if (j1 == Block.PISTON.id || j1 == Block.PISTON_STICKY.id) {
+            l = world.getData(i, j, k);
+            if (BlockPiston.d(l)) {
+                Block.byId[j1].g(world, i, j, k, l);
+                world.setTypeId(i, j, k, 0);
+            }
+        }
+    }
+
     public int a(int i, int j) {
         int k = b(j);
 

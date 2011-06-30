@@ -38,22 +38,6 @@ public class BlockPiston extends Block {
 
     public void doPhysics(World world, int i, int j, int k, int l) {
         if (!world.isStatic) {
-            int i1 = world.getData(i, j, k);
-
-            if (d(i1)) {
-                int j1 = c(i1);
-                int k1 = i + PistonBlockTextures.b[j1];
-                int l1 = j + PistonBlockTextures.c[j1];
-                int i2 = k + PistonBlockTextures.d[j1];
-                int j2 = world.getTypeId(k1, l1, i2);
-
-                if (j2 != Block.PISTON_EXTENSION.id && j2 != Block.PISTON_MOVING.id) {
-                    this.g(world, i, j, k, i1);
-                    world.setTypeId(i, j, k, 0);
-                    return;
-                }
-            }
-
             this.g(world, i, j, k);
         }
     }

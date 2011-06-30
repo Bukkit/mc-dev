@@ -34,7 +34,7 @@ public class EntitySheep extends EntityAnimal {
     public boolean a(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
-        if (itemstack.id == Item.SHEARS.id && !this.isSheared()) {
+        if (itemstack != null && itemstack.id == Item.SHEARS.id && !this.isSheared()) {
             if (!this.world.isStatic) {
                 this.setSheared(true);
                 int i = 2 + this.random.nextInt(3);
