@@ -59,13 +59,14 @@ public abstract class Entity {
     private boolean justCreated;
     protected boolean fireProof;
     protected DataWatcher datawatcher;
+    public float bF;
     private double d;
     private double e;
-    public boolean bF;
-    public int bG;
+    public boolean bG;
     public int bH;
     public int bI;
-    public boolean bJ;
+    public int bJ;
+    public boolean bK;
 
     public Entity(World world) {
         this.id = entityCount++;
@@ -99,7 +100,8 @@ public abstract class Entity {
         this.justCreated = true;
         this.fireProof = false;
         this.datawatcher = new DataWatcher();
-        this.bF = false;
+        this.bF = 0.0F;
+        this.bG = false;
         this.world = world;
         this.setPosition(0.0D, 0.0D, 0.0D);
         this.datawatcher.a(0, Byte.valueOf((byte) 0));
@@ -108,7 +110,7 @@ public abstract class Entity {
 
     protected abstract void b();
 
-    public DataWatcher Z() {
+    public DataWatcher aa() {
         return this.datawatcher;
     }
 
@@ -144,11 +146,11 @@ public abstract class Entity {
         this.boundingBox.c(d0 - (double) f, d1 - (double) this.height + (double) this.br, d2 - (double) f, d0 + (double) f, d1 - (double) this.height + (double) this.br + (double) f1, d2 + (double) f);
     }
 
-    public void o_() {
-        this.Q();
+    public void m_() {
+        this.R();
     }
 
-    public void Q() {
+    public void R() {
         if (this.vehicle != null && this.vehicle.dead) {
             this.vehicle = null;
         }
@@ -212,12 +214,12 @@ public abstract class Entity {
             }
         }
 
-        if (this.ad()) {
-            this.aa();
+        if (this.ae()) {
+            this.ab();
         }
 
         if (this.locY < -64.0D) {
-            this.X();
+            this.Y();
         }
 
         if (!this.world.isStatic) {
@@ -228,14 +230,14 @@ public abstract class Entity {
         this.justCreated = false;
     }
 
-    protected void aa() {
+    protected void ab() {
         if (!this.fireProof) {
             this.damageEntity((Entity) null, 4);
             this.fireTicks = 600;
         }
     }
 
-    protected void X() {
+    protected void Y() {
         this.die();
     }
 
@@ -486,7 +488,7 @@ public abstract class Entity {
                 }
             }
 
-            boolean flag2 = this.ab();
+            boolean flag2 = this.ac();
 
             if (this.world.d(this.boundingBox.shrink(0.0010D, 0.0010D, 0.0010D))) {
                 this.burn(1);
@@ -538,11 +540,11 @@ public abstract class Entity {
         }
     }
 
-    public boolean ab() {
+    public boolean ac() {
         return this.bA || this.world.s(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ));
     }
 
-    public boolean ac() {
+    public boolean ad() {
         return this.bA;
     }
 
@@ -551,7 +553,7 @@ public abstract class Entity {
     }
 
     public boolean a(Material material) {
-        double d0 = this.locY + (double) this.s();
+        double d0 = this.locY + (double) this.t();
         int i = MathHelper.floor(this.locX);
         int j = MathHelper.d((float) MathHelper.floor(d0));
         int k = MathHelper.floor(this.locZ);
@@ -567,11 +569,11 @@ public abstract class Entity {
         }
     }
 
-    public float s() {
+    public float t() {
         return 0.0F;
     }
 
-    public boolean ad() {
+    public boolean ae() {
         return this.world.a(this.boundingBox.b(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.LAVA);
     }
 
@@ -600,7 +602,17 @@ public abstract class Entity {
         int j = MathHelper.floor(this.locY - (double) this.height + d0);
         int k = MathHelper.floor(this.locZ);
 
-        return this.world.a(MathHelper.floor(this.boundingBox.a), MathHelper.floor(this.boundingBox.b), MathHelper.floor(this.boundingBox.c), MathHelper.floor(this.boundingBox.d), MathHelper.floor(this.boundingBox.e), MathHelper.floor(this.boundingBox.f)) ? this.world.m(i, j, k) : 0.0F;
+        if (this.world.a(MathHelper.floor(this.boundingBox.a), MathHelper.floor(this.boundingBox.b), MathHelper.floor(this.boundingBox.c), MathHelper.floor(this.boundingBox.d), MathHelper.floor(this.boundingBox.e), MathHelper.floor(this.boundingBox.f))) {
+            float f1 = this.world.n(i, j, k);
+
+            if (f1 < this.bF) {
+                f1 = this.bF;
+            }
+
+            return f1;
+        } else {
+            return this.bF;
+        }
     }
 
     public void spawnIn(World world) {
@@ -705,16 +717,16 @@ public abstract class Entity {
         this.motZ += d2;
     }
 
-    protected void ae() {
+    protected void af() {
         this.velocityChanged = true;
     }
 
     public boolean damageEntity(Entity entity, int i) {
-        this.ae();
+        this.af();
         return false;
     }
 
-    public boolean n_() {
+    public boolean l_() {
         return false;
     }
 
@@ -725,7 +737,7 @@ public abstract class Entity {
     public void c(Entity entity, int i) {}
 
     public boolean c(NBTTagCompound nbttagcompound) {
-        String s = this.af();
+        String s = this.ag();
 
         if (!this.dead && s != null) {
             nbttagcompound.setString("id", s);
@@ -781,7 +793,7 @@ public abstract class Entity {
         this.a(nbttagcompound);
     }
 
-    protected final String af() {
+    protected final String ag() {
         return EntityTypes.b(this);
     }
 
@@ -833,20 +845,20 @@ public abstract class Entity {
         return entityitem;
     }
 
-    public boolean S() {
+    public boolean T() {
         return !this.dead;
     }
 
-    public boolean J() {
+    public boolean K() {
         for (int i = 0; i < 8; ++i) {
             float f = ((float) ((i >> 0) % 2) - 0.5F) * this.length * 0.9F;
             float f1 = ((float) ((i >> 1) % 2) - 0.5F) * 0.1F;
             float f2 = ((float) ((i >> 2) % 2) - 0.5F) * this.length * 0.9F;
             int j = MathHelper.floor(this.locX + (double) f);
-            int k = MathHelper.floor(this.locY + (double) this.s() + (double) f1);
+            int k = MathHelper.floor(this.locY + (double) this.t() + (double) f1);
             int l = MathHelper.floor(this.locZ + (double) f2);
 
-            if (this.world.d(j, k, l)) {
+            if (this.world.e(j, k, l)) {
                 return true;
             }
         }
@@ -862,14 +874,14 @@ public abstract class Entity {
         return null;
     }
 
-    public void D() {
+    public void E() {
         if (this.vehicle.dead) {
             this.vehicle = null;
         } else {
             this.motX = 0.0D;
             this.motY = 0.0D;
             this.motZ = 0.0D;
-            this.o_();
+            this.m_();
             if (this.vehicle != null) {
                 this.vehicle.f();
                 this.e += (double) (this.vehicle.yaw - this.vehicle.lastYaw);
@@ -919,10 +931,10 @@ public abstract class Entity {
     }
 
     public void f() {
-        this.passenger.setPosition(this.locX, this.locY + this.m() + this.passenger.H(), this.locZ);
+        this.passenger.setPosition(this.locX, this.locY + this.m() + this.passenger.I(), this.locZ);
     }
 
-    public double H() {
+    public double I() {
         return (double) this.height;
     }
 
@@ -958,11 +970,11 @@ public abstract class Entity {
         }
     }
 
-    public Vec3D Y() {
+    public Vec3D Z() {
         return null;
     }
 
-    public void O() {}
+    public void P() {}
 
     public ItemStack[] getEquipment() {
         return null;
@@ -1008,13 +1020,13 @@ public abstract class Entity {
         double d4 = d1 - (double) j;
         double d5 = d2 - (double) k;
 
-        if (this.world.d(i, j, k)) {
-            boolean flag = !this.world.d(i - 1, j, k);
-            boolean flag1 = !this.world.d(i + 1, j, k);
-            boolean flag2 = !this.world.d(i, j - 1, k);
-            boolean flag3 = !this.world.d(i, j + 1, k);
-            boolean flag4 = !this.world.d(i, j, k - 1);
-            boolean flag5 = !this.world.d(i, j, k + 1);
+        if (this.world.e(i, j, k)) {
+            boolean flag = !this.world.e(i - 1, j, k);
+            boolean flag1 = !this.world.e(i + 1, j, k);
+            boolean flag2 = !this.world.e(i, j - 1, k);
+            boolean flag3 = !this.world.e(i, j + 1, k);
+            boolean flag4 = !this.world.e(i, j, k - 1);
+            boolean flag5 = !this.world.e(i, j, k + 1);
             byte b0 = -1;
             double d6 = 9999.0D;
 

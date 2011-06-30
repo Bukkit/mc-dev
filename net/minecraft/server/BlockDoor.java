@@ -148,7 +148,7 @@ public class BlockDoor extends Block {
                 flag = true;
             }
 
-            if (!world.d(i, j - 1, k)) {
+            if (!world.e(i, j - 1, k)) {
                 world.setTypeId(i, j, k, 0);
                 flag = true;
                 if (world.getTypeId(i, j + 1, k) == this.id) {
@@ -158,7 +158,7 @@ public class BlockDoor extends Block {
 
             if (flag) {
                 if (!world.isStatic) {
-                    this.b_(world, i, j, k, i1);
+                    this.g(world, i, j, k, i1);
                 }
             } else if (l > 0 && Block.byId[l].isPowerSource()) {
                 boolean flag1 = world.isBlockIndirectlyPowered(i, j, k) || world.isBlockIndirectlyPowered(i, j + 1, k);
@@ -182,7 +182,7 @@ public class BlockDoor extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return j >= 127 ? false : world.d(i, j - 1, k) && super.canPlace(world, i, j, k) && super.canPlace(world, i, j + 1, k);
+        return j >= 127 ? false : world.e(i, j - 1, k) && super.canPlace(world, i, j, k) && super.canPlace(world, i, j + 1, k);
     }
 
     public static boolean e(int i) {

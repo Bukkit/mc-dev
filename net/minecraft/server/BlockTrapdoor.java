@@ -103,9 +103,9 @@ public class BlockTrapdoor extends Block {
                 --j1;
             }
 
-            if (!world.d(j1, j, k1)) {
+            if (!world.e(j1, j, k1)) {
                 world.setTypeId(i, j, k, 0);
-                this.b_(world, i, j, k, i1);
+                this.g(world, i, j, k, i1);
             }
 
             if (l > 0 && Block.byId[l].isPowerSource()) {
@@ -165,7 +165,7 @@ public class BlockTrapdoor extends Block {
                 --i;
             }
 
-            return world.d(i, j, k);
+            return world.e(i, j, k);
         }
     }
 

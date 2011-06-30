@@ -32,13 +32,13 @@ public class BlockFlower extends Block {
 
     protected final void g(World world, int i, int j, int k) {
         if (!this.f(world, i, j, k)) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
+            this.g(world, i, j, k, world.getData(i, j, k));
             world.setTypeId(i, j, k, 0);
         }
     }
 
     public boolean f(World world, int i, int j, int k) {
-        return (world.j(i, j, k) >= 8 || world.isChunkLoaded(i, j, k)) && this.c(world.getTypeId(i, j - 1, k));
+        return (world.k(i, j, k) >= 8 || world.isChunkLoaded(i, j, k)) && this.c(world.getTypeId(i, j - 1, k));
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {

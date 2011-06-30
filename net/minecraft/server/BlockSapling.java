@@ -53,7 +53,7 @@ public class BlockSapling extends BlockFlower {
         }
     }
 
-    protected int b(int i) {
+    protected int a_(int i) {
         return i & 3;
     }
 }

@@ -19,7 +19,7 @@ public class BlockJukeBox extends BlockContainer {
         }
     }
 
-    public void a_(World world, int i, int j, int k, int l) {
+    public void f(World world, int i, int j, int k, int l) {
         if (!world.isStatic) {
             TileEntityRecordPlayer tileentityrecordplayer = (TileEntityRecordPlayer) world.getTileEntity(i, j, k);
 

@@ -15,7 +15,7 @@ public class BlockCloth extends Block {
         }
     }
 
-    protected int b(int i) {
+    protected int a_(int i) {
         return i;
     }
 

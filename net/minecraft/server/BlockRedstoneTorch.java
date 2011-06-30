@@ -118,7 +118,7 @@ public class BlockRedstoneTorch extends BlockTorch {
         world.c(i, j, k, this.id, this.c());
     }
 
-    public boolean c(World world, int i, int j, int k, int l) {
+    public boolean d(World world, int i, int j, int k, int l) {
         return l == 0 ? this.a(world, i, j, k, l) : false;
     }
 

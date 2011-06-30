@@ -79,6 +79,7 @@ public class BlockFurnace extends BlockContainer {
 
         c = false;
         world.setData(i, j, k, l);
+        tileentity.j();
         world.setTileEntity(i, j, k, tileentity);
     }
 

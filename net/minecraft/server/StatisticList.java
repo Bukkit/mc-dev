@@ -102,8 +102,8 @@ public class StatisticList {
         Statistic[] astatistic = new Statistic[256];
 
         for (int j = 0; j < 256; ++j) {
-            if (Block.byId[j] != null && Block.byId[j].i()) {
-                String s1 = StatisticCollector.a(s, new Object[] { Block.byId[j].g()});
+            if (Block.byId[j] != null && Block.byId[j].m()) {
+                String s1 = StatisticCollector.a(s, new Object[] { Block.byId[j].k()});
 
                 astatistic[j] = (new CraftingStatistic(i + j, s1, j)).d();
                 e.add((CraftingStatistic) astatistic[j]);

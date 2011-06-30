@@ -26,7 +26,7 @@ public class Packet24MobSpawn extends Packet {
         this.e = MathHelper.floor(entityliving.locZ * 32.0D);
         this.f = (byte) ((int) (entityliving.yaw * 256.0F / 360.0F));
         this.g = (byte) ((int) (entityliving.pitch * 256.0F / 360.0F));
-        this.h = entityliving.Z();
+        this.h = entityliving.aa();
     }
 
     public void a(DataInputStream datainputstream) {

@@ -11,6 +11,7 @@ public class TileEntity {
     public int x;
     public int y;
     public int z;
+    protected boolean h;
 
     public TileEntity() {}
 
@@ -66,14 +67,30 @@ public class TileEntity {
         return tileentity;
     }
 
+    public int e() {
+        return this.world.getData(this.x, this.y, this.z);
+    }
+
     public void update() {
         if (this.world != null) {
             this.world.b(this.x, this.y, this.z, this);
         }
     }
 
-    public Packet e() {
+    public Packet f() {
         return null;
+    }
+
+    public boolean g() {
+        return this.h;
+    }
+
+    public void h() {
+        this.h = true;
+    }
+
+    public void j() {
+        this.h = false;
     }
 
     static {
@@ -84,5 +101,6 @@ public class TileEntity {
         a(TileEntitySign.class, "Sign");
         a(TileEntityMobSpawner.class, "MobSpawner");
         a(TileEntityNote.class, "Music");
+        a(TileEntityPiston.class, "Piston");
     }
 }

@@ -42,11 +42,11 @@ public class EntitySlime extends EntityLiving implements IMonster {
         this.setSize(nbttagcompound.e("Size") + 1);
     }
 
-    public void o_() {
+    public void m_() {
         this.b = this.a;
         boolean flag = this.onGround;
 
-        super.o_();
+        super.m_();
         if (this.onGround && !flag) {
             int i = this.getSize();
 
@@ -70,7 +70,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
     }
 
     protected void c_() {
-        this.T();
+        this.U();
         EntityHuman entityhuman = this.world.findNearbyPlayer(this, 16.0D);
 
         if (entityhuman != null) {

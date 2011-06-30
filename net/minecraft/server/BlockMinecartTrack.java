@@ -70,7 +70,7 @@ public class BlockMinecartTrack extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return world.d(i, j - 1, k);
+        return world.e(i, j - 1, k);
     }
 
     public void e(World world, int i, int j, int k) {
@@ -90,28 +90,28 @@ public class BlockMinecartTrack extends Block {
 
             boolean flag = false;
 
-            if (!world.d(i, j - 1, k)) {
+            if (!world.e(i, j - 1, k)) {
                 flag = true;
             }
 
-            if (j1 == 2 && !world.d(i + 1, j, k)) {
+            if (j1 == 2 && !world.e(i + 1, j, k)) {
                 flag = true;
             }
 
-            if (j1 == 3 && !world.d(i - 1, j, k)) {
+            if (j1 == 3 && !world.e(i - 1, j, k)) {
                 flag = true;
             }
 
-            if (j1 == 4 && !world.d(i, j, k - 1)) {
+            if (j1 == 4 && !world.e(i, j, k - 1)) {
                 flag = true;
             }
 
-            if (j1 == 5 && !world.d(i, j, k + 1)) {
+            if (j1 == 5 && !world.e(i, j, k + 1)) {
                 flag = true;
             }
 
             if (flag) {
-                this.b_(world, i, j, k, world.getData(i, j, k));
+                this.g(world, i, j, k, world.getData(i, j, k));
                 world.setTypeId(i, j, k, 0);
             } else if (this.id == Block.GOLDEN_RAIL.id) {
                 boolean flag1 = world.isBlockIndirectlyPowered(i, j, k) || world.isBlockIndirectlyPowered(i, j + 1, k);
@@ -246,6 +246,10 @@ public class BlockMinecartTrack extends Block {
         }
 
         return false;
+    }
+
+    public int f() {
+        return 0;
     }
 
     static boolean a(BlockMinecartTrack blockminecarttrack) {

@@ -42,6 +42,13 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
+    public TileEntity getTileEntity(int i, int j, int k) {
+        int l = (i >> 4) - this.a;
+        int i1 = (k >> 4) - this.b;
+
+        return this.c[l][i1].d(i & 15, j, k & 15);
+    }
+
     public int getData(int i, int j, int k) {
         if (j < 0) {
             return 0;
@@ -61,7 +68,7 @@ public class ChunkCache implements IBlockAccess {
         return l == 0 ? Material.AIR : Block.byId[l].material;
     }
 
-    public boolean d(int i, int j, int k) {
+    public boolean e(int i, int j, int k) {
         Block block = Block.byId[this.getTypeId(i, j, k)];
 
         return block == null ? false : block.material.isSolid() && block.b();

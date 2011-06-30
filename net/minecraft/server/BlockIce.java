@@ -24,7 +24,7 @@ public class BlockIce extends BlockBreakable {
 
     public void a(World world, int i, int j, int k, Random random) {
         if (world.a(EnumSkyBlock.BLOCK, i, j, k) > 11 - Block.q[this.id]) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
+            this.g(world, i, j, k, world.getData(i, j, k));
             world.setTypeId(i, j, k, Block.STATIONARY_WATER.id);
         }
     }

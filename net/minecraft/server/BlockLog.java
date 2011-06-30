@@ -48,7 +48,7 @@ public class BlockLog extends Block {
         return i == 1 ? 21 : (i == 0 ? 21 : (j == 1 ? 116 : (j == 2 ? 117 : 20)));
     }
 
-    protected int b(int i) {
+    protected int a_(int i) {
         return i;
     }
 }

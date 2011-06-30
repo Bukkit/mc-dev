@@ -128,7 +128,7 @@ public class BlockFlowing extends BlockFluids {
                 if (this.material == Material.LAVA) {
                     this.h(world, i, j, k);
                 } else {
-                    Block.byId[i1].b_(world, i, j, k, world.getData(i, j, k));
+                    Block.byId[i1].g(world, i, j, k, world.getData(i, j, k));
                 }
             }
 

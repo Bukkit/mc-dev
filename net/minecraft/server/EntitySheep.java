@@ -18,20 +18,40 @@ public class EntitySheep extends EntityAnimal {
     }
 
     public boolean damageEntity(Entity entity, int i) {
-        if (!this.world.isStatic && !this.isSheared() && entity instanceof EntityLiving) {
-            this.setSheared(true);
-            int j = 1 + this.random.nextInt(3);
+        return super.damageEntity(entity, i);
+    }
 
-            for (int k = 0; k < j; ++k) {
-                EntityItem entityitem = this.a(new ItemStack(Block.WOOL.id, 1, this.getColor()), 1.0F);
+    protected void q() {
+        if (!this.isSheared()) {
+            this.a(new ItemStack(Block.WOOL.id, 1, this.getColor()), 0.0F);
+        }
+    }
 
-                entityitem.motY += (double) (this.random.nextFloat() * 0.05F);
-                entityitem.motX += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
-                entityitem.motZ += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
+    protected int j() {
+        return Block.WOOL.id;
+    }
+
+    public boolean a(EntityHuman entityhuman) {
+        ItemStack itemstack = entityhuman.inventory.getItemInHand();
+
+        if (itemstack.id == Item.SHEARS.id && !this.isSheared()) {
+            if (!this.world.isStatic) {
+                this.setSheared(true);
+                int i = 2 + this.random.nextInt(3);
+
+                for (int j = 0; j < i; ++j) {
+                    EntityItem entityitem = this.a(new ItemStack(Block.WOOL.id, 1, this.getColor()), 1.0F);
+
+                    entityitem.motY += (double) (this.random.nextFloat() * 0.05F);
+                    entityitem.motX += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
+                    entityitem.motZ += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
+                }
             }
+
+            itemstack.damage(1, entityhuman);
         }
 
-        return super.damageEntity(entity, i);
+        return false;
     }
 
     public void b(NBTTagCompound nbttagcompound) {

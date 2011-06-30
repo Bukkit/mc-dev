@@ -17,6 +17,6 @@ class SlotArmor extends Slot {
     }
 
     public boolean isAllowed(ItemStack itemstack) {
-        return itemstack.getItem() instanceof ItemArmor ? ((ItemArmor) itemstack.getItem()).bj == this.d : (itemstack.getItem().id == Block.PUMPKIN.id ? this.d == 0 : false);
+        return itemstack.getItem() instanceof ItemArmor ? ((ItemArmor) itemstack.getItem()).bk == this.d : (itemstack.getItem().id == Block.PUMPKIN.id ? this.d == 0 : false);
     }
 }

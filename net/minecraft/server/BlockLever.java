@@ -19,11 +19,11 @@ public class BlockLever extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k, int l) {
-        return l == 1 && world.d(i, j - 1, k) ? true : (l == 2 && world.d(i, j, k + 1) ? true : (l == 3 && world.d(i, j, k - 1) ? true : (l == 4 && world.d(i + 1, j, k) ? true : l == 5 && world.d(i - 1, j, k))));
+        return l == 1 && world.e(i, j - 1, k) ? true : (l == 2 && world.e(i, j, k + 1) ? true : (l == 3 && world.e(i, j, k - 1) ? true : (l == 4 && world.e(i + 1, j, k) ? true : l == 5 && world.e(i - 1, j, k))));
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return world.d(i - 1, j, k) ? true : (world.d(i + 1, j, k) ? true : (world.d(i, j, k - 1) ? true : (world.d(i, j, k + 1) ? true : world.d(i, j - 1, k))));
+        return world.e(i - 1, j, k) ? true : (world.e(i + 1, j, k) ? true : (world.e(i, j, k - 1) ? true : (world.e(i, j, k + 1) ? true : world.e(i, j - 1, k))));
     }
 
     public void postPlace(World world, int i, int j, int k, int l) {
@@ -32,28 +32,28 @@ public class BlockLever extends Block {
 
         i1 &= 7;
         i1 = -1;
-        if (l == 1 && world.d(i, j - 1, k)) {
+        if (l == 1 && world.e(i, j - 1, k)) {
             i1 = 5 + world.random.nextInt(2);
         }
 
-        if (l == 2 && world.d(i, j, k + 1)) {
+        if (l == 2 && world.e(i, j, k + 1)) {
             i1 = 4;
         }
 
-        if (l == 3 && world.d(i, j, k - 1)) {
+        if (l == 3 && world.e(i, j, k - 1)) {
             i1 = 3;
         }
 
-        if (l == 4 && world.d(i + 1, j, k)) {
+        if (l == 4 && world.e(i + 1, j, k)) {
             i1 = 2;
         }
 
-        if (l == 5 && world.d(i - 1, j, k)) {
+        if (l == 5 && world.e(i - 1, j, k)) {
             i1 = 1;
         }
 
         if (i1 == -1) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
+            this.g(world, i, j, k, world.getData(i, j, k));
             world.setTypeId(i, j, k, 0);
         } else {
             world.setData(i, j, k, i1 + j1);
@@ -65,32 +65,32 @@ public class BlockLever extends Block {
             int i1 = world.getData(i, j, k) & 7;
             boolean flag = false;
 
-            if (!world.d(i - 1, j, k) && i1 == 1) {
+            if (!world.e(i - 1, j, k) && i1 == 1) {
                 flag = true;
             }
 
-            if (!world.d(i + 1, j, k) && i1 == 2) {
+            if (!world.e(i + 1, j, k) && i1 == 2) {
                 flag = true;
             }
 
-            if (!world.d(i, j, k - 1) && i1 == 3) {
+            if (!world.e(i, j, k - 1) && i1 == 3) {
                 flag = true;
             }
 
-            if (!world.d(i, j, k + 1) && i1 == 4) {
+            if (!world.e(i, j, k + 1) && i1 == 4) {
                 flag = true;
             }
 
-            if (!world.d(i, j - 1, k) && i1 == 5) {
+            if (!world.e(i, j - 1, k) && i1 == 5) {
                 flag = true;
             }
 
-            if (!world.d(i, j - 1, k) && i1 == 6) {
+            if (!world.e(i, j - 1, k) && i1 == 6) {
                 flag = true;
             }
 
             if (flag) {
-                this.b_(world, i, j, k, world.getData(i, j, k));
+                this.g(world, i, j, k, world.getData(i, j, k));
                 world.setTypeId(i, j, k, 0);
             }
         }
@@ -98,7 +98,7 @@ public class BlockLever extends Block {
 
     private boolean g(World world, int i, int j, int k) {
         if (!this.canPlace(world, i, j, k)) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
+            this.g(world, i, j, k, world.getData(i, j, k));
             world.setTypeId(i, j, k, 0);
             return false;
         } else {
@@ -183,7 +183,7 @@ public class BlockLever extends Block {
         return (iblockaccess.getData(i, j, k) & 8) > 0;
     }
 
-    public boolean c(World world, int i, int j, int k, int l) {
+    public boolean d(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
 
         if ((i1 & 8) == 0) {

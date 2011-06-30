@@ -12,7 +12,7 @@ public class ItemSword extends Item {
     }
 
     public float a(ItemStack itemstack, Block block) {
-        return 1.5F;
+        return block.id == Block.WEB.id ? 15.0F : 1.5F;
     }
 
     public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
@@ -27,5 +27,9 @@ public class ItemSword extends Item {
 
     public int a(Entity entity) {
         return this.a;
+    }
+
+    public boolean a(Block block) {
+        return block.id == Block.WEB.id;
     }
 }

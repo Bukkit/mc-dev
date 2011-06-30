@@ -173,7 +173,7 @@ public class ServerConfigurationManager {
         worldserver.addEntity(entityplayer1);
         this.players.add(entityplayer1);
         entityplayer1.syncInventory();
-        entityplayer1.w();
+        entityplayer1.x();
         return entityplayer1;
     }
 
@@ -202,19 +202,19 @@ public class ServerConfigurationManager {
             d0 /= d2;
             d1 /= d2;
             entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
-            if (entityplayer.S()) {
+            if (entityplayer.T()) {
                 worldserver.entityJoinedWorld(entityplayer, false);
             }
         } else {
             d0 *= d2;
             d1 *= d2;
             entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
-            if (entityplayer.S()) {
+            if (entityplayer.T()) {
                 worldserver.entityJoinedWorld(entityplayer, false);
             }
         }
 
-        if (entityplayer.S()) {
+        if (entityplayer.T()) {
             worldserver1.addEntity(entityplayer);
             entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
             worldserver1.entityJoinedWorld(entityplayer, false);
@@ -541,6 +541,6 @@ public class ServerConfigurationManager {
 
     public void updateClient(EntityPlayer entityplayer) {
         entityplayer.updateInventory(entityplayer.defaultContainer);
-        entityplayer.B();
+        entityplayer.C();
     }
 }

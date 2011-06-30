@@ -39,7 +39,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void disconnect(String s) {
-        this.player.A();
+        this.player.B();
         this.sendPacket(new Packet255KickDisconnect(s));
         this.networkManager.d();
         this.minecraftServer.serverConfigurationManager.sendAll(new Packet3Chat("\u00A7e" + this.player.name + " left the game."));
@@ -237,7 +237,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
         if (packet14blockdig.e == 4) {
-            this.player.E();
+            this.player.F();
         } else {
             boolean flag = worldserver.weirdIsOpCache = worldserver.worldProvider.dimension != 0 || this.minecraftServer.serverConfigurationManager.isOp(this.player.name);
             boolean flag1 = false;
@@ -458,7 +458,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void a(Packet18ArmAnimation packet18armanimation) {
         if (packet18armanimation.b == 1) {
-            this.player.k_();
+            this.player.w();
         }
     }
 
@@ -509,7 +509,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(Packet101CloseWindow packet101closewindow) {
-        this.player.z();
+        this.player.A();
     }
 
     public void a(Packet102WindowClick packet102windowclick) {
@@ -520,7 +520,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 this.player.netServerHandler.sendPacket(new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, true));
                 this.player.h = true;
                 this.player.activeContainer.a();
-                this.player.y();
+                this.player.z();
                 this.player.h = false;
             } else {
                 this.n.put(Integer.valueOf(this.player.activeContainer.windowId), Short.valueOf(packet102windowclick.d));

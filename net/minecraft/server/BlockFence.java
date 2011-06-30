@@ -7,7 +7,7 @@ public class BlockFence extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return world.getTypeId(i, j - 1, k) == this.id ? false : (!world.getMaterial(i, j - 1, k).isBuildable() ? false : super.canPlace(world, i, j, k));
+        return world.getTypeId(i, j - 1, k) == this.id ? true : (!world.getMaterial(i, j - 1, k).isBuildable() ? false : super.canPlace(world, i, j, k));
     }
 
     public AxisAlignedBB d(World world, int i, int j, int k) {

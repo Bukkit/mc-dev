@@ -18,8 +18,8 @@ public class EntityChicken extends EntityAnimal {
         this.i = this.random.nextInt(6000) + 6000;
     }
 
-    public void u() {
-        super.u();
+    public void v() {
+        super.v();
         this.g = this.b;
         this.f = this.c;
         this.c = (float) ((double) this.c + (double) (this.onGround ? -1 : 4) * 0.3D);

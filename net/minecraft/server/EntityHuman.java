@@ -55,7 +55,7 @@ public abstract class EntityHuman extends EntityLiving {
         this.datawatcher.a(16, Byte.valueOf((byte) 0));
     }
 
-    public void o_() {
+    public void m_() {
         if (this.isSleeping()) {
             ++this.sleepTicks;
             if (this.sleepTicks > 100) {
@@ -76,9 +76,9 @@ public abstract class EntityHuman extends EntityLiving {
             }
         }
 
-        super.o_();
+        super.m_();
         if (!this.world.isStatic && this.activeContainer != null && !this.activeContainer.b(this)) {
-            this.x();
+            this.y();
             this.activeContainer = this.defaultContainer;
         }
 
@@ -123,20 +123,20 @@ public abstract class EntityHuman extends EntityLiving {
         }
     }
 
-    protected boolean C() {
+    protected boolean D() {
         return this.health <= 0 || this.isSleeping();
     }
 
-    protected void x() {
+    protected void y() {
         this.activeContainer = this.defaultContainer;
     }
 
-    public void D() {
+    public void E() {
         double d0 = this.locX;
         double d1 = this.locY;
         double d2 = this.locZ;
 
-        super.D();
+        super.E();
         this.n = this.o;
         this.o = 0.0F;
         this.i(this.locX - d0, this.locY - d1, this.locZ - d2);
@@ -156,14 +156,14 @@ public abstract class EntityHuman extends EntityLiving {
         this.aa = (float) this.q / 8.0F;
     }
 
-    public void u() {
+    public void v() {
         if (this.world.spawnMonsters == 0 && this.health < 20 && this.ticksLived % 20 * 12 == 0) {
             this.b(1);
         }
 
         this.inventory.f();
         this.n = this.o;
-        super.u();
+        super.v();
         float f = MathHelper.a(this.motX * this.motX + this.motZ * this.motZ);
         float f1 = (float) Math.atan(-this.motY * 0.20000000298023224D) * 15.0F;
 
@@ -230,7 +230,7 @@ public abstract class EntityHuman extends EntityLiving {
         }
     }
 
-    public void E() {
+    public void F() {
         this.a(this.inventory.splitStack(this.inventory.itemInHandIndex, 1), false);
     }
 
@@ -240,7 +240,7 @@ public abstract class EntityHuman extends EntityLiving {
 
     public void a(ItemStack itemstack, boolean flag) {
         if (itemstack != null) {
-            EntityItem entityitem = new EntityItem(this.world, this.locX, this.locY - 0.30000001192092896D + (double) this.s(), this.locZ, itemstack);
+            EntityItem entityitem = new EntityItem(this.world, this.locX, this.locY - 0.30000001192092896D + (double) this.t(), this.locZ, itemstack);
 
             entityitem.pickupDelay = 40;
             float f = 0.1F;
@@ -330,11 +330,11 @@ public abstract class EntityHuman extends EntityLiving {
 
     public void receive(Entity entity, int i) {}
 
-    public float s() {
+    public float t() {
         return 0.12F;
     }
 
-    protected void j_() {
+    protected void s() {
         this.height = 1.62F;
     }
 
@@ -380,7 +380,7 @@ public abstract class EntityHuman extends EntityLiving {
         }
     }
 
-    protected boolean t() {
+    protected boolean j_() {
         return false;
     }
 
@@ -394,7 +394,7 @@ public abstract class EntityHuman extends EntityLiving {
                 }
             }
 
-            if (!(entityliving instanceof EntityHuman) || this.t()) {
+            if (!(entityliving instanceof EntityHuman) || this.j_()) {
                 List list = this.world.a(EntityWolf.class, AxisAlignedBB.b(this.locX, this.locY, this.locZ, this.locX + 1.0D, this.locY + 1.0D, this.locZ + 1.0D).b(16.0D, 4.0D, 16.0D));
                 Iterator iterator = list.iterator();
 
@@ -402,7 +402,7 @@ public abstract class EntityHuman extends EntityLiving {
                     Entity entity = (Entity) iterator.next();
                     EntityWolf entitywolf1 = (EntityWolf) entity;
 
-                    if (entitywolf1.isTamed() && entitywolf1.E() == null && this.name.equals(entitywolf1.getOwnerName()) && (!flag || !entitywolf1.isSitting())) {
+                    if (entitywolf1.isTamed() && entitywolf1.F() == null && this.name.equals(entitywolf1.getOwnerName()) && (!flag || !entitywolf1.isSitting())) {
                         entitywolf1.setSitting(false);
                         entitywolf1.setTarget(entityliving);
                     }
@@ -429,31 +429,31 @@ public abstract class EntityHuman extends EntityLiving {
 
     public void c(Entity entity) {
         if (!entity.a(this)) {
-            ItemStack itemstack = this.F();
+            ItemStack itemstack = this.G();
 
             if (itemstack != null && entity instanceof EntityLiving) {
                 itemstack.a((EntityLiving) entity);
                 if (itemstack.count <= 0) {
                     itemstack.a(this);
-                    this.G();
+                    this.H();
                 }
             }
         }
     }
 
-    public ItemStack F() {
+    public ItemStack G() {
         return this.inventory.getItemInHand();
     }
 
-    public void G() {
+    public void H() {
         this.inventory.setItem(this.inventory.itemInHandIndex, (ItemStack) null);
     }
 
-    public double H() {
+    public double I() {
         return (double) (this.height - 0.5F);
     }
 
-    public void k_() {
+    public void w() {
         this.q = -1;
         this.p = true;
     }
@@ -467,18 +467,18 @@ public abstract class EntityHuman extends EntityLiving {
             }
 
             entity.damageEntity(this, i);
-            ItemStack itemstack = this.F();
+            ItemStack itemstack = this.G();
 
             if (itemstack != null && entity instanceof EntityLiving) {
                 itemstack.a((EntityLiving) entity, this);
                 if (itemstack.count <= 0) {
                     itemstack.a(this);
-                    this.G();
+                    this.H();
                 }
             }
 
             if (entity instanceof EntityLiving) {
-                if (entity.S()) {
+                if (entity.T()) {
                     this.a((EntityLiving) entity, true);
                 }
 
@@ -497,13 +497,13 @@ public abstract class EntityHuman extends EntityLiving {
         }
     }
 
-    public boolean J() {
-        return !this.sleeping && super.J();
+    public boolean K() {
+        return !this.sleeping && super.K();
     }
 
     public EnumBedError a(int i, int j, int k) {
         if (!this.world.isStatic) {
-            if (this.isSleeping() || !this.S()) {
+            if (this.isSleeping() || !this.T()) {
                 return EnumBedError.OTHER_PROBLEM;
             }
 
@@ -585,13 +585,13 @@ public abstract class EntityHuman extends EntityLiving {
 
     public void a(boolean flag, boolean flag1, boolean flag2) {
         this.b(0.6F, 1.8F);
-        this.j_();
+        this.s();
         ChunkCoordinates chunkcoordinates = this.A;
         ChunkCoordinates chunkcoordinates1 = this.A;
 
         if (chunkcoordinates != null && this.world.getTypeId(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z) == Block.BED.id) {
             BlockBed.a(this.world, chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, false);
-            chunkcoordinates1 = BlockBed.g(this.world, chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, 0);
+            chunkcoordinates1 = BlockBed.f(this.world, chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, 0);
             if (chunkcoordinates1 == null) {
                 chunkcoordinates1 = new ChunkCoordinates(chunkcoordinates.x, chunkcoordinates.y + 1, chunkcoordinates.z);
             }
@@ -629,7 +629,7 @@ public abstract class EntityHuman extends EntityLiving {
         if (world.getTypeId(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z) != Block.BED.id) {
             return null;
         } else {
-            ChunkCoordinates chunkcoordinates1 = BlockBed.g(world, chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, 0);
+            ChunkCoordinates chunkcoordinates1 = BlockBed.f(world, chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, 0);
 
             return chunkcoordinates1;
         }
@@ -663,8 +663,8 @@ public abstract class EntityHuman extends EntityLiving {
 
     public void a(Statistic statistic, int i) {}
 
-    protected void N() {
-        super.N();
+    protected void O() {
+        super.O();
         this.a(StatisticList.u, 1);
     }
 
@@ -686,7 +686,7 @@ public abstract class EntityHuman extends EntityLiving {
                 if (i > 0) {
                     this.a(StatisticList.q, i);
                 }
-            } else if (this.ac()) {
+            } else if (this.ad()) {
                 i = Math.round(MathHelper.a(d0 * d0 + d2 * d2) * 100.0F);
                 if (i > 0) {
                     this.a(StatisticList.m, i);
@@ -744,7 +744,7 @@ public abstract class EntityHuman extends EntityLiving {
         }
     }
 
-    public void O() {
+    public void P() {
         if (this.D > 0) {
             this.D = 10;
         } else {

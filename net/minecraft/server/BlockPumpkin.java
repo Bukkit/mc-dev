@@ -38,7 +38,7 @@ public class BlockPumpkin extends Block {
     public boolean canPlace(World world, int i, int j, int k) {
         int l = world.getTypeId(i, j, k);
 
-        return (l == 0 || Block.byId[l].material.isReplacable()) && world.d(i, j - 1, k);
+        return (l == 0 || Block.byId[l].material.isReplacable()) && world.e(i, j - 1, k);
     }
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {

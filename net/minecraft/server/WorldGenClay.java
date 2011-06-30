@@ -35,8 +35,8 @@ public class WorldGenClay extends WorldGenerator {
                 int j1 = MathHelper.floor(d6 + d10 / 2.0D);
                 int k1 = MathHelper.floor(d7 - d11 / 2.0D);
                 int l1 = MathHelper.floor(d7 + d11 / 2.0D);
-                int i2 = MathHelper.floor(d6 - d10 / 2.0D);
-                int j2 = MathHelper.floor(d6 + d10 / 2.0D);
+                int i2 = MathHelper.floor(d8 - d10 / 2.0D);
+                int j2 = MathHelper.floor(d8 + d10 / 2.0D);
 
                 for (int k2 = i1; k2 <= j1; ++k2) {
                     for (int l2 = k1; l2 <= l1; ++l2) {

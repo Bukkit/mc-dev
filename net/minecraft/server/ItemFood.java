@@ -3,12 +3,12 @@ package net.minecraft.server;
 public class ItemFood extends Item {
 
     private int a;
-    private boolean bj;
+    private boolean bk;
 
     public ItemFood(int i, int j, boolean flag) {
         super(i);
         this.a = j;
-        this.bj = flag;
+        this.bk = flag;
         this.maxStackSize = 1;
     }
 
@@ -23,6 +23,6 @@ public class ItemFood extends Item {
     }
 
     public boolean l() {
-        return this.bj;
+        return this.bk;
     }
 }

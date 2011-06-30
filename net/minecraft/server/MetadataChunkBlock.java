@@ -79,7 +79,7 @@ public class MetadataChunkBlock {
                             int k3 = 0;
 
                             if (this.a == EnumSkyBlock.SKY) {
-                                if (world.l(k1, k2, l1)) {
+                                if (world.m(k1, k2, l1)) {
                                     k3 = 15;
                                 }
                             } else if (this.a == EnumSkyBlock.BLOCK) {

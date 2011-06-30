@@ -9,7 +9,7 @@ public class BlockBed extends Block {
 
     public BlockBed(int i) {
         super(i, 134, Material.CLOTH);
-        this.k();
+        this.o();
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
@@ -110,7 +110,7 @@ public class BlockBed extends Block {
     }
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
-        this.k();
+        this.o();
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
@@ -124,7 +124,7 @@ public class BlockBed extends Block {
         } else if (world.getTypeId(i + a[j1][0], j, k + a[j1][1]) != this.id) {
             world.setTypeId(i, j, k, 0);
             if (!world.isStatic) {
-                this.b_(world, i, j, k, i1);
+                this.g(world, i, j, k, i1);
             }
         }
     }
@@ -133,7 +133,7 @@ public class BlockBed extends Block {
         return d(i) ? 0 : Item.BED.id;
     }
 
-    private void k() {
+    private void o() {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
     }
 
@@ -161,7 +161,7 @@ public class BlockBed extends Block {
         world.setData(i, j, k, l);
     }
 
-    public static ChunkCoordinates g(World world, int i, int j, int k, int l) {
+    public static ChunkCoordinates f(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
         int j1 = c(i1);
 
@@ -173,7 +173,7 @@ public class BlockBed extends Block {
 
             for (int l2 = l1; l2 <= j2; ++l2) {
                 for (int i3 = i2; i3 <= k2; ++i3) {
-                    if (world.d(l2, j - 1, i3) && world.isEmpty(l2, j, i3) && world.isEmpty(l2, j + 1, i3)) {
+                    if (world.e(l2, j - 1, i3) && world.isEmpty(l2, j, i3) && world.isEmpty(l2, j + 1, i3)) {
                         if (l <= 0) {
                             return new ChunkCoordinates(l2, j, i3);
                         }

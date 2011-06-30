@@ -16,7 +16,7 @@ public class BlockOre extends Block {
         return this.id == Block.LAPIS_ORE.id ? 4 + random.nextInt(5) : 1;
     }
 
-    protected int b(int i) {
+    protected int a_(int i) {
         return this.id == Block.LAPIS_ORE.id ? 4 : 0;
     }
 }

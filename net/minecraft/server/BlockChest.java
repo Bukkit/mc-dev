@@ -77,15 +77,15 @@ public class BlockChest extends BlockContainer {
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         Object object = (TileEntityChest) world.getTileEntity(i, j, k);
 
-        if (world.d(i, j + 1, k)) {
+        if (world.e(i, j + 1, k)) {
             return true;
-        } else if (world.getTypeId(i - 1, j, k) == this.id && world.d(i - 1, j + 1, k)) {
+        } else if (world.getTypeId(i - 1, j, k) == this.id && world.e(i - 1, j + 1, k)) {
             return true;
-        } else if (world.getTypeId(i + 1, j, k) == this.id && world.d(i + 1, j + 1, k)) {
+        } else if (world.getTypeId(i + 1, j, k) == this.id && world.e(i + 1, j + 1, k)) {
             return true;
-        } else if (world.getTypeId(i, j, k - 1) == this.id && world.d(i, j + 1, k - 1)) {
+        } else if (world.getTypeId(i, j, k - 1) == this.id && world.e(i, j + 1, k - 1)) {
             return true;
-        } else if (world.getTypeId(i, j, k + 1) == this.id && world.d(i, j + 1, k + 1)) {
+        } else if (world.getTypeId(i, j, k + 1) == this.id && world.e(i, j + 1, k + 1)) {
             return true;
         } else {
             if (world.getTypeId(i - 1, j, k) == this.id) {

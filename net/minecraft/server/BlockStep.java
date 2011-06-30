@@ -54,7 +54,7 @@ public class BlockStep extends Block {
         return this.b ? 2 : 1;
     }
 
-    protected int b(int i) {
+    protected int a_(int i) {
         return i;
     }
 

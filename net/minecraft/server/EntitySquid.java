@@ -52,7 +52,7 @@ public class EntitySquid extends EntityWaterAnimal {
         return 0;
     }
 
-    protected void r() {
+    protected void q() {
         int i = this.random.nextInt(3) + 1;
 
         for (int j = 0; j < i; ++j) {
@@ -64,12 +64,12 @@ public class EntitySquid extends EntityWaterAnimal {
         return false;
     }
 
-    public boolean ac() {
+    public boolean ad() {
         return this.world.a(this.boundingBox.b(0.0D, -0.6000000238418579D, 0.0D), Material.WATER, this);
     }
 
-    public void u() {
-        super.u();
+    public void v() {
+        super.v();
         this.b = this.a;
         this.f = this.c;
         this.h = this.g;
@@ -82,7 +82,7 @@ public class EntitySquid extends EntityWaterAnimal {
             }
         }
 
-        if (this.ac()) {
+        if (this.ad()) {
             float f;
 
             if (this.g < 3.1415927F) {
@@ -136,5 +136,7 @@ public class EntitySquid extends EntityWaterAnimal {
             this.o = -0.1F + this.random.nextFloat() * 0.2F;
             this.p = MathHelper.sin(f) * 0.2F;
         }
+
+        this.U();
     }
 }

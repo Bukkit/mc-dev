@@ -30,11 +30,11 @@ public class EntityFallingSand extends Entity {
 
     protected void b() {}
 
-    public boolean n_() {
+    public boolean l_() {
         return !this.dead;
     }
 
-    public void o_() {
+    public void m_() {
         if (this.a == 0) {
             this.die();
         } else {

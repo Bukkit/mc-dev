@@ -19,16 +19,16 @@ public class BlockDiode extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return !world.d(i, j - 1, k) ? false : super.canPlace(world, i, j, k);
+        return !world.e(i, j - 1, k) ? false : super.canPlace(world, i, j, k);
     }
 
     public boolean f(World world, int i, int j, int k) {
-        return !world.d(i, j - 1, k) ? false : super.f(world, i, j, k);
+        return !world.e(i, j - 1, k) ? false : super.f(world, i, j, k);
     }
 
     public void a(World world, int i, int j, int k, Random random) {
         int l = world.getData(i, j, k);
-        boolean flag = this.g(world, i, j, k, l);
+        boolean flag = this.f(world, i, j, k, l);
 
         if (this.c && !flag) {
             world.setTypeIdAndData(i, j, k, Block.DIODE_OFF.id, l);
@@ -50,7 +50,7 @@ public class BlockDiode extends Block {
         return this.a(i, 0);
     }
 
-    public boolean c(World world, int i, int j, int k, int l) {
+    public boolean d(World world, int i, int j, int k, int l) {
         return this.a(world, i, j, k, l);
     }
 
@@ -66,11 +66,11 @@ public class BlockDiode extends Block {
 
     public void doPhysics(World world, int i, int j, int k, int l) {
         if (!this.f(world, i, j, k)) {
-            this.b_(world, i, j, k, world.getData(i, j, k));
+            this.g(world, i, j, k, world.getData(i, j, k));
             world.setTypeId(i, j, k, 0);
         } else {
             int i1 = world.getData(i, j, k);
-            boolean flag = this.g(world, i, j, k, i1);
+            boolean flag = this.f(world, i, j, k, i1);
             int j1 = (i1 & 12) >> 2;
 
             if (this.c && !flag) {
@@ -81,21 +81,21 @@ public class BlockDiode extends Block {
         }
     }
 
-    private boolean g(World world, int i, int j, int k, int l) {
+    private boolean f(World world, int i, int j, int k, int l) {
         int i1 = l & 3;
 
         switch (i1) {
         case 0:
-            return world.isBlockFaceIndirectlyPowered(i, j, k + 1, 3);
+            return world.isBlockFaceIndirectlyPowered(i, j, k + 1, 3) || world.getTypeId(i, j, k + 1) == Block.REDSTONE_WIRE.id && world.getData(i, j, k + 1) > 0;
 
         case 1:
-            return world.isBlockFaceIndirectlyPowered(i - 1, j, k, 4);
+            return world.isBlockFaceIndirectlyPowered(i - 1, j, k, 4) || world.getTypeId(i - 1, j, k) == Block.REDSTONE_WIRE.id && world.getData(i - 1, j, k) > 0;
 
         case 2:
-            return world.isBlockFaceIndirectlyPowered(i, j, k - 1, 2);
+            return world.isBlockFaceIndirectlyPowered(i, j, k - 1, 2) || world.getTypeId(i, j, k - 1) == Block.REDSTONE_WIRE.id && world.getData(i, j, k - 1) > 0;
 
         case 3:
-            return world.isBlockFaceIndirectlyPowered(i + 1, j, k, 5);
+            return world.isBlockFaceIndirectlyPowered(i + 1, j, k, 5) || world.getTypeId(i + 1, j, k) == Block.REDSTONE_WIRE.id && world.getData(i + 1, j, k) > 0;
 
         default:
             return false;
@@ -119,7 +119,7 @@ public class BlockDiode extends Block {
         int l = ((MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
 
         world.setData(i, j, k, l);
-        boolean flag = this.g(world, i, j, k, l);
+        boolean flag = this.f(world, i, j, k, l);
 
         if (flag) {
             world.c(i, j, k, this.id, 1);

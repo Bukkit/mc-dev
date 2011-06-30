@@ -15,7 +15,7 @@ public class ItemRecord extends Item {
             if (world.isStatic) {
                 return true;
             } else {
-                ((BlockJukeBox) Block.JUKEBOX).a_(world, i, j, k, this.id);
+                ((BlockJukeBox) Block.JUKEBOX).f(world, i, j, k, this.id);
                 world.a((EntityHuman) null, 1005, i, j, k, this.id);
                 --itemstack.count;
                 return true;

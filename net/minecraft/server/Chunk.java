@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -359,15 +360,15 @@ public class Chunk {
             k = this.entitySlices.length - 1;
         }
 
-        entity.bF = true;
-        entity.bG = this.x;
-        entity.bH = k;
-        entity.bI = this.z;
+        entity.bG = true;
+        entity.bH = this.x;
+        entity.bI = k;
+        entity.bJ = this.z;
         this.entitySlices[k].add(entity);
     }
 
     public void b(Entity entity) {
-        this.a(entity, entity.bH);
+        this.a(entity, entity.bI);
     }
 
     public void a(Entity entity, int i) {
@@ -403,7 +404,12 @@ public class Chunk {
             tileentity = (TileEntity) this.tileEntities.get(chunkposition);
         }
 
-        return tileentity;
+        if (tileentity != null && tileentity.g()) {
+            this.tileEntities.remove(chunkposition);
+            return null;
+        } else {
+            return tileentity;
+        }
     }
 
     public void a(TileEntity tileentity) {
@@ -412,6 +418,9 @@ public class Chunk {
         int k = tileentity.z - this.z * 16;
 
         this.a(i, j, k, tileentity);
+        if (this.c) {
+            this.world.c.add(tileentity);
+        }
     }
 
     public void a(int i, int j, int k, TileEntity tileentity) {
@@ -422,14 +431,7 @@ public class Chunk {
         tileentity.y = j;
         tileentity.z = this.z * 16 + k;
         if (this.getTypeId(i, j, k) != 0 && Block.byId[this.getTypeId(i, j, k)] instanceof BlockContainer) {
-            if (this.c) {
-                if (this.tileEntities.get(chunkposition) != null) {
-                    this.world.c.remove(this.tileEntities.get(chunkposition));
-                }
-
-                this.world.c.add(tileentity);
-            }
-
+            tileentity.j();
             this.tileEntities.put(chunkposition, tileentity);
         } else {
             System.out.println("Attempted to place a tile entity where there was no entity tile!");
@@ -440,13 +442,17 @@ public class Chunk {
         ChunkPosition chunkposition = new ChunkPosition(i, j, k);
 
         if (this.c) {
-            this.world.c.remove(this.tileEntities.remove(chunkposition));
+            TileEntity tileentity = (TileEntity) this.tileEntities.remove(chunkposition);
+
+            if (tileentity != null) {
+                tileentity.h();
+            }
         }
     }
 
     public void addEntities() {
         this.c = true;
-        this.world.c.addAll(this.tileEntities.values());
+        this.world.a(this.tileEntities.values());
 
         for (int i = 0; i < this.entitySlices.length; ++i) {
             this.world.a(this.entitySlices[i]);
@@ -455,7 +461,13 @@ public class Chunk {
 
     public void removeEntities() {
         this.c = false;
-        this.world.c.removeAll(this.tileEntities.values());
+        Iterator iterator = this.tileEntities.values().iterator();
+
+        while (iterator.hasNext()) {
+            TileEntity tileentity = (TileEntity) iterator.next();
+
+            tileentity.h();
+        }
 
         for (int i = 0; i < this.entitySlices.length; ++i) {
             this.world.b(this.entitySlices[i]);
