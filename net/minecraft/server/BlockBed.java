@@ -186,4 +186,14 @@ public class BlockBed extends Block {
 
         return null;
     }
+
+    public void dropNaturally(World world, int i, int j, int k, int l, float f) {
+        if (!d(l)) {
+            super.dropNaturally(world, i, j, k, l, f);
+        }
+    }
+
+    public int e() {
+        return 1;
+    }
 }

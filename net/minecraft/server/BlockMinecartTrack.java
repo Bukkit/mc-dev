@@ -22,7 +22,7 @@ public class BlockMinecartTrack extends Block {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
-    public boolean e() {
+    public boolean f() {
         return this.a;
     }
 
@@ -248,7 +248,7 @@ public class BlockMinecartTrack extends Block {
         return false;
     }
 
-    public int f() {
+    public int e() {
         return 0;
     }
 

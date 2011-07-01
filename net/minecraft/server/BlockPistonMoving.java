@@ -41,6 +41,15 @@ public class BlockPistonMoving extends BlockContainer {
         return false;
     }
 
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
+        if (!world.isStatic && world.getTileEntity(i, j, k) == null) {
+            world.setTypeId(i, j, k, 0);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public int a(int i, Random random) {
         return 0;
     }
@@ -87,7 +96,7 @@ public class BlockPistonMoving extends BlockContainer {
         if (tileentitypiston != null) {
             Block block = Block.byId[tileentitypiston.a()];
 
-            if (block == null) {
+            if (block == null || block == this) {
                 return;
             }
 
@@ -110,9 +119,7 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     public AxisAlignedBB a(World world, int i, int j, int k, int l, float f, int i1) {
-        if (l == 0) {
-            return null;
-        } else {
+        if (l != 0 && l != this.id) {
             AxisAlignedBB axisalignedbb = Block.byId[l].e(world, i, j, k);
 
             if (axisalignedbb == null) {
@@ -126,6 +133,8 @@ public class BlockPistonMoving extends BlockContainer {
                 axisalignedbb.f -= (double) ((float) PistonBlockTextures.d[i1] * f);
                 return axisalignedbb;
             }
+        } else {
+            return null;
         }
     }
 

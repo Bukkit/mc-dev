@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class BlockPiston extends Block {
 
     private boolean a;
+    private boolean b;
 
     public BlockPiston(int i, int j, boolean flag) {
         super(i, j, Material.PISTON);
@@ -37,7 +38,7 @@ public class BlockPiston extends Block {
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        if (!world.isStatic) {
+        if (!world.isStatic && !this.b) {
             this.g(world, i, j, k);
         }
     }
@@ -71,6 +72,7 @@ public class BlockPiston extends Block {
     }
 
     public void a(World world, int i, int j, int k, int l, int i1) {
+        this.b = true;
         if (l == 0) {
             if (this.i(world, i, j, k, i1)) {
                 world.setData(i, j, k, i1 | 8);
@@ -108,7 +110,7 @@ public class BlockPiston extends Block {
                     }
                 }
 
-                if (i2 > 0 && (flag || a(i2, world, j1, k1, l1)) && (Block.byId[i2].f() == 0 || i2 == Block.PISTON.id || i2 == Block.PISTON_STICKY.id)) {
+                if (i2 > 0 && (flag || a(i2, world, j1, k1, l1)) && (Block.byId[i2].e() == 0 || i2 == Block.PISTON.id || i2 == Block.PISTON_STICKY.id)) {
                     world.setTypeId(j1, k1, l1, 0);
                     i += PistonBlockTextures.b[i1];
                     j += PistonBlockTextures.c[i1];
@@ -124,6 +126,8 @@ public class BlockPiston extends Block {
 
             world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "tile.piston.in", 0.5F, world.random.nextFloat() * 0.15F + 0.6F);
         }
+
+        this.b = false;
     }
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
@@ -203,7 +207,7 @@ public class BlockPiston extends Block {
                     return false;
                 }
 
-                if (Block.byId[i].f() == 2) {
+                if (Block.byId[i].e() == 2) {
                     return false;
                 }
             } else if (d(world.getData(j, k, l))) {
@@ -235,7 +239,7 @@ public class BlockPiston extends Block {
                         return false;
                     }
 
-                    if (Block.byId[i2].f() != 1) {
+                    if (Block.byId[i2].e() != 1) {
                         if (l1 == 12) {
                             return false;
                         }
@@ -273,7 +277,7 @@ public class BlockPiston extends Block {
                         return false;
                     }
 
-                    if (Block.byId[i2].f() != 1) {
+                    if (Block.byId[i2].e() != 1) {
                         if (l1 == 12) {
                             return false;
                         }
@@ -285,7 +289,7 @@ public class BlockPiston extends Block {
                         continue;
                     }
 
-                    Block.byId[i2].g(world, i1, j1, k1, 0);
+                    Block.byId[i2].g(world, i1, j1, k1, world.getData(i1, j1, k1));
                     world.setTypeId(i1, j1, k1, 0);
                 }
             }

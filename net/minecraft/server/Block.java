@@ -508,7 +508,7 @@ public class Block {
         return this;
     }
 
-    public int f() {
+    public int e() {
         return this.material.j();
     }
 
