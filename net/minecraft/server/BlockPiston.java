@@ -110,18 +110,24 @@ public class BlockPiston extends Block {
                     }
                 }
 
-                if (i2 > 0 && (flag || a(i2, world, j1, k1, l1)) && (Block.byId[i2].e() == 0 || i2 == Block.PISTON.id || i2 == Block.PISTON_STICKY.id)) {
+                if (!flag && i2 > 0 && a(i2, world, j1, k1, l1, false) && (Block.byId[i2].e() == 0 || i2 == Block.PISTON.id || i2 == Block.PISTON_STICKY.id)) {
+                    this.b = false;
                     world.setTypeId(j1, k1, l1, 0);
+                    this.b = true;
                     i += PistonBlockTextures.b[i1];
                     j += PistonBlockTextures.c[i1];
                     k += PistonBlockTextures.d[i1];
                     world.setRawTypeIdAndData(i, j, k, Block.PISTON_MOVING.id, j2);
                     world.setTileEntity(i, j, k, BlockPistonMoving.a(i2, j2, i1, false, false));
-                } else {
+                } else if (!flag) {
+                    this.b = false;
                     world.setTypeId(i + PistonBlockTextures.b[i1], j + PistonBlockTextures.c[i1], k + PistonBlockTextures.d[i1], 0);
+                    this.b = true;
                 }
             } else {
+                this.b = false;
                 world.setTypeId(i + PistonBlockTextures.b[i1], j + PistonBlockTextures.c[i1], k + PistonBlockTextures.d[i1], 0);
+                this.b = true;
             }
 
             world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "tile.piston.in", 0.5F, world.random.nextFloat() * 0.15F + 0.6F);
@@ -198,7 +204,7 @@ public class BlockPiston extends Block {
         return l == 0 ? 2 : (l == 1 ? 5 : (l == 2 ? 3 : (l == 3 ? 4 : 0)));
     }
 
-    private static boolean a(int i, World world, int j, int k, int l) {
+    private static boolean a(int i, World world, int j, int k, int l, boolean flag) {
         if (i == Block.OBSIDIAN.id) {
             return false;
         } else {
@@ -208,6 +214,10 @@ public class BlockPiston extends Block {
                 }
 
                 if (Block.byId[i].e() == 2) {
+                    return false;
+                }
+
+                if (!flag && Block.byId[i].e() == 1) {
                     return false;
                 }
             } else if (d(world.getData(j, k, l))) {
@@ -235,7 +245,7 @@ public class BlockPiston extends Block {
                 int i2 = world.getTypeId(i1, j1, k1);
 
                 if (i2 != 0) {
-                    if (!a(i2, world, i1, j1, k1)) {
+                    if (!a(i2, world, i1, j1, k1, true)) {
                         return false;
                     }
 
@@ -273,7 +283,7 @@ public class BlockPiston extends Block {
 
                 i2 = world.getTypeId(i1, j1, k1);
                 if (i2 != 0) {
-                    if (!a(i2, world, i1, j1, k1)) {
+                    if (!a(i2, world, i1, j1, k1, true)) {
                         return false;
                     }
 

@@ -323,7 +323,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 j1 = i1;
             }
 
-            if (this.checkMovement && this.player.d((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D) < 64.0D && (j1 > 16 || flag)) {
+            if (this.checkMovement && this.player.e((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D) < 64.0D && (j1 > 16 || flag)) {
                 this.player.itemInWorldManager.interact(this.player, worldserver, itemstack, i, j, k, l);
             }
 
@@ -592,6 +592,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                     tileentitysign1.lines[l] = packet130updatesign.lines[l];
                 }
 
+                tileentitysign1.a(false);
                 tileentitysign1.update();
                 worldserver.notify(j, k, i);
             }

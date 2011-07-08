@@ -269,37 +269,39 @@ class MinecartTrackLogic {
                 b0 = 1;
             }
 
-            if (flag) {
-                if (flag3 && flag5) {
-                    b0 = 6;
-                }
+            if (!this.f) {
+                if (flag) {
+                    if (flag3 && flag5) {
+                        b0 = 6;
+                    }
 
-                if (flag4 && flag3) {
-                    b0 = 7;
-                }
+                    if (flag4 && flag3) {
+                        b0 = 7;
+                    }
 
-                if (flag5 && flag2) {
-                    b0 = 9;
-                }
+                    if (flag5 && flag2) {
+                        b0 = 9;
+                    }
 
-                if (flag2 && flag4) {
-                    b0 = 8;
-                }
-            } else {
-                if (flag2 && flag4) {
-                    b0 = 8;
-                }
+                    if (flag2 && flag4) {
+                        b0 = 8;
+                    }
+                } else {
+                    if (flag2 && flag4) {
+                        b0 = 8;
+                    }
 
-                if (flag5 && flag2) {
-                    b0 = 9;
-                }
+                    if (flag5 && flag2) {
+                        b0 = 9;
+                    }
 
-                if (flag4 && flag3) {
-                    b0 = 7;
-                }
+                    if (flag4 && flag3) {
+                        b0 = 7;
+                    }
 
-                if (flag3 && flag5) {
-                    b0 = 6;
+                    if (flag3 && flag5) {
+                        b0 = 6;
+                    }
                 }
             }
         }

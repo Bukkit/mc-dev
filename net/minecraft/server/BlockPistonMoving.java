@@ -139,8 +139,8 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     private TileEntityPiston b(IBlockAccess iblockaccess, int i, int j, int k) {
-        TileEntityPiston tileentitypiston = (TileEntityPiston) iblockaccess.getTileEntity(i, j, k);
+        TileEntity tileentity = iblockaccess.getTileEntity(i, j, k);
 
-        return tileentitypiston;
+        return tileentity != null && tileentity instanceof TileEntityPiston ? (TileEntityPiston) tileentity : null;
     }
 }

@@ -41,4 +41,8 @@ public class TileEntitySign extends TileEntity {
     public boolean a() {
         return this.isEditable;
     }
+
+    public void a(boolean flag) {
+        this.isEditable = flag;
+    }
 }

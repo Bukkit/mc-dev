@@ -142,6 +142,8 @@ public class BlockPistonExtension extends Block {
 
         if (j1 != Block.PISTON.id && j1 != Block.PISTON_STICKY.id) {
             world.setTypeId(i, j, k, 0);
+        } else {
+            Block.byId[j1].doPhysics(world, i - PistonBlockTextures.b[i1], j - PistonBlockTextures.c[i1], k - PistonBlockTextures.d[i1], l);
         }
     }
 
