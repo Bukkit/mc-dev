@@ -33,7 +33,7 @@ public class BlockCrops extends BlockFlower {
         }
     }
 
-    public void d_(World world, int i, int j, int k) {
+    public void e_(World world, int i, int j, int k) {
         world.setData(i, j, k, 7);
     }
 

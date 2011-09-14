@@ -44,7 +44,7 @@ class PlayerListEntry {
     }
 
     public final int hashCode() {
-        return PlayerList.d(this.a);
+        return PlayerList.f(this.a);
     }
 
     public final String toString() {

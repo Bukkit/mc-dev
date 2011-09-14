@@ -4,8 +4,11 @@ import java.util.Random;
 
 public class BiomeTaiga extends BiomeBase {
 
-    public BiomeTaiga() {
-        this.t.add(new BiomeMeta(EntityWolf.class, 2));
+    public BiomeTaiga(int i) {
+        super(i);
+        this.w.add(new BiomeMeta(EntityWolf.class, 8, 4, 4));
+        this.u.r = 10;
+        this.u.t = 1;
     }
 
     public WorldGenerator a(Random random) {

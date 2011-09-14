@@ -10,7 +10,7 @@ public class BlockSand extends Block {
         super(i, j, Material.SAND);
     }
 
-    public void c(World world, int i, int j, int k) {
+    public void a(World world, int i, int j, int k) {
         world.c(i, j, k, this.id, this.c());
     }
 
@@ -23,7 +23,7 @@ public class BlockSand extends Block {
     }
 
     private void g(World world, int i, int j, int k) {
-        if (c_(world, i, j - 1, k) && j >= 0) {
+        if (d_(world, i, j - 1, k) && j >= 0) {
             byte b0 = 32;
 
             if (!instaFall && world.a(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
@@ -33,7 +33,7 @@ public class BlockSand extends Block {
             } else {
                 world.setTypeId(i, j, k, 0);
 
-                while (c_(world, i, j - 1, k) && j > 0) {
+                while (d_(world, i, j - 1, k) && j > 0) {
                     --j;
                 }
 
@@ -48,7 +48,7 @@ public class BlockSand extends Block {
         return 3;
     }
 
-    public static boolean c_(World world, int i, int j, int k) {
+    public static boolean d_(World world, int i, int j, int k) {
         int l = world.getTypeId(i, j, k);
 
         if (l == 0) {

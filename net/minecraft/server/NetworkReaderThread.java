@@ -36,7 +36,7 @@ class NetworkReaderThread extends Thread {
                 }
 
                 try {
-                    sleep(100L);
+                    sleep(2L);
                 } catch (InterruptedException interruptedexception) {
                     ;
                 }

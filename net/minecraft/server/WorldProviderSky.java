@@ -5,7 +5,7 @@ public class WorldProviderSky extends WorldProvider {
     public WorldProviderSky() {}
 
     public void a() {
-        this.b = new WorldChunkManagerHell(BiomeBase.SKY, 0.5D, 0.0D);
+        this.b = new WorldChunkManagerHell(BiomeBase.SKY, 0.5F, 0.0F);
         this.dimension = 1;
     }
 

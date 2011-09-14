@@ -8,6 +8,7 @@ public class ContainerChest extends Container {
     public ContainerChest(IInventory iinventory, IInventory iinventory1) {
         this.a = iinventory1;
         this.b = iinventory1.getSize() / 9;
+        iinventory1.e();
         int i = (this.b - 4) * 18;
 
         int j;
@@ -31,7 +32,7 @@ public class ContainerChest extends Container {
     }
 
     public boolean b(EntityHuman entityhuman) {
-        return this.a.a_(entityhuman);
+        return this.a.a(entityhuman);
     }
 
     public ItemStack a(int i) {
@@ -56,5 +57,10 @@ public class ContainerChest extends Container {
         }
 
         return itemstack;
+    }
+
+    public void a(EntityHuman entityhuman) {
+        super.a(entityhuman);
+        this.a.t_();
     }
 }

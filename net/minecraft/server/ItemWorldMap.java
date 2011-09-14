@@ -16,8 +16,8 @@ public class ItemWorldMap extends ItemWorldMapBase {
             String s = "map_" + itemstack.getData();
 
             worldmap = new WorldMap(s);
-            worldmap.b = world.q().c();
-            worldmap.c = world.q().e();
+            worldmap.b = world.p().c();
+            worldmap.c = world.p().e();
             worldmap.e = 3;
             worldmap.map = (byte) world.worldProvider.dimension;
             worldmap.a();
@@ -95,7 +95,7 @@ public class ItemWorldMap extends ItemWorldMapBase {
                                                 j5 = chunk.getTypeId(l4 + k3, k4 - 1, j4 + l3);
                                                 if (j5 == 0) {
                                                     flag1 = false;
-                                                } else if (k4 > 0 && j5 > 0 && Block.byId[j5].material.C == MaterialMapColor.b) {
+                                                } else if (k4 > 0 && j5 > 0 && Block.byId[j5].material.D == MaterialMapColor.b) {
                                                     flag1 = false;
                                                 }
 
@@ -152,7 +152,7 @@ public class ItemWorldMap extends ItemWorldMapBase {
 
                             i5 = 0;
                             if (j4 > 0) {
-                                MaterialMapColor materialmapcolor = Block.byId[j4].material.C;
+                                MaterialMapColor materialmapcolor = Block.byId[j4].material.D;
 
                                 if (materialmapcolor == MaterialMapColor.n) {
                                     d2 = (double) i4 * 0.1D + (double) (k1 + j2 & 1) * 0.2D;
@@ -213,7 +213,7 @@ public class ItemWorldMap extends ItemWorldMapBase {
         }
     }
 
-    public void c(ItemStack itemstack, World world, EntityHuman entityhuman) {
+    public void d(ItemStack itemstack, World world, EntityHuman entityhuman) {
         itemstack.b(world.b("map"));
         String s = "map_" + itemstack.getData();
         WorldMap worldmap = new WorldMap(s);
@@ -226,7 +226,7 @@ public class ItemWorldMap extends ItemWorldMapBase {
         worldmap.a();
     }
 
-    public Packet b(ItemStack itemstack, World world, EntityHuman entityhuman) {
+    public Packet c(ItemStack itemstack, World world, EntityHuman entityhuman) {
         byte[] abyte = this.a(itemstack, world).a(itemstack, world, entityhuman);
 
         return abyte == null ? null : new Packet131((short) Item.MAP.id, (short) itemstack.getData(), abyte);

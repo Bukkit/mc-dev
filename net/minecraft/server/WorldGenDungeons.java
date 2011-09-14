@@ -62,7 +62,7 @@ public class WorldGenDungeons extends WorldGenerator {
 
                 while (true) {
                     if (l1 < 3) {
-                        label204: {
+                        label205: {
                             i2 = i + random.nextInt(l * 2 + 1) - l;
                             int j2 = k + random.nextInt(i1 * 2 + 1) - i1;
 
@@ -89,14 +89,16 @@ public class WorldGenDungeons extends WorldGenerator {
                                     world.setTypeId(i2, j, j2, Block.CHEST.id);
                                     TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i2, j, j2);
 
-                                    for (int l2 = 0; l2 < 8; ++l2) {
-                                        ItemStack itemstack = this.a(random);
+                                    if (tileentitychest != null) {
+                                        for (int l2 = 0; l2 < 8; ++l2) {
+                                            ItemStack itemstack = this.a(random);
 
-                                        if (itemstack != null) {
-                                            tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
+                                            if (itemstack != null) {
+                                                tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
+                                            }
                                         }
                                     }
-                                    break label204;
+                                    break label205;
                                 }
                             }
 

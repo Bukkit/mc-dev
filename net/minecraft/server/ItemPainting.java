@@ -26,17 +26,21 @@ public class ItemPainting extends Item {
                 b0 = 3;
             }
 
-            EntityPainting entitypainting = new EntityPainting(world, i, j, k, b0);
+            if (!entityhuman.c(i, j, k)) {
+                return false;
+            } else {
+                EntityPainting entitypainting = new EntityPainting(world, i, j, k, b0);
 
-            if (entitypainting.h()) {
-                if (!world.isStatic) {
-                    world.addEntity(entitypainting);
+                if (entitypainting.i()) {
+                    if (!world.isStatic) {
+                        world.addEntity(entitypainting);
+                    }
+
+                    --itemstack.count;
                 }
 
-                --itemstack.count;
+                return true;
             }
-
-            return true;
         }
     }
 }

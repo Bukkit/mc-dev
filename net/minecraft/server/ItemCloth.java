@@ -11,4 +11,8 @@ public class ItemCloth extends ItemBlock {
     public int filterData(int i) {
         return i;
     }
+
+    public String a(ItemStack itemstack) {
+        return super.b() + "." + ItemDye.a[BlockCloth.c(itemstack.getData())];
+    }
 }

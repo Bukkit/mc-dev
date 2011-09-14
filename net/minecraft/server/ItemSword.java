@@ -29,6 +29,19 @@ public class ItemSword extends Item {
         return this.a;
     }
 
+    public EnumAnimation b(ItemStack itemstack) {
+        return EnumAnimation.c;
+    }
+
+    public int c(ItemStack itemstack) {
+        return 72000;
+    }
+
+    public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
+        entityhuman.a(itemstack, this.c(itemstack));
+        return itemstack;
+    }
+
     public boolean a(Block block) {
         return block.id == Block.WEB.id;
     }

@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-public class EntityWaterAnimal extends EntityCreature implements IAnimal {
+public abstract class EntityWaterAnimal extends EntityCreature implements IAnimal {
 
     public EntityWaterAnimal(World world) {
         super(world);
@@ -24,5 +24,9 @@ public class EntityWaterAnimal extends EntityCreature implements IAnimal {
 
     public int e() {
         return 120;
+    }
+
+    protected int a(EntityHuman entityhuman) {
+        return 1 + this.world.random.nextInt(3);
     }
 }

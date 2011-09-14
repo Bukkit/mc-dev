@@ -11,7 +11,9 @@ public class TileEntity {
     public int x;
     public int y;
     public int z;
-    protected boolean h;
+    protected boolean m;
+    public int n = -1;
+    public Block o;
 
     public TileEntity() {}
 
@@ -43,7 +45,7 @@ public class TileEntity {
         }
     }
 
-    public void g_() {}
+    public void h_() {}
 
     public static TileEntity c(NBTTagCompound nbttagcompound) {
         TileEntity tileentity = null;
@@ -67,30 +69,42 @@ public class TileEntity {
         return tileentity;
     }
 
-    public int e() {
-        return this.world.getData(this.x, this.y, this.z);
+    public int j() {
+        if (this.n == -1) {
+            this.n = this.world.getData(this.x, this.y, this.z);
+        }
+
+        return this.n;
     }
 
     public void update() {
         if (this.world != null) {
+            this.n = this.world.getData(this.x, this.y, this.z);
             this.world.b(this.x, this.y, this.z, this);
         }
     }
 
-    public Packet f() {
+    public Packet l() {
         return null;
     }
 
-    public boolean g() {
-        return this.h;
+    public boolean m() {
+        return this.m;
     }
 
-    public void h() {
-        this.h = true;
+    public void i() {
+        this.m = true;
     }
 
-    public void j() {
-        this.h = false;
+    public void n() {
+        this.m = false;
+    }
+
+    public void b(int i, int j) {}
+
+    public void g() {
+        this.o = null;
+        this.n = -1;
     }
 
     static {

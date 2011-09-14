@@ -16,5 +16,9 @@ public interface IInventory {
 
     void update();
 
-    boolean a_(EntityHuman entityhuman);
+    boolean a(EntityHuman entityhuman);
+
+    void e();
+
+    void t_();
 }

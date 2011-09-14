@@ -3,17 +3,23 @@ package net.minecraft.server;
 public class NibbleArray {
 
     public final byte[] a;
+    private final int b;
+    private final int c;
 
-    public NibbleArray(int i) {
+    public NibbleArray(int i, int j) {
         this.a = new byte[i >> 1];
+        this.b = j;
+        this.c = j + 4;
     }
 
-    public NibbleArray(byte[] abyte) {
+    public NibbleArray(byte[] abyte, int i) {
         this.a = abyte;
+        this.b = i;
+        this.c = i + 4;
     }
 
     public int a(int i, int j, int k) {
-        int l = i << 11 | k << 7 | j;
+        int l = i << this.c | k << this.b | j;
         int i1 = l >> 1;
         int j1 = l & 1;
 
@@ -21,7 +27,7 @@ public class NibbleArray {
     }
 
     public void a(int i, int j, int k, int l) {
-        int i1 = i << 11 | k << 7 | j;
+        int i1 = i << this.c | k << this.b | j;
         int j1 = i1 >> 1;
         int k1 = i1 & 1;
 

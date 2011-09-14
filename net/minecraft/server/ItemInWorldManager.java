@@ -2,64 +2,99 @@ package net.minecraft.server;
 
 public class ItemInWorldManager {
 
-    private WorldServer world;
+    public World world;
     public EntityHuman player;
-    private float c = 0.0F;
+    private int c = -1;
+    private float d = 0.0F;
     private int lastDigTick;
-    private int e;
     private int f;
     private int g;
+    private int h;
     private int currentTick;
-    private boolean i;
-    private int j;
+    private boolean j;
     private int k;
     private int l;
     private int m;
+    private int n;
 
-    public ItemInWorldManager(WorldServer worldserver) {
-        this.world = worldserver;
+    public ItemInWorldManager(World world) {
+        this.world = world;
     }
 
-    public void a() {
+    public void a(int i) {
+        this.c = i;
+        if (i == 0) {
+            this.player.K.c = false;
+            this.player.K.b = false;
+            this.player.K.d = false;
+            this.player.K.a = false;
+        } else {
+            this.player.K.c = true;
+            this.player.K.d = true;
+            this.player.K.a = true;
+        }
+    }
+
+    public int a() {
+        return this.c;
+    }
+
+    public boolean b() {
+        return this.c == 1;
+    }
+
+    public void b(int i) {
+        if (this.c == -1) {
+            this.c = i;
+        }
+
+        this.a(this.c);
+    }
+
+    public void c() {
         ++this.currentTick;
-        if (this.i) {
-            int i = this.currentTick - this.m;
-            int j = this.world.getTypeId(this.j, this.k, this.l);
+        if (this.j) {
+            int i = this.currentTick - this.n;
+            int j = this.world.getTypeId(this.k, this.l, this.m);
 
             if (j != 0) {
                 Block block = Block.byId[j];
                 float f = block.getDamage(this.player) * (float) (i + 1);
 
                 if (f >= 1.0F) {
-                    this.i = false;
-                    this.c(this.j, this.k, this.l);
+                    this.j = false;
+                    this.c(this.k, this.l, this.m);
                 }
             } else {
-                this.i = false;
+                this.j = false;
             }
         }
     }
 
     public void dig(int i, int j, int k, int l) {
         this.world.douseFire((EntityHuman) null, i, j, k, l);
-        this.lastDigTick = this.currentTick;
-        int i1 = this.world.getTypeId(i, j, k);
-
-        if (i1 > 0) {
-            Block.byId[i1].b(this.world, i, j, k, this.player);
-        }
-
-        if (i1 > 0 && Block.byId[i1].getDamage(this.player) >= 1.0F) {
+        if (this.b()) {
             this.c(i, j, k);
         } else {
-            this.e = i;
-            this.f = j;
-            this.g = k;
+            this.lastDigTick = this.currentTick;
+            int i1 = this.world.getTypeId(i, j, k);
+
+            if (i1 > 0) {
+                Block.byId[i1].b(this.world, i, j, k, this.player);
+            }
+
+            if (i1 > 0 && Block.byId[i1].getDamage(this.player) >= 1.0F) {
+                this.c(i, j, k);
+            } else {
+                this.f = i;
+                this.g = j;
+                this.h = k;
+            }
         }
     }
 
     public void a(int i, int j, int k) {
-        if (i == this.e && j == this.f && k == this.g) {
+        if (i == this.f && j == this.g && k == this.h) {
             int l = this.currentTick - this.lastDigTick;
             int i1 = this.world.getTypeId(i, j, k);
 
@@ -69,17 +104,17 @@ public class ItemInWorldManager {
 
                 if (f >= 0.7F) {
                     this.c(i, j, k);
-                } else if (!this.i) {
-                    this.i = true;
-                    this.j = i;
-                    this.k = j;
-                    this.l = k;
-                    this.m = this.lastDigTick;
+                } else if (!this.j) {
+                    this.j = true;
+                    this.k = i;
+                    this.l = j;
+                    this.m = k;
+                    this.n = this.lastDigTick;
                 }
             }
         }
 
-        this.c = 0.0F;
+        this.d = 0.0F;
     }
 
     public boolean b(int i, int j, int k) {
@@ -100,19 +135,23 @@ public class ItemInWorldManager {
 
         this.world.a(this.player, 2001, i, j, k, l + this.world.getData(i, j, k) * 256);
         boolean flag = this.b(i, j, k);
-        ItemStack itemstack = this.player.G();
 
-        if (itemstack != null) {
-            itemstack.a(l, i, j, k, this.player);
-            if (itemstack.count == 0) {
-                itemstack.a(this.player);
-                this.player.H();
-            }
-        }
-
-        if (flag && this.player.b(Block.byId[l])) {
-            Block.byId[l].a(this.world, this.player, i, j, k, i1);
+        if (this.b()) {
             ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
+        } else {
+            ItemStack itemstack = this.player.K();
+
+            if (itemstack != null) {
+                itemstack.a(l, i, j, k, this.player);
+                if (itemstack.count == 0) {
+                    itemstack.a(this.player);
+                    this.player.L();
+                }
+            }
+
+            if (flag && this.player.b(Block.byId[l])) {
+                Block.byId[l].a(this.world, this.player, i, j, k, i1);
+            }
         }
 
         return flag;
@@ -120,12 +159,18 @@ public class ItemInWorldManager {
 
     public boolean useItem(EntityHuman entityhuman, World world, ItemStack itemstack) {
         int i = itemstack.count;
+        int j = itemstack.getData();
         ItemStack itemstack1 = itemstack.a(world, entityhuman);
 
-        if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.count == i)) {
+        if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.count == i) && (itemstack1 == null || itemstack1.l() <= 0)) {
             return false;
         } else {
             entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = itemstack1;
+            if (this.b()) {
+                itemstack1.count = i;
+                itemstack1.b(j);
+            }
+
             if (itemstack1.count == 0) {
                 entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = null;
             }
@@ -137,6 +182,24 @@ public class ItemInWorldManager {
     public boolean interact(EntityHuman entityhuman, World world, ItemStack itemstack, int i, int j, int k, int l) {
         int i1 = world.getTypeId(i, j, k);
 
-        return i1 > 0 && Block.byId[i1].interact(world, i, j, k, entityhuman) ? true : (itemstack == null ? false : itemstack.placeItem(entityhuman, world, i, j, k, l));
+        if (i1 > 0 && Block.byId[i1].interact(world, i, j, k, entityhuman)) {
+            return true;
+        } else if (itemstack == null) {
+            return false;
+        } else if (this.b()) {
+            int j1 = itemstack.getData();
+            int k1 = itemstack.count;
+            boolean flag = itemstack.placeItem(entityhuman, world, i, j, k, l);
+
+            itemstack.b(j1);
+            itemstack.count = k1;
+            return flag;
+        } else {
+            return itemstack.placeItem(entityhuman, world, i, j, k, l);
+        }
+    }
+
+    public void a(WorldServer worldserver) {
+        this.world = worldserver;
     }
 }

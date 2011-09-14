@@ -18,6 +18,8 @@ public class FurnaceRecipes {
         this.registerRecipe(Block.DIAMOND_ORE.id, new ItemStack(Item.DIAMOND));
         this.registerRecipe(Block.SAND.id, new ItemStack(Block.GLASS));
         this.registerRecipe(Item.PORK.id, new ItemStack(Item.GRILLED_PORK));
+        this.registerRecipe(Item.RAW_BEEF.id, new ItemStack(Item.COOKED_BEEF));
+        this.registerRecipe(Item.RAW_CHICKEN.id, new ItemStack(Item.COOKED_CHICKEN));
         this.registerRecipe(Item.RAW_FISH.id, new ItemStack(Item.COOKED_FISH));
         this.registerRecipe(Block.COBBLESTONE.id, new ItemStack(Block.STONE));
         this.registerRecipe(Item.CLAY_BALL.id, new ItemStack(Item.CLAY_BRICK));

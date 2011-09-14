@@ -58,11 +58,15 @@ public class Vec3D {
         return d0 < 1.0E-4D ? create(0.0D, 0.0D, 0.0D) : create(this.a / d0, this.b / d0, this.c / d0);
     }
 
+    public double a(Vec3D vec3d) {
+        return this.a * vec3d.a + this.b * vec3d.b + this.c * vec3d.c;
+    }
+
     public Vec3D add(double d0, double d1, double d2) {
         return create(this.a + d0, this.b + d1, this.c + d2);
     }
 
-    public double a(Vec3D vec3d) {
+    public double b(Vec3D vec3d) {
         double d0 = vec3d.a - this.a;
         double d1 = vec3d.b - this.b;
         double d2 = vec3d.c - this.c;
@@ -70,7 +74,7 @@ public class Vec3D {
         return (double) MathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);
     }
 
-    public double b(Vec3D vec3d) {
+    public double c(Vec3D vec3d) {
         double d0 = vec3d.a - this.a;
         double d1 = vec3d.b - this.b;
         double d2 = vec3d.c - this.c;
@@ -134,5 +138,29 @@ public class Vec3D {
 
     public String toString() {
         return "(" + this.a + ", " + this.b + ", " + this.c + ")";
+    }
+
+    public void a(float f) {
+        float f1 = MathHelper.cos(f);
+        float f2 = MathHelper.sin(f);
+        double d0 = this.a;
+        double d1 = this.b * (double) f1 + this.c * (double) f2;
+        double d2 = this.c * (double) f1 - this.b * (double) f2;
+
+        this.a = d0;
+        this.b = d1;
+        this.c = d2;
+    }
+
+    public void b(float f) {
+        float f1 = MathHelper.cos(f);
+        float f2 = MathHelper.sin(f);
+        double d0 = this.a * (double) f1 + this.c * (double) f2;
+        double d1 = this.b;
+        double d2 = this.c * (double) f1 - this.a * (double) f2;
+
+        this.a = d0;
+        this.b = d1;
+        this.c = d2;
     }
 }

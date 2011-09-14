@@ -207,4 +207,36 @@ public abstract class NetHandler {
     public void a(Packet61 packet61) {
         this.a((Packet) packet61);
     }
+
+    public void a(Packet254GetInfo packet254getinfo) {
+        this.a((Packet) packet254getinfo);
+    }
+
+    public void a(Packet41MobEffect packet41mobeffect) {
+        this.a((Packet) packet41mobeffect);
+    }
+
+    public void a(Packet42RemoveMobEffect packet42removemobeffect) {
+        this.a((Packet) packet42removemobeffect);
+    }
+
+    public void a(Packet201PlayerInfo packet201playerinfo) {
+        this.a((Packet) packet201playerinfo);
+    }
+
+    public void a(Packet0KeepAlive packet0keepalive) {
+        this.a((Packet) packet0keepalive);
+    }
+
+    public void a(Packet43SetExperience packet43setexperience) {
+        this.a((Packet) packet43setexperience);
+    }
+
+    public void a(Packet107SetCreativeSlot packet107setcreativeslot) {
+        this.a((Packet) packet107setcreativeslot);
+    }
+
+    public void a(Packet26AddExpOrb packet26addexporb) {
+        this.a((Packet) packet26addexporb);
+    }
 }

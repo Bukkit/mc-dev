@@ -66,9 +66,10 @@ public class EntityTypes {
     }
 
     static {
+        a(EntityItem.class, "Item", 1);
+        a(EntityExperienceOrb.class, "XPOrb", 2);
         a(EntityArrow.class, "Arrow", 10);
         a(EntitySnowball.class, "Snowball", 11);
-        a(EntityItem.class, "Item", 1);
         a(EntityPainting.class, "Painting", 9);
         a(EntityLiving.class, "Mob", 48);
         a(EntityMonster.class, "Monster", 49);
@@ -80,6 +81,9 @@ public class EntityTypes {
         a(EntitySlime.class, "Slime", 55);
         a(EntityGhast.class, "Ghast", 56);
         a(EntityPigZombie.class, "PigZombie", 57);
+        a(EntityEnderman.class, "Enderman", 58);
+        a(EntityCaveSpider.class, "CaveSpider", 59);
+        a(EntitySilverfish.class, "Silverfish", 60);
         a(EntityPig.class, "Pig", 90);
         a(EntitySheep.class, "Sheep", 91);
         a(EntityCow.class, "Cow", 92);

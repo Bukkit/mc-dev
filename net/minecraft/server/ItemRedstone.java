@@ -37,11 +37,15 @@ public class ItemRedstone extends Item {
             }
         }
 
-        if (Block.REDSTONE_WIRE.canPlace(world, i, j, k)) {
-            --itemstack.count;
-            world.setTypeId(i, j, k, Block.REDSTONE_WIRE.id);
-        }
+        if (!entityhuman.c(i, j, k)) {
+            return false;
+        } else {
+            if (Block.REDSTONE_WIRE.canPlace(world, i, j, k)) {
+                --itemstack.count;
+                world.setTypeId(i, j, k, Block.REDSTONE_WIRE.id);
+            }
 
-        return true;
+            return true;
+        }
     }
 }

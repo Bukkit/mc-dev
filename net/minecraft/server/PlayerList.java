@@ -10,7 +10,7 @@ public class PlayerList {
 
     public PlayerList() {}
 
-    private static int e(long i) {
+    private static int g(long i) {
         return a((int) (i ^ i >>> 32));
     }
 
@@ -24,7 +24,7 @@ public class PlayerList {
     }
 
     public Object a(long i) {
-        int j = e(i);
+        int j = g(i);
 
         for (PlayerListEntry playerlistentry = this.a[a(j, this.a.length)]; playerlistentry != null; playerlistentry = playerlistentry.c) {
             if (playerlistentry.a == i) {
@@ -35,8 +35,24 @@ public class PlayerList {
         return null;
     }
 
+    public boolean b(long i) {
+        return this.c(i) != null;
+    }
+
+    final PlayerListEntry c(long i) {
+        int j = g(i);
+
+        for (PlayerListEntry playerlistentry = this.a[a(j, this.a.length)]; playerlistentry != null; playerlistentry = playerlistentry.c) {
+            if (playerlistentry.a == i) {
+                return playerlistentry;
+            }
+        }
+
+        return null;
+    }
+
     public void a(long i, Object object) {
-        int j = e(i);
+        int j = g(i);
         int k = a(j, this.a.length);
 
         for (PlayerListEntry playerlistentry = this.a[k]; playerlistentry != null; playerlistentry = playerlistentry.c) {
@@ -88,14 +104,14 @@ public class PlayerList {
         }
     }
 
-    public Object b(long i) {
-        PlayerListEntry playerlistentry = this.c(i);
+    public Object d(long i) {
+        PlayerListEntry playerlistentry = this.e(i);
 
         return playerlistentry == null ? null : playerlistentry.b;
     }
 
-    final PlayerListEntry c(long i) {
-        int j = e(i);
+    final PlayerListEntry e(long i) {
+        int j = g(i);
         int k = a(j, this.a.length);
         PlayerListEntry playerlistentry = this.a[k];
 
@@ -131,7 +147,7 @@ public class PlayerList {
         }
     }
 
-    static int d(long i) {
-        return e(i);
+    static int f(long i) {
+        return g(i);
     }
 }

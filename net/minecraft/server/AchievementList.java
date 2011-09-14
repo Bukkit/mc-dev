@@ -26,6 +26,7 @@ public class AchievementList {
     public static Achievement s = (new Achievement(13, "killEnemy", 8, -1, Item.BONE, r)).c();
     public static Achievement t = (new Achievement(14, "killCow", 7, -3, Item.LEATHER, r)).c();
     public static Achievement u = (new Achievement(15, "flyPig", 8, -4, Item.SADDLE, t)).b().c();
+    public static Achievement v = (new Achievement(16, "snipeSkeleton", 7, 0, Item.BOW, s)).b().c();
 
     public AchievementList() {}
 

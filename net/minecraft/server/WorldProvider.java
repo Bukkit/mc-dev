@@ -20,7 +20,7 @@ public abstract class WorldProvider {
     }
 
     protected void c() {
-        float f = 0.05F;
+        float f = 0.0F;
 
         for (int i = 0; i <= 15; ++i) {
             float f1 = 1.0F - (float) i / 15.0F;
@@ -34,13 +34,13 @@ public abstract class WorldProvider {
     }
 
     public IChunkProvider getChunkProvider() {
-        return new ChunkProviderGenerate(this.a, this.a.getSeed());
+        return new ChunkProviderGenerate(this.a, this.a.getSeed(), this.a.p().o());
     }
 
     public boolean canSpawn(int i, int j) {
         int k = this.a.a(i, j);
 
-        return k == Block.SAND.id;
+        return k == Block.GRASS.id;
     }
 
     public float a(long i, float f) {

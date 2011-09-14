@@ -1,0 +1,65 @@
+package net.minecraft.server;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class BiomeCache {
+
+    private final WorldChunkManager a;
+    private long b = 0L;
+    private PlayerList c = new PlayerList();
+    private List d = new ArrayList();
+
+    public BiomeCache(WorldChunkManager worldchunkmanager) {
+        this.a = worldchunkmanager;
+    }
+
+    private BiomeCacheBlock c(int i, int j) {
+        i >>= 4;
+        j >>= 4;
+        long k = (long) i & 4294967295L | ((long) j & 4294967295L) << 32;
+        BiomeCacheBlock biomecacheblock = (BiomeCacheBlock) this.c.a(k);
+
+        if (biomecacheblock == null) {
+            biomecacheblock = new BiomeCacheBlock(this, i, j);
+            this.c.a(k, biomecacheblock);
+            this.d.add(biomecacheblock);
+        }
+
+        biomecacheblock.f = System.currentTimeMillis();
+        return biomecacheblock;
+    }
+
+    public BiomeBase a(int i, int j) {
+        return this.c(i, j).a(i, j);
+    }
+
+    public void a() {
+        long i = System.currentTimeMillis();
+        long j = i - this.b;
+
+        if (j > 7500L || j < 0L) {
+            this.b = i;
+
+            for (int k = 0; k < this.d.size(); ++k) {
+                BiomeCacheBlock biomecacheblock = (BiomeCacheBlock) this.d.get(k);
+                long l = i - biomecacheblock.f;
+
+                if (l > 30000L || l < 0L) {
+                    this.d.remove(k--);
+                    long i1 = (long) biomecacheblock.d & 4294967295L | ((long) biomecacheblock.e & 4294967295L) << 32;
+
+                    this.c.d(i1);
+                }
+            }
+        }
+    }
+
+    public BiomeBase[] b(int i, int j) {
+        return this.c(i, j).c;
+    }
+
+    static WorldChunkManager a(BiomeCache biomecache) {
+        return biomecache.a;
+    }
+}

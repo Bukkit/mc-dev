@@ -12,7 +12,7 @@ public class EntityFallingSand extends Entity {
     public EntityFallingSand(World world, double d0, double d1, double d2, int i) {
         super(world);
         this.a = i;
-        this.aI = true;
+        this.aY = true;
         this.b(0.98F, 0.98F);
         this.height = this.width / 2.0F;
         this.setPosition(d0, d1, d2);
@@ -24,17 +24,17 @@ public class EntityFallingSand extends Entity {
         this.lastZ = d2;
     }
 
-    protected boolean n() {
+    protected boolean e_() {
         return false;
     }
 
     protected void b() {}
 
-    public boolean l_() {
+    public boolean r_() {
         return !this.dead;
     }
 
-    public void m_() {
+    public void s_() {
         if (this.a == 0) {
             this.die();
         } else {
@@ -60,7 +60,7 @@ public class EntityFallingSand extends Entity {
                 this.motZ *= 0.699999988079071D;
                 this.motY *= -0.5D;
                 this.die();
-                if ((!this.world.a(this.a, i, j, k, true, 1) || BlockSand.c_(this.world, i, j - 1, k) || !this.world.setTypeId(i, j, k, this.a)) && !this.world.isStatic) {
+                if ((!this.world.a(this.a, i, j, k, true, 1) || BlockSand.d_(this.world, i, j - 1, k) || !this.world.setTypeId(i, j, k, this.a)) && !this.world.isStatic) {
                     this.b(this.a, 1);
                 }
             } else if (this.b > 100 && !this.world.isStatic) {

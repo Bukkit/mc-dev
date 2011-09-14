@@ -1,39 +1,45 @@
 package net.minecraft.server;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class WorldChunkManagerHell extends WorldChunkManager {
 
-    private BiomeBase e;
-    private double f;
-    private double g;
+    private BiomeBase a;
+    private float b;
+    private float c;
 
-    public WorldChunkManagerHell(BiomeBase biomebase, double d0, double d1) {
-        this.e = biomebase;
-        this.f = d0;
-        this.g = d1;
+    public WorldChunkManagerHell(BiomeBase biomebase, float f, float f1) {
+        this.a = biomebase;
+        this.b = f;
+        this.c = f1;
     }
 
     public BiomeBase a(ChunkCoordIntPair chunkcoordintpair) {
-        return this.e;
+        return this.a;
     }
 
     public BiomeBase getBiome(int i, int j) {
-        return this.e;
+        return this.a;
     }
 
-    public BiomeBase[] getBiomeData(int i, int j, int k, int l) {
-        this.d = this.a(this.d, i, j, k, l);
-        return this.d;
-    }
-
-    public double[] a(double[] adouble, int i, int j, int k, int l) {
-        if (adouble == null || adouble.length < k * l) {
-            adouble = new double[k * l];
+    public float[] a(float[] afloat, int i, int j, int k, int l) {
+        if (afloat == null || afloat.length < k * l) {
+            afloat = new float[k * l];
         }
 
-        Arrays.fill(adouble, 0, k * l, this.f);
-        return adouble;
+        Arrays.fill(afloat, 0, k * l, this.b);
+        return afloat;
+    }
+
+    public float[] b(float[] afloat, int i, int j, int k, int l) {
+        if (afloat == null || afloat.length < k * l) {
+            afloat = new float[k * l];
+        }
+
+        Arrays.fill(afloat, 0, k * l, this.c);
+        return afloat;
     }
 
     public BiomeBase[] a(BiomeBase[] abiomebase, int i, int j, int k, int l) {
@@ -41,14 +47,15 @@ public class WorldChunkManagerHell extends WorldChunkManager {
             abiomebase = new BiomeBase[k * l];
         }
 
-        if (this.temperature == null || this.temperature.length < k * l) {
-            this.temperature = new double[k * l];
-            this.rain = new double[k * l];
-        }
-
-        Arrays.fill(abiomebase, 0, k * l, this.e);
-        Arrays.fill(this.rain, 0, k * l, this.g);
-        Arrays.fill(this.temperature, 0, k * l, this.f);
+        Arrays.fill(abiomebase, 0, k * l, this.a);
         return abiomebase;
+    }
+
+    public ChunkPosition a(int i, int j, int k, List list, Random random) {
+        return list.contains(this.a) ? new ChunkPosition(i - k + random.nextInt(k * 2 + 1), 0, j - k + random.nextInt(k * 2 + 1)) : null;
+    }
+
+    public boolean a(int i, int j, int k, List list) {
+        return list.contains(this.a);
     }
 }

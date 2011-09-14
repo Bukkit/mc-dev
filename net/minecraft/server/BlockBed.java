@@ -58,7 +58,7 @@ public class BlockBed extends Block {
                         EntityHuman entityhuman2 = (EntityHuman) iterator.next();
 
                         if (entityhuman2.isSleeping()) {
-                            ChunkCoordinates chunkcoordinates = entityhuman2.A;
+                            ChunkCoordinates chunkcoordinates = entityhuman2.E;
 
                             if (chunkcoordinates.x == i && chunkcoordinates.y == j && chunkcoordinates.z == k) {
                                 entityhuman1 = entityhuman2;
@@ -95,7 +95,7 @@ public class BlockBed extends Block {
             return Block.WOOD.textureId;
         } else {
             int k = c(j);
-            int l = BedBlockTextures.c[k][i];
+            int l = Direction.h[k][i];
 
             return d(j) ? (l == 2 ? this.textureId + 2 + 16 : (l != 5 && l != 4 ? this.textureId + 1 : this.textureId + 1 + 16)) : (l == 3 ? this.textureId - 1 + 16 : (l != 5 && l != 4 ? this.textureId : this.textureId + 16));
         }

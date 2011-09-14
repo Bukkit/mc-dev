@@ -22,6 +22,7 @@ public class BlockFire extends Block {
         this.a(Block.TNT.id, 15, 100);
         this.a(Block.LONG_GRASS.id, 60, 100);
         this.a(Block.WOOL.id, 30, 60);
+        this.a(Block.VINE.id, 15, 100);
     }
 
     private void a(int i, int j, int k) {
@@ -56,7 +57,7 @@ public class BlockFire extends Block {
             world.setTypeId(i, j, k, 0);
         }
 
-        if (!flag && world.v() && (world.s(i, j, k) || world.s(i - 1, j, k) || world.s(i + 1, j, k) || world.s(i, j, k - 1) || world.s(i, j, k + 1))) {
+        if (!flag && world.u() && (world.s(i, j, k) || world.s(i - 1, j, k) || world.s(i + 1, j, k) || world.s(i, j, k - 1) || world.s(i, j, k + 1))) {
             world.setTypeId(i, j, k, 0);
         } else {
             int l = world.getData(i, j, k);
@@ -95,7 +96,7 @@ public class BlockFire extends Block {
                                 if (i2 > 0) {
                                     int j2 = (i2 + 40) / (l + 30);
 
-                                    if (j2 > 0 && random.nextInt(l1) <= j2 && (!world.v() || !world.s(i1, k1, j1)) && !world.s(i1 - 1, k1, k) && !world.s(i1 + 1, k1, j1) && !world.s(i1, k1, j1 - 1) && !world.s(i1, k1, j1 + 1)) {
+                                    if (j2 > 0 && random.nextInt(l1) <= j2 && (!world.u() || !world.s(i1, k1, j1)) && !world.s(i1 - 1, k1, k) && !world.s(i1 + 1, k1, j1) && !world.s(i1, k1, j1 - 1) && !world.s(i1, k1, j1 + 1)) {
                                         int k2 = l + random.nextInt(5) / 4;
 
                                         if (k2 > 15) {
@@ -158,7 +159,7 @@ public class BlockFire extends Block {
         }
     }
 
-    public boolean k_() {
+    public boolean q_() {
         return false;
     }
 
@@ -182,8 +183,8 @@ public class BlockFire extends Block {
         }
     }
 
-    public void c(World world, int i, int j, int k) {
-        if (world.getTypeId(i, j - 1, k) != Block.OBSIDIAN.id || !Block.PORTAL.a_(world, i, j, k)) {
+    public void a(World world, int i, int j, int k) {
+        if (world.getTypeId(i, j - 1, k) != Block.OBSIDIAN.id || !Block.PORTAL.b_(world, i, j, k)) {
             if (!world.e(i, j - 1, k) && !this.g(world, i, j, k)) {
                 world.setTypeId(i, j, k, 0);
             } else {

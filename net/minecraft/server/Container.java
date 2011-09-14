@@ -17,7 +17,7 @@ public abstract class Container {
     public Container() {}
 
     protected void a(Slot slot) {
-        slot.a = this.e.size();
+        slot.b = this.e.size();
         this.e.add(slot);
         this.d.add(null);
     }
@@ -83,128 +83,139 @@ public abstract class Container {
     public ItemStack a(int i, int j, boolean flag, EntityHuman entityhuman) {
         ItemStack itemstack = null;
 
-        if (j == 0 || j == 1) {
-            InventoryPlayer inventoryplayer = entityhuman.inventory;
+        if (j > 1) {
+            return null;
+        } else {
+            if (j == 0 || j == 1) {
+                InventoryPlayer inventoryplayer = entityhuman.inventory;
 
-            if (i == -999) {
-                if (inventoryplayer.j() != null && i == -999) {
-                    if (j == 0) {
-                        entityhuman.b(inventoryplayer.j());
-                        inventoryplayer.b((ItemStack) null);
-                    }
-
-                    if (j == 1) {
-                        entityhuman.b(inventoryplayer.j().a(1));
-                        if (inventoryplayer.j().count == 0) {
+                if (i == -999) {
+                    if (inventoryplayer.l() != null && i == -999) {
+                        if (j == 0) {
+                            entityhuman.b(inventoryplayer.l());
                             inventoryplayer.b((ItemStack) null);
                         }
-                    }
-                }
-            } else {
-                int k;
 
-                if (flag) {
+                        if (j == 1) {
+                            entityhuman.b(inventoryplayer.l().a(1));
+                            if (inventoryplayer.l().count == 0) {
+                                inventoryplayer.b((ItemStack) null);
+                            }
+                        }
+                    }
+                } else if (flag) {
                     ItemStack itemstack1 = this.a(i);
 
                     if (itemstack1 != null) {
-                        int l = itemstack1.count;
+                        int k = itemstack1.id;
 
                         itemstack = itemstack1.cloneItemStack();
                         Slot slot = (Slot) this.e.get(i);
 
-                        if (slot != null && slot.getItem() != null) {
-                            k = slot.getItem().count;
-                            if (k < l) {
-                                this.a(i, j, flag, entityhuman);
-                            }
+                        if (slot != null && slot.getItem() != null && slot.getItem().id == k) {
+                            this.b(i, j, flag, entityhuman);
                         }
                     }
                 } else {
+                    if (i < 0) {
+                        return null;
+                    }
+
                     Slot slot1 = (Slot) this.e.get(i);
 
                     if (slot1 != null) {
                         slot1.c();
                         ItemStack itemstack2 = slot1.getItem();
-                        ItemStack itemstack3 = inventoryplayer.j();
+                        ItemStack itemstack3 = inventoryplayer.l();
 
                         if (itemstack2 != null) {
                             itemstack = itemstack2.cloneItemStack();
                         }
 
+                        int l;
+
                         if (itemstack2 == null) {
                             if (itemstack3 != null && slot1.isAllowed(itemstack3)) {
-                                k = j == 0 ? itemstack3.count : 1;
-                                if (k > slot1.d()) {
-                                    k = slot1.d();
+                                l = j == 0 ? itemstack3.count : 1;
+                                if (l > slot1.d()) {
+                                    l = slot1.d();
                                 }
 
-                                slot1.c(itemstack3.a(k));
+                                slot1.c(itemstack3.a(l));
                                 if (itemstack3.count == 0) {
                                     inventoryplayer.b((ItemStack) null);
                                 }
                             }
                         } else if (itemstack3 == null) {
-                            k = j == 0 ? itemstack2.count : (itemstack2.count + 1) / 2;
-                            ItemStack itemstack4 = slot1.a(k);
+                            l = j == 0 ? itemstack2.count : (itemstack2.count + 1) / 2;
+                            ItemStack itemstack4 = slot1.a(l);
 
                             inventoryplayer.b(itemstack4);
                             if (itemstack2.count == 0) {
                                 slot1.c((ItemStack) null);
                             }
 
-                            slot1.a(inventoryplayer.j());
+                            slot1.a(inventoryplayer.l());
                         } else if (slot1.isAllowed(itemstack3)) {
                             if (itemstack2.id == itemstack3.id && (!itemstack2.usesData() || itemstack2.getData() == itemstack3.getData())) {
-                                k = j == 0 ? itemstack3.count : 1;
-                                if (k > slot1.d() - itemstack2.count) {
-                                    k = slot1.d() - itemstack2.count;
+                                l = j == 0 ? itemstack3.count : 1;
+                                if (l > slot1.d() - itemstack2.count) {
+                                    l = slot1.d() - itemstack2.count;
                                 }
 
-                                if (k > itemstack3.getMaxStackSize() - itemstack2.count) {
-                                    k = itemstack3.getMaxStackSize() - itemstack2.count;
+                                if (l > itemstack3.getMaxStackSize() - itemstack2.count) {
+                                    l = itemstack3.getMaxStackSize() - itemstack2.count;
                                 }
 
-                                itemstack3.a(k);
+                                itemstack3.a(l);
                                 if (itemstack3.count == 0) {
                                     inventoryplayer.b((ItemStack) null);
                                 }
 
-                                itemstack2.count += k;
+                                itemstack2.count += l;
                             } else if (itemstack3.count <= slot1.d()) {
                                 slot1.c(itemstack3);
                                 inventoryplayer.b(itemstack2);
                             }
                         } else if (itemstack2.id == itemstack3.id && itemstack3.getMaxStackSize() > 1 && (!itemstack2.usesData() || itemstack2.getData() == itemstack3.getData())) {
-                            k = itemstack2.count;
-                            if (k > 0 && k + itemstack3.count <= itemstack3.getMaxStackSize()) {
-                                itemstack3.count += k;
-                                itemstack2.a(k);
+                            l = itemstack2.count;
+                            if (l > 0 && l + itemstack3.count <= itemstack3.getMaxStackSize()) {
+                                itemstack3.count += l;
+                                itemstack2.a(l);
                                 if (itemstack2.count == 0) {
                                     slot1.c((ItemStack) null);
                                 }
 
-                                slot1.a(inventoryplayer.j());
+                                slot1.a(inventoryplayer.l());
                             }
                         }
                     }
                 }
             }
-        }
 
-        return itemstack;
+            return itemstack;
+        }
+    }
+
+    protected void b(int i, int j, boolean flag, EntityHuman entityhuman) {
+        this.a(i, j, flag, entityhuman);
     }
 
     public void a(EntityHuman entityhuman) {
         InventoryPlayer inventoryplayer = entityhuman.inventory;
 
-        if (inventoryplayer.j() != null) {
-            entityhuman.b(inventoryplayer.j());
+        if (inventoryplayer.l() != null) {
+            entityhuman.b(inventoryplayer.l());
             inventoryplayer.b((ItemStack) null);
         }
     }
 
     public void a(IInventory iinventory) {
         this.a();
+    }
+
+    public void a(int i, ItemStack itemstack) {
+        this.b(i).c(itemstack);
     }
 
     public boolean c(EntityHuman entityhuman) {

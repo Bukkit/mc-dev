@@ -8,6 +8,14 @@ public class InventoryLargeChest implements IInventory {
 
     public InventoryLargeChest(String s, IInventory iinventory, IInventory iinventory1) {
         this.a = s;
+        if (iinventory == null) {
+            iinventory = iinventory1;
+        }
+
+        if (iinventory1 == null) {
+            iinventory1 = iinventory;
+        }
+
         this.b = iinventory;
         this.c = iinventory1;
     }
@@ -45,7 +53,17 @@ public class InventoryLargeChest implements IInventory {
         this.c.update();
     }
 
-    public boolean a_(EntityHuman entityhuman) {
-        return this.b.a_(entityhuman) && this.c.a_(entityhuman);
+    public boolean a(EntityHuman entityhuman) {
+        return this.b.a(entityhuman) && this.c.a(entityhuman);
+    }
+
+    public void e() {
+        this.b.e();
+        this.c.e();
+    }
+
+    public void t_() {
+        this.b.t_();
+        this.c.t_();
     }
 }

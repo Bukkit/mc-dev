@@ -2,10 +2,8 @@ package net.minecraft.server;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class ChunkProviderLoadOrGenerate implements IChunkProvider {
@@ -14,29 +12,51 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     private Chunk b;
     private IChunkProvider c;
     private IChunkLoader d;
-    private Map e = new HashMap();
+    private PlayerList e = new PlayerList();
     private List f = new ArrayList();
     private World g;
+    private int h;
 
     public ChunkProviderLoadOrGenerate(World world, IChunkLoader ichunkloader, IChunkProvider ichunkprovider) {
-        this.b = new EmptyChunk(world, new byte['\u8000'], 0, 0);
+
+        world.getClass();
+        EmptyChunk emptychunk = new EmptyChunk(world, new byte[256 * 128], 0, 0);
+
+        this.b = emptychunk;
         this.g = world;
         this.d = ichunkloader;
         this.c = ichunkprovider;
     }
 
     public boolean isChunkLoaded(int i, int j) {
-        return this.e.containsKey(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
+        return this.e.b(ChunkCoordIntPair.a(i, j));
+    }
+
+    public void d(int i, int j) {
+        ChunkCoordinates chunkcoordinates = this.g.getSpawn();
+        int k = i * 16 + 8 - chunkcoordinates.x;
+        int l = j * 16 + 8 - chunkcoordinates.z;
+        short short1 = 128;
+
+        if (k < -short1 || k > short1 || l < -short1 || l > short1) {
+            this.a.add(Long.valueOf(ChunkCoordIntPair.a(i, j)));
+        }
     }
 
     public Chunk getChunkAt(int i, int j) {
-        int k = ChunkCoordIntPair.a(i, j);
+        long k = ChunkCoordIntPair.a(i, j);
 
-        this.a.remove(Integer.valueOf(k));
-        Chunk chunk = (Chunk) this.e.get(Integer.valueOf(k));
+        this.a.remove(Long.valueOf(k));
+        Chunk chunk = (Chunk) this.e.a(k);
 
         if (chunk == null) {
-            chunk = this.d(i, j);
+            int l = 1875004;
+
+            if (i < -l || j < -l || i >= l || j >= l) {
+                return this.b;
+            }
+
+            chunk = this.e(i, j);
             if (chunk == null) {
                 if (this.c == null) {
                     chunk = this.b;
@@ -45,40 +65,26 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                 }
             }
 
-            this.e.put(Integer.valueOf(k), chunk);
+            this.e.a(k, chunk);
             this.f.add(chunk);
             if (chunk != null) {
                 chunk.loadNOP();
                 chunk.addEntities();
             }
 
-            if (!chunk.done && this.isChunkLoaded(i + 1, j + 1) && this.isChunkLoaded(i, j + 1) && this.isChunkLoaded(i + 1, j)) {
-                this.getChunkAt(this, i, j);
-            }
-
-            if (this.isChunkLoaded(i - 1, j) && !this.getOrCreateChunk(i - 1, j).done && this.isChunkLoaded(i - 1, j + 1) && this.isChunkLoaded(i, j + 1) && this.isChunkLoaded(i - 1, j)) {
-                this.getChunkAt(this, i - 1, j);
-            }
-
-            if (this.isChunkLoaded(i, j - 1) && !this.getOrCreateChunk(i, j - 1).done && this.isChunkLoaded(i + 1, j - 1) && this.isChunkLoaded(i, j - 1) && this.isChunkLoaded(i + 1, j)) {
-                this.getChunkAt(this, i, j - 1);
-            }
-
-            if (this.isChunkLoaded(i - 1, j - 1) && !this.getOrCreateChunk(i - 1, j - 1).done && this.isChunkLoaded(i - 1, j - 1) && this.isChunkLoaded(i, j - 1) && this.isChunkLoaded(i - 1, j)) {
-                this.getChunkAt(this, i - 1, j - 1);
-            }
+            chunk.a(this, this, i, j);
         }
 
         return chunk;
     }
 
     public Chunk getOrCreateChunk(int i, int j) {
-        Chunk chunk = (Chunk) this.e.get(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
+        Chunk chunk = (Chunk) this.e.a(ChunkCoordIntPair.a(i, j));
 
         return chunk == null ? this.getChunkAt(i, j) : chunk;
     }
 
-    private Chunk d(int i, int j) {
+    private Chunk e(int i, int j) {
         if (this.d == null) {
             return null;
         } else {
@@ -86,7 +92,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                 Chunk chunk = this.d.a(this.g, i, j);
 
                 if (chunk != null) {
-                    chunk.r = this.g.getTime();
+                    chunk.t = this.g.getTime();
                 }
 
                 return chunk;
@@ -110,7 +116,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     private void b(Chunk chunk) {
         if (this.d != null) {
             try {
-                chunk.r = this.g.getTime();
+                chunk.t = this.g.getTime();
                 this.d.a(this.g, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
@@ -136,13 +142,13 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         for (int j = 0; j < this.f.size(); ++j) {
             Chunk chunk = (Chunk) this.f.get(j);
 
-            if (flag && !chunk.p) {
+            if (flag && !chunk.r) {
                 this.a(chunk);
             }
 
             if (chunk.a(flag)) {
                 this.b(chunk);
-                chunk.o = false;
+                chunk.q = false;
                 ++i;
                 if (i == 24 && !flag) {
                     return false;
@@ -162,17 +168,33 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     }
 
     public boolean unloadChunks() {
-        for (int i = 0; i < 100; ++i) {
+        int i;
+
+        for (i = 0; i < 100; ++i) {
             if (!this.a.isEmpty()) {
-                Integer integer = (Integer) this.a.iterator().next();
-                Chunk chunk = (Chunk) this.e.get(integer);
+                Long olong = (Long) this.a.iterator().next();
+                Chunk chunk = (Chunk) this.e.a(olong.longValue());
 
                 chunk.removeEntities();
                 this.b(chunk);
                 this.a(chunk);
-                this.a.remove(integer);
-                this.e.remove(integer);
+                this.a.remove(olong);
+                this.e.d(olong.longValue());
                 this.f.remove(chunk);
+            }
+        }
+
+        for (i = 0; i < 10; ++i) {
+            if (this.h >= this.f.size()) {
+                this.h = 0;
+                break;
+            }
+
+            Chunk chunk1 = (Chunk) this.f.get(this.h++);
+            EntityHuman entityhuman = this.g.a((double) (chunk1.x << 4) + 8.0D, 64.0D, (double) (chunk1.z << 4) + 8.0D, 288.0D);
+
+            if (entityhuman == null) {
+                this.d(chunk1.x, chunk1.z);
             }
         }
 

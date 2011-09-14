@@ -41,6 +41,10 @@ public class ItemBucket extends Item {
                 }
 
                 if (this.a == 0) {
+                    if (!entityhuman.c(i, j, k)) {
+                        return itemstack;
+                    }
+
                     if (world.getMaterial(i, j, k) == Material.WATER && world.getData(i, j, k) == 0) {
                         world.setTypeId(i, j, k, 0);
                         return new ItemStack(Item.WATER_BUCKET);
@@ -79,6 +83,10 @@ public class ItemBucket extends Item {
                         ++i;
                     }
 
+                    if (!entityhuman.c(i, j, k)) {
+                        return itemstack;
+                    }
+
                     if (world.isEmpty(i, j, k) || !world.getMaterial(i, j, k).isBuildable()) {
                         if (world.worldProvider.d && this.a == Block.WATER.id) {
                             world.makeSound(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D, "random.fizz", 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
@@ -88,6 +96,10 @@ public class ItemBucket extends Item {
                             }
                         } else {
                             world.setTypeIdAndData(i, j, k, this.a, 0);
+                        }
+
+                        if (entityhuman.K.d) {
+                            return itemstack;
                         }
 
                         return new ItemStack(Item.BUCKET);

@@ -9,17 +9,17 @@ public class BlockPistonMoving extends BlockContainer {
         this.c(-1.0F);
     }
 
-    protected TileEntity a_() {
+    public TileEntity a_() {
         return null;
     }
 
-    public void c(World world, int i, int j, int k) {}
+    public void a(World world, int i, int j, int k) {}
 
     public void remove(World world, int i, int j, int k) {
         TileEntity tileentity = world.getTileEntity(i, j, k);
 
         if (tileentity != null && tileentity instanceof TileEntityPiston) {
-            ((TileEntityPiston) tileentity).k();
+            ((TileEntityPiston) tileentity).e();
         } else {
             super.remove(world, i, j, k);
         }
@@ -59,7 +59,7 @@ public class BlockPistonMoving extends BlockContainer {
             TileEntityPiston tileentitypiston = this.b(world, i, j, k);
 
             if (tileentitypiston != null) {
-                Block.byId[tileentitypiston.a()].g(world, i, j, k, tileentitypiston.e());
+                Block.byId[tileentitypiston.a()].g(world, i, j, k, tileentitypiston.j());
             }
         }
     }

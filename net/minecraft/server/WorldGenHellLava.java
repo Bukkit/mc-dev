@@ -62,9 +62,9 @@ public class WorldGenHellLava extends WorldGenerator {
 
             if (l == 4 && i1 == 1) {
                 world.setTypeId(i, j, k, this.a);
-                world.a = true;
+                world.f = true;
                 Block.byId[this.a].a(world, i, j, k, random);
-                world.a = false;
+                world.f = false;
             }
 
             return true;

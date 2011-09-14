@@ -33,14 +33,18 @@ public class ItemFlintAndSteel extends Item {
             ++i;
         }
 
-        int i1 = world.getTypeId(i, j, k);
+        if (!entityhuman.c(i, j, k)) {
+            return false;
+        } else {
+            int i1 = world.getTypeId(i, j, k);
 
-        if (i1 == 0) {
-            world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, b.nextFloat() * 0.4F + 0.8F);
-            world.setTypeId(i, j, k, Block.FIRE.id);
+            if (i1 == 0) {
+                world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, b.nextFloat() * 0.4F + 0.8F);
+                world.setTypeId(i, j, k, Block.FIRE.id);
+            }
+
+            itemstack.damage(1, entityhuman);
+            return true;
         }
-
-        itemstack.damage(1, entityhuman);
-        return true;
     }
 }

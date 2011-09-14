@@ -29,6 +29,7 @@ public class ServerConfigurationManager {
     private File m;
     private PlayerFileData playerFileData;
     private boolean o;
+    private int p = 0;
 
     public ServerConfigurationManager(MinecraftServer minecraftserver) {
         this.server = minecraftserver;
@@ -42,18 +43,18 @@ public class ServerConfigurationManager {
         this.d[1] = new PlayerManager(minecraftserver, -1, i);
         this.maxPlayers = minecraftserver.propertyManager.getInt("max-players", 20);
         this.o = minecraftserver.propertyManager.getBoolean("white-list", false);
-        this.g();
         this.i();
         this.k();
         this.m();
-        this.h();
+        this.o();
         this.j();
         this.l();
         this.n();
+        this.p();
     }
 
     public void setPlayerFileData(WorldServer[] aworldserver) {
-        this.playerFileData = aworldserver[0].p().d();
+        this.playerFileData = aworldserver[0].o().d();
     }
 
     public void a(EntityPlayer entityplayer) {
@@ -78,6 +79,7 @@ public class ServerConfigurationManager {
     }
 
     public void c(EntityPlayer entityplayer) {
+        this.sendAll(new Packet201PlayerInfo(entityplayer.name, true, 1000));
         this.players.add(entityplayer);
         WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
 
@@ -89,6 +91,12 @@ public class ServerConfigurationManager {
 
         worldserver.addEntity(entityplayer);
         this.getPlayerManager(entityplayer.dimension).addPlayer(entityplayer);
+
+        for (int i = 0; i < this.players.size(); ++i) {
+            EntityPlayer entityplayer1 = (EntityPlayer) this.players.get(i);
+
+            entityplayer.netServerHandler.sendPacket(new Packet201PlayerInfo(entityplayer1.name, true, entityplayer1.i));
+        }
     }
 
     public void d(EntityPlayer entityplayer) {
@@ -100,6 +108,7 @@ public class ServerConfigurationManager {
         this.server.getWorldServer(entityplayer.dimension).kill(entityplayer);
         this.players.remove(entityplayer);
         this.getPlayerManager(entityplayer.dimension).removePlayer(entityplayer);
+        this.sendAll(new Packet201PlayerInfo(entityplayer.name, false, 9999));
     }
 
     public EntityPlayer a(NetLoginHandler netloginhandler, String s) {
@@ -149,6 +158,8 @@ public class ServerConfigurationManager {
         entityplayer1.netServerHandler = entityplayer.netServerHandler;
         WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
 
+        entityplayer1.itemInWorldManager.a(entityplayer.itemInWorldManager.a());
+        entityplayer1.itemInWorldManager.b(worldserver.p().n());
         if (chunkcoordinates != null) {
             ChunkCoordinates chunkcoordinates1 = EntityHuman.getBed(this.server.getWorldServer(entityplayer.dimension), chunkcoordinates);
 
@@ -156,7 +167,7 @@ public class ServerConfigurationManager {
                 entityplayer1.setPositionRotation((double) ((float) chunkcoordinates1.x + 0.5F), (double) ((float) chunkcoordinates1.y + 0.1F), (double) ((float) chunkcoordinates1.z + 0.5F), 0.0F, 0.0F);
                 entityplayer1.a(chunkcoordinates);
             } else {
-                entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0));
+                entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0, 0));
             }
         }
 
@@ -166,14 +177,23 @@ public class ServerConfigurationManager {
             entityplayer1.setPosition(entityplayer1.locX, entityplayer1.locY + 1.0D, entityplayer1.locZ);
         }
 
-        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer1.dimension));
+        NetServerHandler netserverhandler = entityplayer1.netServerHandler;
+
+        byte b0 = (byte) entityplayer1.dimension;
+        byte b1 = (byte) entityplayer1.world.spawnMonsters;
+        long j = entityplayer1.world.getSeed();
+
+        entityplayer1.world.getClass();
+        Packet9Respawn packet9respawn = new Packet9Respawn(b0, b1, j, 128, entityplayer1.itemInWorldManager.a());
+
+        netserverhandler.sendPacket(packet9respawn);
         entityplayer1.netServerHandler.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
         this.a(entityplayer1, worldserver);
         this.getPlayerManager(entityplayer1.dimension).addPlayer(entityplayer1);
         worldserver.addEntity(entityplayer1);
         this.players.add(entityplayer1);
         entityplayer1.syncInventory();
-        entityplayer1.x();
+        entityplayer1.w();
         return entityplayer1;
     }
 
@@ -190,8 +210,16 @@ public class ServerConfigurationManager {
 
         entityplayer.dimension = b0;
         WorldServer worldserver1 = this.server.getWorldServer(entityplayer.dimension);
+        NetServerHandler netserverhandler = entityplayer.netServerHandler;
 
-        entityplayer.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer.dimension));
+        byte b1 = (byte) entityplayer.dimension;
+        byte b2 = (byte) entityplayer.world.spawnMonsters;
+        long i = worldserver1.getSeed();
+
+        worldserver1.getClass();
+        Packet9Respawn packet9respawn = new Packet9Respawn(b1, b2, i, 128, entityplayer.itemInWorldManager.a());
+
+        netserverhandler.sendPacket(packet9respawn);
         worldserver.removeEntity(entityplayer);
         entityplayer.dead = false;
         double d0 = entityplayer.locX;
@@ -202,19 +230,19 @@ public class ServerConfigurationManager {
             d0 /= d2;
             d1 /= d2;
             entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
-            if (entityplayer.T()) {
+            if (entityplayer.ac()) {
                 worldserver.entityJoinedWorld(entityplayer, false);
             }
         } else {
             d0 *= d2;
             d1 *= d2;
             entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
-            if (entityplayer.T()) {
+            if (entityplayer.ac()) {
                 worldserver.entityJoinedWorld(entityplayer, false);
             }
         }
 
-        if (entityplayer.T()) {
+        if (entityplayer.ac()) {
             worldserver1.addEntity(entityplayer);
             entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
             worldserver1.entityJoinedWorld(entityplayer, false);
@@ -226,12 +254,23 @@ public class ServerConfigurationManager {
         this.a(entityplayer);
         entityplayer.netServerHandler.a(entityplayer.locX, entityplayer.locY, entityplayer.locZ, entityplayer.yaw, entityplayer.pitch);
         entityplayer.spawnIn(worldserver1);
+        entityplayer.itemInWorldManager.a(worldserver1);
         this.a(entityplayer, worldserver1);
         this.updateClient(entityplayer);
     }
 
     public void b() {
-        for (int i = 0; i < this.d.length; ++i) {
+        int i;
+
+        if (this.p-- <= 0) {
+            for (i = 0; i < this.players.size(); ++i) {
+                EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
+
+                this.sendAll(new Packet201PlayerInfo(entityplayer.name, true, entityplayer.i));
+            }
+        }
+
+        for (i = 0; i < this.d.length; ++i) {
             this.d[i].flush();
         }
     }
@@ -274,15 +313,15 @@ public class ServerConfigurationManager {
 
     public void a(String s) {
         this.banByName.add(s.toLowerCase());
-        this.h();
+        this.j();
     }
 
     public void b(String s) {
         this.banByName.remove(s.toLowerCase());
-        this.h();
+        this.j();
     }
 
-    private void g() {
+    private void i() {
         try {
             this.banByName.clear();
             BufferedReader bufferedreader = new BufferedReader(new FileReader(this.j));
@@ -298,7 +337,7 @@ public class ServerConfigurationManager {
         }
     }
 
-    private void h() {
+    private void j() {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.j, false));
             Iterator iterator = this.banByName.iterator();
@@ -317,15 +356,15 @@ public class ServerConfigurationManager {
 
     public void c(String s) {
         this.banByIP.add(s.toLowerCase());
-        this.j();
+        this.l();
     }
 
     public void d(String s) {
         this.banByIP.remove(s.toLowerCase());
-        this.j();
+        this.l();
     }
 
-    private void i() {
+    private void k() {
         try {
             this.banByIP.clear();
             BufferedReader bufferedreader = new BufferedReader(new FileReader(this.k));
@@ -341,7 +380,7 @@ public class ServerConfigurationManager {
         }
     }
 
-    private void j() {
+    private void l() {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.k, false));
             Iterator iterator = this.banByIP.iterator();
@@ -360,15 +399,15 @@ public class ServerConfigurationManager {
 
     public void e(String s) {
         this.h.add(s.toLowerCase());
-        this.l();
+        this.n();
     }
 
     public void f(String s) {
         this.h.remove(s.toLowerCase());
-        this.l();
+        this.n();
     }
 
-    private void k() {
+    private void m() {
         try {
             this.h.clear();
             BufferedReader bufferedreader = new BufferedReader(new FileReader(this.l));
@@ -384,7 +423,7 @@ public class ServerConfigurationManager {
         }
     }
 
-    private void l() {
+    private void n() {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.l, false));
             Iterator iterator = this.h.iterator();
@@ -401,7 +440,7 @@ public class ServerConfigurationManager {
         }
     }
 
-    private void m() {
+    private void o() {
         try {
             this.i.clear();
             BufferedReader bufferedreader = new BufferedReader(new FileReader(this.m));
@@ -417,7 +456,7 @@ public class ServerConfigurationManager {
         }
     }
 
-    private void n() {
+    private void p() {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.m, false));
             Iterator iterator = this.i.iterator();
@@ -516,12 +555,12 @@ public class ServerConfigurationManager {
 
     public void k(String s) {
         this.i.add(s);
-        this.n();
+        this.p();
     }
 
     public void l(String s) {
         this.i.remove(s);
-        this.n();
+        this.p();
     }
 
     public Set e() {
@@ -529,18 +568,26 @@ public class ServerConfigurationManager {
     }
 
     public void f() {
-        this.m();
+        this.o();
     }
 
     public void a(EntityPlayer entityplayer, WorldServer worldserver) {
         entityplayer.netServerHandler.sendPacket(new Packet4UpdateTime(worldserver.getTime()));
-        if (worldserver.v()) {
-            entityplayer.netServerHandler.sendPacket(new Packet70Bed(1));
+        if (worldserver.u()) {
+            entityplayer.netServerHandler.sendPacket(new Packet70Bed(1, 0));
         }
     }
 
     public void updateClient(EntityPlayer entityplayer) {
         entityplayer.updateInventory(entityplayer.defaultContainer);
-        entityplayer.C();
+        entityplayer.B();
+    }
+
+    public int g() {
+        return this.players.size();
+    }
+
+    public int h() {
+        return this.maxPlayers;
     }
 }

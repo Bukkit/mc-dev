@@ -18,8 +18,8 @@ public class WorldGenMinable extends WorldGenerator {
         double d1 = (double) ((float) (i + 8) - MathHelper.sin(f) * (float) this.b / 8.0F);
         double d2 = (double) ((float) (k + 8) + MathHelper.cos(f) * (float) this.b / 8.0F);
         double d3 = (double) ((float) (k + 8) - MathHelper.cos(f) * (float) this.b / 8.0F);
-        double d4 = (double) (j + random.nextInt(3) + 2);
-        double d5 = (double) (j + random.nextInt(3) + 2);
+        double d4 = (double) (j + random.nextInt(3) - 2);
+        double d5 = (double) (j + random.nextInt(3) - 2);
 
         for (int l = 0; l <= this.b; ++l) {
             double d6 = d0 + (d1 - d0) * (double) l / (double) this.b;

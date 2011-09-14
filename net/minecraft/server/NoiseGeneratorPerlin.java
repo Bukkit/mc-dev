@@ -124,7 +124,7 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
             double d13 = 1.0D / d6;
 
             for (int k2 = 0; k2 < i; ++k2) {
-                d7 = (d0 + (double) k2) * d3 + this.a;
+                d7 = d0 + (double) k2 * d3 + this.a;
                 int l2 = (int) d7;
 
                 if (d7 < (double) l2) {
@@ -137,7 +137,7 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
                 d8 = d7 * d7 * d7 * (d7 * (d7 * 6.0D - 15.0D) + 10.0D);
 
                 for (j1 = 0; j1 < k; ++j1) {
-                    d9 = (d2 + (double) j1) * d5 + this.c;
+                    d9 = d2 + (double) j1 * d5 + this.c;
                     k1 = (int) d9;
                     if (d9 < (double) k1) {
                         --k1;
@@ -178,7 +178,7 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
             d8 = 0.0D;
 
             for (j1 = 0; j1 < i; ++j1) {
-                d9 = (d0 + (double) j1) * d3 + this.a;
+                d9 = d0 + (double) j1 * d3 + this.a;
                 k1 = (int) d9;
                 if (d9 < (double) k1) {
                     --k1;
@@ -189,7 +189,7 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
                 d10 = d9 * d9 * d9 * (d9 * (d9 * 6.0D - 15.0D) + 10.0D);
 
                 for (int l3 = 0; l3 < k; ++l3) {
-                    double d18 = (d2 + (double) l3) * d5 + this.c;
+                    double d18 = d2 + (double) l3 * d5 + this.c;
                     int i4 = (int) d18;
 
                     if (d18 < (double) i4) {
@@ -202,7 +202,7 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
                     double d19 = d18 * d18 * d18 * (d18 * (d18 * 6.0D - 15.0D) + 10.0D);
 
                     for (int k4 = 0; k4 < j; ++k4) {
-                        double d20 = (d1 + (double) k4) * d4 + this.b;
+                        double d20 = d1 + (double) k4 * d4 + this.b;
                         int l4 = (int) d20;
 
                         if (d20 < (double) l4) {

@@ -19,26 +19,26 @@ public class EntityBoat extends Entity {
         this.damage = 0;
         this.b = 0;
         this.c = 1;
-        this.aI = true;
+        this.aY = true;
         this.b(1.5F, 0.6F);
         this.height = this.width / 2.0F;
     }
 
-    protected boolean n() {
+    protected boolean e_() {
         return false;
     }
 
     protected void b() {}
 
-    public AxisAlignedBB a_(Entity entity) {
+    public AxisAlignedBB b(Entity entity) {
         return entity.boundingBox;
     }
 
-    public AxisAlignedBB e_() {
+    public AxisAlignedBB f() {
         return this.boundingBox;
     }
 
-    public boolean d_() {
+    public boolean g() {
         return true;
     }
 
@@ -53,16 +53,16 @@ public class EntityBoat extends Entity {
         this.lastZ = d2;
     }
 
-    public double m() {
+    public double n() {
         return (double) this.width * 0.0D - 0.30000001192092896D;
     }
 
-    public boolean damageEntity(Entity entity, int i) {
+    public boolean damageEntity(DamageSource damagesource, int i) {
         if (!this.world.isStatic && !this.dead) {
             this.c = -this.c;
             this.b = 10;
             this.damage += i * 10;
-            this.af();
+            this.aq();
             if (this.damage > 40) {
                 if (this.passenger != null) {
                     this.passenger.mount(this);
@@ -87,12 +87,12 @@ public class EntityBoat extends Entity {
         }
     }
 
-    public boolean l_() {
+    public boolean r_() {
         return !this.dead;
     }
 
-    public void m_() {
-        super.m_();
+    public void s_() {
+        super.s_();
         if (this.b > 0) {
             --this.b;
         }
@@ -276,7 +276,7 @@ public class EntityBoat extends Entity {
                 for (l = 0; l < list.size(); ++l) {
                     Entity entity = (Entity) list.get(l);
 
-                    if (entity != this.passenger && entity.d_() && entity instanceof EntityBoat) {
+                    if (entity != this.passenger && entity.g() && entity instanceof EntityBoat) {
                         entity.collide(this);
                     }
                 }
@@ -298,12 +298,12 @@ public class EntityBoat extends Entity {
         }
     }
 
-    public void f() {
+    public void g_() {
         if (this.passenger != null) {
             double d0 = Math.cos((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
             double d1 = Math.sin((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
 
-            this.passenger.setPosition(this.locX + d0, this.locY + this.m() + this.passenger.I(), this.locZ + d1);
+            this.passenger.setPosition(this.locX + d0, this.locY + this.n() + this.passenger.M(), this.locZ + d1);
         }
     }
 
@@ -311,7 +311,7 @@ public class EntityBoat extends Entity {
 
     protected void a(NBTTagCompound nbttagcompound) {}
 
-    public boolean a(EntityHuman entityhuman) {
+    public boolean b(EntityHuman entityhuman) {
         if (this.passenger != null && this.passenger instanceof EntityHuman && this.passenger != entityhuman) {
             return true;
         } else {

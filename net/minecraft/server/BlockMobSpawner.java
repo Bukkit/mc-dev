@@ -8,7 +8,7 @@ public class BlockMobSpawner extends BlockContainer {
         super(i, j, Material.STONE);
     }
 
-    protected TileEntity a_() {
+    public TileEntity a_() {
         return new TileEntityMobSpawner();
     }
 

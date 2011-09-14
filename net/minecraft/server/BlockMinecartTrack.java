@@ -35,7 +35,7 @@ public class BlockMinecartTrack extends Block {
     }
 
     public MovingObjectPosition a(World world, int i, int j, int k, Vec3D vec3d, Vec3D vec3d1) {
-        this.a(world, i, j, k);
+        this.a((IBlockAccess) world, i, j, k);
         return super.a(world, i, j, k, vec3d, vec3d1);
     }
 
@@ -73,7 +73,7 @@ public class BlockMinecartTrack extends Block {
         return world.e(i, j - 1, k);
     }
 
-    public void c(World world, int i, int j, int k) {
+    public void a(World world, int i, int j, int k) {
         if (!world.isStatic) {
             this.a(world, i, j, k, true);
         }

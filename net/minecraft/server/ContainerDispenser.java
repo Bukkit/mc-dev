@@ -28,6 +28,6 @@ public class ContainerDispenser extends Container {
     }
 
     public boolean b(EntityHuman entityhuman) {
-        return this.a.a_(entityhuman);
+        return this.a.a(entityhuman);
     }
 }

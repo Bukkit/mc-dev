@@ -135,8 +135,8 @@ public class ConsoleCommandHandler {
                                         icommandlistener.sendMessage("Syntax error, please provice a source and a target.");
                                     }
                                 } else {
-                                    String s3;
                                     int k;
+                                    String s3;
 
                                     if (s.toLowerCase().startsWith("give ")) {
                                         astring = s.split(" ");
@@ -175,6 +175,31 @@ public class ConsoleCommandHandler {
                                         } else {
                                             icommandlistener.sendMessage("Can\'t find user " + s3);
                                         }
+                                    } else if (s.toLowerCase().startsWith("gamemode ")) {
+                                        astring = s.split(" ");
+                                        if (astring.length != 3) {
+                                            return;
+                                        }
+
+                                        s3 = astring[1];
+                                        entityplayer2 = serverconfigurationmanager.i(s3);
+                                        if (entityplayer2 != null) {
+                                            try {
+                                                k = Integer.parseInt(astring[2]);
+                                                k = WorldSettings.a(k);
+                                                if (entityplayer2.itemInWorldManager.a() != k) {
+                                                    this.print(s1, "Setting " + entityplayer2.name + " to game mode " + k);
+                                                    entityplayer2.itemInWorldManager.a(k);
+                                                    entityplayer2.netServerHandler.sendPacket(new Packet70Bed(3, k));
+                                                } else {
+                                                    this.print(s1, entityplayer2.name + " already has game mode " + k);
+                                                }
+                                            } catch (NumberFormatException numberformatexception1) {
+                                                icommandlistener.sendMessage("There\'s no game mode with id " + astring[2]);
+                                            }
+                                        } else {
+                                            icommandlistener.sendMessage("Can\'t find user " + s3);
+                                        }
                                     } else if (s.toLowerCase().startsWith("time ")) {
                                         astring = s.split(" ");
                                         if (astring.length != 3) {
@@ -204,7 +229,7 @@ public class ConsoleCommandHandler {
                                             } else {
                                                 icommandlistener.sendMessage("Unknown method, use either \"add\" or \"set\"");
                                             }
-                                        } catch (NumberFormatException numberformatexception1) {
+                                        } catch (NumberFormatException numberformatexception2) {
                                             icommandlistener.sendMessage("Unable to convert time value, " + astring[2]);
                                         }
                                     } else if (s.toLowerCase().startsWith("say ")) {
@@ -303,6 +328,7 @@ public class ConsoleCommandHandler {
         icommandlistener.sendMessage("   list                      lists all currently connected players");
         icommandlistener.sendMessage("   say <message>             broadcasts a message to all players");
         icommandlistener.sendMessage("   time <add|set> <amount>   adds to or sets the world time (0-24000)");
+        icommandlistener.sendMessage("   gamemode <player> <mode>  sets player\'s game mode (0 or 1)");
     }
 
     private void print(String s, String s1) {

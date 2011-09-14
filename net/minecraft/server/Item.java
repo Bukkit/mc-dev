@@ -10,7 +10,7 @@ public class Item {
     public static Item IRON_PICKAXE = (new ItemPickaxe(1, EnumToolMaterial.IRON)).a(2, 6).a("pickaxeIron");
     public static Item IRON_AXE = (new ItemAxe(2, EnumToolMaterial.IRON)).a(2, 7).a("hatchetIron");
     public static Item FLINT_AND_STEEL = (new ItemFlintAndSteel(3)).a(5, 0).a("flintAndSteel");
-    public static Item APPLE = (new ItemFood(4, 4, false)).a(10, 0).a("apple");
+    public static Item APPLE = (new ItemFood(4, 4, 0.3F, false)).a(10, 0).a("apple");
     public static Item BOW = (new ItemBow(5)).a(5, 1).a("bow");
     public static Item ARROW = (new Item(6)).a(5, 2).a("arrow");
     public static Item COAL = (new ItemCoal(7)).a(7, 0).a("coal");
@@ -32,7 +32,7 @@ public class Item {
     public static Item DIAMOND_AXE = (new ItemAxe(23, EnumToolMaterial.DIAMOND)).a(3, 7).a("hatchetDiamond");
     public static Item STICK = (new Item(24)).a(5, 3).g().a("stick");
     public static Item BOWL = (new Item(25)).a(7, 4).a("bowl");
-    public static Item MUSHROOM_SOUP = (new ItemSoup(26, 10)).a(8, 4).a("mushroomStew");
+    public static Item MUSHROOM_SOUP = (new ItemSoup(26, 8)).a(8, 4).a("mushroomStew");
     public static Item GOLD_SWORD = (new ItemSword(27, EnumToolMaterial.GOLD)).a(4, 4).a("swordGold");
     public static Item GOLD_SPADE = (new ItemSpade(28, EnumToolMaterial.GOLD)).a(4, 5).a("shovelGold");
     public static Item GOLD_PICKAXE = (new ItemPickaxe(29, EnumToolMaterial.GOLD)).a(4, 6).a("pickaxeGold");
@@ -47,7 +47,7 @@ public class Item {
     public static Item GOLD_HOE = (new ItemHoe(38, EnumToolMaterial.GOLD)).a(4, 8).a("hoeGold");
     public static Item SEEDS = (new ItemSeeds(39, Block.CROPS.id)).a(9, 0).a("seeds");
     public static Item WHEAT = (new Item(40)).a(9, 1).a("wheat");
-    public static Item BREAD = (new ItemFood(41, 5, false)).a(9, 2).a("bread");
+    public static Item BREAD = (new ItemFood(41, 5, 0.6F, false)).a(9, 2).a("bread");
     public static Item LEATHER_HELMET = (new ItemArmor(42, 0, 0, 0)).a(0, 0).a("helmetCloth");
     public static Item LEATHER_CHESTPLATE = (new ItemArmor(43, 0, 0, 1)).a(0, 1).a("chestplateCloth");
     public static Item LEATHER_LEGGINGS = (new ItemArmor(44, 0, 0, 2)).a(0, 2).a("leggingsCloth");
@@ -69,10 +69,10 @@ public class Item {
     public static Item GOLD_LEGGINGS = (new ItemArmor(60, 1, 4, 2)).a(4, 2).a("leggingsGold");
     public static Item GOLD_BOOTS = (new ItemArmor(61, 1, 4, 3)).a(4, 3).a("bootsGold");
     public static Item FLINT = (new Item(62)).a(6, 0).a("flint");
-    public static Item PORK = (new ItemFood(63, 3, true)).a(7, 5).a("porkchopRaw");
-    public static Item GRILLED_PORK = (new ItemFood(64, 8, true)).a(8, 5).a("porkchopCooked");
+    public static Item PORK = (new ItemFood(63, 3, 0.3F, true)).a(7, 5).a("porkchopRaw");
+    public static Item GRILLED_PORK = (new ItemFood(64, 8, 0.8F, true)).a(8, 5).a("porkchopCooked");
     public static Item PAINTING = (new ItemPainting(65)).a(10, 1).a("painting");
-    public static Item GOLDEN_APPLE = (new ItemFood(66, 42, false)).a(11, 0).a("appleGold");
+    public static Item GOLDEN_APPLE = (new ItemFood(66, 10, 1.2F, false)).n().a(MobEffectList.l.H, 30, 0, 1.0F).a(11, 0).a("appleGold");
     public static Item SIGN = (new ItemSign(67)).a(10, 2).a("sign");
     public static Item WOOD_DOOR = (new ItemDoor(68, Material.WOOD)).a(11, 2).a("doorWood");
     public static Item BUCKET = (new ItemBucket(69, 0)).a(10, 4).a("bucket");
@@ -99,25 +99,34 @@ public class Item {
     public static Item FISHING_ROD = (new ItemFishingRod(90)).a(5, 4).a("fishingRod");
     public static Item WATCH = (new Item(91)).a(6, 4).a("clock");
     public static Item GLOWSTONE_DUST = (new Item(92)).a(9, 4).a("yellowDust");
-    public static Item RAW_FISH = (new ItemFood(93, 2, false)).a(9, 5).a("fishRaw");
-    public static Item COOKED_FISH = (new ItemFood(94, 5, false)).a(10, 5).a("fishCooked");
+    public static Item RAW_FISH = (new ItemFood(93, 2, 0.3F, false)).a(9, 5).a("fishRaw");
+    public static Item COOKED_FISH = (new ItemFood(94, 5, 0.6F, false)).a(10, 5).a("fishCooked");
     public static Item INK_SACK = (new ItemDye(95)).a(14, 4).a("dyePowder");
     public static Item BONE = (new Item(96)).a(12, 1).a("bone").g();
     public static Item SUGAR = (new Item(97)).a(13, 0).a("sugar").g();
     public static Item CAKE = (new ItemReed(98, Block.CAKE_BLOCK)).c(1).a(13, 1).a("cake");
     public static Item BED = (new ItemBed(99)).c(1).a(13, 2).a("bed");
     public static Item DIODE = (new ItemReed(100, Block.DIODE_OFF)).a(6, 5).a("diode");
-    public static Item COOKIE = (new ItemCookie(101, 1, false, 8)).a(12, 5).a("cookie");
+    public static Item COOKIE = (new ItemFood(101, 1, 0.1F, false)).a(12, 5).a("cookie");
     public static ItemWorldMap MAP = (ItemWorldMap) (new ItemWorldMap(102)).a(12, 3).a("map");
     public static ItemShears SHEARS = (ItemShears) (new ItemShears(103)).a(13, 5).a("shears");
+    public static Item MELON = (new ItemFood(104, 2, 0.3F, false)).a(13, 6).a("melon");
+    public static Item PUMPKIN_SEEDS = (new ItemSeeds(105, Block.PUMPKIN_STEM.id)).a(13, 3).a("seeds_pumpkin");
+    public static Item MELON_SEEDS = (new ItemSeeds(106, Block.MELON_STEM.id)).a(14, 3).a("seeds_melon");
+    public static Item RAW_BEEF = (new ItemFood(107, 3, 0.3F, true)).a(9, 6).a("beefRaw");
+    public static Item COOKED_BEEF = (new ItemFood(108, 8, 0.8F, true)).a(10, 6).a("beefCooked");
+    public static Item RAW_CHICKEN = (new ItemFood(109, 2, 0.3F, true)).a(MobEffectList.s.H, 30, 0, 0.3F).a(9, 7).a("chickenRaw");
+    public static Item COOKED_CHICKEN = (new ItemFood(110, 6, 0.6F, true)).a(10, 7).a("chickenCooked");
+    public static Item ROTTEN_FLESH = (new ItemFood(111, 4, 0.1F, true)).a(MobEffectList.s.H, 30, 0, 0.8F).a(11, 5).a("rottenFlesh");
+    public static Item ENDER_PEARL = (new Item(112)).a(11, 6).a("enderPearl");
     public static Item GOLD_RECORD = (new ItemRecord(2000, "13")).a(0, 15).a("record");
     public static Item GREEN_RECORD = (new ItemRecord(2001, "cat")).a(1, 15).a("record");
     public final int id;
     protected int maxStackSize = 64;
     private int durability = 0;
     protected int textureId;
-    protected boolean bi = false;
-    protected boolean bj = false;
+    protected boolean br = false;
+    protected boolean bs = false;
     private Item craftingResult = null;
     private String name;
 
@@ -157,6 +166,10 @@ public class Item {
         return itemstack;
     }
 
+    public ItemStack b(ItemStack itemstack, World world, EntityHuman entityhuman) {
+        return itemstack;
+    }
+
     public int getMaxStackSize() {
         return this.maxStackSize;
     }
@@ -166,11 +179,11 @@ public class Item {
     }
 
     public boolean d() {
-        return this.bj;
+        return this.bs;
     }
 
     protected Item a(boolean flag) {
-        this.bj = flag;
+        this.bs = flag;
         return this;
     }
 
@@ -184,7 +197,7 @@ public class Item {
     }
 
     public boolean f() {
-        return this.durability > 0 && !this.bj;
+        return this.durability > 0 && !this.bs;
     }
 
     public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
@@ -206,7 +219,7 @@ public class Item {
     public void a(ItemStack itemstack, EntityLiving entityliving) {}
 
     public Item g() {
-        this.bi = true;
+        this.br = true;
         return this;
     }
 
@@ -215,7 +228,11 @@ public class Item {
         return this;
     }
 
-    public String a() {
+    public String b() {
+        return this.name;
+    }
+
+    public String a(ItemStack itemstack) {
         return this.name;
     }
 
@@ -237,16 +254,26 @@ public class Item {
     }
 
     public String j() {
-        return StatisticCollector.a(this.a() + ".name");
+        return StatisticCollector.a(this.b() + ".name");
     }
 
     public void a(ItemStack itemstack, World world, Entity entity, int i, boolean flag) {}
 
-    public void c(ItemStack itemstack, World world, EntityHuman entityhuman) {}
+    public void d(ItemStack itemstack, World world, EntityHuman entityhuman) {}
 
-    public boolean b() {
+    public boolean i_() {
         return false;
     }
+
+    public EnumAnimation b(ItemStack itemstack) {
+        return EnumAnimation.a;
+    }
+
+    public int c(ItemStack itemstack) {
+        return 0;
+    }
+
+    public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {}
 
     static {
         StatisticList.c();

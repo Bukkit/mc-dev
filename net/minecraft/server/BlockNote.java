@@ -15,7 +15,7 @@ public class BlockNote extends BlockContainer {
             boolean flag = world.isBlockPowered(i, j, k);
             TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 
-            if (tileentitynote.b != flag) {
+            if (tileentitynote != null && tileentitynote.b != flag) {
                 if (flag) {
                     tileentitynote.play(world, i, j, k);
                 }
@@ -31,8 +31,11 @@ public class BlockNote extends BlockContainer {
         } else {
             TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 
-            tileentitynote.a();
-            tileentitynote.play(world, i, j, k);
+            if (tileentitynote != null) {
+                tileentitynote.a();
+                tileentitynote.play(world, i, j, k);
+            }
+
             return true;
         }
     }
@@ -41,11 +44,13 @@ public class BlockNote extends BlockContainer {
         if (!world.isStatic) {
             TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 
-            tileentitynote.play(world, i, j, k);
+            if (tileentitynote != null) {
+                tileentitynote.play(world, i, j, k);
+            }
         }
     }
 
-    protected TileEntity a_() {
+    public TileEntity a_() {
         return new TileEntityNote();
     }
 

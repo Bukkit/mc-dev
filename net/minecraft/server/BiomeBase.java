@@ -4,118 +4,137 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BiomeBase {
+public abstract class BiomeBase {
 
-    public static final BiomeBase RAINFOREST = (new BiomeRainforest()).b(588342).a("Rainforest").a(2094168);
-    public static final BiomeBase SWAMPLAND = (new BiomeSwamp()).b(522674).a("Swampland").a(9154376);
-    public static final BiomeBase SEASONAL_FOREST = (new BiomeBase()).b(10215459).a("Seasonal Forest");
-    public static final BiomeBase FOREST = (new BiomeForest()).b(353825).a("Forest").a(5159473);
-    public static final BiomeBase SAVANNA = (new BiomeDesert()).b(14278691).a("Savanna");
-    public static final BiomeBase SHRUBLAND = (new BiomeBase()).b(10595616).a("Shrubland");
-    public static final BiomeBase TAIGA = (new BiomeTaiga()).b(3060051).a("Taiga").b().a(8107825);
-    public static final BiomeBase DESERT = (new BiomeDesert()).b(16421912).a("Desert").e();
-    public static final BiomeBase PLAINS = (new BiomeDesert()).b(16767248).a("Plains");
-    public static final BiomeBase ICE_DESERT = (new BiomeDesert()).b(16772499).a("Ice Desert").b().e().a(12899129);
-    public static final BiomeBase TUNDRA = (new BiomeBase()).b(5762041).a("Tundra").b().a(12899129);
-    public static final BiomeBase HELL = (new BiomeHell()).b(16711680).a("Hell").e();
-    public static final BiomeBase SKY = (new BiomeSky()).b(8421631).a("Sky").e();
-    public String n;
-    public int o;
-    public byte p;
-    public byte q;
-    public int r;
-    protected List s;
-    protected List t;
-    protected List u;
-    private boolean v;
-    private boolean w;
-    private static BiomeBase[] x = new BiomeBase[4096];
+    public static final BiomeBase[] a = new BiomeBase[256];
+    public static final BiomeBase OCEAN = (new BiomeOcean(0)).b(112).a("Ocean").b(-1.0F, 0.5F);
+    public static final BiomeBase PLAINS = (new BiomePlains(1)).b(9286496).a("Plains").a(0.8F, 0.4F);
+    public static final BiomeBase DESERT = (new BiomeDesert(2)).b(16421912).a("Desert").g().a(2.0F, 0.0F).b(0.1F, 0.2F);
+    public static final BiomeBase EXTREME_HILLS = (new BiomeBigHills(3)).b(6316128).a("Extreme Hills").b(0.2F, 1.8F).a(0.2F, 0.3F);
+    public static final BiomeBase FOREST = (new BiomeForest(4)).b(353825).a("Forest").a(5159473).a(0.7F, 0.8F);
+    public static final BiomeBase TAIGA = (new BiomeTaiga(5)).b(747097).a("Taiga").a(5159473).a(0.3F, 0.8F).b(0.1F, 0.4F);
+    public static final BiomeBase SWAMPLAND = (new BiomeSwamp(6)).b(522674).a("Swampland").a(9154376).b(-0.2F, 0.1F).a(0.8F, 0.9F);
+    public static final BiomeBase RIVER = (new BiomeRiver(7)).b(255).a("River").b(-0.5F, 0.0F);
+    public static final BiomeBase HELL = (new BiomeHell(8)).b(16711680).a("Hell").g();
+    public static final BiomeBase SKY = (new BiomeSky(9)).b(8421631).a("Sky").g();
+    public String l;
+    public int m;
+    public byte n;
+    public byte o;
+    public int p;
+    public float q;
+    public float r;
+    public float s;
+    public float t;
+    public BiomeDecorator u;
+    protected List v;
+    protected List w;
+    protected List x;
+    private boolean D;
+    private boolean E;
+    public final int y;
+    protected WorldGenTrees z;
+    protected WorldGenBigTree A;
+    protected WorldGenForest B;
+    protected WorldGenSwampTree C;
 
-    protected BiomeBase() {
-        this.p = (byte) Block.GRASS.id;
-        this.q = (byte) Block.DIRT.id;
-        this.r = 5169201;
-        this.s = new ArrayList();
-        this.t = new ArrayList();
-        this.u = new ArrayList();
-        this.w = true;
-        this.s.add(new BiomeMeta(EntitySpider.class, 10));
-        this.s.add(new BiomeMeta(EntityZombie.class, 10));
-        this.s.add(new BiomeMeta(EntitySkeleton.class, 10));
-        this.s.add(new BiomeMeta(EntityCreeper.class, 10));
-        this.s.add(new BiomeMeta(EntitySlime.class, 10));
-        this.t.add(new BiomeMeta(EntitySheep.class, 12));
-        this.t.add(new BiomeMeta(EntityPig.class, 10));
-        this.t.add(new BiomeMeta(EntityChicken.class, 10));
-        this.t.add(new BiomeMeta(EntityCow.class, 8));
-        this.u.add(new BiomeMeta(EntitySquid.class, 10));
+    protected BiomeBase(int i) {
+        this.n = (byte) Block.GRASS.id;
+        this.o = (byte) Block.DIRT.id;
+        this.p = 5169201;
+        this.q = 0.1F;
+        this.r = 0.3F;
+        this.s = 0.5F;
+        this.t = 0.5F;
+        this.v = new ArrayList();
+        this.w = new ArrayList();
+        this.x = new ArrayList();
+        this.E = true;
+        this.z = new WorldGenTrees();
+        this.A = new WorldGenBigTree();
+        this.B = new WorldGenForest();
+        this.C = new WorldGenSwampTree();
+        this.y = i;
+        a[i] = this;
+        this.u = this.a();
+        this.w.add(new BiomeMeta(EntitySheep.class, 12, 4, 4));
+        this.w.add(new BiomeMeta(EntityPig.class, 10, 4, 4));
+        this.w.add(new BiomeMeta(EntityChicken.class, 10, 4, 4));
+        this.w.add(new BiomeMeta(EntityCow.class, 8, 4, 4));
+        this.v.add(new BiomeMeta(EntitySpider.class, 10, 4, 4));
+        this.v.add(new BiomeMeta(EntityZombie.class, 10, 4, 4));
+        this.v.add(new BiomeMeta(EntitySkeleton.class, 10, 4, 4));
+        this.v.add(new BiomeMeta(EntityCreeper.class, 10, 4, 4));
+        this.v.add(new BiomeMeta(EntitySlime.class, 10, 4, 4));
+        this.v.add(new BiomeMeta(EntityEnderman.class, 2, 4, 4));
+        this.x.add(new BiomeMeta(EntitySquid.class, 10, 4, 4));
     }
 
-    private BiomeBase e() {
-        this.w = false;
+    protected BiomeDecorator a() {
+        return new BiomeDecorator(this);
+    }
+
+    private BiomeBase a(float f, float f1) {
+        this.s = f;
+        this.t = f1;
         return this;
     }
 
-    public static void a() {
-        for (int i = 0; i < 64; ++i) {
-            for (int j = 0; j < 64; ++j) {
-                x[i + j * 64] = a((float) i / 63.0F, (float) j / 63.0F);
-            }
-        }
+    private BiomeBase b(float f, float f1) {
+        this.q = f;
+        this.r = f1;
+        return this;
+    }
 
-        DESERT.p = DESERT.q = (byte) Block.SAND.id;
-        ICE_DESERT.p = ICE_DESERT.q = (byte) Block.SAND.id;
+    private BiomeBase g() {
+        this.E = false;
+        return this;
     }
 
     public WorldGenerator a(Random random) {
-        return (WorldGenerator) (random.nextInt(10) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
-    }
-
-    protected BiomeBase b() {
-        this.v = true;
-        return this;
+        return (WorldGenerator) (random.nextInt(10) == 0 ? this.A : this.z);
     }
 
     protected BiomeBase a(String s) {
-        this.n = s;
+        this.l = s;
         return this;
     }
 
     protected BiomeBase a(int i) {
-        this.r = i;
+        this.p = i;
         return this;
     }
 
     protected BiomeBase b(int i) {
-        this.o = i;
+        this.m = i;
         return this;
     }
 
-    public static BiomeBase a(double d0, double d1) {
-        int i = (int) (d0 * 63.0D);
-        int j = (int) (d1 * 63.0D);
-
-        return x[i + j * 64];
-    }
-
-    public static BiomeBase a(float f, float f1) {
-        f1 *= f;
-        return f < 0.1F ? TUNDRA : (f1 < 0.2F ? (f < 0.5F ? TUNDRA : (f < 0.95F ? SAVANNA : DESERT)) : (f1 > 0.5F && f < 0.7F ? SWAMPLAND : (f < 0.5F ? TAIGA : (f < 0.97F ? (f1 < 0.35F ? SHRUBLAND : FOREST) : (f1 < 0.45F ? PLAINS : (f1 < 0.9F ? SEASONAL_FOREST : RAINFOREST))))));
-    }
-
     public List a(EnumCreatureType enumcreaturetype) {
-        return enumcreaturetype == EnumCreatureType.MONSTER ? this.s : (enumcreaturetype == EnumCreatureType.CREATURE ? this.t : (enumcreaturetype == EnumCreatureType.WATER_CREATURE ? this.u : null));
+        return enumcreaturetype == EnumCreatureType.MONSTER ? this.v : (enumcreaturetype == EnumCreatureType.CREATURE ? this.w : (enumcreaturetype == EnumCreatureType.WATER_CREATURE ? this.x : null));
+    }
+
+    public boolean b() {
+        return this.D;
     }
 
     public boolean c() {
-        return this.v;
+        return this.D ? false : this.E;
     }
 
-    public boolean d() {
-        return this.v ? false : this.w;
+    public float d() {
+        return 0.1F;
     }
 
-    static {
-        a();
+    public final int e() {
+        return (int) (this.t * 65536.0F);
+    }
+
+    public final int f() {
+        return (int) (this.s * 65536.0F);
+    }
+
+    public void a(World world, Random random, int i, int j) {
+        this.u.a(world, random, i, j);
     }
 }

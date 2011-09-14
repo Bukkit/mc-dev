@@ -64,27 +64,27 @@ public class BlockRedstoneOre extends Block {
             double d2 = (double) ((float) j + random.nextFloat());
             double d3 = (double) ((float) k + random.nextFloat());
 
-            if (l == 0 && !world.p(i, j + 1, k)) {
+            if (l == 0 && !world.o(i, j + 1, k)) {
                 d2 = (double) (j + 1) + d0;
             }
 
-            if (l == 1 && !world.p(i, j - 1, k)) {
+            if (l == 1 && !world.o(i, j - 1, k)) {
                 d2 = (double) (j + 0) - d0;
             }
 
-            if (l == 2 && !world.p(i, j, k + 1)) {
+            if (l == 2 && !world.o(i, j, k + 1)) {
                 d3 = (double) (k + 1) + d0;
             }
 
-            if (l == 3 && !world.p(i, j, k - 1)) {
+            if (l == 3 && !world.o(i, j, k - 1)) {
                 d3 = (double) (k + 0) - d0;
             }
 
-            if (l == 4 && !world.p(i + 1, j, k)) {
+            if (l == 4 && !world.o(i + 1, j, k)) {
                 d1 = (double) (i + 1) + d0;
             }
 
-            if (l == 5 && !world.p(i - 1, j, k)) {
+            if (l == 5 && !world.o(i - 1, j, k)) {
                 d1 = (double) (i + 0) - d0;
             }
 

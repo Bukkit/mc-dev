@@ -8,12 +8,12 @@ public class EmptyChunk extends Chunk {
 
     public EmptyChunk(World world, int i, int j) {
         super(world, i, j);
-        this.p = true;
+        this.r = true;
     }
 
     public EmptyChunk(World world, byte[] abyte, int i, int j) {
         super(world, abyte, i, j);
-        this.p = true;
+        this.r = true;
     }
 
     public boolean a(int i, int j) {
@@ -105,9 +105,5 @@ public class EmptyChunk extends Chunk {
 
     public Random a(long i) {
         return new Random(this.world.getSeed() + (long) (this.x * this.x * 4987142) + (long) (this.x * 5947611) + (long) (this.z * this.z) * 4392871L + (long) (this.z * 389711) ^ i);
-    }
-
-    public boolean isEmpty() {
-        return true;
     }
 }

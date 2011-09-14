@@ -27,13 +27,14 @@ public class MinecraftServer implements Runnable, ICommandListener {
     int ticks = 0;
     public String i;
     public int j;
-    private List r = new ArrayList();
-    private List s = Collections.synchronizedList(new ArrayList());
+    private List s = new ArrayList();
+    private List t = Collections.synchronizedList(new ArrayList());
     public EntityTracker[] tracker = new EntityTracker[2];
     public boolean onlineMode;
     public boolean spawnAnimals;
     public boolean pvpMode;
     public boolean allowFlight;
+    public String p;
 
     public MinecraftServer() {
         new ThreadSleepForever(this);
@@ -46,7 +47,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
         ConsoleLogManager.init();
-        log.info("Starting minecraft server version Beta 1.7.3");
+        log.info("Starting minecraft server version Beta 1.8");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             log.warning("**** NOT ENOUGH RAM!");
             log.warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
@@ -60,6 +61,8 @@ public class MinecraftServer implements Runnable, ICommandListener {
         this.spawnAnimals = this.propertyManager.getBoolean("spawn-animals", true);
         this.pvpMode = this.propertyManager.getBoolean("pvp", true);
         this.allowFlight = this.propertyManager.getBoolean("allow-flight", false);
+        this.p = this.propertyManager.getString("motd", "A Minecraft Server");
+        this.p.replace('\u00a7', '$');
         InetAddress inetaddress = null;
 
         if (s.length() > 0) {
@@ -115,49 +118,55 @@ public class MinecraftServer implements Runnable, ICommandListener {
         }
 
         this.worldServer = new WorldServer[2];
+        int j = this.propertyManager.getInt("gamemode", 0);
+
+        j = WorldSettings.a(j);
+        log.info("Default game type: " + j);
+        WorldSettings worldsettings = new WorldSettings(i, j, true);
         ServerNBTManager servernbtmanager = new ServerNBTManager(new File("."), s, true);
 
-        for (int j = 0; j < this.worldServer.length; ++j) {
-            if (j == 0) {
-                this.worldServer[j] = new WorldServer(this, servernbtmanager, s, j == 0 ? 0 : -1, i);
+        for (int k = 0; k < this.worldServer.length; ++k) {
+            if (k == 0) {
+                this.worldServer[k] = new WorldServer(this, servernbtmanager, s, k == 0 ? 0 : -1, worldsettings);
             } else {
-                this.worldServer[j] = new SecondaryWorldServer(this, servernbtmanager, s, j == 0 ? 0 : -1, i, this.worldServer[0]);
+                this.worldServer[k] = new SecondaryWorldServer(this, servernbtmanager, s, k == 0 ? 0 : -1, worldsettings, this.worldServer[0]);
             }
 
-            this.worldServer[j].addIWorldAccess(new WorldManager(this, this.worldServer[j]));
-            this.worldServer[j].spawnMonsters = this.propertyManager.getBoolean("spawn-monsters", true) ? 1 : 0;
-            this.worldServer[j].setSpawnFlags(this.propertyManager.getBoolean("spawn-monsters", true), this.spawnAnimals);
+            this.worldServer[k].addIWorldAccess(new WorldManager(this, this.worldServer[k]));
+            this.worldServer[k].spawnMonsters = this.propertyManager.getInt("difficulty", 1);
+            this.worldServer[k].setSpawnFlags(this.propertyManager.getBoolean("spawn-monsters", true), this.spawnAnimals);
+            this.worldServer[k].p().d(j);
             this.serverConfigurationManager.setPlayerFileData(this.worldServer);
         }
 
         short short1 = 196;
-        long k = System.currentTimeMillis();
+        long l = System.currentTimeMillis();
 
-        for (int l = 0; l < this.worldServer.length; ++l) {
-            log.info("Preparing start region for level " + l);
-            if (l == 0 || this.propertyManager.getBoolean("allow-nether", true)) {
-                WorldServer worldserver = this.worldServer[l];
+        for (int i1 = 0; i1 < this.worldServer.length; ++i1) {
+            log.info("Preparing start region for level " + i1);
+            if (i1 == 0 || this.propertyManager.getBoolean("allow-nether", true)) {
+                WorldServer worldserver = this.worldServer[i1];
                 ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
 
-                for (int i1 = -short1; i1 <= short1 && this.isRunning; i1 += 16) {
-                    for (int j1 = -short1; j1 <= short1 && this.isRunning; j1 += 16) {
-                        long k1 = System.currentTimeMillis();
+                for (int j1 = -short1; j1 <= short1 && this.isRunning; j1 += 16) {
+                    for (int k1 = -short1; k1 <= short1 && this.isRunning; k1 += 16) {
+                        long l1 = System.currentTimeMillis();
 
-                        if (k1 < k) {
-                            k = k1;
+                        if (l1 < l) {
+                            l = l1;
                         }
 
-                        if (k1 > k + 1000L) {
-                            int l1 = (short1 * 2 + 1) * (short1 * 2 + 1);
-                            int i2 = (i1 + short1) * (short1 * 2 + 1) + j1 + 1;
+                        if (l1 > l + 1000L) {
+                            int i2 = (short1 * 2 + 1) * (short1 * 2 + 1);
+                            int j2 = (j1 + short1) * (short1 * 2 + 1) + k1 + 1;
 
-                            this.a("Preparing spawn area", i2 * 100 / l1);
-                            k = k1;
+                            this.a("Preparing spawn area", j2 * 100 / i2);
+                            l = l1;
                         }
 
-                        worldserver.chunkProviderServer.getChunkAt(chunkcoordinates.x + i1 >> 4, chunkcoordinates.z + j1 >> 4);
+                        worldserver.chunkProviderServer.getChunkAt(chunkcoordinates.x + j1 >> 4, chunkcoordinates.z + k1 >> 4);
 
-                        while (worldserver.doLighting() && this.isRunning) {
+                        while (worldserver.v() && this.isRunning) {
                             ;
                         }
                     }
@@ -311,7 +320,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
                 worldserver.doTick();
 
-                while (worldserver.doLighting()) {
+                while (worldserver.v()) {
                     ;
                 }
 
@@ -326,8 +335,8 @@ public class MinecraftServer implements Runnable, ICommandListener {
             this.tracker[j].updatePlayers();
         }
 
-        for (j = 0; j < this.r.size(); ++j) {
-            ((IUpdatePlayerListBox) this.r.get(j)).a();
+        for (j = 0; j < this.s.size(); ++j) {
+            ((IUpdatePlayerListBox) this.s.get(j)).a();
         }
 
         try {
@@ -338,19 +347,19 @@ public class MinecraftServer implements Runnable, ICommandListener {
     }
 
     public void issueCommand(String s, ICommandListener icommandlistener) {
-        this.s.add(new ServerCommand(s, icommandlistener));
+        this.t.add(new ServerCommand(s, icommandlistener));
     }
 
     public void b() {
-        while (this.s.size() > 0) {
-            ServerCommand servercommand = (ServerCommand) this.s.remove(0);
+        while (this.t.size() > 0) {
+            ServerCommand servercommand = (ServerCommand) this.t.remove(0);
 
             this.consoleCommandHandler.handle(servercommand);
         }
     }
 
     public void a(IUpdatePlayerListBox iupdateplayerlistbox) {
-        this.r.add(iupdateplayerlistbox);
+        this.s.add(iupdateplayerlistbox);
     }
 
     public static void main(String[] astring) {

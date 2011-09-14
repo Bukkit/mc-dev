@@ -1,8 +1,7 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Random;
 import java.util.logging.Logger;
 
 public class NetServerHandler extends NetHandler implements ICommandListener {
@@ -14,13 +13,16 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     private EntityPlayer player;
     private int f;
     private int g;
-    private int h;
-    private boolean i;
-    private double x;
-    private double y;
-    private double z;
+    private boolean h;
+    private int i;
+    private long x;
+    private static Random y = new Random();
+    private long z;
+    private double m;
+    private double n;
+    private double o;
     private boolean checkMovement = true;
-    private Map n = new HashMap();
+    private EntityList q = new EntityList();
 
     public NetServerHandler(MinecraftServer minecraftserver, NetworkManager networkmanager, EntityPlayer entityplayer) {
         this.minecraftServer = minecraftserver;
@@ -31,15 +33,19 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a() {
-        this.i = false;
+        this.h = false;
+        ++this.f;
         this.networkManager.b();
-        if (this.f - this.g > 20) {
-            this.sendPacket(new Packet0KeepAlive());
+        if ((long) this.f - this.z > 20L) {
+            this.z = (long) this.f;
+            this.x = System.nanoTime() / 1000000L;
+            this.i = y.nextInt();
+            this.sendPacket(new Packet0KeepAlive(this.i));
         }
     }
 
     public void disconnect(String s) {
-        this.player.B();
+        this.player.A();
         this.sendPacket(new Packet255KickDisconnect(s));
         this.networkManager.d();
         this.minecraftServer.serverConfigurationManager.sendAll(new Packet3Chat("\u00A7e" + this.player.name + " left the game."));
@@ -54,12 +60,12 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     public void a(Packet10Flying packet10flying) {
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
-        this.i = true;
+        this.h = true;
         double d0;
 
         if (!this.checkMovement) {
-            d0 = packet10flying.y - this.y;
-            if (packet10flying.x == this.x && d0 * d0 < 0.01D && packet10flying.z == this.z) {
+            d0 = packet10flying.y - this.n;
+            if (packet10flying.x == this.m && d0 * d0 < 0.01D && packet10flying.z == this.o) {
                 this.checkMovement = true;
             }
         }
@@ -74,7 +80,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 float f = this.player.yaw;
                 float f1 = this.player.pitch;
 
-                this.player.vehicle.f();
+                this.player.vehicle.g_();
                 d1 = this.player.locX;
                 d2 = this.player.locY;
                 d3 = this.player.locZ;
@@ -92,7 +98,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 }
 
                 this.player.onGround = packet10flying.g;
-                this.player.a(true);
+                this.player.b(true);
                 this.player.move(d5, 0.0D, d4);
                 this.player.setLocation(d1, d2, d3, f, f1);
                 this.player.motX = d5;
@@ -102,28 +108,28 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 }
 
                 if (this.player.vehicle != null) {
-                    this.player.vehicle.f();
+                    this.player.vehicle.g_();
                 }
 
                 this.minecraftServer.serverConfigurationManager.d(this.player);
-                this.x = this.player.locX;
-                this.y = this.player.locY;
-                this.z = this.player.locZ;
+                this.m = this.player.locX;
+                this.n = this.player.locY;
+                this.o = this.player.locZ;
                 worldserver.playerJoinedWorld(this.player);
                 return;
             }
 
             if (this.player.isSleeping()) {
-                this.player.a(true);
-                this.player.setLocation(this.x, this.y, this.z, this.player.yaw, this.player.pitch);
+                this.player.b(true);
+                this.player.setLocation(this.m, this.n, this.o, this.player.yaw, this.player.pitch);
                 worldserver.playerJoinedWorld(this.player);
                 return;
             }
 
             d0 = this.player.locY;
-            this.x = this.player.locX;
-            this.y = this.player.locY;
-            this.z = this.player.locZ;
+            this.m = this.player.locX;
+            this.n = this.player.locY;
+            this.o = this.player.locZ;
             d1 = this.player.locX;
             d2 = this.player.locY;
             d3 = this.player.locZ;
@@ -156,9 +162,9 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 f3 = packet10flying.pitch;
             }
 
-            this.player.a(true);
-            this.player.br = 0.0F;
-            this.player.setLocation(this.x, this.y, this.z, f2, f3);
+            this.player.b(true);
+            this.player.bH = 0.0F;
+            this.player.setLocation(this.m, this.n, this.o, f2, f3);
             if (!this.checkMovement) {
                 return;
             }
@@ -177,7 +183,13 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             float f4 = 0.0625F;
             boolean flag = worldserver.getEntities(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
 
+            if (this.player.onGround && !packet10flying.g && d6 > 0.0D) {
+                this.player.b(0.2F);
+            }
+
             this.player.move(d4, d6, d7);
+            this.player.onGround = packet10flying.g;
+            this.player.a(d4, d6, d7);
             d4 = d1 - this.player.locX;
             d6 = d2 - this.player.locY;
             if (d6 > -0.5D || d6 < 0.5D) {
@@ -188,7 +200,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             d8 = d4 * d4 + d6 * d6 + d7 * d7;
             boolean flag1 = false;
 
-            if (d8 > 0.0625D && !this.player.isSleeping()) {
+            if (d8 > 0.0625D && !this.player.isSleeping() && !this.player.itemInWorldManager.b()) {
                 flag1 = true;
                 a.warning(this.player.name + " moved wrongly!");
                 System.out.println("Got position " + d1 + ", " + d2 + ", " + d3);
@@ -199,23 +211,23 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             boolean flag2 = worldserver.getEntities(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
 
             if (flag && (flag1 || !flag2) && !this.player.isSleeping()) {
-                this.a(this.x, this.y, this.z, f2, f3);
+                this.a(this.m, this.n, this.o, f2, f3);
                 return;
             }
 
             AxisAlignedBB axisalignedbb = this.player.boundingBox.clone().b((double) f4, (double) f4, (double) f4).a(0.0D, -0.55D, 0.0D);
 
-            if (!this.minecraftServer.allowFlight && !worldserver.b(axisalignedbb)) {
+            if (!this.minecraftServer.allowFlight && !this.player.itemInWorldManager.b() && !worldserver.b(axisalignedbb)) {
                 if (d6 >= -0.03125D) {
-                    ++this.h;
-                    if (this.h > 80) {
+                    ++this.g;
+                    if (this.g > 80) {
                         a.warning(this.player.name + " was kicked for floating too long!");
                         this.disconnect("Flying is not enabled on this server");
                         return;
                     }
                 }
             } else {
-                this.h = 0;
+                this.g = 0;
             }
 
             this.player.onGround = packet10flying.g;
@@ -226,9 +238,9 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void a(double d0, double d1, double d2, float f, float f1) {
         this.checkMovement = false;
-        this.x = d0;
-        this.y = d1;
-        this.z = d2;
+        this.m = d0;
+        this.n = d1;
+        this.o = d2;
         this.player.setLocation(d0, d1, d2, f, f1);
         this.player.netServerHandler.sendPacket(new Packet13PlayerLookMove(d0, d1 + 1.6200000047683716D, d1, d2, f, f1, false));
     }
@@ -237,7 +249,9 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
         if (packet14blockdig.e == 4) {
-            this.player.F();
+            this.player.J();
+        } else if (packet14blockdig.e == 5) {
+            this.player.E();
         } else {
             boolean flag = worldserver.weirdIsOpCache = worldserver.worldProvider.dimension != 0 || this.minecraftServer.serverConfigurationManager.isOp(this.player.name);
             boolean flag1 = false;
@@ -248,6 +262,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
             if (packet14blockdig.e == 2) {
                 flag1 = true;
+            }
+
+            if (this.player.itemInWorldManager.b()) {
+                flag1 = false;
             }
 
             int i = packet14blockdig.a;
@@ -266,8 +284,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
 
             ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
-            int l = (int) MathHelper.abs((float) (i - chunkcoordinates.x));
-            int i1 = (int) MathHelper.abs((float) (k - chunkcoordinates.z));
+            int l = MathHelper.a(i - chunkcoordinates.x);
+            int i1 = MathHelper.a(k - chunkcoordinates.z);
 
             if (l > i1) {
                 i1 = l;
@@ -316,8 +334,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             int k = packet15place.c;
             int l = packet15place.face;
             ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
-            int i1 = (int) MathHelper.abs((float) (i - chunkcoordinates.x));
-            int j1 = (int) MathHelper.abs((float) (k - chunkcoordinates.z));
+            int i1 = MathHelper.a(i - chunkcoordinates.x);
+            int j1 = MathHelper.a(k - chunkcoordinates.z);
 
             if (i1 > j1) {
                 j1 = i1;
@@ -358,16 +376,19 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         itemstack = this.player.inventory.getItemInHand();
         if (itemstack != null && itemstack.count == 0) {
             this.player.inventory.items[this.player.inventory.itemInHandIndex] = null;
+            itemstack = null;
         }
 
-        this.player.h = true;
-        this.player.inventory.items[this.player.inventory.itemInHandIndex] = ItemStack.b(this.player.inventory.items[this.player.inventory.itemInHandIndex]);
-        Slot slot = this.player.activeContainer.a(this.player.inventory, this.player.inventory.itemInHandIndex);
+        if (itemstack == null || itemstack.l() == 0) {
+            this.player.h = true;
+            this.player.inventory.items[this.player.inventory.itemInHandIndex] = ItemStack.b(this.player.inventory.items[this.player.inventory.itemInHandIndex]);
+            Slot slot = this.player.activeContainer.a(this.player.inventory, this.player.inventory.itemInHandIndex);
 
-        this.player.activeContainer.a();
-        this.player.h = false;
-        if (!ItemStack.equals(this.player.inventory.getItemInHand(), packet15place.itemstack)) {
-            this.sendPacket(new Packet103SetSlot(this.player.activeContainer.windowId, slot.a, this.player.inventory.getItemInHand()));
+            this.player.activeContainer.a();
+            this.player.h = false;
+            if (!ItemStack.equals(this.player.inventory.getItemInHand(), packet15place.itemstack)) {
+                this.sendPacket(new Packet103SetSlot(this.player.activeContainer.windowId, slot.b, this.player.inventory.getItemInHand()));
+            }
         }
 
         worldserver.weirdIsOpCache = false;
@@ -387,11 +408,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void sendPacket(Packet packet) {
         this.networkManager.queue(packet);
-        this.g = this.f;
     }
 
     public void a(Packet16BlockItemSwitch packet16blockitemswitch) {
-        if (packet16blockitemswitch.itemInHandIndex >= 0 && packet16blockitemswitch.itemInHandIndex <= InventoryPlayer.e()) {
+        if (packet16blockitemswitch.itemInHandIndex >= 0 && packet16blockitemswitch.itemInHandIndex <= InventoryPlayer.g()) {
             this.player.inventory.itemInHandIndex = packet16blockitemswitch.itemInHandIndex;
         } else {
             a.warning(this.player.name + " tried to set an invalid carried item");
@@ -429,7 +449,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             a.info(s);
             this.minecraftServer.serverConfigurationManager.sendAll(new Packet3Chat(s));
         } else if (s.toLowerCase().startsWith("/kill")) {
-            this.player.damageEntity((Entity) null, 1000);
+            this.player.damageEntity(DamageSource.j, 1000);
         } else if (s.toLowerCase().startsWith("/tell ")) {
             String[] astring = s.split(" ");
 
@@ -458,7 +478,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void a(Packet18ArmAnimation packet18armanimation) {
         if (packet18armanimation.b == 1) {
-            this.player.w();
+            this.player.v();
         }
     }
 
@@ -467,6 +487,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             this.player.setSneak(true);
         } else if (packet19entityaction.animation == 2) {
             this.player.setSneak(false);
+        } else if (packet19entityaction.animation == 4) {
+            this.player.g(true);
+        } else if (packet19entityaction.animation == 5) {
+            this.player.g(false);
         } else if (packet19entityaction.animation == 3) {
             this.player.a(false, true, true);
             this.checkMovement = false;
@@ -493,7 +517,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
         Entity entity = worldserver.getEntity(packet7useentity.target);
 
-        if (entity != null && this.player.e(entity) && this.player.g(entity) < 36.0D) {
+        if (entity != null && this.player.f(entity) && this.player.h(entity) < 36.0D) {
             if (packet7useentity.c == 0) {
                 this.player.c(entity);
             } else if (packet7useentity.c == 1) {
@@ -509,7 +533,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(Packet101CloseWindow packet101closewindow) {
-        this.player.A();
+        this.player.z();
     }
 
     public void a(Packet102WindowClick packet102windowclick) {
@@ -520,10 +544,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 this.player.netServerHandler.sendPacket(new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, true));
                 this.player.h = true;
                 this.player.activeContainer.a();
-                this.player.z();
+                this.player.y();
                 this.player.h = false;
             } else {
-                this.n.put(Integer.valueOf(this.player.activeContainer.windowId), Short.valueOf(packet102windowclick.d));
+                this.q.a(this.player.activeContainer.windowId, Short.valueOf(packet102windowclick.d));
                 this.player.netServerHandler.sendPacket(new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, false));
                 this.player.activeContainer.a(this.player, false);
                 ArrayList arraylist = new ArrayList();
@@ -537,8 +561,28 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
     }
 
+    public void a(Packet107SetCreativeSlot packet107setcreativeslot) {
+        if (this.player.itemInWorldManager.b()) {
+            boolean flag = packet107setcreativeslot.a >= 36 && packet107setcreativeslot.a < 36 + InventoryPlayer.g();
+            boolean flag1 = packet107setcreativeslot.b >= -1 && packet107setcreativeslot.b < Item.byId.length && (packet107setcreativeslot.b < 0 || Item.byId[packet107setcreativeslot.b] != null);
+            boolean flag2 = packet107setcreativeslot.d >= 0 && packet107setcreativeslot.c >= 0 && packet107setcreativeslot.c <= 64;
+
+            if (flag && flag1 && flag2) {
+                if (packet107setcreativeslot.b <= 0) {
+                    this.player.defaultContainer.a(packet107setcreativeslot.a, (ItemStack) null);
+                } else {
+                    this.player.defaultContainer.a(packet107setcreativeslot.a, new ItemStack(packet107setcreativeslot.b, packet107setcreativeslot.c, packet107setcreativeslot.d));
+                }
+
+                this.player.defaultContainer.a(this.player, true);
+            } else if (!flag && flag1 && flag2 && packet107setcreativeslot.a == -1 && packet107setcreativeslot.b > 0) {
+                this.player.b(new ItemStack(packet107setcreativeslot.b, packet107setcreativeslot.c, packet107setcreativeslot.d));
+            }
+        }
+    }
+
     public void a(Packet106Transaction packet106transaction) {
-        Short oshort = (Short) this.n.get(Integer.valueOf(this.player.activeContainer.windowId));
+        Short oshort = (Short) this.q.a(this.player.activeContainer.windowId);
 
         if (oshort != null && packet106transaction.b == oshort.shortValue() && this.player.activeContainer.windowId == packet106transaction.a && !this.player.activeContainer.c(this.player)) {
             this.player.activeContainer.a(this.player, true);
@@ -592,10 +636,17 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                     tileentitysign1.lines[l] = packet130updatesign.lines[l];
                 }
 
-                tileentitysign1.a(false);
                 tileentitysign1.update();
                 worldserver.notify(j, k, i);
             }
+        }
+    }
+
+    public void a(Packet0KeepAlive packet0keepalive) {
+        if (packet0keepalive.a == this.i) {
+            int i = (int) (System.nanoTime() / 1000000L - this.x);
+
+            this.player.i = (this.player.i * 3 + i) / 4;
         }
     }
 

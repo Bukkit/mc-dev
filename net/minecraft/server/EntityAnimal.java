@@ -6,8 +6,13 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         super(world);
     }
 
+    public boolean a(DamageSource damagesource, int i) {
+        this.f = 60;
+        return super.damageEntity(damagesource, i);
+    }
+
     protected float a(int i, int j, int k) {
-        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id ? 10.0F : this.world.n(i, j, k) - 0.5F;
+        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id ? 10.0F : this.world.m(i, j, k) - 0.5F;
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -28,5 +33,13 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
 
     public int e() {
         return 120;
+    }
+
+    protected boolean d_() {
+        return false;
+    }
+
+    protected int a(EntityHuman entityhuman) {
+        return 1 + this.world.random.nextInt(3);
     }
 }

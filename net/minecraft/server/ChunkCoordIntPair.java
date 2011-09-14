@@ -10,12 +10,19 @@ public class ChunkCoordIntPair {
         this.z = j;
     }
 
-    public static int a(int i, int j) {
-        return (i < 0 ? Integer.MIN_VALUE : 0) | (i & 32767) << 16 | (j < 0 ? '\u8000' : 0) | j & 32767;
+    public static long a(int i, int j) {
+        long k = (long) i;
+        long l = (long) j;
+
+        return k & 4294967295L | (l & 4294967295L) << 32;
     }
 
     public int hashCode() {
-        return a(this.x, this.z);
+        long i = a(this.x, this.z);
+        int j = (int) i;
+        int k = (int) (i >> 32);
+
+        return j ^ k;
     }
 
     public boolean equals(Object object) {

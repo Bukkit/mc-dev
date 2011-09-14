@@ -1,5 +1,8 @@
 package net.minecraft.server;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class EntityList {
 
     private transient EntityListEntry[] a = new EntityListEntry[16];
@@ -7,6 +10,7 @@ public class EntityList {
     private int c = 12;
     private final float d = 0.75F;
     private transient volatile int e;
+    private Set f = new HashSet();
 
     public EntityList() {}
 
@@ -48,6 +52,7 @@ public class EntityList {
     }
 
     public void a(int i, Object object) {
+        this.f.add(Integer.valueOf(i));
         int j = g(i);
         int k = a(j, this.a.length);
 
@@ -101,6 +106,7 @@ public class EntityList {
     }
 
     public Object d(int i) {
+        this.f.remove(Integer.valueOf(i));
         EntityListEntry entitylistentry = this.e(i);
 
         return entitylistentry == null ? null : entitylistentry.b;

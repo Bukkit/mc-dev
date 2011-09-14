@@ -9,11 +9,12 @@ public class ItemShears extends Item {
     }
 
     public boolean a(ItemStack itemstack, int i, int j, int k, int l, EntityLiving entityliving) {
-        if (i == Block.LEAVES.id || i == Block.WEB.id) {
+        if (i != Block.LEAVES.id && i != Block.WEB.id && i != Block.LONG_GRASS.id && i != Block.VINE.id) {
+            return super.a(itemstack, i, j, k, l, entityliving);
+        } else {
             itemstack.damage(1, entityliving);
+            return true;
         }
-
-        return super.a(itemstack, i, j, k, l, entityliving);
     }
 
     public boolean a(Block block) {

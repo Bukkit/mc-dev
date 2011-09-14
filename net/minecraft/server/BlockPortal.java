@@ -35,7 +35,7 @@ public class BlockPortal extends BlockBreakable {
         return false;
     }
 
-    public boolean a_(World world, int i, int j, int k) {
+    public boolean b_(World world, int i, int j, int k) {
         byte b0 = 0;
         byte b1 = 0;
 
@@ -134,7 +134,7 @@ public class BlockPortal extends BlockBreakable {
 
     public void a(World world, int i, int j, int k, Entity entity) {
         if (entity.vehicle == null && entity.passenger == null) {
-            entity.P();
+            entity.T();
         }
     }
 }

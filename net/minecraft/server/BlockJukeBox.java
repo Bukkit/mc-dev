@@ -14,7 +14,7 @@ public class BlockJukeBox extends BlockContainer {
         if (world.getData(i, j, k) == 0) {
             return false;
         } else {
-            this.b_(world, i, j, k);
+            this.c_(world, i, j, k);
             return true;
         }
     }
@@ -23,37 +23,42 @@ public class BlockJukeBox extends BlockContainer {
         if (!world.isStatic) {
             TileEntityRecordPlayer tileentityrecordplayer = (TileEntityRecordPlayer) world.getTileEntity(i, j, k);
 
-            tileentityrecordplayer.a = l;
-            tileentityrecordplayer.update();
-            world.setData(i, j, k, 1);
+            if (tileentityrecordplayer != null) {
+                tileentityrecordplayer.a = l;
+                tileentityrecordplayer.update();
+                world.setData(i, j, k, 1);
+            }
         }
     }
 
-    public void b_(World world, int i, int j, int k) {
+    public void c_(World world, int i, int j, int k) {
         if (!world.isStatic) {
             TileEntityRecordPlayer tileentityrecordplayer = (TileEntityRecordPlayer) world.getTileEntity(i, j, k);
-            int l = tileentityrecordplayer.a;
 
-            if (l != 0) {
-                world.e(1005, i, j, k, 0);
-                world.a((String) null, i, j, k);
-                tileentityrecordplayer.a = 0;
-                tileentityrecordplayer.update();
-                world.setData(i, j, k, 0);
-                float f = 0.7F;
-                double d0 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                double d1 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.2D + 0.6D;
-                double d2 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                EntityItem entityitem = new EntityItem(world, (double) i + d0, (double) j + d1, (double) k + d2, new ItemStack(l, 1, 0));
+            if (tileentityrecordplayer != null) {
+                int l = tileentityrecordplayer.a;
 
-                entityitem.pickupDelay = 10;
-                world.addEntity(entityitem);
+                if (l != 0) {
+                    world.e(1005, i, j, k, 0);
+                    world.a((String) null, i, j, k);
+                    tileentityrecordplayer.a = 0;
+                    tileentityrecordplayer.update();
+                    world.setData(i, j, k, 0);
+                    float f = 0.7F;
+                    double d0 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    double d1 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.2D + 0.6D;
+                    double d2 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    EntityItem entityitem = new EntityItem(world, (double) i + d0, (double) j + d1, (double) k + d2, new ItemStack(l, 1, 0));
+
+                    entityitem.pickupDelay = 10;
+                    world.addEntity(entityitem);
+                }
             }
         }
     }
 
     public void remove(World world, int i, int j, int k) {
-        this.b_(world, i, j, k);
+        this.c_(world, i, j, k);
         super.remove(world, i, j, k);
     }
 
@@ -63,7 +68,7 @@ public class BlockJukeBox extends BlockContainer {
         }
     }
 
-    protected TileEntity a_() {
+    public TileEntity a_() {
         return new TileEntityRecordPlayer();
     }
 }

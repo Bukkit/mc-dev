@@ -81,11 +81,11 @@ public class BlockStairs extends Block {
     }
 
     public int a(int i, int j) {
-        return this.a.a(i, j);
+        return this.a.a(i, 0);
     }
 
     public int a(int i) {
-        return this.a.a(i);
+        return this.a.a(i, 0);
     }
 
     public int c() {
@@ -96,8 +96,8 @@ public class BlockStairs extends Block {
         this.a.a(world, i, j, k, entity, vec3d);
     }
 
-    public boolean k_() {
-        return this.a.k_();
+    public boolean q_() {
+        return this.a.q_();
     }
 
     public boolean a(int i, boolean flag) {
@@ -108,9 +108,9 @@ public class BlockStairs extends Block {
         return this.a.canPlace(world, i, j, k);
     }
 
-    public void c(World world, int i, int j, int k) {
+    public void a(World world, int i, int j, int k) {
         this.doPhysics(world, i, j, k, 0);
-        this.a.c(world, i, j, k);
+        this.a.a(world, i, j, k);
     }
 
     public void remove(World world, int i, int j, int k) {
@@ -133,8 +133,8 @@ public class BlockStairs extends Block {
         return this.a.interact(world, i, j, k, entityhuman);
     }
 
-    public void d(World world, int i, int j, int k) {
-        this.a.d(world, i, j, k);
+    public void a_(World world, int i, int j, int k) {
+        this.a.a_(world, i, j, k);
     }
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {

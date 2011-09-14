@@ -26,7 +26,6 @@ public class ChunkProviderSky implements IChunkProvider {
     double[] g;
     double[] h;
     int[][] i = new int[32][32];
-    private double[] w;
 
     public ChunkProviderSky(World world, long i) {
         this.p = world;
@@ -41,50 +40,71 @@ public class ChunkProviderSky implements IChunkProvider {
         this.c = new NoiseGeneratorOctaves(this.j, 8);
     }
 
-    public void a(int i, int j, byte[] abyte, BiomeBase[] abiomebase, double[] adouble) {
+    public void a(int i, int j, byte[] abyte, BiomeBase[] abiomebase) {
         byte b0 = 2;
         int k = b0 + 1;
-        byte b1 = 33;
-        int l = b0 + 1;
 
-        this.q = this.a(this.q, i * b0, 0, j * b0, k, b1, l);
+        this.p.getClass();
+        int l = 128 / 4 + 1;
+        int i1 = b0 + 1;
 
-        for (int i1 = 0; i1 < b0; ++i1) {
-            for (int j1 = 0; j1 < b0; ++j1) {
-                for (int k1 = 0; k1 < 32; ++k1) {
+        this.q = this.a(this.q, i * b0, 0, j * b0, k, l, i1);
+
+        for (int j1 = 0; j1 < b0; ++j1) {
+            int k1 = 0;
+
+            while (k1 < b0) {
+                int l1 = 0;
+
+                while (true) {
+                    this.p.getClass();
+                    if (l1 >= 128 / 4) {
+                        ++k1;
+                        break;
+                    }
+
                     double d0 = 0.25D;
-                    double d1 = this.q[((i1 + 0) * l + j1 + 0) * b1 + k1 + 0];
-                    double d2 = this.q[((i1 + 0) * l + j1 + 1) * b1 + k1 + 0];
-                    double d3 = this.q[((i1 + 1) * l + j1 + 0) * b1 + k1 + 0];
-                    double d4 = this.q[((i1 + 1) * l + j1 + 1) * b1 + k1 + 0];
-                    double d5 = (this.q[((i1 + 0) * l + j1 + 0) * b1 + k1 + 1] - d1) * d0;
-                    double d6 = (this.q[((i1 + 0) * l + j1 + 1) * b1 + k1 + 1] - d2) * d0;
-                    double d7 = (this.q[((i1 + 1) * l + j1 + 0) * b1 + k1 + 1] - d3) * d0;
-                    double d8 = (this.q[((i1 + 1) * l + j1 + 1) * b1 + k1 + 1] - d4) * d0;
+                    double d1 = this.q[((j1 + 0) * i1 + k1 + 0) * l + l1 + 0];
+                    double d2 = this.q[((j1 + 0) * i1 + k1 + 1) * l + l1 + 0];
+                    double d3 = this.q[((j1 + 1) * i1 + k1 + 0) * l + l1 + 0];
+                    double d4 = this.q[((j1 + 1) * i1 + k1 + 1) * l + l1 + 0];
+                    double d5 = (this.q[((j1 + 0) * i1 + k1 + 0) * l + l1 + 1] - d1) * d0;
+                    double d6 = (this.q[((j1 + 0) * i1 + k1 + 1) * l + l1 + 1] - d2) * d0;
+                    double d7 = (this.q[((j1 + 1) * i1 + k1 + 0) * l + l1 + 1] - d3) * d0;
+                    double d8 = (this.q[((j1 + 1) * i1 + k1 + 1) * l + l1 + 1] - d4) * d0;
 
-                    for (int l1 = 0; l1 < 4; ++l1) {
+                    for (int i2 = 0; i2 < 4; ++i2) {
                         double d9 = 0.125D;
                         double d10 = d1;
                         double d11 = d2;
                         double d12 = (d3 - d1) * d9;
                         double d13 = (d4 - d2) * d9;
 
-                        for (int i2 = 0; i2 < 8; ++i2) {
-                            int j2 = i2 + i1 * 8 << 11 | 0 + j1 * 8 << 7 | k1 * 4 + l1;
-                            short short1 = 128;
+                        for (int j2 = 0; j2 < 8; ++j2) {
+                            int k2 = j2 + j1 * 8;
+
+                            this.p.getClass();
+                            k2 <<= 11;
+                            int l2 = 0 + k1 * 8;
+
+                            this.p.getClass();
+                            int i3 = k2 | l2 << 7 | l1 * 4 + i2;
+
+                            this.p.getClass();
+                            int j3 = 1 << 7;
                             double d14 = 0.125D;
                             double d15 = d10;
                             double d16 = (d11 - d10) * d14;
 
-                            for (int k2 = 0; k2 < 8; ++k2) {
-                                int l2 = 0;
+                            for (int k3 = 0; k3 < 8; ++k3) {
+                                int l3 = 0;
 
                                 if (d15 > 0.0D) {
-                                    l2 = Block.STONE.id;
+                                    l3 = Block.STONE.id;
                                 }
 
-                                abyte[j2] = (byte) l2;
-                                j2 += short1;
+                                abyte[i3] = (byte) l3;
+                                i3 += j3;
                                 d15 += d16;
                             }
 
@@ -97,29 +117,36 @@ public class ChunkProviderSky implements IChunkProvider {
                         d3 += d7;
                         d4 += d8;
                     }
+
+                    ++l1;
                 }
             }
         }
     }
 
-    public void a(int i, int j, byte[] abyte, BiomeBase[] abiomebase) {
+    public void b(int i, int j, byte[] abyte, BiomeBase[] abiomebase) {
         double d0 = 0.03125D;
 
-        this.r = this.n.a(this.r, (double) (i * 16), (double) (j * 16), 0.0D, 16, 16, 1, d0, d0, 1.0D);
-        this.s = this.n.a(this.s, (double) (i * 16), 109.0134D, (double) (j * 16), 16, 1, 16, d0, 1.0D, d0);
-        this.t = this.o.a(this.t, (double) (i * 16), (double) (j * 16), 0.0D, 16, 16, 1, d0 * 2.0D, d0 * 2.0D, d0 * 2.0D);
+        this.r = this.n.a(this.r, i * 16, j * 16, 0, 16, 16, 1, d0, d0, 1.0D);
+        this.s = this.n.a(this.s, i * 16, 109, j * 16, 16, 1, 16, d0, 1.0D, d0);
+        this.t = this.o.a(this.t, i * 16, j * 16, 0, 16, 16, 1, d0 * 2.0D, d0 * 2.0D, d0 * 2.0D);
 
         for (int k = 0; k < 16; ++k) {
             for (int l = 0; l < 16; ++l) {
                 BiomeBase biomebase = abiomebase[k + l * 16];
                 int i1 = (int) (this.t[k + l * 16] / 3.0D + 3.0D + this.j.nextDouble() * 0.25D);
                 int j1 = -1;
-                byte b0 = biomebase.p;
-                byte b1 = biomebase.q;
+                byte b0 = biomebase.n;
+                byte b1 = biomebase.o;
+
+                this.p.getClass();
 
                 for (int k1 = 127; k1 >= 0; --k1) {
-                    int l1 = (l * 16 + k) * 128 + k1;
-                    byte b2 = abyte[l1];
+                    int l1 = l * 16 + k;
+
+                    this.p.getClass();
+                    int i2 = l1 * 128 + k1;
+                    byte b2 = abyte[i2];
 
                     if (b2 == 0) {
                         j1 = -1;
@@ -132,13 +159,13 @@ public class ChunkProviderSky implements IChunkProvider {
 
                             j1 = i1;
                             if (k1 >= 0) {
-                                abyte[l1] = b0;
+                                abyte[i2] = b0;
                             } else {
-                                abyte[l1] = b1;
+                                abyte[i2] = b1;
                             }
                         } else if (j1 > 0) {
                             --j1;
-                            abyte[l1] = b1;
+                            abyte[i2] = b1;
                             if (j1 == 0 && b1 == Block.SAND.id) {
                                 j1 = this.j.nextInt(4);
                                 b1 = (byte) Block.SANDSTONE.id;
@@ -156,14 +183,13 @@ public class ChunkProviderSky implements IChunkProvider {
 
     public Chunk getOrCreateChunk(int i, int j) {
         this.j.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
-        byte[] abyte = new byte['\u8000'];
+        this.p.getClass();
+        byte[] abyte = new byte[16 * 128 * 16];
         Chunk chunk = new Chunk(this.p, abyte, i, j);
 
         this.v = this.p.getWorldChunkManager().a(this.v, i * 16, j * 16, 16, 16);
-        double[] adouble = this.p.getWorldChunkManager().temperature;
-
-        this.a(i, j, abyte, this.v, adouble);
         this.a(i, j, abyte, this.v);
+        this.b(i, j, abyte, this.v);
         this.u.a(this, this.p, i, j, abyte);
         chunk.initLighting();
         return chunk;
@@ -176,96 +202,82 @@ public class ChunkProviderSky implements IChunkProvider {
 
         double d0 = 684.412D;
         double d1 = 684.412D;
-        double[] adouble1 = this.p.getWorldChunkManager().temperature;
-        double[] adouble2 = this.p.getWorldChunkManager().rain;
 
         this.g = this.a.a(this.g, i, k, l, j1, 1.121D, 1.121D, 0.5D);
         this.h = this.b.a(this.h, i, k, l, j1, 200.0D, 200.0D, 0.5D);
         d0 *= 2.0D;
-        this.d = this.m.a(this.d, (double) i, (double) j, (double) k, l, i1, j1, d0 / 80.0D, d1 / 160.0D, d0 / 80.0D);
-        this.e = this.k.a(this.e, (double) i, (double) j, (double) k, l, i1, j1, d0, d1, d0);
-        this.f = this.l.a(this.f, (double) i, (double) j, (double) k, l, i1, j1, d0, d1, d0);
+        this.d = this.m.a(this.d, i, j, k, l, i1, j1, d0 / 80.0D, d1 / 160.0D, d0 / 80.0D);
+        this.e = this.k.a(this.e, i, j, k, l, i1, j1, d0, d1, d0);
+        this.f = this.l.a(this.f, i, j, k, l, i1, j1, d0, d1, d0);
         int k1 = 0;
         int l1 = 0;
-        int i2 = 16 / l;
 
-        for (int j2 = 0; j2 < l; ++j2) {
-            int k2 = j2 * i2 + i2 / 2;
+        for (int i2 = 0; i2 < l; ++i2) {
+            for (int j2 = 0; j2 < j1; ++j2) {
+                double d2 = (this.g[l1] + 256.0D) / 512.0D;
 
-            for (int l2 = 0; l2 < j1; ++l2) {
-                int i3 = l2 * i2 + i2 / 2;
-                double d2 = adouble1[k2 * 16 + i3];
-                double d3 = adouble2[k2 * 16 + i3] * d2;
-                double d4 = 1.0D - d3;
-
-                d4 *= d4;
-                d4 *= d4;
-                d4 = 1.0D - d4;
-                double d5 = (this.g[l1] + 256.0D) / 512.0D;
-
-                d5 *= d4;
-                if (d5 > 1.0D) {
-                    d5 = 1.0D;
+                if (d2 > 1.0D) {
+                    d2 = 1.0D;
                 }
 
-                double d6 = this.h[l1] / 8000.0D;
+                double d3 = this.h[l1] / 8000.0D;
 
-                if (d6 < 0.0D) {
-                    d6 = -d6 * 0.3D;
+                if (d3 < 0.0D) {
+                    d3 = -d3 * 0.3D;
                 }
 
-                d6 = d6 * 3.0D - 2.0D;
-                if (d6 > 1.0D) {
-                    d6 = 1.0D;
+                d3 = d3 * 3.0D - 2.0D;
+                if (d3 > 1.0D) {
+                    d3 = 1.0D;
                 }
 
-                d6 /= 8.0D;
-                d6 = 0.0D;
-                if (d5 < 0.0D) {
-                    d5 = 0.0D;
+                d3 /= 8.0D;
+                d3 = 0.0D;
+                if (d2 < 0.0D) {
+                    d2 = 0.0D;
                 }
 
-                d5 += 0.5D;
-                d6 = d6 * (double) i1 / 16.0D;
+                d2 += 0.5D;
+                d3 = d3 * (double) i1 / 16.0D;
                 ++l1;
-                double d7 = (double) i1 / 2.0D;
+                double d4 = (double) i1 / 2.0D;
 
-                for (int j3 = 0; j3 < i1; ++j3) {
-                    double d8 = 0.0D;
-                    double d9 = ((double) j3 - d7) * 8.0D / d5;
+                for (int k2 = 0; k2 < i1; ++k2) {
+                    double d5 = 0.0D;
+                    double d6 = ((double) k2 - d4) * 8.0D / d2;
+
+                    if (d6 < 0.0D) {
+                        d6 *= -1.0D;
+                    }
+
+                    double d7 = this.e[k1] / 512.0D;
+                    double d8 = this.f[k1] / 512.0D;
+                    double d9 = (this.d[k1] / 10.0D + 1.0D) / 2.0D;
 
                     if (d9 < 0.0D) {
-                        d9 *= -1.0D;
-                    }
-
-                    double d10 = this.e[k1] / 512.0D;
-                    double d11 = this.f[k1] / 512.0D;
-                    double d12 = (this.d[k1] / 10.0D + 1.0D) / 2.0D;
-
-                    if (d12 < 0.0D) {
-                        d8 = d10;
-                    } else if (d12 > 1.0D) {
-                        d8 = d11;
+                        d5 = d7;
+                    } else if (d9 > 1.0D) {
+                        d5 = d8;
                     } else {
-                        d8 = d10 + (d11 - d10) * d12;
+                        d5 = d7 + (d8 - d7) * d9;
                     }
 
-                    d8 -= 8.0D;
+                    d5 -= 8.0D;
                     byte b0 = 32;
-                    double d13;
+                    double d10;
 
-                    if (j3 > i1 - b0) {
-                        d13 = (double) ((float) (j3 - (i1 - b0)) / ((float) b0 - 1.0F));
-                        d8 = d8 * (1.0D - d13) + -30.0D * d13;
+                    if (k2 > i1 - b0) {
+                        d10 = (double) ((float) (k2 - (i1 - b0)) / ((float) b0 - 1.0F));
+                        d5 = d5 * (1.0D - d10) + -30.0D * d10;
                     }
 
                     b0 = 8;
-                    if (j3 < b0) {
-                        d13 = (double) ((float) (b0 - j3) / ((float) b0 - 1.0F));
-                        d8 = d8 * (1.0D - d13) + -30.0D * d13;
+                    if (k2 < b0) {
+                        d10 = (double) ((float) (b0 - k2) / ((float) b0 - 1.0F));
+                        d5 = d5 * (1.0D - d10) + -30.0D * d10;
                     }
 
-                    adouble[k1] = d8;
+                    adouble[k1] = d5;
                     ++k1;
                 }
             }
@@ -290,20 +302,28 @@ public class ChunkProviderSky implements IChunkProvider {
 
         this.j.setSeed((long) i * i1 + (long) j * j1 ^ this.p.getSeed());
         double d0 = 0.25D;
+        Random random;
         int k1;
         int l1;
         int i2;
 
         if (this.j.nextInt(4) == 0) {
             k1 = k + this.j.nextInt(16) + 8;
-            l1 = this.j.nextInt(128);
+            random = this.j;
+            this.p.getClass();
+            l1 = random.nextInt(128);
             i2 = l + this.j.nextInt(16) + 8;
             (new WorldGenLakes(Block.STATIONARY_WATER.id)).a(this.p, this.j, k1, l1, i2);
         }
 
+        Random random1;
+
         if (this.j.nextInt(8) == 0) {
             k1 = k + this.j.nextInt(16) + 8;
-            l1 = this.j.nextInt(this.j.nextInt(120) + 8);
+            random = this.j;
+            random1 = this.j;
+            this.p.getClass();
+            l1 = random.nextInt(random1.nextInt(128 - 8) + 8);
             i2 = l + this.j.nextInt(16) + 8;
             if (l1 < 64 || this.j.nextInt(10) == 0) {
                 (new WorldGenLakes(Block.STATIONARY_LAVA.id)).a(this.p, this.j, k1, l1, i2);
@@ -314,70 +334,94 @@ public class ChunkProviderSky implements IChunkProvider {
 
         for (k1 = 0; k1 < 8; ++k1) {
             l1 = k + this.j.nextInt(16) + 8;
-            i2 = this.j.nextInt(128);
+            random = this.j;
+            this.p.getClass();
+            i2 = random.nextInt(128);
             j2 = l + this.j.nextInt(16) + 8;
             (new WorldGenDungeons()).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 10; ++k1) {
             l1 = k + this.j.nextInt(16);
-            i2 = this.j.nextInt(128);
+            random = this.j;
+            this.p.getClass();
+            i2 = random.nextInt(128);
             j2 = l + this.j.nextInt(16);
             (new WorldGenClay(32)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 20; ++k1) {
             l1 = k + this.j.nextInt(16);
-            i2 = this.j.nextInt(128);
+            random = this.j;
+            this.p.getClass();
+            i2 = random.nextInt(128);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.DIRT.id, 32)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 10; ++k1) {
             l1 = k + this.j.nextInt(16);
-            i2 = this.j.nextInt(128);
+            random = this.j;
+            this.p.getClass();
+            i2 = random.nextInt(128);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.GRAVEL.id, 32)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 20; ++k1) {
             l1 = k + this.j.nextInt(16);
-            i2 = this.j.nextInt(128);
+            random = this.j;
+            this.p.getClass();
+            i2 = random.nextInt(128);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.COAL_ORE.id, 16)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 20; ++k1) {
             l1 = k + this.j.nextInt(16);
-            i2 = this.j.nextInt(64);
+            random = this.j;
+            this.p.getClass();
+            i2 = random.nextInt(128 / 2);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.IRON_ORE.id, 8)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 2; ++k1) {
             l1 = k + this.j.nextInt(16);
-            i2 = this.j.nextInt(32);
+            random = this.j;
+            this.p.getClass();
+            i2 = random.nextInt(128 / 4);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.GOLD_ORE.id, 8)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 8; ++k1) {
             l1 = k + this.j.nextInt(16);
-            i2 = this.j.nextInt(16);
+            random = this.j;
+            this.p.getClass();
+            i2 = random.nextInt(128 / 8);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.REDSTONE_ORE.id, 7)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 1; ++k1) {
             l1 = k + this.j.nextInt(16);
-            i2 = this.j.nextInt(16);
+            random = this.j;
+            this.p.getClass();
+            i2 = random.nextInt(128 / 8);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.DIAMOND_ORE.id, 7)).a(this.p, this.j, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 1; ++k1) {
             l1 = k + this.j.nextInt(16);
-            i2 = this.j.nextInt(16) + this.j.nextInt(16);
+            random = this.j;
+            this.p.getClass();
+            int k2 = random.nextInt(128 / 8);
+
+            random1 = this.j;
+            this.p.getClass();
+            i2 = k2 + random1.nextInt(128 / 8);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.LAPIS_ORE.id, 6)).a(this.p, this.j, l1, i2, j2);
         }
@@ -393,23 +437,7 @@ public class ChunkProviderSky implements IChunkProvider {
             l1 += k1 + 5;
         }
 
-        if (biomebase == BiomeBase.RAINFOREST) {
-            l1 += k1 + 5;
-        }
-
-        if (biomebase == BiomeBase.SEASONAL_FOREST) {
-            l1 += k1 + 2;
-        }
-
-        if (biomebase == BiomeBase.TAIGA) {
-            l1 += k1 + 5;
-        }
-
         if (biomebase == BiomeBase.DESERT) {
-            l1 -= 20;
-        }
-
-        if (biomebase == BiomeBase.TUNDRA) {
             l1 -= 20;
         }
 
@@ -417,59 +445,71 @@ public class ChunkProviderSky implements IChunkProvider {
             l1 -= 20;
         }
 
-        int k2;
+        int l2;
 
         for (i2 = 0; i2 < l1; ++i2) {
             j2 = k + this.j.nextInt(16) + 8;
-            k2 = l + this.j.nextInt(16) + 8;
+            l2 = l + this.j.nextInt(16) + 8;
             WorldGenerator worldgenerator = biomebase.a(this.j);
 
             worldgenerator.a(1.0D, 1.0D, 1.0D);
-            worldgenerator.a(this.p, this.j, j2, this.p.getHighestBlockYAt(j2, k2), k2);
+            worldgenerator.a(this.p, this.j, j2, this.p.getHighestBlockYAt(j2, l2), l2);
         }
 
-        int l2;
+        int i3;
 
         for (i2 = 0; i2 < 2; ++i2) {
             j2 = k + this.j.nextInt(16) + 8;
-            k2 = this.j.nextInt(128);
-            l2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.YELLOW_FLOWER.id)).a(this.p, this.j, j2, k2, l2);
+            random = this.j;
+            this.p.getClass();
+            l2 = random.nextInt(128);
+            i3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.YELLOW_FLOWER.id)).a(this.p, this.j, j2, l2, i3);
         }
 
         if (this.j.nextInt(2) == 0) {
             i2 = k + this.j.nextInt(16) + 8;
-            j2 = this.j.nextInt(128);
-            k2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.RED_ROSE.id)).a(this.p, this.j, i2, j2, k2);
+            random = this.j;
+            this.p.getClass();
+            j2 = random.nextInt(128);
+            l2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.RED_ROSE.id)).a(this.p, this.j, i2, j2, l2);
         }
 
         if (this.j.nextInt(4) == 0) {
             i2 = k + this.j.nextInt(16) + 8;
-            j2 = this.j.nextInt(128);
-            k2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.BROWN_MUSHROOM.id)).a(this.p, this.j, i2, j2, k2);
+            random = this.j;
+            this.p.getClass();
+            j2 = random.nextInt(128);
+            l2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.BROWN_MUSHROOM.id)).a(this.p, this.j, i2, j2, l2);
         }
 
         if (this.j.nextInt(8) == 0) {
             i2 = k + this.j.nextInt(16) + 8;
-            j2 = this.j.nextInt(128);
-            k2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.RED_MUSHROOM.id)).a(this.p, this.j, i2, j2, k2);
+            random = this.j;
+            this.p.getClass();
+            j2 = random.nextInt(128);
+            l2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.RED_MUSHROOM.id)).a(this.p, this.j, i2, j2, l2);
         }
 
         for (i2 = 0; i2 < 10; ++i2) {
             j2 = k + this.j.nextInt(16) + 8;
-            k2 = this.j.nextInt(128);
-            l2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenReed()).a(this.p, this.j, j2, k2, l2);
+            random = this.j;
+            this.p.getClass();
+            l2 = random.nextInt(128);
+            i3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenReed()).a(this.p, this.j, j2, l2, i3);
         }
 
         if (this.j.nextInt(32) == 0) {
             i2 = k + this.j.nextInt(16) + 8;
-            j2 = this.j.nextInt(128);
-            k2 = l + this.j.nextInt(16) + 8;
-            (new WorldGenPumpkin()).a(this.p, this.j, i2, j2, k2);
+            random = this.j;
+            this.p.getClass();
+            j2 = random.nextInt(128);
+            l2 = l + this.j.nextInt(16) + 8;
+            (new WorldGenPumpkin()).a(this.p, this.j, i2, j2, l2);
         }
 
         i2 = 0;
@@ -477,42 +517,37 @@ public class ChunkProviderSky implements IChunkProvider {
             i2 += 10;
         }
 
-        int i3;
+        int j3;
 
         for (j2 = 0; j2 < i2; ++j2) {
-            k2 = k + this.j.nextInt(16) + 8;
-            l2 = this.j.nextInt(128);
-            i3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenCactus()).a(this.p, this.j, k2, l2, i3);
+            l2 = k + this.j.nextInt(16) + 8;
+            random = this.j;
+            this.p.getClass();
+            i3 = random.nextInt(128);
+            j3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenCactus()).a(this.p, this.j, l2, i3, j3);
         }
 
         for (j2 = 0; j2 < 50; ++j2) {
-            k2 = k + this.j.nextInt(16) + 8;
-            l2 = this.j.nextInt(this.j.nextInt(120) + 8);
-            i3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.WATER.id)).a(this.p, this.j, k2, l2, i3);
+            l2 = k + this.j.nextInt(16) + 8;
+            random = this.j;
+            random1 = this.j;
+            this.p.getClass();
+            i3 = random.nextInt(random1.nextInt(128 - 8) + 8);
+            j3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenLiquids(Block.WATER.id)).a(this.p, this.j, l2, i3, j3);
         }
 
         for (j2 = 0; j2 < 20; ++j2) {
-            k2 = k + this.j.nextInt(16) + 8;
-            l2 = this.j.nextInt(this.j.nextInt(this.j.nextInt(112) + 8) + 8);
-            i3 = l + this.j.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.LAVA.id)).a(this.p, this.j, k2, l2, i3);
-        }
+            l2 = k + this.j.nextInt(16) + 8;
+            random = this.j;
+            random1 = this.j;
+            Random random2 = this.j;
 
-        this.w = this.p.getWorldChunkManager().a(this.w, k + 8, l + 8, 16, 16);
-
-        for (j2 = k + 8; j2 < k + 8 + 16; ++j2) {
-            for (k2 = l + 8; k2 < l + 8 + 16; ++k2) {
-                l2 = j2 - (k + 8);
-                i3 = k2 - (l + 8);
-                int j3 = this.p.e(j2, k2);
-                double d1 = this.w[l2 * 16 + i3] - (double) (j3 - 64) / 64.0D * 0.3D;
-
-                if (d1 < 0.5D && j3 > 0 && j3 < 128 && this.p.isEmpty(j2, j3, k2) && this.p.getMaterial(j2, j3 - 1, k2).isSolid() && this.p.getMaterial(j2, j3 - 1, k2) != Material.ICE) {
-                    this.p.setTypeId(j2, j3, k2, Block.SNOW.id);
-                }
-            }
+            this.p.getClass();
+            i3 = random.nextInt(random1.nextInt(random2.nextInt(128 - 16) + 8) + 8);
+            j3 = l + this.j.nextInt(16) + 8;
+            (new WorldGenLiquids(Block.LAVA.id)).a(this.p, this.j, l2, i3, j3);
         }
 
         BlockSand.instaFall = false;

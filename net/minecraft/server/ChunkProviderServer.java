@@ -2,10 +2,8 @@ package net.minecraft.server;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class ChunkProviderServer implements IChunkProvider {
@@ -15,19 +13,23 @@ public class ChunkProviderServer implements IChunkProvider {
     private IChunkProvider chunkProvider;
     private IChunkLoader e;
     public boolean forceChunkLoad = false;
-    private Map chunks = new HashMap();
+    private PlayerList chunks = new PlayerList();
     private List chunkList = new ArrayList();
     private WorldServer world;
 
     public ChunkProviderServer(WorldServer worldserver, IChunkLoader ichunkloader, IChunkProvider ichunkprovider) {
-        this.emptyChunk = new EmptyChunk(worldserver, new byte['\u8000'], 0, 0);
+
+        worldserver.getClass();
+        EmptyChunk emptychunk = new EmptyChunk(worldserver, new byte[256 * 128], 0, 0);
+
+        this.emptyChunk = emptychunk;
         this.world = worldserver;
         this.e = ichunkloader;
         this.chunkProvider = ichunkprovider;
     }
 
     public boolean isChunkLoaded(int i, int j) {
-        return this.chunks.containsKey(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
+        return this.chunks.b(ChunkCoordIntPair.a(i, j));
     }
 
     public void queueUnload(int i, int j) {
@@ -37,15 +39,15 @@ public class ChunkProviderServer implements IChunkProvider {
         short short1 = 128;
 
         if (k < -short1 || k > short1 || l < -short1 || l > short1) {
-            this.unloadQueue.add(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
+            this.unloadQueue.add(Long.valueOf(ChunkCoordIntPair.a(i, j)));
         }
     }
 
     public Chunk getChunkAt(int i, int j) {
-        int k = ChunkCoordIntPair.a(i, j);
+        long k = ChunkCoordIntPair.a(i, j);
 
-        this.unloadQueue.remove(Integer.valueOf(k));
-        Chunk chunk = (Chunk) this.chunks.get(Integer.valueOf(k));
+        this.unloadQueue.remove(Long.valueOf(k));
+        Chunk chunk = (Chunk) this.chunks.a(k);
 
         if (chunk == null) {
             chunk = this.loadChunk(i, j);
@@ -57,35 +59,21 @@ public class ChunkProviderServer implements IChunkProvider {
                 }
             }
 
-            this.chunks.put(Integer.valueOf(k), chunk);
+            this.chunks.a(k, chunk);
             this.chunkList.add(chunk);
             if (chunk != null) {
                 chunk.loadNOP();
                 chunk.addEntities();
             }
 
-            if (!chunk.done && this.isChunkLoaded(i + 1, j + 1) && this.isChunkLoaded(i, j + 1) && this.isChunkLoaded(i + 1, j)) {
-                this.getChunkAt(this, i, j);
-            }
-
-            if (this.isChunkLoaded(i - 1, j) && !this.getOrCreateChunk(i - 1, j).done && this.isChunkLoaded(i - 1, j + 1) && this.isChunkLoaded(i, j + 1) && this.isChunkLoaded(i - 1, j)) {
-                this.getChunkAt(this, i - 1, j);
-            }
-
-            if (this.isChunkLoaded(i, j - 1) && !this.getOrCreateChunk(i, j - 1).done && this.isChunkLoaded(i + 1, j - 1) && this.isChunkLoaded(i, j - 1) && this.isChunkLoaded(i + 1, j)) {
-                this.getChunkAt(this, i, j - 1);
-            }
-
-            if (this.isChunkLoaded(i - 1, j - 1) && !this.getOrCreateChunk(i - 1, j - 1).done && this.isChunkLoaded(i - 1, j - 1) && this.isChunkLoaded(i, j - 1) && this.isChunkLoaded(i - 1, j)) {
-                this.getChunkAt(this, i - 1, j - 1);
-            }
+            chunk.a(this, this, i, j);
         }
 
         return chunk;
     }
 
     public Chunk getOrCreateChunk(int i, int j) {
-        Chunk chunk = (Chunk) this.chunks.get(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
+        Chunk chunk = (Chunk) this.chunks.a(ChunkCoordIntPair.a(i, j));
 
         return chunk == null ? (!this.world.isLoading && !this.forceChunkLoad ? this.emptyChunk : this.getChunkAt(i, j)) : chunk;
     }
@@ -98,7 +86,7 @@ public class ChunkProviderServer implements IChunkProvider {
                 Chunk chunk = this.e.a(this.world, i, j);
 
                 if (chunk != null) {
-                    chunk.r = this.world.getTime();
+                    chunk.t = this.world.getTime();
                 }
 
                 return chunk;
@@ -122,7 +110,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private void saveChunk(Chunk chunk) {
         if (this.e != null) {
             try {
-                chunk.r = this.world.getTime();
+                chunk.t = this.world.getTime();
                 this.e.a(this.world, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
@@ -148,13 +136,13 @@ public class ChunkProviderServer implements IChunkProvider {
         for (int j = 0; j < this.chunkList.size(); ++j) {
             Chunk chunk = (Chunk) this.chunkList.get(j);
 
-            if (flag && !chunk.p) {
+            if (flag && !chunk.r) {
                 this.saveChunkNOP(chunk);
             }
 
             if (chunk.a(flag)) {
                 this.saveChunk(chunk);
-                chunk.o = false;
+                chunk.q = false;
                 ++i;
                 if (i == 24 && !flag) {
                     return false;
@@ -177,14 +165,14 @@ public class ChunkProviderServer implements IChunkProvider {
         if (!this.world.canSave) {
             for (int i = 0; i < 100; ++i) {
                 if (!this.unloadQueue.isEmpty()) {
-                    Integer integer = (Integer) this.unloadQueue.iterator().next();
-                    Chunk chunk = (Chunk) this.chunks.get(integer);
+                    Long olong = (Long) this.unloadQueue.iterator().next();
+                    Chunk chunk = (Chunk) this.chunks.a(olong.longValue());
 
                     chunk.removeEntities();
                     this.saveChunk(chunk);
                     this.saveChunkNOP(chunk);
-                    this.unloadQueue.remove(integer);
-                    this.chunks.remove(integer);
+                    this.unloadQueue.remove(olong);
+                    this.chunks.d(olong.longValue());
                     this.chunkList.remove(chunk);
                 }
             }

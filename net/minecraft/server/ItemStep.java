@@ -11,4 +11,14 @@ public class ItemStep extends ItemBlock {
     public int filterData(int i) {
         return i;
     }
+
+    public String a(ItemStack itemstack) {
+        int i = itemstack.getData();
+
+        if (i < 0 || i >= BlockStep.a.length) {
+            i = 0;
+        }
+
+        return super.b() + "." + BlockStep.a[i];
+    }
 }

@@ -58,11 +58,11 @@ public class BlockTorch extends Block {
     public void a(World world, int i, int j, int k, Random random) {
         super.a(world, i, j, k, random);
         if (world.getData(i, j, k) == 0) {
-            this.c(world, i, j, k);
+            this.a(world, i, j, k);
         }
     }
 
-    public void c(World world, int i, int j, int k) {
+    public void a(World world, int i, int j, int k) {
         if (world.e(i - 1, j, k)) {
             world.setData(i, j, k, 1);
         } else if (world.e(i + 1, j, k)) {

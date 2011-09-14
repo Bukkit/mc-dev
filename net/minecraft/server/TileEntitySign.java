@@ -28,7 +28,7 @@ public class TileEntitySign extends TileEntity {
         }
     }
 
-    public Packet f() {
+    public Packet l() {
         String[] astring = new String[4];
 
         for (int i = 0; i < 4; ++i) {
@@ -40,9 +40,5 @@ public class TileEntitySign extends TileEntity {
 
     public boolean a() {
         return this.isEditable;
-    }
-
-    public void a(boolean flag) {
-        this.isEditable = flag;
     }
 }

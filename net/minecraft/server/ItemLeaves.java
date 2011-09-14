@@ -9,6 +9,6 @@ public class ItemLeaves extends ItemBlock {
     }
 
     public int filterData(int i) {
-        return i | 8;
+        return i | 4;
     }
 }

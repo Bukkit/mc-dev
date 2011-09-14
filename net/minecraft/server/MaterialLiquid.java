@@ -4,8 +4,8 @@ public class MaterialLiquid extends Material {
 
     public MaterialLiquid(MaterialMapColor materialmapcolor) {
         super(materialmapcolor);
-        this.f();
-        this.k();
+        this.h();
+        this.m();
     }
 
     public boolean isLiquid() {

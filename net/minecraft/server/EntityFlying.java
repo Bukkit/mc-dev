@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-public class EntityFlying extends EntityLiving {
+public abstract class EntityFlying extends EntityLiving {
 
     public EntityFlying(World world) {
         super(world);
@@ -9,13 +9,13 @@ public class EntityFlying extends EntityLiving {
     protected void a(float f) {}
 
     public void a(float f, float f1) {
-        if (this.ad()) {
+        if (this.ao()) {
             this.a(f, f1, 0.02F);
             this.move(this.motX, this.motY, this.motZ);
             this.motX *= 0.800000011920929D;
             this.motY *= 0.800000011920929D;
             this.motZ *= 0.800000011920929D;
-        } else if (this.ae()) {
+        } else if (this.ap()) {
             this.a(f, f1, 0.02F);
             this.move(this.motX, this.motY, this.motZ);
             this.motX *= 0.5D;
@@ -52,7 +52,7 @@ public class EntityFlying extends EntityLiving {
             this.motZ *= (double) f2;
         }
 
-        this.an = this.ao;
+        this.aA = this.aB;
         double d0 = this.locX - this.lastX;
         double d1 = this.locZ - this.lastZ;
         float f4 = MathHelper.a(d0 * d0 + d1 * d1) * 4.0F;
@@ -61,8 +61,8 @@ public class EntityFlying extends EntityLiving {
             f4 = 1.0F;
         }
 
-        this.ao += (f4 - this.ao) * 0.4F;
-        this.ap += this.ao;
+        this.aB += (f4 - this.aB) * 0.4F;
+        this.aC += this.aB;
     }
 
     public boolean p() {

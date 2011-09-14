@@ -7,4 +7,8 @@ public class ItemCoal extends Item {
         this.a(true);
         this.d(0);
     }
+
+    public String a(ItemStack itemstack) {
+        return itemstack.getData() == 1 ? "item.charcoal" : "item.coal";
+    }
 }

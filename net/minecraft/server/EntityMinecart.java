@@ -28,26 +28,26 @@ public class EntityMinecart extends Entity implements IInventory {
         this.b = 0;
         this.c = 1;
         this.i = false;
-        this.aI = true;
+        this.aY = true;
         this.b(0.98F, 0.7F);
         this.height = this.width / 2.0F;
     }
 
-    protected boolean n() {
+    protected boolean e_() {
         return false;
     }
 
     protected void b() {}
 
-    public AxisAlignedBB a_(Entity entity) {
+    public AxisAlignedBB b(Entity entity) {
         return entity.boundingBox;
     }
 
-    public AxisAlignedBB e_() {
+    public AxisAlignedBB f() {
         return null;
     }
 
-    public boolean d_() {
+    public boolean g() {
         return true;
     }
 
@@ -63,15 +63,15 @@ public class EntityMinecart extends Entity implements IInventory {
         this.type = i;
     }
 
-    public double m() {
+    public double n() {
         return (double) this.width * 0.0D - 0.30000001192092896D;
     }
 
-    public boolean damageEntity(Entity entity, int i) {
+    public boolean damageEntity(DamageSource damagesource, int i) {
         if (!this.world.isStatic && !this.dead) {
             this.c = -this.c;
             this.b = 10;
-            this.af();
+            this.aq();
             this.damage += i * 10;
             if (this.damage > 40) {
                 if (this.passenger != null) {
@@ -122,7 +122,7 @@ public class EntityMinecart extends Entity implements IInventory {
         }
     }
 
-    public boolean l_() {
+    public boolean r_() {
         return !this.dead;
     }
 
@@ -157,7 +157,7 @@ public class EntityMinecart extends Entity implements IInventory {
         super.die();
     }
 
-    public void m_() {
+    public void s_() {
         if (this.b > 0) {
             --this.b;
         }
@@ -490,7 +490,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 for (int l1 = 0; l1 < list.size(); ++l1) {
                     Entity entity = (Entity) list.get(l1);
 
-                    if (entity != this.passenger && entity.d_() && entity instanceof EntityMinecart) {
+                    if (entity != this.passenger && entity.g() && entity instanceof EntityMinecart) {
                         entity.collide(this);
                     }
                 }
@@ -591,7 +591,7 @@ public class EntityMinecart extends Entity implements IInventory {
                     NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
                     nbttagcompound1.a("Slot", (byte) i);
-                    this.items[i].a(nbttagcompound1);
+                    this.items[i].b(nbttagcompound1);
                     nbttaglist.a((NBTBase) nbttagcompound1);
                 }
             }
@@ -616,7 +616,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 int j = nbttagcompound1.c("Slot") & 255;
 
                 if (j >= 0 && j < this.items.length) {
-                    this.items[j] = new ItemStack(nbttagcompound1);
+                    this.items[j] = ItemStack.a(nbttagcompound1);
                 }
             }
         }
@@ -647,8 +647,8 @@ public class EntityMinecart extends Entity implements IInventory {
                     d1 *= d3;
                     d0 *= 0.10000000149011612D;
                     d1 *= 0.10000000149011612D;
-                    d0 *= (double) (1.0F - this.bu);
-                    d1 *= (double) (1.0F - this.bu);
+                    d0 *= (double) (1.0F - this.bK);
+                    d1 *= (double) (1.0F - this.bK);
                     d0 *= 0.5D;
                     d1 *= 0.5D;
                     if (entity instanceof EntityMinecart) {
@@ -741,7 +741,7 @@ public class EntityMinecart extends Entity implements IInventory {
 
     public void update() {}
 
-    public boolean a(EntityHuman entityhuman) {
+    public boolean b(EntityHuman entityhuman) {
         if (this.type == 0) {
             if (this.passenger != null && this.passenger instanceof EntityHuman && this.passenger != entityhuman) {
                 return true;
@@ -772,7 +772,11 @@ public class EntityMinecart extends Entity implements IInventory {
         return true;
     }
 
-    public boolean a_(EntityHuman entityhuman) {
-        return this.dead ? false : entityhuman.g(this) <= 64.0D;
+    public boolean a(EntityHuman entityhuman) {
+        return this.dead ? false : entityhuman.h(this) <= 64.0D;
     }
+
+    public void e() {}
+
+    public void t_() {}
 }

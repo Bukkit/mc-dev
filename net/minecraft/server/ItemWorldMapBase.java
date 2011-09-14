@@ -6,11 +6,11 @@ public class ItemWorldMapBase extends Item {
         super(i);
     }
 
-    public boolean b() {
+    public boolean i_() {
         return true;
     }
 
-    public Packet b(ItemStack itemstack, World world, EntityHuman entityhuman) {
+    public Packet c(ItemStack itemstack, World world, EntityHuman entityhuman) {
         return null;
     }
 }

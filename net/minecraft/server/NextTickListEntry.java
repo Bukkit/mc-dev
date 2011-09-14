@@ -29,7 +29,7 @@ public class NextTickListEntry implements Comparable {
     }
 
     public int hashCode() {
-        return (this.a * 128 * 1024 + this.c * 128 + this.b) * 256 + this.d;
+        return (this.a * 1024 * 1024 + this.c * 1024 + this.b) * 256 + this.d;
     }
 
     public NextTickListEntry a(long i) {

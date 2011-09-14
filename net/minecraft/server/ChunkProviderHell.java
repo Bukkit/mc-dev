@@ -40,51 +40,72 @@ public class ChunkProviderHell implements IChunkProvider {
         byte b0 = 4;
         byte b1 = 32;
         int k = b0 + 1;
-        byte b2 = 17;
-        int l = b0 + 1;
 
-        this.o = this.a(this.o, i * b0, 0, j * b0, k, b2, l);
+        this.n.getClass();
+        int l = 128 / 8 + 1;
+        int i1 = b0 + 1;
 
-        for (int i1 = 0; i1 < b0; ++i1) {
-            for (int j1 = 0; j1 < b0; ++j1) {
-                for (int k1 = 0; k1 < 16; ++k1) {
+        this.o = this.a(this.o, i * b0, 0, j * b0, k, l, i1);
+
+        for (int j1 = 0; j1 < b0; ++j1) {
+            int k1 = 0;
+
+            while (k1 < b0) {
+                int l1 = 0;
+
+                while (true) {
+                    this.n.getClass();
+                    if (l1 >= 128 / 8) {
+                        ++k1;
+                        break;
+                    }
+
                     double d0 = 0.125D;
-                    double d1 = this.o[((i1 + 0) * l + j1 + 0) * b2 + k1 + 0];
-                    double d2 = this.o[((i1 + 0) * l + j1 + 1) * b2 + k1 + 0];
-                    double d3 = this.o[((i1 + 1) * l + j1 + 0) * b2 + k1 + 0];
-                    double d4 = this.o[((i1 + 1) * l + j1 + 1) * b2 + k1 + 0];
-                    double d5 = (this.o[((i1 + 0) * l + j1 + 0) * b2 + k1 + 1] - d1) * d0;
-                    double d6 = (this.o[((i1 + 0) * l + j1 + 1) * b2 + k1 + 1] - d2) * d0;
-                    double d7 = (this.o[((i1 + 1) * l + j1 + 0) * b2 + k1 + 1] - d3) * d0;
-                    double d8 = (this.o[((i1 + 1) * l + j1 + 1) * b2 + k1 + 1] - d4) * d0;
+                    double d1 = this.o[((j1 + 0) * i1 + k1 + 0) * l + l1 + 0];
+                    double d2 = this.o[((j1 + 0) * i1 + k1 + 1) * l + l1 + 0];
+                    double d3 = this.o[((j1 + 1) * i1 + k1 + 0) * l + l1 + 0];
+                    double d4 = this.o[((j1 + 1) * i1 + k1 + 1) * l + l1 + 0];
+                    double d5 = (this.o[((j1 + 0) * i1 + k1 + 0) * l + l1 + 1] - d1) * d0;
+                    double d6 = (this.o[((j1 + 0) * i1 + k1 + 1) * l + l1 + 1] - d2) * d0;
+                    double d7 = (this.o[((j1 + 1) * i1 + k1 + 0) * l + l1 + 1] - d3) * d0;
+                    double d8 = (this.o[((j1 + 1) * i1 + k1 + 1) * l + l1 + 1] - d4) * d0;
 
-                    for (int l1 = 0; l1 < 8; ++l1) {
+                    for (int i2 = 0; i2 < 8; ++i2) {
                         double d9 = 0.25D;
                         double d10 = d1;
                         double d11 = d2;
                         double d12 = (d3 - d1) * d9;
                         double d13 = (d4 - d2) * d9;
 
-                        for (int i2 = 0; i2 < 4; ++i2) {
-                            int j2 = i2 + i1 * 4 << 11 | 0 + j1 * 4 << 7 | k1 * 8 + l1;
-                            short short1 = 128;
+                        for (int j2 = 0; j2 < 4; ++j2) {
+                            int k2 = j2 + j1 * 4;
+
+                            this.n.getClass();
+                            k2 <<= 11;
+                            int l2 = 0 + k1 * 4;
+
+                            this.n.getClass();
+                            int i3 = k2 | l2 << 7 | l1 * 8 + i2;
+
+                            this.n.getClass();
+                            int j3 = 1 << 7;
                             double d14 = 0.25D;
                             double d15 = d10;
                             double d16 = (d11 - d10) * d14;
 
-                            for (int k2 = 0; k2 < 4; ++k2) {
-                                int l2 = 0;
+                            for (int k3 = 0; k3 < 4; ++k3) {
+                                int l3 = 0;
 
-                                if (k1 * 8 + l1 < b1) {
-                                    l2 = Block.STATIONARY_LAVA.id;
+                                if (l1 * 8 + i2 < b1) {
+                                    l3 = Block.STATIONARY_LAVA.id;
                                 }
 
                                 if (d15 > 0.0D) {
-                                    l2 = Block.NETHERRACK.id;
+                                    l3 = Block.NETHERRACK.id;
                                 }
 
-                                abyte[j2] = (byte) l2;
-                                j2 += short1;
+                                abyte[i3] = (byte) l3;
+                                i3 += j3;
                                 d15 += d16;
                             }
 
@@ -97,78 +118,87 @@ public class ChunkProviderHell implements IChunkProvider {
                         d3 += d7;
                         d4 += d8;
                     }
+
+                    ++l1;
                 }
             }
         }
     }
 
     public void b(int i, int j, byte[] abyte) {
-        byte b0 = 64;
+        this.n.getClass();
+        int k = 128 - 64;
         double d0 = 0.03125D;
 
-        this.p = this.l.a(this.p, (double) (i * 16), (double) (j * 16), 0.0D, 16, 16, 1, d0, d0, 1.0D);
-        this.q = this.l.a(this.q, (double) (i * 16), 109.0134D, (double) (j * 16), 16, 1, 16, d0, 1.0D, d0);
-        this.r = this.m.a(this.r, (double) (i * 16), (double) (j * 16), 0.0D, 16, 16, 1, d0 * 2.0D, d0 * 2.0D, d0 * 2.0D);
+        this.p = this.l.a(this.p, i * 16, j * 16, 0, 16, 16, 1, d0, d0, 1.0D);
+        this.q = this.l.a(this.q, i * 16, 109, j * 16, 16, 1, 16, d0, 1.0D, d0);
+        this.r = this.m.a(this.r, i * 16, j * 16, 0, 16, 16, 1, d0 * 2.0D, d0 * 2.0D, d0 * 2.0D);
 
-        for (int k = 0; k < 16; ++k) {
-            for (int l = 0; l < 16; ++l) {
-                boolean flag = this.p[k + l * 16] + this.h.nextDouble() * 0.2D > 0.0D;
-                boolean flag1 = this.q[k + l * 16] + this.h.nextDouble() * 0.2D > 0.0D;
-                int i1 = (int) (this.r[k + l * 16] / 3.0D + 3.0D + this.h.nextDouble() * 0.25D);
-                int j1 = -1;
+        for (int l = 0; l < 16; ++l) {
+            for (int i1 = 0; i1 < 16; ++i1) {
+                boolean flag = this.p[l + i1 * 16] + this.h.nextDouble() * 0.2D > 0.0D;
+                boolean flag1 = this.q[l + i1 * 16] + this.h.nextDouble() * 0.2D > 0.0D;
+                int j1 = (int) (this.r[l + i1 * 16] / 3.0D + 3.0D + this.h.nextDouble() * 0.25D);
+                int k1 = -1;
+                byte b0 = (byte) Block.NETHERRACK.id;
                 byte b1 = (byte) Block.NETHERRACK.id;
-                byte b2 = (byte) Block.NETHERRACK.id;
 
-                for (int k1 = 127; k1 >= 0; --k1) {
-                    int l1 = (l * 16 + k) * 128 + k1;
+                this.n.getClass();
 
-                    if (k1 >= 127 - this.h.nextInt(5)) {
-                        abyte[l1] = (byte) Block.BEDROCK.id;
-                    } else if (k1 <= 0 + this.h.nextInt(5)) {
-                        abyte[l1] = (byte) Block.BEDROCK.id;
+                for (int l1 = 127; l1 >= 0; --l1) {
+                    int i2 = i1 * 16 + l;
+
+                    this.n.getClass();
+                    int j2 = i2 * 128 + l1;
+
+                    this.n.getClass();
+                    if (l1 >= 127 - this.h.nextInt(5)) {
+                        abyte[j2] = (byte) Block.BEDROCK.id;
+                    } else if (l1 <= 0 + this.h.nextInt(5)) {
+                        abyte[j2] = (byte) Block.BEDROCK.id;
                     } else {
-                        byte b3 = abyte[l1];
+                        byte b2 = abyte[j2];
 
-                        if (b3 == 0) {
-                            j1 = -1;
-                        } else if (b3 == Block.NETHERRACK.id) {
-                            if (j1 == -1) {
-                                if (i1 <= 0) {
-                                    b1 = 0;
-                                    b2 = (byte) Block.NETHERRACK.id;
-                                } else if (k1 >= b0 - 4 && k1 <= b0 + 1) {
+                        if (b2 == 0) {
+                            k1 = -1;
+                        } else if (b2 == Block.NETHERRACK.id) {
+                            if (k1 == -1) {
+                                if (j1 <= 0) {
+                                    b0 = 0;
                                     b1 = (byte) Block.NETHERRACK.id;
-                                    b2 = (byte) Block.NETHERRACK.id;
+                                } else if (l1 >= k - 4 && l1 <= k + 1) {
+                                    b0 = (byte) Block.NETHERRACK.id;
+                                    b1 = (byte) Block.NETHERRACK.id;
                                     if (flag1) {
-                                        b1 = (byte) Block.GRAVEL.id;
+                                        b0 = (byte) Block.GRAVEL.id;
                                     }
 
                                     if (flag1) {
-                                        b2 = (byte) Block.NETHERRACK.id;
+                                        b1 = (byte) Block.NETHERRACK.id;
+                                    }
+
+                                    if (flag) {
+                                        b0 = (byte) Block.SOUL_SAND.id;
                                     }
 
                                     if (flag) {
                                         b1 = (byte) Block.SOUL_SAND.id;
                                     }
-
-                                    if (flag) {
-                                        b2 = (byte) Block.SOUL_SAND.id;
-                                    }
                                 }
 
-                                if (k1 < b0 && b1 == 0) {
-                                    b1 = (byte) Block.STATIONARY_LAVA.id;
+                                if (l1 < k && b0 == 0) {
+                                    b0 = (byte) Block.STATIONARY_LAVA.id;
                                 }
 
-                                j1 = i1;
-                                if (k1 >= b0 - 1) {
-                                    abyte[l1] = b1;
+                                k1 = j1;
+                                if (l1 >= k - 1) {
+                                    abyte[j2] = b0;
                                 } else {
-                                    abyte[l1] = b2;
+                                    abyte[j2] = b1;
                                 }
-                            } else if (j1 > 0) {
-                                --j1;
-                                abyte[l1] = b2;
+                            } else if (k1 > 0) {
+                                --k1;
+                                abyte[j2] = b1;
                             }
                         }
                     }
@@ -183,7 +213,8 @@ public class ChunkProviderHell implements IChunkProvider {
 
     public Chunk getOrCreateChunk(int i, int j) {
         this.h.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
-        byte[] abyte = new byte['\u8000'];
+        this.n.getClass();
+        byte[] abyte = new byte[16 * 128 * 16];
 
         this.a(i, j, abyte);
         this.b(i, j, abyte);
@@ -201,11 +232,11 @@ public class ChunkProviderHell implements IChunkProvider {
         double d0 = 684.412D;
         double d1 = 2053.236D;
 
-        this.f = this.a.a(this.f, (double) i, (double) j, (double) k, l, 1, j1, 1.0D, 0.0D, 1.0D);
-        this.g = this.b.a(this.g, (double) i, (double) j, (double) k, l, 1, j1, 100.0D, 0.0D, 100.0D);
-        this.c = this.k.a(this.c, (double) i, (double) j, (double) k, l, i1, j1, d0 / 80.0D, d1 / 60.0D, d0 / 80.0D);
-        this.d = this.i.a(this.d, (double) i, (double) j, (double) k, l, i1, j1, d0, d1, d0);
-        this.e = this.j.a(this.e, (double) i, (double) j, (double) k, l, i1, j1, d0, d1, d0);
+        this.f = this.a.a(this.f, i, j, k, l, 1, j1, 1.0D, 0.0D, 1.0D);
+        this.g = this.b.a(this.g, i, j, k, l, 1, j1, 100.0D, 0.0D, 100.0D);
+        this.c = this.k.a(this.c, i, j, k, l, i1, j1, d0 / 80.0D, d1 / 60.0D, d0 / 80.0D);
+        this.d = this.i.a(this.d, i, j, k, l, i1, j1, d0, d1, d0);
+        this.e = this.j.a(this.e, i, j, k, l, i1, j1, d0, d1, d0);
         int k1 = 0;
         int l1 = 0;
         double[] adouble1 = new double[i1];
@@ -321,10 +352,13 @@ public class ChunkProviderHell implements IChunkProvider {
         int j1;
         int k1;
         int l1;
+        Random i2000;
 
         for (i1 = 0; i1 < 8; ++i1) {
             j1 = k + this.h.nextInt(16) + 8;
-            k1 = this.h.nextInt(120) + 4;
+            i2000 = this.h;
+            this.n.getClass();
+            k1 = i2000.nextInt(128 - 8) + 4;
             l1 = l + this.h.nextInt(16) + 8;
             (new WorldGenHellLava(Block.LAVA.id)).a(this.n, this.h, j1, k1, l1);
         }
@@ -335,7 +369,9 @@ public class ChunkProviderHell implements IChunkProvider {
 
         for (j1 = 0; j1 < i1; ++j1) {
             k1 = k + this.h.nextInt(16) + 8;
-            l1 = this.h.nextInt(120) + 4;
+            i2000 = this.h;
+            this.n.getClass();
+            l1 = i2000.nextInt(128 - 8) + 4;
             i2 = l + this.h.nextInt(16) + 8;
             (new WorldGenFire()).a(this.n, this.h, k1, l1, i2);
         }
@@ -344,28 +380,36 @@ public class ChunkProviderHell implements IChunkProvider {
 
         for (j1 = 0; j1 < i1; ++j1) {
             k1 = k + this.h.nextInt(16) + 8;
-            l1 = this.h.nextInt(120) + 4;
+            i2000 = this.h;
+            this.n.getClass();
+            l1 = i2000.nextInt(128 - 8) + 4;
             i2 = l + this.h.nextInt(16) + 8;
             (new WorldGenLightStone2()).a(this.n, this.h, k1, l1, i2);
         }
 
         for (j1 = 0; j1 < 10; ++j1) {
             k1 = k + this.h.nextInt(16) + 8;
-            l1 = this.h.nextInt(128);
+            i2000 = this.h;
+            this.n.getClass();
+            l1 = i2000.nextInt(128);
             i2 = l + this.h.nextInt(16) + 8;
             (new WorldGenLightStone1()).a(this.n, this.h, k1, l1, i2);
         }
 
         if (this.h.nextInt(1) == 0) {
             j1 = k + this.h.nextInt(16) + 8;
-            k1 = this.h.nextInt(128);
+            i2000 = this.h;
+            this.n.getClass();
+            k1 = i2000.nextInt(128);
             l1 = l + this.h.nextInt(16) + 8;
             (new WorldGenFlowers(Block.BROWN_MUSHROOM.id)).a(this.n, this.h, j1, k1, l1);
         }
 
         if (this.h.nextInt(1) == 0) {
             j1 = k + this.h.nextInt(16) + 8;
-            k1 = this.h.nextInt(128);
+            i2000 = this.h;
+            this.n.getClass();
+            k1 = i2000.nextInt(128);
             l1 = l + this.h.nextInt(16) + 8;
             (new WorldGenFlowers(Block.RED_MUSHROOM.id)).a(this.n, this.h, j1, k1, l1);
         }

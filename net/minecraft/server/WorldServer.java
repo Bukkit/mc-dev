@@ -9,10 +9,10 @@ public class WorldServer extends World {
     public boolean weirdIsOpCache = false;
     public boolean canSave;
     private MinecraftServer server;
-    private EntityList G = new EntityList();
+    private EntityList Q = new EntityList();
 
-    public WorldServer(MinecraftServer minecraftserver, IDataManager idatamanager, String s, int i, long j) {
-        super(idatamanager, s, j, WorldProvider.byDimension(i));
+    public WorldServer(MinecraftServer minecraftserver, IDataManager idatamanager, String s, int i, WorldSettings worldsettings) {
+        super(idatamanager, s, worldsettings, WorldProvider.byDimension(i));
         this.server = minecraftserver;
     }
 
@@ -31,7 +31,7 @@ public class WorldServer extends World {
     }
 
     protected IChunkProvider b() {
-        IChunkLoader ichunkloader = this.w.a(this.worldProvider);
+        IChunkLoader ichunkloader = this.B.a(this.worldProvider);
 
         this.chunkProviderServer = new ChunkProviderServer(this, ichunkloader, this.worldProvider.getChunkProvider());
         return this.chunkProviderServer;
@@ -40,8 +40,8 @@ public class WorldServer extends World {
     public List getTileEntities(int i, int j, int k, int l, int i1, int j1) {
         ArrayList arraylist = new ArrayList();
 
-        for (int k1 = 0; k1 < this.c.size(); ++k1) {
-            TileEntity tileentity = (TileEntity) this.c.get(k1);
+        for (int k1 = 0; k1 < this.h.size(); ++k1) {
+            TileEntity tileentity = (TileEntity) this.h.get(k1);
 
             if (tileentity.x >= i && tileentity.y >= j && tileentity.z >= k && tileentity.x < l && tileentity.y < i1 && tileentity.z < j1) {
                 arraylist.add(tileentity);
@@ -52,8 +52,8 @@ public class WorldServer extends World {
     }
 
     public boolean a(EntityHuman entityhuman, int i, int j, int k) {
-        int l = (int) MathHelper.abs((float) (i - this.worldData.c()));
-        int i1 = (int) MathHelper.abs((float) (k - this.worldData.e()));
+        int l = MathHelper.a(i - this.worldData.c());
+        int i1 = MathHelper.a(k - this.worldData.e());
 
         if (l > i1) {
             i1 = l;
@@ -64,16 +64,16 @@ public class WorldServer extends World {
 
     protected void c(Entity entity) {
         super.c(entity);
-        this.G.a(entity.id, entity);
+        this.Q.a(entity.id, entity);
     }
 
     protected void d(Entity entity) {
         super.d(entity);
-        this.G.d(entity.id);
+        this.Q.d(entity.id);
     }
 
     public Entity getEntity(int i) {
-        return (Entity) this.G.a(i);
+        return (Entity) this.Q.a(i);
     }
 
     public boolean strikeLightning(Entity entity) {
@@ -107,18 +107,18 @@ public class WorldServer extends World {
     }
 
     public void saveLevel() {
-        this.w.e();
+        this.B.e();
     }
 
-    protected void i() {
-        boolean flag = this.v();
+    protected void h() {
+        boolean flag = this.u();
 
-        super.i();
-        if (flag != this.v()) {
+        super.h();
+        if (flag != this.u()) {
             if (flag) {
-                this.server.serverConfigurationManager.sendAll(new Packet70Bed(2));
+                this.server.serverConfigurationManager.sendAll(new Packet70Bed(2, 0));
             } else {
-                this.server.serverConfigurationManager.sendAll(new Packet70Bed(1));
+                this.server.serverConfigurationManager.sendAll(new Packet70Bed(1, 0));
             }
         }
     }

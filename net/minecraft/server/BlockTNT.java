@@ -12,8 +12,8 @@ public class BlockTNT extends Block {
         return i == 0 ? this.textureId + 2 : (i == 1 ? this.textureId + 1 : this.textureId);
     }
 
-    public void c(World world, int i, int j, int k) {
-        super.c(world, i, j, k);
+    public void a(World world, int i, int j, int k) {
+        super.a(world, i, j, k);
         if (world.isBlockIndirectlyPowered(i, j, k)) {
             this.postBreak(world, i, j, k, 1);
             world.setTypeId(i, j, k, 0);
@@ -31,7 +31,7 @@ public class BlockTNT extends Block {
         return 0;
     }
 
-    public void d(World world, int i, int j, int k) {
+    public void a_(World world, int i, int j, int k) {
         EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F));
 
         entitytntprimed.fuseTicks = world.random.nextInt(entitytntprimed.fuseTicks / 4) + entitytntprimed.fuseTicks / 8;
@@ -52,7 +52,7 @@ public class BlockTNT extends Block {
     }
 
     public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (entityhuman.G() != null && entityhuman.G().id == Item.FLINT_AND_STEEL.id) {
+        if (entityhuman.K() != null && entityhuman.K().id == Item.FLINT_AND_STEEL.id) {
             world.setRawData(i, j, k, 1);
         }
 

@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.Random;
+
 public class MathHelper {
 
     private static float[] a = new float[65536];
@@ -34,8 +36,18 @@ public class MathHelper {
         return d0 < (double) i ? i - 1 : i;
     }
 
+    public static long c(double d0) {
+        long i = (long) d0;
+
+        return d0 < (double) i ? i - 1L : i;
+    }
+
     public static float abs(float f) {
         return f >= 0.0F ? f : -f;
+    }
+
+    public static int a(int i) {
+        return i >= 0 ? i : -i;
     }
 
     public static double a(double d0, double d1) {
@@ -48,6 +60,10 @@ public class MathHelper {
         }
 
         return d0 > d1 ? d0 : d1;
+    }
+
+    public static int a(Random random, int i, int j) {
+        return i >= j ? i : random.nextInt(j - i + 1) + i;
     }
 
     static {
