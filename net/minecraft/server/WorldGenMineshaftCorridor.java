@@ -148,10 +148,13 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
 
             for (j = 0; j < this.d; ++j) {
                 k = 2 + j * 5;
-                this.a(world, structureboundingbox, 0, 0, k, 0, 2, k, Block.WOOD.id, 0, false);
-                this.a(world, structureboundingbox, 2, 0, k, 2, 2, k, Block.WOOD.id, 0, false);
+                this.a(world, structureboundingbox, 0, 0, k, 0, 1, k, Block.FENCE.id, 0, false);
+                this.a(world, structureboundingbox, 2, 0, k, 2, 1, k, Block.FENCE.id, 0, false);
                 if (random.nextInt(4) != 0) {
-                    this.a(world, structureboundingbox, 1, 2, k, 1, 2, k, Block.WOOD.id, 0, false);
+                    this.a(world, structureboundingbox, 0, 2, k, 2, 2, k, Block.WOOD.id, 0, false);
+                } else {
+                    this.a(world, structureboundingbox, 0, 2, k, 0, 2, k, Block.WOOD.id, 0, false);
+                    this.a(world, structureboundingbox, 2, 2, k, 2, 2, k, Block.WOOD.id, 0, false);
                 }
 
                 this.a(world, structureboundingbox, random, 0.1F, 0, 2, k - 1, Block.WEB.id, 0);

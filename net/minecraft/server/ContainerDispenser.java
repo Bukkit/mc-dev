@@ -30,4 +30,36 @@ public class ContainerDispenser extends Container {
     public boolean b(EntityHuman entityhuman) {
         return this.a.a(entityhuman);
     }
+
+    public ItemStack a(int i) {
+        ItemStack itemstack = null;
+        Slot slot = (Slot) this.e.get(i);
+
+        if (slot != null && slot.b()) {
+            ItemStack itemstack1 = slot.getItem();
+
+            itemstack = itemstack1.cloneItemStack();
+            if (i < 9) {
+                if (!this.a(itemstack1, 9, 45, true)) {
+                    return null;
+                }
+            } else if (!this.a(itemstack1, 0, 9, false)) {
+                return null;
+            }
+
+            if (itemstack1.count == 0) {
+                slot.c((ItemStack) null);
+            } else {
+                slot.c();
+            }
+
+            if (itemstack1.count == itemstack.count) {
+                return null;
+            }
+
+            slot.a(itemstack1);
+        }
+
+        return itemstack;
+    }
 }

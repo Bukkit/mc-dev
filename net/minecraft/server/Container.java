@@ -232,7 +232,8 @@ public abstract class Container {
 
     public abstract boolean b(EntityHuman entityhuman);
 
-    protected void a(ItemStack itemstack, int i, int j, boolean flag) {
+    protected boolean a(ItemStack itemstack, int i, int j, boolean flag) {
+        boolean flag1 = false;
         int k = i;
 
         if (flag) {
@@ -253,10 +254,12 @@ public abstract class Container {
                         itemstack.count = 0;
                         itemstack1.count = l;
                         slot.c();
+                        flag1 = true;
                     } else if (itemstack1.count < itemstack.getMaxStackSize()) {
                         itemstack.count -= itemstack.getMaxStackSize() - itemstack1.count;
                         itemstack1.count = itemstack.getMaxStackSize();
                         slot.c();
+                        flag1 = true;
                     }
                 }
 
@@ -282,6 +285,7 @@ public abstract class Container {
                     slot.c(itemstack.cloneItemStack());
                     slot.c();
                     itemstack.count = 0;
+                    flag1 = true;
                     break;
                 }
 
@@ -292,5 +296,7 @@ public abstract class Container {
                 }
             }
         }
+
+        return flag1;
     }
 }

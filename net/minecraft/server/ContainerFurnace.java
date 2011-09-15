@@ -70,13 +70,19 @@ public class ContainerFurnace extends Container {
 
             itemstack = itemstack1.cloneItemStack();
             if (i == 2) {
-                this.a(itemstack1, 3, 39, true);
+                if (!this.a(itemstack1, 3, 39, true)) {
+                    return null;
+                }
             } else if (i >= 3 && i < 30) {
-                this.a(itemstack1, 30, 39, false);
+                if (!this.a(itemstack1, 30, 39, false)) {
+                    return null;
+                }
             } else if (i >= 30 && i < 39) {
-                this.a(itemstack1, 3, 30, false);
-            } else {
-                this.a(itemstack1, 3, 39, false);
+                if (!this.a(itemstack1, 3, 30, false)) {
+                    return null;
+                }
+            } else if (!this.a(itemstack1, 3, 39, false)) {
+                return null;
             }
 
             if (itemstack1.count == 0) {
