@@ -16,7 +16,7 @@ public class EntitySilverfish extends EntityMonster {
         return false;
     }
 
-    protected Entity o() {
+    protected Entity findTarget() {
         double d0 = 8.0D;
 
         return this.world.findNearbyPlayer(this, d0);
@@ -34,7 +34,7 @@ public class EntitySilverfish extends EntityMonster {
         return "mob.spiderdeath";
     }
 
-    public boolean a(DamageSource damagesource, int i) {
+    public boolean damageEntity(DamageSource damagesource, int i) {
         if (this.a <= 0 && damagesource instanceof EntityDamageSource) {
             this.a = 20;
         }

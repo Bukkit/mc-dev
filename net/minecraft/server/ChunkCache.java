@@ -27,7 +27,7 @@ public class ChunkCache implements IBlockAccess {
         if (j < 0) {
             return 0;
         } else {
-            this.d.getClass();
+
             if (j >= 128) {
                 return 0;
             } else {
@@ -56,7 +56,7 @@ public class ChunkCache implements IBlockAccess {
         if (j < 0) {
             return 0;
         } else {
-            this.d.getClass();
+
             if (j >= 128) {
                 return 0;
             } else {

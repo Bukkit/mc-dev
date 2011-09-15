@@ -15,12 +15,12 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     private int g;
     private boolean h;
     private int i;
-    private long x;
-    private static Random y = new Random();
-    private long z;
-    private double m;
-    private double n;
-    private double o;
+    private long j;
+    private static Random k = new Random();
+    private long l;
+    private double x;
+    private double y;
+    private double z;
     private boolean checkMovement = true;
     private EntityList q = new EntityList();
 
@@ -36,10 +36,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         this.h = false;
         ++this.f;
         this.networkManager.b();
-        if ((long) this.f - this.z > 20L) {
-            this.z = (long) this.f;
-            this.x = System.nanoTime() / 1000000L;
-            this.i = y.nextInt();
+        if ((long) this.f - this.l > 20L) {
+            this.l = (long) this.f;
+            this.j = System.nanoTime() / 1000000L;
+            this.i = k.nextInt();
             this.sendPacket(new Packet0KeepAlive(this.i));
         }
     }
@@ -64,8 +64,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         double d0;
 
         if (!this.checkMovement) {
-            d0 = packet10flying.y - this.n;
-            if (packet10flying.x == this.m && d0 * d0 < 0.01D && packet10flying.z == this.o) {
+            d0 = packet10flying.y - this.y;
+            if (packet10flying.x == this.x && d0 * d0 < 0.01D && packet10flying.z == this.z) {
                 this.checkMovement = true;
             }
         }
@@ -112,24 +112,24 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 }
 
                 this.minecraftServer.serverConfigurationManager.d(this.player);
-                this.m = this.player.locX;
-                this.n = this.player.locY;
-                this.o = this.player.locZ;
+                this.x = this.player.locX;
+                this.y = this.player.locY;
+                this.z = this.player.locZ;
                 worldserver.playerJoinedWorld(this.player);
                 return;
             }
 
             if (this.player.isSleeping()) {
                 this.player.b(true);
-                this.player.setLocation(this.m, this.n, this.o, this.player.yaw, this.player.pitch);
+                this.player.setLocation(this.x, this.y, this.z, this.player.yaw, this.player.pitch);
                 worldserver.playerJoinedWorld(this.player);
                 return;
             }
 
             d0 = this.player.locY;
-            this.m = this.player.locX;
-            this.n = this.player.locY;
-            this.o = this.player.locZ;
+            this.x = this.player.locX;
+            this.y = this.player.locY;
+            this.z = this.player.locZ;
             d1 = this.player.locX;
             d2 = this.player.locY;
             d3 = this.player.locZ;
@@ -164,7 +164,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
             this.player.b(true);
             this.player.bH = 0.0F;
-            this.player.setLocation(this.m, this.n, this.o, f2, f3);
+            this.player.setLocation(this.x, this.y, this.z, f2, f3);
             if (!this.checkMovement) {
                 return;
             }
@@ -211,7 +211,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             boolean flag2 = worldserver.getEntities(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
 
             if (flag && (flag1 || !flag2) && !this.player.isSleeping()) {
-                this.a(this.m, this.n, this.o, f2, f3);
+                this.a(this.x, this.y, this.z, f2, f3);
                 return;
             }
 
@@ -238,9 +238,9 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void a(double d0, double d1, double d2, float f, float f1) {
         this.checkMovement = false;
-        this.m = d0;
-        this.n = d1;
-        this.o = d2;
+        this.x = d0;
+        this.y = d1;
+        this.z = d2;
         this.player.setLocation(d0, d1, d2, f, f1);
         this.player.netServerHandler.sendPacket(new Packet13PlayerLookMove(d0, d1 + 1.6200000047683716D, d1, d2, f, f1, false));
     }
@@ -644,7 +644,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void a(Packet0KeepAlive packet0keepalive) {
         if (packet0keepalive.a == this.i) {
-            int i = (int) (System.nanoTime() / 1000000L - this.x);
+            int i = (int) (System.nanoTime() / 1000000L - this.j);
 
             this.player.i = (this.player.i * 3 + i) / 4;
         }

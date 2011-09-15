@@ -88,10 +88,10 @@ public class MapGenCavesHell extends MapGenBase {
                     if (i2 < 1) {
                         i2 = 1;
                     }
-
+                    //
                     this.d.getClass();
                     if (j2 > 128 - 8) {
-                        this.d.getClass();
+
                         j2 = 128 - 8;
                     }
 
@@ -113,10 +113,10 @@ public class MapGenCavesHell extends MapGenBase {
                         for (int l3 = k2; !flag2 && l3 < l2; ++l3) {
                             for (int i4 = j2 + 1; !flag2 && i4 >= i2 - 1; --i4) {
                                 i3 = k3 * 16 + l3;
-                                this.d.getClass();
+
                                 j3 = i3 * 128 + i4;
                                 if (i4 >= 0) {
-                                    this.d.getClass();
+
                                     if (i4 < 128) {
                                         if (abyte[j3] == Block.LAVA.id || abyte[j3] == Block.STATIONARY_LAVA.id) {
                                             flag2 = true;
@@ -139,7 +139,7 @@ public class MapGenCavesHell extends MapGenBase {
                                 double d13 = ((double) (j3 + j * 16) + 0.5D - d2) / d6;
 
                                 i3 = k3 * 16 + j3;
-                                this.d.getClass();
+
                                 int j4 = i3 * 128 + j2;
 
                                 for (int k4 = j2 - 1; k4 >= i2; --k4) {

@@ -174,13 +174,13 @@ public class ChunkLoader implements IChunkLoader {
         NibbleArray nibblearray5 = new NibbleArray(k003, 7);
 
         chunk.g = nibblearray5;
-        nibblearray5 = new NibbleArray();
+
         k003 = nbttagcompound.j("SkyLight");
         world.getClass();
         NibbleArray nibblearray5 = new NibbleArray(k003, 7);
 
         chunk.h = nibblearray5;
-        nibblearray5 = new NibbleArray();
+
         k003 = nbttagcompound.j("BlockLight");
         world.getClass();
         NibbleArray nibblearray5 = new NibbleArray(k003, 7);
@@ -191,7 +191,7 @@ public class ChunkLoader implements IChunkLoader {
         int k;
 
         if (!chunk.g.a()) {
-            nibblearray5 = new NibbleArray();
+
             k = chunk.b.length;
             world.getClass();
             NibbleArray nibblearray5 = new NibbleArray(k, 7);
@@ -201,7 +201,7 @@ public class ChunkLoader implements IChunkLoader {
 
         if (chunk.heightMap == null || !chunk.h.a()) {
             chunk.heightMap = new byte[256];
-            nibblearray5 = new NibbleArray();
+
             k = chunk.b.length;
             world.getClass();
             NibbleArray nibblearray5 = new NibbleArray(k, 7);
@@ -211,7 +211,7 @@ public class ChunkLoader implements IChunkLoader {
         }
 
         if (!chunk.i.a()) {
-            nibblearray5 = new NibbleArray();
+
             k = chunk.b.length;
             world.getClass();
             NibbleArray nibblearray5 = new NibbleArray(k, 7);

@@ -41,7 +41,6 @@ public class ChunkProviderHell implements IChunkProvider {
         byte b1 = 32;
         int k = b0 + 1;
 
-        this.n.getClass();
         int l = 128 / 8 + 1;
         int i1 = b0 + 1;
 
@@ -54,7 +53,7 @@ public class ChunkProviderHell implements IChunkProvider {
                 int l1 = 0;
 
                 while (true) {
-                    this.n.getClass();
+
                     if (l1 >= 128 / 8) {
                         ++k1;
                         break;
@@ -80,14 +79,11 @@ public class ChunkProviderHell implements IChunkProvider {
                         for (int j2 = 0; j2 < 4; ++j2) {
                             int k2 = j2 + j1 * 4;
 
-                            this.n.getClass();
                             k2 <<= 11;
                             int l2 = 0 + k1 * 4;
 
-                            this.n.getClass();
                             int i3 = k2 | l2 << 7 | l1 * 8 + i2;
 
-                            this.n.getClass();
                             int j3 = 1 << 7;
                             double d14 = 0.25D;
                             double d15 = d10;
@@ -126,7 +122,7 @@ public class ChunkProviderHell implements IChunkProvider {
     }
 
     public void b(int i, int j, byte[] abyte) {
-        this.n.getClass();
+
         int k = 128 - 64;
         double d0 = 0.03125D;
 
@@ -143,15 +139,11 @@ public class ChunkProviderHell implements IChunkProvider {
                 byte b0 = (byte) Block.NETHERRACK.id;
                 byte b1 = (byte) Block.NETHERRACK.id;
 
-                this.n.getClass();
-
                 for (int l1 = 127; l1 >= 0; --l1) {
                     int i2 = i1 * 16 + l;
 
-                    this.n.getClass();
                     int j2 = i2 * 128 + l1;
 
-                    this.n.getClass();
                     if (l1 >= 127 - this.h.nextInt(5)) {
                         abyte[j2] = (byte) Block.BEDROCK.id;
                     } else if (l1 <= 0 + this.h.nextInt(5)) {
@@ -213,7 +205,7 @@ public class ChunkProviderHell implements IChunkProvider {
 
     public Chunk getOrCreateChunk(int i, int j) {
         this.h.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
-        this.n.getClass();
+
         byte[] abyte = new byte[16 * 128 * 16];
 
         this.a(i, j, abyte);
@@ -357,7 +349,7 @@ public class ChunkProviderHell implements IChunkProvider {
         for (i1 = 0; i1 < 8; ++i1) {
             j1 = k + this.h.nextInt(16) + 8;
             i2000 = this.h;
-            this.n.getClass();
+
             k1 = i2000.nextInt(128 - 8) + 4;
             l1 = l + this.h.nextInt(16) + 8;
             (new WorldGenHellLava(Block.LAVA.id)).a(this.n, this.h, j1, k1, l1);
@@ -370,7 +362,7 @@ public class ChunkProviderHell implements IChunkProvider {
         for (j1 = 0; j1 < i1; ++j1) {
             k1 = k + this.h.nextInt(16) + 8;
             i2000 = this.h;
-            this.n.getClass();
+
             l1 = i2000.nextInt(128 - 8) + 4;
             i2 = l + this.h.nextInt(16) + 8;
             (new WorldGenFire()).a(this.n, this.h, k1, l1, i2);
@@ -381,7 +373,7 @@ public class ChunkProviderHell implements IChunkProvider {
         for (j1 = 0; j1 < i1; ++j1) {
             k1 = k + this.h.nextInt(16) + 8;
             i2000 = this.h;
-            this.n.getClass();
+
             l1 = i2000.nextInt(128 - 8) + 4;
             i2 = l + this.h.nextInt(16) + 8;
             (new WorldGenLightStone2()).a(this.n, this.h, k1, l1, i2);
@@ -390,7 +382,7 @@ public class ChunkProviderHell implements IChunkProvider {
         for (j1 = 0; j1 < 10; ++j1) {
             k1 = k + this.h.nextInt(16) + 8;
             i2000 = this.h;
-            this.n.getClass();
+
             l1 = i2000.nextInt(128);
             i2 = l + this.h.nextInt(16) + 8;
             (new WorldGenLightStone1()).a(this.n, this.h, k1, l1, i2);
@@ -399,7 +391,7 @@ public class ChunkProviderHell implements IChunkProvider {
         if (this.h.nextInt(1) == 0) {
             j1 = k + this.h.nextInt(16) + 8;
             i2000 = this.h;
-            this.n.getClass();
+
             k1 = i2000.nextInt(128);
             l1 = l + this.h.nextInt(16) + 8;
             (new WorldGenFlowers(Block.BROWN_MUSHROOM.id)).a(this.n, this.h, j1, k1, l1);
@@ -408,7 +400,7 @@ public class ChunkProviderHell implements IChunkProvider {
         if (this.h.nextInt(1) == 0) {
             j1 = k + this.h.nextInt(16) + 8;
             i2000 = this.h;
-            this.n.getClass();
+
             k1 = i2000.nextInt(128);
             l1 = l + this.h.nextInt(16) + 8;
             (new WorldGenFlowers(Block.RED_MUSHROOM.id)).a(this.n, this.h, j1, k1, l1);

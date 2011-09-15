@@ -13,7 +13,7 @@ public class ItemColoredBlock extends ItemBlock {
         }
     }
 
-    public int a(int i) {
+    public int filterData(int i) {
         return i;
     }
 }

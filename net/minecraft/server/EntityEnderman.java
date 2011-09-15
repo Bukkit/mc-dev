@@ -24,17 +24,17 @@ public class EntityEnderman extends EntityMonster {
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.a("carried", (short) this.x());
-        nbttagcompound.a("carriedData", (short) this.y());
+        nbttagcompound.a("carried", (short) this.getCarriedId());
+        nbttagcompound.a("carriedData", (short) this.getCarriedData());
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.b(nbttagcompound.d("carried"));
-        this.d(nbttagcompound.d("carryingData"));
+        this.setCarriedId(nbttagcompound.d("carried"));
+        this.setCarriedData(nbttagcompound.d("carryingData"));
     }
 
-    protected Entity o() {
+    protected Entity findTarget() {
         EntityHuman entityhuman = this.world.findNearbyPlayer(this, 64.0D);
 
         if (entityhuman != null) {
@@ -86,15 +86,15 @@ public class EntityEnderman extends EntityMonster {
             int k;
             int l;
 
-            if (this.x() == 0) {
+            if (this.getCarriedId() == 0) {
                 if (this.random.nextInt(20) == 0) {
                     i = MathHelper.floor(this.locX - 2.0D + this.random.nextDouble() * 4.0D);
                     j = MathHelper.floor(this.locY + this.random.nextDouble() * 3.0D);
                     k = MathHelper.floor(this.locZ - 2.0D + this.random.nextDouble() * 4.0D);
                     l = this.world.getTypeId(i, j, k);
                     if (b[l]) {
-                        this.b(this.world.getTypeId(i, j, k));
-                        this.d(this.world.getData(i, j, k));
+                        this.setCarriedId(this.world.getTypeId(i, j, k));
+                        this.setCarriedData(this.world.getData(i, j, k));
                         this.world.setTypeId(i, j, k, 0);
                     }
                 }
@@ -106,8 +106,8 @@ public class EntityEnderman extends EntityMonster {
                 int i1 = this.world.getTypeId(i, j - 1, k);
 
                 if (l == 0 && i1 > 0 && Block.byId[i1].b()) {
-                    this.world.setTypeIdAndData(i, j, k, this.x(), this.y());
-                    this.b(0);
+                    this.world.setTypeIdAndData(i, j, k, this.getCarriedId(), this.getCarriedData());
+                    this.setCarriedId(0);
                 }
             }
         }
@@ -255,19 +255,19 @@ public class EntityEnderman extends EntityMonster {
         }
     }
 
-    public void b(int i) {
+    public void setCarriedId(int i) {
         this.datawatcher.watch(16, Byte.valueOf((byte) (i & 255)));
     }
 
-    public int x() {
+    public int getCarriedId() {
         return this.datawatcher.a(16);
     }
 
-    public void d(int i) {
+    public void setCarriedData(int i) {
         this.datawatcher.watch(17, Byte.valueOf((byte) (i & 255)));
     }
 
-    public int y() {
+    public int getCarriedData() {
         return this.datawatcher.a(17);
     }
 

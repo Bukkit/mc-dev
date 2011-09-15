@@ -40,7 +40,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
-    public void a(World world, int i, int j, int k, EntityLiving entityliving) {
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
         int l = world.getTypeId(i, j, k - 1);
         int i1 = world.getTypeId(i, j, k + 1);
         int j1 = world.getTypeId(i - 1, j, k);
@@ -201,7 +201,7 @@ public class BlockChest extends BlockContainer {
         return world.getTypeId(i, j, k) != this.id ? false : (world.getTypeId(i - 1, j, k) == this.id ? true : (world.getTypeId(i + 1, j, k) == this.id ? true : (world.getTypeId(i, j, k - 1) == this.id ? true : world.getTypeId(i, j, k + 1) == this.id)));
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         super.doPhysics(world, i, j, k, l);
         TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i, j, k);
 

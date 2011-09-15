@@ -17,7 +17,7 @@ public class BlockMonsterEggs extends Block {
         return j == 1 ? Block.COBBLESTONE.textureId : (j == 2 ? Block.SMOOTH_BRICK.textureId : Block.STONE.textureId);
     }
 
-    public void c(World world, int i, int j, int k, int l) {
+    public void postBreak(World world, int i, int j, int k, int l) {
         if (!world.isStatic) {
             EntitySilverfish entitysilverfish = new EntitySilverfish(world);
 

@@ -6,7 +6,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         super(world);
     }
 
-    public boolean a(DamageSource damagesource, int i) {
+    public boolean damageEntity(DamageSource damagesource, int i) {
         this.f = 60;
         return super.damageEntity(damagesource, i);
     }

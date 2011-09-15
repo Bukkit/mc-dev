@@ -32,7 +32,7 @@ public class WorldGenCanyon extends MapGenBase {
         int k1 = 0;
 
         while (true) {
-            this.d.getClass();
+
             if (k1 >= 128) {
                 for (; l < i1; ++l) {
                     double d6 = 1.5D + (double) (MathHelper.sin((float) l * 3.1415927F / (float) i1) * f * 1.0F);
@@ -82,10 +82,10 @@ public class WorldGenCanyon extends MapGenBase {
                             if (j2 < 1) {
                                 j2 = 1;
                             }
-
+                            //
                             this.d.getClass();
                             if (k2 > 128 - 8) {
-                                this.d.getClass();
+
                                 k2 = 128 - 8;
                             }
 
@@ -107,10 +107,10 @@ public class WorldGenCanyon extends MapGenBase {
                                 for (int i4 = l2; !flag1 && i4 < i3; ++i4) {
                                     for (int j4 = k2 + 1; !flag1 && j4 >= j2 - 1; --j4) {
                                         j3 = k3 * 16 + i4;
-                                        this.d.getClass();
+
                                         l3 = j3 * 128 + j4;
                                         if (j4 >= 0) {
-                                            this.d.getClass();
+
                                             if (j4 < 128) {
                                                 if (abyte[l3] == Block.WATER.id || abyte[l3] == Block.STATIONARY_WATER.id) {
                                                     flag1 = true;
@@ -133,7 +133,7 @@ public class WorldGenCanyon extends MapGenBase {
                                         double d13 = ((double) (l3 + k * 16) + 0.5D - d2) / d6;
 
                                         j3 = k3 * 16 + l3;
-                                        this.d.getClass();
+
                                         int k4 = j3 * 128 + k2;
                                         boolean flag2 = false;
 

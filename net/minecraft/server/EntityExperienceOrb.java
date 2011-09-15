@@ -6,7 +6,7 @@ public class EntityExperienceOrb extends Entity {
     public int b = 0;
     public int c;
     private int e = 5;
-    private int f;
+    private int value;
     public float d = (float) (Math.random() * 3.141592653589793D * 2.0D);
 
     public EntityExperienceOrb(World world, double d0, double d1, double d2, int i) {
@@ -18,7 +18,7 @@ public class EntityExperienceOrb extends Entity {
         this.motX = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
         this.motY = (double) ((float) (Math.random() * 0.2D) * 2.0F);
         this.motZ = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
-        this.f = i;
+        this.value = i;
     }
 
     protected boolean e_() {
@@ -99,11 +99,11 @@ public class EntityExperienceOrb extends Entity {
         return this.world.a(this.boundingBox, Material.WATER, this);
     }
 
-    protected void a(int i) {
-        this.a(DamageSource.a, i);
+    protected void burn(int i) {
+        this.damageEntity(DamageSource.a, i);
     }
 
-    public boolean a(DamageSource damagesource, int i) {
+    public boolean damageEntity(DamageSource damagesource, int i) {
         this.aq();
         this.e -= i;
         if (this.e <= 0) {
@@ -116,13 +116,13 @@ public class EntityExperienceOrb extends Entity {
     public void b(NBTTagCompound nbttagcompound) {
         nbttagcompound.a("Health", (short) ((byte) this.e));
         nbttagcompound.a("Age", (short) this.b);
-        nbttagcompound.a("Value", (short) this.f);
+        nbttagcompound.a("Value", (short) this.value);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         this.e = nbttagcompound.d("Health") & 255;
         this.b = nbttagcompound.d("Age");
-        this.f = nbttagcompound.d("Value");
+        this.value = nbttagcompound.d("Value");
     }
 
     public void a_(EntityHuman entityhuman) {
@@ -131,14 +131,14 @@ public class EntityExperienceOrb extends Entity {
                 entityhuman.w = 2;
                 this.world.makeSound(this, "random.pop", 0.2F, 0.5F * ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F));
                 entityhuman.receive(this, 1);
-                entityhuman.d(this.f);
+                entityhuman.d(this.value);
                 this.die();
             }
         }
     }
 
     public int j_() {
-        return this.f;
+        return this.value;
     }
 
     public static int b(int i) {

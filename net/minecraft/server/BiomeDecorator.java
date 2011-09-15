@@ -128,14 +128,14 @@ public class BiomeDecorator {
         for (j = 0; j < this.s; ++j) {
             k = this.D + this.C.nextInt(16) + 8;
             random = this.C;
-            this.B.getClass();
+
             l = random.nextInt(128);
             i1 = this.E + this.C.nextInt(16) + 8;
             this.l.a(this.B, this.C, k, l, i1);
             if (this.C.nextInt(4) == 0) {
                 k = this.D + this.C.nextInt(16) + 8;
                 random = this.C;
-                this.B.getClass();
+
                 l = random.nextInt(128);
                 i1 = this.E + this.C.nextInt(16) + 8;
                 this.m.a(this.B, this.C, k, l, i1);
@@ -147,7 +147,7 @@ public class BiomeDecorator {
 
             l = this.D + this.C.nextInt(16) + 8;
             random = this.C;
-            this.B.getClass();
+
             i1 = random.nextInt(128);
             int j1 = this.E + this.C.nextInt(16) + 8;
 
@@ -157,7 +157,7 @@ public class BiomeDecorator {
         for (j = 0; j < this.u; ++j) {
             k = this.D + this.C.nextInt(16) + 8;
             random = this.C;
-            this.B.getClass();
+
             l = random.nextInt(128);
             i1 = this.E + this.C.nextInt(16) + 8;
             (new WorldGenDeadBush(Block.DEAD_BUSH.id)).a(this.B, this.C, k, l, i1);
@@ -175,7 +175,7 @@ public class BiomeDecorator {
                 k = this.D + this.C.nextInt(16) + 8;
                 l = this.E + this.C.nextInt(16) + 8;
                 random = this.C;
-                this.B.getClass();
+
                 i1 = random.nextInt(128);
                 this.o.a(this.B, this.C, k, i1, l);
             }
@@ -184,7 +184,7 @@ public class BiomeDecorator {
         if (this.C.nextInt(4) == 0) {
             j = this.D + this.C.nextInt(16) + 8;
             random = this.C;
-            this.B.getClass();
+
             k = random.nextInt(128);
             l = this.E + this.C.nextInt(16) + 8;
             this.n.a(this.B, this.C, j, k, l);
@@ -193,7 +193,7 @@ public class BiomeDecorator {
         if (this.C.nextInt(8) == 0) {
             j = this.D + this.C.nextInt(16) + 8;
             random = this.C;
-            this.B.getClass();
+
             k = random.nextInt(128);
             l = this.E + this.C.nextInt(16) + 8;
             this.o.a(this.B, this.C, j, k, l);
@@ -203,7 +203,7 @@ public class BiomeDecorator {
             k = this.D + this.C.nextInt(16) + 8;
             l = this.E + this.C.nextInt(16) + 8;
             random = this.C;
-            this.B.getClass();
+
             i1 = random.nextInt(128);
             this.p.a(this.B, this.C, k, i1, l);
         }
@@ -211,7 +211,7 @@ public class BiomeDecorator {
         for (j = 0; j < 10; ++j) {
             k = this.D + this.C.nextInt(16) + 8;
             random = this.C;
-            this.B.getClass();
+
             l = random.nextInt(128);
             i1 = this.E + this.C.nextInt(16) + 8;
             this.p.a(this.B, this.C, k, l, i1);
@@ -220,7 +220,7 @@ public class BiomeDecorator {
         if (this.C.nextInt(32) == 0) {
             j = this.D + this.C.nextInt(16) + 8;
             random = this.C;
-            this.B.getClass();
+
             k = random.nextInt(128);
             l = this.E + this.C.nextInt(16) + 8;
             (new WorldGenPumpkin()).a(this.B, this.C, j, k, l);
@@ -229,7 +229,7 @@ public class BiomeDecorator {
         for (j = 0; j < this.x; ++j) {
             k = this.D + this.C.nextInt(16) + 8;
             random = this.C;
-            this.B.getClass();
+
             l = random.nextInt(128);
             i1 = this.E + this.C.nextInt(16) + 8;
             this.q.a(this.B, this.C, k, l, i1);
@@ -241,7 +241,7 @@ public class BiomeDecorator {
             k = this.D + this.C.nextInt(16) + 8;
             random = this.C;
             random1 = this.C;
-            this.B.getClass();
+
             l = random.nextInt(random1.nextInt(128 - 8) + 8);
             i1 = this.E + this.C.nextInt(16) + 8;
             (new WorldGenLiquids(Block.WATER.id)).a(this.B, this.C, k, l, i1);
@@ -253,7 +253,6 @@ public class BiomeDecorator {
             random1 = this.C;
             Random random2 = this.C;
 
-            this.B.getClass();
             l = random.nextInt(random1.nextInt(random2.nextInt(128 - 16) + 8) + 8);
             i1 = this.E + this.C.nextInt(16) + 8;
             (new WorldGenLiquids(Block.LAVA.id)).a(this.B, this.C, k, l, i1);
@@ -283,31 +282,29 @@ public class BiomeDecorator {
     protected void a() {
         WorldGenerator worldgenerator = this.d;
 
-        this.B.getClass();
         this.a(20, worldgenerator, 0, 128);
         worldgenerator = this.e;
-        this.B.getClass();
+
         this.a(10, worldgenerator, 0, 128);
         worldgenerator = this.f;
-        this.B.getClass();
+
         this.a(20, worldgenerator, 0, 128);
         worldgenerator = this.g;
-        this.B.getClass();
+
         this.a(20, worldgenerator, 0, 128 / 2);
         worldgenerator = this.h;
-        this.B.getClass();
+
         this.a(2, worldgenerator, 0, 128 / 4);
         worldgenerator = this.i;
-        this.B.getClass();
+
         this.a(8, worldgenerator, 0, 128 / 8);
         worldgenerator = this.j;
-        this.B.getClass();
+
         this.a(1, worldgenerator, 0, 128 / 8);
         worldgenerator = this.k;
-        this.B.getClass();
+
         int i = 128 / 8;
 
-        this.B.getClass();
         this.b(1, worldgenerator, i, 128 / 8);
     }
 }

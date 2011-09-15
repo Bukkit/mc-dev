@@ -44,7 +44,6 @@ public class ChunkProviderSky implements IChunkProvider {
         byte b0 = 2;
         int k = b0 + 1;
 
-        this.p.getClass();
         int l = 128 / 4 + 1;
         int i1 = b0 + 1;
 
@@ -57,7 +56,7 @@ public class ChunkProviderSky implements IChunkProvider {
                 int l1 = 0;
 
                 while (true) {
-                    this.p.getClass();
+
                     if (l1 >= 128 / 4) {
                         ++k1;
                         break;
@@ -83,14 +82,11 @@ public class ChunkProviderSky implements IChunkProvider {
                         for (int j2 = 0; j2 < 8; ++j2) {
                             int k2 = j2 + j1 * 8;
 
-                            this.p.getClass();
                             k2 <<= 11;
                             int l2 = 0 + k1 * 8;
 
-                            this.p.getClass();
                             int i3 = k2 | l2 << 7 | l1 * 4 + i2;
 
-                            this.p.getClass();
                             int j3 = 1 << 7;
                             double d14 = 0.125D;
                             double d15 = d10;
@@ -139,12 +135,9 @@ public class ChunkProviderSky implements IChunkProvider {
                 byte b0 = biomebase.n;
                 byte b1 = biomebase.o;
 
-                this.p.getClass();
-
                 for (int k1 = 127; k1 >= 0; --k1) {
                     int l1 = l * 16 + k;
 
-                    this.p.getClass();
                     int i2 = l1 * 128 + k1;
                     byte b2 = abyte[i2];
 
@@ -183,7 +176,7 @@ public class ChunkProviderSky implements IChunkProvider {
 
     public Chunk getOrCreateChunk(int i, int j) {
         this.j.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
-        this.p.getClass();
+
         byte[] abyte = new byte[16 * 128 * 16];
         Chunk chunk = new Chunk(this.p, abyte, i, j);
 
@@ -310,7 +303,7 @@ public class ChunkProviderSky implements IChunkProvider {
         if (this.j.nextInt(4) == 0) {
             k1 = k + this.j.nextInt(16) + 8;
             random = this.j;
-            this.p.getClass();
+
             l1 = random.nextInt(128);
             i2 = l + this.j.nextInt(16) + 8;
             (new WorldGenLakes(Block.STATIONARY_WATER.id)).a(this.p, this.j, k1, l1, i2);
@@ -322,7 +315,7 @@ public class ChunkProviderSky implements IChunkProvider {
             k1 = k + this.j.nextInt(16) + 8;
             random = this.j;
             random1 = this.j;
-            this.p.getClass();
+
             l1 = random.nextInt(random1.nextInt(128 - 8) + 8);
             i2 = l + this.j.nextInt(16) + 8;
             if (l1 < 64 || this.j.nextInt(10) == 0) {
@@ -335,7 +328,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (k1 = 0; k1 < 8; ++k1) {
             l1 = k + this.j.nextInt(16) + 8;
             random = this.j;
-            this.p.getClass();
+
             i2 = random.nextInt(128);
             j2 = l + this.j.nextInt(16) + 8;
             (new WorldGenDungeons()).a(this.p, this.j, l1, i2, j2);
@@ -344,7 +337,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (k1 = 0; k1 < 10; ++k1) {
             l1 = k + this.j.nextInt(16);
             random = this.j;
-            this.p.getClass();
+
             i2 = random.nextInt(128);
             j2 = l + this.j.nextInt(16);
             (new WorldGenClay(32)).a(this.p, this.j, l1, i2, j2);
@@ -353,7 +346,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (k1 = 0; k1 < 20; ++k1) {
             l1 = k + this.j.nextInt(16);
             random = this.j;
-            this.p.getClass();
+
             i2 = random.nextInt(128);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.DIRT.id, 32)).a(this.p, this.j, l1, i2, j2);
@@ -362,7 +355,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (k1 = 0; k1 < 10; ++k1) {
             l1 = k + this.j.nextInt(16);
             random = this.j;
-            this.p.getClass();
+
             i2 = random.nextInt(128);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.GRAVEL.id, 32)).a(this.p, this.j, l1, i2, j2);
@@ -371,7 +364,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (k1 = 0; k1 < 20; ++k1) {
             l1 = k + this.j.nextInt(16);
             random = this.j;
-            this.p.getClass();
+
             i2 = random.nextInt(128);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.COAL_ORE.id, 16)).a(this.p, this.j, l1, i2, j2);
@@ -380,7 +373,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (k1 = 0; k1 < 20; ++k1) {
             l1 = k + this.j.nextInt(16);
             random = this.j;
-            this.p.getClass();
+
             i2 = random.nextInt(128 / 2);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.IRON_ORE.id, 8)).a(this.p, this.j, l1, i2, j2);
@@ -389,7 +382,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (k1 = 0; k1 < 2; ++k1) {
             l1 = k + this.j.nextInt(16);
             random = this.j;
-            this.p.getClass();
+
             i2 = random.nextInt(128 / 4);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.GOLD_ORE.id, 8)).a(this.p, this.j, l1, i2, j2);
@@ -398,7 +391,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (k1 = 0; k1 < 8; ++k1) {
             l1 = k + this.j.nextInt(16);
             random = this.j;
-            this.p.getClass();
+
             i2 = random.nextInt(128 / 8);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.REDSTONE_ORE.id, 7)).a(this.p, this.j, l1, i2, j2);
@@ -407,7 +400,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (k1 = 0; k1 < 1; ++k1) {
             l1 = k + this.j.nextInt(16);
             random = this.j;
-            this.p.getClass();
+
             i2 = random.nextInt(128 / 8);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.DIAMOND_ORE.id, 7)).a(this.p, this.j, l1, i2, j2);
@@ -416,11 +409,11 @@ public class ChunkProviderSky implements IChunkProvider {
         for (k1 = 0; k1 < 1; ++k1) {
             l1 = k + this.j.nextInt(16);
             random = this.j;
-            this.p.getClass();
+
             int k2 = random.nextInt(128 / 8);
 
             random1 = this.j;
-            this.p.getClass();
+
             i2 = k2 + random1.nextInt(128 / 8);
             j2 = l + this.j.nextInt(16);
             (new WorldGenMinable(Block.LAPIS_ORE.id, 6)).a(this.p, this.j, l1, i2, j2);
@@ -461,7 +454,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (i2 = 0; i2 < 2; ++i2) {
             j2 = k + this.j.nextInt(16) + 8;
             random = this.j;
-            this.p.getClass();
+
             l2 = random.nextInt(128);
             i3 = l + this.j.nextInt(16) + 8;
             (new WorldGenFlowers(Block.YELLOW_FLOWER.id)).a(this.p, this.j, j2, l2, i3);
@@ -470,7 +463,7 @@ public class ChunkProviderSky implements IChunkProvider {
         if (this.j.nextInt(2) == 0) {
             i2 = k + this.j.nextInt(16) + 8;
             random = this.j;
-            this.p.getClass();
+
             j2 = random.nextInt(128);
             l2 = l + this.j.nextInt(16) + 8;
             (new WorldGenFlowers(Block.RED_ROSE.id)).a(this.p, this.j, i2, j2, l2);
@@ -479,7 +472,7 @@ public class ChunkProviderSky implements IChunkProvider {
         if (this.j.nextInt(4) == 0) {
             i2 = k + this.j.nextInt(16) + 8;
             random = this.j;
-            this.p.getClass();
+
             j2 = random.nextInt(128);
             l2 = l + this.j.nextInt(16) + 8;
             (new WorldGenFlowers(Block.BROWN_MUSHROOM.id)).a(this.p, this.j, i2, j2, l2);
@@ -488,7 +481,7 @@ public class ChunkProviderSky implements IChunkProvider {
         if (this.j.nextInt(8) == 0) {
             i2 = k + this.j.nextInt(16) + 8;
             random = this.j;
-            this.p.getClass();
+
             j2 = random.nextInt(128);
             l2 = l + this.j.nextInt(16) + 8;
             (new WorldGenFlowers(Block.RED_MUSHROOM.id)).a(this.p, this.j, i2, j2, l2);
@@ -497,7 +490,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (i2 = 0; i2 < 10; ++i2) {
             j2 = k + this.j.nextInt(16) + 8;
             random = this.j;
-            this.p.getClass();
+
             l2 = random.nextInt(128);
             i3 = l + this.j.nextInt(16) + 8;
             (new WorldGenReed()).a(this.p, this.j, j2, l2, i3);
@@ -506,7 +499,7 @@ public class ChunkProviderSky implements IChunkProvider {
         if (this.j.nextInt(32) == 0) {
             i2 = k + this.j.nextInt(16) + 8;
             random = this.j;
-            this.p.getClass();
+
             j2 = random.nextInt(128);
             l2 = l + this.j.nextInt(16) + 8;
             (new WorldGenPumpkin()).a(this.p, this.j, i2, j2, l2);
@@ -522,7 +515,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (j2 = 0; j2 < i2; ++j2) {
             l2 = k + this.j.nextInt(16) + 8;
             random = this.j;
-            this.p.getClass();
+
             i3 = random.nextInt(128);
             j3 = l + this.j.nextInt(16) + 8;
             (new WorldGenCactus()).a(this.p, this.j, l2, i3, j3);
@@ -532,7 +525,7 @@ public class ChunkProviderSky implements IChunkProvider {
             l2 = k + this.j.nextInt(16) + 8;
             random = this.j;
             random1 = this.j;
-            this.p.getClass();
+
             i3 = random.nextInt(random1.nextInt(128 - 8) + 8);
             j3 = l + this.j.nextInt(16) + 8;
             (new WorldGenLiquids(Block.WATER.id)).a(this.p, this.j, l2, i3, j3);
@@ -544,7 +537,6 @@ public class ChunkProviderSky implements IChunkProvider {
             random1 = this.j;
             Random random2 = this.j;
 
-            this.p.getClass();
             i3 = random.nextInt(random1.nextInt(random2.nextInt(128 - 16) + 8) + 8);
             j3 = l + this.j.nextInt(16) + 8;
             (new WorldGenLiquids(Block.LAVA.id)).a(this.p, this.j, l2, i3, j3);

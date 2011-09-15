@@ -83,7 +83,7 @@ public class BlockVine extends Block {
         return null;
     }
 
-    public boolean b(World world, int i, int j, int k, int l) {
+    public boolean canPlace(World world, int i, int j, int k, int l) {
         switch (l) {
         case 1:
             return this.c(world.getTypeId(i, j + 1, k));
@@ -140,7 +140,7 @@ public class BlockVine extends Block {
         }
     }
 
-    public void a(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, int l) {
         if (!world.isStatic && !this.g(world, i, j, k)) {
             this.g(world, i, j, k, world.getData(i, j, k));
             world.setTypeId(i, j, k, 0);
@@ -248,7 +248,7 @@ public class BlockVine extends Block {
         }
     }
 
-    public void e(World world, int i, int j, int k, int l) {
+    public void postPlace(World world, int i, int j, int k, int l) {
         byte b0 = 0;
 
         switch (l) {

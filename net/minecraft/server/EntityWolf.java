@@ -225,7 +225,7 @@ public class EntityWolf extends EntityAnimal {
             i = (i + 1) / 2;
         }
 
-        if (!super.a(damagesource, i)) {
+        if (!super.damageEntity(damagesource, i)) {
             return false;
         } else {
             if (!this.isTamed() && !this.isAngry()) {

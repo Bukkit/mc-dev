@@ -131,7 +131,7 @@ public class BlockStem extends BlockFlower {
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, (float) this.maxY, 0.5F + f);
     }
 
-    public void a(World world, int i, int j, int k, int l, float f) {
+    public void dropNaturally(World world, int i, int j, int k, int l, float f) {
         super.dropNaturally(world, i, j, k, l, f);
         if (!world.isStatic) {
             Item item = null;

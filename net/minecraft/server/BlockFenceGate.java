@@ -6,7 +6,7 @@ public class BlockFenceGate extends Block {
         super(i, j, Material.WOOD);
     }
 
-    public boolean c(World world, int i, int j, int k) {
+    public boolean canPlace(World world, int i, int j, int k) {
         return !world.getMaterial(i, j - 1, k).isBuildable() ? false : super.canPlace(world, i, j, k);
     }
 
@@ -24,13 +24,13 @@ public class BlockFenceGate extends Block {
         return false;
     }
 
-    public void a(World world, int i, int j, int k, EntityLiving entityliving) {
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
         int l = (MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3) % 4;
 
         world.setData(i, j, k, l);
     }
 
-    public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         int l = world.getData(i, j, k);
 
         if (c(l)) {

@@ -46,14 +46,11 @@ public class ChunkProviderGenerate implements IChunkProvider {
     public void a(int i, int j, byte[] abyte) {
         byte b0 = 4;
 
-        this.s.getClass();
         int k = 128 / 8;
 
-        this.s.getClass();
         byte b1 = 63;
         int l = b0 + 1;
 
-        this.s.getClass();
         int i1 = 128 / 8 + 1;
         int j1 = b0 + 1;
 
@@ -83,14 +80,11 @@ public class ChunkProviderGenerate implements IChunkProvider {
                         for (int k2 = 0; k2 < 4; ++k2) {
                             int l2 = k2 + k1 * 4;
 
-                            this.s.getClass();
                             l2 <<= 11;
                             int i3 = 0 + l1 * 4;
 
-                            this.s.getClass();
                             int j3 = l2 | i3 << 7 | i2 * 8 + j2;
 
-                            this.s.getClass();
                             int k3 = 1 << 7;
                             double d14 = 0.25D;
                             double d15 = d10;
@@ -127,7 +121,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
     }
 
     public void a(int i, int j, byte[] abyte, BiomeBase[] abiomebase) {
-        this.s.getClass();
+
         byte b0 = 63;
         double d0 = 0.03125D;
 
@@ -141,12 +135,9 @@ public class ChunkProviderGenerate implements IChunkProvider {
                 byte b1 = biomebase.n;
                 byte b2 = biomebase.o;
 
-                this.s.getClass();
-
                 for (int k1 = 127; k1 >= 0; --k1) {
                     int l1 = l * 16 + k;
 
-                    this.s.getClass();
                     int i2 = l1 * 128 + k1;
 
                     if (k1 <= 0 + this.n.nextInt(5)) {
@@ -197,7 +188,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
     public Chunk getOrCreateChunk(int i, int j) {
         this.n.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
-        this.s.getClass();
+
         byte[] abyte = new byte[16 * 128 * 16];
         Chunk chunk = new Chunk(this.s, abyte, i, j);
 
@@ -308,7 +299,6 @@ public class ChunkProviderGenerate implements IChunkProvider {
                     double d6 = 0.0D;
                     double d7 = ((double) k3 - d5) * 12.0D * 128.0D;
 
-                    this.s.getClass();
                     double d8 = d7 / 128.0D / d4;
 
                     if (d8 < 0.0D) {
@@ -374,7 +364,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         if (!flag && this.n.nextInt(4) == 0) {
             k1 = k + this.n.nextInt(16) + 8;
             random = this.n;
-            this.s.getClass();
+
             l1 = random.nextInt(128);
             i2 = l + this.n.nextInt(16) + 8;
             (new WorldGenLakes(Block.STATIONARY_WATER.id)).a(this.s, this.n, k1, l1, i2);
@@ -385,10 +375,9 @@ public class ChunkProviderGenerate implements IChunkProvider {
             random = this.n;
             Random random1 = this.n;
 
-            this.s.getClass();
             l1 = random.nextInt(random1.nextInt(128 - 8) + 8);
             i2 = l + this.n.nextInt(16) + 8;
-            this.s.getClass();
+
             if (l1 < 63 || this.n.nextInt(10) == 0) {
                 (new WorldGenLakes(Block.STATIONARY_LAVA.id)).a(this.s, this.n, k1, l1, i2);
             }
@@ -397,7 +386,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         for (k1 = 0; k1 < 8; ++k1) {
             l1 = k + this.n.nextInt(16) + 8;
             random = this.n;
-            this.s.getClass();
+
             i2 = random.nextInt(128);
             int j2 = l + this.n.nextInt(16) + 8;
 
