@@ -118,7 +118,7 @@ public abstract class EntityLiving extends Entity {
         }
 
         if (this.ac() && this.O()) {
-            this.damageEntity(DamageSource.d, 1);
+            this.damageEntity(DamageSource.STUCK, 1);
         }
 
         if (this.fireProof || this.world.isStatic) {
@@ -140,7 +140,7 @@ public abstract class EntityLiving extends Entity {
                     this.world.a("bubble", this.locX + (double) f, this.locY + (double) f1, this.locZ + (double) f2, this.motX, this.motY, this.motZ);
                 }
 
-                this.damageEntity(DamageSource.e, 2);
+                this.damageEntity(DamageSource.DROWN, 2);
             }
 
             this.fireTicks = 0;
@@ -376,7 +376,7 @@ public abstract class EntityLiving extends Entity {
                 }
 
                 this.ar = 0.0F;
-                Entity entity = damagesource.a();
+                Entity entity = damagesource.getEntity();
 
                 if (entity != null) {
                     if (entity instanceof EntityHuman) {
@@ -463,7 +463,7 @@ public abstract class EntityLiving extends Entity {
     }
 
     public void die(DamageSource damagesource) {
-        Entity entity = damagesource.a();
+        Entity entity = damagesource.getEntity();
 
         if (this.ag >= 0 && entity != null) {
             entity.b(this, this.ag);
@@ -502,7 +502,7 @@ public abstract class EntityLiving extends Entity {
         int i = (int) Math.ceil((double) (f - 3.0F));
 
         if (i > 0) {
-            this.damageEntity(DamageSource.h, i);
+            this.damageEntity(DamageSource.FALL, i);
             int j = this.world.getTypeId(MathHelper.floor(this.locX), MathHelper.floor(this.locY - 0.20000000298023224D - (double) this.height), MathHelper.floor(this.locZ));
 
             if (j > 0) {
@@ -911,7 +911,7 @@ public abstract class EntityLiving extends Entity {
     }
 
     protected void ah() {
-        this.damageEntity(DamageSource.i, 4);
+        this.damageEntity(DamageSource.OUT_OF_WORLD, 4);
     }
 
     public Vec3D ai() {

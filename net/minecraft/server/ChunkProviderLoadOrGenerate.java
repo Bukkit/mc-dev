@@ -29,7 +29,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     }
 
     public boolean isChunkLoaded(int i, int j) {
-        return this.e.b(ChunkCoordIntPair.a(i, j));
+        return this.e.contains(ChunkCoordIntPair.a(i, j));
     }
 
     public void d(int i, int j) {
@@ -47,7 +47,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         long k = ChunkCoordIntPair.a(i, j);
 
         this.a.remove(Long.valueOf(k));
-        Chunk chunk = (Chunk) this.e.a(k);
+        Chunk chunk = (Chunk) this.e.getEntry(k);
 
         if (chunk == null) {
             int l = 1875004;
@@ -65,7 +65,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                 }
             }
 
-            this.e.a(k, chunk);
+            this.e.put(k, chunk);
             this.f.add(chunk);
             if (chunk != null) {
                 chunk.loadNOP();
@@ -79,7 +79,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     }
 
     public Chunk getOrCreateChunk(int i, int j) {
-        Chunk chunk = (Chunk) this.e.a(ChunkCoordIntPair.a(i, j));
+        Chunk chunk = (Chunk) this.e.getEntry(ChunkCoordIntPair.a(i, j));
 
         return chunk == null ? this.getChunkAt(i, j) : chunk;
     }
@@ -173,13 +173,13 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         for (i = 0; i < 100; ++i) {
             if (!this.a.isEmpty()) {
                 Long olong = (Long) this.a.iterator().next();
-                Chunk chunk = (Chunk) this.e.a(olong.longValue());
+                Chunk chunk = (Chunk) this.e.getEntry(olong.longValue());
 
                 chunk.removeEntities();
                 this.b(chunk);
                 this.a(chunk);
                 this.a.remove(olong);
-                this.e.d(olong.longValue());
+                this.e.remove(olong.longValue());
                 this.f.remove(chunk);
             }
         }

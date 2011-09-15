@@ -2,10 +2,10 @@ package net.minecraft.server;
 
 public class PlayerAbilities {
 
-    public boolean a = false;
-    public boolean b = false;
-    public boolean c = false;
-    public boolean d = false;
+    public boolean isInvulnerable = false;
+    public boolean isFlying = false;
+    public boolean canFly = false;
+    public boolean canInstantlyBuild = false;
 
     public PlayerAbilities() {}
 }

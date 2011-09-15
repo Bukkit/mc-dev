@@ -219,7 +219,7 @@ public abstract class Entity {
                 }
             } else {
                 if (this.fireTicks % 20 == 0) {
-                    this.damageEntity(DamageSource.b, 1);
+                    this.damageEntity(DamageSource.BURN, 1);
                 }
 
                 --this.fireTicks;
@@ -244,7 +244,7 @@ public abstract class Entity {
 
     protected void am() {
         if (!this.fireProof) {
-            this.damageEntity(DamageSource.c, 4);
+            this.damageEntity(DamageSource.LAVA, 4);
             this.fireTicks = 600;
         }
     }
@@ -542,7 +542,7 @@ public abstract class Entity {
 
     protected void burn(int i) {
         if (!this.fireProof) {
-            this.damageEntity(DamageSource.a, i);
+            this.damageEntity(DamageSource.FIRE, i);
         }
     }
 

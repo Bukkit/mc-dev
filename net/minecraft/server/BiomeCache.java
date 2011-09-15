@@ -18,11 +18,11 @@ public class BiomeCache {
         i >>= 4;
         j >>= 4;
         long k = (long) i & 4294967295L | ((long) j & 4294967295L) << 32;
-        BiomeCacheBlock biomecacheblock = (BiomeCacheBlock) this.c.a(k);
+        BiomeCacheBlock biomecacheblock = (BiomeCacheBlock) this.c.getEntry(k);
 
         if (biomecacheblock == null) {
             biomecacheblock = new BiomeCacheBlock(this, i, j);
-            this.c.a(k, biomecacheblock);
+            this.c.put(k, biomecacheblock);
             this.d.add(biomecacheblock);
         }
 
@@ -49,7 +49,7 @@ public class BiomeCache {
                     this.d.remove(k--);
                     long i1 = (long) biomecacheblock.d & 4294967295L | ((long) biomecacheblock.e & 4294967295L) << 32;
 
-                    this.c.d(i1);
+                    this.c.remove(i1);
                 }
             }
         }

@@ -9,7 +9,7 @@ public class EntityDamageSource extends DamageSource {
         this.n = entity;
     }
 
-    public Entity a() {
+    public Entity getEntity() {
         return this.n;
     }
 

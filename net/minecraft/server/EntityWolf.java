@@ -218,7 +218,7 @@ public class EntityWolf extends EntityAnimal {
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        Entity entity = damagesource.a();
+        Entity entity = damagesource.getEntity();
 
         this.setSitting(false);
         if (entity != null && !(entity instanceof EntityHuman) && !(entity instanceof EntityArrow)) {
@@ -289,7 +289,7 @@ public class EntityWolf extends EntityAnimal {
                 b0 = 4;
             }
 
-            entity.damageEntity(DamageSource.a((EntityLiving) this), b0);
+            entity.damageEntity(DamageSource.mobAttack(this), b0);
         }
     }
 

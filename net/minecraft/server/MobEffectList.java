@@ -50,14 +50,14 @@ public class MobEffectList {
             }
         } else if (this.H == u.H) {
             if (entityliving.health > 1) {
-                entityliving.damageEntity(DamageSource.l, 1);
+                entityliving.damageEntity(DamageSource.MAGIC, 1);
             }
         } else if (this.H == s.H && entityliving instanceof EntityHuman) {
             ((EntityHuman) entityliving).b(0.025F * (float) (i + 1));
         } else if (this.H == h.H) {
             entityliving.c(4 << i);
         } else if (this.H == i.H) {
-            entityliving.damageEntity(DamageSource.l, 4 << i);
+            entityliving.damageEntity(DamageSource.MAGIC, 4 << i);
         }
     }
 

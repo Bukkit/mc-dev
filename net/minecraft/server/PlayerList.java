@@ -2,8 +2,8 @@ package net.minecraft.server;
 
 public class PlayerList {
 
-    private transient PlayerListEntry[] a = new PlayerListEntry[16];
-    private transient int b;
+    private transient PlayerListEntry[] entries = new PlayerListEntry[16];
+    private transient int count;
     private int c = 12;
     private final float d = 0.75F;
     private transient volatile int e;
@@ -23,10 +23,10 @@ public class PlayerList {
         return i & j - 1;
     }
 
-    public Object a(long i) {
+    public Object getEntry(long i) {
         int j = g(i);
 
-        for (PlayerListEntry playerlistentry = this.a[a(j, this.a.length)]; playerlistentry != null; playerlistentry = playerlistentry.c) {
+        for (PlayerListEntry playerlistentry = this.entries[a(j, this.entries.length)]; playerlistentry != null; playerlistentry = playerlistentry.c) {
             if (playerlistentry.a == i) {
                 return playerlistentry.b;
             }
@@ -35,14 +35,14 @@ public class PlayerList {
         return null;
     }
 
-    public boolean b(long i) {
+    public boolean contains(long i) {
         return this.c(i) != null;
     }
 
     final PlayerListEntry c(long i) {
         int j = g(i);
 
-        for (PlayerListEntry playerlistentry = this.a[a(j, this.a.length)]; playerlistentry != null; playerlistentry = playerlistentry.c) {
+        for (PlayerListEntry playerlistentry = this.entries[a(j, this.entries.length)]; playerlistentry != null; playerlistentry = playerlistentry.c) {
             if (playerlistentry.a == i) {
                 return playerlistentry;
             }
@@ -51,11 +51,11 @@ public class PlayerList {
         return null;
     }
 
-    public void a(long i, Object object) {
+    public void put(long i, Object object) {
         int j = g(i);
-        int k = a(j, this.a.length);
+        int k = a(j, this.entries.length);
 
-        for (PlayerListEntry playerlistentry = this.a[k]; playerlistentry != null; playerlistentry = playerlistentry.c) {
+        for (PlayerListEntry playerlistentry = this.entries[k]; playerlistentry != null; playerlistentry = playerlistentry.c) {
             if (playerlistentry.a == i) {
                 playerlistentry.b = object;
             }
@@ -66,7 +66,7 @@ public class PlayerList {
     }
 
     private void b(int i) {
-        PlayerListEntry[] aplayerlistentry = this.a;
+        PlayerListEntry[] aplayerlistentry = this.entries;
         int j = aplayerlistentry.length;
 
         if (j == 1073741824) {
@@ -75,13 +75,13 @@ public class PlayerList {
             PlayerListEntry[] aplayerlistentry1 = new PlayerListEntry[i];
 
             this.a(aplayerlistentry1);
-            this.a = aplayerlistentry1;
+            this.entries = aplayerlistentry1;
             this.c = (int) ((float) i * this.d);
         }
     }
 
     private void a(PlayerListEntry[] aplayerlistentry) {
-        PlayerListEntry[] aplayerlistentry1 = this.a;
+        PlayerListEntry[] aplayerlistentry1 = this.entries;
         int i = aplayerlistentry.length;
 
         for (int j = 0; j < aplayerlistentry1.length; ++j) {
@@ -104,7 +104,7 @@ public class PlayerList {
         }
     }
 
-    public Object d(long i) {
+    public Object remove(long i) {
         PlayerListEntry playerlistentry = this.e(i);
 
         return playerlistentry == null ? null : playerlistentry.b;
@@ -112,8 +112,8 @@ public class PlayerList {
 
     final PlayerListEntry e(long i) {
         int j = g(i);
-        int k = a(j, this.a.length);
-        PlayerListEntry playerlistentry = this.a[k];
+        int k = a(j, this.entries.length);
+        PlayerListEntry playerlistentry = this.entries[k];
 
         PlayerListEntry playerlistentry1;
         PlayerListEntry playerlistentry2;
@@ -122,9 +122,9 @@ public class PlayerList {
             playerlistentry2 = playerlistentry1.c;
             if (playerlistentry1.a == i) {
                 ++this.e;
-                --this.b;
+                --this.count;
                 if (playerlistentry == playerlistentry1) {
-                    this.a[k] = playerlistentry2;
+                    this.entries[k] = playerlistentry2;
                 } else {
                     playerlistentry.c = playerlistentry2;
                 }
@@ -139,11 +139,11 @@ public class PlayerList {
     }
 
     private void a(int i, long j, Object object, int k) {
-        PlayerListEntry playerlistentry = this.a[k];
+        PlayerListEntry playerlistentry = this.entries[k];
 
-        this.a[k] = new PlayerListEntry(i, j, object, playerlistentry);
-        if (this.b++ >= this.c) {
-            this.b(2 * this.a.length);
+        this.entries[k] = new PlayerListEntry(i, j, object, playerlistentry);
+        if (this.count++ >= this.c) {
+            this.b(2 * this.entries.length);
         }
     }
 

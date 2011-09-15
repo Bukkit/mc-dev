@@ -105,7 +105,7 @@ public class Explosion {
                 double d9 = (double) this.world.a(vec3d, entity.boundingBox);
                 double d10 = (1.0D - d7) * d9;
 
-                entity.damageEntity(DamageSource.k, (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.size + 1.0D));
+                entity.damageEntity(DamageSource.EXPLOSION, (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.size + 1.0D));
                 entity.motX += d0 * d10;
                 entity.motY += d1 * d10;
                 entity.motZ += d2 * d10;

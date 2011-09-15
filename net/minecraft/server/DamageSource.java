@@ -2,44 +2,44 @@ package net.minecraft.server;
 
 public class DamageSource {
 
-    public static DamageSource a = new DamageSource("inFire");
-    public static DamageSource b = (new DamageSource("onFire")).f();
-    public static DamageSource c = new DamageSource("lava");
-    public static DamageSource d = (new DamageSource("inWall")).f();
-    public static DamageSource e = (new DamageSource("drown")).f();
-    public static DamageSource f = (new DamageSource("starve")).f();
-    public static DamageSource g = new DamageSource("cactus");
-    public static DamageSource h = new DamageSource("fall");
-    public static DamageSource i = (new DamageSource("outOfWorld")).f().g();
-    public static DamageSource j = (new DamageSource("generic")).f();
-    public static DamageSource k = new DamageSource("explosion");
-    public static DamageSource l = (new DamageSource("magic")).f();
+    public static DamageSource FIRE = new DamageSource("inFire");
+    public static DamageSource BURN = (new DamageSource("onFire")).f();
+    public static DamageSource LAVA = new DamageSource("lava");
+    public static DamageSource STUCK = (new DamageSource("inWall")).f();
+    public static DamageSource DROWN = (new DamageSource("drown")).f();
+    public static DamageSource STARVE = (new DamageSource("starve")).f();
+    public static DamageSource CACTUS = new DamageSource("cactus");
+    public static DamageSource FALL = new DamageSource("fall");
+    public static DamageSource OUT_OF_WORLD = (new DamageSource("outOfWorld")).f().g();
+    public static DamageSource GENERIC = (new DamageSource("generic")).f();
+    public static DamageSource EXPLOSION = new DamageSource("explosion");
+    public static DamageSource MAGIC = (new DamageSource("magic")).f();
     private boolean n = false;
     private boolean o = false;
     private float p = 0.3F;
     public String m;
 
-    public static DamageSource a(EntityLiving entityliving) {
+    public static DamageSource mobAttack(EntityLiving entityliving) {
         return new EntityDamageSource("mob", entityliving);
     }
 
-    public static DamageSource b(EntityHuman entityhuman) {
+    public static DamageSource playerAttack(EntityHuman entityhuman) {
         return new EntityDamageSource("player", entityhuman);
     }
 
-    public static DamageSource a(EntityArrow entityarrow, Entity entity) {
+    public static DamageSource arrow(EntityArrow entityarrow, Entity entity) {
         return new EntityDamageSourceIndirect("arrow", entityarrow, entity);
     }
 
-    public static DamageSource a(EntityFireball entityfireball, Entity entity) {
+    public static DamageSource fireball(EntityFireball entityfireball, Entity entity) {
         return new EntityDamageSourceIndirect("fireball", entityfireball, entity);
     }
 
-    public static DamageSource a(Entity entity, Entity entity1) {
+    public static DamageSource projectile(Entity entity, Entity entity1) {
         return new EntityDamageSourceIndirect("thrown", entity, entity1);
     }
 
-    public boolean b() {
+    public boolean ignoresArmor() {
         return this.n;
     }
 
@@ -47,7 +47,7 @@ public class DamageSource {
         return this.p;
     }
 
-    public boolean d() {
+    public boolean ignoresInvulnerability() {
         return this.o;
     }
 
@@ -56,10 +56,10 @@ public class DamageSource {
     }
 
     public Entity e() {
-        return this.a();
+        return this.getEntity();
     }
 
-    public Entity a() {
+    public Entity getEntity() {
         return null;
     }
 

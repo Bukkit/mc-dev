@@ -98,7 +98,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void die(DamageSource damagesource) {
-        this.b.serverConfigurationManager.sendAll(new Packet3Chat(damagesource.a((EntityHuman) this)));
+        this.b.serverConfigurationManager.sendAll(new Packet3Chat(damagesource.a(this)));
         this.inventory.j();
     }
 
@@ -107,7 +107,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             return false;
         } else {
             if (!this.b.pvpMode && damagesource instanceof EntityDamageSource) {
-                Entity entity = damagesource.a();
+                Entity entity = damagesource.getEntity();
 
                 if (entity instanceof EntityHuman) {
                     return false;
@@ -223,11 +223,11 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             --this.H;
         }
 
-        if (this.health != this.cb || this.cc != this.m.a() || this.m.c() == 0.0F != this.cd) {
-            this.netServerHandler.sendPacket(new Packet8UpdateHealth(this.health, this.m.a(), this.m.c()));
+        if (this.health != this.cb || this.cc != this.foodData.a() || this.foodData.c() == 0.0F != this.cd) {
+            this.netServerHandler.sendPacket(new Packet8UpdateHealth(this.health, this.foodData.a(), this.foodData.c()));
             this.cb = this.health;
-            this.cc = this.m.a();
-            this.cd = this.m.c() == 0.0F;
+            this.cc = this.foodData.a();
+            this.cd = this.foodData.c() == 0.0F;
         }
 
         if (this.expTotal != this.ce) {

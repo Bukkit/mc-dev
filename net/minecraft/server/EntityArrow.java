@@ -164,7 +164,7 @@ public class EntityArrow extends Entity {
                         l = l * 3 / 2 + 1;
                     }
 
-                    if (movingobjectposition.entity.damageEntity(DamageSource.a(this, this.shooter), l)) {
+                    if (movingobjectposition.entity.damageEntity(DamageSource.arrow(this, this.shooter), l)) {
                         if (movingobjectposition.entity instanceof EntityLiving) {
                             ++((EntityLiving) movingobjectposition.entity).aD;
                         }

@@ -54,7 +54,7 @@ public class BlockCake extends Block {
 
     private void c(World world, int i, int j, int k, EntityHuman entityhuman) {
         if (entityhuman.c(false)) {
-            entityhuman.V().a(2, 0.1F);
+            entityhuman.getFoodData().a(2, 0.1F);
             int l = world.getData(i, j, k) + 1;
 
             if (l >= 6) {

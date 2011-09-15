@@ -98,7 +98,7 @@ public class ItemBucket extends Item {
                             world.setTypeIdAndData(i, j, k, this.a, 0);
                         }
 
-                        if (entityhuman.K.d) {
+                        if (entityhuman.abilities.canInstantlyBuild) {
                             return itemstack;
                         }
 

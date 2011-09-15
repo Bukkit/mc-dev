@@ -140,7 +140,7 @@ public class EntityEgg extends Entity {
         }
 
         if (movingobjectposition != null) {
-            if (movingobjectposition.entity != null && movingobjectposition.entity.damageEntity(DamageSource.a((Entity) this, this.thrower), 0)) {
+            if (movingobjectposition.entity != null && movingobjectposition.entity.damageEntity(DamageSource.projectile(this, this.thrower), 0)) {
                 ;
             }
 

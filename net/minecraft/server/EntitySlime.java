@@ -121,7 +121,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
     public void a_(EntityHuman entityhuman) {
         int i = this.getSize();
 
-        if (i > 1 && this.f(entityhuman) && (double) this.g(entityhuman) < 0.6D * (double) i && entityhuman.damageEntity(DamageSource.a((EntityLiving) this), i)) {
+        if (i > 1 && this.f(entityhuman) && (double) this.g(entityhuman) < 0.6D * (double) i && entityhuman.damageEntity(DamageSource.mobAttack(this), i)) {
             this.world.makeSound(this, "mob.slimeattack", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
         }
     }

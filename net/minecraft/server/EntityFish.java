@@ -182,7 +182,7 @@ public class EntityFish extends Entity {
 
             if (movingobjectposition != null) {
                 if (movingobjectposition.entity != null) {
-                    if (movingobjectposition.entity.damageEntity(DamageSource.a((Entity) this, this.owner), 0)) {
+                    if (movingobjectposition.entity.damageEntity(DamageSource.projectile(this, this.owner), 0)) {
                         this.c = movingobjectposition.entity;
                     }
                 } else {

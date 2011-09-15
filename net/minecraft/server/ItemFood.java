@@ -26,7 +26,7 @@ public class ItemFood extends Item {
 
     public ItemStack b(ItemStack itemstack, World world, EntityHuman entityhuman) {
         --itemstack.count;
-        entityhuman.V().a(this);
+        entityhuman.getFoodData().a(this);
         if (!world.isStatic && this.bx > 0 && world.random.nextFloat() < this.bA) {
             entityhuman.d(new MobEffect(this.bx, this.by * 20, this.bz));
         }

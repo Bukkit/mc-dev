@@ -110,7 +110,7 @@ public class EntityFireball extends Entity {
 
         if (movingobjectposition != null) {
             if (!this.world.isStatic) {
-                if (movingobjectposition.entity != null && movingobjectposition.entity.damageEntity(DamageSource.a(this, this.shooter), 0)) {
+                if (movingobjectposition.entity != null && movingobjectposition.entity.damageEntity(DamageSource.fireball(this, this.shooter), 0)) {
                     ;
                 }
 
@@ -191,8 +191,8 @@ public class EntityFireball extends Entity {
 
     public boolean damageEntity(DamageSource damagesource, int i) {
         this.aq();
-        if (damagesource.a() != null) {
-            Vec3D vec3d = damagesource.a().ai();
+        if (damagesource.getEntity() != null) {
+            Vec3D vec3d = damagesource.getEntity().ai();
 
             if (vec3d != null) {
                 this.motX = vec3d.a;

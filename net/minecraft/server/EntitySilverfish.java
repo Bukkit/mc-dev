@@ -45,7 +45,7 @@ public class EntitySilverfish extends EntityMonster {
     protected void a(Entity entity, float f) {
         if (this.attackTicks <= 0 && f < 1.2F && entity.boundingBox.e > this.boundingBox.b && entity.boundingBox.b < this.boundingBox.e) {
             this.attackTicks = 20;
-            entity.damageEntity(DamageSource.a((EntityLiving) this), this.damage);
+            entity.damageEntity(DamageSource.mobAttack(this), this.damage);
         }
     }
 
