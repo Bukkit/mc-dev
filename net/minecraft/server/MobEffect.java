@@ -2,62 +2,62 @@ package net.minecraft.server;
 
 public class MobEffect {
 
-    private int a;
-    private int b;
-    private int c;
+    private int effectId;
+    private int duration;
+    private int amplification;
 
     public MobEffect(int i, int j, int k) {
-        this.a = i;
-        this.b = j;
-        this.c = k;
+        this.effectId = i;
+        this.duration = j;
+        this.amplification = k;
     }
 
     public void a(MobEffect mobeffect) {
-        if (this.a != mobeffect.a) {
+        if (this.effectId != mobeffect.effectId) {
             System.err.println("This method should only be called for matching effects!");
         }
 
-        if (mobeffect.c >= this.c) {
-            this.c = mobeffect.c;
-            this.b = mobeffect.b;
+        if (mobeffect.amplification >= this.amplification) {
+            this.amplification = mobeffect.amplification;
+            this.duration = mobeffect.duration;
         }
     }
 
-    public int a() {
-        return this.a;
+    public int getEffectId() {
+        return this.effectId;
     }
 
-    public int b() {
-        return this.b;
+    public int getDuration() {
+        return this.duration;
     }
 
-    public int c() {
-        return this.c;
+    public int getAmplifier() {
+        return this.amplification;
     }
 
-    public boolean a(EntityLiving entityliving) {
-        if (this.b > 0) {
-            if (MobEffectList.a[this.a].a(this.b, this.c)) {
+    public boolean tick(EntityLiving entityliving) {
+        if (this.duration > 0) {
+            if (MobEffectList.byId[this.effectId].a(this.duration, this.amplification)) {
                 this.b(entityliving);
             }
 
             this.d();
         }
 
-        return this.b > 0;
+        return this.duration > 0;
     }
 
     private int d() {
-        return --this.b;
+        return --this.duration;
     }
 
     public void b(EntityLiving entityliving) {
-        if (this.b > 0) {
-            MobEffectList.a[this.a].a(entityliving, this.c);
+        if (this.duration > 0) {
+            MobEffectList.byId[this.effectId].tick(entityliving, this.amplification);
         }
     }
 
     public int hashCode() {
-        return this.a;
+        return this.effectId;
     }
 }

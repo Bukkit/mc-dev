@@ -190,7 +190,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         if (this.I) {
             if (this.b.propertyManager.getBoolean("allow-nether", true)) {
                 if (this.activeContainer != this.defaultContainer) {
-                    this.x();
+                    this.closeInventory();
                 }
 
                 if (this.vehicle != null) {
@@ -378,7 +378,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(ItemStack itemstack) {}
 
-    public void x() {
+    public void closeInventory() {
         this.netServerHandler.sendPacket(new Packet101CloseWindow(this.activeContainer.windowId));
         this.z();
     }

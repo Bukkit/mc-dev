@@ -13,16 +13,16 @@ public class EntityCaveSpider extends EntitySpider {
             if (entity instanceof EntityLiving) {
                 byte b0 = 0;
 
-                if (this.world.spawnMonsters > 1) {
-                    if (this.world.spawnMonsters == 2) {
+                if (this.world.difficulty > 1) {
+                    if (this.world.difficulty == 2) {
                         b0 = 7;
-                    } else if (this.world.spawnMonsters == 3) {
+                    } else if (this.world.difficulty == 3) {
                         b0 = 15;
                     }
                 }
 
                 if (b0 > 0) {
-                    ((EntityLiving) entity).d(new MobEffect(MobEffectList.u.H, b0 * 20, 0));
+                    ((EntityLiving) entity).addEffect(new MobEffect(MobEffectList.POISON.id, b0 * 20, 0));
                 }
             }
 

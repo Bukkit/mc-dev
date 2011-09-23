@@ -18,8 +18,8 @@ class BiomeCacheBlock {
         this.c = new BiomeBase[256];
         this.d = i;
         this.e = j;
-        BiomeCache.a(biomecache).a(this.a, i << 4, j << 4, 16, 16);
-        BiomeCache.a(biomecache).b(this.b, i << 4, j << 4, 16, 16);
+        BiomeCache.a(biomecache).getTemperatures(this.a, i << 4, j << 4, 16, 16);
+        BiomeCache.a(biomecache).getWetness(this.b, i << 4, j << 4, 16, 16);
         BiomeCache.a(biomecache).a(this.c, i << 4, j << 4, 16, 16, false);
     }
 

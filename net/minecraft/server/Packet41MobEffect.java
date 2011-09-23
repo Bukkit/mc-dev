@@ -14,9 +14,9 @@ public class Packet41MobEffect extends Packet {
 
     public Packet41MobEffect(int i, MobEffect mobeffect) {
         this.a = i;
-        this.b = (byte) (mobeffect.a() & 255);
-        this.c = (byte) (mobeffect.c() & 255);
-        this.d = (short) mobeffect.b();
+        this.b = (byte) (mobeffect.getEffectId() & 255);
+        this.c = (byte) (mobeffect.getAmplifier() & 255);
+        this.d = (short) mobeffect.getDuration();
     }
 
     public void a(DataInputStream datainputstream) {

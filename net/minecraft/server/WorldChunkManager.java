@@ -43,7 +43,7 @@ public class WorldChunkManager {
         return this.e.a(i, j);
     }
 
-    public float[] b(float[] afloat, int i, int j, int k, int l) {
+    public float[] getWetness(float[] afloat, int i, int j, int k, int l) {
         IntCache.a();
         if (afloat == null || afloat.length < k * l) {
             afloat = new float[k * l];
@@ -64,7 +64,7 @@ public class WorldChunkManager {
         return afloat;
     }
 
-    public float[] a(float[] afloat, int i, int j, int k, int l) {
+    public float[] getTemperatures(float[] afloat, int i, int j, int k, int l) {
         IntCache.a();
         if (afloat == null || afloat.length < k * l) {
             afloat = new float[k * l];
@@ -85,7 +85,7 @@ public class WorldChunkManager {
         return afloat;
     }
 
-    public BiomeBase[] b(BiomeBase[] abiomebase, int i, int j, int k, int l) {
+    public BiomeBase[] getBiomes(BiomeBase[] abiomebase, int i, int j, int k, int l) {
         IntCache.a();
         if (abiomebase == null || abiomebase.length < k * l) {
             abiomebase = new BiomeBase[k * l];

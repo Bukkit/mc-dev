@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.List;
 
-public class EntityFish extends Entity {
+public class EntityFishingHook extends Entity {
 
     private int d = -1;
     private int e = -1;
@@ -22,13 +22,13 @@ public class EntityFish extends Entity {
     private double p;
     private double q;
 
-    public EntityFish(World world) {
+    public EntityFishingHook(World world) {
         super(world);
         this.b(0.25F, 0.25F);
         this.bZ = true;
     }
 
-    public EntityFish(World world, EntityHuman entityhuman) {
+    public EntityFishingHook(World world, EntityHuman entityhuman) {
         super(world);
         this.bZ = true;
         this.owner = entityhuman;

@@ -18,7 +18,7 @@ public class EntityCreeper extends EntityMonster {
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        if (this.datawatcher.a(17) == 1) {
+        if (this.datawatcher.getByte(17) == 1) {
             nbttagcompound.a("powered", true);
         }
     }
@@ -117,7 +117,7 @@ public class EntityCreeper extends EntityMonster {
     }
 
     public boolean isPowered() {
-        return this.datawatcher.a(17) == 1;
+        return this.datawatcher.getByte(17) == 1;
     }
 
     protected int k() {
@@ -125,7 +125,7 @@ public class EntityCreeper extends EntityMonster {
     }
 
     private int w() {
-        return this.datawatcher.a(16);
+        return this.datawatcher.getByte(16);
     }
 
     private void b(int i) {

@@ -133,9 +133,9 @@ public class MinecraftServer implements Runnable, ICommandListener {
             }
 
             this.worldServer[k].addIWorldAccess(new WorldManager(this, this.worldServer[k]));
-            this.worldServer[k].spawnMonsters = this.propertyManager.getInt("difficulty", 1);
+            this.worldServer[k].difficulty = this.propertyManager.getInt("difficulty", 1);
             this.worldServer[k].setSpawnFlags(this.propertyManager.getBoolean("spawn-monsters", true), this.spawnAnimals);
-            this.worldServer[k].p().d(j);
+            this.worldServer[k].p().setGameType(j);
             this.serverConfigurationManager.setPlayerFileData(this.worldServer);
         }
 
@@ -214,7 +214,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         }
     }
 
-    public void a() {
+    public void safeShutdown() {
         this.isRunning = false;
     }
 
@@ -324,7 +324,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
                     ;
                 }
 
-                worldserver.cleanUp();
+                worldserver.tickEntities();
             }
         }
 

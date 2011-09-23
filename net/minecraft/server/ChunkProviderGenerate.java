@@ -54,7 +54,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         int i1 = 128 / 8 + 1;
         int j1 = b0 + 1;
 
-        this.y = this.s.getWorldChunkManager().b(this.y, i * 4 - 2, j * 4 - 2, l + 5, j1 + 5);
+        this.y = this.s.getWorldChunkManager().getBiomes(this.y, i * 4 - 2, j * 4 - 2, l + 5, j1 + 5);
         this.u = this.a(this.u, i * b0, 0, j * b0, l, i1, j1);
 
         for (int k1 = 0; k1 < b0; ++k1) {

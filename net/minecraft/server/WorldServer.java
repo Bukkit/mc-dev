@@ -7,7 +7,7 @@ public class WorldServer extends World {
 
     public ChunkProviderServer chunkProviderServer;
     public boolean weirdIsOpCache = false;
-    public boolean canSave;
+    public boolean savingDisabled;
     private MinecraftServer server;
     private EntityList Q = new EntityList();
 

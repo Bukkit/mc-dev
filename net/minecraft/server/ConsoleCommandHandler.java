@@ -24,7 +24,7 @@ public class ConsoleCommandHandler {
                 icommandlistener.sendMessage("Connected players: " + serverconfigurationmanager.c());
             } else if (s.toLowerCase().startsWith("stop")) {
                 this.print(s1, "Stopping the server..");
-                this.server.a();
+                this.server.safeShutdown();
             } else {
                 int i;
                 WorldServer worldserver;
@@ -46,42 +46,42 @@ public class ConsoleCommandHandler {
 
                     for (i = 0; i < this.server.worldServer.length; ++i) {
                         worldserver = this.server.worldServer[i];
-                        worldserver.canSave = true;
+                        worldserver.savingDisabled = true;
                     }
                 } else if (s.toLowerCase().startsWith("save-on")) {
                     this.print(s1, "Enabling level saving..");
 
                     for (i = 0; i < this.server.worldServer.length; ++i) {
                         worldserver = this.server.worldServer[i];
-                        worldserver.canSave = false;
+                        worldserver.savingDisabled = false;
                     }
                 } else {
                     String s2;
 
                     if (s.toLowerCase().startsWith("op ")) {
                         s2 = s.substring(s.indexOf(" ")).trim();
-                        serverconfigurationmanager.e(s2);
+                        serverconfigurationmanager.addOp(s2);
                         this.print(s1, "Opping " + s2);
                         serverconfigurationmanager.a(s2, "\u00A7eYou are now op!");
                     } else if (s.toLowerCase().startsWith("deop ")) {
                         s2 = s.substring(s.indexOf(" ")).trim();
-                        serverconfigurationmanager.f(s2);
+                        serverconfigurationmanager.removeOp(s2);
                         serverconfigurationmanager.a(s2, "\u00A7eYou are no longer op!");
                         this.print(s1, "De-opping " + s2);
                     } else if (s.toLowerCase().startsWith("ban-ip ")) {
                         s2 = s.substring(s.indexOf(" ")).trim();
-                        serverconfigurationmanager.c(s2);
+                        serverconfigurationmanager.addIpBan(s2);
                         this.print(s1, "Banning ip " + s2);
                     } else if (s.toLowerCase().startsWith("pardon-ip ")) {
                         s2 = s.substring(s.indexOf(" ")).trim();
-                        serverconfigurationmanager.d(s2);
+                        serverconfigurationmanager.removeIpBan(s2);
                         this.print(s1, "Pardoning ip " + s2);
                     } else {
                         EntityPlayer entityplayer;
 
                         if (s.toLowerCase().startsWith("ban ")) {
                             s2 = s.substring(s.indexOf(" ")).trim();
-                            serverconfigurationmanager.a(s2);
+                            serverconfigurationmanager.addUserBan(s2);
                             this.print(s1, "Banning " + s2);
                             entityplayer = serverconfigurationmanager.i(s2);
                             if (entityplayer != null) {
@@ -89,7 +89,7 @@ public class ConsoleCommandHandler {
                             }
                         } else if (s.toLowerCase().startsWith("pardon ")) {
                             s2 = s.substring(s.indexOf(" ")).trim();
-                            serverconfigurationmanager.b(s2);
+                            serverconfigurationmanager.removeUserBan(s2);
                             this.print(s1, "Pardoning " + s2);
                         } else {
                             int j;
@@ -272,12 +272,12 @@ public class ConsoleCommandHandler {
 
             if ("on".equals(s2)) {
                 this.print(s, "Turned on white-listing");
-                this.server.propertyManager.b("white-list", true);
+                this.server.propertyManager.setBoolean("white-list", true);
             } else if ("off".equals(s2)) {
                 this.print(s, "Turned off white-listing");
-                this.server.propertyManager.b("white-list", false);
+                this.server.propertyManager.setBoolean("white-list", false);
             } else if ("list".equals(s2)) {
-                Set set = this.server.serverConfigurationManager.e();
+                Set set = this.server.serverConfigurationManager.getWhitelisted();
                 String s3 = "";
 
                 String s4;
@@ -292,14 +292,14 @@ public class ConsoleCommandHandler {
 
                 if ("add".equals(s2) && astring.length == 3) {
                     s5 = astring[2].toLowerCase();
-                    this.server.serverConfigurationManager.k(s5);
+                    this.server.serverConfigurationManager.addWhitelist(s5);
                     this.print(s, "Added " + s5 + " to white-list");
                 } else if ("remove".equals(s2) && astring.length == 3) {
                     s5 = astring[2].toLowerCase();
-                    this.server.serverConfigurationManager.l(s5);
+                    this.server.serverConfigurationManager.removeWhitelist(s5);
                     this.print(s, "Removed " + s5 + " from white-list");
                 } else if ("reload".equals(s2)) {
-                    this.server.serverConfigurationManager.f();
+                    this.server.serverConfigurationManager.reloadWhitelist();
                     this.print(s, "Reloaded white-list from file");
                 }
             }

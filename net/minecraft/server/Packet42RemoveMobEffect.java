@@ -12,7 +12,7 @@ public class Packet42RemoveMobEffect extends Packet {
 
     public Packet42RemoveMobEffect(int i, MobEffect mobeffect) {
         this.a = i;
-        this.b = (byte) (mobeffect.a() & 255);
+        this.b = (byte) (mobeffect.getEffectId() & 255);
     }
 
     public void a(DataInputStream datainputstream) {

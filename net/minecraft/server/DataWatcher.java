@@ -32,15 +32,15 @@ public class DataWatcher {
         }
     }
 
-    public byte a(int i) {
+    public byte getByte(int i) {
         return ((Byte) ((WatchableObject) this.b.get(Integer.valueOf(i))).b()).byteValue();
     }
 
-    public int b(int i) {
+    public int getInt(int i) {
         return ((Integer) ((WatchableObject) this.b.get(Integer.valueOf(i))).b()).intValue();
     }
 
-    public String c(int i) {
+    public String getString(int i) {
         return (String) ((WatchableObject) this.b.get(Integer.valueOf(i))).b();
     }
 

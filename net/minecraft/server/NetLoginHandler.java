@@ -84,14 +84,14 @@ public class NetLoginHandler extends NetHandler {
             WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
             ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
 
-            entityplayer.itemInWorldManager.b(worldserver.p().n());
+            entityplayer.itemInWorldManager.b(worldserver.p().getGameType());
             NetServerHandler netserverhandler = new NetServerHandler(this.server, this.networkManager, entityplayer);
 
             int i = entityplayer.id;
             long j = worldserver.getSeed();
             int k = entityplayer.itemInWorldManager.a();
             byte b0 = (byte) worldserver.worldProvider.dimension;
-            byte b1 = (byte) worldserver.spawnMonsters;
+            byte b1 = (byte) worldserver.difficulty;
 
             worldserver.getClass();
             Packet1Login packet1login1 = new Packet1Login("", i, j, k, b0, b1, (byte) -128, (byte) this.server.serverConfigurationManager.h());
@@ -104,7 +104,7 @@ public class NetLoginHandler extends NetHandler {
             netserverhandler.a(entityplayer.locX, entityplayer.locY, entityplayer.locZ, entityplayer.yaw, entityplayer.pitch);
             this.server.networkListenThread.a(netserverhandler);
             netserverhandler.sendPacket(new Packet4UpdateTime(worldserver.getTime()));
-            Iterator iterator = entityplayer.ak().iterator();
+            Iterator iterator = entityplayer.getEffects().iterator();
 
             while (iterator.hasNext()) {
                 MobEffect mobeffect = (MobEffect) iterator.next();

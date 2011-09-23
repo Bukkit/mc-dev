@@ -69,7 +69,7 @@ public class PropertyManager {
         }
     }
 
-    public void b(String s, boolean flag) {
+    public void setBoolean(String s, boolean flag) {
         this.properties.setProperty(s, "" + flag);
         this.savePropertiesFile();
     }

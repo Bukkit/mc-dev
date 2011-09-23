@@ -11,11 +11,11 @@ import java.util.TreeSet;
 
 public class World implements IBlockAccess {
 
-    public final int a = 7;
-    public final int b = 11;
-    public final int c = 128;
-    public final int d = 127;
-    public final int e = 63;
+    public final int heightBits = 7;
+    public final int heightBitsPlusFour = 11;
+    public final int height = 128;
+    public final int heightMinusOne = 127;
+    public final int seaLevel = 63;
     public boolean f = false;
     public List entityList = new ArrayList();
     private List M = new ArrayList();
@@ -39,7 +39,7 @@ public class World implements IBlockAccess {
     public boolean suppressPhysics = false;
     private long S = System.currentTimeMillis();
     protected int u = 40;
-    public int spawnMonsters;
+    public int difficulty;
     public Random random = new Random();
     public boolean x = false;
     public final WorldProvider worldProvider;
@@ -909,7 +909,7 @@ public class World implements IBlockAccess {
         }
     }
 
-    public void cleanUp() {
+    public void tickEntities() {
         int i;
         Entity entity;
 
@@ -1462,7 +1462,7 @@ public class World implements IBlockAccess {
         if (this.everyoneDeeplySleeping()) {
             boolean flag = false;
 
-            if (this.allowMonsters && this.spawnMonsters >= 1) {
+            if (this.allowMonsters && this.difficulty >= 1) {
                 flag = SpawnerCreature.a(this, this.players);
             }
 

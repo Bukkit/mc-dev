@@ -162,7 +162,7 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     public boolean unloadChunks() {
-        if (!this.world.canSave) {
+        if (!this.world.savingDisabled) {
             for (int i = 0; i < 100; ++i) {
                 if (!this.unloadQueue.isEmpty()) {
                     Long olong = (Long) this.unloadQueue.iterator().next();
@@ -186,6 +186,6 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     public boolean canSave() {
-        return !this.world.canSave;
+        return !this.world.savingDisabled;
     }
 }

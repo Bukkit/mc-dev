@@ -72,7 +72,7 @@ public class Item {
     public static Item PORK = (new ItemFood(63, 3, 0.3F, true)).a(7, 5).a("porkchopRaw");
     public static Item GRILLED_PORK = (new ItemFood(64, 8, 0.8F, true)).a(8, 5).a("porkchopCooked");
     public static Item PAINTING = (new ItemPainting(65)).a(10, 1).a("painting");
-    public static Item GOLDEN_APPLE = (new ItemFood(66, 10, 1.2F, false)).n().a(MobEffectList.l.H, 30, 0, 1.0F).a(11, 0).a("appleGold");
+    public static Item GOLDEN_APPLE = (new ItemFood(66, 10, 1.2F, false)).n().a(MobEffectList.REGENERATION.id, 30, 0, 1.0F).a(11, 0).a("appleGold");
     public static Item SIGN = (new ItemSign(67)).a(10, 2).a("sign");
     public static Item WOOD_DOOR = (new ItemDoor(68, Material.WOOD)).a(11, 2).a("doorWood");
     public static Item BUCKET = (new ItemBucket(69, 0)).a(10, 4).a("bucket");
@@ -115,9 +115,9 @@ public class Item {
     public static Item MELON_SEEDS = (new ItemSeeds(106, Block.MELON_STEM.id)).a(14, 3).a("seeds_melon");
     public static Item RAW_BEEF = (new ItemFood(107, 3, 0.3F, true)).a(9, 6).a("beefRaw");
     public static Item COOKED_BEEF = (new ItemFood(108, 8, 0.8F, true)).a(10, 6).a("beefCooked");
-    public static Item RAW_CHICKEN = (new ItemFood(109, 2, 0.3F, true)).a(MobEffectList.s.H, 30, 0, 0.3F).a(9, 7).a("chickenRaw");
+    public static Item RAW_CHICKEN = (new ItemFood(109, 2, 0.3F, true)).a(MobEffectList.HUNGER.id, 30, 0, 0.3F).a(9, 7).a("chickenRaw");
     public static Item COOKED_CHICKEN = (new ItemFood(110, 6, 0.6F, true)).a(10, 7).a("chickenCooked");
-    public static Item ROTTEN_FLESH = (new ItemFood(111, 4, 0.1F, true)).a(MobEffectList.s.H, 30, 0, 0.8F).a(11, 5).a("rottenFlesh");
+    public static Item ROTTEN_FLESH = (new ItemFood(111, 4, 0.1F, true)).a(MobEffectList.HUNGER.id, 30, 0, 0.8F).a(11, 5).a("rottenFlesh");
     public static Item ENDER_PEARL = (new Item(112)).a(11, 6).a("enderPearl");
     public static Item GOLD_RECORD = (new ItemRecord(2000, "13")).a(0, 15).a("record");
     public static Item GREEN_RECORD = (new ItemRecord(2001, "cat")).a(1, 15).a("record");
@@ -187,7 +187,7 @@ public class Item {
         return this;
     }
 
-    public int e() {
+    public int getMaxDurability() {
         return this.durability;
     }
 

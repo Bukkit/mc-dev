@@ -12,7 +12,7 @@ final class ServerWindowAdapter extends WindowAdapter {
     }
 
     public void windowClosing(WindowEvent windowevent) {
-        this.a.a();
+        this.a.safeShutdown();
 
         while (!this.a.isStopped) {
             try {
