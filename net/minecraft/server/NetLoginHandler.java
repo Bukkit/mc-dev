@@ -58,8 +58,8 @@ public class NetLoginHandler extends NetHandler {
 
     public void a(Packet1Login packet1login) {
         this.g = packet1login.name;
-        if (packet1login.a != 17) {
-            if (packet1login.a > 17) {
+        if (packet1login.a != 22) {
+            if (packet1login.a > 22) {
                 this.disconnect("Outdated server!");
             } else {
                 this.disconnect("Outdated client!");
@@ -84,19 +84,10 @@ public class NetLoginHandler extends NetHandler {
             WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
             ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
 
-            entityplayer.itemInWorldManager.b(worldserver.p().getGameType());
+            entityplayer.itemInWorldManager.b(worldserver.r().getGameType());
             NetServerHandler netserverhandler = new NetServerHandler(this.server, this.networkManager, entityplayer);
 
-            int i = entityplayer.id;
-            long j = worldserver.getSeed();
-            int k = entityplayer.itemInWorldManager.a();
-            byte b0 = (byte) worldserver.worldProvider.dimension;
-            byte b1 = (byte) worldserver.difficulty;
-
-            worldserver.getClass();
-            Packet1Login packet1login1 = new Packet1Login("", i, j, k, b0, b1, (byte) -128, (byte) this.server.serverConfigurationManager.h());
-
-            netserverhandler.sendPacket(packet1login1);
+            netserverhandler.sendPacket(new Packet1Login("", entityplayer.id, worldserver.getSeed(), entityplayer.itemInWorldManager.a(), (byte) worldserver.worldProvider.dimension, (byte) worldserver.difficulty, (byte) worldserver.height, (byte) this.server.serverConfigurationManager.k()));
             netserverhandler.sendPacket(new Packet6SpawnPosition(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z));
             this.server.serverConfigurationManager.a(entityplayer, worldserver);
             this.server.serverConfigurationManager.sendAll(new Packet3Chat("\u00A7e" + entityplayer.name + " joined the game."));
@@ -125,7 +116,7 @@ public class NetLoginHandler extends NetHandler {
 
     public void a(Packet254GetInfo packet254getinfo) {
         try {
-            String s = this.server.p + "\u00A7" + this.server.serverConfigurationManager.g() + "\u00A7" + this.server.serverConfigurationManager.h();
+            String s = this.server.r + "\u00A7" + this.server.serverConfigurationManager.j() + "\u00A7" + this.server.serverConfigurationManager.k();
 
             this.networkManager.queue(new Packet255KickDisconnect(s));
             this.networkManager.d();

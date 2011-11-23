@@ -5,63 +5,132 @@ import java.io.DataInputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-public class ChunkRegionLoader implements IChunkLoader {
+public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
 
-    private final File a;
+    private List a = new ArrayList();
+    private Set b = new HashSet();
+    private Object c = new Object();
+    private final File d;
 
     public ChunkRegionLoader(File file1) {
-        this.a = file1;
+        this.d = file1;
     }
 
     public Chunk a(World world, int i, int j) {
-        DataInputStream datainputstream = RegionFileCache.c(this.a, i, j);
+        NBTTagCompound nbttagcompound = null;
+        ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(i, j);
+        Object object = this.c;
 
-        if (datainputstream != null) {
-            NBTTagCompound nbttagcompound = CompressedStreamTools.a((DataInput) datainputstream);
-
-            if (!nbttagcompound.hasKey("Level")) {
-                System.out.println("Chunk file at " + i + "," + j + " is missing level data, skipping");
-                return null;
-            } else if (!nbttagcompound.k("Level").hasKey("Blocks")) {
-                System.out.println("Chunk file at " + i + "," + j + " is missing block data, skipping");
-                return null;
-            } else {
-                Chunk chunk = ChunkLoader.a(world, nbttagcompound.k("Level"));
-
-                if (!chunk.a(i, j)) {
-                    System.out.println("Chunk file at " + i + "," + j + " is in the wrong location; relocating. (Expected " + i + ", " + j + ", got " + chunk.x + ", " + chunk.z + ")");
-                    nbttagcompound.a("xPos", i);
-                    nbttagcompound.a("zPos", j);
-                    chunk = ChunkLoader.a(world, nbttagcompound.k("Level"));
+        synchronized (this.c) {
+            if (this.b.contains(chunkcoordintpair)) {
+                for (int k = 0; k < this.a.size(); ++k) {
+                    if (((PendingChunkToSave) this.a.get(k)).a.equals(chunkcoordintpair)) {
+                        nbttagcompound = ((PendingChunkToSave) this.a.get(k)).b;
+                        break;
+                    }
                 }
-
-                chunk.g();
-                return chunk;
             }
-        } else {
+        }
+
+        if (nbttagcompound == null) {
+            DataInputStream datainputstream = RegionFileCache.b(this.d, i, j);
+
+            if (datainputstream == null) {
+                return null;
+            }
+
+            nbttagcompound = CompressedStreamTools.a((DataInput) datainputstream);
+        }
+
+        if (!nbttagcompound.hasKey("Level")) {
+            System.out.println("Chunk file at " + i + "," + j + " is missing level data, skipping");
             return null;
+        } else if (!nbttagcompound.l("Level").hasKey("Blocks")) {
+            System.out.println("Chunk file at " + i + "," + j + " is missing block data, skipping");
+            return null;
+        } else {
+            Chunk chunk = ChunkLoader.a(world, nbttagcompound.l("Level"));
+
+            if (!chunk.a(i, j)) {
+                System.out.println("Chunk file at " + i + "," + j + " is in the wrong location; relocating. (Expected " + i + ", " + j + ", got " + chunk.x + ", " + chunk.z + ")");
+                nbttagcompound.a("xPos", i);
+                nbttagcompound.a("zPos", j);
+                chunk = ChunkLoader.a(world, nbttagcompound.l("Level"));
+            }
+
+            chunk.h();
+            return chunk;
         }
     }
 
     public void a(World world, Chunk chunk) {
-        world.j();
+        world.l();
 
         try {
-            DataOutputStream dataoutputstream = RegionFileCache.d(this.a, chunk.x, chunk.z);
             NBTTagCompound nbttagcompound = new NBTTagCompound();
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
             nbttagcompound.a("Level", (NBTBase) nbttagcompound1);
             ChunkLoader.a(chunk, world, nbttagcompound1);
-            CompressedStreamTools.a(nbttagcompound, (DataOutput) dataoutputstream);
-            dataoutputstream.close();
-            WorldData worlddata = world.p();
-
-            worlddata.b(worlddata.g() + (long) RegionFileCache.b(this.a, chunk.x, chunk.z));
+            this.a(chunk.j(), nbttagcompound);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+    }
+
+    private void a(ChunkCoordIntPair chunkcoordintpair, NBTTagCompound nbttagcompound) {
+        Object object = this.c;
+
+        synchronized (this.c) {
+            if (this.b.contains(chunkcoordintpair)) {
+                for (int i = 0; i < this.a.size(); ++i) {
+                    if (((PendingChunkToSave) this.a.get(i)).a.equals(chunkcoordintpair)) {
+                        this.a.set(i, new PendingChunkToSave(chunkcoordintpair, nbttagcompound));
+                        return;
+                    }
+                }
+            }
+
+            this.a.add(new PendingChunkToSave(chunkcoordintpair, nbttagcompound));
+            this.b.add(chunkcoordintpair);
+            FileIOThread.a.a(this);
+        }
+    }
+
+    public boolean c() {
+        PendingChunkToSave pendingchunktosave = null;
+        Object object = this.c;
+
+        synchronized (this.c) {
+            if (this.a.size() <= 0) {
+                return false;
+            }
+
+            pendingchunktosave = (PendingChunkToSave) this.a.remove(0);
+            this.b.remove(pendingchunktosave.a);
+        }
+
+        if (pendingchunktosave != null) {
+            try {
+                this.a(pendingchunktosave);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+
+        return true;
+    }
+
+    public void a(PendingChunkToSave pendingchunktosave) {
+        DataOutputStream dataoutputstream = RegionFileCache.c(this.d, pendingchunktosave.a.x, pendingchunktosave.a.z);
+
+        CompressedStreamTools.a(pendingchunktosave.b, (DataOutput) dataoutputstream);
+        dataoutputstream.close();
     }
 
     public void b(World world, Chunk chunk) {}

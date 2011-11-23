@@ -29,14 +29,7 @@ public class Packet104WindowItems extends Packet {
         this.b = new ItemStack[short1];
 
         for (int i = 0; i < short1; ++i) {
-            short short2 = datainputstream.readShort();
-
-            if (short2 >= 0) {
-                byte b0 = datainputstream.readByte();
-                short short3 = datainputstream.readShort();
-
-                this.b[i] = new ItemStack(short2, b0, short3);
-            }
+            this.b[i] = this.b(datainputstream);
         }
     }
 
@@ -45,13 +38,7 @@ public class Packet104WindowItems extends Packet {
         dataoutputstream.writeShort(this.b.length);
 
         for (int i = 0; i < this.b.length; ++i) {
-            if (this.b[i] == null) {
-                dataoutputstream.writeShort(-1);
-            } else {
-                dataoutputstream.writeShort((short) this.b[i].id);
-                dataoutputstream.writeByte((byte) this.b[i].count);
-                dataoutputstream.writeShort((short) this.b[i].getData());
-            }
+            this.a(this.b[i], dataoutputstream);
         }
     }
 

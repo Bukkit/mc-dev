@@ -16,10 +16,10 @@ public abstract class WorldProvider {
     public final void a(World world) {
         this.a = world;
         this.a();
-        this.c();
+        this.e();
     }
 
-    protected void c() {
+    protected void e() {
         float f = 0.0F;
 
         for (int i = 0; i <= 15; ++i) {
@@ -34,7 +34,7 @@ public abstract class WorldProvider {
     }
 
     public IChunkProvider getChunkProvider() {
-        return new ChunkProviderGenerate(this.a, this.a.getSeed(), this.a.p().o());
+        return new ChunkProviderGenerate(this.a, this.a.getSeed(), this.a.r().o());
     }
 
     public boolean canSpawn(int i, int j) {
@@ -62,11 +62,15 @@ public abstract class WorldProvider {
         return f1;
     }
 
-    public boolean d() {
+    public boolean c() {
         return true;
     }
 
     public static WorldProvider byDimension(int i) {
         return (WorldProvider) (i == -1 ? new WorldProviderHell() : (i == 0 ? new WorldProviderNormal() : (i == 1 ? new WorldProviderSky() : null)));
+    }
+
+    public ChunkCoordinates d() {
+        return null;
     }
 }

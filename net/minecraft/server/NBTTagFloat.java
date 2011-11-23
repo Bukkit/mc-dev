@@ -7,9 +7,12 @@ public class NBTTagFloat extends NBTBase {
 
     public float a;
 
-    public NBTTagFloat() {}
+    public NBTTagFloat(String s) {
+        super(s);
+    }
 
-    public NBTTagFloat(float f) {
+    public NBTTagFloat(String s, float f) {
+        super(s);
         this.a = f;
     }
 
@@ -27,5 +30,19 @@ public class NBTTagFloat extends NBTBase {
 
     public String toString() {
         return "" + this.a;
+    }
+
+    public NBTBase b() {
+        return new NBTTagFloat(this.c(), this.a);
+    }
+
+    public boolean equals(Object object) {
+        if (super.equals(object)) {
+            NBTTagFloat nbttagfloat = (NBTTagFloat) object;
+
+            return this.a == nbttagfloat.a;
+        } else {
+            return false;
+        }
     }
 }

@@ -19,7 +19,7 @@ public class BlockPistonMoving extends BlockContainer {
         TileEntity tileentity = world.getTileEntity(i, j, k);
 
         if (tileentity != null && tileentity instanceof TileEntityPiston) {
-            ((TileEntityPiston) tileentity).e();
+            ((TileEntityPiston) tileentity).g();
         } else {
             super.remove(world, i, j, k);
         }
@@ -31,6 +31,10 @@ public class BlockPistonMoving extends BlockContainer {
 
     public boolean canPlace(World world, int i, int j, int k, int l) {
         return false;
+    }
+
+    public int c() {
+        return -1;
     }
 
     public boolean a() {
@@ -50,16 +54,16 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return 0;
     }
 
-    public void dropNaturally(World world, int i, int j, int k, int l, float f) {
+    public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
         if (!world.isStatic) {
             TileEntityPiston tileentitypiston = this.b(world, i, j, k);
 
             if (tileentitypiston != null) {
-                Block.byId[tileentitypiston.a()].g(world, i, j, k, tileentitypiston.j());
+                Block.byId[tileentitypiston.c()].b(world, i, j, k, tileentitypiston.j(), 0);
             }
         }
     }
@@ -82,11 +86,11 @@ public class BlockPistonMoving extends BlockContainer {
         } else {
             float f = tileentitypiston.a(0.0F);
 
-            if (tileentitypiston.c()) {
+            if (tileentitypiston.e()) {
                 f = 1.0F - f;
             }
 
-            return this.a(world, i, j, k, tileentitypiston.a(), f, tileentitypiston.d());
+            return this.b(world, i, j, k, tileentitypiston.c(), f, tileentitypiston.f());
         }
     }
 
@@ -94,7 +98,7 @@ public class BlockPistonMoving extends BlockContainer {
         TileEntityPiston tileentitypiston = this.b(iblockaccess, i, j, k);
 
         if (tileentitypiston != null) {
-            Block block = Block.byId[tileentitypiston.a()];
+            Block block = Block.byId[tileentitypiston.c()];
 
             if (block == null || block == this) {
                 return;
@@ -103,11 +107,11 @@ public class BlockPistonMoving extends BlockContainer {
             block.a(iblockaccess, i, j, k);
             float f = tileentitypiston.a(0.0F);
 
-            if (tileentitypiston.c()) {
+            if (tileentitypiston.e()) {
                 f = 1.0F - f;
             }
 
-            int l = tileentitypiston.d();
+            int l = tileentitypiston.f();
 
             this.minX = block.minX - (double) ((float) PistonBlockTextures.b[l] * f);
             this.minY = block.minY - (double) ((float) PistonBlockTextures.c[l] * f);
@@ -118,7 +122,7 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
-    public AxisAlignedBB a(World world, int i, int j, int k, int l, float f, int i1) {
+    public AxisAlignedBB b(World world, int i, int j, int k, int l, float f, int i1) {
         if (l != 0 && l != this.id) {
             AxisAlignedBB axisalignedbb = Block.byId[l].e(world, i, j, k);
 

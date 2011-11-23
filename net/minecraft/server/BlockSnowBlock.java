@@ -9,7 +9,7 @@ public class BlockSnowBlock extends Block {
         this.a(true);
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return Item.SNOW_BALL.id;
     }
 
@@ -19,7 +19,7 @@ public class BlockSnowBlock extends Block {
 
     public void a(World world, int i, int j, int k, Random random) {
         if (world.a(EnumSkyBlock.BLOCK, i, j, k) > 11) {
-            this.g(world, i, j, k, world.getData(i, j, k));
+            this.b(world, i, j, k, world.getData(i, j, k), 0);
             world.setTypeId(i, j, k, 0);
         }
     }

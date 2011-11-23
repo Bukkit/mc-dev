@@ -52,7 +52,7 @@ public class ServerGUI extends JComponent implements ICommandListener {
     private JComponent a() {
         JPanel jpanel = new JPanel(new BorderLayout());
 
-        jpanel.add(new GuiStatsComponent(), "North");
+        jpanel.add(new GuiStatsComponent(this.b), "North");
         jpanel.add(this.b(), "Center");
         jpanel.setBorder(new TitledBorder(new EtchedBorder(), "Stats"));
         return jpanel;

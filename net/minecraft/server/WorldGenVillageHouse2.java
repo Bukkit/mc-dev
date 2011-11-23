@@ -143,6 +143,7 @@ public class WorldGenVillageHouse2 extends WorldGenVillagePiece {
             }
         }
 
+        this.a(world, structureboundingbox, 4, 1, 2, 2);
         return true;
     }
 }

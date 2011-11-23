@@ -117,7 +117,7 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     private void g(World world, int i, int j, int k) {
-        this.g(world, i, j, k, world.getData(i, j, k));
+        this.b(world, i, j, k, world.getData(i, j, k), 0);
         world.setTypeId(i, j, k, 0);
     }
 
@@ -125,12 +125,12 @@ public class BlockLeaves extends BlockLeavesBase {
         return random.nextInt(20) == 0 ? 1 : 0;
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return Block.SAPLING.id;
     }
 
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
-        if (!world.isStatic && entityhuman.K() != null && entityhuman.K().id == Item.SHEARS.id) {
+        if (!world.isStatic && entityhuman.P() != null && entityhuman.P().id == Item.SHEARS.id) {
             entityhuman.a(StatisticList.C[this.id], 1);
             this.a(world, i, j, k, new ItemStack(Block.LEAVES.id, 1, l & 3));
         } else {
@@ -138,7 +138,7 @@ public class BlockLeaves extends BlockLeavesBase {
         }
     }
 
-    protected int a_(int i) {
+    protected int c(int i) {
         return i & 3;
     }
 

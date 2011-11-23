@@ -7,9 +7,12 @@ public class NBTTagByteArray extends NBTBase {
 
     public byte[] a;
 
-    public NBTTagByteArray() {}
+    public NBTTagByteArray(String s) {
+        super(s);
+    }
 
-    public NBTTagByteArray(byte[] abyte) {
+    public NBTTagByteArray(String s, byte[] abyte) {
+        super(s);
         this.a = abyte;
     }
 
@@ -31,5 +34,22 @@ public class NBTTagByteArray extends NBTBase {
 
     public String toString() {
         return "[" + this.a.length + " bytes]";
+    }
+
+    public boolean equals(Object object) {
+        if (!super.equals(object)) {
+            return false;
+        } else {
+            NBTTagByteArray nbttagbytearray = (NBTTagByteArray) object;
+
+            return this.a == null && nbttagbytearray.a == null || this.a != null && this.a.equals(nbttagbytearray.a);
+        }
+    }
+
+    public NBTBase b() {
+        byte[] abyte = new byte[this.a.length];
+
+        System.arraycopy(this.a, 0, abyte, 0, this.a.length);
+        return new NBTTagByteArray(this.c(), abyte);
     }
 }

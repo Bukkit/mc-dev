@@ -27,7 +27,6 @@ public class IntCache {
                 return aint;
             }
         } else if (i > a) {
-            System.out.println("New max size: " + i);
             a = i;
             d.clear();
             e.clear();

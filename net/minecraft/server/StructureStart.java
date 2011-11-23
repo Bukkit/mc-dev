@@ -15,6 +15,10 @@ public abstract class StructureStart {
         return this.b;
     }
 
+    public LinkedList c() {
+        return this.a;
+    }
+
     public void a(World world, Random random, StructureBoundingBox structureboundingbox) {
         Iterator iterator = this.a.iterator();
 
@@ -27,7 +31,7 @@ public abstract class StructureStart {
         }
     }
 
-    protected void c() {
+    protected void d() {
         this.b = StructureBoundingBox.a();
         Iterator iterator = this.a.iterator();
 
@@ -39,8 +43,7 @@ public abstract class StructureStart {
     }
 
     protected void a(World world, Random random, int i) {
-        world.getClass();
-        int j = 63 - i;
+        int j = world.seaLevel - i;
         int k = this.b.c() + 1;
 
         if (k < j) {
@@ -56,6 +59,29 @@ public abstract class StructureStart {
             StructurePiece structurepiece = (StructurePiece) iterator.next();
 
             structurepiece.b().a(0, l, 0);
+        }
+    }
+
+    protected void a(World world, Random random, int i, int j) {
+        int k = j - i + 1 - this.b.c();
+        boolean flag = true;
+        int l;
+
+        if (k > 1) {
+            l = i + random.nextInt(k);
+        } else {
+            l = i;
+        }
+
+        int i1 = l - this.b.b;
+
+        this.b.a(0, i1, 0);
+        Iterator iterator = this.a.iterator();
+
+        while (iterator.hasNext()) {
+            StructurePiece structurepiece = (StructurePiece) iterator.next();
+
+            structurepiece.b().a(0, i1, 0);
         }
     }
 

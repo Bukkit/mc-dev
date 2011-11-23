@@ -5,6 +5,8 @@ import java.util.Random;
 
 abstract class WorldGenVillagePiece extends StructurePiece {
 
+    private int a;
+
     protected WorldGenVillagePiece(int i) {
         super(i);
     }
@@ -54,10 +56,7 @@ abstract class WorldGenVillagePiece extends StructurePiece {
         for (int k = this.g.c; k <= this.g.f; ++k) {
             for (int l = this.g.a; l <= this.g.d; ++l) {
                 if (structureboundingbox.b(l, 64, k)) {
-                    int i1 = world.f(l, k);
-
-                    world.getClass();
-                    i += Math.max(i1, 63);
+                    i += Math.max(world.f(l, k), world.seaLevel);
                     ++j;
                 }
             }
@@ -72,5 +71,29 @@ abstract class WorldGenVillagePiece extends StructurePiece {
 
     protected static boolean a(StructureBoundingBox structureboundingbox) {
         return structureboundingbox != null && structureboundingbox.b > 10;
+    }
+
+    protected void a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l) {
+        if (this.a < l) {
+            for (int i1 = this.a; i1 < l; ++i1) {
+                int j1 = this.a(i + i1, k);
+                int k1 = this.b(j);
+                int l1 = this.b(i + i1, k);
+
+                if (!structureboundingbox.b(j1, k1, l1)) {
+                    break;
+                }
+
+                ++this.a;
+                EntityVillager entityvillager = new EntityVillager(world, this.a(i1));
+
+                entityvillager.setPositionRotation((double) j1 + 0.5D, (double) k1, (double) l1 + 0.5D, 0.0F, 0.0F);
+                world.addEntity(entityvillager);
+            }
+        }
+    }
+
+    protected int a(int i) {
+        return 0;
     }
 }

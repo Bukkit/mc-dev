@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WorldGenStronghold extends StructureGenerator {
 
@@ -9,7 +10,7 @@ public class WorldGenStronghold extends StructureGenerator {
     private ChunkCoordIntPair[] g;
 
     public WorldGenStronghold() {
-        this.a = new BiomeBase[] { BiomeBase.DESERT, BiomeBase.FOREST, BiomeBase.EXTREME_HILLS, BiomeBase.SWAMPLAND};
+        this.a = new BiomeBase[] { BiomeBase.DESERT, BiomeBase.FOREST, BiomeBase.EXTREME_HILLS, BiomeBase.SWAMPLAND, BiomeBase.TAIGA, BiomeBase.ICE_PLAINS, BiomeBase.ICE_MOUNTAINS};
         this.g = new ChunkCoordIntPair[3];
     }
 
@@ -64,7 +65,29 @@ public class WorldGenStronghold extends StructureGenerator {
         return false;
     }
 
+    protected List a() {
+        ArrayList arraylist = new ArrayList();
+        ChunkCoordIntPair[] achunkcoordintpair = this.g;
+        int i = achunkcoordintpair.length;
+
+        for (int j = 0; j < i; ++j) {
+            ChunkCoordIntPair chunkcoordintpair = achunkcoordintpair[j];
+
+            if (chunkcoordintpair != null) {
+                arraylist.add(chunkcoordintpair.a(64));
+            }
+        }
+
+        return arraylist;
+    }
+
     protected StructureStart b(int i, int j) {
-        return new WorldGenStrongholdStart(this.d, this.c, i, j);
+        WorldGenStrongholdStart worldgenstrongholdstart;
+
+        for (worldgenstrongholdstart = new WorldGenStrongholdStart(this.d, this.c, i, j); worldgenstrongholdstart.c().isEmpty() || ((WorldGenStrongholdStairs2) worldgenstrongholdstart.c().get(0)).b == null; worldgenstrongholdstart = new WorldGenStrongholdStart(this.d, this.c, i, j)) {
+            ;
+        }
+
+        return worldgenstrongholdstart;
     }
 }

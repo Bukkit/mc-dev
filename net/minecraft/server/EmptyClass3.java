@@ -1,3 +1,3 @@
 package net.minecraft.server;
 
-class EmptyClass1 {}
+class EmptyClass3 {}

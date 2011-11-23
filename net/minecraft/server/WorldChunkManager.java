@@ -8,17 +8,18 @@ public class WorldChunkManager {
 
     private GenLayer temperature;
     private GenLayer rain;
-    private GenLayer c;
     private GenLayer d;
-    private BiomeCache e;
-    private List f;
+    private GenLayer e;
+    private BiomeCache f;
+    private List g;
+    public float[] a;
 
     protected WorldChunkManager() {
-        this.e = new BiomeCache(this);
-        this.f = new ArrayList();
-        this.f.add(BiomeBase.FOREST);
-        this.f.add(BiomeBase.SWAMPLAND);
-        this.f.add(BiomeBase.TAIGA);
+        this.f = new BiomeCache(this);
+        this.g = new ArrayList();
+        this.g.add(BiomeBase.FOREST);
+        this.g.add(BiomeBase.SWAMPLAND);
+        this.g.add(BiomeBase.TAIGA);
     }
 
     public WorldChunkManager(World world) {
@@ -27,12 +28,12 @@ public class WorldChunkManager {
 
         this.temperature = agenlayer[0];
         this.rain = agenlayer[1];
-        this.c = agenlayer[2];
-        this.d = agenlayer[3];
+        this.d = agenlayer[2];
+        this.e = agenlayer[3];
     }
 
     public List a() {
-        return this.f;
+        return this.g;
     }
 
     public BiomeBase a(ChunkCoordIntPair chunkcoordintpair) {
@@ -40,7 +41,7 @@ public class WorldChunkManager {
     }
 
     public BiomeBase getBiome(int i, int j) {
-        return this.e.a(i, j);
+        return this.f.b(i, j);
     }
 
     public float[] getWetness(float[] afloat, int i, int j, int k, int l) {
@@ -49,7 +50,7 @@ public class WorldChunkManager {
             afloat = new float[k * l];
         }
 
-        int[] aint = this.d.a(i, j, k, l);
+        int[] aint = this.e.a(i, j, k, l);
 
         for (int i1 = 0; i1 < k * l; ++i1) {
             float f = (float) aint[i1] / 65536.0F;
@@ -64,13 +65,26 @@ public class WorldChunkManager {
         return afloat;
     }
 
+    public float a(int i, int j, int k) {
+        return this.a(this.f.c(i, k), j);
+    }
+
+    public float a(float f, int i) {
+        return f;
+    }
+
+    public float[] a(int i, int j, int k, int l) {
+        this.a = this.getTemperatures(this.a, i, j, k, l);
+        return this.a;
+    }
+
     public float[] getTemperatures(float[] afloat, int i, int j, int k, int l) {
         IntCache.a();
         if (afloat == null || afloat.length < k * l) {
             afloat = new float[k * l];
         }
 
-        int[] aint = this.c.a(i, j, k, l);
+        int[] aint = this.d.a(i, j, k, l);
 
         for (int i1 = 0; i1 < k * l; ++i1) {
             float f = (float) aint[i1] / 65536.0F;
@@ -111,7 +125,7 @@ public class WorldChunkManager {
         }
 
         if (flag && k == 16 && l == 16 && (i & 15) == 0 && (j & 15) == 0) {
-            BiomeBase[] abiomebase1 = this.e.b(i, j);
+            BiomeBase[] abiomebase1 = this.f.d(i, j);
 
             System.arraycopy(abiomebase1, 0, abiomebase, 0, k * l);
             return abiomebase;
@@ -172,6 +186,6 @@ public class WorldChunkManager {
     }
 
     public void b() {
-        this.e.a();
+        this.f.a();
     }
 }

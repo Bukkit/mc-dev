@@ -46,7 +46,9 @@ public class EmptyChunk extends Chunk {
         return 0;
     }
 
-    public void b(int i, int j, int k, int l) {}
+    public boolean b(int i, int j, int k, int l) {
+        return false;
+    }
 
     public int a(EnumSkyBlock enumskyblock, int i, int j, int k) {
         return 0;
@@ -105,5 +107,9 @@ public class EmptyChunk extends Chunk {
 
     public Random a(long i) {
         return new Random(this.world.getSeed() + (long) (this.x * this.x * 4987142) + (long) (this.x * 5947611) + (long) (this.z * this.z) * 4392871L + (long) (this.z * 389711) ^ i);
+    }
+
+    public boolean isEmpty() {
+        return true;
     }
 }

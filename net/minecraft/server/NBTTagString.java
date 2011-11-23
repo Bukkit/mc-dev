@@ -7,11 +7,14 @@ public class NBTTagString extends NBTBase {
 
     public String a;
 
-    public NBTTagString() {}
-
     public NBTTagString(String s) {
-        this.a = s;
-        if (s == null) {
+        super(s);
+    }
+
+    public NBTTagString(String s, String s1) {
+        super(s);
+        this.a = s1;
+        if (s1 == null) {
             throw new IllegalArgumentException("Empty string not allowed");
         }
     }
@@ -30,5 +33,19 @@ public class NBTTagString extends NBTBase {
 
     public String toString() {
         return "" + this.a;
+    }
+
+    public NBTBase b() {
+        return new NBTTagString(this.c(), this.a);
+    }
+
+    public boolean equals(Object object) {
+        if (!super.equals(object)) {
+            return false;
+        } else {
+            NBTTagString nbttagstring = (NBTTagString) object;
+
+            return this.a == null && nbttagstring.a == null || this.a != null && this.a.equals(nbttagstring.a);
+        }
     }
 }

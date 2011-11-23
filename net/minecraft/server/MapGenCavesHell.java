@@ -88,11 +88,9 @@ public class MapGenCavesHell extends MapGenBase {
                     if (i2 < 1) {
                         i2 = 1;
                     }
-                    //
-                    this.d.getClass();
-                    if (j2 > 128 - 8) {
 
-                        j2 = 128 - 8;
+                    if (j2 > this.d.height - 8) {
+                        j2 = this.d.height - 8;
                     }
 
                     if (k2 < 0) {
@@ -107,24 +105,18 @@ public class MapGenCavesHell extends MapGenBase {
 
                     int i3;
                     int j3;
-                    int k3;
 
-                    for (k3 = k1; !flag2 && k3 < l1; ++k3) {
-                        for (int l3 = k2; !flag2 && l3 < l2; ++l3) {
-                            for (int i4 = j2 + 1; !flag2 && i4 >= i2 - 1; --i4) {
-                                i3 = k3 * 16 + l3;
+                    for (j3 = k1; !flag2 && j3 < l1; ++j3) {
+                        for (int k3 = k2; !flag2 && k3 < l2; ++k3) {
+                            for (int l3 = j2 + 1; !flag2 && l3 >= i2 - 1; --l3) {
+                                i3 = (j3 * 16 + k3) * this.d.height + l3;
+                                if (l3 >= 0 && l3 < this.d.height) {
+                                    if (abyte[i3] == Block.LAVA.id || abyte[i3] == Block.STATIONARY_LAVA.id) {
+                                        flag2 = true;
+                                    }
 
-                                j3 = i3 * 128 + i4;
-                                if (i4 >= 0) {
-
-                                    if (i4 < 128) {
-                                        if (abyte[j3] == Block.LAVA.id || abyte[j3] == Block.STATIONARY_LAVA.id) {
-                                            flag2 = true;
-                                        }
-
-                                        if (i4 != i2 - 1 && k3 != k1 && k3 != l1 - 1 && l3 != k2 && l3 != l2 - 1) {
-                                            i4 = i2;
-                                        }
+                                    if (l3 != i2 - 1 && j3 != k1 && j3 != l1 - 1 && k3 != k2 && k3 != l2 - 1) {
+                                        l3 = i2;
                                     }
                                 }
                             }
@@ -132,28 +124,25 @@ public class MapGenCavesHell extends MapGenBase {
                     }
 
                     if (!flag2) {
-                        for (k3 = k1; k3 < l1; ++k3) {
-                            double d12 = ((double) (k3 + i * 16) + 0.5D - d0) / d6;
+                        for (j3 = k1; j3 < l1; ++j3) {
+                            double d12 = ((double) (j3 + i * 16) + 0.5D - d0) / d6;
 
-                            for (j3 = k2; j3 < l2; ++j3) {
-                                double d13 = ((double) (j3 + j * 16) + 0.5D - d2) / d6;
+                            for (i3 = k2; i3 < l2; ++i3) {
+                                double d13 = ((double) (i3 + j * 16) + 0.5D - d2) / d6;
+                                int i4 = (j3 * 16 + i3) * this.d.height + j2;
 
-                                i3 = k3 * 16 + j3;
-
-                                int j4 = i3 * 128 + j2;
-
-                                for (int k4 = j2 - 1; k4 >= i2; --k4) {
-                                    double d14 = ((double) k4 + 0.5D - d1) / d7;
+                                for (int j4 = j2 - 1; j4 >= i2; --j4) {
+                                    double d14 = ((double) j4 + 0.5D - d1) / d7;
 
                                     if (d14 > -0.7D && d12 * d12 + d14 * d14 + d13 * d13 < 1.0D) {
-                                        byte b0 = abyte[j4];
+                                        byte b0 = abyte[i4];
 
                                         if (b0 == Block.NETHERRACK.id || b0 == Block.DIRT.id || b0 == Block.GRASS.id) {
-                                            abyte[j4] = 0;
+                                            abyte[i4] = 0;
                                         }
                                     }
 
-                                    --j4;
+                                    --i4;
                                 }
                             }
                         }
@@ -176,10 +165,7 @@ public class MapGenCavesHell extends MapGenBase {
 
         for (int j1 = 0; j1 < i1; ++j1) {
             double d0 = (double) (i * 16 + this.c.nextInt(16));
-            Random random = this.c;
-
-            world.getClass();
-            double d1 = (double) random.nextInt(128);
+            double d1 = (double) this.c.nextInt(world.height);
             double d2 = (double) (j * 16 + this.c.nextInt(16));
             int k1 = 1;
 

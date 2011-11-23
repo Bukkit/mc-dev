@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-class BiomeCacheBlock {
+public class BiomeCacheBlock {
 
     public float[] a;
     public float[] b;
@@ -25,5 +25,9 @@ class BiomeCacheBlock {
 
     public BiomeBase a(int i, int j) {
         return this.c[i & 15 | (j & 15) << 4];
+    }
+
+    public float b(int i, int j) {
+        return this.a[i & 15 | (j & 15) << 4];
     }
 }

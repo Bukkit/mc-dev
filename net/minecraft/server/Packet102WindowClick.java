@@ -24,16 +24,7 @@ public class Packet102WindowClick extends Packet {
         this.c = datainputstream.readByte();
         this.d = datainputstream.readShort();
         this.f = datainputstream.readBoolean();
-        short short1 = datainputstream.readShort();
-
-        if (short1 >= 0) {
-            byte b0 = datainputstream.readByte();
-            short short2 = datainputstream.readShort();
-
-            this.e = new ItemStack(short1, b0, short2);
-        } else {
-            this.e = null;
-        }
+        this.e = this.b(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
@@ -42,13 +33,7 @@ public class Packet102WindowClick extends Packet {
         dataoutputstream.writeByte(this.c);
         dataoutputstream.writeShort(this.d);
         dataoutputstream.writeBoolean(this.f);
-        if (this.e == null) {
-            dataoutputstream.writeShort(-1);
-        } else {
-            dataoutputstream.writeShort(this.e.id);
-            dataoutputstream.writeByte(this.e.count);
-            dataoutputstream.writeShort(this.e.getData());
-        }
+        this.a(this.e, dataoutputstream);
     }
 
     public int a() {

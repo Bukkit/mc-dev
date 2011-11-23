@@ -14,6 +14,6 @@ public class EntityDamageSource extends DamageSource {
     }
 
     public String a(EntityHuman entityhuman) {
-        return StatisticCollector.a("death." + this.m, new Object[] { entityhuman.name, this.n.Y()});
+        return StatisticCollector.a("death." + this.m, new Object[] { entityhuman.name, this.n.ad()});
     }
 }

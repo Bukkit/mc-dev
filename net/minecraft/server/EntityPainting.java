@@ -34,7 +34,7 @@ public class EntityPainting extends Entity {
 
             this.e = enumart;
             this.b(l);
-            if (this.i()) {
+            if (this.j()) {
                 arraylist.add(enumart);
             }
         }
@@ -112,17 +112,17 @@ public class EntityPainting extends Entity {
         return i == 32 ? 0.5F : (i == 64 ? 0.5F : 0.0F);
     }
 
-    public void s_() {
+    public void w_() {
         if (this.f++ == 100 && !this.world.isStatic) {
             this.f = 0;
-            if (!this.i()) {
+            if (!this.j()) {
                 this.die();
                 this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING)));
             }
         }
     }
 
-    public boolean i() {
+    public boolean j() {
         if (this.world.getEntities(this, this.boundingBox).size() > 0) {
             return false;
         } else {
@@ -180,14 +180,14 @@ public class EntityPainting extends Entity {
         }
     }
 
-    public boolean r_() {
+    public boolean e_() {
         return true;
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
         if (!this.dead && !this.world.isStatic) {
             this.die();
-            this.aq();
+            this.aB();
             this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING)));
         }
 
@@ -203,10 +203,10 @@ public class EntityPainting extends Entity {
     }
 
     public void a(NBTTagCompound nbttagcompound) {
-        this.a = nbttagcompound.c("Dir");
-        this.b = nbttagcompound.e("TileX");
-        this.c = nbttagcompound.e("TileY");
-        this.d = nbttagcompound.e("TileZ");
+        this.a = nbttagcompound.d("Dir");
+        this.b = nbttagcompound.f("TileX");
+        this.c = nbttagcompound.f("TileY");
+        this.d = nbttagcompound.f("TileZ");
         String s = nbttagcompound.getString("Motive");
         EnumArt[] aenumart = EnumArt.values();
         int i = aenumart.length;
@@ -233,7 +233,7 @@ public class EntityPainting extends Entity {
         }
     }
 
-    public void b(double d0, double d1, double d2) {
+    public void b_(double d0, double d1, double d2) {
         if (!this.world.isStatic && d0 * d0 + d1 * d1 + d2 * d2 > 0.0D) {
             this.die();
             this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING)));

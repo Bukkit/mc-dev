@@ -1,14 +1,21 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class BlockThin extends Block {
 
     private int a;
+    private final boolean b;
 
-    protected BlockThin(int i, int j, int k, Material material) {
+    protected BlockThin(int i, int j, int k, Material material, boolean flag) {
         super(i, j, material);
         this.a = k;
+        this.b = flag;
+    }
+
+    public int a(int i, Random random, int j) {
+        return !this.b ? 0 : super.a(i, random, j);
     }
 
     public boolean a() {
@@ -19,11 +26,15 @@ public class BlockThin extends Block {
         return false;
     }
 
+    public int c() {
+        return 18;
+    }
+
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist) {
-        boolean flag = this.c(world.getTypeId(i, j, k - 1));
-        boolean flag1 = this.c(world.getTypeId(i, j, k + 1));
-        boolean flag2 = this.c(world.getTypeId(i - 1, j, k));
-        boolean flag3 = this.c(world.getTypeId(i + 1, j, k));
+        boolean flag = this.d(world.getTypeId(i, j, k - 1));
+        boolean flag1 = this.d(world.getTypeId(i, j, k + 1));
+        boolean flag2 = this.d(world.getTypeId(i - 1, j, k));
+        boolean flag3 = this.d(world.getTypeId(i + 1, j, k));
 
         if ((!flag2 || !flag3) && (flag2 || flag3 || flag || flag1)) {
             if (flag2 && !flag3) {
@@ -52,15 +63,19 @@ public class BlockThin extends Block {
         }
     }
 
+    public void f() {
+        this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+    }
+
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {
         float f = 0.4375F;
         float f1 = 0.5625F;
         float f2 = 0.4375F;
         float f3 = 0.5625F;
-        boolean flag = this.c(iblockaccess.getTypeId(i, j, k - 1));
-        boolean flag1 = this.c(iblockaccess.getTypeId(i, j, k + 1));
-        boolean flag2 = this.c(iblockaccess.getTypeId(i - 1, j, k));
-        boolean flag3 = this.c(iblockaccess.getTypeId(i + 1, j, k));
+        boolean flag = this.d(iblockaccess.getTypeId(i, j, k - 1));
+        boolean flag1 = this.d(iblockaccess.getTypeId(i, j, k + 1));
+        boolean flag2 = this.d(iblockaccess.getTypeId(i - 1, j, k));
+        boolean flag3 = this.d(iblockaccess.getTypeId(i + 1, j, k));
 
         if ((!flag2 || !flag3) && (flag2 || flag3 || flag || flag1)) {
             if (flag2 && !flag3) {
@@ -87,7 +102,7 @@ public class BlockThin extends Block {
         this.a(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
-    public final boolean c(int i) {
+    public final boolean d(int i) {
         return Block.o[i] || i == this.id || i == Block.GLASS.id;
     }
 }

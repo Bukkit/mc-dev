@@ -9,15 +9,19 @@ public class EntitySkeleton extends EntityMonster {
         this.texture = "/mob/skeleton.png";
     }
 
-    protected String h() {
+    public int getMaxHealth() {
+        return 20;
+    }
+
+    protected String c_() {
         return "mob.skeleton";
     }
 
-    protected String i() {
+    protected String m() {
         return "mob.skeletonhurt";
     }
 
-    protected String j() {
+    protected String n() {
         return "mob.skeletonhurt";
     }
 
@@ -27,7 +31,7 @@ public class EntitySkeleton extends EntityMonster {
 
     public void die(DamageSource damagesource) {
         super.die(damagesource);
-        if (damagesource.e() instanceof EntityArrow && damagesource.getEntity() instanceof EntityHuman) {
+        if (damagesource.g() instanceof EntityArrow && damagesource.getEntity() instanceof EntityHuman) {
             EntityHuman entityhuman = (EntityHuman) damagesource.getEntity();
             double d0 = entityhuman.locX - this.locX;
             double d1 = entityhuman.locZ - this.locZ;
@@ -38,16 +42,16 @@ public class EntitySkeleton extends EntityMonster {
         }
     }
 
-    public void s() {
-        if (this.world.d() && !this.world.isStatic) {
-            float f = this.a_(1.0F);
+    public void d() {
+        if (this.world.e() && !this.world.isStatic) {
+            float f = this.a(1.0F);
 
             if (f > 0.5F && this.world.isChunkLoaded(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ)) && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
-                this.fireTicks = 300;
+                this.j(8);
             }
         }
 
-        super.s();
+        super.d();
     }
 
     protected void a(Entity entity, float f) {
@@ -57,7 +61,7 @@ public class EntitySkeleton extends EntityMonster {
 
             if (this.attackTicks == 0) {
                 EntityArrow entityarrow = new EntityArrow(this.world, this, 1.0F);
-                double d2 = entity.locY + (double) entity.t() - 0.699999988079071D - entityarrow.locY;
+                double d2 = entity.locY + (double) entity.x() - 0.699999988079071D - entityarrow.locY;
                 float f1 = MathHelper.a(d0 * d0 + d1 * d1) * 0.2F;
 
                 this.world.makeSound(this, "random.bow", 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
@@ -79,23 +83,27 @@ public class EntitySkeleton extends EntityMonster {
         super.a(nbttagcompound);
     }
 
-    protected int k() {
+    protected int e() {
         return Item.ARROW.id;
     }
 
-    protected void a(boolean flag) {
-        int i = this.random.nextInt(3);
+    protected void a(boolean flag, int i) {
+        int j = this.random.nextInt(3 + i);
 
-        int j;
+        int k;
 
-        for (j = 0; j < i; ++j) {
+        for (k = 0; k < j; ++k) {
             this.b(Item.ARROW.id, 1);
         }
 
-        i = this.random.nextInt(3);
+        j = this.random.nextInt(3 + i);
 
-        for (j = 0; j < i; ++j) {
+        for (k = 0; k < j; ++k) {
             this.b(Item.BONE.id, 1);
         }
+    }
+
+    public EnchantmentDamage t() {
+        return EnchantmentDamage.b;
     }
 }

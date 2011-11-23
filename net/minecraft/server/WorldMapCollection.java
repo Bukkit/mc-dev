@@ -48,7 +48,7 @@ public class WorldMapCollection {
                         NBTTagCompound nbttagcompound = CompressedStreamTools.a((InputStream) fileinputstream);
 
                         fileinputstream.close();
-                        worldmapbase.a(nbttagcompound.k("data"));
+                        worldmapbase.a(nbttagcompound.l("data"));
                     }
                 } catch (Exception exception1) {
                     exception1.printStackTrace();
@@ -125,14 +125,14 @@ public class WorldMapCollection {
                 NBTTagCompound nbttagcompound = CompressedStreamTools.a((DataInput) datainputstream);
 
                 datainputstream.close();
-                Iterator iterator = nbttagcompound.c().iterator();
+                Iterator iterator = nbttagcompound.d().iterator();
 
                 while (iterator.hasNext()) {
                     NBTBase nbtbase = (NBTBase) iterator.next();
 
                     if (nbtbase instanceof NBTTagShort) {
                         NBTTagShort nbttagshort = (NBTTagShort) nbtbase;
-                        String s = nbttagshort.b();
+                        String s = nbttagshort.c();
                         short short1 = nbttagshort.a;
 
                         this.d.put(s, Short.valueOf(short1));

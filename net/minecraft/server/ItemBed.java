@@ -32,10 +32,13 @@ public class ItemBed extends Item {
                 b0 = 1;
             }
 
-            if (entityhuman.c(i, j, k) && entityhuman.c(i + b0, j, k + b1)) {
+            if (entityhuman.d(i, j, k) && entityhuman.d(i + b0, j, k + b1)) {
                 if (world.isEmpty(i, j, k) && world.isEmpty(i + b0, j, k + b1) && world.e(i, j - 1, k) && world.e(i + b0, j - 1, k + b1)) {
                     world.setTypeIdAndData(i, j, k, blockbed.id, i1);
-                    world.setTypeIdAndData(i + b0, j, k + b1, blockbed.id, i1 + 8);
+                    if (world.getTypeId(i, j, k) == blockbed.id) {
+                        world.setTypeIdAndData(i + b0, j, k + b1, blockbed.id, i1 + 8);
+                    }
+
                     --itemstack.count;
                     return true;
                 } else {

@@ -50,6 +50,10 @@ public class MathHelper {
         return i >= 0 ? i : -i;
     }
 
+    public static int a(int i, int j, int k) {
+        return i < j ? j : (i > k ? k : i);
+    }
+
     public static double a(double d0, double d1) {
         if (d0 < 0.0D) {
             d0 = -d0;

@@ -30,4 +30,20 @@ public class ChunkCoordIntPair {
 
         return chunkcoordintpair.x == this.x && chunkcoordintpair.z == this.z;
     }
+
+    public int a() {
+        return (this.x << 4) + 8;
+    }
+
+    public int b() {
+        return (this.z << 4) + 8;
+    }
+
+    public ChunkPosition a(int i) {
+        return new ChunkPosition(this.a(), i, this.b());
+    }
+
+    public String toString() {
+        return "[" + this.x + ", " + this.z + "]";
+    }
 }

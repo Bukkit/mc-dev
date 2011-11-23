@@ -40,7 +40,7 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
         }
     }
 
-    public ItemStack b() {
+    public ItemStack k_() {
         int i = -1;
         int j = 1;
 
@@ -72,13 +72,13 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        NBTTagList nbttaglist = nbttagcompound.l("Items");
+        NBTTagList nbttaglist = nbttagcompound.m("Items");
 
         this.items = new ItemStack[this.getSize()];
 
-        for (int i = 0; i < nbttaglist.c(); ++i) {
+        for (int i = 0; i < nbttaglist.d(); ++i) {
             NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.a(i);
-            int j = nbttagcompound1.c("Slot") & 255;
+            int j = nbttagcompound1.d("Slot") & 255;
 
             if (j >= 0 && j < this.items.length) {
                 this.items[j] = ItemStack.a(nbttagcompound1);
@@ -111,7 +111,7 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
         return this.world.getTileEntity(this.x, this.y, this.z) != this ? false : entityhuman.e((double) this.x + 0.5D, (double) this.y + 0.5D, (double) this.z + 0.5D) <= 64.0D;
     }
 
-    public void e() {}
+    public void f() {}
 
-    public void t_() {}
+    public void g() {}
 }

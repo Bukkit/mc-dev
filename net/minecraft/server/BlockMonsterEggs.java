@@ -23,7 +23,7 @@ public class BlockMonsterEggs extends Block {
 
             entitysilverfish.setPositionRotation((double) i + 0.5D, (double) j, (double) k + 0.5D, 0.0F, 0.0F);
             world.addEntity(entitysilverfish);
-            entitysilverfish.ab();
+            entitysilverfish.ah();
         }
 
         super.postBreak(world, i, j, k, l);
@@ -33,11 +33,25 @@ public class BlockMonsterEggs extends Block {
         return 0;
     }
 
-    public static boolean c(int i) {
+    public static boolean d(int i) {
         return i == Block.STONE.id || i == Block.COBBLESTONE.id || i == Block.SMOOTH_BRICK.id;
     }
 
-    public static int d(int i) {
+    public static int e(int i) {
         return i == Block.COBBLESTONE.id ? 1 : (i == Block.SMOOTH_BRICK.id ? 2 : 0);
+    }
+
+    protected ItemStack a_(int i) {
+        Block block = Block.STONE;
+
+        if (i == 1) {
+            block = Block.COBBLESTONE;
+        }
+
+        if (i == 2) {
+            block = Block.SMOOTH_BRICK;
+        }
+
+        return new ItemStack(block);
     }
 }

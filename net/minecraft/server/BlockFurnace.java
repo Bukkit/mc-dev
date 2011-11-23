@@ -14,7 +14,7 @@ public class BlockFurnace extends BlockContainer {
         this.textureId = 45;
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return Block.FURNACE.id;
     }
 
@@ -83,7 +83,7 @@ public class BlockFurnace extends BlockContainer {
         c = false;
         world.setData(i, j, k, l);
         if (tileentity != null) {
-            tileentity.n();
+            tileentity.m();
             world.setTileEntity(i, j, k, tileentity);
         }
     }

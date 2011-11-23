@@ -5,10 +5,11 @@ public class ItemBow extends Item {
     public ItemBow(int i) {
         super(i);
         this.maxStackSize = 1;
+        this.f(384);
     }
 
     public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {
-        if (entityhuman.inventory.c(Item.ARROW.id)) {
+        if (entityhuman.abilities.canInstantlyBuild || entityhuman.inventory.c(Item.ARROW.id)) {
             int j = this.c(itemstack) - i;
             float f = (float) j / 20.0F;
 
@@ -27,7 +28,8 @@ public class ItemBow extends Item {
                 entityarrow.d = true;
             }
 
-            world.makeSound(entityhuman, "random.bow", 1.0F, 1.0F / (b.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+            itemstack.damage(1, entityhuman);
+            world.makeSound(entityhuman, "random.bow", 1.0F, 1.0F / (c.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
             entityhuman.inventory.b(Item.ARROW.id);
             if (!world.isStatic) {
                 world.addEntity(entityarrow);
@@ -43,12 +45,12 @@ public class ItemBow extends Item {
         return 72000;
     }
 
-    public EnumAnimation b(ItemStack itemstack) {
-        return EnumAnimation.d;
+    public EnumAnimation d(ItemStack itemstack) {
+        return EnumAnimation.e;
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        if (entityhuman.inventory.c(Item.ARROW.id)) {
+        if (entityhuman.abilities.canInstantlyBuild || entityhuman.inventory.c(Item.ARROW.id)) {
             entityhuman.a(itemstack, this.c(itemstack));
         }
 

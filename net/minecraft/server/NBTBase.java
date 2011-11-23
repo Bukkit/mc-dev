@@ -5,9 +5,7 @@ import java.io.DataOutput;
 
 public abstract class NBTBase {
 
-    private String a = null;
-
-    public NBTBase() {}
+    private String a;
 
     abstract void a(DataOutput dataoutput);
 
@@ -15,13 +13,36 @@ public abstract class NBTBase {
 
     public abstract byte a();
 
-    public String b() {
-        return this.a == null ? "" : this.a;
+    protected NBTBase(String s) {
+        if (s == null) {
+            this.a = "";
+        } else {
+            this.a = s;
+        }
+    }
+
+    public boolean equals(Object object) {
+        if (object != null && object instanceof NBTBase) {
+            NBTBase nbtbase = (NBTBase) object;
+
+            return this.a() != nbtbase.a() ? false : ((this.a != null || nbtbase.a == null) && (this.a == null || nbtbase.a != null) ? this.a == null || this.a.equals(nbtbase.a) : false);
+        } else {
+            return false;
+        }
     }
 
     public NBTBase a(String s) {
-        this.a = s;
+        if (s == null) {
+            this.a = "";
+        } else {
+            this.a = s;
+        }
+
         return this;
+    }
+
+    public String c() {
+        return this.a == null ? "" : this.a;
     }
 
     public static NBTBase b(DataInput datainput) {
@@ -30,9 +51,9 @@ public abstract class NBTBase {
         if (b0 == 0) {
             return new NBTTagEnd();
         } else {
-            NBTBase nbtbase = a(b0);
+            String s = datainput.readUTF();
+            NBTBase nbtbase = a(b0, s);
 
-            nbtbase.a = datainput.readUTF();
             nbtbase.a(datainput);
             return nbtbase;
         }
@@ -41,52 +62,52 @@ public abstract class NBTBase {
     public static void a(NBTBase nbtbase, DataOutput dataoutput) {
         dataoutput.writeByte(nbtbase.a());
         if (nbtbase.a() != 0) {
-            dataoutput.writeUTF(nbtbase.b());
+            dataoutput.writeUTF(nbtbase.c());
             nbtbase.a(dataoutput);
         }
     }
 
-    public static NBTBase a(byte b0) {
+    public static NBTBase a(byte b0, String s) {
         switch (b0) {
         case 0:
             return new NBTTagEnd();
 
         case 1:
-            return new NBTTagByte();
+            return new NBTTagByte(s);
 
         case 2:
-            return new NBTTagShort();
+            return new NBTTagShort(s);
 
         case 3:
-            return new NBTTagInt();
+            return new NBTTagInt(s);
 
         case 4:
-            return new NBTTagLong();
+            return new NBTTagLong(s);
 
         case 5:
-            return new NBTTagFloat();
+            return new NBTTagFloat(s);
 
         case 6:
-            return new NBTTagDouble();
+            return new NBTTagDouble(s);
 
         case 7:
-            return new NBTTagByteArray();
+            return new NBTTagByteArray(s);
 
         case 8:
-            return new NBTTagString();
+            return new NBTTagString(s);
 
         case 9:
-            return new NBTTagList();
+            return new NBTTagList(s);
 
         case 10:
-            return new NBTTagCompound();
+            return new NBTTagCompound(s);
 
         default:
             return null;
         }
     }
 
-    public static String b(byte b0) {
+    public static String a(byte b0) {
         switch (b0) {
         case 0:
             return "TAG_End";
@@ -125,4 +146,6 @@ public abstract class NBTBase {
             return "UNKNOWN";
         }
     }
+
+    public abstract NBTBase b();
 }

@@ -17,7 +17,7 @@ public abstract class Container {
     public Container() {}
 
     protected void a(Slot slot) {
-        slot.b = this.e.size();
+        slot.c = this.e.size();
         this.e.add(slot);
         this.d.add(null);
     }
@@ -56,6 +56,10 @@ public abstract class Container {
                 }
             }
         }
+    }
+
+    public boolean a(EntityHuman entityhuman, int i) {
+        return false;
     }
 
     public Slot a(IInventory iinventory, int i) {
@@ -124,7 +128,7 @@ public abstract class Container {
                     Slot slot1 = (Slot) this.e.get(i);
 
                     if (slot1 != null) {
-                        slot1.c();
+                        slot1.d();
                         ItemStack itemstack2 = slot1.getItem();
                         ItemStack itemstack3 = inventoryplayer.l();
 
@@ -137,8 +141,8 @@ public abstract class Container {
                         if (itemstack2 == null) {
                             if (itemstack3 != null && slot1.isAllowed(itemstack3)) {
                                 l = j == 0 ? itemstack3.count : 1;
-                                if (l > slot1.d()) {
-                                    l = slot1.d();
+                                if (l > slot1.a()) {
+                                    l = slot1.a();
                                 }
 
                                 slot1.c(itemstack3.a(l));
@@ -155,12 +159,12 @@ public abstract class Container {
                                 slot1.c((ItemStack) null);
                             }
 
-                            slot1.a(inventoryplayer.l());
+                            slot1.b(inventoryplayer.l());
                         } else if (slot1.isAllowed(itemstack3)) {
                             if (itemstack2.id == itemstack3.id && (!itemstack2.usesData() || itemstack2.getData() == itemstack3.getData())) {
                                 l = j == 0 ? itemstack3.count : 1;
-                                if (l > slot1.d() - itemstack2.count) {
-                                    l = slot1.d() - itemstack2.count;
+                                if (l > slot1.a() - itemstack2.count) {
+                                    l = slot1.a() - itemstack2.count;
                                 }
 
                                 if (l > itemstack3.getMaxStackSize() - itemstack2.count) {
@@ -173,7 +177,7 @@ public abstract class Container {
                                 }
 
                                 itemstack2.count += l;
-                            } else if (itemstack3.count <= slot1.d()) {
+                            } else if (itemstack3.count <= slot1.a()) {
                                 slot1.c(itemstack3);
                                 inventoryplayer.b(itemstack2);
                             }
@@ -186,7 +190,7 @@ public abstract class Container {
                                     slot1.c((ItemStack) null);
                                 }
 
-                                slot1.a(inventoryplayer.l());
+                                slot1.b(inventoryplayer.l());
                             }
                         }
                     }
@@ -253,12 +257,12 @@ public abstract class Container {
                     if (l <= itemstack.getMaxStackSize()) {
                         itemstack.count = 0;
                         itemstack1.count = l;
-                        slot.c();
+                        slot.d();
                         flag1 = true;
                     } else if (itemstack1.count < itemstack.getMaxStackSize()) {
                         itemstack.count -= itemstack.getMaxStackSize() - itemstack1.count;
                         itemstack1.count = itemstack.getMaxStackSize();
-                        slot.c();
+                        slot.d();
                         flag1 = true;
                     }
                 }
@@ -283,7 +287,7 @@ public abstract class Container {
                 itemstack1 = slot.getItem();
                 if (itemstack1 == null) {
                     slot.c(itemstack.cloneItemStack());
-                    slot.c();
+                    slot.d();
                     itemstack.count = 0;
                     flag1 = true;
                     break;

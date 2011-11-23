@@ -4,8 +4,8 @@ public class ItemShears extends Item {
 
     public ItemShears(int i) {
         super(i);
-        this.c(1);
-        this.d(238);
+        this.e(1);
+        this.f(238);
     }
 
     public boolean a(ItemStack itemstack, int i, int j, int k, int l, EntityLiving entityliving) {

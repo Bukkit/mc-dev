@@ -11,7 +11,7 @@ public class BlockDeadBush extends BlockFlower {
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
     }
 
-    protected boolean c(int i) {
+    protected boolean d(int i) {
         return i == Block.SAND.id;
     }
 
@@ -19,7 +19,7 @@ public class BlockDeadBush extends BlockFlower {
         return this.textureId;
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return -1;
     }
 }

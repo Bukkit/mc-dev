@@ -7,9 +7,12 @@ public class NBTTagInt extends NBTBase {
 
     public int a;
 
-    public NBTTagInt() {}
+    public NBTTagInt(String s) {
+        super(s);
+    }
 
-    public NBTTagInt(int i) {
+    public NBTTagInt(String s, int i) {
+        super(s);
         this.a = i;
     }
 
@@ -27,5 +30,19 @@ public class NBTTagInt extends NBTBase {
 
     public String toString() {
         return "" + this.a;
+    }
+
+    public NBTBase b() {
+        return new NBTTagInt(this.c(), this.a);
+    }
+
+    public boolean equals(Object object) {
+        if (super.equals(object)) {
+            NBTTagInt nbttagint = (NBTTagInt) object;
+
+            return this.a == nbttagint.a;
+        } else {
+            return false;
+        }
     }
 }

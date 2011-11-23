@@ -9,7 +9,7 @@ public class BlockWeb extends Block {
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        entity.q();
+        entity.s();
     }
 
     public boolean a() {
@@ -20,11 +20,15 @@ public class BlockWeb extends Block {
         return null;
     }
 
+    public int c() {
+        return 1;
+    }
+
     public boolean b() {
         return false;
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return Item.STRING.id;
     }
 }

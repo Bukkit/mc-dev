@@ -13,7 +13,7 @@ public class ConsoleCommandHandler {
         this.server = minecraftserver;
     }
 
-    public void handle(ServerCommand servercommand) {
+    public synchronized void handle(ServerCommand servercommand) {
         String s = servercommand.command;
         ICommandListener icommandlistener = servercommand.b;
         String s1 = icommandlistener.getName();
@@ -140,7 +140,7 @@ public class ConsoleCommandHandler {
 
                                     if (s.toLowerCase().startsWith("give ")) {
                                         astring = s.split(" ");
-                                        if (astring.length != 3 && astring.length != 4) {
+                                        if (astring.length != 3 && astring.length != 4 && astring.length != 5) {
                                             return;
                                         }
 
@@ -152,9 +152,14 @@ public class ConsoleCommandHandler {
                                                 if (Item.byId[k] != null) {
                                                     this.print(s1, "Giving " + entityplayer2.name + " some " + k);
                                                     int l = 1;
+                                                    int i1 = 0;
 
                                                     if (astring.length > 3) {
                                                         l = this.a(astring[3], 1);
+                                                    }
+
+                                                    if (astring.length > 4) {
+                                                        i1 = this.a(astring[4], 1);
                                                     }
 
                                                     if (l < 1) {
@@ -165,12 +170,32 @@ public class ConsoleCommandHandler {
                                                         l = 64;
                                                     }
 
-                                                    entityplayer2.b(new ItemStack(k, l, 0));
+                                                    entityplayer2.b(new ItemStack(k, l, i1));
                                                 } else {
                                                     icommandlistener.sendMessage("There\'s no item with id " + k);
                                                 }
                                             } catch (NumberFormatException numberformatexception) {
                                                 icommandlistener.sendMessage("There\'s no item with id " + astring[2]);
+                                            }
+                                        } else {
+                                            icommandlistener.sendMessage("Can\'t find user " + s3);
+                                        }
+                                    } else if (s.toLowerCase().startsWith("xp")) {
+                                        astring = s.split(" ");
+                                        if (astring.length != 3) {
+                                            return;
+                                        }
+
+                                        s3 = astring[1];
+                                        entityplayer2 = serverconfigurationmanager.i(s3);
+                                        if (entityplayer2 != null) {
+                                            try {
+                                                k = Integer.parseInt(astring[2]);
+                                                k = k > 5000 ? 5000 : k;
+                                                this.print(s1, "Giving " + k + " orbs to " + entityplayer2.name);
+                                                entityplayer2.h(k);
+                                            } catch (NumberFormatException numberformatexception1) {
+                                                icommandlistener.sendMessage("Invalid orb count: " + astring[2]);
                                             }
                                         } else {
                                             icommandlistener.sendMessage("Can\'t find user " + s3);
@@ -194,7 +219,7 @@ public class ConsoleCommandHandler {
                                                 } else {
                                                     this.print(s1, entityplayer2.name + " already has game mode " + k);
                                                 }
-                                            } catch (NumberFormatException numberformatexception1) {
+                                            } catch (NumberFormatException numberformatexception2) {
                                                 icommandlistener.sendMessage("There\'s no game mode with id " + astring[2]);
                                             }
                                         } else {
@@ -229,7 +254,7 @@ public class ConsoleCommandHandler {
                                             } else {
                                                 icommandlistener.sendMessage("Unknown method, use either \"add\" or \"set\"");
                                             }
-                                        } catch (NumberFormatException numberformatexception2) {
+                                        } catch (NumberFormatException numberformatexception3) {
                                             icommandlistener.sendMessage("Unable to convert time value, " + astring[2]);
                                         }
                                     } else if (s.toLowerCase().startsWith("say ")) {
@@ -250,6 +275,18 @@ public class ConsoleCommandHandler {
                                         }
                                     } else if (s.toLowerCase().startsWith("whitelist ")) {
                                         this.a(s1, s, icommandlistener);
+                                    } else if (s.toLowerCase().startsWith("toggledownfall")) {
+                                        this.server.worldServer[0].j();
+                                        icommandlistener.sendMessage("Toggling rain and snow, hold on...");
+                                    } else if (s.toLowerCase().startsWith("banlist")) {
+                                        astring = s.split(" ");
+                                        if (astring.length == 2) {
+                                            if (astring[1].equals("ips")) {
+                                                icommandlistener.sendMessage("IP Ban list:" + this.a(this.server.q(), ", "));
+                                            }
+                                        } else {
+                                            icommandlistener.sendMessage("Ban list:" + this.a(this.server.r(), ", "));
+                                        }
                                     } else {
                                         a.info("Unknown console command. Type \"help\" for help.");
                                     }
@@ -343,6 +380,24 @@ public class ConsoleCommandHandler {
             return Integer.parseInt(s);
         } catch (NumberFormatException numberformatexception) {
             return i;
+        }
+    }
+
+    private String a(String[] astring, String s) {
+        int i = astring.length;
+
+        if (0 == i) {
+            return "";
+        } else {
+            StringBuilder stringbuilder = new StringBuilder();
+
+            stringbuilder.append(astring[0]);
+
+            for (int j = 1; j < i; ++j) {
+                stringbuilder.append(s).append(astring[j]);
+            }
+
+            return stringbuilder.toString();
         }
     }
 }

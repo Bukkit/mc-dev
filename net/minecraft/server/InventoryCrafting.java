@@ -74,7 +74,7 @@ public class InventoryCrafting implements IInventory {
         return true;
     }
 
-    public void e() {}
+    public void f() {}
 
-    public void t_() {}
+    public void g() {}
 }

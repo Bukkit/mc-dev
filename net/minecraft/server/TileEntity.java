@@ -11,9 +11,9 @@ public class TileEntity {
     public int x;
     public int y;
     public int z;
-    protected boolean m;
-    public int n = -1;
-    public Block o;
+    protected boolean o;
+    public int p = -1;
+    public Block q;
 
     public TileEntity() {}
 
@@ -27,9 +27,9 @@ public class TileEntity {
     }
 
     public void a(NBTTagCompound nbttagcompound) {
-        this.x = nbttagcompound.e("x");
-        this.y = nbttagcompound.e("y");
-        this.z = nbttagcompound.e("z");
+        this.x = nbttagcompound.f("x");
+        this.y = nbttagcompound.f("y");
+        this.z = nbttagcompound.f("z");
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -45,7 +45,7 @@ public class TileEntity {
         }
     }
 
-    public void h_() {}
+    public void l_() {}
 
     public static TileEntity c(NBTTagCompound nbttagcompound) {
         TileEntity tileentity = null;
@@ -70,41 +70,41 @@ public class TileEntity {
     }
 
     public int j() {
-        if (this.n == -1) {
-            this.n = this.world.getData(this.x, this.y, this.z);
+        if (this.p == -1) {
+            this.p = this.world.getData(this.x, this.y, this.z);
         }
 
-        return this.n;
+        return this.p;
     }
 
     public void update() {
         if (this.world != null) {
-            this.n = this.world.getData(this.x, this.y, this.z);
+            this.p = this.world.getData(this.x, this.y, this.z);
             this.world.b(this.x, this.y, this.z, this);
         }
     }
 
-    public Packet l() {
+    public Packet k() {
         return null;
     }
 
-    public boolean m() {
-        return this.m;
+    public boolean l() {
+        return this.o;
     }
 
     public void i() {
-        this.m = true;
+        this.o = true;
     }
 
-    public void n() {
-        this.m = false;
+    public void m() {
+        this.o = false;
     }
 
     public void b(int i, int j) {}
 
-    public void g() {
-        this.o = null;
-        this.n = -1;
+    public void d() {
+        this.q = null;
+        this.p = -1;
     }
 
     static {
@@ -116,5 +116,8 @@ public class TileEntity {
         a(TileEntityMobSpawner.class, "MobSpawner");
         a(TileEntityNote.class, "Music");
         a(TileEntityPiston.class, "Piston");
+        a(TileEntityBrewingStand.class, "Cauldron");
+        a(TileEntityEnchantTable.class, "EnchantTable");
+        a(TileEntityEnderPortal.class, "Airportal");
     }
 }

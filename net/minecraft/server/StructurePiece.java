@@ -43,6 +43,10 @@ public abstract class StructurePiece {
         return structurepiece;
     }
 
+    public ChunkPosition b_() {
+        return new ChunkPosition(this.g.e(), this.g.f(), this.g.g());
+    }
+
     protected boolean a(World world, StructureBoundingBox structureboundingbox) {
         int i = Math.max(this.g.a - 1, structureboundingbox.a);
         int j = Math.max(this.g.b - 1, structureboundingbox.b);
@@ -117,7 +121,7 @@ public abstract class StructurePiece {
         }
     }
 
-    protected int a(int i) {
+    protected int b(int i) {
         return this.h == -1 ? i : i + this.g.b;
     }
 
@@ -148,7 +152,7 @@ public abstract class StructurePiece {
                 return 1;
             }
         } else if (i != Block.WOODEN_DOOR.id && i != Block.IRON_DOOR_BLOCK.id) {
-            if (i != Block.COBBLESTONE_STAIRS.id && i != Block.WOOD_STAIRS.id) {
+            if (i != Block.COBBLESTONE_STAIRS.id && i != Block.WOOD_STAIRS.id && i != Block.NETHER_BRICK_STAIRS.id && i != Block.STONE_STAIRS.id) {
                 if (i == Block.LADDER.id) {
                     if (this.h == 0) {
                         if (j == 2) {
@@ -298,7 +302,7 @@ public abstract class StructurePiece {
 
     protected void a(World world, int i, int j, int k, int l, int i1, StructureBoundingBox structureboundingbox) {
         int j1 = this.a(k, i1);
-        int k1 = this.a(l);
+        int k1 = this.b(l);
         int l1 = this.b(k, i1);
 
         if (structureboundingbox.b(j1, k1, l1)) {
@@ -308,7 +312,7 @@ public abstract class StructurePiece {
 
     protected int a(World world, int i, int j, int k, StructureBoundingBox structureboundingbox) {
         int l = this.a(i, k);
-        int i1 = this.a(j);
+        int i1 = this.b(j);
         int j1 = this.b(i, k);
 
         return !structureboundingbox.b(l, i1, j1) ? 0 : world.getTypeId(l, i1, j1);
@@ -395,16 +399,11 @@ public abstract class StructurePiece {
 
     protected void b(World world, int i, int j, int k, StructureBoundingBox structureboundingbox) {
         int l = this.a(i, k);
-        int i1 = this.a(j);
+        int i1 = this.b(j);
         int j1 = this.b(i, k);
 
         if (structureboundingbox.b(l, i1, j1)) {
-            while (!world.isEmpty(l, i1, j1)) {
-                world.getClass();
-                if (i1 >= 127) {
-                    break;
-                }
-
+            while (!world.isEmpty(l, i1, j1) && i1 < world.heightMinusOne) {
                 world.setRawTypeIdAndData(l, i1, j1, 0, 0);
                 ++i1;
             }
@@ -413,7 +412,7 @@ public abstract class StructurePiece {
 
     protected void b(World world, int i, int j, int k, int l, int i1, StructureBoundingBox structureboundingbox) {
         int j1 = this.a(k, i1);
-        int k1 = this.a(l);
+        int k1 = this.b(l);
         int l1 = this.b(k, i1);
 
         if (structureboundingbox.b(j1, k1, l1)) {
@@ -426,7 +425,7 @@ public abstract class StructurePiece {
 
     protected void a(World world, StructureBoundingBox structureboundingbox, Random random, int i, int j, int k, StructurePieceTreasure[] astructurepiecetreasure, int l) {
         int i1 = this.a(i, k);
-        int j1 = this.a(j);
+        int j1 = this.b(j);
         int k1 = this.b(i, k);
 
         if (structureboundingbox.b(i1, j1, k1) && world.getTypeId(i1, j1, k1) != Block.CHEST.id) {
@@ -456,7 +455,7 @@ public abstract class StructurePiece {
 
     protected void a(World world, StructureBoundingBox structureboundingbox, Random random, int i, int j, int k, int l) {
         int i1 = this.a(i, k);
-        int j1 = this.a(j);
+        int j1 = this.b(j);
         int k1 = this.b(i, k);
 
         if (structureboundingbox.b(i1, j1, k1)) {

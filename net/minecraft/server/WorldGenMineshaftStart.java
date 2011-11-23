@@ -10,7 +10,7 @@ public class WorldGenMineshaftStart extends StructureStart {
 
         this.a.add(worldgenmineshaftroom);
         worldgenmineshaftroom.a((StructurePiece) worldgenmineshaftroom, (List) this.a, random);
-        this.c();
+        this.d();
         this.a(world, random, 10);
     }
 }

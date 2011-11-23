@@ -17,11 +17,21 @@ public class BlockMelon extends Block {
         return i != 1 && i != 0 ? 136 : 137;
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return Item.MELON.id;
     }
 
     public int a(Random random) {
         return 3 + random.nextInt(5);
+    }
+
+    public int a(int i, Random random) {
+        int j = this.a(random) + random.nextInt(1 + i);
+
+        if (j > 9) {
+            j = 9;
+        }
+
+        return j;
     }
 }

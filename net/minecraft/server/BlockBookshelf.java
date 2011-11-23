@@ -13,6 +13,10 @@ public class BlockBookshelf extends Block {
     }
 
     public int a(Random random) {
-        return 0;
+        return 3;
+    }
+
+    public int a(int i, Random random, int j) {
+        return Item.BOOK.id;
     }
 }

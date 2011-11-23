@@ -12,7 +12,7 @@ public class BlockMobSpawner extends BlockContainer {
         return new TileEntityMobSpawner();
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return 0;
     }
 

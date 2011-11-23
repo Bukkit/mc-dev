@@ -39,6 +39,10 @@ public class BlockLadder extends Block {
         return false;
     }
 
+    public int c() {
+        return 8;
+    }
+
     public boolean canPlace(World world, int i, int j, int k) {
         return world.e(i - 1, j, k) ? true : (world.e(i + 1, j, k) ? true : (world.e(i, j, k - 1) ? true : world.e(i, j, k + 1)));
     }
@@ -86,7 +90,7 @@ public class BlockLadder extends Block {
         }
 
         if (!flag) {
-            this.g(world, i, j, k, i1);
+            this.b(world, i, j, k, i1, 0);
             world.setTypeId(i, j, k, 0);
         }
 

@@ -35,7 +35,7 @@ class WorldGenVillageStart extends StructureStart {
             }
         }
 
-        this.c();
+        this.d();
         k = 0;
         Iterator iterator = this.a.iterator();
 

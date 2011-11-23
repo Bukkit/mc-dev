@@ -7,10 +7,11 @@ import java.util.Random;
 
 public class WorldGenStrongholdPieces {
 
-    private static final WorldGenStrongholdPieceWeight[] b = new WorldGenStrongholdPieceWeight[] { new WorldGenStrongholdPieceWeight(WorldGenStrongholdStraight.class, 40, 0), new WorldGenStrongholdPieceWeight(WorldGenStrongholdPrison.class, 5, 5), new WorldGenStrongholdPieceWeight(WorldGenStrongholdLeftTurn.class, 20, 0), new WorldGenStrongholdPieceWeight(WorldGenStrongholdRightTurn.class, 20, 0), new WorldGenStrongholdPieceWeight(WorldGenStrongholdRoomCrossing.class, 10, 6), new WorldGenStrongholdPieceWeight(WorldGenStrongholdStairsStraight.class, 5, 10), new WorldGenStrongholdPieceWeight(WorldGenStrongholdStairs.class, 5, 10), new WorldGenStrongholdPieceWeight(WorldGenStrongholdCrossing.class, 5, 4), new WorldGenStrongholdUnknown(WorldGenStrongholdLibrary.class, 10, 1)};
+    private static final WorldGenStrongholdPieceWeight[] b = new WorldGenStrongholdPieceWeight[] { new WorldGenStrongholdPieceWeight(WorldGenStrongholdStraight.class, 40, 0), new WorldGenStrongholdPieceWeight(WorldGenStrongholdPrison.class, 5, 5), new WorldGenStrongholdPieceWeight(WorldGenStrongholdLeftTurn.class, 20, 0), new WorldGenStrongholdPieceWeight(WorldGenStrongholdRightTurn.class, 20, 0), new WorldGenStrongholdPieceWeight(WorldGenStrongholdRoomCrossing.class, 10, 6), new WorldGenStrongholdPieceWeight(WorldGenStrongholdStairsStraight.class, 5, 5), new WorldGenStrongholdPieceWeight(WorldGenStrongholdStairs.class, 5, 5), new WorldGenStrongholdPieceWeight(WorldGenStrongholdCrossing.class, 5, 4), new WorldGenStrongholdPieceWeight(WorldGenStrongholdPiece2.class, 5, 4), new WorldGenStrongholdUnknown(WorldGenStrongholdLibrary.class, 10, 2), new WorldGenStrongholdPieceWeight3(WorldGenStrongholdPortalRoom.class, 20, 1)};
     private static List c;
+    private static Class d;
     static int a = 0;
-    private static final WorldGenStrongholdStones d = new WorldGenStrongholdStones((WorldGenStrongholdUnknown) null);
+    private static final WorldGenStrongholdStones e = new WorldGenStrongholdStones((WorldGenStrongholdUnknown) null);
 
     public WorldGenStrongholdPieces() {}
 
@@ -25,6 +26,8 @@ public class WorldGenStrongholdPieces {
             worldgenstrongholdpieceweight.c = 0;
             c.add(worldgenstrongholdpieceweight);
         }
+
+        d = null;
     }
 
     private static boolean c() {
@@ -44,8 +47,7 @@ public class WorldGenStrongholdPieces {
         return flag;
     }
 
-    private static WorldGenStrongholdPiece a(WorldGenStrongholdPieceWeight worldgenstrongholdpieceweight, List list, Random random, int i, int j, int k, int l, int i1) {
-        Class oclass = worldgenstrongholdpieceweight.a;
+    private static WorldGenStrongholdPiece a(Class oclass, List list, Random random, int i, int j, int k, int l, int i1) {
         Object object = null;
 
         if (oclass == WorldGenStrongholdStraight.class) {
@@ -64,8 +66,12 @@ public class WorldGenStrongholdPieces {
             object = WorldGenStrongholdStairs.a(list, random, i, j, k, l, i1);
         } else if (oclass == WorldGenStrongholdCrossing.class) {
             object = WorldGenStrongholdCrossing.a(list, random, i, j, k, l, i1);
+        } else if (oclass == WorldGenStrongholdPiece2.class) {
+            object = WorldGenStrongholdPiece2.a(list, random, i, j, k, l, i1);
         } else if (oclass == WorldGenStrongholdLibrary.class) {
             object = WorldGenStrongholdLibrary.a(list, random, i, j, k, l, i1);
+        } else if (oclass == WorldGenStrongholdPortalRoom.class) {
+            object = WorldGenStrongholdPortalRoom.a(list, random, i, j, k, l, i1);
         }
 
         return (WorldGenStrongholdPiece) object;
@@ -75,6 +81,15 @@ public class WorldGenStrongholdPieces {
         if (!c()) {
             return null;
         } else {
+            if (d != null) {
+                WorldGenStrongholdPiece worldgenstrongholdpiece = a(d, list, random, i, j, k, l, i1);
+
+                d = null;
+                if (worldgenstrongholdpiece != null) {
+                    return worldgenstrongholdpiece;
+                }
+            }
+
             int j1 = 0;
 
             while (j1 < 5) {
@@ -91,16 +106,16 @@ public class WorldGenStrongholdPieces {
                             break;
                         }
 
-                        WorldGenStrongholdPiece worldgenstrongholdpiece = a(worldgenstrongholdpieceweight, list, random, i, j, k, l, i1);
+                        WorldGenStrongholdPiece worldgenstrongholdpiece1 = a(worldgenstrongholdpieceweight.a, list, random, i, j, k, l, i1);
 
-                        if (worldgenstrongholdpiece != null) {
+                        if (worldgenstrongholdpiece1 != null) {
                             ++worldgenstrongholdpieceweight.c;
                             worldgenstrongholdstairs2.a = worldgenstrongholdpieceweight;
                             if (!worldgenstrongholdpieceweight.a()) {
                                 c.remove(worldgenstrongholdpieceweight);
                             }
 
-                            return worldgenstrongholdpiece;
+                            return worldgenstrongholdpiece1;
                         }
                     }
                 }
@@ -124,7 +139,7 @@ public class WorldGenStrongholdPieces {
 
             if (worldgenstrongholdpiece != null) {
                 list.add(worldgenstrongholdpiece);
-                worldgenstrongholdstairs2.b.add(worldgenstrongholdpiece);
+                worldgenstrongholdstairs2.c.add(worldgenstrongholdpiece);
             }
 
             return worldgenstrongholdpiece;
@@ -137,7 +152,12 @@ public class WorldGenStrongholdPieces {
         return c(worldgenstrongholdstairs2, list, random, i, j, k, l, i1);
     }
 
+    static Class a(Class oclass) {
+        d = oclass;
+        return oclass;
+    }
+
     static WorldGenStrongholdStones b() {
-        return d;
+        return e;
     }
 }

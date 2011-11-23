@@ -12,6 +12,10 @@ public class ChunkPosition {
         this.z = k;
     }
 
+    public ChunkPosition(Vec3D vec3d) {
+        this(MathHelper.floor(vec3d.a), MathHelper.floor(vec3d.b), MathHelper.floor(vec3d.c));
+    }
+
     public boolean equals(Object object) {
         if (!(object instanceof ChunkPosition)) {
             return false;

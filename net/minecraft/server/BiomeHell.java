@@ -4,10 +4,11 @@ public class BiomeHell extends BiomeBase {
 
     public BiomeHell(int i) {
         super(i);
-        this.v.clear();
-        this.w.clear();
-        this.x.clear();
-        this.v.add(new BiomeMeta(EntityGhast.class, 10, 4, 4));
-        this.v.add(new BiomeMeta(EntityPigZombie.class, 10, 4, 4));
+        this.C.clear();
+        this.D.clear();
+        this.E.clear();
+        this.C.add(new BiomeMeta(EntityGhast.class, 50, 4, 4));
+        this.C.add(new BiomeMeta(EntityPigZombie.class, 100, 4, 4));
+        this.C.add(new BiomeMeta(EntityLavaSlime.class, 1, 4, 4));
     }
 }

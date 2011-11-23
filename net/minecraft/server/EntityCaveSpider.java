@@ -8,8 +8,12 @@ public class EntityCaveSpider extends EntitySpider {
         this.b(0.7F, 0.5F);
     }
 
-    protected boolean c(Entity entity) {
-        if (super.c(entity)) {
+    public int getMaxHealth() {
+        return 12;
+    }
+
+    protected boolean d(Entity entity) {
+        if (super.d(entity)) {
             if (entity instanceof EntityLiving) {
                 byte b0 = 0;
 

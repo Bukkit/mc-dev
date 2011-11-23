@@ -18,16 +18,7 @@ public class Packet15Place extends Packet {
         this.b = datainputstream.read();
         this.c = datainputstream.readInt();
         this.face = datainputstream.read();
-        short short1 = datainputstream.readShort();
-
-        if (short1 >= 0) {
-            byte b0 = datainputstream.readByte();
-            short short2 = datainputstream.readShort();
-
-            this.itemstack = new ItemStack(short1, b0, short2);
-        } else {
-            this.itemstack = null;
-        }
+        this.itemstack = this.b(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
@@ -35,13 +26,7 @@ public class Packet15Place extends Packet {
         dataoutputstream.write(this.b);
         dataoutputstream.writeInt(this.c);
         dataoutputstream.write(this.face);
-        if (this.itemstack == null) {
-            dataoutputstream.writeShort(-1);
-        } else {
-            dataoutputstream.writeShort(this.itemstack.id);
-            dataoutputstream.writeByte(this.itemstack.count);
-            dataoutputstream.writeShort(this.itemstack.getData());
-        }
+        this.a(this.itemstack, dataoutputstream);
     }
 
     public void a(NetHandler nethandler) {

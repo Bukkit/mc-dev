@@ -36,6 +36,10 @@ public class DataWatcher {
         return ((Byte) ((WatchableObject) this.b.get(Integer.valueOf(i))).b()).byteValue();
     }
 
+    public short b(int i) {
+        return ((Short) ((WatchableObject) this.b.get(Integer.valueOf(i))).b()).shortValue();
+    }
+
     public int getInt(int i) {
         return ((Integer) ((WatchableObject) this.b.get(Integer.valueOf(i))).b()).intValue();
     }

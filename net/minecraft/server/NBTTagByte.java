@@ -7,9 +7,12 @@ public class NBTTagByte extends NBTBase {
 
     public byte a;
 
-    public NBTTagByte() {}
+    public NBTTagByte(String s) {
+        super(s);
+    }
 
-    public NBTTagByte(byte b0) {
+    public NBTTagByte(String s, byte b0) {
+        super(s);
         this.a = b0;
     }
 
@@ -27,5 +30,19 @@ public class NBTTagByte extends NBTBase {
 
     public String toString() {
         return "" + this.a;
+    }
+
+    public boolean equals(Object object) {
+        if (super.equals(object)) {
+            NBTTagByte nbttagbyte = (NBTTagByte) object;
+
+            return this.a == nbttagbyte.a;
+        } else {
+            return false;
+        }
+    }
+
+    public NBTBase b() {
+        return new NBTTagByte(this.c(), this.a);
     }
 }

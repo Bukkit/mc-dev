@@ -99,6 +99,11 @@ public class WorldGenVillageTemple extends WorldGenVillagePiece {
             }
         }
 
+        this.a(world, structureboundingbox, 2, 1, 2, 1);
         return true;
+    }
+
+    protected int a(int i) {
+        return 2;
     }
 }

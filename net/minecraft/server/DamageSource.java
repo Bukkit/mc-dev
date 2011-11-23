@@ -2,21 +2,23 @@ package net.minecraft.server;
 
 public class DamageSource {
 
-    public static DamageSource FIRE = new DamageSource("inFire");
-    public static DamageSource BURN = (new DamageSource("onFire")).f();
-    public static DamageSource LAVA = new DamageSource("lava");
-    public static DamageSource STUCK = (new DamageSource("inWall")).f();
-    public static DamageSource DROWN = (new DamageSource("drown")).f();
-    public static DamageSource STARVE = (new DamageSource("starve")).f();
+    public static DamageSource FIRE = (new DamageSource("inFire")).j();
+    public static DamageSource BURN = (new DamageSource("onFire")).h().j();
+    public static DamageSource LAVA = (new DamageSource("lava")).j();
+    public static DamageSource STUCK = (new DamageSource("inWall")).h();
+    public static DamageSource DROWN = (new DamageSource("drown")).h();
+    public static DamageSource STARVE = (new DamageSource("starve")).h();
     public static DamageSource CACTUS = new DamageSource("cactus");
-    public static DamageSource FALL = new DamageSource("fall");
-    public static DamageSource OUT_OF_WORLD = (new DamageSource("outOfWorld")).f().g();
-    public static DamageSource GENERIC = (new DamageSource("generic")).f();
+    public static DamageSource FALL = (new DamageSource("fall")).h();
+    public static DamageSource OUT_OF_WORLD = (new DamageSource("outOfWorld")).h().i();
+    public static DamageSource GENERIC = (new DamageSource("generic")).h();
     public static DamageSource EXPLOSION = new DamageSource("explosion");
-    public static DamageSource MAGIC = (new DamageSource("magic")).f();
+    public static DamageSource MAGIC = (new DamageSource("magic")).h();
     private boolean n = false;
     private boolean o = false;
     private float p = 0.3F;
+    private boolean q;
+    private boolean r;
     public String m;
 
     public static DamageSource mobAttack(EntityLiving entityliving) {
@@ -28,22 +30,35 @@ public class DamageSource {
     }
 
     public static DamageSource arrow(EntityArrow entityarrow, Entity entity) {
-        return new EntityDamageSourceIndirect("arrow", entityarrow, entity);
+        return (new EntityDamageSourceIndirect("arrow", entityarrow, entity)).c();
     }
 
     public static DamageSource fireball(EntityFireball entityfireball, Entity entity) {
-        return new EntityDamageSourceIndirect("fireball", entityfireball, entity);
+        return (new EntityDamageSourceIndirect("fireball", entityfireball, entity)).j().c();
     }
 
     public static DamageSource projectile(Entity entity, Entity entity1) {
-        return new EntityDamageSourceIndirect("thrown", entity, entity1);
+        return (new EntityDamageSourceIndirect("thrown", entity, entity1)).c();
+    }
+
+    public static DamageSource b(Entity entity, Entity entity1) {
+        return (new EntityDamageSourceIndirect("indirectMagic", entity, entity1)).h();
+    }
+
+    public boolean b() {
+        return this.r;
+    }
+
+    public DamageSource c() {
+        this.r = true;
+        return this;
     }
 
     public boolean ignoresArmor() {
         return this.n;
     }
 
-    public float c() {
+    public float e() {
         return this.p;
     }
 
@@ -55,7 +70,7 @@ public class DamageSource {
         this.m = s;
     }
 
-    public Entity e() {
+    public Entity g() {
         return this.getEntity();
     }
 
@@ -63,18 +78,31 @@ public class DamageSource {
         return null;
     }
 
-    private DamageSource f() {
+    protected DamageSource h() {
         this.n = true;
         this.p = 0.0F;
         return this;
     }
 
-    private DamageSource g() {
+    protected DamageSource i() {
         this.o = true;
+        return this;
+    }
+
+    protected DamageSource j() {
+        this.q = true;
         return this;
     }
 
     public String a(EntityHuman entityhuman) {
         return StatisticCollector.a("death." + this.m, new Object[] { entityhuman.name});
+    }
+
+    public boolean k() {
+        return this.q;
+    }
+
+    public String l() {
+        return this.m;
     }
 }

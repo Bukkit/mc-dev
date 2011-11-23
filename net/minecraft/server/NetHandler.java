@@ -239,4 +239,6 @@ public abstract class NetHandler {
     public void a(Packet26AddExpOrb packet26addexporb) {
         this.a((Packet) packet26addexporb);
     }
+
+    public void a(Packet108 packet108) {}
 }

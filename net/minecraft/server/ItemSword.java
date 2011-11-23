@@ -3,12 +3,14 @@ package net.minecraft.server;
 public class ItemSword extends Item {
 
     private int a;
+    private final EnumToolMaterial b;
 
     public ItemSword(int i, EnumToolMaterial enumtoolmaterial) {
         super(i);
+        this.b = enumtoolmaterial;
         this.maxStackSize = 1;
-        this.d(enumtoolmaterial.a());
-        this.a = 4 + enumtoolmaterial.c() * 2;
+        this.f(enumtoolmaterial.a());
+        this.a = 4 + enumtoolmaterial.c();
     }
 
     public float a(ItemStack itemstack, Block block) {
@@ -29,8 +31,8 @@ public class ItemSword extends Item {
         return this.a;
     }
 
-    public EnumAnimation b(ItemStack itemstack) {
-        return EnumAnimation.c;
+    public EnumAnimation d(ItemStack itemstack) {
+        return EnumAnimation.d;
     }
 
     public int c(ItemStack itemstack) {
@@ -44,5 +46,9 @@ public class ItemSword extends Item {
 
     public boolean a(Block block) {
         return block.id == Block.WEB.id;
+    }
+
+    public int c() {
+        return this.b.e();
     }
 }

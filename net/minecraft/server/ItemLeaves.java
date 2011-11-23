@@ -4,7 +4,7 @@ public class ItemLeaves extends ItemBlock {
 
     public ItemLeaves(int i) {
         super(i);
-        this.d(0);
+        this.f(0);
         this.a(true);
     }
 

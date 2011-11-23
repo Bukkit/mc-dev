@@ -8,7 +8,7 @@ public class ContainerChest extends Container {
     public ContainerChest(IInventory iinventory, IInventory iinventory1) {
         this.a = iinventory1;
         this.b = iinventory1.getSize() / 9;
-        iinventory1.e();
+        iinventory1.f();
         int i = (this.b - 4) * 18;
 
         int j;
@@ -39,7 +39,7 @@ public class ContainerChest extends Container {
         ItemStack itemstack = null;
         Slot slot = (Slot) this.e.get(i);
 
-        if (slot != null && slot.b()) {
+        if (slot != null && slot.c()) {
             ItemStack itemstack1 = slot.getItem();
 
             itemstack = itemstack1.cloneItemStack();
@@ -54,7 +54,7 @@ public class ContainerChest extends Container {
             if (itemstack1.count == 0) {
                 slot.c((ItemStack) null);
             } else {
-                slot.c();
+                slot.d();
             }
         }
 
@@ -63,6 +63,6 @@ public class ContainerChest extends Container {
 
     public void a(EntityHuman entityhuman) {
         super.a(entityhuman);
-        this.a.t_();
+        this.a.g();
     }
 }

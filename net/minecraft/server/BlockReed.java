@@ -46,7 +46,7 @@ public class BlockReed extends Block {
 
     protected final void g(World world, int i, int j, int k) {
         if (!this.f(world, i, j, k)) {
-            this.g(world, i, j, k, world.getData(i, j, k));
+            this.b(world, i, j, k, world.getData(i, j, k), 0);
             world.setTypeId(i, j, k, 0);
         }
     }
@@ -59,7 +59,7 @@ public class BlockReed extends Block {
         return null;
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return Item.SUGAR_CANE.id;
     }
 
@@ -69,5 +69,9 @@ public class BlockReed extends Block {
 
     public boolean b() {
         return false;
+    }
+
+    public int c() {
+        return 1;
     }
 }

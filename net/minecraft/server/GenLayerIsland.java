@@ -25,9 +25,42 @@ public class GenLayerIsland extends GenLayer {
 
                 this.a((long) (j2 + i), (long) (i2 + j));
                 if (k3 == 0 && (k2 != 0 || l2 != 0 || i3 != 0 || j3 != 0)) {
-                    aint1[j2 + i2 * k] = 0 + this.a(3) / 2;
-                } else if (k3 == 1 && (k2 != 1 || l2 != 1 || i3 != 1 || j3 != 1)) {
-                    aint1[j2 + i2 * k] = 1 - this.a(5) / 4;
+                    int l3 = 1;
+                    int i4 = 1;
+
+                    if (k2 != 0 && this.a(l3++) == 0) {
+                        i4 = k2;
+                    }
+
+                    if (l2 != 0 && this.a(l3++) == 0) {
+                        i4 = l2;
+                    }
+
+                    if (i3 != 0 && this.a(l3++) == 0) {
+                        i4 = i3;
+                    }
+
+                    if (j3 != 0 && this.a(l3++) == 0) {
+                        i4 = j3;
+                    }
+
+                    if (this.a(3) == 0) {
+                        aint1[j2 + i2 * k] = i4;
+                    } else if (i4 == BiomeBase.ICE_PLAINS.F) {
+                        aint1[j2 + i2 * k] = BiomeBase.FROZEN_OCEAN.F;
+                    } else {
+                        aint1[j2 + i2 * k] = 0;
+                    }
+                } else if (k3 > 0 && (k2 == 0 || l2 == 0 || i3 == 0 || j3 == 0)) {
+                    if (this.a(5) == 0) {
+                        if (k3 == BiomeBase.ICE_PLAINS.F) {
+                            aint1[j2 + i2 * k] = BiomeBase.FROZEN_OCEAN.F;
+                        } else {
+                            aint1[j2 + i2 * k] = 0;
+                        }
+                    } else {
+                        aint1[j2 + i2 * k] = k3;
+                    }
                 } else {
                     aint1[j2 + i2 * k] = k3;
                 }

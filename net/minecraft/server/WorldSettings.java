@@ -5,11 +5,13 @@ public final class WorldSettings {
     private final long a;
     private final int b;
     private final boolean c;
+    private final boolean d;
 
-    public WorldSettings(long i, int j, boolean flag) {
+    public WorldSettings(long i, int j, boolean flag, boolean flag1) {
         this.a = i;
         this.b = j;
         this.c = flag;
+        this.d = flag1;
     }
 
     public long a() {
@@ -21,6 +23,10 @@ public final class WorldSettings {
     }
 
     public boolean c() {
+        return this.d;
+    }
+
+    public boolean d() {
         return this.c;
     }
 

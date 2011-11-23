@@ -15,7 +15,7 @@ public class BlockRedstoneOre extends Block {
         this.a = flag;
     }
 
-    public int c() {
+    public int d() {
         return 30;
     }
 
@@ -47,8 +47,12 @@ public class BlockRedstoneOre extends Block {
         }
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return Item.REDSTONE.id;
+    }
+
+    public int a(int i, Random random) {
+        return this.a(random) + random.nextInt(i + 1);
     }
 
     public int a(Random random) {
@@ -92,5 +96,9 @@ public class BlockRedstoneOre extends Block {
                 world.a("reddust", d1, d2, d3, 0.0D, 0.0D, 0.0D);
             }
         }
+    }
+
+    protected ItemStack a_(int i) {
+        return new ItemStack(Block.REDSTONE_ORE);
     }
 }

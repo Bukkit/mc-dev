@@ -14,7 +14,7 @@ public class BiomeCache {
         this.a = worldchunkmanager;
     }
 
-    private BiomeCacheBlock c(int i, int j) {
+    public BiomeCacheBlock a(int i, int j) {
         i >>= 4;
         j >>= 4;
         long k = (long) i & 4294967295L | ((long) j & 4294967295L) << 32;
@@ -30,8 +30,12 @@ public class BiomeCache {
         return biomecacheblock;
     }
 
-    public BiomeBase a(int i, int j) {
-        return this.c(i, j).a(i, j);
+    public BiomeBase b(int i, int j) {
+        return this.a(i, j).a(i, j);
+    }
+
+    public float c(int i, int j) {
+        return this.a(i, j).b(i, j);
     }
 
     public void a() {
@@ -55,8 +59,8 @@ public class BiomeCache {
         }
     }
 
-    public BiomeBase[] b(int i, int j) {
-        return this.c(i, j).c;
+    public BiomeBase[] d(int i, int j) {
+        return this.a(i, j).c;
     }
 
     static WorldChunkManager a(BiomeCache biomecache) {

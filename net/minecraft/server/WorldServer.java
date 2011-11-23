@@ -9,7 +9,7 @@ public class WorldServer extends World {
     public boolean weirdIsOpCache = false;
     public boolean savingDisabled;
     private MinecraftServer server;
-    private EntityList Q = new EntityList();
+    private EntityList N = new EntityList();
 
     public WorldServer(MinecraftServer minecraftserver, IDataManager idatamanager, String s, int i, WorldSettings worldsettings) {
         super(idatamanager, s, worldsettings, WorldProvider.byDimension(i));
@@ -64,16 +64,30 @@ public class WorldServer extends World {
 
     protected void c(Entity entity) {
         super.c(entity);
-        this.Q.a(entity.id, entity);
+        this.N.a(entity.id, entity);
+        Entity[] aentity = entity.aG();
+
+        if (aentity != null) {
+            for (int i = 0; i < aentity.length; ++i) {
+                this.N.a(aentity[i].id, aentity[i]);
+            }
+        }
     }
 
     protected void d(Entity entity) {
         super.d(entity);
-        this.Q.d(entity.id);
+        this.N.d(entity.id);
+        Entity[] aentity = entity.aG();
+
+        if (aentity != null) {
+            for (int i = 0; i < aentity.length; ++i) {
+                this.N.d(aentity[i].id);
+            }
+        }
     }
 
     public Entity getEntity(int i) {
-        return (Entity) this.Q.a(i);
+        return (Entity) this.N.a(i);
     }
 
     public boolean strikeLightning(Entity entity) {
@@ -110,11 +124,11 @@ public class WorldServer extends World {
         this.B.e();
     }
 
-    protected void h() {
-        boolean flag = this.u();
+    protected void i() {
+        boolean flag = this.w();
 
-        super.h();
-        if (flag != this.u()) {
+        super.i();
+        if (flag != this.w()) {
             if (flag) {
                 this.server.serverConfigurationManager.sendAll(new Packet70Bed(2, 0));
             } else {

@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -87,13 +88,6 @@ public class RegionFile {
         }
     }
 
-    public synchronized int a() {
-        int i = this.g;
-
-        this.g = 0;
-        return i;
-    }
-
     private void a(String s) {}
 
     private void b(String s) {
@@ -144,12 +138,12 @@ public class RegionFile {
                             if (b0 == 1) {
                                 abyte = new byte[j1 - 1];
                                 this.c.read(abyte);
-                                datainputstream = new DataInputStream(new GZIPInputStream(new ByteArrayInputStream(abyte)));
+                                datainputstream = new DataInputStream(new BufferedInputStream(new GZIPInputStream(new ByteArrayInputStream(abyte))));
                                 return datainputstream;
                             } else if (b0 == 2) {
                                 abyte = new byte[j1 - 1];
                                 this.c.read(abyte);
-                                datainputstream = new DataInputStream(new InflaterInputStream(new ByteArrayInputStream(abyte)));
+                                datainputstream = new DataInputStream(new BufferedInputStream(new InflaterInputStream(new ByteArrayInputStream(abyte))));
                                 return datainputstream;
                             } else {
                                 this.b("READ", i, j, "unknown version " + b0);
@@ -277,7 +271,7 @@ public class RegionFile {
         this.c.writeInt(k);
     }
 
-    public void b() {
+    public void a() {
         this.c.close();
     }
 }

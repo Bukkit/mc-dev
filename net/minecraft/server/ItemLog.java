@@ -7,7 +7,7 @@ public class ItemLog extends ItemBlock {
     public ItemLog(int i, Block block) {
         super(i);
         this.a = block;
-        this.d(0);
+        this.f(0);
         this.a(true);
     }
 

@@ -12,7 +12,7 @@ public class BlockHugeMushroom extends Block {
     }
 
     public int a(int i, int j) {
-        return j == 10 && i > 1 ? this.textureId - 1 : (j >= 1 && j <= 9 && i == 1 ? this.textureId - 16 - this.a : (j >= 1 && j <= 3 && i == 2 ? this.textureId - 16 - this.a : (j >= 7 && j <= 9 && i == 3 ? this.textureId - 16 - this.a : ((j == 1 || j == 4 || j == 7) && i == 4 ? this.textureId - 16 - this.a : ((j == 3 || j == 6 || j == 9) && i == 5 ? this.textureId - 16 - this.a : this.textureId)))));
+        return j == 10 && i > 1 ? this.textureId - 1 : (j >= 1 && j <= 9 && i == 1 ? this.textureId - 16 - this.a : (j >= 1 && j <= 3 && i == 2 ? this.textureId - 16 - this.a : (j >= 7 && j <= 9 && i == 3 ? this.textureId - 16 - this.a : ((j == 1 || j == 4 || j == 7) && i == 4 ? this.textureId - 16 - this.a : ((j == 3 || j == 6 || j == 9) && i == 5 ? this.textureId - 16 - this.a : (j == 14 ? this.textureId - 16 - this.a : (j == 15 ? this.textureId - 1 : this.textureId)))))));
     }
 
     public int a(Random random) {
@@ -25,7 +25,7 @@ public class BlockHugeMushroom extends Block {
         return i;
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return Block.BROWN_MUSHROOM.id + this.a;
     }
 }

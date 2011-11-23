@@ -15,12 +15,16 @@ public class BlockLongGrass extends BlockFlower {
         return j == 1 ? this.textureId : (j == 2 ? this.textureId + 16 + 1 : (j == 0 ? this.textureId + 16 : this.textureId));
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return random.nextInt(8) == 0 ? Item.SEEDS.id : -1;
     }
 
+    public int a(int i, Random random) {
+        return 1 + random.nextInt(i * 2 + 1);
+    }
+
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
-        if (!world.isStatic && entityhuman.K() != null && entityhuman.K().id == Item.SHEARS.id) {
+        if (!world.isStatic && entityhuman.P() != null && entityhuman.P().id == Item.SHEARS.id) {
             entityhuman.a(StatisticList.C[this.id], 1);
             this.a(world, i, j, k, new ItemStack(Block.LONG_GRASS, 1, l));
         } else {

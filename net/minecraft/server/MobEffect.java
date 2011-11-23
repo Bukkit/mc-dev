@@ -12,13 +12,21 @@ public class MobEffect {
         this.amplification = k;
     }
 
+    public MobEffect(MobEffect mobeffect) {
+        this.effectId = mobeffect.effectId;
+        this.duration = mobeffect.duration;
+        this.amplification = mobeffect.amplification;
+    }
+
     public void a(MobEffect mobeffect) {
         if (this.effectId != mobeffect.effectId) {
             System.err.println("This method should only be called for matching effects!");
         }
 
-        if (mobeffect.amplification >= this.amplification) {
+        if (mobeffect.amplification > this.amplification) {
             this.amplification = mobeffect.amplification;
+            this.duration = mobeffect.duration;
+        } else if (mobeffect.amplification == this.amplification && this.duration < mobeffect.duration) {
             this.duration = mobeffect.duration;
         }
     }
@@ -37,17 +45,17 @@ public class MobEffect {
 
     public boolean tick(EntityLiving entityliving) {
         if (this.duration > 0) {
-            if (MobEffectList.byId[this.effectId].a(this.duration, this.amplification)) {
+            if (MobEffectList.byId[this.effectId].b(this.duration, this.amplification)) {
                 this.b(entityliving);
             }
 
-            this.d();
+            this.e();
         }
 
         return this.duration > 0;
     }
 
-    private int d() {
+    private int e() {
         return --this.duration;
     }
 
@@ -57,7 +65,33 @@ public class MobEffect {
         }
     }
 
+    public String d() {
+        return MobEffectList.byId[this.effectId].c();
+    }
+
     public int hashCode() {
         return this.effectId;
+    }
+
+    public String toString() {
+        String s = "";
+
+        if (this.getAmplifier() > 0) {
+            s = this.d() + " x " + (this.getAmplifier() + 1) + ", Duration: " + this.getDuration();
+        } else {
+            s = this.d() + ", Duration: " + this.getDuration();
+        }
+
+        return MobEffectList.byId[this.effectId].f() ? "(" + s + ")" : s;
+    }
+
+    public boolean equals(Object object) {
+        if (!(object instanceof MobEffect)) {
+            return false;
+        } else {
+            MobEffect mobeffect = (MobEffect) object;
+
+            return this.effectId == mobeffect.effectId && this.amplification == mobeffect.amplification && this.duration == mobeffect.duration;
+        }
     }
 }

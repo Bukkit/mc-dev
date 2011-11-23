@@ -7,9 +7,12 @@ public class NBTTagShort extends NBTBase {
 
     public short a;
 
-    public NBTTagShort() {}
+    public NBTTagShort(String s) {
+        super(s);
+    }
 
-    public NBTTagShort(short short1) {
+    public NBTTagShort(String s, short short1) {
+        super(s);
         this.a = short1;
     }
 
@@ -27,5 +30,19 @@ public class NBTTagShort extends NBTBase {
 
     public String toString() {
         return "" + this.a;
+    }
+
+    public NBTBase b() {
+        return new NBTTagShort(this.c(), this.a);
+    }
+
+    public boolean equals(Object object) {
+        if (super.equals(object)) {
+            NBTTagShort nbttagshort = (NBTTagShort) object;
+
+            return this.a == nbttagshort.a;
+        } else {
+            return false;
+        }
     }
 }

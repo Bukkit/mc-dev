@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.util.List;
 import java.util.Random;
 
 public class ChunkProviderGenerate implements IChunkProvider {
@@ -45,65 +46,52 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
     public void a(int i, int j, byte[] abyte) {
         byte b0 = 4;
+        int k = this.s.height / 8;
+        int l = this.s.seaLevel;
+        int i1 = b0 + 1;
+        int j1 = this.s.height / 8 + 1;
+        int k1 = b0 + 1;
 
-        int k = 128 / 8;
+        this.y = this.s.getWorldChunkManager().getBiomes(this.y, i * 4 - 2, j * 4 - 2, i1 + 5, k1 + 5);
+        this.u = this.a(this.u, i * b0, 0, j * b0, i1, j1, k1);
 
-        byte b1 = 63;
-        int l = b0 + 1;
-
-        int i1 = 128 / 8 + 1;
-        int j1 = b0 + 1;
-
-        this.y = this.s.getWorldChunkManager().getBiomes(this.y, i * 4 - 2, j * 4 - 2, l + 5, j1 + 5);
-        this.u = this.a(this.u, i * b0, 0, j * b0, l, i1, j1);
-
-        for (int k1 = 0; k1 < b0; ++k1) {
-            for (int l1 = 0; l1 < b0; ++l1) {
-                for (int i2 = 0; i2 < k; ++i2) {
+        for (int l1 = 0; l1 < b0; ++l1) {
+            for (int i2 = 0; i2 < b0; ++i2) {
+                for (int j2 = 0; j2 < k; ++j2) {
                     double d0 = 0.125D;
-                    double d1 = this.u[((k1 + 0) * j1 + l1 + 0) * i1 + i2 + 0];
-                    double d2 = this.u[((k1 + 0) * j1 + l1 + 1) * i1 + i2 + 0];
-                    double d3 = this.u[((k1 + 1) * j1 + l1 + 0) * i1 + i2 + 0];
-                    double d4 = this.u[((k1 + 1) * j1 + l1 + 1) * i1 + i2 + 0];
-                    double d5 = (this.u[((k1 + 0) * j1 + l1 + 0) * i1 + i2 + 1] - d1) * d0;
-                    double d6 = (this.u[((k1 + 0) * j1 + l1 + 1) * i1 + i2 + 1] - d2) * d0;
-                    double d7 = (this.u[((k1 + 1) * j1 + l1 + 0) * i1 + i2 + 1] - d3) * d0;
-                    double d8 = (this.u[((k1 + 1) * j1 + l1 + 1) * i1 + i2 + 1] - d4) * d0;
+                    double d1 = this.u[((l1 + 0) * k1 + i2 + 0) * j1 + j2 + 0];
+                    double d2 = this.u[((l1 + 0) * k1 + i2 + 1) * j1 + j2 + 0];
+                    double d3 = this.u[((l1 + 1) * k1 + i2 + 0) * j1 + j2 + 0];
+                    double d4 = this.u[((l1 + 1) * k1 + i2 + 1) * j1 + j2 + 0];
+                    double d5 = (this.u[((l1 + 0) * k1 + i2 + 0) * j1 + j2 + 1] - d1) * d0;
+                    double d6 = (this.u[((l1 + 0) * k1 + i2 + 1) * j1 + j2 + 1] - d2) * d0;
+                    double d7 = (this.u[((l1 + 1) * k1 + i2 + 0) * j1 + j2 + 1] - d3) * d0;
+                    double d8 = (this.u[((l1 + 1) * k1 + i2 + 1) * j1 + j2 + 1] - d4) * d0;
 
-                    for (int j2 = 0; j2 < 8; ++j2) {
+                    for (int k2 = 0; k2 < 8; ++k2) {
                         double d9 = 0.25D;
                         double d10 = d1;
                         double d11 = d2;
                         double d12 = (d3 - d1) * d9;
                         double d13 = (d4 - d2) * d9;
 
-                        for (int k2 = 0; k2 < 4; ++k2) {
-                            int l2 = k2 + k1 * 4;
+                        for (int l2 = 0; l2 < 4; ++l2) {
+                            int i3 = l2 + l1 * 4 << this.s.heightBitsPlusFour | 0 + i2 * 4 << this.s.heightBits | j2 * 8 + k2;
+                            int j3 = 1 << this.s.heightBits;
 
-                            l2 <<= 11;
-                            int i3 = 0 + l1 * 4;
-
-                            int j3 = l2 | i3 << 7 | i2 * 8 + j2;
-
-                            int k3 = 1 << 7;
+                            i3 -= j3;
                             double d14 = 0.25D;
-                            double d15 = d10;
-                            double d16 = (d11 - d10) * d14;
+                            double d15 = (d11 - d10) * d14;
+                            double d16 = d10 - d15;
 
-                            for (int l3 = 0; l3 < 4; ++l3) {
-                                int i4 = 0;
-
-                                if (i2 * 8 + j2 < b1) {
-                                    i4 = Block.STATIONARY_WATER.id;
+                            for (int k3 = 0; k3 < 4; ++k3) {
+                                if ((d16 += d15) > 0.0D) {
+                                    abyte[i3 += j3] = (byte) Block.STONE.id;
+                                } else if (j2 * 8 + k2 < l) {
+                                    abyte[i3 += j3] = (byte) Block.STATIONARY_WATER.id;
+                                } else {
+                                    abyte[i3 += j3] = 0;
                                 }
-
-                                if (d15 > 0.0D) {
-                                    i4 = Block.STONE.id;
-                                }
-
-                                abyte[j3] = (byte) i4;
-                                j3 += k3;
-                                d15 += d16;
                             }
 
                             d10 += d12;
@@ -121,58 +109,61 @@ public class ChunkProviderGenerate implements IChunkProvider {
     }
 
     public void a(int i, int j, byte[] abyte, BiomeBase[] abiomebase) {
-
-        byte b0 = 63;
+        int k = this.s.seaLevel;
         double d0 = 0.03125D;
 
         this.v = this.r.a(this.v, i * 16, j * 16, 0, 16, 16, 1, d0 * 2.0D, d0 * 2.0D, d0 * 2.0D);
+        float[] afloat = this.s.getWorldChunkManager().a(i * 16, j * 16, 16, 16);
 
-        for (int k = 0; k < 16; ++k) {
-            for (int l = 0; l < 16; ++l) {
-                BiomeBase biomebase = abiomebase[l + k * 16];
-                int i1 = (int) (this.v[k + l * 16] / 3.0D + 3.0D + this.n.nextDouble() * 0.25D);
-                int j1 = -1;
-                byte b1 = biomebase.n;
-                byte b2 = biomebase.o;
+        for (int l = 0; l < 16; ++l) {
+            for (int i1 = 0; i1 < 16; ++i1) {
+                float f = afloat[i1 + l * 16];
+                BiomeBase biomebase = abiomebase[i1 + l * 16];
+                int j1 = (int) (this.v[l + i1 * 16] / 3.0D + 3.0D + this.n.nextDouble() * 0.25D);
+                int k1 = -1;
+                byte b0 = biomebase.t;
+                byte b1 = biomebase.u;
 
-                for (int k1 = 127; k1 >= 0; --k1) {
-                    int l1 = l * 16 + k;
+                for (int l1 = this.s.heightMinusOne; l1 >= 0; --l1) {
+                    int i2 = (i1 * 16 + l) * this.s.height + l1;
 
-                    int i2 = l1 * 128 + k1;
-
-                    if (k1 <= 0 + this.n.nextInt(5)) {
+                    if (l1 <= 0 + this.n.nextInt(5)) {
                         abyte[i2] = (byte) Block.BEDROCK.id;
                     } else {
-                        byte b3 = abyte[i2];
+                        byte b2 = abyte[i2];
 
-                        if (b3 == 0) {
-                            j1 = -1;
-                        } else if (b3 == Block.STONE.id) {
-                            if (j1 == -1) {
-                                if (i1 <= 0) {
-                                    b1 = 0;
-                                    b2 = (byte) Block.STONE.id;
-                                } else if (k1 >= b0 - 4 && k1 <= b0 + 1) {
-                                    b1 = biomebase.n;
-                                    b2 = biomebase.o;
+                        if (b2 == 0) {
+                            k1 = -1;
+                        } else if (b2 == Block.STONE.id) {
+                            if (k1 == -1) {
+                                if (j1 <= 0) {
+                                    b0 = 0;
+                                    b1 = (byte) Block.STONE.id;
+                                } else if (l1 >= k - 4 && l1 <= k + 1) {
+                                    b0 = biomebase.t;
+                                    b1 = biomebase.u;
                                 }
 
-                                if (k1 < b0 && b1 == 0) {
-                                    b1 = (byte) Block.STATIONARY_WATER.id;
+                                if (l1 < k && b0 == 0) {
+                                    if (f < 0.15F) {
+                                        b0 = (byte) Block.ICE.id;
+                                    } else {
+                                        b0 = (byte) Block.STATIONARY_WATER.id;
+                                    }
                                 }
 
-                                j1 = i1;
-                                if (k1 >= b0 - 1) {
-                                    abyte[i2] = b1;
+                                k1 = j1;
+                                if (l1 >= k - 1) {
+                                    abyte[i2] = b0;
                                 } else {
-                                    abyte[i2] = b2;
+                                    abyte[i2] = b1;
                                 }
-                            } else if (j1 > 0) {
-                                --j1;
-                                abyte[i2] = b2;
-                                if (j1 == 0 && b2 == Block.SAND.id) {
-                                    j1 = this.n.nextInt(4);
-                                    b2 = (byte) Block.SANDSTONE.id;
+                            } else if (k1 > 0) {
+                                --k1;
+                                abyte[i2] = b1;
+                                if (k1 == 0 && b1 == Block.SAND.id) {
+                                    k1 = this.n.nextInt(4);
+                                    b1 = (byte) Block.SANDSTONE.id;
                                 }
                             }
                         }
@@ -188,21 +179,20 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
     public Chunk getOrCreateChunk(int i, int j) {
         this.n.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
-
-        byte[] abyte = new byte[16 * 128 * 16];
+        byte[] abyte = new byte[16 * this.s.height * 16];
         Chunk chunk = new Chunk(this.s, abyte, i, j);
 
         this.a(i, j, abyte);
         this.y = this.s.getWorldChunkManager().a(this.y, i * 16, j * 16, 16, 16);
         this.a(i, j, abyte, this.y);
         this.w.a(this, this.s, i, j, abyte);
+        this.x.a(this, this.s, i, j, abyte);
         if (this.t) {
-            this.d.a(this, this.s, i, j, abyte);
             this.f.a(this, this.s, i, j, abyte);
             this.e.a(this, this.s, i, j, abyte);
+            this.d.a(this, this.s, i, j, abyte);
         }
 
-        this.x.a(this, this.s, i, j, abyte);
         chunk.initLighting();
         return chunk;
     }
@@ -248,14 +238,14 @@ public class ChunkProviderGenerate implements IChunkProvider {
                 for (int i3 = -b0; i3 <= b0; ++i3) {
                     for (int j3 = -b0; j3 <= b0; ++j3) {
                         BiomeBase biomebase1 = this.y[k2 + i3 + 2 + (l2 + j3 + 2) * (l + 5)];
-                        float f4 = this.l[i3 + 2 + (j3 + 2) * 5] / (biomebase1.q + 2.0F);
+                        float f4 = this.l[i3 + 2 + (j3 + 2) * 5] / (biomebase1.w + 2.0F);
 
-                        if (biomebase1.q > biomebase.q) {
+                        if (biomebase1.w > biomebase.w) {
                             f4 /= 2.0F;
                         }
 
-                        f1 += biomebase1.r * f4;
-                        f2 += biomebase1.q * f4;
+                        f1 += biomebase1.x * f4;
+                        f2 += biomebase1.w * f4;
                         f3 += f4;
                     }
                 }
@@ -297,31 +287,29 @@ public class ChunkProviderGenerate implements IChunkProvider {
                     d3 = d3 * (double) i1 / 16.0D;
                     double d5 = (double) i1 / 2.0D + d3 * 4.0D;
                     double d6 = 0.0D;
-                    double d7 = ((double) k3 - d5) * 12.0D * 128.0D;
+                    double d7 = ((double) k3 - d5) * 12.0D * 128.0D / (double) this.s.height / d4;
 
-                    double d8 = d7 / 128.0D / d4;
-
-                    if (d8 < 0.0D) {
-                        d8 *= 4.0D;
+                    if (d7 < 0.0D) {
+                        d7 *= 4.0D;
                     }
 
-                    double d9 = this.h[i2] / 512.0D;
-                    double d10 = this.i[i2] / 512.0D;
-                    double d11 = (this.g[i2] / 10.0D + 1.0D) / 2.0D;
+                    double d8 = this.h[i2] / 512.0D;
+                    double d9 = this.i[i2] / 512.0D;
+                    double d10 = (this.g[i2] / 10.0D + 1.0D) / 2.0D;
 
-                    if (d11 < 0.0D) {
+                    if (d10 < 0.0D) {
+                        d6 = d8;
+                    } else if (d10 > 1.0D) {
                         d6 = d9;
-                    } else if (d11 > 1.0D) {
-                        d6 = d10;
                     } else {
-                        d6 = d9 + (d10 - d9) * d11;
+                        d6 = d8 + (d9 - d8) * d10;
                     }
 
-                    d6 -= d8;
+                    d6 -= d7;
                     if (k3 > i1 - 4) {
-                        double d12 = (double) ((float) (k3 - (i1 - 4)) / 3.0F);
+                        double d11 = (double) ((float) (k3 - (i1 - 4)) / 3.0F);
 
-                        d6 = d6 * (1.0D - d12) + -10.0D * d12;
+                        d6 = d6 * (1.0D - d11) + -10.0D * d11;
                     }
 
                     adouble[i2] = d6;
@@ -351,43 +339,34 @@ public class ChunkProviderGenerate implements IChunkProvider {
         boolean flag = false;
 
         if (this.t) {
-            this.d.a(this.s, this.n, i, j);
             this.f.a(this.s, this.n, i, j);
             flag = this.e.a(this.s, this.n, i, j);
+            this.d.a(this.s, this.n, i, j);
         }
 
         int k1;
         int l1;
-        Random random;
         int i2;
 
         if (!flag && this.n.nextInt(4) == 0) {
             k1 = k + this.n.nextInt(16) + 8;
-            random = this.n;
-
-            l1 = random.nextInt(128);
+            l1 = this.n.nextInt(this.s.height);
             i2 = l + this.n.nextInt(16) + 8;
             (new WorldGenLakes(Block.STATIONARY_WATER.id)).a(this.s, this.n, k1, l1, i2);
         }
 
         if (!flag && this.n.nextInt(8) == 0) {
             k1 = k + this.n.nextInt(16) + 8;
-            random = this.n;
-            Random random1 = this.n;
-
-            l1 = random.nextInt(random1.nextInt(128 - 8) + 8);
+            l1 = this.n.nextInt(this.n.nextInt(this.s.height - 8) + 8);
             i2 = l + this.n.nextInt(16) + 8;
-
-            if (l1 < 63 || this.n.nextInt(10) == 0) {
+            if (l1 < this.s.seaLevel || this.n.nextInt(10) == 0) {
                 (new WorldGenLakes(Block.STATIONARY_LAVA.id)).a(this.s, this.n, k1, l1, i2);
             }
         }
 
         for (k1 = 0; k1 < 8; ++k1) {
             l1 = k + this.n.nextInt(16) + 8;
-            random = this.n;
-
-            i2 = random.nextInt(128);
+            i2 = this.n.nextInt(this.s.height);
             int j2 = l + this.n.nextInt(16) + 8;
 
             if ((new WorldGenDungeons()).a(this.s, this.n, l1, i2, j2)) {
@@ -397,6 +376,22 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
         biomebase.a(this.s, this.n, k, l);
         SpawnerCreature.a(this.s, biomebase, k + 8, l + 8, 16, 16, this.n);
+        k += 8;
+        l += 8;
+
+        for (k1 = 0; k1 < 16; ++k1) {
+            for (l1 = 0; l1 < 16; ++l1) {
+                i2 = this.s.e(k + k1, l + l1);
+                if (this.s.p(k1 + k, i2 - 1, l1 + l)) {
+                    this.s.setTypeId(k1 + k, i2 - 1, l1 + l, Block.ICE.id);
+                }
+
+                if (this.s.r(k1 + k, i2, l1 + l)) {
+                    this.s.setTypeId(k1 + k, i2, l1 + l, Block.SNOW.id);
+                }
+            }
+        }
+
         BlockSand.instaFall = false;
     }
 
@@ -410,5 +405,21 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
     public boolean canSave() {
         return true;
+    }
+
+    public List a(EnumCreatureType enumcreaturetype, int i, int j, int k) {
+        WorldChunkManager worldchunkmanager = this.s.getWorldChunkManager();
+
+        if (worldchunkmanager == null) {
+            return null;
+        } else {
+            BiomeBase biomebase = worldchunkmanager.a(new ChunkCoordIntPair(i >> 4, k >> 4));
+
+            return biomebase == null ? null : biomebase.a(enumcreaturetype);
+        }
+    }
+
+    public ChunkPosition a(World world, String s, int i, int j, int k) {
+        return "Stronghold".equals(s) && this.d != null ? this.d.a(world, i, j, k) : null;
     }
 }

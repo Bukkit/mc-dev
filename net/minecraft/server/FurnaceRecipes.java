@@ -25,6 +25,9 @@ public class FurnaceRecipes {
         this.registerRecipe(Item.CLAY_BALL.id, new ItemStack(Item.CLAY_BRICK));
         this.registerRecipe(Block.CACTUS.id, new ItemStack(Item.INK_SACK, 1, 2));
         this.registerRecipe(Block.LOG.id, new ItemStack(Item.COAL, 1, 1));
+        this.registerRecipe(Block.COAL_ORE.id, new ItemStack(Item.COAL));
+        this.registerRecipe(Block.REDSTONE_ORE.id, new ItemStack(Item.REDSTONE));
+        this.registerRecipe(Block.LAPIS_ORE.id, new ItemStack(Item.INK_SACK, 1, 4));
     }
 
     public void registerRecipe(int i, ItemStack itemstack) {

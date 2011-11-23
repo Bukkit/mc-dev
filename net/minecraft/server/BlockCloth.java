@@ -15,15 +15,15 @@ public class BlockCloth extends Block {
         }
     }
 
-    protected int a_(int i) {
+    protected int c(int i) {
         return i;
     }
 
-    public static int c(int i) {
+    public static int d(int i) {
         return ~i & 15;
     }
 
-    public static int d(int i) {
+    public static int e(int i) {
         return ~i & 15;
     }
 }

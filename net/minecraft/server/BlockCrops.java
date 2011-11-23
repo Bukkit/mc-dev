@@ -13,7 +13,7 @@ public class BlockCrops extends BlockFlower {
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
     }
 
-    protected boolean c(int i) {
+    protected boolean d(int i) {
         return i == Block.SOIL.id;
     }
 
@@ -23,9 +23,9 @@ public class BlockCrops extends BlockFlower {
             int l = world.getData(i, j, k);
 
             if (l < 7) {
-                float f = this.h(world, i, j, k);
+                float f = this.i(world, i, j, k);
 
-                if (random.nextInt((int) (100.0F / f)) == 0) {
+                if (random.nextInt((int) (25.0F / f) + 1) == 0) {
                     ++l;
                     world.setData(i, j, k, l);
                 }
@@ -33,11 +33,11 @@ public class BlockCrops extends BlockFlower {
         }
     }
 
-    public void e_(World world, int i, int j, int k) {
+    public void g(World world, int i, int j, int k) {
         world.setData(i, j, k, 7);
     }
 
-    private float h(World world, int i, int j, int k) {
+    private float i(World world, int i, int j, int k) {
         float f = 1.0F;
         int l = world.getTypeId(i, j, k - 1);
         int i1 = world.getTypeId(i, j, k + 1);
@@ -86,10 +86,16 @@ public class BlockCrops extends BlockFlower {
         return this.textureId + j;
     }
 
-    public void dropNaturally(World world, int i, int j, int k, int l, float f) {
-        super.dropNaturally(world, i, j, k, l, f);
+    public int c() {
+        return 6;
+    }
+
+    public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
+        super.dropNaturally(world, i, j, k, l, f, 0);
         if (!world.isStatic) {
-            for (int i1 = 0; i1 < 3; ++i1) {
+            int j1 = 3 + i1;
+
+            for (int k1 = 0; k1 < j1; ++k1) {
                 if (world.random.nextInt(15) <= l) {
                     float f1 = 0.7F;
                     float f2 = world.random.nextFloat() * f1 + (1.0F - f1) * 0.5F;
@@ -104,7 +110,7 @@ public class BlockCrops extends BlockFlower {
         }
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return i == 7 ? Item.WHEAT.id : -1;
     }
 

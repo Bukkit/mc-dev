@@ -14,7 +14,7 @@ public class BlockSapling extends BlockFlower {
     public void a(World world, int i, int j, int k, Random random) {
         if (!world.isStatic) {
             super.a(world, i, j, k, random);
-            if (world.getLightLevel(i, j + 1, k) >= 9 && random.nextInt(30) == 0) {
+            if (world.getLightLevel(i, j + 1, k) >= 9 && random.nextInt(7) == 0) {
                 int l = world.getData(i, j, k);
 
                 if ((l & 8) == 0) {
@@ -38,13 +38,13 @@ public class BlockSapling extends BlockFlower {
         Object object = null;
 
         if (l == 1) {
-            object = new WorldGenTaiga2();
+            object = new WorldGenTaiga2(true);
         } else if (l == 2) {
-            object = new WorldGenForest();
+            object = new WorldGenForest(true);
         } else {
-            object = new WorldGenTrees();
+            object = new WorldGenTrees(true);
             if (random.nextInt(10) == 0) {
-                object = new WorldGenBigTree();
+                object = new WorldGenBigTree(true);
             }
         }
 
@@ -53,7 +53,7 @@ public class BlockSapling extends BlockFlower {
         }
     }
 
-    protected int a_(int i) {
+    protected int c(int i) {
         return i & 3;
     }
 }

@@ -13,7 +13,7 @@ public class BlockFenceGate extends Block {
     public AxisAlignedBB e(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
 
-        return c(l) ? null : AxisAlignedBB.b((double) i, (double) j, (double) k, (double) (i + 1), (double) ((float) j + 1.5F), (double) (k + 1));
+        return d(l) ? null : AxisAlignedBB.b((double) i, (double) j, (double) k, (double) (i + 1), (double) ((float) j + 1.5F), (double) (k + 1));
     }
 
     public boolean a() {
@@ -22,6 +22,10 @@ public class BlockFenceGate extends Block {
 
     public boolean b() {
         return false;
+    }
+
+    public int c() {
+        return 21;
     }
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
@@ -33,11 +37,11 @@ public class BlockFenceGate extends Block {
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         int l = world.getData(i, j, k);
 
-        if (c(l)) {
+        if (d(l)) {
             world.setData(i, j, k, l & -5);
         } else {
             int i1 = (MathHelper.floor((double) (entityhuman.yaw * 4.0F / 360.0F) + 0.5D) & 3) % 4;
-            int j1 = d(l);
+            int j1 = e(l);
 
             if (j1 == (i1 + 2) % 4) {
                 l = i1;
@@ -50,11 +54,11 @@ public class BlockFenceGate extends Block {
         return true;
     }
 
-    public static boolean c(int i) {
+    public static boolean d(int i) {
         return (i & 4) != 0;
     }
 
-    public static int d(int i) {
+    public static int e(int i) {
         return i & 3;
     }
 }

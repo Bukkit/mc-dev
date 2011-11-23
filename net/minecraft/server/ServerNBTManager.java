@@ -11,10 +11,14 @@ public class ServerNBTManager extends PlayerNBTManager {
 
     public IChunkLoader a(WorldProvider worldprovider) {
         File file1 = this.a();
+        File file2;
 
         if (worldprovider instanceof WorldProviderHell) {
-            File file2 = new File(file1, "DIM-1");
-
+            file2 = new File(file1, "DIM-1");
+            file2.mkdirs();
+            return new ChunkRegionLoader(file2);
+        } else if (worldprovider instanceof WorldProviderSky) {
+            file2 = new File(file1, "DIM1");
             file2.mkdirs();
             return new ChunkRegionLoader(file2);
         } else {
@@ -28,6 +32,12 @@ public class ServerNBTManager extends PlayerNBTManager {
     }
 
     public void e() {
+        try {
+            FileIOThread.a.a();
+        } catch (InterruptedException interruptedexception) {
+            interruptedexception.printStackTrace();
+        }
+
         RegionFileCache.a();
     }
 }

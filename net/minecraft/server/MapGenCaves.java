@@ -88,11 +88,9 @@ public class MapGenCaves extends MapGenBase {
                     if (j2 < 1) {
                         j2 = 1;
                     }
-                    //
-                    this.d.getClass();
-                    if (k2 > 128 - 8) {
 
-                        k2 = 128 - 8;
+                    if (k2 > this.d.height - 8) {
+                        k2 = this.d.height - 8;
                     }
 
                     if (l2 < 0) {
@@ -107,24 +105,18 @@ public class MapGenCaves extends MapGenBase {
 
                     int j3;
                     int k3;
-                    int l3;
 
-                    for (k3 = l1; !flag2 && k3 < i2; ++k3) {
-                        for (int i4 = l2; !flag2 && i4 < i3; ++i4) {
-                            for (int j4 = k2 + 1; !flag2 && j4 >= j2 - 1; --j4) {
-                                j3 = k3 * 16 + i4;
+                    for (j3 = l1; !flag2 && j3 < i2; ++j3) {
+                        for (int l3 = l2; !flag2 && l3 < i3; ++l3) {
+                            for (int i4 = k2 + 1; !flag2 && i4 >= j2 - 1; --i4) {
+                                k3 = (j3 * 16 + l3) * this.d.height + i4;
+                                if (i4 >= 0 && i4 < this.d.height) {
+                                    if (abyte[k3] == Block.WATER.id || abyte[k3] == Block.STATIONARY_WATER.id) {
+                                        flag2 = true;
+                                    }
 
-                                l3 = j3 * 128 + j4;
-                                if (j4 >= 0) {
-
-                                    if (j4 < 128) {
-                                        if (abyte[l3] == Block.WATER.id || abyte[l3] == Block.STATIONARY_WATER.id) {
-                                            flag2 = true;
-                                        }
-
-                                        if (j4 != j2 - 1 && k3 != l1 && k3 != i2 - 1 && i4 != l2 && i4 != i3 - 1) {
-                                            j4 = j2;
-                                        }
+                                    if (i4 != j2 - 1 && j3 != l1 && j3 != i2 - 1 && l3 != l2 && l3 != i3 - 1) {
+                                        i4 = j2;
                                     }
                                 }
                             }
@@ -132,41 +124,38 @@ public class MapGenCaves extends MapGenBase {
                     }
 
                     if (!flag2) {
-                        for (k3 = l1; k3 < i2; ++k3) {
-                            double d12 = ((double) (k3 + j * 16) + 0.5D - d0) / d6;
+                        for (j3 = l1; j3 < i2; ++j3) {
+                            double d12 = ((double) (j3 + j * 16) + 0.5D - d0) / d6;
 
-                            for (l3 = l2; l3 < i3; ++l3) {
-                                double d13 = ((double) (l3 + k * 16) + 0.5D - d2) / d6;
-
-                                j3 = k3 * 16 + l3;
-
-                                int k4 = j3 * 128 + k2;
+                            for (k3 = l2; k3 < i3; ++k3) {
+                                double d13 = ((double) (k3 + k * 16) + 0.5D - d2) / d6;
+                                int j4 = (j3 * 16 + k3) * this.d.height + k2;
                                 boolean flag3 = false;
 
                                 if (d12 * d12 + d13 * d13 < 1.0D) {
-                                    for (int l4 = k2 - 1; l4 >= j2; --l4) {
-                                        double d14 = ((double) l4 + 0.5D - d1) / d7;
+                                    for (int k4 = k2 - 1; k4 >= j2; --k4) {
+                                        double d14 = ((double) k4 + 0.5D - d1) / d7;
 
                                         if (d14 > -0.7D && d12 * d12 + d14 * d14 + d13 * d13 < 1.0D) {
-                                            byte b0 = abyte[k4];
+                                            byte b0 = abyte[j4];
 
                                             if (b0 == Block.GRASS.id) {
                                                 flag3 = true;
                                             }
 
                                             if (b0 == Block.STONE.id || b0 == Block.DIRT.id || b0 == Block.GRASS.id) {
-                                                if (l4 < 10) {
-                                                    abyte[k4] = (byte) Block.LAVA.id;
+                                                if (k4 < 10) {
+                                                    abyte[j4] = (byte) Block.LAVA.id;
                                                 } else {
-                                                    abyte[k4] = 0;
-                                                    if (flag3 && abyte[k4 - 1] == Block.DIRT.id) {
-                                                        abyte[k4 - 1] = (byte) Block.GRASS.id;
+                                                    abyte[j4] = 0;
+                                                    if (flag3 && abyte[j4 - 1] == Block.DIRT.id) {
+                                                        abyte[j4 - 1] = this.d.getWorldChunkManager().getBiome(j3 + j * 16, k3 + k * 16).t;
                                                     }
                                                 }
                                             }
                                         }
 
-                                        --k4;
+                                        --j4;
                                     }
                                 }
                             }
@@ -190,11 +179,7 @@ public class MapGenCaves extends MapGenBase {
 
         for (int j1 = 0; j1 < i1; ++j1) {
             double d0 = (double) (i * 16 + this.c.nextInt(16));
-            Random random = this.c;
-            Random random1 = this.c;
-
-            world.getClass();
-            double d1 = (double) random.nextInt(random1.nextInt(128 - 8) + 8);
+            double d1 = (double) this.c.nextInt(this.c.nextInt(world.height - 8) + 8);
             double d2 = (double) (j * 16 + this.c.nextInt(16));
             int k1 = 1;
 

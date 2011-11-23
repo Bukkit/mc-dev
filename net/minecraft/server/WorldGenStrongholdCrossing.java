@@ -19,25 +19,33 @@ public class WorldGenStrongholdCrossing extends WorldGenStrongholdPiece {
         this.b = random.nextBoolean();
         this.c = random.nextBoolean();
         this.d = random.nextBoolean();
-        this.e = random.nextBoolean();
+        this.e = random.nextInt(3) > 0;
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
+        int i = 3;
+        int j = 5;
+
+        if (this.h == 1 || this.h == 2) {
+            i = 8 - i;
+            j = 8 - j;
+        }
+
         this.a((WorldGenStrongholdStairs2) structurepiece, list, random, 5, 1);
         if (this.b) {
-            this.b((WorldGenStrongholdStairs2) structurepiece, list, random, 3, 1);
+            this.b((WorldGenStrongholdStairs2) structurepiece, list, random, i, 1);
         }
 
         if (this.c) {
-            this.b((WorldGenStrongholdStairs2) structurepiece, list, random, 5, 7);
+            this.b((WorldGenStrongholdStairs2) structurepiece, list, random, j, 7);
         }
 
         if (this.d) {
-            this.c((WorldGenStrongholdStairs2) structurepiece, list, random, 3, 1);
+            this.c((WorldGenStrongholdStairs2) structurepiece, list, random, i, 1);
         }
 
         if (this.e) {
-            this.c((WorldGenStrongholdStairs2) structurepiece, list, random, 5, 7);
+            this.c((WorldGenStrongholdStairs2) structurepiece, list, random, j, 7);
         }
     }
 

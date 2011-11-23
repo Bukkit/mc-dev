@@ -26,21 +26,18 @@ public class ChunkCache implements IBlockAccess {
     public int getTypeId(int i, int j, int k) {
         if (j < 0) {
             return 0;
+        } else if (j >= this.d.height) {
+            return 0;
         } else {
+            int l = (i >> 4) - this.a;
+            int i1 = (k >> 4) - this.b;
 
-            if (j >= 128) {
-                return 0;
+            if (l >= 0 && l < this.c.length && i1 >= 0 && i1 < this.c[l].length) {
+                Chunk chunk = this.c[l][i1];
+
+                return chunk == null ? 0 : chunk.getTypeId(i & 15, j, k & 15);
             } else {
-                int l = (i >> 4) - this.a;
-                int i1 = (k >> 4) - this.b;
-
-                if (l >= 0 && l < this.c.length && i1 >= 0 && i1 < this.c[l].length) {
-                    Chunk chunk = this.c[l][i1];
-
-                    return chunk == null ? 0 : chunk.getTypeId(i & 15, j, k & 15);
-                } else {
-                    return 0;
-                }
+                return 0;
             }
         }
     }
@@ -55,16 +52,13 @@ public class ChunkCache implements IBlockAccess {
     public int getData(int i, int j, int k) {
         if (j < 0) {
             return 0;
+        } else if (j >= this.d.height) {
+            return 0;
         } else {
+            int l = (i >> 4) - this.a;
+            int i1 = (k >> 4) - this.b;
 
-            if (j >= 128) {
-                return 0;
-            } else {
-                int l = (i >> 4) - this.a;
-                int i1 = (k >> 4) - this.b;
-
-                return this.c[l][i1].getData(i & 15, j, k & 15);
-            }
+            return this.c[l][i1].getData(i & 15, j, k & 15);
         }
     }
 

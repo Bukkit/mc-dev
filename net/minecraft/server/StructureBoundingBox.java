@@ -103,6 +103,18 @@ public class StructureBoundingBox {
         return this.f - this.c + 1;
     }
 
+    public int e() {
+        return this.a + (this.d - this.a + 1) / 2;
+    }
+
+    public int f() {
+        return this.b + (this.e - this.b + 1) / 2;
+    }
+
+    public int g() {
+        return this.c + (this.f - this.c + 1) / 2;
+    }
+
     public String toString() {
         return "(" + this.a + ", " + this.b + ", " + this.c + "; " + this.d + ", " + this.e + ", " + this.f + ")";
     }

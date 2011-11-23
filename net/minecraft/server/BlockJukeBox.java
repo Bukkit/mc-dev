@@ -39,7 +39,7 @@ public class BlockJukeBox extends BlockContainer {
                 int l = tileentityrecordplayer.a;
 
                 if (l != 0) {
-                    world.e(1005, i, j, k, 0);
+                    world.f(1005, i, j, k, 0);
                     world.a((String) null, i, j, k);
                     tileentityrecordplayer.a = 0;
                     tileentityrecordplayer.update();
@@ -62,9 +62,9 @@ public class BlockJukeBox extends BlockContainer {
         super.remove(world, i, j, k);
     }
 
-    public void dropNaturally(World world, int i, int j, int k, int l, float f) {
+    public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
         if (!world.isStatic) {
-            super.dropNaturally(world, i, j, k, l, f);
+            super.dropNaturally(world, i, j, k, l, f, 0);
         }
     }
 

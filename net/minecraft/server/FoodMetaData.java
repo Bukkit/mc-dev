@@ -16,7 +16,7 @@ public class FoodMetaData {
     }
 
     public void a(ItemFood itemfood) {
-        this.a(itemfood.k(), itemfood.l());
+        this.a(itemfood.n(), itemfood.o());
     }
 
     public void a(EntityHuman entityhuman) {
@@ -32,16 +32,16 @@ public class FoodMetaData {
             }
         }
 
-        if (this.foodLevel >= 18 && entityhuman.W()) {
+        if (this.foodLevel >= 18 && entityhuman.ab()) {
             ++this.foodTickTimer;
             if (this.foodTickTimer >= 80) {
-                entityhuman.c(1);
+                entityhuman.d(1);
                 this.foodTickTimer = 0;
             }
         } else if (this.foodLevel <= 0) {
             ++this.foodTickTimer;
             if (this.foodTickTimer >= 80) {
-                if (entityhuman.health > 10 || i >= 3 || entityhuman.health > 1 && i >= 2) {
+                if (entityhuman.getHealth() > 10 || i >= 3 || entityhuman.getHealth() > 1 && i >= 2) {
                     entityhuman.damageEntity(DamageSource.STARVE, 1);
                 }
 
@@ -54,10 +54,10 @@ public class FoodMetaData {
 
     public void a(NBTTagCompound nbttagcompound) {
         if (nbttagcompound.hasKey("foodLevel")) {
-            this.foodLevel = nbttagcompound.e("foodLevel");
-            this.foodTickTimer = nbttagcompound.e("foodTickTimer");
-            this.saturationLevel = nbttagcompound.g("foodSaturationLevel");
-            this.exhaustionLevel = nbttagcompound.g("foodExhaustionLevel");
+            this.foodLevel = nbttagcompound.f("foodLevel");
+            this.foodTickTimer = nbttagcompound.f("foodTickTimer");
+            this.saturationLevel = nbttagcompound.h("foodSaturationLevel");
+            this.exhaustionLevel = nbttagcompound.h("foodExhaustionLevel");
         }
     }
 

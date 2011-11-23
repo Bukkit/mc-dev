@@ -105,7 +105,7 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
             }
         }
 
-        if (i < 10) {
+        if (i < 8) {
             int k;
             int l;
 
@@ -176,7 +176,7 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
                 }
 
                 if (this.b && !this.c) {
-                    int l = this.a(0);
+                    int l = this.b(0);
                     int i1 = k - 1 + random.nextInt(3);
                     int j1 = this.a(1, i1);
 

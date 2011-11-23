@@ -13,7 +13,7 @@ public abstract class BlockFluids extends Block {
         this.a(true);
     }
 
-    public static float c(int i) {
+    public static float d(int i) {
         if (i >= 8) {
             i = 0;
         }
@@ -67,7 +67,11 @@ public abstract class BlockFluids extends Block {
         return null;
     }
 
-    public int a(int i, Random random) {
+    public int c() {
+        return 4;
+    }
+
+    public int a(int i, Random random, int j) {
         return 0;
     }
 
@@ -168,7 +172,7 @@ public abstract class BlockFluids extends Block {
         vec3d.c += vec3d1.c;
     }
 
-    public int c() {
+    public int d() {
         return this.material == Material.WATER ? 5 : (this.material == Material.LAVA ? 30 : 0);
     }
 

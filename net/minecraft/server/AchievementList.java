@@ -27,6 +27,16 @@ public class AchievementList {
     public static Achievement t = (new Achievement(14, "killCow", 7, -3, Item.LEATHER, r)).c();
     public static Achievement u = (new Achievement(15, "flyPig", 8, -4, Item.SADDLE, t)).b().c();
     public static Achievement v = (new Achievement(16, "snipeSkeleton", 7, 0, Item.BOW, s)).b().c();
+    public static Achievement w = (new Achievement(17, "diamonds", -1, 5, Item.DIAMOND, k)).c();
+    public static Achievement x = (new Achievement(18, "portal", -1, 7, Block.OBSIDIAN, w)).c();
+    public static Achievement y = (new Achievement(19, "ghast", -4, 8, Item.GHAST_TEAR, x)).b().c();
+    public static Achievement z = (new Achievement(20, "blazeRod", 0, 9, Item.BLAZE_ROD, x)).c();
+    public static Achievement A = (new Achievement(21, "potion", 2, 8, Item.POTION, z)).c();
+    public static Achievement B = (new Achievement(22, "theEnd", 3, 10, Item.EYE_OF_ENDER, z)).b().c();
+    public static Achievement C = (new Achievement(23, "theEnd2", 4, 13, Block.DRAGON_EGG, B)).b().c();
+    public static Achievement D = (new Achievement(24, "enchantments", -4, 4, Block.ENCHANTMENT_TABLE, w)).c();
+    public static Achievement E = (new Achievement(25, "overkill", -4, 1, Item.DIAMOND_SWORD, D)).b().c();
+    public static Achievement F = (new Achievement(26, "bookcase", -3, 6, Block.BOOKSHELF, D)).c();
 
     public AchievementList() {}
 

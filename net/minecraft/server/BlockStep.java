@@ -12,9 +12,11 @@ public class BlockStep extends Block {
         this.b = flag;
         if (!flag) {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+        } else {
+            o[i] = true;
         }
 
-        this.f(255);
+        this.g(255);
     }
 
     public int a(int i, int j) {
@@ -29,24 +31,9 @@ public class BlockStep extends Block {
         return this.b;
     }
 
-    public void a(World world, int i, int j, int k) {
-        if (this != Block.STEP) {
-            super.a(world, i, j, k);
-        }
+    public void a(World world, int i, int j, int k) {}
 
-        int l = world.getTypeId(i, j - 1, k);
-        int i1 = world.getData(i, j, k);
-        int j1 = world.getData(i, j - 1, k);
-
-        if (i1 == j1) {
-            if (l == STEP.id) {
-                world.setTypeId(i, j, k, 0);
-                world.setTypeIdAndData(i, j - 1, k, Block.DOUBLE_STEP.id, i1);
-            }
-        }
-    }
-
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return Block.STEP.id;
     }
 
@@ -54,11 +41,15 @@ public class BlockStep extends Block {
         return this.b ? 2 : 1;
     }
 
-    protected int a_(int i) {
+    protected int c(int i) {
         return i;
     }
 
     public boolean b() {
         return this.b;
+    }
+
+    protected ItemStack a_(int i) {
+        return new ItemStack(Block.STEP.id, 1, i);
     }
 }

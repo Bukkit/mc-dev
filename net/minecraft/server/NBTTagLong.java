@@ -7,9 +7,12 @@ public class NBTTagLong extends NBTBase {
 
     public long a;
 
-    public NBTTagLong() {}
+    public NBTTagLong(String s) {
+        super(s);
+    }
 
-    public NBTTagLong(long i) {
+    public NBTTagLong(String s, long i) {
+        super(s);
         this.a = i;
     }
 
@@ -27,5 +30,19 @@ public class NBTTagLong extends NBTBase {
 
     public String toString() {
         return "" + this.a;
+    }
+
+    public NBTBase b() {
+        return new NBTTagLong(this.c(), this.a);
+    }
+
+    public boolean equals(Object object) {
+        if (super.equals(object)) {
+            NBTTagLong nbttaglong = (NBTTagLong) object;
+
+            return this.a == nbttaglong.a;
+        } else {
+            return false;
+        }
     }
 }

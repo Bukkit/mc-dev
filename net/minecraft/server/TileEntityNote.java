@@ -14,7 +14,7 @@ public class TileEntityNote extends TileEntity {
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.note = nbttagcompound.c("note");
+        this.note = nbttagcompound.d("note");
         if (this.note < 0) {
             this.note = 0;
         }
@@ -24,7 +24,7 @@ public class TileEntityNote extends TileEntity {
         }
     }
 
-    public void a() {
+    public void c() {
         this.note = (byte) ((this.note + 1) % 25);
         this.update();
     }

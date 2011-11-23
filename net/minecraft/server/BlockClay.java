@@ -8,7 +8,7 @@ public class BlockClay extends Block {
         super(i, j, Material.CLAY);
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return Item.CLAY_BALL.id;
     }
 

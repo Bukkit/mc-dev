@@ -52,7 +52,7 @@ public class RegionFileCache {
                 RegionFile regionfile = (RegionFile) reference.get();
 
                 if (regionfile != null) {
-                    regionfile.b();
+                    regionfile.a();
                 }
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
@@ -62,19 +62,13 @@ public class RegionFileCache {
         a.clear();
     }
 
-    public static int b(File file1, int i, int j) {
-        RegionFile regionfile = a(file1, i, j);
-
-        return regionfile.a();
-    }
-
-    public static DataInputStream c(File file1, int i, int j) {
+    public static DataInputStream b(File file1, int i, int j) {
         RegionFile regionfile = a(file1, i, j);
 
         return regionfile.a(i & 31, j & 31);
     }
 
-    public static DataOutputStream d(File file1, int i, int j) {
+    public static DataOutputStream c(File file1, int i, int j) {
         RegionFile regionfile = a(file1, i, j);
 
         return regionfile.b(i & 31, j & 31);

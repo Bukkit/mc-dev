@@ -27,19 +27,20 @@ public class Material {
     public static final Material CACTUS = (new Material(MaterialMapColor.i)).o().m();
     public static final Material CLAY = new Material(MaterialMapColor.k);
     public static final Material PUMPKIN = (new Material(MaterialMapColor.i)).m();
+    public static final Material DRAGON_EGG = (new Material(MaterialMapColor.i)).m();
     public static final Material PORTAL = (new MaterialPortal(MaterialMapColor.b)).n();
     public static final Material CAKE = (new Material(MaterialMapColor.b)).m();
     public static final Material WEB = (new MaterialWeb(MaterialMapColor.e)).e().m();
     public static final Material PISTON = (new Material(MaterialMapColor.m)).n();
     private boolean canBurn;
-    private boolean F;
     private boolean G;
-    public final MaterialMapColor D;
-    private boolean H = true;
-    private int I;
+    private boolean H;
+    public final MaterialMapColor E;
+    private boolean I = true;
+    private int J;
 
     public Material(MaterialMapColor materialmapcolor) {
-        this.D = materialmapcolor;
+        this.E = materialmapcolor;
     }
 
     public boolean isLiquid() {
@@ -59,12 +60,12 @@ public class Material {
     }
 
     private Material o() {
-        this.G = true;
+        this.H = true;
         return this;
     }
 
     protected Material e() {
-        this.H = false;
+        this.I = false;
         return this;
     }
 
@@ -78,33 +79,33 @@ public class Material {
     }
 
     public Material h() {
-        this.F = true;
+        this.G = true;
         return this;
     }
 
     public boolean isReplacable() {
-        return this.F;
+        return this.G;
     }
 
     public boolean j() {
-        return this.G ? false : this.isSolid();
+        return this.H ? false : this.isSolid();
     }
 
     public boolean k() {
-        return this.H;
-    }
-
-    public int l() {
         return this.I;
     }
 
+    public int l() {
+        return this.J;
+    }
+
     protected Material m() {
-        this.I = 1;
+        this.J = 1;
         return this;
     }
 
     protected Material n() {
-        this.I = 2;
+        this.J = 2;
         return this;
     }
 }

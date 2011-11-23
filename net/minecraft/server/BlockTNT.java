@@ -52,7 +52,7 @@ public class BlockTNT extends Block {
     }
 
     public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (entityhuman.K() != null && entityhuman.K().id == Item.FLINT_AND_STEEL.id) {
+        if (entityhuman.P() != null && entityhuman.P().id == Item.FLINT_AND_STEEL.id) {
             world.setRawData(i, j, k, 1);
         }
 
@@ -61,5 +61,9 @@ public class BlockTNT extends Block {
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
         return super.interact(world, i, j, k, entityhuman);
+    }
+
+    protected ItemStack a_(int i) {
+        return null;
     }
 }

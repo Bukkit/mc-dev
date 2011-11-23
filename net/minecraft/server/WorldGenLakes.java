@@ -84,7 +84,13 @@ public class WorldGenLakes extends WorldGenerator {
             for (i2 = 0; i2 < 16; ++i2) {
                 for (j2 = 4; j2 < 8; ++j2) {
                     if (aboolean[(i1 * 16 + i2) * 8 + j2] && world.getTypeId(i + i1, j + j2 - 1, k + i2) == Block.DIRT.id && world.a(EnumSkyBlock.SKY, i + i1, j + j2, k + i2) > 0) {
-                        world.setRawTypeId(i + i1, j + j2 - 1, k + i2, Block.GRASS.id);
+                        BiomeBase biomebase = world.getWorldChunkManager().getBiome(i + i1, k + i2);
+
+                        if (biomebase.t == Block.MYCEL.id) {
+                            world.setRawTypeId(i + i1, j + j2 - 1, k + i2, Block.MYCEL.id);
+                        } else {
+                            world.setRawTypeId(i + i1, j + j2 - 1, k + i2, Block.GRASS.id);
+                        }
                     }
                 }
             }
@@ -98,6 +104,18 @@ public class WorldGenLakes extends WorldGenerator {
                         if (flag && (j2 < 4 || random.nextInt(2) != 0) && world.getMaterial(i + i1, j + j2, k + i2).isBuildable()) {
                             world.setRawTypeId(i + i1, j + j2, k + i2, Block.STONE.id);
                         }
+                    }
+                }
+            }
+        }
+
+        if (Block.byId[this.a].material == Material.WATER) {
+            for (i1 = 0; i1 < 16; ++i1) {
+                for (i2 = 0; i2 < 16; ++i2) {
+                    byte b0 = 4;
+
+                    if (world.p(i + i1, j + b0, k + i2)) {
+                        world.setRawTypeId(i + i1, j + b0, k + i2, Block.ICE.id);
                     }
                 }
             }

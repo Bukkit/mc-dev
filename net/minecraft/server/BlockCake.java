@@ -18,6 +18,13 @@ public class BlockCake extends Block {
         this.a(f1, 0.0F, f, 1.0F - f, f2, 1.0F - f);
     }
 
+    public void f() {
+        float f = 0.0625F;
+        float f1 = 0.5F;
+
+        this.a(f, 0.0F, f, 1.0F - f, f1, 1.0F - f);
+    }
+
     public AxisAlignedBB e(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
         float f = 0.0625F;
@@ -53,7 +60,7 @@ public class BlockCake extends Block {
     }
 
     private void c(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (entityhuman.c(false)) {
+        if (entityhuman.b(false)) {
             entityhuman.getFoodData().a(2, 0.1F);
             int l = world.getData(i, j, k) + 1;
 
@@ -72,7 +79,7 @@ public class BlockCake extends Block {
 
     public void doPhysics(World world, int i, int j, int k, int l) {
         if (!this.f(world, i, j, k)) {
-            this.g(world, i, j, k, world.getData(i, j, k));
+            this.b(world, i, j, k, world.getData(i, j, k), 0);
             world.setTypeId(i, j, k, 0);
         }
     }
@@ -85,7 +92,7 @@ public class BlockCake extends Block {
         return 0;
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return 0;
     }
 }

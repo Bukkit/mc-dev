@@ -88,7 +88,7 @@ public class StatisticList {
                 Integer integer = (Integer) iterator.next();
 
                 if (Item.byId[integer.intValue()] != null) {
-                    String s = StatisticCollector.a("stat.craftItem", new Object[] { Item.byId[integer.intValue()].j()});
+                    String s = StatisticCollector.a("stat.craftItem", new Object[] { Item.byId[integer.intValue()].k()});
 
                     D[integer.intValue()] = (new CraftingStatistic(16842752 + integer.intValue(), s, integer.intValue())).d();
                 }
@@ -102,8 +102,8 @@ public class StatisticList {
         Statistic[] astatistic = new Statistic[256];
 
         for (int j = 0; j < 256; ++j) {
-            if (Block.byId[j] != null && Block.byId[j].m()) {
-                String s1 = StatisticCollector.a(s, new Object[] { Block.byId[j].k()});
+            if (Block.byId[j] != null && Block.byId[j].o()) {
+                String s1 = StatisticCollector.a(s, new Object[] { Block.byId[j].m()});
 
                 astatistic[j] = (new CraftingStatistic(i + j, s1, j)).d();
                 e.add((CraftingStatistic) astatistic[j]);
@@ -121,7 +121,7 @@ public class StatisticList {
 
         for (int l = j; l < k; ++l) {
             if (Item.byId[l] != null) {
-                String s1 = StatisticCollector.a(s, new Object[] { Item.byId[l].j()});
+                String s1 = StatisticCollector.a(s, new Object[] { Item.byId[l].k()});
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).d();
                 if (l >= Block.byId.length) {
@@ -140,8 +140,8 @@ public class StatisticList {
         }
 
         for (int l = j; l < k; ++l) {
-            if (Item.byId[l] != null && Item.byId[l].f()) {
-                String s1 = StatisticCollector.a(s, new Object[] { Item.byId[l].j()});
+            if (Item.byId[l] != null && Item.byId[l].g()) {
+                String s1 = StatisticCollector.a(s, new Object[] { Item.byId[l].k()});
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).d();
             }

@@ -105,6 +105,11 @@ public class WorldGenVillageButcher extends WorldGenVillagePiece {
             }
         }
 
+        this.a(world, structureboundingbox, 4, 1, 2, 2);
         return true;
+    }
+
+    protected int a(int i) {
+        return i == 0 ? 4 : 0;
     }
 }

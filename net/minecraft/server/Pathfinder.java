@@ -181,7 +181,7 @@ public class Pathfinder {
                         } else {
                             int l1 = this.a.getData(l, i1, j1);
 
-                            if (!BlockDoor.e(l1)) {
+                            if (!BlockDoor.f(l1)) {
                                 return 0;
                             }
                         }

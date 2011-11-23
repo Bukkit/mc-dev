@@ -21,12 +21,22 @@ public class BlockTorch extends Block {
         return false;
     }
 
+    public int c() {
+        return 2;
+    }
+
     private boolean g(World world, int i, int j, int k) {
-        return world.e(i, j, k) || world.getTypeId(i, j, k) == Block.FENCE.id;
+        if (world.b(i, j, k, true)) {
+            return true;
+        } else {
+            int l = world.getTypeId(i, j, k);
+
+            return l == Block.FENCE.id || l == Block.NETHER_FENCE.id;
+        }
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return world.e(i - 1, j, k) ? true : (world.e(i + 1, j, k) ? true : (world.e(i, j, k - 1) ? true : (world.e(i, j, k + 1) ? true : this.g(world, i, j - 1, k))));
+        return world.b(i - 1, j, k, true) ? true : (world.b(i + 1, j, k, true) ? true : (world.b(i, j, k - 1, true) ? true : (world.b(i, j, k + 1, true) ? true : this.g(world, i, j - 1, k))));
     }
 
     public void postPlace(World world, int i, int j, int k, int l) {
@@ -36,19 +46,19 @@ public class BlockTorch extends Block {
             i1 = 5;
         }
 
-        if (l == 2 && world.e(i, j, k + 1)) {
+        if (l == 2 && world.b(i, j, k + 1, true)) {
             i1 = 4;
         }
 
-        if (l == 3 && world.e(i, j, k - 1)) {
+        if (l == 3 && world.b(i, j, k - 1, true)) {
             i1 = 3;
         }
 
-        if (l == 4 && world.e(i + 1, j, k)) {
+        if (l == 4 && world.b(i + 1, j, k, true)) {
             i1 = 2;
         }
 
-        if (l == 5 && world.e(i - 1, j, k)) {
+        if (l == 5 && world.b(i - 1, j, k, true)) {
             i1 = 1;
         }
 
@@ -63,13 +73,13 @@ public class BlockTorch extends Block {
     }
 
     public void a(World world, int i, int j, int k) {
-        if (world.e(i - 1, j, k)) {
+        if (world.b(i - 1, j, k, true)) {
             world.setData(i, j, k, 1);
-        } else if (world.e(i + 1, j, k)) {
+        } else if (world.b(i + 1, j, k, true)) {
             world.setData(i, j, k, 2);
-        } else if (world.e(i, j, k - 1)) {
+        } else if (world.b(i, j, k - 1, true)) {
             world.setData(i, j, k, 3);
-        } else if (world.e(i, j, k + 1)) {
+        } else if (world.b(i, j, k + 1, true)) {
             world.setData(i, j, k, 4);
         } else if (this.g(world, i, j - 1, k)) {
             world.setData(i, j, k, 5);
@@ -83,19 +93,19 @@ public class BlockTorch extends Block {
             int i1 = world.getData(i, j, k);
             boolean flag = false;
 
-            if (!world.e(i - 1, j, k) && i1 == 1) {
+            if (!world.b(i - 1, j, k, true) && i1 == 1) {
                 flag = true;
             }
 
-            if (!world.e(i + 1, j, k) && i1 == 2) {
+            if (!world.b(i + 1, j, k, true) && i1 == 2) {
                 flag = true;
             }
 
-            if (!world.e(i, j, k - 1) && i1 == 3) {
+            if (!world.b(i, j, k - 1, true) && i1 == 3) {
                 flag = true;
             }
 
-            if (!world.e(i, j, k + 1) && i1 == 4) {
+            if (!world.b(i, j, k + 1, true) && i1 == 4) {
                 flag = true;
             }
 
@@ -104,7 +114,7 @@ public class BlockTorch extends Block {
             }
 
             if (flag) {
-                this.g(world, i, j, k, world.getData(i, j, k));
+                this.b(world, i, j, k, world.getData(i, j, k), 0);
                 world.setTypeId(i, j, k, 0);
             }
         }
@@ -112,8 +122,11 @@ public class BlockTorch extends Block {
 
     private boolean h(World world, int i, int j, int k) {
         if (!this.canPlace(world, i, j, k)) {
-            this.g(world, i, j, k, world.getData(i, j, k));
-            world.setTypeId(i, j, k, 0);
+            if (world.getTypeId(i, j, k) == this.id) {
+                this.b(world, i, j, k, world.getData(i, j, k), 0);
+                world.setTypeId(i, j, k, 0);
+            }
+
             return false;
         } else {
             return true;

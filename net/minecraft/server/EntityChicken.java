@@ -14,12 +14,15 @@ public class EntityChicken extends EntityAnimal {
         super(world);
         this.texture = "/mob/chicken.png";
         this.b(0.3F, 0.7F);
-        this.health = 4;
         this.j = this.random.nextInt(6000) + 6000;
     }
 
-    public void s() {
-        super.s();
+    public int getMaxHealth() {
+        return 4;
+    }
+
+    public void d() {
+        super.d();
         this.h = this.b;
         this.g = this.c;
         this.c = (float) ((double) this.c + (double) (this.onGround ? -1 : 4) * 0.3D);
@@ -41,14 +44,14 @@ public class EntityChicken extends EntityAnimal {
         }
 
         this.b += this.i * 2.0F;
-        if (!this.world.isStatic && --this.j <= 0) {
+        if (!this.l() && !this.world.isStatic && --this.j <= 0) {
             this.world.makeSound(this, "mob.chickenplop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             this.b(Item.EGG.id, 1);
             this.j = this.random.nextInt(6000) + 6000;
         }
     }
 
-    protected void a(float f) {}
+    protected void b(float f) {}
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
@@ -58,33 +61,37 @@ public class EntityChicken extends EntityAnimal {
         super.a(nbttagcompound);
     }
 
-    protected String h() {
+    protected String c_() {
         return "mob.chicken";
     }
 
-    protected String i() {
+    protected String m() {
         return "mob.chickenhurt";
     }
 
-    protected String j() {
+    protected String n() {
         return "mob.chickenhurt";
     }
 
-    protected int k() {
+    protected int e() {
         return Item.FEATHER.id;
     }
 
-    protected void a(boolean flag) {
-        int i = this.random.nextInt(3);
+    protected void a(boolean flag, int i) {
+        int j = this.random.nextInt(3) + this.random.nextInt(1 + i);
 
-        for (int j = 0; j < i; ++j) {
+        for (int k = 0; k < j; ++k) {
             this.b(Item.FEATHER.id, 1);
         }
 
-        if (this.fireTicks > 0) {
+        if (this.z()) {
             this.b(Item.COOKED_CHICKEN.id, 1);
         } else {
             this.b(Item.RAW_CHICKEN.id, 1);
         }
+    }
+
+    protected EntityAnimal createChild(EntityAnimal entityanimal) {
+        return new EntityChicken(this.world);
     }
 }

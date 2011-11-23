@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -32,8 +33,11 @@ public class WorldLoaderServer extends WorldLoader {
         ArrayList arraylist1 = new ArrayList();
         ArrayList arraylist2 = new ArrayList();
         ArrayList arraylist3 = new ArrayList();
+        ArrayList arraylist4 = new ArrayList();
+        ArrayList arraylist5 = new ArrayList();
         File file1 = new File(this.a, s);
         File file2 = new File(file1, "DIM-1");
+        File file3 = new File(file1, "DIM1");
 
         System.out.println("Scanning folders...");
         this.a(file1, arraylist, arraylist1);
@@ -41,11 +45,16 @@ public class WorldLoaderServer extends WorldLoader {
             this.a(file2, arraylist2, arraylist3);
         }
 
-        int i = arraylist.size() + arraylist2.size() + arraylist1.size() + arraylist3.size();
+        if (file3.exists()) {
+            this.a(file3, arraylist4, arraylist5);
+        }
+
+        int i = arraylist.size() + arraylist2.size() + arraylist4.size() + arraylist1.size() + arraylist3.size() + arraylist5.size();
 
         System.out.println("Total conversion count is " + i);
         this.a(file1, arraylist, 0, i, iprogressupdate);
         this.a(file2, arraylist2, arraylist.size(), i, iprogressupdate);
+        this.a(file3, arraylist4, arraylist.size() + arraylist2.size(), i, iprogressupdate);
         WorldData worlddata = this.b(s);
 
         worlddata.a(19132);
@@ -103,7 +112,7 @@ public class WorldLoaderServer extends WorldLoader {
 
             if (!regionfile.c(k & 31, l & 31)) {
                 try {
-                    DataInputStream datainputstream = new DataInputStream(new GZIPInputStream(new FileInputStream(chunkfile.a())));
+                    DataInputStream datainputstream = new DataInputStream(new BufferedInputStream(new GZIPInputStream(new FileInputStream(chunkfile.a()))));
                     DataOutputStream dataoutputstream = regionfile.b(k & 31, l & 31);
                     boolean flag = false;
 

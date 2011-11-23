@@ -10,11 +10,11 @@ public class Packet131 extends Packet {
     public byte[] c;
 
     public Packet131() {
-        this.k = true;
+        this.l = true;
     }
 
     public Packet131(short short1, short short2, byte[] abyte) {
-        this.k = true;
+        this.l = true;
         this.a = short1;
         this.b = short2;
         this.c = abyte;

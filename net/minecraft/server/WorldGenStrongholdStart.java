@@ -12,7 +12,7 @@ class WorldGenStrongholdStart extends StructureStart {
 
         this.a.add(worldgenstrongholdstairs2);
         worldgenstrongholdstairs2.a(worldgenstrongholdstairs2, this.a, random);
-        ArrayList arraylist = worldgenstrongholdstairs2.b;
+        ArrayList arraylist = worldgenstrongholdstairs2.c;
 
         while (!arraylist.isEmpty()) {
             int k = random.nextInt(arraylist.size());
@@ -21,7 +21,7 @@ class WorldGenStrongholdStart extends StructureStart {
             structurepiece.a((StructurePiece) worldgenstrongholdstairs2, (List) this.a, random);
         }
 
-        this.c();
+        this.d();
         this.a(world, random, 10);
     }
 }

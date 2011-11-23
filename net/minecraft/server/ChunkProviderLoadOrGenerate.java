@@ -18,11 +18,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     private int h;
 
     public ChunkProviderLoadOrGenerate(World world, IChunkLoader ichunkloader, IChunkProvider ichunkprovider) {
-
-        world.getClass();
-        EmptyChunk emptychunk = new EmptyChunk(world, new byte[256 * 128], 0, 0);
-
-        this.b = emptychunk;
+        this.b = new EmptyChunk(world, new byte[256 * world.height], 0, 0);
         this.g = world;
         this.d = ichunkloader;
         this.c = ichunkprovider;
@@ -207,5 +203,13 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
 
     public boolean canSave() {
         return true;
+    }
+
+    public List a(EnumCreatureType enumcreaturetype, int i, int j, int k) {
+        return this.c.a(enumcreaturetype, i, j, k);
+    }
+
+    public ChunkPosition a(World world, String s, int i, int j, int k) {
+        return this.c.a(world, s, i, j, k);
     }
 }

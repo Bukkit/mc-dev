@@ -1,5 +1,8 @@
 package net.minecraft.server;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutput;
@@ -15,7 +18,7 @@ public class CompressedStreamTools {
     public CompressedStreamTools() {}
 
     public static NBTTagCompound a(InputStream inputstream) {
-        DataInputStream datainputstream = new DataInputStream(new GZIPInputStream(inputstream));
+        DataInputStream datainputstream = new DataInputStream(new BufferedInputStream(new GZIPInputStream(inputstream)));
 
         NBTTagCompound nbttagcompound;
 
@@ -36,6 +39,33 @@ public class CompressedStreamTools {
         } finally {
             dataoutputstream.close();
         }
+    }
+
+    public static NBTTagCompound a(byte[] abyte) {
+        DataInputStream datainputstream = new DataInputStream(new BufferedInputStream(new GZIPInputStream(new ByteArrayInputStream(abyte))));
+
+        NBTTagCompound nbttagcompound;
+
+        try {
+            nbttagcompound = a((DataInput) datainputstream);
+        } finally {
+            datainputstream.close();
+        }
+
+        return nbttagcompound;
+    }
+
+    public static byte[] a(NBTTagCompound nbttagcompound) {
+        ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
+        DataOutputStream dataoutputstream = new DataOutputStream(new GZIPOutputStream(bytearrayoutputstream));
+
+        try {
+            a(nbttagcompound, (DataOutput) dataoutputstream);
+        } finally {
+            dataoutputstream.close();
+        }
+
+        return bytearrayoutputstream.toByteArray();
     }
 
     public static NBTTagCompound a(DataInput datainput) {

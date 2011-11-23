@@ -17,7 +17,17 @@ public class GenLayerBiome extends GenLayer {
         for (int i1 = 0; i1 < l; ++i1) {
             for (int j1 = 0; j1 < k; ++j1) {
                 this.a((long) (j1 + i), (long) (i1 + j));
-                aint1[j1 + i1 * k] = aint[j1 + i1 * k] > 0 ? this.b[this.a(this.b.length)].y : 0;
+                int k1 = aint[j1 + i1 * k];
+
+                if (k1 == 0) {
+                    aint1[j1 + i1 * k] = 0;
+                } else if (k1 == BiomeBase.MUSHROOM_ISLAND.F) {
+                    aint1[j1 + i1 * k] = k1;
+                } else if (k1 == 1) {
+                    aint1[j1 + i1 * k] = this.b[this.a(this.b.length)].F;
+                } else {
+                    aint1[j1 + i1 * k] = BiomeBase.ICE_PLAINS.F;
+                }
             }
         }
 

@@ -29,7 +29,7 @@ public class WorldLoader implements Convertable {
             if (file2.exists()) {
                 try {
                     nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file2)));
-                    nbttagcompound1 = nbttagcompound.k("Data");
+                    nbttagcompound1 = nbttagcompound.l("Data");
                     return new WorldData(nbttagcompound1);
                 } catch (Exception exception) {
                     exception.printStackTrace();
@@ -40,7 +40,7 @@ public class WorldLoader implements Convertable {
             if (file2.exists()) {
                 try {
                     nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file2)));
-                    nbttagcompound1 = nbttagcompound.k("Data");
+                    nbttagcompound1 = nbttagcompound.l("Data");
                     return new WorldData(nbttagcompound1);
                 } catch (Exception exception1) {
                     exception1.printStackTrace();
@@ -54,6 +54,7 @@ public class WorldLoader implements Convertable {
     protected static void a(File[] afile) {
         for (int i = 0; i < afile.length; ++i) {
             if (afile[i].isDirectory()) {
+                System.out.println("Deleting " + afile[i]);
                 a(afile[i].listFiles());
             }
 

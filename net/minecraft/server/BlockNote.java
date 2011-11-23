@@ -11,8 +11,8 @@ public class BlockNote extends BlockContainer {
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        if (l > 0 && Block.byId[l].isPowerSource()) {
-            boolean flag = world.isBlockPowered(i, j, k);
+        if (l > 0) {
+            boolean flag = world.isBlockIndirectlyPowered(i, j, k);
             TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 
             if (tileentitynote != null && tileentitynote.b != flag) {
@@ -32,7 +32,7 @@ public class BlockNote extends BlockContainer {
             TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 
             if (tileentitynote != null) {
-                tileentitynote.a();
+                tileentitynote.c();
                 tileentitynote.play(world, i, j, k);
             }
 

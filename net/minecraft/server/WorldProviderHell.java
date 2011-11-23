@@ -12,7 +12,7 @@ public class WorldProviderHell extends WorldProvider {
         this.dimension = -1;
     }
 
-    protected void c() {
+    protected void e() {
         float f = 0.1F;
 
         for (int i = 0; i <= 15; ++i) {
@@ -36,7 +36,7 @@ public class WorldProviderHell extends WorldProvider {
         return 0.5F;
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 }

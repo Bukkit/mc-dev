@@ -4,12 +4,12 @@ public class BiomeDesert extends BiomeBase {
 
     public BiomeDesert(int i) {
         super(i);
-        this.w.clear();
-        this.n = (byte) Block.SAND.id;
-        this.o = (byte) Block.SAND.id;
-        this.u.r = -999;
-        this.u.u = 2;
-        this.u.w = 50;
-        this.u.x = 10;
+        this.D.clear();
+        this.t = (byte) Block.SAND.id;
+        this.u = (byte) Block.SAND.id;
+        this.B.z = -999;
+        this.B.C = 2;
+        this.B.E = 50;
+        this.B.F = 10;
     }
 }

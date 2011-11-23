@@ -11,7 +11,7 @@ public class TileEntityChest extends TileEntity implements IInventory {
     public float f;
     public float g;
     public int h;
-    private int q;
+    private int j;
 
     public TileEntityChest() {}
 
@@ -61,13 +61,13 @@ public class TileEntityChest extends TileEntity implements IInventory {
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        NBTTagList nbttaglist = nbttagcompound.l("Items");
+        NBTTagList nbttaglist = nbttagcompound.m("Items");
 
         this.items = new ItemStack[this.getSize()];
 
-        for (int i = 0; i < nbttaglist.c(); ++i) {
+        for (int i = 0; i < nbttaglist.d(); ++i) {
             NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.a(i);
-            int j = nbttagcompound1.c("Slot") & 255;
+            int j = nbttagcompound1.d("Slot") & 255;
 
             if (j >= 0 && j < this.items.length) {
                 this.items[j] = ItemStack.a(nbttagcompound1);
@@ -100,8 +100,8 @@ public class TileEntityChest extends TileEntity implements IInventory {
         return this.world.getTileEntity(this.x, this.y, this.z) != this ? false : entityhuman.e((double) this.x + 0.5D, (double) this.y + 0.5D, (double) this.z + 0.5D) <= 64.0D;
     }
 
-    public void g() {
-        super.g();
+    public void d() {
+        super.d();
         this.a = false;
     }
 
@@ -129,50 +129,52 @@ public class TileEntityChest extends TileEntity implements IInventory {
             }
 
             if (this.b != null) {
-                this.b.g();
+                this.b.d();
             }
 
             if (this.e != null) {
-                this.e.g();
+                this.e.d();
             }
 
             if (this.c != null) {
-                this.c.g();
+                this.c.d();
             }
 
             if (this.d != null) {
-                this.d.g();
+                this.d.d();
             }
         }
     }
 
-    public void h_() {
-        super.h_();
+    public void l_() {
+        super.l_();
         this.h();
-        if (++this.q % 20 * 4 == 0) {
+        if (++this.j % 20 * 4 == 0) {
             this.world.playNote(this.x, this.y, this.z, 1, this.h);
         }
 
         this.g = this.f;
         float f = 0.1F;
         double d0;
-        double d1;
 
         if (this.h > 0 && this.f == 0.0F && this.b == null && this.d == null) {
-            d0 = (double) this.x + 0.5D;
-            d1 = (double) this.z + 0.5D;
-            if (this.e != null) {
-                d1 += 0.5D;
-            }
+            double d1 = (double) this.x + 0.5D;
 
-            if (this.c != null) {
+            d0 = (double) this.z + 0.5D;
+            if (this.e != null) {
                 d0 += 0.5D;
             }
 
-            this.world.makeSound(d0, (double) this.y + 0.5D, d1, "random.door_open", 1.0F, this.world.random.nextFloat() * 0.1F + 0.9F);
+            if (this.c != null) {
+                d1 += 0.5D;
+            }
+
+            this.world.makeSound(d1, (double) this.y + 0.5D, d0, "random.chestopen", 0.5F, this.world.random.nextFloat() * 0.1F + 0.9F);
         }
 
         if (this.h == 0 && this.f > 0.0F || this.h > 0 && this.f < 1.0F) {
+            float f1 = this.f;
+
             if (this.h > 0) {
                 this.f += f;
             } else {
@@ -183,21 +185,25 @@ public class TileEntityChest extends TileEntity implements IInventory {
                 this.f = 1.0F;
             }
 
+            float f2 = 0.5F;
+
+            if (this.f < f2 && f1 >= f2 && this.b == null && this.d == null) {
+                d0 = (double) this.x + 0.5D;
+                double d2 = (double) this.z + 0.5D;
+
+                if (this.e != null) {
+                    d2 += 0.5D;
+                }
+
+                if (this.c != null) {
+                    d0 += 0.5D;
+                }
+
+                this.world.makeSound(d0, (double) this.y + 0.5D, d2, "random.chestclosed", 0.5F, this.world.random.nextFloat() * 0.1F + 0.9F);
+            }
+
             if (this.f < 0.0F) {
                 this.f = 0.0F;
-                if (this.b == null && this.d == null) {
-                    d0 = (double) this.x + 0.5D;
-                    d1 = (double) this.z + 0.5D;
-                    if (this.e != null) {
-                        d1 += 0.5D;
-                    }
-
-                    if (this.c != null) {
-                        d0 += 0.5D;
-                    }
-
-                    this.world.makeSound(d0, (double) this.y + 0.5D, d1, "random.door_close", 1.0F, this.world.random.nextFloat() * 0.1F + 0.9F);
-                }
             }
         }
     }
@@ -208,18 +214,18 @@ public class TileEntityChest extends TileEntity implements IInventory {
         }
     }
 
-    public void e() {
+    public void f() {
         ++this.h;
         this.world.playNote(this.x, this.y, this.z, 1, this.h);
     }
 
-    public void t_() {
+    public void g() {
         --this.h;
         this.world.playNote(this.x, this.y, this.z, 1, this.h);
     }
 
     public void i() {
-        this.g();
+        this.d();
         this.h();
         super.i();
     }

@@ -46,6 +46,10 @@ public class BlockDiode extends Block {
         return i == 0 ? (this.c ? 99 : 115) : (i == 1 ? (this.c ? 147 : 131) : 5);
     }
 
+    public int c() {
+        return 15;
+    }
+
     public int a(int i) {
         return this.a(i, 0);
     }
@@ -66,7 +70,7 @@ public class BlockDiode extends Block {
 
     public void doPhysics(World world, int i, int j, int k, int l) {
         if (!this.f(world, i, j, k)) {
-            this.g(world, i, j, k, world.getData(i, j, k));
+            this.b(world, i, j, k, world.getData(i, j, k), 0);
             world.setTypeId(i, j, k, 0);
         } else {
             int i1 = world.getData(i, j, k);
@@ -135,11 +139,19 @@ public class BlockDiode extends Block {
         world.applyPhysics(i, j + 1, k, this.id);
     }
 
+    public void postBreak(World world, int i, int j, int k, int l) {
+        if (this.c) {
+            world.applyPhysics(i, j + 1, k, this.id);
+        }
+
+        super.postBreak(world, i, j, k, l);
+    }
+
     public boolean a() {
         return false;
     }
 
-    public int a(int i, Random random) {
+    public int a(int i, Random random, int j) {
         return Item.DIODE.id;
     }
 }

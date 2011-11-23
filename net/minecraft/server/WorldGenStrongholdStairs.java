@@ -33,6 +33,10 @@ public class WorldGenStrongholdStairs extends WorldGenStrongholdPiece {
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
+        if (this.a) {
+            WorldGenStrongholdPieces.a(WorldGenStrongholdCrossing.class);
+        }
+
         this.a((WorldGenStrongholdStairs2) structurepiece, list, random, 1, 1);
     }
 

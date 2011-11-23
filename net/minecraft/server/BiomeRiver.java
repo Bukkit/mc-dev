@@ -4,6 +4,6 @@ public class BiomeRiver extends BiomeBase {
 
     public BiomeRiver(int i) {
         super(i);
-        this.w.clear();
+        this.D.clear();
     }
 }

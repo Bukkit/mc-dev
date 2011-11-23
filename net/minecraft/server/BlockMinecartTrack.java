@@ -12,7 +12,7 @@ public class BlockMinecartTrack extends Block {
         return l == Block.RAILS.id || l == Block.GOLDEN_RAIL.id || l == Block.DETECTOR_RAIL.id;
     }
 
-    public static final boolean c(int i) {
+    public static final boolean d(int i) {
         return i == Block.RAILS.id || i == Block.GOLDEN_RAIL.id || i == Block.DETECTOR_RAIL.id;
     }
 
@@ -22,7 +22,7 @@ public class BlockMinecartTrack extends Block {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
-    public boolean f() {
+    public boolean h() {
         return this.a;
     }
 
@@ -63,6 +63,10 @@ public class BlockMinecartTrack extends Block {
 
     public boolean b() {
         return false;
+    }
+
+    public int c() {
+        return 9;
     }
 
     public int a(Random random) {
@@ -111,7 +115,7 @@ public class BlockMinecartTrack extends Block {
             }
 
             if (flag) {
-                this.g(world, i, j, k, world.getData(i, j, k));
+                this.b(world, i, j, k, world.getData(i, j, k), 0);
                 world.setTypeId(i, j, k, 0);
             } else if (this.id == Block.GOLDEN_RAIL.id) {
                 boolean flag1 = world.isBlockIndirectlyPowered(i, j, k) || world.isBlockIndirectlyPowered(i, j + 1, k);
@@ -248,7 +252,7 @@ public class BlockMinecartTrack extends Block {
         return false;
     }
 
-    public int e() {
+    public int g() {
         return 0;
     }
 

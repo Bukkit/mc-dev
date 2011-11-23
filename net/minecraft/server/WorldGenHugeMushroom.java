@@ -22,147 +22,140 @@ public class WorldGenHugeMushroom extends WorldGenerator {
         int i1 = random.nextInt(3) + 4;
         boolean flag = true;
 
-        if (j >= 1) {
-            int b0000 = j + i1 + 1;
+        if (j >= 1 && j + i1 + 1 <= world.height) {
+            int j1;
+            int k1;
+            int l1;
+            int i2;
 
-            world.getClass();
-            if (b0000 <= 128) {
-                int k1;
-                int l1;
-                int i2;
-                int j2;
+            for (j1 = j; j1 <= j + 1 + i1; ++j1) {
+                byte b0 = 3;
 
-                for (k1 = j; k1 <= j + 1 + i1; ++k1) {
-                    byte b0 = 3;
+                if (j1 == j) {
+                    b0 = 0;
+                }
 
-                    if (k1 == j) {
-                        b0 = 0;
-                    }
-
-                    for (l1 = i - b0; l1 <= i + b0 && flag; ++l1) {
-                        for (i2 = k - b0; i2 <= k + b0 && flag; ++i2) {
-                            if (k1 >= 0) {
-                                world.getClass();
-                                if (k1 < 128) {
-                                    j2 = world.getTypeId(l1, k1, i2);
-                                    if (j2 != 0 && j2 != Block.LEAVES.id) {
-                                        flag = false;
-                                    }
-                                    continue;
-                                }
+                for (k1 = i - b0; k1 <= i + b0 && flag; ++k1) {
+                    for (l1 = k - b0; l1 <= k + b0 && flag; ++l1) {
+                        if (j1 >= 0 && j1 < world.height) {
+                            i2 = world.getTypeId(k1, j1, l1);
+                            if (i2 != 0 && i2 != Block.LEAVES.id) {
+                                flag = false;
                             }
-
+                        } else {
                             flag = false;
                         }
                     }
                 }
+            }
 
-                if (!flag) {
+            if (!flag) {
+                return false;
+            } else {
+                j1 = world.getTypeId(i, j - 1, k);
+                if (j1 != Block.DIRT.id && j1 != Block.GRASS.id && j1 != Block.MYCEL.id) {
                     return false;
-                }
-
-                if (!Block.BROWN_MUSHROOM.canPlace(world, i, j, k)) {
+                } else if (!Block.BROWN_MUSHROOM.canPlace(world, i, j, k)) {
                     return false;
-                }
+                } else {
+                    world.setRawTypeId(i, j - 1, k, Block.DIRT.id);
+                    int j2 = j + i1;
 
-                world.setRawTypeId(i, j - 1, k, Block.DIRT.id);
-                k1 = j + i1;
-                if (l == 1) {
-                    k1 = j + i1 - 3;
-                }
-
-                int k2;
-
-                for (k2 = k1; k2 <= j + i1; ++k2) {
-                    l1 = 1;
-                    if (k2 < j + i1) {
-                        ++l1;
+                    if (l == 1) {
+                        j2 = j + i1 - 3;
                     }
 
-                    if (l == 0) {
-                        l1 = 3;
-                    }
+                    for (k1 = j2; k1 <= j + i1; ++k1) {
+                        l1 = 1;
+                        if (k1 < j + i1) {
+                            ++l1;
+                        }
 
-                    for (i2 = i - l1; i2 <= i + l1; ++i2) {
-                        for (j2 = k - l1; j2 <= k + l1; ++j2) {
-                            int l2 = 5;
+                        if (l == 0) {
+                            l1 = 3;
+                        }
 
-                            if (i2 == i - l1) {
-                                --l2;
-                            }
+                        for (i2 = i - l1; i2 <= i + l1; ++i2) {
+                            for (int k2 = k - l1; k2 <= k + l1; ++k2) {
+                                int l2 = 5;
 
-                            if (i2 == i + l1) {
-                                ++l2;
-                            }
-
-                            if (j2 == k - l1) {
-                                l2 -= 3;
-                            }
-
-                            if (j2 == k + l1) {
-                                l2 += 3;
-                            }
-
-                            if (l == 0 || k2 < j + i1) {
-                                if ((i2 == i - l1 || i2 == i + l1) && (j2 == k - l1 || j2 == k + l1)) {
-                                    continue;
+                                if (i2 == i - l1) {
+                                    --l2;
                                 }
 
-                                if (i2 == i - (l1 - 1) && j2 == k - l1) {
-                                    l2 = 1;
+                                if (i2 == i + l1) {
+                                    ++l2;
                                 }
 
-                                if (i2 == i - l1 && j2 == k - (l1 - 1)) {
-                                    l2 = 1;
+                                if (k2 == k - l1) {
+                                    l2 -= 3;
                                 }
 
-                                if (i2 == i + (l1 - 1) && j2 == k - l1) {
-                                    l2 = 3;
+                                if (k2 == k + l1) {
+                                    l2 += 3;
                                 }
 
-                                if (i2 == i + l1 && j2 == k - (l1 - 1)) {
-                                    l2 = 3;
+                                if (l == 0 || k1 < j + i1) {
+                                    if ((i2 == i - l1 || i2 == i + l1) && (k2 == k - l1 || k2 == k + l1)) {
+                                        continue;
+                                    }
+
+                                    if (i2 == i - (l1 - 1) && k2 == k - l1) {
+                                        l2 = 1;
+                                    }
+
+                                    if (i2 == i - l1 && k2 == k - (l1 - 1)) {
+                                        l2 = 1;
+                                    }
+
+                                    if (i2 == i + (l1 - 1) && k2 == k - l1) {
+                                        l2 = 3;
+                                    }
+
+                                    if (i2 == i + l1 && k2 == k - (l1 - 1)) {
+                                        l2 = 3;
+                                    }
+
+                                    if (i2 == i - (l1 - 1) && k2 == k + l1) {
+                                        l2 = 7;
+                                    }
+
+                                    if (i2 == i - l1 && k2 == k + (l1 - 1)) {
+                                        l2 = 7;
+                                    }
+
+                                    if (i2 == i + (l1 - 1) && k2 == k + l1) {
+                                        l2 = 9;
+                                    }
+
+                                    if (i2 == i + l1 && k2 == k + (l1 - 1)) {
+                                        l2 = 9;
+                                    }
                                 }
 
-                                if (i2 == i - (l1 - 1) && j2 == k + l1) {
-                                    l2 = 7;
+                                if (l2 == 5 && k1 < j + i1) {
+                                    l2 = 0;
                                 }
 
-                                if (i2 == i - l1 && j2 == k + (l1 - 1)) {
-                                    l2 = 7;
+                                if ((l2 != 0 || j >= j + i1 - 1) && !Block.o[world.getTypeId(i2, k1, k2)]) {
+                                    world.setRawTypeIdAndData(i2, k1, k2, Block.BIG_MUSHROOM_1.id + l, l2);
                                 }
-
-                                if (i2 == i + (l1 - 1) && j2 == k + l1) {
-                                    l2 = 9;
-                                }
-
-                                if (i2 == i + l1 && j2 == k + (l1 - 1)) {
-                                    l2 = 9;
-                                }
-                            }
-
-                            if (l2 == 5 && k2 < j + i1) {
-                                l2 = 0;
-                            }
-
-                            if ((l2 != 0 || j >= j + i1 - 1) && !Block.o[world.getTypeId(i2, k2, j2)]) {
-                                world.setRawTypeIdAndData(i2, k2, j2, Block.BIG_MUSHROOM_1.id + l, l2);
                             }
                         }
                     }
-                }
 
-                for (k2 = 0; k2 < i1; ++k2) {
-                    l1 = world.getTypeId(i, j + k2, k);
-                    if (!Block.o[l1]) {
-                        world.setRawTypeIdAndData(i, j + k2, k, Block.BIG_MUSHROOM_1.id + l, 10);
+                    for (k1 = 0; k1 < i1; ++k1) {
+                        l1 = world.getTypeId(i, j + k1, k);
+                        if (!Block.o[l1]) {
+                            world.setRawTypeIdAndData(i, j + k1, k, Block.BIG_MUSHROOM_1.id + l, 10);
+                        }
                     }
+
+                    return true;
                 }
-
-                return true;
             }
+        } else {
+            return false;
         }
-
-        return false;
     }
 }

@@ -8,30 +8,34 @@ public class EntitySilverfish extends EntityMonster {
         super(world);
         this.texture = "/mob/silverfish.png";
         this.b(0.3F, 0.7F);
-        this.aU = 0.6F;
-        this.damage = 0;
+        this.aY = 0.6F;
+        this.damage = 1;
     }
 
-    protected boolean e_() {
+    public int getMaxHealth() {
+        return 8;
+    }
+
+    protected boolean g_() {
         return false;
     }
 
     protected Entity findTarget() {
         double d0 = 8.0D;
 
-        return this.world.findNearbyPlayer(this, d0);
+        return this.world.b(this, d0);
     }
 
-    protected String h() {
-        return "mob.spider";
+    protected String c_() {
+        return "mob.silverfish.say";
     }
 
-    protected String i() {
-        return "mob.spider";
+    protected String m() {
+        return "mob.silverfish.hit";
     }
 
-    protected String j() {
-        return "mob.spiderdeath";
+    protected String n() {
+        return "mob.silverfish.kill";
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
@@ -49,6 +53,10 @@ public class EntitySilverfish extends EntityMonster {
         }
     }
 
+    protected void a(int i, int j, int k, int l) {
+        this.world.makeSound(this, "mob.silverfish.step", 1.0F, 1.0F);
+    }
+
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
     }
@@ -57,17 +65,17 @@ public class EntitySilverfish extends EntityMonster {
         super.a(nbttagcompound);
     }
 
-    protected int k() {
+    protected int e() {
         return 0;
     }
 
-    public void s_() {
-        this.U = this.yaw;
-        super.s_();
+    public void w_() {
+        this.V = this.yaw;
+        super.w_();
     }
 
-    protected void c_() {
-        super.c_();
+    protected void m_() {
+        super.m_();
         if (!this.world.isStatic) {
             int i;
             int j;
@@ -88,7 +96,7 @@ public class EntitySilverfish extends EntityMonster {
                                 int k1 = this.world.getTypeId(i + i1, j + l, k + j1);
 
                                 if (k1 == Block.MONSTER_EGGS.id) {
-                                    this.world.e(2001, i + i1, j + l, k + j1, Block.MONSTER_EGGS.id + this.world.getData(i + i1, j + l, k + j1) * 256);
+                                    this.world.f(2001, i + i1, j + l, k + j1, Block.MONSTER_EGGS.id + this.world.getData(i + i1, j + l, k + j1) * 256);
                                     this.world.setTypeId(i + i1, j + l, k + j1, 0);
                                     Block.MONSTER_EGGS.postBreak(this.world, i + i1, j + l, k + j1, 0);
                                     if (this.random.nextBoolean()) {
@@ -102,21 +110,21 @@ public class EntitySilverfish extends EntityMonster {
                 }
             }
 
-            if (this.target == null && !this.B()) {
+            if (this.target == null && !this.D()) {
                 i = MathHelper.floor(this.locX);
                 j = MathHelper.floor(this.locY + 0.5D);
                 k = MathHelper.floor(this.locZ);
                 int l1 = this.random.nextInt(6);
 
                 l = this.world.getTypeId(i + PistonBlockTextures.b[l1], j + PistonBlockTextures.c[l1], k + PistonBlockTextures.d[l1]);
-                if (BlockMonsterEggs.c(l)) {
-                    this.world.setTypeIdAndData(i + PistonBlockTextures.b[l1], j + PistonBlockTextures.c[l1], k + PistonBlockTextures.d[l1], Block.MONSTER_EGGS.id, BlockMonsterEggs.d(l));
-                    this.ab();
+                if (BlockMonsterEggs.d(l)) {
+                    this.world.setTypeIdAndData(i + PistonBlockTextures.b[l1], j + PistonBlockTextures.c[l1], k + PistonBlockTextures.d[l1], Block.MONSTER_EGGS.id, BlockMonsterEggs.e(l));
+                    this.ah();
                     this.die();
                 } else {
-                    this.A();
+                    this.C();
                 }
-            } else if (this.target != null && !this.B()) {
+            } else if (this.target != null && !this.D()) {
                 this.target = null;
             }
         }
@@ -124,5 +132,23 @@ public class EntitySilverfish extends EntityMonster {
 
     protected float a(int i, int j, int k) {
         return this.world.getTypeId(i, j - 1, k) == Block.STONE.id ? 10.0F : super.a(i, j, k);
+    }
+
+    protected boolean y() {
+        return true;
+    }
+
+    public boolean g() {
+        if (super.g()) {
+            EntityHuman entityhuman = this.world.findNearbyPlayer(this, 5.0D);
+
+            return entityhuman == null;
+        } else {
+            return false;
+        }
+    }
+
+    public EnchantmentDamage t() {
+        return EnchantmentDamage.c;
     }
 }

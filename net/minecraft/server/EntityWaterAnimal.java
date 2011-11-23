@@ -6,7 +6,7 @@ public abstract class EntityWaterAnimal extends EntityCreature implements IAnima
         super(world);
     }
 
-    public boolean b_() {
+    public boolean f() {
         return true;
     }
 
@@ -18,12 +18,16 @@ public abstract class EntityWaterAnimal extends EntityCreature implements IAnima
         super.a(nbttagcompound);
     }
 
-    public boolean d() {
+    public boolean g() {
         return this.world.containsEntity(this.boundingBox);
     }
 
-    public int e() {
+    public int h() {
         return 120;
+    }
+
+    protected boolean d_() {
+        return true;
     }
 
     protected int a(EntityHuman entityhuman) {

@@ -82,6 +82,11 @@ public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
             }
         }
 
+        this.a(world, structureboundingbox, 7, 1, 1, 1);
         return true;
+    }
+
+    protected int a(int i) {
+        return 3;
     }
 }

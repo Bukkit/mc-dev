@@ -4,8 +4,8 @@ public class BiomePlains extends BiomeBase {
 
     protected BiomePlains(int i) {
         super(i);
-        this.u.r = -999;
-        this.u.s = 4;
-        this.u.t = 10;
+        this.B.z = -999;
+        this.B.A = 4;
+        this.B.B = 10;
     }
 }

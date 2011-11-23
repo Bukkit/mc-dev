@@ -19,7 +19,7 @@ public class BlockSmoothBrick extends Block {
         }
     }
 
-    protected int a_(int i) {
+    protected int c(int i) {
         return i;
     }
 }

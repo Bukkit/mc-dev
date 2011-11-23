@@ -8,6 +8,10 @@ public class EntityCow extends EntityAnimal {
         this.b(0.9F, 1.3F);
     }
 
+    public int getMaxHealth() {
+        return 10;
+    }
+
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
     }
@@ -16,39 +20,39 @@ public class EntityCow extends EntityAnimal {
         super.a(nbttagcompound);
     }
 
-    protected String h() {
+    protected String c_() {
         return "mob.cow";
     }
 
-    protected String i() {
+    protected String m() {
         return "mob.cowhurt";
     }
 
-    protected String j() {
+    protected String n() {
         return "mob.cowhurt";
     }
 
-    protected float l() {
+    protected float o() {
         return 0.4F;
     }
 
-    protected int k() {
+    protected int e() {
         return Item.LEATHER.id;
     }
 
-    protected void a(boolean flag) {
-        int i = this.random.nextInt(3);
+    protected void a(boolean flag, int i) {
+        int j = this.random.nextInt(3) + this.random.nextInt(1 + i);
 
-        int j;
+        int k;
 
-        for (j = 0; j < i; ++j) {
+        for (k = 0; k < j; ++k) {
             this.b(Item.LEATHER.id, 1);
         }
 
-        i = this.random.nextInt(3) + 1;
+        j = this.random.nextInt(3) + 1 + this.random.nextInt(1 + i);
 
-        for (j = 0; j < i; ++j) {
-            if (this.fireTicks > 0) {
+        for (k = 0; k < j; ++k) {
+            if (this.z()) {
                 this.b(Item.COOKED_BEEF.id, 1);
             } else {
                 this.b(Item.RAW_BEEF.id, 1);
@@ -63,7 +67,11 @@ public class EntityCow extends EntityAnimal {
             entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, new ItemStack(Item.MILK_BUCKET));
             return true;
         } else {
-            return false;
+            return super.b(entityhuman);
         }
+    }
+
+    protected EntityAnimal createChild(EntityAnimal entityanimal) {
+        return new EntityCow(this.world);
     }
 }

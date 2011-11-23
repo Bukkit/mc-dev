@@ -15,6 +15,14 @@ public class BlockChest extends BlockContainer {
         return false;
     }
 
+    public boolean b() {
+        return false;
+    }
+
+    public int c() {
+        return 22;
+    }
+
     public void a(World world, int i, int j, int k) {
         super.a(world, i, j, k);
         this.b(world, i, j, k);
@@ -206,7 +214,7 @@ public class BlockChest extends BlockContainer {
         TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i, j, k);
 
         if (tileentitychest != null) {
-            tileentitychest.g();
+            tileentitychest.d();
         }
     }
 
@@ -220,9 +228,10 @@ public class BlockChest extends BlockContainer {
                 if (itemstack != null) {
                     float f = this.a.nextFloat() * 0.8F + 0.1F;
                     float f1 = this.a.nextFloat() * 0.8F + 0.1F;
-                    float f2 = this.a.nextFloat() * 0.8F + 0.1F;
 
-                    while (itemstack.count > 0) {
+                    EntityItem entityitem;
+
+                    for (float f2 = this.a.nextFloat() * 0.8F + 0.1F; itemstack.count > 0; world.addEntity(entityitem)) {
                         int i1 = this.a.nextInt(21) + 10;
 
                         if (i1 > itemstack.count) {
@@ -230,13 +239,15 @@ public class BlockChest extends BlockContainer {
                         }
 
                         itemstack.count -= i1;
-                        EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, i1, itemstack.getData()));
+                        entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, i1, itemstack.getData()));
                         float f3 = 0.05F;
 
                         entityitem.motX = (double) ((float) this.a.nextGaussian() * f3);
                         entityitem.motY = (double) ((float) this.a.nextGaussian() * f3 + 0.2F);
                         entityitem.motZ = (double) ((float) this.a.nextGaussian() * f3);
-                        world.addEntity(entityitem);
+                        if (itemstack.n()) {
+                            entityitem.itemStack.d((NBTTagCompound) itemstack.o().b());
+                        }
                     }
                 }
             }
