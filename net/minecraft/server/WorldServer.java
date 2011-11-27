@@ -9,7 +9,7 @@ public class WorldServer extends World {
     public boolean weirdIsOpCache = false;
     public boolean savingDisabled;
     private MinecraftServer server;
-    private EntityList N = new EntityList();
+    private IntHashMap N = new IntHashMap();
 
     public WorldServer(MinecraftServer minecraftserver, IDataManager idatamanager, String s, int i, WorldSettings worldsettings) {
         super(idatamanager, s, worldsettings, WorldProvider.byDimension(i));
@@ -31,7 +31,7 @@ public class WorldServer extends World {
     }
 
     protected IChunkProvider b() {
-        IChunkLoader ichunkloader = this.B.a(this.worldProvider);
+        IChunkLoader ichunkloader = this.dataManager.createChunkLoader(this.worldProvider);
 
         this.chunkProviderServer = new ChunkProviderServer(this, ichunkloader, this.worldProvider.getChunkProvider());
         return this.chunkProviderServer;
@@ -121,7 +121,7 @@ public class WorldServer extends World {
     }
 
     public void saveLevel() {
-        this.B.e();
+        this.dataManager.e();
     }
 
     protected void i() {

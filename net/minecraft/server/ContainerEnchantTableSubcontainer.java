@@ -66,7 +66,7 @@ public class ContainerEnchantTableSubcontainer implements IInventory {
     public void update() {
         if (this.d != null) {
             for (int i = 0; i < this.d.size(); ++i) {
-                ((UnknownInterface01) this.d.get(i)).a(this);
+                ((IInventoryListener) this.d.get(i)).a(this);
             }
         }
     }

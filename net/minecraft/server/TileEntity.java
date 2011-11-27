@@ -27,9 +27,9 @@ public class TileEntity {
     }
 
     public void a(NBTTagCompound nbttagcompound) {
-        this.x = nbttagcompound.f("x");
-        this.y = nbttagcompound.f("y");
-        this.z = nbttagcompound.f("z");
+        this.x = nbttagcompound.getInt("x");
+        this.y = nbttagcompound.getInt("y");
+        this.z = nbttagcompound.getInt("z");
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -39,9 +39,9 @@ public class TileEntity {
             throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
         } else {
             nbttagcompound.setString("id", s);
-            nbttagcompound.a("x", this.x);
-            nbttagcompound.a("y", this.y);
-            nbttagcompound.a("z", this.z);
+            nbttagcompound.setInt("x", this.x);
+            nbttagcompound.setInt("y", this.y);
+            nbttagcompound.setInt("z", this.z);
         }
     }
 

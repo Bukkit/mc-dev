@@ -8,7 +8,7 @@ public class EntityGiantZombie extends EntityMonster {
         this.aY = 0.5F;
         this.damage = 50;
         this.height *= 6.0F;
-        this.b(this.length * 6.0F, this.width * 6.0F);
+        this.b(this.width * 6.0F, this.length * 6.0F);
     }
 
     public int getMaxHealth() {

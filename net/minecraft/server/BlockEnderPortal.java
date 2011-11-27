@@ -16,7 +16,7 @@ public class BlockEnderPortal extends BlockContainer {
         return new TileEntityEnderPortal();
     }
 
-    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+    public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
         float f = 0.0625F;
 
         this.a(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
@@ -46,7 +46,7 @@ public class BlockEnderPortal extends BlockContainer {
         return -1;
     }
 
-    public void a(World world, int i, int j, int k) {
+    public void onPlace(World world, int i, int j, int k) {
         if (!a) {
             if (world.worldProvider.dimension != 0) {
                 world.setTypeId(i, j, k, 0);

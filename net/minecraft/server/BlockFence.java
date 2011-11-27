@@ -43,7 +43,7 @@ public class BlockFence extends Block {
         return AxisAlignedBB.b((double) ((float) i + f), (double) j, (double) ((float) k + f2), (double) ((float) i + f1), (double) ((float) j + 1.5F), (double) ((float) k + f3));
     }
 
-    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+    public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
         boolean flag = this.b(iblockaccess, i, j, k - 1);
         boolean flag1 = this.b(iblockaccess, i, j, k + 1);
         boolean flag2 = this.b(iblockaccess, i - 1, j, k);

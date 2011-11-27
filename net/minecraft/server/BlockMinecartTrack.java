@@ -35,11 +35,11 @@ public class BlockMinecartTrack extends Block {
     }
 
     public MovingObjectPosition a(World world, int i, int j, int k, Vec3D vec3d, Vec3D vec3d1) {
-        this.a((IBlockAccess) world, i, j, k);
+        this.updateShape(world, i, j, k);
         return super.a(world, i, j, k, vec3d, vec3d1);
     }
 
-    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+    public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
         int l = iblockaccess.getData(i, j, k);
 
         if (l >= 2 && l <= 5) {
@@ -77,7 +77,7 @@ public class BlockMinecartTrack extends Block {
         return world.e(i, j - 1, k);
     }
 
-    public void a(World world, int i, int j, int k) {
+    public void onPlace(World world, int i, int j, int k) {
         if (!world.isStatic) {
             this.a(world, i, j, k, true);
         }

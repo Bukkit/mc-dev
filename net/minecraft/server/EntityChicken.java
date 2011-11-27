@@ -77,7 +77,7 @@ public class EntityChicken extends EntityAnimal {
         return Item.FEATHER.id;
     }
 
-    protected void a(boolean flag, int i) {
+    protected void dropDeathLoot(boolean flag, int i) {
         int j = this.random.nextInt(3) + this.random.nextInt(1 + i);
 
         for (int k = 0; k < j; ++k) {

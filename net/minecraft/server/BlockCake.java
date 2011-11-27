@@ -9,7 +9,7 @@ public class BlockCake extends Block {
         this.a(true);
     }
 
-    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+    public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
         int l = iblockaccess.getData(i, j, k);
         float f = 0.0625F;
         float f1 = (float) (1 + l * 2) / 16.0F;
@@ -92,7 +92,7 @@ public class BlockCake extends Block {
         return 0;
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return 0;
     }
 }

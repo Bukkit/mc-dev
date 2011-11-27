@@ -29,7 +29,7 @@ public abstract class EntityCreature extends EntityLiving {
             if (this.target != null) {
                 this.pathEntity = this.world.findPath(this, this.target, f);
             }
-        } else if (!this.target.aj()) {
+        } else if (!this.target.isAlive()) {
             this.target = null;
         } else {
             float f1 = this.target.h(this);
@@ -56,7 +56,7 @@ public abstract class EntityCreature extends EntityLiving {
         if (this.pathEntity != null && this.random.nextInt(100) != 0) {
             MethodProfiler.a("followpath");
             Vec3D vec3d = this.pathEntity.a(this);
-            double d0 = (double) (this.length * 2.0F);
+            double d0 = (double) (this.width * 2.0F);
 
             while (vec3d != null && vec3d.d(this.locX, vec3d.b, this.locZ) < d0 * d0) {
                 this.pathEntity.a();

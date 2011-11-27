@@ -95,7 +95,7 @@ public class DamageSource {
     }
 
     public String a(EntityHuman entityhuman) {
-        return StatisticCollector.a("death." + this.m, new Object[] { entityhuman.name});
+        return LocaleI18n.a("death." + this.m, new Object[] { entityhuman.name});
     }
 
     public boolean k() {

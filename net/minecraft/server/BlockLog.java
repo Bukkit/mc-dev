@@ -13,7 +13,7 @@ public class BlockLog extends Block {
         return 1;
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return Block.LOG.id;
     }
 
@@ -48,7 +48,7 @@ public class BlockLog extends Block {
         return i == 1 ? 21 : (i == 0 ? 21 : (j == 1 ? 116 : (j == 2 ? 117 : 20)));
     }
 
-    protected int c(int i) {
+    protected int getDropData(int i) {
         return i;
     }
 }

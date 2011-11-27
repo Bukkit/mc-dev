@@ -44,23 +44,23 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
                 return null;
             }
 
-            nbttagcompound = CompressedStreamTools.a((DataInput) datainputstream);
+            nbttagcompound = NBTCompressedStreamTools.a((DataInput) datainputstream);
         }
 
         if (!nbttagcompound.hasKey("Level")) {
             System.out.println("Chunk file at " + i + "," + j + " is missing level data, skipping");
             return null;
-        } else if (!nbttagcompound.l("Level").hasKey("Blocks")) {
+        } else if (!nbttagcompound.getCompound("Level").hasKey("Blocks")) {
             System.out.println("Chunk file at " + i + "," + j + " is missing block data, skipping");
             return null;
         } else {
-            Chunk chunk = ChunkLoader.a(world, nbttagcompound.l("Level"));
+            Chunk chunk = ChunkLoader.a(world, nbttagcompound.getCompound("Level"));
 
             if (!chunk.a(i, j)) {
                 System.out.println("Chunk file at " + i + "," + j + " is in the wrong location; relocating. (Expected " + i + ", " + j + ", got " + chunk.x + ", " + chunk.z + ")");
-                nbttagcompound.a("xPos", i);
-                nbttagcompound.a("zPos", j);
-                chunk = ChunkLoader.a(world, nbttagcompound.l("Level"));
+                nbttagcompound.setInt("xPos", i);
+                nbttagcompound.setInt("zPos", j);
+                chunk = ChunkLoader.a(world, nbttagcompound.getCompound("Level"));
             }
 
             chunk.h();
@@ -75,7 +75,7 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
-            nbttagcompound.a("Level", (NBTBase) nbttagcompound1);
+            nbttagcompound.set("Level", nbttagcompound1);
             ChunkLoader.a(chunk, world, nbttagcompound1);
             this.a(chunk.j(), nbttagcompound);
         } catch (Exception exception) {
@@ -129,7 +129,7 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
     public void a(PendingChunkToSave pendingchunktosave) {
         DataOutputStream dataoutputstream = RegionFileCache.c(this.d, pendingchunktosave.a.x, pendingchunktosave.a.z);
 
-        CompressedStreamTools.a(pendingchunktosave.b, (DataOutput) dataoutputstream);
+        NBTCompressedStreamTools.a(pendingchunktosave.b, (DataOutput) dataoutputstream);
         dataoutputstream.close();
     }
 

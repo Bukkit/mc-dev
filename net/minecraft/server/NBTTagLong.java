@@ -5,7 +5,7 @@ import java.io.DataOutput;
 
 public class NBTTagLong extends NBTBase {
 
-    public long a;
+    public long data;
 
     public NBTTagLong(String s) {
         super(s);
@@ -13,34 +13,34 @@ public class NBTTagLong extends NBTBase {
 
     public NBTTagLong(String s, long i) {
         super(s);
-        this.a = i;
+        this.data = i;
     }
 
-    void a(DataOutput dataoutput) {
-        dataoutput.writeLong(this.a);
+    void write(DataOutput dataoutput) {
+        dataoutput.writeLong(this.data);
     }
 
-    void a(DataInput datainput) {
-        this.a = datainput.readLong();
+    void load(DataInput datainput) {
+        this.data = datainput.readLong();
     }
 
-    public byte a() {
+    public byte getTypeId() {
         return (byte) 4;
     }
 
     public String toString() {
-        return "" + this.a;
+        return "" + this.data;
     }
 
-    public NBTBase b() {
-        return new NBTTagLong(this.c(), this.a);
+    public NBTBase clone() {
+        return new NBTTagLong(this.getName(), this.data);
     }
 
     public boolean equals(Object object) {
         if (super.equals(object)) {
             NBTTagLong nbttaglong = (NBTTagLong) object;
 
-            return this.a == nbttaglong.a;
+            return this.data == nbttaglong.data;
         } else {
             return false;
         }

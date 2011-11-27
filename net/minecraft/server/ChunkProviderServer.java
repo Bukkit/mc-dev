@@ -13,7 +13,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private IChunkProvider chunkProvider;
     private IChunkLoader e;
     public boolean forceChunkLoad = false;
-    private PlayerList chunks = new PlayerList();
+    private LongHashMap chunks = new LongHashMap();
     private List chunkList = new ArrayList();
     private WorldServer world;
 

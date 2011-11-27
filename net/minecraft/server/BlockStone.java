@@ -8,7 +8,7 @@ public class BlockStone extends Block {
         super(i, j, Material.STONE);
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return Block.COBBLESTONE.id;
     }
 }

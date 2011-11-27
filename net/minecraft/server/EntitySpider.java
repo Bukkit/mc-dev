@@ -30,7 +30,7 @@ public class EntitySpider extends EntityMonster {
     }
 
     public double q() {
-        return (double) this.width * 0.75D - 0.5D;
+        return (double) this.length * 0.75D - 0.5D;
     }
 
     protected boolean g_() {
@@ -43,7 +43,7 @@ public class EntitySpider extends EntityMonster {
         if (f < 0.5F) {
             double d0 = 16.0D;
 
-            return this.world.b(this, d0);
+            return this.world.findNearbyVulnerablePlayer(this, d0);
         } else {
             return null;
         }
@@ -95,8 +95,8 @@ public class EntitySpider extends EntityMonster {
         return Item.STRING.id;
     }
 
-    protected void a(boolean flag, int i) {
-        super.a(flag, i);
+    protected void dropDeathLoot(boolean flag, int i) {
+        super.dropDeathLoot(flag, i);
         if (flag && (this.random.nextInt(3) == 0 || this.random.nextInt(1 + i) > 0)) {
             this.b(Item.SPIDER_EYE.id, 1);
         }
@@ -108,8 +108,8 @@ public class EntitySpider extends EntityMonster {
 
     public void s() {}
 
-    public EnchantmentDamage t() {
-        return EnchantmentDamage.c;
+    public MonsterType getMonsterType() {
+        return MonsterType.ARTHROPOD;
     }
 
     public boolean a(MobEffect mobeffect) {

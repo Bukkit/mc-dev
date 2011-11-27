@@ -184,12 +184,12 @@ public abstract class NetHandler {
         this.a((Packet) packet200statistic);
     }
 
-    public void a(Packet17 packet17) {
-        this.a((Packet) packet17);
+    public void a(Packet17EntityLocationAction packet17entitylocationaction) {
+        this.a((Packet) packet17entitylocationaction);
     }
 
-    public void a(Packet27 packet27) {
-        this.a((Packet) packet27);
+    public void a(Packet27PlayerInput packet27playerinput) {
+        this.a((Packet) packet27playerinput);
     }
 
     public void a(Packet70Bed packet70bed) {
@@ -200,12 +200,12 @@ public abstract class NetHandler {
         this.a((Packet) packet71weather);
     }
 
-    public void a(Packet131 packet131) {
-        this.a((Packet) packet131);
+    public void a(Packet131ItemData packet131itemdata) {
+        this.a((Packet) packet131itemdata);
     }
 
-    public void a(Packet61 packet61) {
-        this.a((Packet) packet61);
+    public void a(Packet61WorldEvent packet61worldevent) {
+        this.a((Packet) packet61worldevent);
     }
 
     public void a(Packet254GetInfo packet254getinfo) {
@@ -240,5 +240,5 @@ public abstract class NetHandler {
         this.a((Packet) packet26addexporb);
     }
 
-    public void a(Packet108 packet108) {}
+    public void a(Packet108ButtonClick packet108buttonclick) {}
 }

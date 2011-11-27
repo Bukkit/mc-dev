@@ -31,9 +31,9 @@ public class BlockStep extends Block {
         return this.b;
     }
 
-    public void a(World world, int i, int j, int k) {}
+    public void onPlace(World world, int i, int j, int k) {}
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return Block.STEP.id;
     }
 
@@ -41,7 +41,7 @@ public class BlockStep extends Block {
         return this.b ? 2 : 1;
     }
 
-    protected int c(int i) {
+    protected int getDropData(int i) {
         return i;
     }
 

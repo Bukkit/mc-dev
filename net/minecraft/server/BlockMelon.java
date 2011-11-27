@@ -17,7 +17,7 @@ public class BlockMelon extends Block {
         return i != 1 && i != 0 ? 136 : 137;
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return Item.MELON.id;
     }
 
@@ -25,7 +25,7 @@ public class BlockMelon extends Block {
         return 3 + random.nextInt(5);
     }
 
-    public int a(int i, Random random) {
+    public int getDropCount(int i, Random random) {
         int j = this.a(random) + random.nextInt(1 + i);
 
         if (j > 9) {

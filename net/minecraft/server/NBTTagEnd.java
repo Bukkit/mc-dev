@@ -9,11 +9,11 @@ public class NBTTagEnd extends NBTBase {
         super((String) null);
     }
 
-    void a(DataInput datainput) {}
+    void load(DataInput datainput) {}
 
-    void a(DataOutput dataoutput) {}
+    void write(DataOutput dataoutput) {}
 
-    public byte a() {
+    public byte getTypeId() {
         return (byte) 0;
     }
 
@@ -21,7 +21,7 @@ public class NBTTagEnd extends NBTBase {
         return "END";
     }
 
-    public NBTBase b() {
+    public NBTBase clone() {
         return new NBTTagEnd();
     }
 

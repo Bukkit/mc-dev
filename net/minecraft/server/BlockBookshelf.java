@@ -16,7 +16,7 @@ public class BlockBookshelf extends Block {
         return 3;
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return Item.BOOK.id;
     }
 }

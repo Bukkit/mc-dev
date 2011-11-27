@@ -15,7 +15,7 @@ public class BlockCloth extends Block {
         }
     }
 
-    protected int c(int i) {
+    protected int getDropData(int i) {
         return i;
     }
 

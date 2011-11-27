@@ -71,7 +71,7 @@ public abstract class BlockFluids extends Block {
         return 4;
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return 0;
     }
 
@@ -180,7 +180,7 @@ public abstract class BlockFluids extends Block {
         super.a(world, i, j, k, random);
     }
 
-    public void a(World world, int i, int j, int k) {
+    public void onPlace(World world, int i, int j, int k) {
         this.i(world, i, j, k);
     }
 

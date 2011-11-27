@@ -16,7 +16,7 @@ public abstract class BiomeBase {
     public static final BiomeBase SWAMPLAND = (new BiomeSwamp(6)).b(522674).a("Swampland").a(9154376).b(-0.2F, 0.1F).a(0.8F, 0.9F);
     public static final BiomeBase RIVER = (new BiomeRiver(7)).b(255).a("River").b(-0.5F, 0.0F);
     public static final BiomeBase HELL = (new BiomeHell(8)).b(16711680).a("Hell").g().a(2.0F, 0.0F);
-    public static final BiomeBase SKY = (new BiomeSky(9)).b(8421631).a("Sky").g();
+    public static final BiomeBase SKY = (new BiomeTheEnd(9)).b(8421631).a("Sky").g();
     public static final BiomeBase FROZEN_OCEAN = (new BiomeOcean(10)).b(9474208).a("FrozenOcean").b(-1.0F, 0.5F).a(0.0F, 0.5F);
     public static final BiomeBase FROZEN_RIVER = (new BiomeRiver(11)).b(10526975).a("FrozenRiver").b(-0.5F, 0.0F).a(0.0F, 0.5F);
     public static final BiomeBase ICE_PLAINS = (new BiomeIcePlains(12)).b(16777215).a("Ice Plains").a(0.0F, 0.5F);

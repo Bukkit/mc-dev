@@ -91,19 +91,19 @@ public abstract class Container {
             return null;
         } else {
             if (j == 0 || j == 1) {
-                InventoryPlayer inventoryplayer = entityhuman.inventory;
+                PlayerInventory playerinventory = entityhuman.inventory;
 
                 if (i == -999) {
-                    if (inventoryplayer.l() != null && i == -999) {
+                    if (playerinventory.l() != null && i == -999) {
                         if (j == 0) {
-                            entityhuman.b(inventoryplayer.l());
-                            inventoryplayer.b((ItemStack) null);
+                            entityhuman.b(playerinventory.l());
+                            playerinventory.b((ItemStack) null);
                         }
 
                         if (j == 1) {
-                            entityhuman.b(inventoryplayer.l().a(1));
-                            if (inventoryplayer.l().count == 0) {
-                                inventoryplayer.b((ItemStack) null);
+                            entityhuman.b(playerinventory.l().a(1));
+                            if (playerinventory.l().count == 0) {
+                                playerinventory.b((ItemStack) null);
                             }
                         }
                     }
@@ -130,7 +130,7 @@ public abstract class Container {
                     if (slot1 != null) {
                         slot1.d();
                         ItemStack itemstack2 = slot1.getItem();
-                        ItemStack itemstack3 = inventoryplayer.l();
+                        ItemStack itemstack3 = playerinventory.l();
 
                         if (itemstack2 != null) {
                             itemstack = itemstack2.cloneItemStack();
@@ -147,19 +147,19 @@ public abstract class Container {
 
                                 slot1.c(itemstack3.a(l));
                                 if (itemstack3.count == 0) {
-                                    inventoryplayer.b((ItemStack) null);
+                                    playerinventory.b((ItemStack) null);
                                 }
                             }
                         } else if (itemstack3 == null) {
                             l = j == 0 ? itemstack2.count : (itemstack2.count + 1) / 2;
                             ItemStack itemstack4 = slot1.a(l);
 
-                            inventoryplayer.b(itemstack4);
+                            playerinventory.b(itemstack4);
                             if (itemstack2.count == 0) {
                                 slot1.c((ItemStack) null);
                             }
 
-                            slot1.b(inventoryplayer.l());
+                            slot1.b(playerinventory.l());
                         } else if (slot1.isAllowed(itemstack3)) {
                             if (itemstack2.id == itemstack3.id && (!itemstack2.usesData() || itemstack2.getData() == itemstack3.getData())) {
                                 l = j == 0 ? itemstack3.count : 1;
@@ -173,13 +173,13 @@ public abstract class Container {
 
                                 itemstack3.a(l);
                                 if (itemstack3.count == 0) {
-                                    inventoryplayer.b((ItemStack) null);
+                                    playerinventory.b((ItemStack) null);
                                 }
 
                                 itemstack2.count += l;
                             } else if (itemstack3.count <= slot1.a()) {
                                 slot1.c(itemstack3);
-                                inventoryplayer.b(itemstack2);
+                                playerinventory.b(itemstack2);
                             }
                         } else if (itemstack2.id == itemstack3.id && itemstack3.getMaxStackSize() > 1 && (!itemstack2.usesData() || itemstack2.getData() == itemstack3.getData())) {
                             l = itemstack2.count;
@@ -190,7 +190,7 @@ public abstract class Container {
                                     slot1.c((ItemStack) null);
                                 }
 
-                                slot1.b(inventoryplayer.l());
+                                slot1.b(playerinventory.l());
                             }
                         }
                     }
@@ -206,11 +206,11 @@ public abstract class Container {
     }
 
     public void a(EntityHuman entityhuman) {
-        InventoryPlayer inventoryplayer = entityhuman.inventory;
+        PlayerInventory playerinventory = entityhuman.inventory;
 
-        if (inventoryplayer.l() != null) {
-            entityhuman.b(inventoryplayer.l());
-            inventoryplayer.b((ItemStack) null);
+        if (playerinventory.l() != null) {
+            entityhuman.b(playerinventory.l());
+            playerinventory.b((ItemStack) null);
         }
     }
 

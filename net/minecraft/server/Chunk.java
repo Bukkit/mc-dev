@@ -323,7 +323,7 @@ public class Chunk {
 
             if (l != 0) {
                 if (!this.world.isStatic) {
-                    Block.byId[l].a(this.world, i2, j, j2);
+                    Block.byId[l].onPlace(this.world, i2, j, j2);
                 }
 
                 if (Block.byId[l] instanceof BlockContainer) {
@@ -387,7 +387,7 @@ public class Chunk {
 
             if (l != 0) {
                 if (!this.world.isStatic) {
-                    Block.byId[l].a(this.world, l1, j, i2);
+                    Block.byId[l].onPlace(this.world, l1, j, i2);
                 }
 
                 if (l > 0 && Block.byId[l] instanceof BlockContainer) {

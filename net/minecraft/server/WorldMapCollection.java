@@ -35,7 +35,7 @@ public class WorldMapCollection {
         } else {
             if (this.a != null) {
                 try {
-                    File file1 = this.a.b(s);
+                    File file1 = this.a.getDataFile(s);
 
                     if (file1 != null && file1.exists()) {
                         try {
@@ -45,10 +45,10 @@ public class WorldMapCollection {
                         }
 
                         FileInputStream fileinputstream = new FileInputStream(file1);
-                        NBTTagCompound nbttagcompound = CompressedStreamTools.a((InputStream) fileinputstream);
+                        NBTTagCompound nbttagcompound = NBTCompressedStreamTools.a((InputStream) fileinputstream);
 
                         fileinputstream.close();
-                        worldmapbase.a(nbttagcompound.l("data"));
+                        worldmapbase.a(nbttagcompound.getCompound("data"));
                     }
                 } catch (Exception exception1) {
                     exception1.printStackTrace();
@@ -91,7 +91,7 @@ public class WorldMapCollection {
     private void a(WorldMapBase worldmapbase) {
         if (this.a != null) {
             try {
-                File file1 = this.a.b(worldmapbase.a);
+                File file1 = this.a.getDataFile(worldmapbase.a);
 
                 if (file1 != null) {
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -99,10 +99,10 @@ public class WorldMapCollection {
                     worldmapbase.b(nbttagcompound);
                     NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
-                    nbttagcompound1.a("data", nbttagcompound);
+                    nbttagcompound1.setCompound("data", nbttagcompound);
                     FileOutputStream fileoutputstream = new FileOutputStream(file1);
 
-                    CompressedStreamTools.a(nbttagcompound1, (OutputStream) fileoutputstream);
+                    NBTCompressedStreamTools.a(nbttagcompound1, (OutputStream) fileoutputstream);
                     fileoutputstream.close();
                 }
             } catch (Exception exception) {
@@ -118,11 +118,11 @@ public class WorldMapCollection {
                 return;
             }
 
-            File file1 = this.a.b("idcounts");
+            File file1 = this.a.getDataFile("idcounts");
 
             if (file1 != null && file1.exists()) {
                 DataInputStream datainputstream = new DataInputStream(new FileInputStream(file1));
-                NBTTagCompound nbttagcompound = CompressedStreamTools.a((DataInput) datainputstream);
+                NBTTagCompound nbttagcompound = NBTCompressedStreamTools.a((DataInput) datainputstream);
 
                 datainputstream.close();
                 Iterator iterator = nbttagcompound.d().iterator();
@@ -132,8 +132,8 @@ public class WorldMapCollection {
 
                     if (nbtbase instanceof NBTTagShort) {
                         NBTTagShort nbttagshort = (NBTTagShort) nbtbase;
-                        String s = nbttagshort.c();
-                        short short1 = nbttagshort.a;
+                        String s = nbttagshort.getName();
+                        short short1 = nbttagshort.data;
 
                         this.d.put(s, Short.valueOf(short1));
                     }
@@ -158,7 +158,7 @@ public class WorldMapCollection {
             return oshort.shortValue();
         } else {
             try {
-                File file1 = this.a.b("idcounts");
+                File file1 = this.a.getDataFile("idcounts");
 
                 if (file1 != null) {
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -168,12 +168,12 @@ public class WorldMapCollection {
                         String s1 = (String) iterator.next();
                         short short1 = ((Short) this.d.get(s1)).shortValue();
 
-                        nbttagcompound.a(s1, short1);
+                        nbttagcompound.setShort(s1, short1);
                     }
 
                     DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file1));
 
-                    CompressedStreamTools.a(nbttagcompound, (DataOutput) dataoutputstream);
+                    NBTCompressedStreamTools.a(nbttagcompound, (DataOutput) dataoutputstream);
                     dataoutputstream.close();
                 }
             } catch (Exception exception) {

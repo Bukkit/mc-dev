@@ -118,7 +118,7 @@ public class Item {
     public static Item RAW_CHICKEN = (new ItemFood(109, 2, 0.3F, true)).a(MobEffectList.HUNGER.id, 30, 0, 0.3F).a(9, 7).a("chickenRaw");
     public static Item COOKED_CHICKEN = (new ItemFood(110, 6, 0.6F, true)).a(10, 7).a("chickenCooked");
     public static Item ROTTEN_FLESH = (new ItemFood(111, 4, 0.1F, true)).a(MobEffectList.HUNGER.id, 30, 0, 0.8F).a(11, 5).a("rottenFlesh");
-    public static Item ENDER_PEARL = (new ItemEnderPerl(112)).a(11, 6).a("enderPearl");
+    public static Item ENDER_PEARL = (new ItemEnderPearl(112)).a(11, 6).a("enderPearl");
     public static Item BLAZE_ROD = (new Item(113)).a(12, 6).a("blazeRod");
     public static Item GHAST_TEAR = (new Item(114)).a(11, 7).a("ghastTear").b(PotionBrewer.c);
     public static Item GOLD_NUGGET = (new Item(115)).a(12, 7).a("goldNugget");
@@ -278,7 +278,7 @@ public class Item {
     }
 
     public String k() {
-        return StatisticCollector.a(this.b() + ".name");
+        return LocaleI18n.a(this.b() + ".name");
     }
 
     public void a(ItemStack itemstack, World world, Entity entity, int i, boolean flag) {}

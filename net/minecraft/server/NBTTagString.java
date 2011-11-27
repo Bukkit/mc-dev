@@ -5,7 +5,7 @@ import java.io.DataOutput;
 
 public class NBTTagString extends NBTBase {
 
-    public String a;
+    public String data;
 
     public NBTTagString(String s) {
         super(s);
@@ -13,30 +13,30 @@ public class NBTTagString extends NBTBase {
 
     public NBTTagString(String s, String s1) {
         super(s);
-        this.a = s1;
+        this.data = s1;
         if (s1 == null) {
             throw new IllegalArgumentException("Empty string not allowed");
         }
     }
 
-    void a(DataOutput dataoutput) {
-        dataoutput.writeUTF(this.a);
+    void write(DataOutput dataoutput) {
+        dataoutput.writeUTF(this.data);
     }
 
-    void a(DataInput datainput) {
-        this.a = datainput.readUTF();
+    void load(DataInput datainput) {
+        this.data = datainput.readUTF();
     }
 
-    public byte a() {
+    public byte getTypeId() {
         return (byte) 8;
     }
 
     public String toString() {
-        return "" + this.a;
+        return "" + this.data;
     }
 
-    public NBTBase b() {
-        return new NBTTagString(this.c(), this.a);
+    public NBTBase clone() {
+        return new NBTTagString(this.getName(), this.data);
     }
 
     public boolean equals(Object object) {
@@ -45,7 +45,7 @@ public class NBTTagString extends NBTBase {
         } else {
             NBTTagString nbttagstring = (NBTTagString) object;
 
-            return this.a == null && nbttagstring.a == null || this.a != null && this.a.equals(nbttagstring.a);
+            return this.data == null && nbttagstring.data == null || this.data != null && this.data.equals(nbttagstring.data);
         }
     }
 }

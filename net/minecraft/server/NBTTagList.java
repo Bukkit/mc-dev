@@ -8,8 +8,8 @@ import java.util.List;
 
 public class NBTTagList extends NBTBase {
 
-    private List a = new ArrayList();
-    private byte b;
+    private List list = new ArrayList();
+    private byte type;
 
     public NBTTagList() {
         super("");
@@ -19,67 +19,67 @@ public class NBTTagList extends NBTBase {
         super(s);
     }
 
-    void a(DataOutput dataoutput) {
-        if (this.a.size() > 0) {
-            this.b = ((NBTBase) this.a.get(0)).a();
+    void write(DataOutput dataoutput) {
+        if (this.list.size() > 0) {
+            this.type = ((NBTBase) this.list.get(0)).getTypeId();
         } else {
-            this.b = 1;
+            this.type = 1;
         }
 
-        dataoutput.writeByte(this.b);
-        dataoutput.writeInt(this.a.size());
+        dataoutput.writeByte(this.type);
+        dataoutput.writeInt(this.list.size());
 
-        for (int i = 0; i < this.a.size(); ++i) {
-            ((NBTBase) this.a.get(i)).a(dataoutput);
+        for (int i = 0; i < this.list.size(); ++i) {
+            ((NBTBase) this.list.get(i)).write(dataoutput);
         }
     }
 
-    void a(DataInput datainput) {
-        this.b = datainput.readByte();
+    void load(DataInput datainput) {
+        this.type = datainput.readByte();
         int i = datainput.readInt();
 
-        this.a = new ArrayList();
+        this.list = new ArrayList();
 
         for (int j = 0; j < i; ++j) {
-            NBTBase nbtbase = NBTBase.a(this.b, (String) null);
+            NBTBase nbtbase = NBTBase.createTag(this.type, (String) null);
 
-            nbtbase.a(datainput);
-            this.a.add(nbtbase);
+            nbtbase.load(datainput);
+            this.list.add(nbtbase);
         }
     }
 
-    public byte a() {
+    public byte getTypeId() {
         return (byte) 9;
     }
 
     public String toString() {
-        return "" + this.a.size() + " entries of type " + NBTBase.a(this.b);
+        return "" + this.list.size() + " entries of type " + NBTBase.getTagName(this.type);
     }
 
-    public void a(NBTBase nbtbase) {
-        this.b = nbtbase.a();
-        this.a.add(nbtbase);
+    public void add(NBTBase nbtbase) {
+        this.type = nbtbase.getTypeId();
+        this.list.add(nbtbase);
     }
 
-    public NBTBase a(int i) {
-        return (NBTBase) this.a.get(i);
+    public NBTBase get(int i) {
+        return (NBTBase) this.list.get(i);
     }
 
-    public int d() {
-        return this.a.size();
+    public int size() {
+        return this.list.size();
     }
 
-    public NBTBase b() {
-        NBTTagList nbttaglist = new NBTTagList(this.c());
+    public NBTBase clone() {
+        NBTTagList nbttaglist = new NBTTagList(this.getName());
 
-        nbttaglist.b = this.b;
-        Iterator iterator = this.a.iterator();
+        nbttaglist.type = this.type;
+        Iterator iterator = this.list.iterator();
 
         while (iterator.hasNext()) {
             NBTBase nbtbase = (NBTBase) iterator.next();
-            NBTBase nbtbase1 = nbtbase.b();
+            NBTBase nbtbase1 = nbtbase.clone();
 
-            nbttaglist.a.add(nbtbase1);
+            nbttaglist.list.add(nbtbase1);
         }
 
         return nbttaglist;
@@ -89,8 +89,8 @@ public class NBTTagList extends NBTBase {
         if (super.equals(object)) {
             NBTTagList nbttaglist = (NBTTagList) object;
 
-            if (this.b == nbttaglist.b) {
-                return this.a.equals(nbttaglist.a);
+            if (this.type == nbttaglist.type) {
+                return this.list.equals(nbttaglist.list);
             }
         }
 

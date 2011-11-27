@@ -25,7 +25,7 @@ public class BlockHugeMushroom extends Block {
         return i;
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return Block.BROWN_MUSHROOM.id + this.a;
     }
 }

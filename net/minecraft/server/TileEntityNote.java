@@ -9,12 +9,12 @@ public class TileEntityNote extends TileEntity {
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.a("note", this.note);
+        nbttagcompound.setByte("note", this.note);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.note = nbttagcompound.d("note");
+        this.note = nbttagcompound.getByte("note");
         if (this.note < 0) {
             this.note = 0;
         }

@@ -248,16 +248,16 @@ public class EntityEnderDragon extends EntityComplex {
             }
 
             this.V = this.yaw;
-            this.g.length = this.g.width = 3.0F;
-            this.i.length = this.i.width = 2.0F;
-            this.j.length = this.j.width = 2.0F;
-            this.k.length = this.k.width = 2.0F;
-            this.h.width = 3.0F;
-            this.h.length = 5.0F;
-            this.l.width = 2.0F;
-            this.l.length = 4.0F;
-            this.m.width = 3.0F;
-            this.m.length = 4.0F;
+            this.g.width = this.g.length = 3.0F;
+            this.i.width = this.i.length = 2.0F;
+            this.j.width = this.j.length = 2.0F;
+            this.k.width = this.k.length = 2.0F;
+            this.h.length = 3.0F;
+            this.h.width = 5.0F;
+            this.l.length = 2.0F;
+            this.l.width = 4.0F;
+            this.m.length = 3.0F;
+            this.m.width = 4.0F;
             d05 = (float) (this.a(5, 1.0F)[1] - this.a(10, 1.0F)[1]) * 10.0F / 180.0F * 3.1415927F;
             f1 = MathHelper.cos(d05);
             float f9 = -MathHelper.sin(d05);

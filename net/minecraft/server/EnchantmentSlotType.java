@@ -8,7 +8,7 @@ public enum EnchantmentSlotType {
 
     private EnchantmentSlotType(String s, int i) {}
 
-    public boolean a(Item item) {
+    public boolean canEnchant(Item item) {
         if (this == ALL) {
             return true;
         } else if (item instanceof ItemArmor) {

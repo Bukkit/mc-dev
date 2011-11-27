@@ -21,7 +21,7 @@ public class EntitySheep extends EntityAnimal {
         this.datawatcher.a(16, new Byte((byte) 0));
     }
 
-    protected void a(boolean flag, int i) {
+    protected void dropDeathLoot(boolean flag, int i) {
         if (!this.isSheared()) {
             this.a(new ItemStack(Block.WOOL.id, 1, this.getColor()), 0.0F);
         }
@@ -56,14 +56,14 @@ public class EntitySheep extends EntityAnimal {
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.a("Sheared", this.isSheared());
-        nbttagcompound.a("Color", (byte) this.getColor());
+        nbttagcompound.setBoolean("Sheared", this.isSheared());
+        nbttagcompound.setByte("Color", (byte) this.getColor());
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.setSheared(nbttagcompound.n("Sheared"));
-        this.setColor(nbttagcompound.d("Color"));
+        this.setSheared(nbttagcompound.getBoolean("Sheared"));
+        this.setColor(nbttagcompound.getByte("Color"));
     }
 
     protected String c_() {

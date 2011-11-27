@@ -19,7 +19,7 @@ public class ChunkProviderHell implements IChunkProvider {
     private double[] q = new double[256];
     private double[] r = new double[256];
     private double[] s = new double[256];
-    private MapGenBase t = new MapGenCavesHell();
+    private WorldGenBase t = new WorldGenCavesHell();
     double[] d;
     double[] e;
     double[] f;

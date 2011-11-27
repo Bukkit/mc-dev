@@ -59,7 +59,7 @@ public class BlockReed extends Block {
         return null;
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return Item.SUGAR_CANE.id;
     }
 

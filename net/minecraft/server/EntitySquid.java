@@ -56,7 +56,7 @@ public class EntitySquid extends EntityWaterAnimal {
         return 0;
     }
 
-    protected void a(boolean flag, int i) {
+    protected void dropDeathLoot(boolean flag, int i) {
         int j = this.random.nextInt(3 + i) + 1;
 
         for (int k = 0; k < j; ++k) {

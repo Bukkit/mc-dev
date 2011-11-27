@@ -185,7 +185,7 @@ public class EntityTrackerEntry {
                         EntityHuman entityhuman = (EntityHuman) this.tracker;
 
                         if (entityhuman.isSleeping()) {
-                            entityplayer.netServerHandler.sendPacket(new Packet17(this.tracker, 0, MathHelper.floor(this.tracker.locX), MathHelper.floor(this.tracker.locY), MathHelper.floor(this.tracker.locZ)));
+                            entityplayer.netServerHandler.sendPacket(new Packet17EntityLocationAction(this.tracker, 0, MathHelper.floor(this.tracker.locX), MathHelper.floor(this.tracker.locY), MathHelper.floor(this.tracker.locZ)));
                         }
                     }
 
@@ -303,18 +303,18 @@ public class EntityTrackerEntry {
                 } else if (this.tracker instanceof EntityEnderCrystal) {
                     return new Packet23VehicleSpawn(this.tracker, 51);
                 } else {
-                    if (this.tracker instanceof EntityFallingSand) {
-                        EntityFallingSand entityfallingsand = (EntityFallingSand) this.tracker;
+                    if (this.tracker instanceof EntityFallingBlock) {
+                        EntityFallingBlock entityfallingblock = (EntityFallingBlock) this.tracker;
 
-                        if (entityfallingsand.a == Block.SAND.id) {
+                        if (entityfallingblock.a == Block.SAND.id) {
                             return new Packet23VehicleSpawn(this.tracker, 70);
                         }
 
-                        if (entityfallingsand.a == Block.GRAVEL.id) {
+                        if (entityfallingblock.a == Block.GRAVEL.id) {
                             return new Packet23VehicleSpawn(this.tracker, 71);
                         }
 
-                        if (entityfallingsand.a == Block.DRAGON_EGG.id) {
+                        if (entityfallingblock.a == Block.DRAGON_EGG.id) {
                             return new Packet23VehicleSpawn(this.tracker, 74);
                         }
                     }

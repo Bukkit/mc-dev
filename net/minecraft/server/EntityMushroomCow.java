@@ -22,10 +22,10 @@ public class EntityMushroomCow extends EntityCow {
             entitycow.setHealth(this.getHealth());
             entitycow.V = this.V;
             this.world.addEntity(entitycow);
-            this.world.a("largeexplode", this.locX, this.locY + (double) (this.width / 2.0F), this.locZ, 0.0D, 0.0D, 0.0D);
+            this.world.a("largeexplode", this.locX, this.locY + (double) (this.length / 2.0F), this.locZ, 0.0D, 0.0D, 0.0D);
 
             for (int i = 0; i < 5; ++i) {
-                this.world.addEntity(new EntityItem(this.world, this.locX, this.locY + (double) this.width, this.locZ, new ItemStack(Block.RED_MUSHROOM)));
+                this.world.addEntity(new EntityItem(this.world, this.locX, this.locY + (double) this.length, this.locZ, new ItemStack(Block.RED_MUSHROOM)));
             }
 
             return true;

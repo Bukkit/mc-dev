@@ -130,7 +130,7 @@ public class BlockStem extends BlockFlower {
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
     }
 
-    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+    public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
         this.maxY = (double) ((float) (iblockaccess.getData(i, j, k) * 2 + 2) / 16.0F);
         float f = 0.125F;
 
@@ -169,7 +169,7 @@ public class BlockStem extends BlockFlower {
         }
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         if (i == 7) {
             ;
         }

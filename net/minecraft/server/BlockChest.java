@@ -23,8 +23,8 @@ public class BlockChest extends BlockContainer {
         return 22;
     }
 
-    public void a(World world, int i, int j, int k) {
-        super.a(world, i, j, k);
+    public void onPlace(World world, int i, int j, int k) {
+        super.onPlace(world, i, j, k);
         this.b(world, i, j, k);
         int l = world.getTypeId(i, j, k - 1);
         int i1 = world.getTypeId(i, j, k + 1);
@@ -245,8 +245,8 @@ public class BlockChest extends BlockContainer {
                         entityitem.motX = (double) ((float) this.a.nextGaussian() * f3);
                         entityitem.motY = (double) ((float) this.a.nextGaussian() * f3 + 0.2F);
                         entityitem.motZ = (double) ((float) this.a.nextGaussian() * f3);
-                        if (itemstack.n()) {
-                            entityitem.itemStack.d((NBTTagCompound) itemstack.o().b());
+                        if (itemstack.hasTag()) {
+                            entityitem.itemStack.setTag((NBTTagCompound) itemstack.getTag().clone());
                         }
                     }
                 }

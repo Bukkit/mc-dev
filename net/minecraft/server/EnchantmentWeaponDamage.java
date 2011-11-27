@@ -26,7 +26,7 @@ public class EnchantmentWeaponDamage extends Enchantment {
     }
 
     public int a(int i, EntityLiving entityliving) {
-        return this.a == 0 ? i * 3 : (this.a == 1 && entityliving.t() == EnchantmentDamage.b ? i * 4 : (this.a == 2 && entityliving.t() == EnchantmentDamage.c ? i * 4 : 0));
+        return this.a == 0 ? i * 3 : (this.a == 1 && entityliving.getMonsterType() == MonsterType.UNDEAD ? i * 4 : (this.a == 2 && entityliving.getMonsterType() == MonsterType.ARTHROPOD ? i * 4 : 0));
     }
 
     public boolean a(Enchantment enchantment) {

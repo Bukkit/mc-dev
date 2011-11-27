@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-class WorldGenStrongholdStones extends StructurePIeceBlockSelector {
+class WorldGenStrongholdStones extends StructurePieceBlockSelector {
 
     private WorldGenStrongholdStones() {}
 

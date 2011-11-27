@@ -31,12 +31,12 @@ public class EntityPigZombie extends EntityZombie {
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.a("Anger", (short) this.angerLevel);
+        nbttagcompound.setShort("Anger", (short) this.angerLevel);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.angerLevel = nbttagcompound.e("Anger");
+        this.angerLevel = nbttagcompound.getShort("Anger");
     }
 
     protected Entity findTarget() {
@@ -87,7 +87,7 @@ public class EntityPigZombie extends EntityZombie {
         return "mob.zombiepig.zpigdeath";
     }
 
-    protected void a(boolean flag, int i) {
+    protected void dropDeathLoot(boolean flag, int i) {
         int j = this.random.nextInt(2 + i);
 
         int k;

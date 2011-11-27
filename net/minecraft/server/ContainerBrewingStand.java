@@ -5,23 +5,23 @@ public class ContainerBrewingStand extends Container {
     private TileEntityBrewingStand a;
     private int b = 0;
 
-    public ContainerBrewingStand(InventoryPlayer inventoryplayer, TileEntityBrewingStand tileentitybrewingstand) {
+    public ContainerBrewingStand(PlayerInventory playerinventory, TileEntityBrewingStand tileentitybrewingstand) {
         this.a = tileentitybrewingstand;
-        this.a(new SlotPotionBottle(this, inventoryplayer.d, tileentitybrewingstand, 0, 56, 46));
-        this.a(new SlotPotionBottle(this, inventoryplayer.d, tileentitybrewingstand, 1, 79, 53));
-        this.a(new SlotPotionBottle(this, inventoryplayer.d, tileentitybrewingstand, 2, 102, 46));
+        this.a(new SlotPotionBottle(this, playerinventory.d, tileentitybrewingstand, 0, 56, 46));
+        this.a(new SlotPotionBottle(this, playerinventory.d, tileentitybrewingstand, 1, 79, 53));
+        this.a(new SlotPotionBottle(this, playerinventory.d, tileentitybrewingstand, 2, 102, 46));
         this.a(new SlotBrewing(this, tileentitybrewingstand, 3, 79, 17));
 
         int i;
 
         for (i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.a(new Slot(inventoryplayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.a(new Slot(playerinventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (i = 0; i < 9; ++i) {
-            this.a(new Slot(inventoryplayer, i, 8 + i * 18, 142));
+            this.a(new Slot(playerinventory, i, 8 + i * 18, 142));
         }
     }
 

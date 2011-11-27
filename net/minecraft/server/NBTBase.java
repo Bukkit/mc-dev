@@ -5,19 +5,19 @@ import java.io.DataOutput;
 
 public abstract class NBTBase {
 
-    private String a;
+    private String name;
 
-    abstract void a(DataOutput dataoutput);
+    abstract void write(DataOutput dataoutput);
 
-    abstract void a(DataInput datainput);
+    abstract void load(DataInput datainput);
 
-    public abstract byte a();
+    public abstract byte getTypeId();
 
     protected NBTBase(String s) {
         if (s == null) {
-            this.a = "";
+            this.name = "";
         } else {
-            this.a = s;
+            this.name = s;
         }
     }
 
@@ -25,24 +25,24 @@ public abstract class NBTBase {
         if (object != null && object instanceof NBTBase) {
             NBTBase nbtbase = (NBTBase) object;
 
-            return this.a() != nbtbase.a() ? false : ((this.a != null || nbtbase.a == null) && (this.a == null || nbtbase.a != null) ? this.a == null || this.a.equals(nbtbase.a) : false);
+            return this.getTypeId() != nbtbase.getTypeId() ? false : ((this.name != null || nbtbase.name == null) && (this.name == null || nbtbase.name != null) ? this.name == null || this.name.equals(nbtbase.name) : false);
         } else {
             return false;
         }
     }
 
-    public NBTBase a(String s) {
+    public NBTBase setName(String s) {
         if (s == null) {
-            this.a = "";
+            this.name = "";
         } else {
-            this.a = s;
+            this.name = s;
         }
 
         return this;
     }
 
-    public String c() {
-        return this.a == null ? "" : this.a;
+    public String getName() {
+        return this.name == null ? "" : this.name;
     }
 
     public static NBTBase b(DataInput datainput) {
@@ -52,22 +52,22 @@ public abstract class NBTBase {
             return new NBTTagEnd();
         } else {
             String s = datainput.readUTF();
-            NBTBase nbtbase = a(b0, s);
+            NBTBase nbtbase = createTag(b0, s);
 
-            nbtbase.a(datainput);
+            nbtbase.load(datainput);
             return nbtbase;
         }
     }
 
     public static void a(NBTBase nbtbase, DataOutput dataoutput) {
-        dataoutput.writeByte(nbtbase.a());
-        if (nbtbase.a() != 0) {
-            dataoutput.writeUTF(nbtbase.c());
-            nbtbase.a(dataoutput);
+        dataoutput.writeByte(nbtbase.getTypeId());
+        if (nbtbase.getTypeId() != 0) {
+            dataoutput.writeUTF(nbtbase.getName());
+            nbtbase.write(dataoutput);
         }
     }
 
-    public static NBTBase a(byte b0, String s) {
+    public static NBTBase createTag(byte b0, String s) {
         switch (b0) {
         case 0:
             return new NBTTagEnd();
@@ -107,7 +107,7 @@ public abstract class NBTBase {
         }
     }
 
-    public static String a(byte b0) {
+    public static String getTagName(byte b0) {
         switch (b0) {
         case 0:
             return "TAG_End";
@@ -147,5 +147,5 @@ public abstract class NBTBase {
         }
     }
 
-    public abstract NBTBase b();
+    public abstract NBTBase clone();
 }

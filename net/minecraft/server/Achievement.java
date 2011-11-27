@@ -18,9 +18,9 @@ public class Achievement extends Statistic {
     }
 
     public Achievement(int i, String s, int j, int k, ItemStack itemstack, Achievement achievement) {
-        super(5242880 + i, StatisticCollector.a("achievement." + s));
+        super(5242880 + i, LocaleI18n.a("achievement." + s));
         this.d = itemstack;
-        this.l = StatisticCollector.a("achievement." + s + ".desc");
+        this.l = LocaleI18n.a("achievement." + s + ".desc");
         this.a = j;
         this.b = k;
         if (j < AchievementList.a) {

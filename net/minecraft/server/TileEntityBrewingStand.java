@@ -100,10 +100,10 @@ public class TileEntityBrewingStand extends TileEntity implements IInventory {
 
                     if ((j <= 0 || list != list1) && (list == null || !list.equals(list1) && list1 != null)) {
                         if (j != k) {
-                            this.a[i].b(k);
+                            this.a[i].setData(k);
                         }
                     } else if (!ItemPotion.c(j) && ItemPotion.c(k)) {
-                        this.a[i].b(k);
+                        this.a[i].setData(k);
                     }
                 }
             }
@@ -125,38 +125,38 @@ public class TileEntityBrewingStand extends TileEntity implements IInventory {
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        NBTTagList nbttaglist = nbttagcompound.m("Items");
+        NBTTagList nbttaglist = nbttagcompound.getList("Items");
 
         this.a = new ItemStack[this.getSize()];
 
-        for (int i = 0; i < nbttaglist.d(); ++i) {
-            NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.a(i);
-            byte b0 = nbttagcompound1.d("Slot");
+        for (int i = 0; i < nbttaglist.size(); ++i) {
+            NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.get(i);
+            byte b0 = nbttagcompound1.getByte("Slot");
 
             if (b0 >= 0 && b0 < this.a.length) {
                 this.a[b0] = ItemStack.a(nbttagcompound1);
             }
         }
 
-        this.b = nbttagcompound.e("BrewTime");
+        this.b = nbttagcompound.getShort("BrewTime");
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.a("BrewTime", (short) this.b);
+        nbttagcompound.setShort("BrewTime", (short) this.b);
         NBTTagList nbttaglist = new NBTTagList();
 
         for (int i = 0; i < this.a.length; ++i) {
             if (this.a[i] != null) {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
-                nbttagcompound1.a("Slot", (byte) i);
+                nbttagcompound1.setByte("Slot", (byte) i);
                 this.a[i].b(nbttagcompound1);
-                nbttaglist.a((NBTBase) nbttagcompound1);
+                nbttaglist.add(nbttagcompound1);
             }
         }
 
-        nbttagcompound.a("Items", (NBTBase) nbttaglist);
+        nbttagcompound.set("Items", nbttaglist);
     }
 
     public ItemStack getItem(int i) {

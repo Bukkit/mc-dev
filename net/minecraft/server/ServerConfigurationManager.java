@@ -55,7 +55,7 @@ public class ServerConfigurationManager {
     }
 
     public void setPlayerFileData(WorldServer[] aworldserver) {
-        this.playerFileData = aworldserver[0].q().d();
+        this.playerFileData = aworldserver[0].getDataManager().getPlayerFileData();
     }
 
     public void a(EntityPlayer entityplayer) {
@@ -113,7 +113,7 @@ public class ServerConfigurationManager {
         this.sendAll(new Packet201PlayerInfo(entityplayer.name, false, 9999));
     }
 
-    public EntityPlayer a(NetLoginHandler netloginhandler, String s) {
+    public EntityPlayer attemptLogin(NetLoginHandler netloginhandler, String s) {
         if (this.banByName.contains(s.trim().toLowerCase())) {
             netloginhandler.disconnect("You are banned from this server!");
             return null;
@@ -165,7 +165,7 @@ public class ServerConfigurationManager {
         WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
 
         entityplayer1.itemInWorldManager.a(entityplayer.itemInWorldManager.a());
-        entityplayer1.itemInWorldManager.b(worldserver.r().getGameType());
+        entityplayer1.itemInWorldManager.b(worldserver.getWorldData().getGameType());
         if (chunkcoordinates != null) {
             ChunkCoordinates chunkcoordinates1 = EntityHuman.getBed(this.server.getWorldServer(entityplayer.dimension), chunkcoordinates);
 
@@ -194,7 +194,7 @@ public class ServerConfigurationManager {
         return entityplayer1;
     }
 
-    public void a(EntityPlayer entityplayer, int i) {
+    public void changeDimension(EntityPlayer entityplayer, int i) {
         int j = entityplayer.dimension;
         WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
 
@@ -212,14 +212,14 @@ public class ServerConfigurationManager {
             d0 /= d2;
             d1 /= d2;
             entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
-            if (entityplayer.aj()) {
+            if (entityplayer.isAlive()) {
                 worldserver.entityJoinedWorld(entityplayer, false);
             }
         } else if (entityplayer.dimension == 0) {
             d0 *= d2;
             d1 *= d2;
             entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
-            if (entityplayer.aj()) {
+            if (entityplayer.isAlive()) {
                 worldserver.entityJoinedWorld(entityplayer, false);
             }
         } else {
@@ -229,12 +229,12 @@ public class ServerConfigurationManager {
             entityplayer.locY = (double) chunkcoordinates.y;
             d1 = (double) chunkcoordinates.z;
             entityplayer.setPositionRotation(d0, entityplayer.locY, d1, 90.0F, 0.0F);
-            if (entityplayer.aj()) {
+            if (entityplayer.isAlive()) {
                 worldserver.entityJoinedWorld(entityplayer, false);
             }
         }
 
-        if (j != 1 && entityplayer.aj()) {
+        if (j != 1 && entityplayer.isAlive()) {
             worldserver1.addEntity(entityplayer);
             entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
             worldserver1.entityJoinedWorld(entityplayer, false);
@@ -251,7 +251,7 @@ public class ServerConfigurationManager {
         this.updateClient(entityplayer);
     }
 
-    public void b() {
+    public void tick() {
         if (++this.p > 200) {
             this.p = 0;
         }
@@ -356,11 +356,11 @@ public class ServerConfigurationManager {
         }
     }
 
-    public Set e() {
+    public Set getBannedPlayers() {
         return this.banByName;
     }
 
-    public Set f() {
+    public Set getBannedAddresses() {
         return this.banByIP;
     }
 
@@ -593,11 +593,11 @@ public class ServerConfigurationManager {
         entityplayer.s_();
     }
 
-    public int j() {
+    public int getPlayerCount() {
         return this.players.size();
     }
 
-    public int k() {
+    public int getMaxPlayers() {
         return this.maxPlayers;
     }
 }

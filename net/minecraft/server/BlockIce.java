@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-public class BlockIce extends BlockBreakable {
+public class BlockIce extends BlockHalfTransparant {
 
     public BlockIce(int i, int j) {
         super(i, j, Material.ICE, false);

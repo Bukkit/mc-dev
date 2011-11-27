@@ -45,7 +45,7 @@ public class World implements IBlockAccess {
     public final WorldProvider worldProvider;
     protected List z;
     protected IChunkProvider chunkProvider;
-    protected final IDataManager B;
+    protected final IDataManager dataManager;
     protected WorldData worldData;
     public boolean isLoading;
     private boolean Q;
@@ -99,9 +99,9 @@ public class World implements IBlockAccess {
         this.H = new int['\u8000'];
         this.V = new ArrayList();
         this.isStatic = false;
-        this.B = idatamanager;
+        this.dataManager = idatamanager;
         this.worldMaps = new WorldMapCollection(idatamanager);
-        this.worldData = idatamanager.c();
+        this.worldData = idatamanager.getWorldData();
         this.x = this.worldData == null;
         if (worldprovider != null) {
             this.worldProvider = worldprovider;
@@ -131,7 +131,7 @@ public class World implements IBlockAccess {
     }
 
     protected IChunkProvider b() {
-        IChunkLoader ichunkloader = this.B.a(this.worldProvider);
+        IChunkLoader ichunkloader = this.dataManager.createChunkLoader(this.worldProvider);
 
         return new ChunkProviderLoadOrGenerate(this, ichunkloader, this.worldProvider.getChunkProvider());
     }
@@ -199,7 +199,7 @@ public class World implements IBlockAccess {
 
     private void y() {
         this.l();
-        this.B.a(this.worldData, this.players);
+        this.dataManager.saveWorldData(this.worldData, this.players);
         this.worldMaps.a();
     }
 
@@ -1549,7 +1549,7 @@ public class World implements IBlockAccess {
     }
 
     public void doTick() {
-        if (this.r().isHardcore() && this.difficulty < 3) {
+        if (this.getWorldData().isHardcore() && this.difficulty < 3) {
             this.difficulty = 3;
         }
 
@@ -1742,7 +1742,7 @@ public class World implements IBlockAccess {
                 i2 += k1;
                 j2 += j;
                 if (l2 == 0 && this.k(i2, k2, j2) <= this.random.nextInt(8) && this.a(EnumSkyBlock.SKY, i2, k2, j2) <= 0) {
-                    EntityHuman entityhuman1 = this.a((double) i2 + 0.5D, (double) k2 + 0.5D, (double) j2 + 0.5D, 8.0D);
+                    EntityHuman entityhuman1 = this.findNearbyPlayer((double) i2 + 0.5D, (double) k2 + 0.5D, (double) j2 + 0.5D, 8.0D);
 
                     if (entityhuman1 != null && entityhuman1.e((double) i2 + 0.5D, (double) k2 + 0.5D, (double) j2 + 0.5D) > 4.0D) {
                         this.makeSound((double) i2 + 0.5D, (double) k2 + 0.5D, (double) j2 + 0.5D, "ambient.cave.cave", 0.7F, 0.8F + this.random.nextFloat() * 0.2F);
@@ -1759,7 +1759,7 @@ public class World implements IBlockAccess {
                 j2 = j + (l1 >> 8 & 15);
                 k2 = this.e(i2, j2);
                 if (this.v(i2, k2, j2)) {
-                    this.strikeLightning(new EntityWeatherStorm(this, (double) i2, (double) k2, (double) j2));
+                    this.strikeLightning(new EntityWeatherLighting(this, (double) i2, (double) k2, (double) j2));
                     this.r = 2;
                 }
             }
@@ -2318,10 +2318,10 @@ public class World implements IBlockAccess {
     }
 
     public EntityHuman findNearbyPlayer(Entity entity, double d0) {
-        return this.a(entity.locX, entity.locY, entity.locZ, d0);
+        return this.findNearbyPlayer(entity.locX, entity.locY, entity.locZ, d0);
     }
 
-    public EntityHuman a(double d0, double d1, double d2, double d3) {
+    public EntityHuman findNearbyPlayer(double d0, double d1, double d2, double d3) {
         double d4 = -1.0D;
         EntityHuman entityhuman = null;
 
@@ -2338,11 +2338,11 @@ public class World implements IBlockAccess {
         return entityhuman;
     }
 
-    public EntityHuman b(Entity entity, double d0) {
-        return this.b(entity.locX, entity.locY, entity.locZ, d0);
+    public EntityHuman findNearbyVulnerablePlayer(Entity entity, double d0) {
+        return this.findNearbyVulnerablePlayer(entity.locX, entity.locY, entity.locZ, d0);
     }
 
-    public EntityHuman b(double d0, double d1, double d2, double d3) {
+    public EntityHuman findNearbyVulnerablePlayer(double d0, double d1, double d2, double d3) {
         double d4 = -1.0D;
         EntityHuman entityhuman = null;
 
@@ -2422,7 +2422,7 @@ public class World implements IBlockAccess {
     }
 
     public void l() {
-        this.B.b();
+        this.dataManager.checkSession();
     }
 
     public void setTime(long i) {
@@ -2471,11 +2471,11 @@ public class World implements IBlockAccess {
         }
     }
 
-    public IDataManager q() {
-        return this.B;
+    public IDataManager getDataManager() {
+        return this.dataManager;
     }
 
-    public WorldData r() {
+    public WorldData getWorldData() {
         return this.worldData;
     }
 
@@ -2581,13 +2581,13 @@ public class World implements IBlockAccess {
     }
 
     public Random w(int i, int j, int k) {
-        long l = (long) i * 341873128712L + (long) j * 132897987541L + this.r().getSeed() + (long) k;
+        long l = (long) i * 341873128712L + (long) j * 132897987541L + this.getWorldData().getSeed() + (long) k;
 
         this.random.setSeed(l);
         return this.random;
     }
 
-    public boolean x() {
+    public boolean updateLights() {
         return false;
     }
 

@@ -13,7 +13,7 @@ public class BlockPistonMoving extends BlockContainer {
         return null;
     }
 
-    public void a(World world, int i, int j, int k) {}
+    public void onPlace(World world, int i, int j, int k) {}
 
     public void remove(World world, int i, int j, int k) {
         TileEntity tileentity = world.getTileEntity(i, j, k);
@@ -54,7 +54,7 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return 0;
     }
 
@@ -94,7 +94,7 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
-    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+    public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
         TileEntityPiston tileentitypiston = this.b(iblockaccess, i, j, k);
 
         if (tileentitypiston != null) {
@@ -104,7 +104,7 @@ public class BlockPistonMoving extends BlockContainer {
                 return;
             }
 
-            block.a(iblockaccess, i, j, k);
+            block.updateShape(iblockaccess, i, j, k);
             float f = tileentitypiston.a(0.0F);
 
             if (tileentitypiston.e()) {
@@ -113,12 +113,12 @@ public class BlockPistonMoving extends BlockContainer {
 
             int l = tileentitypiston.f();
 
-            this.minX = block.minX - (double) ((float) PistonBlockTextures.b[l] * f);
-            this.minY = block.minY - (double) ((float) PistonBlockTextures.c[l] * f);
-            this.minZ = block.minZ - (double) ((float) PistonBlockTextures.d[l] * f);
-            this.maxX = block.maxX - (double) ((float) PistonBlockTextures.b[l] * f);
-            this.maxY = block.maxY - (double) ((float) PistonBlockTextures.c[l] * f);
-            this.maxZ = block.maxZ - (double) ((float) PistonBlockTextures.d[l] * f);
+            this.minX = block.minX - (double) ((float) Facing.b[l] * f);
+            this.minY = block.minY - (double) ((float) Facing.c[l] * f);
+            this.minZ = block.minZ - (double) ((float) Facing.d[l] * f);
+            this.maxX = block.maxX - (double) ((float) Facing.b[l] * f);
+            this.maxY = block.maxY - (double) ((float) Facing.c[l] * f);
+            this.maxZ = block.maxZ - (double) ((float) Facing.d[l] * f);
         }
     }
 
@@ -129,12 +129,12 @@ public class BlockPistonMoving extends BlockContainer {
             if (axisalignedbb == null) {
                 return null;
             } else {
-                axisalignedbb.a -= (double) ((float) PistonBlockTextures.b[i1] * f);
-                axisalignedbb.d -= (double) ((float) PistonBlockTextures.b[i1] * f);
-                axisalignedbb.b -= (double) ((float) PistonBlockTextures.c[i1] * f);
-                axisalignedbb.e -= (double) ((float) PistonBlockTextures.c[i1] * f);
-                axisalignedbb.c -= (double) ((float) PistonBlockTextures.d[i1] * f);
-                axisalignedbb.f -= (double) ((float) PistonBlockTextures.d[i1] * f);
+                axisalignedbb.a -= (double) ((float) Facing.b[i1] * f);
+                axisalignedbb.d -= (double) ((float) Facing.b[i1] * f);
+                axisalignedbb.b -= (double) ((float) Facing.c[i1] * f);
+                axisalignedbb.e -= (double) ((float) Facing.c[i1] * f);
+                axisalignedbb.c -= (double) ((float) Facing.d[i1] * f);
+                axisalignedbb.f -= (double) ((float) Facing.d[i1] * f);
                 return axisalignedbb;
             }
         } else {

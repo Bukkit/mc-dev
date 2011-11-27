@@ -76,7 +76,7 @@ public class EntitySnowman extends EntityGolem {
         return Item.SNOW_BALL.id;
     }
 
-    protected void a(boolean flag, int i) {
+    protected void dropDeathLoot(boolean flag, int i) {
         int j = this.random.nextInt(16);
 
         for (int k = 0; k < j; ++k) {

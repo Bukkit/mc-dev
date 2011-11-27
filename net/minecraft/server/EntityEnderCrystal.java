@@ -9,7 +9,7 @@ public class EntityEnderCrystal extends Entity {
         super(world);
         this.bc = true;
         this.b(2.0F, 2.0F);
-        this.height = this.width / 2.0F;
+        this.height = this.length / 2.0F;
         this.b = 5;
         this.a = this.random.nextInt(100000);
     }

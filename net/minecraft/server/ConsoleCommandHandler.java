@@ -193,7 +193,7 @@ public class ConsoleCommandHandler {
                                                 k = Integer.parseInt(astring[2]);
                                                 k = k > 5000 ? 5000 : k;
                                                 this.print(s1, "Giving " + k + " orbs to " + entityplayer2.name);
-                                                entityplayer2.h(k);
+                                                entityplayer2.giveExp(k);
                                             } catch (NumberFormatException numberformatexception1) {
                                                 icommandlistener.sendMessage("Invalid orb count: " + astring[2]);
                                             }

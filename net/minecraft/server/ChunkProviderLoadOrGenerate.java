@@ -12,7 +12,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     private Chunk b;
     private IChunkProvider c;
     private IChunkLoader d;
-    private PlayerList e = new PlayerList();
+    private LongHashMap e = new LongHashMap();
     private List f = new ArrayList();
     private World g;
     private int h;
@@ -187,7 +187,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
             }
 
             Chunk chunk1 = (Chunk) this.f.get(this.h++);
-            EntityHuman entityhuman = this.g.a((double) (chunk1.x << 4) + 8.0D, 64.0D, (double) (chunk1.z << 4) + 8.0D, 288.0D);
+            EntityHuman entityhuman = this.g.findNearbyPlayer((double) (chunk1.x << 4) + 8.0D, 64.0D, (double) (chunk1.z << 4) + 8.0D, 288.0D);
 
             if (entityhuman == null) {
                 this.d(chunk1.x, chunk1.z);

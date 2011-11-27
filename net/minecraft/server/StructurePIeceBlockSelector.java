@@ -2,12 +2,12 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-public abstract class StructurePIeceBlockSelector {
+public abstract class StructurePieceBlockSelector {
 
     protected int a;
     protected int b;
 
-    protected StructurePIeceBlockSelector() {}
+    protected StructurePieceBlockSelector() {}
 
     public abstract void a(Random random, int i, int j, int k, boolean flag);
 

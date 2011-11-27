@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public abstract class StructureGenerator extends MapGenBase {
+public abstract class StructureGenerator extends WorldGenBase {
 
     protected HashMap e = new HashMap();
 

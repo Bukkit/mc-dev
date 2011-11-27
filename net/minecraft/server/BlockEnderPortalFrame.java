@@ -42,7 +42,7 @@ public class BlockEnderPortalFrame extends Block {
         return (i & 4) != 0;
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return 0;
     }
 

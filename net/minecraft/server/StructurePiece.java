@@ -334,7 +334,7 @@ public abstract class StructurePiece {
         }
     }
 
-    protected void a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, int j1, boolean flag, Random random, StructurePIeceBlockSelector structurepieceblockselector) {
+    protected void a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, int j1, boolean flag, Random random, StructurePieceBlockSelector structurepieceblockselector) {
         for (int k1 = j; k1 <= i1; ++k1) {
             for (int l1 = i; l1 <= l; ++l1) {
                 for (int i2 = k; i2 <= j1; ++i2) {

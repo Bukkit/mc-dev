@@ -74,7 +74,7 @@ public class NetLoginHandler extends NetHandler {
     }
 
     public void b(Packet1Login packet1login) {
-        EntityPlayer entityplayer = this.server.serverConfigurationManager.a(this, packet1login.name);
+        EntityPlayer entityplayer = this.server.serverConfigurationManager.attemptLogin(this, packet1login.name);
 
         if (entityplayer != null) {
             this.server.serverConfigurationManager.b(entityplayer);
@@ -84,10 +84,10 @@ public class NetLoginHandler extends NetHandler {
             WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
             ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
 
-            entityplayer.itemInWorldManager.b(worldserver.r().getGameType());
+            entityplayer.itemInWorldManager.b(worldserver.getWorldData().getGameType());
             NetServerHandler netserverhandler = new NetServerHandler(this.server, this.networkManager, entityplayer);
 
-            netserverhandler.sendPacket(new Packet1Login("", entityplayer.id, worldserver.getSeed(), entityplayer.itemInWorldManager.a(), (byte) worldserver.worldProvider.dimension, (byte) worldserver.difficulty, (byte) worldserver.height, (byte) this.server.serverConfigurationManager.k()));
+            netserverhandler.sendPacket(new Packet1Login("", entityplayer.id, worldserver.getSeed(), entityplayer.itemInWorldManager.a(), (byte) worldserver.worldProvider.dimension, (byte) worldserver.difficulty, (byte) worldserver.height, (byte) this.server.serverConfigurationManager.getMaxPlayers()));
             netserverhandler.sendPacket(new Packet6SpawnPosition(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z));
             this.server.serverConfigurationManager.a(entityplayer, worldserver);
             this.server.serverConfigurationManager.sendAll(new Packet3Chat("\u00A7e" + entityplayer.name + " joined the game."));
@@ -116,7 +116,7 @@ public class NetLoginHandler extends NetHandler {
 
     public void a(Packet254GetInfo packet254getinfo) {
         try {
-            String s = this.server.r + "\u00A7" + this.server.serverConfigurationManager.j() + "\u00A7" + this.server.serverConfigurationManager.k();
+            String s = this.server.r + "\u00A7" + this.server.serverConfigurationManager.getPlayerCount() + "\u00A7" + this.server.serverConfigurationManager.getMaxPlayers();
 
             this.networkManager.queue(new Packet255KickDisconnect(s));
             this.networkManager.d();

@@ -60,7 +60,7 @@ public class BlockNetherWart extends BlockFlower {
         }
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return 0;
     }
 

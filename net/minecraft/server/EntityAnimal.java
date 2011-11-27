@@ -45,7 +45,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
                 double d1 = this.random.nextGaussian() * 0.02D;
                 double d2 = this.random.nextGaussian() * 0.02D;
 
-                this.world.a(s, this.locX + (double) (this.random.nextFloat() * this.length * 2.0F) - (double) this.length, this.locY + 0.5D + (double) (this.random.nextFloat() * this.width), this.locZ + (double) (this.random.nextFloat() * this.length * 2.0F) - (double) this.length, d0, d1, d2);
+                this.world.a(s, this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
             }
         } else {
             this.b = 0;
@@ -84,7 +84,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
                     ++this.love;
                     ++this.b;
                     if (this.b % 4 == 0) {
-                        this.world.a("heart", this.locX + (double) (this.random.nextFloat() * this.length * 2.0F) - (double) this.length, this.locY + 0.5D + (double) (this.random.nextFloat() * this.width), this.locZ + (double) (this.random.nextFloat() * this.length * 2.0F) - (double) this.length, 0.0D, 0.0D, 0.0D);
+                        this.world.a("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D, 0.0D);
                     }
 
                     if (this.b == 60) {
@@ -119,7 +119,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
                 double d1 = this.random.nextGaussian() * 0.02D;
                 double d2 = this.random.nextGaussian() * 0.02D;
 
-                this.world.a("heart", this.locX + (double) (this.random.nextFloat() * this.length * 2.0F) - (double) this.length, this.locY + 0.5D + (double) (this.random.nextFloat() * this.width), this.locZ + (double) (this.random.nextFloat() * this.length * 2.0F) - (double) this.length, d0, d1, d2);
+                this.world.a("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
             }
 
             this.world.addEntity(entityanimal1);
@@ -143,14 +143,14 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.a("Age", this.getAge());
-        nbttagcompound.a("InLove", this.love);
+        nbttagcompound.setInt("Age", this.getAge());
+        nbttagcompound.setInt("InLove", this.love);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.setAge(nbttagcompound.f("Age"));
-        this.love = nbttagcompound.f("InLove");
+        this.setAge(nbttagcompound.getInt("Age"));
+        this.love = nbttagcompound.getInt("InLove");
     }
 
     protected Entity findTarget() {
@@ -237,7 +237,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
                 double d1 = this.random.nextGaussian() * 0.02D;
                 double d2 = this.random.nextGaussian() * 0.02D;
 
-                this.world.a("heart", this.locX + (double) (this.random.nextFloat() * this.length * 2.0F) - (double) this.length, this.locY + 0.5D + (double) (this.random.nextFloat() * this.width), this.locZ + (double) (this.random.nextFloat() * this.length * 2.0F) - (double) this.length, d0, d1, d2);
+                this.world.a("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
             }
 
             return true;

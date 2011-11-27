@@ -12,21 +12,21 @@ public class PlayerAbilities {
     public void a(NBTTagCompound nbttagcompound) {
         NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
-        nbttagcompound1.a("invulnerable", this.isInvulnerable);
-        nbttagcompound1.a("flying", this.isInvulnerable);
-        nbttagcompound1.a("mayfly", this.canFly);
-        nbttagcompound1.a("instabuild", this.canInstantlyBuild);
-        nbttagcompound.a("abilities", (NBTBase) nbttagcompound1);
+        nbttagcompound1.setBoolean("invulnerable", this.isInvulnerable);
+        nbttagcompound1.setBoolean("flying", this.isInvulnerable);
+        nbttagcompound1.setBoolean("mayfly", this.canFly);
+        nbttagcompound1.setBoolean("instabuild", this.canInstantlyBuild);
+        nbttagcompound.set("abilities", nbttagcompound1);
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         if (nbttagcompound.hasKey("abilities")) {
-            NBTTagCompound nbttagcompound1 = nbttagcompound.l("abilities");
+            NBTTagCompound nbttagcompound1 = nbttagcompound.getCompound("abilities");
 
-            this.isInvulnerable = nbttagcompound1.n("invulnerable");
-            this.isFlying = nbttagcompound1.n("flying");
-            this.canFly = nbttagcompound1.n("mayfly");
-            this.canInstantlyBuild = nbttagcompound1.n("instabuild");
+            this.isInvulnerable = nbttagcompound1.getBoolean("invulnerable");
+            this.isFlying = nbttagcompound1.getBoolean("flying");
+            this.canFly = nbttagcompound1.getBoolean("mayfly");
+            this.canInstantlyBuild = nbttagcompound1.getBoolean("instabuild");
         }
     }
 }

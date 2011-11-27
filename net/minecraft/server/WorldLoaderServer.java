@@ -60,7 +60,7 @@ public class WorldLoaderServer extends WorldLoader {
         worlddata.a(19132);
         IDataManager idatamanager = this.a(s, false);
 
-        idatamanager.a(worlddata);
+        idatamanager.saveWorldData(worlddata);
         this.a(arraylist1, arraylist.size() + arraylist2.size(), i, iprogressupdate);
         if (file2.exists()) {
             this.a(arraylist3, arraylist.size() + arraylist2.size() + arraylist1.size(), i, iprogressupdate);

@@ -110,7 +110,7 @@ public class BlockCrops extends BlockFlower {
         }
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return i == 7 ? Item.WHEAT.id : -1;
     }
 

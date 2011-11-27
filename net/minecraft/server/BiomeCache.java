@@ -7,7 +7,7 @@ public class BiomeCache {
 
     private final WorldChunkManager a;
     private long b = 0L;
-    private PlayerList c = new PlayerList();
+    private LongHashMap c = new LongHashMap();
     private List d = new ArrayList();
 
     public BiomeCache(WorldChunkManager worldchunkmanager) {

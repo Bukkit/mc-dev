@@ -25,7 +25,7 @@ public class BlockVine extends Block {
         return false;
     }
 
-    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+    public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
         int l = iblockaccess.getData(i, j, k);
         float f = 1.0F;
         float f1 = 1.0F;
@@ -275,7 +275,7 @@ public class BlockVine extends Block {
         }
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return 0;
     }
 

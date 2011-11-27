@@ -9,7 +9,7 @@ public class BlockSnowBlock extends Block {
         this.a(true);
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return Item.SNOW_BALL.id;
     }
 

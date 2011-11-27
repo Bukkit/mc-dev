@@ -17,11 +17,11 @@ public class ChunkProviderGenerate implements IChunkProvider {
     private final boolean t;
     private double[] u;
     private double[] v = new double[256];
-    private MapGenBase w = new MapGenCaves();
+    private WorldGenBase w = new WorldGenCaves();
     public WorldGenStronghold d = new WorldGenStronghold();
     public WorldGenVillage e = new WorldGenVillage();
     public WorldGenMineshaft f = new WorldGenMineshaft();
-    private MapGenBase x = new WorldGenCanyon();
+    private WorldGenBase x = new WorldGenCanyon();
     private BiomeBase[] y;
     double[] g;
     double[] h;

@@ -34,7 +34,7 @@ public abstract class WorldProvider {
     }
 
     public IChunkProvider getChunkProvider() {
-        return new ChunkProviderGenerate(this.a, this.a.getSeed(), this.a.r().o());
+        return new ChunkProviderGenerate(this.a, this.a.getSeed(), this.a.getWorldData().o());
     }
 
     public boolean canSpawn(int i, int j) {
@@ -67,7 +67,7 @@ public abstract class WorldProvider {
     }
 
     public static WorldProvider byDimension(int i) {
-        return (WorldProvider) (i == -1 ? new WorldProviderHell() : (i == 0 ? new WorldProviderNormal() : (i == 1 ? new WorldProviderSky() : null)));
+        return (WorldProvider) (i == -1 ? new WorldProviderHell() : (i == 0 ? new WorldProviderNormal() : (i == 1 ? new WorldProviderTheEnd() : null)));
     }
 
     public ChunkCoordinates d() {

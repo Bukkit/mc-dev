@@ -169,7 +169,7 @@ public class ItemInWorldManager {
             entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = itemstack1;
             if (this.b()) {
                 itemstack1.count = i;
-                itemstack1.b(j);
+                itemstack1.setData(j);
             }
 
             if (itemstack1.count == 0) {
@@ -192,7 +192,7 @@ public class ItemInWorldManager {
             int k1 = itemstack.count;
             boolean flag = itemstack.placeItem(entityhuman, world, i, j, k, l);
 
-            itemstack.b(j1);
+            itemstack.setData(j1);
             itemstack.count = k1;
             return flag;
         } else {

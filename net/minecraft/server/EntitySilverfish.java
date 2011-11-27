@@ -23,7 +23,7 @@ public class EntitySilverfish extends EntityMonster {
     protected Entity findTarget() {
         double d0 = 8.0D;
 
-        return this.world.b(this, d0);
+        return this.world.findNearbyVulnerablePlayer(this, d0);
     }
 
     protected String c_() {
@@ -116,9 +116,9 @@ public class EntitySilverfish extends EntityMonster {
                 k = MathHelper.floor(this.locZ);
                 int l1 = this.random.nextInt(6);
 
-                l = this.world.getTypeId(i + PistonBlockTextures.b[l1], j + PistonBlockTextures.c[l1], k + PistonBlockTextures.d[l1]);
+                l = this.world.getTypeId(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1]);
                 if (BlockMonsterEggs.d(l)) {
-                    this.world.setTypeIdAndData(i + PistonBlockTextures.b[l1], j + PistonBlockTextures.c[l1], k + PistonBlockTextures.d[l1], Block.MONSTER_EGGS.id, BlockMonsterEggs.e(l));
+                    this.world.setTypeIdAndData(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1], Block.MONSTER_EGGS.id, BlockMonsterEggs.e(l));
                     this.ah();
                     this.die();
                 } else {
@@ -148,7 +148,7 @@ public class EntitySilverfish extends EntityMonster {
         }
     }
 
-    public EnchantmentDamage t() {
-        return EnchantmentDamage.c;
+    public MonsterType getMonsterType() {
+        return MonsterType.ARTHROPOD;
     }
 }

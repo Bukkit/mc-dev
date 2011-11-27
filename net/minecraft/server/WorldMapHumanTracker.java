@@ -31,16 +31,16 @@ public class WorldMapHumanTracker {
 
         if (--this.f < 0) {
             this.f = 4;
-            byte[] abyte = new byte[this.d.i.size() * 3 + 1];
+            byte[] abyte = new byte[this.d.decorations.size() * 3 + 1];
 
             abyte[0] = 1;
 
-            for (i = 0; i < this.d.i.size(); ++i) {
-                WorldMapOrienter worldmaporienter = (WorldMapOrienter) this.d.i.get(i);
+            for (i = 0; i < this.d.decorations.size(); ++i) {
+                WorldMapDecoration worldmapdecoration = (WorldMapDecoration) this.d.decorations.get(i);
 
-                abyte[i * 3 + 1] = (byte) (worldmaporienter.a + (worldmaporienter.d & 15) * 16);
-                abyte[i * 3 + 2] = worldmaporienter.b;
-                abyte[i * 3 + 3] = worldmaporienter.c;
+                abyte[i * 3 + 1] = (byte) (worldmapdecoration.type + (worldmapdecoration.rotation & 15) * 16);
+                abyte[i * 3 + 2] = worldmapdecoration.locX;
+                abyte[i * 3 + 3] = worldmapdecoration.locY;
             }
 
             boolean flag = true;
@@ -75,7 +75,7 @@ public class WorldMapHumanTracker {
                 abyte1[2] = (byte) l;
 
                 for (int i1 = 0; i1 < abyte1.length - 3; ++i1) {
-                    abyte1[i1 + 3] = this.d.f[(i1 + l) * 128 + i];
+                    abyte1[i1 + 3] = this.d.colors[(i1 + l) * 128 + i];
                 }
 
                 this.c[i] = -1;

@@ -74,15 +74,15 @@ public class BlockBed extends Block {
                     a(world, i, j, k, false);
                 }
 
-                EnumBedError enumbederror = entityhuman.a(i, j, k);
+                EnumBedResult enumbedresult = entityhuman.a(i, j, k);
 
-                if (enumbederror == EnumBedError.OK) {
+                if (enumbedresult == EnumBedResult.OK) {
                     a(world, i, j, k, true);
                     return true;
                 } else {
-                    if (enumbederror == EnumBedError.NOT_POSSIBLE_NOW) {
+                    if (enumbedresult == EnumBedResult.NOT_POSSIBLE_NOW) {
                         entityhuman.a("tile.bed.noSleep");
-                    } else if (enumbederror == EnumBedError.NOT_SAFE) {
+                    } else if (enumbedresult == EnumBedResult.NOT_SAFE) {
                         entityhuman.a("tile.bed.notSafe");
                     }
 
@@ -115,7 +115,7 @@ public class BlockBed extends Block {
         return false;
     }
 
-    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+    public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
         this.q();
     }
 
@@ -135,7 +135,7 @@ public class BlockBed extends Block {
         }
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return e(i) ? 0 : Item.BED.id;
     }
 

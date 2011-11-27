@@ -28,11 +28,11 @@ public class BlockTrapdoor extends Block {
     }
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
-        this.a(world, i, j, k);
+        this.updateShape(world, i, j, k);
         return super.e(world, i, j, k);
     }
 
-    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+    public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
         this.d(iblockaccess.getData(i, j, k));
     }
 
@@ -129,7 +129,7 @@ public class BlockTrapdoor extends Block {
     }
 
     public MovingObjectPosition a(World world, int i, int j, int k, Vec3D vec3d, Vec3D vec3d1) {
-        this.a(world, i, j, k);
+        this.updateShape(world, i, j, k);
         return super.a(world, i, j, k, vec3d, vec3d1);
     }
 

@@ -25,12 +25,12 @@ public class EntityVillager extends EntityCreature implements NPC {
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.a("Profession", this.profession);
+        nbttagcompound.setInt("Profession", this.profession);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.profession = nbttagcompound.f("Profession");
+        this.profession = nbttagcompound.getInt("Profession");
         this.y();
     }
 

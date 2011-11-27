@@ -14,6 +14,6 @@ public class EntityDamageSourceIndirect extends EntityDamageSource {
     }
 
     public String a(EntityHuman entityhuman) {
-        return StatisticCollector.a("death." + this.m, new Object[] { entityhuman.name, this.n.ad()});
+        return LocaleI18n.a("death." + this.m, new Object[] { entityhuman.name, this.n.ad()});
     }
 }

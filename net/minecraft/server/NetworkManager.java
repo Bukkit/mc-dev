@@ -228,7 +228,7 @@ public class NetworkManager {
         this.a();
         this.q = true;
         this.s.interrupt();
-        (new ThreadMonitorConnection(this)).start();
+        (new NetworkMonitorThread(this)).start();
     }
 
     public int e() {

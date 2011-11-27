@@ -25,7 +25,7 @@ public class RemoteControlSession extends RemoteConnectionThread {
         while (true) {
             try {
                 if (!this.running) {
-                    return;
+                    break;
                 }
 
                 try {
@@ -92,7 +92,7 @@ public class RemoteControlSession extends RemoteConnectionThread {
                 }
             } catch (Exception exception1) {
                 System.out.println(exception1);
-                return;
+                break;
             } finally {
                 this.f();
             }

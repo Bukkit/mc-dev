@@ -15,8 +15,8 @@ public class EntitySmallFireball extends EntityFireball {
     protected void a(MovingObjectPosition movingobjectposition) {
         if (!this.world.isStatic) {
             if (movingobjectposition.entity != null) {
-                if (!movingobjectposition.entity.ax() && movingobjectposition.entity.damageEntity(DamageSource.fireball(this, this.shooter), 5)) {
-                    movingobjectposition.entity.j(5);
+                if (!movingobjectposition.entity.isFireproof() && movingobjectposition.entity.damageEntity(DamageSource.fireball(this, this.shooter), 5)) {
+                    movingobjectposition.entity.setOnFire(5);
                 }
             } else {
                 int i = movingobjectposition.b;

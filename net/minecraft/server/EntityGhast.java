@@ -81,7 +81,7 @@ public class EntityGhast extends EntityFlying implements IMonster {
         }
 
         if (this.target == null || this.h-- <= 0) {
-            this.target = this.world.b(this, 100.0D);
+            this.target = this.world.findNearbyVulnerablePlayer(this, 100.0D);
             if (this.target != null) {
                 this.h = 20;
             }
@@ -91,7 +91,7 @@ public class EntityGhast extends EntityFlying implements IMonster {
 
         if (this.target != null && this.target.i(this) < d4 * d4) {
             double d5 = this.target.locX - this.locX;
-            double d6 = this.target.boundingBox.b + (double) (this.target.width / 2.0F) - (this.locY + (double) (this.width / 2.0F));
+            double d6 = this.target.boundingBox.b + (double) (this.target.length / 2.0F) - (this.locY + (double) (this.length / 2.0F));
             double d7 = this.target.locZ - this.locZ;
 
             this.V = this.yaw = -((float) Math.atan2(d5, d7)) * 180.0F / 3.1415927F;
@@ -108,7 +108,7 @@ public class EntityGhast extends EntityFlying implements IMonster {
                     Vec3D vec3d = this.d(1.0F);
 
                     entityfireball.locX = this.locX + vec3d.a * d8;
-                    entityfireball.locY = this.locY + (double) (this.width / 2.0F) + 0.5D;
+                    entityfireball.locY = this.locY + (double) (this.length / 2.0F) + 0.5D;
                     entityfireball.locZ = this.locZ + vec3d.c * d8;
                     this.world.addEntity(entityfireball);
                     this.f = -40;
@@ -165,7 +165,7 @@ public class EntityGhast extends EntityFlying implements IMonster {
         return Item.SULPHUR.id;
     }
 
-    protected void a(boolean flag, int i) {
+    protected void dropDeathLoot(boolean flag, int i) {
         int j = this.random.nextInt(2) + this.random.nextInt(1 + i);
 
         int k;

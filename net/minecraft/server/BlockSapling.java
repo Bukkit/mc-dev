@@ -53,7 +53,7 @@ public class BlockSapling extends BlockFlower {
         }
     }
 
-    protected int c(int i) {
+    protected int getDropData(int i) {
         return i & 3;
     }
 }

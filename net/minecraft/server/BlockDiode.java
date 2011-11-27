@@ -130,7 +130,7 @@ public class BlockDiode extends Block {
         }
     }
 
-    public void a(World world, int i, int j, int k) {
+    public void onPlace(World world, int i, int j, int k) {
         world.applyPhysics(i + 1, j, k, this.id);
         world.applyPhysics(i - 1, j, k, this.id);
         world.applyPhysics(i, j, k + 1, this.id);
@@ -151,7 +151,7 @@ public class BlockDiode extends Block {
         return false;
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return Item.DIODE.id;
     }
 }

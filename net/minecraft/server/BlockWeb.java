@@ -28,7 +28,7 @@ public class BlockWeb extends Block {
         return false;
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return Item.STRING.id;
     }
 }

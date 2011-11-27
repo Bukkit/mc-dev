@@ -15,11 +15,11 @@ public class BlockLongGrass extends BlockFlower {
         return j == 1 ? this.textureId : (j == 2 ? this.textureId + 16 + 1 : (j == 0 ? this.textureId + 16 : this.textureId));
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return random.nextInt(8) == 0 ? Item.SEEDS.id : -1;
     }
 
-    public int a(int i, Random random) {
+    public int getDropCount(int i, Random random) {
         return 1 + random.nextInt(i * 2 + 1);
     }
 

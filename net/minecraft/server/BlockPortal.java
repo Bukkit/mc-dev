@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-public class BlockPortal extends BlockBreakable {
+public class BlockPortal extends BlockHalfTransparant {
 
     public BlockPortal(int i, int j) {
         super(i, j, Material.PORTAL, false);
@@ -12,7 +12,7 @@ public class BlockPortal extends BlockBreakable {
         return null;
     }
 
-    public void a(IBlockAccess iblockaccess, int i, int j, int k) {
+    public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
         float f;
         float f1;
 

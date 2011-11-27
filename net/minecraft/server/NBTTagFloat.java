@@ -5,7 +5,7 @@ import java.io.DataOutput;
 
 public class NBTTagFloat extends NBTBase {
 
-    public float a;
+    public float data;
 
     public NBTTagFloat(String s) {
         super(s);
@@ -13,34 +13,34 @@ public class NBTTagFloat extends NBTBase {
 
     public NBTTagFloat(String s, float f) {
         super(s);
-        this.a = f;
+        this.data = f;
     }
 
-    void a(DataOutput dataoutput) {
-        dataoutput.writeFloat(this.a);
+    void write(DataOutput dataoutput) {
+        dataoutput.writeFloat(this.data);
     }
 
-    void a(DataInput datainput) {
-        this.a = datainput.readFloat();
+    void load(DataInput datainput) {
+        this.data = datainput.readFloat();
     }
 
-    public byte a() {
+    public byte getTypeId() {
         return (byte) 5;
     }
 
     public String toString() {
-        return "" + this.a;
+        return "" + this.data;
     }
 
-    public NBTBase b() {
-        return new NBTTagFloat(this.c(), this.a);
+    public NBTBase clone() {
+        return new NBTTagFloat(this.getName(), this.data);
     }
 
     public boolean equals(Object object) {
         if (super.equals(object)) {
             NBTTagFloat nbttagfloat = (NBTTagFloat) object;
 
-            return this.a == nbttagfloat.a;
+            return this.data == nbttagfloat.data;
         } else {
             return false;
         }

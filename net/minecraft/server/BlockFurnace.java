@@ -14,12 +14,12 @@ public class BlockFurnace extends BlockContainer {
         this.textureId = 45;
     }
 
-    public int a(int i, Random random, int j) {
+    public int getDropType(int i, Random random, int j) {
         return Block.FURNACE.id;
     }
 
-    public void a(World world, int i, int j, int k) {
-        super.a(world, i, j, k);
+    public void onPlace(World world, int i, int j, int k) {
+        super.onPlace(world, i, j, k);
         this.g(world, i, j, k);
     }
 

@@ -5,7 +5,7 @@ import java.io.DataOutput;
 
 public class NBTTagByteArray extends NBTBase {
 
-    public byte[] a;
+    public byte[] data;
 
     public NBTTagByteArray(String s) {
         super(s);
@@ -13,27 +13,27 @@ public class NBTTagByteArray extends NBTBase {
 
     public NBTTagByteArray(String s, byte[] abyte) {
         super(s);
-        this.a = abyte;
+        this.data = abyte;
     }
 
-    void a(DataOutput dataoutput) {
-        dataoutput.writeInt(this.a.length);
-        dataoutput.write(this.a);
+    void write(DataOutput dataoutput) {
+        dataoutput.writeInt(this.data.length);
+        dataoutput.write(this.data);
     }
 
-    void a(DataInput datainput) {
+    void load(DataInput datainput) {
         int i = datainput.readInt();
 
-        this.a = new byte[i];
-        datainput.readFully(this.a);
+        this.data = new byte[i];
+        datainput.readFully(this.data);
     }
 
-    public byte a() {
+    public byte getTypeId() {
         return (byte) 7;
     }
 
     public String toString() {
-        return "[" + this.a.length + " bytes]";
+        return "[" + this.data.length + " bytes]";
     }
 
     public boolean equals(Object object) {
@@ -42,14 +42,14 @@ public class NBTTagByteArray extends NBTBase {
         } else {
             NBTTagByteArray nbttagbytearray = (NBTTagByteArray) object;
 
-            return this.a == null && nbttagbytearray.a == null || this.a != null && this.a.equals(nbttagbytearray.a);
+            return this.data == null && nbttagbytearray.data == null || this.data != null && this.data.equals(nbttagbytearray.data);
         }
     }
 
-    public NBTBase b() {
-        byte[] abyte = new byte[this.a.length];
+    public NBTBase clone() {
+        byte[] abyte = new byte[this.data.length];
 
-        System.arraycopy(this.a, 0, abyte, 0, this.a.length);
-        return new NBTTagByteArray(this.c(), abyte);
+        System.arraycopy(this.data, 0, abyte, 0, this.data.length);
+        return new NBTTagByteArray(this.getName(), abyte);
     }
 }

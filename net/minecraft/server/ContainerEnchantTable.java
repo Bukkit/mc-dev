@@ -15,7 +15,7 @@ public class ContainerEnchantTable extends Container {
     public long b;
     public int[] c = new int[3];
 
-    public ContainerEnchantTable(InventoryPlayer inventoryplayer, World world, int i, int j, int k) {
+    public ContainerEnchantTable(PlayerInventory playerinventory, World world, int i, int j, int k) {
         this.h = world;
         this.i = i;
         this.j = j;
@@ -26,12 +26,12 @@ public class ContainerEnchantTable extends Container {
 
         for (l = 0; l < 3; ++l) {
             for (int i1 = 0; i1 < 9; ++i1) {
-                this.a(new Slot(inventoryplayer, i1 + l * 9 + 9, 8 + i1 * 18, 84 + l * 18));
+                this.a(new Slot(playerinventory, i1 + l * 9 + 9, 8 + i1 * 18, 84 + l * 18));
             }
         }
 
         for (l = 0; l < 9; ++l) {
-            this.a(new Slot(inventoryplayer, l, 8 + l * 18, 142));
+            this.a(new Slot(playerinventory, l, 8 + l * 18, 142));
         }
     }
 
@@ -115,18 +115,18 @@ public class ContainerEnchantTable extends Container {
     public boolean a(EntityHuman entityhuman, int i) {
         ItemStack itemstack = this.a.getItem(0);
 
-        if (this.c[i] > 0 && itemstack != null && entityhuman.expTotal >= this.c[i]) {
+        if (this.c[i] > 0 && itemstack != null && entityhuman.expLevel >= this.c[i]) {
             if (!this.h.isStatic) {
                 List list = EnchantmentManager.a(this.l, itemstack, this.c[i]);
 
                 if (list != null) {
-                    entityhuman.b(this.c[i]);
+                    entityhuman.levelDown(this.c[i]);
                     Iterator iterator = list.iterator();
 
                     while (iterator.hasNext()) {
-                        WeightedRandomChoiceEnchantment weightedrandomchoiceenchantment = (WeightedRandomChoiceEnchantment) iterator.next();
+                        EnchantmentInstance enchantmentinstance = (EnchantmentInstance) iterator.next();
 
-                        itemstack.a(weightedrandomchoiceenchantment.a, weightedrandomchoiceenchantment.b);
+                        itemstack.addEnchantment(enchantmentinstance.a, enchantmentinstance.b);
                     }
 
                     this.a(this.a);

@@ -9,6 +9,6 @@ public class BiomeHell extends BiomeBase {
         this.E.clear();
         this.C.add(new BiomeMeta(EntityGhast.class, 50, 4, 4));
         this.C.add(new BiomeMeta(EntityPigZombie.class, 100, 4, 4));
-        this.C.add(new BiomeMeta(EntityLavaSlime.class, 1, 4, 4));
+        this.C.add(new BiomeMeta(EntityMagmaCube.class, 1, 4, 4));
     }
 }

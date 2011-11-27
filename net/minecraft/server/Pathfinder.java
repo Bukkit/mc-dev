@@ -4,7 +4,7 @@ public class Pathfinder {
 
     private IBlockAccess a;
     private Path b = new Path();
-    private EntityList c = new EntityList();
+    private IntHashMap c = new IntHashMap();
     private PathPoint[] d = new PathPoint[32];
 
     public Pathfinder(IBlockAccess iblockaccess) {
@@ -23,8 +23,8 @@ public class Pathfinder {
         this.b.a();
         this.c.a();
         PathPoint pathpoint = this.a(MathHelper.floor(entity.boundingBox.a), MathHelper.floor(entity.boundingBox.b), MathHelper.floor(entity.boundingBox.c));
-        PathPoint pathpoint1 = this.a(MathHelper.floor(d0 - (double) (entity.length / 2.0F)), MathHelper.floor(d1), MathHelper.floor(d2 - (double) (entity.length / 2.0F)));
-        PathPoint pathpoint2 = new PathPoint(MathHelper.d(entity.length + 1.0F), MathHelper.d(entity.width + 1.0F), MathHelper.d(entity.length + 1.0F));
+        PathPoint pathpoint1 = this.a(MathHelper.floor(d0 - (double) (entity.width / 2.0F)), MathHelper.floor(d1), MathHelper.floor(d2 - (double) (entity.width / 2.0F)));
+        PathPoint pathpoint2 = new PathPoint(MathHelper.d(entity.width + 1.0F), MathHelper.d(entity.length + 1.0F), MathHelper.d(entity.width + 1.0F));
         PathEntity pathentity = this.a(entity, pathpoint, pathpoint1, pathpoint2, f);
 
         return pathentity;

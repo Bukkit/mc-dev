@@ -167,7 +167,7 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
             this.worldServer[k].addIWorldAccess(new WorldManager(this, this.worldServer[k]));
             this.worldServer[k].difficulty = this.propertyManager.getInt("difficulty", 1);
             this.worldServer[k].setSpawnFlags(this.propertyManager.getBoolean("spawn-monsters", true), this.spawnAnimals);
-            this.worldServer[k].r().setGameType(j);
+            this.worldServer[k].getWorldData().setGameType(j);
             this.serverConfigurationManager.setPlayerFileData(this.worldServer);
         }
 
@@ -198,7 +198,7 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
 
                         worldserver.chunkProviderServer.getChunkAt(chunkcoordinates.x + j1 >> 4, chunkcoordinates.z + k1 >> 4);
 
-                        while (worldserver.x() && this.isRunning) {
+                        while (worldserver.updateLights() && this.isRunning) {
                             ;
                         }
                     }
@@ -350,13 +350,13 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
                 WorldServer worldserver = this.worldServer[k];
 
                 if (this.ticks % 20 == 0) {
-                    this.serverConfigurationManager.a((Packet) (new Packet4UpdateTime(worldserver.getTime())), worldserver.worldProvider.dimension);
+                    this.serverConfigurationManager.a(new Packet4UpdateTime(worldserver.getTime()), worldserver.worldProvider.dimension);
                 }
 
                 worldserver.doTick();
 
                 while (true) {
-                    if (!worldserver.x()) {
+                    if (!worldserver.updateLights()) {
                         worldserver.tickEntities();
                         break;
                     }
@@ -367,7 +367,7 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
         }
 
         this.networkListenThread.a();
-        this.serverConfigurationManager.b();
+        this.serverConfigurationManager.tick();
 
         for (k = 0; k < this.tracker.length; ++k) {
             this.tracker[k].updatePlayers();
@@ -481,11 +481,11 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
     }
 
     public int getPlayerCount() {
-        return this.serverConfigurationManager.j();
+        return this.serverConfigurationManager.getPlayerCount();
     }
 
     public int getMaxPlayers() {
-        return this.serverConfigurationManager.k();
+        return this.serverConfigurationManager.getMaxPlayers();
     }
 
     public String[] getPlayers() {
@@ -523,11 +523,11 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
     }
 
     public String[] q() {
-        return (String[]) this.serverConfigurationManager.f().toArray(new String[0]);
+        return (String[]) this.serverConfigurationManager.getBannedAddresses().toArray(new String[0]);
     }
 
     public String[] r() {
-        return (String[]) this.serverConfigurationManager.e().toArray(new String[0]);
+        return (String[]) this.serverConfigurationManager.getBannedPlayers().toArray(new String[0]);
     }
 
     public static boolean isRunning(MinecraftServer minecraftserver) {

@@ -22,7 +22,7 @@ public class EntityZombie extends EntityMonster {
             float f = this.a(1.0F);
 
             if (f > 0.5F && this.world.isChunkLoaded(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ)) && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
-                this.j(8);
+                this.setOnFire(8);
             }
         }
 
@@ -45,7 +45,7 @@ public class EntityZombie extends EntityMonster {
         return Item.ROTTEN_FLESH.id;
     }
 
-    public EnchantmentDamage t() {
-        return EnchantmentDamage.b;
+    public MonsterType getMonsterType() {
+        return MonsterType.UNDEAD;
     }
 }

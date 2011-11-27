@@ -12,8 +12,8 @@ public class BlockTNT extends Block {
         return i == 0 ? this.textureId + 2 : (i == 1 ? this.textureId + 1 : this.textureId);
     }
 
-    public void a(World world, int i, int j, int k) {
-        super.a(world, i, j, k);
+    public void onPlace(World world, int i, int j, int k) {
+        super.onPlace(world, i, j, k);
         if (world.isBlockIndirectlyPowered(i, j, k)) {
             this.postBreak(world, i, j, k, 1);
             world.setTypeId(i, j, k, 0);

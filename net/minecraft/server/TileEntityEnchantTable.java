@@ -22,7 +22,7 @@ public class TileEntityEnchantTable extends TileEntity {
         super.l_();
         this.g = this.f;
         this.i = this.h;
-        EntityHuman entityhuman = this.world.a((double) ((float) this.x + 0.5F), (double) ((float) this.y + 0.5F), (double) ((float) this.z + 0.5F), 3.0D);
+        EntityHuman entityhuman = this.world.findNearbyPlayer((double) ((float) this.x + 0.5F), (double) ((float) this.y + 0.5F), (double) ((float) this.z + 0.5F), 3.0D);
 
         if (entityhuman != null) {
             double d0 = entityhuman.locX - (double) ((float) this.x + 0.5F);

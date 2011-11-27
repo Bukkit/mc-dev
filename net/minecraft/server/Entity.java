@@ -35,8 +35,8 @@ public abstract class Entity {
     public boolean bA;
     public boolean dead;
     public float height;
-    public float length;
     public float width;
+    public float length;
     public float bF;
     public float bG;
     public float fallDistance;
@@ -77,8 +77,8 @@ public abstract class Entity {
         this.bA = true;
         this.dead = false;
         this.height = 0.0F;
-        this.length = 0.6F;
-        this.width = 1.8F;
+        this.width = 0.6F;
+        this.length = 1.8F;
         this.bF = 0.0F;
         this.bG = 0.0F;
         this.fallDistance = 0.0F;
@@ -123,8 +123,8 @@ public abstract class Entity {
     }
 
     protected void b(float f, float f1) {
-        this.length = f;
-        this.width = f1;
+        this.width = f;
+        this.length = f1;
     }
 
     protected void c(float f, float f1) {
@@ -136,8 +136,8 @@ public abstract class Entity {
         this.locX = d0;
         this.locY = d1;
         this.locZ = d2;
-        float f = this.length / 2.0F;
-        float f1 = this.width;
+        float f = this.width / 2.0F;
+        float f1 = this.length;
 
         this.boundingBox.c(d0 - (double) f, d1 - (double) this.height + (double) this.bL, d2 - (double) f, d0 + (double) f, d1 - (double) this.height + (double) this.bL + (double) f1, d2 + (double) f);
     }
@@ -169,7 +169,7 @@ public abstract class Entity {
             int l = this.world.getTypeId(j, k, i);
 
             if (l > 0) {
-                this.world.a("tilecrack_" + l, this.locX + ((double) this.random.nextFloat() - 0.5D) * (double) this.length, this.boundingBox.b + 0.1D, this.locZ + ((double) this.random.nextFloat() - 0.5D) * (double) this.length, -this.motX * 4.0D, 1.5D, -this.motZ * 4.0D);
+                this.world.a("tilecrack_" + l, this.locX + ((double) this.random.nextFloat() - 0.5D) * (double) this.width, this.boundingBox.b + 0.1D, this.locZ + ((double) this.random.nextFloat() - 0.5D) * (double) this.width, -this.motX * 4.0D, 1.5D, -this.motZ * 4.0D);
             }
         }
 
@@ -187,15 +187,15 @@ public abstract class Entity {
                 float f2;
                 float f3;
 
-                for (i = 0; (float) i < 1.0F + this.length * 20.0F; ++i) {
-                    f3 = (this.random.nextFloat() * 2.0F - 1.0F) * this.length;
-                    f2 = (this.random.nextFloat() * 2.0F - 1.0F) * this.length;
+                for (i = 0; (float) i < 1.0F + this.width * 20.0F; ++i) {
+                    f3 = (this.random.nextFloat() * 2.0F - 1.0F) * this.width;
+                    f2 = (this.random.nextFloat() * 2.0F - 1.0F) * this.width;
                     this.world.a("bubble", this.locX + (double) f3, (double) (f1 + 1.0F), this.locZ + (double) f2, this.motX, this.motY - (double) (this.random.nextFloat() * 0.2F), this.motZ);
                 }
 
-                for (i = 0; (float) i < 1.0F + this.length * 20.0F; ++i) {
-                    f3 = (this.random.nextFloat() * 2.0F - 1.0F) * this.length;
-                    f2 = (this.random.nextFloat() * 2.0F - 1.0F) * this.length;
+                for (i = 0; (float) i < 1.0F + this.width * 20.0F; ++i) {
+                    f3 = (this.random.nextFloat() * 2.0F - 1.0F) * this.width;
+                    f2 = (this.random.nextFloat() * 2.0F - 1.0F) * this.width;
                     this.world.a("splash", this.locX + (double) f3, (double) (f1 + 1.0F), this.locZ + (double) f2, this.motX, this.motY, this.motZ);
                 }
             }
@@ -245,11 +245,11 @@ public abstract class Entity {
     protected void av() {
         if (!this.fireProof) {
             this.damageEntity(DamageSource.LAVA, 4);
-            this.j(15);
+            this.setOnFire(15);
         }
     }
 
-    public void j(int i) {
+    public void setOnFire(int i) {
         int j = i * 20;
 
         if (this.fireTicks < j) {
@@ -257,7 +257,7 @@ public abstract class Entity {
         }
     }
 
-    public void aw() {
+    public void extinguish() {
         this.fireTicks = 0;
     }
 
@@ -514,7 +514,7 @@ public abstract class Entity {
                 if (!flag2) {
                     ++this.fireTicks;
                     if (this.fireTicks == 0) {
-                        this.j(8);
+                        this.setOnFire(8);
                     }
                 }
             } else if (this.fireTicks <= 0) {
@@ -566,7 +566,7 @@ public abstract class Entity {
         }
     }
 
-    public final boolean ax() {
+    public final boolean isFireproof() {
         return this.fireProof;
     }
 
@@ -781,24 +781,24 @@ public abstract class Entity {
     }
 
     public void d(NBTTagCompound nbttagcompound) {
-        nbttagcompound.a("Pos", (NBTBase) this.a(new double[] { this.locX, this.locY + (double) this.bL, this.locZ}));
-        nbttagcompound.a("Motion", (NBTBase) this.a(new double[] { this.motX, this.motY, this.motZ}));
-        nbttagcompound.a("Rotation", (NBTBase) this.a(new float[] { this.yaw, this.pitch}));
-        nbttagcompound.a("FallDistance", this.fallDistance);
-        nbttagcompound.a("Fire", (short) this.fireTicks);
-        nbttagcompound.a("Air", (short) this.getAirTicks());
-        nbttagcompound.a("OnGround", this.onGround);
+        nbttagcompound.set("Pos", this.a(new double[] { this.locX, this.locY + (double) this.bL, this.locZ}));
+        nbttagcompound.set("Motion", this.a(new double[] { this.motX, this.motY, this.motZ}));
+        nbttagcompound.set("Rotation", this.a(new float[] { this.yaw, this.pitch}));
+        nbttagcompound.setFloat("FallDistance", this.fallDistance);
+        nbttagcompound.setShort("Fire", (short) this.fireTicks);
+        nbttagcompound.setShort("Air", (short) this.getAirTicks());
+        nbttagcompound.setBoolean("OnGround", this.onGround);
         this.b(nbttagcompound);
     }
 
     public void e(NBTTagCompound nbttagcompound) {
-        NBTTagList nbttaglist = nbttagcompound.m("Pos");
-        NBTTagList nbttaglist1 = nbttagcompound.m("Motion");
-        NBTTagList nbttaglist2 = nbttagcompound.m("Rotation");
+        NBTTagList nbttaglist = nbttagcompound.getList("Pos");
+        NBTTagList nbttaglist1 = nbttagcompound.getList("Motion");
+        NBTTagList nbttaglist2 = nbttagcompound.getList("Rotation");
 
-        this.motX = ((NBTTagDouble) nbttaglist1.a(0)).a;
-        this.motY = ((NBTTagDouble) nbttaglist1.a(1)).a;
-        this.motZ = ((NBTTagDouble) nbttaglist1.a(2)).a;
+        this.motX = ((NBTTagDouble) nbttaglist1.get(0)).data;
+        this.motY = ((NBTTagDouble) nbttaglist1.get(1)).data;
+        this.motZ = ((NBTTagDouble) nbttaglist1.get(2)).data;
         if (Math.abs(this.motX) > 10.0D) {
             this.motX = 0.0D;
         }
@@ -811,15 +811,15 @@ public abstract class Entity {
             this.motZ = 0.0D;
         }
 
-        this.lastX = this.bI = this.locX = ((NBTTagDouble) nbttaglist.a(0)).a;
-        this.lastY = this.bJ = this.locY = ((NBTTagDouble) nbttaglist.a(1)).a;
-        this.lastZ = this.bK = this.locZ = ((NBTTagDouble) nbttaglist.a(2)).a;
-        this.lastYaw = this.yaw = ((NBTTagFloat) nbttaglist2.a(0)).a;
-        this.lastPitch = this.pitch = ((NBTTagFloat) nbttaglist2.a(1)).a;
-        this.fallDistance = nbttagcompound.h("FallDistance");
-        this.fireTicks = nbttagcompound.e("Fire");
-        this.setAirTicks(nbttagcompound.e("Air"));
-        this.onGround = nbttagcompound.n("OnGround");
+        this.lastX = this.bI = this.locX = ((NBTTagDouble) nbttaglist.get(0)).data;
+        this.lastY = this.bJ = this.locY = ((NBTTagDouble) nbttaglist.get(1)).data;
+        this.lastZ = this.bK = this.locZ = ((NBTTagDouble) nbttaglist.get(2)).data;
+        this.lastYaw = this.yaw = ((NBTTagFloat) nbttaglist2.get(0)).data;
+        this.lastPitch = this.pitch = ((NBTTagFloat) nbttaglist2.get(1)).data;
+        this.fallDistance = nbttagcompound.getFloat("FallDistance");
+        this.fireTicks = nbttagcompound.getShort("Fire");
+        this.setAirTicks(nbttagcompound.getShort("Air"));
+        this.onGround = nbttagcompound.getBoolean("OnGround");
         this.setPosition(this.locX, this.locY, this.locZ);
         this.c(this.yaw, this.pitch);
         this.a(nbttagcompound);
@@ -841,7 +841,7 @@ public abstract class Entity {
         for (int j = 0; j < i; ++j) {
             double d0 = adouble1[j];
 
-            nbttaglist.a((NBTBase) (new NBTTagDouble((String) null, d0)));
+            nbttaglist.add(new NBTTagDouble((String) null, d0));
         }
 
         return nbttaglist;
@@ -855,7 +855,7 @@ public abstract class Entity {
         for (int j = 0; j < i; ++j) {
             float f = afloat1[j];
 
-            nbttaglist.a((NBTBase) (new NBTTagFloat((String) null, f)));
+            nbttaglist.add(new NBTTagFloat((String) null, f));
         }
 
         return nbttaglist;
@@ -877,15 +877,15 @@ public abstract class Entity {
         return entityitem;
     }
 
-    public boolean aj() {
+    public boolean isAlive() {
         return !this.dead;
     }
 
     public boolean T() {
         for (int i = 0; i < 8; ++i) {
-            float f = ((float) ((i >> 0) % 2) - 0.5F) * this.length * 0.8F;
+            float f = ((float) ((i >> 0) % 2) - 0.5F) * this.width * 0.8F;
             float f1 = ((float) ((i >> 1) % 2) - 0.5F) * 0.1F;
-            float f2 = ((float) ((i >> 2) % 2) - 0.5F) * this.length * 0.8F;
+            float f2 = ((float) ((i >> 2) % 2) - 0.5F) * this.width * 0.8F;
             int j = MathHelper.floor(this.locX + (double) f);
             int k = MathHelper.floor(this.locY + (double) this.x() + (double) f1);
             int l = MathHelper.floor(this.locZ + (double) f2);
@@ -971,7 +971,7 @@ public abstract class Entity {
     }
 
     public double q() {
-        return (double) this.width * 0.75D;
+        return (double) this.length * 0.75D;
     }
 
     public void mount(Entity entity) {
@@ -979,7 +979,7 @@ public abstract class Entity {
         this.f = 0.0D;
         if (entity == null) {
             if (this.vehicle != null) {
-                this.setPositionRotation(this.vehicle.locX, this.vehicle.boundingBox.b + (double) this.vehicle.width, this.vehicle.locZ, this.yaw, this.pitch);
+                this.setPositionRotation(this.vehicle.locX, this.vehicle.boundingBox.b + (double) this.vehicle.length, this.vehicle.locZ, this.yaw, this.pitch);
                 this.vehicle.passenger = null;
             }
 
@@ -987,7 +987,7 @@ public abstract class Entity {
         } else if (this.vehicle == entity) {
             this.vehicle.passenger = null;
             this.vehicle = null;
-            this.setPositionRotation(entity.locX, entity.boundingBox.b + (double) entity.width, entity.locZ, this.yaw, this.pitch);
+            this.setPositionRotation(entity.locX, entity.boundingBox.b + (double) entity.length, entity.locZ, this.yaw, this.pitch);
         } else {
             if (this.vehicle != null) {
                 this.vehicle.passenger = null;
@@ -1062,11 +1062,11 @@ public abstract class Entity {
         this.datawatcher.watch(1, Short.valueOf((short) i));
     }
 
-    public void a(EntityWeatherStorm entityweatherstorm) {
+    public void a(EntityWeatherLighting entityweatherlighting) {
         this.burn(5);
         ++this.fireTicks;
         if (this.fireTicks == 0) {
-            this.j(8);
+            this.setOnFire(8);
         }
     }
 
@@ -1163,7 +1163,7 @@ public abstract class Entity {
             s = "generic";
         }
 
-        return StatisticCollector.a("entity." + s + ".name");
+        return LocaleI18n.a("entity." + s + ".name");
     }
 
     public Entity[] aG() {
