@@ -9,11 +9,14 @@ public class WorldServer extends World {
     public boolean weirdIsOpCache = false;
     public boolean savingDisabled;
     private MinecraftServer server;
-    private IntHashMap N = new IntHashMap();
+    private IntHashMap N;
 
     public WorldServer(MinecraftServer minecraftserver, IDataManager idatamanager, String s, int i, WorldSettings worldsettings) {
         super(idatamanager, s, worldsettings, WorldProvider.byDimension(i));
         this.server = minecraftserver;
+        if (this.N == null) {
+            this.N = new IntHashMap();
+        }
     }
 
     public void entityJoinedWorld(Entity entity, boolean flag) {
@@ -60,6 +63,14 @@ public class WorldServer extends World {
         }
 
         return i1 > 16 || this.server.serverConfigurationManager.isOp(entityhuman.name);
+    }
+
+    protected void c() {
+        if (this.N == null) {
+            this.N = new IntHashMap();
+        }
+
+        super.c();
     }
 
     protected void c(Entity entity) {

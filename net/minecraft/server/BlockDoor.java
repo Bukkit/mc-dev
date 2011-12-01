@@ -141,7 +141,7 @@ public class BlockDoor extends Block {
                 world.setTypeId(i, j, k, 0);
             }
 
-            if (l > 0 && Block.byId[l].isPowerSource()) {
+            if (l > 0 && l != this.id) {
                 this.doPhysics(world, i, j - 1, k, l);
             }
         } else {
@@ -164,7 +164,7 @@ public class BlockDoor extends Block {
                 if (!world.isStatic) {
                     this.b(world, i, j, k, i1, 0);
                 }
-            } else if (l > 0) {
+            } else if (l > 0 && l != this.id) {
                 boolean flag1 = world.isBlockIndirectlyPowered(i, j, k) || world.isBlockIndirectlyPowered(i, j + 1, k);
 
                 this.setDoor(world, i, j, k, flag1);

@@ -49,7 +49,7 @@ public class NetLoginHandler extends NetHandler {
 
     public void a(Packet2Handshake packet2handshake) {
         if (this.server.onlineMode) {
-            this.i = Long.toHexString(d.nextLong());
+            this.i = Long.toString(d.nextLong(), 16);
             this.networkManager.queue(new Packet2Handshake(this.i));
         } else {
             this.networkManager.queue(new Packet2Handshake("-"));
