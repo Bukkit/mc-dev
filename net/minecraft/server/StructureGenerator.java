@@ -66,7 +66,7 @@ public abstract class StructureGenerator extends WorldGenBase {
         return false;
     }
 
-    public ChunkPosition a(World world, int i, int j, int k) {
+    public ChunkPosition getNearestGeneratedFeature(World world, int i, int j, int k) {
         this.d = world;
         this.c.setSeed(world.getSeed());
         long l = this.c.nextLong();

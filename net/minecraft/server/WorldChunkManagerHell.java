@@ -16,7 +16,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
         this.d = f1;
     }
 
-    public BiomeBase a(ChunkCoordIntPair chunkcoordintpair) {
+    public BiomeBase getBiome(ChunkCoordIntPair chunkcoordintpair) {
         return this.b;
     }
 
@@ -46,7 +46,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
         return afloat;
     }
 
-    public BiomeBase[] a(BiomeBase[] abiomebase, int i, int j, int k, int l) {
+    public BiomeBase[] getBiomeBlock(BiomeBase[] abiomebase, int i, int j, int k, int l) {
         if (abiomebase == null || abiomebase.length < k * l) {
             abiomebase = new BiomeBase[k * l];
         }
@@ -56,7 +56,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
     }
 
     public BiomeBase[] a(BiomeBase[] abiomebase, int i, int j, int k, int l, boolean flag) {
-        return this.a(abiomebase, i, j, k, l);
+        return this.getBiomeBlock(abiomebase, i, j, k, l);
     }
 
     public ChunkPosition a(int i, int j, int k, List list, Random random) {

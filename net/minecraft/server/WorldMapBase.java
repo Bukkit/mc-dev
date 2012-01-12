@@ -2,11 +2,11 @@ package net.minecraft.server;
 
 public abstract class WorldMapBase {
 
-    public final String a;
+    public final String id;
     private boolean b;
 
     public WorldMapBase(String s) {
-        this.a = s;
+        this.id = s;
     }
 
     public abstract void a(NBTTagCompound nbttagcompound);

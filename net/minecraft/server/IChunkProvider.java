@@ -18,7 +18,7 @@ public interface IChunkProvider {
 
     boolean canSave();
 
-    List a(EnumCreatureType enumcreaturetype, int i, int j, int k);
+    List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k);
 
-    ChunkPosition a(World world, String s, int i, int j, int k);
+    ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k);
 }

@@ -31,7 +31,7 @@ public class BlockTNT extends Block {
         return 0;
     }
 
-    public void a_(World world, int i, int j, int k) {
+    public void wasExploded(World world, int i, int j, int k) {
         EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F));
 
         entitytntprimed.fuseTicks = world.random.nextInt(entitytntprimed.fuseTicks / 4) + entitytntprimed.fuseTicks / 8;

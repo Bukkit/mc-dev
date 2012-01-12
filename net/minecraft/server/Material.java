@@ -95,7 +95,7 @@ public class Material {
         return this.I;
     }
 
-    public int l() {
+    public int getPushReaction() {
         return this.J;
     }
 

@@ -2,13 +2,13 @@ package net.minecraft.server;
 
 public class EntityComplexPart extends Entity {
 
-    public final EntityComplex a;
+    public final EntityComplex owner;
     public final String b;
 
     public EntityComplexPart(EntityComplex entitycomplex, String s, float f, float f1) {
         super(entitycomplex.world);
         this.b(f, f1);
-        this.a = entitycomplex;
+        this.owner = entitycomplex;
         this.b = s;
     }
 
@@ -23,10 +23,10 @@ public class EntityComplexPart extends Entity {
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        return this.a.a(this, damagesource, i);
+        return this.owner.a(this, damagesource, i);
     }
 
     public boolean a(Entity entity) {
-        return this == entity || this.a == entity;
+        return this == entity || this.owner == entity;
     }
 }

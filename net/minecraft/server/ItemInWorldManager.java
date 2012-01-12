@@ -21,7 +21,7 @@ public class ItemInWorldManager {
         this.world = world;
     }
 
-    public void a(int i) {
+    public void setGameMode(int i) {
         this.c = i;
         if (i == 0) {
             this.player.abilities.canFly = false;
@@ -35,7 +35,7 @@ public class ItemInWorldManager {
         }
     }
 
-    public int a() {
+    public int getGameMode() {
         return this.c;
     }
 
@@ -48,7 +48,7 @@ public class ItemInWorldManager {
             this.c = i;
         }
 
-        this.a(this.c);
+        this.setGameMode(this.c);
     }
 
     public void c() {

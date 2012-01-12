@@ -267,7 +267,7 @@ public class EntityBoat extends Entity {
 
             this.yaw = (float) ((double) this.yaw + d12);
             this.c(this.yaw, this.pitch);
-            List list = this.world.b((Entity) this, this.boundingBox.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+            List list = this.world.getEntities(this, this.boundingBox.grow(0.20000000298023224D, 0.0D, 0.20000000298023224D));
             int l;
 
             if (list != null && list.size() > 0) {

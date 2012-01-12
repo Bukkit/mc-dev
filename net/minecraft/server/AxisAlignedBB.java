@@ -84,7 +84,7 @@ public class AxisAlignedBB {
         return b(d3, d4, d5, d6, d7, d8);
     }
 
-    public AxisAlignedBB b(double d0, double d1, double d2) {
+    public AxisAlignedBB grow(double d0, double d1, double d2) {
         double d3 = this.a - d0;
         double d4 = this.b - d1;
         double d5 = this.c - d2;

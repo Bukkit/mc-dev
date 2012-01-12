@@ -36,7 +36,7 @@ public class WorldChunkManager {
         return this.g;
     }
 
-    public BiomeBase a(ChunkCoordIntPair chunkcoordintpair) {
+    public BiomeBase getBiome(ChunkCoordIntPair chunkcoordintpair) {
         return this.getBiome(chunkcoordintpair.x << 4, chunkcoordintpair.z << 4);
     }
 
@@ -114,7 +114,7 @@ public class WorldChunkManager {
         return abiomebase;
     }
 
-    public BiomeBase[] a(BiomeBase[] abiomebase, int i, int j, int k, int l) {
+    public BiomeBase[] getBiomeBlock(BiomeBase[] abiomebase, int i, int j, int k, int l) {
         return this.a(abiomebase, i, j, k, l, true);
     }
 

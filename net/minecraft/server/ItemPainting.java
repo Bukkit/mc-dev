@@ -31,7 +31,7 @@ public class ItemPainting extends Item {
             } else {
                 EntityPainting entitypainting = new EntityPainting(world, i, j, k, b0);
 
-                if (entitypainting.j()) {
+                if (entitypainting.survives()) {
                     if (!world.isStatic) {
                         world.addEntity(entitypainting);
                     }

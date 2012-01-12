@@ -122,7 +122,7 @@ public abstract class BiomeBase {
         return this;
     }
 
-    public List a(EnumCreatureType enumcreaturetype) {
+    public List getMobs(EnumCreatureType enumcreaturetype) {
         return enumcreaturetype == EnumCreatureType.MONSTER ? this.C : (enumcreaturetype == EnumCreatureType.CREATURE ? this.D : (enumcreaturetype == EnumCreatureType.WATER_CREATURE ? this.E : null));
     }
 

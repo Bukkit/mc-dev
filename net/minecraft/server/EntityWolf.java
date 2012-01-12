@@ -97,7 +97,7 @@ public class EntityWolf extends EntityAnimal {
                 this.setSitting(true);
             }
         } else if (this.target == null && !this.D() && !this.isTamed() && this.world.random.nextInt(100) == 0) {
-            List list = this.world.a(EntitySheep.class, AxisAlignedBB.b(this.locX, this.locY, this.locZ, this.locX + 1.0D, this.locY + 1.0D, this.locZ + 1.0D).b(16.0D, 4.0D, 16.0D));
+            List list = this.world.a(EntitySheep.class, AxisAlignedBB.b(this.locX, this.locY, this.locZ, this.locX + 1.0D, this.locY + 1.0D, this.locZ + 1.0D).grow(16.0D, 4.0D, 16.0D));
 
             if (!list.isEmpty()) {
                 this.setTarget((Entity) list.get(this.world.random.nextInt(list.size())));
@@ -242,7 +242,7 @@ public class EntityWolf extends EntityAnimal {
                 }
 
                 if (entity instanceof EntityLiving) {
-                    List list = this.world.a(EntityWolf.class, AxisAlignedBB.b(this.locX, this.locY, this.locZ, this.locX + 1.0D, this.locY + 1.0D, this.locZ + 1.0D).b(16.0D, 4.0D, 16.0D));
+                    List list = this.world.a(EntityWolf.class, AxisAlignedBB.b(this.locX, this.locY, this.locZ, this.locX + 1.0D, this.locY + 1.0D, this.locZ + 1.0D).grow(16.0D, 4.0D, 16.0D));
                     Iterator iterator = list.iterator();
 
                     while (iterator.hasNext()) {

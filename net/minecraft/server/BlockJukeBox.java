@@ -14,7 +14,7 @@ public class BlockJukeBox extends BlockContainer {
         if (world.getData(i, j, k) == 0) {
             return false;
         } else {
-            this.c_(world, i, j, k);
+            this.dropRecord(world, i, j, k);
             return true;
         }
     }
@@ -24,24 +24,24 @@ public class BlockJukeBox extends BlockContainer {
             TileEntityRecordPlayer tileentityrecordplayer = (TileEntityRecordPlayer) world.getTileEntity(i, j, k);
 
             if (tileentityrecordplayer != null) {
-                tileentityrecordplayer.a = l;
+                tileentityrecordplayer.record = l;
                 tileentityrecordplayer.update();
                 world.setData(i, j, k, 1);
             }
         }
     }
 
-    public void c_(World world, int i, int j, int k) {
+    public void dropRecord(World world, int i, int j, int k) {
         if (!world.isStatic) {
             TileEntityRecordPlayer tileentityrecordplayer = (TileEntityRecordPlayer) world.getTileEntity(i, j, k);
 
             if (tileentityrecordplayer != null) {
-                int l = tileentityrecordplayer.a;
+                int l = tileentityrecordplayer.record;
 
                 if (l != 0) {
                     world.f(1005, i, j, k, 0);
                     world.a((String) null, i, j, k);
-                    tileentityrecordplayer.a = 0;
+                    tileentityrecordplayer.record = 0;
                     tileentityrecordplayer.update();
                     world.setData(i, j, k, 0);
                     float f = 0.7F;
@@ -58,7 +58,7 @@ public class BlockJukeBox extends BlockContainer {
     }
 
     public void remove(World world, int i, int j, int k) {
-        this.c_(world, i, j, k);
+        this.dropRecord(world, i, j, k);
         super.remove(world, i, j, k);
     }
 

@@ -503,9 +503,9 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
     public void o() {}
 
     public String d(String s) {
-        RemoteControlCommandListener.a.a();
-        this.consoleCommandHandler.handle(new ServerCommand(s, RemoteControlCommandListener.a));
-        return RemoteControlCommandListener.a.b();
+        RemoteControlCommandListener.instance.a();
+        this.consoleCommandHandler.handle(new ServerCommand(s, RemoteControlCommandListener.instance));
+        return RemoteControlCommandListener.instance.b();
     }
 
     public boolean isDebugging() {

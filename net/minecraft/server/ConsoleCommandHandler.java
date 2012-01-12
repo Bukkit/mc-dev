@@ -212,9 +212,9 @@ public class ConsoleCommandHandler {
                                             try {
                                                 k = Integer.parseInt(astring[2]);
                                                 k = WorldSettings.a(k);
-                                                if (entityplayer2.itemInWorldManager.a() != k) {
+                                                if (entityplayer2.itemInWorldManager.getGameMode() != k) {
                                                     this.print(s1, "Setting " + entityplayer2.name + " to game mode " + k);
-                                                    entityplayer2.itemInWorldManager.a(k);
+                                                    entityplayer2.itemInWorldManager.setGameMode(k);
                                                     entityplayer2.netServerHandler.sendPacket(new Packet70Bed(3, k));
                                                 } else {
                                                     this.print(s1, entityplayer2.name + " already has game mode " + k);

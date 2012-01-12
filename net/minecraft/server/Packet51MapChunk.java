@@ -15,8 +15,8 @@ public class Packet51MapChunk extends Packet {
     public int d;
     public int e;
     public int f;
-    public byte[] g;
-    private int h;
+    public byte[] buffer;
+    private int size;
 
     public Packet51MapChunk() {
         this.l = true;
@@ -36,8 +36,8 @@ public class Packet51MapChunk extends Packet {
         try {
             deflater.setInput(abyte);
             deflater.finish();
-            this.g = new byte[l * i1 * j1 * 5 / 2];
-            this.h = deflater.deflate(this.g);
+            this.buffer = new byte[l * i1 * j1 * 5 / 2];
+            this.size = deflater.deflate(this.buffer);
         } finally {
             deflater.end();
         }
@@ -50,17 +50,17 @@ public class Packet51MapChunk extends Packet {
         this.d = datainputstream.read() + 1;
         this.e = datainputstream.read() + 1;
         this.f = datainputstream.read() + 1;
-        this.h = datainputstream.readInt();
-        byte[] abyte = new byte[this.h];
+        this.size = datainputstream.readInt();
+        byte[] abyte = new byte[this.size];
 
         datainputstream.readFully(abyte);
-        this.g = new byte[this.d * this.e * this.f * 5 / 2];
+        this.buffer = new byte[this.d * this.e * this.f * 5 / 2];
         Inflater inflater = new Inflater();
 
         inflater.setInput(abyte);
 
         try {
-            inflater.inflate(this.g);
+            inflater.inflate(this.buffer);
         } catch (DataFormatException dataformatexception) {
             throw new IOException("Bad compressed data format");
         } finally {
@@ -75,8 +75,8 @@ public class Packet51MapChunk extends Packet {
         dataoutputstream.write(this.d - 1);
         dataoutputstream.write(this.e - 1);
         dataoutputstream.write(this.f - 1);
-        dataoutputstream.writeInt(this.h);
-        dataoutputstream.write(this.g, 0, this.h);
+        dataoutputstream.writeInt(this.size);
+        dataoutputstream.write(this.buffer, 0, this.size);
     }
 
     public void a(NetHandler nethandler) {
@@ -84,6 +84,6 @@ public class Packet51MapChunk extends Packet {
     }
 
     public int a() {
-        return 17 + this.h;
+        return 17 + this.size;
     }
 }

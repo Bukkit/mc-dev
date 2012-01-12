@@ -390,7 +390,7 @@ public class ChunkProviderHell implements IChunkProvider {
         return true;
     }
 
-    public List a(EnumCreatureType enumcreaturetype, int i, int j, int k) {
+    public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
         if (enumcreaturetype == EnumCreatureType.MONSTER && this.c.a(i, j, k)) {
             return this.c.b();
         } else {
@@ -399,14 +399,14 @@ public class ChunkProviderHell implements IChunkProvider {
             if (worldchunkmanager == null) {
                 return null;
             } else {
-                BiomeBase biomebase = worldchunkmanager.a(new ChunkCoordIntPair(i >> 4, k >> 4));
+                BiomeBase biomebase = worldchunkmanager.getBiome(new ChunkCoordIntPair(i >> 4, k >> 4));
 
-                return biomebase == null ? null : biomebase.a(enumcreaturetype);
+                return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
             }
         }
     }
 
-    public ChunkPosition a(World world, String s, int i, int j, int k) {
+    public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {
         return null;
     }
 }

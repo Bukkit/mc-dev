@@ -27,7 +27,7 @@ public class WorldMapCollection {
         this.b();
     }
 
-    public WorldMapBase a(Class oclass, String s) {
+    public WorldMapBase get(Class oclass, String s) {
         WorldMapBase worldmapbase = (WorldMapBase) this.b.get(s);
 
         if (worldmapbase != null) {
@@ -91,7 +91,7 @@ public class WorldMapCollection {
     private void a(WorldMapBase worldmapbase) {
         if (this.a != null) {
             try {
-                File file1 = this.a.getDataFile(worldmapbase.a);
+                File file1 = this.a.getDataFile(worldmapbase.id);
 
                 if (file1 != null) {
                     NBTTagCompound nbttagcompound = new NBTTagCompound();

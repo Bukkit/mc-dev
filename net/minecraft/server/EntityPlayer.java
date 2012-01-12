@@ -17,12 +17,12 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     private int cc = -99999999;
     private int cd = -99999999;
     private boolean ce = true;
-    private int cf = -99999999;
+    private int lastSentExp = -99999999;
     private int cg = 60;
     private ItemStack[] ch = new ItemStack[] { null, null, null, null, null};
     private int ci = 0;
     public boolean h;
-    public int i;
+    public int ping;
     public boolean j = false;
 
     public EntityPlayer(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager) {
@@ -50,13 +50,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
         if (nbttagcompound.hasKey("playerGameType")) {
-            this.itemInWorldManager.a(nbttagcompound.getInt("playerGameType"));
+            this.itemInWorldManager.setGameMode(nbttagcompound.getInt("playerGameType"));
         }
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.setInt("playerGameType", this.itemInWorldManager.a());
+        nbttagcompound.setInt("playerGameType", this.itemInWorldManager.getGameMode());
     }
 
     public void spawnIn(World world) {
@@ -65,7 +65,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void levelDown(int i) {
         super.levelDown(i);
-        this.cf = -1;
+        this.lastSentExp = -1;
     }
 
     public void syncInventory() {
@@ -202,7 +202,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                         }
 
                         this.b.serverConfigurationManager.changeDimension(this, b0);
-                        this.cf = -1;
+                        this.lastSentExp = -1;
                         this.cc = -1;
                         this.cd = -1;
                         this.a((Statistic) AchievementList.x);
@@ -232,8 +232,8 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             this.ce = this.foodData.c() == 0.0F;
         }
 
-        if (this.expTotal != this.cf) {
-            this.cf = this.expTotal;
+        if (this.expTotal != this.lastSentExp) {
+            this.lastSentExp = this.expTotal;
             this.netServerHandler.sendPacket(new Packet43SetExperience(this.exp, this.expTotal, this.expLevel));
         }
     }
@@ -253,7 +253,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             }
 
             this.b.serverConfigurationManager.changeDimension(this, 1);
-            this.cf = -1;
+            this.lastSentExp = -1;
             this.cc = -1;
             this.cd = -1;
         }

@@ -205,11 +205,11 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         return true;
     }
 
-    public List a(EnumCreatureType enumcreaturetype, int i, int j, int k) {
-        return this.c.a(enumcreaturetype, i, j, k);
+    public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
+        return this.c.getMobsFor(enumcreaturetype, i, j, k);
     }
 
-    public ChunkPosition a(World world, String s, int i, int j, int k) {
-        return this.c.a(world, s, i, j, k);
+    public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {
+        return this.c.findNearestMapFeature(world, s, i, j, k);
     }
 }

@@ -77,7 +77,7 @@ public class ServerConfigurationManager {
     }
 
     public void b(EntityPlayer entityplayer) {
-        this.playerFileData.b(entityplayer);
+        this.playerFileData.load(entityplayer);
     }
 
     public void c(EntityPlayer entityplayer) {
@@ -87,7 +87,7 @@ public class ServerConfigurationManager {
 
         worldserver.chunkProviderServer.getChunkAt((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
 
-        while (worldserver.getEntities(entityplayer, entityplayer.boundingBox).size() != 0) {
+        while (worldserver.a(entityplayer, entityplayer.boundingBox).size() != 0) {
             entityplayer.setPosition(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
         }
 
@@ -97,7 +97,7 @@ public class ServerConfigurationManager {
         for (int i = 0; i < this.players.size(); ++i) {
             EntityPlayer entityplayer1 = (EntityPlayer) this.players.get(i);
 
-            entityplayer.netServerHandler.sendPacket(new Packet201PlayerInfo(entityplayer1.name, true, entityplayer1.i));
+            entityplayer.netServerHandler.sendPacket(new Packet201PlayerInfo(entityplayer1.name, true, entityplayer1.ping));
         }
     }
 
@@ -106,7 +106,7 @@ public class ServerConfigurationManager {
     }
 
     public void disconnect(EntityPlayer entityplayer) {
-        this.playerFileData.a(entityplayer);
+        this.playerFileData.save(entityplayer);
         this.server.getWorldServer(entityplayer.dimension).kill(entityplayer);
         this.players.remove(entityplayer);
         this.getPlayerManager(entityplayer.dimension).removePlayer(entityplayer);
@@ -164,7 +164,7 @@ public class ServerConfigurationManager {
         entityplayer1.netServerHandler = entityplayer.netServerHandler;
         WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
 
-        entityplayer1.itemInWorldManager.a(entityplayer.itemInWorldManager.a());
+        entityplayer1.itemInWorldManager.setGameMode(entityplayer.itemInWorldManager.getGameMode());
         entityplayer1.itemInWorldManager.b(worldserver.getWorldData().getGameType());
         if (chunkcoordinates != null) {
             ChunkCoordinates chunkcoordinates1 = EntityHuman.getBed(this.server.getWorldServer(entityplayer.dimension), chunkcoordinates);
@@ -179,11 +179,11 @@ public class ServerConfigurationManager {
 
         worldserver.chunkProviderServer.getChunkAt((int) entityplayer1.locX >> 4, (int) entityplayer1.locZ >> 4);
 
-        while (worldserver.getEntities(entityplayer1, entityplayer1.boundingBox).size() != 0) {
+        while (worldserver.a(entityplayer1, entityplayer1.boundingBox).size() != 0) {
             entityplayer1.setPosition(entityplayer1.locX, entityplayer1.locY + 1.0D, entityplayer1.locZ);
         }
 
-        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer1.dimension, (byte) entityplayer1.world.difficulty, entityplayer1.world.getSeed(), entityplayer1.world.height, entityplayer1.itemInWorldManager.a()));
+        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer1.dimension, (byte) entityplayer1.world.difficulty, entityplayer1.world.getSeed(), entityplayer1.world.height, entityplayer1.itemInWorldManager.getGameMode()));
         entityplayer1.netServerHandler.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
         this.a(entityplayer1, worldserver);
         this.getPlayerManager(entityplayer1.dimension).addPlayer(entityplayer1);
@@ -201,7 +201,7 @@ public class ServerConfigurationManager {
         entityplayer.dimension = i;
         WorldServer worldserver1 = this.server.getWorldServer(entityplayer.dimension);
 
-        entityplayer.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer.dimension, (byte) entityplayer.world.difficulty, worldserver1.getSeed(), worldserver1.height, entityplayer.itemInWorldManager.a()));
+        entityplayer.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer.dimension, (byte) entityplayer.world.difficulty, worldserver1.getSeed(), worldserver1.height, entityplayer.itemInWorldManager.getGameMode()));
         worldserver.removeEntity(entityplayer);
         entityplayer.dead = false;
         double d0 = entityplayer.locX;
@@ -259,7 +259,7 @@ public class ServerConfigurationManager {
         if (this.p < this.players.size()) {
             EntityPlayer entityplayer = (EntityPlayer) this.players.get(this.p);
 
-            this.sendAll(new Packet201PlayerInfo(entityplayer.name, true, entityplayer.i));
+            this.sendAll(new Packet201PlayerInfo(entityplayer.name, true, entityplayer.ping));
         }
 
         for (int i = 0; i < this.d.length; ++i) {
@@ -557,7 +557,7 @@ public class ServerConfigurationManager {
 
     public void savePlayers() {
         for (int i = 0; i < this.players.size(); ++i) {
-            this.playerFileData.a((EntityHuman) this.players.get(i));
+            this.playerFileData.save((EntityHuman) this.players.get(i));
         }
     }
 

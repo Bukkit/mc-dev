@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public interface PlayerFileData {
 
-    void a(EntityHuman entityhuman);
+    void save(EntityHuman entityhuman);
 
-    void b(EntityHuman entityhuman);
+    void load(EntityHuman entityhuman);
 }

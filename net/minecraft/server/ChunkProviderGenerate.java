@@ -183,7 +183,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         Chunk chunk = new Chunk(this.s, abyte, i, j);
 
         this.a(i, j, abyte);
-        this.y = this.s.getWorldChunkManager().a(this.y, i * 16, j * 16, 16, 16);
+        this.y = this.s.getWorldChunkManager().getBiomeBlock(this.y, i * 16, j * 16, 16, 16);
         this.a(i, j, abyte, this.y);
         this.w.a(this, this.s, i, j, abyte);
         this.x.a(this, this.s, i, j, abyte);
@@ -407,19 +407,19 @@ public class ChunkProviderGenerate implements IChunkProvider {
         return true;
     }
 
-    public List a(EnumCreatureType enumcreaturetype, int i, int j, int k) {
+    public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
         WorldChunkManager worldchunkmanager = this.s.getWorldChunkManager();
 
         if (worldchunkmanager == null) {
             return null;
         } else {
-            BiomeBase biomebase = worldchunkmanager.a(new ChunkCoordIntPair(i >> 4, k >> 4));
+            BiomeBase biomebase = worldchunkmanager.getBiome(new ChunkCoordIntPair(i >> 4, k >> 4));
 
-            return biomebase == null ? null : biomebase.a(enumcreaturetype);
+            return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
         }
     }
 
-    public ChunkPosition a(World world, String s, int i, int j, int k) {
-        return "Stronghold".equals(s) && this.d != null ? this.d.a(world, i, j, k) : null;
+    public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {
+        return "Stronghold".equals(s) && this.d != null ? this.d.getNearestGeneratedFeature(world, i, j, k) : null;
     }
 }
