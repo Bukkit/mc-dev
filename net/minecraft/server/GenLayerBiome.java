@@ -21,12 +21,12 @@ public class GenLayerBiome extends GenLayer {
 
                 if (k1 == 0) {
                     aint1[j1 + i1 * k] = 0;
-                } else if (k1 == BiomeBase.MUSHROOM_ISLAND.F) {
+                } else if (k1 == BiomeBase.MUSHROOM_ISLAND.K) {
                     aint1[j1 + i1 * k] = k1;
                 } else if (k1 == 1) {
-                    aint1[j1 + i1 * k] = this.b[this.a(this.b.length)].F;
+                    aint1[j1 + i1 * k] = this.b[this.a(this.b.length)].K;
                 } else {
-                    aint1[j1 + i1 * k] = BiomeBase.ICE_PLAINS.F;
+                    aint1[j1 + i1 * k] = BiomeBase.ICE_PLAINS.K;
                 }
             }
         }

@@ -14,7 +14,7 @@ public class Packet255KickDisconnect extends Packet {
     }
 
     public void a(DataInputStream datainputstream) {
-        this.a = a(datainputstream, 100);
+        this.a = a(datainputstream, 256);
     }
 
     public void a(DataOutputStream dataoutputstream) {

@@ -44,8 +44,16 @@ public class SlotResult extends Slot {
 
             if (itemstack1 != null) {
                 this.a.splitStack(i, 1);
-                if (itemstack1.getItem().j()) {
-                    this.a.setItem(i, new ItemStack(itemstack1.getItem().i()));
+                if (itemstack1.getItem().k()) {
+                    ItemStack itemstack2 = new ItemStack(itemstack1.getItem().j());
+
+                    if (!itemstack1.getItem().e(itemstack1) || !this.f.inventory.pickup(itemstack2)) {
+                        if (this.a.getItem(i) == null) {
+                            this.a.setItem(i, itemstack2);
+                        } else {
+                            this.f.b(itemstack2);
+                        }
+                    }
                 }
             }
         }

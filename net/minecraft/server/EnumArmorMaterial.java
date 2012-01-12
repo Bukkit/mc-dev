@@ -16,7 +16,7 @@ public enum EnumArmorMaterial {
     }
 
     public int a(int i) {
-        return ItemArmor.n()[i] * this.f;
+        return ItemArmor.o()[i] * this.f;
     }
 
     public int b(int i) {

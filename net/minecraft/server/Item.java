@@ -72,7 +72,7 @@ public class Item {
     public static Item PORK = (new ItemFood(63, 3, 0.3F, true)).a(7, 5).a("porkchopRaw");
     public static Item GRILLED_PORK = (new ItemFood(64, 8, 0.8F, true)).a(8, 5).a("porkchopCooked");
     public static Item PAINTING = (new ItemPainting(65)).a(10, 1).a("painting");
-    public static Item GOLDEN_APPLE = (new ItemGoldenApple(66, 10, 1.2F, false)).q().a(MobEffectList.REGENERATION.id, 30, 0, 1.0F).a(11, 0).a("appleGold");
+    public static Item GOLDEN_APPLE = (new ItemGoldenApple(66, 4, 1.2F, false)).r().a(MobEffectList.REGENERATION.id, 5, 0, 1.0F).a(11, 0).a("appleGold");
     public static Item SIGN = (new ItemSign(67)).a(10, 2).a("sign");
     public static Item WOOD_DOOR = (new ItemDoor(68, Material.WOOD)).a(11, 2).a("doorWood");
     public static Item BUCKET = (new ItemBucket(69, 0)).a(10, 4).a("bucket");
@@ -133,6 +133,7 @@ public class Item {
     public static Item CAULDRON = (new ItemReed(124, Block.CAULDRON)).a(12, 9).a("cauldron");
     public static Item EYE_OF_ENDER = (new ItemEnderEye(125)).a(11, 9).a("eyeOfEnder");
     public static Item SPECKLED_MELON = (new Item(126)).a(9, 8).a("speckledMelon").b(PotionBrewer.f);
+    public static Item MONSTER_EGG = (new ItemMonsterEgg(127)).a(9, 9).a("monsterPlacer");
     public static Item RECORD_1 = (new ItemRecord(2000, "13")).a(0, 15).a("record");
     public static Item RECORD_2 = (new ItemRecord(2001, "cat")).a(1, 15).a("record");
     public static Item RECORD_3 = (new ItemRecord(2002, "blocks")).a(2, 15).a("record");
@@ -148,10 +149,10 @@ public class Item {
     protected int maxStackSize = 64;
     private int durability = 0;
     protected int textureId;
-    protected boolean bP = false;
     protected boolean bQ = false;
+    protected boolean bR = false;
     private Item craftingResult = null;
-    private String bR = null;
+    private String bS = null;
     private String name;
 
     protected Item(int i) {
@@ -203,11 +204,11 @@ public class Item {
     }
 
     public boolean e() {
-        return this.bQ;
+        return this.bR;
     }
 
     protected Item a(boolean flag) {
-        this.bQ = flag;
+        this.bR = flag;
         return this;
     }
 
@@ -221,7 +222,7 @@ public class Item {
     }
 
     public boolean g() {
-        return this.durability > 0 && !this.bQ;
+        return this.durability > 0 && !this.bR;
     }
 
     public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
@@ -243,7 +244,7 @@ public class Item {
     public void a(ItemStack itemstack, EntityLiving entityliving) {}
 
     public Item h() {
-        this.bP = true;
+        this.bQ = true;
         return this;
     }
 
@@ -261,23 +262,27 @@ public class Item {
     }
 
     public Item a(Item item) {
-        if (this.maxStackSize > 1) {
-            throw new IllegalArgumentException("Max stack size must be 1 for items with crafting results");
-        } else {
-            this.craftingResult = item;
-            return this;
-        }
+        this.craftingResult = item;
+        return this;
     }
 
-    public Item i() {
+    public boolean e(ItemStack itemstack) {
+        return true;
+    }
+
+    public boolean i() {
+        return false;
+    }
+
+    public Item j() {
         return this.craftingResult;
     }
 
-    public boolean j() {
+    public boolean k() {
         return this.craftingResult != null;
     }
 
-    public String k() {
+    public String l() {
         return LocaleI18n.a(this.b() + ".name");
     }
 
@@ -300,19 +305,19 @@ public class Item {
     public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {}
 
     protected Item b(String s) {
-        this.bR = s;
+        this.bS = s;
         return this;
     }
 
-    public String l() {
-        return this.bR;
+    public String m() {
+        return this.bS;
     }
 
-    public boolean m() {
-        return this.bR != null;
+    public boolean n() {
+        return this.bS != null;
     }
 
-    public boolean e(ItemStack itemstack) {
+    public boolean f(ItemStack itemstack) {
         return this.getMaxStackSize() == 1 && this.g();
     }
 

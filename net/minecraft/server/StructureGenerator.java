@@ -17,7 +17,8 @@ public abstract class StructureGenerator extends WorldGenBase {
 
     protected void a(World world, int i, int j, int k, int l, byte[] abyte) {
         if (!this.e.containsKey(Long.valueOf(ChunkCoordIntPair.a(i, j)))) {
-            this.c.nextInt();
+            int i1 = this.c.nextInt();
+
             if (this.a(i, j)) {
                 StructureStart structurestart = this.b(i, j);
 

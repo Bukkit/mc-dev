@@ -52,7 +52,7 @@ public class EntityCow extends EntityAnimal {
         j = this.random.nextInt(3) + 1 + this.random.nextInt(1 + i);
 
         for (k = 0; k < j; ++k) {
-            if (this.z()) {
+            if (this.A()) {
                 this.b(Item.COOKED_BEEF.id, 1);
             } else {
                 this.b(Item.RAW_BEEF.id, 1);

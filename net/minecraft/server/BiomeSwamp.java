@@ -6,17 +6,17 @@ public class BiomeSwamp extends BiomeBase {
 
     protected BiomeSwamp(int i) {
         super(i);
-        this.B.z = 2;
-        this.B.A = -999;
-        this.B.C = 1;
-        this.B.D = 8;
-        this.B.E = 10;
-        this.B.I = 1;
-        this.B.y = 4;
-        this.A = 14745456;
+        this.G.z = 2;
+        this.G.A = -999;
+        this.G.C = 1;
+        this.G.D = 8;
+        this.G.E = 10;
+        this.G.I = 1;
+        this.G.y = 4;
+        this.F = 14745518;
     }
 
     public WorldGenerator a(Random random) {
-        return this.J;
+        return this.O;
     }
 }

@@ -47,7 +47,7 @@ public abstract class Container {
             ItemStack itemstack = ((Slot) this.e.get(i)).getItem();
             ItemStack itemstack1 = (ItemStack) this.d.get(i);
 
-            if (!ItemStack.equals(itemstack1, itemstack)) {
+            if (!ItemStack.matches(itemstack1, itemstack)) {
                 itemstack1 = itemstack == null ? null : itemstack.cloneItemStack();
                 this.d.set(i, itemstack1);
 
@@ -161,7 +161,7 @@ public abstract class Container {
 
                             slot1.b(playerinventory.l());
                         } else if (slot1.isAllowed(itemstack3)) {
-                            if (itemstack2.id == itemstack3.id && (!itemstack2.usesData() || itemstack2.getData() == itemstack3.getData())) {
+                            if (itemstack2.id == itemstack3.id && (!itemstack2.usesData() || itemstack2.getData() == itemstack3.getData()) && ItemStack.equals(itemstack2, itemstack3)) {
                                 l = j == 0 ? itemstack3.count : 1;
                                 if (l > slot1.a() - itemstack2.count) {
                                     l = slot1.a() - itemstack2.count;
@@ -181,7 +181,7 @@ public abstract class Container {
                                 slot1.c(itemstack3);
                                 playerinventory.b(itemstack2);
                             }
-                        } else if (itemstack2.id == itemstack3.id && itemstack3.getMaxStackSize() > 1 && (!itemstack2.usesData() || itemstack2.getData() == itemstack3.getData())) {
+                        } else if (itemstack2.id == itemstack3.id && itemstack3.getMaxStackSize() > 1 && (!itemstack2.usesData() || itemstack2.getData() == itemstack3.getData()) && ItemStack.equals(itemstack2, itemstack3)) {
                             l = itemstack2.count;
                             if (l > 0 && l + itemstack3.count <= itemstack3.getMaxStackSize()) {
                                 itemstack3.count += l;
@@ -251,7 +251,7 @@ public abstract class Container {
             while (itemstack.count > 0 && (!flag && k < j || flag && k >= i)) {
                 slot = (Slot) this.e.get(k);
                 itemstack1 = slot.getItem();
-                if (itemstack1 != null && itemstack1.id == itemstack.id && (!itemstack.usesData() || itemstack.getData() == itemstack1.getData())) {
+                if (itemstack1 != null && itemstack1.id == itemstack.id && (!itemstack.usesData() || itemstack.getData() == itemstack1.getData()) && ItemStack.equals(itemstack, itemstack1)) {
                     int l = itemstack1.count + itemstack.count;
 
                     if (l <= itemstack.getMaxStackSize()) {

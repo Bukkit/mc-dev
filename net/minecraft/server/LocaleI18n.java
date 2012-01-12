@@ -7,7 +7,7 @@ public class LocaleI18n {
     public LocaleI18n() {}
 
     public static String a(String s) {
-        return a.a(s);
+        return a.b(s);
     }
 
     public static String a(String s, Object... aobject) {

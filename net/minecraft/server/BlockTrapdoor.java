@@ -118,12 +118,10 @@ public class BlockTrapdoor extends Block {
                 this.b(world, i, j, k, i1, 0);
             }
 
-            if (l > 0) {
-                boolean flag = world.isBlockIndirectlyPowered(i, j, k);
+            boolean flag = world.isBlockIndirectlyPowered(i, j, k);
 
-                if (flag || Block.byId[l].isPowerSource()) {
-                    this.a(world, i, j, k, flag);
-                }
+            if (flag || l > 0 && Block.byId[l].isPowerSource() || l == 0) {
+                this.a(world, i, j, k, flag);
             }
         }
     }

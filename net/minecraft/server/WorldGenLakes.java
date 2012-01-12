@@ -86,7 +86,7 @@ public class WorldGenLakes extends WorldGenerator {
                     if (aboolean[(i1 * 16 + i2) * 8 + j2] && world.getTypeId(i + i1, j + j2 - 1, k + i2) == Block.DIRT.id && world.a(EnumSkyBlock.SKY, i + i1, j + j2, k + i2) > 0) {
                         BiomeBase biomebase = world.getWorldChunkManager().getBiome(i + i1, k + i2);
 
-                        if (biomebase.t == Block.MYCEL.id) {
+                        if (biomebase.y == Block.MYCEL.id) {
                             world.setRawTypeId(i + i1, j + j2 - 1, k + i2, Block.MYCEL.id);
                         } else {
                             world.setRawTypeId(i + i1, j + j2 - 1, k + i2, Block.GRASS.id);

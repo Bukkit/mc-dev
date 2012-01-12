@@ -67,7 +67,9 @@ public class BlockStem extends BlockFlower {
                         ++k1;
                     }
 
-                    if (world.getTypeId(j1, j, k1) == 0 && world.getTypeId(j1, j - 1, k1) == Block.SOIL.id) {
+                    int l1 = world.getTypeId(j1, j - 1, k1);
+
+                    if (world.getTypeId(j1, j, k1) == 0 && (l1 == Block.SOIL.id || l1 == Block.DIRT.id || l1 == Block.GRASS.id)) {
                         world.setTypeId(j1, j, k1, this.a.id);
                     }
                 }

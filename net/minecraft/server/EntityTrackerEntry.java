@@ -60,7 +60,7 @@ public class EntityTrackerEntry {
         }
 
         ++this.t;
-        if (++this.l % this.c == 0 || this.tracker.cb) {
+        if (++this.l % this.c == 0 || this.tracker.ce) {
             int i = MathHelper.floor(this.tracker.locX * 32.0D);
             int j = MathHelper.floor(this.tracker.locY * 32.0D);
             int k = MathHelper.floor(this.tracker.locZ * 32.0D);
@@ -126,7 +126,7 @@ public class EntityTrackerEntry {
             }
         }
 
-        this.tracker.cb = false;
+        this.tracker.ce = false;
         if (this.tracker.velocityChanged) {
             this.b((Packet) (new Packet28EntityVelocity(this.tracker)));
             this.tracker.velocityChanged = false;

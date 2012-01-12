@@ -284,7 +284,7 @@ public class BlockVine extends Block {
     }
 
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
-        if (!world.isStatic && entityhuman.P() != null && entityhuman.P().id == Item.SHEARS.id) {
+        if (!world.isStatic && entityhuman.Q() != null && entityhuman.Q().id == Item.SHEARS.id) {
             entityhuman.a(StatisticList.C[this.id], 1);
             this.a(world, i, j, k, new ItemStack(Block.VINE, 1, 0));
         } else {

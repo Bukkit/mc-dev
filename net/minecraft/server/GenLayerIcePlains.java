@@ -26,7 +26,7 @@ public class GenLayerIcePlains extends GenLayer {
                     int l2 = this.a(5);
 
                     if (l2 == 0) {
-                        l2 = BiomeBase.ICE_PLAINS.F;
+                        l2 = BiomeBase.ICE_PLAINS.K;
                     } else {
                         l2 = 1;
                     }

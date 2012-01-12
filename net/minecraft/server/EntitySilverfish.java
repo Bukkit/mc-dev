@@ -8,7 +8,7 @@ public class EntitySilverfish extends EntityMonster {
         super(world);
         this.texture = "/mob/silverfish.png";
         this.b(0.3F, 0.7F);
-        this.aY = 0.6F;
+        this.bb = 0.6F;
         this.damage = 1;
     }
 
@@ -69,9 +69,9 @@ public class EntitySilverfish extends EntityMonster {
         return 0;
     }
 
-    public void w_() {
+    public void y_() {
         this.V = this.yaw;
-        super.w_();
+        super.y_();
     }
 
     protected void m_() {
@@ -110,7 +110,7 @@ public class EntitySilverfish extends EntityMonster {
                 }
             }
 
-            if (this.target == null && !this.D()) {
+            if (this.target == null && !this.E()) {
                 i = MathHelper.floor(this.locX);
                 j = MathHelper.floor(this.locY + 0.5D);
                 k = MathHelper.floor(this.locZ);
@@ -119,22 +119,22 @@ public class EntitySilverfish extends EntityMonster {
                 l = this.world.getTypeId(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1]);
                 if (BlockMonsterEggs.d(l)) {
                     this.world.setTypeIdAndData(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1], Block.MONSTER_EGGS.id, BlockMonsterEggs.e(l));
-                    this.ah();
+                    this.ao();
                     this.die();
                 } else {
-                    this.C();
+                    this.D();
                 }
-            } else if (this.target != null && !this.D()) {
+            } else if (this.target != null && !this.E()) {
                 this.target = null;
             }
         }
     }
 
-    protected float a(int i, int j, int k) {
+    public float a(int i, int j, int k) {
         return this.world.getTypeId(i, j - 1, k) == Block.STONE.id ? 10.0F : super.a(i, j, k);
     }
 
-    protected boolean y() {
+    protected boolean z() {
         return true;
     }
 

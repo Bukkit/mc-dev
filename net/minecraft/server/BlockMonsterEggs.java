@@ -23,7 +23,7 @@ public class BlockMonsterEggs extends Block {
 
             entitysilverfish.setPositionRotation((double) i + 0.5D, (double) j, (double) k + 0.5D, 0.0F, 0.0F);
             world.addEntity(entitysilverfish);
-            entitysilverfish.ah();
+            entitysilverfish.ao();
         }
 
         super.postBreak(world, i, j, k, l);

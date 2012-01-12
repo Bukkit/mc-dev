@@ -18,8 +18,10 @@ public class WorldChunkManager {
         this.f = new BiomeCache(this);
         this.g = new ArrayList();
         this.g.add(BiomeBase.FOREST);
-        this.g.add(BiomeBase.SWAMPLAND);
+        this.g.add(BiomeBase.PLAINS);
         this.g.add(BiomeBase.TAIGA);
+        this.g.add(BiomeBase.TAIGA_HILLS);
+        this.g.add(BiomeBase.FOREST_HILLS);
     }
 
     public WorldChunkManager(World world) {

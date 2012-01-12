@@ -15,7 +15,7 @@ public class EnchantmentManager {
 
     public EnchantmentManager() {}
 
-    private static int getEnchantmentLevel(int i, ItemStack itemstack) {
+    public static int getEnchantmentLevel(int i, ItemStack itemstack) {
         if (itemstack == null) {
             return 0;
         } else {
@@ -148,7 +148,7 @@ public class EnchantmentManager {
                 j = 30;
             }
 
-            j = 1 + random.nextInt((j >> 1) + 1) + random.nextInt(j + 1);
+            j = 1 + (j >> 1) + random.nextInt(j + 1);
             int l = random.nextInt(5) + j;
 
             return i == 0 ? (l >> 1) + 1 : (i == 1 ? l * 2 / 3 + 1 : l);
@@ -167,7 +167,7 @@ public class EnchantmentManager {
             float f = (random.nextFloat() + random.nextFloat() - 1.0F) * 0.25F;
             int l = (int) ((float) k * (1.0F + f) + 0.5F);
             ArrayList arraylist = null;
-            Map map = a(l, itemstack);
+            Map map = b(l, itemstack);
 
             if (map != null && !map.isEmpty()) {
                 EnchantmentInstance enchantmentinstance = (EnchantmentInstance) WeightedRandom.a(random, map.values());
@@ -215,7 +215,7 @@ public class EnchantmentManager {
         }
     }
 
-    public static Map a(int i, ItemStack itemstack) {
+    public static Map b(int i, ItemStack itemstack) {
         Item item = itemstack.getItem();
         HashMap hashmap = null;
         Enchantment[] aenchantment = Enchantment.byId;

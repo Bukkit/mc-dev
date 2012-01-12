@@ -80,6 +80,9 @@ public class BlockMinecartTrack extends Block {
     public void onPlace(World world, int i, int j, int k) {
         if (!world.isStatic) {
             this.a(world, i, j, k, true);
+            if (this.id == Block.GOLDEN_RAIL.id) {
+                this.doPhysics(world, i, j, k, this.id);
+            }
         }
     }
 

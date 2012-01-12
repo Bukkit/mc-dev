@@ -13,14 +13,14 @@ public class ItemFishingRod extends Item {
             int i = entityhuman.hookedFish.j();
 
             itemstack.damage(i, entityhuman);
-            entityhuman.r_();
+            entityhuman.s_();
         } else {
             world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (c.nextFloat() * 0.4F + 0.8F));
             if (!world.isStatic) {
                 world.addEntity(new EntityFishingHook(world, entityhuman));
             }
 
-            entityhuman.r_();
+            entityhuman.s_();
         }
 
         return itemstack;

@@ -24,6 +24,15 @@ public class WorldChunkManagerHell extends WorldChunkManager {
         return this.b;
     }
 
+    public BiomeBase[] getBiomes(BiomeBase[] abiomebase, int i, int j, int k, int l) {
+        if (abiomebase == null || abiomebase.length < k * l) {
+            abiomebase = new BiomeBase[k * l];
+        }
+
+        Arrays.fill(abiomebase, 0, k * l, this.b);
+        return abiomebase;
+    }
+
     public float[] getTemperatures(float[] afloat, int i, int j, int k, int l) {
         if (afloat == null || afloat.length < k * l) {
             afloat = new float[k * l];

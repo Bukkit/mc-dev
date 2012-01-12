@@ -12,7 +12,7 @@ public class EntityCaveSpider extends EntitySpider {
         return 12;
     }
 
-    protected boolean d(Entity entity) {
+    public boolean d(Entity entity) {
         if (super.d(entity)) {
             if (entity instanceof EntityLiving) {
                 byte b0 = 0;

@@ -33,8 +33,8 @@ public class EntityItem extends Entity {
 
     protected void b() {}
 
-    public void w_() {
-        super.w_();
+    public void y_() {
+        super.y_();
         if (this.pickupDelay > 0) {
             --this.pickupDelay;
         }
@@ -86,7 +86,7 @@ public class EntityItem extends Entity {
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        this.aB();
+        this.aM();
         this.f -= i;
         if (this.f <= 0) {
             this.die();

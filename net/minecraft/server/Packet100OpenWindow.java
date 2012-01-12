@@ -24,17 +24,17 @@ public class Packet100OpenWindow extends Packet {
     }
 
     public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readByte();
-        this.b = datainputstream.readByte();
+        this.a = datainputstream.readByte() & 255;
+        this.b = datainputstream.readByte() & 255;
         this.c = a(datainputstream, 16);
-        this.d = datainputstream.readByte();
+        this.d = datainputstream.readByte() & 255;
     }
 
     public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeByte(this.a);
-        dataoutputstream.writeByte(this.b);
+        dataoutputstream.writeByte(this.a & 255);
+        dataoutputstream.writeByte(this.b & 255);
         a(this.c, dataoutputstream);
-        dataoutputstream.writeByte(this.d);
+        dataoutputstream.writeByte(this.d & 255);
     }
 
     public int a() {

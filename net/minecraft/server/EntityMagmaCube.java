@@ -6,14 +6,14 @@ public class EntityMagmaCube extends EntitySlime {
         super(world);
         this.texture = "/mob/lava.png";
         this.fireProof = true;
-        this.ak = 0.2F;
+        this.al = 0.2F;
     }
 
     public boolean g() {
         return this.world.difficulty > 0 && this.world.containsEntity(this.boundingBox) && this.world.a((Entity) this, this.boundingBox).size() == 0 && !this.world.c(this.boundingBox);
     }
 
-    protected int O() {
+    public int P() {
         return this.getSize() * 3;
     }
 
@@ -21,43 +21,59 @@ public class EntityMagmaCube extends EntitySlime {
         return 1.0F;
     }
 
-    protected String w() {
+    protected String v() {
         return "flame";
     }
 
-    protected EntitySlime y() {
+    protected EntitySlime z() {
         return new EntityMagmaCube(this.world);
     }
 
     protected int e() {
-        return 0;
+        return Item.MAGMA_CREAM.id;
     }
 
-    public boolean z() {
+    protected void dropDeathLoot(boolean flag, int i) {
+        int j = this.e();
+
+        if (j > 0 && this.getSize() > 1) {
+            int k = this.random.nextInt(4) - 2;
+
+            if (i > 0) {
+                k += this.random.nextInt(i + 1);
+            }
+
+            for (int l = 0; l < k; ++l) {
+                this.b(j, 1);
+            }
+        }
+    }
+
+    public boolean A() {
         return false;
     }
 
-    protected int A() {
-        return super.A() * 4;
+    protected int B() {
+        return super.B() * 4;
     }
 
-    protected void B() {
+    protected void C() {
         this.a *= 0.9F;
     }
 
-    protected void X() {
+    protected void o_() {
         this.motY = (double) (0.42F + (float) this.getSize() * 0.1F);
-        this.cb = true;
+        this.ce = true;
     }
 
     protected void b(float f) {}
 
-    protected boolean C() {
+    protected boolean D() {
         return true;
     }
 
-    protected int D() {
-        return super.D() + 2;
+    protected int E() {
+        return super.E() + 2;
     }
 
     protected String m() {
@@ -68,15 +84,15 @@ public class EntityMagmaCube extends EntitySlime {
         return "mob.slime";
     }
 
-    protected String E() {
+    protected String F() {
         return this.getSize() > 1 ? "mob.magmacube.big" : "mob.magmacube.small";
     }
 
-    public boolean aA() {
+    public boolean aL() {
         return false;
     }
 
-    protected boolean G() {
+    protected boolean H() {
         return true;
     }
 }

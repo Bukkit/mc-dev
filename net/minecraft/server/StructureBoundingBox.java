@@ -54,11 +54,11 @@ public class StructureBoundingBox {
 
     public StructureBoundingBox(int i, int j, int k, int l) {
         this.a = i;
-        this.b = 0;
         this.c = j;
         this.d = k;
-        this.e = 65536;
         this.f = l;
+        this.b = 1;
+        this.e = 512;
     }
 
     public boolean a(StructureBoundingBox structureboundingbox) {

@@ -188,10 +188,6 @@ public abstract class NetHandler {
         this.a((Packet) packet17entitylocationaction);
     }
 
-    public void a(Packet27PlayerInput packet27playerinput) {
-        this.a((Packet) packet27playerinput);
-    }
-
     public void a(Packet70Bed packet70bed) {
         this.a((Packet) packet70bed);
     }
@@ -241,4 +237,6 @@ public abstract class NetHandler {
     }
 
     public void a(Packet108ButtonClick packet108buttonclick) {}
+
+    public void a(Packet250CustomPayload packet250custompayload) {}
 }

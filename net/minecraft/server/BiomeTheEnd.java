@@ -4,12 +4,12 @@ public class BiomeTheEnd extends BiomeBase {
 
     public BiomeTheEnd(int i) {
         super(i);
-        this.C.clear();
-        this.D.clear();
-        this.E.clear();
-        this.C.add(new BiomeMeta(EntityEnderman.class, 10, 4, 4));
-        this.t = (byte) Block.DIRT.id;
-        this.u = (byte) Block.DIRT.id;
-        this.B = new BiomeTheEndDecorator(this);
+        this.H.clear();
+        this.I.clear();
+        this.J.clear();
+        this.H.add(new BiomeMeta(EntityEnderman.class, 10, 4, 4));
+        this.y = (byte) Block.DIRT.id;
+        this.z = (byte) Block.DIRT.id;
+        this.G = new BiomeTheEndDecorator(this);
     }
 }

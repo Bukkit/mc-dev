@@ -23,6 +23,10 @@ public class LongHashMap {
         return i & j - 1;
     }
 
+    public int count() {
+        return this.count;
+    }
+
     public Object getEntry(long i) {
         int j = g(i);
 

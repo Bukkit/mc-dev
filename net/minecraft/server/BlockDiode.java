@@ -116,7 +116,7 @@ public class BlockDiode extends Block {
     }
 
     public boolean isPowerSource() {
-        return false;
+        return true;
     }
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {

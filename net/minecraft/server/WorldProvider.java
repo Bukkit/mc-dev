@@ -3,38 +3,44 @@ package net.minecraft.server;
 public abstract class WorldProvider {
 
     public World a;
-    public WorldChunkManager b;
-    public boolean c = false;
+    public WorldType type;
+    public WorldChunkManager c;
     public boolean d = false;
     public boolean e = false;
-    public float[] f = new float[16];
+    public boolean f = false;
+    public float[] g = new float[16];
     public int dimension = 0;
-    private float[] h = new float[4];
+    private float[] i = new float[4];
 
     public WorldProvider() {}
 
     public final void a(World world) {
         this.a = world;
+        this.type = world.getWorldData().getType();
         this.a();
-        this.e();
+        this.f();
     }
 
-    protected void e() {
+    protected void f() {
         float f = 0.0F;
 
         for (int i = 0; i <= 15; ++i) {
             float f1 = 1.0F - (float) i / 15.0F;
 
-            this.f[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
+            this.g[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
         }
     }
 
     protected void a() {
-        this.b = new WorldChunkManager(this.a);
+        if (this.a.getWorldData().getType() == WorldType.FLAT) {
+            this.c = new WorldChunkManagerHell(BiomeBase.PLAINS, 0.5F, 0.5F);
+        } else {
+            this.c = new WorldChunkManager(this.a);
+        }
     }
 
     public IChunkProvider getChunkProvider() {
-        return new ChunkProviderGenerate(this.a, this.a.getSeed(), this.a.getWorldData().o());
+        return (IChunkProvider) (this.type == WorldType.FLAT ? new ChunkProviderFlat(this.a, this.a.getSeed(), this.a.getWorldData().o()) : new ChunkProviderGenerate(this.a, this.a.getSeed(), this.a.getWorldData().o()));
     }
 
     public boolean canSpawn(int i, int j) {
@@ -72,5 +78,9 @@ public abstract class WorldProvider {
 
     public ChunkCoordinates d() {
         return null;
+    }
+
+    public int getSeaLevel() {
+        return this.type == WorldType.FLAT ? 4 : this.a.height / 2;
     }
 }

@@ -11,8 +11,8 @@ public class EntityVillager extends EntityCreature implements NPC {
     public EntityVillager(World world, int i) {
         super(world);
         this.profession = i;
-        this.y();
-        this.aY = 0.5F;
+        this.z();
+        this.bb = 0.5F;
     }
 
     public int getMaxHealth() {
@@ -31,10 +31,10 @@ public class EntityVillager extends EntityCreature implements NPC {
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
         this.profession = nbttagcompound.getInt("Profession");
-        this.y();
+        this.z();
     }
 
-    private void y() {
+    private void z() {
         this.texture = "/mob/villager/villager.png";
         if (this.profession == 0) {
             this.texture = "/mob/villager/farmer.png";

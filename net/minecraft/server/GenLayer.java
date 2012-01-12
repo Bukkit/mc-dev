@@ -30,7 +30,9 @@ public abstract class GenLayer {
         GenLayerSmooth genlayersmooth = new GenLayerSmooth(1000L, genlayerriver);
         GenLayer genlayer1 = GenLayerZoom.a(1000L, genlayermushroomisland, 0);
         GenLayerBiome genlayerbiome = new GenLayerBiome(200L, genlayer1);
-        Object object = GenLayerZoom.a(1000L, genlayerbiome, 2);
+
+        genlayer1 = GenLayerZoom.a(1000L, genlayerbiome, 2);
+        Object object = new GenLayerRegionHills(1000L, genlayer1);
         Object object1 = new GenLayerTemperature((GenLayer) object);
         Object object2 = new GenLayerDownfall((GenLayer) object);
 
@@ -40,8 +42,12 @@ public abstract class GenLayer {
                 object = new GenLayerIsland(3L, (GenLayer) object);
             }
 
-            if (j == 0) {
+            if (j == 1) {
                 object = new GenLayerMushroomShore(1000L, (GenLayer) object);
+            }
+
+            if (j == 1) {
+                object = new GenLayerSwampRivers(1000L, (GenLayer) object);
             }
 
             GenLayerSmoothZoom genlayersmoothzoom = new GenLayerSmoothZoom((long) (1000 + j), (GenLayer) object1);

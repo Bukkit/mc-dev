@@ -68,7 +68,7 @@ public class TileEntityMobSpawner extends TileEntity {
                         if (entityliving.g()) {
                             this.world.addEntity(entityliving);
                             this.world.f(2004, this.x, this.y, this.z, 0);
-                            entityliving.ah();
+                            entityliving.ao();
                             this.e();
                         }
                     }

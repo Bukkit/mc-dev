@@ -2,18 +2,22 @@ package net.minecraft.server;
 
 public class EntityDamageSourceIndirect extends EntityDamageSource {
 
-    private Entity n;
+    private Entity o;
 
     public EntityDamageSourceIndirect(String s, Entity entity, Entity entity1) {
         super(s, entity);
-        this.n = entity1;
+        this.o = entity1;
+    }
+
+    public Entity b() {
+        return this.a;
     }
 
     public Entity getEntity() {
-        return this.n;
+        return this.o;
     }
 
     public String a(EntityHuman entityhuman) {
-        return LocaleI18n.a("death." + this.m, new Object[] { entityhuman.name, this.n.ad()});
+        return LocaleI18n.a("death." + this.n, new Object[] { entityhuman.name, this.o.ad()});
     }
 }

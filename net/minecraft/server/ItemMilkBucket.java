@@ -10,7 +10,7 @@ public class ItemMilkBucket extends Item {
     public ItemStack b(ItemStack itemstack, World world, EntityHuman entityhuman) {
         --itemstack.count;
         if (!world.isStatic) {
-            entityhuman.ar();
+            entityhuman.aC();
         }
 
         return itemstack.count <= 0 ? new ItemStack(Item.BUCKET) : itemstack;

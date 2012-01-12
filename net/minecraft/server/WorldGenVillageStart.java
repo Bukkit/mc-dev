@@ -9,45 +9,44 @@ class WorldGenVillageStart extends StructureStart {
 
     private boolean c = false;
 
-    public WorldGenVillageStart(World world, Random random, int i, int j) {
-        byte b0 = 0;
-        ArrayList arraylist = WorldGenVillagePieces.a(random, b0);
-        WorldGenVillageStartPiece worldgenvillagestartpiece = new WorldGenVillageStartPiece(world.getWorldChunkManager(), 0, random, (i << 4) + 2, (j << 4) + 2, arraylist, b0);
+    public WorldGenVillageStart(World world, Random random, int i, int j, int k) {
+        ArrayList arraylist = WorldGenVillagePieces.a(random, k);
+        WorldGenVillageStartPiece worldgenvillagestartpiece = new WorldGenVillageStartPiece(world.getWorldChunkManager(), 0, random, (i << 4) + 2, (j << 4) + 2, arraylist, k);
 
         this.a.add(worldgenvillagestartpiece);
         worldgenvillagestartpiece.a(worldgenvillagestartpiece, this.a, random);
         ArrayList arraylist1 = worldgenvillagestartpiece.f;
         ArrayList arraylist2 = worldgenvillagestartpiece.e;
 
-        int k;
+        int l;
 
         while (!arraylist1.isEmpty() || !arraylist2.isEmpty()) {
             StructurePiece structurepiece;
 
             if (!arraylist1.isEmpty()) {
-                k = random.nextInt(arraylist1.size());
-                structurepiece = (StructurePiece) arraylist1.remove(k);
+                l = random.nextInt(arraylist1.size());
+                structurepiece = (StructurePiece) arraylist1.remove(l);
                 structurepiece.a((StructurePiece) worldgenvillagestartpiece, (List) this.a, random);
             } else {
-                k = random.nextInt(arraylist2.size());
-                structurepiece = (StructurePiece) arraylist2.remove(k);
+                l = random.nextInt(arraylist2.size());
+                structurepiece = (StructurePiece) arraylist2.remove(l);
                 structurepiece.a((StructurePiece) worldgenvillagestartpiece, (List) this.a, random);
             }
         }
 
         this.d();
-        k = 0;
+        l = 0;
         Iterator iterator = this.a.iterator();
 
         while (iterator.hasNext()) {
             StructurePiece structurepiece1 = (StructurePiece) iterator.next();
 
             if (!(structurepiece1 instanceof WorldGenVillageRoadPiece)) {
-                ++k;
+                ++l;
             }
         }
 
-        this.c = k > 2;
+        this.c = l > 2;
     }
 
     public boolean a() {

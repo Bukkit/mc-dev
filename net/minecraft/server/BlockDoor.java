@@ -164,10 +164,12 @@ public class BlockDoor extends Block {
                 if (!world.isStatic) {
                     this.b(world, i, j, k, i1, 0);
                 }
-            } else if (l > 0 && l != this.id) {
+            } else {
                 boolean flag1 = world.isBlockIndirectlyPowered(i, j, k) || world.isBlockIndirectlyPowered(i, j + 1, k);
 
-                this.setDoor(world, i, j, k, flag1);
+                if ((flag1 || l > 0 && Block.byId[l].isPowerSource() || l == 0) && l != this.id) {
+                    this.setDoor(world, i, j, k, flag1);
+                }
             }
         }
     }

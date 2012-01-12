@@ -2,10 +2,10 @@ package net.minecraft.server;
 
 public class EnchantmentWeaponDamage extends Enchantment {
 
-    private static final String[] w = new String[] { "all", "undead", "arthropods"};
-    private static final int[] x = new int[] { 1, 5, 5};
-    private static final int[] y = new int[] { 16, 8, 8};
-    private static final int[] z = new int[] { 20, 20, 20};
+    private static final String[] A = new String[] { "all", "undead", "arthropods"};
+    private static final int[] B = new int[] { 1, 5, 5};
+    private static final int[] C = new int[] { 16, 8, 8};
+    private static final int[] D = new int[] { 20, 20, 20};
     public final int a;
 
     public EnchantmentWeaponDamage(int i, int j, int k) {
@@ -14,11 +14,11 @@ public class EnchantmentWeaponDamage extends Enchantment {
     }
 
     public int a(int i) {
-        return x[this.a] + (i - 1) * y[this.a];
+        return B[this.a] + (i - 1) * C[this.a];
     }
 
     public int b(int i) {
-        return this.a(i) + z[this.a];
+        return this.a(i) + D[this.a];
     }
 
     public int getMaxLevel() {

@@ -76,8 +76,8 @@ public class MobEffectList {
             }
         } else if (this.id == HUNGER.id && entityliving instanceof EntityHuman) {
             ((EntityHuman) entityliving).c(0.025F * (float) (i + 1));
-        } else if ((this.id != HEAL.id || entityliving.at()) && (this.id != HARM.id || !entityliving.at())) {
-            if (this.id == HARM.id && !entityliving.at() || this.id == HEAL.id && entityliving.at()) {
+        } else if ((this.id != HEAL.id || entityliving.aE()) && (this.id != HARM.id || !entityliving.aE())) {
+            if (this.id == HARM.id && !entityliving.aE() || this.id == HEAL.id && entityliving.aE()) {
                 entityliving.damageEntity(DamageSource.MAGIC, 6 << i);
             }
         } else {
@@ -88,8 +88,8 @@ public class MobEffectList {
     public void a(EntityLiving entityliving, EntityLiving entityliving1, int i, double d0) {
         int j;
 
-        if ((this.id != HEAL.id || entityliving1.at()) && (this.id != HARM.id || !entityliving1.at())) {
-            if (this.id == HARM.id && !entityliving1.at() || this.id == HEAL.id && entityliving1.at()) {
+        if ((this.id != HEAL.id || entityliving1.aE()) && (this.id != HARM.id || !entityliving1.aE())) {
+            if (this.id == HARM.id && !entityliving1.aE() || this.id == HEAL.id && entityliving1.aE()) {
                 j = (int) (d0 * (double) (6 << i) + 0.5D);
                 if (entityliving == null) {
                     entityliving1.damageEntity(DamageSource.MAGIC, j);

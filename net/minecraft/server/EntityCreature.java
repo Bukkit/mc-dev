@@ -11,7 +11,7 @@ public abstract class EntityCreature extends EntityLiving {
         super(world);
     }
 
-    protected boolean w() {
+    protected boolean v() {
         return false;
     }
 
@@ -21,7 +21,7 @@ public abstract class EntityCreature extends EntityLiving {
             --this.f;
         }
 
-        this.e = this.w();
+        this.e = this.v();
         float f = 16.0F;
 
         if (this.target == null) {
@@ -44,13 +44,13 @@ public abstract class EntityCreature extends EntityLiving {
         MethodProfiler.a();
         if (!this.e && this.target != null && (this.pathEntity == null || this.random.nextInt(20) == 0)) {
             this.pathEntity = this.world.findPath(this, this.target, f);
-        } else if (!this.e && (this.pathEntity == null && this.random.nextInt(180) == 0 || this.random.nextInt(120) == 0 || this.f > 0) && this.aS < 100) {
-            this.C();
+        } else if (!this.e && (this.pathEntity == null && this.random.nextInt(180) == 0 || this.random.nextInt(120) == 0 || this.f > 0) && this.aV < 100) {
+            this.D();
         }
 
         int i = MathHelper.floor(this.boundingBox.b + 0.5D);
-        boolean flag = this.az();
-        boolean flag1 = this.aA();
+        boolean flag = this.aK();
+        boolean flag1 = this.aL();
 
         this.pitch = 0.0F;
         if (this.pathEntity != null && this.random.nextInt(100) != 0) {
@@ -68,7 +68,7 @@ public abstract class EntityCreature extends EntityLiving {
                 }
             }
 
-            this.aW = false;
+            this.aZ = false;
             if (vec3d != null) {
                 double d1 = vec3d.a - this.locX;
                 double d2 = vec3d.c - this.locZ;
@@ -76,7 +76,7 @@ public abstract class EntityCreature extends EntityLiving {
                 float f2 = (float) (Math.atan2(d2, d1) * 180.0D / 3.1415927410125732D) - 90.0F;
                 float f3 = f2 - this.yaw;
 
-                for (this.aU = this.aY; f3 < -180.0F; f3 += 360.0F) {
+                for (this.aX = this.bb; f3 < -180.0F; f3 += 360.0F) {
                     ;
                 }
 
@@ -100,12 +100,12 @@ public abstract class EntityCreature extends EntityLiving {
 
                     this.yaw = (float) (Math.atan2(d5, d4) * 180.0D / 3.1415927410125732D) - 90.0F;
                     f3 = (f4 - this.yaw + 90.0F) * 3.1415927F / 180.0F;
-                    this.aT = -MathHelper.sin(f3) * this.aU * 1.0F;
-                    this.aU = MathHelper.cos(f3) * this.aU * 1.0F;
+                    this.aW = -MathHelper.sin(f3) * this.aX * 1.0F;
+                    this.aX = MathHelper.cos(f3) * this.aX * 1.0F;
                 }
 
                 if (d3 > 0.0D) {
-                    this.aW = true;
+                    this.aZ = true;
                 }
             }
 
@@ -113,12 +113,12 @@ public abstract class EntityCreature extends EntityLiving {
                 this.a(this.target, 30.0F, 30.0F);
             }
 
-            if (this.positionChanged && !this.D()) {
-                this.aW = true;
+            if (this.positionChanged && !this.E()) {
+                this.aZ = true;
             }
 
             if (this.random.nextFloat() < 0.8F && (flag || flag1)) {
-                this.aW = true;
+                this.aZ = true;
             }
 
             MethodProfiler.a();
@@ -128,7 +128,7 @@ public abstract class EntityCreature extends EntityLiving {
         }
     }
 
-    protected void C() {
+    protected void D() {
         MethodProfiler.a("stroll");
         boolean flag = false;
         int i = -1;
@@ -162,7 +162,7 @@ public abstract class EntityCreature extends EntityLiving {
 
     protected void b(Entity entity, float f) {}
 
-    protected float a(int i, int j, int k) {
+    public float a(int i, int j, int k) {
         return 0.0F;
     }
 
@@ -178,7 +178,7 @@ public abstract class EntityCreature extends EntityLiving {
         return super.g() && this.a(i, j, k) >= 0.0F;
     }
 
-    public boolean D() {
+    public boolean E() {
         return this.pathEntity != null;
     }
 
@@ -186,7 +186,7 @@ public abstract class EntityCreature extends EntityLiving {
         this.pathEntity = pathentity;
     }
 
-    public Entity E() {
+    public Entity F() {
         return this.target;
     }
 
@@ -194,8 +194,8 @@ public abstract class EntityCreature extends EntityLiving {
         this.target = entity;
     }
 
-    protected float F() {
-        float f = super.F();
+    protected float G() {
+        float f = super.G();
 
         if (this.f > 0) {
             f *= 2.0F;

@@ -157,11 +157,10 @@ class PlayerInstance {
                     this.sendAll(new Packet52MultiBlockChange(this.chunkX, this.chunkZ, this.dirtyBlocks, this.dirtyCount, worldserver));
 
                     for (i = 0; i < this.dirtyCount; ++i) {
-                        j = this.chunkX * 16 + (this.dirtyCount >> 12 & 15);
-                        k = this.dirtyCount & 255;
-                        l = this.chunkZ * 16 + (this.dirtyCount >> 8 & 15);
+                        j = this.chunkX * 16 + (this.dirtyBlocks[i] >> 12 & 15);
+                        k = this.dirtyBlocks[i] & 255;
+                        l = this.chunkZ * 16 + (this.dirtyBlocks[i] >> 8 & 15);
                         if (Block.isTileEntity[worldserver.getTypeId(j, k, l)]) {
-                            System.out.println("Sending!");
                             this.sendTileEntity(worldserver.getTileEntity(j, k, l));
                         }
                     }

@@ -2,10 +2,10 @@ package net.minecraft.server;
 
 public class EnchantmentProtection extends Enchantment {
 
-    private static final String[] w = new String[] { "all", "fire", "fall", "explosion", "projectile"};
-    private static final int[] x = new int[] { 1, 10, 5, 5, 3};
-    private static final int[] y = new int[] { 16, 8, 6, 8, 6};
-    private static final int[] z = new int[] { 20, 12, 10, 12, 15};
+    private static final String[] A = new String[] { "all", "fire", "fall", "explosion", "projectile"};
+    private static final int[] B = new int[] { 1, 10, 5, 5, 3};
+    private static final int[] C = new int[] { 16, 8, 6, 8, 6};
+    private static final int[] D = new int[] { 20, 12, 10, 12, 15};
     public final int a;
 
     public EnchantmentProtection(int i, int j, int k) {
@@ -17,11 +17,11 @@ public class EnchantmentProtection extends Enchantment {
     }
 
     public int a(int i) {
-        return x[this.a] + (i - 1) * y[this.a];
+        return B[this.a] + (i - 1) * C[this.a];
     }
 
     public int b(int i) {
-        return this.a(i) + z[this.a];
+        return this.a(i) + D[this.a];
     }
 
     public int getMaxLevel() {
@@ -34,7 +34,7 @@ public class EnchantmentProtection extends Enchantment {
         } else {
             int j = (6 + i * i) / 2;
 
-            return this.a == 0 ? j : (this.a == 1 && damagesource.k() ? j : (this.a == 2 && damagesource == DamageSource.FALL ? j * 2 : (this.a == 3 && damagesource == DamageSource.EXPLOSION ? j : (this.a == 4 && damagesource.b() ? j : 0))));
+            return this.a == 0 ? j : (this.a == 1 && damagesource.k() ? j : (this.a == 2 && damagesource == DamageSource.FALL ? j * 2 : (this.a == 3 && damagesource == DamageSource.EXPLOSION ? j : (this.a == 4 && damagesource.c() ? j : 0))));
         }
     }
 

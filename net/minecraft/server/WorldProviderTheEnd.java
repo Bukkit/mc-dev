@@ -5,10 +5,10 @@ public class WorldProviderTheEnd extends WorldProvider {
     public WorldProviderTheEnd() {}
 
     public void a() {
-        this.b = new WorldChunkManagerHell(BiomeBase.SKY, 0.5F, 0.0F);
+        this.c = new WorldChunkManagerHell(BiomeBase.SKY, 0.5F, 0.0F);
         this.dimension = 1;
-        this.e = true;
-        this.c = true;
+        this.f = true;
+        this.d = true;
     }
 
     public IChunkProvider getChunkProvider() {
@@ -31,5 +31,9 @@ public class WorldProviderTheEnd extends WorldProvider {
 
     public ChunkCoordinates d() {
         return new ChunkCoordinates(100, 50, 0);
+    }
+
+    public int getSeaLevel() {
+        return 50;
     }
 }

@@ -147,7 +147,7 @@ public class WorldGenCanyon extends WorldGenBase {
                                                 } else {
                                                     abyte[j4] = 0;
                                                     if (flag2 && abyte[j4 - 1] == Block.DIRT.id) {
-                                                        abyte[j4 - 1] = this.d.getWorldChunkManager().getBiome(j3 + j * 16, k3 + k * 16).t;
+                                                        abyte[j4 - 1] = this.d.getWorldChunkManager().getBiome(j3 + j * 16, k3 + k * 16).y;
                                                     }
                                                 }
                                             }

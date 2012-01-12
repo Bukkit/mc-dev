@@ -11,18 +11,22 @@ public class EntityPigZombie extends EntityZombie {
     public EntityPigZombie(World world) {
         super(world);
         this.texture = "/mob/pigzombie.png";
-        this.aY = 0.5F;
+        this.bb = 0.5F;
         this.damage = 5;
         this.fireProof = true;
     }
 
-    public void w_() {
-        this.aY = this.target != null ? 0.95F : 0.5F;
+    protected boolean as() {
+        return false;
+    }
+
+    public void y_() {
+        this.bb = this.target != null ? 0.95F : 0.5F;
         if (this.soundDelay > 0 && --this.soundDelay == 0) {
             this.world.makeSound(this, "mob.zombiepig.zpigangry", this.o() * 2.0F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
-        super.w_();
+        super.y_();
     }
 
     public boolean g() {

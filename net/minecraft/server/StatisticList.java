@@ -14,29 +14,29 @@ public class StatisticList {
     public static List c = new ArrayList();
     public static List d = new ArrayList();
     public static List e = new ArrayList();
-    public static Statistic f = (new CounterStatistic(1000, LocaleI18n.a("stat.startGame"))).e().d();
-    public static Statistic g = (new CounterStatistic(1001, LocaleI18n.a("stat.createWorld"))).e().d();
-    public static Statistic h = (new CounterStatistic(1002, LocaleI18n.a("stat.loadWorld"))).e().d();
-    public static Statistic i = (new CounterStatistic(1003, LocaleI18n.a("stat.joinMultiplayer"))).e().d();
-    public static Statistic j = (new CounterStatistic(1004, LocaleI18n.a("stat.leaveGame"))).e().d();
-    public static Statistic k = (new CounterStatistic(1100, LocaleI18n.a("stat.playOneMinute"), Statistic.j)).e().d();
-    public static Statistic l = (new CounterStatistic(2000, LocaleI18n.a("stat.walkOneCm"), Statistic.k)).e().d();
-    public static Statistic m = (new CounterStatistic(2001, LocaleI18n.a("stat.swimOneCm"), Statistic.k)).e().d();
-    public static Statistic n = (new CounterStatistic(2002, LocaleI18n.a("stat.fallOneCm"), Statistic.k)).e().d();
-    public static Statistic o = (new CounterStatistic(2003, LocaleI18n.a("stat.climbOneCm"), Statistic.k)).e().d();
-    public static Statistic p = (new CounterStatistic(2004, LocaleI18n.a("stat.flyOneCm"), Statistic.k)).e().d();
-    public static Statistic q = (new CounterStatistic(2005, LocaleI18n.a("stat.diveOneCm"), Statistic.k)).e().d();
-    public static Statistic r = (new CounterStatistic(2006, LocaleI18n.a("stat.minecartOneCm"), Statistic.k)).e().d();
-    public static Statistic s = (new CounterStatistic(2007, LocaleI18n.a("stat.boatOneCm"), Statistic.k)).e().d();
-    public static Statistic t = (new CounterStatistic(2008, LocaleI18n.a("stat.pigOneCm"), Statistic.k)).e().d();
-    public static Statistic u = (new CounterStatistic(2010, LocaleI18n.a("stat.jump"))).e().d();
-    public static Statistic v = (new CounterStatistic(2011, LocaleI18n.a("stat.drop"))).e().d();
-    public static Statistic w = (new CounterStatistic(2020, LocaleI18n.a("stat.damageDealt"))).d();
-    public static Statistic x = (new CounterStatistic(2021, LocaleI18n.a("stat.damageTaken"))).d();
-    public static Statistic y = (new CounterStatistic(2022, LocaleI18n.a("stat.deaths"))).d();
-    public static Statistic z = (new CounterStatistic(2023, LocaleI18n.a("stat.mobKills"))).d();
-    public static Statistic A = (new CounterStatistic(2024, LocaleI18n.a("stat.playerKills"))).d();
-    public static Statistic B = (new CounterStatistic(2025, LocaleI18n.a("stat.fishCaught"))).d();
+    public static Statistic f = (new CounterStatistic(1000, "stat.startGame")).e().d();
+    public static Statistic g = (new CounterStatistic(1001, "stat.createWorld")).e().d();
+    public static Statistic h = (new CounterStatistic(1002, "stat.loadWorld")).e().d();
+    public static Statistic i = (new CounterStatistic(1003, "stat.joinMultiplayer")).e().d();
+    public static Statistic j = (new CounterStatistic(1004, "stat.leaveGame")).e().d();
+    public static Statistic k = (new CounterStatistic(1100, "stat.playOneMinute", Statistic.i)).e().d();
+    public static Statistic l = (new CounterStatistic(2000, "stat.walkOneCm", Statistic.j)).e().d();
+    public static Statistic m = (new CounterStatistic(2001, "stat.swimOneCm", Statistic.j)).e().d();
+    public static Statistic n = (new CounterStatistic(2002, "stat.fallOneCm", Statistic.j)).e().d();
+    public static Statistic o = (new CounterStatistic(2003, "stat.climbOneCm", Statistic.j)).e().d();
+    public static Statistic p = (new CounterStatistic(2004, "stat.flyOneCm", Statistic.j)).e().d();
+    public static Statistic q = (new CounterStatistic(2005, "stat.diveOneCm", Statistic.j)).e().d();
+    public static Statistic r = (new CounterStatistic(2006, "stat.minecartOneCm", Statistic.j)).e().d();
+    public static Statistic s = (new CounterStatistic(2007, "stat.boatOneCm", Statistic.j)).e().d();
+    public static Statistic t = (new CounterStatistic(2008, "stat.pigOneCm", Statistic.j)).e().d();
+    public static Statistic u = (new CounterStatistic(2010, "stat.jump")).e().d();
+    public static Statistic v = (new CounterStatistic(2011, "stat.drop")).e().d();
+    public static Statistic w = (new CounterStatistic(2020, "stat.damageDealt")).d();
+    public static Statistic x = (new CounterStatistic(2021, "stat.damageTaken")).d();
+    public static Statistic y = (new CounterStatistic(2022, "stat.deaths")).d();
+    public static Statistic z = (new CounterStatistic(2023, "stat.mobKills")).d();
+    public static Statistic A = (new CounterStatistic(2024, "stat.playerKills")).d();
+    public static Statistic B = (new CounterStatistic(2025, "stat.fishCaught")).d();
     public static Statistic[] C = a("stat.mineBlock", 16777216);
     public static Statistic[] D;
     public static Statistic[] E;
@@ -88,7 +88,7 @@ public class StatisticList {
                 Integer integer = (Integer) iterator.next();
 
                 if (Item.byId[integer.intValue()] != null) {
-                    String s = LocaleI18n.a("stat.craftItem", new Object[] { Item.byId[integer.intValue()].k()});
+                    String s = LocaleI18n.a("stat.craftItem", new Object[] { Item.byId[integer.intValue()].l()});
 
                     D[integer.intValue()] = (new CraftingStatistic(16842752 + integer.intValue(), s, integer.intValue())).d();
                 }
@@ -121,7 +121,7 @@ public class StatisticList {
 
         for (int l = j; l < k; ++l) {
             if (Item.byId[l] != null) {
-                String s1 = LocaleI18n.a(s, new Object[] { Item.byId[l].k()});
+                String s1 = LocaleI18n.a(s, new Object[] { Item.byId[l].l()});
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).d();
                 if (l >= Block.byId.length) {
@@ -141,7 +141,7 @@ public class StatisticList {
 
         for (int l = j; l < k; ++l) {
             if (Item.byId[l] != null && Item.byId[l].g()) {
-                String s1 = LocaleI18n.a(s, new Object[] { Item.byId[l].k()});
+                String s1 = LocaleI18n.a(s, new Object[] { Item.byId[l].l()});
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).d();
             }

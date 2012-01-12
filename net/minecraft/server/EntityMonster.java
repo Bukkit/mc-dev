@@ -6,21 +6,21 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
 
     public EntityMonster(World world) {
         super(world);
-        this.az = 5;
+        this.aA = 5;
     }
 
     public void d() {
         float f = this.a(1.0F);
 
         if (f > 0.5F) {
-            this.aS += 2;
+            this.aV += 2;
         }
 
         super.d();
     }
 
-    public void w_() {
-        super.w_();
+    public void y_() {
+        super.y_();
         if (!this.world.isStatic && this.world.difficulty == 0) {
             this.die();
         }
@@ -39,6 +39,7 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
             if (this.passenger != entity && this.vehicle != entity) {
                 if (entity != this) {
                     this.target = entity;
+                    this.aI = entity instanceof EntityLiving ? (EntityLiving) entity : null;
                 }
 
                 return true;
@@ -50,7 +51,7 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
         }
     }
 
-    protected boolean d(Entity entity) {
+    public boolean d(Entity entity) {
         int i = this.damage;
 
         if (this.hasEffect(MobEffectList.INCREASE_DAMAGE)) {
@@ -71,7 +72,7 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
         }
     }
 
-    protected float a(int i, int j, int k) {
+    public float a(int i, int j, int k) {
         return 0.5F - this.world.m(i, j, k);
     }
 
@@ -83,7 +84,7 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
         super.a(nbttagcompound);
     }
 
-    protected boolean y() {
+    protected boolean z() {
         int i = MathHelper.floor(this.locX);
         int j = MathHelper.floor(this.boundingBox.b);
         int k = MathHelper.floor(this.locZ);
@@ -106,6 +107,6 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
     }
 
     public boolean g() {
-        return this.y() && super.g();
+        return this.z() && super.g();
     }
 }

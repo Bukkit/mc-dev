@@ -8,45 +8,60 @@ public class Packet1Login extends Packet {
     public int a;
     public String name;
     public long c;
-    public int d;
-    public byte e;
+    public WorldType d;
+    public int e;
     public byte f;
     public byte g;
     public byte h;
+    public byte i;
 
     public Packet1Login() {}
 
-    public Packet1Login(String s, int i, long j, int k, byte b0, byte b1, byte b2, byte b3) {
+    public Packet1Login(String s, int i, long j, WorldType worldtype, int k, byte b0, byte b1, byte b2, byte b3) {
         this.name = s;
         this.a = i;
         this.c = j;
-        this.e = b0;
-        this.f = b1;
-        this.d = k;
-        this.g = b2;
-        this.h = b3;
+        this.d = worldtype;
+        this.f = b0;
+        this.g = b1;
+        this.e = k;
+        this.h = b2;
+        this.i = b3;
     }
 
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readInt();
         this.name = a(datainputstream, 16);
         this.c = datainputstream.readLong();
-        this.d = datainputstream.readInt();
-        this.e = datainputstream.readByte();
+        String s = a(datainputstream, 16);
+
+        this.d = WorldType.a(s);
+        if (this.d == null) {
+            this.d = WorldType.NORMAL;
+        }
+
+        this.e = datainputstream.readInt();
         this.f = datainputstream.readByte();
         this.g = datainputstream.readByte();
         this.h = datainputstream.readByte();
+        this.i = datainputstream.readByte();
     }
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeInt(this.a);
         a(this.name, dataoutputstream);
         dataoutputstream.writeLong(this.c);
-        dataoutputstream.writeInt(this.d);
-        dataoutputstream.writeByte(this.e);
+        if (this.d == null) {
+            a("", dataoutputstream);
+        } else {
+            a(this.d.name(), dataoutputstream);
+        }
+
+        dataoutputstream.writeInt(this.e);
         dataoutputstream.writeByte(this.f);
         dataoutputstream.writeByte(this.g);
         dataoutputstream.writeByte(this.h);
+        dataoutputstream.writeByte(this.i);
     }
 
     public void a(NetHandler nethandler) {
@@ -54,6 +69,12 @@ public class Packet1Login extends Packet {
     }
 
     public int a() {
-        return 4 + this.name.length() + 4 + 7 + 4;
+        int i = 0;
+
+        if (this.d != null) {
+            i = this.d.name().length();
+        }
+
+        return 4 + this.name.length() + 4 + 7 + 4 + i;
     }
 }

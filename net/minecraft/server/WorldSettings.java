@@ -6,12 +6,14 @@ public final class WorldSettings {
     private final int b;
     private final boolean c;
     private final boolean d;
+    private final WorldType e;
 
-    public WorldSettings(long i, int j, boolean flag, boolean flag1) {
+    public WorldSettings(long i, int j, boolean flag, boolean flag1, WorldType worldtype) {
         this.a = i;
         this.b = j;
         this.c = flag;
         this.d = flag1;
+        this.e = worldtype;
     }
 
     public long a() {
@@ -28,6 +30,10 @@ public final class WorldSettings {
 
     public boolean d() {
         return this.c;
+    }
+
+    public WorldType e() {
+        return this.e;
     }
 
     public static int a(int i) {

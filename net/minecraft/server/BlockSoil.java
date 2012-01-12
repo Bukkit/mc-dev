@@ -42,8 +42,8 @@ public class BlockSoil extends Block {
         }
     }
 
-    public void b(World world, int i, int j, int k, Entity entity) {
-        if (world.random.nextInt(4) == 0) {
+    public void a(World world, int i, int j, int k, Entity entity, float f) {
+        if (world.random.nextFloat() < f - 0.5F) {
             world.setTypeId(i, j, k, Block.DIRT.id);
         }
     }

@@ -5,7 +5,9 @@ import java.util.Random;
 
 public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
 
-    private int a = -1;
+    private static final StructurePieceTreasure[] a = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.DIAMOND.id, 0, 1, 3, 3), new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 5, 10), new StructurePieceTreasure(Item.GOLD_INGOT.id, 0, 1, 3, 5), new StructurePieceTreasure(Item.BREAD.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.APPLE.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.IRON_PICKAXE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_SWORD.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_CHESTPLATE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_HELMET.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_LEGGINGS.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_BOOTS.id, 0, 1, 1, 5), new StructurePieceTreasure(Block.OBSIDIAN.id, 0, 3, 7, 5), new StructurePieceTreasure(Block.SAPLING.id, 0, 3, 7, 5)};
+    private int b = -1;
+    private boolean c;
 
     public WorldGenVillageBlacksmith(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
@@ -22,13 +24,13 @@ public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
-        if (this.a < 0) {
-            this.a = this.b(world, structureboundingbox);
-            if (this.a < 0) {
+        if (this.b < 0) {
+            this.b = this.b(world, structureboundingbox);
+            if (this.b < 0) {
                 return true;
             }
 
-            this.g.a(0, this.a - this.g.e + 6 - 1, 0);
+            this.g.a(0, this.b - this.g.e + 6 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 0, 1, 0, 9, 4, 6, 0, 0, false);
@@ -66,8 +68,19 @@ public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
         this.a(world, Block.WOOD.id, 0, 1, 1, 5, structureboundingbox);
         this.a(world, Block.WOOD_STAIRS.id, this.c(Block.WOOD_STAIRS.id, 3), 2, 1, 5, structureboundingbox);
         this.a(world, Block.WOOD_STAIRS.id, this.c(Block.WOOD_STAIRS.id, 1), 1, 1, 4, structureboundingbox);
-
         int i;
+        int j;
+
+        if (!this.c) {
+            i = this.b(1);
+            j = this.a(5, 5);
+            int k = this.b(5, 5);
+
+            if (structureboundingbox.b(j, i, k)) {
+                this.c = true;
+                this.a(world, structureboundingbox, random, 5, 1, 5, a, 3 + random.nextInt(6));
+            }
+        }
 
         for (i = 6; i <= 8; ++i) {
             if (this.a(world, i, 0, -1, structureboundingbox) == 0 && this.a(world, i, -1, -1, structureboundingbox) != 0) {
@@ -76,7 +89,7 @@ public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
         }
 
         for (i = 0; i < 7; ++i) {
-            for (int j = 0; j < 10; ++j) {
+            for (j = 0; j < 10; ++j) {
                 this.b(world, j, 6, i, structureboundingbox);
                 this.b(world, Block.COBBLESTONE.id, 0, j, -1, i, structureboundingbox);
             }

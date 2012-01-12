@@ -64,7 +64,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
 
             EntityHuman entityhuman = (EntityHuman) entity;
 
-            if (entityhuman.P() == null || !this.a(entityhuman.P())) {
+            if (entityhuman.Q() == null || !this.a(entityhuman.Q())) {
                 this.target = null;
             }
         } else if (entity instanceof EntityAnimal) {
@@ -95,6 +95,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
                 }
             } else {
                 this.b = 0;
+                this.target = null;
             }
         }
     }
@@ -137,7 +138,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         return super.damageEntity(damagesource, i);
     }
 
-    protected float a(int i, int j, int k) {
+    public float a(int i, int j, int k) {
         return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id ? 10.0F : this.world.m(i, j, k) - 0.5F;
     }
 
@@ -163,7 +164,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
             EntityAnimal entityanimal;
 
             if (this.love > 0) {
-                list = this.world.a(this.getClass(), this.boundingBox.a((double) f, (double) f, (double) f));
+                list = this.world.a(this.getClass(), this.boundingBox.grow((double) f, (double) f, (double) f));
 
                 for (i = 0; i < list.size(); ++i) {
                     entityanimal = (EntityAnimal) list.get(i);
@@ -172,17 +173,17 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
                     }
                 }
             } else if (this.getAge() == 0) {
-                list = this.world.a(EntityHuman.class, this.boundingBox.a((double) f, (double) f, (double) f));
+                list = this.world.a(EntityHuman.class, this.boundingBox.grow((double) f, (double) f, (double) f));
 
                 for (i = 0; i < list.size(); ++i) {
                     EntityHuman entityhuman = (EntityHuman) list.get(i);
 
-                    if (entityhuman.P() != null && this.a(entityhuman.P())) {
+                    if (entityhuman.Q() != null && this.a(entityhuman.Q())) {
                         return entityhuman;
                     }
                 }
             } else if (this.getAge() > 0) {
-                list = this.world.a(this.getClass(), this.boundingBox.a((double) f, (double) f, (double) f));
+                list = this.world.a(this.getClass(), this.boundingBox.grow((double) f, (double) f, (double) f));
 
                 for (i = 0; i < list.size(); ++i) {
                     entityanimal = (EntityAnimal) list.get(i);

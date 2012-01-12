@@ -5,9 +5,9 @@ public class Achievement extends Statistic {
     public final int a;
     public final int b;
     public final Achievement c;
-    private final String l;
+    private final String k;
     public final ItemStack d;
-    private boolean m;
+    private boolean l;
 
     public Achievement(int i, String s, int j, int k, Item item, Achievement achievement) {
         this(i, s, j, k, new ItemStack(item), achievement);
@@ -18,9 +18,9 @@ public class Achievement extends Statistic {
     }
 
     public Achievement(int i, String s, int j, int k, ItemStack itemstack, Achievement achievement) {
-        super(5242880 + i, LocaleI18n.a("achievement." + s));
+        super(5242880 + i, "achievement." + s);
         this.d = itemstack;
-        this.l = LocaleI18n.a("achievement." + s + ".desc");
+        this.k = "achievement." + s + ".desc";
         this.a = j;
         this.b = k;
         if (j < AchievementList.a) {
@@ -43,12 +43,12 @@ public class Achievement extends Statistic {
     }
 
     public Achievement a() {
-        this.g = true;
+        this.f = true;
         return this;
     }
 
     public Achievement b() {
-        this.m = true;
+        this.l = true;
         return this;
     }
 

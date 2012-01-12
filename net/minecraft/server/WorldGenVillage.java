@@ -7,8 +7,11 @@ import java.util.Random;
 public class WorldGenVillage extends StructureGenerator {
 
     public static List a = Arrays.asList(new BiomeBase[] { BiomeBase.PLAINS, BiomeBase.DESERT});
+    private final int f;
 
-    public WorldGenVillage() {}
+    public WorldGenVillage(int i) {
+        this.f = i;
+    }
 
     protected boolean a(int i, int j) {
         byte b0 = 32;
@@ -44,6 +47,6 @@ public class WorldGenVillage extends StructureGenerator {
     }
 
     protected StructureStart b(int i, int j) {
-        return new WorldGenVillageStart(this.d, this.c, i, j);
+        return new WorldGenVillageStart(this.d, this.c, i, j, this.f);
     }
 }

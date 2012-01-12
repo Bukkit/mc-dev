@@ -84,7 +84,7 @@ public class EntityChicken extends EntityAnimal {
             this.b(Item.FEATHER.id, 1);
         }
 
-        if (this.z()) {
+        if (this.A()) {
             this.b(Item.COOKED_CHICKEN.id, 1);
         } else {
             this.b(Item.RAW_CHICKEN.id, 1);

@@ -183,14 +183,14 @@ public class ServerConfigurationManager {
             entityplayer1.setPosition(entityplayer1.locX, entityplayer1.locY + 1.0D, entityplayer1.locZ);
         }
 
-        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer1.dimension, (byte) entityplayer1.world.difficulty, entityplayer1.world.getSeed(), entityplayer1.world.height, entityplayer1.itemInWorldManager.getGameMode()));
+        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer1.dimension, (byte) entityplayer1.world.difficulty, entityplayer1.world.getSeed(), entityplayer1.world.getWorldData().getType(), entityplayer1.world.height, entityplayer1.itemInWorldManager.getGameMode()));
         entityplayer1.netServerHandler.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
         this.a(entityplayer1, worldserver);
         this.getPlayerManager(entityplayer1.dimension).addPlayer(entityplayer1);
         worldserver.addEntity(entityplayer1);
         this.players.add(entityplayer1);
         entityplayer1.syncInventory();
-        entityplayer1.A();
+        entityplayer1.B();
         return entityplayer1;
     }
 
@@ -201,7 +201,7 @@ public class ServerConfigurationManager {
         entityplayer.dimension = i;
         WorldServer worldserver1 = this.server.getWorldServer(entityplayer.dimension);
 
-        entityplayer.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer.dimension, (byte) entityplayer.world.difficulty, worldserver1.getSeed(), worldserver1.height, entityplayer.itemInWorldManager.getGameMode()));
+        entityplayer.netServerHandler.sendPacket(new Packet9Respawn((byte) entityplayer.dimension, (byte) entityplayer.world.difficulty, worldserver1.getSeed(), worldserver1.getWorldData().getType(), worldserver1.height, entityplayer.itemInWorldManager.getGameMode()));
         worldserver.removeEntity(entityplayer);
         entityplayer.dead = false;
         double d0 = entityplayer.locX;
@@ -590,7 +590,7 @@ public class ServerConfigurationManager {
 
     public void updateClient(EntityPlayer entityplayer) {
         entityplayer.updateInventory(entityplayer.defaultContainer);
-        entityplayer.s_();
+        entityplayer.t_();
     }
 
     public int getPlayerCount() {

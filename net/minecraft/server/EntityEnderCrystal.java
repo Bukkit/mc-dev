@@ -7,7 +7,7 @@ public class EntityEnderCrystal extends Entity {
 
     public EntityEnderCrystal(World world) {
         super(world);
-        this.bc = true;
+        this.bf = true;
         this.b(2.0F, 2.0F);
         this.height = this.length / 2.0F;
         this.b = 5;
@@ -22,7 +22,7 @@ public class EntityEnderCrystal extends Entity {
         this.datawatcher.a(8, Integer.valueOf(this.b));
     }
 
-    public void w_() {
+    public void y_() {
         this.lastX = this.locX;
         this.lastY = this.locY;
         this.lastZ = this.locZ;

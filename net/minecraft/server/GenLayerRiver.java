@@ -27,10 +27,10 @@ public class GenLayerRiver extends GenLayer {
                     if (k3 == k2 && k3 == i3 && k3 == l2 && k3 == j3) {
                         aint1[j2 + i2 * k] = -1;
                     } else {
-                        aint1[j2 + i2 * k] = BiomeBase.RIVER.F;
+                        aint1[j2 + i2 * k] = BiomeBase.RIVER.K;
                     }
                 } else {
-                    aint1[j2 + i2 * k] = BiomeBase.RIVER.F;
+                    aint1[j2 + i2 * k] = BiomeBase.RIVER.K;
                 }
             }
         }

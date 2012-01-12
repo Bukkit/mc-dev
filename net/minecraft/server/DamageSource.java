@@ -14,12 +14,12 @@ public class DamageSource {
     public static DamageSource GENERIC = (new DamageSource("generic")).h();
     public static DamageSource EXPLOSION = new DamageSource("explosion");
     public static DamageSource MAGIC = (new DamageSource("magic")).h();
-    private boolean n = false;
+    private boolean a = false;
     private boolean o = false;
     private float p = 0.3F;
     private boolean q;
     private boolean r;
-    public String m;
+    public String n;
 
     public static DamageSource mobAttack(EntityLiving entityliving) {
         return new EntityDamageSource("mob", entityliving);
@@ -30,35 +30,35 @@ public class DamageSource {
     }
 
     public static DamageSource arrow(EntityArrow entityarrow, Entity entity) {
-        return (new EntityDamageSourceIndirect("arrow", entityarrow, entity)).c();
+        return (new EntityDamageSourceIndirect("arrow", entityarrow, entity)).d();
     }
 
     public static DamageSource fireball(EntityFireball entityfireball, Entity entity) {
-        return (new EntityDamageSourceIndirect("fireball", entityfireball, entity)).j().c();
+        return (new EntityDamageSourceIndirect("fireball", entityfireball, entity)).j().d();
     }
 
     public static DamageSource projectile(Entity entity, Entity entity1) {
-        return (new EntityDamageSourceIndirect("thrown", entity, entity1)).c();
+        return (new EntityDamageSourceIndirect("thrown", entity, entity1)).d();
     }
 
     public static DamageSource b(Entity entity, Entity entity1) {
         return (new EntityDamageSourceIndirect("indirectMagic", entity, entity1)).h();
     }
 
-    public boolean b() {
+    public boolean c() {
         return this.r;
     }
 
-    public DamageSource c() {
+    public DamageSource d() {
         this.r = true;
         return this;
     }
 
     public boolean ignoresArmor() {
-        return this.n;
+        return this.a;
     }
 
-    public float e() {
+    public float f() {
         return this.p;
     }
 
@@ -67,10 +67,10 @@ public class DamageSource {
     }
 
     protected DamageSource(String s) {
-        this.m = s;
+        this.n = s;
     }
 
-    public Entity g() {
+    public Entity b() {
         return this.getEntity();
     }
 
@@ -79,7 +79,7 @@ public class DamageSource {
     }
 
     protected DamageSource h() {
-        this.n = true;
+        this.a = true;
         this.p = 0.0F;
         return this;
     }
@@ -95,7 +95,7 @@ public class DamageSource {
     }
 
     public String a(EntityHuman entityhuman) {
-        return LocaleI18n.a("death." + this.m, new Object[] { entityhuman.name});
+        return LocaleI18n.a("death." + this.n, new Object[] { entityhuman.name});
     }
 
     public boolean k() {
@@ -103,6 +103,6 @@ public class DamageSource {
     }
 
     public String l() {
-        return this.m;
+        return this.n;
     }
 }

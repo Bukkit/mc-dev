@@ -7,7 +7,7 @@ import java.util.List;
 public class Packet24MobSpawn extends Packet {
 
     public int a;
-    public byte b;
+    public int b;
     public int c;
     public int d;
     public int e;
@@ -31,7 +31,7 @@ public class Packet24MobSpawn extends Packet {
 
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readInt();
-        this.b = datainputstream.readByte();
+        this.b = datainputstream.readByte() & 255;
         this.c = datainputstream.readInt();
         this.d = datainputstream.readInt();
         this.e = datainputstream.readInt();
@@ -42,7 +42,7 @@ public class Packet24MobSpawn extends Packet {
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeByte(this.b);
+        dataoutputstream.writeByte(this.b & 255);
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);
         dataoutputstream.writeInt(this.e);
