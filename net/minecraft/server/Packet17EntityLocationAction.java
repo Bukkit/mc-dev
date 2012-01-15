@@ -37,7 +37,7 @@ public class Packet17EntityLocationAction extends Packet {
         dataoutputstream.writeInt(this.d);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

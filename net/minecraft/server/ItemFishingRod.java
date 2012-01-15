@@ -4,7 +4,7 @@ public class ItemFishingRod extends Item {
 
     public ItemFishingRod(int i) {
         super(i);
-        this.f(64);
+        this.setMaxDurability(64);
         this.e(1);
     }
 

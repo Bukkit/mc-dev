@@ -12,12 +12,12 @@ public class ItemTool extends Item {
         this.b = enumtoolmaterial;
         this.bS = ablock;
         this.maxStackSize = 1;
-        this.f(enumtoolmaterial.a());
+        this.setMaxDurability(enumtoolmaterial.a());
         this.a = enumtoolmaterial.b();
         this.bT = j + enumtoolmaterial.c();
     }
 
-    public float a(ItemStack itemstack, Block block) {
+    public float getDestroySpeed(ItemStack itemstack, Block block) {
         for (int i = 0; i < this.bS.length; ++i) {
             if (this.bS[i] == block) {
                 return this.a;

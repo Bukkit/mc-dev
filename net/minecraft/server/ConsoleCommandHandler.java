@@ -15,7 +15,7 @@ public class ConsoleCommandHandler {
 
     public synchronized void handle(ServerCommand servercommand) {
         String s = servercommand.command;
-        ICommandListener icommandlistener = servercommand.b;
+        ICommandListener icommandlistener = servercommand.source;
         String s1 = icommandlistener.getName();
         ServerConfigurationManager serverconfigurationmanager = this.server.serverConfigurationManager;
 

@@ -12,7 +12,7 @@ public class ItemPotion extends Item {
         super(i);
         this.e(1);
         this.a(true);
-        this.f(0);
+        this.setMaxDurability(0);
     }
 
     public List b(ItemStack itemstack) {

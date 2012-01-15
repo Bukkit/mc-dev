@@ -55,7 +55,7 @@ public abstract class EntityFlying extends EntityLiving {
         this.aD = this.aE;
         double d0 = this.locX - this.lastX;
         double d1 = this.locZ - this.lastZ;
-        float f4 = MathHelper.a(d0 * d0 + d1 * d1) * 4.0F;
+        float f4 = MathHelper.sqrt(d0 * d0 + d1 * d1) * 4.0F;
 
         if (f4 > 1.0F) {
             f4 = 1.0F;

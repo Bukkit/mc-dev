@@ -51,11 +51,11 @@ public class ItemFood extends Item {
         return itemstack;
     }
 
-    public int o() {
+    public int getNutrition() {
         return this.b;
     }
 
-    public float p() {
+    public float getSaturationModifier() {
         return this.bS;
     }
 

@@ -21,7 +21,7 @@ public class Packet255KickDisconnect extends Packet {
         a(this.a, dataoutputstream);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

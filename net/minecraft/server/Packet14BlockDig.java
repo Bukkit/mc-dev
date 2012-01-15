@@ -29,7 +29,7 @@ public class Packet14BlockDig extends Packet {
         dataoutputstream.write(this.face);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

@@ -15,7 +15,7 @@ public class Packet200Statistic extends Packet {
         this.b = j;
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

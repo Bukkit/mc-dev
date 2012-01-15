@@ -70,7 +70,7 @@ public class BlockMushroom extends BlockFlower {
         }
     }
 
-    public boolean b(World world, int i, int j, int k, Random random) {
+    public boolean grow(World world, int i, int j, int k, Random random) {
         int l = world.getData(i, j, k);
 
         world.setRawTypeId(i, j, k, 0);

@@ -68,7 +68,7 @@ public class MobEffectList {
     public void tick(EntityLiving entityliving, int i) {
         if (this.id == REGENERATION.id) {
             if (entityliving.getHealth() < entityliving.getMaxHealth()) {
-                entityliving.d(1);
+                entityliving.heal(1);
             }
         } else if (this.id == POISON.id) {
             if (entityliving.getHealth() > 1) {
@@ -81,7 +81,7 @@ public class MobEffectList {
                 entityliving.damageEntity(DamageSource.MAGIC, 6 << i);
             }
         } else {
-            entityliving.d(6 << i);
+            entityliving.heal(6 << i);
         }
     }
 
@@ -99,7 +99,7 @@ public class MobEffectList {
             }
         } else {
             j = (int) (d0 * (double) (6 << i) + 0.5D);
-            entityliving1.d(j);
+            entityliving1.heal(j);
         }
     }
 

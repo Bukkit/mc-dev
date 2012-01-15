@@ -2,18 +2,18 @@ package net.minecraft.server;
 
 public class ItemSword extends Item {
 
-    private int a;
+    private int damage;
     private final EnumToolMaterial b;
 
     public ItemSword(int i, EnumToolMaterial enumtoolmaterial) {
         super(i);
         this.b = enumtoolmaterial;
         this.maxStackSize = 1;
-        this.f(enumtoolmaterial.a());
-        this.a = 4 + enumtoolmaterial.c();
+        this.setMaxDurability(enumtoolmaterial.a());
+        this.damage = 4 + enumtoolmaterial.c();
     }
 
-    public float a(ItemStack itemstack, Block block) {
+    public float getDestroySpeed(ItemStack itemstack, Block block) {
         return block.id == Block.WEB.id ? 15.0F : 1.5F;
     }
 
@@ -28,7 +28,7 @@ public class ItemSword extends Item {
     }
 
     public int a(Entity entity) {
-        return this.a;
+        return this.damage;
     }
 
     public EnumAnimation d(ItemStack itemstack) {

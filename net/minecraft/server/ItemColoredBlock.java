@@ -9,7 +9,7 @@ public class ItemColoredBlock extends ItemBlock {
         super(i);
         this.a = Block.byId[this.a()];
         if (flag) {
-            this.f(0);
+            this.setMaxDurability(0);
             this.a(true);
         }
     }

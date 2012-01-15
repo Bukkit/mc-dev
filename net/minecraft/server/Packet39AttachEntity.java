@@ -29,7 +29,7 @@ public class Packet39AttachEntity extends Packet {
         dataoutputstream.writeInt(this.b);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 }

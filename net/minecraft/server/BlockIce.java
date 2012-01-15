@@ -24,7 +24,7 @@ public class BlockIce extends BlockHalfTransparant {
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        if (world.a(EnumSkyBlock.BLOCK, i, j, k) > 11 - Block.q[this.id]) {
+        if (world.a(EnumSkyBlock.BLOCK, i, j, k) > 11 - Block.lightBlock[this.id]) {
             this.b(world, i, j, k, world.getData(i, j, k), 0);
             world.setTypeId(i, j, k, Block.STATIONARY_WATER.id);
         }

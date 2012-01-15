@@ -27,7 +27,7 @@ public class EntityEnderSignal extends Entity {
     public void a(double d0, int i, double d1) {
         double d2 = d0 - this.locX;
         double d3 = d1 - this.locZ;
-        float f = MathHelper.a(d2 * d2 + d3 * d3);
+        float f = MathHelper.sqrt(d2 * d2 + d3 * d3);
 
         if (f > 12.0F) {
             this.b = this.locX + d2 / (double) f * 12.0D;
@@ -51,7 +51,7 @@ public class EntityEnderSignal extends Entity {
         this.locX += this.motX;
         this.locY += this.motY;
         this.locZ += this.motZ;
-        float f = MathHelper.a(this.motX * this.motX + this.motZ * this.motZ);
+        float f = MathHelper.sqrt(this.motX * this.motX + this.motZ * this.motZ);
 
         this.yaw = (float) (Math.atan2(this.motX, this.motZ) * 180.0D / 3.1415927410125732D);
 

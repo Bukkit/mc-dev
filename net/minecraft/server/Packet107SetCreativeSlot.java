@@ -10,7 +10,7 @@ public class Packet107SetCreativeSlot extends Packet {
 
     public Packet107SetCreativeSlot() {}
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

@@ -26,7 +26,7 @@ public class Packet40EntityMetadata extends Packet {
         DataWatcher.a(this.b, dataoutputstream);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

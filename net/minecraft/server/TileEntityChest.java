@@ -11,7 +11,7 @@ public class TileEntityChest extends TileEntity implements IInventory {
     public float f;
     public float g;
     public int h;
-    private int j;
+    private int ticks;
 
     public TileEntityChest() {}
 
@@ -149,7 +149,7 @@ public class TileEntityChest extends TileEntity implements IInventory {
     public void l_() {
         super.l_();
         this.h();
-        if (++this.j % 20 * 4 == 0) {
+        if (++this.ticks % 20 * 4 == 0) {
             this.world.playNote(this.x, this.y, this.z, 1, this.h);
         }
 

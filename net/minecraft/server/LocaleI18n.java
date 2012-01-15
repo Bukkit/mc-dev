@@ -10,7 +10,7 @@ public class LocaleI18n {
         return a.b(s);
     }
 
-    public static String a(String s, Object... aobject) {
+    public static String get(String s, Object... aobject) {
         return a.a(s, aobject);
     }
 }

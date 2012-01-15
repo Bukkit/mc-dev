@@ -29,7 +29,7 @@ public class Packet201PlayerInfo extends Packet {
         dataoutputstream.writeShort(this.c);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

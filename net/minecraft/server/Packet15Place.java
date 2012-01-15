@@ -29,7 +29,7 @@ public class Packet15Place extends Packet {
         this.a(this.itemstack, dataoutputstream);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

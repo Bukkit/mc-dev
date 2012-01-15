@@ -13,7 +13,7 @@ public final class SpawnerCreature {
 
     public SpawnerCreature() {}
 
-    protected static ChunkPosition a(World world, int i, int j) {
+    protected static ChunkPosition getRandomPosition(World world, int i, int j) {
         int k = i + world.random.nextInt(16);
         int l = world.random.nextInt(world.height);
         int i1 = j + world.random.nextInt(16);
@@ -68,7 +68,7 @@ public final class SpawnerCreature {
                         ChunkCoordIntPair chunkcoordintpair1 = (ChunkCoordIntPair) iterator.next();
 
                         if (!((Boolean) b.get(chunkcoordintpair1)).booleanValue()) {
-                            ChunkPosition chunkposition = a(world, chunkcoordintpair1.x * 16, chunkcoordintpair1.z * 16);
+                            ChunkPosition chunkposition = getRandomPosition(world, chunkcoordintpair1.x * 16, chunkcoordintpair1.z * 16);
                             int k1 = chunkposition.x;
                             int l1 = chunkposition.y;
                             int i2 = chunkposition.z;
@@ -120,7 +120,7 @@ public final class SpawnerCreature {
                                                             }
 
                                                             entityliving.setPositionRotation((double) f, (double) f1, (double) f2, world.random.nextFloat() * 360.0F, 0.0F);
-                                                            if (entityliving.g()) {
+                                                            if (entityliving.canSpawn()) {
                                                                 ++j2;
                                                                 world.addEntity(entityliving);
                                                                 a(entityliving, world, f, f1, f2);

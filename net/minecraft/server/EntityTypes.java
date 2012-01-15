@@ -25,7 +25,7 @@ public class EntityTypes {
         a.put(Integer.valueOf(i), new MonsterEggInfo(i, j, k));
     }
 
-    public static Entity a(String s, World world) {
+    public static Entity createEntityByName(String s, World world) {
         Entity entity = null;
 
         try {

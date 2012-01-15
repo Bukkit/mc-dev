@@ -19,11 +19,11 @@ public class Packet51MapChunk extends Packet {
     private int size;
 
     public Packet51MapChunk() {
-        this.l = true;
+        this.lowPriority = true;
     }
 
     public Packet51MapChunk(int i, int j, int k, int l, int i1, int j1, World world) {
-        this.l = true;
+        this.lowPriority = true;
         this.a = i;
         this.b = j;
         this.c = k;
@@ -79,7 +79,7 @@ public class Packet51MapChunk extends Packet {
         dataoutputstream.write(this.buffer, 0, this.size);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

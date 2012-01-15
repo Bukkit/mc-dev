@@ -65,7 +65,7 @@ public class EntitySilverfish extends EntityMonster {
         super.a(nbttagcompound);
     }
 
-    protected int e() {
+    protected int getLootId() {
         return 0;
     }
 
@@ -138,8 +138,8 @@ public class EntitySilverfish extends EntityMonster {
         return true;
     }
 
-    public boolean g() {
-        if (super.g()) {
+    public boolean canSpawn() {
+        if (super.canSpawn()) {
             EntityHuman entityhuman = this.world.findNearbyPlayer(this, 5.0D);
 
             return entityhuman == null;

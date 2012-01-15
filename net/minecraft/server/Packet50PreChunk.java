@@ -10,11 +10,11 @@ public class Packet50PreChunk extends Packet {
     public boolean c;
 
     public Packet50PreChunk() {
-        this.l = false;
+        this.lowPriority = false;
     }
 
     public Packet50PreChunk(int i, int j, boolean flag) {
-        this.l = false;
+        this.lowPriority = false;
         this.a = i;
         this.b = j;
         this.c = flag;
@@ -32,7 +32,7 @@ public class Packet50PreChunk extends Packet {
         dataoutputstream.write(this.c ? 1 : 0);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

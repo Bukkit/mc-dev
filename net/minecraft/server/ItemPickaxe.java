@@ -12,7 +12,7 @@ public class ItemPickaxe extends ItemTool {
         return block == Block.OBSIDIAN ? this.b.d() == 3 : (block != Block.DIAMOND_BLOCK && block != Block.DIAMOND_ORE ? (block != Block.GOLD_BLOCK && block != Block.GOLD_ORE ? (block != Block.IRON_BLOCK && block != Block.IRON_ORE ? (block != Block.LAPIS_BLOCK && block != Block.LAPIS_ORE ? (block != Block.REDSTONE_ORE && block != Block.GLOWING_REDSTONE_ORE ? (block.material == Material.STONE ? true : block.material == Material.ORE) : this.b.d() >= 2) : this.b.d() >= 1) : this.b.d() >= 1) : this.b.d() >= 2) : this.b.d() >= 2);
     }
 
-    public float a(ItemStack itemstack, Block block) {
-        return block != null && (block.material == Material.ORE || block.material == Material.STONE) ? this.a : super.a(itemstack, block);
+    public float getDestroySpeed(ItemStack itemstack, Block block) {
+        return block != null && (block.material == Material.ORE || block.material == Material.STONE) ? this.a : super.getDestroySpeed(itemstack, block);
     }
 }

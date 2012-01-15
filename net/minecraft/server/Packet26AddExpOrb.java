@@ -37,7 +37,7 @@ public class Packet26AddExpOrb extends Packet {
         dataoutputstream.writeShort(this.e);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

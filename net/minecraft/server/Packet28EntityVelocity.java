@@ -63,7 +63,7 @@ public class Packet28EntityVelocity extends Packet {
         dataoutputstream.writeShort(this.d);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

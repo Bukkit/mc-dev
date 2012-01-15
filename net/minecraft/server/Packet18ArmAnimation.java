@@ -25,7 +25,7 @@ public class Packet18ArmAnimation extends Packet {
         dataoutputstream.writeByte(this.b);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

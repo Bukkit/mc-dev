@@ -29,7 +29,7 @@ public class Packet43SetExperience extends Packet {
         dataoutputstream.writeShort(this.b);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

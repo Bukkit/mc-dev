@@ -29,7 +29,7 @@ public class Packet6SpawnPosition extends Packet {
         dataoutputstream.writeInt(this.z);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

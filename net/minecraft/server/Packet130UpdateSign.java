@@ -11,11 +11,11 @@ public class Packet130UpdateSign extends Packet {
     public String[] lines;
 
     public Packet130UpdateSign() {
-        this.l = true;
+        this.lowPriority = true;
     }
 
     public Packet130UpdateSign(int i, int j, int k, String[] astring) {
-        this.l = true;
+        this.lowPriority = true;
         this.x = i;
         this.y = j;
         this.z = k;
@@ -43,7 +43,7 @@ public class Packet130UpdateSign extends Packet {
         }
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

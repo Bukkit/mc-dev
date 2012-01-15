@@ -6,7 +6,7 @@ import java.io.DataOutputStream;
 public class Packet11PlayerPosition extends Packet10Flying {
 
     public Packet11PlayerPosition() {
-        this.h = true;
+        this.hasPos = true;
     }
 
     public void a(DataInputStream datainputstream) {

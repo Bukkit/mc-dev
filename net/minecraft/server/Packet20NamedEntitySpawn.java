@@ -51,7 +51,7 @@ public class Packet20NamedEntitySpawn extends Packet {
         dataoutputstream.writeShort(this.h);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

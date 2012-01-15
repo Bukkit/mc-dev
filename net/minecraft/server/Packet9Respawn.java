@@ -23,7 +23,7 @@ public class Packet9Respawn extends Packet {
         this.f = worldtype;
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

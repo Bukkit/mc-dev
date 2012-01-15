@@ -4,7 +4,7 @@ public class ItemCloth extends ItemBlock {
 
     public ItemCloth(int i) {
         super(i);
-        this.f(0);
+        this.setMaxDurability(0);
         this.a(true);
     }
 
@@ -13,6 +13,6 @@ public class ItemCloth extends ItemBlock {
     }
 
     public String a(ItemStack itemstack) {
-        return super.b() + "." + ItemDye.a[BlockCloth.d(itemstack.getData())];
+        return super.getName() + "." + ItemDye.a[BlockCloth.d(itemstack.getData())];
     }
 }

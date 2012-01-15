@@ -12,12 +12,12 @@ public class Packet10Flying extends Packet {
     public float yaw;
     public float pitch;
     public boolean g;
-    public boolean h;
+    public boolean hasPos;
     public boolean hasLook;
 
     public Packet10Flying() {}
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

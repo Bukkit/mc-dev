@@ -41,7 +41,7 @@ public class Packet25EntityPainting extends Packet {
         dataoutputstream.writeInt(this.e);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

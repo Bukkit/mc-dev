@@ -90,7 +90,7 @@ public class EntityEnderDragon extends EntityComplex {
             this.world.a("largeexplode", this.locX + (double) f, this.locY + 2.0D + (double) d05, this.locZ + (double) f1, 0.0D, 0.0D, 0.0D);
         } else {
             this.v();
-            f = 0.2F / (MathHelper.a(this.motX * this.motX + this.motZ * this.motZ) * 10.0F + 1.0F);
+            f = 0.2F / (MathHelper.sqrt(this.motX * this.motX + this.motZ * this.motZ) * 10.0F + 1.0F);
             f *= (float) Math.pow(2.0D, this.motY);
             if (this.q) {
                 this.o += f * 0.5F;
@@ -172,7 +172,7 @@ public class EntityEnderDragon extends EntityComplex {
                     this.B();
                 }
 
-                d1 /= (double) MathHelper.a(d0 * d0 + d2 * d2);
+                d1 /= (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
                 f3 = 0.6F;
                 if (d1 < (double) (-f3)) {
                     d1 = (double) (-f3);
@@ -219,7 +219,7 @@ public class EntityEnderDragon extends EntityComplex {
                 }
 
                 this.aY *= 0.8F;
-                float f5 = MathHelper.a(this.motX * this.motX + this.motZ * this.motZ) * 1.0F + 1.0F;
+                float f5 = MathHelper.sqrt(this.motX * this.motX + this.motZ * this.motZ) * 1.0F + 1.0F;
                 double d10 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ) * 1.0D + 1.0D;
 
                 if (d10 > 40.0D) {
@@ -504,7 +504,7 @@ public class EntityEnderDragon extends EntityComplex {
             i = 1000;
 
             while (i > 0) {
-                j = EntityExperienceOrb.b(i);
+                j = EntityExperienceOrb.getOrbValue(i);
                 i -= j;
                 this.world.addEntity(new EntityExperienceOrb(this.world, this.locX, this.locY, this.locZ, j));
             }
@@ -516,7 +516,7 @@ public class EntityEnderDragon extends EntityComplex {
             i = 10000;
 
             while (i > 0) {
-                j = EntityExperienceOrb.b(i);
+                j = EntityExperienceOrb.getOrbValue(i);
                 i -= j;
                 this.world.addEntity(new EntityExperienceOrb(this.world, this.locX, this.locY, this.locZ, j));
             }
@@ -547,7 +547,7 @@ public class EntityEnderDragon extends EntityComplex {
                 for (int j1 = j - b0; j1 <= j + b0; ++j1) {
                     double d0 = (double) (i1 - i);
                     double d1 = (double) (j1 - j);
-                    double d2 = (double) MathHelper.a(d0 * d0 + d1 * d1);
+                    double d2 = (double) MathHelper.sqrt(d0 * d0 + d1 * d1);
 
                     if (d2 <= (double) b0 - 0.5D) {
                         if (l < k) {

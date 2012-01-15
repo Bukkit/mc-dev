@@ -7,15 +7,15 @@ import java.util.logging.Logger;
 
 public class NetLoginHandler extends NetHandler {
 
-    public static Logger a = Logger.getLogger("Minecraft");
-    private static Random d = new Random();
+    public static Logger logger = Logger.getLogger("Minecraft");
+    private static Random random = new Random();
     public NetworkManager networkManager;
     public boolean c = false;
     private MinecraftServer server;
     private int f = 0;
     private String g = null;
     private Packet1Login h = null;
-    private String i = "";
+    private String loginKey = "";
 
     public NetLoginHandler(MinecraftServer minecraftserver, Socket socket, String s) {
         this.server = minecraftserver;
@@ -38,7 +38,7 @@ public class NetLoginHandler extends NetHandler {
 
     public void disconnect(String s) {
         try {
-            a.info("Disconnecting " + this.b() + ": " + s);
+            logger.info("Disconnecting " + this.getName() + ": " + s);
             this.networkManager.queue(new Packet255KickDisconnect(s));
             this.networkManager.d();
             this.c = true;
@@ -49,8 +49,8 @@ public class NetLoginHandler extends NetHandler {
 
     public void a(Packet2Handshake packet2handshake) {
         if (this.server.onlineMode) {
-            this.i = Long.toString(d.nextLong(), 16);
-            this.networkManager.queue(new Packet2Handshake(this.i));
+            this.loginKey = Long.toString(random.nextLong(), 16);
+            this.networkManager.queue(new Packet2Handshake(this.loginKey));
         } else {
             this.networkManager.queue(new Packet2Handshake("-"));
         }
@@ -80,7 +80,7 @@ public class NetLoginHandler extends NetHandler {
             this.server.serverConfigurationManager.b(entityplayer);
             entityplayer.spawnIn(this.server.getWorldServer(entityplayer.dimension));
             entityplayer.itemInWorldManager.a((WorldServer) entityplayer.world);
-            a.info(this.b() + " logged in with entity id " + entityplayer.id + " at (" + entityplayer.locX + ", " + entityplayer.locY + ", " + entityplayer.locZ + ")");
+            logger.info(this.getName() + " logged in with entity id " + entityplayer.id + " at (" + entityplayer.locX + ", " + entityplayer.locY + ", " + entityplayer.locZ + ")");
             WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
             ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
 
@@ -110,17 +110,17 @@ public class NetLoginHandler extends NetHandler {
     }
 
     public void a(String s, Object[] aobject) {
-        a.info(this.b() + " lost connection");
+        logger.info(this.getName() + " lost connection");
         this.c = true;
     }
 
     public void a(Packet254GetInfo packet254getinfo) {
         try {
-            String s = this.server.s + "\u00A7" + this.server.serverConfigurationManager.getPlayerCount() + "\u00A7" + this.server.serverConfigurationManager.getMaxPlayers();
+            String s = this.server.motd + "\u00A7" + this.server.serverConfigurationManager.getPlayerCount() + "\u00A7" + this.server.serverConfigurationManager.getMaxPlayers();
 
             this.networkManager.queue(new Packet255KickDisconnect(s));
             this.networkManager.d();
-            this.server.networkListenThread.a(this.networkManager.f());
+            this.server.networkListenThread.a(this.networkManager.getSocket());
             this.c = true;
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -131,7 +131,7 @@ public class NetLoginHandler extends NetHandler {
         this.disconnect("Protocol error");
     }
 
-    public String b() {
+    public String getName() {
         return this.g != null ? this.g + " [" + this.networkManager.getSocketAddress().toString() + "]" : this.networkManager.getSocketAddress().toString();
     }
 
@@ -140,7 +140,7 @@ public class NetLoginHandler extends NetHandler {
     }
 
     static String a(NetLoginHandler netloginhandler) {
-        return netloginhandler.i;
+        return netloginhandler.loginKey;
     }
 
     static Packet1Login a(NetLoginHandler netloginhandler, Packet1Login packet1login) {

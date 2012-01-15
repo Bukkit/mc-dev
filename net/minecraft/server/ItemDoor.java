@@ -29,7 +29,7 @@ public class ItemDoor extends Item {
                 } else {
                     int i1 = MathHelper.floor((double) ((entityhuman.yaw + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
 
-                    a(world, i, j, k, i1, block);
+                    place(world, i, j, k, i1, block);
                     --itemstack.count;
                     return true;
                 }
@@ -39,7 +39,7 @@ public class ItemDoor extends Item {
         }
     }
 
-    public static void a(World world, int i, int j, int k, int l, Block block) {
+    public static void place(World world, int i, int j, int k, int l, Block block) {
         byte b0 = 0;
         byte b1 = 0;
 

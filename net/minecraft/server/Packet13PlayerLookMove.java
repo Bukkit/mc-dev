@@ -7,7 +7,7 @@ public class Packet13PlayerLookMove extends Packet10Flying {
 
     public Packet13PlayerLookMove() {
         this.hasLook = true;
-        this.h = true;
+        this.hasPos = true;
     }
 
     public Packet13PlayerLookMove(double d0, double d1, double d2, double d3, float f, float f1, boolean flag) {
@@ -19,7 +19,7 @@ public class Packet13PlayerLookMove extends Packet10Flying {
         this.pitch = f1;
         this.g = flag;
         this.hasLook = true;
-        this.h = true;
+        this.hasPos = true;
     }
 
     public void a(DataInputStream datainputstream) {

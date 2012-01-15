@@ -11,7 +11,7 @@ public class Packet254GetInfo extends Packet {
 
     public void a(DataOutputStream dataoutputstream) {}
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

@@ -39,7 +39,7 @@ public class ItemInWorldManager {
         return this.c;
     }
 
-    public boolean b() {
+    public boolean isCreative() {
         return this.c == 1;
     }
 
@@ -63,7 +63,7 @@ public class ItemInWorldManager {
 
                 if (f >= 1.0F) {
                     this.j = false;
-                    this.c(this.k, this.l, this.m);
+                    this.breakBlock(this.k, this.l, this.m);
                 }
             } else {
                 this.j = false;
@@ -73,18 +73,18 @@ public class ItemInWorldManager {
 
     public void dig(int i, int j, int k, int l) {
         this.world.douseFire((EntityHuman) null, i, j, k, l);
-        if (this.b()) {
-            this.c(i, j, k);
+        if (this.isCreative()) {
+            this.breakBlock(i, j, k);
         } else {
             this.lastDigTick = this.currentTick;
             int i1 = this.world.getTypeId(i, j, k);
 
             if (i1 > 0) {
-                Block.byId[i1].b(this.world, i, j, k, this.player);
+                Block.byId[i1].attack(this.world, i, j, k, this.player);
             }
 
             if (i1 > 0 && Block.byId[i1].getDamage(this.player) >= 1.0F) {
-                this.c(i, j, k);
+                this.breakBlock(i, j, k);
             } else {
                 this.f = i;
                 this.g = j;
@@ -103,7 +103,7 @@ public class ItemInWorldManager {
                 float f = block.getDamage(this.player) * (float) (l + 1);
 
                 if (f >= 0.7F) {
-                    this.c(i, j, k);
+                    this.breakBlock(i, j, k);
                 } else if (!this.j) {
                     this.j = true;
                     this.k = i;
@@ -129,14 +129,14 @@ public class ItemInWorldManager {
         return flag;
     }
 
-    public boolean c(int i, int j, int k) {
+    public boolean breakBlock(int i, int j, int k) {
         int l = this.world.getTypeId(i, j, k);
         int i1 = this.world.getData(i, j, k);
 
         this.world.a(this.player, 2001, i, j, k, l + this.world.getData(i, j, k) * 256);
         boolean flag = this.b(i, j, k);
 
-        if (this.b()) {
+        if (this.isCreative()) {
             ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
         } else {
             ItemStack itemstack = this.player.Q();
@@ -167,7 +167,7 @@ public class ItemInWorldManager {
             return false;
         } else {
             entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = itemstack1;
-            if (this.b()) {
+            if (this.isCreative()) {
                 itemstack1.count = i;
                 itemstack1.setData(j);
             }
@@ -187,7 +187,7 @@ public class ItemInWorldManager {
             return true;
         } else if (itemstack == null) {
             return false;
-        } else if (this.b()) {
+        } else if (this.isCreative()) {
             int j1 = itemstack.getData();
             int k1 = itemstack.count;
             boolean flag = itemstack.placeItem(entityhuman, world, i, j, k, l);

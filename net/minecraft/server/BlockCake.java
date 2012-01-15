@@ -55,13 +55,13 @@ public class BlockCake extends Block {
         return true;
     }
 
-    public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
         this.c(world, i, j, k, entityhuman);
     }
 
     private void c(World world, int i, int j, int k, EntityHuman entityhuman) {
         if (entityhuman.b(false)) {
-            entityhuman.getFoodData().a(2, 0.1F);
+            entityhuman.getFoodData().eat(2, 0.1F);
             int l = world.getData(i, j, k) + 1;
 
             if (l >= 6) {

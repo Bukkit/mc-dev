@@ -39,7 +39,7 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
             if (this.passenger != entity && this.vehicle != entity) {
                 if (entity != this) {
                     this.target = entity;
-                    this.aI = entity instanceof EntityLiving ? (EntityLiving) entity : null;
+                    this.lastDamager = entity instanceof EntityLiving ? (EntityLiving) entity : null;
                 }
 
                 return true;
@@ -106,7 +106,7 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
         }
     }
 
-    public boolean g() {
-        return this.z() && super.g();
+    public boolean canSpawn() {
+        return this.z() && super.canSpawn();
     }
 }

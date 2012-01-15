@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 public class NetServerHandler extends NetHandler implements ICommandListener {
 
-    public static Logger a = Logger.getLogger("Minecraft");
+    public static Logger logger = Logger.getLogger("Minecraft");
     public NetworkManager networkManager;
     public boolean disconnected = false;
     private MinecraftServer minecraftServer;
@@ -64,7 +64,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
         this.h = true;
-        if (!this.player.j) {
+        if (!this.player.viewingCredits) {
             double d0;
 
             if (!this.checkMovement) {
@@ -96,7 +96,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                         f1 = packet10flying.pitch;
                     }
 
-                    if (packet10flying.h && packet10flying.y == -999.0D && packet10flying.stance == -999.0D) {
+                    if (packet10flying.hasPos && packet10flying.y == -999.0D && packet10flying.stance == -999.0D) {
                         d5 = packet10flying.x;
                         d4 = packet10flying.z;
                     }
@@ -140,18 +140,18 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 float f2 = this.player.yaw;
                 float f3 = this.player.pitch;
 
-                if (packet10flying.h && packet10flying.y == -999.0D && packet10flying.stance == -999.0D) {
-                    packet10flying.h = false;
+                if (packet10flying.hasPos && packet10flying.y == -999.0D && packet10flying.stance == -999.0D) {
+                    packet10flying.hasPos = false;
                 }
 
-                if (packet10flying.h) {
+                if (packet10flying.hasPos) {
                     d1 = packet10flying.x;
                     d2 = packet10flying.y;
                     d3 = packet10flying.z;
                     d4 = packet10flying.stance - packet10flying.y;
                     if (!this.player.isSleeping() && (d4 > 1.65D || d4 < 0.1D)) {
                         this.disconnect("Illegal stance");
-                        a.warning(this.player.name + " had an illegal stance: " + d4);
+                        logger.warning(this.player.name + " had an illegal stance: " + d4);
                         return;
                     }
 
@@ -179,7 +179,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 double d8 = d4 * d4 + d6 * d6 + d7 * d7;
 
                 if (d8 > 100.0D) {
-                    a.warning(this.player.name + " moved too quickly!");
+                    logger.warning(this.player.name + " moved too quickly!");
                     this.disconnect("You moved too quickly :( (Hacking?)");
                     return;
                 }
@@ -206,9 +206,9 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 d8 = d4 * d4 + d6 * d6 + d7 * d7;
                 boolean flag1 = false;
 
-                if (d8 > 0.0625D && !this.player.isSleeping() && !this.player.itemInWorldManager.b()) {
+                if (d8 > 0.0625D && !this.player.isSleeping() && !this.player.itemInWorldManager.isCreative()) {
                     flag1 = true;
-                    a.warning(this.player.name + " moved wrongly!");
+                    logger.warning(this.player.name + " moved wrongly!");
                     System.out.println("Got position " + d1 + ", " + d2 + ", " + d3);
                     System.out.println("Expected " + this.player.locX + ", " + this.player.locY + ", " + this.player.locZ);
                 }
@@ -223,11 +223,11 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
                 AxisAlignedBB axisalignedbb = this.player.boundingBox.clone().grow((double) f4, (double) f4, (double) f4).a(0.0D, -0.55D, 0.0D);
 
-                if (!this.minecraftServer.allowFlight && !this.player.itemInWorldManager.b() && !worldserver.b(axisalignedbb)) {
+                if (!this.minecraftServer.allowFlight && !this.player.itemInWorldManager.isCreative() && !worldserver.b(axisalignedbb)) {
                     if (d9 >= -0.03125D) {
                         ++this.g;
                         if (this.g > 80) {
-                            a.warning(this.player.name + " was kicked for floating too long!");
+                            logger.warning(this.player.name + " was kicked for floating too long!");
                             this.disconnect("Flying is not enabled on this server");
                             return;
                         }
@@ -398,14 +398,14 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(String s, Object[] aobject) {
-        a.info(this.player.name + " lost connection: " + s);
+        logger.info(this.player.name + " lost connection: " + s);
         this.minecraftServer.serverConfigurationManager.sendAll(new Packet3Chat("\u00A7e" + this.player.name + " left the game."));
         this.minecraftServer.serverConfigurationManager.disconnect(this.player);
         this.disconnected = true;
     }
 
     public void a(Packet packet) {
-        a.warning(this.getClass() + " wasn\'t prepared to deal with a " + packet.getClass());
+        logger.warning(this.getClass() + " wasn\'t prepared to deal with a " + packet.getClass());
         this.disconnect("Protocol error, unexpected packet");
     }
 
@@ -414,10 +414,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(Packet16BlockItemSwitch packet16blockitemswitch) {
-        if (packet16blockitemswitch.itemInHandIndex >= 0 && packet16blockitemswitch.itemInHandIndex < PlayerInventory.h()) {
+        if (packet16blockitemswitch.itemInHandIndex >= 0 && packet16blockitemswitch.itemInHandIndex < PlayerInventory.getHotbarSize()) {
             this.player.inventory.itemInHandIndex = packet16blockitemswitch.itemInHandIndex;
         } else {
-            a.warning(this.player.name + " tried to set an invalid carried item");
+            logger.warning(this.player.name + " tried to set an invalid carried item");
         }
     }
 
@@ -440,7 +440,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 this.handleCommand(s);
             } else {
                 s = "<" + this.player.name + "> " + s;
-                a.info(s);
+                logger.info(s);
                 this.minecraftServer.serverConfigurationManager.sendAll(new Packet3Chat(s));
             }
 
@@ -454,7 +454,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     private void handleCommand(String s) {
         if (s.toLowerCase().startsWith("/me ")) {
             s = "* " + this.player.name + " " + s.substring(s.indexOf(" ")).trim();
-            a.info(s);
+            logger.info(s);
             this.minecraftServer.serverConfigurationManager.sendAll(new Packet3Chat(s));
         } else if (s.toLowerCase().startsWith("/kill")) {
             this.player.damageEntity(DamageSource.GENERIC, 1000);
@@ -465,7 +465,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 s = s.substring(s.indexOf(" ")).trim();
                 s = s.substring(s.indexOf(" ")).trim();
                 s = "\u00A77" + this.player.name + " whispers " + s;
-                a.info(s + " to " + astring[1]);
+                logger.info(s + " to " + astring[1]);
                 if (!this.minecraftServer.serverConfigurationManager.a(astring[1], (Packet) (new Packet3Chat(s)))) {
                     this.sendPacket(new Packet3Chat("\u00A7cThere\'s no player by that name online."));
                 }
@@ -475,11 +475,11 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
             if (this.minecraftServer.serverConfigurationManager.isOp(this.player.name)) {
                 s1 = s.substring(1);
-                a.info(this.player.name + " issued server command: " + s1);
+                logger.info(this.player.name + " issued server command: " + s1);
                 this.minecraftServer.issueCommand(s1, this);
             } else {
                 s1 = s.substring(1);
-                a.info(this.player.name + " tried command: " + s1);
+                logger.info(this.player.name + " tried command: " + s1);
             }
         }
     }
@@ -509,7 +509,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         this.networkManager.a("disconnect.quitting", new Object[0]);
     }
 
-    public int b() {
+    public int lowPriorityCount() {
         return this.networkManager.e();
     }
 
@@ -526,16 +526,16 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         Entity entity = worldserver.getEntity(packet7useentity.target);
 
         if (entity != null && this.player.g(entity) && this.player.i(entity) < 36.0D) {
-            if (packet7useentity.c == 0) {
+            if (packet7useentity.action == 0) {
                 this.player.e(entity);
-            } else if (packet7useentity.c == 1) {
-                this.player.f(entity);
+            } else if (packet7useentity.action == 1) {
+                this.player.attack(entity);
             }
         }
     }
 
     public void a(Packet9Respawn packet9respawn) {
-        if (this.player.j) {
+        if (this.player.viewingCredits) {
             this.player = this.minecraftServer.serverConfigurationManager.moveToWorld(this.player, 0, true);
         } else {
             if (this.player.getHealth() > 0) {
@@ -583,10 +583,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(Packet107SetCreativeSlot packet107setcreativeslot) {
-        if (this.player.itemInWorldManager.b()) {
+        if (this.player.itemInWorldManager.isCreative()) {
             boolean flag = packet107setcreativeslot.a < 0;
             ItemStack itemstack = packet107setcreativeslot.b;
-            boolean flag1 = packet107setcreativeslot.a >= 36 && packet107setcreativeslot.a < 36 + PlayerInventory.h();
+            boolean flag1 = packet107setcreativeslot.a >= 36 && packet107setcreativeslot.a < 36 + PlayerInventory.getHotbarSize();
             boolean flag2 = itemstack == null || itemstack.id < Item.byId.length && itemstack.id >= 0 && Item.byId[itemstack.id] != null;
             boolean flag3 = itemstack == null || itemstack.getData() >= 0 && itemstack.getData() >= 0 && itemstack.count <= 64 && itemstack.count > 0;
 

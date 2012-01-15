@@ -14,7 +14,7 @@ public class ItemArmor extends Item {
         this.a = k;
         this.bS = j;
         this.b = enumarmormaterial.b(k);
-        this.f(enumarmormaterial.a(k));
+        this.setMaxDurability(enumarmormaterial.a(k));
         this.maxStackSize = 1;
     }
 

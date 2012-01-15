@@ -14,7 +14,7 @@ public class Packet102WindowClick extends Packet {
 
     public Packet102WindowClick() {}
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

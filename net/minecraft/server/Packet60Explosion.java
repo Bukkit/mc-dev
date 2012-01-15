@@ -68,7 +68,7 @@ public class Packet60Explosion extends Packet {
         }
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

@@ -8,7 +8,7 @@ public class ItemAxe extends ItemTool {
         super(i, 3, enumtoolmaterial, bS);
     }
 
-    public float a(ItemStack itemstack, Block block) {
-        return block != null && block.material == Material.WOOD ? this.a : super.a(itemstack, block);
+    public float getDestroySpeed(ItemStack itemstack, Block block) {
+        return block != null && block.material == Material.WOOD ? this.a : super.getDestroySpeed(itemstack, block);
     }
 }

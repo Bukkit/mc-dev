@@ -13,7 +13,7 @@ public class EntityDamageSource extends DamageSource {
         return this.a;
     }
 
-    public String a(EntityHuman entityhuman) {
-        return LocaleI18n.a("death." + this.n, new Object[] { entityhuman.name, this.a.ad()});
+    public String getLocalizedDeathMessage(EntityHuman entityhuman) {
+        return LocaleI18n.get("death." + this.translationIndex, new Object[] { entityhuman.name, this.a.getLocalizedName()});
     }
 }

@@ -19,7 +19,7 @@ public class DamageSource {
     private float p = 0.3F;
     private boolean q;
     private boolean r;
-    public String n;
+    public String translationIndex;
 
     public static DamageSource mobAttack(EntityLiving entityliving) {
         return new EntityDamageSource("mob", entityliving);
@@ -67,7 +67,7 @@ public class DamageSource {
     }
 
     protected DamageSource(String s) {
-        this.n = s;
+        this.translationIndex = s;
     }
 
     public Entity b() {
@@ -94,8 +94,8 @@ public class DamageSource {
         return this;
     }
 
-    public String a(EntityHuman entityhuman) {
-        return LocaleI18n.a("death." + this.n, new Object[] { entityhuman.name});
+    public String getLocalizedDeathMessage(EntityHuman entityhuman) {
+        return LocaleI18n.get("death." + this.translationIndex, new Object[] { entityhuman.name});
     }
 
     public boolean k() {
@@ -103,6 +103,6 @@ public class DamageSource {
     }
 
     public String l() {
-        return this.n;
+        return this.translationIndex;
     }
 }

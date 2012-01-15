@@ -18,7 +18,7 @@ public abstract class EntityWaterAnimal extends EntityCreature implements IAnima
         super.a(nbttagcompound);
     }
 
-    public boolean g() {
+    public boolean canSpawn() {
         return this.world.containsEntity(this.boundingBox);
     }
 
@@ -30,7 +30,7 @@ public abstract class EntityWaterAnimal extends EntityCreature implements IAnima
         return true;
     }
 
-    protected int a(EntityHuman entityhuman) {
+    protected int getExpValue(EntityHuman entityhuman) {
         return 1 + this.world.random.nextInt(3);
     }
 }

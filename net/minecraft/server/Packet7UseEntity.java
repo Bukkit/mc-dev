@@ -7,23 +7,23 @@ public class Packet7UseEntity extends Packet {
 
     public int a;
     public int target;
-    public int c;
+    public int action;
 
     public Packet7UseEntity() {}
 
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readInt();
         this.target = datainputstream.readInt();
-        this.c = datainputstream.readByte();
+        this.action = datainputstream.readByte();
     }
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeInt(this.target);
-        dataoutputstream.writeByte(this.c);
+        dataoutputstream.writeByte(this.action);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

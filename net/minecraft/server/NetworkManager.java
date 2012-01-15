@@ -24,7 +24,7 @@ public class NetworkManager {
     private List m = Collections.synchronizedList(new ArrayList());
     private List highPriorityQueue = Collections.synchronizedList(new ArrayList());
     private List lowPriorityQueue = Collections.synchronizedList(new ArrayList());
-    private NetHandler p;
+    private NetHandler packetListener;
     private boolean q = false;
     private Thread r;
     private Thread s;
@@ -41,7 +41,7 @@ public class NetworkManager {
     public NetworkManager(Socket socket, String s, NetHandler nethandler) {
         this.socket = socket;
         this.i = socket.getRemoteSocketAddress();
-        this.p = nethandler;
+        this.packetListener = nethandler;
 
         try {
             socket.setSoTimeout(30000);
@@ -59,7 +59,7 @@ public class NetworkManager {
     }
 
     public void a(NetHandler nethandler) {
-        this.p = nethandler;
+        this.packetListener = nethandler;
     }
 
     public void queue(Packet packet) {
@@ -68,7 +68,7 @@ public class NetworkManager {
 
             synchronized (this.g) {
                 this.x += packet.a() + 1;
-                if (packet.l) {
+                if (packet.lowPriority) {
                     this.lowPriorityQueue.add(packet);
                 } else {
                     this.highPriorityQueue.add(packet);
@@ -134,7 +134,7 @@ public class NetworkManager {
         boolean flag = false;
 
         try {
-            Packet packet = Packet.a(this.input, this.p.c());
+            Packet packet = Packet.a(this.input, this.packetListener.c());
 
             if (packet != null) {
                 int[] aint = d;
@@ -211,12 +211,12 @@ public class NetworkManager {
         while (!this.m.isEmpty() && i-- >= 0) {
             Packet packet = (Packet) this.m.remove(0);
 
-            packet.a(this.p);
+            packet.handle(this.packetListener);
         }
 
         this.a();
         if (this.t && this.m.isEmpty()) {
-            this.p.a(this.u, this.v);
+            this.packetListener.a(this.u, this.v);
         }
     }
 
@@ -237,7 +237,7 @@ public class NetworkManager {
         return this.lowPriorityQueue.size();
     }
 
-    public Socket f() {
+    public Socket getSocket() {
         return this.socket;
     }
 

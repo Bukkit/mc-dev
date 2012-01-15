@@ -44,7 +44,7 @@ public class EntityChicken extends EntityAnimal {
         }
 
         this.b += this.i * 2.0F;
-        if (!this.l() && !this.world.isStatic && --this.j <= 0) {
+        if (!this.isBaby() && !this.world.isStatic && --this.j <= 0) {
             this.world.makeSound(this, "mob.chickenplop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             this.b(Item.EGG.id, 1);
             this.j = this.random.nextInt(6000) + 6000;
@@ -73,7 +73,7 @@ public class EntityChicken extends EntityAnimal {
         return "mob.chickenhurt";
     }
 
-    protected int e() {
+    protected int getLootId() {
         return Item.FEATHER.id;
     }
 
@@ -84,7 +84,7 @@ public class EntityChicken extends EntityAnimal {
             this.b(Item.FEATHER.id, 1);
         }
 
-        if (this.A()) {
+        if (this.isBurning()) {
             this.b(Item.COOKED_CHICKEN.id, 1);
         } else {
             this.b(Item.RAW_CHICKEN.id, 1);

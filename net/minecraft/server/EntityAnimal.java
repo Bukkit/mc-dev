@@ -197,12 +197,12 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         }
     }
 
-    public boolean g() {
+    public boolean canSpawn() {
         int i = MathHelper.floor(this.locX);
         int j = MathHelper.floor(this.boundingBox.b);
         int k = MathHelper.floor(this.locZ);
 
-        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.k(i, j, k) > 8 && super.g();
+        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.k(i, j, k) > 8 && super.canSpawn();
     }
 
     public int h() {
@@ -213,7 +213,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         return false;
     }
 
-    protected int a(EntityHuman entityhuman) {
+    protected int getExpValue(EntityHuman entityhuman) {
         return 1 + this.world.random.nextInt(3);
     }
 
@@ -247,7 +247,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         }
     }
 
-    public boolean l() {
+    public boolean isBaby() {
         return this.getAge() < 0;
     }
 }

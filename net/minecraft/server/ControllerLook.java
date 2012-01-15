@@ -44,7 +44,7 @@ public class ControllerLook {
             double d0 = this.e - this.a.locX;
             double d1 = this.f - (this.a.locY + (double) this.a.y());
             double d2 = this.g - this.a.locZ;
-            double d3 = (double) MathHelper.a(d0 * d0 + d2 * d2);
+            double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
             float f = (float) (Math.atan2(d2, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
             float f1 = (float) (-(Math.atan2(d1, d3) * 180.0D / 3.1415927410125732D));
 

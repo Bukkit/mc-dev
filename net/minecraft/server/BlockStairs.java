@@ -64,8 +64,8 @@ public class BlockStairs extends Block {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
-        this.a.b(world, i, j, k, entityhuman);
+    public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
+        this.a.attack(world, i, j, k, entityhuman);
     }
 
     public void postBreak(World world, int i, int j, int k, int l) {

@@ -5,7 +5,7 @@ public class ItemCoal extends Item {
     public ItemCoal(int i) {
         super(i);
         this.a(true);
-        this.f(0);
+        this.setMaxDurability(0);
     }
 
     public String a(ItemStack itemstack) {

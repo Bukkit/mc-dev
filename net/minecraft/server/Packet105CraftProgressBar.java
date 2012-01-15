@@ -17,7 +17,7 @@ public class Packet105CraftProgressBar extends Packet {
         this.c = k;
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

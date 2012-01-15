@@ -67,7 +67,7 @@ public class WorldGenTaiga2 extends WorldGenerator {
                                 int i4 = l3 - k;
 
                                 if ((Math.abs(k3) != k2 || Math.abs(i4) != k2 || k2 <= 0) && !Block.o[world.getTypeId(i3, j3, l3)]) {
-                                    this.a(world, i3, j3, l3, Block.LEAVES.id, 1);
+                                    this.setTypeAndData(world, i3, j3, l3, Block.LEAVES.id, 1);
                                 }
                             }
                         }
@@ -89,7 +89,7 @@ public class WorldGenTaiga2 extends WorldGenerator {
                     for (j3 = 0; j3 < l - j2; ++j3) {
                         i3 = world.getTypeId(i, j + j3, k);
                         if (i3 == 0 || i3 == Block.LEAVES.id) {
-                            this.a(world, i, j + j3, k, Block.LOG.id, 1);
+                            this.setTypeAndData(world, i, j + j3, k, Block.LOG.id, 1);
                         }
                     }
 

@@ -12,11 +12,11 @@ public class Packet53BlockChange extends Packet {
     public int data;
 
     public Packet53BlockChange() {
-        this.l = true;
+        this.lowPriority = true;
     }
 
     public Packet53BlockChange(int i, int j, int k, World world) {
-        this.l = true;
+        this.lowPriority = true;
         this.a = i;
         this.b = j;
         this.c = k;
@@ -40,7 +40,7 @@ public class Packet53BlockChange extends Packet {
         dataoutputstream.write(this.data);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

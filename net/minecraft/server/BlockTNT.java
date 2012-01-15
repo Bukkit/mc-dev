@@ -51,12 +51,12 @@ public class BlockTNT extends Block {
         }
     }
 
-    public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
         if (entityhuman.Q() != null && entityhuman.Q().id == Item.FLINT_AND_STEEL.id) {
             world.setRawData(i, j, k, 1);
         }
 
-        super.b(world, i, j, k, entityhuman);
+        super.attack(world, i, j, k, entityhuman);
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {

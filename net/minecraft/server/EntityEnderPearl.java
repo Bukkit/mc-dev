@@ -25,7 +25,7 @@ public class EntityEnderPearl extends EntityProjectile {
 
         if (!this.world.isStatic) {
             if (this.shooter != null) {
-                this.shooter.a_(this.locX, this.locY, this.locZ);
+                this.shooter.enderTeleportTo(this.locX, this.locY, this.locZ);
                 this.shooter.fallDistance = 0.0F;
                 this.shooter.damageEntity(DamageSource.FALL, 5);
             }

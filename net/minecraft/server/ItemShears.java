@@ -5,7 +5,7 @@ public class ItemShears extends Item {
     public ItemShears(int i) {
         super(i);
         this.e(1);
-        this.f(238);
+        this.setMaxDurability(238);
     }
 
     public boolean a(ItemStack itemstack, int i, int j, int k, int l, EntityLiving entityliving) {
@@ -21,7 +21,7 @@ public class ItemShears extends Item {
         return block.id == Block.WEB.id;
     }
 
-    public float a(ItemStack itemstack, Block block) {
-        return block.id != Block.WEB.id && block.id != Block.LEAVES.id ? (block.id == Block.WOOL.id ? 5.0F : super.a(itemstack, block)) : 15.0F;
+    public float getDestroySpeed(ItemStack itemstack, Block block) {
+        return block.id != Block.WEB.id && block.id != Block.LEAVES.id ? (block.id == Block.WOOL.id ? 5.0F : super.getDestroySpeed(itemstack, block)) : 15.0F;
     }
 }

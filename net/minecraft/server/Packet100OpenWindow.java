@@ -19,7 +19,7 @@ public class Packet100OpenWindow extends Packet {
         this.d = k;
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

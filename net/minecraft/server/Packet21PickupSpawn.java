@@ -57,7 +57,7 @@ public class Packet21PickupSpawn extends Packet {
         dataoutputstream.writeByte(this.g);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

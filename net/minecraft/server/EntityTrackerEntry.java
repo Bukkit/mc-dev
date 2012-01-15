@@ -100,18 +100,18 @@ public class EntityTrackerEntry {
                     this.i = this.tracker.motX;
                     this.j = this.tracker.motY;
                     this.k = this.tracker.motZ;
-                    this.a((Packet) (new Packet28EntityVelocity(this.tracker.id, this.i, this.j, this.k)));
+                    this.broadcast(new Packet28EntityVelocity(this.tracker.id, this.i, this.j, this.k));
                 }
             }
 
             if (object != null) {
-                this.a((Packet) object);
+                this.broadcast((Packet) object);
             }
 
             DataWatcher datawatcher = this.tracker.getDataWatcher();
 
             if (datawatcher.a()) {
-                this.b((Packet) (new Packet40EntityMetadata(this.tracker.id, datawatcher)));
+                this.broadcastIncludingSelf(new Packet40EntityMetadata(this.tracker.id, datawatcher));
             }
 
             if (flag) {
@@ -128,12 +128,12 @@ public class EntityTrackerEntry {
 
         this.tracker.ce = false;
         if (this.tracker.velocityChanged) {
-            this.b((Packet) (new Packet28EntityVelocity(this.tracker)));
+            this.broadcastIncludingSelf(new Packet28EntityVelocity(this.tracker));
             this.tracker.velocityChanged = false;
         }
     }
 
-    public void a(Packet packet) {
+    public void broadcast(Packet packet) {
         Iterator iterator = this.trackedPlayers.iterator();
 
         while (iterator.hasNext()) {
@@ -143,15 +143,15 @@ public class EntityTrackerEntry {
         }
     }
 
-    public void b(Packet packet) {
-        this.a(packet);
+    public void broadcastIncludingSelf(Packet packet) {
+        this.broadcast(packet);
         if (this.tracker instanceof EntityPlayer) {
             ((EntityPlayer) this.tracker).netServerHandler.sendPacket(packet);
         }
     }
 
     public void a() {
-        this.a((Packet) (new Packet29DestroyEntity(this.tracker.id)));
+        this.broadcast(new Packet29DestroyEntity(this.tracker.id));
     }
 
     public void a(EntityPlayer entityplayer) {
@@ -306,15 +306,15 @@ public class EntityTrackerEntry {
                     if (this.tracker instanceof EntityFallingBlock) {
                         EntityFallingBlock entityfallingblock = (EntityFallingBlock) this.tracker;
 
-                        if (entityfallingblock.a == Block.SAND.id) {
+                        if (entityfallingblock.id == Block.SAND.id) {
                             return new Packet23VehicleSpawn(this.tracker, 70);
                         }
 
-                        if (entityfallingblock.a == Block.GRAVEL.id) {
+                        if (entityfallingblock.id == Block.GRAVEL.id) {
                             return new Packet23VehicleSpawn(this.tracker, 71);
                         }
 
-                        if (entityfallingblock.a == Block.DRAGON_EGG.id) {
+                        if (entityfallingblock.id == Block.DRAGON_EGG.id) {
                             return new Packet23VehicleSpawn(this.tracker, 74);
                         }
                     }

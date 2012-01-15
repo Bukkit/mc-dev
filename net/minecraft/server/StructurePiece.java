@@ -459,7 +459,7 @@ public abstract class StructurePiece {
         int k1 = this.b(i, k);
 
         if (structureboundingbox.b(i1, j1, k1)) {
-            ItemDoor.a(world, i1, j1, k1, l, Block.WOODEN_DOOR);
+            ItemDoor.place(world, i1, j1, k1, l, Block.WOODEN_DOOR);
         }
     }
 }

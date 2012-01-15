@@ -4,7 +4,7 @@ public class ItemStep extends ItemBlock {
 
     public ItemStep(int i) {
         super(i);
-        this.f(0);
+        this.setMaxDurability(0);
         this.a(true);
     }
 
@@ -19,7 +19,7 @@ public class ItemStep extends ItemBlock {
             i = 0;
         }
 
-        return super.b() + "." + BlockStep.a[i];
+        return super.getName() + "." + BlockStep.a[i];
     }
 
     public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {

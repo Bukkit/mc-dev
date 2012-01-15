@@ -13,11 +13,11 @@ public class Packet52MultiBlockChange extends Packet {
     public int f;
 
     public Packet52MultiBlockChange() {
-        this.l = true;
+        this.lowPriority = true;
     }
 
     public Packet52MultiBlockChange(int i, int j, short[] ashort, int k, World world) {
-        this.l = true;
+        this.lowPriority = true;
         this.a = i;
         this.b = j;
         this.f = k;
@@ -66,7 +66,7 @@ public class Packet52MultiBlockChange extends Packet {
         dataoutputstream.write(this.e);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

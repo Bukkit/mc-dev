@@ -63,7 +63,7 @@ public class WorldGenTrees extends WorldGenerator {
                                 int l2 = k2 - k;
 
                                 if ((Math.abs(j2) != k1 || Math.abs(l2) != k1 || random.nextInt(2) != 0 && j1 != 0) && !Block.o[world.getTypeId(l1, i2, k2)]) {
-                                    this.a(world, l1, i2, k2, Block.LEAVES.id, 0);
+                                    this.setTypeAndData(world, l1, i2, k2, Block.LEAVES.id, 0);
                                 }
                             }
                         }
@@ -72,7 +72,7 @@ public class WorldGenTrees extends WorldGenerator {
                     for (i2 = 0; i2 < l; ++i2) {
                         j1 = world.getTypeId(i, j + i2, k);
                         if (j1 == 0 || j1 == Block.LEAVES.id) {
-                            this.a(world, i, j + i2, k, Block.LOG.id, 0);
+                            this.setTypeAndData(world, i, j + i2, k, Block.LOG.id, 0);
                         }
                     }
 

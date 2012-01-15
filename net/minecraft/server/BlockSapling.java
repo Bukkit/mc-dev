@@ -20,7 +20,7 @@ public class BlockSapling extends BlockFlower {
                 if ((l & 8) == 0) {
                     world.setData(i, j, k, l | 8);
                 } else {
-                    this.b(world, i, j, k, random);
+                    this.grow(world, i, j, k, random);
                 }
             }
         }
@@ -31,7 +31,7 @@ public class BlockSapling extends BlockFlower {
         return j == 1 ? 63 : (j == 2 ? 79 : super.a(i, j));
     }
 
-    public void b(World world, int i, int j, int k, Random random) {
+    public void grow(World world, int i, int j, int k, Random random) {
         int l = world.getData(i, j, k) & 3;
 
         world.setRawTypeId(i, j, k, 0);

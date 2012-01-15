@@ -27,7 +27,7 @@ public class Packet30Entity extends Packet {
         dataoutputstream.writeInt(this.a);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

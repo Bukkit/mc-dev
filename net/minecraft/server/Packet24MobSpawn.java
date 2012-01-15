@@ -51,7 +51,7 @@ public class Packet24MobSpawn extends Packet {
         this.h.a(dataoutputstream);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

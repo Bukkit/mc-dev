@@ -40,7 +40,7 @@ public class BlockNote extends BlockContainer {
         }
     }
 
-    public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
         if (!world.isStatic) {
             TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 

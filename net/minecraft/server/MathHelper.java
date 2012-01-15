@@ -20,7 +20,7 @@ public class MathHelper {
         return (float) Math.sqrt((double) f);
     }
 
-    public static final float a(double d0) {
+    public static final float sqrt(double d0) {
         return (float) Math.sqrt(d0);
     }
 

@@ -92,7 +92,7 @@ public class Packet23VehicleSpawn extends Packet {
         }
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

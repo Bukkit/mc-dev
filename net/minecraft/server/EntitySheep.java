@@ -28,7 +28,7 @@ public class EntitySheep extends EntityAnimal {
         }
     }
 
-    protected int e() {
+    protected int getLootId() {
         return Block.WOOL.id;
     }
 
@@ -51,7 +51,7 @@ public class EntitySheep extends EntityAnimal {
         int j;
         int k;
 
-        if (!this.E() && this.b <= 0 && (this.l() && this.random.nextInt(50) == 0 || this.random.nextInt(1000) == 0)) {
+        if (!this.E() && this.b <= 0 && (this.isBaby() && this.random.nextInt(50) == 0 || this.random.nextInt(1000) == 0)) {
             i = MathHelper.floor(this.locX);
             j = MathHelper.floor(this.locY);
             k = MathHelper.floor(this.locZ);
@@ -77,7 +77,7 @@ public class EntitySheep extends EntityAnimal {
 
             if (flag) {
                 this.setSheared(false);
-                if (this.l()) {
+                if (this.isBaby()) {
                     int l = this.getAge() + 1200;
 
                     if (l > 0) {
@@ -97,7 +97,7 @@ public class EntitySheep extends EntityAnimal {
     public boolean b(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
-        if (itemstack != null && itemstack.id == Item.SHEARS.id && !this.isSheared() && !this.l()) {
+        if (itemstack != null && itemstack.id == Item.SHEARS.id && !this.isSheared() && !this.isBaby()) {
             if (!this.world.isStatic) {
                 this.setSheared(true);
                 int i = 1 + this.random.nextInt(3);

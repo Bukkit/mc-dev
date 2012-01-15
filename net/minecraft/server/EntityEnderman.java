@@ -251,12 +251,12 @@ public class EntityEnderman extends EntityMonster {
         return "mob.endermen.death";
     }
 
-    protected int e() {
+    protected int getLootId() {
         return Item.ENDER_PEARL.id;
     }
 
     protected void dropDeathLoot(boolean flag, int i) {
-        int j = this.e();
+        int j = this.getLootId();
 
         if (j > 0) {
             int k = this.random.nextInt(2 + i);

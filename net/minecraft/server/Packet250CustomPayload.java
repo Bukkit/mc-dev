@@ -28,7 +28,7 @@ public class Packet250CustomPayload extends Packet {
         }
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

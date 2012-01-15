@@ -37,7 +37,7 @@ public class Packet54PlayNoteBlock extends Packet {
         dataoutputstream.write(this.e);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

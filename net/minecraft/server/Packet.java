@@ -16,7 +16,7 @@ public abstract class Packet {
     private static Set b = new HashSet();
     private static Set c = new HashSet();
     public final long timestamp = System.currentTimeMillis();
-    public boolean l = false;
+    public boolean lowPriority = false;
 
     public Packet() {}
 
@@ -121,7 +121,7 @@ public abstract class Packet {
 
     public abstract void a(DataOutputStream dataoutputstream);
 
-    public abstract void a(NetHandler nethandler);
+    public abstract void handle(NetHandler nethandler);
 
     public abstract int a();
 

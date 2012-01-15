@@ -222,13 +222,13 @@ public abstract class BlockFluids extends Block {
                         world.setTypeId(i, j, k, Block.COBBLESTONE.id);
                     }
 
-                    this.h(world, i, j, k);
+                    this.fizz(world, i, j, k);
                 }
             }
         }
     }
 
-    protected void h(World world, int i, int j, int k) {
+    protected void fizz(World world, int i, int j, int k) {
         world.makeSound((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
 
         for (int l = 0; l < 8; ++l) {

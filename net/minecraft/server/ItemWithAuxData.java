@@ -7,7 +7,7 @@ public class ItemWithAuxData extends ItemBlock {
     public ItemWithAuxData(int i, Block block) {
         super(i);
         this.a = block;
-        this.f(0);
+        this.setMaxDurability(0);
         this.a(true);
     }
 

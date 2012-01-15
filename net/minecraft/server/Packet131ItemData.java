@@ -10,11 +10,11 @@ public class Packet131ItemData extends Packet {
     public byte[] c;
 
     public Packet131ItemData() {
-        this.l = true;
+        this.lowPriority = true;
     }
 
     public Packet131ItemData(short short1, short short2, byte[] abyte) {
-        this.l = true;
+        this.lowPriority = true;
         this.a = short1;
         this.b = short2;
         this.c = abyte;
@@ -34,7 +34,7 @@ public class Packet131ItemData extends Packet {
         dataoutputstream.write(this.c);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

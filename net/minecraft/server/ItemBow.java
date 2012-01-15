@@ -5,7 +5,7 @@ public class ItemBow extends Item {
     public ItemBow(int i) {
         super(i);
         this.maxStackSize = 1;
-        this.f(384);
+        this.setMaxDurability(384);
     }
 
     public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {

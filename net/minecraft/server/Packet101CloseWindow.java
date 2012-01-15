@@ -13,7 +13,7 @@ public class Packet101CloseWindow extends Packet {
         this.a = i;
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

@@ -11,11 +11,11 @@ public class EntityTracker {
     private IntHashMap trackedEntities = new IntHashMap();
     private MinecraftServer c;
     private int d;
-    private int e;
+    private int world;
 
     public EntityTracker(MinecraftServer minecraftserver, int i) {
         this.c = minecraftserver;
-        this.e = i;
+        this.world = i;
         this.d = minecraftserver.serverConfigurationManager.a();
     }
 
@@ -91,7 +91,7 @@ public class EntityTracker {
 
             this.a.add(entitytrackerentry);
             this.trackedEntities.a(entity.id, entitytrackerentry);
-            entitytrackerentry.scanPlayers(this.c.getWorldServer(this.e).players);
+            entitytrackerentry.scanPlayers(this.c.getWorldServer(this.world).players);
         }
     }
 
@@ -122,7 +122,7 @@ public class EntityTracker {
         while (iterator.hasNext()) {
             EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
 
-            entitytrackerentry.track(this.c.getWorldServer(this.e).players);
+            entitytrackerentry.track(this.c.getWorldServer(this.world).players);
             if (entitytrackerentry.m && entitytrackerentry.tracker instanceof EntityPlayer) {
                 arraylist.add((EntityPlayer) entitytrackerentry.tracker);
             }
@@ -146,7 +146,7 @@ public class EntityTracker {
         EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.trackedEntities.a(entity.id);
 
         if (entitytrackerentry != null) {
-            entitytrackerentry.a(packet);
+            entitytrackerentry.broadcast(packet);
         }
     }
 
@@ -154,7 +154,7 @@ public class EntityTracker {
         EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.trackedEntities.a(entity.id);
 
         if (entitytrackerentry != null) {
-            entitytrackerentry.b(packet);
+            entitytrackerentry.broadcastIncludingSelf(packet);
         }
     }
 

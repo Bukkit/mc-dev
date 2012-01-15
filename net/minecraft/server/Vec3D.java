@@ -53,7 +53,7 @@ public class Vec3D {
     }
 
     public Vec3D b() {
-        double d0 = (double) MathHelper.a(this.a * this.a + this.b * this.b + this.c * this.c);
+        double d0 = (double) MathHelper.sqrt(this.a * this.a + this.b * this.b + this.c * this.c);
 
         return d0 < 1.0E-4D ? create(0.0D, 0.0D, 0.0D) : create(this.a / d0, this.b / d0, this.c / d0);
     }
@@ -71,7 +71,7 @@ public class Vec3D {
         double d1 = vec3d.b - this.b;
         double d2 = vec3d.c - this.c;
 
-        return (double) MathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);
+        return (double) MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
     }
 
     public double c(Vec3D vec3d) {
@@ -91,7 +91,7 @@ public class Vec3D {
     }
 
     public double c() {
-        return (double) MathHelper.a(this.a * this.a + this.b * this.b + this.c * this.c);
+        return (double) MathHelper.sqrt(this.a * this.a + this.b * this.b + this.c * this.c);
     }
 
     public Vec3D a(Vec3D vec3d, double d0) {

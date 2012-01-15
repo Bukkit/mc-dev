@@ -65,7 +65,7 @@ public class BlockTrapdoor extends Block {
         }
     }
 
-    public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
         this.interact(world, i, j, k, entityhuman);
     }
 
@@ -81,7 +81,7 @@ public class BlockTrapdoor extends Block {
         }
     }
 
-    public void a(World world, int i, int j, int k, boolean flag) {
+    public void setOpen(World world, int i, int j, int k, boolean flag) {
         int l = world.getData(i, j, k);
         boolean flag1 = (l & 4) > 0;
 
@@ -121,7 +121,7 @@ public class BlockTrapdoor extends Block {
             boolean flag = world.isBlockIndirectlyPowered(i, j, k);
 
             if (flag || l > 0 && Block.byId[l].isPowerSource() || l == 0) {
-                this.a(world, i, j, k, flag);
+                this.setOpen(world, i, j, k, flag);
             }
         }
     }

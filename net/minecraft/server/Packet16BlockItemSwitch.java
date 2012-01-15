@@ -17,7 +17,7 @@ public class Packet16BlockItemSwitch extends Packet {
         dataoutputstream.writeShort(this.itemInHandIndex);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

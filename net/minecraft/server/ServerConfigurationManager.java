@@ -223,7 +223,7 @@ public class ServerConfigurationManager {
                 worldserver.entityJoinedWorld(entityplayer, false);
             }
         } else {
-            ChunkCoordinates chunkcoordinates = worldserver1.d();
+            ChunkCoordinates chunkcoordinates = worldserver1.getDimensionSpawn();
 
             d0 = (double) chunkcoordinates.x;
             entityplayer.locY = (double) chunkcoordinates.y;

@@ -19,9 +19,9 @@ public class BlockRedstoneOre extends Block {
         return 30;
     }
 
-    public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
         this.g(world, i, j, k);
-        super.b(world, i, j, k, entityhuman);
+        super.attack(world, i, j, k, entityhuman);
     }
 
     public void b(World world, int i, int j, int k, Entity entity) {

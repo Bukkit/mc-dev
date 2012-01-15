@@ -10,7 +10,7 @@ public class Packet108ButtonClick extends Packet {
 
     public Packet108ButtonClick() {}
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

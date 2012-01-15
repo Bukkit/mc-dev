@@ -20,7 +20,7 @@ public class Packet19EntityAction extends Packet {
         dataoutputstream.writeByte(this.animation);
     }
 
-    public void a(NetHandler nethandler) {
+    public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
 

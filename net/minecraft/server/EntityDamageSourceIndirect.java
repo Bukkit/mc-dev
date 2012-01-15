@@ -2,11 +2,11 @@ package net.minecraft.server;
 
 public class EntityDamageSourceIndirect extends EntityDamageSource {
 
-    private Entity o;
+    private Entity owner;
 
     public EntityDamageSourceIndirect(String s, Entity entity, Entity entity1) {
         super(s, entity);
-        this.o = entity1;
+        this.owner = entity1;
     }
 
     public Entity b() {
@@ -14,10 +14,10 @@ public class EntityDamageSourceIndirect extends EntityDamageSource {
     }
 
     public Entity getEntity() {
-        return this.o;
+        return this.owner;
     }
 
-    public String a(EntityHuman entityhuman) {
-        return LocaleI18n.a("death." + this.n, new Object[] { entityhuman.name, this.o.ad()});
+    public String getLocalizedDeathMessage(EntityHuman entityhuman) {
+        return LocaleI18n.get("death." + this.translationIndex, new Object[] { entityhuman.name, this.owner.getLocalizedName()});
     }
 }

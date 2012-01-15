@@ -51,7 +51,7 @@ public class ItemBlock extends Item {
             return false;
         } else if (j == world.height - 1 && Block.byId[this.id].material.isBuildable()) {
             return false;
-        } else if (world.a(this.id, i, j, k, false, l)) {
+        } else if (world.mayPlace(this.id, i, j, k, false, l)) {
             Block block = Block.byId[this.id];
 
             if (world.setTypeIdAndData(i, j, k, this.id, this.filterData(itemstack.getData()))) {
@@ -74,7 +74,7 @@ public class ItemBlock extends Item {
         return Block.byId[this.id].n();
     }
 
-    public String b() {
+    public String getName() {
         return Block.byId[this.id].n();
     }
 }
