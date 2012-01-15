@@ -1,7 +1,8 @@
+#X-Generator: crowdin.net
 
-language.name=English
-language.region=US
-language.code=en_US
+language.name=Canadian English
+language.region=CA
+language.code=en_GB
 
 gui.done=Done
 gui.cancel=Cancel
@@ -70,7 +71,7 @@ selectWorld.hardcoreMode=Hardcore:
 selectWorld.hardcoreMode.info=World is deleted upon death
 
 generator.default=Default
-generator.flat=Superflat
+generator.flat=Super-Flat
 
 selectServer.title=Select Server
 selectServer.empty=empty
@@ -81,7 +82,7 @@ selectServer.delete=Delete
 selectServer.add=Add server
 selectServer.defaultName=Minecraft Server
 selectServer.deleteQuestion=Are you sure you want to remove this server?
-selectServer.deleteWarning=will be lost forever! (A long time!)
+selectServer.deleteWarning=will be lost forever!(A long time!)
 selectServer.deleteButton=Delete
 selectServer.refresh=Refresh
 addServer.title=Edit Server Info
@@ -281,7 +282,7 @@ tile.jukebox.name=Jukebox
 tile.fence.name=Fence
 tile.fenceGate.name=Fence Gate
 tile.pumpkin.name=Pumpkin
-tile.litpumpkin.name=Jack 'o' Lantern
+tile.litpumpkin.name=Jack'o'Lantern
 tile.hellrock.name=Netherrack
 tile.hellsand.name=Soul Sand
 tile.lightgem.name=Glowstone
@@ -293,8 +294,8 @@ tile.cloth.brown.name=Brown Wool
 tile.cloth.blue.name=Blue Wool
 tile.cloth.purple.name=Purple Wool
 tile.cloth.cyan.name=Cyan Wool
-tile.cloth.silver.name=Light Gray Wool
-tile.cloth.gray.name=Gray Wool
+tile.cloth.silver.name=Light Grey Wool
+tile.cloth.gray.name=Grey Wool
 tile.cloth.pink.name=Pink Wool
 tile.cloth.lime.name=Lime Wool
 tile.cloth.yellow.name=Yellow Wool
@@ -314,7 +315,7 @@ tile.bed.notSafe=You may not rest now, there are monsters nearby
 tile.bed.notValid=Your home bed was missing or obstructed
 tile.lockedchest.name=Locked chest
 tile.trapdoor.name=Trapdoor
-tile.web.name=Cobweb
+tile.web.name=Cob web
 tile.stonebricksmooth.name=Stone Bricks
 tile.pistonBase.name=Piston
 tile.pistonStickyBase.name=Sticky Piston
@@ -485,7 +486,7 @@ item.monsterPlacer.name=Spawn
 entity.Item.name=Item
 entity.XPOrb.name=Experience Orb
 
-entity.Arrow.name=Arrow
+entity.Arrow.name=arrow
 entity.Snowball.name=Snowball
 entity.Painting.name=Painting
 
@@ -522,7 +523,6 @@ entity.FallingSand.name=Falling Block
 entity.Minecart.name=Minecart
 entity.Boat.name=Boat
 
-entity.Arrow.name=arrow
 entity.generic.name=unknown
 
 death.inFire=%1$s went up in flames
@@ -540,7 +540,7 @@ death.magic=%1$s was killed by magic
 death.mob=%1$s was slain by %2$s
 death.player=%1$s was slain by %2$s
 death.arrow=%1$s was shot by %2$s
-death.fireball=%1$s was fireballed by %2$s
+death.fireball=%1$s was shot by %2$s
 death.thrown=%1$s was pummeled by %2$s
 death.indirectMagic=%1$s was killed by %2$s
 
@@ -593,7 +593,6 @@ potion.nightVision.postfix=Potion of Night Vision
 potion.hunger.postfix=Potion of Hunger
 potion.poison.postfix=Potion of Poison
 
-potion.potency.0=
 potion.potency.1=II
 potion.potency.2=III
 potion.potency.3=IV
@@ -625,7 +624,7 @@ potion.prefix.cordial=Cordial
 potion.prefix.sparkling=Sparkling
 potion.prefix.potent=Potent
 potion.prefix.foul=Foul
-potion.prefix.odorless=Odorless
+potion.prefix.odorless=Odourless
 potion.prefix.rank=Rank
 potion.prefix.harsh=Harsh
 potion.prefix.acrid=Acrid
@@ -649,9 +648,9 @@ enchantment.untouching=Silk Touch
 enchantment.durability=Unbreaking
 enchantment.lootBonus=Looting
 enchantment.lootBonusDigger=Fortune
-enchantment.arrowDamage=Power
-enchantment.arrowFire=Flame
-enchantment.arrowKnockback=Punch
+enchantment.arrowDamage=Damage
+enchantment.arrowFire=Fire
+enchantment.arrowKnockback=Knockback
 enchantment.arrowInfinite=Infinity
 
 enchantment.level.1=I
@@ -687,7 +686,7 @@ stat.playOneMinute=Minutes Played
 
 stat.walkOneCm=Distance Walked
 stat.fallOneCm=Distance Fallen
-stat.swimOneCm=Distance Swum
+stat.swimOneCm=Distance Swam
 stat.flyOneCm=Distance Flown
 stat.climbOneCm=Distance Climbed
 stat.diveOneCm=Distance Dove
@@ -699,7 +698,7 @@ stat.drop=Items Dropped
 
 stat.damageDealt=Damage Dealt
 stat.damageTaken=Damage Taken
-stat.deaths=Number of Deaths
+stat.deaths=Numbers of Deaths
 stat.mobKills=Mob Kills
 stat.playerKills=Player Kills
 stat.fishCaught=Fish Caught
@@ -719,7 +718,7 @@ achievement.openInventory.desc=Press '%1$s' to open your inventory.
 achievement.mineWood=Getting Wood
 achievement.mineWood.desc=Attack a tree until a block of wood pops out
 achievement.buildWorkBench=Benchmarking
-achievement.buildWorkBench.desc=Craft a workbench with four blocks of planks
+achievement.buildWorkBench.desc=Craft a '>workbench with four blocks of planks
 achievement.buildPickaxe=Time to Mine!
 achievement.buildPickaxe.desc=Use planks and sticks to make a pickaxe
 achievement.buildFurnace=Hot Topic
@@ -747,7 +746,7 @@ achievement.killCow.desc=Harvest some leather
 achievement.flyPig=When Pigs Fly
 achievement.flyPig.desc=Fly a pig off a cliff
 achievement.snipeSkeleton=Sniper Duel
-achievement.snipeSkeleton.desc=Kill a skeleton with an arrow from more than 50 meters
+achievement.snipeSkeleton.desc=Kill a skeleton with an arrow from more than 50 metres
 achievement.diamonds=DIAMONDS!
 achievement.diamonds.desc=Acquire diamonds with your iron tools
 achievement.portal=We Need to Go Deeper
@@ -768,4 +767,5 @@ achievement.overkill=Overkill
 achievement.overkill.desc=Deal eight hearts of damage in a single hit
 achievement.bookcase=Librarian
 achievement.bookcase.desc=Build some bookshelves to improve your enchantment table
+
 
