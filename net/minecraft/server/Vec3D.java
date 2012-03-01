@@ -74,7 +74,7 @@ public class Vec3D {
         return (double) MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
     }
 
-    public double c(Vec3D vec3d) {
+    public double distanceSquared(Vec3D vec3d) {
         double d0 = vec3d.a - this.a;
         double d1 = vec3d.b - this.b;
         double d2 = vec3d.c - this.c;

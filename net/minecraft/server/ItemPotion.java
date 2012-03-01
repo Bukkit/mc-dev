@@ -23,7 +23,7 @@ public class ItemPotion extends Item {
         List list = (List) this.a.get(Integer.valueOf(i));
 
         if (list == null) {
-            list = PotionBrewer.a(i, false);
+            list = PotionBrewer.getEffects(i, false);
             this.a.put(Integer.valueOf(i), list);
         }
 
@@ -77,7 +77,7 @@ public class ItemPotion extends Item {
         }
     }
 
-    public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
+    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
         return false;
     }
 

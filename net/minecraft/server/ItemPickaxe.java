@@ -8,7 +8,7 @@ public class ItemPickaxe extends ItemTool {
         super(i, 2, enumtoolmaterial, bS);
     }
 
-    public boolean a(Block block) {
+    public boolean canDestroySpecialBlock(Block block) {
         return block == Block.OBSIDIAN ? this.b.d() == 3 : (block != Block.DIAMOND_BLOCK && block != Block.DIAMOND_ORE ? (block != Block.GOLD_BLOCK && block != Block.GOLD_ORE ? (block != Block.IRON_BLOCK && block != Block.IRON_ORE ? (block != Block.LAPIS_BLOCK && block != Block.LAPIS_ORE ? (block != Block.REDSTONE_ORE && block != Block.GLOWING_REDSTONE_ORE ? (block.material == Material.STONE ? true : block.material == Material.ORE) : this.b.d() >= 2) : this.b.d() >= 1) : this.b.d() >= 1) : this.b.d() >= 2) : this.b.d() >= 2);
     }
 

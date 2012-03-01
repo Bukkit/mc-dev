@@ -188,7 +188,7 @@ public class EnchantmentManager {
                                 if (iterator1.hasNext()) {
                                     EnchantmentInstance enchantmentinstance1 = (EnchantmentInstance) iterator1.next();
 
-                                    if (enchantmentinstance1.a.a(Enchantment.byId[integer.intValue()])) {
+                                    if (enchantmentinstance1.enchantment.a(Enchantment.byId[integer.intValue()])) {
                                         continue;
                                     }
 

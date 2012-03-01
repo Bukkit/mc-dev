@@ -25,7 +25,7 @@ public class GenLayerMushroomIsland extends GenLayer {
 
                 this.a((long) (j2 + i), (long) (i2 + j));
                 if (k3 == 0 && k2 == 0 && l2 == 0 && i3 == 0 && j3 == 0 && this.a(100) == 0) {
-                    aint1[j2 + i2 * k] = BiomeBase.MUSHROOM_ISLAND.K;
+                    aint1[j2 + i2 * k] = BiomeBase.MUSHROOM_ISLAND.id;
                 } else {
                     aint1[j2 + i2 * k] = k3;
                 }

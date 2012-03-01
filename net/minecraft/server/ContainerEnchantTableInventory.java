@@ -2,11 +2,11 @@ package net.minecraft.server;
 
 class ContainerEnchantTableInventory extends ContainerEnchantTableSubcontainer {
 
-    final ContainerEnchantTable a;
+    final ContainerEnchantTable enchantTable;
 
     ContainerEnchantTableInventory(ContainerEnchantTable containerenchanttable, String s, int i) {
         super(s, i);
-        this.a = containerenchanttable;
+        this.enchantTable = containerenchanttable;
     }
 
     public int getMaxStackSize() {
@@ -15,6 +15,6 @@ class ContainerEnchantTableInventory extends ContainerEnchantTableSubcontainer {
 
     public void update() {
         super.update();
-        this.a.a((IInventory) this);
+        this.enchantTable.a((IInventory) this);
     }
 }

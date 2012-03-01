@@ -6,7 +6,7 @@ public class ItemEnderEye extends Item {
         super(i);
     }
 
-    public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
+    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
         int i1 = world.getTypeId(i, j, k);
         int j1 = world.getData(i, j, k);
 

@@ -185,7 +185,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 }
 
                 float f4 = 0.0625F;
-                boolean flag = worldserver.a(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
+                boolean flag = worldserver.getCubes(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
 
                 if (this.player.onGround && !packet10flying.g && d6 > 0.0D) {
                     this.player.c(0.2F);
@@ -193,7 +193,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
                 this.player.move(d4, d6, d7);
                 this.player.onGround = packet10flying.g;
-                this.player.b(d4, d6, d7);
+                this.player.checkMovement(d4, d6, d7);
                 double d9 = d6;
 
                 d4 = d1 - this.player.locX;
@@ -214,7 +214,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 }
 
                 this.player.setLocation(d1, d2, d3, f2, f3);
-                boolean flag2 = worldserver.a(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
+                boolean flag2 = worldserver.getCubes(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
 
                 if (flag && (flag1 || !flag2) && !this.player.isSleeping()) {
                     this.a(this.x, this.y, this.z, f2, f3);
@@ -404,7 +404,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         this.disconnected = true;
     }
 
-    public void a(Packet packet) {
+    public void onUnhandledPacket(Packet packet) {
         logger.warning(this.getClass() + " wasn\'t prepared to deal with a " + packet.getClass());
         this.disconnect("Protocol error, unexpected packet");
     }
@@ -546,19 +546,19 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
     }
 
-    public void a(Packet101CloseWindow packet101closewindow) {
+    public void handleContainerClose(Packet101CloseWindow packet101closewindow) {
         this.player.E();
     }
 
     public void a(Packet102WindowClick packet102windowclick) {
         if (this.player.activeContainer.windowId == packet102windowclick.a && this.player.activeContainer.c(this.player)) {
-            ItemStack itemstack = this.player.activeContainer.a(packet102windowclick.b, packet102windowclick.c, packet102windowclick.f, this.player);
+            ItemStack itemstack = this.player.activeContainer.clickItem(packet102windowclick.slot, packet102windowclick.button, packet102windowclick.shift, this.player);
 
-            if (ItemStack.matches(packet102windowclick.e, itemstack)) {
+            if (ItemStack.matches(packet102windowclick.item, itemstack)) {
                 this.player.netServerHandler.sendPacket(new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, true));
                 this.player.h = true;
                 this.player.activeContainer.a();
-                this.player.D();
+                this.player.broadcastCarriedItem();
                 this.player.h = false;
             } else {
                 this.r.a(this.player.activeContainer.windowId, Short.valueOf(packet102windowclick.d));
@@ -584,28 +584,28 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void a(Packet107SetCreativeSlot packet107setcreativeslot) {
         if (this.player.itemInWorldManager.isCreative()) {
-            boolean flag = packet107setcreativeslot.a < 0;
+            boolean flag = packet107setcreativeslot.slot < 0;
             ItemStack itemstack = packet107setcreativeslot.b;
-            boolean flag1 = packet107setcreativeslot.a >= 36 && packet107setcreativeslot.a < 36 + PlayerInventory.getHotbarSize();
+            boolean flag1 = packet107setcreativeslot.slot >= 36 && packet107setcreativeslot.slot < 36 + PlayerInventory.getHotbarSize();
             boolean flag2 = itemstack == null || itemstack.id < Item.byId.length && itemstack.id >= 0 && Item.byId[itemstack.id] != null;
             boolean flag3 = itemstack == null || itemstack.getData() >= 0 && itemstack.getData() >= 0 && itemstack.count <= 64 && itemstack.count > 0;
 
             if (flag1 && flag2 && flag3) {
                 if (itemstack == null) {
-                    this.player.defaultContainer.a(packet107setcreativeslot.a, (ItemStack) null);
+                    this.player.defaultContainer.setItem(packet107setcreativeslot.slot, (ItemStack) null);
                 } else {
-                    this.player.defaultContainer.a(packet107setcreativeslot.a, itemstack);
+                    this.player.defaultContainer.setItem(packet107setcreativeslot.slot, itemstack);
                 }
 
                 this.player.defaultContainer.a(this.player, true);
             } else if (flag && flag2 && flag3) {
-                this.player.b(itemstack);
+                this.player.drop(itemstack);
             }
         }
     }
 
     public void a(Packet106Transaction packet106transaction) {
-        Short oshort = (Short) this.r.a(this.player.activeContainer.windowId);
+        Short oshort = (Short) this.r.get(this.player.activeContainer.windowId);
 
         if (oshort != null && packet106transaction.b == oshort.shortValue() && this.player.activeContainer.windowId == packet106transaction.a && !this.player.activeContainer.c(this.player)) {
             this.player.activeContainer.a(this.player, true);

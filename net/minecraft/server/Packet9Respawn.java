@@ -35,7 +35,7 @@ public class Packet9Respawn extends Packet {
         this.a = datainputstream.readLong();
         String s = a(datainputstream, 16);
 
-        this.f = WorldType.a(s);
+        this.f = WorldType.getType(s);
         if (this.f == null) {
             this.f = WorldType.NORMAL;
         }

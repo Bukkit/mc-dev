@@ -123,7 +123,7 @@ public class EntityPainting extends Entity {
     }
 
     public boolean survives() {
-        if (this.world.a((Entity) this, this.boundingBox).size() > 0) {
+        if (this.world.getCubes(this, this.boundingBox).size() > 0) {
             return false;
         } else {
             int i = this.art.B / 16;

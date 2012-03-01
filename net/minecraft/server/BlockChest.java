@@ -291,7 +291,7 @@ public class BlockChest extends BlockContainer {
             if (world.isStatic) {
                 return true;
             } else {
-                entityhuman.a((IInventory) object);
+                entityhuman.openContainer((IInventory) object);
                 return true;
             }
         }

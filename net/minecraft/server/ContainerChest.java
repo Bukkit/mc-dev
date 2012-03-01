@@ -2,11 +2,11 @@ package net.minecraft.server;
 
 public class ContainerChest extends Container {
 
-    private IInventory a;
+    private IInventory container;
     private int b;
 
     public ContainerChest(IInventory iinventory, IInventory iinventory1) {
-        this.a = iinventory1;
+        this.container = iinventory1;
         this.b = iinventory1.getSize() / 9;
         iinventory1.f();
         int i = (this.b - 4) * 18;
@@ -32,7 +32,7 @@ public class ContainerChest extends Container {
     }
 
     public boolean b(EntityHuman entityhuman) {
-        return this.a.a(entityhuman);
+        return this.container.a(entityhuman);
     }
 
     public ItemStack a(int i) {
@@ -52,7 +52,7 @@ public class ContainerChest extends Container {
             }
 
             if (itemstack1.count == 0) {
-                slot.c((ItemStack) null);
+                slot.set((ItemStack) null);
             } else {
                 slot.d();
             }
@@ -63,6 +63,6 @@ public class ContainerChest extends Container {
 
     public void a(EntityHuman entityhuman) {
         super.a(entityhuman);
-        this.a.g();
+        this.container.g();
     }
 }

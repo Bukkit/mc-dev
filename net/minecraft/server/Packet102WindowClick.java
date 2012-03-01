@@ -6,11 +6,11 @@ import java.io.DataOutputStream;
 public class Packet102WindowClick extends Packet {
 
     public int a;
-    public int b;
-    public int c;
+    public int slot;
+    public int button;
     public short d;
-    public ItemStack e;
-    public boolean f;
+    public ItemStack item;
+    public boolean shift;
 
     public Packet102WindowClick() {}
 
@@ -20,20 +20,20 @@ public class Packet102WindowClick extends Packet {
 
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readByte();
-        this.b = datainputstream.readShort();
-        this.c = datainputstream.readByte();
+        this.slot = datainputstream.readShort();
+        this.button = datainputstream.readByte();
         this.d = datainputstream.readShort();
-        this.f = datainputstream.readBoolean();
-        this.e = this.b(datainputstream);
+        this.shift = datainputstream.readBoolean();
+        this.item = this.b(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeByte(this.a);
-        dataoutputstream.writeShort(this.b);
-        dataoutputstream.writeByte(this.c);
+        dataoutputstream.writeShort(this.slot);
+        dataoutputstream.writeByte(this.button);
         dataoutputstream.writeShort(this.d);
-        dataoutputstream.writeBoolean(this.f);
-        this.a(this.e, dataoutputstream);
+        dataoutputstream.writeBoolean(this.shift);
+        this.a(this.item, dataoutputstream);
     }
 
     public int a() {

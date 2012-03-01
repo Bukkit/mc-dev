@@ -2,12 +2,12 @@ package net.minecraft.server;
 
 public class EnchantmentInstance extends WeightedRandomChoice {
 
-    public final Enchantment a;
-    public final int b;
+    public final Enchantment enchantment;
+    public final int level;
 
     public EnchantmentInstance(Enchantment enchantment, int i) {
         super(enchantment.getRandomWeight());
-        this.a = enchantment;
-        this.b = i;
+        this.enchantment = enchantment;
+        this.level = i;
     }
 }

@@ -18,7 +18,7 @@ public class GenLayerDownfallMix extends GenLayer {
         int[] aint2 = IntCache.a(k * l);
 
         for (int i1 = 0; i1 < k * l; ++i1) {
-            aint2[i1] = aint1[i1] + (BiomeBase.a[aint[i1]].e() - aint1[i1]) / (this.c + 1);
+            aint2[i1] = aint1[i1] + (BiomeBase.biomes[aint[i1]].e() - aint1[i1]) / (this.c + 1);
         }
 
         return aint2;

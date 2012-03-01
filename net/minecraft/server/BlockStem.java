@@ -4,11 +4,11 @@ import java.util.Random;
 
 public class BlockStem extends BlockFlower {
 
-    private Block a;
+    private Block blockFruit;
 
     protected BlockStem(int i, Block block) {
         super(i, 111);
-        this.a = block;
+        this.blockFruit = block;
         this.a(true);
         float f = 0.125F;
 
@@ -31,19 +31,19 @@ public class BlockStem extends BlockFlower {
                     ++l;
                     world.setData(i, j, k, l);
                 } else {
-                    if (world.getTypeId(i - 1, j, k) == this.a.id) {
+                    if (world.getTypeId(i - 1, j, k) == this.blockFruit.id) {
                         return;
                     }
 
-                    if (world.getTypeId(i + 1, j, k) == this.a.id) {
+                    if (world.getTypeId(i + 1, j, k) == this.blockFruit.id) {
                         return;
                     }
 
-                    if (world.getTypeId(i, j, k - 1) == this.a.id) {
+                    if (world.getTypeId(i, j, k - 1) == this.blockFruit.id) {
                         return;
                     }
 
-                    if (world.getTypeId(i, j, k + 1) == this.a.id) {
+                    if (world.getTypeId(i, j, k + 1) == this.blockFruit.id) {
                         return;
                     }
 
@@ -70,7 +70,7 @@ public class BlockStem extends BlockFlower {
                     int l1 = world.getTypeId(j1, j - 1, k1);
 
                     if (world.getTypeId(j1, j, k1) == 0 && (l1 == Block.SOIL.id || l1 == Block.DIRT.id || l1 == Block.GRASS.id)) {
-                        world.setTypeId(j1, j, k1, this.a.id);
+                        world.setTypeId(j1, j, k1, this.blockFruit.id);
                     }
                 }
             }
@@ -148,11 +148,11 @@ public class BlockStem extends BlockFlower {
         if (!world.isStatic) {
             Item item = null;
 
-            if (this.a == Block.PUMPKIN) {
+            if (this.blockFruit == Block.PUMPKIN) {
                 item = Item.PUMPKIN_SEEDS;
             }
 
-            if (this.a == Block.MELON) {
+            if (this.blockFruit == Block.MELON) {
                 item = Item.MELON_SEEDS;
             }
 

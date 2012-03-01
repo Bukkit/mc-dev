@@ -22,7 +22,7 @@ public class ItemStep extends ItemBlock {
         return super.getName() + "." + BlockStep.a[i];
     }
 
-    public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
+    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
         if (l != 1) {
             ;
         }
@@ -43,7 +43,7 @@ public class ItemStep extends ItemBlock {
 
                 return true;
             } else {
-                return super.a(itemstack, entityhuman, world, i, j, k, l);
+                return super.interactWith(itemstack, entityhuman, world, i, j, k, l);
             }
         }
     }

@@ -2,27 +2,27 @@ package net.minecraft.server;
 
 public class ShapedRecipes implements CraftingRecipe {
 
-    private int b;
-    private int c;
-    private ItemStack[] d;
-    private ItemStack e;
+    private int width;
+    private int height;
+    private ItemStack[] items;
+    private ItemStack result;
     public final int a;
 
     public ShapedRecipes(int i, int j, ItemStack[] aitemstack, ItemStack itemstack) {
         this.a = itemstack.id;
-        this.b = i;
-        this.c = j;
-        this.d = aitemstack;
-        this.e = itemstack;
+        this.width = i;
+        this.height = j;
+        this.items = aitemstack;
+        this.result = itemstack;
     }
 
     public ItemStack b() {
-        return this.e;
+        return this.result;
     }
 
     public boolean a(InventoryCrafting inventorycrafting) {
-        for (int i = 0; i <= 3 - this.b; ++i) {
-            for (int j = 0; j <= 3 - this.c; ++j) {
+        for (int i = 0; i <= 3 - this.width; ++i) {
+            for (int j = 0; j <= 3 - this.height; ++j) {
                 if (this.a(inventorycrafting, i, j, true)) {
                     return true;
                 }
@@ -43,11 +43,11 @@ public class ShapedRecipes implements CraftingRecipe {
                 int j1 = l - j;
                 ItemStack itemstack = null;
 
-                if (i1 >= 0 && j1 >= 0 && i1 < this.b && j1 < this.c) {
+                if (i1 >= 0 && j1 >= 0 && i1 < this.width && j1 < this.height) {
                     if (flag) {
-                        itemstack = this.d[this.b - i1 - 1 + j1 * this.b];
+                        itemstack = this.items[this.width - i1 - 1 + j1 * this.width];
                     } else {
-                        itemstack = this.d[i1 + j1 * this.b];
+                        itemstack = this.items[i1 + j1 * this.width];
                     }
                 }
 
@@ -73,10 +73,10 @@ public class ShapedRecipes implements CraftingRecipe {
     }
 
     public ItemStack b(InventoryCrafting inventorycrafting) {
-        return new ItemStack(this.e.id, this.e.count, this.e.getData());
+        return new ItemStack(this.result.id, this.result.count, this.result.getData());
     }
 
     public int a() {
-        return this.b * this.c;
+        return this.width * this.height;
     }
 }

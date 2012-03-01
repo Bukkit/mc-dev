@@ -15,7 +15,7 @@ public class BlockWorkbench extends Block {
         if (world.isStatic) {
             return true;
         } else {
-            entityhuman.b(i, j, k);
+            entityhuman.startCrafting(i, j, k);
             return true;
         }
     }

@@ -11,7 +11,7 @@ public enum WorldType {
         this.c = s1;
     }
 
-    public static WorldType a(String s) {
+    public static WorldType getType(String s) {
         WorldType[] aworldtype = values();
         int i = aworldtype.length;
 

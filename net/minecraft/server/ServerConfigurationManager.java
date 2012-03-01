@@ -87,7 +87,7 @@ public class ServerConfigurationManager {
 
         worldserver.chunkProviderServer.getChunkAt((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
 
-        while (worldserver.a(entityplayer, entityplayer.boundingBox).size() != 0) {
+        while (worldserver.getCubes(entityplayer, entityplayer.boundingBox).size() != 0) {
             entityplayer.setPosition(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
         }
 
@@ -171,7 +171,7 @@ public class ServerConfigurationManager {
 
             if (chunkcoordinates1 != null) {
                 entityplayer1.setPositionRotation((double) ((float) chunkcoordinates1.x + 0.5F), (double) ((float) chunkcoordinates1.y + 0.1F), (double) ((float) chunkcoordinates1.z + 0.5F), 0.0F, 0.0F);
-                entityplayer1.a(chunkcoordinates);
+                entityplayer1.setRespawnPosition(chunkcoordinates);
             } else {
                 entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0, 0));
             }
@@ -179,7 +179,7 @@ public class ServerConfigurationManager {
 
         worldserver.chunkProviderServer.getChunkAt((int) entityplayer1.locX >> 4, (int) entityplayer1.locZ >> 4);
 
-        while (worldserver.a(entityplayer1, entityplayer1.boundingBox).size() != 0) {
+        while (worldserver.getCubes(entityplayer1, entityplayer1.boundingBox).size() != 0) {
             entityplayer1.setPosition(entityplayer1.locX, entityplayer1.locY + 1.0D, entityplayer1.locZ);
         }
 

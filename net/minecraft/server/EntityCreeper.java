@@ -107,9 +107,9 @@ public class EntityCreeper extends EntityMonster {
                 ++this.fuseTicks;
                 if (this.fuseTicks >= 30) {
                     if (this.isPowered()) {
-                        this.world.a(this, this.locX, this.locY, this.locZ, 6.0F);
+                        this.world.explode(this, this.locX, this.locY, this.locZ, 6.0F);
                     } else {
-                        this.world.a(this, this.locX, this.locY, this.locZ, 3.0F);
+                        this.world.explode(this, this.locX, this.locY, this.locZ, 3.0F);
                     }
 
                     this.die();

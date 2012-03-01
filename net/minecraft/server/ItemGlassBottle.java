@@ -32,7 +32,7 @@ public class ItemGlassBottle extends Item {
                     }
 
                     if (!entityhuman.inventory.pickup(new ItemStack(Item.POTION))) {
-                        entityhuman.b(new ItemStack(Item.POTION.id, 1, 0));
+                        entityhuman.drop(new ItemStack(Item.POTION.id, 1, 0));
                     }
                 }
             }

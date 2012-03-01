@@ -232,7 +232,7 @@ public class PotionBrewer {
         }
     }
 
-    public static List a(int i, boolean flag) {
+    public static List getEffects(int i, boolean flag) {
         ArrayList arraylist = null;
         MobEffectList[] amobeffectlist = MobEffectList.byId;
         int j = amobeffectlist.length;
@@ -257,12 +257,12 @@ public class PotionBrewer {
                             }
                         }
 
-                        if (mobeffectlist.b()) {
+                        if (mobeffectlist.isInstant()) {
                             l = 1;
                         } else {
                             l = 1200 * (l * 3 + (l - 1) * 2);
                             l >>= i1;
-                            l = (int) Math.round((double) l * mobeffectlist.d());
+                            l = (int) Math.round((double) l * mobeffectlist.getDurationModifier());
                             if ((i & 16384) != 0) {
                                 l = (int) Math.round((double) l * 0.75D + 0.5D);
                             }

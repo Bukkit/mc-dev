@@ -15,7 +15,7 @@ public class ContainerPlayer extends Container {
         this.resultInventory = new InventoryCraftResult();
         this.c = false;
         this.c = flag;
-        this.a((Slot) (new SlotResult(playerinventory.d, this.craftInventory, this.resultInventory, 0, 144, 36)));
+        this.a((Slot) (new SlotResult(playerinventory.player, this.craftInventory, this.resultInventory, 0, 144, 36)));
 
         int i;
         int j;
@@ -54,7 +54,7 @@ public class ContainerPlayer extends Container {
             ItemStack itemstack = this.craftInventory.getItem(i);
 
             if (itemstack != null) {
-                entityhuman.b(itemstack);
+                entityhuman.drop(itemstack);
                 this.craftInventory.setItem(i, (ItemStack) null);
             }
         }
@@ -89,7 +89,7 @@ public class ContainerPlayer extends Container {
             }
 
             if (itemstack1.count == 0) {
-                slot.c((ItemStack) null);
+                slot.set((ItemStack) null);
             } else {
                 slot.d();
             }

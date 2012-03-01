@@ -12,7 +12,7 @@ public class GenLayerTemperature extends GenLayer {
         int[] aint1 = IntCache.a(k * l);
 
         for (int i1 = 0; i1 < k * l; ++i1) {
-            aint1[i1] = BiomeBase.a[aint[i1]].f();
+            aint1[i1] = BiomeBase.biomes[aint[i1]].f();
         }
 
         return aint1;

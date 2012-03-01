@@ -62,7 +62,7 @@ public class BlockFurnace extends BlockContainer {
             TileEntityFurnace tileentityfurnace = (TileEntityFurnace) world.getTileEntity(i, j, k);
 
             if (tileentityfurnace != null) {
-                entityhuman.a(tileentityfurnace);
+                entityhuman.openFurnace(tileentityfurnace);
             }
 
             return true;

@@ -66,7 +66,7 @@ public class EntityTNTPrimed extends Entity {
     private void explode() {
         float f = 4.0F;
 
-        this.world.a((Entity) null, this.locX, this.locY, this.locZ, f);
+        this.world.explode((Entity) null, this.locX, this.locY, this.locZ, f);
     }
 
     protected void b(NBTTagCompound nbttagcompound) {

@@ -19,16 +19,16 @@ public class GenLayerRegionHills extends GenLayer {
                 if (this.a(3) == 0) {
                     int l1 = k1;
 
-                    if (k1 == BiomeBase.DESERT.K) {
-                        l1 = BiomeBase.DESERT_HILLS.K;
-                    } else if (k1 == BiomeBase.FOREST.K) {
-                        l1 = BiomeBase.FOREST_HILLS.K;
-                    } else if (k1 == BiomeBase.TAIGA.K) {
-                        l1 = BiomeBase.TAIGA_HILLS.K;
-                    } else if (k1 == BiomeBase.PLAINS.K) {
-                        l1 = BiomeBase.FOREST.K;
-                    } else if (k1 == BiomeBase.ICE_PLAINS.K) {
-                        l1 = BiomeBase.ICE_MOUNTAINS.K;
+                    if (k1 == BiomeBase.DESERT.id) {
+                        l1 = BiomeBase.DESERT_HILLS.id;
+                    } else if (k1 == BiomeBase.FOREST.id) {
+                        l1 = BiomeBase.FOREST_HILLS.id;
+                    } else if (k1 == BiomeBase.TAIGA.id) {
+                        l1 = BiomeBase.TAIGA_HILLS.id;
+                    } else if (k1 == BiomeBase.PLAINS.id) {
+                        l1 = BiomeBase.FOREST.id;
+                    } else if (k1 == BiomeBase.ICE_PLAINS.id) {
+                        l1 = BiomeBase.ICE_MOUNTAINS.id;
                     }
 
                     if (l1 != k1) {

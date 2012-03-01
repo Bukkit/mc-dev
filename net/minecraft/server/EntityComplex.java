@@ -20,7 +20,7 @@ public class EntityComplex extends EntityLiving {
         return false;
     }
 
-    protected boolean e(DamageSource damagesource, int i) {
+    protected boolean dealDamage(DamageSource damagesource, int i) {
         return super.damageEntity(damagesource, i);
     }
 }

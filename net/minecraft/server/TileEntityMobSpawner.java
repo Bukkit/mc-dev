@@ -67,7 +67,7 @@ public class TileEntityMobSpawner extends TileEntity {
                         entityliving.setPositionRotation(d3, d4, d5, this.world.random.nextFloat() * 360.0F, 0.0F);
                         if (entityliving.canSpawn()) {
                             this.world.addEntity(entityliving);
-                            this.world.f(2004, this.x, this.y, this.z, 0);
+                            this.world.triggerEffect(2004, this.x, this.y, this.z, 0);
                             entityliving.ao();
                             this.e();
                         }

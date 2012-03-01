@@ -6,7 +6,7 @@ public class ItemRedstone extends Item {
         super(i);
     }
 
-    public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
+    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
         if (world.getTypeId(i, j, k) != Block.SNOW.id) {
             if (l == 0) {
                 --j;

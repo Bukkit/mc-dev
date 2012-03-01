@@ -40,7 +40,7 @@ public abstract class Packet {
 
     public static Packet a(int i) {
         try {
-            Class oclass = (Class) j.a(i);
+            Class oclass = (Class) j.get(i);
 
             return oclass == null ? null : (Packet) oclass.newInstance();
         } catch (Exception exception) {

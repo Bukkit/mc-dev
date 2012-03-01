@@ -46,7 +46,7 @@ public class BlockBrewingStand extends BlockContainer {
             TileEntityBrewingStand tileentitybrewingstand = (TileEntityBrewingStand) world.getTileEntity(i, j, k);
 
             if (tileentitybrewingstand != null) {
-                entityhuman.a(tileentitybrewingstand);
+                entityhuman.openBrewingStand(tileentitybrewingstand);
             }
 
             return true;

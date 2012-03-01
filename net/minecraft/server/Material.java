@@ -91,7 +91,7 @@ public class Material {
         return this.H ? false : this.isSolid();
     }
 
-    public boolean k() {
+    public boolean isAlwaysDestroyable() {
         return this.I;
     }
 

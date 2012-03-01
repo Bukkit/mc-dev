@@ -96,7 +96,7 @@ public class EntitySilverfish extends EntityMonster {
                                 int k1 = this.world.getTypeId(i + i1, j + l, k + j1);
 
                                 if (k1 == Block.MONSTER_EGGS.id) {
-                                    this.world.f(2001, i + i1, j + l, k + j1, Block.MONSTER_EGGS.id + this.world.getData(i + i1, j + l, k + j1) * 256);
+                                    this.world.triggerEffect(2001, i + i1, j + l, k + j1, Block.MONSTER_EGGS.id + this.world.getData(i + i1, j + l, k + j1) * 256);
                                     this.world.setTypeId(i + i1, j + l, k + j1, 0);
                                     Block.MONSTER_EGGS.postBreak(this.world, i + i1, j + l, k + j1, 0);
                                     if (this.random.nextBoolean()) {

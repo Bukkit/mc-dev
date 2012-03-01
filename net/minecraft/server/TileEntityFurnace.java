@@ -80,7 +80,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
                 nbttagcompound1.setByte("Slot", (byte) i);
-                this.items[i].b(nbttagcompound1);
+                this.items[i].save(nbttagcompound1);
                 nbttaglist.add(nbttagcompound1);
             }
         }
@@ -144,7 +144,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         if (this.items[0] == null) {
             return false;
         } else {
-            ItemStack itemstack = FurnaceRecipes.getInstance().a(this.items[0].getItem().id);
+            ItemStack itemstack = FurnaceRecipes.getInstance().getResult(this.items[0].getItem().id);
 
             return itemstack == null ? false : (this.items[2] == null ? true : (!this.items[2].doMaterialsMatch(itemstack) ? false : (this.items[2].count < this.getMaxStackSize() && this.items[2].count < this.items[2].getMaxStackSize() ? true : this.items[2].count < itemstack.getMaxStackSize())));
         }
@@ -152,7 +152,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
     public void burn() {
         if (this.canBurn()) {
-            ItemStack itemstack = FurnaceRecipes.getInstance().a(this.items[0].getItem().id);
+            ItemStack itemstack = FurnaceRecipes.getInstance().getResult(this.items[0].getItem().id);
 
             if (this.items[2] == null) {
                 this.items[2] = itemstack.cloneItemStack();

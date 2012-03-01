@@ -23,7 +23,7 @@ public class IntHashMap {
         return i & j - 1;
     }
 
-    public Object a(int i) {
+    public Object get(int i) {
         int j = g(i);
 
         for (IntHashMapEntry inthashmapentry = this.a[a(j, this.a.length)]; inthashmapentry != null; inthashmapentry = inthashmapentry.c) {

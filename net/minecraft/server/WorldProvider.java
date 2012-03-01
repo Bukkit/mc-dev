@@ -40,7 +40,7 @@ public abstract class WorldProvider {
     }
 
     public IChunkProvider getChunkProvider() {
-        return (IChunkProvider) (this.type == WorldType.FLAT ? new ChunkProviderFlat(this.a, this.a.getSeed(), this.a.getWorldData().o()) : new ChunkProviderGenerate(this.a, this.a.getSeed(), this.a.getWorldData().o()));
+        return (IChunkProvider) (this.type == WorldType.FLAT ? new ChunkProviderFlat(this.a, this.a.getSeed(), this.a.getWorldData().shouldGenerateMapFeatures()) : new ChunkProviderGenerate(this.a, this.a.getSeed(), this.a.getWorldData().shouldGenerateMapFeatures()));
     }
 
     public boolean canSpawn(int i, int j) {

@@ -33,7 +33,7 @@ public class EntityPotion extends EntityProjectile {
         return -20.0F;
     }
 
-    public int f() {
+    public int getPotionValue() {
         return this.d;
     }
 
@@ -65,8 +65,8 @@ public class EntityPotion extends EntityProjectile {
                                 MobEffect mobeffect = (MobEffect) iterator1.next();
                                 int i = mobeffect.getEffectId();
 
-                                if (MobEffectList.byId[i].b()) {
-                                    MobEffectList.byId[i].a(this.shooter, (EntityLiving) entity, mobeffect.getAmplifier(), d1);
+                                if (MobEffectList.byId[i].isInstant()) {
+                                    MobEffectList.byId[i].applyInstantEffect(this.shooter, (EntityLiving) entity, mobeffect.getAmplifier(), d1);
                                 } else {
                                     int j = (int) (d1 * (double) mobeffect.getDuration() + 0.5D);
 
@@ -80,7 +80,7 @@ public class EntityPotion extends EntityProjectile {
                 }
             }
 
-            this.world.f(2002, (int) Math.round(this.locX), (int) Math.round(this.locY), (int) Math.round(this.locZ), this.d);
+            this.world.triggerEffect(2002, (int) Math.round(this.locX), (int) Math.round(this.locY), (int) Math.round(this.locZ), this.d);
             this.die();
         }
     }

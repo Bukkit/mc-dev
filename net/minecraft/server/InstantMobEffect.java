@@ -6,7 +6,7 @@ public class InstantMobEffect extends MobEffectList {
         super(i, flag, j);
     }
 
-    public boolean b() {
+    public boolean isInstant() {
         return true;
     }
 

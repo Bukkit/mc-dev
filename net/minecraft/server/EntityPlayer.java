@@ -20,7 +20,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     private int lastSentExp = -99999999;
     private int invulnerableTicks = 60;
     private ItemStack[] ck = new ItemStack[] { null, null, null, null, null};
-    private int cl = 0;
+    private int containerCounter = 0;
     public boolean h;
     public int ping;
     public boolean viewingCredits = false;
@@ -69,7 +69,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void syncInventory() {
-        this.activeContainer.a((ICrafting) this);
+        this.activeContainer.addSlotListener(this);
     }
 
     public ItemStack[] getEquipment() {
@@ -80,7 +80,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.height = 0.0F;
     }
 
-    public float y() {
+    public float getHeadHeight() {
         return 1.62F;
     }
 
@@ -342,60 +342,60 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         super.a(d0, flag);
     }
 
-    private void aS() {
-        this.cl = this.cl % 100 + 1;
+    private void nextContainerCounter() {
+        this.containerCounter = this.containerCounter % 100 + 1;
     }
 
-    public void b(int i, int j, int k) {
-        this.aS();
-        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.cl, 1, "Crafting", 9));
+    public void startCrafting(int i, int j, int k) {
+        this.nextContainerCounter();
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.containerCounter, 1, "Crafting", 9));
         this.activeContainer = new ContainerWorkbench(this.inventory, this.world, i, j, k);
-        this.activeContainer.windowId = this.cl;
-        this.activeContainer.a((ICrafting) this);
+        this.activeContainer.windowId = this.containerCounter;
+        this.activeContainer.addSlotListener(this);
     }
 
-    public void c(int i, int j, int k) {
-        this.aS();
-        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.cl, 4, "Enchanting", 9));
+    public void startEnchanting(int i, int j, int k) {
+        this.nextContainerCounter();
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.containerCounter, 4, "Enchanting", 9));
         this.activeContainer = new ContainerEnchantTable(this.inventory, this.world, i, j, k);
-        this.activeContainer.windowId = this.cl;
-        this.activeContainer.a((ICrafting) this);
+        this.activeContainer.windowId = this.containerCounter;
+        this.activeContainer.addSlotListener(this);
     }
 
-    public void a(IInventory iinventory) {
-        this.aS();
-        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.cl, 0, iinventory.getName(), iinventory.getSize()));
+    public void openContainer(IInventory iinventory) {
+        this.nextContainerCounter();
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.containerCounter, 0, iinventory.getName(), iinventory.getSize()));
         this.activeContainer = new ContainerChest(this.inventory, iinventory);
-        this.activeContainer.windowId = this.cl;
-        this.activeContainer.a((ICrafting) this);
+        this.activeContainer.windowId = this.containerCounter;
+        this.activeContainer.addSlotListener(this);
     }
 
-    public void a(TileEntityFurnace tileentityfurnace) {
-        this.aS();
-        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.cl, 2, tileentityfurnace.getName(), tileentityfurnace.getSize()));
+    public void openFurnace(TileEntityFurnace tileentityfurnace) {
+        this.nextContainerCounter();
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.containerCounter, 2, tileentityfurnace.getName(), tileentityfurnace.getSize()));
         this.activeContainer = new ContainerFurnace(this.inventory, tileentityfurnace);
-        this.activeContainer.windowId = this.cl;
-        this.activeContainer.a((ICrafting) this);
+        this.activeContainer.windowId = this.containerCounter;
+        this.activeContainer.addSlotListener(this);
     }
 
-    public void a(TileEntityDispenser tileentitydispenser) {
-        this.aS();
-        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.cl, 3, tileentitydispenser.getName(), tileentitydispenser.getSize()));
+    public void openDispenser(TileEntityDispenser tileentitydispenser) {
+        this.nextContainerCounter();
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.containerCounter, 3, tileentitydispenser.getName(), tileentitydispenser.getSize()));
         this.activeContainer = new ContainerDispenser(this.inventory, tileentitydispenser);
-        this.activeContainer.windowId = this.cl;
-        this.activeContainer.a((ICrafting) this);
+        this.activeContainer.windowId = this.containerCounter;
+        this.activeContainer.addSlotListener(this);
     }
 
-    public void a(TileEntityBrewingStand tileentitybrewingstand) {
-        this.aS();
-        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.cl, 5, tileentitybrewingstand.getName(), tileentitybrewingstand.getSize()));
+    public void openBrewingStand(TileEntityBrewingStand tileentitybrewingstand) {
+        this.nextContainerCounter();
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.containerCounter, 5, tileentitybrewingstand.getName(), tileentitybrewingstand.getSize()));
         this.activeContainer = new ContainerBrewingStand(this.inventory, tileentitybrewingstand);
-        this.activeContainer.windowId = this.cl;
-        this.activeContainer.a((ICrafting) this);
+        this.activeContainer.windowId = this.containerCounter;
+        this.activeContainer.addSlotListener(this);
     }
 
     public void a(Container container, int i, ItemStack itemstack) {
-        if (!(container.b(i) instanceof SlotResult)) {
+        if (!(container.getSlot(i) instanceof SlotResult)) {
             if (!this.h) {
                 this.netServerHandler.sendPacket(new Packet103SetSlot(container.windowId, i, itemstack));
             }
@@ -408,23 +408,23 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(Container container, List list) {
         this.netServerHandler.sendPacket(new Packet104WindowItems(container.windowId, list));
-        this.netServerHandler.sendPacket(new Packet103SetSlot(-1, -1, this.inventory.l()));
+        this.netServerHandler.sendPacket(new Packet103SetSlot(-1, -1, this.inventory.getCarried()));
     }
 
-    public void a(Container container, int i, int j) {
+    public void setContainerData(Container container, int i, int j) {
         this.netServerHandler.sendPacket(new Packet105CraftProgressBar(container.windowId, i, j));
     }
 
-    public void a(ItemStack itemstack) {}
+    public void carriedChanged(ItemStack itemstack) {}
 
     public void closeInventory() {
         this.netServerHandler.sendPacket(new Packet101CloseWindow(this.activeContainer.windowId));
         this.E();
     }
 
-    public void D() {
+    public void broadcastCarriedItem() {
         if (!this.h) {
-            this.netServerHandler.sendPacket(new Packet103SetSlot(-1, -1, this.inventory.l()));
+            this.netServerHandler.sendPacket(new Packet103SetSlot(-1, -1, this.inventory.getCarried()));
         }
     }
 

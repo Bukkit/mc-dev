@@ -6,7 +6,7 @@ import java.util.Random;
 
 public abstract class BiomeBase {
 
-    public static final BiomeBase[] a = new BiomeBase[256];
+    public static final BiomeBase[] biomes = new BiomeBase[256];
     public static final BiomeBase OCEAN = (new BiomeOcean(0)).b(112).a("Ocean").b(-1.0F, 0.4F);
     public static final BiomeBase PLAINS = (new BiomePlains(1)).b(9286496).a("Plains").a(0.8F, 0.4F);
     public static final BiomeBase DESERT = (new BiomeDesert(2)).b(16421912).a("Desert").g().a(2.0F, 0.0F).b(0.1F, 0.2F);
@@ -44,7 +44,7 @@ public abstract class BiomeBase {
     protected List J;
     private boolean P;
     private boolean Q;
-    public final int K;
+    public final int id;
     protected WorldGenTrees L;
     protected WorldGenBigTree M;
     protected WorldGenForest N;
@@ -67,8 +67,8 @@ public abstract class BiomeBase {
         this.M = new WorldGenBigTree(false);
         this.N = new WorldGenForest(false);
         this.O = new WorldGenSwampTree();
-        this.K = i;
-        a[i] = this;
+        this.id = i;
+        biomes[i] = this;
         this.G = this.a();
         this.I.add(new BiomeMeta(EntitySheep.class, 12, 4, 4));
         this.I.add(new BiomeMeta(EntityPig.class, 10, 4, 4));

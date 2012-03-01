@@ -6,20 +6,20 @@ import java.util.List;
 
 public class ShapelessRecipes implements CraftingRecipe {
 
-    private final ItemStack a;
-    private final List b;
+    private final ItemStack result;
+    private final List ingredients;
 
     public ShapelessRecipes(ItemStack itemstack, List list) {
-        this.a = itemstack;
-        this.b = list;
+        this.result = itemstack;
+        this.ingredients = list;
     }
 
     public ItemStack b() {
-        return this.a;
+        return this.result;
     }
 
     public boolean a(InventoryCrafting inventorycrafting) {
-        ArrayList arraylist = new ArrayList(this.b);
+        ArrayList arraylist = new ArrayList(this.ingredients);
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
@@ -50,10 +50,10 @@ public class ShapelessRecipes implements CraftingRecipe {
     }
 
     public ItemStack b(InventoryCrafting inventorycrafting) {
-        return this.a.cloneItemStack();
+        return this.result.cloneItemStack();
     }
 
     public int a() {
-        return this.b.size();
+        return this.ingredients.size();
     }
 }

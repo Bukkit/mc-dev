@@ -22,7 +22,7 @@ public abstract class Container {
         this.d.add(null);
     }
 
-    public void a(ICrafting icrafting) {
+    public void addSlotListener(ICrafting icrafting) {
         if (this.listeners.contains(icrafting)) {
             throw new IllegalArgumentException("Listener already listening");
         } else {
@@ -74,7 +74,7 @@ public abstract class Container {
         return null;
     }
 
-    public Slot b(int i) {
+    public Slot getSlot(int i) {
         return (Slot) this.e.get(i);
     }
 
@@ -84,7 +84,7 @@ public abstract class Container {
         return slot != null ? slot.getItem() : null;
     }
 
-    public ItemStack a(int i, int j, boolean flag, EntityHuman entityhuman) {
+    public ItemStack clickItem(int i, int j, boolean flag, EntityHuman entityhuman) {
         ItemStack itemstack = null;
 
         if (j > 1) {
@@ -94,16 +94,16 @@ public abstract class Container {
                 PlayerInventory playerinventory = entityhuman.inventory;
 
                 if (i == -999) {
-                    if (playerinventory.l() != null && i == -999) {
+                    if (playerinventory.getCarried() != null && i == -999) {
                         if (j == 0) {
-                            entityhuman.b(playerinventory.l());
-                            playerinventory.b((ItemStack) null);
+                            entityhuman.drop(playerinventory.getCarried());
+                            playerinventory.setCarried((ItemStack) null);
                         }
 
                         if (j == 1) {
-                            entityhuman.b(playerinventory.l().a(1));
-                            if (playerinventory.l().count == 0) {
-                                playerinventory.b((ItemStack) null);
+                            entityhuman.drop(playerinventory.getCarried().a(1));
+                            if (playerinventory.getCarried().count == 0) {
+                                playerinventory.setCarried((ItemStack) null);
                             }
                         }
                     }
@@ -130,7 +130,7 @@ public abstract class Container {
                     if (slot1 != null) {
                         slot1.d();
                         ItemStack itemstack2 = slot1.getItem();
-                        ItemStack itemstack3 = playerinventory.l();
+                        ItemStack itemstack3 = playerinventory.getCarried();
 
                         if (itemstack2 != null) {
                             itemstack = itemstack2.cloneItemStack();
@@ -145,21 +145,21 @@ public abstract class Container {
                                     l = slot1.a();
                                 }
 
-                                slot1.c(itemstack3.a(l));
+                                slot1.set(itemstack3.a(l));
                                 if (itemstack3.count == 0) {
-                                    playerinventory.b((ItemStack) null);
+                                    playerinventory.setCarried((ItemStack) null);
                                 }
                             }
                         } else if (itemstack3 == null) {
                             l = j == 0 ? itemstack2.count : (itemstack2.count + 1) / 2;
                             ItemStack itemstack4 = slot1.a(l);
 
-                            playerinventory.b(itemstack4);
+                            playerinventory.setCarried(itemstack4);
                             if (itemstack2.count == 0) {
-                                slot1.c((ItemStack) null);
+                                slot1.set((ItemStack) null);
                             }
 
-                            slot1.b(playerinventory.l());
+                            slot1.b(playerinventory.getCarried());
                         } else if (slot1.isAllowed(itemstack3)) {
                             if (itemstack2.id == itemstack3.id && (!itemstack2.usesData() || itemstack2.getData() == itemstack3.getData()) && ItemStack.equals(itemstack2, itemstack3)) {
                                 l = j == 0 ? itemstack3.count : 1;
@@ -173,13 +173,13 @@ public abstract class Container {
 
                                 itemstack3.a(l);
                                 if (itemstack3.count == 0) {
-                                    playerinventory.b((ItemStack) null);
+                                    playerinventory.setCarried((ItemStack) null);
                                 }
 
                                 itemstack2.count += l;
                             } else if (itemstack3.count <= slot1.a()) {
-                                slot1.c(itemstack3);
-                                playerinventory.b(itemstack2);
+                                slot1.set(itemstack3);
+                                playerinventory.setCarried(itemstack2);
                             }
                         } else if (itemstack2.id == itemstack3.id && itemstack3.getMaxStackSize() > 1 && (!itemstack2.usesData() || itemstack2.getData() == itemstack3.getData()) && ItemStack.equals(itemstack2, itemstack3)) {
                             l = itemstack2.count;
@@ -187,10 +187,10 @@ public abstract class Container {
                                 itemstack3.count += l;
                                 itemstack2.a(l);
                                 if (itemstack2.count == 0) {
-                                    slot1.c((ItemStack) null);
+                                    slot1.set((ItemStack) null);
                                 }
 
-                                slot1.b(playerinventory.l());
+                                slot1.b(playerinventory.getCarried());
                             }
                         }
                     }
@@ -202,15 +202,15 @@ public abstract class Container {
     }
 
     protected void b(int i, int j, boolean flag, EntityHuman entityhuman) {
-        this.a(i, j, flag, entityhuman);
+        this.clickItem(i, j, flag, entityhuman);
     }
 
     public void a(EntityHuman entityhuman) {
         PlayerInventory playerinventory = entityhuman.inventory;
 
-        if (playerinventory.l() != null) {
-            entityhuman.b(playerinventory.l());
-            playerinventory.b((ItemStack) null);
+        if (playerinventory.getCarried() != null) {
+            entityhuman.drop(playerinventory.getCarried());
+            playerinventory.setCarried((ItemStack) null);
         }
     }
 
@@ -218,8 +218,8 @@ public abstract class Container {
         this.a();
     }
 
-    public void a(int i, ItemStack itemstack) {
-        this.b(i).c(itemstack);
+    public void setItem(int i, ItemStack itemstack) {
+        this.getSlot(i).set(itemstack);
     }
 
     public boolean c(EntityHuman entityhuman) {
@@ -286,7 +286,7 @@ public abstract class Container {
                 slot = (Slot) this.e.get(k);
                 itemstack1 = slot.getItem();
                 if (itemstack1 == null) {
-                    slot.c(itemstack.cloneItemStack());
+                    slot.set(itemstack.cloneItemStack());
                     slot.d();
                     itemstack.count = 0;
                     flag1 = true;

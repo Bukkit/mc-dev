@@ -25,7 +25,7 @@ public abstract class EntityProjectile extends Entity {
         super(world);
         this.shooter = entityliving;
         this.b(0.25F, 0.25F);
-        this.setPositionRotation(entityliving.locX, entityliving.locY + (double) entityliving.y(), entityliving.locZ, entityliving.yaw, entityliving.pitch);
+        this.setPositionRotation(entityliving.locX, entityliving.locY + (double) entityliving.getHeadHeight(), entityliving.locZ, entityliving.yaw, entityliving.pitch);
         this.locX -= (double) (MathHelper.cos(this.yaw / 180.0F * 3.1415927F) * 0.16F);
         this.locY -= 0.10000000149011612D;
         this.locZ -= (double) (MathHelper.sin(this.yaw / 180.0F * 3.1415927F) * 0.16F);
@@ -115,7 +115,7 @@ public abstract class EntityProjectile extends Entity {
         vec3d = Vec3D.create(this.locX, this.locY, this.locZ);
         vec3d1 = Vec3D.create(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
         if (movingobjectposition != null) {
-            vec3d1 = Vec3D.create(movingobjectposition.f.a, movingobjectposition.f.b, movingobjectposition.f.c);
+            vec3d1 = Vec3D.create(movingobjectposition.pos.a, movingobjectposition.pos.b, movingobjectposition.pos.c);
         }
 
         if (!this.world.isStatic) {
@@ -132,7 +132,7 @@ public abstract class EntityProjectile extends Entity {
                     MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
 
                     if (movingobjectposition1 != null) {
-                        double d1 = vec3d.b(movingobjectposition1.f);
+                        double d1 = vec3d.b(movingobjectposition1.pos);
 
                         if (d1 < d0 || d0 == 0.0D) {
                             entity = entity1;

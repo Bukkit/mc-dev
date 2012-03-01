@@ -98,7 +98,7 @@ public class EntityItem extends Entity {
     public void b(NBTTagCompound nbttagcompound) {
         nbttagcompound.setShort("Health", (short) ((byte) this.f));
         nbttagcompound.setShort("Age", (short) this.age);
-        nbttagcompound.setCompound("Item", this.itemStack.b(new NBTTagCompound()));
+        nbttagcompound.setCompound("Item", this.itemStack.save(new NBTTagCompound()));
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -143,6 +143,6 @@ public class EntityItem extends Entity {
     }
 
     public String getLocalizedName() {
-        return LocaleI18n.a("item." + this.itemStack.k());
+        return LocaleI18n.get("item." + this.itemStack.k());
     }
 }

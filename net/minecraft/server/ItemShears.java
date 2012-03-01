@@ -17,7 +17,7 @@ public class ItemShears extends Item {
         }
     }
 
-    public boolean a(Block block) {
+    public boolean canDestroySpecialBlock(Block block) {
         return block.id == Block.WEB.id;
     }
 

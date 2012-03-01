@@ -147,7 +147,7 @@ public class Pathfinder {
 
     private final PathPoint a(int i, int j, int k) {
         int l = PathPoint.a(i, j, k);
-        PathPoint pathpoint = (PathPoint) this.c.a(l);
+        PathPoint pathpoint = (PathPoint) this.c.get(l);
 
         if (pathpoint == null) {
             pathpoint = new PathPoint(i, j, k);

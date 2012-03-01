@@ -51,7 +51,7 @@ public class SlotResult extends Slot {
                         if (this.a.getItem(i) == null) {
                             this.a.setItem(i, itemstack2);
                         } else {
-                            this.f.b(itemstack2);
+                            this.f.drop(itemstack2);
                         }
                     }
                 }

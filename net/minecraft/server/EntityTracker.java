@@ -29,7 +29,7 @@ public class EntityTracker {
                 EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
 
                 if (entitytrackerentry.tracker != entityplayer) {
-                    entitytrackerentry.b(entityplayer);
+                    entitytrackerentry.updatePlayer(entityplayer);
                 }
             }
         } else if (entity instanceof EntityFishingHook) {
@@ -136,14 +136,14 @@ public class EntityTracker {
                 EntityTrackerEntry entitytrackerentry1 = (EntityTrackerEntry) iterator1.next();
 
                 if (entitytrackerentry1.tracker != entityplayer) {
-                    entitytrackerentry1.b(entityplayer);
+                    entitytrackerentry1.updatePlayer(entityplayer);
                 }
             }
         }
     }
 
     public void a(Entity entity, Packet packet) {
-        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.trackedEntities.a(entity.id);
+        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.trackedEntities.get(entity.id);
 
         if (entitytrackerentry != null) {
             entitytrackerentry.broadcast(packet);
@@ -151,7 +151,7 @@ public class EntityTracker {
     }
 
     public void sendPacketToEntity(Entity entity, Packet packet) {
-        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.trackedEntities.a(entity.id);
+        EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) this.trackedEntities.get(entity.id);
 
         if (entitytrackerentry != null) {
             entitytrackerentry.broadcastIncludingSelf(packet);
@@ -164,7 +164,7 @@ public class EntityTracker {
         while (iterator.hasNext()) {
             EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
 
-            entitytrackerentry.c(entityplayer);
+            entitytrackerentry.clear(entityplayer);
         }
     }
 }

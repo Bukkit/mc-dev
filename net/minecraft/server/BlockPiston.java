@@ -17,7 +17,7 @@ public class BlockPiston extends Block {
     public int a(int i, int j) {
         int k = d(j);
 
-        return k > 5 ? this.textureId : (i == k ? (!e(j) && this.minX <= 0.0D && this.minY <= 0.0D && this.minZ <= 0.0D && this.maxX >= 1.0D && this.maxY >= 1.0D && this.maxZ >= 1.0D ? this.textureId : 110) : (i == Facing.a[k] ? 109 : 108));
+        return k > 5 ? this.textureId : (i == k ? (!e(j) && this.minX <= 0.0D && this.minY <= 0.0D && this.minZ <= 0.0D && this.maxX >= 1.0D && this.maxY >= 1.0D && this.maxZ >= 1.0D ? this.textureId : 110) : (i == Facing.OPPOSITE_FACING[k] ? 109 : 108));
     }
 
     public int c() {

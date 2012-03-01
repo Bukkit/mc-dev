@@ -8,7 +8,7 @@ public class ItemMonsterEgg extends Item {
         this.a(true);
     }
 
-    public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
+    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
         if (world.isStatic) {
             return true;
         } else {

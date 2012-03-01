@@ -39,7 +39,7 @@ public class BlockJukeBox extends BlockContainer {
                 int l = tileentityrecordplayer.record;
 
                 if (l != 0) {
-                    world.f(1005, i, j, k, 0);
+                    world.triggerEffect(1005, i, j, k, 0);
                     world.a((String) null, i, j, k);
                     tileentityrecordplayer.record = 0;
                     tileentityrecordplayer.update();

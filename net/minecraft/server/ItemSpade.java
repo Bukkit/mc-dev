@@ -8,7 +8,7 @@ public class ItemSpade extends ItemTool {
         super(i, 1, enumtoolmaterial, bS);
     }
 
-    public boolean a(Block block) {
+    public boolean canDestroySpecialBlock(Block block) {
         return block == Block.SNOW ? true : block == Block.SNOW_BLOCK;
     }
 }

@@ -179,7 +179,7 @@ public class Item {
         return this;
     }
 
-    public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
+    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
         return false;
     }
 
@@ -237,7 +237,7 @@ public class Item {
         return 1;
     }
 
-    public boolean a(Block block) {
+    public boolean canDestroySpecialBlock(Block block) {
         return false;
     }
 
@@ -283,7 +283,7 @@ public class Item {
     }
 
     public String l() {
-        return LocaleI18n.a(this.getName() + ".name");
+        return LocaleI18n.get(this.getName() + ".name");
     }
 
     public void a(ItemStack itemstack, World world, Entity entity, int i, boolean flag) {}

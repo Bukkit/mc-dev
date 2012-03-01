@@ -45,6 +45,6 @@ public class Statistic {
     }
 
     public String toString() {
-        return LocaleI18n.a(this.a);
+        return LocaleI18n.get(this.a);
     }
 }

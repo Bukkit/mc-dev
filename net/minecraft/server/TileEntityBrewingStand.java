@@ -4,8 +4,8 @@ import java.util.List;
 
 public class TileEntityBrewingStand extends TileEntity implements IInventory {
 
-    private ItemStack[] a = new ItemStack[4];
-    private int b;
+    private ItemStack[] items = new ItemStack[4];
+    private int brewTime;
     private int c;
     private int d;
 
@@ -16,25 +16,25 @@ public class TileEntityBrewingStand extends TileEntity implements IInventory {
     }
 
     public int getSize() {
-        return this.a.length;
+        return this.items.length;
     }
 
     public void l_() {
-        if (this.b > 0) {
-            --this.b;
-            if (this.b == 0) {
+        if (this.brewTime > 0) {
+            --this.brewTime;
+            if (this.brewTime == 0) {
                 this.p();
                 this.update();
             } else if (!this.o()) {
-                this.b = 0;
+                this.brewTime = 0;
                 this.update();
-            } else if (this.d != this.a[3].id) {
-                this.b = 0;
+            } else if (this.d != this.items[3].id) {
+                this.brewTime = 0;
                 this.update();
             }
         } else if (this.o()) {
-            this.b = 400;
-            this.d = this.a[3].id;
+            this.brewTime = 400;
+            this.d = this.items[3].id;
         }
 
         int i = this.n();
@@ -48,12 +48,12 @@ public class TileEntityBrewingStand extends TileEntity implements IInventory {
     }
 
     public int h() {
-        return this.b;
+        return this.brewTime;
     }
 
     private boolean o() {
-        if (this.a[3] != null && this.a[3].count > 0) {
-            ItemStack itemstack = this.a[3];
+        if (this.items[3] != null && this.items[3].count > 0) {
+            ItemStack itemstack = this.items[3];
 
             if (!Item.byId[itemstack.id].n()) {
                 return false;
@@ -61,8 +61,8 @@ public class TileEntityBrewingStand extends TileEntity implements IInventory {
                 boolean flag = false;
 
                 for (int i = 0; i < 3; ++i) {
-                    if (this.a[i] != null && this.a[i].id == Item.POTION.id) {
-                        int j = this.a[i].getData();
+                    if (this.items[i] != null && this.items[i].id == Item.POTION.id) {
+                        int j = this.items[i].getData();
                         int k = this.b(j, itemstack);
 
                         if (!ItemPotion.c(j) && ItemPotion.c(k)) {
@@ -89,31 +89,31 @@ public class TileEntityBrewingStand extends TileEntity implements IInventory {
 
     private void p() {
         if (this.o()) {
-            ItemStack itemstack = this.a[3];
+            ItemStack itemstack = this.items[3];
 
             for (int i = 0; i < 3; ++i) {
-                if (this.a[i] != null && this.a[i].id == Item.POTION.id) {
-                    int j = this.a[i].getData();
+                if (this.items[i] != null && this.items[i].id == Item.POTION.id) {
+                    int j = this.items[i].getData();
                     int k = this.b(j, itemstack);
                     List list = Item.POTION.b(j);
                     List list1 = Item.POTION.b(k);
 
                     if ((j <= 0 || list != list1) && (list == null || !list.equals(list1) && list1 != null)) {
                         if (j != k) {
-                            this.a[i].setData(k);
+                            this.items[i].setData(k);
                         }
                     } else if (!ItemPotion.c(j) && ItemPotion.c(k)) {
-                        this.a[i].setData(k);
+                        this.items[i].setData(k);
                     }
                 }
             }
 
             if (Item.byId[itemstack.id].k()) {
-                this.a[3] = new ItemStack(Item.byId[itemstack.id].j());
+                this.items[3] = new ItemStack(Item.byId[itemstack.id].j());
             } else {
-                --this.a[3].count;
-                if (this.a[3].count <= 0) {
-                    this.a[3] = null;
+                --this.items[3].count;
+                if (this.items[3].count <= 0) {
+                    this.items[3] = null;
                 }
             }
         }
@@ -127,31 +127,31 @@ public class TileEntityBrewingStand extends TileEntity implements IInventory {
         super.a(nbttagcompound);
         NBTTagList nbttaglist = nbttagcompound.getList("Items");
 
-        this.a = new ItemStack[this.getSize()];
+        this.items = new ItemStack[this.getSize()];
 
         for (int i = 0; i < nbttaglist.size(); ++i) {
             NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.get(i);
             byte b0 = nbttagcompound1.getByte("Slot");
 
-            if (b0 >= 0 && b0 < this.a.length) {
-                this.a[b0] = ItemStack.a(nbttagcompound1);
+            if (b0 >= 0 && b0 < this.items.length) {
+                this.items[b0] = ItemStack.a(nbttagcompound1);
             }
         }
 
-        this.b = nbttagcompound.getShort("BrewTime");
+        this.brewTime = nbttagcompound.getShort("BrewTime");
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.setShort("BrewTime", (short) this.b);
+        nbttagcompound.setShort("BrewTime", (short) this.brewTime);
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (int i = 0; i < this.a.length; ++i) {
-            if (this.a[i] != null) {
+        for (int i = 0; i < this.items.length; ++i) {
+            if (this.items[i] != null) {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
                 nbttagcompound1.setByte("Slot", (byte) i);
-                this.a[i].b(nbttagcompound1);
+                this.items[i].save(nbttagcompound1);
                 nbttaglist.add(nbttagcompound1);
             }
         }
@@ -160,14 +160,14 @@ public class TileEntityBrewingStand extends TileEntity implements IInventory {
     }
 
     public ItemStack getItem(int i) {
-        return i >= 0 && i < this.a.length ? this.a[i] : null;
+        return i >= 0 && i < this.items.length ? this.items[i] : null;
     }
 
     public ItemStack splitStack(int i, int j) {
-        if (i >= 0 && i < this.a.length) {
-            ItemStack itemstack = this.a[i];
+        if (i >= 0 && i < this.items.length) {
+            ItemStack itemstack = this.items[i];
 
-            this.a[i] = null;
+            this.items[i] = null;
             return itemstack;
         } else {
             return null;
@@ -175,8 +175,8 @@ public class TileEntityBrewingStand extends TileEntity implements IInventory {
     }
 
     public void setItem(int i, ItemStack itemstack) {
-        if (i >= 0 && i < this.a.length) {
-            this.a[i] = itemstack;
+        if (i >= 0 && i < this.items.length) {
+            this.items[i] = itemstack;
         }
     }
 
@@ -196,7 +196,7 @@ public class TileEntityBrewingStand extends TileEntity implements IInventory {
         int i = 0;
 
         for (int j = 0; j < 3; ++j) {
-            if (this.a[j] != null) {
+            if (this.items[j] != null) {
                 i |= 1 << j;
             }
         }

@@ -85,7 +85,7 @@ public class MobEffectList {
         }
     }
 
-    public void a(EntityLiving entityliving, EntityLiving entityliving1, int i, double d0) {
+    public void applyInstantEffect(EntityLiving entityliving, EntityLiving entityliving1, int i, double d0) {
         int j;
 
         if ((this.id != HEAL.id || entityliving1.aE()) && (this.id != HARM.id || !entityliving1.aE())) {
@@ -103,7 +103,7 @@ public class MobEffectList {
         }
     }
 
-    public boolean b() {
+    public boolean isInstant() {
         return false;
     }
 
@@ -131,7 +131,7 @@ public class MobEffectList {
         return this;
     }
 
-    public double d() {
+    public double getDurationModifier() {
         return this.L;
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 public class CraftingManager {
 
     private static final CraftingManager a = new CraftingManager();
-    private List b = new ArrayList();
+    private List recipies = new ArrayList();
 
     public static final CraftingManager getInstance() {
         return a;
@@ -91,8 +91,8 @@ public class CraftingManager {
         this.registerShapedRecipe(new ItemStack(Item.BED, 1), new Object[] { "###", "XXX", Character.valueOf('#'), Block.WOOL, Character.valueOf('X'), Block.WOOD});
         this.registerShapedRecipe(new ItemStack(Block.ENCHANTMENT_TABLE, 1), new Object[] { " B ", "D#D", "###", Character.valueOf('#'), Block.OBSIDIAN, Character.valueOf('B'), Item.BOOK, Character.valueOf('D'), Item.DIAMOND});
         this.registerShapelessRecipe(new ItemStack(Item.EYE_OF_ENDER, 1), new Object[] { Item.ENDER_PEARL, Item.BLAZE_POWDER});
-        Collections.sort(this.b, new RecipeSorter(this));
-        System.out.println(this.b.size() + " recipes");
+        Collections.sort(this.recipies, new RecipeSorter(this));
+        System.out.println(this.recipies.size() + " recipes");
     }
 
     void registerShapedRecipe(ItemStack itemstack, Object... aobject) {
@@ -150,7 +150,7 @@ public class CraftingManager {
             }
         }
 
-        this.b.add(new ShapedRecipes(j, k, aitemstack, itemstack));
+        this.recipies.add(new ShapedRecipes(j, k, aitemstack, itemstack));
     }
 
     void registerShapelessRecipe(ItemStack itemstack, Object... aobject) {
@@ -174,7 +174,7 @@ public class CraftingManager {
             }
         }
 
-        this.b.add(new ShapelessRecipes(itemstack, arraylist));
+        this.recipies.add(new ShapelessRecipes(itemstack, arraylist));
     }
 
     public ItemStack craft(InventoryCrafting inventorycrafting) {
@@ -213,8 +213,8 @@ public class CraftingManager {
 
             return new ItemStack(itemstack.id, 1, j1);
         } else {
-            for (j = 0; j < this.b.size(); ++j) {
-                CraftingRecipe craftingrecipe = (CraftingRecipe) this.b.get(j);
+            for (j = 0; j < this.recipies.size(); ++j) {
+                CraftingRecipe craftingrecipe = (CraftingRecipe) this.recipies.get(j);
 
                 if (craftingrecipe.a(inventorycrafting)) {
                     return craftingrecipe.b(inventorycrafting);
@@ -225,7 +225,7 @@ public class CraftingManager {
         }
     }
 
-    public List b() {
-        return this.b;
+    public List getRecipies() {
+        return this.recipies;
     }
 }

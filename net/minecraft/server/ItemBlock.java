@@ -14,7 +14,7 @@ public class ItemBlock extends Item {
         return this.id;
     }
 
-    public boolean a(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
+    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
         int i1 = world.getTypeId(i, j, k);
 
         if (i1 == Block.SNOW.id) {

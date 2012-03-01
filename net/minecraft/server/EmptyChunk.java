@@ -50,7 +50,7 @@ public class EmptyChunk extends Chunk {
         return false;
     }
 
-    public int a(EnumSkyBlock enumskyblock, int i, int j, int k) {
+    public int getBrightness(EnumSkyBlock enumskyblock, int i, int j, int k) {
         return 0;
     }
 

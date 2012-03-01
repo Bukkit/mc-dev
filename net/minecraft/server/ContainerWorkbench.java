@@ -14,7 +14,7 @@ public class ContainerWorkbench extends Container {
         this.h = i;
         this.i = j;
         this.j = k;
-        this.a((Slot) (new SlotResult(playerinventory.d, this.craftInventory, this.resultInventory, 0, 124, 35)));
+        this.a((Slot) (new SlotResult(playerinventory.player, this.craftInventory, this.resultInventory, 0, 124, 35)));
 
         int l;
         int i1;
@@ -49,7 +49,7 @@ public class ContainerWorkbench extends Container {
                 ItemStack itemstack = this.craftInventory.getItem(i);
 
                 if (itemstack != null) {
-                    entityhuman.b(itemstack);
+                    entityhuman.drop(itemstack);
                 }
             }
         }
@@ -84,7 +84,7 @@ public class ContainerWorkbench extends Container {
             }
 
             if (itemstack1.count == 0) {
-                slot.c((ItemStack) null);
+                slot.set((ItemStack) null);
             } else {
                 slot.d();
             }

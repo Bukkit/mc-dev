@@ -32,7 +32,7 @@ public class BlockEnchantmentTable extends BlockContainer {
         if (world.isStatic) {
             return true;
         } else {
-            entityhuman.c(i, j, k);
+            entityhuman.startEnchanting(i, j, k);
             return true;
         }
     }

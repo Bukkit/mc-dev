@@ -250,27 +250,27 @@ public class AxisAlignedBB {
 
         Vec3D vec3d8 = null;
 
-        if (vec3d2 != null && (vec3d8 == null || vec3d.c(vec3d2) < vec3d.c(vec3d8))) {
+        if (vec3d2 != null && (vec3d8 == null || vec3d.distanceSquared(vec3d2) < vec3d.distanceSquared(vec3d8))) {
             vec3d8 = vec3d2;
         }
 
-        if (vec3d3 != null && (vec3d8 == null || vec3d.c(vec3d3) < vec3d.c(vec3d8))) {
+        if (vec3d3 != null && (vec3d8 == null || vec3d.distanceSquared(vec3d3) < vec3d.distanceSquared(vec3d8))) {
             vec3d8 = vec3d3;
         }
 
-        if (vec3d4 != null && (vec3d8 == null || vec3d.c(vec3d4) < vec3d.c(vec3d8))) {
+        if (vec3d4 != null && (vec3d8 == null || vec3d.distanceSquared(vec3d4) < vec3d.distanceSquared(vec3d8))) {
             vec3d8 = vec3d4;
         }
 
-        if (vec3d5 != null && (vec3d8 == null || vec3d.c(vec3d5) < vec3d.c(vec3d8))) {
+        if (vec3d5 != null && (vec3d8 == null || vec3d.distanceSquared(vec3d5) < vec3d.distanceSquared(vec3d8))) {
             vec3d8 = vec3d5;
         }
 
-        if (vec3d6 != null && (vec3d8 == null || vec3d.c(vec3d6) < vec3d.c(vec3d8))) {
+        if (vec3d6 != null && (vec3d8 == null || vec3d.distanceSquared(vec3d6) < vec3d.distanceSquared(vec3d8))) {
             vec3d8 = vec3d6;
         }
 
-        if (vec3d7 != null && (vec3d8 == null || vec3d.c(vec3d7) < vec3d.c(vec3d8))) {
+        if (vec3d7 != null && (vec3d8 == null || vec3d.distanceSquared(vec3d7) < vec3d.distanceSquared(vec3d8))) {
             vec3d8 = vec3d7;
         }
 

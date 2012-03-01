@@ -2,14 +2,14 @@ package net.minecraft.server;
 
 public class ContainerBrewingStand extends Container {
 
-    private TileEntityBrewingStand a;
+    private TileEntityBrewingStand brewingStand;
     private int b = 0;
 
     public ContainerBrewingStand(PlayerInventory playerinventory, TileEntityBrewingStand tileentitybrewingstand) {
-        this.a = tileentitybrewingstand;
-        this.a(new SlotPotionBottle(this, playerinventory.d, tileentitybrewingstand, 0, 56, 46));
-        this.a(new SlotPotionBottle(this, playerinventory.d, tileentitybrewingstand, 1, 79, 53));
-        this.a(new SlotPotionBottle(this, playerinventory.d, tileentitybrewingstand, 2, 102, 46));
+        this.brewingStand = tileentitybrewingstand;
+        this.a(new SlotPotionBottle(this, playerinventory.player, tileentitybrewingstand, 0, 56, 46));
+        this.a(new SlotPotionBottle(this, playerinventory.player, tileentitybrewingstand, 1, 79, 53));
+        this.a(new SlotPotionBottle(this, playerinventory.player, tileentitybrewingstand, 2, 102, 46));
         this.a(new SlotBrewing(this, tileentitybrewingstand, 3, 79, 17));
 
         int i;
@@ -25,9 +25,9 @@ public class ContainerBrewingStand extends Container {
         }
     }
 
-    public void a(ICrafting icrafting) {
-        super.a(icrafting);
-        icrafting.a(this, 0, this.a.h());
+    public void addSlotListener(ICrafting icrafting) {
+        super.addSlotListener(icrafting);
+        icrafting.setContainerData(this, 0, this.brewingStand.h());
     }
 
     public void a() {
@@ -36,16 +36,16 @@ public class ContainerBrewingStand extends Container {
         for (int i = 0; i < this.listeners.size(); ++i) {
             ICrafting icrafting = (ICrafting) this.listeners.get(i);
 
-            if (this.b != this.a.h()) {
-                icrafting.a(this, 0, this.a.h());
+            if (this.b != this.brewingStand.h()) {
+                icrafting.setContainerData(this, 0, this.brewingStand.h());
             }
         }
 
-        this.b = this.a.h();
+        this.b = this.brewingStand.h();
     }
 
     public boolean b(EntityHuman entityhuman) {
-        return this.a.a(entityhuman);
+        return this.brewingStand.a(entityhuman);
     }
 
     public ItemStack a(int i) {
@@ -73,7 +73,7 @@ public class ContainerBrewingStand extends Container {
             }
 
             if (itemstack1.count == 0) {
-                slot.c((ItemStack) null);
+                slot.set((ItemStack) null);
             } else {
                 slot.d();
             }

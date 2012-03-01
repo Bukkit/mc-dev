@@ -170,7 +170,7 @@ public class ConsoleCommandHandler {
                                                         l = 64;
                                                     }
 
-                                                    entityplayer2.b(new ItemStack(k, l, i1));
+                                                    entityplayer2.drop(new ItemStack(k, l, i1));
                                                 } else {
                                                     icommandlistener.sendMessage("There\'s no item with id " + k);
                                                 }

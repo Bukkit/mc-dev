@@ -20,35 +20,35 @@ public class GenLayerMushroomShore extends GenLayer {
                 int j2;
                 int k2;
 
-                if (k1 == BiomeBase.MUSHROOM_ISLAND.K) {
+                if (k1 == BiomeBase.MUSHROOM_ISLAND.id) {
                     l1 = aint[j1 + 1 + (i1 + 1 - 1) * (k + 2)];
                     i2 = aint[j1 + 1 + 1 + (i1 + 1) * (k + 2)];
                     j2 = aint[j1 + 1 - 1 + (i1 + 1) * (k + 2)];
                     k2 = aint[j1 + 1 + (i1 + 1 + 1) * (k + 2)];
-                    if (l1 != BiomeBase.OCEAN.K && i2 != BiomeBase.OCEAN.K && j2 != BiomeBase.OCEAN.K && k2 != BiomeBase.OCEAN.K) {
+                    if (l1 != BiomeBase.OCEAN.id && i2 != BiomeBase.OCEAN.id && j2 != BiomeBase.OCEAN.id && k2 != BiomeBase.OCEAN.id) {
                         aint1[j1 + i1 * k] = k1;
                     } else {
-                        aint1[j1 + i1 * k] = BiomeBase.MUSHROOM_SHORE.K;
+                        aint1[j1 + i1 * k] = BiomeBase.MUSHROOM_SHORE.id;
                     }
-                } else if (k1 != BiomeBase.OCEAN.K && k1 != BiomeBase.RIVER.K && k1 != BiomeBase.SWAMPLAND.K && k1 != BiomeBase.EXTREME_HILLS.K) {
+                } else if (k1 != BiomeBase.OCEAN.id && k1 != BiomeBase.RIVER.id && k1 != BiomeBase.SWAMPLAND.id && k1 != BiomeBase.EXTREME_HILLS.id) {
                     l1 = aint[j1 + 1 + (i1 + 1 - 1) * (k + 2)];
                     i2 = aint[j1 + 1 + 1 + (i1 + 1) * (k + 2)];
                     j2 = aint[j1 + 1 - 1 + (i1 + 1) * (k + 2)];
                     k2 = aint[j1 + 1 + (i1 + 1 + 1) * (k + 2)];
-                    if (l1 != BiomeBase.OCEAN.K && i2 != BiomeBase.OCEAN.K && j2 != BiomeBase.OCEAN.K && k2 != BiomeBase.OCEAN.K) {
+                    if (l1 != BiomeBase.OCEAN.id && i2 != BiomeBase.OCEAN.id && j2 != BiomeBase.OCEAN.id && k2 != BiomeBase.OCEAN.id) {
                         aint1[j1 + i1 * k] = k1;
                     } else {
-                        aint1[j1 + i1 * k] = BiomeBase.BEACH.K;
+                        aint1[j1 + i1 * k] = BiomeBase.BEACH.id;
                     }
-                } else if (k1 == BiomeBase.EXTREME_HILLS.K) {
+                } else if (k1 == BiomeBase.EXTREME_HILLS.id) {
                     l1 = aint[j1 + 1 + (i1 + 1 - 1) * (k + 2)];
                     i2 = aint[j1 + 1 + 1 + (i1 + 1) * (k + 2)];
                     j2 = aint[j1 + 1 - 1 + (i1 + 1) * (k + 2)];
                     k2 = aint[j1 + 1 + (i1 + 1 + 1) * (k + 2)];
-                    if (l1 == BiomeBase.EXTREME_HILLS.K && i2 == BiomeBase.EXTREME_HILLS.K && j2 == BiomeBase.EXTREME_HILLS.K && k2 == BiomeBase.EXTREME_HILLS.K) {
+                    if (l1 == BiomeBase.EXTREME_HILLS.id && i2 == BiomeBase.EXTREME_HILLS.id && j2 == BiomeBase.EXTREME_HILLS.id && k2 == BiomeBase.EXTREME_HILLS.id) {
                         aint1[j1 + i1 * k] = k1;
                     } else {
-                        aint1[j1 + i1 * k] = BiomeBase.SMALL_MOUNTAINS.K;
+                        aint1[j1 + i1 * k] = BiomeBase.SMALL_MOUNTAINS.id;
                     }
                 } else {
                     aint1[j1 + i1 * k] = k1;
