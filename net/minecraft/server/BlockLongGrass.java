@@ -5,7 +5,7 @@ import java.util.Random;
 public class BlockLongGrass extends BlockFlower {
 
     protected BlockLongGrass(int i, int j) {
-        super(i, j);
+        super(i, j, Material.REPLACEABLE_PLANT);
         float f = 0.4F;
 
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
@@ -24,7 +24,7 @@ public class BlockLongGrass extends BlockFlower {
     }
 
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
-        if (!world.isStatic && entityhuman.Q() != null && entityhuman.Q().id == Item.SHEARS.id) {
+        if (!world.isStatic && entityhuman.T() != null && entityhuman.T().id == Item.SHEARS.id) {
             entityhuman.a(StatisticList.C[this.id], 1);
             this.a(world, i, j, k, new ItemStack(Block.LONG_GRASS, 1, l));
         } else {

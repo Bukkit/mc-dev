@@ -11,4 +11,12 @@ public class BlockGlass extends BlockHalfTransparant {
     public int a(Random random) {
         return 0;
     }
+
+    public boolean a() {
+        return false;
+    }
+
+    public boolean b() {
+        return false;
+    }
 }

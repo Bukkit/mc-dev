@@ -6,9 +6,17 @@ public class Pathfinder {
     private Path b = new Path();
     private IntHashMap c = new IntHashMap();
     private PathPoint[] d = new PathPoint[32];
+    private boolean e;
+    private boolean f;
+    private boolean g;
+    private boolean h;
 
-    public Pathfinder(IBlockAccess iblockaccess) {
+    public Pathfinder(IBlockAccess iblockaccess, boolean flag, boolean flag1, boolean flag2, boolean flag3) {
         this.a = iblockaccess;
+        this.e = flag;
+        this.f = flag1;
+        this.g = flag2;
+        this.h = flag3;
     }
 
     public PathEntity a(Entity entity, Entity entity1, float f) {
@@ -22,11 +30,28 @@ public class Pathfinder {
     private PathEntity a(Entity entity, double d0, double d1, double d2, float f) {
         this.b.a();
         this.c.a();
-        PathPoint pathpoint = this.a(MathHelper.floor(entity.boundingBox.a), MathHelper.floor(entity.boundingBox.b), MathHelper.floor(entity.boundingBox.c));
+        boolean flag = this.g;
+        int i = MathHelper.floor(entity.boundingBox.b + 0.5D);
+
+        if (this.h && entity.aT()) {
+            i = (int) entity.boundingBox.b;
+
+            for (int j = this.a.getTypeId(MathHelper.floor(entity.locX), i, MathHelper.floor(entity.locZ)); j == Block.WATER.id || j == Block.STATIONARY_WATER.id; j = this.a.getTypeId(MathHelper.floor(entity.locX), i, MathHelper.floor(entity.locZ))) {
+                ++i;
+            }
+
+            flag = this.g;
+            this.g = false;
+        } else {
+            i = MathHelper.floor(entity.boundingBox.b + 0.5D);
+        }
+
+        PathPoint pathpoint = this.a(MathHelper.floor(entity.boundingBox.a), i, MathHelper.floor(entity.boundingBox.c));
         PathPoint pathpoint1 = this.a(MathHelper.floor(d0 - (double) (entity.width / 2.0F)), MathHelper.floor(d1), MathHelper.floor(d2 - (double) (entity.width / 2.0F)));
         PathPoint pathpoint2 = new PathPoint(MathHelper.d(entity.width + 1.0F), MathHelper.d(entity.length + 1.0F), MathHelper.d(entity.width + 1.0F));
         PathEntity pathentity = this.a(entity, pathpoint, pathpoint1, pathpoint2, f);
 
+        this.g = flag;
         return pathentity;
     }
 
@@ -111,38 +136,52 @@ public class Pathfinder {
 
     private PathPoint a(Entity entity, int i, int j, int k, PathPoint pathpoint, int l) {
         PathPoint pathpoint1 = null;
+        int i1 = this.a(entity, i, j, k, pathpoint);
 
-        if (this.a(entity, i, j, k, pathpoint) == 1) {
-            pathpoint1 = this.a(i, j, k);
-        }
+        if (i1 == 2) {
+            return this.a(i, j, k);
+        } else {
+            if (i1 == 1) {
+                pathpoint1 = this.a(i, j, k);
+            }
 
-        if (pathpoint1 == null && l > 0 && this.a(entity, i, j + l, k, pathpoint) == 1) {
-            pathpoint1 = this.a(i, j + l, k);
-            j += l;
-        }
+            if (pathpoint1 == null && l > 0 && i1 != -3 && i1 != -4 && this.a(entity, i, j + l, k, pathpoint) == 1) {
+                pathpoint1 = this.a(i, j + l, k);
+                j += l;
+            }
 
-        if (pathpoint1 != null) {
-            int i1 = 0;
-            int j1 = 0;
+            if (pathpoint1 != null) {
+                int j1 = 0;
+                int k1 = 0;
 
-            while (j > 0 && (j1 = this.a(entity, i, j - 1, k, pathpoint)) == 1) {
-                ++i1;
-                if (i1 >= 4) {
+                while (j > 0) {
+                    k1 = this.a(entity, i, j - 1, k, pathpoint);
+                    if (this.g && k1 == -1) {
+                        return null;
+                    }
+
+                    if (k1 != 1) {
+                        break;
+                    }
+
+                    ++j1;
+                    if (j1 >= 4) {
+                        return null;
+                    }
+
+                    --j;
+                    if (j > 0) {
+                        pathpoint1 = this.a(i, j, k);
+                    }
+                }
+
+                if (k1 == -2) {
                     return null;
                 }
-
-                --j;
-                if (j > 0) {
-                    pathpoint1 = this.a(i, j, k);
-                }
             }
 
-            if (j1 == -2) {
-                return null;
-            }
+            return pathpoint1;
         }
-
-        return pathpoint1;
     }
 
     private final PathPoint a(int i, int j, int k) {
@@ -158,31 +197,47 @@ public class Pathfinder {
     }
 
     private int a(Entity entity, int i, int j, int k, PathPoint pathpoint) {
+        boolean flag = false;
+
         for (int l = i; l < i + pathpoint.a; ++l) {
             for (int i1 = j; i1 < j + pathpoint.b; ++i1) {
                 for (int j1 = k; j1 < k + pathpoint.c; ++j1) {
                     int k1 = this.a.getTypeId(l, i1, j1);
 
                     if (k1 > 0) {
-                        if (k1 != Block.IRON_DOOR_BLOCK.id && k1 != Block.WOODEN_DOOR.id) {
-                            Material material = Block.byId[k1].material;
-
-                            if (material.isSolid()) {
+                        if (k1 == Block.TRAP_DOOR.id) {
+                            flag = true;
+                        } else if (k1 != Block.WATER.id && k1 != Block.STATIONARY_WATER.id) {
+                            if (!this.e && k1 == Block.WOODEN_DOOR.id) {
                                 return 0;
                             }
-
-                            if (material == Material.WATER) {
+                        } else {
+                            if (this.g) {
                                 return -1;
                             }
 
-                            if (material == Material.LAVA) {
-                                return -2;
-                            }
-                        } else {
-                            int l1 = this.a.getData(l, i1, j1);
+                            flag = true;
+                        }
 
-                            if (!BlockDoor.f(l1)) {
+                        Block block = Block.byId[k1];
+
+                        if (!block.b(this.a, l, i1, j1) && (!this.f || k1 != Block.WOODEN_DOOR.id)) {
+                            if (k1 == Block.FENCE.id || k1 == Block.FENCE_GATE.id) {
+                                return -3;
+                            }
+
+                            if (k1 == Block.TRAP_DOOR.id) {
+                                return -4;
+                            }
+
+                            Material material = block.material;
+
+                            if (material != Material.LAVA) {
                                 return 0;
+                            }
+
+                            if (!entity.aU()) {
+                                return -2;
                             }
                         }
                     }
@@ -190,7 +245,7 @@ public class Pathfinder {
             }
         }
 
-        return 1;
+        return flag ? 2 : 1;
     }
 
     private PathEntity a(PathPoint pathpoint, PathPoint pathpoint1) {

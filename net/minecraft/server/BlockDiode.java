@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-public class BlockDiode extends Block {
+public class BlockDiode extends BlockDirectional {
 
     public static final double[] a = new double[] { -0.0625D, 0.0625D, 0.1875D, 0.3125D};
     private static final int[] b = new int[] { 1, 2, 3, 4};
@@ -62,7 +62,7 @@ public class BlockDiode extends Block {
         if (!this.c) {
             return false;
         } else {
-            int i1 = iblockaccess.getData(i, j, k) & 3;
+            int i1 = b(iblockaccess.getData(i, j, k));
 
             return i1 == 0 && l == 3 ? true : (i1 == 1 && l == 4 ? true : (i1 == 2 && l == 2 ? true : i1 == 3 && l == 5));
         }
@@ -86,7 +86,7 @@ public class BlockDiode extends Block {
     }
 
     private boolean f(World world, int i, int j, int k, int l) {
-        int i1 = l & 3;
+        int i1 = b(l);
 
         switch (i1) {
         case 0:

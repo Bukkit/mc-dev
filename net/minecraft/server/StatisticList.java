@@ -49,15 +49,15 @@ public class StatisticList {
     public static void a() {}
 
     public static void b() {
-        E = a(E, "stat.useItem", 16908288, 0, Block.byId.length);
-        F = b(F, "stat.breakItem", 16973824, 0, Block.byId.length);
+        E = a(E, "stat.useItem", 16908288, 0, 256);
+        F = b(F, "stat.breakItem", 16973824, 0, 256);
         G = true;
         d();
     }
 
     public static void c() {
-        E = a(E, "stat.useItem", 16908288, Block.byId.length, 32000);
-        F = b(F, "stat.breakItem", 16973824, Block.byId.length, 32000);
+        E = a(E, "stat.useItem", 16908288, 256, 32000);
+        F = b(F, "stat.breakItem", 16973824, 256, 32000);
         H = true;
         d();
     }
@@ -102,7 +102,7 @@ public class StatisticList {
         Statistic[] astatistic = new Statistic[256];
 
         for (int j = 0; j < 256; ++j) {
-            if (Block.byId[j] != null && Block.byId[j].o()) {
+            if (Block.byId[j] != null && Block.byId[j].q()) {
                 String s1 = LocaleI18n.get(s, new Object[] { Block.byId[j].getName()});
 
                 astatistic[j] = (new CraftingStatistic(i + j, s1, j)).d();
@@ -124,7 +124,7 @@ public class StatisticList {
                 String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].l()});
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).d();
-                if (l >= Block.byId.length) {
+                if (l >= 256) {
                     d.add((CraftingStatistic) astatistic[l]);
                 }
             }

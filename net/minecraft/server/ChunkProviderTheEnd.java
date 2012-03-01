@@ -34,47 +34,47 @@ public class ChunkProviderTheEnd implements IChunkProvider {
     public void a(int i, int j, byte[] abyte, BiomeBase[] abiomebase) {
         byte b0 = 2;
         int k = b0 + 1;
-        int l = this.m.height / 4 + 1;
-        int i1 = b0 + 1;
+        byte b1 = 33;
+        int l = b0 + 1;
 
-        this.n = this.a(this.n, i * b0, 0, j * b0, k, l, i1);
+        this.n = this.a(this.n, i * b0, 0, j * b0, k, b1, l);
 
-        for (int j1 = 0; j1 < b0; ++j1) {
-            for (int k1 = 0; k1 < b0; ++k1) {
-                for (int l1 = 0; l1 < this.m.height / 4; ++l1) {
+        for (int i1 = 0; i1 < b0; ++i1) {
+            for (int j1 = 0; j1 < b0; ++j1) {
+                for (int k1 = 0; k1 < 32; ++k1) {
                     double d0 = 0.25D;
-                    double d1 = this.n[((j1 + 0) * i1 + k1 + 0) * l + l1 + 0];
-                    double d2 = this.n[((j1 + 0) * i1 + k1 + 1) * l + l1 + 0];
-                    double d3 = this.n[((j1 + 1) * i1 + k1 + 0) * l + l1 + 0];
-                    double d4 = this.n[((j1 + 1) * i1 + k1 + 1) * l + l1 + 0];
-                    double d5 = (this.n[((j1 + 0) * i1 + k1 + 0) * l + l1 + 1] - d1) * d0;
-                    double d6 = (this.n[((j1 + 0) * i1 + k1 + 1) * l + l1 + 1] - d2) * d0;
-                    double d7 = (this.n[((j1 + 1) * i1 + k1 + 0) * l + l1 + 1] - d3) * d0;
-                    double d8 = (this.n[((j1 + 1) * i1 + k1 + 1) * l + l1 + 1] - d4) * d0;
+                    double d1 = this.n[((i1 + 0) * l + j1 + 0) * b1 + k1 + 0];
+                    double d2 = this.n[((i1 + 0) * l + j1 + 1) * b1 + k1 + 0];
+                    double d3 = this.n[((i1 + 1) * l + j1 + 0) * b1 + k1 + 0];
+                    double d4 = this.n[((i1 + 1) * l + j1 + 1) * b1 + k1 + 0];
+                    double d5 = (this.n[((i1 + 0) * l + j1 + 0) * b1 + k1 + 1] - d1) * d0;
+                    double d6 = (this.n[((i1 + 0) * l + j1 + 1) * b1 + k1 + 1] - d2) * d0;
+                    double d7 = (this.n[((i1 + 1) * l + j1 + 0) * b1 + k1 + 1] - d3) * d0;
+                    double d8 = (this.n[((i1 + 1) * l + j1 + 1) * b1 + k1 + 1] - d4) * d0;
 
-                    for (int i2 = 0; i2 < 4; ++i2) {
+                    for (int l1 = 0; l1 < 4; ++l1) {
                         double d9 = 0.125D;
                         double d10 = d1;
                         double d11 = d2;
                         double d12 = (d3 - d1) * d9;
                         double d13 = (d4 - d2) * d9;
 
-                        for (int j2 = 0; j2 < 8; ++j2) {
-                            int k2 = j2 + j1 * 8 << this.m.heightBitsPlusFour | 0 + k1 * 8 << this.m.heightBits | l1 * 4 + i2;
-                            int l2 = 1 << this.m.heightBits;
+                        for (int i2 = 0; i2 < 8; ++i2) {
+                            int j2 = i2 + i1 * 8 << 11 | 0 + j1 * 8 << 7 | k1 * 4 + l1;
+                            short short1 = 128;
                             double d14 = 0.125D;
                             double d15 = d10;
                             double d16 = (d11 - d10) * d14;
 
-                            for (int i3 = 0; i3 < 8; ++i3) {
-                                int j3 = 0;
+                            for (int k2 = 0; k2 < 8; ++k2) {
+                                int l2 = 0;
 
                                 if (d15 > 0.0D) {
-                                    j3 = Block.WHITESTONE.id;
+                                    l2 = Block.WHITESTONE.id;
                                 }
 
-                                abyte[k2] = (byte) j3;
-                                k2 += l2;
+                                abyte[j2] = (byte) l2;
+                                j2 += short1;
                                 d15 += d16;
                             }
 
@@ -100,8 +100,8 @@ public class ChunkProviderTheEnd implements IChunkProvider {
                 byte b1 = (byte) Block.WHITESTONE.id;
                 byte b2 = (byte) Block.WHITESTONE.id;
 
-                for (int j1 = this.m.heightMinusOne; j1 >= 0; --j1) {
-                    int k1 = (l * 16 + k) * this.m.height + j1;
+                for (int j1 = 127; j1 >= 0; --j1) {
+                    int k1 = (l * 16 + k) * 128 + j1;
                     byte b3 = abyte[k1];
 
                     if (b3 == 0) {
@@ -135,12 +135,13 @@ public class ChunkProviderTheEnd implements IChunkProvider {
 
     public Chunk getOrCreateChunk(int i, int j) {
         this.i.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
-        byte[] abyte = new byte[16 * this.m.height * 16];
-        Chunk chunk = new Chunk(this.m, abyte, i, j);
+        byte[] abyte = new byte['\u8000'];
 
         this.o = this.m.getWorldChunkManager().getBiomeBlock(this.o, i * 16, j * 16, 16, 16);
         this.a(i, j, abyte, this.o);
         this.b(i, j, abyte, this.o);
+        Chunk chunk = new Chunk(this.m, abyte, i, j);
+
         chunk.initLighting();
         return chunk;
     }
@@ -265,7 +266,7 @@ public class ChunkProviderTheEnd implements IChunkProvider {
         BlockSand.instaFall = true;
         int k = i * 16;
         int l = j * 16;
-        BiomeBase biomebase = this.m.getWorldChunkManager().getBiome(k + 16, l + 16);
+        BiomeBase biomebase = this.m.getBiome(k + 16, l + 16);
 
         biomebase.a(this.m, this.m.random, k, l);
         BlockSand.instaFall = false;
@@ -284,15 +285,9 @@ public class ChunkProviderTheEnd implements IChunkProvider {
     }
 
     public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
-        WorldChunkManager worldchunkmanager = this.m.getWorldChunkManager();
+        BiomeBase biomebase = this.m.getBiome(i, k);
 
-        if (worldchunkmanager == null) {
-            return null;
-        } else {
-            BiomeBase biomebase = worldchunkmanager.getBiome(new ChunkCoordIntPair(i >> 4, k >> 4));
-
-            return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
-        }
+        return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
     }
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {

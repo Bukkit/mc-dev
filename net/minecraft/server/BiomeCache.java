@@ -34,10 +34,6 @@ public class BiomeCache {
         return this.a(i, j).a(i, j);
     }
 
-    public float c(int i, int j) {
-        return this.a(i, j).b(i, j);
-    }
-
     public void a() {
         long i = System.currentTimeMillis();
         long j = i - this.b;
@@ -59,7 +55,7 @@ public class BiomeCache {
         }
     }
 
-    public BiomeBase[] d(int i, int j) {
+    public BiomeBase[] c(int i, int j) {
         return this.a(i, j).c;
     }
 

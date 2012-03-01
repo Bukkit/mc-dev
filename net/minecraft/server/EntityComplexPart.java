@@ -18,7 +18,7 @@ public class EntityComplexPart extends Entity {
 
     protected void b(NBTTagCompound nbttagcompound) {}
 
-    public boolean e_() {
+    public boolean o_() {
         return true;
     }
 
@@ -26,7 +26,7 @@ public class EntityComplexPart extends Entity {
         return this.owner.a(this, damagesource, i);
     }
 
-    public boolean a(Entity entity) {
+    public boolean a_(Entity entity) {
         return this == entity || this.owner == entity;
     }
 }

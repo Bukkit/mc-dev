@@ -30,7 +30,7 @@ public class WorldGenCanyon extends WorldGenBase {
 
         float f5 = 1.0F;
 
-        for (int k1 = 0; k1 < this.d.height; ++k1) {
+        for (int k1 = 0; k1 < 128; ++k1) {
             if (k1 == 0 || random.nextInt(3) == 0) {
                 f5 = 1.0F + random.nextFloat() * random.nextFloat() * 1.0F;
             }
@@ -87,8 +87,8 @@ public class WorldGenCanyon extends WorldGenBase {
                         j2 = 1;
                     }
 
-                    if (k2 > this.d.height - 8) {
-                        k2 = this.d.height - 8;
+                    if (k2 > 120) {
+                        k2 = 120;
                     }
 
                     if (l2 < 0) {
@@ -107,8 +107,8 @@ public class WorldGenCanyon extends WorldGenBase {
                     for (j3 = l1; !flag1 && j3 < i2; ++j3) {
                         for (int l3 = l2; !flag1 && l3 < i3; ++l3) {
                             for (int i4 = k2 + 1; !flag1 && i4 >= j2 - 1; --i4) {
-                                k3 = (j3 * 16 + l3) * this.d.height + i4;
-                                if (i4 >= 0 && i4 < this.d.height) {
+                                k3 = (j3 * 16 + l3) * 128 + i4;
+                                if (i4 >= 0 && i4 < 128) {
                                     if (abyte[k3] == Block.WATER.id || abyte[k3] == Block.STATIONARY_WATER.id) {
                                         flag1 = true;
                                     }
@@ -127,7 +127,7 @@ public class WorldGenCanyon extends WorldGenBase {
 
                             for (k3 = l2; k3 < i3; ++k3) {
                                 double d13 = ((double) (k3 + k * 16) + 0.5D - d2) / d6;
-                                int j4 = (j3 * 16 + k3) * this.d.height + k2;
+                                int j4 = (j3 * 16 + k3) * 128 + k2;
                                 boolean flag2 = false;
 
                                 if (d12 * d12 + d13 * d13 < 1.0D) {
@@ -147,7 +147,7 @@ public class WorldGenCanyon extends WorldGenBase {
                                                 } else {
                                                     abyte[j4] = 0;
                                                     if (flag2 && abyte[j4 - 1] == Block.DIRT.id) {
-                                                        abyte[j4 - 1] = this.d.getWorldChunkManager().getBiome(j3 + j * 16, k3 + k * 16).y;
+                                                        abyte[j4 - 1] = this.d.getBiome(j3 + j * 16, k3 + k * 16).A;
                                                     }
                                                 }
                                             }

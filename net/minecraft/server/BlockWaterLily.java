@@ -27,6 +27,6 @@ public class BlockWaterLily extends BlockFlower {
     }
 
     public boolean f(World world, int i, int j, int k) {
-        return j >= 0 && j < world.height ? world.getMaterial(i, j - 1, k) == Material.WATER && world.getData(i, j - 1, k) == 0 : false;
+        return j >= 0 && j < 256 ? world.getMaterial(i, j - 1, k) == Material.WATER && world.getData(i, j - 1, k) == 0 : false;
     }
 }

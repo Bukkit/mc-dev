@@ -26,15 +26,15 @@ public class EntitySilverfish extends EntityMonster {
         return this.world.findNearbyVulnerablePlayer(this, d0);
     }
 
-    protected String c_() {
+    protected String i() {
         return "mob.silverfish.say";
     }
 
-    protected String m() {
+    protected String j() {
         return "mob.silverfish.hit";
     }
 
-    protected String n() {
+    protected String k() {
         return "mob.silverfish.kill";
     }
 
@@ -69,13 +69,13 @@ public class EntitySilverfish extends EntityMonster {
         return 0;
     }
 
-    public void y_() {
+    public void G_() {
         this.V = this.yaw;
-        super.y_();
+        super.G_();
     }
 
-    protected void m_() {
-        super.m_();
+    protected void d_() {
+        super.d_();
         if (!this.world.isStatic) {
             int i;
             int j;
@@ -96,7 +96,7 @@ public class EntitySilverfish extends EntityMonster {
                                 int k1 = this.world.getTypeId(i + i1, j + l, k + j1);
 
                                 if (k1 == Block.MONSTER_EGGS.id) {
-                                    this.world.triggerEffect(2001, i + i1, j + l, k + j1, Block.MONSTER_EGGS.id + this.world.getData(i + i1, j + l, k + j1) * 256);
+                                    this.world.triggerEffect(2001, i + i1, j + l, k + j1, Block.MONSTER_EGGS.id + (this.world.getData(i + i1, j + l, k + j1) << 12));
                                     this.world.setTypeId(i + i1, j + l, k + j1, 0);
                                     Block.MONSTER_EGGS.postBreak(this.world, i + i1, j + l, k + j1, 0);
                                     if (this.random.nextBoolean()) {
@@ -110,7 +110,7 @@ public class EntitySilverfish extends EntityMonster {
                 }
             }
 
-            if (this.target == null && !this.E()) {
+            if (this.target == null && !this.G()) {
                 i = MathHelper.floor(this.locX);
                 j = MathHelper.floor(this.locY + 0.5D);
                 k = MathHelper.floor(this.locZ);
@@ -119,12 +119,12 @@ public class EntitySilverfish extends EntityMonster {
                 l = this.world.getTypeId(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1]);
                 if (BlockMonsterEggs.d(l)) {
                     this.world.setTypeIdAndData(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1], Block.MONSTER_EGGS.id, BlockMonsterEggs.e(l));
-                    this.ao();
+                    this.aB();
                     this.die();
                 } else {
-                    this.D();
+                    this.F();
                 }
-            } else if (this.target != null && !this.E()) {
+            } else if (this.target != null && !this.G()) {
                 this.target = null;
             }
         }
@@ -134,7 +134,7 @@ public class EntitySilverfish extends EntityMonster {
         return this.world.getTypeId(i, j - 1, k) == Block.STONE.id ? 10.0F : super.a(i, j, k);
     }
 
-    protected boolean z() {
+    protected boolean D() {
         return true;
     }
 

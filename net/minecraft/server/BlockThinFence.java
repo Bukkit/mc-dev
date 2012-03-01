@@ -103,6 +103,6 @@ public class BlockThinFence extends Block {
     }
 
     public final boolean d(int i) {
-        return Block.o[i] || i == this.id || i == Block.GLASS.id;
+        return Block.n[i] || i == this.id || i == Block.GLASS.id;
     }
 }

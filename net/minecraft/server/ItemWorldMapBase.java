@@ -6,7 +6,7 @@ public class ItemWorldMapBase extends Item {
         super(i);
     }
 
-    public boolean n_() {
+    public boolean t_() {
         return true;
     }
 

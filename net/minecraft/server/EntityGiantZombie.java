@@ -16,6 +16,6 @@ public class EntityGiantZombie extends EntityMonster {
     }
 
     public float a(int i, int j, int k) {
-        return this.world.m(i, j, k) - 0.5F;
+        return this.world.p(i, j, k) - 0.5F;
     }
 }

@@ -29,7 +29,7 @@ public class TileEntityPiston extends TileEntity {
         return this.a;
     }
 
-    public int j() {
+    public int k() {
         return this.b;
     }
 
@@ -79,20 +79,20 @@ public class TileEntityPiston extends TileEntity {
     public void g() {
         if (this.g < 1.0F && this.world != null) {
             this.g = this.f = 1.0F;
-            this.world.n(this.x, this.y, this.z);
-            this.i();
+            this.world.q(this.x, this.y, this.z);
+            this.j();
             if (this.world.getTypeId(this.x, this.y, this.z) == Block.PISTON_MOVING.id) {
                 this.world.setTypeIdAndData(this.x, this.y, this.z, this.a, this.b);
             }
         }
     }
 
-    public void l_() {
+    public void q_() {
         this.g = this.f;
         if (this.g >= 1.0F) {
             this.a(1.0F, 0.25F);
-            this.world.n(this.x, this.y, this.z);
-            this.i();
+            this.world.q(this.x, this.y, this.z);
+            this.j();
             if (this.world.getTypeId(this.x, this.y, this.z) == Block.PISTON_MOVING.id) {
                 this.world.setTypeIdAndData(this.x, this.y, this.z, this.a, this.b);
             }

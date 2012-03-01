@@ -4,6 +4,7 @@ public class SlotResult extends Slot {
 
     private final IInventory a;
     private EntityHuman f;
+    private int g;
 
     public SlotResult(EntityHuman entityhuman, IInventory iinventory, IInventory iinventory1, int i, int j, int k) {
         super(iinventory1, i, j, k);
@@ -15,8 +16,22 @@ public class SlotResult extends Slot {
         return false;
     }
 
-    public void b(ItemStack itemstack) {
-        itemstack.c(this.f.world, this.f);
+    public ItemStack a(int i) {
+        if (this.c()) {
+            this.g += Math.min(i, this.getItem().count);
+        }
+
+        return super.a(i);
+    }
+
+    protected void a(ItemStack itemstack, int i) {
+        this.g += i;
+        this.b(itemstack);
+    }
+
+    protected void b(ItemStack itemstack) {
+        itemstack.a(this.f.world, this.f, this.g);
+        this.g = 0;
         if (itemstack.id == Block.WORKBENCH.id) {
             this.f.a((Statistic) AchievementList.h, 1);
         } else if (itemstack.id == Item.WOOD_PICKAXE.id) {
@@ -38,6 +53,10 @@ public class SlotResult extends Slot {
         } else if (itemstack.id == Block.BOOKSHELF.id) {
             this.f.a((Statistic) AchievementList.F, 1);
         }
+    }
+
+    public void c(ItemStack itemstack) {
+        this.b(itemstack);
 
         for (int i = 0; i < this.a.getSize(); ++i) {
             ItemStack itemstack1 = this.a.getItem(i);

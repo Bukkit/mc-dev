@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 import java.util.List;
 
-public abstract class EntityAnimal extends EntityCreature implements IAnimal {
+public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
     private int love;
     private int b = 0;
@@ -11,31 +11,8 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         super(world);
     }
 
-    protected void b() {
-        super.b();
-        this.datawatcher.a(12, new Integer(0));
-    }
-
-    public int getAge() {
-        return this.datawatcher.getInt(12);
-    }
-
-    public void setAge(int i) {
-        this.datawatcher.watch(12, Integer.valueOf(i));
-    }
-
-    public void d() {
-        super.d();
-        int i = this.getAge();
-
-        if (i < 0) {
-            ++i;
-            this.setAge(i);
-        } else if (i > 0) {
-            --i;
-            this.setAge(i);
-        }
-
+    public void e() {
+        super.e();
         if (this.love > 0) {
             --this.love;
             String s = "heart";
@@ -64,7 +41,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
 
             EntityHuman entityhuman = (EntityHuman) entity;
 
-            if (entityhuman.Q() == null || !this.a(entityhuman.Q())) {
+            if (entityhuman.T() == null || !this.a(entityhuman.T())) {
                 this.target = null;
             }
         } else if (entity instanceof EntityAnimal) {
@@ -88,7 +65,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
                     }
 
                     if (this.b == 60) {
-                        this.b((EntityAnimal) entity);
+                        this.c((EntityAnimal) entity);
                     }
                 } else {
                     this.b = 0;
@@ -100,7 +77,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         }
     }
 
-    private void b(EntityAnimal entityanimal) {
+    private void c(EntityAnimal entityanimal) {
         EntityAnimal entityanimal1 = this.createChild(entityanimal);
 
         if (entityanimal1 != null) {
@@ -127,7 +104,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         }
     }
 
-    protected abstract EntityAnimal createChild(EntityAnimal entityanimal);
+    public abstract EntityAnimal createChild(EntityAnimal entityanimal);
 
     protected void b(Entity entity, float f) {}
 
@@ -139,18 +116,16 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
     }
 
     public float a(int i, int j, int k) {
-        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id ? 10.0F : this.world.m(i, j, k) - 0.5F;
+        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id ? 10.0F : this.world.p(i, j, k) - 0.5F;
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.setInt("Age", this.getAge());
         nbttagcompound.setInt("InLove", this.love);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.setAge(nbttagcompound.getInt("Age"));
         this.love = nbttagcompound.getInt("InLove");
     }
 
@@ -178,7 +153,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
                 for (i = 0; i < list.size(); ++i) {
                     EntityHuman entityhuman = (EntityHuman) list.get(i);
 
-                    if (entityhuman.Q() != null && this.a(entityhuman.Q())) {
+                    if (entityhuman.T() != null && this.a(entityhuman.T())) {
                         return entityhuman;
                     }
                 }
@@ -202,14 +177,14 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         int j = MathHelper.floor(this.boundingBox.b);
         int k = MathHelper.floor(this.locZ);
 
-        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.k(i, j, k) > 8 && super.canSpawn();
+        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.m(i, j, k) > 8 && super.canSpawn();
     }
 
-    public int h() {
+    public int m() {
         return 120;
     }
 
-    protected boolean d_() {
+    protected boolean n() {
         return false;
     }
 
@@ -217,7 +192,7 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         return 1 + this.world.random.nextInt(3);
     }
 
-    protected boolean a(ItemStack itemstack) {
+    public boolean a(ItemStack itemstack) {
         return itemstack.id == Item.WHEAT.id;
     }
 
@@ -225,9 +200,11 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
         if (itemstack != null && this.a(itemstack) && this.getAge() == 0) {
-            --itemstack.count;
-            if (itemstack.count <= 0) {
-                entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
+            if (this.world.getWorldData().getGameType() != 1) {
+                --itemstack.count;
+                if (itemstack.count <= 0) {
+                    entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
+                }
             }
 
             this.love = 600;
@@ -247,7 +224,15 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimal {
         }
     }
 
-    public boolean isBaby() {
-        return this.getAge() < 0;
+    public boolean r_() {
+        return this.love > 0;
+    }
+
+    public void s_() {
+        this.love = 0;
+    }
+
+    public boolean mate(EntityAnimal entityanimal) {
+        return entityanimal == this ? false : (entityanimal.getClass() != this.getClass() ? false : this.r_() && entityanimal.r_());
     }
 }

@@ -8,6 +8,19 @@ public class EntityCreeper extends EntityMonster {
     public EntityCreeper(World world) {
         super(world);
         this.texture = "/mob/creeper.png";
+        this.goalSelector.a(1, new PathfinderGoalFloat(this));
+        this.goalSelector.a(2, new PathfinderGoalSwell(this));
+        this.goalSelector.a(3, new PathfinderGoalAvoidPlayer(this, EntityOcelot.class, 6.0F, 0.25F, 0.3F));
+        this.goalSelector.a(4, new PathfinderGoalMeleeAttack(this, 0.25F, false));
+        this.goalSelector.a(5, new PathfinderGoalRandomStroll(this, 0.2F));
+        this.goalSelector.a(6, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 8.0F));
+        this.goalSelector.a(6, new PathfinderGoalRandomLookaround(this));
+        this.targetSelector.a(1, new PathfinderGoalNearestAttackableTarget(this, EntityHuman.class, 16.0F, 0, false));
+        this.targetSelector.a(2, new PathfinderGoalHurtByTarget(this, false));
+    }
+
+    public boolean c_() {
+        return true;
     }
 
     public int getMaxHealth() {
@@ -32,22 +45,10 @@ public class EntityCreeper extends EntityMonster {
         this.datawatcher.watch(17, Byte.valueOf((byte) (nbttagcompound.getBoolean("powered") ? 1 : 0)));
     }
 
-    protected void b(Entity entity, float f) {
-        if (!this.world.isStatic) {
-            if (this.fuseTicks > 0) {
-                this.b(-1);
-                --this.fuseTicks;
-                if (this.fuseTicks < 0) {
-                    this.fuseTicks = 0;
-                }
-            }
-        }
-    }
-
-    public void y_() {
-        this.b = this.fuseTicks;
-        if (this.world.isStatic) {
-            int i = this.B();
+    public void G_() {
+        if (this.isAlive()) {
+            this.b = this.fuseTicks;
+            int i = this.A();
 
             if (i > 0 && this.fuseTicks == 0) {
                 this.world.makeSound(this, "random.fuse", 1.0F, 0.5F);
@@ -60,24 +61,26 @@ public class EntityCreeper extends EntityMonster {
 
             if (this.fuseTicks >= 30) {
                 this.fuseTicks = 30;
+                if (!this.world.isStatic) {
+                    if (this.isPowered()) {
+                        this.world.explode(this, this.locX, this.locY, this.locZ, 6.0F);
+                    } else {
+                        this.world.explode(this, this.locX, this.locY, this.locZ, 3.0F);
+                    }
+
+                    this.die();
+                }
             }
         }
 
-        super.y_();
-        if (this.target == null && this.fuseTicks > 0) {
-            this.b(-1);
-            --this.fuseTicks;
-            if (this.fuseTicks < 0) {
-                this.fuseTicks = 0;
-            }
-        }
+        super.G_();
     }
 
-    protected String m() {
+    protected String j() {
         return "mob.creeper";
     }
 
-    protected String n() {
+    protected String k() {
         return "mob.creeperdeath";
     }
 
@@ -88,36 +91,8 @@ public class EntityCreeper extends EntityMonster {
         }
     }
 
-    protected void a(Entity entity, float f) {
-        if (!this.world.isStatic) {
-            int i = this.B();
-
-            if ((i > 0 || f >= 3.0F) && (i <= 0 || f >= 7.0F)) {
-                this.b(-1);
-                --this.fuseTicks;
-                if (this.fuseTicks < 0) {
-                    this.fuseTicks = 0;
-                }
-            } else {
-                if (this.fuseTicks == 0) {
-                    this.world.makeSound(this, "random.fuse", 1.0F, 0.5F);
-                }
-
-                this.b(1);
-                ++this.fuseTicks;
-                if (this.fuseTicks >= 30) {
-                    if (this.isPowered()) {
-                        this.world.explode(this, this.locX, this.locY, this.locZ, 6.0F);
-                    } else {
-                        this.world.explode(this, this.locX, this.locY, this.locZ, 3.0F);
-                    }
-
-                    this.die();
-                }
-
-                this.e = true;
-            }
-        }
+    public boolean a(Entity entity) {
+        return true;
     }
 
     public boolean isPowered() {
@@ -128,11 +103,11 @@ public class EntityCreeper extends EntityMonster {
         return Item.SULPHUR.id;
     }
 
-    private int B() {
+    public int A() {
         return this.datawatcher.getByte(16);
     }
 
-    private void b(int i) {
+    public void c(int i) {
         this.datawatcher.watch(16, Byte.valueOf((byte) i));
     }
 

@@ -20,11 +20,15 @@ public class BlockFlowing extends BlockFluids {
         world.notify(i, j, k);
     }
 
+    public boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
+        return this.material != Material.LAVA;
+    }
+
     public void a(World world, int i, int j, int k, Random random) {
         int l = this.g(world, i, j, k);
         byte b0 = 1;
 
-        if (this.material == Material.LAVA && !world.worldProvider.e) {
+        if (this.material == Material.LAVA && !world.worldProvider.d) {
             b0 = 2;
         }
 

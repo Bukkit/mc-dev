@@ -42,6 +42,9 @@ public class MethodProfiler {
             }
 
             d = b.size() > 0 ? (String) b.get(b.size() - 1) : "";
+            if (k > 100000000L) {
+                System.out.println(d + " " + k);
+            }
         }
     }
 

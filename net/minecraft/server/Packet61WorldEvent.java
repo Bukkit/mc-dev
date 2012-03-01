@@ -24,7 +24,7 @@ public class Packet61WorldEvent extends Packet {
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readInt();
         this.c = datainputstream.readInt();
-        this.d = datainputstream.readByte();
+        this.d = datainputstream.readByte() & 255;
         this.e = datainputstream.readInt();
         this.b = datainputstream.readInt();
     }
@@ -32,7 +32,7 @@ public class Packet61WorldEvent extends Packet {
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeInt(this.c);
-        dataoutputstream.writeByte(this.d);
+        dataoutputstream.writeByte(this.d & 255);
         dataoutputstream.writeInt(this.e);
         dataoutputstream.writeInt(this.b);
     }

@@ -28,19 +28,40 @@ public class BlockSapling extends BlockFlower {
 
     public int a(int i, int j) {
         j &= 3;
-        return j == 1 ? 63 : (j == 2 ? 79 : super.a(i, j));
+        return j == 1 ? 63 : (j == 2 ? 79 : (j == 3 ? 30 : super.a(i, j)));
     }
 
     public void grow(World world, int i, int j, int k, Random random) {
         int l = world.getData(i, j, k) & 3;
-
-        world.setRawTypeId(i, j, k, 0);
         Object object = null;
+        int i1 = 0;
+        int j1 = 0;
+        boolean flag = false;
 
         if (l == 1) {
             object = new WorldGenTaiga2(true);
         } else if (l == 2) {
             object = new WorldGenForest(true);
+        } else if (l == 3) {
+            for (i1 = 0; i1 >= -1; --i1) {
+                for (j1 = 0; j1 >= -1; --j1) {
+                    if (world.getTypeId(i + i1, j, k + j1) == this.id && world.getTypeId(i + i1 + 1, j, k + j1) == this.id && world.getTypeId(i + i1, j, k + j1 + 1) == this.id && world.getTypeId(i + i1 + 1, j, k + j1 + 1) == this.id) {
+                        object = new WorldGenMegaTree(true, 10 + random.nextInt(20), 3, 3);
+                        flag = true;
+                        break;
+                    }
+                }
+
+                if (object != null) {
+                    break;
+                }
+            }
+
+            if (object == null) {
+                j1 = 0;
+                i1 = 0;
+                object = new WorldGenTrees(true, 4 + random.nextInt(7), 3, 3, false);
+            }
         } else {
             object = new WorldGenTrees(true);
             if (random.nextInt(10) == 0) {
@@ -48,8 +69,24 @@ public class BlockSapling extends BlockFlower {
             }
         }
 
-        if (!((WorldGenerator) object).a(world, random, i, j, k)) {
-            world.setRawTypeIdAndData(i, j, k, this.id, l);
+        if (flag) {
+            world.setRawTypeId(i + i1, j, k + j1, 0);
+            world.setRawTypeId(i + i1 + 1, j, k + j1, 0);
+            world.setRawTypeId(i + i1, j, k + j1 + 1, 0);
+            world.setRawTypeId(i + i1 + 1, j, k + j1 + 1, 0);
+        } else {
+            world.setRawTypeId(i, j, k, 0);
+        }
+
+        if (!((WorldGenerator) object).a(world, random, i + i1, j, k + j1)) {
+            if (flag) {
+                world.setRawTypeIdAndData(i + i1, j, k + j1, this.id, l);
+                world.setRawTypeIdAndData(i + i1 + 1, j, k + j1, this.id, l);
+                world.setRawTypeIdAndData(i + i1, j, k + j1 + 1, this.id, l);
+                world.setRawTypeIdAndData(i + i1 + 1, j, k + j1 + 1, this.id, l);
+            } else {
+                world.setRawTypeIdAndData(i, j, k, this.id, l);
+            }
         }
     }
 

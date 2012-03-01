@@ -42,51 +42,51 @@ public class ChunkProviderHell implements IChunkProvider {
         byte b0 = 4;
         byte b1 = 32;
         int k = b0 + 1;
-        int l = this.o.height / 8 + 1;
-        int i1 = b0 + 1;
+        byte b2 = 17;
+        int l = b0 + 1;
 
-        this.p = this.a(this.p, i * b0, 0, j * b0, k, l, i1);
+        this.p = this.a(this.p, i * b0, 0, j * b0, k, b2, l);
 
-        for (int j1 = 0; j1 < b0; ++j1) {
-            for (int k1 = 0; k1 < b0; ++k1) {
-                for (int l1 = 0; l1 < this.o.height / 8; ++l1) {
+        for (int i1 = 0; i1 < b0; ++i1) {
+            for (int j1 = 0; j1 < b0; ++j1) {
+                for (int k1 = 0; k1 < 16; ++k1) {
                     double d0 = 0.125D;
-                    double d1 = this.p[((j1 + 0) * i1 + k1 + 0) * l + l1 + 0];
-                    double d2 = this.p[((j1 + 0) * i1 + k1 + 1) * l + l1 + 0];
-                    double d3 = this.p[((j1 + 1) * i1 + k1 + 0) * l + l1 + 0];
-                    double d4 = this.p[((j1 + 1) * i1 + k1 + 1) * l + l1 + 0];
-                    double d5 = (this.p[((j1 + 0) * i1 + k1 + 0) * l + l1 + 1] - d1) * d0;
-                    double d6 = (this.p[((j1 + 0) * i1 + k1 + 1) * l + l1 + 1] - d2) * d0;
-                    double d7 = (this.p[((j1 + 1) * i1 + k1 + 0) * l + l1 + 1] - d3) * d0;
-                    double d8 = (this.p[((j1 + 1) * i1 + k1 + 1) * l + l1 + 1] - d4) * d0;
+                    double d1 = this.p[((i1 + 0) * l + j1 + 0) * b2 + k1 + 0];
+                    double d2 = this.p[((i1 + 0) * l + j1 + 1) * b2 + k1 + 0];
+                    double d3 = this.p[((i1 + 1) * l + j1 + 0) * b2 + k1 + 0];
+                    double d4 = this.p[((i1 + 1) * l + j1 + 1) * b2 + k1 + 0];
+                    double d5 = (this.p[((i1 + 0) * l + j1 + 0) * b2 + k1 + 1] - d1) * d0;
+                    double d6 = (this.p[((i1 + 0) * l + j1 + 1) * b2 + k1 + 1] - d2) * d0;
+                    double d7 = (this.p[((i1 + 1) * l + j1 + 0) * b2 + k1 + 1] - d3) * d0;
+                    double d8 = (this.p[((i1 + 1) * l + j1 + 1) * b2 + k1 + 1] - d4) * d0;
 
-                    for (int i2 = 0; i2 < 8; ++i2) {
+                    for (int l1 = 0; l1 < 8; ++l1) {
                         double d9 = 0.25D;
                         double d10 = d1;
                         double d11 = d2;
                         double d12 = (d3 - d1) * d9;
                         double d13 = (d4 - d2) * d9;
 
-                        for (int j2 = 0; j2 < 4; ++j2) {
-                            int k2 = j2 + j1 * 4 << this.o.heightBitsPlusFour | 0 + k1 * 4 << this.o.heightBits | l1 * 8 + i2;
-                            int l2 = 1 << this.o.heightBits;
+                        for (int i2 = 0; i2 < 4; ++i2) {
+                            int j2 = i2 + i1 * 4 << 11 | 0 + j1 * 4 << 7 | k1 * 8 + l1;
+                            short short1 = 128;
                             double d14 = 0.25D;
                             double d15 = d10;
                             double d16 = (d11 - d10) * d14;
 
-                            for (int i3 = 0; i3 < 4; ++i3) {
-                                int j3 = 0;
+                            for (int k2 = 0; k2 < 4; ++k2) {
+                                int l2 = 0;
 
-                                if (l1 * 8 + i2 < b1) {
-                                    j3 = Block.STATIONARY_LAVA.id;
+                                if (k1 * 8 + l1 < b1) {
+                                    l2 = Block.STATIONARY_LAVA.id;
                                 }
 
                                 if (d15 > 0.0D) {
-                                    j3 = Block.NETHERRACK.id;
+                                    l2 = Block.NETHERRACK.id;
                                 }
 
-                                abyte[k2] = (byte) j3;
-                                k2 += l2;
+                                abyte[j2] = (byte) l2;
+                                j2 += short1;
                                 d15 += d16;
                             }
 
@@ -105,72 +105,72 @@ public class ChunkProviderHell implements IChunkProvider {
     }
 
     public void b(int i, int j, byte[] abyte) {
-        int k = this.o.height - 64;
+        byte b0 = 64;
         double d0 = 0.03125D;
 
         this.q = this.m.a(this.q, i * 16, j * 16, 0, 16, 16, 1, d0, d0, 1.0D);
         this.r = this.m.a(this.r, i * 16, 109, j * 16, 16, 1, 16, d0, 1.0D, d0);
         this.s = this.n.a(this.s, i * 16, j * 16, 0, 16, 16, 1, d0 * 2.0D, d0 * 2.0D, d0 * 2.0D);
 
-        for (int l = 0; l < 16; ++l) {
-            for (int i1 = 0; i1 < 16; ++i1) {
-                boolean flag = this.q[l + i1 * 16] + this.i.nextDouble() * 0.2D > 0.0D;
-                boolean flag1 = this.r[l + i1 * 16] + this.i.nextDouble() * 0.2D > 0.0D;
-                int j1 = (int) (this.s[l + i1 * 16] / 3.0D + 3.0D + this.i.nextDouble() * 0.25D);
-                int k1 = -1;
-                byte b0 = (byte) Block.NETHERRACK.id;
+        for (int k = 0; k < 16; ++k) {
+            for (int l = 0; l < 16; ++l) {
+                boolean flag = this.q[k + l * 16] + this.i.nextDouble() * 0.2D > 0.0D;
+                boolean flag1 = this.r[k + l * 16] + this.i.nextDouble() * 0.2D > 0.0D;
+                int i1 = (int) (this.s[k + l * 16] / 3.0D + 3.0D + this.i.nextDouble() * 0.25D);
+                int j1 = -1;
                 byte b1 = (byte) Block.NETHERRACK.id;
+                byte b2 = (byte) Block.NETHERRACK.id;
 
-                for (int l1 = this.o.heightMinusOne; l1 >= 0; --l1) {
-                    int i2 = (i1 * 16 + l) * this.o.height + l1;
+                for (int k1 = 127; k1 >= 0; --k1) {
+                    int l1 = (l * 16 + k) * 128 + k1;
 
-                    if (l1 >= this.o.heightMinusOne - this.i.nextInt(5)) {
-                        abyte[i2] = (byte) Block.BEDROCK.id;
-                    } else if (l1 <= 0 + this.i.nextInt(5)) {
-                        abyte[i2] = (byte) Block.BEDROCK.id;
+                    if (k1 >= 127 - this.i.nextInt(5)) {
+                        abyte[l1] = (byte) Block.BEDROCK.id;
+                    } else if (k1 <= 0 + this.i.nextInt(5)) {
+                        abyte[l1] = (byte) Block.BEDROCK.id;
                     } else {
-                        byte b2 = abyte[i2];
+                        byte b3 = abyte[l1];
 
-                        if (b2 == 0) {
-                            k1 = -1;
-                        } else if (b2 == Block.NETHERRACK.id) {
-                            if (k1 == -1) {
-                                if (j1 <= 0) {
-                                    b0 = 0;
+                        if (b3 == 0) {
+                            j1 = -1;
+                        } else if (b3 == Block.NETHERRACK.id) {
+                            if (j1 == -1) {
+                                if (i1 <= 0) {
+                                    b1 = 0;
+                                    b2 = (byte) Block.NETHERRACK.id;
+                                } else if (k1 >= b0 - 4 && k1 <= b0 + 1) {
                                     b1 = (byte) Block.NETHERRACK.id;
-                                } else if (l1 >= k - 4 && l1 <= k + 1) {
-                                    b0 = (byte) Block.NETHERRACK.id;
-                                    b1 = (byte) Block.NETHERRACK.id;
+                                    b2 = (byte) Block.NETHERRACK.id;
                                     if (flag1) {
-                                        b0 = (byte) Block.GRAVEL.id;
+                                        b1 = (byte) Block.GRAVEL.id;
                                     }
 
                                     if (flag1) {
-                                        b1 = (byte) Block.NETHERRACK.id;
-                                    }
-
-                                    if (flag) {
-                                        b0 = (byte) Block.SOUL_SAND.id;
+                                        b2 = (byte) Block.NETHERRACK.id;
                                     }
 
                                     if (flag) {
                                         b1 = (byte) Block.SOUL_SAND.id;
                                     }
+
+                                    if (flag) {
+                                        b2 = (byte) Block.SOUL_SAND.id;
+                                    }
                                 }
 
-                                if (l1 < k && b0 == 0) {
-                                    b0 = (byte) Block.STATIONARY_LAVA.id;
+                                if (k1 < b0 && b1 == 0) {
+                                    b1 = (byte) Block.STATIONARY_LAVA.id;
                                 }
 
-                                k1 = j1;
-                                if (l1 >= k - 1) {
-                                    abyte[i2] = b0;
+                                j1 = i1;
+                                if (k1 >= b0 - 1) {
+                                    abyte[l1] = b1;
                                 } else {
-                                    abyte[i2] = b1;
+                                    abyte[l1] = b2;
                                 }
-                            } else if (k1 > 0) {
-                                --k1;
-                                abyte[i2] = b1;
+                            } else if (j1 > 0) {
+                                --j1;
+                                abyte[l1] = b2;
                             }
                         }
                     }
@@ -185,7 +185,7 @@ public class ChunkProviderHell implements IChunkProvider {
 
     public Chunk getOrCreateChunk(int i, int j) {
         this.i.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
-        byte[] abyte = new byte[16 * this.o.height * 16];
+        byte[] abyte = new byte['\u8000'];
 
         this.a(i, j, abyte);
         this.b(i, j, abyte);
@@ -193,6 +193,7 @@ public class ChunkProviderHell implements IChunkProvider {
         this.c.a(this, this.o, i, j, abyte);
         Chunk chunk = new Chunk(this.o, abyte, i, j);
 
+        chunk.m();
         return chunk;
     }
 
@@ -329,7 +330,7 @@ public class ChunkProviderHell implements IChunkProvider {
 
         for (i1 = 0; i1 < 8; ++i1) {
             j1 = k + this.i.nextInt(16) + 8;
-            k1 = this.i.nextInt(this.o.height - 8) + 4;
+            k1 = this.i.nextInt(120) + 4;
             l1 = l + this.i.nextInt(16) + 8;
             (new WorldGenHellLava(Block.LAVA.id)).a(this.o, this.i, j1, k1, l1);
         }
@@ -340,7 +341,7 @@ public class ChunkProviderHell implements IChunkProvider {
 
         for (j1 = 0; j1 < i1; ++j1) {
             k1 = k + this.i.nextInt(16) + 8;
-            l1 = this.i.nextInt(this.o.height - 8) + 4;
+            l1 = this.i.nextInt(120) + 4;
             i2 = l + this.i.nextInt(16) + 8;
             (new WorldGenFire()).a(this.o, this.i, k1, l1, i2);
         }
@@ -349,28 +350,28 @@ public class ChunkProviderHell implements IChunkProvider {
 
         for (j1 = 0; j1 < i1; ++j1) {
             k1 = k + this.i.nextInt(16) + 8;
-            l1 = this.i.nextInt(this.o.height - 8) + 4;
+            l1 = this.i.nextInt(120) + 4;
             i2 = l + this.i.nextInt(16) + 8;
             (new WorldGenLightStone1()).a(this.o, this.i, k1, l1, i2);
         }
 
         for (j1 = 0; j1 < 10; ++j1) {
             k1 = k + this.i.nextInt(16) + 8;
-            l1 = this.i.nextInt(this.o.height);
+            l1 = this.i.nextInt(128);
             i2 = l + this.i.nextInt(16) + 8;
             (new WorldGenLightStone2()).a(this.o, this.i, k1, l1, i2);
         }
 
         if (this.i.nextInt(1) == 0) {
             j1 = k + this.i.nextInt(16) + 8;
-            k1 = this.i.nextInt(this.o.height);
+            k1 = this.i.nextInt(128);
             l1 = l + this.i.nextInt(16) + 8;
             (new WorldGenFlowers(Block.BROWN_MUSHROOM.id)).a(this.o, this.i, j1, k1, l1);
         }
 
         if (this.i.nextInt(1) == 0) {
             j1 = k + this.i.nextInt(16) + 8;
-            k1 = this.i.nextInt(this.o.height);
+            k1 = this.i.nextInt(128);
             l1 = l + this.i.nextInt(16) + 8;
             (new WorldGenFlowers(Block.RED_MUSHROOM.id)).a(this.o, this.i, j1, k1, l1);
         }
@@ -394,15 +395,9 @@ public class ChunkProviderHell implements IChunkProvider {
         if (enumcreaturetype == EnumCreatureType.MONSTER && this.c.a(i, j, k)) {
             return this.c.b();
         } else {
-            WorldChunkManager worldchunkmanager = this.o.getWorldChunkManager();
+            BiomeBase biomebase = this.o.getBiome(i, k);
 
-            if (worldchunkmanager == null) {
-                return null;
-            } else {
-                BiomeBase biomebase = worldchunkmanager.getBiome(new ChunkCoordIntPair(i >> 4, k >> 4));
-
-                return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
-            }
+            return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
         }
     }
 

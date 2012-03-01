@@ -13,20 +13,22 @@ public class Packet24MobSpawn extends Packet {
     public int e;
     public byte f;
     public byte g;
-    private DataWatcher h;
-    private List i;
+    public byte h;
+    private DataWatcher i;
+    private List q;
 
     public Packet24MobSpawn() {}
 
     public Packet24MobSpawn(EntityLiving entityliving) {
         this.a = entityliving.id;
-        this.b = (byte) EntityTypes.a(entityliving);
+        this.b = (byte) EntityTypes.a((Entity) entityliving);
         this.c = MathHelper.floor(entityliving.locX * 32.0D);
         this.d = MathHelper.floor(entityliving.locY * 32.0D);
         this.e = MathHelper.floor(entityliving.locZ * 32.0D);
         this.f = (byte) ((int) (entityliving.yaw * 256.0F / 360.0F));
         this.g = (byte) ((int) (entityliving.pitch * 256.0F / 360.0F));
-        this.h = entityliving.getDataWatcher();
+        this.h = (byte) ((int) (entityliving.X * 256.0F / 360.0F));
+        this.i = entityliving.getDataWatcher();
     }
 
     public void a(DataInputStream datainputstream) {
@@ -37,7 +39,8 @@ public class Packet24MobSpawn extends Packet {
         this.e = datainputstream.readInt();
         this.f = datainputstream.readByte();
         this.g = datainputstream.readByte();
-        this.i = DataWatcher.a(datainputstream);
+        this.h = datainputstream.readByte();
+        this.q = DataWatcher.a(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
@@ -48,7 +51,8 @@ public class Packet24MobSpawn extends Packet {
         dataoutputstream.writeInt(this.e);
         dataoutputstream.writeByte(this.f);
         dataoutputstream.writeByte(this.g);
-        this.h.a(dataoutputstream);
+        dataoutputstream.writeByte(this.h);
+        this.i.a(dataoutputstream);
     }
 
     public void handle(NetHandler nethandler) {

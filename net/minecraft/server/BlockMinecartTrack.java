@@ -121,7 +121,7 @@ public class BlockMinecartTrack extends Block {
                 this.b(world, i, j, k, world.getData(i, j, k), 0);
                 world.setTypeId(i, j, k, 0);
             } else if (this.id == Block.GOLDEN_RAIL.id) {
-                boolean flag1 = world.isBlockIndirectlyPowered(i, j, k) || world.isBlockIndirectlyPowered(i, j + 1, k);
+                boolean flag1 = world.isBlockIndirectlyPowered(i, j, k);
 
                 flag1 = flag1 || this.a(world, i, j, k, i1, true, 0) || this.a(world, i, j, k, i1, false, 0);
                 boolean flag2 = false;
@@ -244,11 +244,11 @@ public class BlockMinecartTrack extends Block {
             }
 
             if ((k1 & 8) != 0) {
-                if (!world.isBlockIndirectlyPowered(i, j, k) && !world.isBlockIndirectlyPowered(i, j + 1, k)) {
-                    return this.a(world, i, j, k, k1, flag, l + 1);
+                if (world.isBlockIndirectlyPowered(i, j, k)) {
+                    return true;
                 }
 
-                return true;
+                return this.a(world, i, j, k, k1, flag, l + 1);
             }
         }
 

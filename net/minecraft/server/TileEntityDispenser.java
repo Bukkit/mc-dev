@@ -40,7 +40,18 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
         }
     }
 
-    public ItemStack k_() {
+    public ItemStack splitWithoutUpdate(int i) {
+        if (this.items[i] != null) {
+            ItemStack itemstack = this.items[i];
+
+            this.items[i] = null;
+            return itemstack;
+        } else {
+            return null;
+        }
+    }
+
+    public ItemStack p_() {
         int i = -1;
         int j = 1;
 
@@ -67,7 +78,7 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
     }
 
     public String getName() {
-        return "Trap";
+        return "container.dispenser";
     }
 
     public void a(NBTTagCompound nbttagcompound) {

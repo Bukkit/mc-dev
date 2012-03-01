@@ -403,7 +403,7 @@ public abstract class StructurePiece {
         int j1 = this.b(i, k);
 
         if (structureboundingbox.b(l, i1, j1)) {
-            while (!world.isEmpty(l, i1, j1) && i1 < world.heightMinusOne) {
+            while (!world.isEmpty(l, i1, j1) && i1 < 255) {
                 world.setRawTypeIdAndData(l, i1, j1, 0, 0);
                 ++i1;
             }

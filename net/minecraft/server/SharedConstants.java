@@ -30,4 +30,8 @@ public class SharedConstants {
 
         return s;
     }
+
+    public static final boolean isAllowedChatCharacter(char c0) {
+        return c0 != 167 && (allowedCharacters.indexOf(c0) >= 0 || c0 > 32);
+    }
 }

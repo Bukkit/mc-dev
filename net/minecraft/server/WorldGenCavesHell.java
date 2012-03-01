@@ -89,8 +89,8 @@ public class WorldGenCavesHell extends WorldGenBase {
                         i2 = 1;
                     }
 
-                    if (j2 > this.d.height - 8) {
-                        j2 = this.d.height - 8;
+                    if (j2 > 120) {
+                        j2 = 120;
                     }
 
                     if (k2 < 0) {
@@ -109,8 +109,8 @@ public class WorldGenCavesHell extends WorldGenBase {
                     for (j3 = k1; !flag2 && j3 < l1; ++j3) {
                         for (int k3 = k2; !flag2 && k3 < l2; ++k3) {
                             for (int l3 = j2 + 1; !flag2 && l3 >= i2 - 1; --l3) {
-                                i3 = (j3 * 16 + k3) * this.d.height + l3;
-                                if (l3 >= 0 && l3 < this.d.height) {
+                                i3 = (j3 * 16 + k3) * 128 + l3;
+                                if (l3 >= 0 && l3 < 128) {
                                     if (abyte[i3] == Block.LAVA.id || abyte[i3] == Block.STATIONARY_LAVA.id) {
                                         flag2 = true;
                                     }
@@ -129,7 +129,7 @@ public class WorldGenCavesHell extends WorldGenBase {
 
                             for (i3 = k2; i3 < l2; ++i3) {
                                 double d13 = ((double) (i3 + j * 16) + 0.5D - d2) / d6;
-                                int i4 = (j3 * 16 + i3) * this.d.height + j2;
+                                int i4 = (j3 * 16 + i3) * 128 + j2;
 
                                 for (int j4 = j2 - 1; j4 >= i2; --j4) {
                                     double d14 = ((double) j4 + 0.5D - d1) / d7;
@@ -165,7 +165,7 @@ public class WorldGenCavesHell extends WorldGenBase {
 
         for (int j1 = 0; j1 < i1; ++j1) {
             double d0 = (double) (i * 16 + this.c.nextInt(16));
-            double d1 = (double) this.c.nextInt(world.height);
+            double d1 = (double) this.c.nextInt(128);
             double d2 = (double) (j * 16 + this.c.nextInt(16));
             int k1 = 1;
 

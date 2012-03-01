@@ -43,7 +43,7 @@ public abstract class StructureStart {
     }
 
     protected void a(World world, Random random, int i) {
-        int j = world.seaLevel - i;
+        int j = 63 - i;
         int k = this.b.c() + 1;
 
         if (k < j) {

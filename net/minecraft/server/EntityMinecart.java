@@ -39,15 +39,15 @@ public class EntityMinecart extends Entity implements IInventory {
         this.datawatcher.a(19, new Integer(0));
     }
 
-    public AxisAlignedBB a_(Entity entity) {
+    public AxisAlignedBB b_(Entity entity) {
         return entity.boundingBox;
     }
 
-    public AxisAlignedBB h_() {
+    public AxisAlignedBB h() {
         return null;
     }
 
-    public boolean f_() {
+    public boolean e_() {
         return true;
     }
 
@@ -63,15 +63,15 @@ public class EntityMinecart extends Entity implements IInventory {
         this.type = i;
     }
 
-    public double q() {
+    public double x_() {
         return (double) this.length * 0.0D - 0.30000001192092896D;
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
         if (!this.world.isStatic && !this.dead) {
-            this.d(-this.m());
-            this.c(10);
-            this.aM();
+            this.e(-this.n());
+            this.d(10);
+            this.aV();
             this.setDamage(this.getDamage() + i * 10);
             if (this.getDamage() > 40) {
                 if (this.passenger != null) {
@@ -122,7 +122,7 @@ public class EntityMinecart extends Entity implements IInventory {
         }
     }
 
-    public boolean e_() {
+    public boolean o_() {
         return !this.dead;
     }
 
@@ -157,16 +157,16 @@ public class EntityMinecart extends Entity implements IInventory {
         super.die();
     }
 
-    public void y_() {
-        if (this.l() > 0) {
-            this.c(this.l() - 1);
+    public void G_() {
+        if (this.m() > 0) {
+            this.d(this.m() - 1);
         }
 
         if (this.getDamage() > 0) {
             this.setDamage(this.getDamage() - 1);
         }
 
-        if (this.j() && this.random.nextInt(4) == 0) {
+        if (this.k() && this.random.nextInt(4) == 0) {
             this.world.a("largesmoke", this.locX, this.locY + 0.8D, this.locZ, 0.0D, 0.0D, 0.0D);
         }
 
@@ -491,7 +491,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 for (int l1 = 0; l1 < list.size(); ++l1) {
                     Entity entity = (Entity) list.get(l1);
 
-                    if (entity != this.passenger && entity.f_() && entity instanceof EntityMinecart) {
+                    if (entity != this.passenger && entity.e_() && entity instanceof EntityMinecart) {
                         entity.collide(this);
                     }
                 }
@@ -631,7 +631,7 @@ public class EntityMinecart extends Entity implements IInventory {
     public void collide(Entity entity) {
         if (!this.world.isStatic) {
             if (entity != this.passenger) {
-                if (entity instanceof EntityLiving && !(entity instanceof EntityHuman) && this.type == 0 && this.motX * this.motX + this.motZ * this.motZ > 0.01D && this.passenger == null && entity.vehicle == null) {
+                if (entity instanceof EntityLiving && !(entity instanceof EntityHuman) && !(entity instanceof EntityIronGolem) && this.type == 0 && this.motX * this.motX + this.motZ * this.motZ > 0.01D && this.passenger == null && entity.vehicle == null) {
                     entity.mount(this);
                 }
 
@@ -731,6 +731,17 @@ public class EntityMinecart extends Entity implements IInventory {
         }
     }
 
+    public ItemStack splitWithoutUpdate(int i) {
+        if (this.items[i] != null) {
+            ItemStack itemstack = this.items[i];
+
+            this.items[i] = null;
+            return itemstack;
+        } else {
+            return null;
+        }
+    }
+
     public void setItem(int i, ItemStack itemstack) {
         this.items[i] = itemstack;
         if (itemstack != null && itemstack.count > this.getMaxStackSize()) {
@@ -739,7 +750,7 @@ public class EntityMinecart extends Entity implements IInventory {
     }
 
     public String getName() {
-        return "Minecart";
+        return "container.minecart";
     }
 
     public int getMaxStackSize() {
@@ -780,10 +791,10 @@ public class EntityMinecart extends Entity implements IInventory {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.dead ? false : entityhuman.i(this) <= 64.0D;
+        return this.dead ? false : entityhuman.j(this) <= 64.0D;
     }
 
-    protected boolean j() {
+    protected boolean k() {
         return (this.datawatcher.getByte(16) & 1) != 0;
     }
 
@@ -807,19 +818,19 @@ public class EntityMinecart extends Entity implements IInventory {
         return this.datawatcher.getInt(19);
     }
 
-    public void c(int i) {
+    public void d(int i) {
         this.datawatcher.watch(17, Integer.valueOf(i));
     }
 
-    public int l() {
+    public int m() {
         return this.datawatcher.getInt(17);
     }
 
-    public void d(int i) {
+    public void e(int i) {
         this.datawatcher.watch(18, Integer.valueOf(i));
     }
 
-    public int m() {
+    public int n() {
         return this.datawatcher.getInt(18);
     }
 }

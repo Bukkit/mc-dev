@@ -9,7 +9,26 @@ public class BlockLadder extends Block {
     }
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
-        return null;
+        int l = world.getData(i, j, k);
+        float f = 0.125F;
+
+        if (l == 2) {
+            this.a(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
+        }
+
+        if (l == 3) {
+            this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
+        }
+
+        if (l == 4) {
+            this.a(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        }
+
+        if (l == 5) {
+            this.a(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
+        }
+
+        return super.e(world, i, j, k);
     }
 
     public boolean a() {

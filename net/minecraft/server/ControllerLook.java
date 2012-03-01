@@ -49,7 +49,29 @@ public class ControllerLook {
             float f1 = (float) (-(Math.atan2(d1, d3) * 180.0D / 3.1415927410125732D));
 
             this.a.pitch = this.a(this.a.pitch, f1, this.c);
-            this.a.yaw = this.a(this.a.yaw, f, this.b);
+            this.a.X = this.a(this.a.X, f, this.b);
+        } else {
+            this.a.X = this.a(this.a.X, this.a.V, 10.0F);
+        }
+
+        float f2;
+
+        for (f2 = this.a.X - this.a.V; f2 < -180.0F; f2 += 360.0F) {
+            ;
+        }
+
+        while (f2 >= 180.0F) {
+            f2 -= 360.0F;
+        }
+
+        if (!this.a.ak().e()) {
+            if (f2 < -75.0F) {
+                this.a.X = this.a.V - 75.0F;
+            }
+
+            if (f2 > 75.0F) {
+                this.a.X = this.a.V + 75.0F;
+            }
         }
     }
 

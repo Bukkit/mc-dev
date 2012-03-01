@@ -18,7 +18,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     private int h;
 
     public ChunkProviderLoadOrGenerate(World world, IChunkLoader ichunkloader, IChunkProvider ichunkprovider) {
-        this.b = new EmptyChunk(world, new byte[256 * world.height], 0, 0);
+        this.b = new EmptyChunk(world, 0, 0);
         this.g = world;
         this.d = ichunkloader;
         this.c = ichunkprovider;
@@ -88,7 +88,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                 Chunk chunk = this.d.a(this.g, i, j);
 
                 if (chunk != null) {
-                    chunk.t = this.g.getTime();
+                    chunk.n = this.g.getTime();
                 }
 
                 return chunk;
@@ -112,7 +112,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     private void b(Chunk chunk) {
         if (this.d != null) {
             try {
-                chunk.t = this.g.getTime();
+                chunk.n = this.g.getTime();
                 this.d.a(this.g, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
@@ -127,7 +127,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
             chunk.done = true;
             if (this.c != null) {
                 this.c.getChunkAt(ichunkprovider, i, j);
-                chunk.f();
+                chunk.e();
             }
         }
     }
@@ -138,13 +138,13 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         for (int j = 0; j < this.f.size(); ++j) {
             Chunk chunk = (Chunk) this.f.get(j);
 
-            if (flag && !chunk.r) {
+            if (flag) {
                 this.a(chunk);
             }
 
             if (chunk.a(flag)) {
                 this.b(chunk);
-                chunk.q = false;
+                chunk.l = false;
                 ++i;
                 if (i == 24 && !flag) {
                     return false;
@@ -187,7 +187,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
             }
 
             Chunk chunk1 = (Chunk) this.f.get(this.h++);
-            EntityHuman entityhuman = this.g.findNearbyPlayer((double) (chunk1.x << 4) + 8.0D, 64.0D, (double) (chunk1.z << 4) + 8.0D, 288.0D);
+            EntityHuman entityhuman = this.g.a((double) (chunk1.x << 4) + 8.0D, (double) (chunk1.z << 4) + 8.0D, 288.0D);
 
             if (entityhuman == null) {
                 this.d(chunk1.x, chunk1.z);

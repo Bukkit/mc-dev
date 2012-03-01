@@ -6,22 +6,18 @@ import java.util.Random;
 
 public class WorldChunkManagerHell extends WorldChunkManager {
 
-    private BiomeBase b;
+    private BiomeBase a;
+    private float b;
     private float c;
-    private float d;
 
     public WorldChunkManagerHell(BiomeBase biomebase, float f, float f1) {
-        this.b = biomebase;
-        this.c = f;
-        this.d = f1;
-    }
-
-    public BiomeBase getBiome(ChunkCoordIntPair chunkcoordintpair) {
-        return this.b;
+        this.a = biomebase;
+        this.b = f;
+        this.c = f1;
     }
 
     public BiomeBase getBiome(int i, int j) {
-        return this.b;
+        return this.a;
     }
 
     public BiomeBase[] getBiomes(BiomeBase[] abiomebase, int i, int j, int k, int l) {
@@ -29,7 +25,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
             abiomebase = new BiomeBase[k * l];
         }
 
-        Arrays.fill(abiomebase, 0, k * l, this.b);
+        Arrays.fill(abiomebase, 0, k * l, this.a);
         return abiomebase;
     }
 
@@ -38,12 +34,8 @@ public class WorldChunkManagerHell extends WorldChunkManager {
             afloat = new float[k * l];
         }
 
-        Arrays.fill(afloat, 0, k * l, this.c);
+        Arrays.fill(afloat, 0, k * l, this.b);
         return afloat;
-    }
-
-    public float[] a(int i, int j, int k, int l) {
-        return this.getTemperatures(new float[k * l], i, j, k, l);
     }
 
     public float[] getWetness(float[] afloat, int i, int j, int k, int l) {
@@ -51,7 +43,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
             afloat = new float[k * l];
         }
 
-        Arrays.fill(afloat, 0, k * l, this.d);
+        Arrays.fill(afloat, 0, k * l, this.c);
         return afloat;
     }
 
@@ -60,7 +52,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
             abiomebase = new BiomeBase[k * l];
         }
 
-        Arrays.fill(abiomebase, 0, k * l, this.b);
+        Arrays.fill(abiomebase, 0, k * l, this.a);
         return abiomebase;
     }
 
@@ -69,10 +61,10 @@ public class WorldChunkManagerHell extends WorldChunkManager {
     }
 
     public ChunkPosition a(int i, int j, int k, List list, Random random) {
-        return list.contains(this.b) ? new ChunkPosition(i - k + random.nextInt(k * 2 + 1), 0, j - k + random.nextInt(k * 2 + 1)) : null;
+        return list.contains(this.a) ? new ChunkPosition(i - k + random.nextInt(k * 2 + 1), 0, j - k + random.nextInt(k * 2 + 1)) : null;
     }
 
     public boolean a(int i, int j, int k, List list) {
-        return list.contains(this.b);
+        return list.contains(this.a);
     }
 }

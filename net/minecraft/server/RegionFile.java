@@ -130,6 +130,9 @@ public class RegionFile {
                         if (j1 > 4096 * i1) {
                             this.b("READ", i, j, "invalid length: " + j1 + " > 4096 * " + i1);
                             return null;
+                        } else if (j1 <= 0) {
+                            this.b("READ", i, j, "invalid length: " + j1 + " < 1");
+                            return null;
                         } else {
                             byte b0 = this.c.readByte();
                             byte[] abyte;

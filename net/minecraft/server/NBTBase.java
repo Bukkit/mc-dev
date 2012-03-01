@@ -102,6 +102,9 @@ public abstract class NBTBase {
         case 10:
             return new NBTTagCompound(s);
 
+        case 11:
+            return new NBTTagIntArray(s);
+
         default:
             return null;
         }
@@ -141,6 +144,9 @@ public abstract class NBTBase {
 
         case 10:
             return "TAG_Compound";
+
+        case 11:
+            return "TAG_Int_Array";
 
         default:
             return "UNKNOWN";

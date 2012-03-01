@@ -14,7 +14,7 @@ public class Packet2Handshake extends Packet {
     }
 
     public void a(DataInputStream datainputstream) {
-        this.a = a(datainputstream, 32);
+        this.a = a(datainputstream, 64);
     }
 
     public void a(DataOutputStream dataoutputstream) {

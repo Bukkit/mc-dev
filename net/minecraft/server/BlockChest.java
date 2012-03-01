@@ -113,19 +113,19 @@ public class BlockChest extends BlockContainer {
             if (l != this.id && i1 != this.id) {
                 if (j1 != this.id && k1 != this.id) {
                     b0 = 3;
-                    if (Block.o[l] && !Block.o[i1]) {
+                    if (Block.n[l] && !Block.n[i1]) {
                         b0 = 3;
                     }
 
-                    if (Block.o[i1] && !Block.o[l]) {
+                    if (Block.n[i1] && !Block.n[l]) {
                         b0 = 2;
                     }
 
-                    if (Block.o[j1] && !Block.o[k1]) {
+                    if (Block.n[j1] && !Block.n[k1]) {
                         b0 = 5;
                     }
 
-                    if (Block.o[k1] && !Block.o[j1]) {
+                    if (Block.n[k1] && !Block.n[j1]) {
                         b0 = 4;
                     }
                 } else {
@@ -143,11 +143,11 @@ public class BlockChest extends BlockContainer {
                         b0 = 2;
                     }
 
-                    if ((Block.o[l] || Block.o[l1]) && !Block.o[i1] && !Block.o[i2]) {
+                    if ((Block.n[l] || Block.n[l1]) && !Block.n[i1] && !Block.n[i2]) {
                         b0 = 3;
                     }
 
-                    if ((Block.o[i1] || Block.o[i2]) && !Block.o[l] && !Block.o[l1]) {
+                    if ((Block.n[i1] || Block.n[i2]) && !Block.n[l] && !Block.n[l1]) {
                         b0 = 2;
                     }
                 }
@@ -166,11 +166,11 @@ public class BlockChest extends BlockContainer {
                     b0 = 4;
                 }
 
-                if ((Block.o[j1] || Block.o[l1]) && !Block.o[k1] && !Block.o[i2]) {
+                if ((Block.n[j1] || Block.n[l1]) && !Block.n[k1] && !Block.n[i2]) {
                     b0 = 5;
                 }
 
-                if ((Block.o[k1] || Block.o[i2]) && !Block.o[j1] && !Block.o[l1]) {
+                if ((Block.n[k1] || Block.n[i2]) && !Block.n[j1] && !Block.n[l1]) {
                     b0 = 4;
                 }
             }
@@ -214,7 +214,7 @@ public class BlockChest extends BlockContainer {
         TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i, j, k);
 
         if (tileentitychest != null) {
-            tileentitychest.d();
+            tileentitychest.h();
         }
     }
 

@@ -16,16 +16,18 @@ public class EntityMushroomCow extends EntityCow {
             return true;
         } else if (itemstack != null && itemstack.id == Item.SHEARS.id && this.getAge() >= 0) {
             this.die();
-            EntityCow entitycow = new EntityCow(this.world);
-
-            entitycow.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
-            entitycow.setHealth(this.getHealth());
-            entitycow.V = this.V;
-            this.world.addEntity(entitycow);
             this.world.a("largeexplode", this.locX, this.locY + (double) (this.length / 2.0F), this.locZ, 0.0D, 0.0D, 0.0D);
+            if (!this.world.isStatic) {
+                EntityCow entitycow = new EntityCow(this.world);
 
-            for (int i = 0; i < 5; ++i) {
-                this.world.addEntity(new EntityItem(this.world, this.locX, this.locY + (double) this.length, this.locZ, new ItemStack(Block.RED_MUSHROOM)));
+                entitycow.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
+                entitycow.setHealth(this.getHealth());
+                entitycow.V = this.V;
+                this.world.addEntity(entitycow);
+
+                for (int i = 0; i < 5; ++i) {
+                    this.world.addEntity(new EntityItem(this.world, this.locX, this.locY + (double) this.length, this.locZ, new ItemStack(Block.RED_MUSHROOM)));
+                }
             }
 
             return true;
@@ -34,7 +36,7 @@ public class EntityMushroomCow extends EntityCow {
         }
     }
 
-    protected EntityAnimal createChild(EntityAnimal entityanimal) {
+    public EntityAnimal createChild(EntityAnimal entityanimal) {
         return new EntityMushroomCow(this.world);
     }
 }

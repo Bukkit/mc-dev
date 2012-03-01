@@ -186,7 +186,7 @@ public class BlockVine extends Block {
             int l1;
             int i2;
 
-            if (j1 == 1 && j < world.height - 1 && world.isEmpty(i, j + 1, k)) {
+            if (j1 == 1 && j < 255 && world.isEmpty(i, j + 1, k)) {
                 if (flag) {
                     return;
                 }
@@ -284,7 +284,7 @@ public class BlockVine extends Block {
     }
 
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
-        if (!world.isStatic && entityhuman.Q() != null && entityhuman.Q().id == Item.SHEARS.id) {
+        if (!world.isStatic && entityhuman.T() != null && entityhuman.T().id == Item.SHEARS.id) {
             entityhuman.a(StatisticList.C[this.id], 1);
             this.a(world, i, j, k, new ItemStack(Block.VINE, 1, 0));
         } else {

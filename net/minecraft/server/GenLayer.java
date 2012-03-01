@@ -7,7 +7,7 @@ public abstract class GenLayer {
     private long c;
     private long d;
 
-    public static GenLayer[] a(long i) {
+    public static GenLayer[] a(long i, WorldType worldtype) {
         LayerIsland layerisland = new LayerIsland(1L);
         GenLayerZoomFuzzy genlayerzoomfuzzy = new GenLayerZoomFuzzy(2000L, layerisland);
         GenLayerIsland genlayerisland = new GenLayerIsland(1L, genlayerzoomfuzzy);
@@ -29,12 +29,10 @@ public abstract class GenLayer {
         GenLayerRiver genlayerriver = new GenLayerRiver(1L, genlayer);
         GenLayerSmooth genlayersmooth = new GenLayerSmooth(1000L, genlayerriver);
         GenLayer genlayer1 = GenLayerZoom.a(1000L, genlayermushroomisland, 0);
-        GenLayerBiome genlayerbiome = new GenLayerBiome(200L, genlayer1);
+        GenLayerBiome genlayerbiome = new GenLayerBiome(200L, genlayer1, worldtype);
 
         genlayer1 = GenLayerZoom.a(1000L, genlayerbiome, 2);
         Object object = new GenLayerRegionHills(1000L, genlayer1);
-        Object object1 = new GenLayerTemperature((GenLayer) object);
-        Object object2 = new GenLayerDownfall((GenLayer) object);
 
         for (int j = 0; j < b0; ++j) {
             object = new GenLayerZoom((long) (1000 + j), (GenLayer) object);
@@ -49,26 +47,15 @@ public abstract class GenLayer {
             if (j == 1) {
                 object = new GenLayerSwampRivers(1000L, (GenLayer) object);
             }
-
-            GenLayerSmoothZoom genlayersmoothzoom = new GenLayerSmoothZoom((long) (1000 + j), (GenLayer) object1);
-
-            object1 = new GenLayerTemperatureMix(genlayersmoothzoom, (GenLayer) object, j);
-            GenLayerSmoothZoom genlayersmoothzoom1 = new GenLayerSmoothZoom((long) (1000 + j), (GenLayer) object2);
-
-            object2 = new GenLayerDownfallMix(genlayersmoothzoom1, (GenLayer) object, j);
         }
 
         GenLayerSmooth genlayersmooth1 = new GenLayerSmooth(1000L, (GenLayer) object);
         GenLayerRiverMix genlayerrivermix = new GenLayerRiverMix(100L, genlayersmooth1, genlayersmooth);
-        GenLayer genlayer2 = GenLayerSmoothZoom.a(1000L, (GenLayer) object1, 2);
-        GenLayer genlayer3 = GenLayerSmoothZoom.a(1000L, (GenLayer) object2, 2);
         GenLayerZoomVoronoi genlayerzoomvoronoi = new GenLayerZoomVoronoi(10L, genlayerrivermix);
 
-        genlayerrivermix.b(i);
-        genlayer2.b(i);
-        genlayer3.b(i);
-        genlayerzoomvoronoi.b(i);
-        return new GenLayer[] { genlayerrivermix, genlayerzoomvoronoi, genlayer2, genlayer3, genlayerrivermix};
+        genlayerrivermix.a(i);
+        genlayerzoomvoronoi.a(i);
+        return new GenLayer[] { genlayerrivermix, genlayerzoomvoronoi, genlayerrivermix};
     }
 
     public GenLayer(long i) {
@@ -81,10 +68,10 @@ public abstract class GenLayer {
         this.d += i;
     }
 
-    public void b(long i) {
+    public void a(long i) {
         this.b = i;
         if (this.a != null) {
-            this.a.b(i);
+            this.a.a(i);
         }
 
         this.b *= this.b * 6364136223846793005L + 1442695040888963407L;

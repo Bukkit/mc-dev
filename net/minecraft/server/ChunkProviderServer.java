@@ -19,7 +19,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private WorldServer world;
 
     public ChunkProviderServer(WorldServer worldserver, IChunkLoader ichunkloader, IChunkProvider ichunkprovider) {
-        this.emptyChunk = new EmptyChunk(worldserver, new byte[256 * worldserver.height], 0, 0);
+        this.emptyChunk = new EmptyChunk(worldserver, 0, 0);
         this.world = worldserver;
         this.e = ichunkloader;
         this.chunkProvider = ichunkprovider;
@@ -97,7 +97,7 @@ public class ChunkProviderServer implements IChunkProvider {
                 Chunk chunk = this.e.a(this.world, i, j);
 
                 if (chunk != null) {
-                    chunk.t = this.world.getTime();
+                    chunk.n = this.world.getTime();
                 }
 
                 return chunk;
@@ -121,7 +121,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private void saveChunk(Chunk chunk) {
         if (this.e != null) {
             try {
-                chunk.t = this.world.getTime();
+                chunk.n = this.world.getTime();
                 this.e.a(this.world, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
@@ -136,7 +136,7 @@ public class ChunkProviderServer implements IChunkProvider {
             chunk.done = true;
             if (this.chunkProvider != null) {
                 this.chunkProvider.getChunkAt(ichunkprovider, i, j);
-                chunk.f();
+                chunk.e();
             }
         }
     }
@@ -147,13 +147,13 @@ public class ChunkProviderServer implements IChunkProvider {
         for (int j = 0; j < this.chunkList.size(); ++j) {
             Chunk chunk = (Chunk) this.chunkList.get(j);
 
-            if (flag && !chunk.r) {
+            if (flag) {
                 this.saveChunkNOP(chunk);
             }
 
             if (chunk.a(flag)) {
                 this.saveChunk(chunk);
-                chunk.q = false;
+                chunk.l = false;
                 ++i;
                 if (i == 24 && !flag) {
                     return false;

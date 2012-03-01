@@ -2,10 +2,10 @@ package net.minecraft.server;
 
 public class ContainerDispenser extends Container {
 
-    private TileEntityDispenser a;
+    private TileEntityDispenser items;
 
     public ContainerDispenser(IInventory iinventory, TileEntityDispenser tileentitydispenser) {
-        this.a = tileentitydispenser;
+        this.items = tileentitydispenser;
 
         int i;
         int j;
@@ -28,7 +28,7 @@ public class ContainerDispenser extends Container {
     }
 
     public boolean b(EntityHuman entityhuman) {
-        return this.a.a(entityhuman);
+        return this.items.a(entityhuman);
     }
 
     public ItemStack a(int i) {
@@ -57,7 +57,7 @@ public class ContainerDispenser extends Container {
                 return null;
             }
 
-            slot.b(itemstack1);
+            slot.c(itemstack1);
         }
 
         return itemstack;

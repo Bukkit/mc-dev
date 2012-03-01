@@ -6,9 +6,9 @@ public class BiomeTaiga extends BiomeBase {
 
     public BiomeTaiga(int i) {
         super(i);
-        this.I.add(new BiomeMeta(EntityWolf.class, 8, 4, 4));
-        this.G.z = 10;
-        this.G.B = 1;
+        this.K.add(new BiomeMeta(EntityWolf.class, 8, 4, 4));
+        this.I.z = 10;
+        this.I.B = 1;
     }
 
     public WorldGenerator a(Random random) {

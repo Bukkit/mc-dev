@@ -17,9 +17,9 @@ public class GuiStatsComponent extends JComponent {
 
     public GuiStatsComponent(MinecraftServer minecraftserver) {
         this.e = minecraftserver;
-        this.setPreferredSize(new Dimension(356, 226));
-        this.setMinimumSize(new Dimension(356, 226));
-        this.setMaximumSize(new Dimension(356, 226));
+        this.setPreferredSize(new Dimension(356, 246));
+        this.setMinimumSize(new Dimension(356, 246));
+        this.setMaximumSize(new Dimension(356, 246));
         (new Timer(500, new GuiStatsListener(this))).start();
         this.setBackground(Color.BLACK);
     }
@@ -31,15 +31,18 @@ public class GuiStatsComponent extends JComponent {
         this.d[0] = "Memory use: " + i / 1024L / 1024L + " mb (" + Runtime.getRuntime().freeMemory() * 100L / Runtime.getRuntime().maxMemory() + "% free)";
         this.d[1] = "Threads: " + NetworkManager.b + " + " + NetworkManager.c;
         this.d[2] = "Avg tick: " + a.format(this.a(this.e.f) * 1.0E-6D) + " ms";
-
-        for (int j = 0; j < this.e.worldServer.length; ++j) {
-            this.d[3 + j] = "Lvl " + j + " tick: " + a.format(this.a(this.e.g[j]) * 1.0E-6D) + " ms";
-            if (this.e.worldServer[j] != null && this.e.worldServer[j].chunkProviderServer != null) {
-                this.d[3 + j] = this.d[3 + j] + ", " + this.e.worldServer[j].chunkProviderServer.d();
+        this.d[3] = "Avg sent: " + (int) this.a(this.e.u) + ", Avg size: " + (int) this.a(this.e.v);
+        this.d[4] = "Avg rec: " + (int) this.a(this.e.w) + ", Avg size: " + (int) this.a(this.e.x);
+        if (this.e.worldServer != null) {
+            for (int j = 0; j < this.e.worldServer.length; ++j) {
+                this.d[5 + j] = "Lvl " + j + " tick: " + a.format(this.a(this.e.g[j]) * 1.0E-6D) + " ms";
+                if (this.e.worldServer[j] != null && this.e.worldServer[j].chunkProviderServer != null) {
+                    this.d[5 + j] = this.d[5 + j] + ", " + this.e.worldServer[j].chunkProviderServer.d();
+                }
             }
         }
 
-        this.b[this.c++ & 255] = (int) (i * 100L / Runtime.getRuntime().maxMemory());
+        this.b[this.c++ & 255] = (int) (this.a(this.e.v) * 100.0D / 12500.0D);
         this.repaint();
     }
 
@@ -55,7 +58,7 @@ public class GuiStatsComponent extends JComponent {
 
     public void paint(Graphics graphics) {
         graphics.setColor(new Color(16777215));
-        graphics.fillRect(0, 0, 356, 226);
+        graphics.fillRect(0, 0, 356, 246);
 
         int i;
 

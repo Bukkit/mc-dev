@@ -34,9 +34,9 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         int j = chunkcoordinates.z;
         int k = chunkcoordinates.y;
 
-        if (!world.worldProvider.f) {
+        if (!world.worldProvider.e) {
             i += this.random.nextInt(20) - 10;
-            k = world.f(i, j);
+            k = world.g(i, j);
             j += this.random.nextInt(20) - 10;
         }
 
@@ -76,7 +76,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         return this.ck;
     }
 
-    protected void r_() {
+    protected void A() {
         this.height = 0.0F;
     }
 
@@ -84,7 +84,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         return 1.62F;
     }
 
-    public void y_() {
+    public void G_() {
         this.itemInWorldManager.c();
         --this.invulnerableTicks;
         this.activeContainer.a();
@@ -132,7 +132,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
     }
 
-    protected boolean z() {
+    protected boolean C_() {
         return this.server.pvpMode;
     }
 
@@ -141,12 +141,12 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void a(boolean flag) {
-        super.y_();
+        super.G_();
 
         for (int i = 0; i < this.inventory.getSize(); ++i) {
             ItemStack itemstack = this.inventory.getItem(i);
 
-            if (itemstack != null && Item.byId[itemstack.id].n_() && this.netServerHandler.lowPriorityCount() <= 2) {
+            if (itemstack != null && Item.byId[itemstack.id].t_() && this.netServerHandler.lowPriorityCount() <= 2) {
                 Packet packet = ((ItemWorldMapBase) Item.byId[itemstack.id]).c(itemstack, this.world, this);
 
                 if (packet != null) {
@@ -157,6 +157,17 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
         if (flag && !this.chunkCoordIntPairQueue.isEmpty()) {
             ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) this.chunkCoordIntPairQueue.get(0);
+            double d0 = chunkcoordintpair.a(this);
+
+            for (int j = 0; j < this.chunkCoordIntPairQueue.size(); ++j) {
+                ChunkCoordIntPair chunkcoordintpair1 = (ChunkCoordIntPair) this.chunkCoordIntPairQueue.get(j);
+                double d1 = chunkcoordintpair1.a(this);
+
+                if (d1 < d0) {
+                    chunkcoordintpair = chunkcoordintpair1;
+                    d0 = d1;
+                }
+            }
 
             if (chunkcoordintpair != null) {
                 boolean flag1 = false;
@@ -168,12 +179,18 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                 if (flag1) {
                     WorldServer worldserver = this.server.getWorldServer(this.dimension);
 
-                    this.chunkCoordIntPairQueue.remove(chunkcoordintpair);
-                    this.netServerHandler.sendPacket(new Packet51MapChunk(chunkcoordintpair.x * 16, 0, chunkcoordintpair.z * 16, 16, worldserver.height, 16, worldserver));
-                    List list = worldserver.getTileEntities(chunkcoordintpair.x * 16, 0, chunkcoordintpair.z * 16, chunkcoordintpair.x * 16 + 16, worldserver.height, chunkcoordintpair.z * 16 + 16);
+                    if (worldserver.isLoaded(chunkcoordintpair.x << 4, 0, chunkcoordintpair.z << 4)) {
+                        Chunk chunk = worldserver.getChunkAt(chunkcoordintpair.x, chunkcoordintpair.z);
 
-                    for (int j = 0; j < list.size(); ++j) {
-                        this.a((TileEntity) list.get(j));
+                        if (chunk.done) {
+                            this.chunkCoordIntPairQueue.remove(chunkcoordintpair);
+                            this.netServerHandler.sendPacket(new Packet51MapChunk(worldserver.getChunkAt(chunkcoordintpair.x, chunkcoordintpair.z), true, 0));
+                            List list = worldserver.getTileEntities(chunkcoordintpair.x * 16, 0, chunkcoordintpair.z * 16, chunkcoordintpair.x * 16 + 16, 256, chunkcoordintpair.z * 16 + 16);
+
+                            for (int k = 0; k < list.size(); ++k) {
+                                this.a((TileEntity) list.get(k));
+                            }
+                        }
                     }
                 }
             }
@@ -261,7 +278,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     private void a(TileEntity tileentity) {
         if (tileentity != null) {
-            Packet packet = tileentity.k();
+            Packet packet = tileentity.d();
 
             if (packet != null) {
                 this.netServerHandler.sendPacket(packet);
@@ -290,7 +307,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.activeContainer.a();
     }
 
-    public void s_() {
+    public void D() {
         if (!this.t) {
             this.u = -1;
             this.t = true;
@@ -300,7 +317,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
     }
 
-    public void B() {}
+    public void E() {}
 
     public EnumBedResult a(int i, int j, int k) {
         EnumBedResult enumbedresult = super.a(i, j, k);
@@ -419,7 +436,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void closeInventory() {
         this.netServerHandler.sendPacket(new Packet101CloseWindow(this.activeContainer.windowId));
-        this.E();
+        this.H();
     }
 
     public void broadcastCarriedItem() {
@@ -428,7 +445,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
     }
 
-    public void E() {
+    public void H() {
         this.activeContainer.a((EntityHuman) this);
         this.activeContainer = this.defaultContainer;
     }
@@ -446,7 +463,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
     }
 
-    public void F() {
+    public void I() {
         if (this.vehicle != null) {
             this.mount(this.vehicle);
         }
@@ -460,7 +477,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
     }
 
-    public void t_() {
+    public void J() {
         this.cf = -99999999;
     }
 
@@ -471,9 +488,9 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.netServerHandler.sendPacket(new Packet3Chat(s1));
     }
 
-    protected void H() {
+    protected void K() {
         this.netServerHandler.sendPacket(new Packet38EntityStatus(this.id, (byte) 9));
-        super.H();
+        super.K();
     }
 
     public void a(ItemStack itemstack, int i) {

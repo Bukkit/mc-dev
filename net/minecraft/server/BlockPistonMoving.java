@@ -60,10 +60,10 @@ public class BlockPistonMoving extends BlockContainer {
 
     public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
         if (!world.isStatic) {
-            TileEntityPiston tileentitypiston = this.b(world, i, j, k);
+            TileEntityPiston tileentitypiston = this.c(world, i, j, k);
 
             if (tileentitypiston != null) {
-                Block.byId[tileentitypiston.c()].b(world, i, j, k, tileentitypiston.j(), 0);
+                Block.byId[tileentitypiston.c()].b(world, i, j, k, tileentitypiston.k(), 0);
             }
         }
     }
@@ -79,7 +79,7 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
-        TileEntityPiston tileentitypiston = this.b(world, i, j, k);
+        TileEntityPiston tileentitypiston = this.c(world, i, j, k);
 
         if (tileentitypiston == null) {
             return null;
@@ -95,7 +95,7 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        TileEntityPiston tileentitypiston = this.b(iblockaccess, i, j, k);
+        TileEntityPiston tileentitypiston = this.c(iblockaccess, i, j, k);
 
         if (tileentitypiston != null) {
             Block block = Block.byId[tileentitypiston.c()];
@@ -129,12 +129,24 @@ public class BlockPistonMoving extends BlockContainer {
             if (axisalignedbb == null) {
                 return null;
             } else {
-                axisalignedbb.a -= (double) ((float) Facing.b[i1] * f);
-                axisalignedbb.d -= (double) ((float) Facing.b[i1] * f);
-                axisalignedbb.b -= (double) ((float) Facing.c[i1] * f);
-                axisalignedbb.e -= (double) ((float) Facing.c[i1] * f);
-                axisalignedbb.c -= (double) ((float) Facing.d[i1] * f);
-                axisalignedbb.f -= (double) ((float) Facing.d[i1] * f);
+                if (Facing.b[i1] < 0) {
+                    axisalignedbb.a -= (double) ((float) Facing.b[i1] * f);
+                } else {
+                    axisalignedbb.d -= (double) ((float) Facing.b[i1] * f);
+                }
+
+                if (Facing.c[i1] < 0) {
+                    axisalignedbb.b -= (double) ((float) Facing.c[i1] * f);
+                } else {
+                    axisalignedbb.e -= (double) ((float) Facing.c[i1] * f);
+                }
+
+                if (Facing.d[i1] < 0) {
+                    axisalignedbb.c -= (double) ((float) Facing.d[i1] * f);
+                } else {
+                    axisalignedbb.f -= (double) ((float) Facing.d[i1] * f);
+                }
+
                 return axisalignedbb;
             }
         } else {
@@ -142,7 +154,7 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
-    private TileEntityPiston b(IBlockAccess iblockaccess, int i, int j, int k) {
+    private TileEntityPiston c(IBlockAccess iblockaccess, int i, int j, int k) {
         TileEntity tileentity = iblockaccess.getTileEntity(i, j, k);
 
         return tileentity != null && tileentity instanceof TileEntityPiston ? (TileEntityPiston) tileentity : null;

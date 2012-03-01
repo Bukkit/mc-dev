@@ -18,7 +18,7 @@ public class RegionFileCache {
 
     public static synchronized RegionFile a(File file1, int i, int j) {
         File file2 = new File(file1, "region");
-        File file3 = new File(file2, "r." + (i >> 5) + "." + (j >> 5) + ".mcr");
+        File file3 = new File(file2, "r." + (i >> 5) + "." + (j >> 5) + ".mca");
         Reference reference = (Reference) a.get(file3);
         RegionFile regionfile;
 

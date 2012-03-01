@@ -5,7 +5,7 @@ public class BlockEnchantmentTable extends BlockContainer {
     protected BlockEnchantmentTable(int i) {
         super(i, 166, Material.STONE);
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
-        this.g(0);
+        this.f(0);
     }
 
     public boolean b() {

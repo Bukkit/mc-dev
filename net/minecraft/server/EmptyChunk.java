@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -8,12 +7,6 @@ public class EmptyChunk extends Chunk {
 
     public EmptyChunk(World world, int i, int j) {
         super(world, i, j);
-        this.r = true;
-    }
-
-    public EmptyChunk(World world, byte[] abyte, int i, int j) {
-        super(world, abyte, i, j);
-        this.r = true;
     }
 
     public boolean a(int i, int j) {
@@ -24,14 +17,16 @@ public class EmptyChunk extends Chunk {
         return 0;
     }
 
-    public void a() {}
-
     public void initLighting() {}
 
     public void loadNOP() {}
 
     public int getTypeId(int i, int j, int k) {
         return 0;
+    }
+
+    public int b(int i, int j, int k) {
+        return 255;
     }
 
     public boolean a(int i, int j, int k, int l, int i1) {
@@ -66,11 +61,11 @@ public class EmptyChunk extends Chunk {
 
     public void a(Entity entity, int i) {}
 
-    public boolean c(int i, int j, int k) {
+    public boolean d(int i, int j, int k) {
         return false;
     }
 
-    public TileEntity d(int i, int j, int k) {
+    public TileEntity e(int i, int j, int k) {
         return null;
     }
 
@@ -78,13 +73,13 @@ public class EmptyChunk extends Chunk {
 
     public void a(int i, int j, int k, TileEntity tileentity) {}
 
-    public void e(int i, int j, int k) {}
+    public void f(int i, int j, int k) {}
 
     public void addEntities() {}
 
     public void removeEntities() {}
 
-    public void f() {}
+    public void e() {}
 
     public void a(Entity entity, AxisAlignedBB axisalignedbb, List list) {}
 
@@ -94,22 +89,15 @@ public class EmptyChunk extends Chunk {
         return false;
     }
 
-    public int getData(byte[] abyte, int i, int j, int k, int l, int i1, int j1, int k1) {
-        int l1 = l - i;
-        int i2 = i1 - j;
-        int j2 = j1 - k;
-        int k2 = l1 * i2 * j2;
-        int l2 = k2 + k2 / 2 * 3;
-
-        Arrays.fill(abyte, k1, k1 + l2, (byte) 0);
-        return l2;
-    }
-
     public Random a(long i) {
         return new Random(this.world.getSeed() + (long) (this.x * this.x * 4987142) + (long) (this.x * 5947611) + (long) (this.z * this.z) * 4392871L + (long) (this.z * 389711) ^ i);
     }
 
     public boolean isEmpty() {
+        return true;
+    }
+
+    public boolean c(int i, int j) {
         return true;
     }
 }

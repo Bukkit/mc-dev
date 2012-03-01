@@ -15,7 +15,7 @@ public class WorldGenSwampTree extends WorldGenerator {
 
         boolean flag = true;
 
-        if (j >= 1 && j + l + 1 <= world.height) {
+        if (j >= 1 && j + l + 1 <= 128) {
             int i1;
             int j1;
             int k1;
@@ -34,7 +34,7 @@ public class WorldGenSwampTree extends WorldGenerator {
 
                 for (j1 = i - b0; j1 <= i + b0 && flag; ++j1) {
                     for (k1 = k - b0; k1 <= k + b0 && flag; ++k1) {
-                        if (i1 >= 0 && i1 < world.height) {
+                        if (i1 >= 0 && i1 < 128) {
                             l1 = world.getTypeId(j1, i1, k1);
                             if (l1 != 0 && l1 != Block.LEAVES.id) {
                                 if (l1 != Block.STATIONARY_WATER.id && l1 != Block.WATER.id) {
@@ -54,7 +54,7 @@ public class WorldGenSwampTree extends WorldGenerator {
                 return false;
             } else {
                 i1 = world.getTypeId(i, j - 1, k);
-                if ((i1 == Block.GRASS.id || i1 == Block.DIRT.id) && j < world.height - l - 1) {
+                if ((i1 == Block.GRASS.id || i1 == Block.DIRT.id) && j < 128 - l - 1) {
                     world.setRawTypeId(i, j - 1, k, Block.DIRT.id);
 
                     int i2;
@@ -70,7 +70,7 @@ public class WorldGenSwampTree extends WorldGenerator {
                             for (int k2 = k - k1; k2 <= k + k1; ++k2) {
                                 int l2 = k2 - k;
 
-                                if ((Math.abs(i2) != k1 || Math.abs(l2) != k1 || random.nextInt(2) != 0 && j1 != 0) && !Block.o[world.getTypeId(l1, j2, k2)]) {
+                                if ((Math.abs(i2) != k1 || Math.abs(l2) != k1 || random.nextInt(2) != 0 && j1 != 0) && !Block.n[world.getTypeId(l1, j2, k2)]) {
                                     world.setRawTypeId(l1, j2, k2, Block.LEAVES.id);
                                 }
                             }

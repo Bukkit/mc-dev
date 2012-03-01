@@ -1,0 +1,61 @@
+package net.minecraft.server;
+
+import java.io.DataInput;
+import java.io.DataOutput;
+
+public class NBTTagIntArray extends NBTBase {
+
+    public int[] data;
+
+    public NBTTagIntArray(String s) {
+        super(s);
+    }
+
+    public NBTTagIntArray(String s, int[] aint) {
+        super(s);
+        this.data = aint;
+    }
+
+    void write(DataOutput dataoutput) {
+        dataoutput.writeInt(this.data.length);
+
+        for (int i = 0; i < this.data.length; ++i) {
+            dataoutput.writeInt(this.data[i]);
+        }
+    }
+
+    void load(DataInput datainput) {
+        int i = datainput.readInt();
+
+        this.data = new int[i];
+
+        for (int j = 0; j < i; ++j) {
+            this.data[j] = datainput.readInt();
+        }
+    }
+
+    public byte getTypeId() {
+        return (byte) 11;
+    }
+
+    public String toString() {
+        return "[" + this.data.length + " bytes]";
+    }
+
+    public boolean equals(Object object) {
+        if (!super.equals(object)) {
+            return false;
+        } else {
+            NBTTagIntArray nbttagintarray = (NBTTagIntArray) object;
+
+            return this.data == null && nbttagintarray.data == null || this.data != null && this.data.equals(nbttagintarray.data);
+        }
+    }
+
+    public NBTBase clone() {
+        int[] aint = new int[this.data.length];
+
+        System.arraycopy(this.data, 0, aint, 0, this.data.length);
+        return new NBTTagIntArray(this.getName(), aint);
+    }
+}

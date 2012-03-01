@@ -11,7 +11,7 @@ public class ItemBow extends Item {
     public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {
         boolean flag = entityhuman.abilities.canInstantlyBuild || EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_INFINITE.id, itemstack) > 0;
 
-        if (flag || entityhuman.inventory.c(Item.ARROW.id)) {
+        if (flag || entityhuman.inventory.d(Item.ARROW.id)) {
             int j = this.c(itemstack) - i;
             float f = (float) j / 20.0F;
 
@@ -33,7 +33,7 @@ public class ItemBow extends Item {
             int k = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack);
 
             if (k > 0) {
-                entityarrow.a(entityarrow.j() + (double) k * 0.5D + 0.5D);
+                entityarrow.a(entityarrow.k() + (double) k * 0.5D + 0.5D);
             }
 
             int l = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, itemstack);
@@ -49,7 +49,7 @@ public class ItemBow extends Item {
             itemstack.damage(1, entityhuman);
             world.makeSound(entityhuman, "random.bow", 1.0F, 1.0F / (c.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
             if (!flag) {
-                entityhuman.inventory.b(Item.ARROW.id);
+                entityhuman.inventory.c(Item.ARROW.id);
             } else {
                 entityarrow.fromPlayer = false;
             }
@@ -73,7 +73,7 @@ public class ItemBow extends Item {
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        if (entityhuman.abilities.canInstantlyBuild || entityhuman.inventory.c(Item.ARROW.id)) {
+        if (entityhuman.abilities.canInstantlyBuild || entityhuman.inventory.d(Item.ARROW.id)) {
             entityhuman.a(itemstack, this.c(itemstack));
         }
 

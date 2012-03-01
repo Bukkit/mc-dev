@@ -3,13 +3,13 @@ package net.minecraft.server;
 import java.util.Iterator;
 import java.util.Random;
 
-public class BlockBed extends Block {
+public class BlockBed extends BlockDirectional {
 
     public static final int[][] a = new int[][] { { 0, 1}, { -1, 0}, { 0, -1}, { 1, 0}};
 
     public BlockBed(int i) {
         super(i, 134, Material.CLOTH);
-        this.q();
+        this.s();
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
@@ -18,8 +18,8 @@ public class BlockBed extends Block {
         } else {
             int l = world.getData(i, j, k);
 
-            if (!e(l)) {
-                int i1 = d(l);
+            if (!d(l)) {
+                int i1 = b(l);
 
                 i += a[i1][0];
                 k += a[i1][1];
@@ -36,7 +36,7 @@ public class BlockBed extends Block {
                 double d2 = (double) k + 0.5D;
 
                 world.setTypeId(i, j, k, 0);
-                int j1 = d(l);
+                int j1 = b(l);
 
                 i += a[j1][0];
                 k += a[j1][1];
@@ -50,7 +50,7 @@ public class BlockBed extends Block {
                 world.createExplosion((Entity) null, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), 5.0F, true);
                 return true;
             } else {
-                if (f(l)) {
+                if (e(l)) {
                     EntityHuman entityhuman1 = null;
                     Iterator iterator = world.players.iterator();
 
@@ -96,10 +96,10 @@ public class BlockBed extends Block {
         if (i == 0) {
             return Block.WOOD.textureId;
         } else {
-            int k = d(j);
+            int k = b(j);
             int l = Direction.h[k][i];
 
-            return e(j) ? (l == 2 ? this.textureId + 2 + 16 : (l != 5 && l != 4 ? this.textureId + 1 : this.textureId + 1 + 16)) : (l == 3 ? this.textureId - 1 + 16 : (l != 5 && l != 4 ? this.textureId : this.textureId + 16));
+            return d(j) ? (l == 2 ? this.textureId + 2 + 16 : (l != 5 && l != 4 ? this.textureId + 1 : this.textureId + 1 + 16)) : (l == 3 ? this.textureId - 1 + 16 : (l != 5 && l != 4 ? this.textureId : this.textureId + 16));
         }
     }
 
@@ -116,14 +116,14 @@ public class BlockBed extends Block {
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        this.q();
+        this.s();
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
-        int j1 = d(i1);
+        int j1 = b(i1);
 
-        if (e(i1)) {
+        if (d(i1)) {
             if (world.getTypeId(i - a[j1][0], j, k - a[j1][1]) != this.id) {
                 world.setTypeId(i, j, k, 0);
             }
@@ -136,22 +136,18 @@ public class BlockBed extends Block {
     }
 
     public int getDropType(int i, Random random, int j) {
-        return e(i) ? 0 : Item.BED.id;
+        return d(i) ? 0 : Item.BED.id;
     }
 
-    private void q() {
+    private void s() {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
     }
 
-    public static int d(int i) {
-        return i & 3;
-    }
-
-    public static boolean e(int i) {
+    public static boolean d(int i) {
         return (i & 8) != 0;
     }
 
-    public static boolean f(int i) {
+    public static boolean e(int i) {
         return (i & 4) != 0;
     }
 
@@ -169,7 +165,7 @@ public class BlockBed extends Block {
 
     public static ChunkCoordinates f(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
-        int j1 = d(i1);
+        int j1 = BlockDirectional.b(i1);
 
         for (int k1 = 0; k1 <= 1; ++k1) {
             int l1 = i - a[j1][0] * k1 - 1;
@@ -194,7 +190,7 @@ public class BlockBed extends Block {
     }
 
     public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
-        if (!e(l)) {
+        if (!d(l)) {
             super.dropNaturally(world, i, j, k, l, f, 0);
         }
     }

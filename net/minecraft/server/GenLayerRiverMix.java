@@ -11,10 +11,10 @@ public class GenLayerRiverMix extends GenLayer {
         this.c = genlayer1;
     }
 
-    public void b(long i) {
-        this.b.b(i);
-        this.c.b(i);
-        super.b(i);
+    public void a(long i) {
+        this.b.a(i);
+        this.c.a(i);
+        super.a(i);
     }
 
     public int[] a(int i, int j, int k, int l) {

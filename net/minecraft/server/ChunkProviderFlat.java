@@ -43,10 +43,11 @@ public class ChunkProviderFlat implements IChunkProvider {
     }
 
     public Chunk getOrCreateChunk(int i, int j) {
-        byte[] abyte = new byte[16 * this.a.height * 16];
-        Chunk chunk = new Chunk(this.a, abyte, i, j);
+        byte[] abyte = new byte['\u8000'];
 
         this.a(abyte);
+        Chunk chunk = new Chunk(this.a, abyte, i, j);
+
         if (this.c) {
             this.d.a(this, this.a, i, j, abyte);
         }
@@ -83,15 +84,9 @@ public class ChunkProviderFlat implements IChunkProvider {
     }
 
     public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
-        WorldChunkManager worldchunkmanager = this.a.getWorldChunkManager();
+        BiomeBase biomebase = this.a.getBiome(i, k);
 
-        if (worldchunkmanager == null) {
-            return null;
-        } else {
-            BiomeBase biomebase = worldchunkmanager.getBiome(new ChunkCoordIntPair(i >> 4, k >> 4));
-
-            return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
-        }
+        return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
     }
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {

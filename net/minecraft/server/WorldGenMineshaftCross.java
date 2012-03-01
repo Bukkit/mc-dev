@@ -116,6 +116,17 @@ public class WorldGenMineshaftCross extends StructurePiece {
             this.a(world, structureboundingbox, this.g.a + 1, this.g.b, this.g.f - 1, this.g.a + 1, this.g.e, this.g.f - 1, Block.WOOD.id, 0, false);
             this.a(world, structureboundingbox, this.g.d - 1, this.g.b, this.g.c + 1, this.g.d - 1, this.g.e, this.g.c + 1, Block.WOOD.id, 0, false);
             this.a(world, structureboundingbox, this.g.d - 1, this.g.b, this.g.f - 1, this.g.d - 1, this.g.e, this.g.f - 1, Block.WOOD.id, 0, false);
+
+            for (int i = this.g.a; i <= this.g.d; ++i) {
+                for (int j = this.g.c; j <= this.g.f; ++j) {
+                    int k = this.a(world, i, this.g.b - 1, j, structureboundingbox);
+
+                    if (k == 0) {
+                        this.a(world, Block.WOOD.id, 0, i, this.g.b - 1, j, structureboundingbox);
+                    }
+                }
+            }
+
             return true;
         }
     }

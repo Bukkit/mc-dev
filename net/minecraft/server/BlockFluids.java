@@ -13,6 +13,10 @@ public abstract class BlockFluids extends Block {
         this.a(true);
     }
 
+    public boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
+        return this.material != Material.LAVA;
+    }
+
     public static float d(int i) {
         if (i >= 8) {
             i = 0;
@@ -31,7 +35,7 @@ public abstract class BlockFluids extends Block {
         return world.getMaterial(i, j, k) != this.material ? -1 : world.getData(i, j, k);
     }
 
-    protected int b(IBlockAccess iblockaccess, int i, int j, int k) {
+    protected int c(IBlockAccess iblockaccess, int i, int j, int k) {
         if (iblockaccess.getMaterial(i, j, k) != this.material) {
             return -1;
         } else {
@@ -79,9 +83,9 @@ public abstract class BlockFluids extends Block {
         return 0;
     }
 
-    private Vec3D c(IBlockAccess iblockaccess, int i, int j, int k) {
+    private Vec3D d(IBlockAccess iblockaccess, int i, int j, int k) {
         Vec3D vec3d = Vec3D.create(0.0D, 0.0D, 0.0D);
-        int l = this.b(iblockaccess, i, j, k);
+        int l = this.c(iblockaccess, i, j, k);
 
         for (int i1 = 0; i1 < 4; ++i1) {
             int j1 = i;
@@ -103,12 +107,12 @@ public abstract class BlockFluids extends Block {
                 ++k1;
             }
 
-            int l1 = this.b(iblockaccess, j1, j, k1);
+            int l1 = this.c(iblockaccess, j1, j, k1);
             int i2;
 
             if (l1 < 0) {
                 if (!iblockaccess.getMaterial(j1, j, k1).isSolid()) {
-                    l1 = this.b(iblockaccess, j1, j - 1, k1);
+                    l1 = this.c(iblockaccess, j1, j - 1, k1);
                     if (l1 >= 0) {
                         i2 = l1 - (l - 8);
                         vec3d = vec3d.add((double) ((j1 - i) * i2), (double) ((j - j) * i2), (double) ((k1 - k) * i2));
@@ -165,7 +169,7 @@ public abstract class BlockFluids extends Block {
     }
 
     public void a(World world, int i, int j, int k, Entity entity, Vec3D vec3d) {
-        Vec3D vec3d1 = this.c(world, i, j, k);
+        Vec3D vec3d1 = this.d(world, i, j, k);
 
         vec3d.a += vec3d1.a;
         vec3d.b += vec3d1.b;

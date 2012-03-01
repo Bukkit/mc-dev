@@ -19,6 +19,7 @@ public class Material {
     public static final Material SAND = new Material(MaterialMapColor.d);
     public static final Material ORIENTABLE = (new MaterialDecoration(MaterialMapColor.b)).m();
     public static final Material SHATTERABLE = (new Material(MaterialMapColor.b)).o();
+    public static final Material BUILDABLE_GLASS = new Material(MaterialMapColor.b);
     public static final Material TNT = (new Material(MaterialMapColor.f)).f().o();
     public static final Material CORAL = (new Material(MaterialMapColor.i)).m();
     public static final Material ICE = (new Material(MaterialMapColor.g)).o();
@@ -33,14 +34,14 @@ public class Material {
     public static final Material WEB = (new MaterialWeb(MaterialMapColor.e)).e().m();
     public static final Material PISTON = (new Material(MaterialMapColor.m)).n();
     private boolean canBurn;
-    private boolean G;
     private boolean H;
-    public final MaterialMapColor E;
-    private boolean I = true;
-    private int J;
+    private boolean I;
+    public final MaterialMapColor F;
+    private boolean J = true;
+    private int K;
 
     public Material(MaterialMapColor materialmapcolor) {
-        this.E = materialmapcolor;
+        this.F = materialmapcolor;
     }
 
     public boolean isLiquid() {
@@ -60,12 +61,12 @@ public class Material {
     }
 
     private Material o() {
-        this.H = true;
+        this.I = true;
         return this;
     }
 
     protected Material e() {
-        this.I = false;
+        this.J = false;
         return this;
     }
 
@@ -79,33 +80,33 @@ public class Material {
     }
 
     public Material h() {
-        this.G = true;
+        this.H = true;
         return this;
     }
 
     public boolean isReplacable() {
-        return this.G;
+        return this.H;
     }
 
     public boolean j() {
-        return this.H ? false : this.isSolid();
+        return this.I ? false : this.isSolid();
     }
 
     public boolean isAlwaysDestroyable() {
-        return this.I;
-    }
-
-    public int getPushReaction() {
         return this.J;
     }
 
+    public int getPushReaction() {
+        return this.K;
+    }
+
     protected Material m() {
-        this.J = 1;
+        this.K = 1;
         return this;
     }
 
     protected Material n() {
-        this.J = 2;
+        this.K = 2;
         return this;
     }
 }

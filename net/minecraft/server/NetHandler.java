@@ -239,4 +239,12 @@ public abstract class NetHandler {
     public void a(Packet108ButtonClick packet108buttonclick) {}
 
     public void a(Packet250CustomPayload packet250custompayload) {}
+
+    public void a(Packet35EntityHeadRotation packet35entityheadrotation) {
+        this.onUnhandledPacket(packet35entityheadrotation);
+    }
+
+    public void a(Packet132TileEntityData packet132tileentitydata) {
+        this.onUnhandledPacket(packet132tileentitydata);
+    }
 }

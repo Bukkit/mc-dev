@@ -30,7 +30,7 @@ public class WorldGenEnder extends WorldGenerator {
                 }
             }
 
-            for (j1 = j; j1 < j + l && j1 < world.height; ++j1) {
+            for (j1 = j; j1 < j + l && j1 < 128; ++j1) {
                 for (k1 = i - i1; k1 <= i + i1; ++k1) {
                     for (l1 = k - i1; l1 <= k + i1; ++l1) {
                         i2 = k1 - i;

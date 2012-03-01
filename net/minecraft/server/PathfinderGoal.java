@@ -1,32 +1,32 @@
 package net.minecraft.server;
 
-abstract class PathfinderGoal {
+public abstract class PathfinderGoal {
 
     private int a = 0;
 
-    PathfinderGoal() {}
+    public PathfinderGoal() {}
 
     public abstract boolean a();
 
-    public boolean g() {
+    public boolean b() {
         return this.a();
     }
 
-    public boolean f() {
+    public boolean g() {
         return true;
     }
 
-    public void e() {}
+    public void c() {}
 
     public void d() {}
 
-    public void b() {}
+    public void e() {}
 
     public void a(int i) {
         this.a = i;
     }
 
-    public int c() {
+    public int h() {
         return this.a;
     }
 }

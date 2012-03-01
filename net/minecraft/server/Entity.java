@@ -142,11 +142,11 @@ public abstract class Entity {
         this.boundingBox.c(d0 - (double) f, d1 - (double) this.height + (double) this.bO, d2 - (double) f, d0 + (double) f, d1 - (double) this.height + (double) this.bO + (double) f1, d2 + (double) f);
     }
 
-    public void y_() {
-        this.am();
+    public void G_() {
+        this.az();
     }
 
-    public void am() {
+    public void az() {
         MethodProfiler.a("entityBaseTick");
         if (this.vehicle != null && this.vehicle.dead) {
             this.vehicle = null;
@@ -161,7 +161,7 @@ public abstract class Entity {
         this.lastYaw = this.yaw;
         int i;
 
-        if (this.isSprinting()) {
+        if (this.isSprinting() && !this.aT()) {
             int j = MathHelper.floor(this.locX);
             int k = MathHelper.floor(this.locY - 0.20000000298023224D - (double) this.height);
 
@@ -173,7 +173,7 @@ public abstract class Entity {
             }
         }
 
-        if (this.i_()) {
+        if (this.h_()) {
             if (!this.bV && !this.justCreated) {
                 float f = MathHelper.sqrt(this.motX * this.motX * 0.20000000298023224D + this.motY * this.motY + this.motZ * this.motZ * 0.20000000298023224D) * 0.2F;
 
@@ -224,13 +224,13 @@ public abstract class Entity {
             }
         }
 
-        if (this.aL()) {
-            this.aG();
+        if (this.aU()) {
+            this.aP();
             this.fallDistance *= 0.5F;
         }
 
         if (this.locY < -64.0D) {
-            this.az();
+            this.aH();
         }
 
         if (!this.world.isStatic) {
@@ -242,7 +242,7 @@ public abstract class Entity {
         MethodProfiler.a();
     }
 
-    protected void aG() {
+    protected void aP() {
         if (!this.fireProof) {
             this.damageEntity(DamageSource.LAVA, 4);
             this.setOnFire(15);
@@ -261,7 +261,7 @@ public abstract class Entity {
         this.fireTicks = 0;
     }
 
-    protected void az() {
+    protected void aH() {
         this.die();
     }
 
@@ -298,7 +298,7 @@ public abstract class Entity {
             double d6 = d1;
             double d7 = d2;
             AxisAlignedBB axisalignedbb = this.boundingBox.clone();
-            boolean flag = this.onGround && this.isSneaking();
+            boolean flag = this.onGround && this.isSneaking() && this instanceof EntityHuman;
 
             if (flag) {
                 double d8;
@@ -507,7 +507,7 @@ public abstract class Entity {
                 }
             }
 
-            boolean flag2 = this.aJ();
+            boolean flag2 = this.aS();
 
             if (this.world.d(this.boundingBox.shrink(0.0010D, 0.0010D, 0.0010D))) {
                 this.burn(1);
@@ -563,7 +563,7 @@ public abstract class Entity {
                     }
                 }
 
-                this.b(this.fallDistance);
+                this.a(this.fallDistance);
                 this.fallDistance = 0.0F;
             }
         } else if (d0 < 0.0D) {
@@ -571,7 +571,7 @@ public abstract class Entity {
         }
     }
 
-    public AxisAlignedBB h_() {
+    public AxisAlignedBB h() {
         return null;
     }
 
@@ -585,21 +585,21 @@ public abstract class Entity {
         return this.fireProof;
     }
 
-    protected void b(float f) {
+    protected void a(float f) {
         if (this.passenger != null) {
-            this.passenger.b(f);
+            this.passenger.a(f);
         }
     }
 
-    public boolean aJ() {
-        return this.bV || this.world.v(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ));
+    public boolean aS() {
+        return this.bV || this.world.y(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ));
     }
 
-    public boolean aK() {
+    public boolean aT() {
         return this.bV;
     }
 
-    public boolean i_() {
+    public boolean h_() {
         return this.world.a(this.boundingBox.grow(0.0D, -0.4000000059604645D, 0.0D).shrink(0.0010D, 0.0010D, 0.0010D), Material.WATER, this);
     }
 
@@ -624,7 +624,7 @@ public abstract class Entity {
         return 0.0F;
     }
 
-    public boolean aL() {
+    public boolean aU() {
         return this.world.a(this.boundingBox.grow(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.LAVA);
     }
 
@@ -647,15 +647,15 @@ public abstract class Entity {
         }
     }
 
-    public float a(float f) {
+    public float b(float f) {
         int i = MathHelper.floor(this.locX);
         int j = MathHelper.floor(this.locZ);
 
-        if (this.world.isLoaded(i, this.world.height / 2, j)) {
+        if (this.world.isLoaded(i, 0, j)) {
             double d0 = (this.boundingBox.e - this.boundingBox.b) * 0.66D;
             int k = MathHelper.floor(this.locY - (double) this.height + d0);
 
-            return this.world.m(i, k, j);
+            return this.world.p(i, k, j);
         } else {
             return 0.0F;
         }
@@ -695,7 +695,7 @@ public abstract class Entity {
         this.setPosition(this.locX, this.locY, this.locZ);
     }
 
-    public float h(Entity entity) {
+    public float i(Entity entity) {
         float f = (float) (this.locX - entity.locX);
         float f1 = (float) (this.locY - entity.locY);
         float f2 = (float) (this.locZ - entity.locZ);
@@ -719,7 +719,7 @@ public abstract class Entity {
         return (double) MathHelper.sqrt(d3 * d3 + d4 * d4 + d5 * d5);
     }
 
-    public double i(Entity entity) {
+    public double j(Entity entity) {
         double d0 = this.locX - entity.locX;
         double d1 = this.locY - entity.locY;
         double d2 = this.locZ - entity.locZ;
@@ -764,12 +764,16 @@ public abstract class Entity {
         this.ce = true;
     }
 
-    protected void aM() {
+    protected void aV() {
         this.velocityChanged = true;
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        this.aM();
+        this.aV();
+        return false;
+    }
+
+    public boolean o_() {
         return false;
     }
 
@@ -777,14 +781,10 @@ public abstract class Entity {
         return false;
     }
 
-    public boolean f_() {
-        return false;
-    }
-
     public void b(Entity entity, int i) {}
 
     public boolean c(NBTTagCompound nbttagcompound) {
-        String s = this.aN();
+        String s = this.aW();
 
         if (!this.dead && s != null) {
             nbttagcompound.setString("id", s);
@@ -840,7 +840,7 @@ public abstract class Entity {
         this.a(nbttagcompound);
     }
 
-    protected final String aN() {
+    protected final String aW() {
         return EntityTypes.b(this);
     }
 
@@ -917,20 +917,20 @@ public abstract class Entity {
         return false;
     }
 
-    public AxisAlignedBB a_(Entity entity) {
+    public AxisAlignedBB b_(Entity entity) {
         return null;
     }
 
-    public void N() {
+    public void Q() {
         if (this.vehicle.dead) {
             this.vehicle = null;
         } else {
             this.motX = 0.0D;
             this.motY = 0.0D;
             this.motZ = 0.0D;
-            this.y_();
+            this.G_();
             if (this.vehicle != null) {
-                this.vehicle.i();
+                this.vehicle.i_();
                 this.f += (double) (this.vehicle.yaw - this.vehicle.lastYaw);
 
                 for (this.e += (double) (this.vehicle.pitch - this.vehicle.lastPitch); this.f >= 180.0D; this.f -= 360.0D) {
@@ -977,15 +977,15 @@ public abstract class Entity {
         }
     }
 
-    public void i() {
-        this.passenger.setPosition(this.locX, this.locY + this.q() + this.passenger.S(), this.locZ);
+    public void i_() {
+        this.passenger.setPosition(this.locX, this.locY + this.x_() + this.passenger.V(), this.locZ);
     }
 
-    public double S() {
+    public double V() {
         return (double) this.height;
     }
 
-    public double q() {
+    public double x_() {
         return (double) this.length * 0.75D;
     }
 
@@ -1021,22 +1021,22 @@ public abstract class Entity {
         return 0.1F;
     }
 
-    public Vec3D aA() {
+    public Vec3D aI() {
         return null;
     }
 
-    public void Y() {}
+    public void ac() {}
 
     public ItemStack[] getEquipment() {
         return null;
     }
 
     public boolean isBurning() {
-        return this.fireTicks > 0 || this.k(0);
+        return this.fireTicks > 0 || this.j(0);
     }
 
     public boolean isSneaking() {
-        return this.k(1);
+        return this.j(1);
     }
 
     public void setSneak(boolean flag) {
@@ -1044,18 +1044,18 @@ public abstract class Entity {
     }
 
     public boolean isSprinting() {
-        return this.k(3);
+        return this.j(3);
     }
 
     public void setSprinting(boolean flag) {
         this.a(3, flag);
     }
 
-    public void h(boolean flag) {
+    public void i(boolean flag) {
         this.a(4, flag);
     }
 
-    protected boolean k(int i) {
+    protected boolean j(int i) {
         return (this.datawatcher.getByte(0) & 1 << i) != 0;
     }
 
@@ -1085,7 +1085,7 @@ public abstract class Entity {
         }
     }
 
-    public void a(EntityLiving entityliving) {}
+    public void c(EntityLiving entityliving) {}
 
     protected boolean g(double d0, double d1, double d2) {
         int i = MathHelper.floor(d0);
@@ -1167,7 +1167,7 @@ public abstract class Entity {
         }
     }
 
-    public void s() {
+    public void u() {
         this.bC = true;
         this.fallDistance = 0.0F;
     }
@@ -1182,11 +1182,19 @@ public abstract class Entity {
         return LocaleI18n.get("entity." + s + ".name");
     }
 
-    public Entity[] aR() {
+    public Entity[] ba() {
         return null;
     }
 
-    public boolean a(Entity entity) {
+    public boolean a_(Entity entity) {
         return this == entity;
+    }
+
+    public float aq() {
+        return 0.0F;
+    }
+
+    public boolean k_() {
+        return true;
     }
 }

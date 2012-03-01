@@ -145,6 +145,7 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
 
             int j;
             int k;
+            int l;
 
             for (j = 0; j < this.d; ++j) {
                 k = 2 + j * 5;
@@ -176,7 +177,7 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
                 }
 
                 if (this.b && !this.c) {
-                    int l = this.b(0);
+                    l = this.b(0);
                     int i1 = k - 1 + random.nextInt(3);
                     int j1 = this.a(1, i1);
 
@@ -193,10 +194,19 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
                 }
             }
 
+            for (j = 0; j <= 2; ++j) {
+                for (k = 0; k <= i; ++k) {
+                    l = this.a(world, j, -1, k, structureboundingbox);
+                    if (l == 0) {
+                        this.a(world, Block.WOOD.id, 0, j, -1, k, structureboundingbox);
+                    }
+                }
+            }
+
             if (this.a) {
                 for (j = 0; j <= i; ++j) {
                     k = this.a(world, 1, -1, j, structureboundingbox);
-                    if (k > 0 && Block.o[k]) {
+                    if (k > 0 && Block.n[k]) {
                         this.a(world, structureboundingbox, random, 0.7F, 1, 0, j, Block.RAILS.id, this.c(Block.RAILS.id, 0));
                     }
                 }

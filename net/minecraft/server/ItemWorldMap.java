@@ -38,7 +38,7 @@ public class ItemWorldMap extends ItemWorldMapBase {
             int i1 = MathHelper.floor(entity.locZ - (double) k) / i + short2 / 2;
             int j1 = 128 / i;
 
-            if (world.worldProvider.f) {
+            if (world.worldProvider.e) {
                 j1 /= 2;
             }
 
@@ -71,7 +71,7 @@ public class ItemWorldMap extends ItemWorldMapBase {
                             int l4;
                             int i5;
 
-                            if (world.worldProvider.f) {
+                            if (world.worldProvider.e) {
                                 l4 = i3 + j3 * 231871;
                                 l4 = l4 * l4 * 31287121 + l4 * 11;
                                 if ((l4 >> 20 & 1) == 0) {
@@ -95,7 +95,7 @@ public class ItemWorldMap extends ItemWorldMapBase {
                                                 j5 = chunk.getTypeId(l4 + k3, k4 - 1, j4 + l3);
                                                 if (j5 == 0) {
                                                     flag1 = false;
-                                                } else if (k4 > 0 && j5 > 0 && Block.byId[j5].material.E == MaterialMapColor.b) {
+                                                } else if (k4 > 0 && j5 > 0 && Block.byId[j5].material.F == MaterialMapColor.b) {
                                                     flag1 = false;
                                                 }
 
@@ -152,7 +152,7 @@ public class ItemWorldMap extends ItemWorldMapBase {
 
                             i5 = 0;
                             if (j4 > 0) {
-                                MaterialMapColor materialmapcolor = Block.byId[j4].material.E;
+                                MaterialMapColor materialmapcolor = Block.byId[j4].material.F;
 
                                 if (materialmapcolor == MaterialMapColor.n) {
                                     d2 = (double) i4 * 0.1D + (double) (k1 + j2 & 1) * 0.2D;

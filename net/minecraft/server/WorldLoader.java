@@ -51,17 +51,6 @@ public class WorldLoader implements Convertable {
         }
     }
 
-    protected static void a(File[] afile) {
-        for (int i = 0; i < afile.length; ++i) {
-            if (afile[i].isDirectory()) {
-                System.out.println("Deleting " + afile[i]);
-                a(afile[i].listFiles());
-            }
-
-            afile[i].delete();
-        }
-    }
-
     public IDataManager a(String s, boolean flag) {
         return new WorldNBTStorage(this.a, s, flag);
     }

@@ -29,7 +29,7 @@ public class WorldGenVillage extends StructureGenerator {
 
         int i1 = i / b0;
         int j1 = j / b0;
-        Random random = this.d.w(i1, j1, 10387312);
+        Random random = this.d.A(i1, j1, 10387312);
 
         i1 *= b0;
         j1 *= b0;

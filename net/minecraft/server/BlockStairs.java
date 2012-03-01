@@ -13,7 +13,7 @@ public class BlockStairs extends Block {
         this.c(block.strength);
         this.b(block.durability / 3.0F);
         this.a(block.stepSound);
-        this.g(255);
+        this.f(255);
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
@@ -38,26 +38,32 @@ public class BlockStairs extends Block {
 
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist) {
         int l = world.getData(i, j, k);
+        int i1 = l & 3;
+        float f = 0.0F;
+        float f1 = 0.5F;
+        float f2 = 0.5F;
+        float f3 = 1.0F;
 
-        if (l == 0) {
-            this.a(0.0F, 0.0F, 0.0F, 0.5F, 0.5F, 1.0F);
+        if ((l & 4) != 0) {
+            f = 0.5F;
+            f1 = 1.0F;
+            f2 = 0.0F;
+            f3 = 0.5F;
+        }
+
+        this.a(0.0F, f, 0.0F, 1.0F, f1, 1.0F);
+        super.a(world, i, j, k, axisalignedbb, arraylist);
+        if (i1 == 0) {
+            this.a(0.5F, f2, 0.0F, 1.0F, f3, 1.0F);
             super.a(world, i, j, k, axisalignedbb, arraylist);
-            this.a(0.5F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        } else if (i1 == 1) {
+            this.a(0.0F, f2, 0.0F, 0.5F, f3, 1.0F);
             super.a(world, i, j, k, axisalignedbb, arraylist);
-        } else if (l == 1) {
-            this.a(0.0F, 0.0F, 0.0F, 0.5F, 1.0F, 1.0F);
+        } else if (i1 == 2) {
+            this.a(0.0F, f2, 0.5F, 1.0F, f3, 1.0F);
             super.a(world, i, j, k, axisalignedbb, arraylist);
-            this.a(0.5F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-            super.a(world, i, j, k, axisalignedbb, arraylist);
-        } else if (l == 2) {
-            this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 0.5F);
-            super.a(world, i, j, k, axisalignedbb, arraylist);
-            this.a(0.0F, 0.0F, 0.5F, 1.0F, 1.0F, 1.0F);
-            super.a(world, i, j, k, axisalignedbb, arraylist);
-        } else if (l == 3) {
-            this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.5F);
-            super.a(world, i, j, k, axisalignedbb, arraylist);
-            this.a(0.0F, 0.0F, 0.5F, 1.0F, 0.5F, 1.0F);
+        } else if (i1 == 3) {
+            this.a(0.0F, f2, 0.0F, 1.0F, f3, 0.5F);
             super.a(world, i, j, k, axisalignedbb, arraylist);
         }
 
@@ -92,8 +98,8 @@ public class BlockStairs extends Block {
         this.a.a(world, i, j, k, entity, vec3d);
     }
 
-    public boolean x_() {
-        return this.a.x_();
+    public boolean F_() {
+        return this.a.F_();
     }
 
     public boolean a(int i, boolean flag) {
@@ -131,21 +137,30 @@ public class BlockStairs extends Block {
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
         int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
+        int i1 = world.getData(i, j, k) & 4;
 
         if (l == 0) {
-            world.setData(i, j, k, 2);
+            world.setData(i, j, k, 2 | i1);
         }
 
         if (l == 1) {
-            world.setData(i, j, k, 1);
+            world.setData(i, j, k, 1 | i1);
         }
 
         if (l == 2) {
-            world.setData(i, j, k, 3);
+            world.setData(i, j, k, 3 | i1);
         }
 
         if (l == 3) {
-            world.setData(i, j, k, 0);
+            world.setData(i, j, k, 0 | i1);
+        }
+    }
+
+    public void postPlace(World world, int i, int j, int k, int l) {
+        if (l == 0) {
+            int i1 = world.getData(i, j, k);
+
+            world.setData(i, j, k, i1 | 4);
         }
     }
 }

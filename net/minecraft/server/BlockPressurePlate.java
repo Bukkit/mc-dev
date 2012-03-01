@@ -32,6 +32,10 @@ public class BlockPressurePlate extends Block {
         return false;
     }
 
+    public boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
+        return true;
+    }
+
     public boolean canPlace(World world, int i, int j, int k) {
         return world.e(i, j - 1, k) || world.getTypeId(i, j - 1, k) == Block.FENCE.id;
     }

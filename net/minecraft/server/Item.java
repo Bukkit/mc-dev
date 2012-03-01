@@ -134,6 +134,8 @@ public class Item {
     public static Item EYE_OF_ENDER = (new ItemEnderEye(125)).a(11, 9).a("eyeOfEnder");
     public static Item SPECKLED_MELON = (new Item(126)).a(9, 8).a("speckledMelon").b(PotionBrewer.f);
     public static Item MONSTER_EGG = (new ItemMonsterEgg(127)).a(9, 9).a("monsterPlacer");
+    public static Item EXP_BOTTLE = (new ItemExpBottle(128)).a(11, 10).a("expBottle");
+    public static Item FIREBALL = (new ItemFireball(129)).a(14, 2).a("fireball");
     public static Item RECORD_1 = (new ItemRecord(2000, "13")).a(0, 15).a("record");
     public static Item RECORD_2 = (new ItemRecord(2001, "cat")).a(1, 15).a("record");
     public static Item RECORD_3 = (new ItemRecord(2002, "blocks")).a(2, 15).a("record");
@@ -149,10 +151,10 @@ public class Item {
     protected int maxStackSize = 64;
     private int durability = 0;
     protected int textureId;
-    protected boolean bQ = false;
-    protected boolean bR = false;
+    protected boolean bS = false;
+    protected boolean bT = false;
     private Item craftingResult = null;
-    private String bS = null;
+    private String bU = null;
     private String name;
 
     protected Item(int i) {
@@ -204,11 +206,11 @@ public class Item {
     }
 
     public boolean e() {
-        return this.bR;
+        return this.bT;
     }
 
     protected Item a(boolean flag) {
-        this.bR = flag;
+        this.bT = flag;
         return this;
     }
 
@@ -222,7 +224,7 @@ public class Item {
     }
 
     public boolean g() {
-        return this.durability > 0 && !this.bR;
+        return this.durability > 0 && !this.bT;
     }
 
     public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
@@ -244,7 +246,7 @@ public class Item {
     public void a(ItemStack itemstack, EntityLiving entityliving) {}
 
     public Item h() {
-        this.bQ = true;
+        this.bS = true;
         return this;
     }
 
@@ -290,7 +292,7 @@ public class Item {
 
     public void d(ItemStack itemstack, World world, EntityHuman entityhuman) {}
 
-    public boolean n_() {
+    public boolean t_() {
         return false;
     }
 
@@ -305,16 +307,16 @@ public class Item {
     public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {}
 
     protected Item b(String s) {
-        this.bS = s;
+        this.bU = s;
         return this;
     }
 
     public String m() {
-        return this.bS;
+        return this.bU;
     }
 
     public boolean n() {
-        return this.bS != null;
+        return this.bU != null;
     }
 
     public boolean f(ItemStack itemstack) {

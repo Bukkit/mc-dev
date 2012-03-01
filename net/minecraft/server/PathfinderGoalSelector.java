@@ -18,35 +18,50 @@ public class PathfinderGoalSelector {
         ArrayList arraylist = new ArrayList();
         Iterator iterator = this.a.iterator();
 
-        PathfinderGoalSelectorItem pathfindergoalselectoritem;
-
         while (iterator.hasNext()) {
-            pathfindergoalselectoritem = (PathfinderGoalSelectorItem) iterator.next();
+            PathfinderGoalSelectorItem pathfindergoalselectoritem = (PathfinderGoalSelectorItem) iterator.next();
             boolean flag = this.b.contains(pathfindergoalselectoritem);
 
             if (flag) {
-                if (!pathfindergoalselectoritem.a.g() || !this.a(pathfindergoalselectoritem)) {
-                    pathfindergoalselectoritem.a.d();
-                    this.b.remove(pathfindergoalselectoritem);
+                if (this.a(pathfindergoalselectoritem) && pathfindergoalselectoritem.a.b()) {
+                    continue;
                 }
-            } else if (pathfindergoalselectoritem.a.a() && this.a(pathfindergoalselectoritem)) {
+
+                pathfindergoalselectoritem.a.d();
+                this.b.remove(pathfindergoalselectoritem);
+            }
+
+            if (this.a(pathfindergoalselectoritem) && pathfindergoalselectoritem.a.a()) {
                 arraylist.add(pathfindergoalselectoritem);
                 this.b.add(pathfindergoalselectoritem);
             }
         }
 
-        iterator = arraylist.iterator();
+        boolean flag1 = false;
 
-        while (iterator.hasNext()) {
-            pathfindergoalselectoritem = (PathfinderGoalSelectorItem) iterator.next();
-            pathfindergoalselectoritem.a.e();
+        if (flag1 && arraylist.size() > 0) {
+            System.out.println("Starting: ");
         }
 
-        iterator = this.b.iterator();
+        Iterator iterator1;
+        PathfinderGoalSelectorItem pathfindergoalselectoritem1;
 
-        while (iterator.hasNext()) {
-            pathfindergoalselectoritem = (PathfinderGoalSelectorItem) iterator.next();
-            pathfindergoalselectoritem.a.b();
+        for (iterator1 = arraylist.iterator(); iterator1.hasNext(); pathfindergoalselectoritem1.a.c()) {
+            pathfindergoalselectoritem1 = (PathfinderGoalSelectorItem) iterator1.next();
+            if (flag1) {
+                System.out.println(pathfindergoalselectoritem1.a.toString() + ", ");
+            }
+        }
+
+        if (flag1 && this.b.size() > 0) {
+            System.out.println("Running: ");
+        }
+
+        for (iterator1 = this.b.iterator(); iterator1.hasNext(); pathfindergoalselectoritem1.a.e()) {
+            pathfindergoalselectoritem1 = (PathfinderGoalSelectorItem) iterator1.next();
+            if (flag1) {
+                System.out.println(pathfindergoalselectoritem1.a.toString());
+            }
         }
     }
 
@@ -61,7 +76,7 @@ public class PathfinderGoalSelector {
                     if (this.b.contains(pathfindergoalselectoritem1) && !this.a(pathfindergoalselectoritem, pathfindergoalselectoritem1)) {
                         return false;
                     }
-                } else if (this.b.contains(pathfindergoalselectoritem1) && !pathfindergoalselectoritem1.a.f()) {
+                } else if (this.b.contains(pathfindergoalselectoritem1) && !pathfindergoalselectoritem1.a.g()) {
                     return false;
                 }
             }
@@ -71,6 +86,6 @@ public class PathfinderGoalSelector {
     }
 
     private boolean a(PathfinderGoalSelectorItem pathfindergoalselectoritem, PathfinderGoalSelectorItem pathfindergoalselectoritem1) {
-        return (pathfindergoalselectoritem.a.c() & pathfindergoalselectoritem1.a.c()) == 0;
+        return (pathfindergoalselectoritem.a.h() & pathfindergoalselectoritem1.a.h()) == 0;
     }
 }

@@ -176,7 +176,7 @@ public class Explosion {
                 i1 = this.world.getTypeId(j, k, l);
                 int j1 = this.world.getTypeId(j, k - 1, l);
 
-                if (i1 == 0 && Block.o[j1] && this.h.nextInt(3) == 0) {
+                if (i1 == 0 && Block.n[j1] && this.h.nextInt(3) == 0) {
                     this.world.setTypeId(j, k, l, Block.FIRE.id);
                 }
             }

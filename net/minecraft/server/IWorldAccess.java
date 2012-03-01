@@ -4,6 +4,8 @@ public interface IWorldAccess {
 
     void a(int i, int j, int k);
 
+    void b(int i, int j, int k);
+
     void a(int i, int j, int k, int l, int i1, int j1);
 
     void a(String s, double d0, double d1, double d2, float f, float f1);

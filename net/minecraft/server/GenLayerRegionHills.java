@@ -29,6 +29,8 @@ public class GenLayerRegionHills extends GenLayer {
                         l1 = BiomeBase.FOREST.id;
                     } else if (k1 == BiomeBase.ICE_PLAINS.id) {
                         l1 = BiomeBase.ICE_MOUNTAINS.id;
+                    } else if (k1 == BiomeBase.JUNGLE.id) {
+                        l1 = BiomeBase.JUNGLE_HILLS.id;
                     }
 
                     if (l1 != k1) {

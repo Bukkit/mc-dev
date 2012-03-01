@@ -4,12 +4,12 @@ public abstract class BlockContainer extends Block {
 
     protected BlockContainer(int i, Material material) {
         super(i, material);
-        isTileEntity[this.id] = true;
+        this.isTileEntity = true;
     }
 
     protected BlockContainer(int i, int j, Material material) {
         super(i, j, material);
-        isTileEntity[this.id] = true;
+        this.isTileEntity = true;
     }
 
     public void onPlace(World world, int i, int j, int k) {
@@ -19,7 +19,7 @@ public abstract class BlockContainer extends Block {
 
     public void remove(World world, int i, int j, int k) {
         super.remove(world, i, j, k);
-        world.n(i, j, k);
+        world.q(i, j, k);
     }
 
     public abstract TileEntity a_();

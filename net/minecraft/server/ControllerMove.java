@@ -9,56 +9,70 @@ public class ControllerMove {
     private float e;
     private boolean f = false;
 
-    public ControllerMove(EntityLiving entityliving, float f) {
+    public ControllerMove(EntityLiving entityliving) {
         this.a = entityliving;
         this.b = entityliving.locX;
         this.c = entityliving.locY;
         this.d = entityliving.locZ;
-        this.e = f;
     }
 
-    public void a(double d0, double d1, double d2) {
+    public boolean a() {
+        return this.f;
+    }
+
+    public float b() {
+        return this.e;
+    }
+
+    public void a(double d0, double d1, double d2, float f) {
         this.b = d0;
         this.c = d1;
         this.d = d2;
+        this.e = f;
         this.f = true;
     }
 
-    public void a(float f) {
-        this.e = f;
-    }
-
-    public void a() {
-        this.a.d(0.0F);
+    public void c() {
+        this.a.e(0.0F);
         if (this.f) {
             this.f = false;
             int i = MathHelper.floor(this.a.boundingBox.b + 0.5D);
             double d0 = this.b - this.a.locX;
             double d1 = this.d - this.a.locZ;
             double d2 = this.c - (double) i;
-            float f = (float) (Math.atan2(d1, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
+            double d3 = d0 * d0 + d2 * d2 + d1 * d1;
 
-            float f1;
+            if (d3 >= 2.500000277905201E-7D) {
+                float f = (float) (Math.atan2(d1, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
 
-            for (f1 = f - this.a.yaw; f1 < -180.0F; f1 += 360.0F) {
-                ;
+                this.a.yaw = this.a(this.a.yaw, f, 30.0F);
+                this.a.d(this.e);
+                if (d2 > 0.0D && d0 * d0 + d1 * d1 < 1.0D) {
+                    this.a.getControllerJump().a();
+                }
             }
-
-            while (f1 >= 180.0F) {
-                f1 -= 360.0F;
-            }
-
-            if (f1 > 30.0F) {
-                f1 = 30.0F;
-            }
-
-            if (f1 < -30.0F) {
-                f1 = -30.0F;
-            }
-
-            this.a.yaw += f1;
-            this.a.d(this.e);
-            this.a.e(d2 > 0.0D);
         }
+    }
+
+    private float a(float f, float f1, float f2) {
+        float f3;
+
+        for (f3 = f1 - f; f3 < -180.0F; f3 += 360.0F) {
+            ;
+        }
+
+        while (f3 >= 180.0F) {
+            f3 -= 360.0F;
+        }
+
+        if (f3 > f2) {
+            f3 = f2;
+        }
+
+        if (f3 < -f2) {
+            f3 = -f2;
+        }
+
+        return f + f3;
     }
 }

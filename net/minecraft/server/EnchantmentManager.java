@@ -155,7 +155,21 @@ public class EnchantmentManager {
         }
     }
 
-    public static List a(Random random, ItemStack itemstack, int i) {
+    public static void a(Random random, ItemStack itemstack, int i) {
+        List list = b(random, itemstack, i);
+
+        if (list != null) {
+            Iterator iterator = list.iterator();
+
+            while (iterator.hasNext()) {
+                EnchantmentInstance enchantmentinstance = (EnchantmentInstance) iterator.next();
+
+                itemstack.addEnchantment(enchantmentinstance.enchantment, enchantmentinstance.level);
+            }
+        }
+    }
+
+    public static List b(Random random, ItemStack itemstack, int i) {
         Item item = itemstack.getItem();
         int j = item.c();
 

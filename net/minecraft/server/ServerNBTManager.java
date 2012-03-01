@@ -27,7 +27,7 @@ public class ServerNBTManager extends WorldNBTStorage {
     }
 
     public void saveWorldData(WorldData worlddata, List list) {
-        worlddata.a(19132);
+        worlddata.a(19133);
         super.saveWorldData(worlddata, list);
     }
 

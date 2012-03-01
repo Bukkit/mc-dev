@@ -16,19 +16,19 @@ public class BlockNetherWart extends BlockFlower {
         return i == Block.SOUL_SAND.id;
     }
 
+    public boolean f(World world, int i, int j, int k) {
+        return this.d(world.getTypeId(i, j - 1, k));
+    }
+
     public void a(World world, int i, int j, int k, Random random) {
         int l = world.getData(i, j, k);
 
         if (l < 3) {
-            WorldChunkManager worldchunkmanager = world.getWorldChunkManager();
+            BiomeBase biomebase = world.getBiome(i, k);
 
-            if (worldchunkmanager != null) {
-                BiomeBase biomebase = worldchunkmanager.getBiome(i, k);
-
-                if (biomebase instanceof BiomeHell && random.nextInt(15) == 0) {
-                    ++l;
-                    world.setData(i, j, k, l);
-                }
+            if (biomebase instanceof BiomeHell && random.nextInt(10) == 0) {
+                ++l;
+                world.setData(i, j, k, l);
             }
         }
 

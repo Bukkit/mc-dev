@@ -19,7 +19,7 @@ public class NibbleArray {
     }
 
     public int a(int i, int j, int k) {
-        int l = i << this.c | k << this.b | j;
+        int l = j << this.c | k << this.b | i;
         int i1 = l >> 1;
         int j1 = l & 1;
 
@@ -27,7 +27,7 @@ public class NibbleArray {
     }
 
     public void a(int i, int j, int k, int l) {
-        int i1 = i << this.c | k << this.b | j;
+        int i1 = j << this.c | k << this.b | i;
         int j1 = i1 >> 1;
         int k1 = i1 & 1;
 
@@ -36,9 +36,5 @@ public class NibbleArray {
         } else {
             this.a[j1] = (byte) (this.a[j1] & 15 | (l & 15) << 4);
         }
-    }
-
-    public boolean a() {
-        return this.a != null;
     }
 }

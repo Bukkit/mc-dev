@@ -14,6 +14,9 @@ public class BlockSmoothBrick extends Block {
         case 2:
             return 101;
 
+        case 3:
+            return 213;
+
         default:
             return 54;
         }

@@ -5,22 +5,20 @@ import java.io.DataOutputStream;
 
 public class Packet9Respawn extends Packet {
 
-    public long a;
+    public int a;
     public int b;
     public int c;
     public int d;
-    public int e;
-    public WorldType f;
+    public WorldType e;
 
     public Packet9Respawn() {}
 
-    public Packet9Respawn(byte b0, byte b1, long i, WorldType worldtype, int j, int k) {
-        this.b = b0;
-        this.c = b1;
+    public Packet9Respawn(int i, byte b0, WorldType worldtype, int j, int k) {
         this.a = i;
-        this.d = j;
-        this.e = k;
-        this.f = worldtype;
+        this.b = b0;
+        this.c = j;
+        this.d = k;
+        this.e = worldtype;
     }
 
     public void handle(NetHandler nethandler) {
@@ -28,29 +26,27 @@ public class Packet9Respawn extends Packet {
     }
 
     public void a(DataInputStream datainputstream) {
+        this.a = datainputstream.readInt();
         this.b = datainputstream.readByte();
-        this.c = datainputstream.readByte();
-        this.e = datainputstream.readByte();
-        this.d = datainputstream.readShort();
-        this.a = datainputstream.readLong();
+        this.d = datainputstream.readByte();
+        this.c = datainputstream.readShort();
         String s = a(datainputstream, 16);
 
-        this.f = WorldType.getType(s);
-        if (this.f == null) {
-            this.f = WorldType.NORMAL;
+        this.e = WorldType.getType(s);
+        if (this.e == null) {
+            this.e = WorldType.NORMAL;
         }
     }
 
     public void a(DataOutputStream dataoutputstream) {
+        dataoutputstream.writeInt(this.a);
         dataoutputstream.writeByte(this.b);
-        dataoutputstream.writeByte(this.c);
-        dataoutputstream.writeByte(this.e);
-        dataoutputstream.writeShort(this.d);
-        dataoutputstream.writeLong(this.a);
-        a(this.f.name(), dataoutputstream);
+        dataoutputstream.writeByte(this.d);
+        dataoutputstream.writeShort(this.c);
+        a(this.e.name(), dataoutputstream);
     }
 
     public int a() {
-        return 13 + this.f.name().length();
+        return 8 + this.e.name().length();
     }
 }

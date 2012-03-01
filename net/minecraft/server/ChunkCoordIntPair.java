@@ -31,6 +31,15 @@ public class ChunkCoordIntPair {
         return chunkcoordintpair.x == this.x && chunkcoordintpair.z == this.z;
     }
 
+    public double a(Entity entity) {
+        double d0 = (double) (this.x * 16 + 8);
+        double d1 = (double) (this.z * 16 + 8);
+        double d2 = d0 - entity.locX;
+        double d3 = d1 - entity.locZ;
+
+        return d2 * d2 + d3 * d3;
+    }
+
     public int a() {
         return (this.x << 4) + 8;
     }

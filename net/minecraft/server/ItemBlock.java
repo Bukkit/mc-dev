@@ -18,8 +18,8 @@ public class ItemBlock extends Item {
         int i1 = world.getTypeId(i, j, k);
 
         if (i1 == Block.SNOW.id) {
-            l = 0;
-        } else if (i1 != Block.VINE.id) {
+            l = 1;
+        } else if (i1 != Block.VINE.id && i1 != Block.LONG_GRASS.id && i1 != Block.DEAD_BUSH.id) {
             if (l == 0) {
                 --j;
             }
@@ -49,7 +49,7 @@ public class ItemBlock extends Item {
             return false;
         } else if (!entityhuman.d(i, j, k)) {
             return false;
-        } else if (j == world.height - 1 && Block.byId[this.id].material.isBuildable()) {
+        } else if (j == 255 && Block.byId[this.id].material.isBuildable()) {
             return false;
         } else if (world.mayPlace(this.id, i, j, k, false, l)) {
             Block block = Block.byId[this.id];
@@ -71,10 +71,10 @@ public class ItemBlock extends Item {
     }
 
     public String a(ItemStack itemstack) {
-        return Block.byId[this.id].n();
+        return Block.byId[this.id].p();
     }
 
     public String getName() {
-        return Block.byId[this.id].n();
+        return Block.byId[this.id].p();
     }
 }

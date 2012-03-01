@@ -2,24 +2,24 @@ package net.minecraft.server;
 
 public class ItemTool extends Item {
 
-    private Block[] bS;
+    private Block[] bU;
     protected float a = 4.0F;
-    private int bT;
+    private int bV;
     protected EnumToolMaterial b;
 
     protected ItemTool(int i, int j, EnumToolMaterial enumtoolmaterial, Block[] ablock) {
         super(i);
         this.b = enumtoolmaterial;
-        this.bS = ablock;
+        this.bU = ablock;
         this.maxStackSize = 1;
         this.setMaxDurability(enumtoolmaterial.a());
         this.a = enumtoolmaterial.b();
-        this.bT = j + enumtoolmaterial.c();
+        this.bV = j + enumtoolmaterial.c();
     }
 
     public float getDestroySpeed(ItemStack itemstack, Block block) {
-        for (int i = 0; i < this.bS.length; ++i) {
-            if (this.bS[i] == block) {
+        for (int i = 0; i < this.bU.length; ++i) {
+            if (this.bU[i] == block) {
                 return this.a;
             }
         }
@@ -38,7 +38,7 @@ public class ItemTool extends Item {
     }
 
     public int a(Entity entity) {
-        return this.bT;
+        return this.bV;
     }
 
     public int c() {

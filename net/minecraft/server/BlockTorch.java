@@ -31,7 +31,19 @@ public class BlockTorch extends Block {
         } else {
             int l = world.getTypeId(i, j, k);
 
-            return l == Block.FENCE.id || l == Block.NETHER_FENCE.id;
+            if (l != Block.FENCE.id && l != Block.NETHER_FENCE.id && l != Block.GLASS.id) {
+                if (Block.byId[l] != null && Block.byId[l] instanceof BlockStairs) {
+                    int i1 = world.getData(i, j, k);
+
+                    if ((4 & i1) != 0) {
+                        return true;
+                    }
+                }
+
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 

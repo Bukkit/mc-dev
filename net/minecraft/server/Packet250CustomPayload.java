@@ -16,7 +16,7 @@ public class Packet250CustomPayload extends Packet {
         this.length = datainputstream.readShort();
         if (this.length > 0 && this.length < 32767) {
             this.data = new byte[this.length];
-            datainputstream.read(this.data);
+            datainputstream.readFully(this.data);
         }
     }
 

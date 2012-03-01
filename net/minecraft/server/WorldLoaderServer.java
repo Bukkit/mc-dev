@@ -1,20 +1,22 @@
 package net.minecraft.server;
 
-import java.io.BufferedInputStream;
+import java.io.DataInput;
 import java.io.DataInputStream;
+import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.zip.GZIPInputStream;
 
 public class WorldLoaderServer extends WorldLoader {
 
     public WorldLoaderServer(File file1) {
         super(file1);
+    }
+
+    protected int a() {
+        return 19133;
     }
 
     public IDataManager a(String s, boolean flag) {
@@ -24,7 +26,7 @@ public class WorldLoaderServer extends WorldLoader {
     public boolean isConvertable(String s) {
         WorldData worlddata = this.b(s);
 
-        return worlddata != null && worlddata.i() == 0;
+        return worlddata != null && worlddata.h() != this.a();
     }
 
     public boolean convert(String s, IProgressUpdate iprogressupdate) {
@@ -32,125 +34,143 @@ public class WorldLoaderServer extends WorldLoader {
         ArrayList arraylist = new ArrayList();
         ArrayList arraylist1 = new ArrayList();
         ArrayList arraylist2 = new ArrayList();
-        ArrayList arraylist3 = new ArrayList();
-        ArrayList arraylist4 = new ArrayList();
-        ArrayList arraylist5 = new ArrayList();
         File file1 = new File(this.a, s);
         File file2 = new File(file1, "DIM-1");
         File file3 = new File(file1, "DIM1");
 
         System.out.println("Scanning folders...");
-        this.a(file1, arraylist, arraylist1);
+        this.a(file1, arraylist);
         if (file2.exists()) {
-            this.a(file2, arraylist2, arraylist3);
+            this.a(file2, arraylist1);
         }
 
         if (file3.exists()) {
-            this.a(file3, arraylist4, arraylist5);
+            this.a(file3, arraylist2);
         }
 
-        int i = arraylist.size() + arraylist2.size() + arraylist4.size() + arraylist1.size() + arraylist3.size() + arraylist5.size();
+        int i = arraylist.size() + arraylist1.size() + arraylist2.size();
 
         System.out.println("Total conversion count is " + i);
-        this.a(file1, arraylist, 0, i, iprogressupdate);
-        this.a(file2, arraylist2, arraylist.size(), i, iprogressupdate);
-        this.a(file3, arraylist4, arraylist.size() + arraylist2.size(), i, iprogressupdate);
         WorldData worlddata = this.b(s);
+        Object object = null;
 
-        worlddata.a(19132);
+        if (worlddata.getType() == WorldType.FLAT) {
+            object = new WorldChunkManagerHell(BiomeBase.PLAINS, 0.5F, 0.5F);
+        } else {
+            object = new WorldChunkManager(worlddata.getSeed(), worlddata.getType());
+        }
+
+        this.a(new File(file1, "region"), arraylist, (WorldChunkManager) object, 0, i, iprogressupdate);
+        this.a(new File(file2, "region"), arraylist1, new WorldChunkManagerHell(BiomeBase.HELL, 1.0F, 0.0F), arraylist.size(), i, iprogressupdate);
+        this.a(new File(file3, "region"), arraylist2, new WorldChunkManagerHell(BiomeBase.SKY, 0.5F, 0.0F), arraylist.size() + arraylist1.size(), i, iprogressupdate);
+        worlddata.a(19133);
+        if (worlddata.getType() == WorldType.VERSION_1_1f) {
+            worlddata.setType(WorldType.NORMAL);
+        }
+
+        this.c(s);
         IDataManager idatamanager = this.a(s, false);
 
         idatamanager.saveWorldData(worlddata);
-        this.a(arraylist1, arraylist.size() + arraylist2.size(), i, iprogressupdate);
-        if (file2.exists()) {
-            this.a(arraylist3, arraylist.size() + arraylist2.size() + arraylist1.size(), i, iprogressupdate);
-        }
-
         return true;
     }
 
-    private void a(File file1, ArrayList arraylist, ArrayList arraylist1) {
-        ChunkFileFilter chunkfilefilter = new ChunkFileFilter((EmptyClass2) null);
-        ChunkFilenameFilter chunkfilenamefilter = new ChunkFilenameFilter((EmptyClass2) null);
-        File[] afile = file1.listFiles(chunkfilefilter);
-        File[] afile1 = afile;
-        int i = afile.length;
+    private void c(String s) {
+        File file1 = new File(this.a, s);
 
-        for (int j = 0; j < i; ++j) {
-            File file2 = afile1[j];
+        if (!file1.exists()) {
+            System.out.println("Warning: Unable to create level.dat_mcr backup");
+        } else {
+            File file2 = new File(file1, "level.dat");
 
-            arraylist1.add(file2);
-            File[] afile2 = file2.listFiles(chunkfilefilter);
-            File[] afile3 = afile2;
-            int k = afile2.length;
+            if (!file2.exists()) {
+                System.out.println("Warning: Unable to create level.dat_mcr backup");
+            } else {
+                File file3 = new File(file1, "level.dat_mcr");
 
-            for (int l = 0; l < k; ++l) {
-                File file3 = afile3[l];
-                File[] afile4 = file3.listFiles(chunkfilenamefilter);
-                File[] afile5 = afile4;
-                int i1 = afile4.length;
-
-                for (int j1 = 0; j1 < i1; ++j1) {
-                    File file4 = afile5[j1];
-
-                    arraylist.add(new ChunkFile(file4));
+                if (!file2.renameTo(file3)) {
+                    System.out.println("Warning: Unable to create level.dat_mcr backup");
                 }
             }
         }
     }
 
-    private void a(File file1, ArrayList arraylist, int i, int j, IProgressUpdate iprogressupdate) {
-        Collections.sort(arraylist);
-        byte[] abyte = new byte[4096];
+    private void a(File file1, ArrayList arraylist, WorldChunkManager worldchunkmanager, int i, int j, IProgressUpdate iprogressupdate) {
         Iterator iterator = arraylist.iterator();
 
         while (iterator.hasNext()) {
-            ChunkFile chunkfile = (ChunkFile) iterator.next();
-            int k = chunkfile.b();
-            int l = chunkfile.c();
-            RegionFile regionfile = RegionFileCache.a(file1, k, l);
+            File file2 = (File) iterator.next();
 
-            if (!regionfile.c(k & 31, l & 31)) {
-                try {
-                    DataInputStream datainputstream = new DataInputStream(new BufferedInputStream(new GZIPInputStream(new FileInputStream(chunkfile.a()))));
-                    DataOutputStream dataoutputstream = regionfile.b(k & 31, l & 31);
-                    boolean flag = false;
-
-                    int i1;
-
-                    while ((i1 = datainputstream.read(abyte)) != -1) {
-                        dataoutputstream.write(abyte, 0, i1);
-                    }
-
-                    dataoutputstream.close();
-                    datainputstream.close();
-                } catch (IOException ioexception) {
-                    ioexception.printStackTrace();
-                }
-            }
-
-            ++i;
-            int j1 = (int) Math.round(100.0D * (double) i / (double) j);
-
-            iprogressupdate.a(j1);
-        }
-
-        RegionFileCache.a();
-    }
-
-    private void a(ArrayList arraylist, int i, int j, IProgressUpdate iprogressupdate) {
-        Iterator iterator = arraylist.iterator();
-
-        while (iterator.hasNext()) {
-            File file1 = (File) iterator.next();
-            File[] afile = file1.listFiles();
-
-            a(afile);
-            file1.delete();
+            this.a(file1, file2, worldchunkmanager, i, j, iprogressupdate);
             ++i;
             int k = (int) Math.round(100.0D * (double) i / (double) j);
 
             iprogressupdate.a(k);
+        }
+    }
+
+    private void a(File file1, File file2, WorldChunkManager worldchunkmanager, int i, int j, IProgressUpdate iprogressupdate) {
+        try {
+            String s = file2.getName();
+            RegionFile regionfile = new RegionFile(file2);
+            RegionFile regionfile1 = new RegionFile(new File(file1, s.substring(0, s.length() - ".mcr".length()) + ".mca"));
+
+            for (int k = 0; k < 32; ++k) {
+                int l;
+
+                for (l = 0; l < 32; ++l) {
+                    if (regionfile.c(k, l) && !regionfile1.c(k, l)) {
+                        DataInputStream datainputstream = regionfile.a(k, l);
+
+                        if (datainputstream == null) {
+                            System.out.println("Failed to fetch input stream");
+                        } else {
+                            NBTTagCompound nbttagcompound = NBTCompressedStreamTools.a((DataInput) datainputstream);
+
+                            datainputstream.close();
+                            NBTTagCompound nbttagcompound1 = nbttagcompound.getCompound("Level");
+                            OldChunk oldchunk = OldChunkLoader.a(nbttagcompound1);
+                            NBTTagCompound nbttagcompound2 = new NBTTagCompound();
+                            NBTTagCompound nbttagcompound3 = new NBTTagCompound();
+
+                            nbttagcompound2.set("Level", nbttagcompound3);
+                            OldChunkLoader.a(oldchunk, nbttagcompound3, worldchunkmanager);
+                            DataOutputStream dataoutputstream = regionfile1.b(k, l);
+
+                            NBTCompressedStreamTools.a(nbttagcompound2, (DataOutput) dataoutputstream);
+                            dataoutputstream.close();
+                        }
+                    }
+                }
+
+                l = (int) Math.round(100.0D * (double) (i * 1024) / (double) (j * 1024));
+                int i1 = (int) Math.round(100.0D * (double) ((k + 1) * 32 + i * 1024) / (double) (j * 1024));
+
+                if (i1 > l) {
+                    iprogressupdate.a(i1);
+                }
+            }
+
+            regionfile.a();
+            regionfile1.a();
+        } catch (IOException ioexception) {
+            ioexception.printStackTrace();
+        }
+    }
+
+    private void a(File file1, ArrayList arraylist) {
+        File file2 = new File(file1, "region");
+        File[] afile = file2.listFiles(new ChunkFilenameFilter(this));
+
+        if (afile != null) {
+            File[] afile1 = afile;
+            int i = afile.length;
+
+            for (int j = 0; j < i; ++j) {
+                File file3 = afile1[j];
+
+                arraylist.add(file3);
+            }
         }
     }
 }

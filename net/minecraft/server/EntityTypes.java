@@ -9,6 +9,7 @@ public class EntityTypes {
     private static Map c = new HashMap();
     private static Map d = new HashMap();
     private static Map e = new HashMap();
+    private static Map f = new HashMap();
     public static HashMap a = new HashMap();
 
     public EntityTypes() {}
@@ -18,6 +19,7 @@ public class EntityTypes {
         c.put(oclass, s);
         d.put(Integer.valueOf(i), oclass);
         e.put(oclass, Integer.valueOf(i));
+        f.put(s, Integer.valueOf(i));
     }
 
     private static void a(Class oclass, String s, int i, int j, int k) {
@@ -91,6 +93,12 @@ public class EntityTypes {
         return (String) c.get(entity.getClass());
     }
 
+    public static int a(String s) {
+        Integer integer = (Integer) f.get(s);
+
+        return integer == null ? 90 : integer.intValue();
+    }
+
     static {
         a(EntityItem.class, "Item", 1);
         a(EntityExperienceOrb.class, "XPOrb", 2);
@@ -101,6 +109,8 @@ public class EntityTypes {
         a(EntitySmallFireball.class, "SmallFireball", 13);
         a(EntityEnderPearl.class, "ThrownEnderpearl", 14);
         a(EntityEnderSignal.class, "EyeOfEnderSignal", 15);
+        a(EntityPotion.class, "ThrownPotion", 16);
+        a(EntityThrownExpBottle.class, "ThrownExpBottle", 17);
         a(EntityTNTPrimed.class, "PrimedTnt", 20);
         a(EntityFallingBlock.class, "FallingSand", 21);
         a(EntityMinecart.class, "Minecart", 40);
@@ -129,6 +139,8 @@ public class EntityTypes {
         a(EntityWolf.class, "Wolf", 95, 14144467, 13545366);
         a(EntityMushroomCow.class, "MushroomCow", 96, 10489616, 12040119);
         a(EntitySnowman.class, "SnowMan", 97);
+        a(EntityOcelot.class, "Ozelot", 98, 15720061, 5653556);
+        a(EntityIronGolem.class, "VillagerGolem", 99);
         a(EntityVillager.class, "Villager", 120, 5651507, 12422002);
         a(EntityEnderCrystal.class, "EnderCrystal", 200);
     }

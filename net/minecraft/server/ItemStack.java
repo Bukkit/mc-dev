@@ -249,8 +249,8 @@ public final class ItemStack {
         Item.byId[this.id].a(this, world, entity, i, flag);
     }
 
-    public void c(World world, EntityHuman entityhuman) {
-        entityhuman.a(StatisticList.D[this.id], this.count);
+    public void a(World world, EntityHuman entityhuman, int i) {
+        entityhuman.a(StatisticList.D[this.id], i);
         Item.byId[this.id].d(this, world, entityhuman);
     }
 
@@ -266,7 +266,7 @@ public final class ItemStack {
         return this.getItem().d(this);
     }
 
-    public void a(World world, EntityHuman entityhuman, int i) {
+    public void b(World world, EntityHuman entityhuman, int i) {
         this.getItem().a(this, world, entityhuman, i);
     }
 

@@ -1,25 +1,57 @@
 package net.minecraft.server;
 
-public enum WorldType {
+public class WorldType {
 
-    NORMAL("DEFAULT", 0, "default"), FLAT("FLAT", 1, "flat");
-    private String c;
+    public static final WorldType[] types = new WorldType[16];
+    public static final WorldType NORMAL = (new WorldType(0, "default", 1)).d();
+    public static final WorldType FLAT = new WorldType(1, "flat");
+    public static final WorldType VERSION_1_1f = (new WorldType(8, "default_1_1", 0)).a(false);
+    private final String name;
+    private final int version;
+    private boolean g;
+    private boolean h;
 
-    private static final WorldType[] d = new WorldType[] { NORMAL, FLAT};
+    private WorldType(int i, String s) {
+        this(i, s, 0);
+    }
 
-    private WorldType(String s, int i, String s1) {
-        this.c = s1;
+    private WorldType(int i, String s, int j) {
+        this.name = s;
+        this.version = j;
+        this.g = true;
+        types[i] = this;
+    }
+
+    public String name() {
+        return this.name;
+    }
+
+    public int getVersion() {
+        return this.version;
+    }
+
+    public WorldType a(int i) {
+        return this == NORMAL && i == 0 ? VERSION_1_1f : this;
+    }
+
+    private WorldType a(boolean flag) {
+        this.g = flag;
+        return this;
+    }
+
+    private WorldType d() {
+        this.h = true;
+        return this;
+    }
+
+    public boolean c() {
+        return this.h;
     }
 
     public static WorldType getType(String s) {
-        WorldType[] aworldtype = values();
-        int i = aworldtype.length;
-
-        for (int j = 0; j < i; ++j) {
-            WorldType worldtype = aworldtype[j];
-
-            if (worldtype.name().equals(s)) {
-                return worldtype;
+        for (int i = 0; i < types.length; ++i) {
+            if (types[i] != null && types[i].name.equalsIgnoreCase(s)) {
+                return types[i];
             }
         }
 

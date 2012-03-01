@@ -101,19 +101,19 @@ public class BiomeDecorator {
         for (i = 0; i < this.H; ++i) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
-            this.g.a(this.a, this.b, j, this.a.f(j, k), k);
+            this.g.a(this.a, this.b, j, this.a.g(j, k), k);
         }
 
         for (i = 0; i < this.I; ++i) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
-            this.f.a(this.a, this.b, j, this.a.f(j, k), k);
+            this.f.a(this.a, this.b, j, this.a.g(j, k), k);
         }
 
         for (i = 0; i < this.G; ++i) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
-            this.g.a(this.a, this.b, j, this.a.f(j, k), k);
+            this.g.a(this.a, this.b, j, this.a.g(j, k), k);
         }
 
         i = this.z;
@@ -142,30 +142,29 @@ public class BiomeDecorator {
 
         for (j = 0; j < this.A; ++j) {
             k = this.c + this.b.nextInt(16) + 8;
-            l = this.b.nextInt(this.a.height);
+            l = this.b.nextInt(128);
             i1 = this.d + this.b.nextInt(16) + 8;
             this.q.a(this.a, this.b, k, l, i1);
             if (this.b.nextInt(4) == 0) {
                 k = this.c + this.b.nextInt(16) + 8;
-                l = this.b.nextInt(this.a.height);
+                l = this.b.nextInt(128);
                 i1 = this.d + this.b.nextInt(16) + 8;
                 this.r.a(this.a, this.b, k, l, i1);
             }
         }
 
         for (j = 0; j < this.B; ++j) {
-            byte b0 = 1;
+            k = this.c + this.b.nextInt(16) + 8;
+            l = this.b.nextInt(128);
+            i1 = this.d + this.b.nextInt(16) + 8;
+            WorldGenerator worldgenerator1 = this.e.b(this.b);
 
-            l = this.c + this.b.nextInt(16) + 8;
-            i1 = this.b.nextInt(this.a.height);
-            int j1 = this.d + this.b.nextInt(16) + 8;
-
-            (new WorldGenGrass(Block.LONG_GRASS.id, b0)).a(this.a, this.b, l, i1, j1);
+            worldgenerator1.a(this.a, this.b, k, l, i1);
         }
 
         for (j = 0; j < this.C; ++j) {
             k = this.c + this.b.nextInt(16) + 8;
-            l = this.b.nextInt(this.a.height);
+            l = this.b.nextInt(128);
             i1 = this.d + this.b.nextInt(16) + 8;
             (new WorldGenDeadBush(Block.DEAD_BUSH.id)).a(this.a, this.b, k, l, i1);
         }
@@ -174,7 +173,7 @@ public class BiomeDecorator {
             k = this.c + this.b.nextInt(16) + 8;
             l = this.d + this.b.nextInt(16) + 8;
 
-            for (i1 = this.b.nextInt(this.a.height); i1 > 0 && this.a.getTypeId(k, i1 - 1, l) == 0; --i1) {
+            for (i1 = this.b.nextInt(128); i1 > 0 && this.a.getTypeId(k, i1 - 1, l) == 0; --i1) {
                 ;
             }
 
@@ -192,21 +191,21 @@ public class BiomeDecorator {
             if (this.b.nextInt(8) == 0) {
                 k = this.c + this.b.nextInt(16) + 8;
                 l = this.d + this.b.nextInt(16) + 8;
-                i1 = this.b.nextInt(this.a.height);
+                i1 = this.b.nextInt(128);
                 this.t.a(this.a, this.b, k, i1, l);
             }
         }
 
         if (this.b.nextInt(4) == 0) {
             j = this.c + this.b.nextInt(16) + 8;
-            k = this.b.nextInt(this.a.height);
+            k = this.b.nextInt(128);
             l = this.d + this.b.nextInt(16) + 8;
             this.s.a(this.a, this.b, j, k, l);
         }
 
         if (this.b.nextInt(8) == 0) {
             j = this.c + this.b.nextInt(16) + 8;
-            k = this.b.nextInt(this.a.height);
+            k = this.b.nextInt(128);
             l = this.d + this.b.nextInt(16) + 8;
             this.t.a(this.a, this.b, j, k, l);
         }
@@ -214,27 +213,27 @@ public class BiomeDecorator {
         for (j = 0; j < this.E; ++j) {
             k = this.c + this.b.nextInt(16) + 8;
             l = this.d + this.b.nextInt(16) + 8;
-            i1 = this.b.nextInt(this.a.height);
+            i1 = this.b.nextInt(128);
             this.v.a(this.a, this.b, k, i1, l);
         }
 
         for (j = 0; j < 10; ++j) {
             k = this.c + this.b.nextInt(16) + 8;
-            l = this.b.nextInt(this.a.height);
+            l = this.b.nextInt(128);
             i1 = this.d + this.b.nextInt(16) + 8;
             this.v.a(this.a, this.b, k, l, i1);
         }
 
         if (this.b.nextInt(32) == 0) {
             j = this.c + this.b.nextInt(16) + 8;
-            k = this.b.nextInt(this.a.height);
+            k = this.b.nextInt(128);
             l = this.d + this.b.nextInt(16) + 8;
             (new WorldGenPumpkin()).a(this.a, this.b, j, k, l);
         }
 
         for (j = 0; j < this.F; ++j) {
             k = this.c + this.b.nextInt(16) + 8;
-            l = this.b.nextInt(this.a.height);
+            l = this.b.nextInt(128);
             i1 = this.d + this.b.nextInt(16) + 8;
             this.w.a(this.a, this.b, k, l, i1);
         }
@@ -242,14 +241,14 @@ public class BiomeDecorator {
         if (this.K) {
             for (j = 0; j < 50; ++j) {
                 k = this.c + this.b.nextInt(16) + 8;
-                l = this.b.nextInt(this.b.nextInt(this.a.height - 8) + 8);
+                l = this.b.nextInt(this.b.nextInt(120) + 8);
                 i1 = this.d + this.b.nextInt(16) + 8;
                 (new WorldGenLiquids(Block.WATER.id)).a(this.a, this.b, k, l, i1);
             }
 
             for (j = 0; j < 20; ++j) {
                 k = this.c + this.b.nextInt(16) + 8;
-                l = this.b.nextInt(this.b.nextInt(this.b.nextInt(this.a.height - 16) + 8) + 8);
+                l = this.b.nextInt(this.b.nextInt(this.b.nextInt(112) + 8) + 8);
                 i1 = this.d + this.b.nextInt(16) + 8;
                 (new WorldGenLiquids(Block.LAVA.id)).a(this.a, this.b, k, l, i1);
             }
@@ -277,13 +276,13 @@ public class BiomeDecorator {
     }
 
     protected void b() {
-        this.a(20, this.i, 0, this.a.height);
-        this.a(10, this.j, 0, this.a.height);
-        this.a(20, this.k, 0, this.a.height);
-        this.a(20, this.l, 0, this.a.height / 2);
-        this.a(2, this.m, 0, this.a.height / 4);
-        this.a(8, this.n, 0, this.a.height / 8);
-        this.a(1, this.o, 0, this.a.height / 8);
-        this.b(1, this.p, this.a.height / 8, this.a.height / 8);
+        this.a(20, this.i, 0, 128);
+        this.a(10, this.j, 0, 128);
+        this.a(20, this.k, 0, 128);
+        this.a(20, this.l, 0, 64);
+        this.a(2, this.m, 0, 32);
+        this.a(8, this.n, 0, 16);
+        this.a(1, this.o, 0, 16);
+        this.b(1, this.p, 16, 16);
     }
 }

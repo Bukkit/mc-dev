@@ -8,6 +8,8 @@ public interface IInventory {
 
     ItemStack splitStack(int i, int j);
 
+    ItemStack splitWithoutUpdate(int i);
+
     void setItem(int i, ItemStack itemstack);
 
     String getName();

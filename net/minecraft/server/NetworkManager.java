@@ -141,7 +141,10 @@ public class NetworkManager {
                 int i = packet.b();
 
                 aint[i] += packet.a() + 1;
-                this.m.add(packet);
+                if (!this.q) {
+                    this.m.add(packet);
+                }
+
                 flag = true;
             } else {
                 this.a("disconnect.endOfStream", new Object[0]);

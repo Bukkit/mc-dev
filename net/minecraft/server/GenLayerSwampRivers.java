@@ -18,6 +18,8 @@ public class GenLayerSwampRivers extends GenLayer {
 
                 if (k1 == BiomeBase.SWAMPLAND.id && this.a(6) == 0) {
                     aint1[j1 + i1 * k] = BiomeBase.RIVER.id;
+                } else if ((k1 == BiomeBase.JUNGLE.id || k1 == BiomeBase.JUNGLE_HILLS.id) && this.a(8) == 0) {
+                    aint1[j1 + i1 * k] = BiomeBase.RIVER.id;
                 } else {
                     aint1[j1 + i1 * k] = k1;
                 }

@@ -15,10 +15,10 @@ public class BlockFence extends Block {
     }
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
-        boolean flag = this.b(world, i, j, k - 1);
-        boolean flag1 = this.b(world, i, j, k + 1);
-        boolean flag2 = this.b(world, i - 1, j, k);
-        boolean flag3 = this.b(world, i + 1, j, k);
+        boolean flag = this.c(world, i, j, k - 1);
+        boolean flag1 = this.c(world, i, j, k + 1);
+        boolean flag2 = this.c(world, i - 1, j, k);
+        boolean flag3 = this.c(world, i + 1, j, k);
         float f = 0.375F;
         float f1 = 0.625F;
         float f2 = 0.375F;
@@ -44,10 +44,10 @@ public class BlockFence extends Block {
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        boolean flag = this.b(iblockaccess, i, j, k - 1);
-        boolean flag1 = this.b(iblockaccess, i, j, k + 1);
-        boolean flag2 = this.b(iblockaccess, i - 1, j, k);
-        boolean flag3 = this.b(iblockaccess, i + 1, j, k);
+        boolean flag = this.c(iblockaccess, i, j, k - 1);
+        boolean flag1 = this.c(iblockaccess, i, j, k + 1);
+        boolean flag2 = this.c(iblockaccess, i - 1, j, k);
+        boolean flag3 = this.c(iblockaccess, i + 1, j, k);
         float f = 0.375F;
         float f1 = 0.625F;
         float f2 = 0.375F;
@@ -80,11 +80,15 @@ public class BlockFence extends Block {
         return false;
     }
 
+    public boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
+        return false;
+    }
+
     public int c() {
         return 11;
     }
 
-    public boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
+    public boolean c(IBlockAccess iblockaccess, int i, int j, int k) {
         int l = iblockaccess.getTypeId(i, j, k);
 
         if (l != this.id && l != Block.FENCE_GATE.id) {

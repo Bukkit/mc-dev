@@ -6,7 +6,7 @@ public abstract class EntityGolem extends EntityCreature implements IAnimal {
         super(world);
     }
 
-    protected void b(float f) {}
+    protected void a(float f) {}
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
@@ -16,23 +16,23 @@ public abstract class EntityGolem extends EntityCreature implements IAnimal {
         super.a(nbttagcompound);
     }
 
-    protected String c_() {
+    protected String i() {
         return "none";
     }
 
-    protected String m() {
+    protected String j() {
         return "none";
     }
 
-    protected String n() {
+    protected String k() {
         return "none";
     }
 
-    public int h() {
+    public int m() {
         return 120;
     }
 
-    protected boolean d_() {
+    protected boolean n() {
         return false;
     }
 }

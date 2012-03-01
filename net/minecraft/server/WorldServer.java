@@ -80,7 +80,7 @@ public class WorldServer extends World {
     protected void c(Entity entity) {
         super.c(entity);
         this.entitiesById.a(entity.id, entity);
-        Entity[] aentity = entity.aR();
+        Entity[] aentity = entity.ba();
 
         if (aentity != null) {
             for (int i = 0; i < aentity.length; ++i) {
@@ -92,7 +92,7 @@ public class WorldServer extends World {
     protected void d(Entity entity) {
         super.d(entity);
         this.entitiesById.d(entity.id);
-        Entity[] aentity = entity.aR();
+        Entity[] aentity = entity.ba();
 
         if (aentity != null) {
             for (int i = 0; i < aentity.length; ++i) {
@@ -140,10 +140,10 @@ public class WorldServer extends World {
     }
 
     protected void i() {
-        boolean flag = this.w();
+        boolean flag = this.x();
 
         super.i();
-        if (flag != this.w()) {
+        if (flag != this.x()) {
             if (flag) {
                 this.server.serverConfigurationManager.sendAll(new Packet70Bed(2, 0));
             } else {

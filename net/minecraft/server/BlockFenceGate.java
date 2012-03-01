@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-public class BlockFenceGate extends Block {
+public class BlockFenceGate extends BlockDirectional {
 
     public BlockFenceGate(int i, int j) {
         super(i, j, Material.WOOD);
@@ -17,7 +17,7 @@ public class BlockFenceGate extends Block {
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        int l = e(iblockaccess.getData(i, j, k));
+        int l = b(iblockaccess.getData(i, j, k));
 
         if (l != 2 && l != 0) {
             this.a(0.375F, 0.0F, 0.0F, 0.625F, 1.0F, 1.0F);
@@ -32,6 +32,10 @@ public class BlockFenceGate extends Block {
 
     public boolean b() {
         return false;
+    }
+
+    public boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
+        return d(iblockaccess.getData(i, j, k));
     }
 
     public int c() {
@@ -51,7 +55,7 @@ public class BlockFenceGate extends Block {
             world.setData(i, j, k, l & -5);
         } else {
             int i1 = (MathHelper.floor((double) (entityhuman.yaw * 4.0F / 360.0F) + 0.5D) & 3) % 4;
-            int j1 = e(l);
+            int j1 = b(l);
 
             if (j1 == (i1 + 2) % 4) {
                 l = i1;
@@ -83,9 +87,5 @@ public class BlockFenceGate extends Block {
 
     public static boolean d(int i) {
         return (i & 4) != 0;
-    }
-
-    public static int e(int i) {
-        return i & 3;
     }
 }

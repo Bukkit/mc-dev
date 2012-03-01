@@ -4,10 +4,13 @@ public class GenLayerBiome extends GenLayer {
 
     private BiomeBase[] b;
 
-    public GenLayerBiome(long i, GenLayer genlayer) {
+    public GenLayerBiome(long i, GenLayer genlayer, WorldType worldtype) {
         super(i);
-        this.b = new BiomeBase[] { BiomeBase.DESERT, BiomeBase.FOREST, BiomeBase.EXTREME_HILLS, BiomeBase.SWAMPLAND, BiomeBase.PLAINS, BiomeBase.TAIGA};
+        this.b = new BiomeBase[] { BiomeBase.DESERT, BiomeBase.FOREST, BiomeBase.EXTREME_HILLS, BiomeBase.SWAMPLAND, BiomeBase.PLAINS, BiomeBase.TAIGA, BiomeBase.JUNGLE};
         this.a = genlayer;
+        if (worldtype == WorldType.VERSION_1_1f) {
+            this.b = new BiomeBase[] { BiomeBase.DESERT, BiomeBase.FOREST, BiomeBase.EXTREME_HILLS, BiomeBase.SWAMPLAND, BiomeBase.PLAINS, BiomeBase.TAIGA};
+        }
     }
 
     public int[] a(int i, int j, int k, int l) {
