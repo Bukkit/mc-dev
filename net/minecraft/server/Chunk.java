@@ -538,7 +538,7 @@ public class Chunk {
     }
 
     public boolean d(int i, int j, int k) {
-        return j > this.heightMap[k << 4 | i];
+        return j >= this.heightMap[k << 4 | i];
     }
 
     public TileEntity e(int i, int j, int k) {
