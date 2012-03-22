@@ -192,6 +192,12 @@ public class ChunkProviderHell implements IChunkProvider {
         this.t.a(this, this.o, i, j, abyte);
         this.c.a(this, this.o, i, j, abyte);
         Chunk chunk = new Chunk(this.o, abyte, i, j);
+        BiomeBase[] abiomebase = this.o.getWorldChunkManager().getBiomeBlock((BiomeBase[]) null, i * 16, j * 16, 16, 16);
+        byte[] abyte1 = chunk.l();
+
+        for (int k = 0; k < abyte1.length; ++k) {
+            abyte1[k] = (byte) abiomebase[k].id;
+        }
 
         chunk.m();
         return chunk;

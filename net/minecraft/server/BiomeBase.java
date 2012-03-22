@@ -9,24 +9,24 @@ public abstract class BiomeBase {
     public static final BiomeBase[] biomes = new BiomeBase[256];
     public static final BiomeBase OCEAN = (new BiomeOcean(0)).b(112).a("Ocean").b(-1.0F, 0.4F);
     public static final BiomeBase PLAINS = (new BiomePlains(1)).b(9286496).a("Plains").a(0.8F, 0.4F);
-    public static final BiomeBase DESERT = (new BiomeDesert(2)).b(16421912).a("Desert").i().a(2.0F, 0.0F).b(0.1F, 0.2F);
+    public static final BiomeBase DESERT = (new BiomeDesert(2)).b(16421912).a("Desert").j().a(2.0F, 0.0F).b(0.1F, 0.2F);
     public static final BiomeBase EXTREME_HILLS = (new BiomeBigHills(3)).b(6316128).a("Extreme Hills").b(0.2F, 1.3F).a(0.2F, 0.3F);
     public static final BiomeBase FOREST = (new BiomeForest(4)).b(353825).a("Forest").a(5159473).a(0.7F, 0.8F);
-    public static final BiomeBase TAIGA = (new BiomeTaiga(5)).b(747097).a("Taiga").a(5159473).a(0.05F, 0.8F).b(0.1F, 0.4F);
+    public static final BiomeBase TAIGA = (new BiomeTaiga(5)).b(747097).a("Taiga").a(5159473).b().a(0.05F, 0.8F).b(0.1F, 0.4F);
     public static final BiomeBase SWAMPLAND = (new BiomeSwamp(6)).b(522674).a("Swampland").a(9154376).b(-0.2F, 0.1F).a(0.8F, 0.9F);
     public static final BiomeBase RIVER = (new BiomeRiver(7)).b(255).a("River").b(-0.5F, 0.0F);
-    public static final BiomeBase HELL = (new BiomeHell(8)).b(16711680).a("Hell").i().a(2.0F, 0.0F);
-    public static final BiomeBase SKY = (new BiomeTheEnd(9)).b(8421631).a("Sky").i();
-    public static final BiomeBase FROZEN_OCEAN = (new BiomeOcean(10)).b(9474208).a("FrozenOcean").b(-1.0F, 0.5F).a(0.0F, 0.5F);
-    public static final BiomeBase FROZEN_RIVER = (new BiomeRiver(11)).b(10526975).a("FrozenRiver").b(-0.5F, 0.0F).a(0.0F, 0.5F);
-    public static final BiomeBase ICE_PLAINS = (new BiomeIcePlains(12)).b(16777215).a("Ice Plains").a(0.0F, 0.5F);
-    public static final BiomeBase ICE_MOUNTAINS = (new BiomeIcePlains(13)).b(10526880).a("Ice Mountains").b(0.2F, 1.2F).a(0.0F, 0.5F);
+    public static final BiomeBase HELL = (new BiomeHell(8)).b(16711680).a("Hell").j().a(2.0F, 0.0F);
+    public static final BiomeBase SKY = (new BiomeTheEnd(9)).b(8421631).a("Sky").j();
+    public static final BiomeBase FROZEN_OCEAN = (new BiomeOcean(10)).b(9474208).a("FrozenOcean").b().b(-1.0F, 0.5F).a(0.0F, 0.5F);
+    public static final BiomeBase FROZEN_RIVER = (new BiomeRiver(11)).b(10526975).a("FrozenRiver").b().b(-0.5F, 0.0F).a(0.0F, 0.5F);
+    public static final BiomeBase ICE_PLAINS = (new BiomeIcePlains(12)).b(16777215).a("Ice Plains").b().a(0.0F, 0.5F);
+    public static final BiomeBase ICE_MOUNTAINS = (new BiomeIcePlains(13)).b(10526880).a("Ice Mountains").b().b(0.2F, 1.2F).a(0.0F, 0.5F);
     public static final BiomeBase MUSHROOM_ISLAND = (new BiomeMushrooms(14)).b(16711935).a("MushroomIsland").a(0.9F, 1.0F).b(0.2F, 1.0F);
     public static final BiomeBase MUSHROOM_SHORE = (new BiomeMushrooms(15)).b(10486015).a("MushroomIslandShore").a(0.9F, 1.0F).b(-1.0F, 0.1F);
     public static final BiomeBase BEACH = (new BiomeBeach(16)).b(16440917).a("Beach").a(0.8F, 0.4F).b(0.0F, 0.1F);
-    public static final BiomeBase DESERT_HILLS = (new BiomeDesert(17)).b(13786898).a("DesertHills").i().a(2.0F, 0.0F).b(0.2F, 0.7F);
+    public static final BiomeBase DESERT_HILLS = (new BiomeDesert(17)).b(13786898).a("DesertHills").j().a(2.0F, 0.0F).b(0.2F, 0.7F);
     public static final BiomeBase FOREST_HILLS = (new BiomeForest(18)).b(2250012).a("ForestHills").a(5159473).a(0.7F, 0.8F).b(0.2F, 0.6F);
-    public static final BiomeBase TAIGA_HILLS = (new BiomeTaiga(19)).b(1456435).a("TaigaHills").a(5159473).a(0.05F, 0.8F).b(0.2F, 0.7F);
+    public static final BiomeBase TAIGA_HILLS = (new BiomeTaiga(19)).b(1456435).a("TaigaHills").b().a(5159473).a(0.05F, 0.8F).b(0.2F, 0.7F);
     public static final BiomeBase SMALL_MOUNTAINS = (new BiomeBigHills(20)).b(7501978).a("Extreme Hills Edge").b(0.2F, 0.8F).a(0.2F, 0.3F);
     public static final BiomeBase JUNGLE = (new BiomeJungle(21)).b(5470985).a("Jungle").a(5470985).a(1.2F, 0.9F).b(0.2F, 0.4F);
     public static final BiomeBase JUNGLE_HILLS = (new BiomeJungle(22)).b(2900485).a("JungleHills").a(5470985).a(1.2F, 0.9F).b(1.8F, 0.2F);
@@ -105,7 +105,7 @@ public abstract class BiomeBase {
         return this;
     }
 
-    private BiomeBase i() {
+    private BiomeBase j() {
         this.S = false;
         return this;
     }
@@ -116,6 +116,11 @@ public abstract class BiomeBase {
 
     public WorldGenerator b(Random random) {
         return new WorldGenGrass(Block.LONG_GRASS.id, 1);
+    }
+
+    protected BiomeBase b() {
+        this.R = true;
+        return this;
     }
 
     protected BiomeBase a(String s) {
@@ -137,31 +142,31 @@ public abstract class BiomeBase {
         return enumcreaturetype == EnumCreatureType.MONSTER ? this.J : (enumcreaturetype == EnumCreatureType.CREATURE ? this.K : (enumcreaturetype == EnumCreatureType.WATER_CREATURE ? this.L : null));
     }
 
-    public boolean b() {
+    public boolean c() {
         return this.R;
     }
 
-    public boolean c() {
+    public boolean d() {
         return this.R ? false : this.S;
     }
 
-    public boolean d() {
+    public boolean e() {
         return this.G > 0.85F;
     }
 
-    public float e() {
+    public float f() {
         return 0.1F;
     }
 
-    public final int f() {
+    public final int g() {
         return (int) (this.G * 65536.0F);
     }
 
-    public final int g() {
+    public final int h() {
         return (int) (this.F * 65536.0F);
     }
 
-    public final float h() {
+    public final float i() {
         return this.F;
     }
 

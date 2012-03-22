@@ -96,4 +96,8 @@ public class NBTTagList extends NBTBase {
 
         return false;
     }
+
+    public int hashCode() {
+        return super.hashCode() ^ this.list.hashCode();
+    }
 }

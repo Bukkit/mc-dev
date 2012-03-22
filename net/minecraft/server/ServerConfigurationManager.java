@@ -590,7 +590,7 @@ public class ServerConfigurationManager {
 
     public void updateClient(EntityPlayer entityplayer) {
         entityplayer.updateInventory(entityplayer.defaultContainer);
-        entityplayer.J();
+        entityplayer.D_();
     }
 
     public int getPlayerCount() {

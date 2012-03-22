@@ -70,7 +70,7 @@ public class PathfinderGoalFollowParent extends PathfinderGoal {
     public void e() {
         if (--this.d <= 0) {
             this.d = 10;
-            this.a.ak().a((EntityLiving) this.b, this.c);
+            this.a.al().a((EntityLiving) this.b, this.c);
         }
     }
 }

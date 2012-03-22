@@ -11,8 +11,20 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         super(world);
     }
 
+    protected void g() {
+        if (this.getAge() != 0) {
+            this.love = 0;
+        }
+
+        super.g();
+    }
+
     public void e() {
         super.e();
+        if (this.getAge() != 0) {
+            this.love = 0;
+        }
+
         if (this.love > 0) {
             --this.love;
             String s = "heart";
@@ -41,7 +53,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
             EntityHuman entityhuman = (EntityHuman) entity;
 
-            if (entityhuman.T() == null || !this.a(entityhuman.T())) {
+            if (entityhuman.U() == null || !this.a(entityhuman.U())) {
                 this.target = null;
             }
         } else if (entity instanceof EntityAnimal) {
@@ -153,7 +165,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 for (i = 0; i < list.size(); ++i) {
                     EntityHuman entityhuman = (EntityHuman) list.get(i);
 
-                    if (entityhuman.T() != null && this.a(entityhuman.T())) {
+                    if (entityhuman.U() != null && this.a(entityhuman.U())) {
                         return entityhuman;
                     }
                 }

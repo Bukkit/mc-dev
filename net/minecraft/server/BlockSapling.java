@@ -45,7 +45,7 @@ public class BlockSapling extends BlockFlower {
         } else if (l == 3) {
             for (i1 = 0; i1 >= -1; --i1) {
                 for (j1 = 0; j1 >= -1; --j1) {
-                    if (world.getTypeId(i + i1, j, k + j1) == this.id && world.getTypeId(i + i1 + 1, j, k + j1) == this.id && world.getTypeId(i + i1, j, k + j1 + 1) == this.id && world.getTypeId(i + i1 + 1, j, k + j1 + 1) == this.id) {
+                    if (this.f(world, i + i1, j, k + j1, 3) && this.f(world, i + i1 + 1, j, k + j1, 3) && this.f(world, i + i1, j, k + j1 + 1, 3) && this.f(world, i + i1 + 1, j, k + j1 + 1, 3)) {
                         object = new WorldGenMegaTree(true, 10 + random.nextInt(20), 3, 3);
                         flag = true;
                         break;
@@ -88,6 +88,10 @@ public class BlockSapling extends BlockFlower {
                 world.setRawTypeIdAndData(i, j, k, this.id, l);
             }
         }
+    }
+
+    public boolean f(World world, int i, int j, int k, int l) {
+        return world.getTypeId(i, j, k) == this.id && (world.getData(i, j, k) & 3) == l;
     }
 
     protected int getDropData(int i) {

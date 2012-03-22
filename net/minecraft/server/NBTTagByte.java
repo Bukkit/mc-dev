@@ -32,6 +32,10 @@ public class NBTTagByte extends NBTBase {
         return "" + this.data;
     }
 
+    public NBTBase clone() {
+        return new NBTTagByte(this.getName(), this.data);
+    }
+
     public boolean equals(Object object) {
         if (super.equals(object)) {
             NBTTagByte nbttagbyte = (NBTTagByte) object;
@@ -42,7 +46,7 @@ public class NBTTagByte extends NBTBase {
         }
     }
 
-    public NBTBase clone() {
-        return new NBTTagByte(this.getName(), this.data);
+    public int hashCode() {
+        return super.hashCode() ^ this.data;
     }
 }

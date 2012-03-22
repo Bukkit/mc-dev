@@ -21,7 +21,7 @@ public class PathfinderGoalArrowAttack extends PathfinderGoal {
     }
 
     public boolean a() {
-        EntityLiving entityliving = this.b.as();
+        EntityLiving entityliving = this.b.at();
 
         if (entityliving == null) {
             return false;
@@ -32,7 +32,7 @@ public class PathfinderGoalArrowAttack extends PathfinderGoal {
     }
 
     public boolean b() {
-        return this.a() || !this.b.ak().e();
+        return this.a() || !this.b.al().e();
     }
 
     public void d() {
@@ -42,7 +42,7 @@ public class PathfinderGoalArrowAttack extends PathfinderGoal {
     public void e() {
         double d0 = 100.0D;
         double d1 = this.b.e(this.c.locX, this.c.boundingBox.b, this.c.locZ);
-        boolean flag = this.b.al().canSee(this.c);
+        boolean flag = this.b.am().canSee(this.c);
 
         if (flag) {
             ++this.f;
@@ -51,9 +51,9 @@ public class PathfinderGoalArrowAttack extends PathfinderGoal {
         }
 
         if (d1 <= d0 && this.f >= 20) {
-            this.b.ak().f();
+            this.b.al().f();
         } else {
-            this.b.ak().a(this.c, this.e);
+            this.b.al().a(this.c, this.e);
         }
 
         this.b.getControllerLook().a(this.c, 30.0F, 30.0F);
@@ -70,7 +70,7 @@ public class PathfinderGoalArrowAttack extends PathfinderGoal {
         if (this.g == 1) {
             EntityArrow entityarrow = new EntityArrow(this.a, this.b, this.c, 1.6F, 12.0F);
 
-            this.a.makeSound(this.b, "random.bow", 1.0F, 1.0F / (this.b.am().nextFloat() * 0.4F + 0.8F));
+            this.a.makeSound(this.b, "random.bow", 1.0F, 1.0F / (this.b.an().nextFloat() * 0.4F + 0.8F));
             this.a.addEntity(entityarrow);
         } else if (this.g == 2) {
             EntitySnowball entitysnowball = new EntitySnowball(this.a, this.b);
@@ -80,7 +80,7 @@ public class PathfinderGoalArrowAttack extends PathfinderGoal {
             float f = MathHelper.sqrt(d0 * d0 + d2 * d2) * 0.2F;
 
             entitysnowball.a(d0, d1 + (double) f, d2, 1.6F, 12.0F);
-            this.a.makeSound(this.b, "random.bow", 1.0F, 1.0F / (this.b.am().nextFloat() * 0.4F + 0.8F));
+            this.a.makeSound(this.b, "random.bow", 1.0F, 1.0F / (this.b.an().nextFloat() * 0.4F + 0.8F));
             this.a.addEntity(entitysnowball);
         }
     }

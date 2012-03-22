@@ -40,15 +40,15 @@ public class PathfinderGoalFleeSun extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.a.ak().e();
+        return !this.a.al().e();
     }
 
     public void c() {
-        this.a.ak().a(this.b, this.c, this.d, this.e);
+        this.a.al().a(this.b, this.c, this.d, this.e);
     }
 
     private Vec3D f() {
-        Random random = this.a.am();
+        Random random = this.a.an();
 
         for (int i = 0; i < 10; ++i) {
             int j = MathHelper.floor(this.a.locX + (double) random.nextInt(20) - 10.0D);

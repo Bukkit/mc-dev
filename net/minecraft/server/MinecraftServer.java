@@ -63,7 +63,7 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
         ConsoleLogManager.init();
-        log.info("Starting minecraft server version 1.2.3");
+        log.info("Starting minecraft server version 1.2.4");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             log.warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
         }
@@ -505,7 +505,7 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
     }
 
     public String getVersion() {
-        return "1.2.3";
+        return "1.2.4";
     }
 
     public int getPlayerCount() {

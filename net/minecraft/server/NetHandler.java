@@ -247,4 +247,8 @@ public abstract class NetHandler {
     public void a(Packet132TileEntityData packet132tileentitydata) {
         this.onUnhandledPacket(packet132tileentitydata);
     }
+
+    public void a(Packet202Abilities packet202abilities) {
+        this.onUnhandledPacket(packet202abilities);
+    }
 }

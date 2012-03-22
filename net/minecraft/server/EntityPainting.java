@@ -112,10 +112,10 @@ public class EntityPainting extends Entity {
         return i == 32 ? 0.5F : (i == 64 ? 0.5F : 0.0F);
     }
 
-    public void G_() {
+    public void F_() {
         if (this.f++ == 100 && !this.world.isStatic) {
             this.f = 0;
-            if (!this.survives()) {
+            if (!this.dead && !this.survives()) {
                 this.die();
                 this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING)));
             }
@@ -187,7 +187,7 @@ public class EntityPainting extends Entity {
     public boolean damageEntity(DamageSource damagesource, int i) {
         if (!this.dead && !this.world.isStatic) {
             this.die();
-            this.aV();
+            this.aW();
             this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING)));
         }
 
@@ -227,14 +227,14 @@ public class EntityPainting extends Entity {
     }
 
     public void move(double d0, double d1, double d2) {
-        if (!this.world.isStatic && d0 * d0 + d1 * d1 + d2 * d2 > 0.0D) {
+        if (!this.world.isStatic && !this.dead && d0 * d0 + d1 * d1 + d2 * d2 > 0.0D) {
             this.die();
             this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING)));
         }
     }
 
     public void b_(double d0, double d1, double d2) {
-        if (!this.world.isStatic && d0 * d0 + d1 * d1 + d2 * d2 > 0.0D) {
+        if (!this.world.isStatic && !this.dead && d0 * d0 + d1 * d1 + d2 * d2 > 0.0D) {
             this.die();
             this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.PAINTING)));
         }

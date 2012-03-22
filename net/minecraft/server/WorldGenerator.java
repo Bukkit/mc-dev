@@ -18,9 +18,17 @@ public abstract class WorldGenerator {
 
     public void a(double d0, double d1, double d2) {}
 
+    protected void setType(World world, int i, int j, int k, int l) {
+        this.setTypeAndData(world, i, j, k, l, 0);
+    }
+
     protected void setTypeAndData(World world, int i, int j, int k, int l, int i1) {
         if (this.a) {
             world.setTypeIdAndData(i, j, k, l, i1);
+        } else if (world.getChunkAtWorldCoords(i >> 4, k >> 4).seenByPlayer) {
+            if (world.setRawTypeIdAndData(i, j, k, l, i1)) {
+                world.notify(i, j, k);
+            }
         } else {
             world.setRawTypeIdAndData(i, j, k, l, i1);
         }

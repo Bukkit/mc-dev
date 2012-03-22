@@ -267,9 +267,9 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
         if (packet14blockdig.e == 4) {
-            this.player.R();
+            this.player.S();
         } else if (packet14blockdig.e == 5) {
-            this.player.M();
+            this.player.N();
         } else {
             boolean flag = worldserver.weirdIsOpCache = worldserver.worldProvider.dimension != 0 || this.minecraftServer.serverConfigurationManager.isOp(this.player.name);
             boolean flag1 = false;
@@ -509,7 +509,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void a(Packet18ArmAnimation packet18armanimation) {
         if (packet18armanimation.b == 1) {
-            this.player.D();
+            this.player.C_();
         }
     }
 
@@ -712,5 +712,9 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public boolean c() {
         return true;
+    }
+
+    public void a(Packet202Abilities packet202abilities) {
+        this.player.abilities.isFlying = packet202abilities.b && this.player.abilities.canFly;
     }
 }

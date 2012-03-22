@@ -18,10 +18,10 @@ public class EntityVillager extends EntityAgeable implements NPC {
         this.g = false;
         this.village = null;
         this.setProfession(i);
-        this.D();
+        this.texture = "/mob/villager/villager.png";
         this.bb = 0.5F;
-        this.ak().b(true);
-        this.ak().a(true);
+        this.al().b(true);
+        this.al().a(true);
         this.goalSelector.a(0, new PathfinderGoalFloat(this));
         this.goalSelector.a(1, new PathfinderGoalAvoidPlayer(this, EntityZombie.class, 8.0F, 0.3F, 0.35F));
         this.goalSelector.a(2, new PathfinderGoalMoveIndoors(this));
@@ -47,7 +47,7 @@ public class EntityVillager extends EntityAgeable implements NPC {
             this.profession = 70 + this.random.nextInt(50);
             this.village = this.world.villages.getClosestVillage(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ), 32);
             if (this.village == null) {
-                this.aw();
+                this.ax();
             } else {
                 ChunkCoordinates chunkcoordinates = this.village.getCenter();
 
@@ -79,30 +79,6 @@ public class EntityVillager extends EntityAgeable implements NPC {
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
         this.setProfession(nbttagcompound.getInt("Profession"));
-        this.D();
-    }
-
-    private void D() {
-        this.texture = "/mob/villager/villager.png";
-        if (this.getProfession() == 0) {
-            this.texture = "/mob/villager/farmer.png";
-        }
-
-        if (this.getProfession() == 1) {
-            this.texture = "/mob/villager/librarian.png";
-        }
-
-        if (this.getProfession() == 2) {
-            this.texture = "/mob/villager/priest.png";
-        }
-
-        if (this.getProfession() == 3) {
-            this.texture = "/mob/villager/smith.png";
-        }
-
-        if (this.getProfession() == 4) {
-            this.texture = "/mob/villager/butcher.png";
-        }
     }
 
     protected boolean n() {
@@ -141,7 +117,7 @@ public class EntityVillager extends EntityAgeable implements NPC {
         this.g = flag;
     }
 
-    public boolean E_() {
+    public boolean C() {
         return this.g;
     }
 

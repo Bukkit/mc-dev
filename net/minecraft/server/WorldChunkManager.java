@@ -52,7 +52,7 @@ public class WorldChunkManager {
         int[] aint = this.b.a(i, j, k, l);
 
         for (int i1 = 0; i1 < k * l; ++i1) {
-            float f = (float) BiomeBase.biomes[aint[i1]].f() / 65536.0F;
+            float f = (float) BiomeBase.biomes[aint[i1]].g() / 65536.0F;
 
             if (f > 1.0F) {
                 f = 1.0F;
@@ -73,7 +73,7 @@ public class WorldChunkManager {
         int[] aint = this.b.a(i, j, k, l);
 
         for (int i1 = 0; i1 < k * l; ++i1) {
-            float f = (float) BiomeBase.biomes[aint[i1]].g() / 65536.0F;
+            float f = (float) BiomeBase.biomes[aint[i1]].h() / 65536.0F;
 
             if (f > 1.0F) {
                 f = 1.0F;

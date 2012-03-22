@@ -134,6 +134,11 @@ public class BlockFurnace extends BlockContainer {
 
                             itemstack.count -= i1;
                             EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, i1, itemstack.getData()));
+
+                            if (itemstack.hasTag()) {
+                                entityitem.itemStack.setTag((NBTTagCompound) itemstack.getTag().clone());
+                            }
+
                             float f3 = 0.05F;
 
                             entityitem.motX = (double) ((float) this.a.nextGaussian() * f3);

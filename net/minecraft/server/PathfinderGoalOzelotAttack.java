@@ -14,7 +14,7 @@ public class PathfinderGoalOzelotAttack extends PathfinderGoal {
     }
 
     public boolean a() {
-        EntityLiving entityliving = this.b.as();
+        EntityLiving entityliving = this.b.at();
 
         if (entityliving == null) {
             return false;
@@ -25,12 +25,12 @@ public class PathfinderGoalOzelotAttack extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.c.isAlive() ? false : (this.b.j(this.c) > 225.0D ? false : !this.b.ak().e() || this.a());
+        return !this.c.isAlive() ? false : (this.b.j(this.c) > 225.0D ? false : !this.b.al().e() || this.a());
     }
 
     public void d() {
         this.c = null;
-        this.b.ak().f();
+        this.b.al().f();
     }
 
     public void e() {
@@ -45,7 +45,7 @@ public class PathfinderGoalOzelotAttack extends PathfinderGoal {
             f = 0.18F;
         }
 
-        this.b.ak().a(this.c, f);
+        this.b.al().a(this.c, f);
         this.d = Math.max(this.d - 1, 0);
         if (d1 <= d0) {
             if (this.d <= 0) {

@@ -48,26 +48,26 @@ public class PathfinderGoalTakeFlower extends PathfinderGoal {
     }
 
     public void c() {
-        this.c = this.a.am().nextInt(320);
+        this.c = this.a.an().nextInt(320);
         this.d = false;
-        this.b.ak().f();
+        this.b.al().f();
     }
 
     public void d() {
         this.b = null;
-        this.a.ak().f();
+        this.a.al().f();
     }
 
     public void e() {
         this.a.getControllerLook().a(this.b, 30.0F, 30.0F);
         if (this.b.m_() == this.c) {
-            this.a.ak().a((EntityLiving) this.b, 0.15F);
+            this.a.al().a((EntityLiving) this.b, 0.15F);
             this.d = true;
         }
 
         if (this.d && this.a.j(this.b) < 4.0D) {
             this.b.a(false);
-            this.a.ak().f();
+            this.a.al().f();
         }
     }
 }

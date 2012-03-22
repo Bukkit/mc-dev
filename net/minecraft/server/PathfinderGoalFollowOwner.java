@@ -16,7 +16,7 @@ public class PathfinderGoalFollowOwner extends PathfinderGoal {
         this.d = entitytameableanimal;
         this.a = entitytameableanimal.world;
         this.f = f;
-        this.g = entitytameableanimal.ak();
+        this.g = entitytameableanimal.al();
         this.c = f1;
         this.b = f2;
         this.a(3);
@@ -43,18 +43,18 @@ public class PathfinderGoalFollowOwner extends PathfinderGoal {
 
     public void c() {
         this.h = 0;
-        this.i = this.d.ak().a();
-        this.d.ak().a(false);
+        this.i = this.d.al().a();
+        this.d.al().a(false);
     }
 
     public void d() {
         this.e = null;
         this.g.f();
-        this.d.ak().a(this.i);
+        this.d.al().a(this.i);
     }
 
     public void e() {
-        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.C());
+        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.D());
         if (!this.d.isSitting()) {
             if (--this.h <= 0) {
                 this.h = 10;

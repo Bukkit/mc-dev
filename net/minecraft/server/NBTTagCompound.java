@@ -179,4 +179,8 @@ public class NBTTagCompound extends NBTBase {
             return false;
         }
     }
+
+    public int hashCode() {
+        return super.hashCode() ^ this.map.hashCode();
+    }
 }

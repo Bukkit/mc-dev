@@ -30,6 +30,7 @@ public class Packet51MapChunk extends Packet {
         this.f = flag;
         if (flag) {
             i = '\uffff';
+            chunk.seenByPlayer = true;
         }
 
         ChunkSection[] achunksection = chunk.h();

@@ -37,7 +37,11 @@ public class ConsoleCommandHandler {
 
                     for (i = 0; i < this.server.worldServer.length; ++i) {
                         worldserver = this.server.worldServer[i];
+                        boolean flag = worldserver.savingDisabled;
+
+                        worldserver.savingDisabled = false;
                         worldserver.save(true, (IProgressUpdate) null);
+                        worldserver.savingDisabled = flag;
                     }
 
                     this.print(s1, "Save complete.");

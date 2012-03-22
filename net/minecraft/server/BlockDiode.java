@@ -72,6 +72,12 @@ public class BlockDiode extends BlockDirectional {
         if (!this.f(world, i, j, k)) {
             this.b(world, i, j, k, world.getData(i, j, k), 0);
             world.setTypeId(i, j, k, 0);
+            world.applyPhysics(i + 1, j, k, this.id);
+            world.applyPhysics(i - 1, j, k, this.id);
+            world.applyPhysics(i, j, k + 1, this.id);
+            world.applyPhysics(i, j, k - 1, this.id);
+            world.applyPhysics(i, j - 1, k, this.id);
+            world.applyPhysics(i, j + 1, k, this.id);
         } else {
             int i1 = world.getData(i, j, k);
             boolean flag = this.f(world, i, j, k, i1);
@@ -141,6 +147,11 @@ public class BlockDiode extends BlockDirectional {
 
     public void postBreak(World world, int i, int j, int k, int l) {
         if (this.c) {
+            world.applyPhysics(i + 1, j, k, this.id);
+            world.applyPhysics(i - 1, j, k, this.id);
+            world.applyPhysics(i, j, k + 1, this.id);
+            world.applyPhysics(i, j, k - 1, this.id);
+            world.applyPhysics(i, j - 1, k, this.id);
             world.applyPhysics(i, j + 1, k, this.id);
         }
 

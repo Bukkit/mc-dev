@@ -117,7 +117,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         for (int k = 0; k < 16; ++k) {
             for (int l = 0; l < 16; ++l) {
                 BiomeBase biomebase = abiomebase[l + k * 16];
-                float f = biomebase.h();
+                float f = biomebase.i();
                 int i1 = (int) (this.s[k + l * 16] / 3.0D + 3.0D + this.k.nextDouble() * 0.25D);
                 int j1 = -1;
                 byte b1 = biomebase.A;
@@ -192,6 +192,11 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
 
         Chunk chunk = new Chunk(this.p, abyte, i, j);
+        byte[] abyte1 = chunk.l();
+
+        for (int k = 0; k < abyte1.length; ++k) {
+            abyte1[k] = (byte) this.y[k].id;
+        }
 
         chunk.initLighting();
         return chunk;

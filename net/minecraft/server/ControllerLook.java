@@ -64,7 +64,7 @@ public class ControllerLook {
             f2 -= 360.0F;
         }
 
-        if (!this.a.ak().e()) {
+        if (!this.a.al().e()) {
             if (f2 < -75.0F) {
                 this.a.X = this.a.V - 75.0F;
             }

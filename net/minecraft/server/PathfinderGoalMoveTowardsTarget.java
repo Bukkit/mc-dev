@@ -18,7 +18,7 @@ public class PathfinderGoalMoveTowardsTarget extends PathfinderGoal {
     }
 
     public boolean a() {
-        this.b = this.a.as();
+        this.b = this.a.at();
         if (this.b == null) {
             return false;
         } else if (this.b.j(this.a) > (double) (this.g * this.g)) {
@@ -38,7 +38,7 @@ public class PathfinderGoalMoveTowardsTarget extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.a.ak().e() && this.b.isAlive() && this.b.j(this.a) < (double) (this.g * this.g);
+        return !this.a.al().e() && this.b.isAlive() && this.b.j(this.a) < (double) (this.g * this.g);
     }
 
     public void d() {
@@ -46,6 +46,6 @@ public class PathfinderGoalMoveTowardsTarget extends PathfinderGoal {
     }
 
     public void c() {
-        this.a.ak().a(this.c, this.d, this.e, this.f);
+        this.a.al().a(this.c, this.d, this.e, this.f);
     }
 }

@@ -21,16 +21,6 @@ public abstract class NBTBase {
         }
     }
 
-    public boolean equals(Object object) {
-        if (object != null && object instanceof NBTBase) {
-            NBTBase nbtbase = (NBTBase) object;
-
-            return this.getTypeId() != nbtbase.getTypeId() ? false : ((this.name != null || nbtbase.name == null) && (this.name == null || nbtbase.name != null) ? this.name == null || this.name.equals(nbtbase.name) : false);
-        } else {
-            return false;
-        }
-    }
-
     public NBTBase setName(String s) {
         if (s == null) {
             this.name = "";
@@ -154,4 +144,18 @@ public abstract class NBTBase {
     }
 
     public abstract NBTBase clone();
+
+    public boolean equals(Object object) {
+        if (object != null && object instanceof NBTBase) {
+            NBTBase nbtbase = (NBTBase) object;
+
+            return this.getTypeId() != nbtbase.getTypeId() ? false : ((this.name != null || nbtbase.name == null) && (this.name == null || nbtbase.name != null) ? this.name == null || this.name.equals(nbtbase.name) : false);
+        } else {
+            return false;
+        }
+    }
+
+    public int hashCode() {
+        return this.name.hashCode() ^ this.getTypeId();
+    }
 }

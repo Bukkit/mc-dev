@@ -45,4 +45,8 @@ public class NBTTagInt extends NBTBase {
             return false;
         }
     }
+
+    public int hashCode() {
+        return super.hashCode() ^ this.data;
+    }
 }

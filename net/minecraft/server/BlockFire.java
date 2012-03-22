@@ -12,7 +12,7 @@ public class BlockFire extends Block {
         this.a(true);
     }
 
-    public void j() {
+    public void k() {
         this.a(Block.WOOD.id, 5, 20);
         this.a(Block.FENCE.id, 5, 20);
         this.a(Block.WOOD_STAIRS.id, 5, 20);
@@ -178,7 +178,7 @@ public class BlockFire extends Block {
         }
     }
 
-    public boolean F_() {
+    public boolean E_() {
         return false;
     }
 

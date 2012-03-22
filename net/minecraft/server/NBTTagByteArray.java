@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import java.io.DataInput;
 import java.io.DataOutput;
+import java.util.Arrays;
 
 public class NBTTagByteArray extends NBTBase {
 
@@ -36,20 +37,18 @@ public class NBTTagByteArray extends NBTBase {
         return "[" + this.data.length + " bytes]";
     }
 
-    public boolean equals(Object object) {
-        if (!super.equals(object)) {
-            return false;
-        } else {
-            NBTTagByteArray nbttagbytearray = (NBTTagByteArray) object;
-
-            return this.data == null && nbttagbytearray.data == null || this.data != null && this.data.equals(nbttagbytearray.data);
-        }
-    }
-
     public NBTBase clone() {
         byte[] abyte = new byte[this.data.length];
 
         System.arraycopy(this.data, 0, abyte, 0, this.data.length);
         return new NBTTagByteArray(this.getName(), abyte);
+    }
+
+    public boolean equals(Object object) {
+        return super.equals(object) ? Arrays.equals(this.data, ((NBTTagByteArray) object).data) : false;
+    }
+
+    public int hashCode() {
+        return super.hashCode() ^ Arrays.hashCode(this.data);
     }
 }

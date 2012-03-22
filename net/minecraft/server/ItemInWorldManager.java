@@ -33,6 +33,8 @@ public class ItemInWorldManager {
             this.player.abilities.canInstantlyBuild = true;
             this.player.abilities.isInvulnerable = true;
         }
+
+        this.player.updateAbilities();
     }
 
     public int getGameMode() {
@@ -141,14 +143,14 @@ public class ItemInWorldManager {
         if (this.isCreative()) {
             ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
         } else {
-            ItemStack itemstack = this.player.T();
+            ItemStack itemstack = this.player.U();
             boolean flag1 = this.player.b(Block.byId[l]);
 
             if (itemstack != null) {
                 itemstack.a(l, i, j, k, this.player);
                 if (itemstack.count == 0) {
                     itemstack.a(this.player);
-                    this.player.U();
+                    this.player.V();
                 }
             }
 

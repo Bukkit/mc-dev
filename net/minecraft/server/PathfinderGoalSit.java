@@ -13,19 +13,19 @@ public class PathfinderGoalSit extends PathfinderGoal {
     public boolean a() {
         if (!this.a.isTamed()) {
             return false;
-        } else if (this.a.aT()) {
+        } else if (this.a.aU()) {
             return false;
         } else if (!this.a.onGround) {
             return false;
         } else {
             EntityLiving entityliving = this.a.getOwner();
 
-            return entityliving == null ? true : (this.a.j(entityliving) < 144.0D && entityliving.an() != null ? false : this.b);
+            return entityliving == null ? true : (this.a.j(entityliving) < 144.0D && entityliving.ao() != null ? false : this.b);
         }
     }
 
     public void c() {
-        this.a.ak().f();
+        this.a.al().f();
         this.a.setSitting(true);
     }
 

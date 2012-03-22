@@ -43,11 +43,11 @@ public class EntityEnderSignal extends Entity {
         this.f = this.random.nextInt(5) > 0;
     }
 
-    public void G_() {
+    public void F_() {
         this.bL = this.locX;
         this.bM = this.locY;
         this.bN = this.locZ;
-        super.G_();
+        super.F_();
         this.locX += this.motX;
         this.locY += this.motY;
         this.locZ += this.motZ;
@@ -96,7 +96,7 @@ public class EntityEnderSignal extends Entity {
 
         float f3 = 0.25F;
 
-        if (this.aT()) {
+        if (this.aU()) {
             for (int i = 0; i < 4; ++i) {
                 this.world.a("bubble", this.locX - this.motX * (double) f3, this.locY - this.motY * (double) f3, this.locZ - this.motZ * (double) f3, this.motX, this.motY, this.motZ);
             }

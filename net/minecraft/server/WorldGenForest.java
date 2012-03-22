@@ -48,7 +48,7 @@ public class WorldGenForest extends WorldGenerator {
             } else {
                 i1 = world.getTypeId(i, j - 1, k);
                 if ((i1 == Block.GRASS.id || i1 == Block.DIRT.id) && j < 256 - l - 1) {
-                    world.setRawTypeId(i, j - 1, k, Block.DIRT.id);
+                    this.setType(world, i, j - 1, k, Block.DIRT.id);
 
                     int i2;
 

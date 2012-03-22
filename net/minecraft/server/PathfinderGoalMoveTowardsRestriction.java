@@ -15,10 +15,10 @@ public class PathfinderGoalMoveTowardsRestriction extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (this.a.at()) {
+        if (this.a.au()) {
             return false;
         } else {
-            ChunkCoordinates chunkcoordinates = this.a.au();
+            ChunkCoordinates chunkcoordinates = this.a.av();
             Vec3D vec3d = RandomPositionGenerator.a(this.a, 16, 7, Vec3D.create((double) chunkcoordinates.x, (double) chunkcoordinates.y, (double) chunkcoordinates.z));
 
             if (vec3d == null) {
@@ -33,10 +33,10 @@ public class PathfinderGoalMoveTowardsRestriction extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.a.ak().e();
+        return !this.a.al().e();
     }
 
     public void c() {
-        this.a.ak().a(this.b, this.c, this.d, this.e);
+        this.a.al().a(this.b, this.c, this.d, this.e);
     }
 }

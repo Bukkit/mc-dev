@@ -69,9 +69,9 @@ public class EntitySilverfish extends EntityMonster {
         return 0;
     }
 
-    public void G_() {
+    public void F_() {
         this.V = this.yaw;
-        super.G_();
+        super.F_();
     }
 
     protected void d_() {
@@ -110,7 +110,7 @@ public class EntitySilverfish extends EntityMonster {
                 }
             }
 
-            if (this.target == null && !this.G()) {
+            if (this.target == null && !this.H()) {
                 i = MathHelper.floor(this.locX);
                 j = MathHelper.floor(this.locY + 0.5D);
                 k = MathHelper.floor(this.locZ);
@@ -119,12 +119,12 @@ public class EntitySilverfish extends EntityMonster {
                 l = this.world.getTypeId(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1]);
                 if (BlockMonsterEggs.d(l)) {
                     this.world.setTypeIdAndData(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1], Block.MONSTER_EGGS.id, BlockMonsterEggs.e(l));
-                    this.aB();
+                    this.aC();
                     this.die();
                 } else {
-                    this.F();
+                    this.G();
                 }
-            } else if (this.target != null && !this.G()) {
+            } else if (this.target != null && !this.H()) {
                 this.target = null;
             }
         }
@@ -134,7 +134,7 @@ public class EntitySilverfish extends EntityMonster {
         return this.world.getTypeId(i, j - 1, k) == Block.STONE.id ? 10.0F : super.a(i, j, k);
     }
 
-    protected boolean D() {
+    protected boolean C() {
         return true;
     }
 

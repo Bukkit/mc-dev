@@ -48,4 +48,8 @@ public class NBTTagString extends NBTBase {
             return this.data == null && nbttagstring.data == null || this.data != null && this.data.equals(nbttagstring.data);
         }
     }
+
+    public int hashCode() {
+        return super.hashCode() ^ this.data.hashCode();
+    }
 }

@@ -52,6 +52,13 @@ public class ChunkProviderFlat implements IChunkProvider {
             this.d.a(this, this.a, i, j, abyte);
         }
 
+        BiomeBase[] abiomebase = this.a.getWorldChunkManager().getBiomeBlock((BiomeBase[]) null, i * 16, j * 16, 16, 16);
+        byte[] abyte1 = chunk.l();
+
+        for (int k = 0; k < abyte1.length; ++k) {
+            abyte1[k] = (byte) abiomebase[k].id;
+        }
+
         chunk.initLighting();
         return chunk;
     }

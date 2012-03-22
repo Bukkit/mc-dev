@@ -71,7 +71,7 @@ public class EntityMinecart extends Entity implements IInventory {
         if (!this.world.isStatic && !this.dead) {
             this.e(-this.n());
             this.d(10);
-            this.aV();
+            this.aW();
             this.setDamage(this.getDamage() + i * 10);
             if (this.getDamage() > 40) {
                 if (this.passenger != null) {
@@ -144,6 +144,11 @@ public class EntityMinecart extends Entity implements IInventory {
 
                     itemstack.count -= j;
                     EntityItem entityitem = new EntityItem(this.world, this.locX + (double) f, this.locY + (double) f1, this.locZ + (double) f2, new ItemStack(itemstack.id, j, itemstack.getData()));
+
+                    if (itemstack.hasTag()) {
+                        entityitem.itemStack.setTag((NBTTagCompound) itemstack.getTag().clone());
+                    }
+
                     float f3 = 0.05F;
 
                     entityitem.motX = (double) ((float) this.random.nextGaussian() * f3);
@@ -157,13 +162,17 @@ public class EntityMinecart extends Entity implements IInventory {
         super.die();
     }
 
-    public void G_() {
+    public void F_() {
         if (this.m() > 0) {
             this.d(this.m() - 1);
         }
 
         if (this.getDamage() > 0) {
             this.setDamage(this.getDamage() - 1);
+        }
+
+        if (this.locY < -64.0D) {
+            this.aI();
         }
 
         if (this.k() && this.random.nextInt(4) == 0) {
@@ -225,7 +234,7 @@ public class EntityMinecart extends Entity implements IInventory {
                     flag1 = !flag;
                 }
 
-                if (((BlockMinecartTrack) Block.byId[l]).h()) {
+                if (((BlockMinecartTrack) Block.byId[l]).i()) {
                     i1 &= 7;
                 }
 
@@ -532,7 +541,7 @@ public class EntityMinecart extends Entity implements IInventory {
             int i1 = this.world.getData(i, j, k);
 
             d1 = (double) j;
-            if (((BlockMinecartTrack) Block.byId[l]).h()) {
+            if (((BlockMinecartTrack) Block.byId[l]).i()) {
                 i1 &= 7;
             }
 

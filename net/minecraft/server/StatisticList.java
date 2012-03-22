@@ -102,7 +102,7 @@ public class StatisticList {
         Statistic[] astatistic = new Statistic[256];
 
         for (int j = 0; j < 256; ++j) {
-            if (Block.byId[j] != null && Block.byId[j].q()) {
+            if (Block.byId[j] != null && Block.byId[j].r()) {
                 String s1 = LocaleI18n.get(s, new Object[] { Block.byId[j].getName()});
 
                 astatistic[j] = (new CraftingStatistic(i + j, s1, j)).d();

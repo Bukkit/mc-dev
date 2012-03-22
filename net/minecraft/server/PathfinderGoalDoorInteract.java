@@ -19,7 +19,7 @@ public abstract class PathfinderGoalDoorInteract extends PathfinderGoal {
         if (!this.a.positionChanged) {
             return false;
         } else {
-            Navigation navigation = this.a.ak();
+            Navigation navigation = this.a.al();
             PathEntity pathentity = navigation.c();
 
             if (pathentity != null && !pathentity.b() && navigation.b()) {

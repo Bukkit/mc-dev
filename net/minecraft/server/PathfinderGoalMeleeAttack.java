@@ -27,7 +27,7 @@ public class PathfinderGoalMeleeAttack extends PathfinderGoal {
     }
 
     public boolean a() {
-        EntityLiving entityliving = this.b.as();
+        EntityLiving entityliving = this.b.at();
 
         if (entityliving == null) {
             return false;
@@ -35,32 +35,32 @@ public class PathfinderGoalMeleeAttack extends PathfinderGoal {
             return false;
         } else {
             this.c = entityliving;
-            this.g = this.b.ak().a(this.c);
+            this.g = this.b.al().a(this.c);
             return this.g != null;
         }
     }
 
     public boolean b() {
-        EntityLiving entityliving = this.b.as();
+        EntityLiving entityliving = this.b.at();
 
-        return entityliving == null ? false : (!this.c.isAlive() ? false : (!this.f ? !this.b.ak().e() : this.b.e(MathHelper.floor(this.c.locX), MathHelper.floor(this.c.locY), MathHelper.floor(this.c.locZ))));
+        return entityliving == null ? false : (!this.c.isAlive() ? false : (!this.f ? !this.b.al().e() : this.b.e(MathHelper.floor(this.c.locX), MathHelper.floor(this.c.locY), MathHelper.floor(this.c.locZ))));
     }
 
     public void c() {
-        this.b.ak().a(this.g, this.e);
+        this.b.al().a(this.g, this.e);
         this.i = 0;
     }
 
     public void d() {
         this.c = null;
-        this.b.ak().f();
+        this.b.al().f();
     }
 
     public void e() {
         this.b.getControllerLook().a(this.c, 30.0F, 30.0F);
-        if ((this.f || this.b.al().canSee(this.c)) && --this.i <= 0) {
-            this.i = 4 + this.b.am().nextInt(7);
-            this.b.ak().a(this.c, this.e);
+        if ((this.f || this.b.am().canSee(this.c)) && --this.i <= 0) {
+            this.i = 4 + this.b.an().nextInt(7);
+            this.b.al().a(this.c, this.e);
         }
 
         this.d = Math.max(this.d - 1, 0);

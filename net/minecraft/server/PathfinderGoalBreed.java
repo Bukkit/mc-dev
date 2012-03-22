@@ -38,8 +38,8 @@ public class PathfinderGoalBreed extends PathfinderGoal {
     }
 
     public void e() {
-        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.C());
-        this.d.ak().a((EntityLiving) this.e, this.c);
+        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.D());
+        this.d.al().a((EntityLiving) this.e, this.c);
         ++this.b;
         if (this.b == 60) {
             this.i();
@@ -77,7 +77,7 @@ public class PathfinderGoalBreed extends PathfinderGoal {
             entityanimal.setAge(-24000);
             entityanimal.setPositionRotation(this.d.locX, this.d.locY, this.d.locZ, 0.0F, 0.0F);
             this.a.addEntity(entityanimal);
-            Random random = this.d.am();
+            Random random = this.d.an();
 
             for (int i = 0; i < 7; ++i) {
                 double d0 = random.nextGaussian() * 0.02D;

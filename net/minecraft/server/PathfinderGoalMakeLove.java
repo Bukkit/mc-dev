@@ -19,7 +19,7 @@ public class PathfinderGoalMakeLove extends PathfinderGoal {
     public boolean a() {
         if (this.b.getAge() != 0) {
             return false;
-        } else if (this.b.am().nextInt(500) != 0) {
+        } else if (this.b.an().nextInt(500) != 0) {
             return false;
         } else {
             this.a = this.d.villages.getClosestVillage(MathHelper.floor(this.b.locX), MathHelper.floor(this.b.locY), MathHelper.floor(this.b.locZ), 0);
@@ -59,12 +59,12 @@ public class PathfinderGoalMakeLove extends PathfinderGoal {
         --this.e;
         this.b.getControllerLook().a(this.c, 10.0F, 30.0F);
         if (this.b.j(this.c) > 2.25D) {
-            this.b.ak().a((EntityLiving) this.c, 0.25F);
+            this.b.al().a((EntityLiving) this.c, 0.25F);
         } else if (this.e == 0 && this.c.A()) {
             this.i();
         }
 
-        if (this.b.am().nextInt(35) == 0) {
+        if (this.b.an().nextInt(35) == 0) {
             this.a(this.b);
         }
     }
@@ -81,14 +81,14 @@ public class PathfinderGoalMakeLove extends PathfinderGoal {
         this.c.setAge(6000);
         this.b.setAge(6000);
         entityvillager.setAge(-24000);
-        entityvillager.setProfession(this.b.am().nextInt(5));
+        entityvillager.setProfession(this.b.an().nextInt(5));
         entityvillager.setPositionRotation(this.b.locX, this.b.locY, this.b.locZ, 0.0F, 0.0F);
         this.d.addEntity(entityvillager);
         this.a(entityvillager);
     }
 
     private void a(EntityLiving entityliving) {
-        Random random = entityliving.am();
+        Random random = entityliving.an();
 
         for (int i = 0; i < 5; ++i) {
             double d0 = random.nextGaussian() * 0.02D;

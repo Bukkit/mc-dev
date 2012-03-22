@@ -14,7 +14,7 @@ public class PathfinderGoalMoveIndoors extends PathfinderGoal {
 
     public boolean a() {
         if ((!this.a.world.e() || this.a.world.x()) && !this.a.world.worldProvider.e) {
-            if (this.a.am().nextInt(50) != 0) {
+            if (this.a.an().nextInt(50) != 0) {
                 return false;
             } else if (this.c != -1 && this.a.e((double) this.c, this.a.locY, (double) this.d) < 4.0D) {
                 return false;
@@ -34,7 +34,7 @@ public class PathfinderGoalMoveIndoors extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.a.ak().e();
+        return !this.a.al().e();
     }
 
     public void c() {
@@ -43,10 +43,10 @@ public class PathfinderGoalMoveIndoors extends PathfinderGoal {
             Vec3D vec3d = RandomPositionGenerator.a(this.a, 14, 3, Vec3D.create((double) this.b.getIndoorsX() + 0.5D, (double) this.b.getIndoorsY(), (double) this.b.getIndoorsZ() + 0.5D));
 
             if (vec3d != null) {
-                this.a.ak().a(vec3d.a, vec3d.b, vec3d.c, 0.3F);
+                this.a.al().a(vec3d.a, vec3d.b, vec3d.c, 0.3F);
             }
         } else {
-            this.a.ak().a((double) this.b.getIndoorsX() + 0.5D, (double) this.b.getIndoorsY(), (double) this.b.getIndoorsZ() + 0.5D, 0.3F);
+            this.a.al().a((double) this.b.getIndoorsX() + 0.5D, (double) this.b.getIndoorsY(), (double) this.b.getIndoorsZ() + 0.5D, 0.3F);
         }
     }
 

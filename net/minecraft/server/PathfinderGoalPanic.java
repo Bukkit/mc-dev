@@ -15,7 +15,7 @@ public class PathfinderGoalPanic extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (this.a.an() == null) {
+        if (this.a.ao() == null) {
             return false;
         } else {
             Vec3D vec3d = RandomPositionGenerator.a(this.a, 5, 4);
@@ -32,10 +32,10 @@ public class PathfinderGoalPanic extends PathfinderGoal {
     }
 
     public void c() {
-        this.a.ak().a(this.c, this.d, this.e, this.b);
+        this.a.al().a(this.c, this.d, this.e, this.b);
     }
 
     public boolean b() {
-        return !this.a.ak().e();
+        return !this.a.al().e();
     }
 }

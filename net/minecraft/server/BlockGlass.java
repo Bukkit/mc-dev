@@ -19,4 +19,8 @@ public class BlockGlass extends BlockHalfTransparant {
     public boolean b() {
         return false;
     }
+
+    protected boolean h() {
+        return true;
+    }
 }

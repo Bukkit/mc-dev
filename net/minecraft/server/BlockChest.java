@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.util.Iterator;
 import java.util.Random;
 
 public class BlockChest extends BlockContainer {
@@ -263,13 +264,15 @@ public class BlockChest extends BlockContainer {
             return true;
         } else if (world.e(i, j + 1, k)) {
             return true;
-        } else if (world.getTypeId(i - 1, j, k) == this.id && world.e(i - 1, j + 1, k)) {
+        } else if (h(world, i, j, k)) {
             return true;
-        } else if (world.getTypeId(i + 1, j, k) == this.id && world.e(i + 1, j + 1, k)) {
+        } else if (world.getTypeId(i - 1, j, k) == this.id && (world.e(i - 1, j + 1, k) || h(world, i - 1, j, k))) {
             return true;
-        } else if (world.getTypeId(i, j, k - 1) == this.id && world.e(i, j + 1, k - 1)) {
+        } else if (world.getTypeId(i + 1, j, k) == this.id && (world.e(i + 1, j + 1, k) || h(world, i + 1, j, k))) {
             return true;
-        } else if (world.getTypeId(i, j, k + 1) == this.id && world.e(i, j + 1, k + 1)) {
+        } else if (world.getTypeId(i, j, k - 1) == this.id && (world.e(i, j + 1, k - 1) || h(world, i, j, k - 1))) {
+            return true;
+        } else if (world.getTypeId(i, j, k + 1) == this.id && (world.e(i, j + 1, k + 1) || h(world, i, j, k + 1))) {
             return true;
         } else {
             if (world.getTypeId(i - 1, j, k) == this.id) {
@@ -299,5 +302,23 @@ public class BlockChest extends BlockContainer {
 
     public TileEntity a_() {
         return new TileEntityChest();
+    }
+
+    private static boolean h(World world, int i, int j, int k) {
+        Iterator iterator = world.a(EntityOcelot.class, AxisAlignedBB.b((double) i, (double) (j + 1), (double) k, (double) (i + 1), (double) (j + 2), (double) (k + 1))).iterator();
+
+        EntityOcelot entityocelot;
+
+        do {
+            if (!iterator.hasNext()) {
+                return false;
+            }
+
+            Entity entity = (Entity) iterator.next();
+
+            entityocelot = (EntityOcelot) entity;
+        } while (!entityocelot.isSitting());
+
+        return true;
     }
 }

@@ -19,7 +19,7 @@ public class PathfinderGoalPlay extends PathfinderGoal {
     public boolean a() {
         if (this.a.getAge() >= 0) {
             return false;
-        } else if (this.a.am().nextInt(400) != 0) {
+        } else if (this.a.an().nextInt(400) != 0) {
             return false;
         } else {
             List list = this.a.world.a(EntityVillager.class, this.a.boundingBox.grow(6.0D, 3.0D, 6.0D));
@@ -32,7 +32,7 @@ public class PathfinderGoalPlay extends PathfinderGoal {
                 if (entity != this.a) {
                     EntityVillager entityvillager = (EntityVillager) entity;
 
-                    if (!entityvillager.E_() && entityvillager.getAge() < 0) {
+                    if (!entityvillager.C() && entityvillager.getAge() < 0) {
                         double d1 = entityvillager.j(this.a);
 
                         if (d1 <= d0) {
@@ -76,16 +76,16 @@ public class PathfinderGoalPlay extends PathfinderGoal {
         --this.d;
         if (this.b != null) {
             if (this.a.j(this.b) > 4.0D) {
-                this.a.ak().a(this.b, this.c);
+                this.a.al().a(this.b, this.c);
             }
-        } else if (this.a.ak().e()) {
+        } else if (this.a.al().e()) {
             Vec3D vec3d = RandomPositionGenerator.a(this.a, 16, 3);
 
             if (vec3d == null) {
                 return;
             }
 
-            this.a.ak().a(vec3d.a, vec3d.b, vec3d.c, this.c);
+            this.a.al().a(vec3d.a, vec3d.b, vec3d.c, this.c);
         }
     }
 }

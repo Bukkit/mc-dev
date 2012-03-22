@@ -119,23 +119,23 @@ public abstract class EntityLiving extends Entity {
         return this.jumpController;
     }
 
-    public Navigation ak() {
+    public Navigation al() {
         return this.navigation;
     }
 
-    public EntitySenses al() {
+    public EntitySenses am() {
         return this.m;
     }
 
-    public Random am() {
+    public Random an() {
         return this.random;
     }
 
-    public EntityLiving an() {
+    public EntityLiving ao() {
         return this.lastDamager;
     }
 
-    public EntityLiving ao() {
+    public EntityLiving ap() {
         return this.d;
     }
 
@@ -145,15 +145,15 @@ public abstract class EntityLiving extends Entity {
         }
     }
 
-    public int ap() {
+    public int aq() {
         return this.aV;
     }
 
-    public float aq() {
+    public float ar() {
         return this.X;
     }
 
-    public float ar() {
+    public float as() {
         return this.n;
     }
 
@@ -167,7 +167,7 @@ public abstract class EntityLiving extends Entity {
         return false;
     }
 
-    public EntityLiving as() {
+    public EntityLiving at() {
         return this.l;
     }
 
@@ -181,7 +181,7 @@ public abstract class EntityLiving extends Entity {
 
     public void z() {}
 
-    public boolean at() {
+    public boolean au() {
         return this.e(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ));
     }
 
@@ -194,19 +194,19 @@ public abstract class EntityLiving extends Entity {
         this.p = (float) l;
     }
 
-    public ChunkCoordinates au() {
+    public ChunkCoordinates av() {
         return this.o;
     }
 
-    public float av() {
+    public float aw() {
         return this.p;
     }
 
-    public void aw() {
+    public void ax() {
         this.p = -1.0F;
     }
 
-    public boolean ax() {
+    public boolean ay() {
         return this.p != -1.0F;
     }
 
@@ -239,7 +239,7 @@ public abstract class EntityLiving extends Entity {
         return 80;
     }
 
-    public void ay() {
+    public void az() {
         String s = this.i();
 
         if (s != null) {
@@ -247,13 +247,13 @@ public abstract class EntityLiving extends Entity {
         }
     }
 
-    public void az() {
+    public void aA() {
         this.an = this.ao;
-        super.az();
+        super.aA();
         MethodProfiler.a("mobBaseTick");
-        if (this.random.nextInt(1000) < this.a++) {
+        if (this.isAlive() && this.random.nextInt(1000) < this.a++) {
             this.a = -this.m();
-            this.ay();
+            this.az();
         }
 
         if (this.isAlive() && this.inBlock() && this.damageEntity(DamageSource.STUCK, 1)) {
@@ -299,7 +299,7 @@ public abstract class EntityLiving extends Entity {
         }
 
         if (this.health <= 0) {
-            this.aA();
+            this.aB();
         }
 
         if (this.lastDamageByPlayerTime > 0) {
@@ -322,7 +322,7 @@ public abstract class EntityLiving extends Entity {
             }
         }
 
-        this.aJ();
+        this.aK();
         this.ac = this.ab;
         this.W = this.V;
         this.Y = this.X;
@@ -331,7 +331,7 @@ public abstract class EntityLiving extends Entity {
         MethodProfiler.a();
     }
 
-    protected void aA() {
+    protected void aB() {
         ++this.deathTicks;
         if (this.deathTicks == 20) {
             int i;
@@ -347,7 +347,7 @@ public abstract class EntityLiving extends Entity {
                 }
             }
 
-            this.aG();
+            this.aH();
             this.die();
 
             for (i = 0; i < 20; ++i) {
@@ -372,7 +372,7 @@ public abstract class EntityLiving extends Entity {
         return false;
     }
 
-    public void aB() {
+    public void aC() {
         for (int i = 0; i < 20; ++i) {
             double d0 = this.random.nextGaussian() * 0.02D;
             double d1 = this.random.nextGaussian() * 0.02D;
@@ -383,15 +383,15 @@ public abstract class EntityLiving extends Entity {
         }
     }
 
-    public void Q() {
-        super.Q();
+    public void R() {
+        super.R();
         this.Z = this.aa;
         this.aa = 0.0F;
         this.fallDistance = 0.0F;
     }
 
-    public void G_() {
-        super.G_();
+    public void F_() {
+        super.F_();
         if (this.aI > 0) {
             if (this.aJ <= 0) {
                 this.aJ = 60;
@@ -588,7 +588,7 @@ public abstract class EntityLiving extends Entity {
 
                 if (flag) {
                     this.world.broadcastEntityEffect(this, (byte) 2);
-                    this.aV();
+                    this.aW();
                     if (entity != null) {
                         double d0 = entity.locX - this.locX;
 
@@ -624,7 +624,7 @@ public abstract class EntityLiving extends Entity {
         return this.isBaby() ? (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.5F : (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F;
     }
 
-    public int S() {
+    public int T() {
         return 0;
     }
 
@@ -632,7 +632,7 @@ public abstract class EntityLiving extends Entity {
 
     protected int d(DamageSource damagesource, int i) {
         if (!damagesource.ignoresArmor()) {
-            int j = 25 - this.S();
+            int j = 25 - this.T();
             int k = i * j + this.ar;
 
             this.f(i);
@@ -775,7 +775,7 @@ public abstract class EntityLiving extends Entity {
     public void a(float f, float f1) {
         double d0;
 
-        if (this.aT()) {
+        if (this.aU()) {
             d0 = this.locY;
             this.a(f, f1, this.c_() ? 0.04F : 0.02F);
             this.move(this.motX, this.motY, this.motZ);
@@ -786,7 +786,7 @@ public abstract class EntityLiving extends Entity {
             if (this.positionChanged && this.d(this.motX, this.motY + 0.6000000238418579D - this.locY + d0, this.motZ)) {
                 this.motY = 0.30000001192092896D;
             }
-        } else if (this.aU()) {
+        } else if (this.aV()) {
             d0 = this.locY;
             this.a(f, f1, 0.02F);
             this.move(this.motX, this.motY, this.motZ);
@@ -814,7 +814,7 @@ public abstract class EntityLiving extends Entity {
 
             if (this.onGround) {
                 if (this.c_()) {
-                    f4 = this.ar();
+                    f4 = this.as();
                 } else {
                     f4 = this.al;
                 }
@@ -923,6 +923,10 @@ public abstract class EntityLiving extends Entity {
     }
 
     public void a(NBTTagCompound nbttagcompound) {
+        if (this.health < -32768) {
+            this.health = -32768;
+        }
+
         this.health = nbttagcompound.getShort("Health");
         if (!nbttagcompound.hasKey("Health")) {
             this.health = this.getMaxHealth();
@@ -1005,12 +1009,12 @@ public abstract class EntityLiving extends Entity {
         }
 
         MethodProfiler.a("ai");
-        if (this.P()) {
+        if (this.Q()) {
             this.aZ = false;
             this.aW = 0.0F;
             this.aX = 0.0F;
             this.aY = 0.0F;
-        } else if (this.aE()) {
+        } else if (this.aF()) {
             if (this.c_()) {
                 MethodProfiler.a("newAi");
                 this.z_();
@@ -1024,8 +1028,8 @@ public abstract class EntityLiving extends Entity {
         }
 
         MethodProfiler.a();
-        boolean flag = this.aT();
-        boolean flag1 = this.aU();
+        boolean flag = this.aU();
+        boolean flag1 = this.aV();
 
         if (this.aZ) {
             if (flag) {
@@ -1033,7 +1037,7 @@ public abstract class EntityLiving extends Entity {
             } else if (flag1) {
                 this.motY += 0.03999999910593033D;
             } else if (this.onGround && this.q == 0) {
-                this.ab();
+                this.ac();
                 this.q = 10;
             }
         } else {
@@ -1045,7 +1049,7 @@ public abstract class EntityLiving extends Entity {
         this.aY *= 0.9F;
         float f = this.al;
 
-        this.al *= this.D_();
+        this.al *= this.J();
         this.a(this.aW, this.aX);
         this.al = f;
         MethodProfiler.a("push");
@@ -1068,19 +1072,19 @@ public abstract class EntityLiving extends Entity {
         return false;
     }
 
-    protected boolean aE() {
+    protected boolean aF() {
         return !this.world.isStatic;
     }
 
-    protected boolean P() {
+    protected boolean Q() {
         return this.health <= 0;
     }
 
-    public boolean O() {
+    public boolean P() {
         return false;
     }
 
-    protected void ab() {
+    protected void ac() {
         this.motY = 0.41999998688697815D;
         if (this.hasEffect(MobEffectList.JUMP)) {
             this.motY += (double) ((float) (this.getEffect(MobEffectList.JUMP).getAmplifier() + 1) * 0.1F);
@@ -1100,7 +1104,7 @@ public abstract class EntityLiving extends Entity {
         return true;
     }
 
-    protected void aF() {
+    protected void aG() {
         EntityHuman entityhuman = this.world.findNearbyPlayer(this, -1.0D);
 
         if (entityhuman != null) {
@@ -1124,7 +1128,7 @@ public abstract class EntityLiving extends Entity {
     protected void z_() {
         ++this.aV;
         MethodProfiler.a("checkDespawn");
-        this.aF();
+        this.aG();
         MethodProfiler.a();
         MethodProfiler.a("sensing");
         this.m.a();
@@ -1152,15 +1156,14 @@ public abstract class EntityLiving extends Entity {
 
     protected void d_() {
         ++this.aV;
-        EntityHuman entityhuman = this.world.findNearbyPlayer(this, -1.0D);
-
-        this.aF();
+        this.aG();
         this.aW = 0.0F;
         this.aX = 0.0F;
         float f = 8.0F;
 
         if (this.random.nextFloat() < 0.02F) {
-            entityhuman = this.world.findNearbyPlayer(this, (double) f);
+            EntityHuman entityhuman = this.world.findNearbyPlayer(this, (double) f);
+
             if (entityhuman != null) {
                 this.r = entityhuman;
                 this.bc = 10 + this.random.nextInt(20);
@@ -1170,7 +1173,7 @@ public abstract class EntityLiving extends Entity {
         }
 
         if (this.r != null) {
-            this.a(this.r, 10.0F, (float) this.C());
+            this.a(this.r, 10.0F, (float) this.D());
             if (this.bc-- <= 0 || this.r.dead || this.r.j(this) > (double) (f * f)) {
                 this.r = null;
             }
@@ -1183,15 +1186,15 @@ public abstract class EntityLiving extends Entity {
             this.pitch = this.ba;
         }
 
-        boolean flag = this.aT();
-        boolean flag1 = this.aU();
+        boolean flag = this.aU();
+        boolean flag1 = this.aV();
 
         if (flag || flag1) {
             this.aZ = this.random.nextFloat() < 0.8F;
         }
     }
 
-    public int C() {
+    public int D() {
         return 40;
     }
 
@@ -1238,17 +1241,17 @@ public abstract class EntityLiving extends Entity {
         return f + f3;
     }
 
-    public void aG() {}
+    public void aH() {}
 
     public boolean canSpawn() {
         return this.world.containsEntity(this.boundingBox) && this.world.getCubes(this, this.boundingBox).size() == 0 && !this.world.containsLiquid(this.boundingBox);
     }
 
-    protected void aH() {
+    protected void aI() {
         this.damageEntity(DamageSource.OUT_OF_WORLD, 4);
     }
 
-    public Vec3D aI() {
+    public Vec3D aJ() {
         return this.f(1.0F);
     }
 
@@ -1284,7 +1287,7 @@ public abstract class EntityLiving extends Entity {
         return false;
     }
 
-    protected void aJ() {
+    protected void aK() {
         Iterator iterator = this.effects.keySet().iterator();
 
         while (iterator.hasNext()) {
@@ -1324,7 +1327,7 @@ public abstract class EntityLiving extends Entity {
         }
     }
 
-    public void aK() {
+    public void aL() {
         Iterator iterator = this.effects.keySet().iterator();
 
         while (iterator.hasNext()) {
@@ -1374,7 +1377,7 @@ public abstract class EntityLiving extends Entity {
         return true;
     }
 
-    public boolean aM() {
+    public boolean aN() {
         return this.getMonsterType() == MonsterType.UNDEAD;
     }
 
@@ -1390,7 +1393,7 @@ public abstract class EntityLiving extends Entity {
         this.e = true;
     }
 
-    protected float D_() {
+    protected float J() {
         float f = 1.0F;
 
         if (this.hasEffect(MobEffectList.FASTER_MOVEMENT)) {

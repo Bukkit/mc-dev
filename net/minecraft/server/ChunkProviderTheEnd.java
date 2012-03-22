@@ -141,6 +141,11 @@ public class ChunkProviderTheEnd implements IChunkProvider {
         this.a(i, j, abyte, this.o);
         this.b(i, j, abyte, this.o);
         Chunk chunk = new Chunk(this.m, abyte, i, j);
+        byte[] abyte1 = chunk.l();
+
+        for (int k = 0; k < abyte1.length; ++k) {
+            abyte1[k] = (byte) this.o[k].id;
+        }
 
         chunk.initLighting();
         return chunk;

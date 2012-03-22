@@ -13,13 +13,13 @@ public class PathfinderGoalLeapAtTarget extends PathfinderGoal {
     }
 
     public boolean a() {
-        this.b = this.a.as();
+        this.b = this.a.at();
         if (this.b == null) {
             return false;
         } else {
             double d0 = this.a.j(this.b);
 
-            return d0 >= 4.0D && d0 <= 16.0D ? (!this.a.onGround ? false : this.a.am().nextInt(5) == 0) : false;
+            return d0 >= 4.0D && d0 <= 16.0D ? (!this.a.onGround ? false : this.a.an().nextInt(5) == 0) : false;
         }
     }
 

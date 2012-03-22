@@ -27,7 +27,7 @@ public class RandomPositionGenerator {
     }
 
     private static Vec3D c(EntityCreature entitycreature, int i, int j, Vec3D vec3d) {
-        Random random = entitycreature.am();
+        Random random = entitycreature.an();
         boolean flag = false;
         int k = 0;
         int l = 0;
@@ -35,10 +35,10 @@ public class RandomPositionGenerator {
         float f = -99999.0F;
         boolean flag1;
 
-        if (entitycreature.ax()) {
-            double d0 = entitycreature.au().b(MathHelper.floor(entitycreature.locX), MathHelper.floor(entitycreature.locY), MathHelper.floor(entitycreature.locZ)) + 4.0D;
+        if (entitycreature.ay()) {
+            double d0 = entitycreature.av().b(MathHelper.floor(entitycreature.locX), MathHelper.floor(entitycreature.locY), MathHelper.floor(entitycreature.locZ)) + 4.0D;
 
-            flag1 = d0 < (double) (entitycreature.av() + (float) i);
+            flag1 = d0 < (double) (entitycreature.aw() + (float) i);
         } else {
             flag1 = false;
         }

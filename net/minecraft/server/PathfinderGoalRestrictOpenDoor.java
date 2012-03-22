@@ -29,13 +29,13 @@ public class PathfinderGoalRestrictOpenDoor extends PathfinderGoal {
     }
 
     public void c() {
-        this.a.ak().b(false);
-        this.a.ak().c(false);
+        this.a.al().b(false);
+        this.a.al().c(false);
     }
 
     public void d() {
-        this.a.ak().b(true);
-        this.a.ak().c(true);
+        this.a.al().b(true);
+        this.a.al().c(true);
         this.b = null;
     }
 

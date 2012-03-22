@@ -34,11 +34,11 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
                 if (this.d == null) {
                     return false;
                 } else {
-                    boolean flag = this.a.ak().b();
+                    boolean flag = this.a.al().b();
 
-                    this.a.ak().b(false);
-                    this.c = this.a.ak().a((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ);
-                    this.a.ak().b(flag);
+                    this.a.al().b(false);
+                    this.c = this.a.al().a((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ);
+                    this.a.al().b(flag);
                     if (this.c != null) {
                         return true;
                     } else {
@@ -47,9 +47,9 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
                         if (vec3d == null) {
                             return false;
                         } else {
-                            this.a.ak().b(false);
-                            this.c = this.a.ak().a(vec3d.a, vec3d.b, vec3d.c);
-                            this.a.ak().b(flag);
+                            this.a.al().b(false);
+                            this.c = this.a.al().a(vec3d.a, vec3d.b, vec3d.c);
+                            this.a.al().b(flag);
                             return this.c != null;
                         }
                     }
@@ -59,7 +59,7 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
     }
 
     public boolean b() {
-        if (this.a.ak().e()) {
+        if (this.a.al().e()) {
             return false;
         } else {
             float f = this.a.width + 4.0F;
@@ -69,11 +69,11 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
     }
 
     public void c() {
-        this.a.ak().a(this.c, this.b);
+        this.a.al().a(this.c, this.b);
     }
 
     public void d() {
-        if (this.a.ak().e() || this.a.e((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ) < 16.0D) {
+        if (this.a.al().e() || this.a.e((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ) < 16.0D) {
             this.f.add(this.d);
         }
     }

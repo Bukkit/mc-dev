@@ -13,7 +13,7 @@ public class PlayerAbilities {
         NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
         nbttagcompound1.setBoolean("invulnerable", this.isInvulnerable);
-        nbttagcompound1.setBoolean("flying", this.isInvulnerable);
+        nbttagcompound1.setBoolean("flying", this.isFlying);
         nbttagcompound1.setBoolean("mayfly", this.canFly);
         nbttagcompound1.setBoolean("instabuild", this.canInstantlyBuild);
         nbttagcompound.set("abilities", nbttagcompound1);

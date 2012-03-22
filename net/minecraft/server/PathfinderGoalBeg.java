@@ -26,7 +26,7 @@ public class PathfinderGoalBeg extends PathfinderGoal {
 
     public void c() {
         this.a.e(true);
-        this.e = 40 + this.a.am().nextInt(40);
+        this.e = 40 + this.a.an().nextInt(40);
     }
 
     public void d() {
@@ -35,7 +35,7 @@ public class PathfinderGoalBeg extends PathfinderGoal {
     }
 
     public void e() {
-        this.a.getControllerLook().a(this.b.locX, this.b.locY + (double) this.b.getHeadHeight(), this.b.locZ, 10.0F, (float) this.a.C());
+        this.a.getControllerLook().a(this.b.locX, this.b.locY + (double) this.b.getHeadHeight(), this.b.locZ, 10.0F, (float) this.a.D());
         --this.e;
     }
 

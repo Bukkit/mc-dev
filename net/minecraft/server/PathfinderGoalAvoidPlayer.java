@@ -19,7 +19,7 @@ public class PathfinderGoalAvoidPlayer extends PathfinderGoal {
         this.e = f;
         this.b = f1;
         this.c = f2;
-        this.g = entitycreature.ak();
+        this.g = entitycreature.al();
         this.a(1);
     }
 
@@ -43,7 +43,7 @@ public class PathfinderGoalAvoidPlayer extends PathfinderGoal {
             this.d = (Entity) list.get(0);
         }
 
-        if (!this.a.al().canSee(this.d)) {
+        if (!this.a.am().canSee(this.d)) {
             return false;
         } else {
             Vec3D vec3d = RandomPositionGenerator.b(this.a, 16, 7, Vec3D.create(this.d.locX, this.d.locY, this.d.locZ));
@@ -73,9 +73,9 @@ public class PathfinderGoalAvoidPlayer extends PathfinderGoal {
 
     public void e() {
         if (this.a.j(this.d) < 49.0D) {
-            this.a.ak().a(this.c);
+            this.a.al().a(this.c);
         } else {
-            this.a.ak().a(this.b);
+            this.a.al().a(this.b);
         }
     }
 }
