@@ -12,9 +12,18 @@ public class EntityMushroomCow extends EntityCow {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
         if (itemstack != null && itemstack.id == Item.BOWL.id && this.getAge() >= 0) {
-            entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, new ItemStack(Item.MUSHROOM_SOUP));
-            return true;
-        } else if (itemstack != null && itemstack.id == Item.SHEARS.id && this.getAge() >= 0) {
+            if (itemstack.count == 1) {
+                entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, new ItemStack(Item.MUSHROOM_SOUP));
+                return true;
+            }
+
+            if (entityhuman.inventory.pickup(new ItemStack(Item.MUSHROOM_SOUP)) && !entityhuman.abilities.canInstantlyBuild) {
+                entityhuman.inventory.splitStack(entityhuman.inventory.itemInHandIndex, 1);
+                return true;
+            }
+        }
+
+        if (itemstack != null && itemstack.id == Item.SHEARS.id && this.getAge() >= 0) {
             this.die();
             this.world.a("largeexplode", this.locX, this.locY + (double) (this.length / 2.0F), this.locZ, 0.0D, 0.0D, 0.0D);
             if (!this.world.isStatic) {

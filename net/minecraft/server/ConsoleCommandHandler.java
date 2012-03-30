@@ -15,22 +15,25 @@ public class ConsoleCommandHandler {
 
     public synchronized void handle(ServerCommand servercommand) {
         String s = servercommand.command;
+        String[] astring = s.split(" ");
+        String s1 = astring[0];
+        String s2 = s.substring(s1.length()).trim();
         ICommandListener icommandlistener = servercommand.source;
-        String s1 = icommandlistener.getName();
+        String s3 = icommandlistener.getName();
         ServerConfigurationManager serverconfigurationmanager = this.server.serverConfigurationManager;
 
-        if (!s.toLowerCase().startsWith("help") && !s.toLowerCase().startsWith("?")) {
-            if (s.toLowerCase().startsWith("list")) {
+        if (!s1.equalsIgnoreCase("help") && !s1.equalsIgnoreCase("?")) {
+            if (s1.equalsIgnoreCase("list")) {
                 icommandlistener.sendMessage("Connected players: " + serverconfigurationmanager.c());
-            } else if (s.toLowerCase().startsWith("stop")) {
-                this.print(s1, "Stopping the server..");
+            } else if (s1.equalsIgnoreCase("stop")) {
+                this.print(s3, "Stopping the server..");
                 this.server.safeShutdown();
             } else {
                 int i;
                 WorldServer worldserver;
 
-                if (s.toLowerCase().startsWith("save-all")) {
-                    this.print(s1, "Forcing save..");
+                if (s1.equalsIgnoreCase("save-all")) {
+                    this.print(s3, "Forcing save..");
                     if (serverconfigurationmanager != null) {
                         serverconfigurationmanager.savePlayers();
                     }
@@ -44,258 +47,232 @@ public class ConsoleCommandHandler {
                         worldserver.savingDisabled = flag;
                     }
 
-                    this.print(s1, "Save complete.");
-                } else if (s.toLowerCase().startsWith("save-off")) {
-                    this.print(s1, "Disabling level saving..");
+                    this.print(s3, "Save complete.");
+                } else if (s1.equalsIgnoreCase("save-off")) {
+                    this.print(s3, "Disabling level saving..");
 
                     for (i = 0; i < this.server.worldServer.length; ++i) {
                         worldserver = this.server.worldServer[i];
                         worldserver.savingDisabled = true;
                     }
-                } else if (s.toLowerCase().startsWith("save-on")) {
-                    this.print(s1, "Enabling level saving..");
+                } else if (s1.equalsIgnoreCase("save-on")) {
+                    this.print(s3, "Enabling level saving..");
 
                     for (i = 0; i < this.server.worldServer.length; ++i) {
                         worldserver = this.server.worldServer[i];
                         worldserver.savingDisabled = false;
                     }
+                } else if (s1.equalsIgnoreCase("op")) {
+                    serverconfigurationmanager.addOp(s2);
+                    this.print(s3, "Opping " + s2);
+                    serverconfigurationmanager.a(s2, "\u00A7eYou are now op!");
+                } else if (s1.equalsIgnoreCase("deop")) {
+                    serverconfigurationmanager.removeOp(s2);
+                    serverconfigurationmanager.a(s2, "\u00A7eYou are no longer op!");
+                    this.print(s3, "De-opping " + s2);
+                } else if (s1.equalsIgnoreCase("ban-ip")) {
+                    serverconfigurationmanager.addIpBan(s2);
+                    this.print(s3, "Banning ip " + s2);
+                } else if (s1.equalsIgnoreCase("pardon-ip")) {
+                    serverconfigurationmanager.removeIpBan(s2);
+                    this.print(s3, "Pardoning ip " + s2);
                 } else {
-                    String s2;
+                    EntityPlayer entityplayer;
 
-                    if (s.toLowerCase().startsWith("op ")) {
-                        s2 = s.substring(s.indexOf(" ")).trim();
-                        serverconfigurationmanager.addOp(s2);
-                        this.print(s1, "Opping " + s2);
-                        serverconfigurationmanager.a(s2, "\u00A7eYou are now op!");
-                    } else if (s.toLowerCase().startsWith("deop ")) {
-                        s2 = s.substring(s.indexOf(" ")).trim();
-                        serverconfigurationmanager.removeOp(s2);
-                        serverconfigurationmanager.a(s2, "\u00A7eYou are no longer op!");
-                        this.print(s1, "De-opping " + s2);
-                    } else if (s.toLowerCase().startsWith("ban-ip ")) {
-                        s2 = s.substring(s.indexOf(" ")).trim();
-                        serverconfigurationmanager.addIpBan(s2);
-                        this.print(s1, "Banning ip " + s2);
-                    } else if (s.toLowerCase().startsWith("pardon-ip ")) {
-                        s2 = s.substring(s.indexOf(" ")).trim();
-                        serverconfigurationmanager.removeIpBan(s2);
-                        this.print(s1, "Pardoning ip " + s2);
+                    if (s1.equalsIgnoreCase("ban")) {
+                        serverconfigurationmanager.addUserBan(s2);
+                        this.print(s3, "Banning " + s2);
+                        entityplayer = serverconfigurationmanager.i(s2);
+                        if (entityplayer != null) {
+                            entityplayer.netServerHandler.disconnect("Banned by admin");
+                        }
+                    } else if (s1.equalsIgnoreCase("pardon")) {
+                        serverconfigurationmanager.removeUserBan(s2);
+                        this.print(s3, "Pardoning " + s2);
                     } else {
-                        EntityPlayer entityplayer;
+                        String s4;
+                        int j;
 
-                        if (s.toLowerCase().startsWith("ban ")) {
-                            s2 = s.substring(s.indexOf(" ")).trim();
-                            serverconfigurationmanager.addUserBan(s2);
-                            this.print(s1, "Banning " + s2);
-                            entityplayer = serverconfigurationmanager.i(s2);
-                            if (entityplayer != null) {
-                                entityplayer.netServerHandler.disconnect("Banned by admin");
-                            }
-                        } else if (s.toLowerCase().startsWith("pardon ")) {
-                            s2 = s.substring(s.indexOf(" ")).trim();
-                            serverconfigurationmanager.removeUserBan(s2);
-                            this.print(s1, "Pardoning " + s2);
-                        } else {
-                            int j;
+                        if (s1.equalsIgnoreCase("kick")) {
+                            s4 = s2;
+                            entityplayer = null;
 
-                            if (s.toLowerCase().startsWith("kick ")) {
-                                s2 = s.substring(s.indexOf(" ")).trim();
-                                entityplayer = null;
+                            for (j = 0; j < serverconfigurationmanager.players.size(); ++j) {
+                                EntityPlayer entityplayer1 = (EntityPlayer) serverconfigurationmanager.players.get(j);
 
-                                for (j = 0; j < serverconfigurationmanager.players.size(); ++j) {
-                                    EntityPlayer entityplayer1 = (EntityPlayer) serverconfigurationmanager.players.get(j);
-
-                                    if (entityplayer1.name.equalsIgnoreCase(s2)) {
-                                        entityplayer = entityplayer1;
-                                    }
+                                if (entityplayer1.name.equalsIgnoreCase(s4)) {
+                                    entityplayer = entityplayer1;
                                 }
+                            }
 
-                                if (entityplayer != null) {
-                                    entityplayer.netServerHandler.disconnect("Kicked by admin");
-                                    this.print(s1, "Kicking " + entityplayer.name);
+                            if (entityplayer != null) {
+                                entityplayer.netServerHandler.disconnect("Kicked by admin");
+                                this.print(s3, "Kicking " + entityplayer.name);
+                            } else {
+                                icommandlistener.sendMessage("Can\'t find user " + s4 + ". No kick.");
+                            }
+                        } else if (s1.equalsIgnoreCase("tp")) {
+                            if (astring.length == 3) {
+                                EntityPlayer entityplayer2 = serverconfigurationmanager.i(astring[1]);
+
+                                entityplayer = serverconfigurationmanager.i(astring[2]);
+                                if (entityplayer2 == null) {
+                                    icommandlistener.sendMessage("Can\'t find user " + astring[1] + ". No tp.");
+                                } else if (entityplayer == null) {
+                                    icommandlistener.sendMessage("Can\'t find user " + astring[2] + ". No tp.");
+                                } else if (entityplayer2.dimension != entityplayer.dimension) {
+                                    icommandlistener.sendMessage("User " + astring[1] + " and " + astring[2] + " are in different dimensions. No tp.");
                                 } else {
-                                    icommandlistener.sendMessage("Can\'t find user " + s2 + ". No kick.");
+                                    entityplayer2.netServerHandler.a(entityplayer.locX, entityplayer.locY, entityplayer.locZ, entityplayer.yaw, entityplayer.pitch);
+                                    this.print(s3, "Teleporting " + astring[1] + " to " + astring[2] + ".");
                                 }
                             } else {
-                                EntityPlayer entityplayer2;
-                                String[] astring;
+                                icommandlistener.sendMessage("Syntax error, please provide a source and a target.");
+                            }
+                        } else if (s1.equalsIgnoreCase("give")) {
+                            if (astring.length != 3 && astring.length != 4 && astring.length != 5) {
+                                return;
+                            }
 
-                                if (s.toLowerCase().startsWith("tp ")) {
-                                    astring = s.split(" ");
-                                    if (astring.length == 3) {
-                                        entityplayer = serverconfigurationmanager.i(astring[1]);
-                                        entityplayer2 = serverconfigurationmanager.i(astring[2]);
-                                        if (entityplayer == null) {
-                                            icommandlistener.sendMessage("Can\'t find user " + astring[1] + ". No tp.");
-                                        } else if (entityplayer2 == null) {
-                                            icommandlistener.sendMessage("Can\'t find user " + astring[2] + ". No tp.");
-                                        } else if (entityplayer.dimension != entityplayer2.dimension) {
-                                            icommandlistener.sendMessage("User " + astring[1] + " and " + astring[2] + " are in different dimensions. No tp.");
-                                        } else {
-                                            entityplayer.netServerHandler.a(entityplayer2.locX, entityplayer2.locY, entityplayer2.locZ, entityplayer2.yaw, entityplayer2.pitch);
-                                            this.print(s1, "Teleporting " + astring[1] + " to " + astring[2] + ".");
+                            s4 = astring[1];
+                            entityplayer = serverconfigurationmanager.i(s4);
+                            if (entityplayer != null) {
+                                try {
+                                    j = Integer.parseInt(astring[2]);
+                                    if (Item.byId[j] != null) {
+                                        this.print(s3, "Giving " + entityplayer.name + " some " + j);
+                                        int k = 1;
+                                        int l = 0;
+
+                                        if (astring.length > 3) {
+                                            k = this.a(astring[3], 1);
                                         }
+
+                                        if (astring.length > 4) {
+                                            l = this.a(astring[4], 1);
+                                        }
+
+                                        if (k < 1) {
+                                            k = 1;
+                                        }
+
+                                        if (k > 64) {
+                                            k = 64;
+                                        }
+
+                                        entityplayer.drop(new ItemStack(j, k, l));
                                     } else {
-                                        icommandlistener.sendMessage("Syntax error, please provice a source and a target.");
+                                        icommandlistener.sendMessage("There\'s no item with id " + j);
                                     }
+                                } catch (NumberFormatException numberformatexception) {
+                                    icommandlistener.sendMessage("There\'s no item with id " + astring[2]);
+                                }
+                            } else {
+                                icommandlistener.sendMessage("Can\'t find user " + s4);
+                            }
+                        } else if (s1.equalsIgnoreCase("xp")) {
+                            if (astring.length != 3) {
+                                return;
+                            }
+
+                            s4 = astring[1];
+                            entityplayer = serverconfigurationmanager.i(s4);
+                            if (entityplayer != null) {
+                                try {
+                                    j = Integer.parseInt(astring[2]);
+                                    j = j > 5000 ? 5000 : j;
+                                    this.print(s3, "Giving " + j + " orbs to " + entityplayer.name);
+                                    entityplayer.giveExp(j);
+                                } catch (NumberFormatException numberformatexception1) {
+                                    icommandlistener.sendMessage("Invalid orb count: " + astring[2]);
+                                }
+                            } else {
+                                icommandlistener.sendMessage("Can\'t find user " + s4);
+                            }
+                        } else if (s1.equalsIgnoreCase("gamemode")) {
+                            if (astring.length != 3) {
+                                return;
+                            }
+
+                            s4 = astring[1];
+                            entityplayer = serverconfigurationmanager.i(s4);
+                            if (entityplayer != null) {
+                                try {
+                                    j = Integer.parseInt(astring[2]);
+                                    j = WorldSettings.a(j);
+                                    if (entityplayer.itemInWorldManager.getGameMode() != j) {
+                                        this.print(s3, "Setting " + entityplayer.name + " to game mode " + j);
+                                        entityplayer.itemInWorldManager.setGameMode(j);
+                                        entityplayer.netServerHandler.sendPacket(new Packet70Bed(3, j));
+                                    } else {
+                                        this.print(s3, entityplayer.name + " already has game mode " + j);
+                                    }
+                                } catch (NumberFormatException numberformatexception2) {
+                                    icommandlistener.sendMessage("There\'s no game mode with id " + astring[2]);
+                                }
+                            } else {
+                                icommandlistener.sendMessage("Can\'t find user " + s4);
+                            }
+                        } else if (s1.equalsIgnoreCase("time")) {
+                            if (astring.length != 3) {
+                                return;
+                            }
+
+                            s4 = astring[1];
+
+                            try {
+                                int i1 = Integer.parseInt(astring[2]);
+                                WorldServer worldserver1;
+
+                                if ("add".equalsIgnoreCase(s4)) {
+                                    for (j = 0; j < this.server.worldServer.length; ++j) {
+                                        worldserver1 = this.server.worldServer[j];
+                                        worldserver1.setTimeAndFixTicklists(worldserver1.getTime() + (long) i1);
+                                    }
+
+                                    this.print(s3, "Added " + i1 + " to time");
+                                } else if ("set".equalsIgnoreCase(s4)) {
+                                    for (j = 0; j < this.server.worldServer.length; ++j) {
+                                        worldserver1 = this.server.worldServer[j];
+                                        worldserver1.setTimeAndFixTicklists((long) i1);
+                                    }
+
+                                    this.print(s3, "Set time to " + i1);
                                 } else {
-                                    int k;
-                                    String s3;
-
-                                    if (s.toLowerCase().startsWith("give ")) {
-                                        astring = s.split(" ");
-                                        if (astring.length != 3 && astring.length != 4 && astring.length != 5) {
-                                            return;
-                                        }
-
-                                        s3 = astring[1];
-                                        entityplayer2 = serverconfigurationmanager.i(s3);
-                                        if (entityplayer2 != null) {
-                                            try {
-                                                k = Integer.parseInt(astring[2]);
-                                                if (Item.byId[k] != null) {
-                                                    this.print(s1, "Giving " + entityplayer2.name + " some " + k);
-                                                    int l = 1;
-                                                    int i1 = 0;
-
-                                                    if (astring.length > 3) {
-                                                        l = this.a(astring[3], 1);
-                                                    }
-
-                                                    if (astring.length > 4) {
-                                                        i1 = this.a(astring[4], 1);
-                                                    }
-
-                                                    if (l < 1) {
-                                                        l = 1;
-                                                    }
-
-                                                    if (l > 64) {
-                                                        l = 64;
-                                                    }
-
-                                                    entityplayer2.drop(new ItemStack(k, l, i1));
-                                                } else {
-                                                    icommandlistener.sendMessage("There\'s no item with id " + k);
-                                                }
-                                            } catch (NumberFormatException numberformatexception) {
-                                                icommandlistener.sendMessage("There\'s no item with id " + astring[2]);
-                                            }
-                                        } else {
-                                            icommandlistener.sendMessage("Can\'t find user " + s3);
-                                        }
-                                    } else if (s.toLowerCase().startsWith("xp")) {
-                                        astring = s.split(" ");
-                                        if (astring.length != 3) {
-                                            return;
-                                        }
-
-                                        s3 = astring[1];
-                                        entityplayer2 = serverconfigurationmanager.i(s3);
-                                        if (entityplayer2 != null) {
-                                            try {
-                                                k = Integer.parseInt(astring[2]);
-                                                k = k > 5000 ? 5000 : k;
-                                                this.print(s1, "Giving " + k + " orbs to " + entityplayer2.name);
-                                                entityplayer2.giveExp(k);
-                                            } catch (NumberFormatException numberformatexception1) {
-                                                icommandlistener.sendMessage("Invalid orb count: " + astring[2]);
-                                            }
-                                        } else {
-                                            icommandlistener.sendMessage("Can\'t find user " + s3);
-                                        }
-                                    } else if (s.toLowerCase().startsWith("gamemode ")) {
-                                        astring = s.split(" ");
-                                        if (astring.length != 3) {
-                                            return;
-                                        }
-
-                                        s3 = astring[1];
-                                        entityplayer2 = serverconfigurationmanager.i(s3);
-                                        if (entityplayer2 != null) {
-                                            try {
-                                                k = Integer.parseInt(astring[2]);
-                                                k = WorldSettings.a(k);
-                                                if (entityplayer2.itemInWorldManager.getGameMode() != k) {
-                                                    this.print(s1, "Setting " + entityplayer2.name + " to game mode " + k);
-                                                    entityplayer2.itemInWorldManager.setGameMode(k);
-                                                    entityplayer2.netServerHandler.sendPacket(new Packet70Bed(3, k));
-                                                } else {
-                                                    this.print(s1, entityplayer2.name + " already has game mode " + k);
-                                                }
-                                            } catch (NumberFormatException numberformatexception2) {
-                                                icommandlistener.sendMessage("There\'s no game mode with id " + astring[2]);
-                                            }
-                                        } else {
-                                            icommandlistener.sendMessage("Can\'t find user " + s3);
-                                        }
-                                    } else if (s.toLowerCase().startsWith("time ")) {
-                                        astring = s.split(" ");
-                                        if (astring.length != 3) {
-                                            return;
-                                        }
-
-                                        s3 = astring[1];
-
-                                        try {
-                                            j = Integer.parseInt(astring[2]);
-                                            WorldServer worldserver1;
-
-                                            if ("add".equalsIgnoreCase(s3)) {
-                                                for (k = 0; k < this.server.worldServer.length; ++k) {
-                                                    worldserver1 = this.server.worldServer[k];
-                                                    worldserver1.setTimeAndFixTicklists(worldserver1.getTime() + (long) j);
-                                                }
-
-                                                this.print(s1, "Added " + j + " to time");
-                                            } else if ("set".equalsIgnoreCase(s3)) {
-                                                for (k = 0; k < this.server.worldServer.length; ++k) {
-                                                    worldserver1 = this.server.worldServer[k];
-                                                    worldserver1.setTimeAndFixTicklists((long) j);
-                                                }
-
-                                                this.print(s1, "Set time to " + j);
-                                            } else {
-                                                icommandlistener.sendMessage("Unknown method, use either \"add\" or \"set\"");
-                                            }
-                                        } catch (NumberFormatException numberformatexception3) {
-                                            icommandlistener.sendMessage("Unable to convert time value, " + astring[2]);
-                                        }
-                                    } else if (s.toLowerCase().startsWith("say ")) {
-                                        s = s.substring(s.indexOf(" ")).trim();
-                                        a.info("[" + s1 + "] " + s);
-                                        serverconfigurationmanager.sendAll(new Packet3Chat("\u00A7d[Server] " + s));
-                                    } else if (s.toLowerCase().startsWith("tell ")) {
-                                        astring = s.split(" ");
-                                        if (astring.length >= 3) {
-                                            s = s.substring(s.indexOf(" ")).trim();
-                                            s = s.substring(s.indexOf(" ")).trim();
-                                            a.info("[" + s1 + "->" + astring[1] + "] " + s);
-                                            s = "\u00A77" + s1 + " whispers " + s;
-                                            a.info(s);
-                                            if (!serverconfigurationmanager.a(astring[1], (Packet) (new Packet3Chat(s)))) {
-                                                icommandlistener.sendMessage("There\'s no player by that name online.");
-                                            }
-                                        }
-                                    } else if (s.toLowerCase().startsWith("whitelist ")) {
-                                        this.a(s1, s, icommandlistener);
-                                    } else if (s.toLowerCase().startsWith("toggledownfall")) {
-                                        this.server.worldServer[0].j();
-                                        icommandlistener.sendMessage("Toggling rain and snow, hold on...");
-                                    } else if (s.toLowerCase().startsWith("banlist")) {
-                                        astring = s.split(" ");
-                                        if (astring.length == 2) {
-                                            if (astring[1].equals("ips")) {
-                                                icommandlistener.sendMessage("IP Ban list:" + this.a(this.server.q(), ", "));
-                                            }
-                                        } else {
-                                            icommandlistener.sendMessage("Ban list:" + this.a(this.server.r(), ", "));
-                                        }
-                                    } else {
-                                        a.info("Unknown console command. Type \"help\" for help.");
-                                    }
+                                    icommandlistener.sendMessage("Unknown method, use either \"add\" or \"set\"");
+                                }
+                            } catch (NumberFormatException numberformatexception3) {
+                                icommandlistener.sendMessage("Unable to convert time value, " + astring[2]);
+                            }
+                        } else if (s1.equalsIgnoreCase("say") && s2.length() > 0) {
+                            a.info("[" + s3 + "] " + s2);
+                            serverconfigurationmanager.sendAll(new Packet3Chat("\u00A7d[Server] " + s2));
+                        } else if (s1.equalsIgnoreCase("tell")) {
+                            if (astring.length >= 3) {
+                                s = s.substring(s.indexOf(" ")).trim();
+                                s = s.substring(s.indexOf(" ")).trim();
+                                a.info("[" + s3 + "->" + astring[1] + "] " + s);
+                                s = "\u00A77" + s3 + " whispers " + s;
+                                a.info(s);
+                                if (!serverconfigurationmanager.a(astring[1], (Packet) (new Packet3Chat(s)))) {
+                                    icommandlistener.sendMessage("There\'s no player by that name online.");
                                 }
                             }
+                        } else if (s1.equalsIgnoreCase("whitelist")) {
+                            this.a(s3, s, icommandlistener);
+                        } else if (s1.equalsIgnoreCase("toggledownfall")) {
+                            this.server.worldServer[0].j();
+                            icommandlistener.sendMessage("Toggling rain and snow, hold on...");
+                        } else if (s1.equalsIgnoreCase("banlist")) {
+                            if (astring.length == 2) {
+                                if (astring[1].equals("ips")) {
+                                    icommandlistener.sendMessage("IP Ban list:" + this.a(this.server.q(), ", "));
+                                }
+                            } else {
+                                icommandlistener.sendMessage("Ban list:" + this.a(this.server.r(), ", "));
+                            }
+                        } else {
+                            a.info("Unknown console command. Type \"help\" for help.");
                         }
                     }
                 }
@@ -370,6 +347,8 @@ public class ConsoleCommandHandler {
         icommandlistener.sendMessage("   say <message>             broadcasts a message to all players");
         icommandlistener.sendMessage("   time <add|set> <amount>   adds to or sets the world time (0-24000)");
         icommandlistener.sendMessage("   gamemode <player> <mode>  sets player\'s game mode (0 or 1)");
+        icommandlistener.sendMessage("   toggledownfall            toggles rain on or off");
+        icommandlistener.sendMessage("   xp <player> <amount>      gives the player the amount of xp (0-5000)");
     }
 
     private void print(String s, String s1) {

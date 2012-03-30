@@ -180,7 +180,10 @@ public class EntityWolf extends EntityTameableAnimal {
 
         if (!this.isTamed()) {
             if (itemstack != null && itemstack.id == Item.BONE.id && !this.isAngry()) {
-                --itemstack.count;
+                if (!entityhuman.abilities.canInstantlyBuild) {
+                    --itemstack.count;
+                }
+
                 if (itemstack.count <= 0) {
                     entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
                 }
@@ -208,7 +211,10 @@ public class EntityWolf extends EntityTameableAnimal {
                 ItemFood itemfood = (ItemFood) Item.byId[itemstack.id];
 
                 if (itemfood.q() && this.datawatcher.getInt(18) < 20) {
-                    --itemstack.count;
+                    if (!entityhuman.abilities.canInstantlyBuild) {
+                        --itemstack.count;
+                    }
+
                     this.heal(itemfood.getNutrition());
                     if (itemstack.count <= 0) {
                         entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);

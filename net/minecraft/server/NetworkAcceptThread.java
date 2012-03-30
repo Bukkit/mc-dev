@@ -25,7 +25,7 @@ class NetworkAcceptThread extends Thread {
                     synchronized (NetworkListenThread.getRecentConnectionAttempts(this.listenThread)) {
                         InetAddress inetaddress = socket.getInetAddress();
 
-                        if (NetworkListenThread.getRecentConnectionAttempts(this.listenThread).containsKey(inetaddress) && System.currentTimeMillis() - ((Long) NetworkListenThread.getRecentConnectionAttempts(this.listenThread).get(inetaddress)).longValue() < 5000L) {
+                        if (NetworkListenThread.getRecentConnectionAttempts(this.listenThread).containsKey(inetaddress) && !"127.0.0.1".equals(inetaddress.getHostAddress()) && System.currentTimeMillis() - ((Long) NetworkListenThread.getRecentConnectionAttempts(this.listenThread).get(inetaddress)).longValue() < 4000L) {
                             NetworkListenThread.getRecentConnectionAttempts(this.listenThread).put(inetaddress, Long.valueOf(System.currentTimeMillis()));
                             socket.close();
                             continue;

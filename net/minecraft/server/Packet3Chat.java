@@ -5,20 +5,21 @@ import java.io.DataOutputStream;
 
 public class Packet3Chat extends Packet {
 
+    public static int b = 119;
     public String message;
 
     public Packet3Chat() {}
 
     public Packet3Chat(String s) {
-        if (s.length() > 119) {
-            s = s.substring(0, 119);
+        if (s.length() > b) {
+            s = s.substring(0, b);
         }
 
         this.message = s;
     }
 
     public void a(DataInputStream datainputstream) {
-        this.message = a(datainputstream, 119);
+        this.message = a(datainputstream, b);
     }
 
     public void a(DataOutputStream dataoutputstream) {

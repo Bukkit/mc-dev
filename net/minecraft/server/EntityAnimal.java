@@ -212,7 +212,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
         if (itemstack != null && this.a(itemstack) && this.getAge() == 0) {
-            if (this.world.getWorldData().getGameType() != 1) {
+            if (!entityhuman.abilities.canInstantlyBuild) {
                 --itemstack.count;
                 if (itemstack.count <= 0) {
                     entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);

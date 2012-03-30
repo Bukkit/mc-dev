@@ -63,7 +63,7 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
         ConsoleLogManager.init();
-        log.info("Starting minecraft server version 1.2.4");
+        log.info("Starting minecraft server version 1.2.5");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             log.warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
         }
@@ -137,7 +137,10 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
         this.propertyManager.a("max-build-height", Integer.valueOf(this.t));
         log.info("Preparing level \"" + s + "\"");
         this.a(new WorldLoaderServer(new File(".")), s, j, worldtype);
-        log.info("Done (" + (System.nanoTime() - i) + "ns)! For help, type \"help\" or \"?\"");
+        long l = System.nanoTime() - i;
+        String s3 = String.format("%.3fs", new Object[] { Double.valueOf((double) l / 1.0E9D)});
+
+        log.info("Done (" + s3 + ")! For help, type \"help\" or \"?\"");
         if (this.propertyManager.getBoolean("enable-query", false)) {
             log.info("Starting GS4 status listener");
             this.I = new RemoteStatusListener(this);
@@ -505,7 +508,7 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
     }
 
     public String getVersion() {
-        return "1.2.4";
+        return "1.2.5";
     }
 
     public int getPlayerCount() {
@@ -556,6 +559,10 @@ public class MinecraftServer implements Runnable, ICommandListener, IMinecraftSe
 
     public String[] r() {
         return (String[]) this.serverConfigurationManager.getBannedPlayers().toArray(new String[0]);
+    }
+
+    public String getServerModName() {
+        return "vanilla";
     }
 
     public static boolean isRunning(MinecraftServer minecraftserver) {

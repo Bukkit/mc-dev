@@ -14,7 +14,7 @@ public class BlockSandStone extends Block {
         return i == 1 ? this.textureId - 16 : (i == 0 ? this.textureId + 16 : this.textureId);
     }
 
-    protected int c(int i) {
+    protected int getDropData(int i) {
         return i;
     }
 }

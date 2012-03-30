@@ -77,7 +77,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
         this.burnTime = nbttagcompound.getShort("BurnTime");
         this.cookTime = nbttagcompound.getShort("CookTime");
-        this.ticksForCurrentFuel = this.fuelTime(this.items[1]);
+        this.ticksForCurrentFuel = fuelTime(this.items[1]);
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -117,7 +117,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
         if (!this.world.isStatic) {
             if (this.burnTime == 0 && this.canBurn()) {
-                this.ticksForCurrentFuel = this.burnTime = this.fuelTime(this.items[1]);
+                this.ticksForCurrentFuel = this.burnTime = fuelTime(this.items[1]);
                 if (this.burnTime > 0) {
                     flag1 = true;
                     if (this.items[1] != null) {
@@ -178,7 +178,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         }
     }
 
-    private int fuelTime(ItemStack itemstack) {
+    public static int fuelTime(ItemStack itemstack) {
         if (itemstack == null) {
             return 0;
         } else {
@@ -186,6 +186,10 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
             return i < 256 && Block.byId[i].material == Material.WOOD ? 300 : (i == Item.STICK.id ? 100 : (i == Item.COAL.id ? 1600 : (i == Item.LAVA_BUCKET.id ? 20000 : (i == Block.SAPLING.id ? 100 : (i == Item.BLAZE_ROD.id ? 2400 : 0)))));
         }
+    }
+
+    public static boolean isFuel(ItemStack itemstack) {
+        return fuelTime(itemstack) > 0;
     }
 
     public boolean a(EntityHuman entityhuman) {

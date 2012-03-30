@@ -5,6 +5,7 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
     private final EntityOcelot a;
     private final float b;
     private int c = 0;
+    private int h = 0;
     private int d = 0;
     private int e = 0;
     private int f = 0;
@@ -17,17 +18,18 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
     }
 
     public boolean a() {
-        return this.a.an().nextDouble() <= 0.013500000350177288D && this.f();
+        return this.a.isTamed() && !this.a.isSitting() && this.a.an().nextDouble() <= 0.006500000134110451D && this.f();
     }
 
     public boolean b() {
-        return this.c <= this.d && this.a(this.a.world, this.e, this.f, this.g);
+        return this.c <= this.d && this.h <= 60 && this.a(this.a.world, this.e, this.f, this.g);
     }
 
     public void c() {
         this.a.al().a((double) ((float) this.e) + 0.5D, (double) (this.f + 1), (double) ((float) this.g) + 0.5D, this.b);
         this.c = 0;
-        this.d = this.a.an().nextInt(this.a.an().nextInt(2400) + 2400) + 2400;
+        this.h = 0;
+        this.d = this.a.an().nextInt(this.a.an().nextInt(1200) + 1200) + 1200;
         this.a.C().a(false);
     }
 
@@ -41,8 +43,11 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
         if (this.a.e((double) this.e, (double) (this.f + 1), (double) this.g) > 1.0D) {
             this.a.setSitting(false);
             this.a.al().a((double) ((float) this.e) + 0.5D, (double) (this.f + 1), (double) ((float) this.g) + 0.5D, this.b);
+            ++this.h;
         } else if (!this.a.isSitting()) {
             this.a.setSitting(true);
+        } else {
+            --this.h;
         }
     }
 
@@ -50,8 +55,8 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
         int i = (int) this.a.locY;
         double d0 = 2.147483647E9D;
 
-        for (int j = (int) this.a.locX - 7; (double) j < this.a.locX + 7.0D; ++j) {
-            for (int k = (int) this.a.locZ - 7; (double) k < this.a.locZ + 7.0D; ++k) {
+        for (int j = (int) this.a.locX - 8; (double) j < this.a.locX + 8.0D; ++j) {
+            for (int k = (int) this.a.locZ - 8; (double) k < this.a.locZ + 8.0D; ++k) {
                 if (this.a(this.a.world, j, i, k) && this.a.world.isEmpty(j, i + 1, k)) {
                     double d1 = this.a.e((double) j, (double) i, (double) k);
 
