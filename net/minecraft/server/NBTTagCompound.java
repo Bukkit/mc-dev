@@ -41,7 +41,7 @@ public class NBTTagCompound extends NBTBase {
         }
     }
 
-    public Collection d() {
+    public Collection c() {
         return this.map.values();
     }
 

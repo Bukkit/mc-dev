@@ -19,7 +19,7 @@ class ServerGuiCommandListener implements ActionListener {
         String s = this.a.getText().trim();
 
         if (s.length() > 0) {
-            ServerGUI.a(this.b).issueCommand(s, this.b);
+            ServerGUI.a(this.b).issueCommand(s, MinecraftServer.getServer());
         }
 
         this.a.setText("");

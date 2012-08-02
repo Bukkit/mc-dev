@@ -86,7 +86,7 @@ public class WorldGenLakes extends WorldGenerator {
             for (i1 = 0; i1 < 16; ++i1) {
                 for (i2 = 0; i2 < 16; ++i2) {
                     for (j2 = 4; j2 < 8; ++j2) {
-                        if (aboolean[(i1 * 16 + i2) * 8 + j2] && world.getTypeId(i + i1, j + j2 - 1, k + i2) == Block.DIRT.id && world.a(EnumSkyBlock.SKY, i + i1, j + j2, k + i2) > 0) {
+                        if (aboolean[(i1 * 16 + i2) * 8 + j2] && world.getTypeId(i + i1, j + j2 - 1, k + i2) == Block.DIRT.id && world.b(EnumSkyBlock.SKY, i + i1, j + j2, k + i2) > 0) {
                             BiomeBase biomebase = world.getBiome(i + i1, k + i2);
 
                             if (biomebase.A == Block.MYCEL.id) {
@@ -117,7 +117,7 @@ public class WorldGenLakes extends WorldGenerator {
                     for (i2 = 0; i2 < 16; ++i2) {
                         byte b0 = 4;
 
-                        if (world.s(i + i1, j + b0, k + i2)) {
+                        if (world.u(i + i1, j + b0, k + i2)) {
                             world.setRawTypeId(i + i1, j + b0, k + i2, Block.ICE.id);
                         }
                     }

@@ -6,7 +6,7 @@ public class BlockCake extends Block {
 
     protected BlockCake(int i, int j) {
         super(i, j, Material.CAKE);
-        this.a(true);
+        this.b(true);
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
@@ -31,7 +31,7 @@ public class BlockCake extends Block {
         float f1 = (float) (1 + l * 2) / 16.0F;
         float f2 = 0.5F;
 
-        return AxisAlignedBB.b((double) ((float) i + f1), (double) j, (double) ((float) k + f), (double) ((float) (i + 1) - f), (double) ((float) j + f2 - f), (double) ((float) (k + 1) - f));
+        return AxisAlignedBB.a().a((double) ((float) i + f1), (double) j, (double) ((float) k + f), (double) ((float) (i + 1) - f), (double) ((float) j + f2 - f), (double) ((float) (k + 1) - f));
     }
 
     public int a(int i, int j) {
@@ -42,25 +42,25 @@ public class BlockCake extends Block {
         return i == 1 ? this.textureId : (i == 0 ? this.textureId + 3 : this.textureId + 1);
     }
 
-    public boolean b() {
+    public boolean c() {
         return false;
     }
 
-    public boolean a() {
+    public boolean d() {
         return false;
     }
 
-    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
-        this.c(world, i, j, k, entityhuman);
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
+        this.b(world, i, j, k, entityhuman);
         return true;
     }
 
     public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
-        this.c(world, i, j, k, entityhuman);
+        this.b(world, i, j, k, entityhuman);
     }
 
-    private void c(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (entityhuman.b(false)) {
+    private void b(World world, int i, int j, int k, EntityHuman entityhuman) {
+        if (entityhuman.e(false)) {
             entityhuman.getFoodData().eat(2, 0.1F);
             int l = world.getData(i, j, k) + 1;
 
@@ -68,23 +68,23 @@ public class BlockCake extends Block {
                 world.setTypeId(i, j, k, 0);
             } else {
                 world.setData(i, j, k, l);
-                world.k(i, j, k);
+                world.i(i, j, k);
             }
         }
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return !super.canPlace(world, i, j, k) ? false : this.f(world, i, j, k);
+        return !super.canPlace(world, i, j, k) ? false : this.d(world, i, j, k);
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        if (!this.f(world, i, j, k)) {
-            this.b(world, i, j, k, world.getData(i, j, k), 0);
+        if (!this.d(world, i, j, k)) {
+            this.c(world, i, j, k, world.getData(i, j, k), 0);
             world.setTypeId(i, j, k, 0);
         }
     }
 
-    public boolean f(World world, int i, int j, int k) {
+    public boolean d(World world, int i, int j, int k) {
         return world.getMaterial(i, j - 1, k).isBuildable();
     }
 

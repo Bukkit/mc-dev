@@ -4,28 +4,32 @@ public class ItemMilkBucket extends Item {
 
     public ItemMilkBucket(int i) {
         super(i);
-        this.e(1);
+        this.d(1);
+        this.a(CreativeModeTab.f);
     }
 
     public ItemStack b(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        --itemstack.count;
+        if (!entityhuman.abilities.canInstantlyBuild) {
+            --itemstack.count;
+        }
+
         if (!world.isStatic) {
-            entityhuman.aL();
+            entityhuman.bp();
         }
 
         return itemstack.count <= 0 ? new ItemStack(Item.BUCKET) : itemstack;
     }
 
-    public int c(ItemStack itemstack) {
+    public int a(ItemStack itemstack) {
         return 32;
     }
 
-    public EnumAnimation d(ItemStack itemstack) {
+    public EnumAnimation b(ItemStack itemstack) {
         return EnumAnimation.c;
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        entityhuman.a(itemstack, this.c(itemstack));
+        entityhuman.a(itemstack, this.a(itemstack));
         return itemstack;
     }
 }

@@ -19,10 +19,10 @@ public abstract class PathfinderGoalDoorInteract extends PathfinderGoal {
         if (!this.a.positionChanged) {
             return false;
         } else {
-            Navigation navigation = this.a.al();
-            PathEntity pathentity = navigation.c();
+            Navigation navigation = this.a.getNavigation();
+            PathEntity pathentity = navigation.d();
 
-            if (pathentity != null && !pathentity.b() && navigation.b()) {
+            if (pathentity != null && !pathentity.b() && navigation.c()) {
                 for (int i = 0; i < Math.min(pathentity.e() + 2, pathentity.d()); ++i) {
                     PathPoint pathpoint = pathentity.a(i);
 
@@ -52,13 +52,13 @@ public abstract class PathfinderGoalDoorInteract extends PathfinderGoal {
         return !this.f;
     }
 
-    public void c() {
+    public void e() {
         this.f = false;
         this.g = (float) ((double) ((float) this.b + 0.5F) - this.a.locX);
         this.h = (float) ((double) ((float) this.d + 0.5F) - this.a.locZ);
     }
 
-    public void e() {
+    public void d() {
         float f = (float) ((double) ((float) this.b + 0.5F) - this.a.locX);
         float f1 = (float) ((double) ((float) this.d + 0.5F) - this.a.locZ);
         float f2 = this.g * f + this.h * f1;
@@ -71,12 +71,6 @@ public abstract class PathfinderGoalDoorInteract extends PathfinderGoal {
     private BlockDoor a(int i, int j, int k) {
         int l = this.a.world.getTypeId(i, j, k);
 
-        if (l != Block.WOODEN_DOOR.id) {
-            return null;
-        } else {
-            BlockDoor blockdoor = (BlockDoor) Block.byId[l];
-
-            return blockdoor;
-        }
+        return l != Block.WOODEN_DOOR.id ? null : (BlockDoor) Block.byId[l];
     }
 }

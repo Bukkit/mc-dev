@@ -12,7 +12,7 @@ public class PathfinderGoalDefendVillage extends PathfinderGoalTarget {
     }
 
     public boolean a() {
-        Village village = this.a.l_();
+        Village village = this.a.n();
 
         if (village == null) {
             return false;
@@ -22,8 +22,8 @@ public class PathfinderGoalDefendVillage extends PathfinderGoalTarget {
         }
     }
 
-    public void c() {
+    public void e() {
         this.a.b(this.b);
-        super.c();
+        super.e();
     }
 }

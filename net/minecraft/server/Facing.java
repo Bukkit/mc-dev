@@ -7,5 +7,4 @@ public class Facing {
     public static final int[] c = new int[] { -1, 1, 0, 0, 0, 0};
     public static final int[] d = new int[] { 0, 0, -1, 1, 0, 0};
 
-    public Facing() {}
 }

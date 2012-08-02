@@ -9,11 +9,9 @@ public class WorldGenNetherPiece12 extends WorldGenNetherPiece {
 
     public WorldGenNetherPiece12(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.h = j;
-        this.g = structureboundingbox;
+        this.f = j;
+        this.e = structureboundingbox;
     }
-
-    public void a(StructurePiece structurepiece, List list, Random random) {}
 
     public static WorldGenNetherPiece12 a(List list, Random random, int i, int j, int k, int l, int i1) {
         StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, -2, 0, 0, 7, 8, 9, l);
@@ -44,7 +42,7 @@ public class WorldGenNetherPiece12 extends WorldGenNetherPiece {
         int j;
 
         if (!this.a) {
-            i = this.b(5);
+            i = this.a(5);
             j = this.a(3, 5);
             int k = this.b(3, 5);
 

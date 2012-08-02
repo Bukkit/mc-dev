@@ -20,7 +20,7 @@ public class NBTTagList extends NBTBase {
     }
 
     void write(DataOutput dataoutput) {
-        if (this.list.size() > 0) {
+        if (!this.list.isEmpty()) {
             this.type = ((NBTBase) this.list.get(0)).getTypeId();
         } else {
             this.type = 1;
@@ -28,9 +28,12 @@ public class NBTTagList extends NBTBase {
 
         dataoutput.writeByte(this.type);
         dataoutput.writeInt(this.list.size());
+        Iterator iterator = this.list.iterator();
 
-        for (int i = 0; i < this.list.size(); ++i) {
-            ((NBTBase) this.list.get(i)).write(dataoutput);
+        while (iterator.hasNext()) {
+            NBTBase nbtbase = (NBTBase) iterator.next();
+
+            nbtbase.write(dataoutput);
         }
     }
 

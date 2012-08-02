@@ -2,7 +2,11 @@ package net.minecraft.server;
 
 public interface ICommandListener {
 
+    String getName();
+
     void sendMessage(String s);
 
-    String getName();
+    boolean b(String s);
+
+    String a(String s, Object... aobject);
 }

@@ -7,7 +7,7 @@ public class WorldGenCaves extends WorldGenBase {
     public WorldGenCaves() {}
 
     protected void a(long i, int j, int k, byte[] abyte, double d0, double d1, double d2) {
-        this.a(i, j, k, abyte, d0, d1, d2, 1.0F + this.c.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
+        this.a(i, j, k, abyte, d0, d1, d2, 1.0F + this.b.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
     }
 
     protected void a(long i, int j, int k, byte[] abyte, double d0, double d1, double d2, float f, float f1, float f2, int l, int i1, double d3) {
@@ -18,7 +18,7 @@ public class WorldGenCaves extends WorldGenBase {
         Random random = new Random(i);
 
         if (i1 <= 0) {
-            int j1 = this.b * 16 - 16;
+            int j1 = this.a * 16 - 16;
 
             i1 = j1 - random.nextInt(j1 / 4);
         }
@@ -149,7 +149,7 @@ public class WorldGenCaves extends WorldGenBase {
                                                 } else {
                                                     abyte[j4] = 0;
                                                     if (flag3 && abyte[j4 - 1] == Block.DIRT.id) {
-                                                        abyte[j4 - 1] = this.d.getBiome(j3 + j * 16, k3 + k * 16).A;
+                                                        abyte[j4 - 1] = this.c.getBiome(j3 + j * 16, k3 + k * 16).A;
                                                     }
                                                 }
                                             }
@@ -171,33 +171,33 @@ public class WorldGenCaves extends WorldGenBase {
     }
 
     protected void a(World world, int i, int j, int k, int l, byte[] abyte) {
-        int i1 = this.c.nextInt(this.c.nextInt(this.c.nextInt(40) + 1) + 1);
+        int i1 = this.b.nextInt(this.b.nextInt(this.b.nextInt(40) + 1) + 1);
 
-        if (this.c.nextInt(15) != 0) {
+        if (this.b.nextInt(15) != 0) {
             i1 = 0;
         }
 
         for (int j1 = 0; j1 < i1; ++j1) {
-            double d0 = (double) (i * 16 + this.c.nextInt(16));
-            double d1 = (double) this.c.nextInt(this.c.nextInt(120) + 8);
-            double d2 = (double) (j * 16 + this.c.nextInt(16));
+            double d0 = (double) (i * 16 + this.b.nextInt(16));
+            double d1 = (double) this.b.nextInt(this.b.nextInt(120) + 8);
+            double d2 = (double) (j * 16 + this.b.nextInt(16));
             int k1 = 1;
 
-            if (this.c.nextInt(4) == 0) {
-                this.a(this.c.nextLong(), k, l, abyte, d0, d1, d2);
-                k1 += this.c.nextInt(4);
+            if (this.b.nextInt(4) == 0) {
+                this.a(this.b.nextLong(), k, l, abyte, d0, d1, d2);
+                k1 += this.b.nextInt(4);
             }
 
             for (int l1 = 0; l1 < k1; ++l1) {
-                float f = this.c.nextFloat() * 3.1415927F * 2.0F;
-                float f1 = (this.c.nextFloat() - 0.5F) * 2.0F / 8.0F;
-                float f2 = this.c.nextFloat() * 2.0F + this.c.nextFloat();
+                float f = this.b.nextFloat() * 3.1415927F * 2.0F;
+                float f1 = (this.b.nextFloat() - 0.5F) * 2.0F / 8.0F;
+                float f2 = this.b.nextFloat() * 2.0F + this.b.nextFloat();
 
-                if (this.c.nextInt(10) == 0) {
-                    f2 *= this.c.nextFloat() * this.c.nextFloat() * 3.0F + 1.0F;
+                if (this.b.nextInt(10) == 0) {
+                    f2 *= this.b.nextFloat() * this.b.nextFloat() * 3.0F + 1.0F;
                 }
 
-                this.a(this.c.nextLong(), k, l, abyte, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
+                this.a(this.b.nextLong(), k, l, abyte, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
             }
         }
     }

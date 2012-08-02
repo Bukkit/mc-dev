@@ -10,13 +10,9 @@ public class EntityEnderPearl extends EntityProjectile {
         super(world, entityliving);
     }
 
-    public EntityEnderPearl(World world, double d0, double d1, double d2) {
-        super(world, d0, d1, d2);
-    }
-
     protected void a(MovingObjectPosition movingobjectposition) {
-        if (movingobjectposition.entity != null && movingobjectposition.entity.damageEntity(DamageSource.projectile(this, this.shooter), 0)) {
-            ;
+        if (movingobjectposition.entity != null) {
+            movingobjectposition.entity.damageEntity(DamageSource.projectile(this, this.shooter), 0);
         }
 
         for (int i = 0; i < 32; ++i) {
@@ -24,10 +20,14 @@ public class EntityEnderPearl extends EntityProjectile {
         }
 
         if (!this.world.isStatic) {
-            if (this.shooter != null) {
-                this.shooter.enderTeleportTo(this.locX, this.locY, this.locZ);
-                this.shooter.fallDistance = 0.0F;
-                this.shooter.damageEntity(DamageSource.FALL, 5);
+            if (this.shooter != null && this.shooter instanceof EntityPlayer) {
+                EntityPlayer entityplayer = (EntityPlayer) this.shooter;
+
+                if (!entityplayer.netServerHandler.disconnected && entityplayer.world == this.world) {
+                    this.shooter.enderTeleportTo(this.locX, this.locY, this.locZ);
+                    this.shooter.fallDistance = 0.0F;
+                    this.shooter.damageEntity(DamageSource.FALL, 5);
+                }
             }
 
             this.die();

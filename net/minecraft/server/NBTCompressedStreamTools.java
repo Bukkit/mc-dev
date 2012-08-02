@@ -15,8 +15,6 @@ import java.util.zip.GZIPOutputStream;
 
 public class NBTCompressedStreamTools {
 
-    public NBTCompressedStreamTools() {}
-
     public static NBTTagCompound a(InputStream inputstream) {
         DataInputStream datainputstream = new DataInputStream(new BufferedInputStream(new GZIPInputStream(inputstream)));
 

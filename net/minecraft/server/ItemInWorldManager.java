@@ -3,9 +3,9 @@ package net.minecraft.server;
 public class ItemInWorldManager {
 
     public World world;
-    public EntityHuman player;
-    private int c = -1;
-    private float d = 0.0F;
+    public EntityPlayer player;
+    private EnumGamemode gamemode;
+    private boolean d;
     private int lastDigTick;
     private int f;
     private int g;
@@ -16,83 +16,113 @@ public class ItemInWorldManager {
     private int l;
     private int m;
     private int n;
+    private int o;
 
     public ItemInWorldManager(World world) {
+        this.gamemode = EnumGamemode.NONE;
+        this.o = -1;
         this.world = world;
     }
 
-    public void setGameMode(int i) {
-        this.c = i;
-        if (i == 0) {
-            this.player.abilities.canFly = false;
-            this.player.abilities.isFlying = false;
-            this.player.abilities.canInstantlyBuild = false;
-            this.player.abilities.isInvulnerable = false;
-        } else {
-            this.player.abilities.canFly = true;
-            this.player.abilities.canInstantlyBuild = true;
-            this.player.abilities.isInvulnerable = true;
-        }
-
+    public void setGameMode(EnumGamemode enumgamemode) {
+        this.gamemode = enumgamemode;
+        enumgamemode.a(this.player.abilities);
         this.player.updateAbilities();
     }
 
-    public int getGameMode() {
-        return this.c;
+    public EnumGamemode getGameMode() {
+        return this.gamemode;
     }
 
     public boolean isCreative() {
-        return this.c == 1;
+        return this.gamemode.d();
     }
 
-    public void b(int i) {
-        if (this.c == -1) {
-            this.c = i;
+    public void b(EnumGamemode enumgamemode) {
+        if (this.gamemode == EnumGamemode.NONE) {
+            this.gamemode = enumgamemode;
         }
 
-        this.setGameMode(this.c);
+        this.setGameMode(this.gamemode);
     }
 
-    public void c() {
+    public void a() {
         ++this.currentTick;
-        if (this.j) {
-            int i = this.currentTick - this.n;
-            int j = this.world.getTypeId(this.k, this.l, this.m);
+        int i;
+        float f;
+        int j;
 
-            if (j != 0) {
-                Block block = Block.byId[j];
-                float f = block.getDamage(this.player) * (float) (i + 1);
+        if (this.j) {
+            i = this.currentTick - this.n;
+            int k = this.world.getTypeId(this.k, this.l, this.m);
+
+            if (k == 0) {
+                this.j = false;
+            } else {
+                Block block = Block.byId[k];
+
+                f = block.getDamage(this.player, this.player.world, this.k, this.l, this.m) * (float) (i + 1);
+                j = (int) (f * 10.0F);
+                if (j != this.o) {
+                    this.world.f(this.player.id, this.k, this.l, this.m, j);
+                    this.o = j;
+                }
 
                 if (f >= 1.0F) {
                     this.j = false;
                     this.breakBlock(this.k, this.l, this.m);
                 }
+            }
+        } else if (this.d) {
+            i = this.world.getTypeId(this.f, this.g, this.h);
+            Block block1 = Block.byId[i];
+
+            if (block1 == null) {
+                this.world.f(this.player.id, this.f, this.g, this.h, -1);
+                this.o = -1;
+                this.d = false;
             } else {
-                this.j = false;
+                int l = this.currentTick - this.lastDigTick;
+
+                f = block1.getDamage(this.player, this.player.world, this.f, this.g, this.h) * (float) (l + 1);
+                j = (int) (f * 10.0F);
+                if (j != this.o) {
+                    this.world.f(this.player.id, this.f, this.g, this.h, j);
+                    this.o = j;
+                }
             }
         }
     }
 
     public void dig(int i, int j, int k, int l) {
-        if (this.isCreative()) {
-            if (!this.world.douseFire((EntityHuman) null, i, j, k, l)) {
-                this.breakBlock(i, j, k);
-            }
-        } else {
-            this.world.douseFire((EntityHuman) null, i, j, k, l);
-            this.lastDigTick = this.currentTick;
-            int i1 = this.world.getTypeId(i, j, k);
-
-            if (i1 > 0) {
-                Block.byId[i1].attack(this.world, i, j, k, this.player);
-            }
-
-            if (i1 > 0 && Block.byId[i1].getDamage(this.player) >= 1.0F) {
-                this.breakBlock(i, j, k);
+        if (!this.gamemode.isAdventure()) {
+            if (this.isCreative()) {
+                if (!this.world.douseFire((EntityHuman) null, i, j, k, l)) {
+                    this.breakBlock(i, j, k);
+                }
             } else {
-                this.f = i;
-                this.g = j;
-                this.h = k;
+                this.world.douseFire(this.player, i, j, k, l);
+                this.lastDigTick = this.currentTick;
+                float f = 1.0F;
+                int i1 = this.world.getTypeId(i, j, k);
+
+                if (i1 > 0) {
+                    Block.byId[i1].attack(this.world, i, j, k, this.player);
+                    f = Block.byId[i1].getDamage(this.player, this.player.world, i, j, k);
+                }
+
+                if (i1 > 0 && f >= 1.0F) {
+                    this.breakBlock(i, j, k);
+                } else {
+                    this.d = true;
+                    this.f = i;
+                    this.g = j;
+                    this.h = k;
+                    int j1 = (int) (f * 10.0F);
+
+                    this.world.f(this.player.id, i, j, k, j1);
+                    this.o = j1;
+                }
             }
         }
     }
@@ -104,11 +134,14 @@ public class ItemInWorldManager {
 
             if (i1 != 0) {
                 Block block = Block.byId[i1];
-                float f = block.getDamage(this.player) * (float) (l + 1);
+                float f = block.getDamage(this.player, this.player.world, i, j, k) * (float) (l + 1);
 
                 if (f >= 0.7F) {
+                    this.d = false;
+                    this.world.f(this.player.id, i, j, k, -1);
                     this.breakBlock(i, j, k);
                 } else if (!this.j) {
+                    this.d = false;
                     this.j = true;
                     this.k = i;
                     this.l = j;
@@ -117,13 +150,21 @@ public class ItemInWorldManager {
                 }
             }
         }
-
-        this.d = 0.0F;
     }
 
-    public boolean b(int i, int j, int k) {
+    public void c(int i, int j, int k) {
+        this.d = false;
+        this.world.f(this.player.id, this.f, this.g, this.h, -1);
+    }
+
+    private boolean d(int i, int j, int k) {
         Block block = Block.byId[this.world.getTypeId(i, j, k)];
         int l = this.world.getData(i, j, k);
+
+        if (block != null) {
+            block.a(this.world, i, j, k, l, this.player);
+        }
+
         boolean flag = this.world.setTypeId(i, j, k, 0);
 
         if (block != null && flag) {
@@ -134,32 +175,35 @@ public class ItemInWorldManager {
     }
 
     public boolean breakBlock(int i, int j, int k) {
-        int l = this.world.getTypeId(i, j, k);
-        int i1 = this.world.getData(i, j, k);
-
-        this.world.a(this.player, 2001, i, j, k, l + (this.world.getData(i, j, k) << 12));
-        boolean flag = this.b(i, j, k);
-
-        if (this.isCreative()) {
-            ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
+        if (this.gamemode.isAdventure()) {
+            return false;
         } else {
-            ItemStack itemstack = this.player.U();
-            boolean flag1 = this.player.b(Block.byId[l]);
+            int l = this.world.getTypeId(i, j, k);
+            int i1 = this.world.getData(i, j, k);
 
-            if (itemstack != null) {
-                itemstack.a(l, i, j, k, this.player);
-                if (itemstack.count == 0) {
-                    itemstack.a(this.player);
-                    this.player.V();
+            this.world.a(this.player, 2001, i, j, k, l + (this.world.getData(i, j, k) << 12));
+            boolean flag = this.d(i, j, k);
+
+            if (this.isCreative()) {
+                this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
+            } else {
+                ItemStack itemstack = this.player.bC();
+                boolean flag1 = this.player.b(Block.byId[l]);
+
+                if (itemstack != null) {
+                    itemstack.a(this.world, l, i, j, k, this.player);
+                    if (itemstack.count == 0) {
+                        this.player.bD();
+                    }
+                }
+
+                if (flag && flag1) {
+                    Block.byId[l].a(this.world, this.player, i, j, k, i1);
                 }
             }
 
-            if (flag && flag1) {
-                Block.byId[l].a(this.world, this.player, i, j, k, i1);
-            }
+            return flag;
         }
-
-        return flag;
     }
 
     public boolean useItem(EntityHuman entityhuman, World world, ItemStack itemstack) {
@@ -167,7 +211,7 @@ public class ItemInWorldManager {
         int j = itemstack.getData();
         ItemStack itemstack1 = itemstack.a(world, entityhuman);
 
-        if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.count == i) && (itemstack1 == null || itemstack1.l() <= 0)) {
+        if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.count == i) && (itemstack1 == null || itemstack1.m() <= 0)) {
             return false;
         } else {
             entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = itemstack1;
@@ -184,23 +228,23 @@ public class ItemInWorldManager {
         }
     }
 
-    public boolean interact(EntityHuman entityhuman, World world, ItemStack itemstack, int i, int j, int k, int l) {
+    public boolean interact(EntityHuman entityhuman, World world, ItemStack itemstack, int i, int j, int k, int l, float f, float f1, float f2) {
         int i1 = world.getTypeId(i, j, k);
 
-        if (i1 > 0 && Block.byId[i1].interact(world, i, j, k, entityhuman)) {
+        if (i1 > 0 && Block.byId[i1].interact(world, i, j, k, entityhuman, l, f, f1, f2)) {
             return true;
         } else if (itemstack == null) {
             return false;
         } else if (this.isCreative()) {
             int j1 = itemstack.getData();
             int k1 = itemstack.count;
-            boolean flag = itemstack.placeItem(entityhuman, world, i, j, k, l);
+            boolean flag = itemstack.placeItem(entityhuman, world, i, j, k, l, f, f1, f2);
 
             itemstack.setData(j1);
             itemstack.count = k1;
             return flag;
         } else {
-            return itemstack.placeItem(entityhuman, world, i, j, k, l);
+            return itemstack.placeItem(entityhuman, world, i, j, k, l, f, f1, f2);
         }
     }
 

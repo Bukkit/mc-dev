@@ -11,26 +11,26 @@ import java.util.Set;
 
 public abstract class Packet {
 
-    public static IntHashMap j = new IntHashMap();
+    public static IntHashMap l = new IntHashMap();
     private static Map a = new HashMap();
     private static Set b = new HashSet();
     private static Set c = new HashSet();
     public final long timestamp = System.currentTimeMillis();
-    public static long l;
-    public static long m;
     public static long n;
     public static long o;
+    public static long p;
+    public static long q;
     public boolean lowPriority = false;
 
     public Packet() {}
 
     static void a(int i, boolean flag, boolean flag1, Class oclass) {
-        if (j.b(i)) {
+        if (l.b(i)) {
             throw new IllegalArgumentException("Duplicate packet id:" + i);
         } else if (a.containsKey(oclass)) {
             throw new IllegalArgumentException("Duplicate packet class:" + oclass);
         } else {
-            j.a(i, oclass);
+            l.a(i, oclass);
             a.put(oclass, Integer.valueOf(i));
             if (flag) {
                 b.add(Integer.valueOf(i));
@@ -42,9 +42,9 @@ public abstract class Packet {
         }
     }
 
-    public static Packet a(int i) {
+    public static Packet d(int i) {
         try {
-            Class oclass = (Class) j.get(i);
+            Class oclass = (Class) l.get(i);
 
             return oclass == null ? null : (Packet) oclass.newInstance();
         } catch (Exception exception) {
@@ -54,7 +54,25 @@ public abstract class Packet {
         }
     }
 
-    public final int b() {
+    public static void a(DataOutputStream dataoutputstream, byte[] abyte) {
+        dataoutputstream.writeShort(abyte.length);
+        dataoutputstream.write(abyte);
+    }
+
+    public static byte[] b(DataInputStream datainputstream) {
+        short short1 = datainputstream.readShort();
+
+        if (short1 < 0) {
+            throw new IOException("Key was smaller than nothing!  Weird key!");
+        } else {
+            byte[] abyte = new byte[short1];
+
+            datainputstream.read(abyte);
+            return abyte;
+        }
+    }
+
+    public final int k() {
         return ((Integer) a.get(this.getClass())).intValue();
     }
 
@@ -74,30 +92,30 @@ public abstract class Packet {
                 throw new IOException("Bad packet id " + i);
             }
 
-            packet = a(i);
+            packet = d(i);
             if (packet == null) {
                 throw new IOException("Bad packet id " + i);
             }
 
             packet.a(datainputstream);
-            ++l;
-            m += (long) packet.a();
+            ++n;
+            o += (long) packet.a();
         } catch (EOFException eofexception) {
             System.out.println("Reached end of stream");
             return null;
         }
 
         PacketCounter.a(i, (long) packet.a());
-        ++l;
-        m += (long) packet.a();
+        ++n;
+        o += (long) packet.a();
         return packet;
     }
 
     public static void a(Packet packet, DataOutputStream dataoutputstream) {
-        dataoutputstream.write(packet.b());
+        dataoutputstream.write(packet.k());
         packet.a(dataoutputstream);
-        ++n;
-        o += (long) packet.a();
+        ++p;
+        q += (long) packet.a();
     }
 
     public static void a(String s, DataOutputStream dataoutputstream) {
@@ -135,7 +153,25 @@ public abstract class Packet {
 
     public abstract int a();
 
-    protected ItemStack b(DataInputStream datainputstream) {
+    public boolean e() {
+        return false;
+    }
+
+    public boolean a(Packet packet) {
+        return false;
+    }
+
+    public boolean a_() {
+        return false;
+    }
+
+    public String toString() {
+        String s = this.getClass().getSimpleName();
+
+        return s;
+    }
+
+    public static ItemStack c(DataInputStream datainputstream) {
         ItemStack itemstack = null;
         short short1 = datainputstream.readShort();
 
@@ -144,28 +180,30 @@ public abstract class Packet {
             short short2 = datainputstream.readShort();
 
             itemstack = new ItemStack(short1, b0, short2);
-            if (Item.byId[short1].g() || Item.byId[short1].i()) {
-                itemstack.tag = this.c(datainputstream);
-            }
+            itemstack.tag = d(datainputstream);
         }
 
         return itemstack;
     }
 
-    protected void a(ItemStack itemstack, DataOutputStream dataoutputstream) {
+    public static void a(ItemStack itemstack, DataOutputStream dataoutputstream) {
         if (itemstack == null) {
             dataoutputstream.writeShort(-1);
         } else {
             dataoutputstream.writeShort(itemstack.id);
             dataoutputstream.writeByte(itemstack.count);
             dataoutputstream.writeShort(itemstack.getData());
-            if (itemstack.getItem().g() || itemstack.getItem().i()) {
-                this.a(itemstack.tag, dataoutputstream);
+            NBTTagCompound nbttagcompound = null;
+
+            if (itemstack.getItem().m() || itemstack.getItem().p()) {
+                nbttagcompound = itemstack.tag;
             }
+
+            a(nbttagcompound, dataoutputstream);
         }
     }
 
-    protected NBTTagCompound c(DataInputStream datainputstream) {
+    public static NBTTagCompound d(DataInputStream datainputstream) {
         short short1 = datainputstream.readShort();
 
         if (short1 < 0) {
@@ -178,7 +216,7 @@ public abstract class Packet {
         }
     }
 
-    protected void a(NBTTagCompound nbttagcompound, DataOutputStream dataoutputstream) {
+    protected static void a(NBTTagCompound nbttagcompound, DataOutputStream dataoutputstream) {
         if (nbttagcompound == null) {
             dataoutputstream.writeShort(-1);
         } else {
@@ -192,7 +230,7 @@ public abstract class Packet {
     static {
         a(0, true, true, Packet0KeepAlive.class);
         a(1, true, true, Packet1Login.class);
-        a(2, true, true, Packet2Handshake.class);
+        a(2, false, true, Packet2Handshake.class);
         a(3, true, true, Packet3Chat.class);
         a(4, true, false, Packet4UpdateTime.class);
         a(5, true, false, Packet5EntityEquipment.class);
@@ -231,13 +269,15 @@ public abstract class Packet {
         a(41, true, false, Packet41MobEffect.class);
         a(42, true, false, Packet42RemoveMobEffect.class);
         a(43, true, false, Packet43SetExperience.class);
-        a(50, true, false, Packet50PreChunk.class);
         a(51, true, false, Packet51MapChunk.class);
         a(52, true, false, Packet52MultiBlockChange.class);
         a(53, true, false, Packet53BlockChange.class);
         a(54, true, false, Packet54PlayNoteBlock.class);
+        a(55, true, false, Packet55BlockBreakAnimation.class);
+        a(56, true, false, Packet56MapChunkBulk.class);
         a(60, true, false, Packet60Explosion.class);
         a(61, true, false, Packet61WorldEvent.class);
+        a(62, true, false, Packet62NamedSoundEffect.class);
         a(70, true, false, Packet70Bed.class);
         a(71, true, false, Packet71Weather.class);
         a(100, true, false, Packet100OpenWindow.class);
@@ -255,7 +295,12 @@ public abstract class Packet {
         a(200, true, false, Packet200Statistic.class);
         a(201, true, false, Packet201PlayerInfo.class);
         a(202, true, true, Packet202Abilities.class);
+        a(203, true, true, Packet203TabComplete.class);
+        a(204, false, true, Packet204LocaleAndViewDistance.class);
+        a(205, false, true, Packet205ClientCommand.class);
         a(250, true, true, Packet250CustomPayload.class);
+        a(252, true, true, Packet252KeyResponse.class);
+        a(253, true, false, Packet253KeyRequest.class);
         a(254, false, true, Packet254GetInfo.class);
         a(255, true, true, Packet255KickDisconnect.class);
     }

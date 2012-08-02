@@ -70,4 +70,14 @@ public class Packet28EntityVelocity extends Packet {
     public int a() {
         return 10;
     }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        Packet28EntityVelocity packet28entityvelocity = (Packet28EntityVelocity) packet;
+
+        return packet28entityvelocity.a == this.a;
+    }
 }

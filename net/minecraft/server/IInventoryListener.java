@@ -2,5 +2,5 @@ package net.minecraft.server;
 
 public interface IInventoryListener {
 
-    void a(ContainerEnchantTableSubcontainer containerenchanttablesubcontainer);
+    void a(InventorySubcontainer inventorysubcontainer);
 }

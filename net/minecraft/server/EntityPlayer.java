@@ -1,25 +1,32 @@
 package net.minecraft.server;
 
-import java.util.HashSet;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class EntityPlayer extends EntityHuman implements ICrafting {
 
+    private LocaleLanguage locale = new LocaleLanguage("en_US");
     public NetServerHandler netServerHandler;
     public MinecraftServer server;
     public ItemInWorldManager itemInWorldManager;
     public double d;
     public double e;
-    public List chunkCoordIntPairQueue = new LinkedList();
-    public Set playerChunkCoordIntPairs = new HashSet();
-    private int cf = -99999999;
-    private int cg = -99999999;
-    private boolean ch = true;
+    public final List chunkCoordIntPairQueue = new LinkedList();
+    public final List g = new LinkedList();
+    private int ch = -99999999;
+    private int ci = -99999999;
+    private boolean cj = true;
     private int lastSentExp = -99999999;
     private int invulnerableTicks = 60;
-    private ItemStack[] ck = new ItemStack[] { null, null, null, null, null};
+    private int cm = 0;
+    private int cn = 0;
+    private boolean co = true;
+    private ItemStack[] cp = new ItemStack[] { null, null, null, null, null};
     private int containerCounter = 0;
     public boolean h;
     public int ping;
@@ -29,20 +36,21 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         super(world);
         iteminworldmanager.player = this;
         this.itemInWorldManager = iteminworldmanager;
+        this.cm = minecraftserver.getServerConfigurationManager().o();
         ChunkCoordinates chunkcoordinates = world.getSpawn();
         int i = chunkcoordinates.x;
         int j = chunkcoordinates.z;
         int k = chunkcoordinates.y;
 
-        if (!world.worldProvider.e) {
+        if (!world.worldProvider.e && world.getWorldData().getGameType() != EnumGamemode.ADVENTURE) {
             i += this.random.nextInt(20) - 10;
-            k = world.g(i, j);
+            k = world.h(i, j);
             j += this.random.nextInt(20) - 10;
         }
 
         this.setPositionRotation((double) i + 0.5D, (double) k, (double) j + 0.5D, 0.0F, 0.0F);
         this.server = minecraftserver;
-        this.bP = 0.0F;
+        this.W = 0.0F;
         this.name = s;
         this.height = 0.0F;
     }
@@ -50,17 +58,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
         if (nbttagcompound.hasKey("playerGameType")) {
-            this.itemInWorldManager.setGameMode(nbttagcompound.getInt("playerGameType"));
+            this.itemInWorldManager.setGameMode(EnumGamemode.a(nbttagcompound.getInt("playerGameType")));
         }
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.setInt("playerGameType", this.itemInWorldManager.getGameMode());
-    }
-
-    public void spawnIn(World world) {
-        super.spawnIn(world);
+        nbttagcompound.setInt("playerGameType", this.itemInWorldManager.getGameMode().a());
     }
 
     public void levelDown(int i) {
@@ -73,10 +77,10 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public ItemStack[] getEquipment() {
-        return this.ck;
+        return this.cp;
     }
 
-    protected void A() {
+    protected void d_() {
         this.height = 0.0F;
     }
 
@@ -84,35 +88,152 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         return 1.62F;
     }
 
-    public void F_() {
-        this.itemInWorldManager.c();
+    public void h_() {
+        this.itemInWorldManager.a();
         --this.invulnerableTicks;
-        this.activeContainer.a();
+        this.activeContainer.b();
 
-        for (int i = 0; i < 5; ++i) {
-            ItemStack itemstack = this.c(i);
+        int i;
 
-            if (itemstack != this.ck[i]) {
-                this.server.getTracker(this.dimension).a(this, new Packet5EntityEquipment(this.id, i, itemstack));
-                this.ck[i] = itemstack;
+        for (i = 0; i < 5; ++i) {
+            ItemStack itemstack = this.b(i);
+
+            if (itemstack != this.cp[i]) {
+                this.q().getTracker().a(this, new Packet5EntityEquipment(this.id, i, itemstack));
+                this.cp[i] = itemstack;
             }
+        }
+
+        if (!this.chunkCoordIntPairQueue.isEmpty()) {
+            ArrayList arraylist = new ArrayList();
+            Iterator iterator = this.chunkCoordIntPairQueue.iterator();
+            ArrayList arraylist1 = new ArrayList();
+
+            while (iterator.hasNext() && arraylist.size() < 5) {
+                ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) iterator.next();
+
+                iterator.remove();
+                if (chunkcoordintpair != null && this.world.isLoaded(chunkcoordintpair.x << 4, 0, chunkcoordintpair.z << 4)) {
+                    arraylist.add(this.world.getChunkAt(chunkcoordintpair.x, chunkcoordintpair.z));
+                    arraylist1.addAll(((WorldServer) this.world).getTileEntities(chunkcoordintpair.x * 16, 0, chunkcoordintpair.z * 16, chunkcoordintpair.x * 16 + 16, 256, chunkcoordintpair.z * 16 + 16));
+                }
+            }
+
+            if (!arraylist.isEmpty()) {
+                this.netServerHandler.sendPacket(new Packet56MapChunkBulk(arraylist));
+                Iterator iterator1 = arraylist1.iterator();
+
+                while (iterator1.hasNext()) {
+                    TileEntity tileentity = (TileEntity) iterator1.next();
+
+                    this.a(tileentity);
+                }
+            }
+        }
+
+        if (!this.g.isEmpty()) {
+            i = Math.min(this.g.size(), 127);
+            int[] aint = new int[i];
+            Iterator iterator2 = this.g.iterator();
+            int j = 0;
+
+            while (iterator2.hasNext() && j < i) {
+                aint[j++] = ((Integer) iterator2.next()).intValue();
+                iterator2.remove();
+            }
+
+            this.netServerHandler.sendPacket(new Packet29DestroyEntity(aint));
         }
     }
 
-    public ItemStack c(int i) {
+    public void g() {
+        super.h_();
+
+        for (int i = 0; i < this.inventory.getSize(); ++i) {
+            ItemStack itemstack = this.inventory.getItem(i);
+
+            if (itemstack != null && Item.byId[itemstack.id].m_() && this.netServerHandler.lowPriorityCount() <= 2) {
+                Packet packet = ((ItemWorldMapBase) Item.byId[itemstack.id]).c(itemstack, this.world, this);
+
+                if (packet != null) {
+                    this.netServerHandler.sendPacket(packet);
+                }
+            }
+        }
+
+        if (this.bX) {
+            if (this.server.getAllowNether()) {
+                if (this.activeContainer != this.defaultContainer) {
+                    this.closeInventory();
+                }
+
+                if (this.vehicle != null) {
+                    this.mount(this.vehicle);
+                } else {
+                    this.bY += 0.0125F;
+                    if (this.bY >= 1.0F) {
+                        this.bY = 1.0F;
+                        this.bW = 10;
+                        boolean flag = false;
+                        byte b0;
+
+                        if (this.dimension == -1) {
+                            b0 = 0;
+                        } else {
+                            b0 = -1;
+                        }
+
+                        this.server.getServerConfigurationManager().changeDimension(this, b0);
+                        this.lastSentExp = -1;
+                        this.ch = -1;
+                        this.ci = -1;
+                        this.a((Statistic) AchievementList.x);
+                    }
+                }
+
+                this.bX = false;
+            }
+        } else {
+            if (this.bY > 0.0F) {
+                this.bY -= 0.05F;
+            }
+
+            if (this.bY < 0.0F) {
+                this.bY = 0.0F;
+            }
+        }
+
+        if (this.bW > 0) {
+            --this.bW;
+        }
+
+        if (this.getHealth() != this.ch || this.ci != this.foodData.a() || this.foodData.e() == 0.0F != this.cj) {
+            this.netServerHandler.sendPacket(new Packet8UpdateHealth(this.getHealth(), this.foodData.a(), this.foodData.e()));
+            this.ch = this.getHealth();
+            this.ci = this.foodData.a();
+            this.cj = this.foodData.e() == 0.0F;
+        }
+
+        if (this.expTotal != this.lastSentExp) {
+            this.lastSentExp = this.expTotal;
+            this.netServerHandler.sendPacket(new Packet43SetExperience(this.exp, this.expTotal, this.expLevel));
+        }
+    }
+
+    public ItemStack b(int i) {
         return i == 0 ? this.inventory.getItemInHand() : this.inventory.armor[i - 1];
     }
 
     public void die(DamageSource damagesource) {
-        this.server.serverConfigurationManager.sendAll(new Packet3Chat(damagesource.getLocalizedDeathMessage(this)));
-        this.inventory.k();
+        this.server.getServerConfigurationManager().sendAll(new Packet3Chat(damagesource.getLocalizedDeathMessage(this)));
+        this.inventory.m();
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
         if (this.invulnerableTicks > 0) {
             return false;
         } else {
-            if (!this.server.pvpMode && damagesource instanceof EntityDamageSource) {
+            if (!this.server.getPvP() && damagesource instanceof EntityDamageSource) {
                 Entity entity = damagesource.getEntity();
 
                 if (entity instanceof EntityHuman) {
@@ -132,130 +253,11 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
     }
 
-    protected boolean C() {
-        return this.server.pvpMode;
+    protected boolean h() {
+        return this.server.getPvP();
     }
 
-    public void heal(int i) {
-        super.heal(i);
-    }
-
-    public void a(boolean flag) {
-        super.F_();
-
-        for (int i = 0; i < this.inventory.getSize(); ++i) {
-            ItemStack itemstack = this.inventory.getItem(i);
-
-            if (itemstack != null && Item.byId[itemstack.id].t_() && this.netServerHandler.lowPriorityCount() <= 2) {
-                Packet packet = ((ItemWorldMapBase) Item.byId[itemstack.id]).c(itemstack, this.world, this);
-
-                if (packet != null) {
-                    this.netServerHandler.sendPacket(packet);
-                }
-            }
-        }
-
-        if (flag && !this.chunkCoordIntPairQueue.isEmpty()) {
-            ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) this.chunkCoordIntPairQueue.get(0);
-            double d0 = chunkcoordintpair.a(this);
-
-            for (int j = 0; j < this.chunkCoordIntPairQueue.size(); ++j) {
-                ChunkCoordIntPair chunkcoordintpair1 = (ChunkCoordIntPair) this.chunkCoordIntPairQueue.get(j);
-                double d1 = chunkcoordintpair1.a(this);
-
-                if (d1 < d0) {
-                    chunkcoordintpair = chunkcoordintpair1;
-                    d0 = d1;
-                }
-            }
-
-            if (chunkcoordintpair != null) {
-                boolean flag1 = false;
-
-                if (this.netServerHandler.lowPriorityCount() < 4) {
-                    flag1 = true;
-                }
-
-                if (flag1) {
-                    WorldServer worldserver = this.server.getWorldServer(this.dimension);
-
-                    if (worldserver.isLoaded(chunkcoordintpair.x << 4, 0, chunkcoordintpair.z << 4)) {
-                        Chunk chunk = worldserver.getChunkAt(chunkcoordintpair.x, chunkcoordintpair.z);
-
-                        if (chunk.done) {
-                            this.chunkCoordIntPairQueue.remove(chunkcoordintpair);
-                            this.netServerHandler.sendPacket(new Packet51MapChunk(worldserver.getChunkAt(chunkcoordintpair.x, chunkcoordintpair.z), true, 0));
-                            List list = worldserver.getTileEntities(chunkcoordintpair.x * 16, 0, chunkcoordintpair.z * 16, chunkcoordintpair.x * 16 + 16, 256, chunkcoordintpair.z * 16 + 16);
-
-                            for (int k = 0; k < list.size(); ++k) {
-                                this.a((TileEntity) list.get(k));
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        if (this.J) {
-            if (this.server.propertyManager.getBoolean("allow-nether", true)) {
-                if (this.activeContainer != this.defaultContainer) {
-                    this.closeInventory();
-                }
-
-                if (this.vehicle != null) {
-                    this.mount(this.vehicle);
-                } else {
-                    this.K += 0.0125F;
-                    if (this.K >= 1.0F) {
-                        this.K = 1.0F;
-                        this.I = 10;
-                        boolean flag2 = false;
-                        byte b0;
-
-                        if (this.dimension == -1) {
-                            b0 = 0;
-                        } else {
-                            b0 = -1;
-                        }
-
-                        this.server.serverConfigurationManager.changeDimension(this, b0);
-                        this.lastSentExp = -1;
-                        this.cf = -1;
-                        this.cg = -1;
-                        this.a((Statistic) AchievementList.x);
-                    }
-                }
-
-                this.J = false;
-            }
-        } else {
-            if (this.K > 0.0F) {
-                this.K -= 0.05F;
-            }
-
-            if (this.K < 0.0F) {
-                this.K = 0.0F;
-            }
-        }
-
-        if (this.I > 0) {
-            --this.I;
-        }
-
-        if (this.getHealth() != this.cf || this.cg != this.foodData.a() || this.foodData.c() == 0.0F != this.ch) {
-            this.netServerHandler.sendPacket(new Packet8UpdateHealth(this.getHealth(), this.foodData.a(), this.foodData.c()));
-            this.cf = this.getHealth();
-            this.cg = this.foodData.a();
-            this.ch = this.foodData.c() == 0.0F;
-        }
-
-        if (this.expTotal != this.lastSentExp) {
-            this.lastSentExp = this.expTotal;
-            this.netServerHandler.sendPacket(new Packet43SetExperience(this.exp, this.expTotal, this.expLevel));
-        }
-    }
-
-    public void e(int i) {
+    public void c(int i) {
         if (this.dimension == 1 && i == 1) {
             this.a((Statistic) AchievementList.C);
             this.world.kill(this);
@@ -269,16 +271,16 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                 this.netServerHandler.a((double) chunkcoordinates.x, (double) chunkcoordinates.y, (double) chunkcoordinates.z, 0.0F, 0.0F);
             }
 
-            this.server.serverConfigurationManager.changeDimension(this, 1);
+            this.server.getServerConfigurationManager().changeDimension(this, 1);
             this.lastSentExp = -1;
-            this.cf = -1;
-            this.cg = -1;
+            this.ch = -1;
+            this.ci = -1;
         }
     }
 
     private void a(TileEntity tileentity) {
         if (tileentity != null) {
-            Packet packet = tileentity.d();
+            Packet packet = tileentity.e();
 
             if (packet != null) {
                 this.netServerHandler.sendPacket(packet);
@@ -288,7 +290,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void receive(Entity entity, int i) {
         if (!entity.dead) {
-            EntityTracker entitytracker = this.server.getTracker(this.dimension);
+            EntityTracker entitytracker = this.q().getTracker();
 
             if (entity instanceof EntityItem) {
                 entitytracker.a(entity, new Packet22Collect(entity.id, this.id));
@@ -304,29 +306,24 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
 
         super.receive(entity, i);
-        this.activeContainer.a();
+        this.activeContainer.b();
     }
 
-    public void C_() {
-        if (!this.t) {
-            this.u = -1;
-            this.t = true;
-            EntityTracker entitytracker = this.server.getTracker(this.dimension);
-
-            entitytracker.a(this, new Packet18ArmAnimation(this, 1));
+    public void i() {
+        if (!this.bH) {
+            this.bI = -1;
+            this.bH = true;
+            this.q().getTracker().a(this, new Packet18ArmAnimation(this, 1));
         }
     }
-
-    public void E() {}
 
     public EnumBedResult a(int i, int j, int k) {
         EnumBedResult enumbedresult = super.a(i, j, k);
 
         if (enumbedresult == EnumBedResult.OK) {
-            EntityTracker entitytracker = this.server.getTracker(this.dimension);
             Packet17EntityLocationAction packet17entitylocationaction = new Packet17EntityLocationAction(this, 0, i, j, k);
 
-            entitytracker.a(this, packet17entitylocationaction);
+            this.q().getTracker().a(this, packet17entitylocationaction);
             this.netServerHandler.a(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
             this.netServerHandler.sendPacket(packet17entitylocationaction);
         }
@@ -336,9 +333,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(boolean flag, boolean flag1, boolean flag2) {
         if (this.isSleeping()) {
-            EntityTracker entitytracker = this.server.getTracker(this.dimension);
-
-            entitytracker.sendPacketToEntity(this, new Packet18ArmAnimation(this, 3));
+            this.q().getTracker().sendPacketToEntity(this, new Packet18ArmAnimation(this, 3));
         }
 
         super.a(flag, flag1, flag2);
@@ -380,6 +375,10 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void openContainer(IInventory iinventory) {
+        if (this.activeContainer != this.defaultContainer) {
+            this.closeInventory();
+        }
+
         this.nextContainerCounter();
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.containerCounter, 0, iinventory.getName(), iinventory.getSize()));
         this.activeContainer = new ContainerChest(this.inventory, iinventory);
@@ -411,6 +410,30 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.activeContainer.addSlotListener(this);
     }
 
+    public void openTrade(IMerchant imerchant) {
+        this.nextContainerCounter();
+        this.activeContainer = new ContainerMerchant(this.inventory, imerchant, this.world);
+        this.activeContainer.windowId = this.containerCounter;
+        this.activeContainer.addSlotListener(this);
+        InventoryMerchant inventorymerchant = ((ContainerMerchant) this.activeContainer).getMerchantInventory();
+
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.containerCounter, 6, inventorymerchant.getName(), inventorymerchant.getSize()));
+        MerchantRecipeList merchantrecipelist = imerchant.getOffers(this);
+
+        if (merchantrecipelist != null) {
+            try {
+                ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
+                DataOutputStream dataoutputstream = new DataOutputStream(bytearrayoutputstream);
+
+                dataoutputstream.writeInt(this.containerCounter);
+                merchantrecipelist.a(dataoutputstream);
+                this.netServerHandler.sendPacket(new Packet250CustomPayload("MC|TrList", bytearrayoutputstream.toByteArray()));
+            } catch (IOException ioexception) {
+                ioexception.printStackTrace();
+            }
+        }
+    }
+
     public void a(Container container, int i, ItemStack itemstack) {
         if (!(container.getSlot(i) instanceof SlotResult)) {
             if (!this.h) {
@@ -420,7 +443,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void updateInventory(Container container) {
-        this.a(container, container.b());
+        this.a(container, container.a());
     }
 
     public void a(Container container, List list) {
@@ -432,11 +455,9 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.netServerHandler.sendPacket(new Packet105CraftProgressBar(container.windowId, i, j));
     }
 
-    public void carriedChanged(ItemStack itemstack) {}
-
     public void closeInventory() {
         this.netServerHandler.sendPacket(new Packet101CloseWindow(this.activeContainer.windowId));
-        this.H();
+        this.l();
     }
 
     public void broadcastCarriedItem() {
@@ -445,7 +466,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
     }
 
-    public void H() {
+    public void l() {
         this.activeContainer.a((EntityHuman) this);
         this.activeContainer = this.defaultContainer;
     }
@@ -463,7 +484,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
     }
 
-    public void I() {
+    public void m() {
         if (this.vehicle != null) {
             this.mount(this.vehicle);
         }
@@ -477,29 +498,32 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
     }
 
-    public void D_() {
-        this.cf = -99999999;
+    public void n() {
+        this.ch = -99999999;
     }
 
-    public void a(String s) {
+    public void c(String s) {
         LocaleLanguage localelanguage = LocaleLanguage.a();
         String s1 = localelanguage.b(s);
 
         this.netServerHandler.sendPacket(new Packet3Chat(s1));
     }
 
-    protected void K() {
+    protected void o() {
         this.netServerHandler.sendPacket(new Packet38EntityStatus(this.id, (byte) 9));
-        super.K();
+        super.o();
     }
 
     public void a(ItemStack itemstack, int i) {
         super.a(itemstack, i);
-        if (itemstack != null && itemstack.getItem() != null && itemstack.getItem().d(itemstack) == EnumAnimation.b) {
-            EntityTracker entitytracker = this.server.getTracker(this.dimension);
-
-            entitytracker.sendPacketToEntity(this, new Packet18ArmAnimation(this, 5));
+        if (itemstack != null && itemstack.getItem() != null && itemstack.getItem().b(itemstack) == EnumAnimation.b) {
+            this.q().getTracker().sendPacketToEntity(this, new Packet18ArmAnimation(this, 5));
         }
+    }
+
+    protected void a(MobEffect mobeffect) {
+        super.a(mobeffect);
+        this.netServerHandler.sendPacket(new Packet41MobEffect(this.id, mobeffect));
     }
 
     protected void b(MobEffect mobeffect) {
@@ -509,11 +533,6 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     protected void c(MobEffect mobeffect) {
         super.c(mobeffect);
-        this.netServerHandler.sendPacket(new Packet41MobEffect(this.id, mobeffect));
-    }
-
-    protected void d(MobEffect mobeffect) {
-        super.d(mobeffect);
         this.netServerHandler.sendPacket(new Packet42RemoveMobEffect(this.id, mobeffect));
     }
 
@@ -521,21 +540,74 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.netServerHandler.a(d0, d1, d2, this.yaw, this.pitch);
     }
 
-    public void c(Entity entity) {
-        EntityTracker entitytracker = this.server.getTracker(this.dimension);
-
-        entitytracker.sendPacketToEntity(this, new Packet18ArmAnimation(entity, 6));
+    public void b(Entity entity) {
+        this.q().getTracker().sendPacketToEntity(this, new Packet18ArmAnimation(entity, 6));
     }
 
-    public void d(Entity entity) {
-        EntityTracker entitytracker = this.server.getTracker(this.dimension);
-
-        entitytracker.sendPacketToEntity(this, new Packet18ArmAnimation(entity, 7));
+    public void c(Entity entity) {
+        this.q().getTracker().sendPacketToEntity(this, new Packet18ArmAnimation(entity, 7));
     }
 
     public void updateAbilities() {
         if (this.netServerHandler != null) {
             this.netServerHandler.sendPacket(new Packet202Abilities(this.abilities));
         }
+    }
+
+    public WorldServer q() {
+        return (WorldServer) this.world;
+    }
+
+    public void a(EnumGamemode enumgamemode) {
+        this.itemInWorldManager.setGameMode(enumgamemode);
+        this.netServerHandler.sendPacket(new Packet70Bed(3, enumgamemode.a()));
+    }
+
+    public void sendMessage(String s) {
+        this.netServerHandler.sendPacket(new Packet3Chat(s));
+    }
+
+    public boolean b(String s) {
+        return "seed".equals(s) && !this.server.S() ? true : this.server.getServerConfigurationManager().isOp(this.name);
+    }
+
+    public String r() {
+        String s = this.netServerHandler.networkManager.getSocketAddress().toString();
+
+        s = s.substring(s.indexOf("/") + 1);
+        s = s.substring(0, s.indexOf(":"));
+        return s;
+    }
+
+    public void a(Packet204LocaleAndViewDistance packet204localeandviewdistance) {
+        if (this.locale.b().containsKey(packet204localeandviewdistance.d())) {
+            this.locale.a(packet204localeandviewdistance.d());
+        }
+
+        int i = 256 >> packet204localeandviewdistance.f();
+
+        if (i > 3 && i < 15) {
+            this.cm = i;
+        }
+
+        this.cn = packet204localeandviewdistance.g();
+        this.co = packet204localeandviewdistance.h();
+        if (this.server.H() && this.server.G().equals(this.name)) {
+            this.server.c(packet204localeandviewdistance.i());
+        }
+    }
+
+    public LocaleLanguage getLocale() {
+        return this.locale;
+    }
+
+    public int getChatFlags() {
+        return this.cn;
+    }
+
+    public void a(String s, int i) {
+        String s1 = s + " + i;
+
+        this.netServerHandler.sendPacket(new Packet250CustomPayload("MC|TPack", s1.getBytes()));
     }
 }

@@ -2,8 +2,11 @@ package net.minecraft.server;
 
 public class BlockSmoothBrick extends Block {
 
+    public static final String[] a = new String[] { "default", "mossy", "cracked", "chiseled"};
+
     public BlockSmoothBrick(int i) {
         super(i, 54, Material.STONE);
+        this.a(CreativeModeTab.b);
     }
 
     public int a(int i, int j) {

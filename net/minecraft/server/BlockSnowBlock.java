@@ -6,7 +6,8 @@ public class BlockSnowBlock extends Block {
 
     protected BlockSnowBlock(int i, int j) {
         super(i, j, Material.SNOW_BLOCK);
-        this.a(true);
+        this.b(true);
+        this.a(CreativeModeTab.b);
     }
 
     public int getDropType(int i, Random random, int j) {
@@ -17,9 +18,9 @@ public class BlockSnowBlock extends Block {
         return 4;
     }
 
-    public void a(World world, int i, int j, int k, Random random) {
-        if (world.a(EnumSkyBlock.BLOCK, i, j, k) > 11) {
-            this.b(world, i, j, k, world.getData(i, j, k), 0);
+    public void b(World world, int i, int j, int k, Random random) {
+        if (world.b(EnumSkyBlock.BLOCK, i, j, k) > 11) {
+            this.c(world, i, j, k, world.getData(i, j, k), 0);
             world.setTypeId(i, j, k, 0);
         }
     }

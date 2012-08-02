@@ -7,14 +7,14 @@ public class ItemBlock extends Item {
     public ItemBlock(int i) {
         super(i);
         this.id = i + 256;
-        this.d(Block.byId[i + 256].a(2));
+        this.c(Block.byId[i + 256].a(2));
     }
 
-    public int a() {
+    public int f() {
         return this.id;
     }
 
-    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
+    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l, float f, float f1, float f2) {
         int i1 = world.getTypeId(i, j, k);
 
         if (i1 == Block.SNOW.id) {
@@ -47,16 +47,16 @@ public class ItemBlock extends Item {
 
         if (itemstack.count == 0) {
             return false;
-        } else if (!entityhuman.d(i, j, k)) {
+        } else if (!entityhuman.e(i, j, k)) {
             return false;
         } else if (j == 255 && Block.byId[this.id].material.isBuildable()) {
             return false;
-        } else if (world.mayPlace(this.id, i, j, k, false, l)) {
+        } else if (world.mayPlace(this.id, i, j, k, false, l, entityhuman)) {
             Block block = Block.byId[this.id];
 
             if (world.setTypeIdAndData(i, j, k, this.id, this.filterData(itemstack.getData()))) {
                 if (world.getTypeId(i, j, k) == this.id) {
-                    Block.byId[this.id].postPlace(world, i, j, k, l);
+                    Block.byId[this.id].postPlace(world, i, j, k, l, f, f1, f2);
                     Block.byId[this.id].postPlace(world, i, j, k, entityhuman);
                 }
 
@@ -70,11 +70,11 @@ public class ItemBlock extends Item {
         }
     }
 
-    public String a(ItemStack itemstack) {
-        return Block.byId[this.id].q();
+    public String c(ItemStack itemstack) {
+        return Block.byId[this.id].a();
     }
 
     public String getName() {
-        return Block.byId[this.id].q();
+        return Block.byId[this.id].a();
     }
 }

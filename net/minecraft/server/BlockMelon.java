@@ -7,6 +7,7 @@ public class BlockMelon extends Block {
     protected BlockMelon(int i) {
         super(i, Material.PUMPKIN);
         this.textureId = 136;
+        this.a(CreativeModeTab.b);
     }
 
     public int a(int i, int j) {

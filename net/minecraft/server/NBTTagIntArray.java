@@ -19,9 +19,13 @@ public class NBTTagIntArray extends NBTBase {
 
     void write(DataOutput dataoutput) {
         dataoutput.writeInt(this.data.length);
+        int[] aint = this.data;
+        int i = aint.length;
 
-        for (int i = 0; i < this.data.length; ++i) {
-            dataoutput.writeInt(this.data[i]);
+        for (int j = 0; j < i; ++j) {
+            int k = aint[j];
+
+            dataoutput.writeInt(k);
         }
     }
 
@@ -56,7 +60,7 @@ public class NBTTagIntArray extends NBTBase {
         } else {
             NBTTagIntArray nbttagintarray = (NBTTagIntArray) object;
 
-            return this.data == null && nbttagintarray.data == null || this.data != null && this.data.equals(nbttagintarray.data);
+            return this.data == null && nbttagintarray.data == null || this.data != null && Arrays.equals(this.data, nbttagintarray.data);
         }
     }
 

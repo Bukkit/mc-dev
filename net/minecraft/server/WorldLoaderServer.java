@@ -7,6 +7,8 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class WorldLoaderServer extends WorldLoader {
@@ -15,8 +17,12 @@ public class WorldLoaderServer extends WorldLoader {
         super(file1);
     }
 
-    protected int a() {
+    protected int c() {
         return 19133;
+    }
+
+    public void d() {
+        RegionFileCache.a();
     }
 
     public IDataManager a(String s, boolean flag) {
@@ -24,9 +30,9 @@ public class WorldLoaderServer extends WorldLoader {
     }
 
     public boolean isConvertable(String s) {
-        WorldData worlddata = this.b(s);
+        WorldData worlddata = this.c(s);
 
-        return worlddata != null && worlddata.h() != this.a();
+        return worlddata != null && worlddata.k() != this.c();
     }
 
     public boolean convert(String s, IProgressUpdate iprogressupdate) {
@@ -51,7 +57,7 @@ public class WorldLoaderServer extends WorldLoader {
         int i = arraylist.size() + arraylist1.size() + arraylist2.size();
 
         System.out.println("Total conversion count is " + i);
-        WorldData worlddata = this.b(s);
+        WorldData worlddata = this.c(s);
         Object object = null;
 
         if (worlddata.getType() == WorldType.FLAT) {
@@ -60,22 +66,22 @@ public class WorldLoaderServer extends WorldLoader {
             object = new WorldChunkManager(worlddata.getSeed(), worlddata.getType());
         }
 
-        this.a(new File(file1, "region"), arraylist, (WorldChunkManager) object, 0, i, iprogressupdate);
-        this.a(new File(file2, "region"), arraylist1, new WorldChunkManagerHell(BiomeBase.HELL, 1.0F, 0.0F), arraylist.size(), i, iprogressupdate);
-        this.a(new File(file3, "region"), arraylist2, new WorldChunkManagerHell(BiomeBase.SKY, 0.5F, 0.0F), arraylist.size() + arraylist1.size(), i, iprogressupdate);
-        worlddata.a(19133);
-        if (worlddata.getType() == WorldType.VERSION_1_1f) {
+        this.a(new File(file1, "region"), (Iterable) arraylist, (WorldChunkManager) object, 0, i, iprogressupdate);
+        this.a(new File(file2, "region"), (Iterable) arraylist1, new WorldChunkManagerHell(BiomeBase.HELL, 1.0F, 0.0F), arraylist.size(), i, iprogressupdate);
+        this.a(new File(file3, "region"), (Iterable) arraylist2, new WorldChunkManagerHell(BiomeBase.SKY, 0.5F, 0.0F), arraylist.size() + arraylist1.size(), i, iprogressupdate);
+        worlddata.e(19133);
+        if (worlddata.getType() == WorldType.NORMAL_1_1) {
             worlddata.setType(WorldType.NORMAL);
         }
 
-        this.c(s);
+        this.f(s);
         IDataManager idatamanager = this.a(s, false);
 
         idatamanager.saveWorldData(worlddata);
         return true;
     }
 
-    private void c(String s) {
+    private void f(String s) {
         File file1 = new File(this.a, s);
 
         if (!file1.exists()) {
@@ -95,8 +101,8 @@ public class WorldLoaderServer extends WorldLoader {
         }
     }
 
-    private void a(File file1, ArrayList arraylist, WorldChunkManager worldchunkmanager, int i, int j, IProgressUpdate iprogressupdate) {
-        Iterator iterator = arraylist.iterator();
+    private void a(File file1, Iterable iterable, WorldChunkManager worldchunkmanager, int i, int j, IProgressUpdate iprogressupdate) {
+        Iterator iterator = iterable.iterator();
 
         while (iterator.hasNext()) {
             File file2 = (File) iterator.next();
@@ -151,26 +157,19 @@ public class WorldLoaderServer extends WorldLoader {
                 }
             }
 
-            regionfile.a();
-            regionfile1.a();
+            regionfile.c();
+            regionfile1.c();
         } catch (IOException ioexception) {
             ioexception.printStackTrace();
         }
     }
 
-    private void a(File file1, ArrayList arraylist) {
+    private void a(File file1, Collection collection) {
         File file2 = new File(file1, "region");
         File[] afile = file2.listFiles(new ChunkFilenameFilter(this));
 
         if (afile != null) {
-            File[] afile1 = afile;
-            int i = afile.length;
-
-            for (int j = 0; j < i; ++j) {
-                File file3 = afile1[j];
-
-                arraylist.add(file3);
-            }
+            Collections.addAll(collection, afile);
         }
     }
 }

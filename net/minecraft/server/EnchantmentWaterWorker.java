@@ -4,7 +4,7 @@ public class EnchantmentWaterWorker extends Enchantment {
 
     public EnchantmentWaterWorker(int i, int j) {
         super(i, j, EnchantmentSlotType.ARMOR_HEAD);
-        this.a("waterWorker");
+        this.b("waterWorker");
     }
 
     public int a(int i) {

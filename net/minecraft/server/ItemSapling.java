@@ -11,4 +11,14 @@ public class ItemSapling extends ItemBlock {
     public int filterData(int i) {
         return i;
     }
+
+    public String c(ItemStack itemstack) {
+        int i = itemstack.getData();
+
+        if (i < 0 || i >= BlockSapling.a.length) {
+            i = 0;
+        }
+
+        return super.getName() + "." + BlockSapling.a[i];
+    }
 }

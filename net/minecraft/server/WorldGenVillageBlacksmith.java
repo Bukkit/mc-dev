@@ -9,18 +9,16 @@ public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
     private int b = -1;
     private boolean c;
 
-    public WorldGenVillageBlacksmith(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
-        super(i);
-        this.h = j;
-        this.g = structureboundingbox;
+    public WorldGenVillageBlacksmith(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
+        super(worldgenvillagestartpiece, i);
+        this.f = j;
+        this.e = structureboundingbox;
     }
 
-    public void a(StructurePiece structurepiece, List list, Random random) {}
-
-    public static WorldGenVillageBlacksmith a(List list, Random random, int i, int j, int k, int l, int i1) {
+    public static WorldGenVillageBlacksmith a(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
         StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, 0, 0, 0, 10, 6, 7, l);
 
-        return a(structureboundingbox) && StructurePiece.a(list, structureboundingbox) == null ? new WorldGenVillageBlacksmith(i1, random, structureboundingbox, l) : null;
+        return a(structureboundingbox) && StructurePiece.a(list, structureboundingbox) == null ? new WorldGenVillageBlacksmith(worldgenvillagestartpiece, i1, random, structureboundingbox, l) : null;
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
@@ -30,7 +28,7 @@ public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
                 return true;
             }
 
-            this.g.a(0, this.b - this.g.e + 6 - 1, 0);
+            this.e.a(0, this.b - this.e.e + 6 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 0, 1, 0, 9, 4, 6, 0, 0, false);
@@ -72,7 +70,7 @@ public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
         int j;
 
         if (!this.c) {
-            i = this.b(1);
+            i = this.a(1);
             j = this.a(5, 5);
             int k = this.b(5, 5);
 
@@ -99,7 +97,7 @@ public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
         return true;
     }
 
-    protected int a(int i) {
+    protected int b(int i) {
         return 3;
     }
 }

@@ -53,7 +53,7 @@ public class ChunkProviderFlat implements IChunkProvider {
         }
 
         BiomeBase[] abiomebase = this.a.getWorldChunkManager().getBiomeBlock((BiomeBase[]) null, i * 16, j * 16, 16, 16);
-        byte[] abyte1 = chunk.l();
+        byte[] abyte1 = chunk.m();
 
         for (int k = 0; k < abyte1.length; ++k) {
             abyte1[k] = (byte) abiomebase[k].id;
@@ -90,6 +90,10 @@ public class ChunkProviderFlat implements IChunkProvider {
         return true;
     }
 
+    public String getName() {
+        return "FlatLevelSource";
+    }
+
     public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
         BiomeBase biomebase = this.a.getBiome(i, k);
 
@@ -98,5 +102,9 @@ public class ChunkProviderFlat implements IChunkProvider {
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {
         return null;
+    }
+
+    public int getLoadedChunks() {
+        return 0;
     }
 }

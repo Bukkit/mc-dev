@@ -5,16 +5,16 @@ import java.awt.event.WindowEvent;
 
 final class ServerWindowAdapter extends WindowAdapter {
 
-    final MinecraftServer a;
+    final DedicatedServer a;
 
-    ServerWindowAdapter(MinecraftServer minecraftserver) {
-        this.a = minecraftserver;
+    ServerWindowAdapter(DedicatedServer dedicatedserver) {
+        this.a = dedicatedserver;
     }
 
     public void windowClosing(WindowEvent windowevent) {
         this.a.safeShutdown();
 
-        while (!this.a.isStopped) {
+        while (!this.a.isStopped()) {
             try {
                 Thread.sleep(100L);
             } catch (InterruptedException interruptedexception) {

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class WorldGenCanyon extends WorldGenBase {
 
-    private float[] a = new float[1024];
+    private float[] d = new float[1024];
 
     public WorldGenCanyon() {}
 
@@ -16,7 +16,7 @@ public class WorldGenCanyon extends WorldGenBase {
         float f4 = 0.0F;
 
         if (i1 <= 0) {
-            int j1 = this.b * 16 - 16;
+            int j1 = this.a * 16 - 16;
 
             i1 = j1 - random.nextInt(j1 / 4);
         }
@@ -35,7 +35,7 @@ public class WorldGenCanyon extends WorldGenBase {
                 f5 = 1.0F + random.nextFloat() * random.nextFloat() * 1.0F;
             }
 
-            this.a[k1] = f5 * f5;
+            this.d[k1] = f5 * f5;
         }
 
         for (; l < i1; ++l) {
@@ -134,7 +134,7 @@ public class WorldGenCanyon extends WorldGenBase {
                                     for (int k4 = k2 - 1; k4 >= j2; --k4) {
                                         double d14 = ((double) k4 + 0.5D - d1) / d7;
 
-                                        if ((d12 * d12 + d13 * d13) * (double) this.a[k4] + d14 * d14 / 6.0D < 1.0D) {
+                                        if ((d12 * d12 + d13 * d13) * (double) this.d[k4] + d14 * d14 / 6.0D < 1.0D) {
                                             byte b0 = abyte[j4];
 
                                             if (b0 == Block.GRASS.id) {
@@ -147,7 +147,7 @@ public class WorldGenCanyon extends WorldGenBase {
                                                 } else {
                                                     abyte[j4] = 0;
                                                     if (flag2 && abyte[j4 - 1] == Block.DIRT.id) {
-                                                        abyte[j4 - 1] = this.d.getBiome(j3 + j * 16, k3 + k * 16).A;
+                                                        abyte[j4 - 1] = this.c.getBiome(j3 + j * 16, k3 + k * 16).A;
                                                     }
                                                 }
                                             }
@@ -169,18 +169,18 @@ public class WorldGenCanyon extends WorldGenBase {
     }
 
     protected void a(World world, int i, int j, int k, int l, byte[] abyte) {
-        if (this.c.nextInt(50) == 0) {
-            double d0 = (double) (i * 16 + this.c.nextInt(16));
-            double d1 = (double) (this.c.nextInt(this.c.nextInt(40) + 8) + 20);
-            double d2 = (double) (j * 16 + this.c.nextInt(16));
+        if (this.b.nextInt(50) == 0) {
+            double d0 = (double) (i * 16 + this.b.nextInt(16));
+            double d1 = (double) (this.b.nextInt(this.b.nextInt(40) + 8) + 20);
+            double d2 = (double) (j * 16 + this.b.nextInt(16));
             byte b0 = 1;
 
             for (int i1 = 0; i1 < b0; ++i1) {
-                float f = this.c.nextFloat() * 3.1415927F * 2.0F;
-                float f1 = (this.c.nextFloat() - 0.5F) * 2.0F / 8.0F;
-                float f2 = (this.c.nextFloat() * 2.0F + this.c.nextFloat()) * 2.0F;
+                float f = this.b.nextFloat() * 3.1415927F * 2.0F;
+                float f1 = (this.b.nextFloat() - 0.5F) * 2.0F / 8.0F;
+                float f2 = (this.b.nextFloat() * 2.0F + this.b.nextFloat()) * 2.0F;
 
-                this.a(this.c.nextLong(), k, l, abyte, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
+                this.a(this.b.nextLong(), k, l, abyte, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
             }
         }
     }

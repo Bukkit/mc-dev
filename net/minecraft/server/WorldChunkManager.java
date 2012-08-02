@@ -6,29 +6,29 @@ import java.util.Random;
 
 public class WorldChunkManager {
 
-    private GenLayer a;
-    private GenLayer b;
-    private BiomeCache c;
-    private List d;
+    private GenLayer d;
+    private GenLayer e;
+    private BiomeCache f;
+    private List g;
 
     protected WorldChunkManager() {
-        this.c = new BiomeCache(this);
-        this.d = new ArrayList();
-        this.d.add(BiomeBase.FOREST);
-        this.d.add(BiomeBase.PLAINS);
-        this.d.add(BiomeBase.TAIGA);
-        this.d.add(BiomeBase.TAIGA_HILLS);
-        this.d.add(BiomeBase.FOREST_HILLS);
-        this.d.add(BiomeBase.JUNGLE);
-        this.d.add(BiomeBase.JUNGLE_HILLS);
+        this.f = new BiomeCache(this);
+        this.g = new ArrayList();
+        this.g.add(BiomeBase.FOREST);
+        this.g.add(BiomeBase.PLAINS);
+        this.g.add(BiomeBase.TAIGA);
+        this.g.add(BiomeBase.TAIGA_HILLS);
+        this.g.add(BiomeBase.FOREST_HILLS);
+        this.g.add(BiomeBase.JUNGLE);
+        this.g.add(BiomeBase.JUNGLE_HILLS);
     }
 
     public WorldChunkManager(long i, WorldType worldtype) {
         this();
         GenLayer[] agenlayer = GenLayer.a(i, worldtype);
 
-        this.a = agenlayer[0];
-        this.b = agenlayer[1];
+        this.d = agenlayer[0];
+        this.e = agenlayer[1];
     }
 
     public WorldChunkManager(World world) {
@@ -36,11 +36,11 @@ public class WorldChunkManager {
     }
 
     public List a() {
-        return this.d;
+        return this.g;
     }
 
     public BiomeBase getBiome(int i, int j) {
-        return this.c.b(i, j);
+        return this.f.b(i, j);
     }
 
     public float[] getWetness(float[] afloat, int i, int j, int k, int l) {
@@ -49,7 +49,7 @@ public class WorldChunkManager {
             afloat = new float[k * l];
         }
 
-        int[] aint = this.b.a(i, j, k, l);
+        int[] aint = this.e.a(i, j, k, l);
 
         for (int i1 = 0; i1 < k * l; ++i1) {
             float f = (float) BiomeBase.biomes[aint[i1]].g() / 65536.0F;
@@ -70,7 +70,7 @@ public class WorldChunkManager {
             afloat = new float[k * l];
         }
 
-        int[] aint = this.b.a(i, j, k, l);
+        int[] aint = this.e.a(i, j, k, l);
 
         for (int i1 = 0; i1 < k * l; ++i1) {
             float f = (float) BiomeBase.biomes[aint[i1]].h() / 65536.0F;
@@ -91,7 +91,7 @@ public class WorldChunkManager {
             abiomebase = new BiomeBase[k * l];
         }
 
-        int[] aint = this.a.a(i, j, k, l);
+        int[] aint = this.d.a(i, j, k, l);
 
         for (int i1 = 0; i1 < k * l; ++i1) {
             abiomebase[i1] = BiomeBase.biomes[aint[i1]];
@@ -111,12 +111,12 @@ public class WorldChunkManager {
         }
 
         if (flag && k == 16 && l == 16 && (i & 15) == 0 && (j & 15) == 0) {
-            BiomeBase[] abiomebase1 = this.c.c(i, j);
+            BiomeBase[] abiomebase1 = this.f.e(i, j);
 
             System.arraycopy(abiomebase1, 0, abiomebase, 0, k * l);
             return abiomebase;
         } else {
-            int[] aint = this.b.a(i, j, k, l);
+            int[] aint = this.e.a(i, j, k, l);
 
             for (int i1 = 0; i1 < k * l; ++i1) {
                 abiomebase[i1] = BiomeBase.biomes[aint[i1]];
@@ -133,7 +133,7 @@ public class WorldChunkManager {
         int k1 = j + k >> 2;
         int l1 = j1 - l + 1;
         int i2 = k1 - i1 + 1;
-        int[] aint = this.a.a(l, i1, l1, i2);
+        int[] aint = this.d.a(l, i1, l1, i2);
 
         for (int j2 = 0; j2 < l1 * i2; ++j2) {
             BiomeBase biomebase = BiomeBase.biomes[aint[j2]];
@@ -153,7 +153,7 @@ public class WorldChunkManager {
         int k1 = j + k >> 2;
         int l1 = j1 - l + 1;
         int i2 = k1 - i1 + 1;
-        int[] aint = this.a.a(l, i1, l1, i2);
+        int[] aint = this.d.a(l, i1, l1, i2);
         ChunkPosition chunkposition = null;
         int j2 = 0;
 
@@ -172,6 +172,6 @@ public class WorldChunkManager {
     }
 
     public void b() {
-        this.c.a();
+        this.f.a();
     }
 }

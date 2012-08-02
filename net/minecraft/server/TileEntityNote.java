@@ -24,7 +24,7 @@ public class TileEntityNote extends TileEntity {
         }
     }
 
-    public void c() {
+    public void a() {
         this.note = (byte) ((this.note + 1) % 25);
         this.update();
     }
@@ -50,7 +50,7 @@ public class TileEntityNote extends TileEntity {
                 b0 = 4;
             }
 
-            world.playNote(i, j, k, b0, this.note);
+            world.playNote(i, j, k, Block.NOTE_BLOCK.id, b0, this.note);
         }
     }
 }

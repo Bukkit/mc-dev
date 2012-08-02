@@ -11,24 +11,59 @@ public class Packet24MobSpawn extends Packet {
     public int c;
     public int d;
     public int e;
-    public byte f;
-    public byte g;
-    public byte h;
-    private DataWatcher i;
-    private List q;
+    public int f;
+    public int g;
+    public int h;
+    public byte i;
+    public byte j;
+    public byte k;
+    private DataWatcher s;
+    private List t;
 
     public Packet24MobSpawn() {}
 
     public Packet24MobSpawn(EntityLiving entityliving) {
         this.a = entityliving.id;
-        this.b = (byte) EntityTypes.a((Entity) entityliving);
-        this.c = MathHelper.floor(entityliving.locX * 32.0D);
+        this.b = (byte) EntityTypes.a(entityliving);
+        this.c = entityliving.am.a(entityliving.locX);
         this.d = MathHelper.floor(entityliving.locY * 32.0D);
-        this.e = MathHelper.floor(entityliving.locZ * 32.0D);
-        this.f = (byte) ((int) (entityliving.yaw * 256.0F / 360.0F));
-        this.g = (byte) ((int) (entityliving.pitch * 256.0F / 360.0F));
-        this.h = (byte) ((int) (entityliving.X * 256.0F / 360.0F));
-        this.i = entityliving.getDataWatcher();
+        this.e = entityliving.am.a(entityliving.locZ);
+        this.i = (byte) ((int) (entityliving.yaw * 256.0F / 360.0F));
+        this.j = (byte) ((int) (entityliving.pitch * 256.0F / 360.0F));
+        this.k = (byte) ((int) (entityliving.as * 256.0F / 360.0F));
+        double d0 = 3.9D;
+        double d1 = entityliving.motX;
+        double d2 = entityliving.motY;
+        double d3 = entityliving.motZ;
+
+        if (d1 < -d0) {
+            d1 = -d0;
+        }
+
+        if (d2 < -d0) {
+            d2 = -d0;
+        }
+
+        if (d3 < -d0) {
+            d3 = -d0;
+        }
+
+        if (d1 > d0) {
+            d1 = d0;
+        }
+
+        if (d2 > d0) {
+            d2 = d0;
+        }
+
+        if (d3 > d0) {
+            d3 = d0;
+        }
+
+        this.f = (int) (d1 * 8000.0D);
+        this.g = (int) (d2 * 8000.0D);
+        this.h = (int) (d3 * 8000.0D);
+        this.s = entityliving.getDataWatcher();
     }
 
     public void a(DataInputStream datainputstream) {
@@ -37,10 +72,13 @@ public class Packet24MobSpawn extends Packet {
         this.c = datainputstream.readInt();
         this.d = datainputstream.readInt();
         this.e = datainputstream.readInt();
-        this.f = datainputstream.readByte();
-        this.g = datainputstream.readByte();
-        this.h = datainputstream.readByte();
-        this.q = DataWatcher.a(datainputstream);
+        this.i = datainputstream.readByte();
+        this.j = datainputstream.readByte();
+        this.k = datainputstream.readByte();
+        this.f = datainputstream.readShort();
+        this.g = datainputstream.readShort();
+        this.h = datainputstream.readShort();
+        this.t = DataWatcher.a(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
@@ -49,10 +87,13 @@ public class Packet24MobSpawn extends Packet {
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);
         dataoutputstream.writeInt(this.e);
-        dataoutputstream.writeByte(this.f);
-        dataoutputstream.writeByte(this.g);
-        dataoutputstream.writeByte(this.h);
-        this.i.a(dataoutputstream);
+        dataoutputstream.writeByte(this.i);
+        dataoutputstream.writeByte(this.j);
+        dataoutputstream.writeByte(this.k);
+        dataoutputstream.writeShort(this.f);
+        dataoutputstream.writeShort(this.g);
+        dataoutputstream.writeShort(this.h);
+        this.s.a(dataoutputstream);
     }
 
     public void handle(NetHandler nethandler) {
@@ -60,6 +101,6 @@ public class Packet24MobSpawn extends Packet {
     }
 
     public int a() {
-        return 20;
+        return 26;
     }
 }

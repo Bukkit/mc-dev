@@ -8,7 +8,7 @@ public class GenLayerBiome extends GenLayer {
         super(i);
         this.b = new BiomeBase[] { BiomeBase.DESERT, BiomeBase.FOREST, BiomeBase.EXTREME_HILLS, BiomeBase.SWAMPLAND, BiomeBase.PLAINS, BiomeBase.TAIGA, BiomeBase.JUNGLE};
         this.a = genlayer;
-        if (worldtype == WorldType.VERSION_1_1f) {
+        if (worldtype == WorldType.NORMAL_1_1) {
             this.b = new BiomeBase[] { BiomeBase.DESERT, BiomeBase.FOREST, BiomeBase.EXTREME_HILLS, BiomeBase.SWAMPLAND, BiomeBase.PLAINS, BiomeBase.TAIGA};
         }
     }
@@ -29,7 +29,13 @@ public class GenLayerBiome extends GenLayer {
                 } else if (k1 == 1) {
                     aint1[j1 + i1 * k] = this.b[this.a(this.b.length)].id;
                 } else {
-                    aint1[j1 + i1 * k] = BiomeBase.ICE_PLAINS.id;
+                    int l1 = this.b[this.a(this.b.length)].id;
+
+                    if (l1 == BiomeBase.TAIGA.id) {
+                        aint1[j1 + i1 * k] = l1;
+                    } else {
+                        aint1[j1 + i1 * k] = BiomeBase.ICE_PLAINS.id;
+                    }
                 }
             }
         }

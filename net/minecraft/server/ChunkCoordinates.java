@@ -38,25 +38,21 @@ public class ChunkCoordinates implements Comparable {
         return this.y == chunkcoordinates.y ? (this.z == chunkcoordinates.z ? this.x - chunkcoordinates.x : this.z - chunkcoordinates.z) : this.y - chunkcoordinates.y;
     }
 
-    public void a(int i, int j, int k) {
+    public void b(int i, int j, int k) {
         this.x = i;
         this.y = j;
         this.z = k;
     }
 
-    public double b(int i, int j, int k) {
-        int l = this.x - i;
-        int i1 = this.y - j;
-        int j1 = this.z - k;
-
-        return Math.sqrt((double) (l * l + i1 * i1 + j1 * j1));
-    }
-
-    public float c(int i, int j, int k) {
+    public float e(int i, int j, int k) {
         int l = this.x - i;
         int i1 = this.y - j;
         int j1 = this.z - k;
 
         return (float) (l * l + i1 * i1 + j1 * j1);
+    }
+
+    public int compareTo(Object object) {
+        return this.compareTo((ChunkCoordinates) object);
     }
 }

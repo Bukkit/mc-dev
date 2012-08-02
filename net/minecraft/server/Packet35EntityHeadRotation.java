@@ -32,4 +32,18 @@ public class Packet35EntityHeadRotation extends Packet {
     public int a() {
         return 5;
     }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        Packet35EntityHeadRotation packet35entityheadrotation = (Packet35EntityHeadRotation) packet;
+
+        return packet35entityheadrotation.a == this.a;
+    }
+
+    public boolean a_() {
+        return true;
+    }
 }

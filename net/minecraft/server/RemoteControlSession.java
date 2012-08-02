@@ -17,6 +17,13 @@ public class RemoteControlSession extends RemoteConnectionThread {
     RemoteControlSession(IMinecraftServer iminecraftserver, Socket socket) {
         super(iminecraftserver);
         this.h = socket;
+
+        try {
+            this.h.setSoTimeout(0);
+        } catch (Exception exception) {
+            this.running = false;
+        }
+
         this.j = iminecraftserver.a("rcon.password", "");
         this.info("Rcon connection from: " + socket.getInetAddress());
     }
@@ -25,76 +32,71 @@ public class RemoteControlSession extends RemoteConnectionThread {
         while (true) {
             try {
                 if (!this.running) {
+                    break;
+                }
+
+                BufferedInputStream bufferedinputstream = new BufferedInputStream(this.h.getInputStream());
+                int i = bufferedinputstream.read(this.i, 0, 1460);
+
+                if (10 > i) {
                     return;
                 }
 
-                try {
-                    BufferedInputStream bufferedinputstream = new BufferedInputStream(this.h.getInputStream());
-                    int i = bufferedinputstream.read(this.i, 0, 1460);
+                byte b0 = 0;
+                int j = StatusChallengeUtils.b(this.i, 0, i);
 
-                    if (10 <= i) {
-                        byte b0 = 0;
-                        int j = StatusChallengeUtils.b(this.i, 0, i);
+                if (j == i - 4) {
+                    int k = b0 + 4;
+                    int l = StatusChallengeUtils.b(this.i, k, i);
 
-                        if (j != i - 4) {
-                            return;
+                    k += 4;
+                    int i1 = StatusChallengeUtils.b(this.i, k);
+
+                    k += 4;
+                    switch (i1) {
+                    case 2:
+                        if (this.g) {
+                            String s = StatusChallengeUtils.a(this.i, k, i);
+
+                            try {
+                                this.a(l, this.server.i(s));
+                            } catch (Exception exception) {
+                                this.a(l, "Error executing: " + s + " (" + exception.getMessage() + ")");
+                            }
+                            continue;
                         }
 
-                        int k = b0 + 4;
-                        int l = StatusChallengeUtils.b(this.i, k, i);
+                        this.f();
+                        continue;
 
-                        k += 4;
-                        int i1 = StatusChallengeUtils.a(this.i, k);
+                    case 3:
+                        String s1 = StatusChallengeUtils.a(this.i, k, i);
+                        int j1 = k + s1.length();
 
-                        k += 4;
-                        switch (i1) {
-                        case 2:
-                            if (this.g) {
-                                String s = StatusChallengeUtils.a(this.i, k, i);
-
-                                try {
-                                    this.a(l, this.server.d(s));
-                                } catch (Exception exception) {
-                                    this.a(l, "Error executing: " + s + " (" + exception.getMessage() + ")");
-                                }
-                                continue;
-                            }
-
-                            this.e();
-                            continue;
-
-                        case 3:
-                            String s1 = StatusChallengeUtils.a(this.i, k, i);
-                            int j1 = k + s1.length();
-
-                            if (0 != s1.length() && s1.equals(this.j)) {
-                                this.g = true;
-                                this.a(l, 2, "");
-                                continue;
-                            }
-
-                            this.g = false;
-                            this.e();
-                            continue;
-
-                        default:
-                            this.a(l, String.format("Unknown request %s", new Object[] { Integer.toHexString(i1)}));
+                        if (0 != s1.length() && s1.equals(this.j)) {
+                            this.g = true;
+                            this.a(l, 2, "");
                             continue;
                         }
+
+                        this.g = false;
+                        this.f();
+                        continue;
+
+                    default:
+                        this.a(l, String.format("Unknown request %s", new Object[] { Integer.toHexString(i1)}));
+                        continue;
                     }
-                } catch (SocketTimeoutException sockettimeoutexception) {
-                    continue;
-                } catch (IOException ioexception) {
-                    if (this.running) {
-                        this.info("IO: " + ioexception.getMessage());
-                    }
-                    continue;
                 }
+            } catch (SocketTimeoutException sockettimeoutexception) {
+                break;
+            } catch (IOException ioexception) {
+                break;
             } catch (Exception exception1) {
                 System.out.println(exception1);
-                return;
+                break;
             } finally {
-                this.f();
+                this.g();
             }
 
             return;
@@ -114,7 +116,7 @@ public class RemoteControlSession extends RemoteConnectionThread {
         this.h.getOutputStream().write(bytearrayoutputstream.toByteArray());
     }
 
-    private void e() {
+    private void f() {
         this.a(-1, 2, "");
     }
 
@@ -131,7 +133,7 @@ public class RemoteControlSession extends RemoteConnectionThread {
 
     }
 
-    private void f() {
+    private void g() {
         if (null != this.h) {
             try {
                 this.h.close();

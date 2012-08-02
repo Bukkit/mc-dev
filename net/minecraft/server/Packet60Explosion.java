@@ -2,9 +2,9 @@ package net.minecraft.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 
 public class Packet60Explosion extends Packet {
 
@@ -12,16 +12,24 @@ public class Packet60Explosion extends Packet {
     public double b;
     public double c;
     public float d;
-    public Set e;
+    public List e;
+    private float f;
+    private float g;
+    private float h;
 
     public Packet60Explosion() {}
 
-    public Packet60Explosion(double d0, double d1, double d2, float f, Set set) {
+    public Packet60Explosion(double d0, double d1, double d2, float f, List list, Vec3D vec3d) {
         this.a = d0;
         this.b = d1;
         this.c = d2;
         this.d = f;
-        this.e = new HashSet(set);
+        this.e = new ArrayList(list);
+        if (vec3d != null) {
+            this.f = (float) vec3d.a;
+            this.g = (float) vec3d.b;
+            this.h = (float) vec3d.c;
+        }
     }
 
     public void a(DataInputStream datainputstream) {
@@ -31,7 +39,7 @@ public class Packet60Explosion extends Packet {
         this.d = datainputstream.readFloat();
         int i = datainputstream.readInt();
 
-        this.e = new HashSet();
+        this.e = new ArrayList(i);
         int j = (int) this.a;
         int k = (int) this.b;
         int l = (int) this.c;
@@ -43,6 +51,10 @@ public class Packet60Explosion extends Packet {
 
             this.e.add(new ChunkPosition(j1, k1, l1));
         }
+
+        this.f = datainputstream.readFloat();
+        this.g = datainputstream.readFloat();
+        this.h = datainputstream.readFloat();
     }
 
     public void a(DataOutputStream dataoutputstream) {
@@ -66,6 +78,10 @@ public class Packet60Explosion extends Packet {
             dataoutputstream.writeByte(i1);
             dataoutputstream.writeByte(j1);
         }
+
+        dataoutputstream.writeFloat(this.f);
+        dataoutputstream.writeFloat(this.g);
+        dataoutputstream.writeFloat(this.h);
     }
 
     public void handle(NetHandler nethandler) {
@@ -73,6 +89,6 @@ public class Packet60Explosion extends Packet {
     }
 
     public int a() {
-        return 32 + this.e.size() * 3;
+        return 32 + this.e.size() * 3 + 3;
     }
 }

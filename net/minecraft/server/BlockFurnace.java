@@ -20,10 +20,10 @@ public class BlockFurnace extends BlockContainer {
 
     public void onPlace(World world, int i, int j, int k) {
         super.onPlace(world, i, j, k);
-        this.g(world, i, j, k);
+        this.l(world, i, j, k);
     }
 
-    private void g(World world, int i, int j, int k) {
+    private void l(World world, int i, int j, int k) {
         if (!world.isStatic) {
             int l = world.getTypeId(i, j, k - 1);
             int i1 = world.getTypeId(i, j, k + 1);
@@ -55,7 +55,7 @@ public class BlockFurnace extends BlockContainer {
         return i == 1 ? this.textureId + 17 : (i == 0 ? this.textureId + 17 : (i == 3 ? this.textureId - 1 : this.textureId));
     }
 
-    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
         if (world.isStatic) {
             return true;
         } else {
@@ -83,12 +83,12 @@ public class BlockFurnace extends BlockContainer {
         c = false;
         world.setData(i, j, k, l);
         if (tileentity != null) {
-            tileentity.m();
+            tileentity.q();
             world.setTileEntity(i, j, k, tileentity);
         }
     }
 
-    public TileEntity a_() {
+    public TileEntity a(World world) {
         return new TileEntityFurnace();
     }
 
@@ -112,13 +112,13 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
-    public void remove(World world, int i, int j, int k) {
+    public void remove(World world, int i, int j, int k, int l, int i1) {
         if (!c) {
             TileEntityFurnace tileentityfurnace = (TileEntityFurnace) world.getTileEntity(i, j, k);
 
             if (tileentityfurnace != null) {
-                for (int l = 0; l < tileentityfurnace.getSize(); ++l) {
-                    ItemStack itemstack = tileentityfurnace.getItem(l);
+                for (int j1 = 0; j1 < tileentityfurnace.getSize(); ++j1) {
+                    ItemStack itemstack = tileentityfurnace.getItem(j1);
 
                     if (itemstack != null) {
                         float f = this.a.nextFloat() * 0.8F + 0.1F;
@@ -126,14 +126,14 @@ public class BlockFurnace extends BlockContainer {
                         float f2 = this.a.nextFloat() * 0.8F + 0.1F;
 
                         while (itemstack.count > 0) {
-                            int i1 = this.a.nextInt(21) + 10;
+                            int k1 = this.a.nextInt(21) + 10;
 
-                            if (i1 > itemstack.count) {
-                                i1 = itemstack.count;
+                            if (k1 > itemstack.count) {
+                                k1 = itemstack.count;
                             }
 
-                            itemstack.count -= i1;
-                            EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, i1, itemstack.getData()));
+                            itemstack.count -= k1;
+                            EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, k1, itemstack.getData()));
 
                             if (itemstack.hasTag()) {
                                 entityitem.itemStack.setTag((NBTTagCompound) itemstack.getTag().clone());
@@ -151,6 +151,6 @@ public class BlockFurnace extends BlockContainer {
             }
         }
 
-        super.remove(world, i, j, k);
+        super.remove(world, i, j, k, l, i1);
     }
 }

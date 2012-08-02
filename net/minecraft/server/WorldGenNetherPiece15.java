@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class WorldGenNetherPiece15 extends WorldGenNetherPiece9 {
+public class WorldGenNetherPiece15 extends WorldGenNetherPiece1 {
 
     public WorldGenNetherPieceWeight a;
     public List b = new ArrayList();

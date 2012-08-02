@@ -1,17 +1,18 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class WorldGenStronghold extends StructureGenerator {
 
-    private BiomeBase[] a;
+    private BiomeBase[] e;
     private boolean f;
     private ChunkCoordIntPair[] g;
 
     public WorldGenStronghold() {
-        this.a = new BiomeBase[] { BiomeBase.DESERT, BiomeBase.FOREST, BiomeBase.EXTREME_HILLS, BiomeBase.SWAMPLAND, BiomeBase.TAIGA, BiomeBase.ICE_PLAINS, BiomeBase.ICE_MOUNTAINS, BiomeBase.DESERT_HILLS, BiomeBase.FOREST_HILLS, BiomeBase.SMALL_MOUNTAINS, BiomeBase.JUNGLE, BiomeBase.JUNGLE_HILLS};
+        this.e = new BiomeBase[] { BiomeBase.DESERT, BiomeBase.FOREST, BiomeBase.EXTREME_HILLS, BiomeBase.SWAMPLAND, BiomeBase.TAIGA, BiomeBase.ICE_PLAINS, BiomeBase.ICE_MOUNTAINS, BiomeBase.DESERT_HILLS, BiomeBase.FOREST_HILLS, BiomeBase.SMALL_MOUNTAINS, BiomeBase.JUNGLE, BiomeBase.JUNGLE_HILLS};
         this.g = new ChunkCoordIntPair[3];
     }
 
@@ -19,7 +20,7 @@ public class WorldGenStronghold extends StructureGenerator {
         if (!this.f) {
             Random random = new Random();
 
-            random.setSeed(this.d.getSeed());
+            random.setSeed(this.c.getSeed());
             double d0 = random.nextDouble() * 3.141592653589793D * 2.0D;
 
             for (int k = 0; k < this.g.length; ++k) {
@@ -27,16 +28,9 @@ public class WorldGenStronghold extends StructureGenerator {
                 int l = (int) Math.round(Math.cos(d0) * d1);
                 int i1 = (int) Math.round(Math.sin(d0) * d1);
                 ArrayList arraylist = new ArrayList();
-                BiomeBase[] abiomebase = this.a;
-                int j1 = abiomebase.length;
 
-                for (int k1 = 0; k1 < j1; ++k1) {
-                    BiomeBase biomebase = abiomebase[k1];
-
-                    arraylist.add(biomebase);
-                }
-
-                ChunkPosition chunkposition = this.d.getWorldChunkManager().a((l << 4) + 8, (i1 << 4) + 8, 112, arraylist, random);
+                Collections.addAll(arraylist, this.e);
+                ChunkPosition chunkposition = this.c.getWorldChunkManager().a((l << 4) + 8, (i1 << 4) + 8, 112, arraylist, random);
 
                 if (chunkposition != null) {
                     l = chunkposition.x >> 4;
@@ -53,10 +47,10 @@ public class WorldGenStronghold extends StructureGenerator {
         }
 
         ChunkCoordIntPair[] achunkcoordintpair = this.g;
-        int l1 = achunkcoordintpair.length;
+        int j1 = achunkcoordintpair.length;
 
-        for (int i2 = 0; i2 < l1; ++i2) {
-            ChunkCoordIntPair chunkcoordintpair = achunkcoordintpair[i2];
+        for (int k1 = 0; k1 < j1; ++k1) {
+            ChunkCoordIntPair chunkcoordintpair = achunkcoordintpair[k1];
 
             if (i == chunkcoordintpair.x && j == chunkcoordintpair.z) {
                 System.out.println(i + ", " + j);
@@ -67,7 +61,7 @@ public class WorldGenStronghold extends StructureGenerator {
         return false;
     }
 
-    protected List a() {
+    protected List o_() {
         ArrayList arraylist = new ArrayList();
         ChunkCoordIntPair[] achunkcoordintpair = this.g;
         int i = achunkcoordintpair.length;
@@ -84,12 +78,12 @@ public class WorldGenStronghold extends StructureGenerator {
     }
 
     protected StructureStart b(int i, int j) {
-        WorldGenStrongholdStart worldgenstrongholdstart;
+        WorldGenStronghold2Start worldgenstronghold2start;
 
-        for (worldgenstrongholdstart = new WorldGenStrongholdStart(this.d, this.c, i, j); worldgenstrongholdstart.c().isEmpty() || ((WorldGenStrongholdStairs2) worldgenstrongholdstart.c().get(0)).b == null; worldgenstrongholdstart = new WorldGenStrongholdStart(this.d, this.c, i, j)) {
+        for (worldgenstronghold2start = new WorldGenStronghold2Start(this.c, this.b, i, j); worldgenstronghold2start.b().isEmpty() || ((WorldGenStrongholdStart) worldgenstronghold2start.b().get(0)).b == null; worldgenstronghold2start = new WorldGenStronghold2Start(this.c, this.b, i, j)) {
             ;
         }
 
-        return worldgenstrongholdstart;
+        return worldgenstronghold2start;
     }
 }

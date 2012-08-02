@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BlockEnderPortalFrame extends Block {
@@ -13,11 +13,11 @@ public class BlockEnderPortalFrame extends Block {
         return i == 1 ? this.textureId - 1 : (i == 0 ? this.textureId + 16 : this.textureId);
     }
 
-    public boolean a() {
+    public boolean d() {
         return false;
     }
 
-    public int c() {
+    public int b() {
         return 26;
     }
 
@@ -25,20 +25,20 @@ public class BlockEnderPortalFrame extends Block {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.8125F, 1.0F);
     }
 
-    public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist) {
+    public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List list, Entity entity) {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.8125F, 1.0F);
-        super.a(world, i, j, k, axisalignedbb, arraylist);
+        super.a(world, i, j, k, axisalignedbb, list, entity);
         int l = world.getData(i, j, k);
 
-        if (d(l)) {
+        if (e(l)) {
             this.a(0.3125F, 0.8125F, 0.3125F, 0.6875F, 1.0F, 0.6875F);
-            super.a(world, i, j, k, axisalignedbb, arraylist);
+            super.a(world, i, j, k, axisalignedbb, list, entity);
         }
 
         this.f();
     }
 
-    public static boolean d(int i) {
+    public static boolean e(int i) {
         return (i & 4) != 0;
     }
 

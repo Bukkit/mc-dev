@@ -57,4 +57,14 @@ public class Packet34EntityTeleport extends Packet {
     public int a() {
         return 34;
     }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        Packet34EntityTeleport packet34entityteleport = (Packet34EntityTeleport) packet;
+
+        return packet34entityteleport.a == this.a;
+    }
 }

@@ -59,6 +59,7 @@ public class IntHashMap {
         for (IntHashMapEntry inthashmapentry = this.a[k]; inthashmapentry != null; inthashmapentry = inthashmapentry.c) {
             if (inthashmapentry.a == i) {
                 inthashmapentry.b = object;
+                return;
             }
         }
 
@@ -140,7 +141,7 @@ public class IntHashMap {
         return inthashmapentry1;
     }
 
-    public void a() {
+    public void c() {
         ++this.e;
         IntHashMapEntry[] ainthashmapentry = this.a;
 

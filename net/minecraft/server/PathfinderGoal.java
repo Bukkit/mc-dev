@@ -16,11 +16,11 @@ public abstract class PathfinderGoal {
         return true;
     }
 
+    public void e() {}
+
     public void c() {}
 
     public void d() {}
-
-    public void e() {}
 
     public void a(int i) {
         this.a = i;

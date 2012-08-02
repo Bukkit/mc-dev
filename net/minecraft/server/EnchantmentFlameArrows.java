@@ -4,7 +4,7 @@ public class EnchantmentFlameArrows extends Enchantment {
 
     public EnchantmentFlameArrows(int i, int j) {
         super(i, j, EnchantmentSlotType.BOW);
-        this.a("arrowFire");
+        this.b("arrowFire");
     }
 
     public int a(int i) {

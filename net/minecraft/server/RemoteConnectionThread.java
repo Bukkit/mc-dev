@@ -29,16 +29,16 @@ public abstract class RemoteConnectionThread implements Runnable {
         this.running = true;
     }
 
-    public boolean b() {
+    public boolean c() {
         return this.running;
     }
 
     protected void debug(String s) {
-        this.server.debug(s);
+        this.server.k(s);
     }
 
     protected void info(String s) {
-        this.server.sendMessage(s);
+        this.server.info(s);
     }
 
     protected void warning(String s) {
@@ -46,11 +46,11 @@ public abstract class RemoteConnectionThread implements Runnable {
     }
 
     protected void error(String s) {
-        this.server.severe(s);
+        this.server.j(s);
     }
 
-    protected int c() {
-        return this.server.getPlayerCount();
+    protected int d() {
+        return this.server.x();
     }
 
     protected void a(DatagramSocket datagramsocket) {
@@ -78,7 +78,7 @@ public abstract class RemoteConnectionThread implements Runnable {
         }
     }
 
-    protected boolean a(ServerSocket serversocket) {
+    protected boolean b(ServerSocket serversocket) {
         return this.a(serversocket, true);
     }
 
@@ -106,7 +106,7 @@ public abstract class RemoteConnectionThread implements Runnable {
         }
     }
 
-    protected void d() {
+    protected void e() {
         this.a(false);
     }
 

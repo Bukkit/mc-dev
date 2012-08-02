@@ -18,7 +18,7 @@ public class BlockRedstoneLamp extends Block {
     public void onPlace(World world, int i, int j, int k) {
         if (!world.isStatic) {
             if (this.a && !world.isBlockIndirectlyPowered(i, j, k)) {
-                world.c(i, j, k, this.id, 4);
+                world.a(i, j, k, this.id, 4);
             } else if (!this.a && world.isBlockIndirectlyPowered(i, j, k)) {
                 world.setTypeId(i, j, k, Block.REDSTONE_LAMP_ON.id);
             }
@@ -28,14 +28,14 @@ public class BlockRedstoneLamp extends Block {
     public void doPhysics(World world, int i, int j, int k, int l) {
         if (!world.isStatic) {
             if (this.a && !world.isBlockIndirectlyPowered(i, j, k)) {
-                world.c(i, j, k, this.id, 4);
+                world.a(i, j, k, this.id, 4);
             } else if (!this.a && world.isBlockIndirectlyPowered(i, j, k)) {
                 world.setTypeId(i, j, k, Block.REDSTONE_LAMP_ON.id);
             }
         }
     }
 
-    public void a(World world, int i, int j, int k, Random random) {
+    public void b(World world, int i, int j, int k, Random random) {
         if (!world.isStatic && this.a && !world.isBlockIndirectlyPowered(i, j, k)) {
             world.setTypeId(i, j, k, Block.REDSTONE_LAMP_OFF.id);
         }

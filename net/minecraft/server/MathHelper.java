@@ -6,8 +6,6 @@ public class MathHelper {
 
     private static float[] a = new float[65536];
 
-    public MathHelper() {}
-
     public static final float sin(float f) {
         return a[(int) (f * 10430.378F) & '\uffff'];
     }
@@ -36,7 +34,7 @@ public class MathHelper {
         return d0 < (double) i ? i - 1 : i;
     }
 
-    public static long c(double d0) {
+    public static long d(double d0) {
         long i = (long) d0;
 
         return d0 < (double) i ? i - 1L : i;
@@ -48,6 +46,18 @@ public class MathHelper {
 
     public static int a(int i) {
         return i >= 0 ? i : -i;
+    }
+
+    public static int f(float f) {
+        int i = (int) f;
+
+        return f > (float) i ? i + 1 : i;
+    }
+
+    public static int f(double d0) {
+        int i = (int) d0;
+
+        return d0 > (double) i ? i + 1 : i;
     }
 
     public static int a(int i, int j, int k) {
@@ -68,6 +78,46 @@ public class MathHelper {
 
     public static int a(Random random, int i, int j) {
         return i >= j ? i : random.nextInt(j - i + 1) + i;
+    }
+
+    public static double a(long[] along) {
+        long i = 0L;
+        long[] along1 = along;
+        int j = along.length;
+
+        for (int k = 0; k < j; ++k) {
+            long l = along1[k];
+
+            i += l;
+        }
+
+        return (double) i / (double) along.length;
+    }
+
+    public static float g(float f) {
+        f %= 360.0F;
+        if (f >= 180.0F) {
+            f -= 360.0F;
+        }
+
+        if (f < -180.0F) {
+            f += 360.0F;
+        }
+
+        return f;
+    }
+
+    public static double g(double d0) {
+        d0 %= 360.0D;
+        if (d0 >= 180.0D) {
+            d0 -= 360.0D;
+        }
+
+        if (d0 < -180.0D) {
+            d0 += 360.0D;
+        }
+
+        return d0;
     }
 
     static {

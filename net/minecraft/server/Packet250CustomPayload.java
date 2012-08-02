@@ -11,8 +11,19 @@ public class Packet250CustomPayload extends Packet {
 
     public Packet250CustomPayload() {}
 
+    public Packet250CustomPayload(String s, byte[] abyte) {
+        this.tag = s;
+        this.data = abyte;
+        if (abyte != null) {
+            this.length = abyte.length;
+            if (this.length > 32767) {
+                throw new IllegalArgumentException("Payload may not be larger than 32k");
+            }
+        }
+    }
+
     public void a(DataInputStream datainputstream) {
-        this.tag = a(datainputstream, 16);
+        this.tag = a(datainputstream, 20);
         this.length = datainputstream.readShort();
         if (this.length > 0 && this.length < 32767) {
             this.data = new byte[this.length];

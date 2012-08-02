@@ -1,11 +1,11 @@
 package net.minecraft.server;
 
-public class ThreadSleepForever extends Thread {
+class ThreadSleepForever extends Thread {
 
-    final MinecraftServer a;
+    final DedicatedServer a;
 
-    public ThreadSleepForever(MinecraftServer minecraftserver) {
-        this.a = minecraftserver;
+    ThreadSleepForever(DedicatedServer dedicatedserver) {
+        this.a = dedicatedserver;
         this.setDaemon(true);
         this.start();
     }

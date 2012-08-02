@@ -60,9 +60,7 @@ abstract class WorldGenNetherPiece extends StructurePiece {
             }
         }
 
-        WorldGenNetherPiece4 worldgennetherpiece4 = WorldGenNetherPiece4.a(list1, random, i, j, k, l, i1);
-
-        return worldgennetherpiece4;
+        return WorldGenNetherPiece2.a(list1, random, i, j, k, l, i1);
     }
 
     private StructurePiece a(WorldGenNetherPiece15 worldgennetherpiece15, List list, Random random, int i, int j, int k, int l, int i1, boolean flag) {
@@ -82,25 +80,23 @@ abstract class WorldGenNetherPiece extends StructurePiece {
 
             return worldgennetherpiece;
         } else {
-            WorldGenNetherPiece4 worldgennetherpiece4 = WorldGenNetherPiece4.a(list, random, i, j, k, l, i1);
-
-            return worldgennetherpiece4;
+            return WorldGenNetherPiece2.a(list, random, i, j, k, l, i1);
         }
     }
 
     protected StructurePiece a(WorldGenNetherPiece15 worldgennetherpiece15, List list, Random random, int i, int j, boolean flag) {
-        switch (this.h) {
+        switch (this.f) {
         case 0:
-            return this.a(worldgennetherpiece15, list, random, this.g.a + i, this.g.b + j, this.g.f + 1, this.h, this.c(), flag);
+            return this.a(worldgennetherpiece15, list, random, this.e.a + i, this.e.b + j, this.e.f + 1, this.f, this.c(), flag);
 
         case 1:
-            return this.a(worldgennetherpiece15, list, random, this.g.a - 1, this.g.b + j, this.g.c + i, this.h, this.c(), flag);
+            return this.a(worldgennetherpiece15, list, random, this.e.a - 1, this.e.b + j, this.e.c + i, this.f, this.c(), flag);
 
         case 2:
-            return this.a(worldgennetherpiece15, list, random, this.g.a + i, this.g.b + j, this.g.c - 1, this.h, this.c(), flag);
+            return this.a(worldgennetherpiece15, list, random, this.e.a + i, this.e.b + j, this.e.c - 1, this.f, this.c(), flag);
 
         case 3:
-            return this.a(worldgennetherpiece15, list, random, this.g.d + 1, this.g.b + j, this.g.c + i, this.h, this.c(), flag);
+            return this.a(worldgennetherpiece15, list, random, this.e.d + 1, this.e.b + j, this.e.c + i, this.f, this.c(), flag);
 
         default:
             return null;
@@ -108,18 +104,18 @@ abstract class WorldGenNetherPiece extends StructurePiece {
     }
 
     protected StructurePiece b(WorldGenNetherPiece15 worldgennetherpiece15, List list, Random random, int i, int j, boolean flag) {
-        switch (this.h) {
+        switch (this.f) {
         case 0:
-            return this.a(worldgennetherpiece15, list, random, this.g.a - 1, this.g.b + i, this.g.c + j, 1, this.c(), flag);
+            return this.a(worldgennetherpiece15, list, random, this.e.a - 1, this.e.b + i, this.e.c + j, 1, this.c(), flag);
 
         case 1:
-            return this.a(worldgennetherpiece15, list, random, this.g.a + j, this.g.b + i, this.g.c - 1, 2, this.c(), flag);
+            return this.a(worldgennetherpiece15, list, random, this.e.a + j, this.e.b + i, this.e.c - 1, 2, this.c(), flag);
 
         case 2:
-            return this.a(worldgennetherpiece15, list, random, this.g.a - 1, this.g.b + i, this.g.c + j, 1, this.c(), flag);
+            return this.a(worldgennetherpiece15, list, random, this.e.a - 1, this.e.b + i, this.e.c + j, 1, this.c(), flag);
 
         case 3:
-            return this.a(worldgennetherpiece15, list, random, this.g.a + j, this.g.b + i, this.g.c - 1, 2, this.c(), flag);
+            return this.a(worldgennetherpiece15, list, random, this.e.a + j, this.e.b + i, this.e.c - 1, 2, this.c(), flag);
 
         default:
             return null;
@@ -127,18 +123,18 @@ abstract class WorldGenNetherPiece extends StructurePiece {
     }
 
     protected StructurePiece c(WorldGenNetherPiece15 worldgennetherpiece15, List list, Random random, int i, int j, boolean flag) {
-        switch (this.h) {
+        switch (this.f) {
         case 0:
-            return this.a(worldgennetherpiece15, list, random, this.g.d + 1, this.g.b + i, this.g.c + j, 3, this.c(), flag);
+            return this.a(worldgennetherpiece15, list, random, this.e.d + 1, this.e.b + i, this.e.c + j, 3, this.c(), flag);
 
         case 1:
-            return this.a(worldgennetherpiece15, list, random, this.g.a + j, this.g.b + i, this.g.f + 1, 0, this.c(), flag);
+            return this.a(worldgennetherpiece15, list, random, this.e.a + j, this.e.b + i, this.e.f + 1, 0, this.c(), flag);
 
         case 2:
-            return this.a(worldgennetherpiece15, list, random, this.g.d + 1, this.g.b + i, this.g.c + j, 3, this.c(), flag);
+            return this.a(worldgennetherpiece15, list, random, this.e.d + 1, this.e.b + i, this.e.c + j, 3, this.c(), flag);
 
         case 3:
-            return this.a(worldgennetherpiece15, list, random, this.g.a + j, this.g.b + i, this.g.f + 1, 0, this.c(), flag);
+            return this.a(worldgennetherpiece15, list, random, this.e.a + j, this.e.b + i, this.e.f + 1, 0, this.c(), flag);
 
         default:
             return null;

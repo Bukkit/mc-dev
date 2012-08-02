@@ -45,7 +45,7 @@ public class MobEffect {
 
     public boolean tick(EntityLiving entityliving) {
         if (this.duration > 0) {
-            if (MobEffectList.byId[this.effectId].b(this.duration, this.amplification)) {
+            if (MobEffectList.byId[this.effectId].a(this.duration, this.amplification)) {
                 this.b(entityliving);
             }
 
@@ -66,7 +66,7 @@ public class MobEffect {
     }
 
     public String d() {
-        return MobEffectList.byId[this.effectId].c();
+        return MobEffectList.byId[this.effectId].a();
     }
 
     public int hashCode() {
@@ -82,7 +82,7 @@ public class MobEffect {
             s = this.d() + ", Duration: " + this.getDuration();
         }
 
-        return MobEffectList.byId[this.effectId].f() ? "(" + s + ")" : s;
+        return MobEffectList.byId[this.effectId].i() ? "(" + s + ")" : s;
     }
 
     public boolean equals(Object object) {

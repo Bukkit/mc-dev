@@ -65,8 +65,8 @@ public final class ItemStack {
         return Item.byId[this.id];
     }
 
-    public boolean placeItem(EntityHuman entityhuman, World world, int i, int j, int k, int l) {
-        boolean flag = this.getItem().interactWith(this, entityhuman, world, i, j, k, l);
+    public boolean placeItem(EntityHuman entityhuman, World world, int i, int j, int k, int l, float f, float f1, float f2) {
+        boolean flag = this.getItem().interactWith(this, entityhuman, world, i, j, k, l, f, f1, f2);
 
         if (flag) {
             entityhuman.a(StatisticList.E[this.id], 1);
@@ -112,22 +112,22 @@ public final class ItemStack {
     }
 
     public boolean isStackable() {
-        return this.getMaxStackSize() > 1 && (!this.d() || !this.f());
+        return this.getMaxStackSize() > 1 && (!this.f() || !this.h());
     }
 
-    public boolean d() {
+    public boolean f() {
         return Item.byId[this.id].getMaxDurability() > 0;
     }
 
     public boolean usesData() {
-        return Item.byId[this.id].e();
+        return Item.byId[this.id].k();
     }
 
-    public boolean f() {
-        return this.d() && this.damage > 0;
+    public boolean h() {
+        return this.f() && this.damage > 0;
     }
 
-    public int g() {
+    public int i() {
         return this.damage;
     }
 
@@ -139,12 +139,12 @@ public final class ItemStack {
         this.damage = i;
     }
 
-    public int i() {
+    public int k() {
         return Item.byId[this.id].getMaxDurability();
     }
 
     public void damage(int i, EntityLiving entityliving) {
-        if (this.d()) {
+        if (this.f()) {
             if (i > 0 && entityliving instanceof EntityHuman) {
                 int j = EnchantmentManager.getDurabilityEnchantmentLevel(((EntityHuman) entityliving).inventory);
 
@@ -153,9 +153,12 @@ public final class ItemStack {
                 }
             }
 
-            this.damage += i;
-            if (this.damage > this.i()) {
-                entityliving.c(this);
+            if (!(entityliving instanceof EntityHuman) || !((EntityHuman) entityliving).abilities.canInstantlyBuild) {
+                this.damage += i;
+            }
+
+            if (this.damage > this.k()) {
+                entityliving.a(this);
                 if (entityliving instanceof EntityHuman) {
                     ((EntityHuman) entityliving).a(StatisticList.F[this.id], 1);
                 }
@@ -178,8 +181,8 @@ public final class ItemStack {
         }
     }
 
-    public void a(int i, int j, int k, int l, EntityHuman entityhuman) {
-        boolean flag = Item.byId[this.id].a(this, i, j, k, l, entityhuman);
+    public void a(World world, int i, int j, int k, int l, EntityHuman entityhuman) {
+        boolean flag = Item.byId[this.id].a(this, world, i, j, k, l, entityhuman);
 
         if (flag) {
             entityhuman.a(StatisticList.E[this.id], 1);
@@ -194,10 +197,8 @@ public final class ItemStack {
         return Item.byId[this.id].canDestroySpecialBlock(block);
     }
 
-    public void a(EntityHuman entityhuman) {}
-
-    public void a(EntityLiving entityliving) {
-        Item.byId[this.id].a(this, entityliving);
+    public boolean a(EntityLiving entityliving) {
+        return Item.byId[this.id].a(this, entityliving);
     }
 
     public ItemStack cloneItemStack() {
@@ -205,9 +206,6 @@ public final class ItemStack {
 
         if (this.tag != null) {
             itemstack.tag = (NBTTagCompound) this.tag.clone();
-            if (!itemstack.tag.equals(this.tag)) {
-                return itemstack;
-            }
         }
 
         return itemstack;
@@ -229,8 +227,8 @@ public final class ItemStack {
         return this.id == itemstack.id && this.damage == itemstack.damage;
     }
 
-    public String k() {
-        return Item.byId[this.id].a(this);
+    public String a() {
+        return Item.byId[this.id].c(this);
     }
 
     public static ItemStack b(ItemStack itemstack) {
@@ -258,12 +256,12 @@ public final class ItemStack {
         return this.id == itemstack.id && this.count == itemstack.count && this.damage == itemstack.damage;
     }
 
-    public int l() {
-        return this.getItem().c(this);
+    public int m() {
+        return this.getItem().a(this);
     }
 
-    public EnumAnimation m() {
-        return this.getItem().d(this);
+    public EnumAnimation n() {
+        return this.getItem().b(this);
     }
 
     public void b(World world, EntityHuman entityhuman, int i) {
@@ -286,8 +284,8 @@ public final class ItemStack {
         this.tag = nbttagcompound;
     }
 
-    public boolean q() {
-        return !this.getItem().f(this) ? false : !this.hasEnchantments();
+    public boolean u() {
+        return !this.getItem().k(this) ? false : !this.hasEnchantments();
     }
 
     public void addEnchantment(Enchantment enchantment, int i) {

@@ -16,12 +16,10 @@ public class GenLayerSwampRivers extends GenLayer {
                 this.a((long) (j1 + i), (long) (i1 + j));
                 int k1 = aint[j1 + 1 + (i1 + 1) * (k + 2)];
 
-                if (k1 == BiomeBase.SWAMPLAND.id && this.a(6) == 0) {
-                    aint1[j1 + i1 * k] = BiomeBase.RIVER.id;
-                } else if ((k1 == BiomeBase.JUNGLE.id || k1 == BiomeBase.JUNGLE_HILLS.id) && this.a(8) == 0) {
-                    aint1[j1 + i1 * k] = BiomeBase.RIVER.id;
-                } else {
+                if ((k1 != BiomeBase.SWAMPLAND.id || this.a(6) != 0) && (k1 != BiomeBase.JUNGLE.id && k1 != BiomeBase.JUNGLE_HILLS.id || this.a(8) != 0)) {
                     aint1[j1 + i1 * k] = k1;
+                } else {
+                    aint1[j1 + i1 * k] = BiomeBase.RIVER.id;
                 }
             }
         }

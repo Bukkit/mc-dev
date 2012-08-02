@@ -1,10 +1,10 @@
 package net.minecraft.server;
 
-public final class ThreadServerApplication extends Thread {
+public class ThreadServerApplication extends Thread {
 
     final MinecraftServer a;
 
-    public ThreadServerApplication(String s, MinecraftServer minecraftserver) {
+    public ThreadServerApplication(MinecraftServer minecraftserver, String s) {
         super(s);
         this.a = minecraftserver;
     }

@@ -38,7 +38,7 @@ public class Navigation {
         this.j = flag;
     }
 
-    public boolean b() {
+    public boolean c() {
         return this.k;
     }
 
@@ -55,7 +55,7 @@ public class Navigation {
     }
 
     public PathEntity a(double d0, double d1, double d2) {
-        return !this.j() ? null : this.b.a(this.a, MathHelper.floor(d0), (int) d1, MathHelper.floor(d2), this.e, this.j, this.k, this.l, this.m);
+        return !this.k() ? null : this.b.a(this.a, MathHelper.floor(d0), (int) d1, MathHelper.floor(d2), this.e, this.j, this.k, this.l, this.m);
     }
 
     public boolean a(double d0, double d1, double d2, float f) {
@@ -65,7 +65,7 @@ public class Navigation {
     }
 
     public PathEntity a(EntityLiving entityliving) {
-        return !this.j() ? null : this.b.findPath(this.a, entityliving, this.e, this.j, this.k, this.l, this.m);
+        return !this.k() ? null : this.b.findPath(this.a, entityliving, this.e, this.j, this.k, this.l, this.m);
     }
 
     public boolean a(EntityLiving entityliving, float f) {
@@ -84,14 +84,14 @@ public class Navigation {
             }
 
             if (this.f) {
-                this.l();
+                this.m();
             }
 
             if (this.c.d() == 0) {
                 return false;
             } else {
                 this.d = f;
-                Vec3D vec3d = this.h();
+                Vec3D vec3d = this.i();
 
                 this.h = this.g;
                 this.i.a = vec3d.a;
@@ -102,18 +102,18 @@ public class Navigation {
         }
     }
 
-    public PathEntity c() {
+    public PathEntity d() {
         return this.c;
     }
 
-    public void d() {
+    public void e() {
         ++this.g;
-        if (!this.e()) {
-            if (this.j()) {
-                this.g();
+        if (!this.f()) {
+            if (this.k()) {
+                this.h();
             }
 
-            if (!this.e()) {
+            if (!this.f()) {
                 Vec3D vec3d = this.c.a((Entity) this.a);
 
                 if (vec3d != null) {
@@ -123,8 +123,8 @@ public class Navigation {
         }
     }
 
-    private void g() {
-        Vec3D vec3d = this.h();
+    private void h() {
+        Vec3D vec3d = this.i();
         int i = this.c.d();
 
         for (int j = this.c.e(); j < this.c.d(); ++j) {
@@ -144,7 +144,7 @@ public class Navigation {
             }
         }
 
-        k = (int) Math.ceil((double) this.a.width);
+        k = MathHelper.f(this.a.width);
         int l = (int) this.a.length + 1;
         int i1 = k;
 
@@ -157,7 +157,7 @@ public class Navigation {
 
         if (this.g - this.h > 100) {
             if (vec3d.distanceSquared(this.i) < 2.25D) {
-                this.f();
+                this.g();
             }
 
             this.h = this.g;
@@ -167,20 +167,20 @@ public class Navigation {
         }
     }
 
-    public boolean e() {
+    public boolean f() {
         return this.c == null || this.c.b();
     }
 
-    public void f() {
+    public void g() {
         this.c = null;
     }
 
-    private Vec3D h() {
-        return Vec3D.create(this.a.locX, (double) this.i(), this.a.locZ);
+    private Vec3D i() {
+        return Vec3D.a().create(this.a.locX, (double) this.j(), this.a.locZ);
     }
 
-    private int i() {
-        if (this.a.aU() && this.m) {
+    private int j() {
+        if (this.a.H() && this.m) {
             int i = (int) this.a.boundingBox.b;
             int j = this.b.getTypeId(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
             int k = 0;
@@ -201,20 +201,20 @@ public class Navigation {
         }
     }
 
-    private boolean j() {
-        return this.a.onGround || this.m && this.k();
-    }
-
     private boolean k() {
-        return this.a.aU() || this.a.aV();
+        return this.a.onGround || this.m && this.l();
     }
 
-    private void l() {
-        if (!this.b.isChunkLoaded(MathHelper.floor(this.a.locX), (int) (this.a.boundingBox.b + 0.5D), MathHelper.floor(this.a.locZ))) {
+    private boolean l() {
+        return this.a.H() || this.a.J();
+    }
+
+    private void m() {
+        if (!this.b.j(MathHelper.floor(this.a.locX), (int) (this.a.boundingBox.b + 0.5D), MathHelper.floor(this.a.locZ))) {
             for (int i = 0; i < this.c.d(); ++i) {
                 PathPoint pathpoint = this.c.a(i);
 
-                if (this.b.isChunkLoaded(pathpoint.a, pathpoint.b, pathpoint.c)) {
+                if (this.b.j(pathpoint.a, pathpoint.b, pathpoint.c)) {
                     this.c.b(i - 1);
                     return;
                 }
@@ -307,7 +307,7 @@ public class Navigation {
 
                         Material material = Block.byId[k2].material;
 
-                        if (material == Material.WATER && !this.a.aU()) {
+                        if (material == Material.WATER && !this.a.H()) {
                             return false;
                         }
 
@@ -332,7 +332,7 @@ public class Navigation {
                     if (d2 * d0 + d3 * d1 >= 0.0D) {
                         int j2 = this.b.getTypeId(k1, l1, i2);
 
-                        if (j2 > 0 && !Block.byId[j2].b(this.b, k1, l1, i2)) {
+                        if (j2 > 0 && !Block.byId[j2].c(this.b, k1, l1, i2)) {
                             return false;
                         }
                     }

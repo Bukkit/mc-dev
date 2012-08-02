@@ -3,25 +3,22 @@ package net.minecraft.server;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public abstract class StructureGenerator extends WorldGenBase {
 
-    protected HashMap e = new HashMap();
+    protected Map d = new HashMap();
 
     public StructureGenerator() {}
 
-    public void a(IChunkProvider ichunkprovider, World world, int i, int j, byte[] abyte) {
-        super.a(ichunkprovider, world, i, j, abyte);
-    }
-
     protected void a(World world, int i, int j, int k, int l, byte[] abyte) {
-        if (!this.e.containsKey(Long.valueOf(ChunkCoordIntPair.a(i, j)))) {
-            this.c.nextInt();
+        if (!this.d.containsKey(Long.valueOf(ChunkCoordIntPair.a(i, j)))) {
+            this.b.nextInt();
             if (this.a(i, j)) {
                 StructureStart structurestart = this.b(i, j);
 
-                this.e.put(Long.valueOf(ChunkCoordIntPair.a(i, j)), structurestart);
+                this.d.put(Long.valueOf(ChunkCoordIntPair.a(i, j)), structurestart);
             }
         }
     }
@@ -30,12 +27,12 @@ public abstract class StructureGenerator extends WorldGenBase {
         int k = (i << 4) + 8;
         int l = (j << 4) + 8;
         boolean flag = false;
-        Iterator iterator = this.e.values().iterator();
+        Iterator iterator = this.d.values().iterator();
 
         while (iterator.hasNext()) {
             StructureStart structurestart = (StructureStart) iterator.next();
 
-            if (structurestart.a() && structurestart.b().a(k, l, k + 15, l + 15)) {
+            if (structurestart.d() && structurestart.a().a(k, l, k + 15, l + 15)) {
                 structurestart.a(world, random, new StructureBoundingBox(k, l, k + 15, l + 15));
                 flag = true;
             }
@@ -45,13 +42,13 @@ public abstract class StructureGenerator extends WorldGenBase {
     }
 
     public boolean a(int i, int j, int k) {
-        Iterator iterator = this.e.values().iterator();
+        Iterator iterator = this.d.values().iterator();
 
         while (iterator.hasNext()) {
             StructureStart structurestart = (StructureStart) iterator.next();
 
-            if (structurestart.a() && structurestart.b().a(i, k, i, k)) {
-                Iterator iterator1 = structurestart.c().iterator();
+            if (structurestart.d() && structurestart.a().a(i, k, i, k)) {
+                Iterator iterator1 = structurestart.b().iterator();
 
                 while (iterator1.hasNext()) {
                     StructurePiece structurepiece = (StructurePiece) iterator1.next();
@@ -67,18 +64,18 @@ public abstract class StructureGenerator extends WorldGenBase {
     }
 
     public ChunkPosition getNearestGeneratedFeature(World world, int i, int j, int k) {
-        this.d = world;
-        this.c.setSeed(world.getSeed());
-        long l = this.c.nextLong();
-        long i1 = this.c.nextLong();
+        this.c = world;
+        this.b.setSeed(world.getSeed());
+        long l = this.b.nextLong();
+        long i1 = this.b.nextLong();
         long j1 = (long) (i >> 4) * l;
         long k1 = (long) (k >> 4) * i1;
 
-        this.c.setSeed(j1 ^ k1 ^ world.getSeed());
+        this.b.setSeed(j1 ^ k1 ^ world.getSeed());
         this.a(world, i >> 4, k >> 4, 0, 0, (byte[]) null);
         double d0 = Double.MAX_VALUE;
         ChunkPosition chunkposition = null;
-        Iterator iterator = this.e.values().iterator();
+        Iterator iterator = this.d.values().iterator();
 
         ChunkPosition chunkposition1;
         int l1;
@@ -89,10 +86,10 @@ public abstract class StructureGenerator extends WorldGenBase {
         while (iterator.hasNext()) {
             StructureStart structurestart = (StructureStart) iterator.next();
 
-            if (structurestart.a()) {
-                StructurePiece structurepiece = (StructurePiece) structurestart.c().get(0);
+            if (structurestart.d()) {
+                StructurePiece structurepiece = (StructurePiece) structurestart.b().get(0);
 
-                chunkposition1 = structurepiece.b_();
+                chunkposition1 = structurepiece.a();
                 i2 = chunkposition1.x - i;
                 l1 = chunkposition1.y - j;
                 j2 = chunkposition1.z - k;
@@ -107,7 +104,7 @@ public abstract class StructureGenerator extends WorldGenBase {
         if (chunkposition != null) {
             return chunkposition;
         } else {
-            List list = this.a();
+            List list = this.o_();
 
             if (list != null) {
                 ChunkPosition chunkposition2 = null;
@@ -132,7 +129,7 @@ public abstract class StructureGenerator extends WorldGenBase {
         }
     }
 
-    protected List a() {
+    protected List o_() {
         return null;
     }
 

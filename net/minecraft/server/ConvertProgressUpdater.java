@@ -20,5 +20,5 @@ public class ConvertProgressUpdater implements IProgressUpdate {
         }
     }
 
-    public void b(String s) {}
+    public void c(String s) {}
 }

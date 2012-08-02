@@ -5,8 +5,8 @@ public class EntitySnowman extends EntityGolem {
     public EntitySnowman(World world) {
         super(world);
         this.texture = "/mob/snowman.png";
-        this.b(0.4F, 1.8F);
-        this.al().a(true);
+        this.a(0.4F, 1.8F);
+        this.getNavigation().a(true);
         this.goalSelector.a(1, new PathfinderGoalArrowAttack(this, 0.25F, 2, 20));
         this.goalSelector.a(2, new PathfinderGoalRandomStroll(this, 0.2F));
         this.goalSelector.a(3, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 6.0F));
@@ -14,7 +14,7 @@ public class EntitySnowman extends EntityGolem {
         this.targetSelector.a(1, new PathfinderGoalNearestAttackableTarget(this, EntityMonster.class, 16.0F, 0, true));
     }
 
-    public boolean c_() {
+    public boolean aV() {
         return true;
     }
 
@@ -22,16 +22,16 @@ public class EntitySnowman extends EntityGolem {
         return 4;
     }
 
-    public void e() {
-        super.e();
-        if (this.aT()) {
+    public void d() {
+        super.d();
+        if (this.G()) {
             this.damageEntity(DamageSource.DROWN, 1);
         }
 
         int i = MathHelper.floor(this.locX);
         int j = MathHelper.floor(this.locZ);
 
-        if (this.world.getBiome(i, j).i() > 1.0F) {
+        if (this.world.getBiome(i, j).j() > 1.0F) {
             this.damageEntity(DamageSource.BURN, 1);
         }
 
@@ -40,18 +40,10 @@ public class EntitySnowman extends EntityGolem {
             int k = MathHelper.floor(this.locY);
             int l = MathHelper.floor(this.locZ + (double) ((float) (i / 2 % 2 * 2 - 1) * 0.25F));
 
-            if (this.world.getTypeId(j, k, l) == 0 && this.world.getBiome(j, l).i() < 0.8F && Block.SNOW.canPlace(this.world, j, k, l)) {
+            if (this.world.getTypeId(j, k, l) == 0 && this.world.getBiome(j, l).j() < 0.8F && Block.SNOW.canPlace(this.world, j, k, l)) {
                 this.world.setTypeId(j, k, l, Block.SNOW.id);
             }
         }
-    }
-
-    public void b(NBTTagCompound nbttagcompound) {
-        super.b(nbttagcompound);
-    }
-
-    public void a(NBTTagCompound nbttagcompound) {
-        super.a(nbttagcompound);
     }
 
     protected int getLootId() {

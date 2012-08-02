@@ -7,35 +7,26 @@ public class Packet5EntityEquipment extends Packet {
 
     public int a;
     public int b;
-    public int c;
-    public int d;
+    private ItemStack c;
 
     public Packet5EntityEquipment() {}
 
     public Packet5EntityEquipment(int i, int j, ItemStack itemstack) {
         this.a = i;
         this.b = j;
-        if (itemstack == null) {
-            this.c = -1;
-            this.d = 0;
-        } else {
-            this.c = itemstack.id;
-            this.d = itemstack.getData();
-        }
+        this.c = itemstack == null ? null : itemstack.cloneItemStack();
     }
 
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readInt();
         this.b = datainputstream.readShort();
-        this.c = datainputstream.readShort();
-        this.d = datainputstream.readShort();
+        this.c = c(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeShort(this.b);
-        dataoutputstream.writeShort(this.c);
-        dataoutputstream.writeShort(this.d);
+        a(this.c, dataoutputstream);
     }
 
     public void handle(NetHandler nethandler) {
@@ -44,5 +35,15 @@ public class Packet5EntityEquipment extends Packet {
 
     public int a() {
         return 8;
+    }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        Packet5EntityEquipment packet5entityequipment = (Packet5EntityEquipment) packet;
+
+        return packet5entityequipment.a == this.a && packet5entityequipment.b == this.b;
     }
 }

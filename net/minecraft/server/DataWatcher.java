@@ -7,12 +7,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DataWatcher {
 
     private static final HashMap a = new HashMap();
     private final Map b = new HashMap();
     private boolean c;
+    private ReadWriteLock d = new ReentrantReadWriteLock();
 
     public DataWatcher() {}
 
@@ -28,28 +31,48 @@ public class DataWatcher {
         } else {
             WatchableObject watchableobject = new WatchableObject(integer.intValue(), i, object);
 
+            this.d.writeLock().lock();
             this.b.put(Integer.valueOf(i), watchableobject);
+            this.d.writeLock().unlock();
         }
     }
 
     public byte getByte(int i) {
-        return ((Byte) ((WatchableObject) this.b.get(Integer.valueOf(i))).b()).byteValue();
+        return ((Byte) this.i(i).b()).byteValue();
     }
 
-    public short b(int i) {
-        return ((Short) ((WatchableObject) this.b.get(Integer.valueOf(i))).b()).shortValue();
+    public short getShort(int i) {
+        return ((Short) this.i(i).b()).shortValue();
     }
 
     public int getInt(int i) {
-        return ((Integer) ((WatchableObject) this.b.get(Integer.valueOf(i))).b()).intValue();
+        return ((Integer) this.i(i).b()).intValue();
     }
 
     public String getString(int i) {
-        return (String) ((WatchableObject) this.b.get(Integer.valueOf(i))).b();
+        return (String) this.i(i).b();
+    }
+
+    private WatchableObject i(int i) {
+        this.d.readLock().lock();
+
+        WatchableObject watchableobject;
+
+        try {
+            watchableobject = (WatchableObject) this.b.get(Integer.valueOf(i));
+        } catch (Throwable throwable) {
+            CrashReport crashreport = new CrashReport("getting synched entity data", throwable);
+
+            crashreport.a("EntityData ID", Integer.valueOf(i));
+            throw new ReportedException(crashreport);
+        }
+
+        this.d.readLock().unlock();
+        return watchableobject;
     }
 
     public void watch(int i, Object object) {
-        WatchableObject watchableobject = (WatchableObject) this.b.get(Integer.valueOf(i));
+        WatchableObject watchableobject = this.i(i);
 
         if (!object.equals(watchableobject.b())) {
             watchableobject.a(object);
@@ -76,10 +99,11 @@ public class DataWatcher {
         dataoutputstream.writeByte(127);
     }
 
-    public ArrayList b() {
+    public List b() {
         ArrayList arraylist = null;
 
         if (this.c) {
+            this.d.readLock().lock();
             Iterator iterator = this.b.values().iterator();
 
             while (iterator.hasNext()) {
@@ -94,6 +118,8 @@ public class DataWatcher {
                     arraylist.add(watchableobject);
                 }
             }
+
+            this.d.readLock().unlock();
         }
 
         this.c = false;
@@ -101,6 +127,7 @@ public class DataWatcher {
     }
 
     public void a(DataOutputStream dataoutputstream) {
+        this.d.readLock().lock();
         Iterator iterator = this.b.values().iterator();
 
         while (iterator.hasNext()) {
@@ -109,6 +136,7 @@ public class DataWatcher {
             a(dataoutputstream, watchableobject);
         }
 
+        this.d.readLock().unlock();
         dataoutputstream.writeByte(127);
     }
 

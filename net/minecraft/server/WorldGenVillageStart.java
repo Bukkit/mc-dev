@@ -15,26 +15,26 @@ class WorldGenVillageStart extends StructureStart {
 
         this.a.add(worldgenvillagestartpiece);
         worldgenvillagestartpiece.a(worldgenvillagestartpiece, this.a, random);
-        ArrayList arraylist1 = worldgenvillagestartpiece.f;
-        ArrayList arraylist2 = worldgenvillagestartpiece.e;
+        ArrayList arraylist1 = worldgenvillagestartpiece.j;
+        ArrayList arraylist2 = worldgenvillagestartpiece.i;
 
         int l;
 
         while (!arraylist1.isEmpty() || !arraylist2.isEmpty()) {
             StructurePiece structurepiece;
 
-            if (!arraylist1.isEmpty()) {
-                l = random.nextInt(arraylist1.size());
-                structurepiece = (StructurePiece) arraylist1.remove(l);
-                structurepiece.a((StructurePiece) worldgenvillagestartpiece, (List) this.a, random);
-            } else {
+            if (arraylist1.isEmpty()) {
                 l = random.nextInt(arraylist2.size());
                 structurepiece = (StructurePiece) arraylist2.remove(l);
+                structurepiece.a((StructurePiece) worldgenvillagestartpiece, (List) this.a, random);
+            } else {
+                l = random.nextInt(arraylist1.size());
+                structurepiece = (StructurePiece) arraylist1.remove(l);
                 structurepiece.a((StructurePiece) worldgenvillagestartpiece, (List) this.a, random);
             }
         }
 
-        this.d();
+        this.c();
         l = 0;
         Iterator iterator = this.a.iterator();
 
@@ -49,7 +49,7 @@ class WorldGenVillageStart extends StructureStart {
         this.c = l > 2;
     }
 
-    public boolean a() {
+    public boolean d() {
         return this.c;
     }
 }

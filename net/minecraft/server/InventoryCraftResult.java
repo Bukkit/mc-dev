@@ -54,7 +54,7 @@ public class InventoryCraftResult implements IInventory {
         return true;
     }
 
-    public void f() {}
+    public void startOpen() {}
 
-    public void g() {}
+    public void f() {}
 }

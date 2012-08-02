@@ -10,10 +10,8 @@ import java.util.Random;
 public class EnchantmentManager {
 
     private static final Random random = new Random();
-    private static final EnchantmentModifierProtection b = new EnchantmentModifierProtection((EmptyClass3) null);
-    private static final EnchantmentModifierDamage c = new EnchantmentModifierDamage((EmptyClass3) null);
-
-    public EnchantmentManager() {}
+    private static final EnchantmentModifierProtection b = new EnchantmentModifierProtection((EmptyClass) null);
+    private static final EnchantmentModifierDamage c = new EnchantmentModifierDamage((EmptyClass) null);
 
     public static int getEnchantmentLevel(int i, ItemStack itemstack) {
         if (itemstack == null) {
@@ -139,23 +137,22 @@ public class EnchantmentManager {
 
     public static int a(Random random, int i, int j, ItemStack itemstack) {
         Item item = itemstack.getItem();
-        int k = item.c();
+        int k = item.b();
 
         if (k <= 0) {
             return 0;
         } else {
-            if (j > 30) {
-                j = 30;
+            if (j > 15) {
+                j = 15;
             }
 
-            j = 1 + (j >> 1) + random.nextInt(j + 1);
-            int l = random.nextInt(5) + j;
+            int l = random.nextInt(8) + 1 + (j >> 1) + random.nextInt(j + 1);
 
-            return i == 0 ? (l >> 1) + 1 : (i == 1 ? l * 2 / 3 + 1 : l);
+            return i == 0 ? Math.max(l / 3, 1) : (i == 1 ? l * 2 / 3 + 1 : Math.max(l, j * 2));
         }
     }
 
-    public static void a(Random random, ItemStack itemstack, int i) {
+    public static ItemStack a(Random random, ItemStack itemstack, int i) {
         List list = b(random, itemstack, i);
 
         if (list != null) {
@@ -167,19 +164,27 @@ public class EnchantmentManager {
                 itemstack.addEnchantment(enchantmentinstance.enchantment, enchantmentinstance.level);
             }
         }
+
+        return itemstack;
     }
 
     public static List b(Random random, ItemStack itemstack, int i) {
         Item item = itemstack.getItem();
-        int j = item.c();
+        int j = item.b();
 
         if (j <= 0) {
             return null;
         } else {
+            j /= 2;
             j = 1 + random.nextInt((j >> 1) + 1) + random.nextInt((j >> 1) + 1);
             int k = j + i;
-            float f = (random.nextFloat() + random.nextFloat() - 1.0F) * 0.25F;
+            float f = (random.nextFloat() + random.nextFloat() - 1.0F) * 0.15F;
             int l = (int) ((float) k * (1.0F + f) + 0.5F);
+
+            if (l < 1) {
+                l = 1;
+            }
+
             ArrayList arraylist = null;
             Map map = b(l, itemstack);
 
@@ -190,7 +195,7 @@ public class EnchantmentManager {
                     arraylist = new ArrayList();
                     arraylist.add(enchantmentinstance);
 
-                    for (int i1 = l >> 1; random.nextInt(50) <= i1; i1 >>= 1) {
+                    for (int i1 = l; random.nextInt(50) <= i1; i1 >>= 1) {
                         Iterator iterator = map.keySet().iterator();
 
                         while (iterator.hasNext()) {

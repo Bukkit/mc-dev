@@ -19,7 +19,7 @@ public class Packet130UpdateSign extends Packet {
         this.x = i;
         this.y = j;
         this.z = k;
-        this.lines = astring;
+        this.lines = new String[] { astring[0], astring[1], astring[2], astring[3]};
     }
 
     public void a(DataInputStream datainputstream) {

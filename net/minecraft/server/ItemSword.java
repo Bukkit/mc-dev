@@ -10,6 +10,7 @@ public class ItemSword extends Item {
         this.b = enumtoolmaterial;
         this.maxStackSize = 1;
         this.setMaxDurability(enumtoolmaterial.a());
+        this.a(CreativeModeTab.j);
         this.damage = 4 + enumtoolmaterial.c();
     }
 
@@ -22,8 +23,11 @@ public class ItemSword extends Item {
         return true;
     }
 
-    public boolean a(ItemStack itemstack, int i, int j, int k, int l, EntityLiving entityliving) {
-        itemstack.damage(2, entityliving);
+    public boolean a(ItemStack itemstack, World world, int i, int j, int k, int l, EntityLiving entityliving) {
+        if ((double) Block.byId[i].m(world, j, k, l) != 0.0D) {
+            itemstack.damage(2, entityliving);
+        }
+
         return true;
     }
 
@@ -31,16 +35,16 @@ public class ItemSword extends Item {
         return this.damage;
     }
 
-    public EnumAnimation d(ItemStack itemstack) {
+    public EnumAnimation b(ItemStack itemstack) {
         return EnumAnimation.d;
     }
 
-    public int c(ItemStack itemstack) {
+    public int a(ItemStack itemstack) {
         return 72000;
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        entityhuman.a(itemstack, this.c(itemstack));
+        entityhuman.a(itemstack, this.a(itemstack));
         return itemstack;
     }
 
@@ -48,7 +52,11 @@ public class ItemSword extends Item {
         return block.id == Block.WEB.id;
     }
 
-    public int c() {
+    public int b() {
         return this.b.e();
+    }
+
+    public String f() {
+        return this.b.toString();
     }
 }

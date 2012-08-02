@@ -9,39 +9,39 @@ public class BlockRedstoneOre extends Block {
     public BlockRedstoneOre(int i, int j, boolean flag) {
         super(i, j, Material.STONE);
         if (flag) {
-            this.a(true);
+            this.b(true);
         }
 
         this.a = flag;
     }
 
-    public int d() {
+    public int p_() {
         return 30;
     }
 
     public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
-        this.g(world, i, j, k);
+        this.l(world, i, j, k);
         super.attack(world, i, j, k, entityhuman);
     }
 
     public void b(World world, int i, int j, int k, Entity entity) {
-        this.g(world, i, j, k);
+        this.l(world, i, j, k);
         super.b(world, i, j, k, entity);
     }
 
-    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
-        this.g(world, i, j, k);
-        return super.interact(world, i, j, k, entityhuman);
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
+        this.l(world, i, j, k);
+        return super.interact(world, i, j, k, entityhuman, l, f, f1, f2);
     }
 
-    private void g(World world, int i, int j, int k) {
-        this.h(world, i, j, k);
+    private void l(World world, int i, int j, int k) {
+        this.n(world, i, j, k);
         if (this.id == Block.REDSTONE_ORE.id) {
             world.setTypeId(i, j, k, Block.GLOWING_REDSTONE_ORE.id);
         }
     }
 
-    public void a(World world, int i, int j, int k, Random random) {
+    public void b(World world, int i, int j, int k, Random random) {
         if (this.id == Block.GLOWING_REDSTONE_ORE.id) {
             world.setTypeId(i, j, k, Block.REDSTONE_ORE.id);
         }
@@ -59,7 +59,16 @@ public class BlockRedstoneOre extends Block {
         return 4 + random.nextInt(2);
     }
 
-    private void h(World world, int i, int j, int k) {
+    public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
+        super.dropNaturally(world, i, j, k, l, f, i1);
+        if (this.getDropType(l, world.random, i1) != this.id) {
+            int j1 = 1 + world.random.nextInt(5);
+
+            this.g(world, i, j, k, j1);
+        }
+    }
+
+    private void n(World world, int i, int j, int k) {
         Random random = world.random;
         double d0 = 0.0625D;
 
@@ -98,7 +107,7 @@ public class BlockRedstoneOre extends Block {
         }
     }
 
-    protected ItemStack a_(int i) {
+    protected ItemStack c_(int i) {
         return new ItemStack(Block.REDSTONE_ORE);
     }
 }

@@ -4,13 +4,14 @@ public class BlockJukeBox extends BlockContainer {
 
     protected BlockJukeBox(int i, int j) {
         super(i, j, Material.WOOD);
+        this.a(CreativeModeTab.c);
     }
 
     public int a(int i) {
         return this.textureId + (i == 1 ? 1 : 0);
     }
 
-    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
         if (world.getData(i, j, k) == 0) {
             return false;
         } else {
@@ -19,7 +20,7 @@ public class BlockJukeBox extends BlockContainer {
         }
     }
 
-    public void f(World world, int i, int j, int k, int l) {
+    public void e(World world, int i, int j, int k, int l) {
         if (!world.isStatic) {
             TileEntityRecordPlayer tileentityrecordplayer = (TileEntityRecordPlayer) world.getTileEntity(i, j, k);
 
@@ -57,9 +58,9 @@ public class BlockJukeBox extends BlockContainer {
         }
     }
 
-    public void remove(World world, int i, int j, int k) {
+    public void remove(World world, int i, int j, int k, int l, int i1) {
         this.dropRecord(world, i, j, k);
-        super.remove(world, i, j, k);
+        super.remove(world, i, j, k, l, i1);
     }
 
     public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
@@ -68,7 +69,7 @@ public class BlockJukeBox extends BlockContainer {
         }
     }
 
-    public TileEntity a_() {
+    public TileEntity a(World world) {
         return new TileEntityRecordPlayer();
     }
 }

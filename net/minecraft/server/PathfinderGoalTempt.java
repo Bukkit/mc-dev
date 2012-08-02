@@ -33,7 +33,7 @@ public class PathfinderGoalTempt extends PathfinderGoal {
             if (this.h == null) {
                 return false;
             } else {
-                ItemStack itemstack = this.h.U();
+                ItemStack itemstack = this.h.bC();
 
                 return itemstack == null ? false : itemstack.id == this.k;
             }
@@ -42,7 +42,7 @@ public class PathfinderGoalTempt extends PathfinderGoal {
 
     public boolean b() {
         if (this.l) {
-            if (this.a.j(this.h) < 36.0D) {
+            if (this.a.e(this.h) < 36.0D) {
                 if (this.h.e(this.c, this.d, this.e) > 0.010000000000000002D) {
                     return false;
                 }
@@ -63,29 +63,29 @@ public class PathfinderGoalTempt extends PathfinderGoal {
         return this.a();
     }
 
-    public void c() {
+    public void e() {
         this.c = this.h.locX;
         this.d = this.h.locY;
         this.e = this.h.locZ;
         this.j = true;
-        this.m = this.a.al().a();
-        this.a.al().a(false);
+        this.m = this.a.getNavigation().a();
+        this.a.getNavigation().a(false);
+    }
+
+    public void c() {
+        this.h = null;
+        this.a.getNavigation().g();
+        this.i = 100;
+        this.j = false;
+        this.a.getNavigation().a(this.m);
     }
 
     public void d() {
-        this.h = null;
-        this.a.al().f();
-        this.i = 100;
-        this.j = false;
-        this.a.al().a(this.m);
-    }
-
-    public void e() {
-        this.a.getControllerLook().a(this.h, 30.0F, (float) this.a.D());
-        if (this.a.j(this.h) < 6.25D) {
-            this.a.al().f();
+        this.a.getControllerLook().a(this.h, 30.0F, (float) this.a.bf());
+        if (this.a.e(this.h) < 6.25D) {
+            this.a.getNavigation().g();
         } else {
-            this.a.al().a((EntityLiving) this.h, this.b);
+            this.a.getNavigation().a((EntityLiving) this.h, this.b);
         }
     }
 

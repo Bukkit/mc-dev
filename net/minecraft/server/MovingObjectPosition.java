@@ -16,12 +16,12 @@ public class MovingObjectPosition {
         this.c = j;
         this.d = k;
         this.face = l;
-        this.pos = Vec3D.create(vec3d.a, vec3d.b, vec3d.c);
+        this.pos = Vec3D.a().create(vec3d.a, vec3d.b, vec3d.c);
     }
 
     public MovingObjectPosition(Entity entity) {
         this.type = EnumMovingObjectType.ENTITY;
         this.entity = entity;
-        this.pos = Vec3D.create(entity.locX, entity.locY, entity.locZ);
+        this.pos = Vec3D.a().create(entity.locX, entity.locY, entity.locZ);
     }
 }

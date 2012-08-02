@@ -4,8 +4,6 @@ public class StatusChallengeUtils {
 
     public static char[] a = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
-    public StatusChallengeUtils() {}
-
     public static String a(byte[] abyte, int i, int j) {
         int k = j - 1;
 
@@ -18,7 +16,7 @@ public class StatusChallengeUtils {
         return new String(abyte, i, l - i);
     }
 
-    public static int a(byte[] abyte, int i) {
+    public static int b(byte[] abyte, int i) {
         return b(abyte, i, abyte.length);
     }
 

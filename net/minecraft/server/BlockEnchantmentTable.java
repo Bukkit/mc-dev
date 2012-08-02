@@ -5,14 +5,15 @@ public class BlockEnchantmentTable extends BlockContainer {
     protected BlockEnchantmentTable(int i) {
         super(i, 166, Material.STONE);
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
-        this.f(0);
+        this.h(0);
+        this.a(CreativeModeTab.c);
     }
 
-    public boolean b() {
+    public boolean c() {
         return false;
     }
 
-    public boolean a() {
+    public boolean d() {
         return false;
     }
 
@@ -24,11 +25,11 @@ public class BlockEnchantmentTable extends BlockContainer {
         return i == 0 ? this.textureId + 17 : (i == 1 ? this.textureId : this.textureId + 16);
     }
 
-    public TileEntity a_() {
+    public TileEntity a(World world) {
         return new TileEntityEnchantTable();
     }
 
-    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
         if (world.isStatic) {
             return true;
         } else {

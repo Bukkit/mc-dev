@@ -12,9 +12,9 @@ public class PathfinderGoalOfferFlower extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (!this.a.world.e()) {
+        if (!this.a.world.r()) {
             return false;
-        } else if (this.a.an().nextInt(8000) != 0) {
+        } else if (this.a.au().nextInt(8000) != 0) {
             return false;
         } else {
             this.b = (EntityVillager) this.a.world.a(EntityVillager.class, this.a.boundingBox.grow(6.0D, 2.0D, 6.0D), this.a);
@@ -26,17 +26,17 @@ public class PathfinderGoalOfferFlower extends PathfinderGoal {
         return this.c > 0;
     }
 
-    public void c() {
+    public void e() {
         this.c = 400;
-        this.a.a(true);
+        this.a.e(true);
     }
 
-    public void d() {
-        this.a.a(false);
+    public void c() {
+        this.a.e(false);
         this.b = null;
     }
 
-    public void e() {
+    public void d() {
         this.a.getControllerLook().a(this.b, 30.0F, 30.0F);
         --this.c;
     }

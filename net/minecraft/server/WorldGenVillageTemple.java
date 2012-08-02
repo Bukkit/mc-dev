@@ -7,18 +7,16 @@ public class WorldGenVillageTemple extends WorldGenVillagePiece {
 
     private int a = -1;
 
-    public WorldGenVillageTemple(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
-        super(i);
-        this.h = j;
-        this.g = structureboundingbox;
+    public WorldGenVillageTemple(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
+        super(worldgenvillagestartpiece, i);
+        this.f = j;
+        this.e = structureboundingbox;
     }
 
-    public void a(StructurePiece structurepiece, List list, Random random) {}
-
-    public static WorldGenVillageTemple a(List list, Random random, int i, int j, int k, int l, int i1) {
+    public static WorldGenVillageTemple a(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
         StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, 0, 0, 0, 5, 12, 9, l);
 
-        return a(structureboundingbox) && StructurePiece.a(list, structureboundingbox) == null ? new WorldGenVillageTemple(i1, random, structureboundingbox, l) : null;
+        return a(structureboundingbox) && StructurePiece.a(list, structureboundingbox) == null ? new WorldGenVillageTemple(worldgenvillagestartpiece, i1, random, structureboundingbox, l) : null;
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
@@ -28,7 +26,7 @@ public class WorldGenVillageTemple extends WorldGenVillagePiece {
                 return true;
             }
 
-            this.g.a(0, this.a - this.g.e + 12 - 1, 0);
+            this.e.a(0, this.a - this.e.e + 12 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 1, 1, 1, 3, 3, 7, 0, 0, false);
@@ -103,7 +101,7 @@ public class WorldGenVillageTemple extends WorldGenVillagePiece {
         return true;
     }
 
-    protected int a(int i) {
+    protected int b(int i) {
         return 2;
     }
 }

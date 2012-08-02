@@ -11,7 +11,7 @@ public class WorldGenMineshaftCross extends StructurePiece {
     public WorldGenMineshaftCross(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
         this.a = j;
-        this.g = structureboundingbox;
+        this.e = structureboundingbox;
         this.b = structureboundingbox.c() > 3;
     }
 
@@ -55,44 +55,44 @@ public class WorldGenMineshaftCross extends StructurePiece {
 
         switch (this.a) {
         case 0:
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a + 1, this.g.b, this.g.f + 1, 0, i);
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a - 1, this.g.b, this.g.c + 1, 1, i);
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.d + 1, this.g.b, this.g.c + 1, 3, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a + 1, this.e.b, this.e.f + 1, 0, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a - 1, this.e.b, this.e.c + 1, 1, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.d + 1, this.e.b, this.e.c + 1, 3, i);
             break;
 
         case 1:
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a + 1, this.g.b, this.g.c - 1, 2, i);
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a + 1, this.g.b, this.g.f + 1, 0, i);
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a - 1, this.g.b, this.g.c + 1, 1, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a + 1, this.e.b, this.e.c - 1, 2, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a + 1, this.e.b, this.e.f + 1, 0, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a - 1, this.e.b, this.e.c + 1, 1, i);
             break;
 
         case 2:
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a + 1, this.g.b, this.g.c - 1, 2, i);
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a - 1, this.g.b, this.g.c + 1, 1, i);
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.d + 1, this.g.b, this.g.c + 1, 3, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a + 1, this.e.b, this.e.c - 1, 2, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a - 1, this.e.b, this.e.c + 1, 1, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.d + 1, this.e.b, this.e.c + 1, 3, i);
             break;
 
         case 3:
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a + 1, this.g.b, this.g.c - 1, 2, i);
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a + 1, this.g.b, this.g.f + 1, 0, i);
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.d + 1, this.g.b, this.g.c + 1, 3, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a + 1, this.e.b, this.e.c - 1, 2, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a + 1, this.e.b, this.e.f + 1, 0, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.d + 1, this.e.b, this.e.c + 1, 3, i);
         }
 
         if (this.b) {
             if (random.nextBoolean()) {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a + 1, this.g.b + 3 + 1, this.g.c - 1, 2, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a + 1, this.e.b + 3 + 1, this.e.c - 1, 2, i);
             }
 
             if (random.nextBoolean()) {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a - 1, this.g.b + 3 + 1, this.g.c + 1, 1, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a - 1, this.e.b + 3 + 1, this.e.c + 1, 1, i);
             }
 
             if (random.nextBoolean()) {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.d + 1, this.g.b + 3 + 1, this.g.c + 1, 3, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.d + 1, this.e.b + 3 + 1, this.e.c + 1, 3, i);
             }
 
             if (random.nextBoolean()) {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a + 1, this.g.b + 3 + 1, this.g.f + 1, 0, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a + 1, this.e.b + 3 + 1, this.e.f + 1, 0, i);
             }
         }
     }
@@ -102,27 +102,27 @@ public class WorldGenMineshaftCross extends StructurePiece {
             return false;
         } else {
             if (this.b) {
-                this.a(world, structureboundingbox, this.g.a + 1, this.g.b, this.g.c, this.g.d - 1, this.g.b + 3 - 1, this.g.f, 0, 0, false);
-                this.a(world, structureboundingbox, this.g.a, this.g.b, this.g.c + 1, this.g.d, this.g.b + 3 - 1, this.g.f - 1, 0, 0, false);
-                this.a(world, structureboundingbox, this.g.a + 1, this.g.e - 2, this.g.c, this.g.d - 1, this.g.e, this.g.f, 0, 0, false);
-                this.a(world, structureboundingbox, this.g.a, this.g.e - 2, this.g.c + 1, this.g.d, this.g.e, this.g.f - 1, 0, 0, false);
-                this.a(world, structureboundingbox, this.g.a + 1, this.g.b + 3, this.g.c + 1, this.g.d - 1, this.g.b + 3, this.g.f - 1, 0, 0, false);
+                this.a(world, structureboundingbox, this.e.a + 1, this.e.b, this.e.c, this.e.d - 1, this.e.b + 3 - 1, this.e.f, 0, 0, false);
+                this.a(world, structureboundingbox, this.e.a, this.e.b, this.e.c + 1, this.e.d, this.e.b + 3 - 1, this.e.f - 1, 0, 0, false);
+                this.a(world, structureboundingbox, this.e.a + 1, this.e.e - 2, this.e.c, this.e.d - 1, this.e.e, this.e.f, 0, 0, false);
+                this.a(world, structureboundingbox, this.e.a, this.e.e - 2, this.e.c + 1, this.e.d, this.e.e, this.e.f - 1, 0, 0, false);
+                this.a(world, structureboundingbox, this.e.a + 1, this.e.b + 3, this.e.c + 1, this.e.d - 1, this.e.b + 3, this.e.f - 1, 0, 0, false);
             } else {
-                this.a(world, structureboundingbox, this.g.a + 1, this.g.b, this.g.c, this.g.d - 1, this.g.e, this.g.f, 0, 0, false);
-                this.a(world, structureboundingbox, this.g.a, this.g.b, this.g.c + 1, this.g.d, this.g.e, this.g.f - 1, 0, 0, false);
+                this.a(world, structureboundingbox, this.e.a + 1, this.e.b, this.e.c, this.e.d - 1, this.e.e, this.e.f, 0, 0, false);
+                this.a(world, structureboundingbox, this.e.a, this.e.b, this.e.c + 1, this.e.d, this.e.e, this.e.f - 1, 0, 0, false);
             }
 
-            this.a(world, structureboundingbox, this.g.a + 1, this.g.b, this.g.c + 1, this.g.a + 1, this.g.e, this.g.c + 1, Block.WOOD.id, 0, false);
-            this.a(world, structureboundingbox, this.g.a + 1, this.g.b, this.g.f - 1, this.g.a + 1, this.g.e, this.g.f - 1, Block.WOOD.id, 0, false);
-            this.a(world, structureboundingbox, this.g.d - 1, this.g.b, this.g.c + 1, this.g.d - 1, this.g.e, this.g.c + 1, Block.WOOD.id, 0, false);
-            this.a(world, structureboundingbox, this.g.d - 1, this.g.b, this.g.f - 1, this.g.d - 1, this.g.e, this.g.f - 1, Block.WOOD.id, 0, false);
+            this.a(world, structureboundingbox, this.e.a + 1, this.e.b, this.e.c + 1, this.e.a + 1, this.e.e, this.e.c + 1, Block.WOOD.id, 0, false);
+            this.a(world, structureboundingbox, this.e.a + 1, this.e.b, this.e.f - 1, this.e.a + 1, this.e.e, this.e.f - 1, Block.WOOD.id, 0, false);
+            this.a(world, structureboundingbox, this.e.d - 1, this.e.b, this.e.c + 1, this.e.d - 1, this.e.e, this.e.c + 1, Block.WOOD.id, 0, false);
+            this.a(world, structureboundingbox, this.e.d - 1, this.e.b, this.e.f - 1, this.e.d - 1, this.e.e, this.e.f - 1, Block.WOOD.id, 0, false);
 
-            for (int i = this.g.a; i <= this.g.d; ++i) {
-                for (int j = this.g.c; j <= this.g.f; ++j) {
-                    int k = this.a(world, i, this.g.b - 1, j, structureboundingbox);
+            for (int i = this.e.a; i <= this.e.d; ++i) {
+                for (int j = this.e.c; j <= this.e.f; ++j) {
+                    int k = this.a(world, i, this.e.b - 1, j, structureboundingbox);
 
                     if (k == 0) {
-                        this.a(world, Block.WOOD.id, 0, i, this.g.b - 1, j, structureboundingbox);
+                        this.a(world, Block.WOOD.id, 0, i, this.e.b - 1, j, structureboundingbox);
                     }
                 }
             }

@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BlockEnderPortal extends BlockContainer {
@@ -12,7 +12,7 @@ public class BlockEnderPortal extends BlockContainer {
         this.a(1.0F);
     }
 
-    public TileEntity a_() {
+    public TileEntity a(World world) {
         return new TileEntityEnderPortal();
     }
 
@@ -22,13 +22,13 @@ public class BlockEnderPortal extends BlockContainer {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
     }
 
-    public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist) {}
+    public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List list, Entity entity) {}
 
-    public boolean a() {
+    public boolean d() {
         return false;
     }
 
-    public boolean b() {
+    public boolean c() {
         return false;
     }
 
@@ -38,11 +38,11 @@ public class BlockEnderPortal extends BlockContainer {
 
     public void a(World world, int i, int j, int k, Entity entity) {
         if (entity.vehicle == null && entity.passenger == null && entity instanceof EntityHuman && !world.isStatic) {
-            ((EntityHuman) entity).e(1);
+            ((EntityHuman) entity).c(1);
         }
     }
 
-    public int c() {
+    public int b() {
         return -1;
     }
 

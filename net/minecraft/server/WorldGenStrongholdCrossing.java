@@ -9,43 +9,43 @@ public class WorldGenStrongholdCrossing extends WorldGenStrongholdPiece {
     private boolean b;
     private boolean c;
     private boolean d;
-    private boolean e;
+    private boolean h;
 
     public WorldGenStrongholdCrossing(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.h = j;
+        this.f = j;
         this.a = this.a(random);
-        this.g = structureboundingbox;
+        this.e = structureboundingbox;
         this.b = random.nextBoolean();
         this.c = random.nextBoolean();
         this.d = random.nextBoolean();
-        this.e = random.nextInt(3) > 0;
+        this.h = random.nextInt(3) > 0;
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
         int i = 3;
         int j = 5;
 
-        if (this.h == 1 || this.h == 2) {
+        if (this.f == 1 || this.f == 2) {
             i = 8 - i;
             j = 8 - j;
         }
 
-        this.a((WorldGenStrongholdStairs2) structurepiece, list, random, 5, 1);
+        this.a((WorldGenStrongholdStart) structurepiece, list, random, 5, 1);
         if (this.b) {
-            this.b((WorldGenStrongholdStairs2) structurepiece, list, random, i, 1);
+            this.b((WorldGenStrongholdStart) structurepiece, list, random, i, 1);
         }
 
         if (this.c) {
-            this.b((WorldGenStrongholdStairs2) structurepiece, list, random, j, 7);
+            this.b((WorldGenStrongholdStart) structurepiece, list, random, j, 7);
         }
 
         if (this.d) {
-            this.c((WorldGenStrongholdStairs2) structurepiece, list, random, i, 1);
+            this.c((WorldGenStrongholdStart) structurepiece, list, random, i, 1);
         }
 
-        if (this.e) {
-            this.c((WorldGenStrongholdStairs2) structurepiece, list, random, j, 7);
+        if (this.h) {
+            this.c((WorldGenStrongholdStart) structurepiece, list, random, j, 7);
         }
     }
 
@@ -73,7 +73,7 @@ public class WorldGenStrongholdCrossing extends WorldGenStrongholdPiece {
                 this.a(world, structureboundingbox, 0, 5, 7, 0, 7, 9, 0, 0, false);
             }
 
-            if (this.e) {
+            if (this.h) {
                 this.a(world, structureboundingbox, 9, 5, 7, 9, 7, 9, 0, 0, false);
             }
 

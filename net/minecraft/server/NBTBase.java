@@ -146,12 +146,12 @@ public abstract class NBTBase {
     public abstract NBTBase clone();
 
     public boolean equals(Object object) {
-        if (object != null && object instanceof NBTBase) {
+        if (!(object instanceof NBTBase)) {
+            return false;
+        } else {
             NBTBase nbtbase = (NBTBase) object;
 
             return this.getTypeId() != nbtbase.getTypeId() ? false : ((this.name != null || nbtbase.name == null) && (this.name == null || nbtbase.name != null) ? this.name == null || this.name.equals(nbtbase.name) : false);
-        } else {
-            return false;
         }
     }
 

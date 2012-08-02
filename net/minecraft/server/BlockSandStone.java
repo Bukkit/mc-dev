@@ -2,8 +2,11 @@ package net.minecraft.server;
 
 public class BlockSandStone extends Block {
 
+    public static final String[] a = new String[] { "default", "chiseled", "smooth"};
+
     public BlockSandStone(int i) {
         super(i, 192, Material.STONE);
+        this.a(CreativeModeTab.b);
     }
 
     public int a(int i, int j) {

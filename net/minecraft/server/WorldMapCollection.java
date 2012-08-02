@@ -78,8 +78,10 @@ public class WorldMapCollection {
     }
 
     public void a() {
-        for (int i = 0; i < this.c.size(); ++i) {
-            WorldMapBase worldmapbase = (WorldMapBase) this.c.get(i);
+        Iterator iterator = this.c.iterator();
+
+        while (iterator.hasNext()) {
+            WorldMapBase worldmapbase = (WorldMapBase) iterator.next();
 
             if (worldmapbase.b()) {
                 this.a(worldmapbase);
@@ -125,7 +127,7 @@ public class WorldMapCollection {
                 NBTTagCompound nbttagcompound = NBTCompressedStreamTools.a((DataInput) datainputstream);
 
                 datainputstream.close();
-                Iterator iterator = nbttagcompound.d().iterator();
+                Iterator iterator = nbttagcompound.c().iterator();
 
                 while (iterator.hasNext()) {
                     NBTBase nbtbase = (NBTBase) iterator.next();

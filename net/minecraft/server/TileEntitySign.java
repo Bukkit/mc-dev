@@ -28,17 +28,14 @@ public class TileEntitySign extends TileEntity {
         }
     }
 
-    public Packet d() {
+    public Packet e() {
         String[] astring = new String[4];
 
-        for (int i = 0; i < 4; ++i) {
-            astring[i] = this.lines[i];
-        }
-
+        System.arraycopy(this.lines, 0, astring, 0, 4);
         return new Packet130UpdateSign(this.x, this.y, this.z, astring);
     }
 
-    public boolean c() {
+    public boolean a() {
         return this.isEditable;
     }
 }

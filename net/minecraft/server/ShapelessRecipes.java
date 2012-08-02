@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ShapelessRecipes implements CraftingRecipe {
+public class ShapelessRecipes implements IRecipe {
 
     private final ItemStack result;
     private final List ingredients;

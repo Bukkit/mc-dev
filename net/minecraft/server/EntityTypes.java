@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class EntityTypes {
@@ -10,9 +11,7 @@ public class EntityTypes {
     private static Map d = new HashMap();
     private static Map e = new HashMap();
     private static Map f = new HashMap();
-    public static HashMap a = new HashMap();
-
-    public EntityTypes() {}
+    public static HashMap a = new LinkedHashMap();
 
     private static void a(Class oclass, String s, int i) {
         b.put(s, oclass);
@@ -86,17 +85,13 @@ public class EntityTypes {
     }
 
     public static int a(Entity entity) {
-        return ((Integer) e.get(entity.getClass())).intValue();
+        Class oclass = entity.getClass();
+
+        return e.containsKey(oclass) ? ((Integer) e.get(oclass)).intValue() : 0;
     }
 
     public static String b(Entity entity) {
         return (String) c.get(entity.getClass());
-    }
-
-    public static int a(String s) {
-        Integer integer = (Integer) f.get(s);
-
-        return integer == null ? 90 : integer.intValue();
     }
 
     static {

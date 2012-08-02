@@ -4,7 +4,7 @@ public class EnchantmentProtection extends Enchantment {
 
     private static final String[] A = new String[] { "all", "fire", "fall", "explosion", "projectile"};
     private static final int[] B = new int[] { 1, 10, 5, 5, 3};
-    private static final int[] C = new int[] { 16, 8, 6, 8, 6};
+    private static final int[] C = new int[] { 11, 8, 6, 8, 6};
     private static final int[] D = new int[] { 20, 12, 10, 12, 15};
     public final int a;
 
@@ -34,7 +34,7 @@ public class EnchantmentProtection extends Enchantment {
         } else {
             int j = (6 + i * i) / 2;
 
-            return this.a == 0 ? j : (this.a == 1 && damagesource.k() ? j : (this.a == 2 && damagesource == DamageSource.FALL ? j * 2 : (this.a == 3 && damagesource == DamageSource.EXPLOSION ? j : (this.a == 4 && damagesource.c() ? j : 0))));
+            return this.a == 0 ? j : (this.a == 1 && damagesource.k() ? j : (this.a == 2 && damagesource == DamageSource.FALL ? j * 2 : ((this.a != 3 || damagesource != DamageSource.EXPLOSION) && damagesource != DamageSource.EXPLOSION2 ? (this.a == 4 && damagesource.a() ? j : 0) : j)));
         }
     }
 

@@ -6,6 +6,7 @@ public class BlockBookshelf extends Block {
 
     public BlockBookshelf(int i, int j) {
         super(i, j, Material.WOOD);
+        this.a(CreativeModeTab.b);
     }
 
     public int a(int i) {

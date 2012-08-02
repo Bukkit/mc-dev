@@ -24,4 +24,12 @@ public class Packet16BlockItemSwitch extends Packet {
     public int a() {
         return 2;
     }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        return true;
+    }
 }

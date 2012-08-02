@@ -15,8 +15,6 @@ import java.util.logging.Logger;
 
 public class HttpUtilities {
 
-    private HttpUtilities() {}
-
     public static String a(Map map) {
         StringBuilder stringbuilder = new StringBuilder();
         Iterator iterator = map.entrySet().iterator();

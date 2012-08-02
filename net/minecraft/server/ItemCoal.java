@@ -6,9 +6,10 @@ public class ItemCoal extends Item {
         super(i);
         this.a(true);
         this.setMaxDurability(0);
+        this.a(CreativeModeTab.l);
     }
 
-    public String a(ItemStack itemstack) {
+    public String c(ItemStack itemstack) {
         return itemstack.getData() == 1 ? "item.charcoal" : "item.coal";
     }
 }

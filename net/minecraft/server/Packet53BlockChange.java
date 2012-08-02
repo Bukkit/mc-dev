@@ -28,7 +28,7 @@ public class Packet53BlockChange extends Packet {
         this.a = datainputstream.readInt();
         this.b = datainputstream.read();
         this.c = datainputstream.readInt();
-        this.material = datainputstream.read();
+        this.material = datainputstream.readShort();
         this.data = datainputstream.read();
     }
 
@@ -36,7 +36,7 @@ public class Packet53BlockChange extends Packet {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.write(this.b);
         dataoutputstream.writeInt(this.c);
-        dataoutputstream.write(this.material);
+        dataoutputstream.writeShort(this.material);
         dataoutputstream.write(this.data);
     }
 

@@ -6,6 +6,7 @@ import java.util.List;
 public class PathfinderGoalHurtByTarget extends PathfinderGoalTarget {
 
     boolean a;
+    EntityLiving b;
 
     public PathfinderGoalHurtByTarget(EntityLiving entityliving, boolean flag) {
         super(entityliving, 16.0F, false);
@@ -14,25 +15,29 @@ public class PathfinderGoalHurtByTarget extends PathfinderGoalTarget {
     }
 
     public boolean a() {
-        return this.a(this.c.ao(), true);
+        return this.a(this.d.av(), true);
     }
 
-    public void c() {
-        this.c.b(this.c.ao());
+    public boolean b() {
+        return this.d.av() != null && this.d.av() != this.b;
+    }
+
+    public void e() {
+        this.d.b(this.d.av());
+        this.b = this.d.av();
         if (this.a) {
-            List list = this.c.world.a(this.c.getClass(), AxisAlignedBB.b(this.c.locX, this.c.locY, this.c.locZ, this.c.locX + 1.0D, this.c.locY + 1.0D, this.c.locZ + 1.0D).grow((double) this.d, 4.0D, (double) this.d));
+            List list = this.d.world.a(this.d.getClass(), AxisAlignedBB.a().a(this.d.locX, this.d.locY, this.d.locZ, this.d.locX + 1.0D, this.d.locY + 1.0D, this.d.locZ + 1.0D).grow((double) this.e, 4.0D, (double) this.e));
             Iterator iterator = list.iterator();
 
             while (iterator.hasNext()) {
-                Entity entity = (Entity) iterator.next();
-                EntityLiving entityliving = (EntityLiving) entity;
+                EntityLiving entityliving = (EntityLiving) iterator.next();
 
-                if (this.c != entityliving && entityliving.at() == null) {
-                    entityliving.b(this.c.ao());
+                if (this.d != entityliving && entityliving.az() == null) {
+                    entityliving.b(this.d.av());
                 }
             }
         }
 
-        super.c();
+        super.e();
     }
 }

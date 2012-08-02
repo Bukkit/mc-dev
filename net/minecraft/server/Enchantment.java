@@ -72,7 +72,7 @@ public abstract class Enchantment {
         return this != enchantment;
     }
 
-    public Enchantment a(String s) {
+    public Enchantment b(String s) {
         this.name = s;
         return this;
     }

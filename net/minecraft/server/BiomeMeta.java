@@ -2,14 +2,14 @@ package net.minecraft.server;
 
 public class BiomeMeta extends WeightedRandomChoice {
 
-    public Class a;
-    public int b;
+    public Class b;
     public int c;
+    public int d;
 
     public BiomeMeta(Class oclass, int i, int j, int k) {
         super(i);
-        this.a = oclass;
-        this.b = j;
-        this.c = k;
+        this.b = oclass;
+        this.c = j;
+        this.d = k;
     }
 }

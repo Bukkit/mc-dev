@@ -13,7 +13,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private Chunk emptyChunk;
     private IChunkProvider chunkProvider;
     private IChunkLoader e;
-    public boolean forceChunkLoad = false;
+    public boolean forceChunkLoad = true;
     private LongHashMap chunks = new LongHashMap();
     private List chunkList = new ArrayList();
     private WorldServer world;
@@ -30,7 +30,7 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     public void queueUnload(int i, int j) {
-        if (this.world.worldProvider.c()) {
+        if (this.world.worldProvider.e()) {
             ChunkCoordinates chunkcoordinates = this.world.getSpawn();
             int k = i * 16 + 8 - chunkcoordinates.x;
             int l = j * 16 + 8 - chunkcoordinates.z;
@@ -44,7 +44,7 @@ public class ChunkProviderServer implements IChunkProvider {
         }
     }
 
-    public void c() {
+    public void a() {
         Iterator iterator = this.chunkList.iterator();
 
         while (iterator.hasNext()) {
@@ -73,7 +73,6 @@ public class ChunkProviderServer implements IChunkProvider {
             this.chunks.put(k, chunk);
             this.chunkList.add(chunk);
             if (chunk != null) {
-                chunk.loadNOP();
                 chunk.addEntities();
             }
 
@@ -125,6 +124,8 @@ public class ChunkProviderServer implements IChunkProvider {
                 this.e.a(this.world, chunk);
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
+            } catch (ExceptionWorldConflict exceptionworldconflict) {
+                exceptionworldconflict.printStackTrace();
             }
         }
     }
@@ -143,9 +144,10 @@ public class ChunkProviderServer implements IChunkProvider {
 
     public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
         int i = 0;
+        Iterator iterator = this.chunkList.iterator();
 
-        for (int j = 0; j < this.chunkList.size(); ++j) {
-            Chunk chunk = (Chunk) this.chunkList.get(j);
+        while (iterator.hasNext()) {
+            Chunk chunk = (Chunk) iterator.next();
 
             if (flag) {
                 this.saveChunkNOP(chunk);
@@ -200,7 +202,7 @@ public class ChunkProviderServer implements IChunkProvider {
         return !this.world.savingDisabled;
     }
 
-    public String d() {
+    public String getName() {
         return "ServerChunkCache: " + this.chunks.count() + " Drop: " + this.unloadQueue.size();
     }
 
@@ -210,5 +212,9 @@ public class ChunkProviderServer implements IChunkProvider {
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {
         return this.chunkProvider.findNearestMapFeature(world, s, i, j, k);
+    }
+
+    public int getLoadedChunks() {
+        return this.chunks.count();
     }
 }

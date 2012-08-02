@@ -1,16 +1,19 @@
 package net.minecraft.server;
 
+import java.util.Iterator;
+
 public class ContainerBrewingStand extends Container {
 
     private TileEntityBrewingStand brewingStand;
-    private int b = 0;
+    private final Slot f;
+    private int g = 0;
 
     public ContainerBrewingStand(PlayerInventory playerinventory, TileEntityBrewingStand tileentitybrewingstand) {
         this.brewingStand = tileentitybrewingstand;
-        this.a(new SlotPotionBottle(this, playerinventory.player, tileentitybrewingstand, 0, 56, 46));
-        this.a(new SlotPotionBottle(this, playerinventory.player, tileentitybrewingstand, 1, 79, 53));
-        this.a(new SlotPotionBottle(this, playerinventory.player, tileentitybrewingstand, 2, 102, 46));
-        this.a(new SlotBrewing(this, tileentitybrewingstand, 3, 79, 17));
+        this.a(new SlotPotionBottle(playerinventory.player, tileentitybrewingstand, 0, 56, 46));
+        this.a(new SlotPotionBottle(playerinventory.player, tileentitybrewingstand, 1, 79, 53));
+        this.a(new SlotPotionBottle(playerinventory.player, tileentitybrewingstand, 2, 102, 46));
+        this.f = this.a(new SlotBrewing(this, tileentitybrewingstand, 3, 79, 17));
 
         int i;
 
@@ -27,37 +30,46 @@ public class ContainerBrewingStand extends Container {
 
     public void addSlotListener(ICrafting icrafting) {
         super.addSlotListener(icrafting);
-        icrafting.setContainerData(this, 0, this.brewingStand.i());
+        icrafting.setContainerData(this, 0, this.brewingStand.t_());
     }
 
-    public void a() {
-        super.a();
+    public void b() {
+        super.b();
+        Iterator iterator = this.listeners.iterator();
 
-        for (int i = 0; i < this.listeners.size(); ++i) {
-            ICrafting icrafting = (ICrafting) this.listeners.get(i);
+        while (iterator.hasNext()) {
+            ICrafting icrafting = (ICrafting) iterator.next();
 
-            if (this.b != this.brewingStand.i()) {
-                icrafting.setContainerData(this, 0, this.brewingStand.i());
+            if (this.g != this.brewingStand.t_()) {
+                icrafting.setContainerData(this, 0, this.brewingStand.t_());
             }
         }
 
-        this.b = this.brewingStand.i();
+        this.g = this.brewingStand.t_();
     }
 
-    public boolean b(EntityHuman entityhuman) {
+    public boolean c(EntityHuman entityhuman) {
         return this.brewingStand.a(entityhuman);
     }
 
-    public ItemStack a(int i) {
+    public ItemStack b(int i) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.e.get(i);
+        Slot slot = (Slot) this.b.get(i);
 
-        if (slot != null && slot.c()) {
+        if (slot != null && slot.d()) {
             ItemStack itemstack1 = slot.getItem();
 
             itemstack = itemstack1.cloneItemStack();
             if ((i < 0 || i > 2) && i != 3) {
-                if (i >= 4 && i < 31) {
+                if (!this.f.d() && this.f.isAllowed(itemstack1)) {
+                    if (!this.a(itemstack1, 3, 4, false)) {
+                        return null;
+                    }
+                } else if (SlotPotionBottle.a_(itemstack)) {
+                    if (!this.a(itemstack1, 0, 3, false)) {
+                        return null;
+                    }
+                } else if (i >= 4 && i < 31) {
                     if (!this.a(itemstack1, 31, 40, false)) {
                         return null;
                     }
@@ -79,14 +91,14 @@ public class ContainerBrewingStand extends Container {
             if (itemstack1.count == 0) {
                 slot.set((ItemStack) null);
             } else {
-                slot.d();
+                slot.e();
             }
 
             if (itemstack1.count == itemstack.count) {
                 return null;
             }
 
-            slot.c(itemstack1);
+            slot.b(itemstack1);
         }
 
         return itemstack;

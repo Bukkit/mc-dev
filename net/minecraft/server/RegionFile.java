@@ -25,7 +25,6 @@ public class RegionFile {
 
     public RegionFile(File file1) {
         this.b = file1;
-        this.b("REGION LOAD " + this.b);
         this.g = 0;
 
         try {
@@ -88,27 +87,8 @@ public class RegionFile {
         }
     }
 
-    private void a(String s) {}
-
-    private void b(String s) {
-        this.a(s + "\n");
-    }
-
-    private void a(String s, int i, int j, String s1) {
-        this.a("REGION " + s + " " + this.b.getName() + "[" + i + "," + j + "] = " + s1);
-    }
-
-    private void a(String s, int i, int j, int k, String s1) {
-        this.a("REGION " + s + " " + this.b.getName() + "[" + i + "," + j + "] " + k + "B = " + s1);
-    }
-
-    private void b(String s, int i, int j, String s1) {
-        this.a(s, i, j, s1 + "\n");
-    }
-
     public synchronized DataInputStream a(int i, int j) {
         if (this.d(i, j)) {
-            this.b("READ", i, j, "out of bounds");
             return null;
         } else {
             try {
@@ -121,42 +101,34 @@ public class RegionFile {
                     int i1 = k & 255;
 
                     if (l + i1 > this.f.size()) {
-                        this.b("READ", i, j, "invalid sector");
                         return null;
                     } else {
                         this.c.seek((long) (l * 4096));
                         int j1 = this.c.readInt();
 
                         if (j1 > 4096 * i1) {
-                            this.b("READ", i, j, "invalid length: " + j1 + " > 4096 * " + i1);
                             return null;
                         } else if (j1 <= 0) {
-                            this.b("READ", i, j, "invalid length: " + j1 + " < 1");
                             return null;
                         } else {
                             byte b0 = this.c.readByte();
                             byte[] abyte;
-                            DataInputStream datainputstream;
 
                             if (b0 == 1) {
                                 abyte = new byte[j1 - 1];
                                 this.c.read(abyte);
-                                datainputstream = new DataInputStream(new BufferedInputStream(new GZIPInputStream(new ByteArrayInputStream(abyte))));
-                                return datainputstream;
+                                return new DataInputStream(new BufferedInputStream(new GZIPInputStream(new ByteArrayInputStream(abyte))));
                             } else if (b0 == 2) {
                                 abyte = new byte[j1 - 1];
                                 this.c.read(abyte);
-                                datainputstream = new DataInputStream(new BufferedInputStream(new InflaterInputStream(new ByteArrayInputStream(abyte))));
-                                return datainputstream;
+                                return new DataInputStream(new BufferedInputStream(new InflaterInputStream(new ByteArrayInputStream(abyte))));
                             } else {
-                                this.b("READ", i, j, "unknown version " + b0);
                                 return null;
                             }
                         }
                     }
                 }
             } catch (IOException ioexception) {
-                this.b("READ", i, j, "exception");
                 return null;
             }
         }
@@ -178,7 +150,6 @@ public class RegionFile {
             }
 
             if (i1 != 0 && j1 == k1) {
-                this.a("SAVE", i, j, k, "rewrite");
                 this.a(i1, abyte, k);
             } else {
                 int l1;
@@ -211,7 +182,6 @@ public class RegionFile {
                 }
 
                 if (i2 >= k1) {
-                    this.a("SAVE", i, j, k, "reuse");
                     i1 = l1;
                     this.a(i, j, l1 << 8 | k1);
 
@@ -221,7 +191,6 @@ public class RegionFile {
 
                     this.a(i1, abyte, k);
                 } else {
-                    this.a("SAVE", i, j, k, "grow");
                     this.c.seek(this.c.length());
                     i1 = this.f.size();
 
@@ -243,7 +212,6 @@ public class RegionFile {
     }
 
     private void a(int i, byte[] abyte, int j) {
-        this.b(" " + i);
         this.c.seek((long) (i * 4096));
         this.c.writeInt(j + 1);
         this.c.writeByte(2);
@@ -274,7 +242,9 @@ public class RegionFile {
         this.c.writeInt(k);
     }
 
-    public void a() {
-        this.c.close();
+    public void c() {
+        if (this.c != null) {
+            this.c.close();
+        }
     }
 }

@@ -10,50 +10,22 @@ class NetworkReaderThread extends Thread {
     }
 
     public void run() {
-        Object object = NetworkManager.a;
+        NetworkManager.a.getAndIncrement();
 
-        synchronized (NetworkManager.a) {
-            ++NetworkManager.b;
-        }
-
-        while (true) {
-            boolean flag = false;
-
-            try {
-                flag = true;
-                if (!NetworkManager.a(this.a)) {
-                    flag = false;
-                    break;
-                }
-
-                if (NetworkManager.b(this.a)) {
-                    flag = false;
-                    break;
-                }
-
-                while (NetworkManager.c(this.a)) {
-                    ;
-                }
-
-                try {
-                    sleep(2L);
-                } catch (InterruptedException interruptedexception) {
-                    ;
-                }
-            } finally {
-                if (flag) {
-                    Object object1 = NetworkManager.a;
-
-                    synchronized (NetworkManager.a) {
-                        --NetworkManager.b;
+        try {
+            while (NetworkManager.a(this.a) && !NetworkManager.b(this.a)) {
+                while (true) {
+                    if (!NetworkManager.c(this.a)) {
+                        try {
+                            sleep(2L);
+                        } catch (InterruptedException interruptedexception) {
+                            ;
+                        }
                     }
                 }
             }
-        }
-
-        object = NetworkManager.a;
-        synchronized (NetworkManager.a) {
-            --NetworkManager.b;
+        } finally {
+            NetworkManager.a.getAndDecrement();
         }
     }
 }

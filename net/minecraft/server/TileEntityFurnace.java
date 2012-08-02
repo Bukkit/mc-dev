@@ -107,7 +107,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         return this.burnTime > 0;
     }
 
-    public void q_() {
+    public void g() {
         boolean flag = this.burnTime > 0;
         boolean flag1 = false;
 
@@ -123,7 +123,9 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
                     if (this.items[1] != null) {
                         --this.items[1].count;
                         if (this.items[1].count == 0) {
-                            this.items[1] = null;
+                            Item item = this.items[1].getItem().q();
+
+                            this.items[1] = item != null ? new ItemStack(item) : null;
                         }
                     }
                 }
@@ -155,7 +157,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         if (this.items[0] == null) {
             return false;
         } else {
-            ItemStack itemstack = FurnaceRecipes.getInstance().getResult(this.items[0].getItem().id);
+            ItemStack itemstack = RecipesFurnace.getInstance().getResult(this.items[0].getItem().id);
 
             return itemstack == null ? false : (this.items[2] == null ? true : (!this.items[2].doMaterialsMatch(itemstack) ? false : (this.items[2].count < this.getMaxStackSize() && this.items[2].count < this.items[2].getMaxStackSize() ? true : this.items[2].count < itemstack.getMaxStackSize())));
         }
@@ -163,7 +165,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
     public void burn() {
         if (this.canBurn()) {
-            ItemStack itemstack = FurnaceRecipes.getInstance().getResult(this.items[0].getItem().id);
+            ItemStack itemstack = RecipesFurnace.getInstance().getResult(this.items[0].getItem().id);
 
             if (this.items[2] == null) {
                 this.items[2] = itemstack.cloneItemStack();
@@ -183,8 +185,21 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
             return 0;
         } else {
             int i = itemstack.getItem().id;
+            Item item = itemstack.getItem();
 
-            return i < 256 && Block.byId[i].material == Material.WOOD ? 300 : (i == Item.STICK.id ? 100 : (i == Item.COAL.id ? 1600 : (i == Item.LAVA_BUCKET.id ? 20000 : (i == Block.SAPLING.id ? 100 : (i == Item.BLAZE_ROD.id ? 2400 : 0)))));
+            if (i < 256 && Block.byId[i] != null) {
+                Block block = Block.byId[i];
+
+                if (block == Block.WOOD_STEP) {
+                    return 150;
+                }
+
+                if (block.material == Material.WOOD) {
+                    return 300;
+                }
+            }
+
+            return item instanceof ItemTool && ((ItemTool) item).e().equals("WOOD") ? 200 : (item instanceof ItemSword && ((ItemSword) item).f().equals("WOOD") ? 200 : (item instanceof ItemHoe && ((ItemHoe) item).f().equals("WOOD") ? 200 : (i == Item.STICK.id ? 100 : (i == Item.COAL.id ? 1600 : (i == Item.LAVA_BUCKET.id ? 20000 : (i == Block.SAPLING.id ? 100 : (i == Item.BLAZE_ROD.id ? 2400 : 0)))))));
         }
     }
 
@@ -196,7 +211,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         return this.world.getTileEntity(this.x, this.y, this.z) != this ? false : entityhuman.e((double) this.x + 0.5D, (double) this.y + 0.5D, (double) this.z + 0.5D) <= 64.0D;
     }
 
-    public void f() {}
+    public void startOpen() {}
 
-    public void g() {}
+    public void f() {}
 }

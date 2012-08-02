@@ -7,22 +7,22 @@ public class EntityEnderCrystal extends Entity {
 
     public EntityEnderCrystal(World world) {
         super(world);
-        this.bf = true;
-        this.b(2.0F, 2.0F);
+        this.m = true;
+        this.a(2.0F, 2.0F);
         this.height = this.length / 2.0F;
         this.b = 5;
         this.a = this.random.nextInt(100000);
     }
 
-    protected boolean g_() {
+    protected boolean e_() {
         return false;
     }
 
-    protected void b() {
+    protected void a() {
         this.datawatcher.a(8, Integer.valueOf(this.b));
     }
 
-    public void F_() {
+    public void h_() {
         this.lastX = this.locX;
         this.lastY = this.locY;
         this.lastZ = this.locZ;
@@ -41,7 +41,7 @@ public class EntityEnderCrystal extends Entity {
 
     protected void a(NBTTagCompound nbttagcompound) {}
 
-    public boolean o_() {
+    public boolean L() {
         return true;
     }
 
@@ -49,11 +49,9 @@ public class EntityEnderCrystal extends Entity {
         if (!this.dead && !this.world.isStatic) {
             this.b = 0;
             if (this.b <= 0) {
+                this.die();
                 if (!this.world.isStatic) {
-                    this.die();
                     this.world.explode((Entity) null, this.locX, this.locY, this.locZ, 6.0F);
-                } else {
-                    this.die();
                 }
             }
         }

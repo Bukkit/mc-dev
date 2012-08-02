@@ -34,7 +34,7 @@ public class WorldGenHugeMushroom extends WorldGenerator {
             for (j1 = j; j1 <= j + 1 + i1; ++j1) {
                 byte b0 = 3;
 
-                if (j1 == j) {
+                if (j1 <= j + 3) {
                     b0 = 0;
                 }
 
@@ -58,10 +58,7 @@ public class WorldGenHugeMushroom extends WorldGenerator {
                 j1 = world.getTypeId(i, j - 1, k);
                 if (j1 != Block.DIRT.id && j1 != Block.GRASS.id && j1 != Block.MYCEL.id) {
                     return false;
-                } else if (!Block.BROWN_MUSHROOM.canPlace(world, i, j, k)) {
-                    return false;
                 } else {
-                    this.setTypeAndData(world, i, j - 1, k, Block.DIRT.id, 0);
                     int j2 = j + i1;
 
                     if (l == 1) {

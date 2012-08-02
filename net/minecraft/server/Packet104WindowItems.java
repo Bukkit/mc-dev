@@ -29,16 +29,20 @@ public class Packet104WindowItems extends Packet {
         this.b = new ItemStack[short1];
 
         for (int i = 0; i < short1; ++i) {
-            this.b[i] = this.b(datainputstream);
+            this.b[i] = c(datainputstream);
         }
     }
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeByte(this.a);
         dataoutputstream.writeShort(this.b.length);
+        ItemStack[] aitemstack = this.b;
+        int i = aitemstack.length;
 
-        for (int i = 0; i < this.b.length; ++i) {
-            this.a(this.b[i], dataoutputstream);
+        for (int j = 0; j < i; ++j) {
+            ItemStack itemstack = aitemstack[j];
+
+            a(itemstack, dataoutputstream);
         }
     }
 

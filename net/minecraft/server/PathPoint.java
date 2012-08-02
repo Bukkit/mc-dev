@@ -32,6 +32,14 @@ public class PathPoint {
         return MathHelper.c(f * f + f1 * f1 + f2 * f2);
     }
 
+    public float b(PathPoint pathpoint) {
+        float f = (float) (pathpoint.a - this.a);
+        float f1 = (float) (pathpoint.b - this.b);
+        float f2 = (float) (pathpoint.c - this.c);
+
+        return f * f + f1 * f1 + f2 * f2;
+    }
+
     public boolean equals(Object object) {
         if (!(object instanceof PathPoint)) {
             return false;

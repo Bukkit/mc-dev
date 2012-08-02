@@ -14,18 +14,18 @@ public abstract class BlockContainer extends Block {
 
     public void onPlace(World world, int i, int j, int k) {
         super.onPlace(world, i, j, k);
-        world.setTileEntity(i, j, k, this.a_());
+        world.setTileEntity(i, j, k, this.a(world));
     }
 
-    public void remove(World world, int i, int j, int k) {
-        super.remove(world, i, j, k);
+    public void remove(World world, int i, int j, int k, int l, int i1) {
+        super.remove(world, i, j, k, l, i1);
         world.q(i, j, k);
     }
 
-    public abstract TileEntity a_();
+    public abstract TileEntity a(World world);
 
-    public void a(World world, int i, int j, int k, int l, int i1) {
-        super.a(world, i, j, k, l, i1);
+    public void b(World world, int i, int j, int k, int l, int i1) {
+        super.b(world, i, j, k, l, i1);
         TileEntity tileentity = world.getTileEntity(i, j, k);
 
         if (tileentity != null) {

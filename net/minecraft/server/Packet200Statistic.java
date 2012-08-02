@@ -32,4 +32,8 @@ public class Packet200Statistic extends Packet {
     public int a() {
         return 6;
     }
+
+    public boolean a_() {
+        return true;
+    }
 }

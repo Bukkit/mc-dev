@@ -1,12 +1,32 @@
 package net.minecraft.server;
 
-final class WorldGenStrongholdPieceWeight3 extends WorldGenStrongholdPieceWeight {
+class WorldGenStrongholdPieceWeight3 {
 
-    WorldGenStrongholdPieceWeight3(Class oclass, int i, int j) {
-        super(oclass, i, j);
-    }
+    static final int[] a = new int[WorldGenStrongholdDoorType.values().length];
 
-    public boolean a(int i) {
-        return super.a(i) && i > 5;
+    static {
+        try {
+            a[WorldGenStrongholdDoorType.a.ordinal()] = 1;
+        } catch (NoSuchFieldError nosuchfielderror) {
+            ;
+        }
+
+        try {
+            a[WorldGenStrongholdDoorType.b.ordinal()] = 2;
+        } catch (NoSuchFieldError nosuchfielderror1) {
+            ;
+        }
+
+        try {
+            a[WorldGenStrongholdDoorType.c.ordinal()] = 3;
+        } catch (NoSuchFieldError nosuchfielderror2) {
+            ;
+        }
+
+        try {
+            a[WorldGenStrongholdDoorType.d.ordinal()] = 4;
+        } catch (NoSuchFieldError nosuchfielderror3) {
+            ;
+        }
     }
 }

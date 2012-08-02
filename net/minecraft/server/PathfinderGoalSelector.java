@@ -2,13 +2,19 @@ package net.minecraft.server;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class PathfinderGoalSelector {
 
-    private ArrayList a = new ArrayList();
-    private ArrayList b = new ArrayList();
+    private List a = new ArrayList();
+    private List b = new ArrayList();
+    private final MethodProfiler c;
+    private int d = 0;
+    private int e = 3;
 
-    public PathfinderGoalSelector() {}
+    public PathfinderGoalSelector(MethodProfiler methodprofiler) {
+        this.c = methodprofiler;
+    }
 
     public void a(int i, PathfinderGoal pathfindergoal) {
         this.a.add(new PathfinderGoalSelectorItem(this, i, pathfindergoal));
@@ -16,56 +22,76 @@ public class PathfinderGoalSelector {
 
     public void a() {
         ArrayList arraylist = new ArrayList();
-        Iterator iterator = this.a.iterator();
+        Iterator iterator;
+        PathfinderGoalSelectorItem pathfindergoalselectoritem;
 
-        while (iterator.hasNext()) {
-            PathfinderGoalSelectorItem pathfindergoalselectoritem = (PathfinderGoalSelectorItem) iterator.next();
-            boolean flag = this.b.contains(pathfindergoalselectoritem);
+        if (this.d++ % this.e == 0) {
+            iterator = this.a.iterator();
 
-            if (flag) {
-                if (this.a(pathfindergoalselectoritem) && pathfindergoalselectoritem.a.b()) {
-                    continue;
+            while (iterator.hasNext()) {
+                pathfindergoalselectoritem = (PathfinderGoalSelectorItem) iterator.next();
+                boolean flag = this.b.contains(pathfindergoalselectoritem);
+
+                if (flag) {
+                    if (this.b(pathfindergoalselectoritem) && this.a(pathfindergoalselectoritem)) {
+                        continue;
+                    }
+
+                    pathfindergoalselectoritem.a.c();
+                    this.b.remove(pathfindergoalselectoritem);
                 }
 
-                pathfindergoalselectoritem.a.d();
-                this.b.remove(pathfindergoalselectoritem);
+                if (this.b(pathfindergoalselectoritem) && pathfindergoalselectoritem.a.a()) {
+                    arraylist.add(pathfindergoalselectoritem);
+                    this.b.add(pathfindergoalselectoritem);
+                }
             }
+        } else {
+            iterator = this.b.iterator();
 
-            if (this.a(pathfindergoalselectoritem) && pathfindergoalselectoritem.a.a()) {
-                arraylist.add(pathfindergoalselectoritem);
-                this.b.add(pathfindergoalselectoritem);
-            }
-        }
-
-        boolean flag1 = false;
-
-        if (flag1 && arraylist.size() > 0) {
-            System.out.println("Starting: ");
-        }
-
-        Iterator iterator1;
-        PathfinderGoalSelectorItem pathfindergoalselectoritem1;
-
-        for (iterator1 = arraylist.iterator(); iterator1.hasNext(); pathfindergoalselectoritem1.a.c()) {
-            pathfindergoalselectoritem1 = (PathfinderGoalSelectorItem) iterator1.next();
-            if (flag1) {
-                System.out.println(pathfindergoalselectoritem1.a.toString() + ", ");
+            while (iterator.hasNext()) {
+                pathfindergoalselectoritem = (PathfinderGoalSelectorItem) iterator.next();
+                if (!pathfindergoalselectoritem.a.b()) {
+                    pathfindergoalselectoritem.a.c();
+                    iterator.remove();
+                }
             }
         }
 
-        if (flag1 && this.b.size() > 0) {
-            System.out.println("Running: ");
+        this.c.a("goalStart");
+        iterator = arraylist.iterator();
+
+        while (iterator.hasNext()) {
+            pathfindergoalselectoritem = (PathfinderGoalSelectorItem) iterator.next();
+            this.c.a(pathfindergoalselectoritem.a.getClass().getSimpleName());
+            pathfindergoalselectoritem.a.e();
+            this.c.b();
         }
 
-        for (iterator1 = this.b.iterator(); iterator1.hasNext(); pathfindergoalselectoritem1.a.e()) {
-            pathfindergoalselectoritem1 = (PathfinderGoalSelectorItem) iterator1.next();
-            if (flag1) {
-                System.out.println(pathfindergoalselectoritem1.a.toString());
-            }
+        this.c.b();
+        this.c.a("goalTick");
+        iterator = this.b.iterator();
+
+        while (iterator.hasNext()) {
+            pathfindergoalselectoritem = (PathfinderGoalSelectorItem) iterator.next();
+            this.c.a(pathfindergoalselectoritem.a.getClass().getSimpleName());
+            pathfindergoalselectoritem.a.d();
+            this.c.b();
         }
+
+        this.c.b();
     }
 
     private boolean a(PathfinderGoalSelectorItem pathfindergoalselectoritem) {
+        this.c.a("canContinue");
+        boolean flag = pathfindergoalselectoritem.a.b();
+
+        this.c.b();
+        return flag;
+    }
+
+    private boolean b(PathfinderGoalSelectorItem pathfindergoalselectoritem) {
+        this.c.a("canUse");
         Iterator iterator = this.a.iterator();
 
         while (iterator.hasNext()) {
@@ -74,14 +100,17 @@ public class PathfinderGoalSelector {
             if (pathfindergoalselectoritem1 != pathfindergoalselectoritem) {
                 if (pathfindergoalselectoritem.b >= pathfindergoalselectoritem1.b) {
                     if (this.b.contains(pathfindergoalselectoritem1) && !this.a(pathfindergoalselectoritem, pathfindergoalselectoritem1)) {
+                        this.c.b();
                         return false;
                     }
                 } else if (this.b.contains(pathfindergoalselectoritem1) && !pathfindergoalselectoritem1.a.g()) {
+                    this.c.b();
                     return false;
                 }
             }
         }
 
+        this.c.b();
         return true;
     }
 

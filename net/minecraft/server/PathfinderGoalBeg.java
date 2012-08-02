@@ -21,27 +21,27 @@ public class PathfinderGoalBeg extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.b.isAlive() ? false : (this.a.j(this.b) > (double) (this.d * this.d) ? false : this.e > 0 && this.a(this.b));
-    }
-
-    public void c() {
-        this.a.e(true);
-        this.e = 40 + this.a.an().nextInt(40);
-    }
-
-    public void d() {
-        this.a.e(false);
-        this.b = null;
+        return !this.b.isAlive() ? false : (this.a.e(this.b) > (double) (this.d * this.d) ? false : this.e > 0 && this.a(this.b));
     }
 
     public void e() {
-        this.a.getControllerLook().a(this.b.locX, this.b.locY + (double) this.b.getHeadHeight(), this.b.locZ, 10.0F, (float) this.a.D());
+        this.a.i(true);
+        this.e = 40 + this.a.au().nextInt(40);
+    }
+
+    public void c() {
+        this.a.i(false);
+        this.b = null;
+    }
+
+    public void d() {
+        this.a.getControllerLook().a(this.b.locX, this.b.locY + (double) this.b.getHeadHeight(), this.b.locZ, 10.0F, (float) this.a.bf());
         --this.e;
     }
 
     private boolean a(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
-        return itemstack == null ? false : (!this.a.isTamed() && itemstack.id == Item.BONE.id ? true : this.a.a(itemstack));
+        return itemstack == null ? false : (!this.a.isTamed() && itemstack.id == Item.BONE.id ? true : this.a.b(itemstack));
     }
 }

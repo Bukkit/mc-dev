@@ -32,4 +32,12 @@ public class Packet10Flying extends Packet {
     public int a() {
         return 1;
     }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        return true;
+    }
 }

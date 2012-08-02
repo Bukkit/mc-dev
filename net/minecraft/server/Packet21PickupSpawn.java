@@ -14,7 +14,7 @@ public class Packet21PickupSpawn extends Packet {
     public byte g;
     public int h;
     public int i;
-    public int q;
+    public int j;
 
     public Packet21PickupSpawn() {}
 
@@ -22,7 +22,7 @@ public class Packet21PickupSpawn extends Packet {
         this.a = entityitem.id;
         this.h = entityitem.itemStack.id;
         this.i = entityitem.itemStack.count;
-        this.q = entityitem.itemStack.getData();
+        this.j = entityitem.itemStack.getData();
         this.b = MathHelper.floor(entityitem.locX * 32.0D);
         this.c = MathHelper.floor(entityitem.locY * 32.0D);
         this.d = MathHelper.floor(entityitem.locZ * 32.0D);
@@ -35,7 +35,7 @@ public class Packet21PickupSpawn extends Packet {
         this.a = datainputstream.readInt();
         this.h = datainputstream.readShort();
         this.i = datainputstream.readByte();
-        this.q = datainputstream.readShort();
+        this.j = datainputstream.readShort();
         this.b = datainputstream.readInt();
         this.c = datainputstream.readInt();
         this.d = datainputstream.readInt();
@@ -48,7 +48,7 @@ public class Packet21PickupSpawn extends Packet {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeShort(this.h);
         dataoutputstream.writeByte(this.i);
-        dataoutputstream.writeShort(this.q);
+        dataoutputstream.writeShort(this.j);
         dataoutputstream.writeInt(this.b);
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);

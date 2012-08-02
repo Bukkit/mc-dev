@@ -5,51 +5,48 @@ import java.util.Random;
 
 public class WorldGenNetherPiece4 extends WorldGenNetherPiece {
 
-    private int a;
-
     public WorldGenNetherPiece4(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.h = j;
-        this.g = structureboundingbox;
-        this.a = random.nextInt();
+        this.f = j;
+        this.e = structureboundingbox;
     }
 
-    public void a(StructurePiece structurepiece, List list, Random random) {}
+    public void a(StructurePiece structurepiece, List list, Random random) {
+        this.a((WorldGenNetherPiece15) structurepiece, list, random, 1, 0, true);
+    }
 
     public static WorldGenNetherPiece4 a(List list, Random random, int i, int j, int k, int l, int i1) {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, -1, -3, 0, 5, 10, 8, l);
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, -1, -7, 0, 5, 14, 10, l);
 
         return a(structureboundingbox) && StructurePiece.a(list, structureboundingbox) == null ? new WorldGenNetherPiece4(i1, random, structureboundingbox, l) : null;
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
-        Random random1 = new Random((long) this.a);
+        int i = this.c(Block.NETHER_BRICK_STAIRS.id, 2);
 
-        int i;
-        int j;
-        int k;
+        for (int j = 0; j <= 9; ++j) {
+            int k = Math.max(1, 7 - j);
+            int l = Math.min(Math.max(k + 5, 14 - j), 13);
+            int i1 = j;
 
-        for (i = 0; i <= 4; ++i) {
-            for (j = 3; j <= 4; ++j) {
-                k = random1.nextInt(8);
-                this.a(world, structureboundingbox, i, j, 0, i, j, k, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+            this.a(world, structureboundingbox, 0, 0, j, 4, k, j, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+            this.a(world, structureboundingbox, 1, k + 1, j, 3, l - 1, j, 0, 0, false);
+            if (j <= 6) {
+                this.a(world, Block.NETHER_BRICK_STAIRS.id, i, 1, k + 1, j, structureboundingbox);
+                this.a(world, Block.NETHER_BRICK_STAIRS.id, i, 2, k + 1, j, structureboundingbox);
+                this.a(world, Block.NETHER_BRICK_STAIRS.id, i, 3, k + 1, j, structureboundingbox);
             }
-        }
 
-        i = random1.nextInt(8);
-        this.a(world, structureboundingbox, 0, 5, 0, 0, 5, i, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        i = random1.nextInt(8);
-        this.a(world, structureboundingbox, 4, 5, 0, 4, 5, i, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+            this.a(world, structureboundingbox, 0, l, j, 4, l, j, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+            this.a(world, structureboundingbox, 0, k + 1, j, 0, l - 1, j, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+            this.a(world, structureboundingbox, 4, k + 1, j, 4, l - 1, j, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+            if ((j & 1) == 0) {
+                this.a(world, structureboundingbox, 0, k + 2, j, 0, k + 3, j, Block.NETHER_FENCE.id, Block.NETHER_FENCE.id, false);
+                this.a(world, structureboundingbox, 4, k + 2, j, 4, k + 3, j, Block.NETHER_FENCE.id, Block.NETHER_FENCE.id, false);
+            }
 
-        for (i = 0; i <= 4; ++i) {
-            j = random1.nextInt(5);
-            this.a(world, structureboundingbox, i, 2, 0, i, 2, j, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        }
-
-        for (i = 0; i <= 4; ++i) {
-            for (j = 0; j <= 1; ++j) {
-                k = random1.nextInt(3);
-                this.a(world, structureboundingbox, i, j, 0, i, j, k, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+            for (int j1 = 0; j1 <= 4; ++j1) {
+                this.b(world, Block.NETHER_BRICK.id, 0, j1, -1, i1, structureboundingbox);
             }
         }
 

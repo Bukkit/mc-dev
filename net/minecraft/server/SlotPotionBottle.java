@@ -2,29 +2,30 @@ package net.minecraft.server;
 
 class SlotPotionBottle extends Slot {
 
-    private EntityHuman f;
+    private EntityHuman a;
 
-    final ContainerBrewingStand a;
-
-    public SlotPotionBottle(ContainerBrewingStand containerbrewingstand, EntityHuman entityhuman, IInventory iinventory, int i, int j, int k) {
+    public SlotPotionBottle(EntityHuman entityhuman, IInventory iinventory, int i, int j, int k) {
         super(iinventory, i, j, k);
-        this.a = containerbrewingstand;
-        this.f = entityhuman;
+        this.a = entityhuman;
     }
 
     public boolean isAllowed(ItemStack itemstack) {
-        return itemstack != null && (itemstack.id == Item.POTION.id || itemstack.id == Item.GLASS_BOTTLE.id);
+        return a_(itemstack);
     }
 
     public int a() {
         return 1;
     }
 
-    public void c(ItemStack itemstack) {
+    public void b(ItemStack itemstack) {
         if (itemstack.id == Item.POTION.id && itemstack.getData() > 0) {
-            this.f.a((Statistic) AchievementList.A, 1);
+            this.a.a((Statistic) AchievementList.A, 1);
         }
 
-        super.c(itemstack);
+        super.b(itemstack);
+    }
+
+    public static boolean a_(ItemStack itemstack) {
+        return itemstack != null && (itemstack.id == Item.POTION.id || itemstack.id == Item.GLASS_BOTTLE.id);
     }
 }

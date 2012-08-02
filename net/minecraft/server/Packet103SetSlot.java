@@ -24,13 +24,13 @@ public class Packet103SetSlot extends Packet {
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readByte();
         this.b = datainputstream.readShort();
-        this.c = this.b(datainputstream);
+        this.c = c(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeByte(this.a);
         dataoutputstream.writeShort(this.b);
-        this.a(this.c, dataoutputstream);
+        a(this.c, dataoutputstream);
     }
 
     public int a() {

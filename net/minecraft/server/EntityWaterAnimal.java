@@ -6,27 +6,19 @@ public abstract class EntityWaterAnimal extends EntityCreature implements IAnima
         super(world);
     }
 
-    public boolean f_() {
+    public boolean aU() {
         return true;
     }
 
-    public void b(NBTTagCompound nbttagcompound) {
-        super.b(nbttagcompound);
-    }
-
-    public void a(NBTTagCompound nbttagcompound) {
-        super.a(nbttagcompound);
-    }
-
     public boolean canSpawn() {
-        return this.world.containsEntity(this.boundingBox);
+        return this.world.b(this.boundingBox);
     }
 
-    public int m() {
+    public int aG() {
         return 120;
     }
 
-    protected boolean n() {
+    protected boolean ba() {
         return true;
     }
 

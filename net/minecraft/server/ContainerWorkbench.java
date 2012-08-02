@@ -4,13 +4,13 @@ public class ContainerWorkbench extends Container {
 
     public InventoryCrafting craftInventory = new InventoryCrafting(this, 3, 3);
     public IInventory resultInventory = new InventoryCraftResult();
-    private World c;
+    private World g;
     private int h;
     private int i;
     private int j;
 
     public ContainerWorkbench(PlayerInventory playerinventory, World world, int i, int j, int k) {
-        this.c = world;
+        this.g = world;
         this.h = i;
         this.i = j;
         this.j = k;
@@ -44,7 +44,7 @@ public class ContainerWorkbench extends Container {
 
     public void a(EntityHuman entityhuman) {
         super.a(entityhuman);
-        if (!this.c.isStatic) {
+        if (!this.g.isStatic) {
             for (int i = 0; i < 9; ++i) {
                 ItemStack itemstack = this.craftInventory.splitWithoutUpdate(i);
 
@@ -55,15 +55,15 @@ public class ContainerWorkbench extends Container {
         }
     }
 
-    public boolean b(EntityHuman entityhuman) {
-        return this.c.getTypeId(this.h, this.i, this.j) != Block.WORKBENCH.id ? false : entityhuman.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
+    public boolean c(EntityHuman entityhuman) {
+        return this.g.getTypeId(this.h, this.i, this.j) != Block.WORKBENCH.id ? false : entityhuman.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
     }
 
-    public ItemStack a(int i) {
+    public ItemStack b(int i) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.e.get(i);
+        Slot slot = (Slot) this.b.get(i);
 
-        if (slot != null && slot.c()) {
+        if (slot != null && slot.d()) {
             ItemStack itemstack1 = slot.getItem();
 
             itemstack = itemstack1.cloneItemStack();
@@ -88,14 +88,14 @@ public class ContainerWorkbench extends Container {
             if (itemstack1.count == 0) {
                 slot.set((ItemStack) null);
             } else {
-                slot.d();
+                slot.e();
             }
 
             if (itemstack1.count == itemstack.count) {
                 return null;
             }
 
-            slot.c(itemstack1);
+            slot.b(itemstack1);
         }
 
         return itemstack;

@@ -4,6 +4,7 @@ public class ItemGlassBottle extends Item {
 
     public ItemGlassBottle(int i) {
         super(i);
+        this.a(CreativeModeTab.k);
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
@@ -21,7 +22,7 @@ public class ItemGlassBottle extends Item {
                     return itemstack;
                 }
 
-                if (!entityhuman.d(i, j, k)) {
+                if (!entityhuman.e(i, j, k)) {
                     return itemstack;
                 }
 

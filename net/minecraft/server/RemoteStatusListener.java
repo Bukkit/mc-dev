@@ -12,6 +12,7 @@ import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class RemoteStatusListener extends RemoteConnectionThread {
@@ -25,22 +26,22 @@ public class RemoteStatusListener extends RemoteConnectionThread {
     private DatagramSocket socket = null;
     private byte[] n = new byte[1460];
     private DatagramPacket o = null;
-    private HashMap p;
+    private Map p;
     private String hostname;
     private String motd;
-    private HashMap challenges;
+    private Map challenges;
     private long t;
     private RemoteStatusReply cachedReply;
     private long cacheTime;
 
     public RemoteStatusListener(IMinecraftServer iminecraftserver) {
         super(iminecraftserver);
-        this.bindPort = iminecraftserver.getProperty("query.port", 0);
-        this.motd = iminecraftserver.getMotd();
-        this.serverPort = iminecraftserver.getPort();
-        this.localAddress = iminecraftserver.getServerAddress();
-        this.maxPlayers = iminecraftserver.getMaxPlayers();
-        this.worldName = iminecraftserver.getWorldName();
+        this.bindPort = iminecraftserver.a("query.port", 0);
+        this.motd = iminecraftserver.t();
+        this.serverPort = iminecraftserver.u();
+        this.localAddress = iminecraftserver.v();
+        this.maxPlayers = iminecraftserver.y();
+        this.worldName = iminecraftserver.I();
         this.cacheTime = 0L;
         this.hostname = "0.0.0.0";
         if (0 != this.motd.length() && !this.hostname.equals(this.motd)) {
@@ -53,7 +54,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
 
                 this.hostname = inetaddress.getHostAddress();
             } catch (UnknownHostException unknownhostexception) {
-                this.warning("Unable to determine local host IP, please set server-ip in \'" + iminecraftserver.getPropertiesFile() + "\' : " + unknownhostexception.getMessage());
+                this.warning("Unable to determine local host IP, please set server-ip in \'" + iminecraftserver.c() + "\' : " + unknownhostexception.getMessage());
             }
         }
 
@@ -62,7 +63,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
             this.info("Setting default query port to " + this.bindPort);
             iminecraftserver.a("query.port", Integer.valueOf(this.bindPort));
             iminecraftserver.a("debug", Boolean.valueOf(false));
-            iminecraftserver.c();
+            iminecraftserver.a();
         }
 
         this.p = new HashMap();
@@ -88,7 +89,10 @@ public class RemoteStatusListener extends RemoteConnectionThread {
                 if (!this.hasChallenged(datagrampacket).booleanValue()) {
                     this.debug("Invalid challenge [" + socketaddress + "]");
                     return false;
-                } else if (15 != i) {
+                } else if (15 == i) {
+                    this.send(this.getFullReply(datagrampacket), datagrampacket);
+                    this.debug("Rules [" + socketaddress + "]");
+                } else {
                     RemoteStatusReply remotestatusreply = new RemoteStatusReply(1460);
 
                     remotestatusreply.write((int) 0);
@@ -96,15 +100,12 @@ public class RemoteStatusListener extends RemoteConnectionThread {
                     remotestatusreply.write(this.localAddress);
                     remotestatusreply.write("SMP");
                     remotestatusreply.write(this.worldName);
-                    remotestatusreply.write(Integer.toString(this.c()));
+                    remotestatusreply.write(Integer.toString(this.d()));
                     remotestatusreply.write(Integer.toString(this.maxPlayers));
                     remotestatusreply.write((short) this.serverPort);
                     remotestatusreply.write(this.hostname);
                     this.send(remotestatusreply.getBytes(), datagrampacket);
                     this.debug("Status [" + socketaddress + "]");
-                } else {
-                    this.send(this.getFullReply(datagrampacket), datagrampacket);
-                    this.debug("Rules [" + socketaddress + "]");
                 }
 
             case 9:
@@ -154,7 +155,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
             this.cachedReply.write("map");
             this.cachedReply.write(this.worldName);
             this.cachedReply.write("numplayers");
-            this.cachedReply.write("" + this.c());
+            this.cachedReply.write("" + this.d());
             this.cachedReply.write("maxplayers");
             this.cachedReply.write("" + this.maxPlayers);
             this.cachedReply.write("hostport");
@@ -239,18 +240,18 @@ public class RemoteStatusListener extends RemoteConnectionThread {
                 }
             }
         } finally {
-            this.d();
+            this.e();
         }
     }
 
     public void a() {
         if (!this.running) {
             if (0 < this.bindPort && '\uffff' >= this.bindPort) {
-                if (this.f()) {
+                if (this.g()) {
                     super.a();
                 }
             } else {
-                this.warning("Invalid query port " + this.bindPort + " found in \'" + this.server.getPropertiesFile() + "\' (queries disabled)");
+                this.warning("Invalid query port " + this.bindPort + " found in \'" + this.server.c() + "\' (queries disabled)");
             }
         }
     }
@@ -258,15 +259,14 @@ public class RemoteStatusListener extends RemoteConnectionThread {
     private void a(Exception exception) {
         if (this.running) {
             this.warning("Unexpected exception, buggy JRE? (" + exception.toString() + ")");
-            if (!this.f()) {
+            if (!this.g()) {
                 this.error("Failed to recover from buggy JRE, shutting down!");
                 this.running = false;
-                this.server.o();
             }
         }
     }
 
-    private boolean f() {
+    private boolean g() {
         try {
             this.socket = new DatagramSocket(this.bindPort, InetAddress.getByName(this.motd));
             this.a(this.socket);

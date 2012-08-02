@@ -10,8 +10,6 @@ public class PacketCounter {
     private static final Map c = new HashMap();
     private static final Object d = new Object();
 
-    public PacketCounter() {}
-
     public static void a(int i, long j) {
         if (a) {
             Object object = d;

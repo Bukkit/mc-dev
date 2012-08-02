@@ -7,18 +7,16 @@ public class WorldGenVillageButcher extends WorldGenVillagePiece {
 
     private int a = -1;
 
-    public WorldGenVillageButcher(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
-        super(i);
-        this.h = j;
-        this.g = structureboundingbox;
+    public WorldGenVillageButcher(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
+        super(worldgenvillagestartpiece, i);
+        this.f = j;
+        this.e = structureboundingbox;
     }
 
-    public void a(StructurePiece structurepiece, List list, Random random) {}
-
-    public static WorldGenVillageButcher a(List list, Random random, int i, int j, int k, int l, int i1) {
+    public static WorldGenVillageButcher a(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
         StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, 0, 0, 0, 9, 7, 11, l);
 
-        return a(structureboundingbox) && StructurePiece.a(list, structureboundingbox) == null ? new WorldGenVillageButcher(i1, random, structureboundingbox, l) : null;
+        return a(structureboundingbox) && StructurePiece.a(list, structureboundingbox) == null ? new WorldGenVillageButcher(worldgenvillagestartpiece, i1, random, structureboundingbox, l) : null;
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
@@ -28,7 +26,7 @@ public class WorldGenVillageButcher extends WorldGenVillagePiece {
                 return true;
             }
 
-            this.g.a(0, this.a - this.g.e + 7 - 1, 0);
+            this.e.a(0, this.a - this.e.e + 7 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 1, 1, 1, 7, 4, 4, 0, 0, false);
@@ -109,7 +107,7 @@ public class WorldGenVillageButcher extends WorldGenVillagePiece {
         return true;
     }
 
-    protected int a(int i) {
+    protected int b(int i) {
         return i == 0 ? 4 : 0;
     }
 }

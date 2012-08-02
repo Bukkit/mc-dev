@@ -4,13 +4,14 @@ public class ItemShears extends Item {
 
     public ItemShears(int i) {
         super(i);
-        this.e(1);
+        this.d(1);
         this.setMaxDurability(238);
+        this.a(CreativeModeTab.i);
     }
 
-    public boolean a(ItemStack itemstack, int i, int j, int k, int l, EntityLiving entityliving) {
-        if (i != Block.LEAVES.id && i != Block.WEB.id && i != Block.LONG_GRASS.id && i != Block.VINE.id) {
-            return super.a(itemstack, i, j, k, l, entityliving);
+    public boolean a(ItemStack itemstack, World world, int i, int j, int k, int l, EntityLiving entityliving) {
+        if (i != Block.LEAVES.id && i != Block.WEB.id && i != Block.LONG_GRASS.id && i != Block.VINE.id && i != Block.TRIPWIRE.id) {
+            return super.a(itemstack, world, i, j, k, l, entityliving);
         } else {
             itemstack.damage(1, entityliving);
             return true;

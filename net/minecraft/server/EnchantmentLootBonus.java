@@ -4,14 +4,14 @@ public class EnchantmentLootBonus extends Enchantment {
 
     protected EnchantmentLootBonus(int i, int j, EnchantmentSlotType enchantmentslottype) {
         super(i, j, enchantmentslottype);
-        this.a("lootBonus");
+        this.b("lootBonus");
         if (enchantmentslottype == EnchantmentSlotType.DIGGER) {
-            this.a("lootBonusDigger");
+            this.b("lootBonusDigger");
         }
     }
 
     public int a(int i) {
-        return 20 + (i - 1) * 12;
+        return 15 + (i - 1) * 9;
     }
 
     public int b(int i) {

@@ -11,18 +11,16 @@ public final class SpawnerCreature {
     private static HashMap b = new HashMap();
     protected static final Class[] a = new Class[] { EntitySpider.class, EntityZombie.class, EntitySkeleton.class};
 
-    public SpawnerCreature() {}
-
     protected static ChunkPosition getRandomPosition(World world, int i, int j) {
         Chunk chunk = world.getChunkAt(i, j);
         int k = i * 16 + world.random.nextInt(16);
-        int l = world.random.nextInt(chunk == null ? 128 : Math.max(128, chunk.g()));
-        int i1 = j * 16 + world.random.nextInt(16);
+        int l = j * 16 + world.random.nextInt(16);
+        int i1 = world.random.nextInt(chunk == null ? world.L() : chunk.h() + 16 - 1);
 
-        return new ChunkPosition(k, l, i1);
+        return new ChunkPosition(k, i1, l);
     }
 
-    public static final int spawnEntities(World world, boolean flag, boolean flag1) {
+    public static final int spawnEntities(WorldServer worldserver, boolean flag, boolean flag1) {
         if (!flag && !flag1) {
             return 0;
         } else {
@@ -31,8 +29,8 @@ public final class SpawnerCreature {
             int i;
             int j;
 
-            for (i = 0; i < world.players.size(); ++i) {
-                EntityHuman entityhuman = (EntityHuman) world.players.get(i);
+            for (i = 0; i < worldserver.players.size(); ++i) {
+                EntityHuman entityhuman = (EntityHuman) worldserver.players.get(i);
                 int k = MathHelper.floor(entityhuman.locX / 16.0D);
 
                 j = MathHelper.floor(entityhuman.locZ / 16.0D);
@@ -53,7 +51,7 @@ public final class SpawnerCreature {
             }
 
             i = 0;
-            ChunkCoordinates chunkcoordinates = world.getSpawn();
+            ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
             EnumCreatureType[] aenumcreaturetype = EnumCreatureType.values();
 
             j = aenumcreaturetype.length;
@@ -61,7 +59,7 @@ public final class SpawnerCreature {
             for (int j1 = 0; j1 < j; ++j1) {
                 EnumCreatureType enumcreaturetype = aenumcreaturetype[j1];
 
-                if ((!enumcreaturetype.d() || flag1) && (enumcreaturetype.d() || flag) && world.a(enumcreaturetype.a()) <= enumcreaturetype.b() * b.size() / 256) {
+                if ((!enumcreaturetype.d() || flag1) && (enumcreaturetype.d() || flag) && worldserver.a(enumcreaturetype.a()) <= enumcreaturetype.b() * b.size() / 256) {
                     Iterator iterator = b.keySet().iterator();
 
                     label108:
@@ -69,12 +67,12 @@ public final class SpawnerCreature {
                         ChunkCoordIntPair chunkcoordintpair1 = (ChunkCoordIntPair) iterator.next();
 
                         if (!((Boolean) b.get(chunkcoordintpair1)).booleanValue()) {
-                            ChunkPosition chunkposition = getRandomPosition(world, chunkcoordintpair1.x, chunkcoordintpair1.z);
+                            ChunkPosition chunkposition = getRandomPosition(worldserver, chunkcoordintpair1.x, chunkcoordintpair1.z);
                             int k1 = chunkposition.x;
                             int l1 = chunkposition.y;
                             int i2 = chunkposition.z;
 
-                            if (!world.e(k1, l1, i2) && world.getMaterial(k1, l1, i2) == enumcreaturetype.c()) {
+                            if (!worldserver.s(k1, l1, i2) && worldserver.getMaterial(k1, l1, i2) == enumcreaturetype.c()) {
                                 int j2 = 0;
                                 int k2 = 0;
 
@@ -89,15 +87,15 @@ public final class SpawnerCreature {
                                     while (true) {
                                         if (k3 < 4) {
                                             label101: {
-                                                l2 += world.random.nextInt(b1) - world.random.nextInt(b1);
-                                                i3 += world.random.nextInt(1) - world.random.nextInt(1);
-                                                j3 += world.random.nextInt(b1) - world.random.nextInt(b1);
-                                                if (a(enumcreaturetype, world, l2, i3, j3)) {
+                                                l2 += worldserver.random.nextInt(b1) - worldserver.random.nextInt(b1);
+                                                i3 += worldserver.random.nextInt(1) - worldserver.random.nextInt(1);
+                                                j3 += worldserver.random.nextInt(b1) - worldserver.random.nextInt(b1);
+                                                if (a(enumcreaturetype, worldserver, l2, i3, j3)) {
                                                     float f = (float) l2 + 0.5F;
                                                     float f1 = (float) i3;
                                                     float f2 = (float) j3 + 0.5F;
 
-                                                    if (world.findNearbyPlayer((double) f, (double) f1, (double) f2, 24.0D) == null) {
+                                                    if (worldserver.findNearbyPlayer((double) f, (double) f1, (double) f2, 24.0D) == null) {
                                                         float f3 = f - (float) chunkcoordinates.x;
                                                         float f4 = f1 - (float) chunkcoordinates.y;
                                                         float f5 = f2 - (float) chunkcoordinates.z;
@@ -105,7 +103,7 @@ public final class SpawnerCreature {
 
                                                         if (f6 >= 576.0F) {
                                                             if (biomemeta == null) {
-                                                                biomemeta = world.a(enumcreaturetype, l2, i3, j3);
+                                                                biomemeta = worldserver.a(enumcreaturetype, l2, i3, j3);
                                                                 if (biomemeta == null) {
                                                                     break label101;
                                                                 }
@@ -114,18 +112,18 @@ public final class SpawnerCreature {
                                                             EntityLiving entityliving;
 
                                                             try {
-                                                                entityliving = (EntityLiving) biomemeta.a.getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
+                                                                entityliving = (EntityLiving) biomemeta.b.getConstructor(new Class[] { World.class}).newInstance(new Object[] { worldserver});
                                                             } catch (Exception exception) {
                                                                 exception.printStackTrace();
                                                                 return i;
                                                             }
 
-                                                            entityliving.setPositionRotation((double) f, (double) f1, (double) f2, world.random.nextFloat() * 360.0F, 0.0F);
+                                                            entityliving.setPositionRotation((double) f, (double) f1, (double) f2, worldserver.random.nextFloat() * 360.0F, 0.0F);
                                                             if (entityliving.canSpawn()) {
                                                                 ++j2;
-                                                                world.addEntity(entityliving);
-                                                                a(entityliving, world, f, f1, f2);
-                                                                if (j2 >= entityliving.q()) {
+                                                                worldserver.addEntity(entityliving);
+                                                                a(entityliving, worldserver, f, f1, f2);
+                                                                if (j2 >= entityliving.bl()) {
                                                                     continue label108;
                                                                 }
                                                             }
@@ -156,11 +154,13 @@ public final class SpawnerCreature {
 
     public static boolean a(EnumCreatureType enumcreaturetype, World world, int i, int j, int k) {
         if (enumcreaturetype.c() == Material.WATER) {
-            return world.getMaterial(i, j, k).isLiquid() && !world.e(i, j + 1, k);
+            return world.getMaterial(i, j, k).isLiquid() && !world.s(i, j + 1, k);
+        } else if (!world.t(i, j - 1, k)) {
+            return false;
         } else {
             int l = world.getTypeId(i, j - 1, k);
 
-            return Block.g(l) && l != Block.BEDROCK.id && !world.e(i, j, k) && !world.getMaterial(i, j, k).isLiquid() && !world.e(i, j + 1, k);
+            return l != Block.BEDROCK.id && !world.s(i, j, k) && !world.getMaterial(i, j, k).isLiquid() && !world.s(i, j + 1, k);
         }
     }
 
@@ -190,7 +190,7 @@ public final class SpawnerCreature {
         if (!list.isEmpty()) {
             while (random.nextFloat() < biomebase.f()) {
                 BiomeMeta biomemeta = (BiomeMeta) WeightedRandom.a(world.random, (Collection) list);
-                int i1 = biomemeta.b + random.nextInt(1 + biomemeta.c - biomemeta.b);
+                int i1 = biomemeta.c + random.nextInt(1 + biomemeta.d - biomemeta.c);
                 int j1 = i + random.nextInt(k);
                 int k1 = j + random.nextInt(l);
                 int l1 = j1;
@@ -200,7 +200,7 @@ public final class SpawnerCreature {
                     boolean flag = false;
 
                     for (int k2 = 0; !flag && k2 < 4; ++k2) {
-                        int l2 = world.g(j1, k1);
+                        int l2 = world.h(j1, k1);
 
                         if (a(EnumCreatureType.CREATURE, world, j1, l2, k1)) {
                             float f = (float) j1 + 0.5F;
@@ -210,7 +210,7 @@ public final class SpawnerCreature {
                             EntityLiving entityliving;
 
                             try {
-                                entityliving = (EntityLiving) biomemeta.a.getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
+                                entityliving = (EntityLiving) biomemeta.b.getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
                             } catch (Exception exception) {
                                 exception.printStackTrace();
                                 continue;

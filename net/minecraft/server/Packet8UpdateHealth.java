@@ -36,4 +36,12 @@ public class Packet8UpdateHealth extends Packet {
     public int a() {
         return 8;
     }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        return true;
+    }
 }

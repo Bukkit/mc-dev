@@ -33,7 +33,9 @@ public class GenLayerRegionHills extends GenLayer {
                         l1 = BiomeBase.JUNGLE_HILLS.id;
                     }
 
-                    if (l1 != k1) {
+                    if (l1 == k1) {
+                        aint1[j1 + i1 * k] = k1;
+                    } else {
                         int i2 = aint[j1 + 1 + (i1 + 1 - 1) * (k + 2)];
                         int j2 = aint[j1 + 1 + 1 + (i1 + 1) * (k + 2)];
                         int k2 = aint[j1 + 1 - 1 + (i1 + 1) * (k + 2)];
@@ -44,8 +46,6 @@ public class GenLayerRegionHills extends GenLayer {
                         } else {
                             aint1[j1 + i1 * k] = k1;
                         }
-                    } else {
-                        aint1[j1 + i1 * k] = k1;
                     }
                 } else {
                     aint1[j1 + i1 * k] = k1;

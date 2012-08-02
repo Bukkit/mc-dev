@@ -5,9 +5,10 @@ public class ItemMonsterEgg extends Item {
     public ItemMonsterEgg(int i) {
         super(i);
         this.a(true);
+        this.a(CreativeModeTab.f);
     }
 
-    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
+    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l, float f, float f1, float f2) {
         if (world.isStatic) {
             return true;
         } else {
@@ -38,8 +39,16 @@ public class ItemMonsterEgg extends Item {
 
             if (entity != null) {
                 entity.setPositionRotation(d0, d1, d2, world.random.nextFloat() * 360.0F, 0.0F);
+                if (entity instanceof EntityVillager) {
+                    EntityVillager entityvillager = (EntityVillager) entity;
+
+                    entityvillager.setProfession(entityvillager.au().nextInt(5));
+                    world.addEntity(entityvillager);
+                    return true;
+                }
+
                 world.addEntity(entity);
-                ((EntityLiving) entity).az();
+                ((EntityLiving) entity).aH();
             }
 
             return entity != null;

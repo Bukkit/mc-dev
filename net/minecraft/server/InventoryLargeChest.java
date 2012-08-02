@@ -61,13 +61,13 @@ public class InventoryLargeChest implements IInventory {
         return this.left.a(entityhuman) && this.right.a(entityhuman);
     }
 
+    public void startOpen() {
+        this.left.startOpen();
+        this.right.startOpen();
+    }
+
     public void f() {
         this.left.f();
         this.right.f();
-    }
-
-    public void g() {
-        this.left.g();
-        this.right.g();
     }
 }

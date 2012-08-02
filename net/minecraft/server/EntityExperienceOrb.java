@@ -10,7 +10,7 @@ public class EntityExperienceOrb extends Entity {
 
     public EntityExperienceOrb(World world, double d0, double d1, double d2, int i) {
         super(world);
-        this.b(0.5F, 0.5F);
+        this.a(0.5F, 0.5F);
         this.height = this.length / 2.0F;
         this.setPosition(d0, d1, d2);
         this.yaw = (float) (Math.random() * 360.0D);
@@ -20,20 +20,20 @@ public class EntityExperienceOrb extends Entity {
         this.value = i;
     }
 
-    protected boolean g_() {
+    protected boolean e_() {
         return false;
     }
 
     public EntityExperienceOrb(World world) {
         super(world);
-        this.b(0.25F, 0.25F);
+        this.a(0.25F, 0.25F);
         this.height = this.length / 2.0F;
     }
 
-    protected void b() {}
+    protected void a() {}
 
-    public void F_() {
-        super.F_();
+    public void h_() {
+        super.h_();
         if (this.c > 0) {
             --this.c;
         }
@@ -49,7 +49,7 @@ public class EntityExperienceOrb extends Entity {
             this.world.makeSound(this, "random.fizz", 0.4F, 2.0F + this.random.nextFloat() * 0.4F);
         }
 
-        this.g(this.locX, (this.boundingBox.b + this.boundingBox.e) / 2.0D, this.locZ);
+        this.i(this.locX, (this.boundingBox.b + this.boundingBox.e) / 2.0D, this.locZ);
         double d0 = 8.0D;
         EntityHuman entityhuman = this.world.findNearbyPlayer(this, d0);
 
@@ -94,7 +94,7 @@ public class EntityExperienceOrb extends Entity {
         }
     }
 
-    public boolean h_() {
+    public boolean I() {
         return this.world.a(this.boundingBox, Material.WATER, this);
     }
 
@@ -103,7 +103,7 @@ public class EntityExperienceOrb extends Entity {
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        this.aW();
+        this.K();
         this.d -= i;
         if (this.d <= 0) {
             this.die();
@@ -124,10 +124,10 @@ public class EntityExperienceOrb extends Entity {
         this.value = nbttagcompound.getShort("Value");
     }
 
-    public void a_(EntityHuman entityhuman) {
+    public void b_(EntityHuman entityhuman) {
         if (!this.world.isStatic) {
-            if (this.c == 0 && entityhuman.x == 0) {
-                entityhuman.x = 2;
+            if (this.c == 0 && entityhuman.bL == 0) {
+                entityhuman.bL = 2;
                 this.world.makeSound(this, "random.orb", 0.1F, 0.5F * ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.8F));
                 entityhuman.receive(this, 1);
                 entityhuman.giveExp(this.value);
@@ -136,7 +136,7 @@ public class EntityExperienceOrb extends Entity {
         }
     }
 
-    public int y_() {
+    public int d() {
         return this.value;
     }
 
@@ -144,7 +144,7 @@ public class EntityExperienceOrb extends Entity {
         return i >= 2477 ? 2477 : (i >= 1237 ? 1237 : (i >= 617 ? 617 : (i >= 307 ? 307 : (i >= 149 ? 149 : (i >= 73 ? 73 : (i >= 37 ? 37 : (i >= 17 ? 17 : (i >= 7 ? 7 : (i >= 3 ? 3 : 1)))))))));
     }
 
-    public boolean k_() {
+    public boolean an() {
         return false;
     }
 }

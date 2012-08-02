@@ -7,8 +7,9 @@ public class BlockPumpkin extends BlockDirectional {
     protected BlockPumpkin(int i, int j, boolean flag) {
         super(i, Material.PUMPKIN);
         this.textureId = j;
-        this.a(true);
+        this.b(true);
         this.a = flag;
+        this.a(CreativeModeTab.b);
     }
 
     public int a(int i, int j) {
@@ -68,7 +69,7 @@ public class BlockPumpkin extends BlockDirectional {
 
                 EntityIronGolem entityirongolem = new EntityIronGolem(world);
 
-                entityirongolem.b(true);
+                entityirongolem.f(true);
                 entityirongolem.setPositionRotation((double) i + 0.5D, (double) j - 1.95D, (double) k + 0.5D, 0.0F, 0.0F);
                 world.addEntity(entityirongolem);
 
@@ -93,7 +94,7 @@ public class BlockPumpkin extends BlockDirectional {
     public boolean canPlace(World world, int i, int j, int k) {
         int l = world.getTypeId(i, j, k);
 
-        return (l == 0 || Block.byId[l].material.isReplacable()) && world.e(i, j - 1, k);
+        return (l == 0 || Block.byId[l].material.isReplaceable()) && world.t(i, j - 1, k);
     }
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {

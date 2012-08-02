@@ -28,12 +28,12 @@ public class Statistic {
         this(i, s, h);
     }
 
-    public Statistic e() {
+    public Statistic h() {
         this.f = true;
         return this;
     }
 
-    public Statistic d() {
+    public Statistic g() {
         if (StatisticList.a.containsKey(Integer.valueOf(this.e))) {
             throw new RuntimeException("Duplicate stat id: \"" + ((Statistic) StatisticList.a.get(Integer.valueOf(this.e))).a + "\" and \"" + this.a + "\" at id " + this.e);
         } else {

@@ -8,31 +8,23 @@ public abstract class EntityGolem extends EntityCreature implements IAnimal {
 
     protected void a(float f) {}
 
-    public void b(NBTTagCompound nbttagcompound) {
-        super.b(nbttagcompound);
-    }
-
-    public void a(NBTTagCompound nbttagcompound) {
-        super.a(nbttagcompound);
-    }
-
-    protected String i() {
+    protected String aQ() {
         return "none";
     }
 
-    protected String j() {
+    protected String aR() {
         return "none";
     }
 
-    protected String k() {
+    protected String aS() {
         return "none";
     }
 
-    public int m() {
+    public int aG() {
         return 120;
     }
 
-    protected boolean n() {
+    protected boolean ba() {
         return false;
     }
 }

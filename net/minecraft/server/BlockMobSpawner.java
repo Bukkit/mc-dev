@@ -8,7 +8,7 @@ public class BlockMobSpawner extends BlockContainer {
         super(i, j, Material.STONE);
     }
 
-    public TileEntity a_() {
+    public TileEntity a(World world) {
         return new TileEntityMobSpawner();
     }
 
@@ -20,7 +20,14 @@ public class BlockMobSpawner extends BlockContainer {
         return 0;
     }
 
-    public boolean a() {
+    public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
+        super.dropNaturally(world, i, j, k, l, f, i1);
+        int j1 = 15 + world.random.nextInt(15) + world.random.nextInt(15);
+
+        this.g(world, i, j, k, j1);
+    }
+
+    public boolean d() {
         return false;
     }
 }

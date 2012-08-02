@@ -19,11 +19,11 @@ public class PathfinderGoalFleeSun extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (!this.f.e()) {
+        if (!this.f.r()) {
             return false;
         } else if (!this.a.isBurning()) {
             return false;
-        } else if (!this.f.isChunkLoaded(MathHelper.floor(this.a.locX), (int) this.a.boundingBox.b, MathHelper.floor(this.a.locZ))) {
+        } else if (!this.f.j(MathHelper.floor(this.a.locX), (int) this.a.boundingBox.b, MathHelper.floor(this.a.locZ))) {
             return false;
         } else {
             Vec3D vec3d = this.f();
@@ -40,23 +40,23 @@ public class PathfinderGoalFleeSun extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.a.al().e();
+        return !this.a.getNavigation().f();
     }
 
-    public void c() {
-        this.a.al().a(this.b, this.c, this.d, this.e);
+    public void e() {
+        this.a.getNavigation().a(this.b, this.c, this.d, this.e);
     }
 
     private Vec3D f() {
-        Random random = this.a.an();
+        Random random = this.a.au();
 
         for (int i = 0; i < 10; ++i) {
             int j = MathHelper.floor(this.a.locX + (double) random.nextInt(20) - 10.0D);
             int k = MathHelper.floor(this.a.boundingBox.b + (double) random.nextInt(6) - 3.0D);
             int l = MathHelper.floor(this.a.locZ + (double) random.nextInt(20) - 10.0D);
 
-            if (!this.f.isChunkLoaded(j, k, l) && this.a.a(j, k, l) < 0.0F) {
-                return Vec3D.create((double) j, (double) k, (double) l);
+            if (!this.f.j(j, k, l) && this.a.a(j, k, l) < 0.0F) {
+                return Vec3D.a().create((double) j, (double) k, (double) l);
             }
         }
 

@@ -10,8 +10,8 @@ public class CounterStatistic extends Statistic {
         super(i, s);
     }
 
-    public Statistic d() {
-        super.d();
+    public Statistic g() {
+        super.g();
         StatisticList.c.add(this);
         return this;
     }

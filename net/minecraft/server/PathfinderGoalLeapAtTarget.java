@@ -13,13 +13,13 @@ public class PathfinderGoalLeapAtTarget extends PathfinderGoal {
     }
 
     public boolean a() {
-        this.b = this.a.at();
+        this.b = this.a.az();
         if (this.b == null) {
             return false;
         } else {
-            double d0 = this.a.j(this.b);
+            double d0 = this.a.e(this.b);
 
-            return d0 >= 4.0D && d0 <= 16.0D ? (!this.a.onGround ? false : this.a.an().nextInt(5) == 0) : false;
+            return d0 >= 4.0D && d0 <= 16.0D ? (!this.a.onGround ? false : this.a.au().nextInt(5) == 0) : false;
         }
     }
 
@@ -27,7 +27,7 @@ public class PathfinderGoalLeapAtTarget extends PathfinderGoal {
         return !this.a.onGround;
     }
 
-    public void c() {
+    public void e() {
         double d0 = this.b.locX - this.a.locX;
         double d1 = this.b.locZ - this.a.locZ;
         float f = MathHelper.sqrt(d0 * d0 + d1 * d1);

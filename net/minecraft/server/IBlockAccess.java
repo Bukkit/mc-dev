@@ -10,5 +10,5 @@ public interface IBlockAccess {
 
     Material getMaterial(int i, int j, int k);
 
-    boolean e(int i, int j, int k);
+    boolean s(int i, int j, int k);
 }

@@ -22,6 +22,11 @@ public abstract class GenLayer {
         genlayerisland = new GenLayerIsland(4L, genlayerzoom);
         GenLayerMushroomIsland genlayermushroomisland = new GenLayerMushroomIsland(5L, genlayerisland);
         byte b0 = 4;
+
+        if (worldtype == WorldType.LARGE_BIOMES) {
+            b0 = 6;
+        }
+
         GenLayer genlayer = GenLayerZoom.a(1000L, genlayermushroomisland, 0);
         GenLayerRiverInit genlayerriverinit = new GenLayerRiverInit(100L, genlayer);
 

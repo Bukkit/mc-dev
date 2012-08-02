@@ -10,7 +10,7 @@ public class InstantMobEffect extends MobEffectList {
         return true;
     }
 
-    public boolean b(int i, int j) {
+    public boolean a(int i, int j) {
         return i >= 1;
     }
 }

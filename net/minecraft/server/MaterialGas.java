@@ -4,7 +4,7 @@ public class MaterialGas extends Material {
 
     public MaterialGas(MaterialMapColor materialmapcolor) {
         super(materialmapcolor);
-        this.h();
+        this.i();
     }
 
     public boolean isBuildable() {

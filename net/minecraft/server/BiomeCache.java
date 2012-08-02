@@ -55,7 +55,7 @@ public class BiomeCache {
         }
     }
 
-    public BiomeBase[] c(int i, int j) {
+    public BiomeBase[] e(int i, int j) {
         return this.a(i, j).c;
     }
 

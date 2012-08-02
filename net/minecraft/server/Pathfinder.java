@@ -29,11 +29,11 @@ public class Pathfinder {
 
     private PathEntity a(Entity entity, double d0, double d1, double d2, float f) {
         this.b.a();
-        this.c.a();
+        this.c.c();
         boolean flag = this.g;
         int i = MathHelper.floor(entity.boundingBox.b + 0.5D);
 
-        if (this.h && entity.aU()) {
+        if (this.h && entity.H()) {
             i = (int) entity.boundingBox.b;
 
             for (int j = this.a.getTypeId(MathHelper.floor(entity.locX), i, MathHelper.floor(entity.locZ)); j == Block.WATER.id || j == Block.STATIONARY_WATER.id; j = this.a.getTypeId(MathHelper.floor(entity.locX), i, MathHelper.floor(entity.locZ))) {
@@ -57,20 +57,20 @@ public class Pathfinder {
 
     private PathEntity a(Entity entity, PathPoint pathpoint, PathPoint pathpoint1, PathPoint pathpoint2, float f) {
         pathpoint.e = 0.0F;
-        pathpoint.f = pathpoint.a(pathpoint1);
+        pathpoint.f = pathpoint.b(pathpoint1);
         pathpoint.g = pathpoint.f;
         this.b.a();
         this.b.a(pathpoint);
         PathPoint pathpoint3 = pathpoint;
 
-        while (!this.b.c()) {
-            PathPoint pathpoint4 = this.b.b();
+        while (!this.b.e()) {
+            PathPoint pathpoint4 = this.b.c();
 
             if (pathpoint4.equals(pathpoint1)) {
                 return this.a(pathpoint, pathpoint1);
             }
 
-            if (pathpoint4.a(pathpoint1) < pathpoint3.a(pathpoint1)) {
+            if (pathpoint4.b(pathpoint1) < pathpoint3.b(pathpoint1)) {
                 pathpoint3 = pathpoint4;
             }
 
@@ -79,12 +79,12 @@ public class Pathfinder {
 
             for (int j = 0; j < i; ++j) {
                 PathPoint pathpoint5 = this.d[j];
-                float f1 = pathpoint4.e + pathpoint4.a(pathpoint5);
+                float f1 = pathpoint4.e + pathpoint4.b(pathpoint5);
 
                 if (!pathpoint5.a() || f1 < pathpoint5.e) {
                     pathpoint5.h = pathpoint4;
                     pathpoint5.e = f1;
-                    pathpoint5.f = pathpoint5.a(pathpoint1);
+                    pathpoint5.f = pathpoint5.b(pathpoint1);
                     if (pathpoint5.a()) {
                         this.b.a(pathpoint5, pathpoint5.e + pathpoint5.f);
                     } else {
@@ -221,7 +221,7 @@ public class Pathfinder {
 
                         Block block = Block.byId[k1];
 
-                        if (!block.b(this.a, l, i1, j1) && (!this.f || k1 != Block.WOODEN_DOOR.id)) {
+                        if (!block.c(this.a, l, i1, j1) && (!this.f || k1 != Block.WOODEN_DOOR.id)) {
                             if (k1 == Block.FENCE.id || k1 == Block.FENCE_GATE.id) {
                                 return -3;
                             }
@@ -236,7 +236,7 @@ public class Pathfinder {
                                 return 0;
                             }
 
-                            if (!entity.aV()) {
+                            if (!entity.J()) {
                                 return -2;
                             }
                         }

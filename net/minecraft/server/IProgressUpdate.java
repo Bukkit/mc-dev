@@ -4,7 +4,7 @@ public interface IProgressUpdate {
 
     void a(String s);
 
-    void b(String s);
+    void c(String s);
 
     void a(int i);
 }

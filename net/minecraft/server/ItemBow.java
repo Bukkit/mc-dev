@@ -6,13 +6,14 @@ public class ItemBow extends Item {
         super(i);
         this.maxStackSize = 1;
         this.setMaxDurability(384);
+        this.a(CreativeModeTab.j);
     }
 
     public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {
         boolean flag = entityhuman.abilities.canInstantlyBuild || EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_INFINITE.id, itemstack) > 0;
 
-        if (flag || entityhuman.inventory.d(Item.ARROW.id)) {
-            int j = this.c(itemstack) - i;
+        if (flag || entityhuman.inventory.e(Item.ARROW.id)) {
+            int j = this.a(itemstack) - i;
             float f = (float) j / 20.0F;
 
             f = (f * f + f * 2.0F) / 3.0F;
@@ -27,19 +28,19 @@ public class ItemBow extends Item {
             EntityArrow entityarrow = new EntityArrow(world, entityhuman, f * 2.0F);
 
             if (f == 1.0F) {
-                entityarrow.d = true;
+                entityarrow.d(true);
             }
 
             int k = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack);
 
             if (k > 0) {
-                entityarrow.a(entityarrow.k() + (double) k * 0.5D + 0.5D);
+                entityarrow.b(entityarrow.d() + (double) k * 0.5D + 0.5D);
             }
 
             int l = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, itemstack);
 
             if (l > 0) {
-                entityarrow.b(l);
+                entityarrow.a(l);
             }
 
             if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, itemstack) > 0) {
@@ -47,11 +48,11 @@ public class ItemBow extends Item {
             }
 
             itemstack.damage(1, entityhuman);
-            world.makeSound(entityhuman, "random.bow", 1.0F, 1.0F / (c.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-            if (!flag) {
-                entityhuman.inventory.c(Item.ARROW.id);
+            world.makeSound(entityhuman, "random.bow", 1.0F, 1.0F / (d.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+            if (flag) {
+                entityarrow.fromPlayer = 2;
             } else {
-                entityarrow.fromPlayer = false;
+                entityhuman.inventory.d(Item.ARROW.id);
             }
 
             if (!world.isStatic) {
@@ -64,23 +65,23 @@ public class ItemBow extends Item {
         return itemstack;
     }
 
-    public int c(ItemStack itemstack) {
+    public int a(ItemStack itemstack) {
         return 72000;
     }
 
-    public EnumAnimation d(ItemStack itemstack) {
+    public EnumAnimation b(ItemStack itemstack) {
         return EnumAnimation.e;
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        if (entityhuman.abilities.canInstantlyBuild || entityhuman.inventory.d(Item.ARROW.id)) {
-            entityhuman.a(itemstack, this.c(itemstack));
+        if (entityhuman.abilities.canInstantlyBuild || entityhuman.inventory.e(Item.ARROW.id)) {
+            entityhuman.a(itemstack, this.a(itemstack));
         }
 
         return itemstack;
     }
 
-    public int c() {
+    public int b() {
         return 1;
     }
 }

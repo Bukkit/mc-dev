@@ -17,7 +17,7 @@ public class ControllerLook {
     public void a(Entity entity, float f, float f1) {
         this.e = entity.locX;
         if (entity instanceof EntityLiving) {
-            this.f = entity.locY + (double) ((EntityLiving) entity).getHeadHeight();
+            this.f = entity.locY + (double) entity.getHeadHeight();
         } else {
             this.f = (entity.boundingBox.b + entity.boundingBox.e) / 2.0D;
         }
@@ -49,42 +49,26 @@ public class ControllerLook {
             float f1 = (float) (-(Math.atan2(d1, d3) * 180.0D / 3.1415927410125732D));
 
             this.a.pitch = this.a(this.a.pitch, f1, this.c);
-            this.a.X = this.a(this.a.X, f, this.b);
+            this.a.as = this.a(this.a.as, f, this.b);
         } else {
-            this.a.X = this.a(this.a.X, this.a.V, 10.0F);
+            this.a.as = this.a(this.a.as, this.a.aq, 10.0F);
         }
 
-        float f2;
+        float f2 = MathHelper.g(this.a.as - this.a.aq);
 
-        for (f2 = this.a.X - this.a.V; f2 < -180.0F; f2 += 360.0F) {
-            ;
-        }
-
-        while (f2 >= 180.0F) {
-            f2 -= 360.0F;
-        }
-
-        if (!this.a.al().e()) {
+        if (!this.a.getNavigation().f()) {
             if (f2 < -75.0F) {
-                this.a.X = this.a.V - 75.0F;
+                this.a.as = this.a.aq - 75.0F;
             }
 
             if (f2 > 75.0F) {
-                this.a.X = this.a.V + 75.0F;
+                this.a.as = this.a.aq + 75.0F;
             }
         }
     }
 
     private float a(float f, float f1, float f2) {
-        float f3;
-
-        for (f3 = f1 - f; f3 < -180.0F; f3 += 360.0F) {
-            ;
-        }
-
-        while (f3 >= 180.0F) {
-            f3 -= 360.0F;
-        }
+        float f3 = MathHelper.g(f1 - f);
 
         if (f3 > f2) {
             f3 = f2;

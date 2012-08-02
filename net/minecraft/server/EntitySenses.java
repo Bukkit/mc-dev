@@ -1,12 +1,13 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EntitySenses {
 
     EntityLiving entity;
-    ArrayList seenEntities = new ArrayList();
-    ArrayList unseenEntities = new ArrayList();
+    List seenEntities = new ArrayList();
+    List unseenEntities = new ArrayList();
 
     public EntitySenses(EntityLiving entityliving) {
         this.entity = entityliving;
@@ -23,10 +24,10 @@ public class EntitySenses {
         } else if (this.unseenEntities.contains(entity)) {
             return false;
         } else {
-            MethodProfiler.a("canSee");
-            boolean flag = this.entity.h(entity);
+            this.entity.world.methodProfiler.a("canSee");
+            boolean flag = this.entity.l(entity);
 
-            MethodProfiler.a();
+            this.entity.world.methodProfiler.b();
             if (flag) {
                 this.seenEntities.add(entity);
             } else {

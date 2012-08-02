@@ -24,8 +24,4 @@ public class NBTTagEnd extends NBTBase {
     public NBTBase clone() {
         return new NBTTagEnd();
     }
-
-    public boolean equals(Object object) {
-        return super.equals(object);
-    }
 }

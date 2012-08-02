@@ -6,6 +6,7 @@ public class BlockClay extends Block {
 
     public BlockClay(int i, int j) {
         super(i, j, Material.CLAY);
+        this.a(CreativeModeTab.b);
     }
 
     public int getDropType(int i, Random random, int j) {

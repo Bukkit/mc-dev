@@ -10,7 +10,11 @@ class RecipeSorter implements Comparator {
         this.a = craftingmanager;
     }
 
-    public int a(CraftingRecipe craftingrecipe, CraftingRecipe craftingrecipe1) {
-        return craftingrecipe instanceof ShapelessRecipes && craftingrecipe1 instanceof ShapedRecipes ? 1 : (craftingrecipe1 instanceof ShapelessRecipes && craftingrecipe instanceof ShapedRecipes ? -1 : (craftingrecipe1.a() < craftingrecipe.a() ? -1 : (craftingrecipe1.a() > craftingrecipe.a() ? 1 : 0)));
+    public int a(IRecipe irecipe, IRecipe irecipe1) {
+        return irecipe instanceof ShapelessRecipes && irecipe1 instanceof ShapedRecipes ? 1 : (irecipe1 instanceof ShapelessRecipes && irecipe instanceof ShapedRecipes ? -1 : (irecipe1.a() < irecipe.a() ? -1 : (irecipe1.a() > irecipe.a() ? 1 : 0)));
+    }
+
+    public int compare(Object object, Object object1) {
+        return this.a((IRecipe) object, (IRecipe) object1);
     }
 }

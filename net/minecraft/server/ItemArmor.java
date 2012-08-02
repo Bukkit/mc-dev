@@ -2,27 +2,28 @@ package net.minecraft.server;
 
 public class ItemArmor extends Item {
 
-    private static final int[] bV = new int[] { 11, 16, 15, 13};
+    private static final int[] bY = new int[] { 11, 16, 15, 13};
     public final int a;
     public final int b;
-    public final int bU;
-    private final EnumArmorMaterial bW;
+    public final int c;
+    private final EnumArmorMaterial bZ;
 
     public ItemArmor(int i, EnumArmorMaterial enumarmormaterial, int j, int k) {
         super(i);
-        this.bW = enumarmormaterial;
+        this.bZ = enumarmormaterial;
         this.a = k;
-        this.bU = j;
+        this.c = j;
         this.b = enumarmormaterial.b(k);
         this.setMaxDurability(enumarmormaterial.a(k));
         this.maxStackSize = 1;
+        this.a(CreativeModeTab.j);
     }
 
-    public int c() {
-        return this.bW.a();
+    public int b() {
+        return this.bZ.a();
     }
 
-    static int[] o() {
-        return bV;
+    static int[] c() {
+        return bY;
     }
 }

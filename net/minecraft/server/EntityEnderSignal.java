@@ -11,15 +11,15 @@ public class EntityEnderSignal extends Entity {
 
     public EntityEnderSignal(World world) {
         super(world);
-        this.b(0.25F, 0.25F);
+        this.a(0.25F, 0.25F);
     }
 
-    protected void b() {}
+    protected void a() {}
 
     public EntityEnderSignal(World world, double d0, double d1, double d2) {
         super(world);
         this.e = 0;
-        this.b(0.25F, 0.25F);
+        this.a(0.25F, 0.25F);
         this.setPosition(d0, d1, d2);
         this.height = 0.0F;
     }
@@ -43,11 +43,11 @@ public class EntityEnderSignal extends Entity {
         this.f = this.random.nextInt(5) > 0;
     }
 
-    public void F_() {
-        this.bL = this.locX;
-        this.bM = this.locY;
-        this.bN = this.locZ;
-        super.F_();
+    public void h_() {
+        this.S = this.locX;
+        this.T = this.locY;
+        this.U = this.locZ;
+        super.h_();
         this.locX += this.motX;
         this.locY += this.motY;
         this.locZ += this.motZ;
@@ -96,7 +96,7 @@ public class EntityEnderSignal extends Entity {
 
         float f3 = 0.25F;
 
-        if (this.aU()) {
+        if (this.H()) {
             for (int i = 0; i < 4; ++i) {
                 this.world.a("bubble", this.locX - this.motX * (double) f3, this.locY - this.motY * (double) f3, this.locZ - this.motZ * (double) f3, this.motX, this.motY, this.motZ);
             }
@@ -122,13 +122,11 @@ public class EntityEnderSignal extends Entity {
 
     public void a(NBTTagCompound nbttagcompound) {}
 
-    public void a_(EntityHuman entityhuman) {}
-
-    public float b(float f) {
+    public float c(float f) {
         return 1.0F;
     }
 
-    public boolean k_() {
+    public boolean an() {
         return false;
     }
 }

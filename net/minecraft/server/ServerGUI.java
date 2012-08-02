@@ -14,59 +14,62 @@ import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class ServerGUI extends JComponent implements ICommandListener {
+public class ServerGUI extends JComponent {
 
     public static Logger a = Logger.getLogger("Minecraft");
-    private MinecraftServer b;
+    private static boolean b = false;
+    private DedicatedServer c;
 
-    public static void a(MinecraftServer minecraftserver) {
+    public static void a(DedicatedServer dedicatedserver) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception exception) {
             ;
         }
 
-        ServerGUI servergui = new ServerGUI(minecraftserver);
+        ServerGUI servergui = new ServerGUI(dedicatedserver);
+
+        b = true;
         JFrame jframe = new JFrame("Minecraft server");
 
         jframe.add(servergui);
         jframe.pack();
         jframe.setLocationRelativeTo((Component) null);
         jframe.setVisible(true);
-        jframe.addWindowListener(new ServerWindowAdapter(minecraftserver));
+        jframe.addWindowListener(new ServerWindowAdapter(dedicatedserver));
     }
 
-    public ServerGUI(MinecraftServer minecraftserver) {
-        this.b = minecraftserver;
+    public ServerGUI(DedicatedServer dedicatedserver) {
+        this.c = dedicatedserver;
         this.setPreferredSize(new Dimension(854, 480));
         this.setLayout(new BorderLayout());
 
         try {
-            this.add(this.c(), "Center");
-            this.add(this.a(), "West");
+            this.add(this.d(), "Center");
+            this.add(this.b(), "West");
         } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
 
-    private JComponent a() {
+    private JComponent b() {
         JPanel jpanel = new JPanel(new BorderLayout());
 
-        jpanel.add(new GuiStatsComponent(this.b), "North");
-        jpanel.add(this.b(), "Center");
+        jpanel.add(new GuiStatsComponent(this.c), "North");
+        jpanel.add(this.c(), "Center");
         jpanel.setBorder(new TitledBorder(new EtchedBorder(), "Stats"));
         return jpanel;
     }
 
-    private JComponent b() {
-        PlayerListBox playerlistbox = new PlayerListBox(this.b);
+    private JComponent c() {
+        PlayerListBox playerlistbox = new PlayerListBox(this.c);
         JScrollPane jscrollpane = new JScrollPane(playerlistbox, 22, 30);
 
         jscrollpane.setBorder(new TitledBorder(new EtchedBorder(), "Players"));
         return jscrollpane;
     }
 
-    private JComponent c() {
+    private JComponent d() {
         JPanel jpanel = new JPanel(new BorderLayout());
         JTextArea jtextarea = new JTextArea();
 
@@ -84,15 +87,7 @@ public class ServerGUI extends JComponent implements ICommandListener {
         return jpanel;
     }
 
-    public void sendMessage(String s) {
-        a.info(s);
-    }
-
-    public String getName() {
-        return "CONSOLE";
-    }
-
-    static MinecraftServer a(ServerGUI servergui) {
-        return servergui.b;
+    static DedicatedServer a(ServerGUI servergui) {
+        return servergui.c;
     }
 }

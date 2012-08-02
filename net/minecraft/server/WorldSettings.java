@@ -3,47 +3,59 @@ package net.minecraft.server;
 public final class WorldSettings {
 
     private final long a;
-    private final int b;
+    private final EnumGamemode b;
     private final boolean c;
     private final boolean d;
     private final WorldType e;
+    private boolean f;
+    private boolean g;
 
-    public WorldSettings(long i, int j, boolean flag, boolean flag1, WorldType worldtype) {
+    public WorldSettings(long i, EnumGamemode enumgamemode, boolean flag, boolean flag1, WorldType worldtype) {
         this.a = i;
-        this.b = j;
+        this.b = enumgamemode;
         this.c = flag;
         this.d = flag1;
         this.e = worldtype;
     }
 
-    public long a() {
-        return this.a;
+    public WorldSettings(WorldData worlddata) {
+        this(worlddata.getSeed(), worlddata.getGameType(), worlddata.shouldGenerateMapFeatures(), worlddata.isHardcore(), worlddata.getType());
     }
 
-    public int b() {
-        return this.b;
+    public WorldSettings a() {
+        this.g = true;
+        return this;
     }
 
     public boolean c() {
+        return this.g;
+    }
+
+    public long d() {
+        return this.a;
+    }
+
+    public EnumGamemode e() {
+        return this.b;
+    }
+
+    public boolean f() {
         return this.d;
     }
 
-    public boolean d() {
+    public boolean g() {
         return this.c;
     }
 
-    public WorldType e() {
+    public WorldType h() {
         return this.e;
     }
 
-    public static int a(int i) {
-        switch (i) {
-        case 0:
-        case 1:
-            return i;
+    public boolean i() {
+        return this.f;
+    }
 
-        default:
-            return 0;
-        }
+    public static EnumGamemode a(int i) {
+        return EnumGamemode.a(i);
     }
 }

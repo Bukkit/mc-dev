@@ -10,7 +10,7 @@ public class PathfinderGoalRestrictOpenDoor extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (this.a.world.e()) {
+        if (this.a.world.r()) {
             return false;
         } else {
             Village village = this.a.world.villages.getClosestVillage(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locY), MathHelper.floor(this.a.locZ), 16);
@@ -19,27 +19,27 @@ public class PathfinderGoalRestrictOpenDoor extends PathfinderGoal {
                 return false;
             } else {
                 this.b = village.b(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locY), MathHelper.floor(this.a.locZ));
-                return this.b == null ? false : (double) this.b.b(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locY), MathHelper.floor(this.a.locZ)) < 2.25D;
+                return this.b == null ? false : (double) this.b.c(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locY), MathHelper.floor(this.a.locZ)) < 2.25D;
             }
         }
     }
 
     public boolean b() {
-        return this.a.world.e() ? false : !this.b.g && this.b.a(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locZ));
-    }
-
-    public void c() {
-        this.a.al().b(false);
-        this.a.al().c(false);
-    }
-
-    public void d() {
-        this.a.al().b(true);
-        this.a.al().c(true);
-        this.b = null;
+        return this.a.world.r() ? false : !this.b.g && this.b.a(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locZ));
     }
 
     public void e() {
+        this.a.getNavigation().b(false);
+        this.a.getNavigation().c(false);
+    }
+
+    public void c() {
+        this.a.getNavigation().b(true);
+        this.a.getNavigation().c(true);
+        this.b = null;
+    }
+
+    public void d() {
         this.b.e();
     }
 }

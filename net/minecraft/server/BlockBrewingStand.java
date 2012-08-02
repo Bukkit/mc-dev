@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BlockBrewingStand extends BlockContainer {
@@ -12,34 +12,34 @@ public class BlockBrewingStand extends BlockContainer {
         this.textureId = 157;
     }
 
-    public boolean a() {
+    public boolean d() {
         return false;
     }
 
-    public int c() {
+    public int b() {
         return 25;
     }
 
-    public TileEntity a_() {
+    public TileEntity a(World world) {
         return new TileEntityBrewingStand();
     }
 
-    public boolean b() {
+    public boolean c() {
         return false;
     }
 
-    public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist) {
+    public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List list, Entity entity) {
         this.a(0.4375F, 0.0F, 0.4375F, 0.5625F, 0.875F, 0.5625F);
-        super.a(world, i, j, k, axisalignedbb, arraylist);
+        super.a(world, i, j, k, axisalignedbb, list, entity);
         this.f();
-        super.a(world, i, j, k, axisalignedbb, arraylist);
+        super.a(world, i, j, k, axisalignedbb, list, entity);
     }
 
     public void f() {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
-    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
         if (world.isStatic) {
             return true;
         } else {
@@ -53,14 +53,14 @@ public class BlockBrewingStand extends BlockContainer {
         }
     }
 
-    public void remove(World world, int i, int j, int k) {
+    public void remove(World world, int i, int j, int k, int l, int i1) {
         TileEntity tileentity = world.getTileEntity(i, j, k);
 
-        if (tileentity != null && tileentity instanceof TileEntityBrewingStand) {
+        if (tileentity instanceof TileEntityBrewingStand) {
             TileEntityBrewingStand tileentitybrewingstand = (TileEntityBrewingStand) tileentity;
 
-            for (int l = 0; l < tileentitybrewingstand.getSize(); ++l) {
-                ItemStack itemstack = tileentitybrewingstand.getItem(l);
+            for (int j1 = 0; j1 < tileentitybrewingstand.getSize(); ++j1) {
+                ItemStack itemstack = tileentitybrewingstand.getItem(j1);
 
                 if (itemstack != null) {
                     float f = this.a.nextFloat() * 0.8F + 0.1F;
@@ -68,14 +68,14 @@ public class BlockBrewingStand extends BlockContainer {
                     float f2 = this.a.nextFloat() * 0.8F + 0.1F;
 
                     while (itemstack.count > 0) {
-                        int i1 = this.a.nextInt(21) + 10;
+                        int k1 = this.a.nextInt(21) + 10;
 
-                        if (i1 > itemstack.count) {
-                            i1 = itemstack.count;
+                        if (k1 > itemstack.count) {
+                            k1 = itemstack.count;
                         }
 
-                        itemstack.count -= i1;
-                        EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, i1, itemstack.getData()));
+                        itemstack.count -= k1;
+                        EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, k1, itemstack.getData()));
                         float f3 = 0.05F;
 
                         entityitem.motX = (double) ((float) this.a.nextGaussian() * f3);
@@ -87,7 +87,7 @@ public class BlockBrewingStand extends BlockContainer {
             }
         }
 
-        super.remove(world, i, j, k);
+        super.remove(world, i, j, k, l, i1);
     }
 
     public int getDropType(int i, Random random, int j) {

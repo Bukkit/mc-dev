@@ -34,4 +34,18 @@ public class Packet30Entity extends Packet {
     public int a() {
         return 4;
     }
+
+    public String toString() {
+        return "Entity_" + super.toString();
+    }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        Packet30Entity packet30entity = (Packet30Entity) packet;
+
+        return packet30entity.a == this.a;
+    }
 }

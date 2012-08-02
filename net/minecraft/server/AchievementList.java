@@ -38,8 +38,6 @@ public class AchievementList {
     public static Achievement E = (new Achievement(25, "overkill", -4, 1, Item.DIAMOND_SWORD, D)).b().c();
     public static Achievement F = (new Achievement(26, "bookcase", -3, 6, Block.BOOKSHELF, D)).c();
 
-    public AchievementList() {}
-
     public static void a() {}
 
     static {

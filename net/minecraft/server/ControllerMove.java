@@ -33,7 +33,7 @@ public class ControllerMove {
     }
 
     public void c() {
-        this.a.e(0.0F);
+        this.a.f(0.0F);
         if (this.f) {
             this.f = false;
             int i = MathHelper.floor(this.a.boundingBox.b + 0.5D);
@@ -46,7 +46,7 @@ public class ControllerMove {
                 float f = (float) (Math.atan2(d1, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
 
                 this.a.yaw = this.a(this.a.yaw, f, 30.0F);
-                this.a.d(this.e);
+                this.a.e(this.e);
                 if (d2 > 0.0D && d0 * d0 + d1 * d1 < 1.0D) {
                     this.a.getControllerJump().a();
                 }
@@ -55,15 +55,7 @@ public class ControllerMove {
     }
 
     private float a(float f, float f1, float f2) {
-        float f3;
-
-        for (f3 = f1 - f; f3 < -180.0F; f3 += 360.0F) {
-            ;
-        }
-
-        while (f3 >= 180.0F) {
-            f3 -= 360.0F;
-        }
+        float f3 = MathHelper.g(f1 - f);
 
         if (f3 > f2) {
             f3 = f2;

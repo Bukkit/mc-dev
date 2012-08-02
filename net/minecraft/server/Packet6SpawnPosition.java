@@ -36,4 +36,16 @@ public class Packet6SpawnPosition extends Packet {
     public int a() {
         return 12;
     }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        return true;
+    }
+
+    public boolean a_() {
+        return false;
+    }
 }

@@ -108,9 +108,9 @@ public class WorldGenBigTree extends WorldGenerator {
             k1 = -i1;
 
             while (k1 <= i1) {
-                double d0 = Math.sqrt(Math.pow((double) Math.abs(j1) + 0.5D, 2.0D) + Math.pow((double) Math.abs(k1) + 0.5D, 2.0D));
+                double d0 = Math.pow((double) Math.abs(j1) + 0.5D, 2.0D) + Math.pow((double) Math.abs(k1) + 0.5D, 2.0D);
 
-                if (d0 > (double) f) {
+                if (d0 > (double) (f * f)) {
                     ++k1;
                 } else {
                     aint1[b2] = aint[b2] + k1;

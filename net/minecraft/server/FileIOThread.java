@@ -34,11 +34,7 @@ public class FileIOThread implements Runnable {
             }
 
             try {
-                if (!this.e) {
-                    Thread.sleep(10L);
-                } else {
-                    Thread.sleep(0L);
-                }
+                Thread.sleep(this.e ? 0L : 10L);
             } catch (InterruptedException interruptedexception) {
                 interruptedexception.printStackTrace();
             }

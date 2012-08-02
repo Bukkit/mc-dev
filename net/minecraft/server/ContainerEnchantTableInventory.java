@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-class ContainerEnchantTableInventory extends ContainerEnchantTableSubcontainer {
+class ContainerEnchantTableInventory extends InventorySubcontainer {
 
     final ContainerEnchantTable enchantTable;
 

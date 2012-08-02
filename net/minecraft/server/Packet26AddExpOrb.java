@@ -18,7 +18,7 @@ public class Packet26AddExpOrb extends Packet {
         this.b = MathHelper.floor(entityexperienceorb.locX * 32.0D);
         this.c = MathHelper.floor(entityexperienceorb.locY * 32.0D);
         this.d = MathHelper.floor(entityexperienceorb.locZ * 32.0D);
-        this.e = entityexperienceorb.y_();
+        this.e = entityexperienceorb.d();
     }
 
     public void a(DataInputStream datainputstream) {

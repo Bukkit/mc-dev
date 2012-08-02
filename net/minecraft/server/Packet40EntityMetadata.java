@@ -33,4 +33,8 @@ public class Packet40EntityMetadata extends Packet {
     public int a() {
         return 5;
     }
+
+    public boolean a_() {
+        return true;
+    }
 }

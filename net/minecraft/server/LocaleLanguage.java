@@ -4,27 +4,28 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Enumeration;
+import java.util.IllegalFormatException;
 import java.util.Properties;
 import java.util.TreeMap;
 
 public class LocaleLanguage {
 
-    private static LocaleLanguage a = new LocaleLanguage();
+    private static LocaleLanguage a = new LocaleLanguage("en_US");
     private Properties b = new Properties();
     private TreeMap c;
     private String d;
     private boolean e;
 
-    private LocaleLanguage() {
-        this.b();
-        this.a("en_US");
+    public LocaleLanguage(String s) {
+        this.e();
+        this.a(s);
     }
 
     public static LocaleLanguage a() {
         return a;
     }
 
-    private void b() {
+    private void e() {
         TreeMap treemap = new TreeMap();
 
         try {
@@ -43,6 +44,11 @@ public class LocaleLanguage {
         }
 
         this.c = treemap;
+        this.c.put("en_US", "English (US)");
+    }
+
+    public TreeMap b() {
+        return this.c;
     }
 
     private void a(Properties properties, String s) {
@@ -109,6 +115,10 @@ public class LocaleLanguage {
     public String a(String s, Object... aobject) {
         String s1 = this.b.getProperty(s, s);
 
-        return String.format(s1, aobject);
+        try {
+            return String.format(s1, aobject);
+        } catch (IllegalFormatException illegalformatexception) {
+            return "Format error: " + s1;
+        }
     }
 }

@@ -16,11 +16,11 @@ public abstract class WorldProvider {
     public final void a(World world) {
         this.a = world;
         this.type = world.getWorldData().getType();
+        this.b();
         this.a();
-        this.g();
     }
 
-    protected void g() {
+    protected void a() {
         float f = 0.0F;
 
         for (int i = 0; i <= 15; ++i) {
@@ -30,7 +30,7 @@ public abstract class WorldProvider {
         }
     }
 
-    protected void a() {
+    protected void b() {
         if (this.a.getWorldData().getType() == WorldType.FLAT) {
             this.c = new WorldChunkManagerHell(BiomeBase.PLAINS, 0.5F, 0.5F);
         } else {
@@ -71,7 +71,7 @@ public abstract class WorldProvider {
         return true;
     }
 
-    public boolean c() {
+    public boolean e() {
         return true;
     }
 
@@ -79,7 +79,7 @@ public abstract class WorldProvider {
         return (WorldProvider) (i == -1 ? new WorldProviderHell() : (i == 0 ? new WorldProviderNormal() : (i == 1 ? new WorldProviderTheEnd() : null)));
     }
 
-    public ChunkCoordinates e() {
+    public ChunkCoordinates h() {
         return null;
     }
 

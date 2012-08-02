@@ -4,20 +4,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class ThreadCommandReader extends Thread {
+class ThreadCommandReader extends Thread {
 
-    final MinecraftServer server;
+    final DedicatedServer server;
 
-    public ThreadCommandReader(MinecraftServer minecraftserver) {
-        this.server = minecraftserver;
+    ThreadCommandReader(DedicatedServer dedicatedserver) {
+        this.server = dedicatedserver;
     }
 
     public void run() {
         BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(System.in));
-        String s = null;
+
+        String s;
 
         try {
-            while (!this.server.isStopped && MinecraftServer.isRunning(this.server) && (s = bufferedreader.readLine()) != null) {
+            while (!this.server.isStopped() && this.server.isRunning() && (s = bufferedreader.readLine()) != null) {
                 this.server.issueCommand(s, this.server);
             }
         } catch (IOException ioexception) {

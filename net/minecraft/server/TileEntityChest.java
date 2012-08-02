@@ -157,11 +157,11 @@ public class TileEntityChest extends TileEntity implements IInventory {
         }
     }
 
-    public void q_() {
-        super.q_();
+    public void g() {
+        super.g();
         this.i();
         if (++this.ticks % 20 * 4 == 0) {
-            this.world.playNote(this.x, this.y, this.z, 1, this.h);
+            ;
         }
 
         this.g = this.f;
@@ -225,14 +225,14 @@ public class TileEntityChest extends TileEntity implements IInventory {
         }
     }
 
-    public void f() {
+    public void startOpen() {
         ++this.h;
-        this.world.playNote(this.x, this.y, this.z, 1, this.h);
+        this.world.playNote(this.x, this.y, this.z, Block.CHEST.id, 1, this.h);
     }
 
-    public void g() {
+    public void f() {
         --this.h;
-        this.world.playNote(this.x, this.y, this.z, 1, this.h);
+        this.world.playNote(this.x, this.y, this.z, Block.CHEST.id, 1, this.h);
     }
 
     public void j() {

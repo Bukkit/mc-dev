@@ -4,9 +4,10 @@ public class ItemRedstone extends Item {
 
     public ItemRedstone(int i) {
         super(i);
+        this.a(CreativeModeTab.d);
     }
 
-    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
+    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l, float f, float f1, float f2) {
         if (world.getTypeId(i, j, k) != Block.SNOW.id) {
             if (l == 0) {
                 --j;
@@ -37,7 +38,7 @@ public class ItemRedstone extends Item {
             }
         }
 
-        if (!entityhuman.d(i, j, k)) {
+        if (!entityhuman.e(i, j, k)) {
             return false;
         } else {
             if (Block.REDSTONE_WIRE.canPlace(world, i, j, k)) {

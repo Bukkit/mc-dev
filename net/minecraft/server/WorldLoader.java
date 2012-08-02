@@ -16,7 +16,9 @@ public class WorldLoader implements Convertable {
         this.a = file1;
     }
 
-    public WorldData b(String s) {
+    public void d() {}
+
+    public WorldData c(String s) {
         File file1 = new File(this.a, s);
 
         if (!file1.exists()) {
@@ -48,6 +50,31 @@ public class WorldLoader implements Convertable {
             }
 
             return null;
+        }
+    }
+
+    public void e(String s) {
+        File file1 = new File(this.a, s);
+
+        if (file1.exists()) {
+            a(file1.listFiles());
+            file1.delete();
+        }
+    }
+
+    protected static void a(File[] afile) {
+        File[] afile1 = afile;
+        int i = afile.length;
+
+        for (int j = 0; j < i; ++j) {
+            File file1 = afile1[j];
+
+            if (file1.isDirectory()) {
+                System.out.println("Deleting " + file1);
+                a(file1.listFiles());
+            }
+
+            file1.delete();
         }
     }
 

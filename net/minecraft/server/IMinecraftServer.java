@@ -2,45 +2,43 @@ package net.minecraft.server;
 
 public interface IMinecraftServer {
 
-    int getProperty(String s, int i);
+    int a(String s, int i);
 
     String a(String s, String s1);
 
     void a(String s, Object object);
 
-    void c();
+    void a();
 
-    String getPropertiesFile();
+    String c();
 
-    String getMotd();
+    String t();
 
-    int getPort();
+    int u();
 
-    String getServerAddress();
+    String v();
 
     String getVersion();
 
-    int getPlayerCount();
+    int x();
 
-    int getMaxPlayers();
+    int y();
 
     String[] getPlayers();
 
-    String getWorldName();
+    String I();
 
     String getPlugins();
 
-    void o();
-
-    String d(String s);
+    String i(String s);
 
     boolean isDebugging();
 
-    void sendMessage(String s);
+    void info(String s);
 
     void warning(String s);
 
-    void severe(String s);
+    void j(String s);
 
-    void debug(String s);
+    void k(String s);
 }

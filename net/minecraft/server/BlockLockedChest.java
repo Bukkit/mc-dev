@@ -17,7 +17,7 @@ public class BlockLockedChest extends Block {
         return true;
     }
 
-    public void a(World world, int i, int j, int k, Random random) {
+    public void b(World world, int i, int j, int k, Random random) {
         world.setTypeId(i, j, k, 0);
     }
 }

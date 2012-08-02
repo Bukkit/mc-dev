@@ -20,7 +20,7 @@ public class VillageDoor {
         this.addedTime = j1;
     }
 
-    public int a(int i, int j, int k) {
+    public int b(int i, int j, int k) {
         int l = i - this.locX;
         int i1 = j - this.locY;
         int j1 = k - this.locZ;
@@ -28,7 +28,7 @@ public class VillageDoor {
         return l * l + i1 * i1 + j1 * j1;
     }
 
-    public int b(int i, int j, int k) {
+    public int c(int i, int j, int k) {
         int l = i - this.locX - this.d;
         int i1 = j - this.locY;
         int j1 = k - this.locZ - this.e;

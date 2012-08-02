@@ -141,7 +141,7 @@ public class ChunkProviderTheEnd implements IChunkProvider {
         this.a(i, j, abyte, this.o);
         this.b(i, j, abyte, this.o);
         Chunk chunk = new Chunk(this.m, abyte, i, j);
-        byte[] abyte1 = chunk.l();
+        byte[] abyte1 = chunk.m();
 
         for (int k = 0; k < abyte1.length; ++k) {
             abyte1[k] = (byte) this.o[k].id;
@@ -289,6 +289,10 @@ public class ChunkProviderTheEnd implements IChunkProvider {
         return true;
     }
 
+    public String getName() {
+        return "RandomLevelSource";
+    }
+
     public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
         BiomeBase biomebase = this.m.getBiome(i, k);
 
@@ -297,5 +301,9 @@ public class ChunkProviderTheEnd implements IChunkProvider {
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {
         return null;
+    }
+
+    public int getLoadedChunks() {
+        return 0;
     }
 }

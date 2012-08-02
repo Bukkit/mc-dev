@@ -5,43 +5,32 @@ import java.util.Random;
 
 public class WorldGenStrongholdStairs extends WorldGenStrongholdPiece {
 
-    private final boolean a;
-    private final WorldGenStrongholdDoorType b;
-
-    public WorldGenStrongholdStairs(int i, Random random, int j, int k) {
-        super(i);
-        this.a = true;
-        this.h = random.nextInt(4);
-        this.b = WorldGenStrongholdDoorType.a;
-        switch (this.h) {
-        case 0:
-        case 2:
-            this.g = new StructureBoundingBox(j, 64, k, j + 5 - 1, 74, k + 5 - 1);
-            break;
-
-        default:
-            this.g = new StructureBoundingBox(j, 64, k, j + 5 - 1, 74, k + 5 - 1);
-        }
-    }
+    private final WorldGenStrongholdDoorType a;
+    private final boolean b;
+    private final boolean c;
 
     public WorldGenStrongholdStairs(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.a = false;
-        this.h = j;
-        this.b = this.a(random);
-        this.g = structureboundingbox;
+        this.f = j;
+        this.a = this.a(random);
+        this.e = structureboundingbox;
+        this.b = random.nextInt(2) == 0;
+        this.c = random.nextInt(2) == 0;
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
-        if (this.a) {
-            WorldGenStrongholdPieces.a(WorldGenStrongholdCrossing.class);
+        this.a((WorldGenStrongholdStart) structurepiece, list, random, 1, 1);
+        if (this.b) {
+            this.b((WorldGenStrongholdStart) structurepiece, list, random, 1, 2);
         }
 
-        this.a((WorldGenStrongholdStairs2) structurepiece, list, random, 1, 1);
+        if (this.c) {
+            this.c((WorldGenStrongholdStart) structurepiece, list, random, 1, 2);
+        }
     }
 
     public static WorldGenStrongholdStairs a(List list, Random random, int i, int j, int k, int l, int i1) {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, -1, -7, 0, 5, 11, 5, l);
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, -1, -1, 0, 5, 5, 7, l);
 
         return a(structureboundingbox) && StructurePiece.a(list, structureboundingbox) == null ? new WorldGenStrongholdStairs(i1, random, structureboundingbox, l) : null;
     }
@@ -50,30 +39,21 @@ public class WorldGenStrongholdStairs extends WorldGenStrongholdPiece {
         if (this.a(world, structureboundingbox)) {
             return false;
         } else {
-            if (this.a) {
-                ;
+            this.a(world, structureboundingbox, 0, 0, 0, 4, 4, 6, true, random, WorldGenStrongholdPieces.b());
+            this.a(world, random, structureboundingbox, this.a, 1, 1, 0);
+            this.a(world, random, structureboundingbox, WorldGenStrongholdDoorType.a, 1, 1, 6);
+            this.a(world, structureboundingbox, random, 0.1F, 1, 2, 1, Block.TORCH.id, 0);
+            this.a(world, structureboundingbox, random, 0.1F, 3, 2, 1, Block.TORCH.id, 0);
+            this.a(world, structureboundingbox, random, 0.1F, 1, 2, 5, Block.TORCH.id, 0);
+            this.a(world, structureboundingbox, random, 0.1F, 3, 2, 5, Block.TORCH.id, 0);
+            if (this.b) {
+                this.a(world, structureboundingbox, 0, 1, 2, 0, 3, 4, 0, 0, false);
             }
 
-            this.a(world, structureboundingbox, 0, 0, 0, 4, 10, 4, true, random, WorldGenStrongholdPieces.b());
-            this.a(world, random, structureboundingbox, this.b, 1, 7, 0);
-            this.a(world, random, structureboundingbox, WorldGenStrongholdDoorType.a, 1, 1, 4);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, 2, 6, 1, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, 1, 5, 1, structureboundingbox);
-            this.a(world, Block.STEP.id, 0, 1, 6, 1, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, 1, 5, 2, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, 1, 4, 3, structureboundingbox);
-            this.a(world, Block.STEP.id, 0, 1, 5, 3, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, 2, 4, 3, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, 3, 3, 3, structureboundingbox);
-            this.a(world, Block.STEP.id, 0, 3, 4, 3, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, 3, 3, 2, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, 3, 2, 1, structureboundingbox);
-            this.a(world, Block.STEP.id, 0, 3, 3, 1, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, 2, 2, 1, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, 1, 1, 1, structureboundingbox);
-            this.a(world, Block.STEP.id, 0, 1, 2, 1, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, 1, 1, 2, structureboundingbox);
-            this.a(world, Block.STEP.id, 0, 1, 1, 3, structureboundingbox);
+            if (this.c) {
+                this.a(world, structureboundingbox, 4, 1, 2, 4, 3, 4, 0, 0, false);
+            }
+
             return true;
         }
     }

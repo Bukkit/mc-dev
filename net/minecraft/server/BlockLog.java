@@ -4,9 +4,16 @@ import java.util.Random;
 
 public class BlockLog extends Block {
 
+    public static final String[] a = new String[] { "oak", "spruce", "birch", "jungle"};
+
     protected BlockLog(int i) {
         super(i, Material.WOOD);
         this.textureId = 20;
+        this.a(CreativeModeTab.b);
+    }
+
+    public int b() {
+        return 31;
     }
 
     public int a(Random random) {
@@ -17,25 +24,21 @@ public class BlockLog extends Block {
         return Block.LOG.id;
     }
 
-    public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
-        super.a(world, entityhuman, i, j, k, l);
-    }
-
-    public void remove(World world, int i, int j, int k) {
+    public void remove(World world, int i, int j, int k, int l, int i1) {
         byte b0 = 4;
-        int l = b0 + 1;
+        int j1 = b0 + 1;
 
-        if (world.a(i - l, j - l, k - l, i + l, j + l, k + l)) {
-            for (int i1 = -b0; i1 <= b0; ++i1) {
-                for (int j1 = -b0; j1 <= b0; ++j1) {
-                    for (int k1 = -b0; k1 <= b0; ++k1) {
-                        int l1 = world.getTypeId(i + i1, j + j1, k + k1);
+        if (world.c(i - j1, j - j1, k - j1, i + j1, j + j1, k + j1)) {
+            for (int k1 = -b0; k1 <= b0; ++k1) {
+                for (int l1 = -b0; l1 <= b0; ++l1) {
+                    for (int i2 = -b0; i2 <= b0; ++i2) {
+                        int j2 = world.getTypeId(i + k1, j + l1, k + i2);
 
-                        if (l1 == Block.LEAVES.id) {
-                            int i2 = world.getData(i + i1, j + j1, k + k1);
+                        if (j2 == Block.LEAVES.id) {
+                            int k2 = world.getData(i + k1, j + l1, k + i2);
 
-                            if ((i2 & 8) == 0) {
-                                world.setRawData(i + i1, j + j1, k + k1, i2 | 8);
+                            if ((k2 & 8) == 0) {
+                                world.setRawData(i + k1, j + l1, k + i2, k2 | 8);
                             }
                         }
                     }
@@ -44,11 +47,46 @@ public class BlockLog extends Block {
         }
     }
 
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
+        int l = world.getData(i, j, k) & 3;
+        int i1 = BlockPiston.b(world, i, j, k, (EntityHuman) entityliving);
+        byte b0 = 0;
+
+        switch (i1) {
+        case 0:
+        case 1:
+            b0 = 0;
+            break;
+
+        case 2:
+        case 3:
+            b0 = 8;
+            break;
+
+        case 4:
+        case 5:
+            b0 = 4;
+        }
+
+        world.setData(i, j, k, l | b0);
+    }
+
     public int a(int i, int j) {
-        return i == 1 ? 21 : (i == 0 ? 21 : (j == 1 ? 116 : (j == 2 ? 117 : (j == 3 ? 153 : 20))));
+        int k = j & 12;
+        int l = j & 3;
+
+        return k == 0 && (i == 1 || i == 0) ? 21 : (k == 4 && (i == 5 || i == 4) ? 21 : (k == 8 && (i == 2 || i == 3) ? 21 : (l == 1 ? 116 : (l == 2 ? 117 : (l == 3 ? 153 : 20)))));
     }
 
     protected int getDropData(int i) {
-        return i;
+        return i & 3;
+    }
+
+    public static int e(int i) {
+        return i & 3;
+    }
+
+    protected ItemStack c_(int i) {
+        return new ItemStack(this.id, 1, e(i));
     }
 }

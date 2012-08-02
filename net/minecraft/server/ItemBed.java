@@ -4,9 +4,10 @@ public class ItemBed extends Item {
 
     public ItemBed(int i) {
         super(i);
+        this.a(CreativeModeTab.c);
     }
 
-    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l) {
+    public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l, float f, float f1, float f2) {
         if (l != 1) {
             return false;
         } else {
@@ -32,8 +33,8 @@ public class ItemBed extends Item {
                 b0 = 1;
             }
 
-            if (entityhuman.d(i, j, k) && entityhuman.d(i + b0, j, k + b1)) {
-                if (world.isEmpty(i, j, k) && world.isEmpty(i + b0, j, k + b1) && world.e(i, j - 1, k) && world.e(i + b0, j - 1, k + b1)) {
+            if (entityhuman.e(i, j, k) && entityhuman.e(i + b0, j, k + b1)) {
+                if (world.isEmpty(i, j, k) && world.isEmpty(i + b0, j, k + b1) && world.t(i, j - 1, k) && world.t(i + b0, j - 1, k + b1)) {
                     world.setTypeIdAndData(i, j, k, blockbed.id, i1);
                     if (world.getTypeId(i, j, k) == blockbed.id) {
                         world.setTypeIdAndData(i + b0, j, k + b1, blockbed.id, i1 + 8);

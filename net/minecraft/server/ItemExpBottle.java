@@ -4,6 +4,7 @@ public class ItemExpBottle extends Item {
 
     public ItemExpBottle(int i) {
         super(i);
+        this.a(CreativeModeTab.f);
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
@@ -11,7 +12,7 @@ public class ItemExpBottle extends Item {
             --itemstack.count;
         }
 
-        world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (c.nextFloat() * 0.4F + 0.8F));
+        world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
         if (!world.isStatic) {
             world.addEntity(new EntityThrownExpBottle(world, entityhuman));
         }

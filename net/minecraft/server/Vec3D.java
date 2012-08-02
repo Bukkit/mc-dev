@@ -1,12 +1,8 @@
 package net.minecraft.server;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Vec3D {
 
-    private static List d = new ArrayList();
-    private static int e = 0;
+    private static final ThreadLocal d = new Vec3DPoolThreadLocal();
     public double a;
     public double b;
     public double c;
@@ -15,19 +11,11 @@ public class Vec3D {
         return new Vec3D(d0, d1, d2);
     }
 
-    public static void a() {
-        e = 0;
+    public static Vec3DPool a() {
+        return (Vec3DPool) d.get();
     }
 
-    public static Vec3D create(double d0, double d1, double d2) {
-        if (e >= d.size()) {
-            d.add(a(0.0D, 0.0D, 0.0D));
-        }
-
-        return ((Vec3D) d.get(e++)).e(d0, d1, d2);
-    }
-
-    private Vec3D(double d0, double d1, double d2) {
+    protected Vec3D(double d0, double d1, double d2) {
         if (d0 == -0.0D) {
             d0 = 0.0D;
         }
@@ -45,7 +33,7 @@ public class Vec3D {
         this.c = d2;
     }
 
-    private Vec3D e(double d0, double d1, double d2) {
+    protected Vec3D b(double d0, double d1, double d2) {
         this.a = d0;
         this.b = d1;
         this.c = d2;
@@ -55,18 +43,18 @@ public class Vec3D {
     public Vec3D b() {
         double d0 = (double) MathHelper.sqrt(this.a * this.a + this.b * this.b + this.c * this.c);
 
-        return d0 < 1.0E-4D ? create(0.0D, 0.0D, 0.0D) : create(this.a / d0, this.b / d0, this.c / d0);
+        return d0 < 1.0E-4D ? a().create(0.0D, 0.0D, 0.0D) : a().create(this.a / d0, this.b / d0, this.c / d0);
     }
 
-    public double a(Vec3D vec3d) {
+    public double b(Vec3D vec3d) {
         return this.a * vec3d.a + this.b * vec3d.b + this.c * vec3d.c;
     }
 
     public Vec3D add(double d0, double d1, double d2) {
-        return create(this.a + d0, this.b + d1, this.c + d2);
+        return a().create(this.a + d0, this.b + d1, this.c + d2);
     }
 
-    public double b(Vec3D vec3d) {
+    public double d(Vec3D vec3d) {
         double d0 = vec3d.a - this.a;
         double d1 = vec3d.b - this.b;
         double d2 = vec3d.c - this.c;
@@ -94,7 +82,7 @@ public class Vec3D {
         return (double) MathHelper.sqrt(this.a * this.a + this.b * this.b + this.c * this.c);
     }
 
-    public Vec3D a(Vec3D vec3d, double d0) {
+    public Vec3D b(Vec3D vec3d, double d0) {
         double d1 = vec3d.a - this.a;
         double d2 = vec3d.b - this.b;
         double d3 = vec3d.c - this.c;
@@ -104,11 +92,11 @@ public class Vec3D {
         } else {
             double d4 = (d0 - this.a) / d1;
 
-            return d4 >= 0.0D && d4 <= 1.0D ? create(this.a + d1 * d4, this.b + d2 * d4, this.c + d3 * d4) : null;
+            return d4 >= 0.0D && d4 <= 1.0D ? a().create(this.a + d1 * d4, this.b + d2 * d4, this.c + d3 * d4) : null;
         }
     }
 
-    public Vec3D b(Vec3D vec3d, double d0) {
+    public Vec3D c(Vec3D vec3d, double d0) {
         double d1 = vec3d.a - this.a;
         double d2 = vec3d.b - this.b;
         double d3 = vec3d.c - this.c;
@@ -118,11 +106,11 @@ public class Vec3D {
         } else {
             double d4 = (d0 - this.b) / d2;
 
-            return d4 >= 0.0D && d4 <= 1.0D ? create(this.a + d1 * d4, this.b + d2 * d4, this.c + d3 * d4) : null;
+            return d4 >= 0.0D && d4 <= 1.0D ? a().create(this.a + d1 * d4, this.b + d2 * d4, this.c + d3 * d4) : null;
         }
     }
 
-    public Vec3D c(Vec3D vec3d, double d0) {
+    public Vec3D d(Vec3D vec3d, double d0) {
         double d1 = vec3d.a - this.a;
         double d2 = vec3d.b - this.b;
         double d3 = vec3d.c - this.c;
@@ -132,7 +120,7 @@ public class Vec3D {
         } else {
             double d4 = (d0 - this.c) / d3;
 
-            return d4 >= 0.0D && d4 <= 1.0D ? create(this.a + d1 * d4, this.b + d2 * d4, this.c + d3 * d4) : null;
+            return d4 >= 0.0D && d4 <= 1.0D ? a().create(this.a + d1 * d4, this.b + d2 * d4, this.c + d3 * d4) : null;
         }
     }
 

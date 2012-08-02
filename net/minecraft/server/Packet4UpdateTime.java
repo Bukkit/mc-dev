@@ -28,4 +28,16 @@ public class Packet4UpdateTime extends Packet {
     public int a() {
         return 8;
     }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        return true;
+    }
+
+    public boolean a_() {
+        return true;
+    }
 }

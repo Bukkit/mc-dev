@@ -20,7 +20,7 @@ public interface IInventory {
 
     boolean a(EntityHuman entityhuman);
 
-    void f();
+    void startOpen();
 
-    void g();
+    void f();
 }

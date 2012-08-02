@@ -32,4 +32,14 @@ public class Packet39AttachEntity extends Packet {
     public void handle(NetHandler nethandler) {
         nethandler.a(this);
     }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        Packet39AttachEntity packet39attachentity = (Packet39AttachEntity) packet;
+
+        return packet39attachentity.a == this.a;
+    }
 }

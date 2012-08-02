@@ -4,11 +4,11 @@ public class EnchantmentDurability extends Enchantment {
 
     protected EnchantmentDurability(int i, int j) {
         super(i, j, EnchantmentSlotType.DIGGER);
-        this.a("durability");
+        this.b("durability");
     }
 
     public int a(int i) {
-        return 5 + (i - 1) * 10;
+        return 5 + (i - 1) * 8;
     }
 
     public int b(int i) {

@@ -18,7 +18,7 @@ public class Packet71Weather extends Packet {
         this.b = MathHelper.floor(entity.locX * 32.0D);
         this.c = MathHelper.floor(entity.locY * 32.0D);
         this.d = MathHelper.floor(entity.locZ * 32.0D);
-        if (entity instanceof EntityWeatherLighting) {
+        if (entity instanceof EntityLightning) {
             this.e = 1;
         }
     }

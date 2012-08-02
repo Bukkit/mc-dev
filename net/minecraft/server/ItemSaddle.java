@@ -5,9 +5,10 @@ public class ItemSaddle extends Item {
     public ItemSaddle(int i) {
         super(i);
         this.maxStackSize = 1;
+        this.a(CreativeModeTab.e);
     }
 
-    public void a(ItemStack itemstack, EntityLiving entityliving) {
+    public boolean a(ItemStack itemstack, EntityLiving entityliving) {
         if (entityliving instanceof EntityPig) {
             EntityPig entitypig = (EntityPig) entityliving;
 
@@ -15,6 +16,10 @@ public class ItemSaddle extends Item {
                 entitypig.setSaddle(true);
                 --itemstack.count;
             }
+
+            return true;
+        } else {
+            return false;
         }
     }
 

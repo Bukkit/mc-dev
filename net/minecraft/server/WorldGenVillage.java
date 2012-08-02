@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class WorldGenVillage extends StructureGenerator {
 
-    public static List a = Arrays.asList(new BiomeBase[] { BiomeBase.PLAINS, BiomeBase.DESERT});
+    public static List e = Arrays.asList(new BiomeBase[] { BiomeBase.PLAINS, BiomeBase.DESERT});
     private final int f;
 
     public WorldGenVillage(int i) {
@@ -29,14 +29,14 @@ public class WorldGenVillage extends StructureGenerator {
 
         int i1 = i / b0;
         int j1 = j / b0;
-        Random random = this.d.A(i1, j1, 10387312);
+        Random random = this.c.D(i1, j1, 10387312);
 
         i1 *= b0;
         j1 *= b0;
         i1 += random.nextInt(b0 - b1);
         j1 += random.nextInt(b0 - b1);
         if (k == i1 && l == j1) {
-            boolean flag = this.d.getWorldChunkManager().a(k * 16 + 8, l * 16 + 8, 0, a);
+            boolean flag = this.c.getWorldChunkManager().a(k * 16 + 8, l * 16 + 8, 0, e);
 
             if (flag) {
                 return true;
@@ -47,6 +47,6 @@ public class WorldGenVillage extends StructureGenerator {
     }
 
     protected StructureStart b(int i, int j) {
-        return new WorldGenVillageStart(this.d, this.c, i, j, this.f);
+        return new WorldGenVillageStart(this.c, this.b, i, j, this.f);
     }
 }

@@ -29,28 +29,32 @@ public class GuiStatsComponent extends JComponent {
 
         System.gc();
         this.d[0] = "Memory use: " + i / 1024L / 1024L + " mb (" + Runtime.getRuntime().freeMemory() * 100L / Runtime.getRuntime().maxMemory() + "% free)";
-        this.d[1] = "Threads: " + NetworkManager.b + " + " + NetworkManager.c;
-        this.d[2] = "Avg tick: " + a.format(this.a(this.e.f) * 1.0E-6D) + " ms";
-        this.d[3] = "Avg sent: " + (int) this.a(this.e.u) + ", Avg size: " + (int) this.a(this.e.v);
-        this.d[4] = "Avg rec: " + (int) this.a(this.e.w) + ", Avg size: " + (int) this.a(this.e.x);
+        this.d[1] = "Threads: " + NetworkManager.a.get() + " + " + NetworkManager.b.get();
+        this.d[2] = "Avg tick: " + a.format(this.a(this.e.j) * 1.0E-6D) + " ms";
+        this.d[3] = "Avg sent: " + (int) this.a(this.e.f) + ", Avg size: " + (int) this.a(this.e.g);
+        this.d[4] = "Avg rec: " + (int) this.a(this.e.h) + ", Avg size: " + (int) this.a(this.e.i);
         if (this.e.worldServer != null) {
             for (int j = 0; j < this.e.worldServer.length; ++j) {
-                this.d[5 + j] = "Lvl " + j + " tick: " + a.format(this.a(this.e.g[j]) * 1.0E-6D) + " ms";
+                this.d[5 + j] = "Lvl " + j + " tick: " + a.format(this.a(this.e.k[j]) * 1.0E-6D) + " ms";
                 if (this.e.worldServer[j] != null && this.e.worldServer[j].chunkProviderServer != null) {
-                    this.d[5 + j] = this.d[5 + j] + ", " + this.e.worldServer[j].chunkProviderServer.d();
+                    this.d[5 + j] = this.d[5 + j] + ", " + this.e.worldServer[j].chunkProviderServer.getName();
                 }
             }
         }
 
-        this.b[this.c++ & 255] = (int) (this.a(this.e.v) * 100.0D / 12500.0D);
+        this.b[this.c++ & 255] = (int) (this.a(this.e.g) * 100.0D / 12500.0D);
         this.repaint();
     }
 
     private double a(long[] along) {
         long i = 0L;
+        long[] along1 = along;
+        int j = along.length;
 
-        for (int j = 0; j < along.length; ++j) {
-            i += along[j];
+        for (int k = 0; k < j; ++k) {
+            long l = along1[k];
+
+            i += l;
         }
 
         return (double) i / (double) along.length;

@@ -24,7 +24,7 @@ public class Packet102WindowClick extends Packet {
         this.button = datainputstream.readByte();
         this.d = datainputstream.readShort();
         this.shift = datainputstream.readBoolean();
-        this.item = this.b(datainputstream);
+        this.item = c(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
@@ -33,7 +33,7 @@ public class Packet102WindowClick extends Packet {
         dataoutputstream.writeByte(this.button);
         dataoutputstream.writeShort(this.d);
         dataoutputstream.writeBoolean(this.shift);
-        this.a(this.item, dataoutputstream);
+        a(this.item, dataoutputstream);
     }
 
     public int a() {

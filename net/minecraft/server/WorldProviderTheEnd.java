@@ -4,7 +4,7 @@ public class WorldProviderTheEnd extends WorldProvider {
 
     public WorldProviderTheEnd() {}
 
-    public void a() {
+    public void b() {
         this.c = new WorldChunkManagerHell(BiomeBase.SKY, 0.5F, 0.0F);
         this.dimension = 1;
         this.e = true;
@@ -18,7 +18,7 @@ public class WorldProviderTheEnd extends WorldProvider {
         return 0.0F;
     }
 
-    public boolean c() {
+    public boolean e() {
         return false;
     }
 
@@ -32,7 +32,7 @@ public class WorldProviderTheEnd extends WorldProvider {
         return k == 0 ? false : Block.byId[k].material.isSolid();
     }
 
-    public ChunkCoordinates e() {
+    public ChunkCoordinates h() {
         return new ChunkCoordinates(100, 50, 0);
     }
 

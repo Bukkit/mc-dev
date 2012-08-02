@@ -4,16 +4,19 @@ import java.util.Random;
 
 public class BlockSapling extends BlockFlower {
 
+    public static final String[] a = new String[] { "oak", "spruce", "birch", "jungle"};
+
     protected BlockSapling(int i, int j) {
         super(i, j);
         float f = 0.4F;
 
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
+        this.a(CreativeModeTab.c);
     }
 
-    public void a(World world, int i, int j, int k, Random random) {
+    public void b(World world, int i, int j, int k, Random random) {
         if (!world.isStatic) {
-            super.a(world, i, j, k, random);
+            super.b(world, i, j, k, random);
             if (world.getLightLevel(i, j + 1, k) >= 9 && random.nextInt(7) == 0) {
                 int l = world.getData(i, j, k);
 
@@ -45,7 +48,7 @@ public class BlockSapling extends BlockFlower {
         } else if (l == 3) {
             for (i1 = 0; i1 >= -1; --i1) {
                 for (j1 = 0; j1 >= -1; --j1) {
-                    if (this.f(world, i + i1, j, k + j1, 3) && this.f(world, i + i1 + 1, j, k + j1, 3) && this.f(world, i + i1, j, k + j1 + 1, 3) && this.f(world, i + i1 + 1, j, k + j1 + 1, 3)) {
+                    if (this.e(world, i + i1, j, k + j1, 3) && this.e(world, i + i1 + 1, j, k + j1, 3) && this.e(world, i + i1, j, k + j1 + 1, 3) && this.e(world, i + i1 + 1, j, k + j1 + 1, 3)) {
                         object = new WorldGenMegaTree(true, 10 + random.nextInt(20), 3, 3);
                         flag = true;
                         break;
@@ -90,7 +93,7 @@ public class BlockSapling extends BlockFlower {
         }
     }
 
-    public boolean f(World world, int i, int j, int k, int l) {
+    public boolean e(World world, int i, int j, int k, int l) {
         return world.getTypeId(i, j, k) == this.id && (world.getData(i, j, k) & 3) == l;
     }
 

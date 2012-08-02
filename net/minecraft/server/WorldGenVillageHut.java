@@ -9,20 +9,18 @@ public class WorldGenVillageHut extends WorldGenVillagePiece {
     private final boolean b;
     private final int c;
 
-    public WorldGenVillageHut(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
-        super(i);
-        this.h = j;
-        this.g = structureboundingbox;
+    public WorldGenVillageHut(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
+        super(worldgenvillagestartpiece, i);
+        this.f = j;
+        this.e = structureboundingbox;
         this.b = random.nextBoolean();
         this.c = random.nextInt(3);
     }
 
-    public void a(StructurePiece structurepiece, List list, Random random) {}
-
-    public static WorldGenVillageHut a(List list, Random random, int i, int j, int k, int l, int i1) {
+    public static WorldGenVillageHut a(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
         StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, 0, 0, 0, 4, 6, 5, l);
 
-        return a(structureboundingbox) && StructurePiece.a(list, structureboundingbox) == null ? new WorldGenVillageHut(i1, random, structureboundingbox, l) : null;
+        return a(structureboundingbox) && StructurePiece.a(list, structureboundingbox) == null ? new WorldGenVillageHut(worldgenvillagestartpiece, i1, random, structureboundingbox, l) : null;
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
@@ -32,7 +30,7 @@ public class WorldGenVillageHut extends WorldGenVillagePiece {
                 return true;
             }
 
-            this.g.a(0, this.a - this.g.e + 6 - 1, 0);
+            this.e.a(0, this.a - this.e.e + 6 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 1, 1, 1, 3, 5, 4, 0, 0, false);

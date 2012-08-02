@@ -11,13 +11,11 @@ public class WorldGenStrongholdLibrary extends WorldGenStrongholdPiece {
 
     public WorldGenStrongholdLibrary(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.h = j;
+        this.f = j;
         this.a = this.a(random);
-        this.g = structureboundingbox;
+        this.e = structureboundingbox;
         this.c = structureboundingbox.c() > 6;
     }
-
-    public void a(StructurePiece structurepiece, List list, Random random) {}
 
     public static WorldGenStrongholdLibrary a(List list, Random random, int i, int j, int k, int l, int i1) {
         StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, -4, -1, 0, 14, 11, 15, l);

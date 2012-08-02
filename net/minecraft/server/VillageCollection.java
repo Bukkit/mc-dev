@@ -62,7 +62,7 @@ public class VillageCollection {
 
         while (iterator.hasNext()) {
             Village village1 = (Village) iterator.next();
-            float f1 = village1.getCenter().c(i, j, k);
+            float f1 = village1.getCenter().e(i, j, k);
 
             if (f1 < f) {
                 int i1 = l + village1.getSize();
@@ -84,19 +84,20 @@ public class VillageCollection {
     }
 
     private void e() {
-        int i = 0;
+        Iterator iterator = this.c.iterator();
 
-        while (i < this.c.size()) {
-            VillageDoor villagedoor = (VillageDoor) this.c.get(i);
+        while (iterator.hasNext()) {
+            VillageDoor villagedoor = (VillageDoor) iterator.next();
             boolean flag = false;
-            Iterator iterator = this.villages.iterator();
+            Iterator iterator1 = this.villages.iterator();
 
             while (true) {
-                if (iterator.hasNext()) {
-                    Village village = (Village) iterator.next();
-                    int j = (int) village.getCenter().b(villagedoor.locX, villagedoor.locY, villagedoor.locZ);
+                if (iterator1.hasNext()) {
+                    Village village = (Village) iterator1.next();
+                    int i = (int) village.getCenter().e(villagedoor.locX, villagedoor.locY, villagedoor.locZ);
+                    int j = 32 + village.getSize();
 
-                    if (j > 32 + village.getSize()) {
+                    if (i > j * j) {
                         continue;
                     }
 
@@ -110,8 +111,6 @@ public class VillageCollection {
                     village1.addDoor(villagedoor);
                     this.villages.add(village1);
                 }
-
-                ++i;
                 break;
             }
         }
@@ -159,7 +158,7 @@ public class VillageCollection {
 
                     Village village = (Village) iterator.next();
 
-                    villagedoor1 = village.d(i, j, k);
+                    villagedoor1 = village.e(i, j, k);
                 } while (villagedoor1 == null);
 
                 return villagedoor1;
@@ -172,7 +171,7 @@ public class VillageCollection {
     }
 
     private void c(int i, int j, int k) {
-        int l = ((BlockDoor) Block.WOODEN_DOOR).c(this.world, i, j, k);
+        int l = ((BlockDoor) Block.WOODEN_DOOR).d(this.world, i, j, k);
         int i1;
         int j1;
 
@@ -180,13 +179,13 @@ public class VillageCollection {
             i1 = 0;
 
             for (j1 = -5; j1 < 0; ++j1) {
-                if (this.world.isChunkLoaded(i, j, k + j1)) {
+                if (this.world.j(i, j, k + j1)) {
                     --i1;
                 }
             }
 
             for (j1 = 1; j1 <= 5; ++j1) {
-                if (this.world.isChunkLoaded(i, j, k + j1)) {
+                if (this.world.j(i, j, k + j1)) {
                     ++i1;
                 }
             }
@@ -198,13 +197,13 @@ public class VillageCollection {
             i1 = 0;
 
             for (j1 = -5; j1 < 0; ++j1) {
-                if (this.world.isChunkLoaded(i + j1, j, k)) {
+                if (this.world.j(i + j1, j, k)) {
                     --i1;
                 }
             }
 
             for (j1 = 1; j1 <= 5; ++j1) {
-                if (this.world.isChunkLoaded(i + j1, j, k)) {
+                if (this.world.j(i + j1, j, k)) {
                     ++i1;
                 }
             }

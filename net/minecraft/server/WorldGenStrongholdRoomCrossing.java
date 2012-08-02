@@ -11,16 +11,16 @@ public class WorldGenStrongholdRoomCrossing extends WorldGenStrongholdPiece {
 
     public WorldGenStrongholdRoomCrossing(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.h = j;
+        this.f = j;
         this.a = this.a(random);
-        this.g = structureboundingbox;
+        this.e = structureboundingbox;
         this.b = random.nextInt(5);
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
-        this.a((WorldGenStrongholdStairs2) structurepiece, list, random, 4, 1);
-        this.b((WorldGenStrongholdStairs2) structurepiece, list, random, 1, 4);
-        this.c((WorldGenStrongholdStairs2) structurepiece, list, random, 1, 4);
+        this.a((WorldGenStrongholdStart) structurepiece, list, random, 4, 1);
+        this.b((WorldGenStrongholdStart) structurepiece, list, random, 1, 4);
+        this.c((WorldGenStrongholdStart) structurepiece, list, random, 1, 4);
     }
 
     public static WorldGenStrongholdRoomCrossing a(List list, Random random, int i, int j, int k, int l, int i1) {

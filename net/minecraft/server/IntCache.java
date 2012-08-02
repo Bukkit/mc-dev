@@ -11,13 +11,11 @@ public class IntCache {
     private static List d = new ArrayList();
     private static List e = new ArrayList();
 
-    public IntCache() {}
-
-    public static int[] a(int i) {
+    public static synchronized int[] a(int i) {
         int[] aint;
 
         if (i <= 256) {
-            if (b.size() == 0) {
+            if (b.isEmpty()) {
                 aint = new int[256];
                 c.add(aint);
                 return aint;
@@ -33,7 +31,7 @@ public class IntCache {
             aint = new int[a];
             e.add(aint);
             return aint;
-        } else if (d.size() == 0) {
+        } else if (d.isEmpty()) {
             aint = new int[a];
             e.add(aint);
             return aint;
@@ -44,12 +42,12 @@ public class IntCache {
         }
     }
 
-    public static void a() {
-        if (d.size() > 0) {
+    public static synchronized void a() {
+        if (!d.isEmpty()) {
             d.remove(d.size() - 1);
         }
 
-        if (b.size() > 0) {
+        if (!b.isEmpty()) {
             b.remove(b.size() - 1);
         }
 

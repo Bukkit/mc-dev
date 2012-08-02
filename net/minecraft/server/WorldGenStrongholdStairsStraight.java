@@ -9,13 +9,13 @@ public class WorldGenStrongholdStairsStraight extends WorldGenStrongholdPiece {
 
     public WorldGenStrongholdStairsStraight(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.h = j;
+        this.f = j;
         this.a = this.a(random);
-        this.g = structureboundingbox;
+        this.e = structureboundingbox;
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
-        this.a((WorldGenStrongholdStairs2) structurepiece, list, random, 1, 1);
+        this.a((WorldGenStrongholdStart) structurepiece, list, random, 1, 1);
     }
 
     public static WorldGenStrongholdStairsStraight a(List list, Random random, int i, int j, int k, int l, int i1) {

@@ -124,11 +124,7 @@ public class ChunkProviderHell implements IChunkProvider {
                 for (int k1 = 127; k1 >= 0; --k1) {
                     int l1 = (l * 16 + k) * 128 + k1;
 
-                    if (k1 >= 127 - this.i.nextInt(5)) {
-                        abyte[l1] = (byte) Block.BEDROCK.id;
-                    } else if (k1 <= 0 + this.i.nextInt(5)) {
-                        abyte[l1] = (byte) Block.BEDROCK.id;
-                    } else {
+                    if (k1 < 127 - this.i.nextInt(5) && k1 > 0 + this.i.nextInt(5)) {
                         byte b3 = abyte[l1];
 
                         if (b3 == 0) {
@@ -173,6 +169,8 @@ public class ChunkProviderHell implements IChunkProvider {
                                 abyte[l1] = b2;
                             }
                         }
+                    } else {
+                        abyte[l1] = (byte) Block.BEDROCK.id;
                     }
                 }
             }
@@ -193,13 +191,13 @@ public class ChunkProviderHell implements IChunkProvider {
         this.c.a(this, this.o, i, j, abyte);
         Chunk chunk = new Chunk(this.o, abyte, i, j);
         BiomeBase[] abiomebase = this.o.getWorldChunkManager().getBiomeBlock((BiomeBase[]) null, i * 16, j * 16, 16, 16);
-        byte[] abyte1 = chunk.l();
+        byte[] abyte1 = chunk.m();
 
         for (int k = 0; k < abyte1.length; ++k) {
             abyte1[k] = (byte) abiomebase[k].id;
         }
 
-        chunk.m();
+        chunk.n();
         return chunk;
     }
 
@@ -397,9 +395,13 @@ public class ChunkProviderHell implements IChunkProvider {
         return true;
     }
 
+    public String getName() {
+        return "HellRandomLevelSource";
+    }
+
     public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
         if (enumcreaturetype == EnumCreatureType.MONSTER && this.c.a(i, j, k)) {
-            return this.c.b();
+            return this.c.a();
         } else {
             BiomeBase biomebase = this.o.getBiome(i, k);
 
@@ -409,5 +411,9 @@ public class ChunkProviderHell implements IChunkProvider {
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {
         return null;
+    }
+
+    public int getLoadedChunks() {
+        return 0;
     }
 }

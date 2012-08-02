@@ -18,8 +18,8 @@ public class TileEntityEnchantTable extends TileEntity {
 
     public TileEntityEnchantTable() {}
 
-    public void q_() {
-        super.q_();
+    public void g() {
+        super.g();
         this.g = this.f;
         this.i = this.h;
         EntityHuman entityhuman = this.world.findNearbyPlayer((double) ((float) this.x + 0.5F), (double) ((float) this.y + 0.5F), (double) ((float) this.z + 0.5F), 3.0D);

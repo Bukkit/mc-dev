@@ -6,6 +6,7 @@ public class BlockLightStone extends Block {
 
     public BlockLightStone(int i, int j, Material material) {
         super(i, j, material);
+        this.a(CreativeModeTab.b);
     }
 
     public int getDropCount(int i, Random random) {

@@ -40,4 +40,14 @@ public class Packet41MobEffect extends Packet {
     public int a() {
         return 8;
     }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        Packet41MobEffect packet41mobeffect = (Packet41MobEffect) packet;
+
+        return packet41mobeffect.a == this.a && packet41mobeffect.b == this.b;
+    }
 }

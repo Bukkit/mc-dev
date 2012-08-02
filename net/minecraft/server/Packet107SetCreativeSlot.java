@@ -16,12 +16,12 @@ public class Packet107SetCreativeSlot extends Packet {
 
     public void a(DataInputStream datainputstream) {
         this.slot = datainputstream.readShort();
-        this.b = this.b(datainputstream);
+        this.b = c(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeShort(this.slot);
-        this.a(this.b, dataoutputstream);
+        a(this.b, dataoutputstream);
     }
 
     public int a() {

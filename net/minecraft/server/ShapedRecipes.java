@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-public class ShapedRecipes implements CraftingRecipe {
+public class ShapedRecipes implements IRecipe {
 
     private int width;
     private int height;

@@ -7,15 +7,15 @@ public class PathfinderGoalFloat extends PathfinderGoal {
     public PathfinderGoalFloat(EntityLiving entityliving) {
         this.a = entityliving;
         this.a(4);
-        entityliving.al().e(true);
+        entityliving.getNavigation().e(true);
     }
 
     public boolean a() {
-        return this.a.aU() || this.a.aV();
+        return this.a.H() || this.a.J();
     }
 
-    public void e() {
-        if (this.a.an().nextFloat() < 0.8F) {
+    public void d() {
+        if (this.a.au().nextFloat() < 0.8F) {
             this.a.getControllerJump().a();
         }
     }

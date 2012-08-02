@@ -12,7 +12,7 @@ public class ContainerEnchantTable extends Container {
     private int y;
     private int z;
     private Random l = new Random();
-    public long b;
+    public long f;
     public int[] costs = new int[3];
 
     public ContainerEnchantTable(PlayerInventory playerinventory, World world, int i, int j, int k) {
@@ -42,11 +42,12 @@ public class ContainerEnchantTable extends Container {
         icrafting.setContainerData(this, 2, this.costs[2]);
     }
 
-    public void a() {
-        super.a();
+    public void b() {
+        super.b();
+        Iterator iterator = this.listeners.iterator();
 
-        for (int i = 0; i < this.listeners.size(); ++i) {
-            ICrafting icrafting = (ICrafting) this.listeners.get(i);
+        while (iterator.hasNext()) {
+            ICrafting icrafting = (ICrafting) iterator.next();
 
             icrafting.setContainerData(this, 0, this.costs[0]);
             icrafting.setContainerData(this, 1, this.costs[1]);
@@ -59,8 +60,8 @@ public class ContainerEnchantTable extends Container {
             ItemStack itemstack = iinventory.getItem(0);
             int i;
 
-            if (itemstack != null && itemstack.q()) {
-                this.b = this.l.nextLong();
+            if (itemstack != null && itemstack.u()) {
+                this.f = this.l.nextLong();
                 if (!this.world.isStatic) {
                     i = 0;
 
@@ -102,7 +103,7 @@ public class ContainerEnchantTable extends Container {
                         this.costs[j] = EnchantmentManager.a(this.l, j, i, itemstack);
                     }
 
-                    this.a();
+                    this.b();
                 }
             } else {
                 for (i = 0; i < 3; ++i) {
@@ -150,37 +151,47 @@ public class ContainerEnchantTable extends Container {
         }
     }
 
-    public boolean b(EntityHuman entityhuman) {
+    public boolean c(EntityHuman entityhuman) {
         return this.world.getTypeId(this.x, this.y, this.z) != Block.ENCHANTMENT_TABLE.id ? false : entityhuman.e((double) this.x + 0.5D, (double) this.y + 0.5D, (double) this.z + 0.5D) <= 64.0D;
     }
 
-    public ItemStack a(int i) {
+    public ItemStack b(int i) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.e.get(i);
+        Slot slot = (Slot) this.b.get(i);
 
-        if (slot != null && slot.c()) {
+        if (slot != null && slot.d()) {
             ItemStack itemstack1 = slot.getItem();
 
             itemstack = itemstack1.cloneItemStack();
-            if (i != 0) {
-                return null;
-            }
+            if (i == 0) {
+                if (!this.a(itemstack1, 1, 37, true)) {
+                    return null;
+                }
+            } else {
+                if (((Slot) this.b.get(0)).d() || !((Slot) this.b.get(0)).isAllowed(itemstack1)) {
+                    return null;
+                }
 
-            if (!this.a(itemstack1, 1, 37, true)) {
-                return null;
+                if (itemstack1.hasTag() && itemstack1.count == 1) {
+                    ((Slot) this.b.get(0)).set(itemstack1.cloneItemStack());
+                    itemstack1.count = 0;
+                } else if (itemstack1.count >= 1) {
+                    ((Slot) this.b.get(0)).set(new ItemStack(itemstack1.id, 1, itemstack1.getData()));
+                    --itemstack1.count;
+                }
             }
 
             if (itemstack1.count == 0) {
                 slot.set((ItemStack) null);
             } else {
-                slot.d();
+                slot.e();
             }
 
             if (itemstack1.count == itemstack.count) {
                 return null;
             }
 
-            slot.c(itemstack1);
+            slot.b(itemstack1);
         }
 
         return itemstack;

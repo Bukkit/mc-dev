@@ -35,7 +35,7 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
         }
     }
 
-    public final double a(double d0, double d1, double d2) {
+    public final double b(double d0, double d1, double d2) {
         return d1 + d0 * (d2 - d1);
     }
 
@@ -107,9 +107,9 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
                     int k3 = this.d[i3 + 1] + 0;
 
                     i1 = this.d[k3] + l1;
-                    d11 = this.a(d8, this.a(this.d[j3], d7, d9), this.a(this.d[i1], d7 - 1.0D, 0.0D, d9));
-                    d12 = this.a(d8, this.a(this.d[j3 + 1], d7, 0.0D, d9 - 1.0D), this.a(this.d[i1 + 1], d7 - 1.0D, 0.0D, d9 - 1.0D));
-                    double d14 = this.a(d10, d11, d12);
+                    d11 = this.b(d8, this.a(this.d[j3], d7, d9), this.a(this.d[i1], d7 - 1.0D, 0.0D, d9));
+                    d12 = this.b(d8, this.a(this.d[j3 + 1], d7, 0.0D, d9 - 1.0D), this.a(this.d[i1 + 1], d7 - 1.0D, 0.0D, d9 - 1.0D));
+                    double d14 = this.b(d10, d11, d12);
 
                     i2 = j2++;
                     adouble[i2] += d14 * d13;
@@ -180,15 +180,15 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
                             j2 = this.d[i6] + j4;
                             int j6 = this.d[i6 + 1] + j4;
 
-                            d16 = this.a(d10, this.a(this.d[k5], d9, d20, d18), this.a(this.d[j2], d9 - 1.0D, d20, d18));
-                            d7 = this.a(d10, this.a(this.d[l5], d9, d20 - 1.0D, d18), this.a(this.d[j6], d9 - 1.0D, d20 - 1.0D, d18));
-                            d17 = this.a(d10, this.a(this.d[k5 + 1], d9, d20, d18 - 1.0D), this.a(this.d[j2 + 1], d9 - 1.0D, d20, d18 - 1.0D));
-                            d8 = this.a(d10, this.a(this.d[l5 + 1], d9, d20 - 1.0D, d18 - 1.0D), this.a(this.d[j6 + 1], d9 - 1.0D, d20 - 1.0D, d18 - 1.0D));
+                            d16 = this.b(d10, this.a(this.d[k5], d9, d20, d18), this.a(this.d[j2], d9 - 1.0D, d20, d18));
+                            d7 = this.b(d10, this.a(this.d[l5], d9, d20 - 1.0D, d18), this.a(this.d[j6], d9 - 1.0D, d20 - 1.0D, d18));
+                            d17 = this.b(d10, this.a(this.d[k5 + 1], d9, d20, d18 - 1.0D), this.a(this.d[j2 + 1], d9 - 1.0D, d20, d18 - 1.0D));
+                            d8 = this.b(d10, this.a(this.d[l5 + 1], d9, d20 - 1.0D, d18 - 1.0D), this.a(this.d[j6 + 1], d9 - 1.0D, d20 - 1.0D, d18 - 1.0D));
                         }
 
-                        double d22 = this.a(d21, d16, d7);
-                        double d23 = this.a(d21, d17, d8);
-                        double d24 = this.a(d19, d22, d23);
+                        double d22 = this.b(d21, d16, d7);
+                        double d23 = this.b(d21, d17, d8);
+                        double d24 = this.b(d19, d22, d23);
 
                         i2 = l++;
                         adouble[i2] += d24 * d15;

@@ -2,8 +2,11 @@ package net.minecraft.server;
 
 public class BlockWood extends Block {
 
+    public static final String[] a = new String[] { "oak", "spruce", "birch", "jungle"};
+
     public BlockWood(int i) {
         super(i, 4, Material.WOOD);
+        this.a(CreativeModeTab.b);
     }
 
     public int a(int i, int j) {

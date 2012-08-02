@@ -4,7 +4,7 @@ public class EnchantmentFire extends Enchantment {
 
     protected EnchantmentFire(int i, int j) {
         super(i, j, EnchantmentSlotType.WEAPON);
-        this.a("fire");
+        this.b("fire");
     }
 
     public int a(int i) {

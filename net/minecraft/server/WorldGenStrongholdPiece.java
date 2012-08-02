@@ -10,7 +10,7 @@ abstract class WorldGenStrongholdPiece extends StructurePiece {
     }
 
     protected void a(World world, Random random, StructureBoundingBox structureboundingbox, WorldGenStrongholdDoorType worldgenstrongholddoortype, int i, int j, int k) {
-        switch (WorldGenStrongholdPieceWeight2.a[worldgenstrongholddoortype.ordinal()]) {
+        switch (WorldGenStrongholdPieceWeight3.a[worldgenstrongholddoortype.ordinal()]) {
         case 1:
         default:
             this.a(world, structureboundingbox, i, j, k, i + 3 - 1, j + 3 - 1, k, 0, 0, false);
@@ -75,57 +75,57 @@ abstract class WorldGenStrongholdPiece extends StructurePiece {
         }
     }
 
-    protected StructurePiece a(WorldGenStrongholdStairs2 worldgenstrongholdstairs2, List list, Random random, int i, int j) {
-        switch (this.h) {
+    protected StructurePiece a(WorldGenStrongholdStart worldgenstrongholdstart, List list, Random random, int i, int j) {
+        switch (this.f) {
         case 0:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstairs2, list, random, this.g.a + i, this.g.b + j, this.g.f + 1, this.h, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a + i, this.e.b + j, this.e.f + 1, this.f, this.c());
 
         case 1:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstairs2, list, random, this.g.a - 1, this.g.b + j, this.g.c + i, this.h, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a - 1, this.e.b + j, this.e.c + i, this.f, this.c());
 
         case 2:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstairs2, list, random, this.g.a + i, this.g.b + j, this.g.c - 1, this.h, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a + i, this.e.b + j, this.e.c - 1, this.f, this.c());
 
         case 3:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstairs2, list, random, this.g.d + 1, this.g.b + j, this.g.c + i, this.h, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.d + 1, this.e.b + j, this.e.c + i, this.f, this.c());
 
         default:
             return null;
         }
     }
 
-    protected StructurePiece b(WorldGenStrongholdStairs2 worldgenstrongholdstairs2, List list, Random random, int i, int j) {
-        switch (this.h) {
+    protected StructurePiece b(WorldGenStrongholdStart worldgenstrongholdstart, List list, Random random, int i, int j) {
+        switch (this.f) {
         case 0:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstairs2, list, random, this.g.a - 1, this.g.b + i, this.g.c + j, 1, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a - 1, this.e.b + i, this.e.c + j, 1, this.c());
 
         case 1:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstairs2, list, random, this.g.a + j, this.g.b + i, this.g.c - 1, 2, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a + j, this.e.b + i, this.e.c - 1, 2, this.c());
 
         case 2:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstairs2, list, random, this.g.a - 1, this.g.b + i, this.g.c + j, 1, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a - 1, this.e.b + i, this.e.c + j, 1, this.c());
 
         case 3:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstairs2, list, random, this.g.a + j, this.g.b + i, this.g.c - 1, 2, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a + j, this.e.b + i, this.e.c - 1, 2, this.c());
 
         default:
             return null;
         }
     }
 
-    protected StructurePiece c(WorldGenStrongholdStairs2 worldgenstrongholdstairs2, List list, Random random, int i, int j) {
-        switch (this.h) {
+    protected StructurePiece c(WorldGenStrongholdStart worldgenstrongholdstart, List list, Random random, int i, int j) {
+        switch (this.f) {
         case 0:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstairs2, list, random, this.g.d + 1, this.g.b + i, this.g.c + j, 3, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.d + 1, this.e.b + i, this.e.c + j, 3, this.c());
 
         case 1:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstairs2, list, random, this.g.a + j, this.g.b + i, this.g.f + 1, 0, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a + j, this.e.b + i, this.e.f + 1, 0, this.c());
 
         case 2:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstairs2, list, random, this.g.d + 1, this.g.b + i, this.g.c + j, 3, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.d + 1, this.e.b + i, this.e.c + j, 3, this.c());
 
         case 3:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstairs2, list, random, this.g.a + j, this.g.b + i, this.g.f + 1, 0, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a + j, this.e.b + i, this.e.f + 1, 0, this.c());
 
         default:
             return null;

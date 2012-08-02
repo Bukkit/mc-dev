@@ -28,4 +28,12 @@ public class Packet255KickDisconnect extends Packet {
     public int a() {
         return this.a.length();
     }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        return true;
+    }
 }

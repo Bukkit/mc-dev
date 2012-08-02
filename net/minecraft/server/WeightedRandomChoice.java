@@ -2,9 +2,9 @@ package net.minecraft.server;
 
 public class WeightedRandomChoice {
 
-    protected int d;
+    protected int a;
 
     public WeightedRandomChoice(int i) {
-        this.d = i;
+        this.a = i;
     }
 }

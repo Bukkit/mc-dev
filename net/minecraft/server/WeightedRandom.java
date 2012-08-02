@@ -6,14 +6,12 @@ import java.util.Random;
 
 public class WeightedRandom {
 
-    public WeightedRandom() {}
-
     public static int a(Collection collection) {
         int i = 0;
 
         WeightedRandomChoice weightedrandomchoice;
 
-        for (Iterator iterator = collection.iterator(); iterator.hasNext(); i += weightedrandomchoice.d) {
+        for (Iterator iterator = collection.iterator(); iterator.hasNext(); i += weightedrandomchoice.a) {
             weightedrandomchoice = (WeightedRandomChoice) iterator.next();
         }
 
@@ -35,7 +33,7 @@ public class WeightedRandom {
                 }
 
                 weightedrandomchoice = (WeightedRandomChoice) iterator.next();
-                j -= weightedrandomchoice.d;
+                j -= weightedrandomchoice.a;
             } while (j >= 0);
 
             return weightedrandomchoice;
@@ -54,7 +52,7 @@ public class WeightedRandom {
         for (int k = 0; k < j; ++k) {
             WeightedRandomChoice weightedrandomchoice = aweightedrandomchoice1[k];
 
-            i += weightedrandomchoice.d;
+            i += weightedrandomchoice.a;
         }
 
         return i;
@@ -71,7 +69,7 @@ public class WeightedRandom {
             for (int l = 0; l < k; ++l) {
                 WeightedRandomChoice weightedrandomchoice = aweightedrandomchoice1[l];
 
-                j -= weightedrandomchoice.d;
+                j -= weightedrandomchoice.a;
                 if (j < 0) {
                     return weightedrandomchoice;
                 }

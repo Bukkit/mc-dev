@@ -20,7 +20,7 @@ class WorldGenNetherStart extends StructureStart {
             structurepiece.a((StructurePiece) worldgennetherpiece15, (List) this.a, random);
         }
 
-        this.d();
+        this.c();
         this.a(world, random, 48, 70);
     }
 }

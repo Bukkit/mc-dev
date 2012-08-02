@@ -22,7 +22,7 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
 
     public boolean a() {
         this.f();
-        if (this.e && this.a.world.e()) {
+        if (this.e && this.a.world.r()) {
             return false;
         } else {
             Village village = this.a.world.villages.getClosestVillage(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locY), MathHelper.floor(this.a.locZ), 0);
@@ -34,22 +34,22 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
                 if (this.d == null) {
                     return false;
                 } else {
-                    boolean flag = this.a.al().b();
+                    boolean flag = this.a.getNavigation().c();
 
-                    this.a.al().b(false);
-                    this.c = this.a.al().a((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ);
-                    this.a.al().b(flag);
+                    this.a.getNavigation().b(false);
+                    this.c = this.a.getNavigation().a((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ);
+                    this.a.getNavigation().b(flag);
                     if (this.c != null) {
                         return true;
                     } else {
-                        Vec3D vec3d = RandomPositionGenerator.a(this.a, 10, 7, Vec3D.create((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ));
+                        Vec3D vec3d = RandomPositionGenerator.a(this.a, 10, 7, Vec3D.a().create((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ));
 
                         if (vec3d == null) {
                             return false;
                         } else {
-                            this.a.al().b(false);
-                            this.c = this.a.al().a(vec3d.a, vec3d.b, vec3d.c);
-                            this.a.al().b(flag);
+                            this.a.getNavigation().b(false);
+                            this.c = this.a.getNavigation().a(vec3d.a, vec3d.b, vec3d.c);
+                            this.a.getNavigation().b(flag);
                             return this.c != null;
                         }
                     }
@@ -59,7 +59,7 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
     }
 
     public boolean b() {
-        if (this.a.al().e()) {
+        if (this.a.getNavigation().f()) {
             return false;
         } else {
             float f = this.a.width + 4.0F;
@@ -68,12 +68,12 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
         }
     }
 
-    public void c() {
-        this.a.al().a(this.c, this.b);
+    public void e() {
+        this.a.getNavigation().a(this.c, this.b);
     }
 
-    public void d() {
-        if (this.a.al().e() || this.a.e((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ) < 16.0D) {
+    public void c() {
+        if (this.a.getNavigation().f() || this.a.e((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ) < 16.0D) {
             this.f.add(this.d);
         }
     }
@@ -86,7 +86,7 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
 
         while (iterator.hasNext()) {
             VillageDoor villagedoor1 = (VillageDoor) iterator.next();
-            int j = villagedoor1.a(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locY), MathHelper.floor(this.a.locZ));
+            int j = villagedoor1.b(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locY), MathHelper.floor(this.a.locZ));
 
             if (j < i && !this.a(villagedoor1)) {
                 villagedoor = villagedoor1;

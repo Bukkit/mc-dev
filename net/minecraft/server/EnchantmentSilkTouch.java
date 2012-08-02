@@ -4,11 +4,11 @@ public class EnchantmentSilkTouch extends Enchantment {
 
     protected EnchantmentSilkTouch(int i, int j) {
         super(i, j, EnchantmentSlotType.DIGGER);
-        this.a("untouching");
+        this.b("untouching");
     }
 
     public int a(int i) {
-        return 25;
+        return 15;
     }
 
     public int b(int i) {

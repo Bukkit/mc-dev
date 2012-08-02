@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class RemoteControlListener extends RemoteConnectionThread {
@@ -16,14 +17,14 @@ public class RemoteControlListener extends RemoteConnectionThread {
     private String i;
     private ServerSocket j = null;
     private String k;
-    private HashMap l;
+    private Map l;
 
     public RemoteControlListener(IMinecraftServer iminecraftserver) {
         super(iminecraftserver);
-        this.g = iminecraftserver.getProperty("rcon.port", 0);
+        this.g = iminecraftserver.a("rcon.port", 0);
         this.k = iminecraftserver.a("rcon.password", "");
-        this.i = iminecraftserver.getMotd();
-        this.h = iminecraftserver.getPort();
+        this.i = iminecraftserver.t();
+        this.h = iminecraftserver.u();
         if (0 == this.g) {
             this.g = this.h + 10;
             this.info("Setting default rcon port to " + this.g);
@@ -32,28 +33,28 @@ public class RemoteControlListener extends RemoteConnectionThread {
                 iminecraftserver.a("rcon.password", "");
             }
 
-            iminecraftserver.c();
+            iminecraftserver.a();
         }
 
         if (0 == this.i.length()) {
             this.i = "0.0.0.0";
         }
 
-        this.e();
+        this.f();
         this.j = null;
     }
 
-    private void e() {
+    private void f() {
         this.l = new HashMap();
     }
 
-    private void f() {
+    private void g() {
         Iterator iterator = this.l.entrySet().iterator();
 
         while (iterator.hasNext()) {
             Entry entry = (Entry) iterator.next();
 
-            if (!((RemoteControlSession) entry.getValue()).b()) {
+            if (!((RemoteControlSession) entry.getValue()).c()) {
                 iterator.remove();
             }
         }
@@ -72,9 +73,9 @@ public class RemoteControlListener extends RemoteConnectionThread {
 
                     remotecontrolsession.a();
                     this.l.put(socket.getRemoteSocketAddress(), remotecontrolsession);
-                    this.f();
+                    this.g();
                 } catch (SocketTimeoutException sockettimeoutexception) {
-                    this.f();
+                    this.g();
                 } catch (IOException ioexception) {
                     if (this.running) {
                         this.info("IO: " + ioexception.getMessage());
@@ -82,13 +83,13 @@ public class RemoteControlListener extends RemoteConnectionThread {
                 }
             }
         } finally {
-            this.a(this.j);
+            this.b(this.j);
         }
     }
 
     public void a() {
         if (0 == this.k.length()) {
-            this.warning("No rcon password set in \'" + this.server.getPropertiesFile() + "\', rcon disabled!");
+            this.warning("No rcon password set in \'" + this.server.c() + "\', rcon disabled!");
         } else if (0 < this.g && '\uffff' >= this.g) {
             if (!this.running) {
                 try {
@@ -100,7 +101,7 @@ public class RemoteControlListener extends RemoteConnectionThread {
                 }
             }
         } else {
-            this.warning("Invalid rcon port " + this.g + " found in \'" + this.server.getPropertiesFile() + "\', rcon disabled!");
+            this.warning("Invalid rcon port " + this.g + " found in \'" + this.server.c() + "\', rcon disabled!");
         }
     }
 }

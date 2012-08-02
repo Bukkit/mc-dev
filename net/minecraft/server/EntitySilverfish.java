@@ -2,13 +2,13 @@ package net.minecraft.server;
 
 public class EntitySilverfish extends EntityMonster {
 
-    private int a;
+    private int d;
 
     public EntitySilverfish(World world) {
         super(world);
         this.texture = "/mob/silverfish.png";
-        this.b(0.3F, 0.7F);
-        this.bb = 0.6F;
+        this.a(0.3F, 0.7F);
+        this.bw = 0.6F;
         this.damage = 1;
     }
 
@@ -16,7 +16,7 @@ public class EntitySilverfish extends EntityMonster {
         return 8;
     }
 
-    protected boolean g_() {
+    protected boolean e_() {
         return false;
     }
 
@@ -26,21 +26,21 @@ public class EntitySilverfish extends EntityMonster {
         return this.world.findNearbyVulnerablePlayer(this, d0);
     }
 
-    protected String i() {
+    protected String aQ() {
         return "mob.silverfish.say";
     }
 
-    protected String j() {
+    protected String aR() {
         return "mob.silverfish.hit";
     }
 
-    protected String k() {
+    protected String aS() {
         return "mob.silverfish.kill";
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        if (this.a <= 0 && damagesource instanceof EntityDamageSource) {
-            this.a = 20;
+        if (this.d <= 0 && (damagesource instanceof EntityDamageSource || damagesource == DamageSource.MAGIC)) {
+            this.d = 20;
         }
 
         return super.damageEntity(damagesource, i);
@@ -57,34 +57,26 @@ public class EntitySilverfish extends EntityMonster {
         this.world.makeSound(this, "mob.silverfish.step", 1.0F, 1.0F);
     }
 
-    public void b(NBTTagCompound nbttagcompound) {
-        super.b(nbttagcompound);
-    }
-
-    public void a(NBTTagCompound nbttagcompound) {
-        super.a(nbttagcompound);
-    }
-
     protected int getLootId() {
         return 0;
     }
 
-    public void F_() {
-        this.V = this.yaw;
-        super.F_();
+    public void h_() {
+        this.aq = this.yaw;
+        super.h_();
     }
 
-    protected void d_() {
-        super.d_();
+    protected void be() {
+        super.be();
         if (!this.world.isStatic) {
             int i;
             int j;
             int k;
             int l;
 
-            if (this.a > 0) {
-                --this.a;
-                if (this.a == 0) {
+            if (this.d > 0) {
+                --this.d;
+                if (this.d == 0) {
                     i = MathHelper.floor(this.locX);
                     j = MathHelper.floor(this.locY);
                     k = MathHelper.floor(this.locZ);
@@ -110,21 +102,21 @@ public class EntitySilverfish extends EntityMonster {
                 }
             }
 
-            if (this.target == null && !this.H()) {
+            if (this.target == null && !this.l()) {
                 i = MathHelper.floor(this.locX);
                 j = MathHelper.floor(this.locY + 0.5D);
                 k = MathHelper.floor(this.locZ);
                 int l1 = this.random.nextInt(6);
 
                 l = this.world.getTypeId(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1]);
-                if (BlockMonsterEggs.d(l)) {
-                    this.world.setTypeIdAndData(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1], Block.MONSTER_EGGS.id, BlockMonsterEggs.e(l));
-                    this.aC();
+                if (BlockMonsterEggs.e(l)) {
+                    this.world.setTypeIdAndData(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1], Block.MONSTER_EGGS.id, BlockMonsterEggs.f(l));
+                    this.aK();
                     this.die();
                 } else {
-                    this.G();
+                    this.j();
                 }
-            } else if (this.target != null && !this.H()) {
+            } else if (this.target != null && !this.l()) {
                 this.target = null;
             }
         }
@@ -134,7 +126,7 @@ public class EntitySilverfish extends EntityMonster {
         return this.world.getTypeId(i, j - 1, k) == Block.STONE.id ? 10.0F : super.a(i, j, k);
     }
 
-    protected boolean C() {
+    protected boolean o() {
         return true;
     }
 
@@ -148,7 +140,7 @@ public class EntitySilverfish extends EntityMonster {
         }
     }
 
-    public MonsterType getMonsterType() {
-        return MonsterType.ARTHROPOD;
+    public EnumMonsterType getMonsterType() {
+        return EnumMonsterType.ARTHROPOD;
     }
 }

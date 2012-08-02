@@ -14,37 +14,35 @@ public class StatisticList {
     public static List c = new ArrayList();
     public static List d = new ArrayList();
     public static List e = new ArrayList();
-    public static Statistic f = (new CounterStatistic(1000, "stat.startGame")).e().d();
-    public static Statistic g = (new CounterStatistic(1001, "stat.createWorld")).e().d();
-    public static Statistic h = (new CounterStatistic(1002, "stat.loadWorld")).e().d();
-    public static Statistic i = (new CounterStatistic(1003, "stat.joinMultiplayer")).e().d();
-    public static Statistic j = (new CounterStatistic(1004, "stat.leaveGame")).e().d();
-    public static Statistic k = (new CounterStatistic(1100, "stat.playOneMinute", Statistic.i)).e().d();
-    public static Statistic l = (new CounterStatistic(2000, "stat.walkOneCm", Statistic.j)).e().d();
-    public static Statistic m = (new CounterStatistic(2001, "stat.swimOneCm", Statistic.j)).e().d();
-    public static Statistic n = (new CounterStatistic(2002, "stat.fallOneCm", Statistic.j)).e().d();
-    public static Statistic o = (new CounterStatistic(2003, "stat.climbOneCm", Statistic.j)).e().d();
-    public static Statistic p = (new CounterStatistic(2004, "stat.flyOneCm", Statistic.j)).e().d();
-    public static Statistic q = (new CounterStatistic(2005, "stat.diveOneCm", Statistic.j)).e().d();
-    public static Statistic r = (new CounterStatistic(2006, "stat.minecartOneCm", Statistic.j)).e().d();
-    public static Statistic s = (new CounterStatistic(2007, "stat.boatOneCm", Statistic.j)).e().d();
-    public static Statistic t = (new CounterStatistic(2008, "stat.pigOneCm", Statistic.j)).e().d();
-    public static Statistic u = (new CounterStatistic(2010, "stat.jump")).e().d();
-    public static Statistic v = (new CounterStatistic(2011, "stat.drop")).e().d();
-    public static Statistic w = (new CounterStatistic(2020, "stat.damageDealt")).d();
-    public static Statistic x = (new CounterStatistic(2021, "stat.damageTaken")).d();
-    public static Statistic y = (new CounterStatistic(2022, "stat.deaths")).d();
-    public static Statistic z = (new CounterStatistic(2023, "stat.mobKills")).d();
-    public static Statistic A = (new CounterStatistic(2024, "stat.playerKills")).d();
-    public static Statistic B = (new CounterStatistic(2025, "stat.fishCaught")).d();
+    public static Statistic f = (new CounterStatistic(1000, "stat.startGame")).h().g();
+    public static Statistic g = (new CounterStatistic(1001, "stat.createWorld")).h().g();
+    public static Statistic h = (new CounterStatistic(1002, "stat.loadWorld")).h().g();
+    public static Statistic i = (new CounterStatistic(1003, "stat.joinMultiplayer")).h().g();
+    public static Statistic j = (new CounterStatistic(1004, "stat.leaveGame")).h().g();
+    public static Statistic k = (new CounterStatistic(1100, "stat.playOneMinute", Statistic.i)).h().g();
+    public static Statistic l = (new CounterStatistic(2000, "stat.walkOneCm", Statistic.j)).h().g();
+    public static Statistic m = (new CounterStatistic(2001, "stat.swimOneCm", Statistic.j)).h().g();
+    public static Statistic n = (new CounterStatistic(2002, "stat.fallOneCm", Statistic.j)).h().g();
+    public static Statistic o = (new CounterStatistic(2003, "stat.climbOneCm", Statistic.j)).h().g();
+    public static Statistic p = (new CounterStatistic(2004, "stat.flyOneCm", Statistic.j)).h().g();
+    public static Statistic q = (new CounterStatistic(2005, "stat.diveOneCm", Statistic.j)).h().g();
+    public static Statistic r = (new CounterStatistic(2006, "stat.minecartOneCm", Statistic.j)).h().g();
+    public static Statistic s = (new CounterStatistic(2007, "stat.boatOneCm", Statistic.j)).h().g();
+    public static Statistic t = (new CounterStatistic(2008, "stat.pigOneCm", Statistic.j)).h().g();
+    public static Statistic u = (new CounterStatistic(2010, "stat.jump")).h().g();
+    public static Statistic v = (new CounterStatistic(2011, "stat.drop")).h().g();
+    public static Statistic w = (new CounterStatistic(2020, "stat.damageDealt")).g();
+    public static Statistic x = (new CounterStatistic(2021, "stat.damageTaken")).g();
+    public static Statistic y = (new CounterStatistic(2022, "stat.deaths")).g();
+    public static Statistic z = (new CounterStatistic(2023, "stat.mobKills")).g();
+    public static Statistic A = (new CounterStatistic(2024, "stat.playerKills")).g();
+    public static Statistic B = (new CounterStatistic(2025, "stat.fishCaught")).g();
     public static Statistic[] C = a("stat.mineBlock", 16777216);
     public static Statistic[] D;
     public static Statistic[] E;
     public static Statistic[] F;
     private static boolean G;
     private static boolean H;
-
-    public StatisticList() {}
 
     public static void a() {}
 
@@ -65,15 +63,15 @@ public class StatisticList {
     public static void d() {
         if (G && H) {
             HashSet hashset = new HashSet();
-            Iterator iterator = CraftingManager.getInstance().getRecipies().iterator();
+            Iterator iterator = CraftingManager.getInstance().getRecipes().iterator();
 
             while (iterator.hasNext()) {
-                CraftingRecipe craftingrecipe = (CraftingRecipe) iterator.next();
+                IRecipe irecipe = (IRecipe) iterator.next();
 
-                hashset.add(Integer.valueOf(craftingrecipe.b().id));
+                hashset.add(Integer.valueOf(irecipe.b().id));
             }
 
-            iterator = FurnaceRecipes.getInstance().getRecipies().values().iterator();
+            iterator = RecipesFurnace.getInstance().getRecipes().values().iterator();
 
             while (iterator.hasNext()) {
                 ItemStack itemstack = (ItemStack) iterator.next();
@@ -88,9 +86,9 @@ public class StatisticList {
                 Integer integer = (Integer) iterator.next();
 
                 if (Item.byId[integer.intValue()] != null) {
-                    String s = LocaleI18n.get("stat.craftItem", new Object[] { Item.byId[integer.intValue()].l()});
+                    String s = LocaleI18n.get("stat.craftItem", new Object[] { Item.byId[integer.intValue()].s()});
 
-                    D[integer.intValue()] = (new CraftingStatistic(16842752 + integer.intValue(), s, integer.intValue())).d();
+                    D[integer.intValue()] = (new CraftingStatistic(16842752 + integer.intValue(), s, integer.intValue())).g();
                 }
             }
 
@@ -102,10 +100,10 @@ public class StatisticList {
         Statistic[] astatistic = new Statistic[256];
 
         for (int j = 0; j < 256; ++j) {
-            if (Block.byId[j] != null && Block.byId[j].r()) {
+            if (Block.byId[j] != null && Block.byId[j].u()) {
                 String s1 = LocaleI18n.get(s, new Object[] { Block.byId[j].getName()});
 
-                astatistic[j] = (new CraftingStatistic(i + j, s1, j)).d();
+                astatistic[j] = (new CraftingStatistic(i + j, s1, j)).g();
                 e.add((CraftingStatistic) astatistic[j]);
             }
         }
@@ -121,9 +119,9 @@ public class StatisticList {
 
         for (int l = j; l < k; ++l) {
             if (Item.byId[l] != null) {
-                String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].l()});
+                String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].s()});
 
-                astatistic[l] = (new CraftingStatistic(i + l, s1, l)).d();
+                astatistic[l] = (new CraftingStatistic(i + l, s1, l)).g();
                 if (l >= 256) {
                     d.add((CraftingStatistic) astatistic[l]);
                 }
@@ -140,10 +138,10 @@ public class StatisticList {
         }
 
         for (int l = j; l < k; ++l) {
-            if (Item.byId[l] != null && Item.byId[l].g()) {
-                String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].l()});
+            if (Item.byId[l] != null && Item.byId[l].m()) {
+                String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].s()});
 
-                astatistic[l] = (new CraftingStatistic(i + l, s1, l)).d();
+                astatistic[l] = (new CraftingStatistic(i + l, s1, l)).g();
             }
         }
 
@@ -161,6 +159,7 @@ public class StatisticList {
         a(astatistic, Block.REDSTONE_TORCH_ON.id, Block.REDSTONE_TORCH_OFF.id);
         a(astatistic, Block.RED_MUSHROOM.id, Block.BROWN_MUSHROOM.id);
         a(astatistic, Block.DOUBLE_STEP.id, Block.STEP.id);
+        a(astatistic, Block.WOOD_DOUBLE_STEP.id, Block.WOOD_STEP.id);
         a(astatistic, Block.GRASS.id, Block.DIRT.id);
         a(astatistic, Block.SOIL.id, Block.DIRT.id);
     }

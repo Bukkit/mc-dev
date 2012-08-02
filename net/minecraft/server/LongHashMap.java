@@ -62,6 +62,7 @@ public class LongHashMap {
         for (LongHashMapEntry longhashmapentry = this.entries[k]; longhashmapentry != null; longhashmapentry = longhashmapentry.c) {
             if (longhashmapentry.a == i) {
                 longhashmapentry.b = object;
+                return;
             }
         }
 

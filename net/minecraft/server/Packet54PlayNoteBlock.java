@@ -10,15 +10,17 @@ public class Packet54PlayNoteBlock extends Packet {
     public int c;
     public int d;
     public int e;
+    public int f;
 
     public Packet54PlayNoteBlock() {}
 
-    public Packet54PlayNoteBlock(int i, int j, int k, int l, int i1) {
+    public Packet54PlayNoteBlock(int i, int j, int k, int l, int i1, int j1) {
         this.a = i;
         this.b = j;
         this.c = k;
-        this.d = l;
-        this.e = i1;
+        this.d = i1;
+        this.e = j1;
+        this.f = l;
     }
 
     public void a(DataInputStream datainputstream) {
@@ -27,6 +29,7 @@ public class Packet54PlayNoteBlock extends Packet {
         this.c = datainputstream.readInt();
         this.d = datainputstream.read();
         this.e = datainputstream.read();
+        this.f = datainputstream.readShort() & 4095;
     }
 
     public void a(DataOutputStream dataoutputstream) {
@@ -35,6 +38,7 @@ public class Packet54PlayNoteBlock extends Packet {
         dataoutputstream.writeInt(this.c);
         dataoutputstream.write(this.d);
         dataoutputstream.write(this.e);
+        dataoutputstream.writeShort(this.f & 4095);
     }
 
     public void handle(NetHandler nethandler) {
@@ -42,6 +46,6 @@ public class Packet54PlayNoteBlock extends Packet {
     }
 
     public int a() {
-        return 12;
+        return 14;
     }
 }

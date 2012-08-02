@@ -36,4 +36,16 @@ public class Packet43SetExperience extends Packet {
     public int a() {
         return 4;
     }
+
+    public boolean e() {
+        return true;
+    }
+
+    public boolean a(Packet packet) {
+        return true;
+    }
+
+    public boolean a_() {
+        return true;
+    }
 }

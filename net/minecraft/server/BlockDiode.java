@@ -14,21 +14,21 @@ public class BlockDiode extends BlockDirectional {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
-    public boolean b() {
+    public boolean c() {
         return false;
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return !world.e(i, j - 1, k) ? false : super.canPlace(world, i, j, k);
+        return !world.t(i, j - 1, k) ? false : super.canPlace(world, i, j, k);
     }
 
-    public boolean f(World world, int i, int j, int k) {
-        return !world.e(i, j - 1, k) ? false : super.f(world, i, j, k);
+    public boolean d(World world, int i, int j, int k) {
+        return !world.t(i, j - 1, k) ? false : super.d(world, i, j, k);
     }
 
-    public void a(World world, int i, int j, int k, Random random) {
+    public void b(World world, int i, int j, int k, Random random) {
         int l = world.getData(i, j, k);
-        boolean flag = this.f(world, i, j, k, l);
+        boolean flag = this.e(world, i, j, k, l);
 
         if (this.c && !flag) {
             world.setTypeIdAndData(i, j, k, Block.DIODE_OFF.id, l);
@@ -37,7 +37,7 @@ public class BlockDiode extends BlockDirectional {
             if (!flag) {
                 int i1 = (l & 12) >> 2;
 
-                world.c(i, j, k, Block.DIODE_ON.id, b[i1] * 2);
+                world.a(i, j, k, Block.DIODE_ON.id, b[i1] * 2);
             }
         }
     }
@@ -46,7 +46,7 @@ public class BlockDiode extends BlockDirectional {
         return i == 0 ? (this.c ? 99 : 115) : (i == 1 ? (this.c ? 147 : 131) : 5);
     }
 
-    public int c() {
+    public int b() {
         return 15;
     }
 
@@ -54,7 +54,7 @@ public class BlockDiode extends BlockDirectional {
         return this.a(i, 0);
     }
 
-    public boolean d(World world, int i, int j, int k, int l) {
+    public boolean c(World world, int i, int j, int k, int l) {
         return this.a(world, i, j, k, l);
     }
 
@@ -62,15 +62,15 @@ public class BlockDiode extends BlockDirectional {
         if (!this.c) {
             return false;
         } else {
-            int i1 = b(iblockaccess.getData(i, j, k));
+            int i1 = d(iblockaccess.getData(i, j, k));
 
             return i1 == 0 && l == 3 ? true : (i1 == 1 && l == 4 ? true : (i1 == 2 && l == 2 ? true : i1 == 3 && l == 5));
         }
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        if (!this.f(world, i, j, k)) {
-            this.b(world, i, j, k, world.getData(i, j, k), 0);
+        if (!this.d(world, i, j, k)) {
+            this.c(world, i, j, k, world.getData(i, j, k), 0);
             world.setTypeId(i, j, k, 0);
             world.applyPhysics(i + 1, j, k, this.id);
             world.applyPhysics(i - 1, j, k, this.id);
@@ -80,19 +80,17 @@ public class BlockDiode extends BlockDirectional {
             world.applyPhysics(i, j + 1, k, this.id);
         } else {
             int i1 = world.getData(i, j, k);
-            boolean flag = this.f(world, i, j, k, i1);
+            boolean flag = this.e(world, i, j, k, i1);
             int j1 = (i1 & 12) >> 2;
 
-            if (this.c && !flag) {
-                world.c(i, j, k, this.id, b[j1] * 2);
-            } else if (!this.c && flag) {
-                world.c(i, j, k, this.id, b[j1] * 2);
+            if (this.c && !flag || !this.c && flag) {
+                world.a(i, j, k, this.id, b[j1] * 2);
             }
         }
     }
 
-    private boolean f(World world, int i, int j, int k, int l) {
-        int i1 = b(l);
+    private boolean e(World world, int i, int j, int k, int l) {
+        int i1 = d(l);
 
         switch (i1) {
         case 0:
@@ -112,12 +110,12 @@ public class BlockDiode extends BlockDirectional {
         }
     }
 
-    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
-        int l = world.getData(i, j, k);
-        int i1 = (l & 12) >> 2;
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
+        int i1 = world.getData(i, j, k);
+        int j1 = (i1 & 12) >> 2;
 
-        i1 = i1 + 1 << 2 & 12;
-        world.setData(i, j, k, i1 | l & 3);
+        j1 = j1 + 1 << 2 & 12;
+        world.setData(i, j, k, j1 | i1 & 3);
         return true;
     }
 
@@ -129,10 +127,10 @@ public class BlockDiode extends BlockDirectional {
         int l = ((MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
 
         world.setData(i, j, k, l);
-        boolean flag = this.f(world, i, j, k, l);
+        boolean flag = this.e(world, i, j, k, l);
 
         if (flag) {
-            world.c(i, j, k, this.id, 1);
+            world.a(i, j, k, this.id, 1);
         }
     }
 
@@ -158,7 +156,7 @@ public class BlockDiode extends BlockDirectional {
         super.postBreak(world, i, j, k, l);
     }
 
-    public boolean a() {
+    public boolean d() {
         return false;
     }
 

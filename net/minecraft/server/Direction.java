@@ -11,5 +11,4 @@ public class Direction {
     public static final int[] g = new int[] { 3, 0, 1, 2};
     public static final int[][] h = new int[][] { { 1, 0, 3, 2, 5, 4}, { 1, 0, 5, 4, 2, 3}, { 1, 0, 2, 3, 4, 5}, { 1, 0, 4, 5, 3, 2}};
 
-    public Direction() {}
 }

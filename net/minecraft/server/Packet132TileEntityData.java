@@ -9,21 +9,19 @@ public class Packet132TileEntityData extends Packet {
     public int b;
     public int c;
     public int d;
-    public int e;
-    public int f;
-    public int g;
+    public NBTTagCompound e;
 
     public Packet132TileEntityData() {
         this.lowPriority = true;
     }
 
-    public Packet132TileEntityData(int i, int j, int k, int l, int i1) {
+    public Packet132TileEntityData(int i, int j, int k, int l, NBTTagCompound nbttagcompound) {
         this.lowPriority = true;
         this.a = i;
         this.b = j;
         this.c = k;
         this.d = l;
-        this.e = i1;
+        this.e = nbttagcompound;
     }
 
     public void a(DataInputStream datainputstream) {
@@ -31,9 +29,7 @@ public class Packet132TileEntityData extends Packet {
         this.b = datainputstream.readShort();
         this.c = datainputstream.readInt();
         this.d = datainputstream.readByte();
-        this.e = datainputstream.readInt();
-        this.f = datainputstream.readInt();
-        this.g = datainputstream.readInt();
+        this.e = d(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
@@ -41,9 +37,7 @@ public class Packet132TileEntityData extends Packet {
         dataoutputstream.writeShort(this.b);
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeByte((byte) this.d);
-        dataoutputstream.writeInt(this.e);
-        dataoutputstream.writeInt(this.f);
-        dataoutputstream.writeInt(this.g);
+        a(this.e, dataoutputstream);
     }
 
     public void handle(NetHandler nethandler) {

@@ -4,7 +4,7 @@ public class EnchantmentKnockback extends Enchantment {
 
     protected EnchantmentKnockback(int i, int j) {
         super(i, j, EnchantmentSlotType.WEAPON);
-        this.a("knockback");
+        this.b("knockback");
     }
 
     public int a(int i) {

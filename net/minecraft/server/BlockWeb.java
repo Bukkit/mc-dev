@@ -6,13 +6,14 @@ public class BlockWeb extends Block {
 
     public BlockWeb(int i, int j) {
         super(i, j, Material.WEB);
+        this.a(CreativeModeTab.c);
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        entity.u();
+        entity.aj();
     }
 
-    public boolean a() {
+    public boolean d() {
         return false;
     }
 
@@ -20,11 +21,11 @@ public class BlockWeb extends Block {
         return null;
     }
 
-    public int c() {
+    public int b() {
         return 1;
     }
 
-    public boolean b() {
+    public boolean c() {
         return false;
     }
 

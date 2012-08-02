@@ -21,8 +21,9 @@ public class ChunkProviderGenerate implements IChunkProvider {
     private WorldGenStronghold u = new WorldGenStronghold();
     private WorldGenVillage v = new WorldGenVillage(0);
     private WorldGenMineshaft w = new WorldGenMineshaft();
-    private WorldGenBase x = new WorldGenCanyon();
-    private BiomeBase[] y;
+    private WorldGenLargeFeature x = new WorldGenLargeFeature();
+    private WorldGenBase y = new WorldGenCanyon();
+    private BiomeBase[] z;
     double[] d;
     double[] e;
     double[] f;
@@ -52,7 +53,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         byte b3 = 17;
         int l = b0 + 1;
 
-        this.y = this.p.getWorldChunkManager().getBiomes(this.y, i * 4 - 2, j * 4 - 2, k + 5, l + 5);
+        this.z = this.p.getWorldChunkManager().getBiomes(this.z, i * 4 - 2, j * 4 - 2, k + 5, l + 5);
         this.r = this.a(this.r, i * b0, 0, j * b0, k, b3, l);
 
         for (int i1 = 0; i1 < b0; ++i1) {
@@ -117,7 +118,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         for (int k = 0; k < 16; ++k) {
             for (int l = 0; l < 16; ++l) {
                 BiomeBase biomebase = abiomebase[l + k * 16];
-                float f = biomebase.i();
+                float f = biomebase.j();
                 int i1 = (int) (this.s[k + l * 16] / 3.0D + 3.0D + this.k.nextDouble() * 0.25D);
                 int j1 = -1;
                 byte b1 = biomebase.A;
@@ -181,21 +182,22 @@ public class ChunkProviderGenerate implements IChunkProvider {
         byte[] abyte = new byte['\u8000'];
 
         this.a(i, j, abyte);
-        this.y = this.p.getWorldChunkManager().getBiomeBlock(this.y, i * 16, j * 16, 16, 16);
-        this.a(i, j, abyte, this.y);
+        this.z = this.p.getWorldChunkManager().getBiomeBlock(this.z, i * 16, j * 16, 16, 16);
+        this.a(i, j, abyte, this.z);
         this.t.a(this, this.p, i, j, abyte);
-        this.x.a(this, this.p, i, j, abyte);
+        this.y.a(this, this.p, i, j, abyte);
         if (this.q) {
             this.w.a(this, this.p, i, j, abyte);
             this.v.a(this, this.p, i, j, abyte);
             this.u.a(this, this.p, i, j, abyte);
+            this.x.a(this, this.p, i, j, abyte);
         }
 
         Chunk chunk = new Chunk(this.p, abyte, i, j);
-        byte[] abyte1 = chunk.l();
+        byte[] abyte1 = chunk.m();
 
         for (int k = 0; k < abyte1.length; ++k) {
-            abyte1[k] = (byte) this.y[k].id;
+            abyte1[k] = (byte) this.z[k].id;
         }
 
         chunk.initLighting();
@@ -238,11 +240,11 @@ public class ChunkProviderGenerate implements IChunkProvider {
                 float f2 = 0.0F;
                 float f3 = 0.0F;
                 byte b0 = 2;
-                BiomeBase biomebase = this.y[k2 + 2 + (l2 + 2) * (l + 5)];
+                BiomeBase biomebase = this.z[k2 + 2 + (l2 + 2) * (l + 5)];
 
                 for (int i3 = -b0; i3 <= b0; ++i3) {
                     for (int j3 = -b0; j3 <= b0; ++j3) {
-                        BiomeBase biomebase1 = this.y[k2 + i3 + 2 + (l2 + j3 + 2) * (l + 5)];
+                        BiomeBase biomebase1 = this.z[k2 + i3 + 2 + (l2 + j3 + 2) * (l + 5)];
                         float f4 = this.i[i3 + 2 + (j3 + 2) * 5] / (biomebase1.D + 2.0F);
 
                         if (biomebase1.D > biomebase.D) {
@@ -347,6 +349,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
             this.w.a(this.p, this.k, i, j);
             flag = this.v.a(this.p, this.k, i, j);
             this.u.a(this.p, this.k, i, j);
+            this.x.a(this.p, this.k, i, j);
         }
 
         int k1;
@@ -386,12 +389,12 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
         for (k1 = 0; k1 < 16; ++k1) {
             for (l1 = 0; l1 < 16; ++l1) {
-                i2 = this.p.f(k + k1, l + l1);
-                if (this.p.s(k1 + k, i2 - 1, l1 + l)) {
+                i2 = this.p.g(k + k1, l + l1);
+                if (this.p.u(k1 + k, i2 - 1, l1 + l)) {
                     this.p.setTypeId(k1 + k, i2 - 1, l1 + l, Block.ICE.id);
                 }
 
-                if (this.p.u(k1 + k, i2, l1 + l)) {
+                if (this.p.w(k1 + k, i2, l1 + l)) {
                     this.p.setTypeId(k1 + k, i2, l1 + l, Block.SNOW.id);
                 }
             }
@@ -412,6 +415,10 @@ public class ChunkProviderGenerate implements IChunkProvider {
         return true;
     }
 
+    public String getName() {
+        return "RandomLevelSource";
+    }
+
     public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
         BiomeBase biomebase = this.p.getBiome(i, k);
 
@@ -420,5 +427,9 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {
         return "Stronghold".equals(s) && this.u != null ? this.u.getNearestGeneratedFeature(world, i, j, k) : null;
+    }
+
+    public int getLoadedChunks() {
+        return 0;
     }
 }

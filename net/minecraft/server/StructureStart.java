@@ -11,11 +11,11 @@ public abstract class StructureStart {
 
     protected StructureStart() {}
 
-    public StructureBoundingBox b() {
+    public StructureBoundingBox a() {
         return this.b;
     }
 
-    public LinkedList c() {
+    public LinkedList b() {
         return this.a;
     }
 
@@ -31,7 +31,7 @@ public abstract class StructureStart {
         }
     }
 
-    protected void d() {
+    protected void c() {
         this.b = StructureBoundingBox.a();
         Iterator iterator = this.a.iterator();
 
@@ -85,7 +85,7 @@ public abstract class StructureStart {
         }
     }
 
-    public boolean a() {
+    public boolean d() {
         return true;
     }
 }

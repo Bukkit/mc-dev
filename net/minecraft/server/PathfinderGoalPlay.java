@@ -19,7 +19,7 @@ public class PathfinderGoalPlay extends PathfinderGoal {
     public boolean a() {
         if (this.a.getAge() >= 0) {
             return false;
-        } else if (this.a.an().nextInt(400) != 0) {
+        } else if (this.a.au().nextInt(400) != 0) {
             return false;
         } else {
             List list = this.a.world.a(EntityVillager.class, this.a.boundingBox.grow(6.0D, 3.0D, 6.0D));
@@ -27,18 +27,14 @@ public class PathfinderGoalPlay extends PathfinderGoal {
             Iterator iterator = list.iterator();
 
             while (iterator.hasNext()) {
-                Entity entity = (Entity) iterator.next();
+                EntityVillager entityvillager = (EntityVillager) iterator.next();
 
-                if (entity != this.a) {
-                    EntityVillager entityvillager = (EntityVillager) entity;
+                if (entityvillager != this.a && !entityvillager.p() && entityvillager.getAge() < 0) {
+                    double d1 = entityvillager.e(this.a);
 
-                    if (!entityvillager.C() && entityvillager.getAge() < 0) {
-                        double d1 = entityvillager.j(this.a);
-
-                        if (d1 <= d0) {
-                            d0 = d1;
-                            this.b = entityvillager;
-                        }
+                    if (d1 <= d0) {
+                        d0 = d1;
+                        this.b = entityvillager;
                     }
                 }
             }
@@ -59,33 +55,33 @@ public class PathfinderGoalPlay extends PathfinderGoal {
         return this.d > 0;
     }
 
-    public void c() {
+    public void e() {
         if (this.b != null) {
-            this.a.b(true);
+            this.a.f(true);
         }
 
         this.d = 1000;
     }
 
-    public void d() {
-        this.a.b(false);
+    public void c() {
+        this.a.f(false);
         this.b = null;
     }
 
-    public void e() {
+    public void d() {
         --this.d;
         if (this.b != null) {
-            if (this.a.j(this.b) > 4.0D) {
-                this.a.al().a(this.b, this.c);
+            if (this.a.e(this.b) > 4.0D) {
+                this.a.getNavigation().a(this.b, this.c);
             }
-        } else if (this.a.al().e()) {
+        } else if (this.a.getNavigation().f()) {
             Vec3D vec3d = RandomPositionGenerator.a(this.a, 16, 3);
 
             if (vec3d == null) {
                 return;
             }
 
-            this.a.al().a(vec3d.a, vec3d.b, vec3d.c, this.c);
+            this.a.getNavigation().a(vec3d.a, vec3d.b, vec3d.c, this.c);
         }
     }
 }

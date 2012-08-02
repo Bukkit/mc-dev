@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-public class ItemWaterLily extends ItemColoredBlock {
+public class ItemWaterLily extends ItemWithAuxData {
 
     public ItemWaterLily(int i) {
         super(i, false);
@@ -21,7 +21,7 @@ public class ItemWaterLily extends ItemColoredBlock {
                     return itemstack;
                 }
 
-                if (!entityhuman.d(i, j, k)) {
+                if (!entityhuman.e(i, j, k)) {
                     return itemstack;
                 }
 

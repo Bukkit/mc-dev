@@ -10,42 +10,43 @@ public class BlockChest extends BlockContainer {
     protected BlockChest(int i) {
         super(i, Material.WOOD);
         this.textureId = 26;
+        this.a(CreativeModeTab.c);
     }
 
-    public boolean a() {
+    public boolean d() {
         return false;
     }
 
-    public boolean b() {
+    public boolean c() {
         return false;
     }
 
-    public int c() {
+    public int b() {
         return 22;
     }
 
     public void onPlace(World world, int i, int j, int k) {
         super.onPlace(world, i, j, k);
-        this.b(world, i, j, k);
+        this.b_(world, i, j, k);
         int l = world.getTypeId(i, j, k - 1);
         int i1 = world.getTypeId(i, j, k + 1);
         int j1 = world.getTypeId(i - 1, j, k);
         int k1 = world.getTypeId(i + 1, j, k);
 
         if (l == this.id) {
-            this.b(world, i, j, k - 1);
+            this.b_(world, i, j, k - 1);
         }
 
         if (i1 == this.id) {
-            this.b(world, i, j, k + 1);
+            this.b_(world, i, j, k + 1);
         }
 
         if (j1 == this.id) {
-            this.b(world, i - 1, j, k);
+            this.b_(world, i - 1, j, k);
         }
 
         if (k1 == this.id) {
-            this.b(world, i + 1, j, k);
+            this.b_(world, i + 1, j, k);
         }
     }
 
@@ -98,7 +99,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
-    public void b(World world, int i, int j, int k) {
+    public void b_(World world, int i, int j, int k) {
         if (!world.isStatic) {
             int l = world.getTypeId(i, j, k - 1);
             int i1 = world.getTypeId(i, j, k + 1);
@@ -181,7 +182,7 @@ public class BlockChest extends BlockContainer {
     }
 
     public int a(int i) {
-        return i == 1 ? this.textureId - 1 : (i == 0 ? this.textureId - 1 : (i == 3 ? this.textureId + 1 : this.textureId));
+        return 4;
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
@@ -203,10 +204,10 @@ public class BlockChest extends BlockContainer {
             ++l;
         }
 
-        return l > 1 ? false : (this.g(world, i - 1, j, k) ? false : (this.g(world, i + 1, j, k) ? false : (this.g(world, i, j, k - 1) ? false : !this.g(world, i, j, k + 1))));
+        return l > 1 ? false : (this.l(world, i - 1, j, k) ? false : (this.l(world, i + 1, j, k) ? false : (this.l(world, i, j, k - 1) ? false : !this.l(world, i, j, k + 1))));
     }
 
-    private boolean g(World world, int i, int j, int k) {
+    private boolean l(World world, int i, int j, int k) {
         return world.getTypeId(i, j, k) != this.id ? false : (world.getTypeId(i - 1, j, k) == this.id ? true : (world.getTypeId(i + 1, j, k) == this.id ? true : (world.getTypeId(i, j, k - 1) == this.id ? true : world.getTypeId(i, j, k + 1) == this.id)));
     }
 
@@ -219,12 +220,12 @@ public class BlockChest extends BlockContainer {
         }
     }
 
-    public void remove(World world, int i, int j, int k) {
+    public void remove(World world, int i, int j, int k, int l, int i1) {
         TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i, j, k);
 
         if (tileentitychest != null) {
-            for (int l = 0; l < tileentitychest.getSize(); ++l) {
-                ItemStack itemstack = tileentitychest.getItem(l);
+            for (int j1 = 0; j1 < tileentitychest.getSize(); ++j1) {
+                ItemStack itemstack = tileentitychest.getItem(j1);
 
                 if (itemstack != null) {
                     float f = this.a.nextFloat() * 0.8F + 0.1F;
@@ -233,14 +234,14 @@ public class BlockChest extends BlockContainer {
                     EntityItem entityitem;
 
                     for (float f2 = this.a.nextFloat() * 0.8F + 0.1F; itemstack.count > 0; world.addEntity(entityitem)) {
-                        int i1 = this.a.nextInt(21) + 10;
+                        int k1 = this.a.nextInt(21) + 10;
 
-                        if (i1 > itemstack.count) {
-                            i1 = itemstack.count;
+                        if (k1 > itemstack.count) {
+                            k1 = itemstack.count;
                         }
 
-                        itemstack.count -= i1;
-                        entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, i1, itemstack.getData()));
+                        itemstack.count -= k1;
+                        entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, k1, itemstack.getData()));
                         float f3 = 0.05F;
 
                         entityitem.motX = (double) ((float) this.a.nextGaussian() * f3);
@@ -254,41 +255,41 @@ public class BlockChest extends BlockContainer {
             }
         }
 
-        super.remove(world, i, j, k);
+        super.remove(world, i, j, k, l, i1);
     }
 
-    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
         Object object = (TileEntityChest) world.getTileEntity(i, j, k);
 
         if (object == null) {
             return true;
-        } else if (world.e(i, j + 1, k)) {
+        } else if (world.s(i, j + 1, k)) {
             return true;
-        } else if (h(world, i, j, k)) {
+        } else if (n(world, i, j, k)) {
             return true;
-        } else if (world.getTypeId(i - 1, j, k) == this.id && (world.e(i - 1, j + 1, k) || h(world, i - 1, j, k))) {
+        } else if (world.getTypeId(i - 1, j, k) == this.id && (world.s(i - 1, j + 1, k) || n(world, i - 1, j, k))) {
             return true;
-        } else if (world.getTypeId(i + 1, j, k) == this.id && (world.e(i + 1, j + 1, k) || h(world, i + 1, j, k))) {
+        } else if (world.getTypeId(i + 1, j, k) == this.id && (world.s(i + 1, j + 1, k) || n(world, i + 1, j, k))) {
             return true;
-        } else if (world.getTypeId(i, j, k - 1) == this.id && (world.e(i, j + 1, k - 1) || h(world, i, j, k - 1))) {
+        } else if (world.getTypeId(i, j, k - 1) == this.id && (world.s(i, j + 1, k - 1) || n(world, i, j, k - 1))) {
             return true;
-        } else if (world.getTypeId(i, j, k + 1) == this.id && (world.e(i, j + 1, k + 1) || h(world, i, j, k + 1))) {
+        } else if (world.getTypeId(i, j, k + 1) == this.id && (world.s(i, j + 1, k + 1) || n(world, i, j, k + 1))) {
             return true;
         } else {
             if (world.getTypeId(i - 1, j, k) == this.id) {
-                object = new InventoryLargeChest("Large chest", (TileEntityChest) world.getTileEntity(i - 1, j, k), (IInventory) object);
+                object = new InventoryLargeChest("container.chestDouble", (TileEntityChest) world.getTileEntity(i - 1, j, k), (IInventory) object);
             }
 
             if (world.getTypeId(i + 1, j, k) == this.id) {
-                object = new InventoryLargeChest("Large chest", (IInventory) object, (TileEntityChest) world.getTileEntity(i + 1, j, k));
+                object = new InventoryLargeChest("container.chestDouble", (IInventory) object, (TileEntityChest) world.getTileEntity(i + 1, j, k));
             }
 
             if (world.getTypeId(i, j, k - 1) == this.id) {
-                object = new InventoryLargeChest("Large chest", (TileEntityChest) world.getTileEntity(i, j, k - 1), (IInventory) object);
+                object = new InventoryLargeChest("container.chestDouble", (TileEntityChest) world.getTileEntity(i, j, k - 1), (IInventory) object);
             }
 
             if (world.getTypeId(i, j, k + 1) == this.id) {
-                object = new InventoryLargeChest("Large chest", (IInventory) object, (TileEntityChest) world.getTileEntity(i, j, k + 1));
+                object = new InventoryLargeChest("container.chestDouble", (IInventory) object, (TileEntityChest) world.getTileEntity(i, j, k + 1));
             }
 
             if (world.isStatic) {
@@ -300,12 +301,12 @@ public class BlockChest extends BlockContainer {
         }
     }
 
-    public TileEntity a_() {
+    public TileEntity a(World world) {
         return new TileEntityChest();
     }
 
-    private static boolean h(World world, int i, int j, int k) {
-        Iterator iterator = world.a(EntityOcelot.class, AxisAlignedBB.b((double) i, (double) (j + 1), (double) k, (double) (i + 1), (double) (j + 2), (double) (k + 1))).iterator();
+    private static boolean n(World world, int i, int j, int k) {
+        Iterator iterator = world.a(EntityOcelot.class, AxisAlignedBB.a().a((double) i, (double) (j + 1), (double) k, (double) (i + 1), (double) (j + 2), (double) (k + 1))).iterator();
 
         EntityOcelot entityocelot;
 
@@ -314,9 +315,9 @@ public class BlockChest extends BlockContainer {
                 return false;
             }
 
-            Entity entity = (Entity) iterator.next();
+            EntityOcelot entityocelot1 = (EntityOcelot) iterator.next();
 
-            entityocelot = (EntityOcelot) entity;
+            entityocelot = (EntityOcelot) entityocelot1;
         } while (!entityocelot.isSitting());
 
         return true;

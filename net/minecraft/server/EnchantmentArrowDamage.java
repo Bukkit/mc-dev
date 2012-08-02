@@ -4,7 +4,7 @@ public class EnchantmentArrowDamage extends Enchantment {
 
     public EnchantmentArrowDamage(int i, int j) {
         super(i, j, EnchantmentSlotType.BOW);
-        this.a("arrowDamage");
+        this.b("arrowDamage");
     }
 
     public int a(int i) {

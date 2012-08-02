@@ -14,8 +14,6 @@ public class RegionFileCache {
 
     private static final Map a = new HashMap();
 
-    private RegionFileCache() {}
-
     public static synchronized RegionFile a(File file1, int i, int j) {
         File file2 = new File(file1, "region");
         File file3 = new File(file2, "r." + (i >> 5) + "." + (j >> 5) + ".mca");
@@ -52,7 +50,7 @@ public class RegionFileCache {
                 RegionFile regionfile = (RegionFile) reference.get();
 
                 if (regionfile != null) {
-                    regionfile.a();
+                    regionfile.c();
                 }
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
@@ -62,13 +60,13 @@ public class RegionFileCache {
         a.clear();
     }
 
-    public static DataInputStream b(File file1, int i, int j) {
+    public static DataInputStream c(File file1, int i, int j) {
         RegionFile regionfile = a(file1, i, j);
 
         return regionfile.a(i & 31, j & 31);
     }
 
-    public static DataOutputStream c(File file1, int i, int j) {
+    public static DataOutputStream d(File file1, int i, int j) {
         RegionFile regionfile = a(file1, i, j);
 
         return regionfile.b(i & 31, j & 31);

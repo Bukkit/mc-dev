@@ -24,17 +24,15 @@ public class PotionBrewer {
     private static final HashMap n;
     private static final String[] appearances;
 
-    public PotionBrewer() {}
-
     public static boolean a(int i, int j) {
         return (i & 1 << j) != 0;
     }
 
-    private static int b(int i, int j) {
+    private static int c(int i, int j) {
         return a(i, j) ? 1 : 0;
     }
 
-    private static int c(int i, int j) {
+    private static int d(int i, int j) {
         return a(i, j) ? 0 : 1;
     }
 
@@ -50,7 +48,7 @@ public class PotionBrewer {
 
             while (iterator.hasNext()) {
                 MobEffect mobeffect = (MobEffect) iterator.next();
-                int j = MobEffectList.byId[mobeffect.getEffectId()].g();
+                int j = MobEffectList.byId[mobeffect.getEffectId()].j();
 
                 for (int k = 0; k <= mobeffect.getAmplifier(); ++k) {
                     f += (float) (j >> 16 & 255) / 255.0F;
@@ -73,17 +71,17 @@ public class PotionBrewer {
         int i1 = 0;
 
         if (flag) {
-            i1 = c(l, j);
+            i1 = d(l, j);
         } else if (i != -1) {
-            if (i == 0 && a(l) == j) {
+            if (i == 0 && h(l) == j) {
                 i1 = 1;
-            } else if (i == 1 && a(l) > j) {
+            } else if (i == 1 && h(l) > j) {
                 i1 = 1;
-            } else if (i == 2 && a(l) < j) {
+            } else if (i == 2 && h(l) < j) {
                 i1 = 1;
             }
         } else {
-            i1 = b(l, j);
+            i1 = c(l, j);
         }
 
         if (flag1) {
@@ -97,7 +95,7 @@ public class PotionBrewer {
         return i1;
     }
 
-    private static int a(int i) {
+    private static int h(int i) {
         int j;
 
         for (j = 0; i > 0; ++j) {
@@ -240,7 +238,7 @@ public class PotionBrewer {
         for (int k = 0; k < j; ++k) {
             MobEffectList mobeffectlist = amobeffectlist[k];
 
-            if (mobeffectlist != null && (!mobeffectlist.f() || flag)) {
+            if (mobeffectlist != null && (!mobeffectlist.i() || flag)) {
                 String s = (String) effectDurations.get(Integer.valueOf(mobeffectlist.getId()));
 
                 if (s != null) {
@@ -289,10 +287,10 @@ public class PotionBrewer {
         } else if (flag) {
             i &= ~(1 << j);
         } else if (flag1) {
-            if ((i & 1 << j) != 0) {
-                i &= ~(1 << j);
-            } else {
+            if ((i & 1 << j) == 0) {
                 i |= 1 << j;
+            } else {
+                i &= ~(1 << j);
             }
         } else {
             i |= 1 << j;

@@ -9,19 +9,19 @@ public class BlockPistonMoving extends BlockContainer {
         this.c(-1.0F);
     }
 
-    public TileEntity a_() {
+    public TileEntity a(World world) {
         return null;
     }
 
     public void onPlace(World world, int i, int j, int k) {}
 
-    public void remove(World world, int i, int j, int k) {
+    public void remove(World world, int i, int j, int k, int l, int i1) {
         TileEntity tileentity = world.getTileEntity(i, j, k);
 
-        if (tileentity != null && tileentity instanceof TileEntityPiston) {
-            ((TileEntityPiston) tileentity).g();
+        if (tileentity instanceof TileEntityPiston) {
+            ((TileEntityPiston) tileentity).i();
         } else {
-            super.remove(world, i, j, k);
+            super.remove(world, i, j, k, l, i1);
         }
     }
 
@@ -33,19 +33,19 @@ public class BlockPistonMoving extends BlockContainer {
         return false;
     }
 
-    public int c() {
+    public int b() {
         return -1;
     }
 
-    public boolean a() {
+    public boolean d() {
         return false;
     }
 
-    public boolean b() {
+    public boolean c() {
         return false;
     }
 
-    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
         if (!world.isStatic && world.getTileEntity(i, j, k) == null) {
             world.setTypeId(i, j, k, 0);
             return true;
@@ -60,10 +60,10 @@ public class BlockPistonMoving extends BlockContainer {
 
     public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
         if (!world.isStatic) {
-            TileEntityPiston tileentitypiston = this.c(world, i, j, k);
+            TileEntityPiston tileentitypiston = this.d(world, i, j, k);
 
             if (tileentitypiston != null) {
-                Block.byId[tileentitypiston.c()].b(world, i, j, k, tileentitypiston.k(), 0);
+                Block.byId[tileentitypiston.a()].c(world, i, j, k, tileentitypiston.n(), 0);
             }
         }
     }
@@ -79,26 +79,26 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
-        TileEntityPiston tileentitypiston = this.c(world, i, j, k);
+        TileEntityPiston tileentitypiston = this.d(world, i, j, k);
 
         if (tileentitypiston == null) {
             return null;
         } else {
             float f = tileentitypiston.a(0.0F);
 
-            if (tileentitypiston.e()) {
+            if (tileentitypiston.b()) {
                 f = 1.0F - f;
             }
 
-            return this.b(world, i, j, k, tileentitypiston.c(), f, tileentitypiston.f());
+            return this.b(world, i, j, k, tileentitypiston.a(), f, tileentitypiston.c());
         }
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        TileEntityPiston tileentitypiston = this.c(iblockaccess, i, j, k);
+        TileEntityPiston tileentitypiston = this.d(iblockaccess, i, j, k);
 
         if (tileentitypiston != null) {
-            Block block = Block.byId[tileentitypiston.c()];
+            Block block = Block.byId[tileentitypiston.a()];
 
             if (block == null || block == this) {
                 return;
@@ -107,11 +107,11 @@ public class BlockPistonMoving extends BlockContainer {
             block.updateShape(iblockaccess, i, j, k);
             float f = tileentitypiston.a(0.0F);
 
-            if (tileentitypiston.e()) {
+            if (tileentitypiston.b()) {
                 f = 1.0F - f;
             }
 
-            int l = tileentitypiston.f();
+            int l = tileentitypiston.c();
 
             this.minX = block.minX - (double) ((float) Facing.b[l] * f);
             this.minY = block.minY - (double) ((float) Facing.c[l] * f);
@@ -154,9 +154,9 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
-    private TileEntityPiston c(IBlockAccess iblockaccess, int i, int j, int k) {
+    private TileEntityPiston d(IBlockAccess iblockaccess, int i, int j, int k) {
         TileEntity tileentity = iblockaccess.getTileEntity(i, j, k);
 
-        return tileentity != null && tileentity instanceof TileEntityPiston ? (TileEntityPiston) tileentity : null;
+        return tileentity instanceof TileEntityPiston ? (TileEntityPiston) tileentity : null;
     }
 }

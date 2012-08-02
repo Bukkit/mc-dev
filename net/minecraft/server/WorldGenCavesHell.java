@@ -7,7 +7,7 @@ public class WorldGenCavesHell extends WorldGenBase {
     public WorldGenCavesHell() {}
 
     protected void a(int i, int j, byte[] abyte, double d0, double d1, double d2) {
-        this.a(i, j, abyte, d0, d1, d2, 1.0F + this.c.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
+        this.a(i, j, abyte, d0, d1, d2, 1.0F + this.b.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
     }
 
     protected void a(int i, int j, byte[] abyte, double d0, double d1, double d2, float f, float f1, float f2, int k, int l, double d3) {
@@ -15,10 +15,10 @@ public class WorldGenCavesHell extends WorldGenBase {
         double d5 = (double) (j * 16 + 8);
         float f3 = 0.0F;
         float f4 = 0.0F;
-        Random random = new Random(this.c.nextLong());
+        Random random = new Random(this.b.nextLong());
 
         if (l <= 0) {
-            int i1 = this.b * 16 - 16;
+            int i1 = this.a * 16 - 16;
 
             l = i1 - random.nextInt(i1 / 4);
         }
@@ -157,27 +157,27 @@ public class WorldGenCavesHell extends WorldGenBase {
     }
 
     protected void a(World world, int i, int j, int k, int l, byte[] abyte) {
-        int i1 = this.c.nextInt(this.c.nextInt(this.c.nextInt(10) + 1) + 1);
+        int i1 = this.b.nextInt(this.b.nextInt(this.b.nextInt(10) + 1) + 1);
 
-        if (this.c.nextInt(5) != 0) {
+        if (this.b.nextInt(5) != 0) {
             i1 = 0;
         }
 
         for (int j1 = 0; j1 < i1; ++j1) {
-            double d0 = (double) (i * 16 + this.c.nextInt(16));
-            double d1 = (double) this.c.nextInt(128);
-            double d2 = (double) (j * 16 + this.c.nextInt(16));
+            double d0 = (double) (i * 16 + this.b.nextInt(16));
+            double d1 = (double) this.b.nextInt(128);
+            double d2 = (double) (j * 16 + this.b.nextInt(16));
             int k1 = 1;
 
-            if (this.c.nextInt(4) == 0) {
+            if (this.b.nextInt(4) == 0) {
                 this.a(k, l, abyte, d0, d1, d2);
-                k1 += this.c.nextInt(4);
+                k1 += this.b.nextInt(4);
             }
 
             for (int l1 = 0; l1 < k1; ++l1) {
-                float f = this.c.nextFloat() * 3.1415927F * 2.0F;
-                float f1 = (this.c.nextFloat() - 0.5F) * 2.0F / 8.0F;
-                float f2 = this.c.nextFloat() * 2.0F + this.c.nextFloat();
+                float f = this.b.nextFloat() * 3.1415927F * 2.0F;
+                float f1 = (this.b.nextFloat() - 0.5F) * 2.0F / 8.0F;
+                float f2 = this.b.nextFloat() * 2.0F + this.b.nextFloat();
 
                 this.a(k, l, abyte, d0, d1, d2, f2 * 2.0F, f, f1, 0, 0, 0.5D);
             }

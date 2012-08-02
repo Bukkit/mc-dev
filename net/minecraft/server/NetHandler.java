@@ -4,7 +4,7 @@ public abstract class NetHandler {
 
     public NetHandler() {}
 
-    public abstract boolean c();
+    public abstract boolean a();
 
     public void a(Packet51MapChunk packet51mapchunk) {}
 
@@ -34,10 +34,6 @@ public abstract class NetHandler {
 
     public void a(Packet53BlockChange packet53blockchange) {
         this.onUnhandledPacket(packet53blockchange);
-    }
-
-    public void a(Packet50PreChunk packet50prechunk) {
-        this.onUnhandledPacket(packet50prechunk);
     }
 
     public void a(Packet20NamedEntitySpawn packet20namedentityspawn) {
@@ -90,6 +86,14 @@ public abstract class NetHandler {
 
     public void a(Packet2Handshake packet2handshake) {
         this.onUnhandledPacket(packet2handshake);
+    }
+
+    public void a(Packet253KeyRequest packet253keyrequest) {
+        this.onUnhandledPacket(packet253keyrequest);
+    }
+
+    public void a(Packet252KeyResponse packet252keyresponse) {
+        this.onUnhandledPacket(packet252keyresponse);
     }
 
     public void a(Packet24MobSpawn packet24mobspawn) {
@@ -250,5 +254,31 @@ public abstract class NetHandler {
 
     public void a(Packet202Abilities packet202abilities) {
         this.onUnhandledPacket(packet202abilities);
+    }
+
+    public void a(Packet203TabComplete packet203tabcomplete) {
+        this.onUnhandledPacket(packet203tabcomplete);
+    }
+
+    public void a(Packet204LocaleAndViewDistance packet204localeandviewdistance) {
+        this.onUnhandledPacket(packet204localeandviewdistance);
+    }
+
+    public void a(Packet62NamedSoundEffect packet62namedsoundeffect) {
+        this.onUnhandledPacket(packet62namedsoundeffect);
+    }
+
+    public void a(Packet55BlockBreakAnimation packet55blockbreakanimation) {
+        this.onUnhandledPacket(packet55blockbreakanimation);
+    }
+
+    public void a(Packet205ClientCommand packet205clientcommand) {}
+
+    public void a(Packet56MapChunkBulk packet56mapchunkbulk) {
+        this.onUnhandledPacket(packet56mapchunkbulk);
+    }
+
+    public boolean b() {
+        return false;
     }
 }

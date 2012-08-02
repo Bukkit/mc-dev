@@ -2,8 +2,6 @@ package net.minecraft.server;
 
 public class OldChunkLoader {
 
-    public OldChunkLoader() {}
-
     public static OldChunk a(NBTTagCompound nbttagcompound) {
         int i = nbttagcompound.getInt("xPos");
         int j = nbttagcompound.getInt("zPos");

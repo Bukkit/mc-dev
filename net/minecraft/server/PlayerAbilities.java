@@ -6,6 +6,9 @@ public class PlayerAbilities {
     public boolean isFlying = false;
     public boolean canFly = false;
     public boolean canInstantlyBuild = false;
+    public boolean mayBuild = true;
+    private float flySpeed = 0.05F;
+    private float walkSpeed = 0.1F;
 
     public PlayerAbilities() {}
 
@@ -16,6 +19,9 @@ public class PlayerAbilities {
         nbttagcompound1.setBoolean("flying", this.isFlying);
         nbttagcompound1.setBoolean("mayfly", this.canFly);
         nbttagcompound1.setBoolean("instabuild", this.canInstantlyBuild);
+        nbttagcompound1.setBoolean("mayBuild", this.mayBuild);
+        nbttagcompound1.setFloat("flySpeed", this.flySpeed);
+        nbttagcompound1.setFloat("walkSpeed", this.walkSpeed);
         nbttagcompound.set("abilities", nbttagcompound1);
     }
 
@@ -27,6 +33,22 @@ public class PlayerAbilities {
             this.isFlying = nbttagcompound1.getBoolean("flying");
             this.canFly = nbttagcompound1.getBoolean("mayfly");
             this.canInstantlyBuild = nbttagcompound1.getBoolean("instabuild");
+            if (nbttagcompound1.hasKey("flySpeed")) {
+                this.flySpeed = nbttagcompound1.getFloat("flySpeed");
+                this.walkSpeed = nbttagcompound1.getFloat("walkSpeed");
+            }
+
+            if (nbttagcompound1.hasKey("mayBuild")) {
+                this.mayBuild = nbttagcompound1.getBoolean("mayBuild");
+            }
         }
+    }
+
+    public float a() {
+        return this.flySpeed;
+    }
+
+    public float b() {
+        return this.walkSpeed;
     }
 }

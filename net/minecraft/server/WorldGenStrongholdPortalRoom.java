@@ -9,13 +9,13 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
 
     public WorldGenStrongholdPortalRoom(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.h = j;
-        this.g = structureboundingbox;
+        this.f = j;
+        this.e = structureboundingbox;
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
         if (structurepiece != null) {
-            ((WorldGenStrongholdStairs2) structurepiece).b = this;
+            ((WorldGenStrongholdStart) structurepiece).b = this;
         }
     }
 
@@ -68,7 +68,7 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
         byte b3 = 3;
         byte b4 = 1;
 
-        switch (this.h) {
+        switch (this.f) {
         case 0:
             b1 = 0;
             b2 = 2;
@@ -104,7 +104,7 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
         this.a(world, Block.ENDER_PORTAL_FRAME.id, b4 + (random.nextFloat() > 0.9F ? 4 : 0), 7, 3, 10, structureboundingbox);
         this.a(world, Block.ENDER_PORTAL_FRAME.id, b4 + (random.nextFloat() > 0.9F ? 4 : 0), 7, 3, 11, structureboundingbox);
         if (!this.a) {
-            int k = this.b(3);
+            int k = this.a(3);
             int l = this.a(5, 6);
             int i1 = this.b(5, 6);
 

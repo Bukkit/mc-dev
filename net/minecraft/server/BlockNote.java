@@ -4,6 +4,7 @@ public class BlockNote extends BlockContainer {
 
     public BlockNote(int i) {
         super(i, 74, Material.WOOD);
+        this.a(CreativeModeTab.d);
     }
 
     public int a(int i) {
@@ -25,14 +26,14 @@ public class BlockNote extends BlockContainer {
         }
     }
 
-    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
         if (world.isStatic) {
             return true;
         } else {
             TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 
             if (tileentitynote != null) {
-                tileentitynote.c();
+                tileentitynote.a();
                 tileentitynote.play(world, i, j, k);
             }
 
@@ -50,11 +51,11 @@ public class BlockNote extends BlockContainer {
         }
     }
 
-    public TileEntity a_() {
+    public TileEntity a(World world) {
         return new TileEntityNote();
     }
 
-    public void a(World world, int i, int j, int k, int l, int i1) {
+    public void b(World world, int i, int j, int k, int l, int i1) {
         float f = (float) Math.pow(2.0D, (double) (i1 - 12) / 12.0D);
         String s = "harp";
 

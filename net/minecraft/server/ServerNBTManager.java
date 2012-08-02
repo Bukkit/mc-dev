@@ -1,7 +1,6 @@
 package net.minecraft.server;
 
 import java.io.File;
-import java.util.List;
 
 public class ServerNBTManager extends WorldNBTStorage {
 
@@ -26,12 +25,12 @@ public class ServerNBTManager extends WorldNBTStorage {
         }
     }
 
-    public void saveWorldData(WorldData worlddata, List list) {
-        worlddata.a(19133);
-        super.saveWorldData(worlddata, list);
+    public void saveWorldData(WorldData worlddata, NBTTagCompound nbttagcompound) {
+        worlddata.e(19133);
+        super.saveWorldData(worlddata, nbttagcompound);
     }
 
-    public void e() {
+    public void a() {
         try {
             FileIOThread.a.a();
         } catch (InterruptedException interruptedexception) {

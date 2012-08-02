@@ -3,7 +3,7 @@ package net.minecraft.server;
 public abstract class WorldMapBase {
 
     public final String id;
-    private boolean b;
+    private boolean a;
 
     public WorldMapBase(String s) {
         this.id = s;
@@ -18,10 +18,10 @@ public abstract class WorldMapBase {
     }
 
     public void a(boolean flag) {
-        this.b = flag;
+        this.a = flag;
     }
 
     public boolean b() {
-        return this.b;
+        return this.a;
     }
 }

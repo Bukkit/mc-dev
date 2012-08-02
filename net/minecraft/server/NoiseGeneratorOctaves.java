@@ -31,8 +31,8 @@ public class NoiseGeneratorOctaves extends NoiseGenerator {
             double d4 = (double) i * d3 * d0;
             double d5 = (double) j * d3 * d1;
             double d6 = (double) k * d3 * d2;
-            long i2 = MathHelper.c(d4);
-            long j2 = MathHelper.c(d6);
+            long i2 = MathHelper.d(d4);
+            long j2 = MathHelper.d(d6);
 
             d4 -= (double) i2;
             d6 -= (double) j2;

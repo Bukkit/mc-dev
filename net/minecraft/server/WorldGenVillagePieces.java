@@ -7,8 +7,6 @@ import java.util.Random;
 
 public class WorldGenVillagePieces {
 
-    public WorldGenVillagePieces() {}
-
     public static ArrayList a(Random random, int i) {
         ArrayList arraylist = new ArrayList();
 
@@ -17,7 +15,7 @@ public class WorldGenVillagePieces {
         arraylist.add(new WorldGenVillagePieceWeight(WorldGenVillageLibrary.class, 20, MathHelper.a(random, 0 + i, 2 + i)));
         arraylist.add(new WorldGenVillagePieceWeight(WorldGenVillageHut.class, 3, MathHelper.a(random, 2 + i, 5 + i * 3)));
         arraylist.add(new WorldGenVillagePieceWeight(WorldGenVillageButcher.class, 15, MathHelper.a(random, 0 + i, 2 + i)));
-        arraylist.add(new WorldGenVillagePieceWeight(WorldGenVillageBigFarm.class, 3, MathHelper.a(random, 1 + i, 4 + i)));
+        arraylist.add(new WorldGenVillagePieceWeight(WorldGenVillageFarm2.class, 3, MathHelper.a(random, 1 + i, 4 + i)));
         arraylist.add(new WorldGenVillagePieceWeight(WorldGenVillageFarm.class, 3, MathHelper.a(random, 2 + i, 4 + i * 2)));
         arraylist.add(new WorldGenVillagePieceWeight(WorldGenVillageBlacksmith.class, 15, MathHelper.a(random, 0, 1 + i)));
         arraylist.add(new WorldGenVillagePieceWeight(WorldGenVillageHouse2.class, 8, MathHelper.a(random, 0 + i, 3 + i * 2)));
@@ -32,13 +30,13 @@ public class WorldGenVillagePieces {
         return arraylist;
     }
 
-    private static int a(ArrayList arraylist) {
+    private static int a(List list) {
         boolean flag = false;
         int i = 0;
 
         WorldGenVillagePieceWeight worldgenvillagepieceweight;
 
-        for (Iterator iterator = arraylist.iterator(); iterator.hasNext(); i += worldgenvillagepieceweight.b) {
+        for (Iterator iterator = list.iterator(); iterator.hasNext(); i += worldgenvillagepieceweight.b) {
             worldgenvillagepieceweight = (WorldGenVillagePieceWeight) iterator.next();
             if (worldgenvillagepieceweight.d > 0 && worldgenvillagepieceweight.c < worldgenvillagepieceweight.d) {
                 flag = true;
@@ -48,35 +46,35 @@ public class WorldGenVillagePieces {
         return flag ? i : -1;
     }
 
-    private static WorldGenVillagePiece a(WorldGenVillagePieceWeight worldgenvillagepieceweight, List list, Random random, int i, int j, int k, int l, int i1) {
+    private static WorldGenVillagePiece a(WorldGenVillageStartPiece worldgenvillagestartpiece, WorldGenVillagePieceWeight worldgenvillagepieceweight, List list, Random random, int i, int j, int k, int l, int i1) {
         Class oclass = worldgenvillagepieceweight.a;
         Object object = null;
 
         if (oclass == WorldGenVillageHouse.class) {
-            object = WorldGenVillageHouse.a(list, random, i, j, k, l, i1);
+            object = WorldGenVillageHouse.a(worldgenvillagestartpiece, list, random, i, j, k, l, i1);
         } else if (oclass == WorldGenVillageTemple.class) {
-            object = WorldGenVillageTemple.a(list, random, i, j, k, l, i1);
+            object = WorldGenVillageTemple.a(worldgenvillagestartpiece, list, random, i, j, k, l, i1);
         } else if (oclass == WorldGenVillageLibrary.class) {
-            object = WorldGenVillageLibrary.a(list, random, i, j, k, l, i1);
+            object = WorldGenVillageLibrary.a(worldgenvillagestartpiece, list, random, i, j, k, l, i1);
         } else if (oclass == WorldGenVillageHut.class) {
-            object = WorldGenVillageHut.a(list, random, i, j, k, l, i1);
+            object = WorldGenVillageHut.a(worldgenvillagestartpiece, list, random, i, j, k, l, i1);
         } else if (oclass == WorldGenVillageButcher.class) {
-            object = WorldGenVillageButcher.a(list, random, i, j, k, l, i1);
-        } else if (oclass == WorldGenVillageBigFarm.class) {
-            object = WorldGenVillageBigFarm.a(list, random, i, j, k, l, i1);
+            object = WorldGenVillageButcher.a(worldgenvillagestartpiece, list, random, i, j, k, l, i1);
+        } else if (oclass == WorldGenVillageFarm2.class) {
+            object = WorldGenVillageFarm2.a(worldgenvillagestartpiece, list, random, i, j, k, l, i1);
         } else if (oclass == WorldGenVillageFarm.class) {
-            object = WorldGenVillageFarm.a(list, random, i, j, k, l, i1);
+            object = WorldGenVillageFarm.a(worldgenvillagestartpiece, list, random, i, j, k, l, i1);
         } else if (oclass == WorldGenVillageBlacksmith.class) {
-            object = WorldGenVillageBlacksmith.a(list, random, i, j, k, l, i1);
+            object = WorldGenVillageBlacksmith.a(worldgenvillagestartpiece, list, random, i, j, k, l, i1);
         } else if (oclass == WorldGenVillageHouse2.class) {
-            object = WorldGenVillageHouse2.a(list, random, i, j, k, l, i1);
+            object = WorldGenVillageHouse2.a(worldgenvillagestartpiece, list, random, i, j, k, l, i1);
         }
 
         return (WorldGenVillagePiece) object;
     }
 
     private static WorldGenVillagePiece c(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
-        int j1 = a(worldgenvillagestartpiece.d);
+        int j1 = a(worldgenvillagestartpiece.h);
 
         if (j1 <= 0) {
             return null;
@@ -86,24 +84,24 @@ public class WorldGenVillagePieces {
             while (k1 < 5) {
                 ++k1;
                 int l1 = random.nextInt(j1);
-                Iterator iterator = worldgenvillagestartpiece.d.iterator();
+                Iterator iterator = worldgenvillagestartpiece.h.iterator();
 
                 while (iterator.hasNext()) {
                     WorldGenVillagePieceWeight worldgenvillagepieceweight = (WorldGenVillagePieceWeight) iterator.next();
 
                     l1 -= worldgenvillagepieceweight.b;
                     if (l1 < 0) {
-                        if (!worldgenvillagepieceweight.a(i1) || worldgenvillagepieceweight == worldgenvillagestartpiece.c && worldgenvillagestartpiece.d.size() > 1) {
+                        if (!worldgenvillagepieceweight.a(i1) || worldgenvillagepieceweight == worldgenvillagestartpiece.d && worldgenvillagestartpiece.h.size() > 1) {
                             break;
                         }
 
-                        WorldGenVillagePiece worldgenvillagepiece = a(worldgenvillagepieceweight, list, random, i, j, k, l, i1);
+                        WorldGenVillagePiece worldgenvillagepiece = a(worldgenvillagestartpiece, worldgenvillagepieceweight, list, random, i, j, k, l, i1);
 
                         if (worldgenvillagepiece != null) {
                             ++worldgenvillagepieceweight.c;
-                            worldgenvillagestartpiece.c = worldgenvillagepieceweight;
+                            worldgenvillagestartpiece.d = worldgenvillagepieceweight;
                             if (!worldgenvillagepieceweight.a()) {
-                                worldgenvillagestartpiece.d.remove(worldgenvillagepieceweight);
+                                worldgenvillagestartpiece.h.remove(worldgenvillagepieceweight);
                             }
 
                             return worldgenvillagepiece;
@@ -112,10 +110,10 @@ public class WorldGenVillagePieces {
                 }
             }
 
-            StructureBoundingBox structureboundingbox = WorldGenVillageLight.a(list, random, i, j, k, l);
+            StructureBoundingBox structureboundingbox = WorldGenVillageLight.a(worldgenvillagestartpiece, list, random, i, j, k, l);
 
             if (structureboundingbox != null) {
-                return new WorldGenVillageLight(i1, random, structureboundingbox, l);
+                return new WorldGenVillageLight(worldgenvillagestartpiece, i1, random, structureboundingbox, l);
             } else {
                 return null;
             }
@@ -129,15 +127,15 @@ public class WorldGenVillagePieces {
             WorldGenVillagePiece worldgenvillagepiece = c(worldgenvillagestartpiece, list, random, i, j, k, l, i1 + 1);
 
             if (worldgenvillagepiece != null) {
-                int j1 = (worldgenvillagepiece.g.a + worldgenvillagepiece.g.d) / 2;
-                int k1 = (worldgenvillagepiece.g.c + worldgenvillagepiece.g.f) / 2;
-                int l1 = worldgenvillagepiece.g.d - worldgenvillagepiece.g.a;
-                int i2 = worldgenvillagepiece.g.f - worldgenvillagepiece.g.c;
+                int j1 = (worldgenvillagepiece.e.a + worldgenvillagepiece.e.d) / 2;
+                int k1 = (worldgenvillagepiece.e.c + worldgenvillagepiece.e.f) / 2;
+                int l1 = worldgenvillagepiece.e.d - worldgenvillagepiece.e.a;
+                int i2 = worldgenvillagepiece.e.f - worldgenvillagepiece.e.c;
                 int j2 = l1 > i2 ? l1 : i2;
 
-                if (worldgenvillagestartpiece.a().a(j1, k1, j2 / 2 + 4, WorldGenVillage.a)) {
+                if (worldgenvillagestartpiece.d().a(j1, k1, j2 / 2 + 4, WorldGenVillage.e)) {
                     list.add(worldgenvillagepiece);
-                    worldgenvillagestartpiece.e.add(worldgenvillagepiece);
+                    worldgenvillagestartpiece.i.add(worldgenvillagepiece);
                     return worldgenvillagepiece;
                 }
             }
@@ -149,22 +147,22 @@ public class WorldGenVillagePieces {
     }
 
     private static StructurePiece e(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
-        if (i1 > 3 + worldgenvillagestartpiece.b) {
+        if (i1 > 3 + worldgenvillagestartpiece.c) {
             return null;
         } else if (Math.abs(i - worldgenvillagestartpiece.b().a) <= 112 && Math.abs(k - worldgenvillagestartpiece.b().c) <= 112) {
             StructureBoundingBox structureboundingbox = WorldGenVillageRoad.a(worldgenvillagestartpiece, list, random, i, j, k, l);
 
             if (structureboundingbox != null && structureboundingbox.b > 10) {
-                WorldGenVillageRoad worldgenvillageroad = new WorldGenVillageRoad(i1, random, structureboundingbox, l);
-                int j1 = (worldgenvillageroad.g.a + worldgenvillageroad.g.d) / 2;
-                int k1 = (worldgenvillageroad.g.c + worldgenvillageroad.g.f) / 2;
-                int l1 = worldgenvillageroad.g.d - worldgenvillageroad.g.a;
-                int i2 = worldgenvillageroad.g.f - worldgenvillageroad.g.c;
+                WorldGenVillageRoad worldgenvillageroad = new WorldGenVillageRoad(worldgenvillagestartpiece, i1, random, structureboundingbox, l);
+                int j1 = (worldgenvillageroad.e.a + worldgenvillageroad.e.d) / 2;
+                int k1 = (worldgenvillageroad.e.c + worldgenvillageroad.e.f) / 2;
+                int l1 = worldgenvillageroad.e.d - worldgenvillageroad.e.a;
+                int i2 = worldgenvillageroad.e.f - worldgenvillageroad.e.c;
                 int j2 = l1 > i2 ? l1 : i2;
 
-                if (worldgenvillagestartpiece.a().a(j1, k1, j2 / 2 + 4, WorldGenVillage.a)) {
+                if (worldgenvillagestartpiece.d().a(j1, k1, j2 / 2 + 4, WorldGenVillage.e)) {
                     list.add(worldgenvillageroad);
-                    worldgenvillagestartpiece.f.add(worldgenvillageroad);
+                    worldgenvillagestartpiece.j.add(worldgenvillageroad);
                     return worldgenvillageroad;
                 }
             }

@@ -4,14 +4,14 @@ public class WorldProviderHell extends WorldProvider {
 
     public WorldProviderHell() {}
 
-    public void a() {
+    public void b() {
         this.c = new WorldChunkManagerHell(BiomeBase.HELL, 1.0F, 0.0F);
         this.d = true;
         this.e = true;
         this.dimension = -1;
     }
 
-    protected void g() {
+    protected void a() {
         float f = 0.1F;
 
         for (int i = 0; i <= 15; ++i) {
@@ -37,7 +37,7 @@ public class WorldProviderHell extends WorldProvider {
         return 0.5F;
     }
 
-    public boolean c() {
+    public boolean e() {
         return false;
     }
 }

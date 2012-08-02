@@ -4,7 +4,7 @@ public class EnchantmentInfiniteArrows extends Enchantment {
 
     public EnchantmentInfiniteArrows(int i, int j) {
         super(i, j, EnchantmentSlotType.BOW);
-        this.a("arrowInfinite");
+        this.b("arrowInfinite");
     }
 
     public int a(int i) {

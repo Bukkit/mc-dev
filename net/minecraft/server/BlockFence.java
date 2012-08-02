@@ -4,21 +4,19 @@ public class BlockFence extends Block {
 
     public BlockFence(int i, int j) {
         super(i, j, Material.WOOD);
+        this.a(CreativeModeTab.c);
     }
 
     public BlockFence(int i, int j, Material material) {
         super(i, j, material);
-    }
-
-    public boolean canPlace(World world, int i, int j, int k) {
-        return super.canPlace(world, i, j, k);
+        this.a(CreativeModeTab.c);
     }
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
-        boolean flag = this.c(world, i, j, k - 1);
-        boolean flag1 = this.c(world, i, j, k + 1);
-        boolean flag2 = this.c(world, i - 1, j, k);
-        boolean flag3 = this.c(world, i + 1, j, k);
+        boolean flag = this.d(world, i, j, k - 1);
+        boolean flag1 = this.d(world, i, j, k + 1);
+        boolean flag2 = this.d(world, i - 1, j, k);
+        boolean flag3 = this.d(world, i + 1, j, k);
         float f = 0.375F;
         float f1 = 0.625F;
         float f2 = 0.375F;
@@ -40,14 +38,14 @@ public class BlockFence extends Block {
             f1 = 1.0F;
         }
 
-        return AxisAlignedBB.b((double) ((float) i + f), (double) j, (double) ((float) k + f2), (double) ((float) i + f1), (double) ((float) j + 1.5F), (double) ((float) k + f3));
+        return AxisAlignedBB.a().a((double) ((float) i + f), (double) j, (double) ((float) k + f2), (double) ((float) i + f1), (double) ((float) j + 1.5F), (double) ((float) k + f3));
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        boolean flag = this.c(iblockaccess, i, j, k - 1);
-        boolean flag1 = this.c(iblockaccess, i, j, k + 1);
-        boolean flag2 = this.c(iblockaccess, i - 1, j, k);
-        boolean flag3 = this.c(iblockaccess, i + 1, j, k);
+        boolean flag = this.d(iblockaccess, i, j, k - 1);
+        boolean flag1 = this.d(iblockaccess, i, j, k + 1);
+        boolean flag2 = this.d(iblockaccess, i - 1, j, k);
+        boolean flag3 = this.d(iblockaccess, i + 1, j, k);
         float f = 0.375F;
         float f1 = 0.625F;
         float f2 = 0.375F;
@@ -72,31 +70,35 @@ public class BlockFence extends Block {
         this.a(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
-    public boolean a() {
+    public boolean d() {
         return false;
     }
 
-    public boolean b() {
+    public boolean c() {
         return false;
-    }
-
-    public boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
-        return false;
-    }
-
-    public int c() {
-        return 11;
     }
 
     public boolean c(IBlockAccess iblockaccess, int i, int j, int k) {
+        return false;
+    }
+
+    public int b() {
+        return 11;
+    }
+
+    public boolean d(IBlockAccess iblockaccess, int i, int j, int k) {
         int l = iblockaccess.getTypeId(i, j, k);
 
         if (l != this.id && l != Block.FENCE_GATE.id) {
             Block block = Block.byId[l];
 
-            return block != null && block.material.j() && block.b() ? block.material != Material.PUMPKIN : false;
+            return block != null && block.material.k() && block.c() ? block.material != Material.PUMPKIN : false;
         } else {
             return true;
         }
+    }
+
+    public static boolean c(int i) {
+        return i == Block.FENCE.id || i == Block.NETHER_FENCE.id;
     }
 }

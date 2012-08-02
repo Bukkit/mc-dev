@@ -1,7 +1,5 @@
 package net.minecraft.server;
 
-import java.util.List;
-
 public class WorldData {
 
     private long seed;
@@ -20,13 +18,18 @@ public class WorldData {
     private int rainTicks;
     private boolean isThundering;
     private int thunderTicks;
-    private int gameType;
+    private EnumGamemode gameType;
     private boolean useMapFeatures;
     private boolean hardcore;
+    private boolean allowCommands;
+    private boolean initialized;
+
+    protected WorldData() {
+        this.type = WorldType.NORMAL;
+    }
 
     public WorldData(NBTTagCompound nbttagcompound) {
         this.type = WorldType.NORMAL;
-        this.hardcore = false;
         this.seed = nbttagcompound.getLong("RandomSeed");
         if (nbttagcompound.hasKey("generatorName")) {
             String s = nbttagcompound.getString("generatorName");
@@ -34,7 +37,7 @@ public class WorldData {
             this.type = WorldType.getType(s);
             if (this.type == null) {
                 this.type = WorldType.NORMAL;
-            } else if (this.type.c()) {
+            } else if (this.type.e()) {
                 int i = 0;
 
                 if (nbttagcompound.hasKey("generatorVersion")) {
@@ -45,7 +48,7 @@ public class WorldData {
             }
         }
 
-        this.gameType = nbttagcompound.getInt("GameType");
+        this.gameType = EnumGamemode.a(nbttagcompound.getInt("GameType"));
         if (nbttagcompound.hasKey("MapFeatures")) {
             this.useMapFeatures = nbttagcompound.getBoolean("MapFeatures");
         } else {
@@ -65,6 +68,18 @@ public class WorldData {
         this.thunderTicks = nbttagcompound.getInt("thunderTime");
         this.isThundering = nbttagcompound.getBoolean("thundering");
         this.hardcore = nbttagcompound.getBoolean("hardcore");
+        if (nbttagcompound.hasKey("initialized")) {
+            this.initialized = nbttagcompound.getBoolean("initialized");
+        } else {
+            this.initialized = true;
+        }
+
+        if (nbttagcompound.hasKey("allowCommands")) {
+            this.allowCommands = nbttagcompound.getBoolean("allowCommands");
+        } else {
+            this.allowCommands = this.gameType == EnumGamemode.CREATIVE;
+        }
+
         if (nbttagcompound.hasKey("Player")) {
             this.playerData = nbttagcompound.getCompound("Player");
             this.dimension = this.playerData.getInt("Dimension");
@@ -73,18 +88,18 @@ public class WorldData {
 
     public WorldData(WorldSettings worldsettings, String s) {
         this.type = WorldType.NORMAL;
-        this.hardcore = false;
-        this.seed = worldsettings.a();
-        this.gameType = worldsettings.b();
-        this.useMapFeatures = worldsettings.d();
+        this.seed = worldsettings.d();
+        this.gameType = worldsettings.e();
+        this.useMapFeatures = worldsettings.g();
         this.name = s;
-        this.hardcore = worldsettings.c();
-        this.type = worldsettings.e();
+        this.hardcore = worldsettings.f();
+        this.type = worldsettings.h();
+        this.allowCommands = worldsettings.i();
+        this.initialized = false;
     }
 
     public WorldData(WorldData worlddata) {
         this.type = WorldType.NORMAL;
-        this.hardcore = false;
         this.seed = worlddata.seed;
         this.type = worlddata.type;
         this.gameType = worlddata.gameType;
@@ -104,6 +119,8 @@ public class WorldData {
         this.thunderTicks = worlddata.thunderTicks;
         this.isThundering = worlddata.isThundering;
         this.hardcore = worlddata.hardcore;
+        this.allowCommands = worlddata.allowCommands;
+        this.initialized = worlddata.initialized;
     }
 
     public NBTTagCompound a() {
@@ -113,29 +130,18 @@ public class WorldData {
         return nbttagcompound;
     }
 
-    public NBTTagCompound a(List list) {
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
-        EntityHuman entityhuman = null;
-        NBTTagCompound nbttagcompound1 = null;
+    public NBTTagCompound a(NBTTagCompound nbttagcompound) {
+        NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
-        if (list.size() > 0) {
-            entityhuman = (EntityHuman) list.get(0);
-        }
-
-        if (entityhuman != null) {
-            nbttagcompound1 = new NBTTagCompound();
-            entityhuman.d(nbttagcompound1);
-        }
-
-        this.a(nbttagcompound, nbttagcompound1);
-        return nbttagcompound;
+        this.a(nbttagcompound1, nbttagcompound);
+        return nbttagcompound1;
     }
 
     private void a(NBTTagCompound nbttagcompound, NBTTagCompound nbttagcompound1) {
         nbttagcompound.setLong("RandomSeed", this.seed);
         nbttagcompound.setString("generatorName", this.type.name());
         nbttagcompound.setInt("generatorVersion", this.type.getVersion());
-        nbttagcompound.setInt("GameType", this.gameType);
+        nbttagcompound.setInt("GameType", this.gameType.a());
         nbttagcompound.setBoolean("MapFeatures", this.useMapFeatures);
         nbttagcompound.setInt("SpawnX", this.spawnX);
         nbttagcompound.setInt("SpawnY", this.spawnY);
@@ -150,6 +156,8 @@ public class WorldData {
         nbttagcompound.setInt("thunderTime", this.thunderTicks);
         nbttagcompound.setBoolean("thundering", this.isThundering);
         nbttagcompound.setBoolean("hardcore", this.hardcore);
+        nbttagcompound.setBoolean("allowCommands", this.allowCommands);
+        nbttagcompound.setBoolean("initialized", this.initialized);
         if (nbttagcompound1 != null) {
             nbttagcompound.setCompound("Player", nbttagcompound1);
         }
@@ -175,11 +183,15 @@ public class WorldData {
         return this.time;
     }
 
-    public int g() {
+    public NBTTagCompound h() {
+        return this.playerData;
+    }
+
+    public int i() {
         return this.dimension;
     }
 
-    public void a(long i) {
+    public void b(long i) {
         this.time = i;
     }
 
@@ -189,15 +201,19 @@ public class WorldData {
         this.spawnZ = k;
     }
 
-    public void a(String s) {
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String s) {
         this.name = s;
     }
 
-    public int h() {
+    public int k() {
         return this.version;
     }
 
-    public void a(int i) {
+    public void e(int i) {
         this.version = i;
     }
 
@@ -233,7 +249,7 @@ public class WorldData {
         this.rainTicks = i;
     }
 
-    public int getGameType() {
+    public EnumGamemode getGameType() {
         return this.gameType;
     }
 
@@ -241,8 +257,8 @@ public class WorldData {
         return this.useMapFeatures;
     }
 
-    public void setGameType(int i) {
-        this.gameType = i;
+    public void setGameType(EnumGamemode enumgamemode) {
+        this.gameType = enumgamemode;
     }
 
     public boolean isHardcore() {
@@ -255,5 +271,17 @@ public class WorldData {
 
     public void setType(WorldType worldtype) {
         this.type = worldtype;
+    }
+
+    public boolean allowCommands() {
+        return this.allowCommands;
+    }
+
+    public boolean isInitialized() {
+        return this.initialized;
+    }
+
+    public void d(boolean flag) {
+        this.initialized = flag;
     }
 }

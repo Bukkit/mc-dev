@@ -5,15 +5,15 @@ public class EntityCaveSpider extends EntitySpider {
     public EntityCaveSpider(World world) {
         super(world);
         this.texture = "/mob/cavespider.png";
-        this.b(0.7F, 0.5F);
+        this.a(0.7F, 0.5F);
     }
 
     public int getMaxHealth() {
         return 12;
     }
 
-    public boolean a(Entity entity) {
-        if (super.a(entity)) {
+    public boolean k(Entity entity) {
+        if (super.k(entity)) {
             if (entity instanceof EntityLiving) {
                 byte b0 = 0;
 

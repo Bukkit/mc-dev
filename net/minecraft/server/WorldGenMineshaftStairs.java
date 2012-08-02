@@ -7,8 +7,8 @@ public class WorldGenMineshaftStairs extends StructurePiece {
 
     public WorldGenMineshaftStairs(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.h = j;
-        this.g = structureboundingbox;
+        this.f = j;
+        this.e = structureboundingbox;
     }
 
     public static StructureBoundingBox a(List list, Random random, int i, int j, int k, int l) {
@@ -41,21 +41,21 @@ public class WorldGenMineshaftStairs extends StructurePiece {
     public void a(StructurePiece structurepiece, List list, Random random) {
         int i = this.c();
 
-        switch (this.h) {
+        switch (this.f) {
         case 0:
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a, this.g.b, this.g.f + 1, 0, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a, this.e.b, this.e.f + 1, 0, i);
             break;
 
         case 1:
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a - 1, this.g.b, this.g.c, 1, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a - 1, this.e.b, this.e.c, 1, i);
             break;
 
         case 2:
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.a, this.g.b, this.g.c - 1, 2, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a, this.e.b, this.e.c - 1, 2, i);
             break;
 
         case 3:
-            WorldGenMineshaftPieces.a(structurepiece, list, random, this.g.d + 1, this.g.b, this.g.c, 3, i);
+            WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.d + 1, this.e.b, this.e.c, 3, i);
         }
     }
 

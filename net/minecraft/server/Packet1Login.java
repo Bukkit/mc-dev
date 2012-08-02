@@ -5,10 +5,10 @@ import java.io.DataOutputStream;
 
 public class Packet1Login extends Packet {
 
-    public int a;
-    public String name;
-    public WorldType c;
-    public int d;
+    public int a = 0;
+    public WorldType b;
+    public boolean c;
+    public EnumGamemode d;
     public int e;
     public byte f;
     public byte g;
@@ -16,29 +16,33 @@ public class Packet1Login extends Packet {
 
     public Packet1Login() {}
 
-    public Packet1Login(String s, int i, WorldType worldtype, int j, int k, byte b0, byte b1, byte b2) {
-        this.name = s;
+    public Packet1Login(int i, WorldType worldtype, EnumGamemode enumgamemode, boolean flag, int j, int k, int l, int i1) {
         this.a = i;
-        this.c = worldtype;
-        this.e = k;
-        this.f = b0;
-        this.d = j;
-        this.g = b1;
-        this.h = b2;
+        this.b = worldtype;
+        this.e = j;
+        this.f = (byte) k;
+        this.d = enumgamemode;
+        this.g = (byte) l;
+        this.h = (byte) i1;
+        this.c = flag;
     }
 
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readInt();
-        this.name = a(datainputstream, 16);
         String s = a(datainputstream, 16);
 
-        this.c = WorldType.getType(s);
-        if (this.c == null) {
-            this.c = WorldType.NORMAL;
+        this.b = WorldType.getType(s);
+        if (this.b == null) {
+            this.b = WorldType.NORMAL;
         }
 
-        this.d = datainputstream.readInt();
-        this.e = datainputstream.readInt();
+        byte b0 = datainputstream.readByte();
+
+        this.c = (b0 & 8) == 8;
+        int i = b0 & -9;
+
+        this.d = EnumGamemode.a(i);
+        this.e = datainputstream.readByte();
         this.f = datainputstream.readByte();
         this.g = datainputstream.readByte();
         this.h = datainputstream.readByte();
@@ -46,15 +50,15 @@ public class Packet1Login extends Packet {
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeInt(this.a);
-        a(this.name, dataoutputstream);
-        if (this.c == null) {
-            a("", dataoutputstream);
-        } else {
-            a(this.c.name(), dataoutputstream);
+        a(this.b == null ? "" : this.b.name(), dataoutputstream);
+        int i = this.d.a();
+
+        if (this.c) {
+            i |= 8;
         }
 
-        dataoutputstream.writeInt(this.d);
-        dataoutputstream.writeInt(this.e);
+        dataoutputstream.writeByte(i);
+        dataoutputstream.writeByte(this.e);
         dataoutputstream.writeByte(this.f);
         dataoutputstream.writeByte(this.g);
         dataoutputstream.writeByte(this.h);
@@ -67,10 +71,10 @@ public class Packet1Login extends Packet {
     public int a() {
         int i = 0;
 
-        if (this.c != null) {
-            i = this.c.name().length();
+        if (this.b != null) {
+            i = this.b.name().length();
         }
 
-        return 4 + this.name.length() + 4 + 7 + 7 + i;
+        return 6 + 2 * i + 4 + 4 + 1 + 1 + 1;
     }
 }

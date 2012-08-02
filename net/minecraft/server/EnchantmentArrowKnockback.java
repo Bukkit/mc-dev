@@ -4,7 +4,7 @@ public class EnchantmentArrowKnockback extends Enchantment {
 
     public EnchantmentArrowKnockback(int i, int j) {
         super(i, j, EnchantmentSlotType.BOW);
-        this.a("arrowKnockback");
+        this.b("arrowKnockback");
     }
 
     public int a(int i) {

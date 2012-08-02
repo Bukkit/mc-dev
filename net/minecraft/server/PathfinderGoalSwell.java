@@ -11,29 +11,29 @@ public class PathfinderGoalSwell extends PathfinderGoal {
     }
 
     public boolean a() {
-        EntityLiving entityliving = this.a.at();
+        EntityLiving entityliving = this.a.az();
 
-        return this.a.A() > 0 || entityliving != null && this.a.j(entityliving) < 9.0D;
-    }
-
-    public void c() {
-        this.a.al().f();
-        this.b = this.a.at();
-    }
-
-    public void d() {
-        this.b = null;
+        return this.a.p() > 0 || entityliving != null && this.a.e(entityliving) < 9.0D;
     }
 
     public void e() {
+        this.a.getNavigation().g();
+        this.b = this.a.az();
+    }
+
+    public void c() {
+        this.b = null;
+    }
+
+    public void d() {
         if (this.b == null) {
-            this.a.c(-1);
-        } else if (this.a.j(this.b) > 49.0D) {
-            this.a.c(-1);
-        } else if (!this.a.am().canSee(this.b)) {
-            this.a.c(-1);
+            this.a.a(-1);
+        } else if (this.a.e(this.b) > 49.0D) {
+            this.a.a(-1);
+        } else if (!this.a.at().canSee(this.b)) {
+            this.a.a(-1);
         } else {
-            this.a.c(1);
+            this.a.a(1);
         }
     }
 }

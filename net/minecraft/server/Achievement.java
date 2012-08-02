@@ -7,7 +7,7 @@ public class Achievement extends Statistic {
     public final Achievement c;
     private final String k;
     public final ItemStack d;
-    private boolean l;
+    private boolean m;
 
     public Achievement(int i, String s, int j, int k, Item item, Achievement achievement) {
         this(i, s, j, k, new ItemStack(item), achievement);
@@ -48,13 +48,21 @@ public class Achievement extends Statistic {
     }
 
     public Achievement b() {
-        this.l = true;
+        this.m = true;
         return this;
     }
 
     public Achievement c() {
-        super.d();
+        super.g();
         AchievementList.e.add(this);
         return this;
+    }
+
+    public Statistic g() {
+        return this.c();
+    }
+
+    public Statistic h() {
+        return this.a();
     }
 }

@@ -4,8 +4,6 @@ public class LocaleI18n {
 
     private static LocaleLanguage a = LocaleLanguage.a();
 
-    public LocaleI18n() {}
-
     public static String get(String s) {
         return a.b(s);
     }

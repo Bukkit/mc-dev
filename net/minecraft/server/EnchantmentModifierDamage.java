@@ -11,7 +11,7 @@ final class EnchantmentModifierDamage implements EnchantmentModifier {
         this.a += enchantment.a(i, this.b);
     }
 
-    EnchantmentModifierDamage(EmptyClass3 emptyclass3) {
+    EnchantmentModifierDamage(EmptyClass emptyclass) {
         this();
     }
 }

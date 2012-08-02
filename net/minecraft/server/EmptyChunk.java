@@ -19,8 +19,6 @@ public class EmptyChunk extends Chunk {
 
     public void initLighting() {}
 
-    public void loadNOP() {}
-
     public int getTypeId(int i, int j, int k) {
         return 0;
     }

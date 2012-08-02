@@ -3,18 +3,18 @@ package net.minecraft.server;
 public class ContainerChest extends Container {
 
     private IInventory container;
-    private int b;
+    private int f;
 
     public ContainerChest(IInventory iinventory, IInventory iinventory1) {
         this.container = iinventory1;
-        this.b = iinventory1.getSize() / 9;
-        iinventory1.f();
-        int i = (this.b - 4) * 18;
+        this.f = iinventory1.getSize() / 9;
+        iinventory1.startOpen();
+        int i = (this.f - 4) * 18;
 
         int j;
         int k;
 
-        for (j = 0; j < this.b; ++j) {
+        for (j = 0; j < this.f; ++j) {
             for (k = 0; k < 9; ++k) {
                 this.a(new Slot(iinventory1, k + j * 9, 8 + k * 18, 18 + j * 18));
             }
@@ -31,30 +31,30 @@ public class ContainerChest extends Container {
         }
     }
 
-    public boolean b(EntityHuman entityhuman) {
+    public boolean c(EntityHuman entityhuman) {
         return this.container.a(entityhuman);
     }
 
-    public ItemStack a(int i) {
+    public ItemStack b(int i) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.e.get(i);
+        Slot slot = (Slot) this.b.get(i);
 
-        if (slot != null && slot.c()) {
+        if (slot != null && slot.d()) {
             ItemStack itemstack1 = slot.getItem();
 
             itemstack = itemstack1.cloneItemStack();
-            if (i < this.b * 9) {
-                if (!this.a(itemstack1, this.b * 9, this.e.size(), true)) {
+            if (i < this.f * 9) {
+                if (!this.a(itemstack1, this.f * 9, this.b.size(), true)) {
                     return null;
                 }
-            } else if (!this.a(itemstack1, 0, this.b * 9, false)) {
+            } else if (!this.a(itemstack1, 0, this.f * 9, false)) {
                 return null;
             }
 
             if (itemstack1.count == 0) {
                 slot.set((ItemStack) null);
             } else {
-                slot.d();
+                slot.e();
             }
         }
 
@@ -63,6 +63,6 @@ public class ContainerChest extends Container {
 
     public void a(EntityHuman entityhuman) {
         super.a(entityhuman);
-        this.container.g();
+        this.container.f();
     }
 }

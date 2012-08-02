@@ -4,7 +4,7 @@ public class EnchantmentOxygen extends Enchantment {
 
     public EnchantmentOxygen(int i, int j) {
         super(i, j, EnchantmentSlotType.ARMOR_HEAD);
-        this.a("oxygen");
+        this.b("oxygen");
     }
 
     public int a(int i) {

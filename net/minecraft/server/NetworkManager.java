@@ -6,41 +6,49 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketException;
+import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import javax.crypto.SecretKey;
 
-public class NetworkManager {
+public class NetworkManager implements INetworkManager {
 
-    public static final Object a = new Object();
-    public static int b;
-    public static int c;
-    private Object g = new Object();
+    public static AtomicInteger a = new AtomicInteger();
+    public static AtomicInteger b = new AtomicInteger();
+    private Object h = new Object();
     private Socket socket;
-    private final SocketAddress i;
-    private DataInputStream input;
-    private DataOutputStream output;
-    private boolean l = true;
-    private List m = Collections.synchronizedList(new ArrayList());
+    private final SocketAddress j;
+    private volatile DataInputStream input;
+    private volatile DataOutputStream output;
+    private volatile boolean m = true;
+    private volatile boolean n = false;
+    private List inboundQueue = Collections.synchronizedList(new ArrayList());
     private List highPriorityQueue = Collections.synchronizedList(new ArrayList());
     private List lowPriorityQueue = Collections.synchronizedList(new ArrayList());
     private NetHandler packetListener;
-    private boolean q = false;
-    private Thread r;
-    private Thread s;
-    private boolean t = false;
-    private String u = "";
-    private Object[] v;
-    private int w = 0;
+    private boolean s = false;
+    private Thread t;
+    private Thread u;
+    private String v = "";
+    private Object[] w;
     private int x = 0;
+    private int y = 0;
+    public static int[] c = new int[256];
     public static int[] d = new int[256];
-    public static int[] e = new int[256];
-    public int f = 0;
+    public int e = 0;
+    boolean f = false;
+    boolean g = false;
+    private SecretKey z = null;
+    private PrivateKey A = null;
     private int lowPriorityQueueDelay = 50;
 
-    public NetworkManager(Socket socket, String s, NetHandler nethandler) {
+    public NetworkManager(Socket socket, String s, NetHandler nethandler, PrivateKey privatekey) {
+        this.A = privatekey;
         this.socket = socket;
-        this.i = socket.getRemoteSocketAddress();
+        this.j = socket.getRemoteSocketAddress();
         this.packetListener = nethandler;
 
         try {
@@ -52,10 +60,10 @@ public class NetworkManager {
 
         this.input = new DataInputStream(socket.getInputStream());
         this.output = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream(), 5120));
-        this.s = new NetworkReaderThread(this, s + " read thread");
-        this.r = new NetworkWriterThread(this, s + " write thread");
-        this.s.start();
-        this.r.start();
+        this.u = new NetworkReaderThread(this, s + " read thread");
+        this.t = new NetworkWriterThread(this, s + " write thread");
+        this.u.start();
+        this.t.start();
     }
 
     public void a(NetHandler nethandler) {
@@ -63,11 +71,11 @@ public class NetworkManager {
     }
 
     public void queue(Packet packet) {
-        if (!this.q) {
-            Object object = this.g;
+        if (!this.s) {
+            Object object = this.h;
 
-            synchronized (this.g) {
-                this.x += packet.a() + 1;
+            synchronized (this.h) {
+                this.y += packet.a() + 1;
                 if (packet.lowPriority) {
                     this.lowPriorityQueue.add(packet);
                 } else {
@@ -77,47 +85,48 @@ public class NetworkManager {
         }
     }
 
-    private boolean g() {
+    private boolean h() {
         boolean flag = false;
 
         try {
-            Object object;
             Packet packet;
             int i;
             int[] aint;
 
-            if (!this.highPriorityQueue.isEmpty() && (this.f == 0 || System.currentTimeMillis() - ((Packet) this.highPriorityQueue.get(0)).timestamp >= (long) this.f)) {
-                object = this.g;
-                synchronized (this.g) {
-                    packet = (Packet) this.highPriorityQueue.remove(0);
-                    this.x -= packet.a() + 1;
-                }
+            if (this.e == 0 || System.currentTimeMillis() - ((Packet) this.highPriorityQueue.get(0)).timestamp >= (long) this.e) {
+                packet = this.a(false);
+                if (packet != null) {
+                    Packet.a(packet, this.output);
+                    if (packet instanceof Packet252KeyResponse && !this.g) {
+                        if (!this.packetListener.a()) {
+                            this.z = ((Packet252KeyResponse) packet).d();
+                        }
 
-                Packet.a(packet, this.output);
-                aint = e;
-                i = packet.b();
-                aint[i] += packet.a() + 1;
-                flag = true;
+                        this.k();
+                    }
+
+                    aint = d;
+                    i = packet.k();
+                    aint[i] += packet.a() + 1;
+                    flag = true;
+                }
             }
 
-            if (this.lowPriorityQueueDelay-- <= 0 && !this.lowPriorityQueue.isEmpty() && (this.f == 0 || System.currentTimeMillis() - ((Packet) this.lowPriorityQueue.get(0)).timestamp >= (long) this.f)) {
-                object = this.g;
-                synchronized (this.g) {
-                    packet = (Packet) this.lowPriorityQueue.remove(0);
-                    this.x -= packet.a() + 1;
+            if (this.lowPriorityQueueDelay-- <= 0 && (this.e == 0 || System.currentTimeMillis() - ((Packet) this.lowPriorityQueue.get(0)).timestamp >= (long) this.e)) {
+                packet = this.a(true);
+                if (packet != null) {
+                    Packet.a(packet, this.output);
+                    aint = d;
+                    i = packet.k();
+                    aint[i] += packet.a() + 1;
+                    this.lowPriorityQueueDelay = 0;
+                    flag = true;
                 }
-
-                Packet.a(packet, this.output);
-                aint = e;
-                i = packet.b();
-                aint[i] += packet.a() + 1;
-                this.lowPriorityQueueDelay = 0;
-                flag = true;
             }
 
             return flag;
         } catch (Exception exception) {
-            if (!this.t) {
+            if (!this.n) {
                 this.a(exception);
             }
 
@@ -125,24 +134,81 @@ public class NetworkManager {
         }
     }
 
-    public void a() {
-        this.s.interrupt();
-        this.r.interrupt();
+    private Packet a(boolean flag) {
+        Packet packet = null;
+        List list = flag ? this.lowPriorityQueue : this.highPriorityQueue;
+        Object object = this.h;
+
+        synchronized (this.h) {
+            while (!list.isEmpty() && packet == null) {
+                packet = (Packet) list.remove(0);
+                this.y -= packet.a() + 1;
+                if (this.a(packet, flag)) {
+                    packet = null;
+                }
+            }
+
+            return packet;
+        }
     }
 
-    private boolean h() {
+    private boolean a(Packet packet, boolean flag) {
+        if (!packet.e()) {
+            return false;
+        } else {
+            List list = flag ? this.lowPriorityQueue : this.highPriorityQueue;
+            Iterator iterator = list.iterator();
+
+            Packet packet1;
+
+            do {
+                if (!iterator.hasNext()) {
+                    return false;
+                }
+
+                packet1 = (Packet) iterator.next();
+            } while (packet1.k() != packet.k());
+
+            return packet.a(packet1);
+        }
+    }
+
+    public void a() {
+        if (this.u != null) {
+            this.u.interrupt();
+        }
+
+        if (this.t != null) {
+            this.t.interrupt();
+        }
+    }
+
+    private boolean i() {
         boolean flag = false;
 
         try {
-            Packet packet = Packet.a(this.input, this.packetListener.c());
+            Packet packet = Packet.a(this.input, this.packetListener.a());
 
             if (packet != null) {
-                int[] aint = d;
-                int i = packet.b();
+                if (packet instanceof Packet252KeyResponse && !this.f) {
+                    if (this.packetListener.a()) {
+                        this.z = ((Packet252KeyResponse) packet).a(this.A);
+                    }
+
+                    this.j();
+                }
+
+                int[] aint = c;
+                int i = packet.k();
 
                 aint[i] += packet.a() + 1;
-                if (!this.q) {
-                    this.m.add(packet);
+                if (!this.s) {
+                    if (packet.a_() && this.packetListener.b()) {
+                        this.x = 0;
+                        packet.handle(this.packetListener);
+                    } else {
+                        this.inboundQueue.add(packet);
+                    }
                 }
 
                 flag = true;
@@ -152,7 +218,7 @@ public class NetworkManager {
 
             return flag;
         } catch (Exception exception) {
-            if (!this.t) {
+            if (!this.n) {
                 this.a(exception);
             }
 
@@ -166,74 +232,75 @@ public class NetworkManager {
     }
 
     public void a(String s, Object... aobject) {
-        if (this.l) {
-            this.t = true;
-            this.u = s;
-            this.v = aobject;
+        if (this.m) {
+            this.n = true;
+            this.v = s;
+            this.w = aobject;
+            this.m = false;
             (new NetworkMasterThread(this)).start();
-            this.l = false;
 
             try {
                 this.input.close();
                 this.input = null;
-            } catch (Throwable throwable) {
-                ;
-            }
-
-            try {
                 this.output.close();
                 this.output = null;
-            } catch (Throwable throwable1) {
-                ;
-            }
-
-            try {
                 this.socket.close();
                 this.socket = null;
-            } catch (Throwable throwable2) {
+            } catch (Throwable throwable) {
                 ;
             }
         }
     }
 
     public void b() {
-        if (this.x > 1048576) {
+        if (this.y > 2097152) {
             this.a("disconnect.overflow", new Object[0]);
         }
 
-        if (this.m.isEmpty()) {
-            if (this.w++ == 1200) {
+        if (this.inboundQueue.isEmpty()) {
+            if (this.x++ == 1200) {
                 this.a("disconnect.timeout", new Object[0]);
             }
         } else {
-            this.w = 0;
+            this.x = 0;
         }
 
         int i = 1000;
 
-        while (!this.m.isEmpty() && i-- >= 0) {
-            Packet packet = (Packet) this.m.remove(0);
+        while (!this.inboundQueue.isEmpty() && i-- >= 0) {
+            Packet packet = (Packet) this.inboundQueue.remove(0);
 
             packet.handle(this.packetListener);
         }
 
         this.a();
-        if (this.t && this.m.isEmpty()) {
-            this.packetListener.a(this.u, this.v);
+        if (this.n && this.inboundQueue.isEmpty()) {
+            this.packetListener.a(this.v, this.w);
         }
     }
 
     public SocketAddress getSocketAddress() {
-        return this.i;
+        return this.j;
     }
 
     public void d() {
-        if (!this.q) {
+        if (!this.s) {
             this.a();
-            this.q = true;
-            this.s.interrupt();
+            this.s = true;
+            this.u.interrupt();
             (new NetworkMonitorThread(this)).start();
         }
+    }
+
+    private void j() {
+        this.f = true;
+        this.input = new DataInputStream(MinecraftEncryption.a(this.z, this.socket.getInputStream()));
+    }
+
+    private void k() {
+        this.output.flush();
+        this.g = true;
+        this.output = new DataOutputStream(new BufferedOutputStream(MinecraftEncryption.a(this.z, this.socket.getOutputStream()), 5120));
     }
 
     public int e() {
@@ -245,19 +312,19 @@ public class NetworkManager {
     }
 
     static boolean a(NetworkManager networkmanager) {
-        return networkmanager.l;
+        return networkmanager.m;
     }
 
     static boolean b(NetworkManager networkmanager) {
-        return networkmanager.q;
+        return networkmanager.s;
     }
 
     static boolean c(NetworkManager networkmanager) {
-        return networkmanager.h();
+        return networkmanager.i();
     }
 
     static boolean d(NetworkManager networkmanager) {
-        return networkmanager.g();
+        return networkmanager.h();
     }
 
     static DataOutputStream e(NetworkManager networkmanager) {
@@ -265,7 +332,7 @@ public class NetworkManager {
     }
 
     static boolean f(NetworkManager networkmanager) {
-        return networkmanager.t;
+        return networkmanager.n;
     }
 
     static void a(NetworkManager networkmanager, Exception exception) {
@@ -273,10 +340,10 @@ public class NetworkManager {
     }
 
     static Thread g(NetworkManager networkmanager) {
-        return networkmanager.s;
+        return networkmanager.u;
     }
 
     static Thread h(NetworkManager networkmanager) {
-        return networkmanager.r;
+        return networkmanager.t;
     }
 }

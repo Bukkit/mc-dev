@@ -5,15 +5,11 @@ import java.util.Random;
 
 public class WorldGenStrongholdRightTurn extends WorldGenStrongholdLeftTurn {
 
-    public WorldGenStrongholdRightTurn(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
-        super(i, random, structureboundingbox, j);
-    }
-
     public void a(StructurePiece structurepiece, List list, Random random) {
-        if (this.h != 2 && this.h != 3) {
-            this.b((WorldGenStrongholdStairs2) structurepiece, list, random, 1, 1);
+        if (this.f != 2 && this.f != 3) {
+            this.b((WorldGenStrongholdStart) structurepiece, list, random, 1, 1);
         } else {
-            this.c((WorldGenStrongholdStairs2) structurepiece, list, random, 1, 1);
+            this.c((WorldGenStrongholdStart) structurepiece, list, random, 1, 1);
         }
     }
 
@@ -23,7 +19,7 @@ public class WorldGenStrongholdRightTurn extends WorldGenStrongholdLeftTurn {
         } else {
             this.a(world, structureboundingbox, 0, 0, 0, 4, 4, 4, true, random, WorldGenStrongholdPieces.b());
             this.a(world, random, structureboundingbox, this.a, 1, 1, 0);
-            if (this.h != 2 && this.h != 3) {
+            if (this.f != 2 && this.f != 3) {
                 this.a(world, structureboundingbox, 0, 1, 1, 0, 3, 3, 0, 0, false);
             } else {
                 this.a(world, structureboundingbox, 4, 1, 1, 4, 3, 3, 0, 0, false);
