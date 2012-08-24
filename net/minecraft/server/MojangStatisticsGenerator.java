@@ -35,23 +35,23 @@ public class MojangStatisticsGenerator {
     public void a() {
         if (!this.g) {
             this.g = true;
-            this.f();
+            this.g();
             this.e.schedule(new MojangStatisticsTask(this), 0L, 900000L);
         }
     }
 
-    private void f() {
-        this.g();
+    private void g() {
+        this.h();
         this.a("snooper_token", this.b);
         this.a("os_name", System.getProperty("os.name"));
         this.a("os_version", System.getProperty("os.version"));
         this.a("os_architecture", System.getProperty("os.arch"));
         this.a("java_version", System.getProperty("java.version"));
-        this.a("version", "1.3.1");
+        this.a("version", "1.3.2");
         this.d.b(this);
     }
 
-    private void g() {
+    private void h() {
         RuntimeMXBean runtimemxbean = ManagementFactory.getRuntimeMXBean();
         List list = runtimemxbean.getInputArguments();
         int i = 0;

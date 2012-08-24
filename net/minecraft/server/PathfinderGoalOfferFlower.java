@@ -12,7 +12,7 @@ public class PathfinderGoalOfferFlower extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (!this.a.world.r()) {
+        if (!this.a.world.s()) {
             return false;
         } else if (this.a.au().nextInt(8000) != 0) {
             return false;

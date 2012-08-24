@@ -22,7 +22,7 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
 
     public boolean a() {
         this.f();
-        if (this.e && this.a.world.r()) {
+        if (this.e && this.a.world.s()) {
             return false;
         } else {
             Village village = this.a.world.villages.getClosestVillage(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locY), MathHelper.floor(this.a.locZ), 0);

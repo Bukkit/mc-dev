@@ -86,4 +86,6 @@ public abstract class WorldProvider {
     public int getSeaLevel() {
         return this.type == WorldType.FLAT ? 4 : 64;
     }
+
+    public abstract String getName();
 }

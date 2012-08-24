@@ -39,4 +39,8 @@ public class WorldProviderTheEnd extends WorldProvider {
     public int getSeaLevel() {
         return 50;
     }
+
+    public String getName() {
+        return "The End";
+    }
 }

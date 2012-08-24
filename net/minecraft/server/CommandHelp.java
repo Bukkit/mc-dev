@@ -52,7 +52,7 @@ public class CommandHelp extends CommandAbstract {
             icommandlistener.sendMessage(icommand.a(icommandlistener));
         }
 
-        if (j == 0) {
+        if (j == 0 && icommandlistener instanceof EntityHuman) {
             icommandlistener.sendMessage("\u00A7a" + icommandlistener.a("commands.help.footer", new Object[0]));
         }
     }

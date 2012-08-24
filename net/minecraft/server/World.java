@@ -92,7 +92,7 @@ public abstract class World implements IBlockAccess {
         }
 
         this.worldProvider.a(this);
-        this.chunkProvider = this.h();
+        this.chunkProvider = this.i();
         if (!this.worldData.isInitialized()) {
             this.a(worldsettings);
             this.worldData.d(true);
@@ -102,7 +102,7 @@ public abstract class World implements IBlockAccess {
         this.a();
     }
 
-    protected abstract IChunkProvider h();
+    protected abstract IChunkProvider i();
 
     protected void a(WorldSettings worldsettings) {
         this.worldData.d(true);
@@ -515,7 +515,7 @@ public abstract class World implements IBlockAccess {
         return this.worldProvider.f[this.getLightLevel(i, j, k)];
     }
 
-    public boolean r() {
+    public boolean s() {
         return this.k < 4;
     }
 
@@ -1556,7 +1556,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public void doTick() {
-        this.l();
+        this.m();
     }
 
     private void a() {
@@ -1568,7 +1568,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    protected void l() {
+    protected void m() {
         if (!this.worldProvider.e) {
             if (this.r > 0) {
                 --this.r;

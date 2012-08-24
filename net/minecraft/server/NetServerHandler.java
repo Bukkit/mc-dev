@@ -62,6 +62,9 @@ public class NetServerHandler extends NetHandler {
         this.minecraftServer.methodProfiler.c("playerTick");
         if (!this.h && !this.player.viewingCredits) {
             this.player.g();
+            if (this.player.vehicle == null) {
+                this.player.setPositionRotation(this.y, this.z, this.q, this.player.yaw, this.player.pitch);
+            }
         }
 
         this.minecraftServer.methodProfiler.b();
@@ -115,7 +118,7 @@ public class NetServerHandler extends NetHandler {
                     }
 
                     if (packet10flying.hasPos && packet10flying.y == -999.0D && packet10flying.stance == -999.0D) {
-                        if (packet10flying.x > 1.0D || packet10flying.z > 1.0D) {
+                        if (Math.abs(packet10flying.x) > 1.0D || Math.abs(packet10flying.z) > 1.0D) {
                             System.err.println(this.player.name + " was caught trying to crash the server with an invalid position.");
                             this.disconnect("Nope!");
                             return;
@@ -520,10 +523,7 @@ public class NetServerHandler extends NetHandler {
     }
 
     private void handleCommand(String s) {
-        if (this.minecraftServer.getServerConfigurationManager().isOp(this.player.name) || "/seed".equals(s)) {
-            logger.info(this.player.name + " issued server command: " + s);
-            this.minecraftServer.getCommandHandler().a(this.player, s);
-        }
+        this.minecraftServer.getCommandHandler().a(this.player, s);
     }
 
     public void a(Packet18ArmAnimation packet18armanimation) {

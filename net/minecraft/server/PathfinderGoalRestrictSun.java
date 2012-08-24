@@ -9,7 +9,7 @@ public class PathfinderGoalRestrictSun extends PathfinderGoal {
     }
 
     public boolean a() {
-        return this.a.world.r();
+        return this.a.world.s();
     }
 
     public void e() {

@@ -201,7 +201,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
 
                 if (worldserver != null) {
                     if (!flag) {
-                        log.info("Saving chunks for level \'" + worldserver.getWorldData().getName() + "\'/" + worldserver.worldProvider);
+                        log.info("Saving chunks for level \'" + worldserver.getWorldData().getName() + "\'/" + worldserver.worldProvider.getName());
                     }
 
                     try {
@@ -405,10 +405,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
                 while (true) {
                     if (!worldserver.updateLights()) {
                         this.methodProfiler.b();
-                        if (!worldserver.players.isEmpty()) {
-                            worldserver.tickEntities();
-                        }
-
+                        worldserver.tickEntities();
                         this.methodProfiler.a("tracker");
                         worldserver.getTracker().updatePlayers();
                         this.methodProfiler.b();
@@ -517,7 +514,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
             }
 
             if (flag) {
-                dedicatedserver.aj();
+                dedicatedserver.ak();
             }
 
             dedicatedserver.s();
@@ -560,7 +557,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
     }
 
     public String getVersion() {
-        return "1.3.1";
+        return "1.3.2";
     }
 
     public int x() {

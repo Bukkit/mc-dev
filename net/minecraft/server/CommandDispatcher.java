@@ -17,6 +17,7 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
         this.a(new CommandSeed());
         this.a(new CommandHelp());
         this.a(new CommandDebug());
+        this.a(new CommandTell());
         if (MinecraftServer.getServer().S()) {
             this.a(new CommandOp());
             this.a(new CommandDeop());

@@ -136,8 +136,4 @@ public class Packet56MapChunkBulk extends Packet {
     public int d() {
         return this.c.length;
     }
-
-    public boolean a_() {
-        return true;
-    }
 }

@@ -40,4 +40,8 @@ public class WorldProviderHell extends WorldProvider {
     public boolean e() {
         return false;
     }
+
+    public String getName() {
+        return "Nether";
+    }
 }
