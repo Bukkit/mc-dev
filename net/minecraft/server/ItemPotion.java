@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -20,7 +21,27 @@ public class ItemPotion extends Item {
     }
 
     public List l(ItemStack itemstack) {
-        return this.f(itemstack.getData());
+        if (itemstack.hasTag() && itemstack.getTag().hasKey("CustomPotionEffects")) {
+            ArrayList arraylist = new ArrayList();
+            NBTTagList nbttaglist = itemstack.getTag().getList("CustomPotionEffects");
+
+            for (int i = 0; i < nbttaglist.size(); ++i) {
+                NBTTagCompound nbttagcompound = (NBTTagCompound) nbttaglist.get(i);
+
+                arraylist.add(MobEffect.b(nbttagcompound));
+            }
+
+            return arraylist;
+        } else {
+            List list = (List) this.a.get(Integer.valueOf(itemstack.getData()));
+
+            if (list == null) {
+                list = PotionBrewer.getEffects(itemstack.getData(), false);
+                this.a.put(Integer.valueOf(itemstack.getData()), list);
+            }
+
+            return list;
+        }
     }
 
     public List f(int i) {
@@ -68,7 +89,7 @@ public class ItemPotion extends Item {
         return 32;
     }
 
-    public EnumAnimation b(ItemStack itemstack) {
+    public EnumAnimation d_(ItemStack itemstack) {
         return EnumAnimation.c;
     }
 
@@ -80,7 +101,7 @@ public class ItemPotion extends Item {
 
             world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
             if (!world.isStatic) {
-                world.addEntity(new EntityPotion(world, entityhuman, itemstack.getData()));
+                world.addEntity(new EntityPotion(world, entityhuman, itemstack));
             }
 
             return itemstack;
@@ -96,5 +117,29 @@ public class ItemPotion extends Item {
 
     public static boolean g(int i) {
         return (i & 16384) != 0;
+    }
+
+    public String j(ItemStack itemstack) {
+        if (itemstack.getData() == 0) {
+            return LocaleI18n.get("item.emptyPotion.name").trim();
+        } else {
+            String s = "";
+
+            if (g(itemstack.getData())) {
+                s = LocaleI18n.get("potion.prefix.grenade").trim() + " ";
+            }
+
+            List list = Item.POTION.l(itemstack);
+            String s1;
+
+            if (list != null && !list.isEmpty()) {
+                s1 = ((MobEffect) list.get(0)).f();
+                s1 = s1 + ".postfix";
+                return s + LocaleI18n.get(s1).trim();
+            } else {
+                s1 = PotionBrewer.c(itemstack.getData());
+                return LocaleI18n.get(s1).trim() + " " + super.j(itemstack);
+            }
+        }
     }
 }

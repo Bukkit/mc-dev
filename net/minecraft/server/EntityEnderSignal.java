@@ -43,11 +43,11 @@ public class EntityEnderSignal extends Entity {
         this.f = this.random.nextInt(5) > 0;
     }
 
-    public void h_() {
-        this.S = this.locX;
-        this.T = this.locY;
-        this.U = this.locZ;
-        super.h_();
+    public void j_() {
+        this.T = this.locX;
+        this.U = this.locY;
+        this.V = this.locZ;
+        super.j_();
         this.locX += this.motX;
         this.locY += this.motY;
         this.locZ += this.motZ;
@@ -98,10 +98,10 @@ public class EntityEnderSignal extends Entity {
 
         if (this.H()) {
             for (int i = 0; i < 4; ++i) {
-                this.world.a("bubble", this.locX - this.motX * (double) f3, this.locY - this.motY * (double) f3, this.locZ - this.motZ * (double) f3, this.motX, this.motY, this.motZ);
+                this.world.addParticle("bubble", this.locX - this.motX * (double) f3, this.locY - this.motY * (double) f3, this.locZ - this.motZ * (double) f3, this.motX, this.motY, this.motZ);
             }
         } else {
-            this.world.a("portal", this.locX - this.motX * (double) f3 + this.random.nextDouble() * 0.6D - 0.3D, this.locY - this.motY * (double) f3 - 0.5D, this.locZ - this.motZ * (double) f3 + this.random.nextDouble() * 0.6D - 0.3D, this.motX, this.motY, this.motZ);
+            this.world.addParticle("portal", this.locX - this.motX * (double) f3 + this.random.nextDouble() * 0.6D - 0.3D, this.locY - this.motY * (double) f3 - 0.5D, this.locZ - this.motZ * (double) f3 + this.random.nextDouble() * 0.6D - 0.3D, this.motX, this.motY, this.motZ);
         }
 
         if (!this.world.isStatic) {
@@ -126,7 +126,7 @@ public class EntityEnderSignal extends Entity {
         return 1.0F;
     }
 
-    public boolean an() {
+    public boolean aq() {
         return false;
     }
 }

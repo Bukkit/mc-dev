@@ -32,7 +32,7 @@ public class WorldLoaderServer extends WorldLoader {
     public boolean isConvertable(String s) {
         WorldData worlddata = this.c(s);
 
-        return worlddata != null && worlddata.k() != this.c();
+        return worlddata != null && worlddata.l() != this.c();
     }
 
     public boolean convert(String s, IProgressUpdate iprogressupdate) {

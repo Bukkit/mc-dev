@@ -24,11 +24,11 @@ public class BlockEnderPortal extends BlockContainer {
 
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List list, Entity entity) {}
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 
@@ -37,12 +37,12 @@ public class BlockEnderPortal extends BlockContainer {
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        if (entity.vehicle == null && entity.passenger == null && entity instanceof EntityHuman && !world.isStatic) {
-            ((EntityHuman) entity).c(1);
+        if (entity.vehicle == null && entity.passenger == null && !world.isStatic) {
+            entity.b(1);
         }
     }
 
-    public int b() {
+    public int d() {
         return -1;
     }
 

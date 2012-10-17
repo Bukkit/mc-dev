@@ -6,8 +6,12 @@ public class CommandKick extends CommandAbstract {
 
     public CommandKick() {}
 
-    public String b() {
+    public String c() {
         return "kick";
+    }
+
+    public int a() {
+        return 3;
     }
 
     public String a(ICommandListener icommandlistener) {
@@ -24,7 +28,7 @@ public class CommandKick extends CommandAbstract {
                 throw new ExceptionPlayerNotFound();
             } else {
                 if (astring.length >= 2) {
-                    s = a(astring, 1);
+                    s = a(icommandlistener, astring, 1);
                     flag = true;
                 }
 

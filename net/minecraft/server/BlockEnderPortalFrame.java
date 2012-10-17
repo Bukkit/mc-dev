@@ -13,11 +13,11 @@ public class BlockEnderPortalFrame extends Block {
         return i == 1 ? this.textureId - 1 : (i == 0 ? this.textureId + 16 : this.textureId);
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
-    public int b() {
+    public int d() {
         return 26;
     }
 

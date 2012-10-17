@@ -6,11 +6,28 @@ import java.util.Random;
 public class WorldGenVillageFarm extends WorldGenVillagePiece {
 
     private int a = -1;
+    private int b;
+    private int c;
 
     public WorldGenVillageFarm(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(worldgenvillagestartpiece, i);
         this.f = j;
         this.e = structureboundingbox;
+        this.b = this.a(random);
+        this.c = this.a(random);
+    }
+
+    private int a(Random random) {
+        switch (random.nextInt(5)) {
+        case 0:
+            return Block.CARROTS.id;
+
+        case 1:
+            return Block.POTATOES.id;
+
+        default:
+            return Block.CROPS.id;
+        }
     }
 
     public static WorldGenVillageFarm a(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
@@ -41,10 +58,10 @@ public class WorldGenVillageFarm extends WorldGenVillagePiece {
         int i;
 
         for (i = 1; i <= 7; ++i) {
-            this.a(world, Block.CROPS.id, MathHelper.a(random, 2, 7), 1, 1, i, structureboundingbox);
-            this.a(world, Block.CROPS.id, MathHelper.a(random, 2, 7), 2, 1, i, structureboundingbox);
-            this.a(world, Block.CROPS.id, MathHelper.a(random, 2, 7), 4, 1, i, structureboundingbox);
-            this.a(world, Block.CROPS.id, MathHelper.a(random, 2, 7), 5, 1, i, structureboundingbox);
+            this.a(world, this.b, MathHelper.nextInt(random, 2, 7), 1, 1, i, structureboundingbox);
+            this.a(world, this.b, MathHelper.nextInt(random, 2, 7), 2, 1, i, structureboundingbox);
+            this.a(world, this.c, MathHelper.nextInt(random, 2, 7), 4, 1, i, structureboundingbox);
+            this.a(world, this.c, MathHelper.nextInt(random, 2, 7), 5, 1, i, structureboundingbox);
         }
 
         for (i = 0; i < 9; ++i) {

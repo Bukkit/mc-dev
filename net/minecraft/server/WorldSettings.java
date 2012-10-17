@@ -9,8 +9,10 @@ public final class WorldSettings {
     private final WorldType e;
     private boolean f;
     private boolean g;
+    private String h;
 
     public WorldSettings(long i, EnumGamemode enumgamemode, boolean flag, boolean flag1, WorldType worldtype) {
+        this.h = "";
         this.a = i;
         this.b = enumgamemode;
         this.c = flag;
@@ -24,6 +26,11 @@ public final class WorldSettings {
 
     public WorldSettings a() {
         this.g = true;
+        return this;
+    }
+
+    public WorldSettings a(String s) {
+        this.h = s;
         return this;
     }
 
@@ -57,5 +64,9 @@ public final class WorldSettings {
 
     public static EnumGamemode a(int i) {
         return EnumGamemode.a(i);
+    }
+
+    public String j() {
+        return this.h;
     }
 }

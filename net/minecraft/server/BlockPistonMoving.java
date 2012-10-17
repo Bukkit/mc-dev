@@ -19,7 +19,7 @@ public class BlockPistonMoving extends BlockContainer {
         TileEntity tileentity = world.getTileEntity(i, j, k);
 
         if (tileentity instanceof TileEntityPiston) {
-            ((TileEntityPiston) tileentity).i();
+            ((TileEntityPiston) tileentity).f();
         } else {
             super.remove(world, i, j, k, l, i1);
         }
@@ -33,15 +33,15 @@ public class BlockPistonMoving extends BlockContainer {
         return false;
     }
 
-    public int b() {
+    public int d() {
         return -1;
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 
@@ -63,7 +63,7 @@ public class BlockPistonMoving extends BlockContainer {
             TileEntityPiston tileentitypiston = this.d(world, i, j, k);
 
             if (tileentitypiston != null) {
-                Block.byId[tileentitypiston.a()].c(world, i, j, k, tileentitypiston.n(), 0);
+                Block.byId[tileentitypiston.a()].c(world, i, j, k, tileentitypiston.p(), 0);
             }
         }
     }
@@ -113,12 +113,12 @@ public class BlockPistonMoving extends BlockContainer {
 
             int l = tileentitypiston.c();
 
-            this.minX = block.minX - (double) ((float) Facing.b[l] * f);
-            this.minY = block.minY - (double) ((float) Facing.c[l] * f);
-            this.minZ = block.minZ - (double) ((float) Facing.d[l] * f);
-            this.maxX = block.maxX - (double) ((float) Facing.b[l] * f);
-            this.maxY = block.maxY - (double) ((float) Facing.c[l] * f);
-            this.maxZ = block.maxZ - (double) ((float) Facing.d[l] * f);
+            this.minX = block.v() - (double) ((float) Facing.b[l] * f);
+            this.minY = block.x() - (double) ((float) Facing.c[l] * f);
+            this.minZ = block.z() - (double) ((float) Facing.d[l] * f);
+            this.maxX = block.w() - (double) ((float) Facing.b[l] * f);
+            this.maxY = block.y() - (double) ((float) Facing.c[l] * f);
+            this.maxZ = block.A() - (double) ((float) Facing.d[l] * f);
         }
     }
 

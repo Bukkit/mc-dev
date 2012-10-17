@@ -52,6 +52,10 @@ public class ChunkCoordinates implements Comparable {
         return (float) (l * l + i1 * i1 + j1 * j1);
     }
 
+    public float e(ChunkCoordinates chunkcoordinates) {
+        return this.e(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z);
+    }
+
     public int compareTo(Object object) {
         return this.compareTo((ChunkCoordinates) object);
     }

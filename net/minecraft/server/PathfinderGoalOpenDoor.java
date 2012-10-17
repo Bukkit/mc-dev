@@ -15,19 +15,19 @@ public class PathfinderGoalOpenDoor extends PathfinderGoalDoorInteract {
         return this.i && this.j > 0 && super.b();
     }
 
-    public void e() {
+    public void c() {
         this.j = 20;
         this.e.setDoor(this.a.world, this.b, this.c, this.d, true);
     }
 
-    public void c() {
+    public void d() {
         if (this.i) {
             this.e.setDoor(this.a.world, this.b, this.c, this.d, false);
         }
     }
 
-    public void d() {
+    public void e() {
         --this.j;
-        super.d();
+        super.e();
     }
 }

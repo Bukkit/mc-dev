@@ -19,13 +19,13 @@ public class BlockCocoa extends BlockDirectional {
 
             if (i1 < 2) {
                 ++i1;
-                world.setData(i, j, k, i1 << 2 | d(l));
+                world.setData(i, j, k, i1 << 2 | e(l));
             }
         }
     }
 
     public boolean d(World world, int i, int j, int k) {
-        int l = d(world.getData(i, j, k));
+        int l = e(world.getData(i, j, k));
 
         i += Direction.a[l];
         k += Direction.b[l];
@@ -34,15 +34,15 @@ public class BlockCocoa extends BlockDirectional {
         return i1 == Block.LOG.id && BlockLog.e(world.getData(i, j, k)) == 3;
     }
 
-    public int b() {
+    public int d() {
         return 28;
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
@@ -53,7 +53,7 @@ public class BlockCocoa extends BlockDirectional {
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
         int l = iblockaccess.getData(i, j, k);
-        int i1 = d(l);
+        int i1 = e(l);
         int j1 = c(l);
         int k1 = 4 + j1 * 2;
         int l1 = 5 + j1 * 2;
@@ -88,7 +88,7 @@ public class BlockCocoa extends BlockDirectional {
             l = 2;
         }
 
-        int i1 = Direction.e[Direction.d[l]];
+        int i1 = Direction.f[Direction.e[l]];
 
         world.setData(i, j, k, i1);
     }
@@ -115,5 +115,9 @@ public class BlockCocoa extends BlockDirectional {
         for (int k1 = 0; k1 < b0; ++k1) {
             this.a(world, i, j, k, new ItemStack(Item.INK_SACK, 1, 3));
         }
+    }
+
+    public int getDropData(World world, int i, int j, int k) {
+        return 3;
     }
 }

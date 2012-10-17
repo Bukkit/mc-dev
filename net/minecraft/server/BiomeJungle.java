@@ -14,7 +14,7 @@ public class BiomeJungle extends BiomeBase {
     }
 
     public WorldGenerator a(Random random) {
-        return (WorldGenerator) (random.nextInt(10) == 0 ? this.O : (random.nextInt(2) == 0 ? new WorldGenGroundBush(3, 0) : (random.nextInt(3) == 0 ? new WorldGenMegaTree(false, 10 + random.nextInt(20), 3, 3) : new WorldGenTrees(false, 4 + random.nextInt(7), 3, 3, true))));
+        return (WorldGenerator) (random.nextInt(10) == 0 ? this.P : (random.nextInt(2) == 0 ? new WorldGenGroundBush(3, 0) : (random.nextInt(3) == 0 ? new WorldGenMegaTree(false, 10 + random.nextInt(20), 3, 3) : new WorldGenTrees(false, 4 + random.nextInt(7), 3, 3, true))));
     }
 
     public WorldGenerator b(Random random) {

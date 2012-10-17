@@ -8,8 +8,8 @@ public class VillageDoor {
     public final int d;
     public final int e;
     public int addedTime;
-    public boolean g = false;
-    private int h = 0;
+    public boolean removed = false;
+    private int bookings = 0;
 
     public VillageDoor(int i, int j, int k, int l, int i1, int j1) {
         this.locX = i;
@@ -56,14 +56,14 @@ public class VillageDoor {
     }
 
     public void d() {
-        this.h = 0;
+        this.bookings = 0;
     }
 
     public void e() {
-        ++this.h;
+        ++this.bookings;
     }
 
     public int f() {
-        return this.h;
+        return this.bookings;
     }
 }

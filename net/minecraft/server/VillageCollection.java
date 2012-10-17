@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class VillageCollection {
+public class VillageCollection extends WorldMapBase {
 
     private World world;
     private final List b = new ArrayList();
@@ -12,8 +12,25 @@ public class VillageCollection {
     private final List villages = new ArrayList();
     private int time = 0;
 
+    public VillageCollection(String s) {
+        super(s);
+    }
+
     public VillageCollection(World world) {
+        super("villages");
         this.world = world;
+        this.c();
+    }
+
+    public void a(World world) {
+        this.world = world;
+        Iterator iterator = this.villages.iterator();
+
+        while (iterator.hasNext()) {
+            Village village = (Village) iterator.next();
+
+            village.a(world);
+        }
     }
 
     public void a(int i, int j, int k) {
@@ -34,12 +51,15 @@ public class VillageCollection {
             village.tick(this.time);
         }
 
-        this.c();
-        this.d();
         this.e();
+        this.f();
+        this.g();
+        if (this.time % 400 == 0) {
+            this.c();
+        }
     }
 
-    private void c() {
+    private void e() {
         Iterator iterator = this.villages.iterator();
 
         while (iterator.hasNext()) {
@@ -47,6 +67,7 @@ public class VillageCollection {
 
             if (village.isAbandoned()) {
                 iterator.remove();
+                this.c();
             }
         }
     }
@@ -77,13 +98,13 @@ public class VillageCollection {
         return village;
     }
 
-    private void d() {
+    private void f() {
         if (!this.b.isEmpty()) {
             this.a((ChunkCoordinates) this.b.remove(0));
         }
     }
 
-    private void e() {
+    private void g() {
         Iterator iterator = this.c.iterator();
 
         while (iterator.hasNext()) {
@@ -110,6 +131,7 @@ public class VillageCollection {
 
                     village1.addDoor(villagedoor);
                     this.villages.add(village1);
+                    this.c();
                 }
                 break;
             }
@@ -234,5 +256,34 @@ public class VillageCollection {
         int l = this.world.getTypeId(i, j, k);
 
         return l == Block.WOODEN_DOOR.id;
+    }
+
+    public void a(NBTTagCompound nbttagcompound) {
+        this.time = nbttagcompound.getInt("Tick");
+        NBTTagList nbttaglist = nbttagcompound.getList("Villages");
+
+        for (int i = 0; i < nbttaglist.size(); ++i) {
+            NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.get(i);
+            Village village = new Village();
+
+            village.a(nbttagcompound1);
+            this.villages.add(village);
+        }
+    }
+
+    public void b(NBTTagCompound nbttagcompound) {
+        nbttagcompound.setInt("Tick", this.time);
+        NBTTagList nbttaglist = new NBTTagList("Villages");
+        Iterator iterator = this.villages.iterator();
+
+        while (iterator.hasNext()) {
+            Village village = (Village) iterator.next();
+            NBTTagCompound nbttagcompound1 = new NBTTagCompound("Village");
+
+            village.b(nbttagcompound1);
+            nbttaglist.add(nbttagcompound1);
+        }
+
+        nbttagcompound.set("Villages", nbttaglist);
     }
 }

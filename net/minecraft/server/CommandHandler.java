@@ -26,6 +26,7 @@ public class CommandHandler implements ICommandHandler {
 
         astring = a(astring);
         ICommand icommand = (ICommand) this.a.get(s1);
+        int i = this.a(icommand, astring);
 
         try {
             if (icommand == null) {
@@ -33,7 +34,28 @@ public class CommandHandler implements ICommandHandler {
             }
 
             if (icommand.b(icommandlistener)) {
-                icommand.b(icommandlistener, astring);
+                if (i > -1) {
+                    EntityPlayer[] aentityplayer = PlayerSelector.getPlayers(icommandlistener, astring[i]);
+                    String s2 = astring[i];
+                    EntityPlayer[] aentityplayer1 = aentityplayer;
+                    int j = aentityplayer.length;
+
+                    for (int k = 0; k < j; ++k) {
+                        EntityPlayer entityplayer = aentityplayer1[k];
+
+                        astring[i] = entityplayer.getLocalizedName();
+
+                        try {
+                            icommand.b(icommandlistener, astring);
+                        } catch (ExceptionPlayerNotFound exceptionplayernotfound) {
+                            icommandlistener.sendMessage("\u00A7c" + icommandlistener.a(exceptionplayernotfound.getMessage(), exceptionplayernotfound.a()));
+                        }
+                    }
+
+                    astring[i] = s2;
+                } else {
+                    icommand.b(icommandlistener, astring);
+                }
             } else {
                 icommandlistener.sendMessage("\u00A7cYou do not have permission to use this command.");
             }
@@ -48,9 +70,9 @@ public class CommandHandler implements ICommandHandler {
     }
 
     public ICommand a(ICommand icommand) {
-        List list = icommand.a();
+        List list = icommand.b();
 
-        this.a.put(icommand.b(), icommand);
+        this.a.put(icommand.c(), icommand);
         this.b.add(icommand);
         if (list != null) {
             Iterator iterator = list.iterator();
@@ -59,7 +81,7 @@ public class CommandHandler implements ICommandHandler {
                 String s = (String) iterator.next();
                 ICommand icommand1 = (ICommand) this.a.get(s);
 
-                if (icommand1 == null || !icommand1.b().equals(s)) {
+                if (icommand1 == null || !icommand1.c().equals(s)) {
                     this.a.put(s, icommand);
                 }
             }
@@ -125,5 +147,19 @@ public class CommandHandler implements ICommandHandler {
 
     public Map a() {
         return this.a;
+    }
+
+    private int a(ICommand icommand, String[] astring) {
+        if (icommand == null) {
+            return -1;
+        } else {
+            for (int i = 0; i < astring.length; ++i) {
+                if (icommand.a(i) && PlayerSelector.isList(astring[i])) {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
     }
 }

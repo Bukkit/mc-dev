@@ -10,16 +10,20 @@ public abstract class CommandAbstract implements ICommand {
 
     public CommandAbstract() {}
 
-    public String a(ICommandListener icommandlistener) {
-        return "/" + this.b();
+    public int a() {
+        return 4;
     }
 
-    public List a() {
+    public String a(ICommandListener icommandlistener) {
+        return "/" + this.c();
+    }
+
+    public List b() {
         return null;
     }
 
     public boolean b(ICommandListener icommandlistener) {
-        return icommandlistener.b(this.b());
+        return icommandlistener.a(this.a(), this.c());
     }
 
     public List a(ICommandListener icommandlistener, String[] astring) {
@@ -50,15 +54,42 @@ public abstract class CommandAbstract implements ICommand {
         }
     }
 
-    public static EntityHuman c(ICommandListener icommandlistener) {
-        if (icommandlistener instanceof EntityHuman) {
-            return (EntityHuman) icommandlistener;
+    public static double b(ICommandListener icommandlistener, String s) {
+        try {
+            return Double.parseDouble(s);
+        } catch (NumberFormatException numberformatexception) {
+            throw new ExceptionInvalidNumber("commands.generic.double.invalid", new Object[] { s});
+        }
+    }
+
+    public static EntityPlayer c(ICommandListener icommandlistener) {
+        if (icommandlistener instanceof EntityPlayer) {
+            return (EntityPlayer) icommandlistener;
         } else {
             throw new ExceptionPlayerNotFound("You must specify which player you wish to perform this action on.", new Object[0]);
         }
     }
 
-    public static String a(String[] astring, int i) {
+    public static EntityPlayer c(ICommandListener icommandlistener, String s) {
+        EntityPlayer entityplayer = PlayerSelector.getPlayer(icommandlistener, s);
+
+        if (entityplayer != null) {
+            return entityplayer;
+        } else {
+            entityplayer = MinecraftServer.getServer().getServerConfigurationManager().f(s);
+            if (entityplayer == null) {
+                throw new ExceptionPlayerNotFound();
+            } else {
+                return entityplayer;
+            }
+        }
+    }
+
+    public static String a(ICommandListener icommandlistener, String[] astring, int i) {
+        return a(icommandlistener, astring, i, false);
+    }
+
+    public static String a(ICommandListener icommandlistener, String[] astring, int i, boolean flag) {
         StringBuilder stringbuilder = new StringBuilder();
 
         for (int j = i; j < astring.length; ++j) {
@@ -66,7 +97,19 @@ public abstract class CommandAbstract implements ICommand {
                 stringbuilder.append(" ");
             }
 
-            stringbuilder.append(astring[j]);
+            String s = astring[j];
+
+            if (flag) {
+                String s1 = PlayerSelector.getPlayerNames(icommandlistener, s);
+
+                if (s1 != null) {
+                    s = s1;
+                } else if (PlayerSelector.isPattern(s)) {
+                    throw new ExceptionPlayerNotFound();
+                }
+            }
+
+            stringbuilder.append(s);
         }
 
         return stringbuilder.toString();
@@ -129,6 +172,10 @@ public abstract class CommandAbstract implements ICommand {
         return arraylist;
     }
 
+    public boolean a(int i) {
+        return false;
+    }
+
     public static void a(ICommandListener icommandlistener, String s, Object... aobject) {
         a(icommandlistener, 0, s, aobject);
     }
@@ -144,7 +191,7 @@ public abstract class CommandAbstract implements ICommand {
     }
 
     public int a(ICommand icommand) {
-        return this.b().compareTo(icommand.b());
+        return this.c().compareTo(icommand.c());
     }
 
     public int compareTo(Object object) {

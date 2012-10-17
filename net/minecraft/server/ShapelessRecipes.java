@@ -18,7 +18,7 @@ public class ShapelessRecipes implements IRecipe {
         return this.result;
     }
 
-    public boolean a(InventoryCrafting inventorycrafting) {
+    public boolean a(InventoryCrafting inventorycrafting, World world) {
         ArrayList arraylist = new ArrayList(this.ingredients);
 
         for (int i = 0; i < 3; ++i) {
@@ -49,7 +49,7 @@ public class ShapelessRecipes implements IRecipe {
         return arraylist.isEmpty();
     }
 
-    public ItemStack b(InventoryCrafting inventorycrafting) {
+    public ItemStack a(InventoryCrafting inventorycrafting) {
         return this.result.cloneItemStack();
     }
 

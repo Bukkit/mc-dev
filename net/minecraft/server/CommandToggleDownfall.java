@@ -4,17 +4,21 @@ public class CommandToggleDownfall extends CommandAbstract {
 
     public CommandToggleDownfall() {}
 
-    public String b() {
+    public String c() {
         return "toggledownfall";
     }
 
+    public int a() {
+        return 2;
+    }
+
     public void b(ICommandListener icommandlistener, String[] astring) {
-        this.c();
+        this.d();
         a(icommandlistener, "commands.downfall.success", new Object[0]);
     }
 
-    protected void c() {
-        MinecraftServer.getServer().worldServer[0].w();
+    protected void d() {
+        MinecraftServer.getServer().worldServer[0].x();
         MinecraftServer.getServer().worldServer[0].getWorldData().setThundering(true);
     }
 }

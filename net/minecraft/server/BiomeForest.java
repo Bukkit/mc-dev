@@ -12,6 +12,6 @@ public class BiomeForest extends BiomeBase {
     }
 
     public WorldGenerator a(Random random) {
-        return (WorldGenerator) (random.nextInt(5) == 0 ? this.P : (random.nextInt(10) == 0 ? this.O : this.N));
+        return (WorldGenerator) (random.nextInt(5) == 0 ? this.Q : (random.nextInt(10) == 0 ? this.P : this.O));
     }
 }

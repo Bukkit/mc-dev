@@ -44,13 +44,14 @@ public abstract class BiomeBase {
     protected List J;
     protected List K;
     protected List L;
-    private boolean R;
+    protected List M;
     private boolean S;
+    private boolean T;
     public final int id;
-    protected WorldGenTrees N;
-    protected WorldGenBigTree O;
-    protected WorldGenForest P;
-    protected WorldGenSwampTree Q;
+    protected WorldGenTrees O;
+    protected WorldGenBigTree P;
+    protected WorldGenForest Q;
+    protected WorldGenSwampTree R;
 
     protected BiomeBase(int i) {
         this.A = (byte) Block.GRASS.id;
@@ -64,11 +65,12 @@ public abstract class BiomeBase {
         this.J = new ArrayList();
         this.K = new ArrayList();
         this.L = new ArrayList();
-        this.S = true;
-        this.N = new WorldGenTrees(false);
-        this.O = new WorldGenBigTree(false);
-        this.P = new WorldGenForest(false);
-        this.Q = new WorldGenSwampTree();
+        this.M = new ArrayList();
+        this.T = true;
+        this.O = new WorldGenTrees(false);
+        this.P = new WorldGenBigTree(false);
+        this.Q = new WorldGenForest(false);
+        this.R = new WorldGenSwampTree();
         this.id = i;
         biomes[i] = this;
         this.I = this.a();
@@ -83,6 +85,7 @@ public abstract class BiomeBase {
         this.J.add(new BiomeMeta(EntitySlime.class, 10, 4, 4));
         this.J.add(new BiomeMeta(EntityEnderman.class, 1, 1, 4));
         this.L.add(new BiomeMeta(EntitySquid.class, 10, 4, 4));
+        this.M.add(new BiomeMeta(EntityBat.class, 10, 8, 8));
     }
 
     protected BiomeDecorator a() {
@@ -106,12 +109,12 @@ public abstract class BiomeBase {
     }
 
     private BiomeBase m() {
-        this.S = false;
+        this.T = false;
         return this;
     }
 
     public WorldGenerator a(Random random) {
-        return (WorldGenerator) (random.nextInt(10) == 0 ? this.O : this.N);
+        return (WorldGenerator) (random.nextInt(10) == 0 ? this.P : this.O);
     }
 
     public WorldGenerator b(Random random) {
@@ -119,7 +122,7 @@ public abstract class BiomeBase {
     }
 
     protected BiomeBase b() {
-        this.R = true;
+        this.S = true;
         return this;
     }
 
@@ -139,15 +142,15 @@ public abstract class BiomeBase {
     }
 
     public List getMobs(EnumCreatureType enumcreaturetype) {
-        return enumcreaturetype == EnumCreatureType.MONSTER ? this.J : (enumcreaturetype == EnumCreatureType.CREATURE ? this.K : (enumcreaturetype == EnumCreatureType.WATER_CREATURE ? this.L : null));
+        return enumcreaturetype == EnumCreatureType.MONSTER ? this.J : (enumcreaturetype == EnumCreatureType.CREATURE ? this.K : (enumcreaturetype == EnumCreatureType.WATER_CREATURE ? this.L : (enumcreaturetype == EnumCreatureType.AMBIENT ? this.M : null)));
     }
 
     public boolean c() {
-        return this.R;
+        return this.S;
     }
 
     public boolean d() {
-        return this.R ? false : this.S;
+        return this.S ? false : this.T;
     }
 
     public boolean e() {

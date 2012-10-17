@@ -81,7 +81,7 @@ public class EmptyChunk extends Chunk {
 
     public void a(Entity entity, AxisAlignedBB axisalignedbb, List list) {}
 
-    public void a(Class oclass, AxisAlignedBB axisalignedbb, List list) {}
+    public void a(Class oclass, AxisAlignedBB axisalignedbb, List list, IEntitySelector ientityselector) {}
 
     public boolean a(boolean flag) {
         return false;

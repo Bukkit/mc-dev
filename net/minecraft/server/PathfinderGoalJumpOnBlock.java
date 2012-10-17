@@ -18,28 +18,28 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
     }
 
     public boolean a() {
-        return this.a.isTamed() && !this.a.isSitting() && this.a.au().nextDouble() <= 0.006500000134110451D && this.f();
+        return this.a.isTamed() && !this.a.isSitting() && this.a.aA().nextDouble() <= 0.006500000134110451D && this.f();
     }
 
     public boolean b() {
         return this.c <= this.e && this.d <= 60 && this.a(this.a.world, this.f, this.g, this.h);
     }
 
-    public void e() {
+    public void c() {
         this.a.getNavigation().a((double) ((float) this.f) + 0.5D, (double) (this.g + 1), (double) ((float) this.h) + 0.5D, this.b);
         this.c = 0;
         this.d = 0;
-        this.e = this.a.au().nextInt(this.a.au().nextInt(1200) + 1200) + 1200;
-        this.a.r().a(false);
-    }
-
-    public void c() {
-        this.a.setSitting(false);
+        this.e = this.a.aA().nextInt(this.a.aA().nextInt(1200) + 1200) + 1200;
+        this.a.q().a(false);
     }
 
     public void d() {
+        this.a.setSitting(false);
+    }
+
+    public void e() {
         ++this.c;
-        this.a.r().a(false);
+        this.a.q().a(false);
         if (this.a.e((double) this.f, (double) (this.g + 1), (double) this.h) > 1.0D) {
             this.a.setSitting(false);
             this.a.getNavigation().a((double) ((float) this.f) + 0.5D, (double) (this.g + 1), (double) ((float) this.h) + 0.5D, this.b);
@@ -88,7 +88,7 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
                 return true;
             }
 
-            if (l == Block.BED.id && !BlockBed.a_(i1)) {
+            if (l == Block.BED.id && !BlockBed.b_(i1)) {
                 return true;
             }
         }

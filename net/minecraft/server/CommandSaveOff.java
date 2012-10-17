@@ -4,8 +4,12 @@ public class CommandSaveOff extends CommandAbstract {
 
     public CommandSaveOff() {}
 
-    public String b() {
+    public String c() {
         return "save-off";
+    }
+
+    public int a() {
+        return 4;
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {

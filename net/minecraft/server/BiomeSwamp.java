@@ -14,9 +14,10 @@ public class BiomeSwamp extends BiomeBase {
         this.I.I = 1;
         this.I.y = 4;
         this.H = 14745518;
+        this.J.add(new BiomeMeta(EntitySlime.class, 1, 1, 1));
     }
 
     public WorldGenerator a(Random random) {
-        return this.Q;
+        return this.R;
     }
 }

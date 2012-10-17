@@ -9,7 +9,8 @@ public class WorldGenNether extends StructureGenerator {
 
     public WorldGenNether() {
         this.e.add(new BiomeMeta(EntityBlaze.class, 10, 2, 3));
-        this.e.add(new BiomeMeta(EntityPigZombie.class, 10, 4, 4));
+        this.e.add(new BiomeMeta(EntityPigZombie.class, 5, 4, 4));
+        this.e.add(new BiomeMeta(EntitySkeleton.class, 10, 4, 4));
         this.e.add(new BiomeMeta(EntityMagmaCube.class, 3, 4, 4));
     }
 

@@ -12,8 +12,8 @@ public class EntityCaveSpider extends EntitySpider {
         return 12;
     }
 
-    public boolean k(Entity entity) {
-        if (super.k(entity)) {
+    public boolean l(Entity entity) {
+        if (super.l(entity)) {
             if (entity instanceof EntityLiving) {
                 byte b0 = 0;
 
@@ -35,4 +35,6 @@ public class EntityCaveSpider extends EntitySpider {
             return false;
         }
     }
+
+    public void bD() {}
 }

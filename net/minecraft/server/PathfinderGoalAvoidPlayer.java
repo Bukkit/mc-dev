@@ -43,17 +43,17 @@ public class PathfinderGoalAvoidPlayer extends PathfinderGoal {
             this.d = (Entity) list.get(0);
         }
 
-        if (!this.a.at().canSee(this.d)) {
+        if (!this.a.az().canSee(this.d)) {
             return false;
         } else {
-            Vec3D vec3d = RandomPositionGenerator.b(this.a, 16, 7, Vec3D.a().create(this.d.locX, this.d.locY, this.d.locZ));
+            Vec3D vec3d = RandomPositionGenerator.b(this.a, 16, 7, this.a.world.getVec3DPool().create(this.d.locX, this.d.locY, this.d.locZ));
 
             if (vec3d == null) {
                 return false;
-            } else if (this.d.e(vec3d.a, vec3d.b, vec3d.c) < this.d.e((Entity) this.a)) {
+            } else if (this.d.e(vec3d.c, vec3d.d, vec3d.e) < this.d.e((Entity) this.a)) {
                 return false;
             } else {
-                this.f = this.g.a(vec3d.a, vec3d.b, vec3d.c);
+                this.f = this.g.a(vec3d.c, vec3d.d, vec3d.e);
                 return this.f == null ? false : this.f.b(vec3d);
             }
         }
@@ -63,15 +63,15 @@ public class PathfinderGoalAvoidPlayer extends PathfinderGoal {
         return !this.g.f();
     }
 
-    public void e() {
+    public void c() {
         this.g.a(this.f, this.b);
     }
 
-    public void c() {
+    public void d() {
         this.d = null;
     }
 
-    public void d() {
+    public void e() {
         if (this.a.e(this.d) < 49.0D) {
             this.a.getNavigation().a(this.c);
         } else {

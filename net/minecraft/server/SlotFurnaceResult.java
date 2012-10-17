@@ -22,17 +22,17 @@ public class SlotFurnaceResult extends Slot {
         return super.a(i);
     }
 
-    public void b(ItemStack itemstack) {
-        this.c(itemstack);
-        super.b(itemstack);
+    public void a(EntityHuman entityhuman, ItemStack itemstack) {
+        this.b(itemstack);
+        super.a(entityhuman, itemstack);
     }
 
     protected void a(ItemStack itemstack, int i) {
         this.b += i;
-        this.c(itemstack);
+        this.b(itemstack);
     }
 
-    protected void c(ItemStack itemstack) {
+    protected void b(ItemStack itemstack) {
         itemstack.a(this.a.world, this.a, this.b);
         if (!this.a.world.isStatic) {
             int i = this.b;

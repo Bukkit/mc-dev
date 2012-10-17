@@ -36,7 +36,7 @@ abstract class WorldGenScatteredPiece extends StructurePiece {
             for (int l = this.e.c; l <= this.e.f; ++l) {
                 for (int i1 = this.e.a; i1 <= this.e.d; ++i1) {
                     if (structureboundingbox.b(i1, 64, l)) {
-                        j += Math.max(world.h(i1, l), world.worldProvider.getSeaLevel());
+                        j += Math.max(world.i(i1, l), world.worldProvider.getSeaLevel());
                         ++k;
                     }
                 }

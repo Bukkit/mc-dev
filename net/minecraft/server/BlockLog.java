@@ -12,7 +12,7 @@ public class BlockLog extends Block {
         this.a(CreativeModeTab.b);
     }
 
-    public int b() {
+    public int d() {
         return 31;
     }
 
@@ -28,7 +28,7 @@ public class BlockLog extends Block {
         byte b0 = 4;
         int j1 = b0 + 1;
 
-        if (world.c(i - j1, j - j1, k - j1, i + j1, j + j1, k + j1)) {
+        if (world.d(i - j1, j - j1, k - j1, i + j1, j + j1, k + j1)) {
             for (int k1 = -b0; k1 <= b0; ++k1) {
                 for (int l1 = -b0; l1 <= b0; ++l1) {
                     for (int i2 = -b0; i2 <= b0; ++i2) {
@@ -47,12 +47,11 @@ public class BlockLog extends Block {
         }
     }
 
-    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
-        int l = world.getData(i, j, k) & 3;
-        int i1 = BlockPiston.b(world, i, j, k, (EntityHuman) entityliving);
+    public void postPlace(World world, int i, int j, int k, int l, float f, float f1, float f2) {
+        int i1 = world.getData(i, j, k) & 3;
         byte b0 = 0;
 
-        switch (i1) {
+        switch (l) {
         case 0:
         case 1:
             b0 = 0;
@@ -68,7 +67,7 @@ public class BlockLog extends Block {
             b0 = 4;
         }
 
-        world.setData(i, j, k, l | b0);
+        world.setData(i, j, k, i1 | b0);
     }
 
     public int a(int i, int j) {
@@ -78,7 +77,7 @@ public class BlockLog extends Block {
         return k == 0 && (i == 1 || i == 0) ? 21 : (k == 4 && (i == 5 || i == 4) ? 21 : (k == 8 && (i == 2 || i == 3) ? 21 : (l == 1 ? 116 : (l == 2 ? 117 : (l == 3 ? 153 : 20)))));
     }
 
-    protected int getDropData(int i) {
+    public int getDropData(int i) {
         return i & 3;
     }
 
@@ -86,7 +85,7 @@ public class BlockLog extends Block {
         return i & 3;
     }
 
-    protected ItemStack c_(int i) {
+    protected ItemStack f_(int i) {
         return new ItemStack(this.id, 1, e(i));
     }
 }

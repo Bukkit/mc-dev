@@ -37,11 +37,11 @@ public class RemoteStatusListener extends RemoteConnectionThread {
     public RemoteStatusListener(IMinecraftServer iminecraftserver) {
         super(iminecraftserver);
         this.bindPort = iminecraftserver.a("query.port", 0);
-        this.motd = iminecraftserver.t();
-        this.serverPort = iminecraftserver.u();
-        this.localAddress = iminecraftserver.v();
-        this.maxPlayers = iminecraftserver.y();
-        this.worldName = iminecraftserver.I();
+        this.motd = iminecraftserver.u();
+        this.serverPort = iminecraftserver.v();
+        this.localAddress = iminecraftserver.w();
+        this.maxPlayers = iminecraftserver.z();
+        this.worldName = iminecraftserver.J();
         this.cacheTime = 0L;
         this.hostname = "0.0.0.0";
         if (0 != this.motd.length() && !this.hostname.equals(this.motd)) {
@@ -54,7 +54,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
 
                 this.hostname = inetaddress.getHostAddress();
             } catch (UnknownHostException unknownhostexception) {
-                this.warning("Unable to determine local host IP, please set server-ip in \'" + iminecraftserver.c() + "\' : " + unknownhostexception.getMessage());
+                this.warning("Unable to determine local host IP, please set server-ip in \'" + iminecraftserver.b_() + "\' : " + unknownhostexception.getMessage());
             }
         }
 
@@ -251,7 +251,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
                     super.a();
                 }
             } else {
-                this.warning("Invalid query port " + this.bindPort + " found in \'" + this.server.c() + "\' (queries disabled)");
+                this.warning("Invalid query port " + this.bindPort + " found in \'" + this.server.b_() + "\' (queries disabled)");
             }
         }
     }

@@ -12,21 +12,21 @@ public abstract class PathfinderGoal {
         return this.a();
     }
 
-    public boolean g() {
+    public boolean i() {
         return true;
     }
-
-    public void e() {}
 
     public void c() {}
 
     public void d() {}
 
+    public void e() {}
+
     public void a(int i) {
         this.a = i;
     }
 
-    public int h() {
+    public int j() {
         return this.a;
     }
 }

@@ -29,8 +29,8 @@ public abstract class EntityAgeable extends EntityCreature {
         this.setAge(nbttagcompound.getInt("Age"));
     }
 
-    public void d() {
-        super.d();
+    public void c() {
+        super.c();
         int i = this.getAge();
 
         if (i < 0) {

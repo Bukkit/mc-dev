@@ -20,16 +20,16 @@ public class PathfinderGoalSit extends PathfinderGoal {
         } else {
             EntityLiving entityliving = this.a.getOwner();
 
-            return entityliving == null ? true : (this.a.e(entityliving) < 144.0D && entityliving.av() != null ? false : this.b);
+            return entityliving == null ? true : (this.a.e(entityliving) < 144.0D && entityliving.aB() != null ? false : this.b);
         }
     }
 
-    public void e() {
+    public void c() {
         this.a.getNavigation().g();
         this.a.setSitting(true);
     }
 
-    public void c() {
+    public void d() {
         this.a.setSitting(false);
     }
 

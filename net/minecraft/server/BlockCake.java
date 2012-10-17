@@ -42,11 +42,11 @@ public class BlockCake extends Block {
         return i == 1 ? this.textureId : (i == 0 ? this.textureId + 3 : this.textureId + 1);
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
@@ -60,7 +60,7 @@ public class BlockCake extends Block {
     }
 
     private void b(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (entityhuman.e(false)) {
+        if (entityhuman.f(false)) {
             entityhuman.getFoodData().eat(2, 0.1F);
             int l = world.getData(i, j, k) + 1;
 

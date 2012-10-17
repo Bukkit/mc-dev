@@ -37,6 +37,14 @@ public class DataWatcher {
         }
     }
 
+    public void a(int i, int j) {
+        WatchableObject watchableobject = new WatchableObject(j, i, null);
+
+        this.d.writeLock().lock();
+        this.b.put(Integer.valueOf(i), watchableobject);
+        this.d.writeLock().unlock();
+    }
+
     public byte getByte(int i) {
         return ((Byte) this.i(i).b()).byteValue();
     }
@@ -51,6 +59,10 @@ public class DataWatcher {
 
     public String getString(int i) {
         return (String) this.i(i).b();
+    }
+
+    public ItemStack f(int i) {
+        return (ItemStack) this.i(i).b();
     }
 
     private WatchableObject i(int i) {
@@ -79,6 +91,11 @@ public class DataWatcher {
             watchableobject.a(true);
             this.c = true;
         }
+    }
+
+    public void h(int i) {
+        WatchableObject.a(this.i(i), true);
+        this.c = true;
     }
 
     public boolean a() {
@@ -140,6 +157,24 @@ public class DataWatcher {
         dataoutputstream.writeByte(127);
     }
 
+    public List c() {
+        ArrayList arraylist = null;
+
+        this.d.readLock().lock();
+
+        WatchableObject watchableobject;
+
+        for (Iterator iterator = this.b.values().iterator(); iterator.hasNext(); arraylist.add(watchableobject)) {
+            watchableobject = (WatchableObject) iterator.next();
+            if (arraylist == null) {
+                arraylist = new ArrayList();
+            }
+        }
+
+        this.d.readLock().unlock();
+        return arraylist;
+    }
+
     private static void a(DataOutputStream dataoutputstream, WatchableObject watchableobject) {
         int i = (watchableobject.c() << 5 | watchableobject.a() & 31) & 255;
 
@@ -168,9 +203,13 @@ public class DataWatcher {
         case 5:
             ItemStack itemstack = (ItemStack) watchableobject.b();
 
-            dataoutputstream.writeShort(itemstack.getItem().id);
-            dataoutputstream.writeByte(itemstack.count);
-            dataoutputstream.writeShort(itemstack.getData());
+            if (itemstack == null) {
+                dataoutputstream.writeShort(-1);
+            } else {
+                dataoutputstream.writeShort(itemstack.getItem().id);
+                dataoutputstream.writeByte(itemstack.count);
+                dataoutputstream.writeShort(itemstack.getData());
+            }
             break;
 
         case 6:
@@ -217,10 +256,15 @@ public class DataWatcher {
 
             case 5:
                 short short1 = datainputstream.readShort();
-                byte b1 = datainputstream.readByte();
-                short short2 = datainputstream.readShort();
 
-                watchableobject = new WatchableObject(i, j, new ItemStack(short1, b1, short2));
+                if (short1 > -1) {
+                    byte b1 = datainputstream.readByte();
+                    short short2 = datainputstream.readShort();
+
+                    watchableobject = new WatchableObject(i, j, new ItemStack(short1, b1, short2));
+                } else {
+                    watchableobject = new WatchableObject(i, j, null);
+                }
                 break;
 
             case 6:

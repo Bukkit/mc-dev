@@ -4,7 +4,7 @@ public class SlotResult extends Slot {
 
     private final IInventory a;
     private EntityHuman b;
-    private int g;
+    private int c;
 
     public SlotResult(EntityHuman entityhuman, IInventory iinventory, IInventory iinventory1, int i, int j, int k) {
         super(iinventory1, i, j, k);
@@ -18,20 +18,20 @@ public class SlotResult extends Slot {
 
     public ItemStack a(int i) {
         if (this.d()) {
-            this.g += Math.min(i, this.getItem().count);
+            this.c += Math.min(i, this.getItem().count);
         }
 
         return super.a(i);
     }
 
     protected void a(ItemStack itemstack, int i) {
-        this.g += i;
-        this.c(itemstack);
+        this.c += i;
+        this.b(itemstack);
     }
 
-    protected void c(ItemStack itemstack) {
-        itemstack.a(this.b.world, this.b, this.g);
-        this.g = 0;
+    protected void b(ItemStack itemstack) {
+        itemstack.a(this.b.world, this.b, this.c);
+        this.c = 0;
         if (itemstack.id == Block.WORKBENCH.id) {
             this.b.a((Statistic) AchievementList.h, 1);
         } else if (itemstack.id == Item.WOOD_PICKAXE.id) {
@@ -55,16 +55,16 @@ public class SlotResult extends Slot {
         }
     }
 
-    public void b(ItemStack itemstack) {
-        this.c(itemstack);
+    public void a(EntityHuman entityhuman, ItemStack itemstack) {
+        this.b(itemstack);
 
         for (int i = 0; i < this.a.getSize(); ++i) {
             ItemStack itemstack1 = this.a.getItem(i);
 
             if (itemstack1 != null) {
                 this.a.splitStack(i, 1);
-                if (itemstack1.getItem().r()) {
-                    ItemStack itemstack2 = new ItemStack(itemstack1.getItem().q());
+                if (itemstack1.getItem().s()) {
+                    ItemStack itemstack2 = new ItemStack(itemstack1.getItem().r());
 
                     if (!itemstack1.getItem().h(itemstack1) || !this.b.inventory.pickup(itemstack2)) {
                         if (this.a.getItem(i) == null) {

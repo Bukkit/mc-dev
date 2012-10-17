@@ -6,7 +6,7 @@ public interface Convertable {
 
     void d();
 
-    void e(String s);
+    boolean e(String s);
 
     boolean isConvertable(String s);
 

@@ -16,5 +16,6 @@ public class RecipesCrafting {
         craftingmanager.registerShapedRecipe(new ItemStack(Block.IRON_FENCE, 16), new Object[] { "###", "###", Character.valueOf('#'), Item.IRON_INGOT});
         craftingmanager.registerShapedRecipe(new ItemStack(Block.THIN_GLASS, 16), new Object[] { "###", "###", Character.valueOf('#'), Block.GLASS});
         craftingmanager.registerShapedRecipe(new ItemStack(Block.REDSTONE_LAMP_OFF, 1), new Object[] { " R ", "RGR", " R ", Character.valueOf('R'), Item.REDSTONE, Character.valueOf('G'), Block.GLOWSTONE});
+        craftingmanager.registerShapedRecipe(new ItemStack(Block.BEACON, 1), new Object[] { "GGG", "GSG", "OOO", Character.valueOf('G'), Block.GLASS, Character.valueOf('S'), Item.NETHER_STAR, Character.valueOf('O'), Block.OBSIDIAN});
     }
 }

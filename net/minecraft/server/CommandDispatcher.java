@@ -7,9 +7,11 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
     public CommandDispatcher() {
         this.a(new CommandTime());
         this.a(new CommandGamemode());
+        this.a(new CommandDifficulty());
         this.a(new CommandGamemodeDefault());
         this.a(new CommandKill());
         this.a(new CommandToggleDownfall());
+        this.a(new CommandWeather());
         this.a(new CommandXp());
         this.a(new CommandTp());
         this.a(new CommandGive());
@@ -18,7 +20,11 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
         this.a(new CommandHelp());
         this.a(new CommandDebug());
         this.a(new CommandTell());
-        if (MinecraftServer.getServer().S()) {
+        this.a(new CommandSay());
+        this.a(new CommandSpawnpoint());
+        this.a(new CommandGamerule());
+        this.a(new CommandClear());
+        if (MinecraftServer.getServer().T()) {
             this.a(new CommandOp());
             this.a(new CommandDeop());
             this.a(new CommandStop());
@@ -32,7 +38,6 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
             this.a(new CommandPardon());
             this.a(new CommandKick());
             this.a(new CommandList());
-            this.a(new CommandSay());
             this.a(new CommandWhitelist());
         } else {
             this.a(new CommandPublish());
@@ -42,13 +47,21 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
     }
 
     public void a(ICommandListener icommandlistener, int i, String s, Object... aobject) {
-        Iterator iterator = MinecraftServer.getServer().getServerConfigurationManager().players.iterator();
+        boolean flag = true;
 
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
+        if (icommandlistener instanceof TileEntityCommand && !MinecraftServer.getServer().worldServer[0].getGameRules().getBoolean("commandBlockOutput")) {
+            flag = false;
+        }
 
-            if (entityplayer != icommandlistener && MinecraftServer.getServer().getServerConfigurationManager().isOp(entityplayer.name)) {
-                entityplayer.sendMessage("\u00A77\u00A7o[" + icommandlistener.getName() + ": " + entityplayer.a(s, aobject) + "]");
+        if (flag) {
+            Iterator iterator = MinecraftServer.getServer().getServerConfigurationManager().players.iterator();
+
+            while (iterator.hasNext()) {
+                EntityPlayer entityplayer = (EntityPlayer) iterator.next();
+
+                if (entityplayer != icommandlistener && MinecraftServer.getServer().getServerConfigurationManager().isOp(entityplayer.name)) {
+                    entityplayer.sendMessage("\u00A77\u00A7o[" + icommandlistener.getName() + ": " + entityplayer.a(s, aobject) + "]");
+                }
             }
         }
 

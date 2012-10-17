@@ -4,15 +4,17 @@ import java.util.List;
 
 public interface ICommand extends Comparable {
 
-    String b();
+    String c();
 
     String a(ICommandListener icommandlistener);
 
-    List a();
+    List b();
 
     void b(ICommandListener icommandlistener, String[] astring);
 
     boolean b(ICommandListener icommandlistener);
 
     List a(ICommandListener icommandlistener, String[] astring);
+
+    boolean a(int i);
 }

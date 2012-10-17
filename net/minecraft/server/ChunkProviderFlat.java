@@ -1,39 +1,72 @@
 package net.minecraft.server;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class ChunkProviderFlat implements IChunkProvider {
 
     private World a;
     private Random b;
-    private final boolean c;
-    private WorldGenVillage d = new WorldGenVillage(1);
+    private final byte[] c = new byte[256];
+    private final byte[] d = new byte[256];
+    private final WorldGenFlatInfo e;
+    private final List f = new ArrayList();
+    private final boolean g;
+    private final boolean h;
+    private WorldGenLakes i;
+    private WorldGenLakes j;
 
-    public ChunkProviderFlat(World world, long i, boolean flag) {
+    public ChunkProviderFlat(World world, long i, boolean flag, String s) {
         this.a = world;
-        this.c = flag;
         this.b = new Random(i);
-    }
+        this.e = WorldGenFlatInfo.a(s);
+        if (flag) {
+            Map map = this.e.b();
 
-    private void a(byte[] abyte) {
-        int i = abyte.length / 256;
+            if (map.containsKey("village")) {
+                Map map1 = (Map) map.get("village");
 
-        for (int j = 0; j < 16; ++j) {
-            for (int k = 0; k < 16; ++k) {
-                for (int l = 0; l < i; ++l) {
-                    int i1 = 0;
-
-                    if (l == 0) {
-                        i1 = Block.BEDROCK.id;
-                    } else if (l <= 2) {
-                        i1 = Block.DIRT.id;
-                    } else if (l == 3) {
-                        i1 = Block.GRASS.id;
-                    }
-
-                    abyte[j << 11 | k << 7 | l] = (byte) i1;
+                if (!map1.containsKey("size")) {
+                    map1.put("size", "1");
                 }
+
+                this.f.add(new WorldGenVillage(map1));
+            }
+
+            if (map.containsKey("biome_1")) {
+                this.f.add(new WorldGenLargeFeature((Map) map.get("biome_1")));
+            }
+
+            if (map.containsKey("mineshaft")) {
+                this.f.add(new WorldGenMineshaft((Map) map.get("mineshaft")));
+            }
+
+            if (map.containsKey("stronghold")) {
+                this.f.add(new WorldGenStronghold((Map) map.get("stronghold")));
+            }
+        }
+
+        this.g = this.e.b().containsKey("decoration");
+        if (this.e.b().containsKey("lake")) {
+            this.i = new WorldGenLakes(Block.STATIONARY_WATER.id);
+        }
+
+        if (this.e.b().containsKey("lava_lake")) {
+            this.j = new WorldGenLakes(Block.STATIONARY_LAVA.id);
+        }
+
+        this.h = this.e.b().containsKey("dungeon");
+        Iterator iterator = this.e.c().iterator();
+
+        while (iterator.hasNext()) {
+            WorldGenFlatLayerInfo worldgenflatlayerinfo = (WorldGenFlatLayerInfo) iterator.next();
+
+            for (int j = worldgenflatlayerinfo.d(); j < worldgenflatlayerinfo.d() + worldgenflatlayerinfo.a(); ++j) {
+                this.c[j] = (byte) (worldgenflatlayerinfo.b() & 255);
+                this.d[j] = (byte) worldgenflatlayerinfo.c();
             }
         }
     }
@@ -43,20 +76,39 @@ public class ChunkProviderFlat implements IChunkProvider {
     }
 
     public Chunk getOrCreateChunk(int i, int j) {
-        byte[] abyte = new byte['\u8000'];
+        Chunk chunk = new Chunk(this.a, i, j);
 
-        this.a(abyte);
-        Chunk chunk = new Chunk(this.a, abyte, i, j);
+        for (int k = 0; k < this.c.length; ++k) {
+            int l = k >> 4;
+            ChunkSection chunksection = chunk.i()[l];
 
-        if (this.c) {
-            this.d.a(this, this.a, i, j, abyte);
+            if (chunksection == null) {
+                chunksection = new ChunkSection(k);
+                chunk.i()[l] = chunksection;
+            }
+
+            for (int i1 = 0; i1 < 16; ++i1) {
+                for (int j1 = 0; j1 < 16; ++j1) {
+                    chunksection.a(i1, k & 15, j1, this.c[k] & 255);
+                    chunksection.b(i1, k & 15, j1, this.d[k]);
+                }
+            }
         }
 
+        chunk.initLighting();
         BiomeBase[] abiomebase = this.a.getWorldChunkManager().getBiomeBlock((BiomeBase[]) null, i * 16, j * 16, 16, 16);
-        byte[] abyte1 = chunk.m();
+        byte[] abyte = chunk.m();
 
-        for (int k = 0; k < abyte1.length; ++k) {
-            abyte1[k] = (byte) abiomebase[k].id;
+        for (int k1 = 0; k1 < abyte.length; ++k1) {
+            abyte[k1] = (byte) abiomebase[k1].id;
+        }
+
+        Iterator iterator = this.f.iterator();
+
+        while (iterator.hasNext()) {
+            StructureGenerator structuregenerator = (StructureGenerator) iterator.next();
+
+            structuregenerator.a(this, this.a, i, j, (byte[]) null);
         }
 
         chunk.initLighting();
@@ -68,13 +120,59 @@ public class ChunkProviderFlat implements IChunkProvider {
     }
 
     public void getChunkAt(IChunkProvider ichunkprovider, int i, int j) {
-        this.b.setSeed(this.a.getSeed());
-        long k = this.b.nextLong() / 2L * 2L + 1L;
-        long l = this.b.nextLong() / 2L * 2L + 1L;
+        int k = i * 16;
+        int l = j * 16;
+        BiomeBase biomebase = this.a.getBiome(k + 16, l + 16);
+        boolean flag = false;
 
-        this.b.setSeed((long) i * k + (long) j * l ^ this.a.getSeed());
-        if (this.c) {
-            this.d.a(this.a, this.b, i, j);
+        this.b.setSeed(this.a.getSeed());
+        long i1 = this.b.nextLong() / 2L * 2L + 1L;
+        long j1 = this.b.nextLong() / 2L * 2L + 1L;
+
+        this.b.setSeed((long) i * i1 + (long) j * j1 ^ this.a.getSeed());
+        Iterator iterator = this.f.iterator();
+
+        while (iterator.hasNext()) {
+            StructureGenerator structuregenerator = (StructureGenerator) iterator.next();
+            boolean flag1 = structuregenerator.a(this.a, this.b, i, j);
+
+            if (structuregenerator instanceof WorldGenVillage) {
+                flag |= flag1;
+            }
+        }
+
+        int k1;
+        int l1;
+        int i2;
+
+        if (this.i != null && !flag && this.b.nextInt(4) == 0) {
+            l1 = k + this.b.nextInt(16) + 8;
+            k1 = this.b.nextInt(128);
+            i2 = l + this.b.nextInt(16) + 8;
+            this.i.a(this.a, this.b, l1, k1, i2);
+        }
+
+        if (this.j != null && !flag && this.b.nextInt(8) == 0) {
+            l1 = k + this.b.nextInt(16) + 8;
+            k1 = this.b.nextInt(this.b.nextInt(120) + 8);
+            i2 = l + this.b.nextInt(16) + 8;
+            if (k1 < 63 || this.b.nextInt(10) == 0) {
+                this.j.a(this.a, this.b, l1, k1, i2);
+            }
+        }
+
+        if (this.h) {
+            for (l1 = 0; l1 < 8; ++l1) {
+                k1 = k + this.b.nextInt(16) + 8;
+                i2 = this.b.nextInt(128);
+                int j2 = l + this.b.nextInt(16) + 8;
+
+                (new WorldGenDungeons()).a(this.a, this.b, k1, i2, j2);
+            }
+        }
+
+        if (this.g) {
+            biomebase.a(this.a, this.b, k, l);
         }
     }
 
@@ -101,10 +199,32 @@ public class ChunkProviderFlat implements IChunkProvider {
     }
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {
+        if ("Stronghold".equals(s)) {
+            Iterator iterator = this.f.iterator();
+
+            while (iterator.hasNext()) {
+                StructureGenerator structuregenerator = (StructureGenerator) iterator.next();
+
+                if (structuregenerator instanceof WorldGenStronghold) {
+                    return structuregenerator.getNearestGeneratedFeature(world, i, j, k);
+                }
+            }
+        }
+
         return null;
     }
 
     public int getLoadedChunks() {
         return 0;
+    }
+
+    public void recreateStructures(int i, int j) {
+        Iterator iterator = this.f.iterator();
+
+        while (iterator.hasNext()) {
+            StructureGenerator structuregenerator = (StructureGenerator) iterator.next();
+
+            structuregenerator.a(this, this.a, i, j, (byte[]) null);
+        }
     }
 }

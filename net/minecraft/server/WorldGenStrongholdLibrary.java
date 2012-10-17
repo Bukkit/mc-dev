@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class WorldGenStrongholdLibrary extends WorldGenStrongholdPiece {
 
-    private static final StructurePieceTreasure[] b = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.BOOK.id, 0, 1, 3, 20), new StructurePieceTreasure(Item.PAPER.id, 0, 2, 7, 20), new StructurePieceTreasure(Item.MAP.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.COMPASS.id, 0, 1, 1, 1)};
+    private static final StructurePieceTreasure[] b = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.BOOK.id, 0, 1, 3, 20), new StructurePieceTreasure(Item.PAPER.id, 0, 2, 7, 20), new StructurePieceTreasure(Item.MAP_EMPTY.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.COMPASS.id, 0, 1, 1, 1)};
     protected final WorldGenStrongholdDoorType a;
     private final boolean c;
 

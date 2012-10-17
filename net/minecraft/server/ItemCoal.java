@@ -9,7 +9,7 @@ public class ItemCoal extends Item {
         this.a(CreativeModeTab.l);
     }
 
-    public String c(ItemStack itemstack) {
+    public String c_(ItemStack itemstack) {
         return itemstack.getData() == 1 ? "item.charcoal" : "item.coal";
     }
 }

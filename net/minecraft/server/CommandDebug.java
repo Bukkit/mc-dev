@@ -15,17 +15,21 @@ public class CommandDebug extends CommandAbstract {
 
     public CommandDebug() {}
 
-    public String b() {
+    public String c() {
         return "debug";
+    }
+
+    public int a() {
+        return 3;
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length == 1) {
             if (astring[0].equals("start")) {
                 a(icommandlistener, "commands.debug.start", new Object[0]);
-                MinecraftServer.getServer().ag();
+                MinecraftServer.getServer().ai();
                 this.a = System.currentTimeMillis();
-                this.b = MinecraftServer.getServer().af();
+                this.b = MinecraftServer.getServer().ah();
                 return;
             }
 
@@ -35,7 +39,7 @@ public class CommandDebug extends CommandAbstract {
                 }
 
                 long i = System.currentTimeMillis();
-                int j = MinecraftServer.getServer().af();
+                int j = MinecraftServer.getServer().ah();
                 long k = i - this.a;
                 int l = j - this.b;
 
@@ -50,7 +54,7 @@ public class CommandDebug extends CommandAbstract {
     }
 
     private void a(long i, int j) {
-        File file1 = new File(MinecraftServer.getServer().f("debug"), "profile-results-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + ".txt");
+        File file1 = new File(MinecraftServer.getServer().e("debug"), "profile-results-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + ".txt");
 
         file1.getParentFile().mkdirs();
 
@@ -69,7 +73,7 @@ public class CommandDebug extends CommandAbstract {
 
         stringbuilder.append("---- Minecraft Profiler Results ----\n");
         stringbuilder.append("// ");
-        stringbuilder.append(c());
+        stringbuilder.append(d());
         stringbuilder.append("\n\n");
         stringbuilder.append("Time span: ").append(i).append(" ms\n");
         stringbuilder.append("Tick span: ").append(j).append(" ticks\n");
@@ -110,7 +114,7 @@ public class CommandDebug extends CommandAbstract {
         }
     }
 
-    private static String c() {
+    private static String d() {
         String[] astring = new String[] { "Shiny numbers!", "Am I not running fast enough? :(", "I\'m working as hard as I can!", "Will I ever be good enough for you? :(", "Speedy. Zoooooom!", "Hello world", "40% better than a crash report.", "Now with extra numbers", "Now with less numbers", "Now with the same numbers", "You should add flames to things, it makes them go faster!", "Do you feel the need for... optimization?", "*cracks redstone whip*", "Maybe if you treated it better then it\'ll have more motivation to work faster! Poor server."};
 
         try {

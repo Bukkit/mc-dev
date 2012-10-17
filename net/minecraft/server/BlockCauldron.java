@@ -34,15 +34,15 @@ public class BlockCauldron extends Block {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
-    public int b() {
+    public int d() {
         return 24;
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 
@@ -68,21 +68,29 @@ public class BlockCauldron extends Block {
 
                     return true;
                 } else {
-                    if (itemstack.id == Item.GLASS_BOTTLE.id && i1 > 0) {
-                        ItemStack itemstack1 = new ItemStack(Item.POTION, 1, 0);
+                    if (itemstack.id == Item.GLASS_BOTTLE.id) {
+                        if (i1 > 0) {
+                            ItemStack itemstack1 = new ItemStack(Item.POTION, 1, 0);
 
-                        if (!entityhuman.inventory.pickup(itemstack1)) {
-                            world.addEntity(new EntityItem(world, (double) i + 0.5D, (double) j + 1.5D, (double) k + 0.5D, itemstack1));
-                        } else if (entityhuman instanceof EntityPlayer) {
-                            ((EntityPlayer) entityhuman).updateInventory(entityhuman.defaultContainer);
+                            if (!entityhuman.inventory.pickup(itemstack1)) {
+                                world.addEntity(new EntityItem(world, (double) i + 0.5D, (double) j + 1.5D, (double) k + 0.5D, itemstack1));
+                            } else if (entityhuman instanceof EntityPlayer) {
+                                ((EntityPlayer) entityhuman).updateInventory(entityhuman.defaultContainer);
+                            }
+
+                            --itemstack.count;
+                            if (itemstack.count <= 0) {
+                                entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
+                            }
+
+                            world.setData(i, j, k, i1 - 1);
                         }
+                    } else if (i1 > 0 && itemstack.getItem() instanceof ItemArmor && ((ItemArmor) itemstack.getItem()).d() == EnumArmorMaterial.CLOTH) {
+                        ItemArmor itemarmor = (ItemArmor) itemstack.getItem();
 
-                        --itemstack.count;
-                        if (itemstack.count <= 0) {
-                            entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
-                        }
-
+                        itemarmor.c(itemstack);
                         world.setData(i, j, k, i1 - 1);
+                        return true;
                     }
 
                     return true;

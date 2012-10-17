@@ -97,6 +97,9 @@ public class ChunkProviderServer implements IChunkProvider {
 
                 if (chunk != null) {
                     chunk.n = this.world.getTime();
+                    if (this.chunkProvider != null) {
+                        this.chunkProvider.recreateStructures(i, j);
+                    }
                 }
 
                 return chunk;
@@ -217,4 +220,6 @@ public class ChunkProviderServer implements IChunkProvider {
     public int getLoadedChunks() {
         return this.chunks.count();
     }
+
+    public void recreateStructures(int i, int j) {}
 }

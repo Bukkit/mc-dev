@@ -28,13 +28,13 @@ public class ItemBow extends Item {
             EntityArrow entityarrow = new EntityArrow(world, entityhuman, f * 2.0F);
 
             if (f == 1.0F) {
-                entityarrow.d(true);
+                entityarrow.e(true);
             }
 
             int k = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack);
 
             if (k > 0) {
-                entityarrow.b(entityarrow.d() + (double) k * 0.5D + 0.5D);
+                entityarrow.b(entityarrow.c() + (double) k * 0.5D + 0.5D);
             }
 
             int l = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, itemstack);
@@ -69,7 +69,7 @@ public class ItemBow extends Item {
         return 72000;
     }
 
-    public EnumAnimation b(ItemStack itemstack) {
+    public EnumAnimation d_(ItemStack itemstack) {
         return EnumAnimation.e;
     }
 
@@ -81,7 +81,7 @@ public class ItemBow extends Item {
         return itemstack;
     }
 
-    public int b() {
+    public int c() {
         return 1;
     }
 }

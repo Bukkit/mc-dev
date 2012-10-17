@@ -6,8 +6,12 @@ public class CommandTp extends CommandAbstract {
 
     public CommandTp() {}
 
-    public String b() {
+    public String c() {
         return "tp";
+    }
+
+    public int a() {
+        return 2;
     }
 
     public String a(ICommandListener icommandlistener) {
@@ -18,13 +22,12 @@ public class CommandTp extends CommandAbstract {
         if (astring.length < 1) {
             throw new ExceptionUsage("commands.tp.usage", new Object[0]);
         } else {
-            MinecraftServer minecraftserver = MinecraftServer.getServer();
             EntityPlayer entityplayer;
 
             if (astring.length != 2 && astring.length != 4) {
-                entityplayer = (EntityPlayer) c(icommandlistener);
+                entityplayer = c(icommandlistener);
             } else {
-                entityplayer = minecraftserver.getServerConfigurationManager().f(astring[0]);
+                entityplayer = c(icommandlistener, astring[0]);
                 if (entityplayer == null) {
                     throw new ExceptionPlayerNotFound();
                 }
@@ -32,7 +35,7 @@ public class CommandTp extends CommandAbstract {
 
             if (astring.length != 3 && astring.length != 4) {
                 if (astring.length == 1 || astring.length == 2) {
-                    EntityPlayer entityplayer1 = minecraftserver.getServerConfigurationManager().f(astring[astring.length - 1]);
+                    EntityPlayer entityplayer1 = c(icommandlistener, astring[astring.length - 1]);
 
                     if (entityplayer1 == null) {
                         throw new ExceptionPlayerNotFound();
@@ -43,18 +46,55 @@ public class CommandTp extends CommandAbstract {
                 }
             } else if (entityplayer.world != null) {
                 int i = astring.length - 3;
-                int j = 30000000;
-                int k = a(icommandlistener, astring[i++], -j, j);
-                int l = a(icommandlistener, astring[i++], 0, 256);
-                int i1 = a(icommandlistener, astring[i++], -j, j);
+                double d0 = this.a(icommandlistener, entityplayer.locX, astring[i++]);
+                double d1 = this.a(icommandlistener, entityplayer.locY, astring[i++], 0, 0);
+                double d2 = this.a(icommandlistener, entityplayer.locZ, astring[i++]);
 
-                entityplayer.enderTeleportTo((double) ((float) k + 0.5F), (double) l, (double) ((float) i1 + 0.5F));
-                a(icommandlistener, "commands.tp.coordinates", new Object[] { entityplayer.getLocalizedName(), Integer.valueOf(k), Integer.valueOf(l), Integer.valueOf(i1)});
+                entityplayer.enderTeleportTo(d0, d1, d2);
+                a(icommandlistener, "commands.tp.success.coordinates", new Object[] { entityplayer.getLocalizedName(), Double.valueOf(d0), Double.valueOf(d1), Double.valueOf(d2)});
             }
         }
     }
 
+    private double a(ICommandListener icommandlistener, double d0, String s) {
+        return this.a(icommandlistener, d0, s, -30000000, 30000000);
+    }
+
+    private double a(ICommandListener icommandlistener, double d0, String s, int i, int j) {
+        boolean flag = s.startsWith("~");
+        double d1 = flag ? d0 : 0.0D;
+
+        if (!flag || s.length() > 1) {
+            boolean flag1 = s.contains(".");
+
+            if (flag) {
+                s = s.substring(1);
+            }
+
+            d1 += b(icommandlistener, s);
+            if (!flag1 && !flag) {
+                d1 += 0.5D;
+            }
+        }
+
+        if (i != 0 || j != 0) {
+            if (d1 < (double) i) {
+                throw new ExceptionInvalidNumber("commands.generic.double.tooSmall", new Object[] { Double.valueOf(d1), Integer.valueOf(i)});
+            }
+
+            if (d1 > (double) j) {
+                throw new ExceptionInvalidNumber("commands.generic.double.tooBig", new Object[] { Double.valueOf(d1), Integer.valueOf(j)});
+            }
+        }
+
+        return d1;
+    }
+
     public List a(ICommandListener icommandlistener, String[] astring) {
         return astring.length != 1 && astring.length != 2 ? null : a(astring, MinecraftServer.getServer().getPlayers());
+    }
+
+    public boolean a(int i) {
+        return i == 0;
     }
 }

@@ -11,8 +11,12 @@ public class CommandBanIp extends CommandAbstract {
 
     public CommandBanIp() {}
 
-    public String b() {
+    public String c() {
         return "ban-ip";
+    }
+
+    public int a() {
+        return 3;
     }
 
     public boolean b(ICommandListener icommandlistener) {
@@ -29,7 +33,7 @@ public class CommandBanIp extends CommandAbstract {
             String s = null;
 
             if (astring.length >= 2) {
-                s = a(astring, 1);
+                s = a(icommandlistener, astring, 1);
             }
 
             if (matcher.matches()) {
@@ -41,7 +45,7 @@ public class CommandBanIp extends CommandAbstract {
                     throw new ExceptionPlayerNotFound("commands.banip.invalid", new Object[0]);
                 }
 
-                this.a(icommandlistener, entityplayer.r(), s);
+                this.a(icommandlistener, entityplayer.q(), s);
             }
         } else {
             throw new ExceptionUsage("commands.banip.usage", new Object[0]);

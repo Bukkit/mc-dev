@@ -35,7 +35,7 @@ public class BlockWoodStep extends BlockStepAbstract {
         return Block.WOOD_STEP.id;
     }
 
-    protected ItemStack c_(int i) {
+    protected ItemStack f_(int i) {
         return new ItemStack(Block.WOOD_STEP.id, 2, i & 7);
     }
 

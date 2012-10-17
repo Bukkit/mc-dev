@@ -5,16 +5,20 @@ public class CommandSeed extends CommandAbstract {
     public CommandSeed() {}
 
     public boolean b(ICommandListener icommandlistener) {
-        return MinecraftServer.getServer().H() || super.b(icommandlistener);
+        return MinecraftServer.getServer().I() || super.b(icommandlistener);
     }
 
-    public String b() {
+    public String c() {
         return "seed";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
-        EntityHuman entityhuman = c(icommandlistener);
+    public int a() {
+        return 2;
+    }
 
-        icommandlistener.sendMessage("Seed: " + entityhuman.world.getSeed());
+    public void b(ICommandListener icommandlistener, String[] astring) {
+        EntityPlayer entityplayer = c(icommandlistener);
+
+        icommandlistener.sendMessage("Seed: " + entityplayer.world.getSeed());
     }
 }

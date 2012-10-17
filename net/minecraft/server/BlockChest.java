@@ -13,40 +13,40 @@ public class BlockChest extends BlockContainer {
         this.a(CreativeModeTab.c);
     }
 
-    public boolean d() {
-        return false;
-    }
-
     public boolean c() {
         return false;
     }
 
-    public int b() {
+    public boolean b() {
+        return false;
+    }
+
+    public int d() {
         return 22;
     }
 
     public void onPlace(World world, int i, int j, int k) {
         super.onPlace(world, i, j, k);
-        this.b_(world, i, j, k);
+        this.d_(world, i, j, k);
         int l = world.getTypeId(i, j, k - 1);
         int i1 = world.getTypeId(i, j, k + 1);
         int j1 = world.getTypeId(i - 1, j, k);
         int k1 = world.getTypeId(i + 1, j, k);
 
         if (l == this.id) {
-            this.b_(world, i, j, k - 1);
+            this.d_(world, i, j, k - 1);
         }
 
         if (i1 == this.id) {
-            this.b_(world, i, j, k + 1);
+            this.d_(world, i, j, k + 1);
         }
 
         if (j1 == this.id) {
-            this.b_(world, i - 1, j, k);
+            this.d_(world, i - 1, j, k);
         }
 
         if (k1 == this.id) {
-            this.b_(world, i + 1, j, k);
+            this.d_(world, i + 1, j, k);
         }
     }
 
@@ -99,7 +99,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
-    public void b_(World world, int i, int j, int k) {
+    public void d_(World world, int i, int j, int k) {
         if (!world.isStatic) {
             int l = world.getTypeId(i, j, k - 1);
             int i1 = world.getTypeId(i, j, k + 1);
@@ -115,19 +115,19 @@ public class BlockChest extends BlockContainer {
             if (l != this.id && i1 != this.id) {
                 if (j1 != this.id && k1 != this.id) {
                     b0 = 3;
-                    if (Block.n[l] && !Block.n[i1]) {
+                    if (Block.q[l] && !Block.q[i1]) {
                         b0 = 3;
                     }
 
-                    if (Block.n[i1] && !Block.n[l]) {
+                    if (Block.q[i1] && !Block.q[l]) {
                         b0 = 2;
                     }
 
-                    if (Block.n[j1] && !Block.n[k1]) {
+                    if (Block.q[j1] && !Block.q[k1]) {
                         b0 = 5;
                     }
 
-                    if (Block.n[k1] && !Block.n[j1]) {
+                    if (Block.q[k1] && !Block.q[j1]) {
                         b0 = 4;
                     }
                 } else {
@@ -145,11 +145,11 @@ public class BlockChest extends BlockContainer {
                         b0 = 2;
                     }
 
-                    if ((Block.n[l] || Block.n[l1]) && !Block.n[i1] && !Block.n[i2]) {
+                    if ((Block.q[l] || Block.q[l1]) && !Block.q[i1] && !Block.q[i2]) {
                         b0 = 3;
                     }
 
-                    if ((Block.n[i1] || Block.n[i2]) && !Block.n[l] && !Block.n[l1]) {
+                    if ((Block.q[i1] || Block.q[i2]) && !Block.q[l] && !Block.q[l1]) {
                         b0 = 2;
                     }
                 }
@@ -168,11 +168,11 @@ public class BlockChest extends BlockContainer {
                     b0 = 4;
                 }
 
-                if ((Block.n[j1] || Block.n[l1]) && !Block.n[k1] && !Block.n[i2]) {
+                if ((Block.q[j1] || Block.q[l1]) && !Block.q[k1] && !Block.q[i2]) {
                     b0 = 5;
                 }
 
-                if ((Block.n[k1] || Block.n[i2]) && !Block.n[j1] && !Block.n[l1]) {
+                if ((Block.q[k1] || Block.q[i2]) && !Block.q[j1] && !Block.q[l1]) {
                     b0 = 4;
                 }
             }

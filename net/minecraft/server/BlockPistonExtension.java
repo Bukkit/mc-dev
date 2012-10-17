@@ -37,15 +37,15 @@ public class BlockPistonExtension extends Block {
         return i == k ? (this.a >= 0 ? this.a : ((j & 8) != 0 ? this.textureId - 1 : this.textureId)) : (k < 6 && i == Facing.OPPOSITE_FACING[k] ? 107 : 108);
     }
 
-    public int b() {
+    public int d() {
         return 17;
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 

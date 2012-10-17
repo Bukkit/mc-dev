@@ -11,7 +11,7 @@ public class InventoryCraftResult implements IInventory {
     }
 
     public ItemStack getItem(int i) {
-        return this.items[i];
+        return this.items[0];
     }
 
     public String getName() {
@@ -19,10 +19,10 @@ public class InventoryCraftResult implements IInventory {
     }
 
     public ItemStack splitStack(int i, int j) {
-        if (this.items[i] != null) {
-            ItemStack itemstack = this.items[i];
+        if (this.items[0] != null) {
+            ItemStack itemstack = this.items[0];
 
-            this.items[i] = null;
+            this.items[0] = null;
             return itemstack;
         } else {
             return null;
@@ -30,10 +30,10 @@ public class InventoryCraftResult implements IInventory {
     }
 
     public ItemStack splitWithoutUpdate(int i) {
-        if (this.items[i] != null) {
-            ItemStack itemstack = this.items[i];
+        if (this.items[0] != null) {
+            ItemStack itemstack = this.items[0];
 
-            this.items[i] = null;
+            this.items[0] = null;
             return itemstack;
         } else {
             return null;
@@ -41,7 +41,7 @@ public class InventoryCraftResult implements IInventory {
     }
 
     public void setItem(int i, ItemStack itemstack) {
-        this.items[i] = itemstack;
+        this.items[0] = itemstack;
     }
 
     public int getMaxStackSize() {

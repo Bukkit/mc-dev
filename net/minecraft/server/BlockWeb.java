@@ -10,10 +10,10 @@ public class BlockWeb extends Block {
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        entity.aj();
+        entity.am();
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
@@ -21,11 +21,11 @@ public class BlockWeb extends Block {
         return null;
     }
 
-    public int b() {
+    public int d() {
         return 1;
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 

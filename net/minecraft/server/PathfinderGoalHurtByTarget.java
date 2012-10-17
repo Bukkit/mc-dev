@@ -15,16 +15,16 @@ public class PathfinderGoalHurtByTarget extends PathfinderGoalTarget {
     }
 
     public boolean a() {
-        return this.a(this.d.av(), true);
+        return this.a(this.d.aB(), true);
     }
 
     public boolean b() {
-        return this.d.av() != null && this.d.av() != this.b;
+        return this.d.aB() != null && this.d.aB() != this.b;
     }
 
-    public void e() {
-        this.d.b(this.d.av());
-        this.b = this.d.av();
+    public void c() {
+        this.d.b(this.d.aB());
+        this.b = this.d.aB();
         if (this.a) {
             List list = this.d.world.a(this.d.getClass(), AxisAlignedBB.a().a(this.d.locX, this.d.locY, this.d.locZ, this.d.locX + 1.0D, this.d.locY + 1.0D, this.d.locZ + 1.0D).grow((double) this.e, 4.0D, (double) this.e));
             Iterator iterator = list.iterator();
@@ -32,12 +32,12 @@ public class PathfinderGoalHurtByTarget extends PathfinderGoalTarget {
             while (iterator.hasNext()) {
                 EntityLiving entityliving = (EntityLiving) iterator.next();
 
-                if (this.d != entityliving && entityliving.az() == null) {
-                    entityliving.b(this.d.av());
+                if (this.d != entityliving && entityliving.aF() == null) {
+                    entityliving.b(this.d.aB());
                 }
             }
         }
 
-        super.e();
+        super.c();
     }
 }

@@ -53,29 +53,54 @@ public class WorldLoader implements Convertable {
         }
     }
 
-    public void e(String s) {
+    public boolean e(String s) {
         File file1 = new File(this.a, s);
 
-        if (file1.exists()) {
-            a(file1.listFiles());
-            file1.delete();
+        if (!file1.exists()) {
+            return true;
+        } else {
+            System.out.println("Deleting level " + s);
+
+            for (int i = 1; i <= 5; ++i) {
+                System.out.println("Attempt " + i + "...");
+                if (a(file1.listFiles())) {
+                    break;
+                }
+
+                System.out.println("Unsuccessful in deleting contents.");
+                if (i < 5) {
+                    try {
+                        Thread.sleep(500L);
+                    } catch (InterruptedException interruptedexception) {
+                        ;
+                    }
+                }
+            }
+
+            return file1.delete();
         }
     }
 
-    protected static void a(File[] afile) {
+    protected static boolean a(File[] afile) {
         File[] afile1 = afile;
         int i = afile.length;
 
         for (int j = 0; j < i; ++j) {
             File file1 = afile1[j];
 
-            if (file1.isDirectory()) {
-                System.out.println("Deleting " + file1);
-                a(file1.listFiles());
+            System.out.println("Deleting " + file1);
+            if (file1.isDirectory() && !a(file1.listFiles())) {
+                System.out.println("Couldn\'t delete directory " + file1);
+                return false;
             }
 
-            file1.delete();
+            if (!file1.delete()) {
+                System.out.println("Couldn\'t delete file " + file1);
+                return false;
+            }
         }
+
+        return true;
     }
 
     public IDataManager a(String s, boolean flag) {

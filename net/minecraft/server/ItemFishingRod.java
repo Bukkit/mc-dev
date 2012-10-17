@@ -11,17 +11,17 @@ public class ItemFishingRod extends Item {
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
         if (entityhuman.hookedFish != null) {
-            int i = entityhuman.hookedFish.d();
+            int i = entityhuman.hookedFish.c();
 
             itemstack.damage(i, entityhuman);
-            entityhuman.i();
+            entityhuman.bE();
         } else {
             world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
             if (!world.isStatic) {
                 world.addEntity(new EntityFishingHook(world, entityhuman));
             }
 
-            entityhuman.i();
+            entityhuman.bE();
         }
 
         return itemstack;

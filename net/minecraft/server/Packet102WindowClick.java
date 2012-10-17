@@ -10,7 +10,7 @@ public class Packet102WindowClick extends Packet {
     public int button;
     public short d;
     public ItemStack item;
-    public boolean shift;
+    public int shift;
 
     public Packet102WindowClick() {}
 
@@ -23,7 +23,7 @@ public class Packet102WindowClick extends Packet {
         this.slot = datainputstream.readShort();
         this.button = datainputstream.readByte();
         this.d = datainputstream.readShort();
-        this.shift = datainputstream.readBoolean();
+        this.shift = datainputstream.readByte();
         this.item = c(datainputstream);
     }
 
@@ -32,7 +32,7 @@ public class Packet102WindowClick extends Packet {
         dataoutputstream.writeShort(this.slot);
         dataoutputstream.writeByte(this.button);
         dataoutputstream.writeShort(this.d);
-        dataoutputstream.writeBoolean(this.shift);
+        dataoutputstream.writeByte(this.shift);
         a(this.item, dataoutputstream);
     }
 

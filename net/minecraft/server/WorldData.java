@@ -4,10 +4,12 @@ public class WorldData {
 
     private long seed;
     private WorldType type;
+    private String generatorOptions;
     private int spawnX;
     private int spawnY;
     private int spawnZ;
     private long time;
+    private long dayTime;
     private long lastPlayed;
     private long sizeOnDisk;
     private NBTTagCompound playerData;
@@ -23,13 +25,18 @@ public class WorldData {
     private boolean hardcore;
     private boolean allowCommands;
     private boolean initialized;
+    private GameRules gameRules;
 
     protected WorldData() {
         this.type = WorldType.NORMAL;
+        this.generatorOptions = "";
+        this.gameRules = new GameRules();
     }
 
     public WorldData(NBTTagCompound nbttagcompound) {
         this.type = WorldType.NORMAL;
+        this.generatorOptions = "";
+        this.gameRules = new GameRules();
         this.seed = nbttagcompound.getLong("RandomSeed");
         if (nbttagcompound.hasKey("generatorName")) {
             String s = nbttagcompound.getString("generatorName");
@@ -46,6 +53,10 @@ public class WorldData {
 
                 this.type = this.type.a(i);
             }
+
+            if (nbttagcompound.hasKey("generatorOptions")) {
+                this.generatorOptions = nbttagcompound.getString("generatorOptions");
+            }
         }
 
         this.gameType = EnumGamemode.a(nbttagcompound.getInt("GameType"));
@@ -59,6 +70,12 @@ public class WorldData {
         this.spawnY = nbttagcompound.getInt("SpawnY");
         this.spawnZ = nbttagcompound.getInt("SpawnZ");
         this.time = nbttagcompound.getLong("Time");
+        if (nbttagcompound.hasKey("DayTime")) {
+            this.dayTime = nbttagcompound.getLong("DayTime");
+        } else {
+            this.dayTime = this.time;
+        }
+
         this.lastPlayed = nbttagcompound.getLong("LastPlayed");
         this.sizeOnDisk = nbttagcompound.getLong("SizeOnDisk");
         this.name = nbttagcompound.getString("LevelName");
@@ -84,30 +101,41 @@ public class WorldData {
             this.playerData = nbttagcompound.getCompound("Player");
             this.dimension = this.playerData.getInt("Dimension");
         }
+
+        if (nbttagcompound.hasKey("GameRules")) {
+            this.gameRules.a(nbttagcompound.getCompound("GameRules"));
+        }
     }
 
     public WorldData(WorldSettings worldsettings, String s) {
         this.type = WorldType.NORMAL;
+        this.generatorOptions = "";
+        this.gameRules = new GameRules();
         this.seed = worldsettings.d();
         this.gameType = worldsettings.e();
         this.useMapFeatures = worldsettings.g();
         this.name = s;
         this.hardcore = worldsettings.f();
         this.type = worldsettings.h();
+        this.generatorOptions = worldsettings.j();
         this.allowCommands = worldsettings.i();
         this.initialized = false;
     }
 
     public WorldData(WorldData worlddata) {
         this.type = WorldType.NORMAL;
+        this.generatorOptions = "";
+        this.gameRules = new GameRules();
         this.seed = worlddata.seed;
         this.type = worlddata.type;
+        this.generatorOptions = worlddata.generatorOptions;
         this.gameType = worlddata.gameType;
         this.useMapFeatures = worlddata.useMapFeatures;
         this.spawnX = worlddata.spawnX;
         this.spawnY = worlddata.spawnY;
         this.spawnZ = worlddata.spawnZ;
         this.time = worlddata.time;
+        this.dayTime = worlddata.dayTime;
         this.lastPlayed = worlddata.lastPlayed;
         this.sizeOnDisk = worlddata.sizeOnDisk;
         this.playerData = worlddata.playerData;
@@ -121,6 +149,7 @@ public class WorldData {
         this.hardcore = worlddata.hardcore;
         this.allowCommands = worlddata.allowCommands;
         this.initialized = worlddata.initialized;
+        this.gameRules = worlddata.gameRules;
     }
 
     public NBTTagCompound a() {
@@ -141,12 +170,14 @@ public class WorldData {
         nbttagcompound.setLong("RandomSeed", this.seed);
         nbttagcompound.setString("generatorName", this.type.name());
         nbttagcompound.setInt("generatorVersion", this.type.getVersion());
+        nbttagcompound.setString("generatorOptions", this.generatorOptions);
         nbttagcompound.setInt("GameType", this.gameType.a());
         nbttagcompound.setBoolean("MapFeatures", this.useMapFeatures);
         nbttagcompound.setInt("SpawnX", this.spawnX);
         nbttagcompound.setInt("SpawnY", this.spawnY);
         nbttagcompound.setInt("SpawnZ", this.spawnZ);
         nbttagcompound.setLong("Time", this.time);
+        nbttagcompound.setLong("DayTime", this.dayTime);
         nbttagcompound.setLong("SizeOnDisk", this.sizeOnDisk);
         nbttagcompound.setLong("LastPlayed", System.currentTimeMillis());
         nbttagcompound.setString("LevelName", this.name);
@@ -158,6 +189,7 @@ public class WorldData {
         nbttagcompound.setBoolean("hardcore", this.hardcore);
         nbttagcompound.setBoolean("allowCommands", this.allowCommands);
         nbttagcompound.setBoolean("initialized", this.initialized);
+        nbttagcompound.setCompound("GameRules", this.gameRules.a());
         if (nbttagcompound1 != null) {
             nbttagcompound.setCompound("Player", nbttagcompound1);
         }
@@ -183,16 +215,24 @@ public class WorldData {
         return this.time;
     }
 
-    public NBTTagCompound h() {
+    public long g() {
+        return this.dayTime;
+    }
+
+    public NBTTagCompound i() {
         return this.playerData;
     }
 
-    public int i() {
+    public int j() {
         return this.dimension;
     }
 
     public void b(long i) {
         this.time = i;
+    }
+
+    public void c(long i) {
+        this.dayTime = i;
     }
 
     public void setSpawn(int i, int j, int k) {
@@ -209,7 +249,7 @@ public class WorldData {
         this.name = s;
     }
 
-    public int k() {
+    public int l() {
         return this.version;
     }
 
@@ -273,6 +313,10 @@ public class WorldData {
         this.type = worldtype;
     }
 
+    public String getGeneratorOptions() {
+        return this.generatorOptions;
+    }
+
     public boolean allowCommands() {
         return this.allowCommands;
     }
@@ -283,5 +327,9 @@ public class WorldData {
 
     public void d(boolean flag) {
         this.initialized = flag;
+    }
+
+    public GameRules getGameRules() {
+        return this.gameRules;
     }
 }

@@ -10,6 +10,7 @@ public class RecipesFood {
         craftingmanager.registerShapedRecipe(new ItemStack(Block.MELON), new Object[] { "MMM", "MMM", "MMM", Character.valueOf('M'), Item.MELON});
         craftingmanager.registerShapedRecipe(new ItemStack(Item.MELON_SEEDS), new Object[] { "M", Character.valueOf('M'), Item.MELON});
         craftingmanager.registerShapedRecipe(new ItemStack(Item.PUMPKIN_SEEDS, 4), new Object[] { "M", Character.valueOf('M'), Block.PUMPKIN});
+        craftingmanager.registerShapelessRecipe(new ItemStack(Item.PUMPKIN_PIE), new Object[] { Block.PUMPKIN, Item.SUGAR, Item.EGG});
         craftingmanager.registerShapelessRecipe(new ItemStack(Item.FERMENTED_SPIDER_EYE), new Object[] { Item.SPIDER_EYE, Block.BROWN_MUSHROOM, Item.SUGAR});
         craftingmanager.registerShapelessRecipe(new ItemStack(Item.SPECKLED_MELON), new Object[] { Item.MELON, Item.GOLD_NUGGET});
         craftingmanager.registerShapelessRecipe(new ItemStack(Item.BLAZE_POWDER, 2), new Object[] { Item.BLAZE_ROD});

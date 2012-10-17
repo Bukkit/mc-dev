@@ -20,7 +20,7 @@ public class ShapedRecipes implements IRecipe {
         return this.result;
     }
 
-    public boolean a(InventoryCrafting inventorycrafting) {
+    public boolean a(InventoryCrafting inventorycrafting, World world) {
         for (int i = 0; i <= 3 - this.width; ++i) {
             for (int j = 0; j <= 3 - this.height; ++j) {
                 if (this.a(inventorycrafting, i, j, true)) {
@@ -72,8 +72,8 @@ public class ShapedRecipes implements IRecipe {
         return true;
     }
 
-    public ItemStack b(InventoryCrafting inventorycrafting) {
-        return new ItemStack(this.result.id, this.result.count, this.result.getData());
+    public ItemStack a(InventoryCrafting inventorycrafting) {
+        return this.b().cloneItemStack();
     }
 
     public int a() {

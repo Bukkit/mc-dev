@@ -13,7 +13,7 @@ public class BlockWaterLily extends BlockFlower {
         this.a(CreativeModeTab.c);
     }
 
-    public int b() {
+    public int d() {
         return 23;
     }
 

@@ -21,7 +21,7 @@ public class ItemWaterLily extends ItemWithAuxData {
                     return itemstack;
                 }
 
-                if (!entityhuman.e(i, j, k)) {
+                if (!entityhuman.a(i, j, k, movingobjectposition.face, itemstack)) {
                     return itemstack;
                 }
 

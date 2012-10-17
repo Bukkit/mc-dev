@@ -2,13 +2,13 @@ package net.minecraft.server;
 
 public class EntityComplexPart extends Entity {
 
-    public final EntityComplex owner;
+    public final IComplex owner;
     public final String b;
 
-    public EntityComplexPart(EntityComplex entitycomplex, String s, float f, float f1) {
-        super(entitycomplex.world);
+    public EntityComplexPart(IComplex icomplex, String s, float f, float f1) {
+        super(icomplex.d());
         this.a(f, f1);
-        this.owner = entitycomplex;
+        this.owner = icomplex;
         this.b = s;
     }
 

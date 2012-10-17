@@ -6,8 +6,12 @@ public class CommandSay extends CommandAbstract {
 
     public CommandSay() {}
 
-    public String b() {
+    public String c() {
         return "say";
+    }
+
+    public int a() {
+        return 1;
     }
 
     public String a(ICommandListener icommandlistener) {
@@ -16,7 +20,7 @@ public class CommandSay extends CommandAbstract {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0 && astring[0].length() > 0) {
-            String s = a(astring, 0);
+            String s = a(icommandlistener, astring, 0, true);
 
             MinecraftServer.getServer().getServerConfigurationManager().sendAll(new Packet3Chat(String.format("[%s] %s", new Object[] { icommandlistener.getName(), s})));
         } else {

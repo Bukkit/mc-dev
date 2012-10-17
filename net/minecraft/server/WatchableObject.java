@@ -37,4 +37,8 @@ public class WatchableObject {
     public void a(boolean flag) {
         this.d = flag;
     }
+
+    static boolean a(WatchableObject watchableobject, boolean flag) {
+        return watchableobject.d = flag;
+    }
 }

@@ -76,8 +76,12 @@ public class MathHelper {
         return d0 > d1 ? d0 : d1;
     }
 
-    public static int a(Random random, int i, int j) {
+    public static int nextInt(Random random, int i, int j) {
         return i >= j ? i : random.nextInt(j - i + 1) + i;
+    }
+
+    public static double a(Random random, double d0, double d1) {
+        return d0 >= d1 ? d0 : random.nextDouble() * (d1 - d0) + d0;
     }
 
     public static double a(long[] along) {
@@ -118,6 +122,62 @@ public class MathHelper {
         }
 
         return d0;
+    }
+
+    public static int a(String s, int i) {
+        int j = i;
+
+        try {
+            j = Integer.parseInt(s);
+        } catch (Throwable throwable) {
+            ;
+        }
+
+        return j;
+    }
+
+    public static int a(String s, int i, int j) {
+        int k = i;
+
+        try {
+            k = Integer.parseInt(s);
+        } catch (Throwable throwable) {
+            ;
+        }
+
+        if (k < j) {
+            k = j;
+        }
+
+        return k;
+    }
+
+    public static double a(String s, double d0) {
+        double d1 = d0;
+
+        try {
+            d1 = Double.parseDouble(s);
+        } catch (Throwable throwable) {
+            ;
+        }
+
+        return d1;
+    }
+
+    public static double a(String s, double d0, double d1) {
+        double d2 = d0;
+
+        try {
+            d2 = Double.parseDouble(s);
+        } catch (Throwable throwable) {
+            ;
+        }
+
+        if (d2 < d1) {
+            d2 = d1;
+        }
+
+        return d2;
     }
 
     static {

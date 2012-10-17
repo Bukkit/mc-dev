@@ -24,10 +24,10 @@ public class BlockMobSpawner extends BlockContainer {
         super.dropNaturally(world, i, j, k, l, f, i1);
         int j1 = 15 + world.random.nextInt(15) + world.random.nextInt(15);
 
-        this.g(world, i, j, k, j1);
+        this.f(world, i, j, k, j1);
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 }

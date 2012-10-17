@@ -19,15 +19,15 @@ public class BlockThinFence extends Block {
         return !this.b ? 0 : super.getDropType(i, random, j);
     }
 
-    public boolean d() {
-        return false;
-    }
-
     public boolean c() {
         return false;
     }
 
-    public int b() {
+    public boolean b() {
+        return false;
+    }
+
+    public int d() {
         return 18;
     }
 
@@ -104,14 +104,14 @@ public class BlockThinFence extends Block {
     }
 
     public final boolean e(int i) {
-        return Block.n[i] || i == this.id || i == Block.GLASS.id;
+        return Block.q[i] || i == this.id || i == Block.GLASS.id;
     }
 
-    protected boolean q_() {
+    protected boolean s_() {
         return true;
     }
 
-    protected ItemStack c_(int i) {
+    protected ItemStack f_(int i) {
         return new ItemStack(this.id, 1, i);
     }
 }

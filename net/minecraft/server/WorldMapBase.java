@@ -13,7 +13,7 @@ public abstract class WorldMapBase {
 
     public abstract void b(NBTTagCompound nbttagcompound);
 
-    public void a() {
+    public void c() {
         this.a(true);
     }
 
@@ -21,7 +21,7 @@ public abstract class WorldMapBase {
         this.a = flag;
     }
 
-    public boolean b() {
+    public boolean d() {
         return this.a;
     }
 }

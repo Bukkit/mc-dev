@@ -7,7 +7,7 @@ public class ItemWithAuxData extends ItemBlock {
 
     public ItemWithAuxData(int i, boolean flag) {
         super(i);
-        this.a = Block.byId[this.f()];
+        this.a = Block.byId[this.g()];
         if (flag) {
             this.setMaxDurability(0);
             this.a(true);
@@ -23,13 +23,13 @@ public class ItemWithAuxData extends ItemBlock {
         return this;
     }
 
-    public String c(ItemStack itemstack) {
+    public String c_(ItemStack itemstack) {
         if (this.b == null) {
-            return super.c(itemstack);
+            return super.c_(itemstack);
         } else {
             int i = itemstack.getData();
 
-            return i >= 0 && i < this.b.length ? super.c(itemstack) + "." + this.b[i] : super.c(itemstack);
+            return i >= 0 && i < this.b.length ? super.c_(itemstack) + "." + this.b[i] : super.c_(itemstack);
         }
     }
 }

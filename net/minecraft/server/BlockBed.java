@@ -9,7 +9,7 @@ public class BlockBed extends BlockDirectional {
 
     public BlockBed(int i) {
         super(i, 134, Material.CLOTH);
-        this.n();
+        this.p();
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
@@ -18,8 +18,8 @@ public class BlockBed extends BlockDirectional {
         } else {
             int i1 = world.getData(i, j, k);
 
-            if (!a_(i1)) {
-                int j1 = d(i1);
+            if (!b_(i1)) {
+                int j1 = e(i1);
 
                 i += a[j1][0];
                 k += a[j1][1];
@@ -36,7 +36,7 @@ public class BlockBed extends BlockDirectional {
                 double d2 = (double) k + 0.5D;
 
                 world.setTypeId(i, j, k, 0);
-                int k1 = d(i1);
+                int k1 = e(i1);
 
                 i += a[k1][0];
                 k += a[k1][1];
@@ -47,10 +47,10 @@ public class BlockBed extends BlockDirectional {
                     d2 = (d2 + (double) k + 0.5D) / 2.0D;
                 }
 
-                world.createExplosion((Entity) null, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), 5.0F, true);
+                world.createExplosion((Entity) null, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), 5.0F, true, true);
                 return true;
             } else {
-                if (b_(i1)) {
+                if (c_(i1)) {
                     EntityHuman entityhuman1 = null;
                     Iterator iterator = world.players.iterator();
 
@@ -58,7 +58,7 @@ public class BlockBed extends BlockDirectional {
                         EntityHuman entityhuman2 = (EntityHuman) iterator.next();
 
                         if (entityhuman2.isSleeping()) {
-                            ChunkCoordinates chunkcoordinates = entityhuman2.bT;
+                            ChunkCoordinates chunkcoordinates = entityhuman2.cc;
 
                             if (chunkcoordinates.x == i && chunkcoordinates.y == j && chunkcoordinates.z == k) {
                                 entityhuman1 = entityhuman2;
@@ -67,7 +67,7 @@ public class BlockBed extends BlockDirectional {
                     }
 
                     if (entityhuman1 != null) {
-                        entityhuman.c("tile.bed.occupied");
+                        entityhuman.b("tile.bed.occupied");
                         return true;
                     }
 
@@ -81,9 +81,9 @@ public class BlockBed extends BlockDirectional {
                     return true;
                 } else {
                     if (enumbedresult == EnumBedResult.NOT_POSSIBLE_NOW) {
-                        entityhuman.c("tile.bed.noSleep");
+                        entityhuman.b("tile.bed.noSleep");
                     } else if (enumbedresult == EnumBedResult.NOT_SAFE) {
-                        entityhuman.c("tile.bed.notSafe");
+                        entityhuman.b("tile.bed.notSafe");
                     }
 
                     return true;
@@ -96,34 +96,34 @@ public class BlockBed extends BlockDirectional {
         if (i == 0) {
             return Block.WOOD.textureId;
         } else {
-            int k = d(j);
-            int l = Direction.h[k][i];
+            int k = e(j);
+            int l = Direction.i[k][i];
 
-            return a_(j) ? (l == 2 ? this.textureId + 2 + 16 : (l != 5 && l != 4 ? this.textureId + 1 : this.textureId + 1 + 16)) : (l == 3 ? this.textureId - 1 + 16 : (l != 5 && l != 4 ? this.textureId : this.textureId + 16));
+            return b_(j) ? (l == 2 ? this.textureId + 2 + 16 : (l != 5 && l != 4 ? this.textureId + 1 : this.textureId + 1 + 16)) : (l == 3 ? this.textureId - 1 + 16 : (l != 5 && l != 4 ? this.textureId : this.textureId + 16));
         }
     }
 
-    public int b() {
+    public int d() {
         return 14;
+    }
+
+    public boolean b() {
+        return false;
     }
 
     public boolean c() {
         return false;
     }
 
-    public boolean d() {
-        return false;
-    }
-
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        this.n();
+        this.p();
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
-        int j1 = d(i1);
+        int j1 = e(i1);
 
-        if (a_(i1)) {
+        if (b_(i1)) {
             if (world.getTypeId(i - a[j1][0], j, k - a[j1][1]) != this.id) {
                 world.setTypeId(i, j, k, 0);
             }
@@ -136,18 +136,18 @@ public class BlockBed extends BlockDirectional {
     }
 
     public int getDropType(int i, Random random, int j) {
-        return a_(i) ? 0 : Item.BED.id;
+        return b_(i) ? 0 : Item.BED.id;
     }
 
-    private void n() {
+    private void p() {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
     }
 
-    public static boolean a_(int i) {
+    public static boolean b_(int i) {
         return (i & 8) != 0;
     }
 
-    public static boolean b_(int i) {
+    public static boolean c_(int i) {
         return (i & 4) != 0;
     }
 
@@ -165,7 +165,7 @@ public class BlockBed extends BlockDirectional {
 
     public static ChunkCoordinates b(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
-        int j1 = BlockDirectional.d(i1);
+        int j1 = BlockDirectional.e(i1);
 
         for (int k1 = 0; k1 <= 1; ++k1) {
             int l1 = i - a[j1][0] * k1 - 1;
@@ -190,12 +190,12 @@ public class BlockBed extends BlockDirectional {
     }
 
     public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
-        if (!a_(l)) {
+        if (!b_(l)) {
             super.dropNaturally(world, i, j, k, l, f, 0);
         }
     }
 
-    public int e() {
+    public int q_() {
         return 1;
     }
 }

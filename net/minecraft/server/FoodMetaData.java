@@ -32,7 +32,7 @@ public class FoodMetaData {
             }
         }
 
-        if (this.foodLevel >= 18 && entityhuman.bM()) {
+        if (this.foodLevel >= 18 && entityhuman.ca()) {
             ++this.foodTickTimer;
             if (this.foodTickTimer >= 80) {
                 entityhuman.heal(1);

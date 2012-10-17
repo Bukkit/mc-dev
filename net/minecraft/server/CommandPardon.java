@@ -6,8 +6,12 @@ public class CommandPardon extends CommandAbstract {
 
     public CommandPardon() {}
 
-    public String b() {
+    public String c() {
         return "pardon";
+    }
+
+    public int a() {
+        return 3;
     }
 
     public String a(ICommandListener icommandlistener) {

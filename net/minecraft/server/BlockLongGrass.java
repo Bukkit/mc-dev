@@ -24,11 +24,15 @@ public class BlockLongGrass extends BlockFlower {
     }
 
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
-        if (!world.isStatic && entityhuman.bC() != null && entityhuman.bC().id == Item.SHEARS.id) {
+        if (!world.isStatic && entityhuman.bP() != null && entityhuman.bP().id == Item.SHEARS.id) {
             entityhuman.a(StatisticList.C[this.id], 1);
             this.a(world, i, j, k, new ItemStack(Block.LONG_GRASS, 1, l));
         } else {
             super.a(world, entityhuman, i, j, k, l);
         }
+    }
+
+    public int getDropData(World world, int i, int j, int k) {
+        return world.getData(i, j, k);
     }
 }

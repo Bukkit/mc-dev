@@ -104,7 +104,7 @@ public abstract class StructureGenerator extends WorldGenBase {
         if (chunkposition != null) {
             return chunkposition;
         } else {
-            List list = this.o_();
+            List list = this.p_();
 
             if (list != null) {
                 ChunkPosition chunkposition2 = null;
@@ -129,7 +129,7 @@ public abstract class StructureGenerator extends WorldGenBase {
         }
     }
 
-    protected List o_() {
+    protected List p_() {
         return null;
     }
 

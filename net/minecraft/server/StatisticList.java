@@ -68,7 +68,9 @@ public class StatisticList {
             while (iterator.hasNext()) {
                 IRecipe irecipe = (IRecipe) iterator.next();
 
-                hashset.add(Integer.valueOf(irecipe.b().id));
+                if (irecipe.b() != null) {
+                    hashset.add(Integer.valueOf(irecipe.b().id));
+                }
             }
 
             iterator = RecipesFurnace.getInstance().getRecipes().values().iterator();
@@ -86,7 +88,7 @@ public class StatisticList {
                 Integer integer = (Integer) iterator.next();
 
                 if (Item.byId[integer.intValue()] != null) {
-                    String s = LocaleI18n.get("stat.craftItem", new Object[] { Item.byId[integer.intValue()].s()});
+                    String s = LocaleI18n.get("stat.craftItem", new Object[] { Item.byId[integer.intValue()].t()});
 
                     D[integer.intValue()] = (new CraftingStatistic(16842752 + integer.intValue(), s, integer.intValue())).g();
                 }
@@ -100,7 +102,7 @@ public class StatisticList {
         Statistic[] astatistic = new Statistic[256];
 
         for (int j = 0; j < 256; ++j) {
-            if (Block.byId[j] != null && Block.byId[j].u()) {
+            if (Block.byId[j] != null && Block.byId[j].C()) {
                 String s1 = LocaleI18n.get(s, new Object[] { Block.byId[j].getName()});
 
                 astatistic[j] = (new CraftingStatistic(i + j, s1, j)).g();
@@ -119,7 +121,7 @@ public class StatisticList {
 
         for (int l = j; l < k; ++l) {
             if (Item.byId[l] != null) {
-                String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].s()});
+                String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].t()});
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).g();
                 if (l >= 256) {
@@ -138,8 +140,8 @@ public class StatisticList {
         }
 
         for (int l = j; l < k; ++l) {
-            if (Item.byId[l] != null && Item.byId[l].m()) {
-                String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].s()});
+            if (Item.byId[l] != null && Item.byId[l].n()) {
+                String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].t()});
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).g();
             }

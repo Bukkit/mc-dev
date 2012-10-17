@@ -7,8 +7,12 @@ public class CommandOp extends CommandAbstract {
 
     public CommandOp() {}
 
-    public String b() {
+    public String c() {
         return "op";
+    }
+
+    public int a() {
+        return 3;
     }
 
     public String a(ICommandListener icommandlistener) {

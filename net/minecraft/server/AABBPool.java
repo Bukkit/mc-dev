@@ -7,10 +7,10 @@ public class AABBPool {
 
     private final int a;
     private final int b;
-    private final List c = new ArrayList();
+    private final List pool = new ArrayList();
     private int d = 0;
-    private int e = 0;
-    private int f = 0;
+    private int largestSize = 0;
+    private int resizeTime = 0;
 
     public AABBPool(int i, int j) {
         this.a = i;
@@ -20,11 +20,11 @@ public class AABBPool {
     public AxisAlignedBB a(double d0, double d1, double d2, double d3, double d4, double d5) {
         AxisAlignedBB axisalignedbb;
 
-        if (this.d >= this.c.size()) {
+        if (this.d >= this.pool.size()) {
             axisalignedbb = new AxisAlignedBB(d0, d1, d2, d3, d4, d5);
-            this.c.add(axisalignedbb);
+            this.pool.add(axisalignedbb);
         } else {
-            axisalignedbb = (AxisAlignedBB) this.c.get(this.d);
+            axisalignedbb = (AxisAlignedBB) this.pool.get(this.d);
             axisalignedbb.b(d0, d1, d2, d3, d4, d5);
         }
 
@@ -33,21 +33,29 @@ public class AABBPool {
     }
 
     public void a() {
-        if (this.d > this.e) {
-            this.e = this.d;
+        if (this.d > this.largestSize) {
+            this.largestSize = this.d;
         }
 
-        if (this.f++ == this.a) {
-            int i = Math.max(this.e, this.c.size() - this.b);
+        if (this.resizeTime++ == this.a) {
+            int i = Math.max(this.largestSize, this.pool.size() - this.b);
 
-            while (this.c.size() > i) {
-                this.c.remove(i);
+            while (this.pool.size() > i) {
+                this.pool.remove(i);
             }
 
-            this.e = 0;
-            this.f = 0;
+            this.largestSize = 0;
+            this.resizeTime = 0;
         }
 
         this.d = 0;
+    }
+
+    public int c() {
+        return this.pool.size();
+    }
+
+    public int d() {
+        return this.d;
     }
 }

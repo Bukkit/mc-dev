@@ -416,4 +416,8 @@ public class ChunkProviderHell implements IChunkProvider {
     public int getLoadedChunks() {
         return 0;
     }
+
+    public void recreateStructures(int i, int j) {
+        this.c.a(this, this.o, i, j, (byte[]) null);
+    }
 }

@@ -19,12 +19,25 @@ public class ItemWrittenBook extends Item {
         }
     }
 
+    public String j(ItemStack itemstack) {
+        if (itemstack.hasTag()) {
+            NBTTagCompound nbttagcompound = itemstack.getTag();
+            NBTTagString nbttagstring = (NBTTagString) nbttagcompound.get("title");
+
+            if (nbttagstring != null) {
+                return nbttagstring.toString();
+            }
+        }
+
+        return super.j(itemstack);
+    }
+
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        entityhuman.c(itemstack);
+        entityhuman.d(itemstack);
         return itemstack;
     }
 
-    public boolean p() {
+    public boolean q() {
         return true;
     }
 }

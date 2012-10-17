@@ -14,15 +14,15 @@ public class BlockVine extends Block {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public int b() {
+    public int d() {
         return 20;
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 
@@ -120,7 +120,7 @@ public class BlockVine extends Block {
         } else {
             Block block = Block.byId[i];
 
-            return block.c() && block.material.isSolid();
+            return block.b() && block.material.isSolid();
         }
     }
 
@@ -183,7 +183,7 @@ public class BlockVine extends Block {
 
             i1 = world.getData(i, j, k);
             j1 = world.random.nextInt(6);
-            k1 = Direction.d[j1];
+            k1 = Direction.e[j1];
             int l1;
             int i2;
 
@@ -214,7 +214,7 @@ public class BlockVine extends Block {
 
                     l1 = world.getTypeId(i + Direction.a[k1], j, k + Direction.b[k1]);
                     if (l1 != 0 && Block.byId[l1] != null) {
-                        if (Block.byId[l1].material.k() && Block.byId[l1].c()) {
+                        if (Block.byId[l1].material.k() && Block.byId[l1].b()) {
                             world.setData(i, j, k, i1 | 1 << k1);
                         }
                     } else {
@@ -285,7 +285,7 @@ public class BlockVine extends Block {
     }
 
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
-        if (!world.isStatic && entityhuman.bC() != null && entityhuman.bC().id == Item.SHEARS.id) {
+        if (!world.isStatic && entityhuman.bP() != null && entityhuman.bP().id == Item.SHEARS.id) {
             entityhuman.a(StatisticList.C[this.id], 1);
             this.a(world, i, j, k, new ItemStack(Block.VINE, 1, 0));
         } else {

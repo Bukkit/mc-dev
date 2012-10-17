@@ -6,8 +6,12 @@ public class CommandBanList extends CommandAbstract {
 
     public CommandBanList() {}
 
-    public String b() {
+    public String c() {
         return "banlist";
+    }
+
+    public int a() {
+        return 3;
     }
 
     public boolean b(ICommandListener icommandlistener) {

@@ -9,11 +9,11 @@ public class BlockEnchantmentTable extends BlockContainer {
         this.a(CreativeModeTab.c);
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 

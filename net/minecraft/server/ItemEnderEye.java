@@ -11,7 +11,7 @@ public class ItemEnderEye extends Item {
         int i1 = world.getTypeId(i, j, k);
         int j1 = world.getData(i, j, k);
 
-        if (entityhuman.e(i, j, k) && i1 == Block.ENDER_PORTAL_FRAME.id && !BlockEnderPortalFrame.e(j1)) {
+        if (entityhuman.a(i, j, k, l, itemstack) && i1 == Block.ENDER_PORTAL_FRAME.id && !BlockEnderPortalFrame.e(j1)) {
             if (world.isStatic) {
                 return true;
             } else {
@@ -28,7 +28,7 @@ public class ItemEnderEye extends Item {
                     double d4 = 0.0D;
                     double d5 = 0.0D;
 
-                    world.a("smoke", d0, d1, d2, d3, d4, d5);
+                    world.addParticle("smoke", d0, d1, d2, d3, d4, d5);
                 }
 
                 k1 = j1 & 3;
@@ -36,7 +36,7 @@ public class ItemEnderEye extends Item {
                 int i2 = 0;
                 boolean flag = false;
                 boolean flag1 = true;
-                int j2 = Direction.f[k1];
+                int j2 = Direction.g[k1];
 
                 int k2;
                 int l2;

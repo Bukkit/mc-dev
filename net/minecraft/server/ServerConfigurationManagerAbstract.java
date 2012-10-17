@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -59,10 +60,10 @@ public abstract class ServerConfigurationManagerAbstract {
         this.sendAll(new Packet3Chat("\u00A7e" + entityplayer.name + " joined the game."));
         this.c(entityplayer);
         netserverhandler.a(entityplayer.locX, entityplayer.locY, entityplayer.locZ, entityplayer.yaw, entityplayer.pitch);
-        this.server.ac().a(netserverhandler);
-        netserverhandler.sendPacket(new Packet4UpdateTime(worldserver.getTime()));
+        this.server.ae().a(netserverhandler);
+        netserverhandler.sendPacket(new Packet4UpdateTime(worldserver.getTime(), worldserver.F()));
         if (this.server.getTexturePack().length() > 0) {
-            entityplayer.a(this.server.getTexturePack(), this.server.R());
+            entityplayer.a(this.server.getTexturePack(), this.server.S());
         }
 
         Iterator iterator = entityplayer.getEffects().iterator();
@@ -81,7 +82,7 @@ public abstract class ServerConfigurationManagerAbstract {
     }
 
     public void a(EntityPlayer entityplayer, WorldServer worldserver) {
-        WorldServer worldserver1 = entityplayer.q();
+        WorldServer worldserver1 = entityplayer.p();
 
         if (worldserver != null) {
             worldserver.getPlayerManager().removePlayer(entityplayer);
@@ -96,9 +97,9 @@ public abstract class ServerConfigurationManagerAbstract {
     }
 
     public void a(EntityPlayer entityplayer) {
-        NBTTagCompound nbttagcompound = this.server.worldServer[0].getWorldData().h();
+        NBTTagCompound nbttagcompound = this.server.worldServer[0].getWorldData().i();
 
-        if (entityplayer.getName().equals(this.server.G()) && nbttagcompound != null) {
+        if (entityplayer.getName().equals(this.server.H()) && nbttagcompound != null) {
             entityplayer.e(nbttagcompound);
         } else {
             this.playerFileData.load(entityplayer);
@@ -130,12 +131,12 @@ public abstract class ServerConfigurationManagerAbstract {
     }
 
     public void d(EntityPlayer entityplayer) {
-        entityplayer.q().getPlayerManager().movePlayer(entityplayer);
+        entityplayer.p().getPlayerManager().movePlayer(entityplayer);
     }
 
     public void disconnect(EntityPlayer entityplayer) {
         this.b(entityplayer);
-        WorldServer worldserver = entityplayer.q();
+        WorldServer worldserver = entityplayer.p();
 
         worldserver.kill(entityplayer);
         worldserver.getPlayerManager().removePlayer(entityplayer);
@@ -197,7 +198,7 @@ public abstract class ServerConfigurationManagerAbstract {
 
         Object object;
 
-        if (this.server.L()) {
+        if (this.server.M()) {
             object = new DemoItemInWorldManager(this.server.getWorldServer(0));
         } else {
             object = new ItemInWorldManager(this.server.getWorldServer(0));
@@ -207,17 +208,18 @@ public abstract class ServerConfigurationManagerAbstract {
     }
 
     public EntityPlayer moveToWorld(EntityPlayer entityplayer, int i, boolean flag) {
-        entityplayer.q().getTracker().untrackPlayer(entityplayer);
-        entityplayer.q().getTracker().untrackEntity(entityplayer);
-        entityplayer.q().getPlayerManager().removePlayer(entityplayer);
+        entityplayer.p().getTracker().untrackPlayer(entityplayer);
+        entityplayer.p().getTracker().untrackEntity(entityplayer);
+        entityplayer.p().getPlayerManager().removePlayer(entityplayer);
         this.players.remove(entityplayer);
         this.server.getWorldServer(entityplayer.dimension).removeEntity(entityplayer);
         ChunkCoordinates chunkcoordinates = entityplayer.getBed();
+        boolean flag1 = entityplayer.isRespawnForced();
 
         entityplayer.dimension = i;
         Object object;
 
-        if (this.server.L()) {
+        if (this.server.M()) {
             object = new DemoItemInWorldManager(this.server.getWorldServer(entityplayer.dimension));
         } else {
             object = new ItemInWorldManager(this.server.getWorldServer(entityplayer.dimension));
@@ -225,19 +227,19 @@ public abstract class ServerConfigurationManagerAbstract {
 
         EntityPlayer entityplayer1 = new EntityPlayer(this.server, this.server.getWorldServer(entityplayer.dimension), entityplayer.name, (ItemInWorldManager) object);
 
+        entityplayer1.netServerHandler = entityplayer.netServerHandler;
         entityplayer1.copyTo(entityplayer, flag);
         entityplayer1.id = entityplayer.id;
-        entityplayer1.netServerHandler = entityplayer.netServerHandler;
         WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
 
         this.a(entityplayer1, entityplayer, worldserver);
         ChunkCoordinates chunkcoordinates1;
 
         if (chunkcoordinates != null) {
-            chunkcoordinates1 = EntityHuman.getBed(this.server.getWorldServer(entityplayer.dimension), chunkcoordinates);
+            chunkcoordinates1 = EntityHuman.getBed(this.server.getWorldServer(entityplayer.dimension), chunkcoordinates, flag1);
             if (chunkcoordinates1 != null) {
                 entityplayer1.setPositionRotation((double) ((float) chunkcoordinates1.x + 0.5F), (double) ((float) chunkcoordinates1.y + 0.1F), (double) ((float) chunkcoordinates1.z + 0.5F), 0.0F, 0.0F);
-                entityplayer1.setRespawnPosition(chunkcoordinates);
+                entityplayer1.setRespawnPosition(chunkcoordinates, flag1);
             } else {
                 entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0, 0));
             }
@@ -253,6 +255,7 @@ public abstract class ServerConfigurationManagerAbstract {
         chunkcoordinates1 = worldserver.getSpawn();
         entityplayer1.netServerHandler.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
         entityplayer1.netServerHandler.sendPacket(new Packet6SpawnPosition(chunkcoordinates1.x, chunkcoordinates1.y, chunkcoordinates1.z));
+        entityplayer1.netServerHandler.sendPacket(new Packet43SetExperience(entityplayer1.exp, entityplayer1.expTotal, entityplayer1.expLevel));
         this.b(entityplayer1, worldserver);
         worldserver.getPlayerManager().addPlayer(entityplayer1);
         worldserver.addEntity(entityplayer1);
@@ -271,48 +274,7 @@ public abstract class ServerConfigurationManagerAbstract {
         entityplayer.netServerHandler.sendPacket(new Packet9Respawn(entityplayer.dimension, (byte) entityplayer.world.difficulty, worldserver1.getWorldData().getType(), worldserver1.getHeight(), entityplayer.itemInWorldManager.getGameMode()));
         worldserver.removeEntity(entityplayer);
         entityplayer.dead = false;
-        double d0 = entityplayer.locX;
-        double d1 = entityplayer.locZ;
-        double d2 = 8.0D;
-
-        if (entityplayer.dimension == -1) {
-            d0 /= d2;
-            d1 /= d2;
-            entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
-            if (entityplayer.isAlive()) {
-                worldserver.entityJoinedWorld(entityplayer, false);
-            }
-        } else if (entityplayer.dimension == 0) {
-            d0 *= d2;
-            d1 *= d2;
-            entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
-            if (entityplayer.isAlive()) {
-                worldserver.entityJoinedWorld(entityplayer, false);
-            }
-        } else {
-            ChunkCoordinates chunkcoordinates = worldserver1.getDimensionSpawn();
-
-            d0 = (double) chunkcoordinates.x;
-            entityplayer.locY = (double) chunkcoordinates.y;
-            d1 = (double) chunkcoordinates.z;
-            entityplayer.setPositionRotation(d0, entityplayer.locY, d1, 90.0F, 0.0F);
-            if (entityplayer.isAlive()) {
-                worldserver.entityJoinedWorld(entityplayer, false);
-            }
-        }
-
-        if (j != 1) {
-            d0 = (double) MathHelper.a((int) d0, -29999872, 29999872);
-            d1 = (double) MathHelper.a((int) d1, -29999872, 29999872);
-            if (entityplayer.isAlive()) {
-                worldserver1.addEntity(entityplayer);
-                entityplayer.setPositionRotation(d0, entityplayer.locY, d1, entityplayer.yaw, entityplayer.pitch);
-                worldserver1.entityJoinedWorld(entityplayer, false);
-                (new PortalTravelAgent()).a(worldserver1, entityplayer);
-            }
-        }
-
-        entityplayer.spawnIn(worldserver1);
+        this.a(entityplayer, j, worldserver, worldserver1);
         this.a(entityplayer, worldserver);
         entityplayer.netServerHandler.a(entityplayer.locX, entityplayer.locY, entityplayer.locZ, entityplayer.yaw, entityplayer.pitch);
         entityplayer.itemInWorldManager.a(worldserver1);
@@ -325,6 +287,61 @@ public abstract class ServerConfigurationManagerAbstract {
 
             entityplayer.netServerHandler.sendPacket(new Packet41MobEffect(entityplayer.id, mobeffect));
         }
+    }
+
+    public void a(Entity entity, int i, WorldServer worldserver, WorldServer worldserver1) {
+        double d0 = entity.locX;
+        double d1 = entity.locZ;
+        double d2 = 8.0D;
+        double d3 = entity.locX;
+        double d4 = entity.locY;
+        double d5 = entity.locZ;
+        float f = entity.yaw;
+
+        if (entity.dimension == -1) {
+            d0 /= d2;
+            d1 /= d2;
+            entity.setPositionRotation(d0, entity.locY, d1, entity.yaw, entity.pitch);
+            if (entity.isAlive()) {
+                worldserver.entityJoinedWorld(entity, false);
+            }
+        } else if (entity.dimension == 0) {
+            d0 *= d2;
+            d1 *= d2;
+            entity.setPositionRotation(d0, entity.locY, d1, entity.yaw, entity.pitch);
+            if (entity.isAlive()) {
+                worldserver.entityJoinedWorld(entity, false);
+            }
+        } else {
+            ChunkCoordinates chunkcoordinates;
+
+            if (i == 1) {
+                chunkcoordinates = worldserver1.getSpawn();
+            } else {
+                chunkcoordinates = worldserver1.getDimensionSpawn();
+            }
+
+            d0 = (double) chunkcoordinates.x;
+            entity.locY = (double) chunkcoordinates.y;
+            d1 = (double) chunkcoordinates.z;
+            entity.setPositionRotation(d0, entity.locY, d1, 90.0F, 0.0F);
+            if (entity.isAlive()) {
+                worldserver.entityJoinedWorld(entity, false);
+            }
+        }
+
+        if (i != 1) {
+            d0 = (double) MathHelper.a((int) d0, -29999872, 29999872);
+            d1 = (double) MathHelper.a((int) d1, -29999872, 29999872);
+            if (entity.isAlive()) {
+                worldserver1.addEntity(entity);
+                entity.setPositionRotation(d0, entity.locY, d1, entity.yaw, entity.pitch);
+                worldserver1.entityJoinedWorld(entity, false);
+                (new PortalTravelAgent()).a(worldserver1, entity, d3, d4, d5, f);
+            }
+        }
+
+        entity.spawnIn(worldserver1);
     }
 
     public void tick() {
@@ -403,7 +420,7 @@ public abstract class ServerConfigurationManagerAbstract {
     }
 
     public boolean isOp(String s) {
-        return this.operators.contains(s.trim().toLowerCase()) || this.server.H() && this.server.worldServer[0].getWorldData().allowCommands() && this.server.G().equalsIgnoreCase(s) || this.n;
+        return this.operators.contains(s.trim().toLowerCase()) || this.server.I() && this.server.worldServer[0].getWorldData().allowCommands() && this.server.H().equalsIgnoreCase(s) || this.n;
     }
 
     public EntityPlayer f(String s) {
@@ -420,6 +437,49 @@ public abstract class ServerConfigurationManagerAbstract {
         } while (!entityplayer.name.equalsIgnoreCase(s));
 
         return entityplayer;
+    }
+
+    public List a(ChunkCoordinates chunkcoordinates, int i, int j, int k, int l, int i1, int j1) {
+        if (this.players.isEmpty()) {
+            return null;
+        } else {
+            Object object = new ArrayList();
+            boolean flag = k < 0;
+            int k1 = i * i;
+            int l1 = j * j;
+
+            k = MathHelper.a(k);
+
+            for (int i2 = 0; i2 < this.players.size(); ++i2) {
+                EntityPlayer entityplayer = (EntityPlayer) this.players.get(i2);
+
+                if (chunkcoordinates != null && (i > 0 || j > 0)) {
+                    float f = chunkcoordinates.e(entityplayer.b());
+
+                    if (i > 0 && f < (float) k1 || j > 0 && f > (float) l1) {
+                        continue;
+                    }
+                }
+
+                if ((l == EnumGamemode.NONE.a() || l == entityplayer.itemInWorldManager.getGameMode().a()) && (i1 <= 0 || entityplayer.expLevel >= i1) && entityplayer.expLevel <= j1) {
+                    ((List) object).add(entityplayer);
+                }
+            }
+
+            if (chunkcoordinates != null) {
+                Collections.sort((List) object, new PlayerDistanceComparator(chunkcoordinates));
+            }
+
+            if (flag) {
+                Collections.reverse((List) object);
+            }
+
+            if (k > 0) {
+                object = ((List) object).subList(0, Math.min(k, ((List) object).size()));
+            }
+
+            return (List) object;
+        }
     }
 
     public void sendPacketNearby(double d0, double d1, double d2, double d3, int i, Packet packet) {
@@ -473,15 +533,15 @@ public abstract class ServerConfigurationManagerAbstract {
     public void reloadWhitelist() {}
 
     public void b(EntityPlayer entityplayer, WorldServer worldserver) {
-        entityplayer.netServerHandler.sendPacket(new Packet4UpdateTime(worldserver.getTime()));
-        if (worldserver.J()) {
+        entityplayer.netServerHandler.sendPacket(new Packet4UpdateTime(worldserver.getTime(), worldserver.F()));
+        if (worldserver.M()) {
             entityplayer.netServerHandler.sendPacket(new Packet70Bed(1, 0));
         }
     }
 
     public void updateClient(EntityPlayer entityplayer) {
         entityplayer.updateInventory(entityplayer.defaultContainer);
-        entityplayer.n();
+        entityplayer.m();
     }
 
     public int getPlayerCount() {
@@ -511,7 +571,7 @@ public abstract class ServerConfigurationManagerAbstract {
         while (iterator.hasNext()) {
             EntityPlayer entityplayer = (EntityPlayer) iterator.next();
 
-            if (entityplayer.r().equals(s)) {
+            if (entityplayer.q().equals(s)) {
                 arraylist.add(entityplayer);
             }
         }

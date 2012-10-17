@@ -12,16 +12,16 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         super(world);
     }
 
-    protected void bd() {
+    protected void bj() {
         if (this.getAge() != 0) {
             this.love = 0;
         }
 
-        super.bd();
+        super.bj();
     }
 
-    public void d() {
-        super.d();
+    public void c() {
+        super.c();
         if (this.getAge() != 0) {
             this.love = 0;
         }
@@ -35,7 +35,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 double d1 = this.random.nextGaussian() * 0.02D;
                 double d2 = this.random.nextGaussian() * 0.02D;
 
-                this.world.a(s, this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
+                this.world.addParticle(s, this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
             }
         } else {
             this.e = 0;
@@ -54,7 +54,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
             EntityHuman entityhuman = (EntityHuman) entity;
 
-            if (entityhuman.bC() == null || !this.b(entityhuman.bC())) {
+            if (entityhuman.bP() == null || !this.c(entityhuman.bP())) {
                 this.target = null;
             }
         } else if (entity instanceof EntityAnimal) {
@@ -74,7 +74,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                     ++this.love;
                     ++this.e;
                     if (this.e % 4 == 0) {
-                        this.world.a("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D, 0.0D);
+                        this.world.addParticle("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D, 0.0D);
                     }
 
                     if (this.e == 60) {
@@ -110,7 +110,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 double d1 = this.random.nextGaussian() * 0.02D;
                 double d2 = this.random.nextGaussian() * 0.02D;
 
-                this.world.a("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
+                this.world.addParticle("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
             }
 
             this.world.addEntity(entityanimal1);
@@ -166,7 +166,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 while (iterator.hasNext()) {
                     EntityHuman entityhuman = (EntityHuman) iterator.next();
 
-                    if (entityhuman.bC() != null && this.b(entityhuman.bC())) {
+                    if (entityhuman.bP() != null && this.c(entityhuman.bP())) {
                         return entityhuman;
                     }
                 }
@@ -194,11 +194,11 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.k(i, j, k) > 8 && super.canSpawn();
     }
 
-    public int aG() {
+    public int aM() {
         return 120;
     }
 
-    protected boolean ba() {
+    protected boolean bg() {
         return false;
     }
 
@@ -206,14 +206,14 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         return 1 + this.world.random.nextInt(3);
     }
 
-    public boolean b(ItemStack itemstack) {
+    public boolean c(ItemStack itemstack) {
         return itemstack.id == Item.WHEAT.id;
     }
 
     public boolean c(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
-        if (itemstack != null && this.b(itemstack) && this.getAge() == 0) {
+        if (itemstack != null && this.c(itemstack) && this.getAge() == 0) {
             if (!entityhuman.abilities.canInstantlyBuild) {
                 --itemstack.count;
                 if (itemstack.count <= 0) {
@@ -229,7 +229,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 double d1 = this.random.nextGaussian() * 0.02D;
                 double d2 = this.random.nextGaussian() * 0.02D;
 
-                this.world.a("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
+                this.world.addParticle("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
             }
 
             return true;
@@ -238,15 +238,15 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         }
     }
 
-    public boolean s() {
+    public boolean r() {
         return this.love > 0;
     }
 
-    public void t() {
+    public void s() {
         this.love = 0;
     }
 
     public boolean mate(EntityAnimal entityanimal) {
-        return entityanimal == this ? false : (entityanimal.getClass() != this.getClass() ? false : this.s() && entityanimal.s());
+        return entityanimal == this ? false : (entityanimal.getClass() != this.getClass() ? false : this.r() && entityanimal.r());
     }
 }

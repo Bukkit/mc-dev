@@ -9,23 +9,29 @@ public class PathfinderGoalNearestAttackableTarget extends PathfinderGoalTarget 
     EntityLiving a;
     Class b;
     int c;
-    private DistanceComparator g;
+    private final IEntitySelector g;
+    private DistanceComparator h;
 
     public PathfinderGoalNearestAttackableTarget(EntityLiving entityliving, Class oclass, float f, int i, boolean flag) {
         this(entityliving, oclass, f, i, flag, false);
     }
 
     public PathfinderGoalNearestAttackableTarget(EntityLiving entityliving, Class oclass, float f, int i, boolean flag, boolean flag1) {
+        this(entityliving, oclass, f, i, flag, flag1, (IEntitySelector) null);
+    }
+
+    public PathfinderGoalNearestAttackableTarget(EntityLiving entityliving, Class oclass, float f, int i, boolean flag, boolean flag1, IEntitySelector ientityselector) {
         super(entityliving, f, flag, flag1);
         this.b = oclass;
         this.e = f;
         this.c = i;
-        this.g = new DistanceComparator(this, entityliving);
+        this.h = new DistanceComparator(this, entityliving);
+        this.g = ientityselector;
         this.a(1);
     }
 
     public boolean a() {
-        if (this.c > 0 && this.d.au().nextInt(this.c) != 0) {
+        if (this.c > 0 && this.d.aA().nextInt(this.c) != 0) {
             return false;
         } else {
             if (this.b == EntityHuman.class) {
@@ -36,9 +42,9 @@ public class PathfinderGoalNearestAttackableTarget extends PathfinderGoalTarget 
                     return true;
                 }
             } else {
-                List list = this.d.world.a(this.b, this.d.boundingBox.grow((double) this.e, 4.0D, (double) this.e));
+                List list = this.d.world.a(this.b, this.d.boundingBox.grow((double) this.e, 4.0D, (double) this.e), this.g);
 
-                Collections.sort(list, this.g);
+                Collections.sort(list, this.h);
                 Iterator iterator = list.iterator();
 
                 while (iterator.hasNext()) {
@@ -56,8 +62,8 @@ public class PathfinderGoalNearestAttackableTarget extends PathfinderGoalTarget 
         }
     }
 
-    public void e() {
+    public void c() {
         this.d.b(this.a);
-        super.e();
+        super.c();
     }
 }

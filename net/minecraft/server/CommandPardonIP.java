@@ -7,8 +7,12 @@ public class CommandPardonIP extends CommandAbstract {
 
     public CommandPardonIP() {}
 
-    public String b() {
+    public String c() {
         return "pardon-ip";
+    }
+
+    public int a() {
+        return 3;
     }
 
     public boolean b(ICommandListener icommandlistener) {

@@ -41,15 +41,15 @@ public class BlockCactus extends Block {
         return i == 1 ? this.textureId - 1 : (i == 0 ? this.textureId + 1 : this.textureId);
     }
 
+    public boolean b() {
+        return false;
+    }
+
     public boolean c() {
         return false;
     }
 
-    public boolean d() {
-        return false;
-    }
-
-    public int b() {
+    public int d() {
         return 13;
     }
 

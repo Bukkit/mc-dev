@@ -17,12 +17,12 @@ class SlotPotionBottle extends Slot {
         return 1;
     }
 
-    public void b(ItemStack itemstack) {
+    public void a(EntityHuman entityhuman, ItemStack itemstack) {
         if (itemstack.id == Item.POTION.id && itemstack.getData() > 0) {
             this.a.a((Statistic) AchievementList.A, 1);
         }
 
-        super.b(itemstack);
+        super.a(entityhuman, itemstack);
     }
 
     public static boolean a_(ItemStack itemstack) {

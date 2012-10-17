@@ -83,7 +83,7 @@ public class WorldMapCollection {
         while (iterator.hasNext()) {
             WorldMapBase worldmapbase = (WorldMapBase) iterator.next();
 
-            if (worldmapbase.b()) {
+            if (worldmapbase.d()) {
                 this.a(worldmapbase);
                 worldmapbase.a(false);
             }

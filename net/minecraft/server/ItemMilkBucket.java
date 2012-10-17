@@ -14,7 +14,7 @@ public class ItemMilkBucket extends Item {
         }
 
         if (!world.isStatic) {
-            entityhuman.bp();
+            entityhuman.bv();
         }
 
         return itemstack.count <= 0 ? new ItemStack(Item.BUCKET) : itemstack;
@@ -24,7 +24,7 @@ public class ItemMilkBucket extends Item {
         return 32;
     }
 
-    public EnumAnimation b(ItemStack itemstack) {
+    public EnumAnimation d_(ItemStack itemstack) {
         return EnumAnimation.c;
     }
 

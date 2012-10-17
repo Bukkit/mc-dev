@@ -25,4 +25,6 @@ public interface IChunkProvider {
     ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k);
 
     int getLoadedChunks();
+
+    void recreateStructures(int i, int j);
 }

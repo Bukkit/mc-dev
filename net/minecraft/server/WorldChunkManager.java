@@ -127,6 +127,7 @@ public class WorldChunkManager {
     }
 
     public boolean a(int i, int j, int k, List list) {
+        IntCache.a();
         int l = i - k >> 2;
         int i1 = j - k >> 2;
         int j1 = i + k >> 2;
@@ -147,6 +148,7 @@ public class WorldChunkManager {
     }
 
     public ChunkPosition a(int i, int j, int k, List list, Random random) {
+        IntCache.a();
         int l = i - k >> 2;
         int i1 = j - k >> 2;
         int j1 = i + k >> 2;

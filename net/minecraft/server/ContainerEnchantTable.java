@@ -60,7 +60,7 @@ public class ContainerEnchantTable extends Container {
             ItemStack itemstack = iinventory.getItem(0);
             int i;
 
-            if (itemstack != null && itemstack.u()) {
+            if (itemstack != null && itemstack.v()) {
                 this.f = this.l.nextLong();
                 if (!this.world.isStatic) {
                     i = 0;
@@ -121,7 +121,7 @@ public class ContainerEnchantTable extends Container {
                 List list = EnchantmentManager.b(this.l, itemstack, this.costs[i]);
 
                 if (list != null) {
-                    entityhuman.levelDown(this.costs[i]);
+                    entityhuman.levelDown(-this.costs[i]);
                     Iterator iterator = list.iterator();
 
                     while (iterator.hasNext()) {
@@ -155,7 +155,7 @@ public class ContainerEnchantTable extends Container {
         return this.world.getTypeId(this.x, this.y, this.z) != Block.ENCHANTMENT_TABLE.id ? false : entityhuman.e((double) this.x + 0.5D, (double) this.y + 0.5D, (double) this.z + 0.5D) <= 64.0D;
     }
 
-    public ItemStack b(int i) {
+    public ItemStack b(EntityHuman entityhuman, int i) {
         ItemStack itemstack = null;
         Slot slot = (Slot) this.b.get(i);
 
@@ -191,7 +191,7 @@ public class ContainerEnchantTable extends Container {
                 return null;
             }
 
-            slot.b(itemstack1);
+            slot.a(entityhuman, itemstack1);
         }
 
         return itemstack;

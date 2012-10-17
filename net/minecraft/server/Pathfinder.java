@@ -164,8 +164,7 @@ public class Pathfinder {
                         break;
                     }
 
-                    ++j1;
-                    if (j1 >= 4) {
+                    if (j1++ >= entity.as()) {
                         return null;
                     }
 
@@ -196,33 +195,37 @@ public class Pathfinder {
         return pathpoint;
     }
 
-    private int a(Entity entity, int i, int j, int k, PathPoint pathpoint) {
-        boolean flag = false;
+    public int a(Entity entity, int i, int j, int k, PathPoint pathpoint) {
+        return a(entity, i, j, k, pathpoint, this.g, this.f, this.e);
+    }
+
+    public static int a(Entity entity, int i, int j, int k, PathPoint pathpoint, boolean flag, boolean flag1, boolean flag2) {
+        boolean flag3 = false;
 
         for (int l = i; l < i + pathpoint.a; ++l) {
             for (int i1 = j; i1 < j + pathpoint.b; ++i1) {
                 for (int j1 = k; j1 < k + pathpoint.c; ++j1) {
-                    int k1 = this.a.getTypeId(l, i1, j1);
+                    int k1 = entity.world.getTypeId(l, i1, j1);
 
                     if (k1 > 0) {
                         if (k1 == Block.TRAP_DOOR.id) {
-                            flag = true;
+                            flag3 = true;
                         } else if (k1 != Block.WATER.id && k1 != Block.STATIONARY_WATER.id) {
-                            if (!this.e && k1 == Block.WOODEN_DOOR.id) {
+                            if (!flag2 && k1 == Block.WOODEN_DOOR.id) {
                                 return 0;
                             }
                         } else {
-                            if (this.g) {
+                            if (flag) {
                                 return -1;
                             }
 
-                            flag = true;
+                            flag3 = true;
                         }
 
                         Block block = Block.byId[k1];
 
-                        if (!block.c(this.a, l, i1, j1) && (!this.f || k1 != Block.WOODEN_DOOR.id)) {
-                            if (k1 == Block.FENCE.id || k1 == Block.FENCE_GATE.id) {
+                        if (!block.c(entity.world, l, i1, j1) && (!flag1 || k1 != Block.WOODEN_DOOR.id)) {
+                            if (k1 == Block.FENCE.id || k1 == Block.FENCE_GATE.id || k1 == Block.COBBLE_WALL.id) {
                                 return -3;
                             }
 
@@ -245,7 +248,7 @@ public class Pathfinder {
             }
         }
 
-        return flag ? 2 : 1;
+        return flag3 ? 2 : 1;
     }
 
     private PathEntity a(PathPoint pathpoint, PathPoint pathpoint1) {

@@ -2,22 +2,22 @@ package net.minecraft.server;
 
 public class EntityDamageSource extends DamageSource {
 
-    protected Entity o;
+    protected Entity r;
 
     public EntityDamageSource(String s, Entity entity) {
         super(s);
-        this.o = entity;
+        this.r = entity;
     }
 
     public Entity getEntity() {
-        return this.o;
+        return this.r;
     }
 
     public String getLocalizedDeathMessage(EntityHuman entityhuman) {
-        return LocaleI18n.get("death." + this.translationIndex, new Object[] { entityhuman.name, this.o.getLocalizedName()});
+        return LocaleI18n.get("death." + this.translationIndex, new Object[] { entityhuman.name, this.r.getLocalizedName()});
     }
 
     public boolean n() {
-        return this.o != null && this.o instanceof EntityLiving && !(this.o instanceof EntityHuman);
+        return this.r != null && this.r instanceof EntityLiving && !(this.r instanceof EntityHuman);
     }
 }

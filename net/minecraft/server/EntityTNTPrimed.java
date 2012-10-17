@@ -28,7 +28,7 @@ public class EntityTNTPrimed extends Entity {
 
     protected void a() {}
 
-    protected boolean e_() {
+    protected boolean f_() {
         return false;
     }
 
@@ -36,7 +36,7 @@ public class EntityTNTPrimed extends Entity {
         return !this.dead;
     }
 
-    public void h_() {
+    public void j_() {
         this.lastX = this.locX;
         this.lastY = this.locY;
         this.lastZ = this.locZ;
@@ -57,14 +57,14 @@ public class EntityTNTPrimed extends Entity {
                 this.explode();
             }
         } else {
-            this.world.a("smoke", this.locX, this.locY + 0.5D, this.locZ, 0.0D, 0.0D, 0.0D);
+            this.world.addParticle("smoke", this.locX, this.locY + 0.5D, this.locZ, 0.0D, 0.0D, 0.0D);
         }
     }
 
     private void explode() {
         float f = 4.0F;
 
-        this.world.explode((Entity) null, this.locX, this.locY, this.locZ, f);
+        this.world.explode((Entity) null, this.locX, this.locY, this.locZ, f, true);
     }
 
     protected void b(NBTTagCompound nbttagcompound) {

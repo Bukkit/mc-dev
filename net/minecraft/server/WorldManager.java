@@ -37,10 +37,14 @@ public class WorldManager implements IWorldAccess {
     public void a(String s, int i, int j, int k) {}
 
     public void a(EntityHuman entityhuman, int i, int j, int k, int l, int i1) {
-        this.server.getServerConfigurationManager().sendPacketNearby(entityhuman, (double) j, (double) k, (double) l, 64.0D, this.world.worldProvider.dimension, new Packet61WorldEvent(i, j, k, l, i1));
+        this.server.getServerConfigurationManager().sendPacketNearby(entityhuman, (double) j, (double) k, (double) l, 64.0D, this.world.worldProvider.dimension, new Packet61WorldEvent(i, j, k, l, i1, false));
     }
 
     public void a(int i, int j, int k, int l, int i1) {
+        this.server.getServerConfigurationManager().sendAll(new Packet61WorldEvent(i, j, k, l, i1, true));
+    }
+
+    public void b(int i, int j, int k, int l, int i1) {
         Iterator iterator = this.server.getServerConfigurationManager().players.iterator();
 
         while (iterator.hasNext()) {

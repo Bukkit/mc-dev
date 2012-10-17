@@ -121,4 +121,8 @@ public class LocaleLanguage {
             return "Format error: " + s1;
         }
     }
+
+    public String c(String s) {
+        return this.b.getProperty(s + ".name", "");
+    }
 }

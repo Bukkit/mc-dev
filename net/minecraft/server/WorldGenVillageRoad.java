@@ -76,7 +76,7 @@ public class WorldGenVillageRoad extends WorldGenVillageRoadPiece {
     }
 
     public static StructureBoundingBox a(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l) {
-        for (int i1 = 7 * MathHelper.a(random, 3, 5); i1 >= 7; i1 -= 7) {
+        for (int i1 = 7 * MathHelper.nextInt(random, 3, 5); i1 >= 7; i1 -= 7) {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, 0, 0, 0, 3, 3, i1, l);
 
             if (StructurePiece.a(list, structureboundingbox) == null) {
@@ -93,7 +93,7 @@ public class WorldGenVillageRoad extends WorldGenVillageRoadPiece {
         for (int j = this.e.a; j <= this.e.d; ++j) {
             for (int k = this.e.c; k <= this.e.f; ++k) {
                 if (structureboundingbox.b(j, 64, k)) {
-                    int l = world.h(j, k) - 1;
+                    int l = world.i(j, k) - 1;
 
                     world.setRawTypeId(j, l, k, i);
                 }

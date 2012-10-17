@@ -5,9 +5,9 @@ public class WorldProviderTheEnd extends WorldProvider {
     public WorldProviderTheEnd() {}
 
     public void b() {
-        this.c = new WorldChunkManagerHell(BiomeBase.SKY, 0.5F, 0.0F);
+        this.d = new WorldChunkManagerHell(BiomeBase.SKY, 0.5F, 0.0F);
         this.dimension = 1;
-        this.e = true;
+        this.f = true;
     }
 
     public IChunkProvider getChunkProvider() {

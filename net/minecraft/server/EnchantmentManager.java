@@ -3,6 +3,7 @@ package net.minecraft.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -33,6 +34,42 @@ public class EnchantmentManager {
 
                 return 0;
             }
+        }
+    }
+
+    public static Map a(ItemStack itemstack) {
+        LinkedHashMap linkedhashmap = new LinkedHashMap();
+        NBTTagList nbttaglist = itemstack.getEnchantments();
+
+        if (nbttaglist != null) {
+            for (int i = 0; i < nbttaglist.size(); ++i) {
+                short short1 = ((NBTTagCompound) nbttaglist.get(i)).getShort("id");
+                short short2 = ((NBTTagCompound) nbttaglist.get(i)).getShort("lvl");
+
+                linkedhashmap.put(Integer.valueOf(short1), Integer.valueOf(short2));
+            }
+        }
+
+        return linkedhashmap;
+    }
+
+    public static void a(Map map, ItemStack itemstack) {
+        NBTTagList nbttaglist = new NBTTagList();
+        Iterator iterator = map.keySet().iterator();
+
+        while (iterator.hasNext()) {
+            int i = ((Integer) iterator.next()).intValue();
+            NBTTagCompound nbttagcompound = new NBTTagCompound();
+
+            nbttagcompound.setShort("id", (short) i);
+            nbttagcompound.setShort("lvl", (short) ((Integer) map.get(Integer.valueOf(i))).intValue());
+            nbttaglist.add(nbttagcompound);
+        }
+
+        if (nbttaglist.size() > 0) {
+            itemstack.a("ench", (NBTBase) nbttaglist);
+        } else if (itemstack.hasTag()) {
+            itemstack.getTag().o("ench");
         }
     }
 
@@ -81,10 +118,10 @@ public class EnchantmentManager {
         }
     }
 
-    public static int a(PlayerInventory playerinventory, DamageSource damagesource) {
+    public static int a(ItemStack[] aitemstack, DamageSource damagesource) {
         b.a = 0;
         b.b = damagesource;
-        a((EnchantmentModifier) b, playerinventory.armor);
+        a((EnchantmentModifier) b, aitemstack);
         if (b.a > 25) {
             b.a = 25;
         }
@@ -92,52 +129,52 @@ public class EnchantmentManager {
         return (b.a + 1 >> 1) + random.nextInt((b.a >> 1) + 1);
     }
 
-    public static int a(PlayerInventory playerinventory, EntityLiving entityliving) {
+    public static int a(EntityLiving entityliving, EntityLiving entityliving1) {
         c.a = 0;
-        c.b = entityliving;
-        a((EnchantmentModifier) c, playerinventory.getItemInHand());
+        c.b = entityliving1;
+        a((EnchantmentModifier) c, entityliving.bA());
         return c.a > 0 ? 1 + random.nextInt(c.a) : 0;
     }
 
-    public static int getKnockbackEnchantmentLevel(PlayerInventory playerinventory, EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.KNOCKBACK.id, playerinventory.getItemInHand());
+    public static int getKnockbackEnchantmentLevel(EntityLiving entityliving, EntityLiving entityliving1) {
+        return getEnchantmentLevel(Enchantment.KNOCKBACK.id, entityliving.bA());
     }
 
-    public static int getFireAspectEnchantmentLevel(PlayerInventory playerinventory, EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.FIRE_ASPECT.id, playerinventory.getItemInHand());
+    public static int getFireAspectEnchantmentLevel(EntityLiving entityliving, EntityLiving entityliving1) {
+        return getEnchantmentLevel(Enchantment.FIRE_ASPECT.id, entityliving.bA());
     }
 
-    public static int getOxygenEnchantmentLevel(PlayerInventory playerinventory) {
-        return getEnchantmentLevel(Enchantment.OXYGEN.id, playerinventory.armor);
+    public static int getOxygenEnchantmentLevel(EntityLiving entityliving) {
+        return getEnchantmentLevel(Enchantment.OXYGEN.id, entityliving.getEquipment());
     }
 
-    public static int getDigSpeedEnchantmentLevel(PlayerInventory playerinventory) {
-        return getEnchantmentLevel(Enchantment.DIG_SPEED.id, playerinventory.getItemInHand());
+    public static int getDigSpeedEnchantmentLevel(EntityLiving entityliving) {
+        return getEnchantmentLevel(Enchantment.DIG_SPEED.id, entityliving.bA());
     }
 
-    public static int getDurabilityEnchantmentLevel(PlayerInventory playerinventory) {
-        return getEnchantmentLevel(Enchantment.DURABILITY.id, playerinventory.getItemInHand());
+    public static int getDurabilityEnchantmentLevel(EntityLiving entityliving) {
+        return getEnchantmentLevel(Enchantment.DURABILITY.id, entityliving.bA());
     }
 
-    public static boolean hasSilkTouchEnchantment(PlayerInventory playerinventory) {
-        return getEnchantmentLevel(Enchantment.SILK_TOUCH.id, playerinventory.getItemInHand()) > 0;
+    public static boolean hasSilkTouchEnchantment(EntityLiving entityliving) {
+        return getEnchantmentLevel(Enchantment.SILK_TOUCH.id, entityliving.bA()) > 0;
     }
 
-    public static int getBonusBlockLootEnchantmentLevel(PlayerInventory playerinventory) {
-        return getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS.id, playerinventory.getItemInHand());
+    public static int getBonusBlockLootEnchantmentLevel(EntityLiving entityliving) {
+        return getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS.id, entityliving.bA());
     }
 
-    public static int getBonusMonsterLootEnchantmentLevel(PlayerInventory playerinventory) {
-        return getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS.id, playerinventory.getItemInHand());
+    public static int getBonusMonsterLootEnchantmentLevel(EntityLiving entityliving) {
+        return getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS.id, entityliving.bA());
     }
 
-    public static boolean hasWaterWorkerEnchantment(PlayerInventory playerinventory) {
-        return getEnchantmentLevel(Enchantment.WATER_WORKER.id, playerinventory.armor) > 0;
+    public static boolean hasWaterWorkerEnchantment(EntityLiving entityliving) {
+        return getEnchantmentLevel(Enchantment.WATER_WORKER.id, entityliving.getEquipment()) > 0;
     }
 
     public static int a(Random random, int i, int j, ItemStack itemstack) {
         Item item = itemstack.getItem();
-        int k = item.b();
+        int k = item.c();
 
         if (k <= 0) {
             return 0;
@@ -170,7 +207,7 @@ public class EnchantmentManager {
 
     public static List b(Random random, ItemStack itemstack, int i) {
         Item item = itemstack.getItem();
-        int j = item.b();
+        int j = item.c();
 
         if (j <= 0) {
             return null;

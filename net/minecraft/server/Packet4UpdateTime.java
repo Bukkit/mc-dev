@@ -6,19 +6,23 @@ import java.io.DataOutputStream;
 public class Packet4UpdateTime extends Packet {
 
     public long a;
+    public long b;
 
     public Packet4UpdateTime() {}
 
-    public Packet4UpdateTime(long i) {
+    public Packet4UpdateTime(long i, long j) {
         this.a = i;
+        this.b = j;
     }
 
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readLong();
+        this.b = datainputstream.readLong();
     }
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeLong(this.a);
+        dataoutputstream.writeLong(this.b);
     }
 
     public void handle(NetHandler nethandler) {
@@ -26,7 +30,7 @@ public class Packet4UpdateTime extends Packet {
     }
 
     public int a() {
-        return 8;
+        return 16;
     }
 
     public boolean e() {

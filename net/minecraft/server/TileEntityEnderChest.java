@@ -60,9 +60,9 @@ public class TileEntityEnderChest extends TileEntity {
         }
     }
 
-    public void j() {
+    public void w_() {
         this.h();
-        super.j();
+        super.w_();
     }
 
     public void a() {

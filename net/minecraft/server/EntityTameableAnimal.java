@@ -35,9 +35,10 @@ public abstract class EntityTameableAnimal extends EntityAnimal {
         }
 
         this.d.a(nbttagcompound.getBoolean("Sitting"));
+        this.setSitting(nbttagcompound.getBoolean("Sitting"));
     }
 
-    protected void e(boolean flag) {
+    protected void f(boolean flag) {
         String s = "heart";
 
         if (!flag) {
@@ -49,7 +50,7 @@ public abstract class EntityTameableAnimal extends EntityAnimal {
             double d1 = this.random.nextGaussian() * 0.02D;
             double d2 = this.random.nextGaussian() * 0.02D;
 
-            this.world.a(s, this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
+            this.world.addParticle(s, this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
         }
     }
 
@@ -93,7 +94,7 @@ public abstract class EntityTameableAnimal extends EntityAnimal {
         return this.world.a(this.getOwnerName());
     }
 
-    public PathfinderGoalSit r() {
+    public PathfinderGoalSit q() {
         return this.d;
     }
 }

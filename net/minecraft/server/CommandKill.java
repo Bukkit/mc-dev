@@ -4,14 +4,18 @@ public class CommandKill extends CommandAbstract {
 
     public CommandKill() {}
 
-    public String b() {
+    public String c() {
         return "kill";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
-        EntityHuman entityhuman = c(icommandlistener);
+    public int a() {
+        return 0;
+    }
 
-        entityhuman.damageEntity(DamageSource.OUT_OF_WORLD, 1000);
-        icommandlistener.sendMessage("Ouch. That look like it hurt.");
+    public void b(ICommandListener icommandlistener, String[] astring) {
+        EntityPlayer entityplayer = c(icommandlistener);
+
+        entityplayer.damageEntity(DamageSource.OUT_OF_WORLD, 1000);
+        icommandlistener.sendMessage("Ouch. That looks like it hurt.");
     }
 }

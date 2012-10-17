@@ -20,14 +20,14 @@ public class PathfinderGoalOwnerHurtTarget extends PathfinderGoalTarget {
             if (entityliving == null) {
                 return false;
             } else {
-                this.b = entityliving.aw();
+                this.b = entityliving.aC();
                 return this.a(this.b, false);
             }
         }
     }
 
-    public void e() {
+    public void c() {
         this.d.b(this.b);
-        super.e();
+        super.c();
     }
 }

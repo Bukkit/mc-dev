@@ -1,20 +1,20 @@
 package net.minecraft.server;
 
-public class PathfinderGoalOzelotAttack extends PathfinderGoal {
+public class PathfinderGoalOcelotAttack extends PathfinderGoal {
 
     World a;
     EntityLiving b;
     EntityLiving c;
     int d = 0;
 
-    public PathfinderGoalOzelotAttack(EntityLiving entityliving) {
+    public PathfinderGoalOcelotAttack(EntityLiving entityliving) {
         this.b = entityliving;
         this.a = entityliving.world;
         this.a(3);
     }
 
     public boolean a() {
-        EntityLiving entityliving = this.b.az();
+        EntityLiving entityliving = this.b.aF();
 
         if (entityliving == null) {
             return false;
@@ -28,12 +28,12 @@ public class PathfinderGoalOzelotAttack extends PathfinderGoal {
         return !this.c.isAlive() ? false : (this.b.e(this.c) > 225.0D ? false : !this.b.getNavigation().f() || this.a());
     }
 
-    public void c() {
+    public void d() {
         this.c = null;
         this.b.getNavigation().g();
     }
 
-    public void d() {
+    public void e() {
         this.b.getControllerLook().a(this.c, 30.0F, 30.0F);
         double d0 = (double) (this.b.width * 2.0F * this.b.width * 2.0F);
         double d1 = this.b.e(this.c.locX, this.c.boundingBox.b, this.c.locZ);
@@ -50,7 +50,7 @@ public class PathfinderGoalOzelotAttack extends PathfinderGoal {
         if (d1 <= d0) {
             if (this.d <= 0) {
                 this.d = 20;
-                this.b.k(this.c);
+                this.b.l(this.c);
             }
         }
     }

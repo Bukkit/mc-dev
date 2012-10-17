@@ -9,15 +9,19 @@ public class CommandHelp extends CommandAbstract {
 
     public CommandHelp() {}
 
-    public String b() {
+    public String c() {
         return "help";
+    }
+
+    public int a() {
+        return 0;
     }
 
     public String a(ICommandListener icommandlistener) {
         return icommandlistener.a("commands.help.usage", new Object[0]);
     }
 
-    public List a() {
+    public List b() {
         return Arrays.asList(new String[] { "?"});
     }
 
@@ -33,7 +37,7 @@ public class CommandHelp extends CommandAbstract {
         try {
             j = astring.length == 0 ? 0 : a(icommandlistener, astring[0], 1, i + 1) - 1;
         } catch (ExceptionInvalidNumber exceptioninvalidnumber) {
-            Map map = this.c();
+            Map map = this.d();
 
             icommand = (ICommand) map.get(astring[0]);
             if (icommand != null) {
@@ -64,7 +68,7 @@ public class CommandHelp extends CommandAbstract {
         return list;
     }
 
-    protected Map c() {
+    protected Map d() {
         return MinecraftServer.getServer().getCommandHandler().a();
     }
 }

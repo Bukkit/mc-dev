@@ -10,7 +10,7 @@ public abstract class BlockDirectional extends Block {
         super(i, material);
     }
 
-    public static int d(int i) {
+    public static int e(int i) {
         return i & 3;
     }
 }

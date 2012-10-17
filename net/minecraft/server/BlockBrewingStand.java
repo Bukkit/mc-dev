@@ -12,11 +12,11 @@ public class BlockBrewingStand extends BlockContainer {
         this.textureId = 157;
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
-    public int b() {
+    public int d() {
         return 25;
     }
 
@@ -24,7 +24,7 @@ public class BlockBrewingStand extends BlockContainer {
         return new TileEntityBrewingStand();
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 

@@ -31,19 +31,19 @@ public class BlockFurnace extends BlockContainer {
             int k1 = world.getTypeId(i + 1, j, k);
             byte b0 = 3;
 
-            if (Block.n[l] && !Block.n[i1]) {
+            if (Block.q[l] && !Block.q[i1]) {
                 b0 = 3;
             }
 
-            if (Block.n[i1] && !Block.n[l]) {
+            if (Block.q[i1] && !Block.q[l]) {
                 b0 = 2;
             }
 
-            if (Block.n[j1] && !Block.n[k1]) {
+            if (Block.q[j1] && !Block.q[k1]) {
                 b0 = 5;
             }
 
-            if (Block.n[k1] && !Block.n[j1]) {
+            if (Block.q[k1] && !Block.q[j1]) {
                 b0 = 4;
             }
 
@@ -83,7 +83,7 @@ public class BlockFurnace extends BlockContainer {
         c = false;
         world.setData(i, j, k, l);
         if (tileentity != null) {
-            tileentity.q();
+            tileentity.s();
             world.setTileEntity(i, j, k, tileentity);
         }
     }

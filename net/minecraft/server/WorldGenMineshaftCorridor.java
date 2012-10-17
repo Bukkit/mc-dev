@@ -206,7 +206,7 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
             if (this.a) {
                 for (j = 0; j <= i; ++j) {
                     k = this.a(world, 1, -1, j, structureboundingbox);
-                    if (k > 0 && Block.n[k]) {
+                    if (k > 0 && Block.q[k]) {
                         this.a(world, structureboundingbox, random, 0.7F, 1, 0, j, Block.RAILS.id, this.c(Block.RAILS.id, 0));
                     }
                 }

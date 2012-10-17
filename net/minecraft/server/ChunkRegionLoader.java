@@ -77,7 +77,7 @@ public class ChunkRegionLoader implements IAsyncChunkSaver, IChunkLoader {
     }
 
     public void a(World world, Chunk chunk) {
-        world.B();
+        world.C();
 
         try {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -260,7 +260,7 @@ public class ChunkRegionLoader implements IAsyncChunkSaver, IChunkLoader {
             chunksection.b(new NibbleArray(nbttagcompound1.getByteArray("Data"), 4));
             chunksection.d(new NibbleArray(nbttagcompound1.getByteArray("SkyLight"), 4));
             chunksection.c(new NibbleArray(nbttagcompound1.getByteArray("BlockLight"), 4));
-            chunksection.e();
+            chunksection.recalcBlockCounts();
             achunksection[b1] = chunksection;
         }
 

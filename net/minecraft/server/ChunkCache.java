@@ -80,6 +80,16 @@ public class ChunkCache implements IBlockAccess {
     public boolean s(int i, int j, int k) {
         Block block = Block.byId[this.getTypeId(i, j, k)];
 
-        return block == null ? false : block.material.isSolid() && block.c();
+        return block == null ? false : block.material.isSolid() && block.b();
+    }
+
+    public Vec3DPool getVec3DPool() {
+        return this.e.getVec3DPool();
+    }
+
+    public boolean isBlockFacePowered(int i, int j, int k, int l) {
+        int i1 = this.getTypeId(i, j, k);
+
+        return i1 == 0 ? false : Block.byId[i1].c(this, i, j, k, l);
     }
 }

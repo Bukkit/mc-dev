@@ -20,12 +20,12 @@ public class Packet25EntityPainting extends Packet {
         this.c = entitypainting.y;
         this.d = entitypainting.z;
         this.e = entitypainting.direction;
-        this.f = entitypainting.art.A;
+        this.f = entitypainting.art.B;
     }
 
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readInt();
-        this.f = a(datainputstream, EnumArt.z);
+        this.f = a(datainputstream, EnumArt.A);
         this.b = datainputstream.readInt();
         this.c = datainputstream.readInt();
         this.d = datainputstream.readInt();

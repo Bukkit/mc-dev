@@ -38,4 +38,8 @@ public enum EnumToolMaterial {
     public int e() {
         return this.j;
     }
+
+    public int f() {
+        return this == WOOD ? Block.WOOD.id : (this == STONE ? Block.COBBLESTONE.id : (this == GOLD ? Item.GOLD_INGOT.id : (this == IRON ? Item.IRON_INGOT.id : (this == DIAMOND ? Item.DIAMOND.id : 0))));
+    }
 }

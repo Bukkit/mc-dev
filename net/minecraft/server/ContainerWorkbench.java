@@ -39,7 +39,7 @@ public class ContainerWorkbench extends Container {
     }
 
     public void a(IInventory iinventory) {
-        this.resultInventory.setItem(0, CraftingManager.getInstance().craft(this.craftInventory));
+        this.resultInventory.setItem(0, CraftingManager.getInstance().craft(this.craftInventory, this.g));
     }
 
     public void a(EntityHuman entityhuman) {
@@ -59,7 +59,7 @@ public class ContainerWorkbench extends Container {
         return this.g.getTypeId(this.h, this.i, this.j) != Block.WORKBENCH.id ? false : entityhuman.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
     }
 
-    public ItemStack b(int i) {
+    public ItemStack b(EntityHuman entityhuman, int i) {
         ItemStack itemstack = null;
         Slot slot = (Slot) this.b.get(i);
 
@@ -95,7 +95,7 @@ public class ContainerWorkbench extends Container {
                 return null;
             }
 
-            slot.b(itemstack1);
+            slot.a(entityhuman, itemstack1);
         }
 
         return itemstack;

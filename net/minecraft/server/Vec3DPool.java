@@ -7,10 +7,10 @@ public class Vec3DPool {
 
     private final int a;
     private final int b;
-    private final List c = new ArrayList();
-    private int d = 0;
-    private int e = 0;
-    private int f = 0;
+    private final List pool = new ArrayList();
+    private int position = 0;
+    private int largestSize = 0;
+    private int resizeTime = 0;
 
     public Vec3DPool(int i, int j) {
         this.a = i;
@@ -18,36 +18,54 @@ public class Vec3DPool {
     }
 
     public Vec3D create(double d0, double d1, double d2) {
-        Vec3D vec3d;
-
-        if (this.d >= this.c.size()) {
-            vec3d = new Vec3D(d0, d1, d2);
-            this.c.add(vec3d);
+        if (this.e()) {
+            return new Vec3D(this, d0, d1, d2);
         } else {
-            vec3d = (Vec3D) this.c.get(this.d);
-            vec3d.b(d0, d1, d2);
-        }
+            Vec3D vec3d;
 
-        ++this.d;
-        return vec3d;
+            if (this.position >= this.pool.size()) {
+                vec3d = new Vec3D(this, d0, d1, d2);
+                this.pool.add(vec3d);
+            } else {
+                vec3d = (Vec3D) this.pool.get(this.position);
+                vec3d.b(d0, d1, d2);
+            }
+
+            ++this.position;
+            return vec3d;
+        }
     }
 
     public void a() {
-        if (this.d > this.e) {
-            this.e = this.d;
-        }
-
-        if (this.f++ == this.a) {
-            int i = Math.max(this.e, this.c.size() - this.b);
-
-            while (this.c.size() > i) {
-                this.c.remove(i);
+        if (!this.e()) {
+            if (this.position > this.largestSize) {
+                this.largestSize = this.position;
             }
 
-            this.e = 0;
-            this.f = 0;
-        }
+            if (this.resizeTime++ == this.a) {
+                int i = Math.max(this.largestSize, this.pool.size() - this.b);
 
-        this.d = 0;
+                while (this.pool.size() > i) {
+                    this.pool.remove(i);
+                }
+
+                this.largestSize = 0;
+                this.resizeTime = 0;
+            }
+
+            this.position = 0;
+        }
+    }
+
+    public int c() {
+        return this.pool.size();
+    }
+
+    public int d() {
+        return this.position;
+    }
+
+    private boolean e() {
+        return this.b < 0 || this.a < 0;
     }
 }

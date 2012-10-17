@@ -6,7 +6,9 @@ public interface ICommandListener {
 
     void sendMessage(String s);
 
-    boolean b(String s);
+    boolean a(int i, String s);
 
     String a(String s, Object... aobject);
+
+    ChunkCoordinates b();
 }

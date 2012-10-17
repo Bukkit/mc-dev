@@ -26,7 +26,7 @@ public class EntitySnowball extends EntityProjectile {
         }
 
         for (int i = 0; i < 8; ++i) {
-            this.world.a("snowballpoof", this.locX, this.locY, this.locZ, 0.0D, 0.0D, 0.0D);
+            this.world.addParticle("snowballpoof", this.locX, this.locY, this.locZ, 0.0D, 0.0D, 0.0D);
         }
 
         if (!this.world.isStatic) {

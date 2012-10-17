@@ -64,7 +64,7 @@ public class ItemInWorldManager {
                 f = block.getDamage(this.player, this.player.world, this.k, this.l, this.m) * (float) (i + 1);
                 j = (int) (f * 10.0F);
                 if (j != this.o) {
-                    this.world.f(this.player.id, this.k, this.l, this.m, j);
+                    this.world.g(this.player.id, this.k, this.l, this.m, j);
                     this.o = j;
                 }
 
@@ -78,7 +78,7 @@ public class ItemInWorldManager {
             Block block1 = Block.byId[i];
 
             if (block1 == null) {
-                this.world.f(this.player.id, this.f, this.g, this.h, -1);
+                this.world.g(this.player.id, this.f, this.g, this.h, -1);
                 this.o = -1;
                 this.d = false;
             } else {
@@ -87,7 +87,7 @@ public class ItemInWorldManager {
                 f = block1.getDamage(this.player, this.player.world, this.f, this.g, this.h) * (float) (l + 1);
                 j = (int) (f * 10.0F);
                 if (j != this.o) {
-                    this.world.f(this.player.id, this.f, this.g, this.h, j);
+                    this.world.g(this.player.id, this.f, this.g, this.h, j);
                     this.o = j;
                 }
             }
@@ -95,7 +95,7 @@ public class ItemInWorldManager {
     }
 
     public void dig(int i, int j, int k, int l) {
-        if (!this.gamemode.isAdventure()) {
+        if (!this.gamemode.isAdventure() || this.player.f(i, j, k)) {
             if (this.isCreative()) {
                 if (!this.world.douseFire((EntityHuman) null, i, j, k, l)) {
                     this.breakBlock(i, j, k);
@@ -120,7 +120,7 @@ public class ItemInWorldManager {
                     this.h = k;
                     int j1 = (int) (f * 10.0F);
 
-                    this.world.f(this.player.id, i, j, k, j1);
+                    this.world.g(this.player.id, i, j, k, j1);
                     this.o = j1;
                 }
             }
@@ -138,7 +138,7 @@ public class ItemInWorldManager {
 
                 if (f >= 0.7F) {
                     this.d = false;
-                    this.world.f(this.player.id, i, j, k, -1);
+                    this.world.g(this.player.id, i, j, k, -1);
                     this.breakBlock(i, j, k);
                 } else if (!this.j) {
                     this.d = false;
@@ -154,7 +154,7 @@ public class ItemInWorldManager {
 
     public void c(int i, int j, int k) {
         this.d = false;
-        this.world.f(this.player.id, this.f, this.g, this.h, -1);
+        this.world.g(this.player.id, this.f, this.g, this.h, -1);
     }
 
     private boolean d(int i, int j, int k) {
@@ -175,7 +175,7 @@ public class ItemInWorldManager {
     }
 
     public boolean breakBlock(int i, int j, int k) {
-        if (this.gamemode.isAdventure()) {
+        if (this.gamemode.isAdventure() && !this.player.f(i, j, k)) {
             return false;
         } else {
             int l = this.world.getTypeId(i, j, k);
@@ -187,13 +187,13 @@ public class ItemInWorldManager {
             if (this.isCreative()) {
                 this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
             } else {
-                ItemStack itemstack = this.player.bC();
+                ItemStack itemstack = this.player.bP();
                 boolean flag1 = this.player.b(Block.byId[l]);
 
                 if (itemstack != null) {
                     itemstack.a(this.world, l, i, j, k, this.player);
                     if (itemstack.count == 0) {
-                        this.player.bD();
+                        this.player.bQ();
                     }
                 }
 
@@ -211,17 +211,23 @@ public class ItemInWorldManager {
         int j = itemstack.getData();
         ItemStack itemstack1 = itemstack.a(world, entityhuman);
 
-        if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.count == i) && (itemstack1 == null || itemstack1.m() <= 0)) {
+        if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.count == i && itemstack1.m() <= 0 && itemstack1.getData() == j)) {
             return false;
         } else {
             entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = itemstack1;
             if (this.isCreative()) {
                 itemstack1.count = i;
-                itemstack1.setData(j);
+                if (itemstack1.f()) {
+                    itemstack1.setData(j);
+                }
             }
 
             if (itemstack1.count == 0) {
                 entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = null;
+            }
+
+            if (!entityhuman.bI()) {
+                ((EntityPlayer) entityhuman).updateInventory(entityhuman.defaultContainer);
             }
 
             return true;

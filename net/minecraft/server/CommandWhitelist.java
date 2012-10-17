@@ -7,8 +7,12 @@ public class CommandWhitelist extends CommandAbstract {
 
     public CommandWhitelist() {}
 
-    public String b() {
+    public String c() {
         return "whitelist";
+    }
+
+    public int a() {
+        return 3;
     }
 
     public String a(ICommandListener icommandlistener) {

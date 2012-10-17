@@ -25,13 +25,13 @@ public class EntityMushroomCow extends EntityCow {
 
         if (itemstack != null && itemstack.id == Item.SHEARS.id && this.getAge() >= 0) {
             this.die();
-            this.world.a("largeexplode", this.locX, this.locY + (double) (this.length / 2.0F), this.locZ, 0.0D, 0.0D, 0.0D);
+            this.world.addParticle("largeexplode", this.locX, this.locY + (double) (this.length / 2.0F), this.locZ, 0.0D, 0.0D, 0.0D);
             if (!this.world.isStatic) {
                 EntityCow entitycow = new EntityCow(this.world);
 
                 entitycow.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
                 entitycow.setHealth(this.getHealth());
-                entitycow.aq = this.aq;
+                entitycow.aw = this.aw;
                 this.world.addEntity(entitycow);
 
                 for (int i = 0; i < 5; ++i) {

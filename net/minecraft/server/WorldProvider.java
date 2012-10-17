@@ -4,18 +4,20 @@ public abstract class WorldProvider {
 
     public World a;
     public WorldType type;
-    public WorldChunkManager c;
-    public boolean d = false;
+    public String c;
+    public WorldChunkManager d;
     public boolean e = false;
-    public float[] f = new float[16];
+    public boolean f = false;
+    public float[] g = new float[16];
     public int dimension = 0;
-    private float[] h = new float[4];
+    private float[] i = new float[4];
 
     public WorldProvider() {}
 
     public final void a(World world) {
         this.a = world;
         this.type = world.getWorldData().getType();
+        this.c = world.getWorldData().getGeneratorOptions();
         this.b();
         this.a();
     }
@@ -26,20 +28,22 @@ public abstract class WorldProvider {
         for (int i = 0; i <= 15; ++i) {
             float f1 = 1.0F - (float) i / 15.0F;
 
-            this.f[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
+            this.g[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
         }
     }
 
     protected void b() {
         if (this.a.getWorldData().getType() == WorldType.FLAT) {
-            this.c = new WorldChunkManagerHell(BiomeBase.PLAINS, 0.5F, 0.5F);
+            WorldGenFlatInfo worldgenflatinfo = WorldGenFlatInfo.a(this.a.getWorldData().getGeneratorOptions());
+
+            this.d = new WorldChunkManagerHell(BiomeBase.biomes[worldgenflatinfo.a()], 0.5F, 0.5F);
         } else {
-            this.c = new WorldChunkManager(this.a);
+            this.d = new WorldChunkManager(this.a);
         }
     }
 
     public IChunkProvider getChunkProvider() {
-        return (IChunkProvider) (this.type == WorldType.FLAT ? new ChunkProviderFlat(this.a, this.a.getSeed(), this.a.getWorldData().shouldGenerateMapFeatures()) : new ChunkProviderGenerate(this.a, this.a.getSeed(), this.a.getWorldData().shouldGenerateMapFeatures()));
+        return (IChunkProvider) (this.type == WorldType.FLAT ? new ChunkProviderFlat(this.a, this.a.getSeed(), this.a.getWorldData().shouldGenerateMapFeatures(), this.c) : new ChunkProviderGenerate(this.a, this.a.getSeed(), this.a.getWorldData().shouldGenerateMapFeatures()));
     }
 
     public boolean canSpawn(int i, int j) {

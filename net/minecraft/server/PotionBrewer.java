@@ -19,9 +19,10 @@ public class PotionBrewer {
     public static final String i;
     public static final String j;
     public static final String k;
+    public static final String l;
     private static final HashMap effectDurations = new HashMap();
     private static final HashMap effectAmplifiers = new HashMap();
-    private static final HashMap n;
+    private static final HashMap o;
     private static final String[] appearances;
 
     public static boolean a(int i, int j) {
@@ -34,6 +35,10 @@ public class PotionBrewer {
 
     private static int d(int i, int j) {
         return a(i, j) ? 0 : 1;
+    }
+
+    public static int a(int i) {
+        return a(i, 5, 4, 3, 2, 1);
     }
 
     public static int a(Collection collection) {
@@ -65,6 +70,28 @@ public class PotionBrewer {
         } else {
             return i;
         }
+    }
+
+    public static boolean b(Collection collection) {
+        Iterator iterator = collection.iterator();
+
+        MobEffect mobeffect;
+
+        do {
+            if (!iterator.hasNext()) {
+                return true;
+            }
+
+            mobeffect = (MobEffect) iterator.next();
+        } while (mobeffect.isAmbient());
+
+        return false;
+    }
+
+    public static String c(int i) {
+        int j = a(i);
+
+        return appearances[j];
     }
 
     private static int a(boolean flag, boolean flag1, boolean flag2, int i, int j, int k, int l) {
@@ -270,7 +297,13 @@ public class PotionBrewer {
                             arraylist = new ArrayList();
                         }
 
-                        arraylist.add(new MobEffect(mobeffectlist.getId(), l, i1));
+                        MobEffect mobeffect = new MobEffect(mobeffectlist.getId(), l, i1);
+
+                        if ((i & 16384) != 0) {
+                            mobeffect.setSplash(true);
+                        }
+
+                        arraylist.add(mobeffect);
                     }
                 }
             }
@@ -367,6 +400,10 @@ public class PotionBrewer {
         return i & 32767;
     }
 
+    public static int a(int i, int j, int k, int l, int i1, int j1) {
+        return (a(i, j) ? 16 : 0) | (a(i, k) ? 8 : 0) | (a(i, l) ? 4 : 0) | (a(i, i1) ? 2 : 0) | (a(i, j1) ? 1 : 0);
+    }
+
     static {
         effectDurations.put(Integer.valueOf(MobEffectList.REGENERATION.getId()), "0 & !1 & !2 & !3 & 0+6");
         b = "-0+1-2-3&4-4+13";
@@ -383,6 +420,9 @@ public class PotionBrewer {
         effectDurations.put(Integer.valueOf(MobEffectList.SLOWER_MOVEMENT.getId()), "!0 & 1 & !2 & 3 & 3+6");
         g = "+0-1-2+3&4-4+13";
         effectDurations.put(Integer.valueOf(MobEffectList.INCREASE_DAMAGE.getId()), "0 & !1 & !2 & 3 & 3+6");
+        l = "-0+1+2-3+13&4-4";
+        effectDurations.put(Integer.valueOf(MobEffectList.NIGHT_VISION.getId()), "!0 & 1 & 2 & !3 & 2+6");
+        effectDurations.put(Integer.valueOf(MobEffectList.INVISIBILITY.getId()), "!0 & 1 & 2 & 3 & 2+6");
         j = "+5-6-7";
         effectAmplifiers.put(Integer.valueOf(MobEffectList.FASTER_MOVEMENT.getId()), "5");
         effectAmplifiers.put(Integer.valueOf(MobEffectList.FASTER_DIG.getId()), "5");
@@ -394,7 +434,7 @@ public class PotionBrewer {
         effectAmplifiers.put(Integer.valueOf(MobEffectList.POISON.getId()), "5");
         i = "-5+6-7";
         k = "+14&13-13";
-        n = new HashMap();
+        o = new HashMap();
         appearances = new String[] { "potion.prefix.mundane", "potion.prefix.uninteresting", "potion.prefix.bland", "potion.prefix.clear", "potion.prefix.milky", "potion.prefix.diffuse", "potion.prefix.artless", "potion.prefix.thin", "potion.prefix.awkward", "potion.prefix.flat", "potion.prefix.bulky", "potion.prefix.bungling", "potion.prefix.buttered", "potion.prefix.smooth", "potion.prefix.suave", "potion.prefix.debonair", "potion.prefix.thick", "potion.prefix.elegant", "potion.prefix.fancy", "potion.prefix.charming", "potion.prefix.dashing", "potion.prefix.refined", "potion.prefix.cordial", "potion.prefix.sparkling", "potion.prefix.potent", "potion.prefix.foul", "potion.prefix.odorless", "potion.prefix.rank", "potion.prefix.harsh", "potion.prefix.acrid", "potion.prefix.gross", "potion.prefix.stinky"};
     }
 }

@@ -9,6 +9,6 @@ public class ItemAxe extends ItemTool {
     }
 
     public float getDestroySpeed(ItemStack itemstack, Block block) {
-        return block != null && block.material == Material.WOOD ? this.a : super.getDestroySpeed(itemstack, block);
+        return block != null && (block.material == Material.WOOD || block.material == Material.PLANT || block.material == Material.REPLACEABLE_PLANT) ? this.a : super.getDestroySpeed(itemstack, block);
     }
 }

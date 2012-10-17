@@ -5,6 +5,7 @@ import java.util.Random;
 public abstract class WorldGenerator {
 
     private final boolean a;
+    private int b = 1;
 
     public WorldGenerator() {
         this.a = false;

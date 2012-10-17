@@ -8,6 +8,8 @@ public abstract class EntityFlying extends EntityLiving {
 
     protected void a(float f) {}
 
+    protected void a(double d0, boolean flag) {}
+
     public void e(float f, float f1) {
         if (this.H()) {
             this.a(f, f1, 0.02F);
@@ -52,7 +54,7 @@ public abstract class EntityFlying extends EntityLiving {
             this.motZ *= (double) f2;
         }
 
-        this.aY = this.aZ;
+        this.bf = this.bg;
         double d0 = this.locX - this.lastX;
         double d1 = this.locZ - this.lastZ;
         float f4 = MathHelper.sqrt(d0 * d0 + d1 * d1) * 4.0F;
@@ -61,11 +63,11 @@ public abstract class EntityFlying extends EntityLiving {
             f4 = 1.0F;
         }
 
-        this.aZ += (f4 - this.aZ) * 0.4F;
-        this.ba += this.aZ;
+        this.bg += (f4 - this.bg) * 0.4F;
+        this.bh += this.bg;
     }
 
-    public boolean f_() {
+    public boolean g_() {
         return false;
     }
 }

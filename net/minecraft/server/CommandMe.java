@@ -6,8 +6,12 @@ public class CommandMe extends CommandAbstract {
 
     public CommandMe() {}
 
-    public String b() {
+    public String c() {
         return "me";
+    }
+
+    public int a() {
+        return 0;
     }
 
     public String a(ICommandListener icommandlistener) {
@@ -16,7 +20,7 @@ public class CommandMe extends CommandAbstract {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0) {
-            String s = a(astring, 0);
+            String s = a(icommandlistener, astring, 0);
 
             MinecraftServer.getServer().getServerConfigurationManager().sendAll(new Packet3Chat("* " + icommandlistener.getName() + " " + s));
         } else {

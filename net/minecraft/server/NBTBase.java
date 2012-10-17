@@ -2,9 +2,11 @@ package net.minecraft.server;
 
 import java.io.DataInput;
 import java.io.DataOutput;
+import java.io.IOException;
 
 public abstract class NBTBase {
 
+    public static final String[] b = new String[] { "END", "BYTE", "SHORT", "INT", "LONG", "FLOAT", "DOUBLE", "BYTE[]", "STRING", "LIST", "COMPOUND", "INT[]"};
     private String name;
 
     abstract void write(DataOutput dataoutput);
@@ -44,8 +46,16 @@ public abstract class NBTBase {
             String s = datainput.readUTF();
             NBTBase nbtbase = createTag(b0, s);
 
-            nbtbase.load(datainput);
-            return nbtbase;
+            try {
+                nbtbase.load(datainput);
+                return nbtbase;
+            } catch (IOException ioexception) {
+                CrashReport crashreport = new CrashReport("loading nbt data", ioexception);
+
+                crashreport.a("Tag name", s);
+                crashreport.a("Tag type", Byte.valueOf(b0));
+                throw new ReportedException(crashreport);
+            }
         }
     }
 

@@ -6,8 +6,12 @@ public class CommandDeop extends CommandAbstract {
 
     public CommandDeop() {}
 
-    public String b() {
+    public String c() {
         return "deop";
+    }
+
+    public int a() {
+        return 3;
     }
 
     public String a(ICommandListener icommandlistener) {

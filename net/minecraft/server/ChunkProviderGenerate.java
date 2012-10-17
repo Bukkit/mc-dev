@@ -19,7 +19,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
     private double[] s = new double[256];
     private WorldGenBase t = new WorldGenCaves();
     private WorldGenStronghold u = new WorldGenStronghold();
-    private WorldGenVillage v = new WorldGenVillage(0);
+    private WorldGenVillage v = new WorldGenVillage();
     private WorldGenMineshaft w = new WorldGenMineshaft();
     private WorldGenLargeFeature x = new WorldGenLargeFeature();
     private WorldGenBase y = new WorldGenCanyon();
@@ -389,7 +389,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
         for (k1 = 0; k1 < 16; ++k1) {
             for (l1 = 0; l1 < 16; ++l1) {
-                i2 = this.p.g(k + k1, l + l1);
+                i2 = this.p.h(k + k1, l + l1);
                 if (this.p.u(k1 + k, i2 - 1, l1 + l)) {
                     this.p.setTypeId(k1 + k, i2 - 1, l1 + l, Block.ICE.id);
                 }
@@ -422,7 +422,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
     public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
         BiomeBase biomebase = this.p.getBiome(i, k);
 
-        return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
+        return biomebase == null ? null : (biomebase == BiomeBase.SWAMPLAND && enumcreaturetype == EnumCreatureType.MONSTER && this.x.a(i, j, k) ? this.x.a() : biomebase.getMobs(enumcreaturetype));
     }
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {
@@ -431,5 +431,14 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
     public int getLoadedChunks() {
         return 0;
+    }
+
+    public void recreateStructures(int i, int j) {
+        if (this.q) {
+            this.w.a(this, this.p, i, j, (byte[]) null);
+            this.v.a(this, this.p, i, j, (byte[]) null);
+            this.u.a(this, this.p, i, j, (byte[]) null);
+            this.x.a(this, this.p, i, j, (byte[]) null);
+        }
     }
 }

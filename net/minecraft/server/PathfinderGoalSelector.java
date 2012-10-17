@@ -37,7 +37,7 @@ public class PathfinderGoalSelector {
                         continue;
                     }
 
-                    pathfindergoalselectoritem.a.c();
+                    pathfindergoalselectoritem.a.d();
                     this.b.remove(pathfindergoalselectoritem);
                 }
 
@@ -52,7 +52,7 @@ public class PathfinderGoalSelector {
             while (iterator.hasNext()) {
                 pathfindergoalselectoritem = (PathfinderGoalSelectorItem) iterator.next();
                 if (!pathfindergoalselectoritem.a.b()) {
-                    pathfindergoalselectoritem.a.c();
+                    pathfindergoalselectoritem.a.d();
                     iterator.remove();
                 }
             }
@@ -64,7 +64,7 @@ public class PathfinderGoalSelector {
         while (iterator.hasNext()) {
             pathfindergoalselectoritem = (PathfinderGoalSelectorItem) iterator.next();
             this.c.a(pathfindergoalselectoritem.a.getClass().getSimpleName());
-            pathfindergoalselectoritem.a.e();
+            pathfindergoalselectoritem.a.c();
             this.c.b();
         }
 
@@ -74,9 +74,7 @@ public class PathfinderGoalSelector {
 
         while (iterator.hasNext()) {
             pathfindergoalselectoritem = (PathfinderGoalSelectorItem) iterator.next();
-            this.c.a(pathfindergoalselectoritem.a.getClass().getSimpleName());
-            pathfindergoalselectoritem.a.d();
-            this.c.b();
+            pathfindergoalselectoritem.a.e();
         }
 
         this.c.b();
@@ -103,7 +101,7 @@ public class PathfinderGoalSelector {
                         this.c.b();
                         return false;
                     }
-                } else if (this.b.contains(pathfindergoalselectoritem1) && !pathfindergoalselectoritem1.a.g()) {
+                } else if (this.b.contains(pathfindergoalselectoritem1) && !pathfindergoalselectoritem1.a.i()) {
                     this.c.b();
                     return false;
                 }
@@ -115,6 +113,6 @@ public class PathfinderGoalSelector {
     }
 
     private boolean a(PathfinderGoalSelectorItem pathfindergoalselectoritem, PathfinderGoalSelectorItem pathfindergoalselectoritem1) {
-        return (pathfindergoalselectoritem.a.h() & pathfindergoalselectoritem1.a.h()) == 0;
+        return (pathfindergoalselectoritem.a.j() & pathfindergoalselectoritem1.a.j()) == 0;
     }
 }

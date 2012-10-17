@@ -7,6 +7,7 @@ public final class ItemStack {
     public int id;
     public NBTTagCompound tag;
     private int damage;
+    private EntityItemFrame f;
 
     public ItemStack(Block block) {
         this(block, 1);
@@ -34,6 +35,7 @@ public final class ItemStack {
 
     public ItemStack(int i, int j, int k) {
         this.count = 0;
+        this.f = null;
         this.id = i;
         this.count = j;
         this.damage = k;
@@ -48,6 +50,7 @@ public final class ItemStack {
 
     private ItemStack() {
         this.count = 0;
+        this.f = null;
     }
 
     public ItemStack a(int i) {
@@ -120,7 +123,7 @@ public final class ItemStack {
     }
 
     public boolean usesData() {
-        return Item.byId[this.id].k();
+        return Item.byId[this.id].l();
     }
 
     public boolean h() {
@@ -146,7 +149,7 @@ public final class ItemStack {
     public void damage(int i, EntityLiving entityliving) {
         if (this.f()) {
             if (i > 0 && entityliving instanceof EntityHuman) {
-                int j = EnchantmentManager.getDurabilityEnchantmentLevel(((EntityHuman) entityliving).inventory);
+                int j = EnchantmentManager.getDurabilityEnchantmentLevel(entityliving);
 
                 if (j > 0 && entityliving.world.random.nextInt(j + 1) > 0) {
                     return;
@@ -228,7 +231,7 @@ public final class ItemStack {
     }
 
     public String a() {
-        return Item.byId[this.id].c(this);
+        return Item.byId[this.id].c_(this);
     }
 
     public static ItemStack b(ItemStack itemstack) {
@@ -252,16 +255,12 @@ public final class ItemStack {
         Item.byId[this.id].d(this, world, entityhuman);
     }
 
-    public boolean c(ItemStack itemstack) {
-        return this.id == itemstack.id && this.count == itemstack.count && this.damage == itemstack.damage;
-    }
-
     public int m() {
         return this.getItem().a(this);
     }
 
     public EnumAnimation n() {
-        return this.getItem().b(this);
+        return this.getItem().d_(this);
     }
 
     public void b(World world, EntityHuman entityhuman, int i) {
@@ -284,7 +283,37 @@ public final class ItemStack {
         this.tag = nbttagcompound;
     }
 
-    public boolean u() {
+    public String r() {
+        String s = this.getItem().j(this);
+
+        if (this.tag != null && this.tag.hasKey("display")) {
+            NBTTagCompound nbttagcompound = this.tag.getCompound("display");
+
+            if (nbttagcompound.hasKey("Name")) {
+                s = nbttagcompound.getString("Name");
+            }
+        }
+
+        return s;
+    }
+
+    public void c(String s) {
+        if (this.tag == null) {
+            this.tag = new NBTTagCompound();
+        }
+
+        if (!this.tag.hasKey("display")) {
+            this.tag.setCompound("display", new NBTTagCompound());
+        }
+
+        this.tag.getCompound("display").setString("Name", s);
+    }
+
+    public boolean s() {
+        return this.tag == null ? false : (!this.tag.hasKey("display") ? false : this.tag.getCompound("display").hasKey("Name"));
+    }
+
+    public boolean v() {
         return !this.getItem().k(this) ? false : !this.hasEnchantments();
     }
 
@@ -307,5 +336,41 @@ public final class ItemStack {
 
     public boolean hasEnchantments() {
         return this.tag != null && this.tag.hasKey("ench");
+    }
+
+    public void a(String s, NBTBase nbtbase) {
+        if (this.tag == null) {
+            this.setTag(new NBTTagCompound());
+        }
+
+        this.tag.set(s, nbtbase);
+    }
+
+    public boolean x() {
+        return this.getItem().x();
+    }
+
+    public boolean y() {
+        return this.f != null;
+    }
+
+    public void a(EntityItemFrame entityitemframe) {
+        this.f = entityitemframe;
+    }
+
+    public EntityItemFrame z() {
+        return this.f;
+    }
+
+    public int getRepairCost() {
+        return this.hasTag() && this.tag.hasKey("RepairCost") ? this.tag.getInt("RepairCost") : 0;
+    }
+
+    public void setRepairCost(int i) {
+        if (!this.hasTag()) {
+            this.tag = new NBTTagCompound();
+        }
+
+        this.tag.setInt("RepairCost", i);
     }
 }

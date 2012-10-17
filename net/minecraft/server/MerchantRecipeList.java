@@ -15,24 +15,18 @@ public class MerchantRecipeList extends ArrayList {
         if (i > 0 && i < this.size()) {
             MerchantRecipe merchantrecipe = (MerchantRecipe) this.get(i);
 
-            if (itemstack.id == merchantrecipe.getBuyItem1().id && (itemstack1 == null && !merchantrecipe.hasSecondItem() || merchantrecipe.hasSecondItem() && itemstack1 != null && merchantrecipe.getBuyItem2().id == itemstack1.id)) {
-                if (itemstack.count >= merchantrecipe.getBuyItem1().count && (!merchantrecipe.hasSecondItem() || itemstack1.count >= merchantrecipe.getBuyItem2().count)) {
-                    return merchantrecipe;
+            return itemstack.id == merchantrecipe.getBuyItem1().id && (itemstack1 == null && !merchantrecipe.hasSecondItem() || merchantrecipe.hasSecondItem() && itemstack1 != null && merchantrecipe.getBuyItem2().id == itemstack1.id) && itemstack.count >= merchantrecipe.getBuyItem1().count && (!merchantrecipe.hasSecondItem() || itemstack1.count >= merchantrecipe.getBuyItem2().count) ? merchantrecipe : null;
+        } else {
+            for (int j = 0; j < this.size(); ++j) {
+                MerchantRecipe merchantrecipe1 = (MerchantRecipe) this.get(j);
+
+                if (itemstack.id == merchantrecipe1.getBuyItem1().id && itemstack.count >= merchantrecipe1.getBuyItem1().count && (!merchantrecipe1.hasSecondItem() && itemstack1 == null || merchantrecipe1.hasSecondItem() && itemstack1 != null && merchantrecipe1.getBuyItem2().id == itemstack1.id && itemstack1.count >= merchantrecipe1.getBuyItem2().count)) {
+                    return merchantrecipe1;
                 }
-
-                return null;
             }
+
+            return null;
         }
-
-        for (int j = 0; j < this.size(); ++j) {
-            MerchantRecipe merchantrecipe1 = (MerchantRecipe) this.get(j);
-
-            if (itemstack.id == merchantrecipe1.getBuyItem1().id && itemstack.count >= merchantrecipe1.getBuyItem1().count && (!merchantrecipe1.hasSecondItem() && itemstack1 == null || merchantrecipe1.hasSecondItem() && itemstack1 != null && merchantrecipe1.getBuyItem2().id == itemstack1.id && itemstack1.count >= merchantrecipe1.getBuyItem2().count)) {
-                return merchantrecipe1;
-            }
-        }
-
-        return null;
     }
 
     public void a(MerchantRecipe merchantrecipe) {
@@ -65,6 +59,8 @@ public class MerchantRecipeList extends ArrayList {
             if (itemstack != null) {
                 Packet.a(itemstack, dataoutputstream);
             }
+
+            dataoutputstream.writeBoolean(merchantrecipe.g());
         }
     }
 
@@ -85,7 +81,7 @@ public class MerchantRecipeList extends ArrayList {
         for (int i = 0; i < this.size(); ++i) {
             MerchantRecipe merchantrecipe = (MerchantRecipe) this.get(i);
 
-            nbttaglist.add(merchantrecipe.g());
+            nbttaglist.add(merchantrecipe.i());
         }
 
         nbttagcompound.set("Recipes", nbttaglist);

@@ -11,4 +11,8 @@ public interface IBlockAccess {
     Material getMaterial(int i, int j, int k);
 
     boolean s(int i, int j, int k);
+
+    Vec3DPool getVec3DPool();
+
+    boolean isBlockFacePowered(int i, int j, int k, int l);
 }

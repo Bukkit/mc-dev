@@ -10,15 +10,15 @@ public class BlockEnderChest extends BlockContainer {
         this.a(CreativeModeTab.c);
     }
 
-    public boolean d() {
-        return false;
-    }
-
     public boolean c() {
         return false;
     }
 
-    public int b() {
+    public boolean b() {
+        return false;
+    }
+
+    public int d() {
         return 22;
     }
 
@@ -30,7 +30,7 @@ public class BlockEnderChest extends BlockContainer {
         return 8;
     }
 
-    protected boolean q_() {
+    protected boolean s_() {
         return true;
     }
 

@@ -10,6 +10,7 @@ public class Packet204LocaleAndViewDistance extends Packet {
     private int c;
     private boolean d;
     private int e;
+    private boolean f;
 
     public Packet204LocaleAndViewDistance() {}
 
@@ -21,6 +22,7 @@ public class Packet204LocaleAndViewDistance extends Packet {
         this.c = b0 & 7;
         this.d = (b0 & 8) == 8;
         this.e = datainputstream.readByte();
+        this.f = datainputstream.readBoolean();
     }
 
     public void a(DataOutputStream dataoutputstream) {
@@ -28,6 +30,7 @@ public class Packet204LocaleAndViewDistance extends Packet {
         dataoutputstream.writeByte(this.b);
         dataoutputstream.writeByte(this.c | (this.d ? 1 : 0) << 3);
         dataoutputstream.writeByte(this.e);
+        dataoutputstream.writeBoolean(this.f);
     }
 
     public void handle(NetHandler nethandler) {
@@ -35,7 +38,7 @@ public class Packet204LocaleAndViewDistance extends Packet {
     }
 
     public int a() {
-        return 0;
+        return 7;
     }
 
     public String d() {
@@ -56,6 +59,10 @@ public class Packet204LocaleAndViewDistance extends Packet {
 
     public int i() {
         return this.e;
+    }
+
+    public boolean j() {
+        return this.f;
     }
 
     public boolean e() {

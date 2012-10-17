@@ -1,10 +1,13 @@
 package net.minecraft.server;
 
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 import javax.crypto.SecretKey;
@@ -25,7 +28,7 @@ public class NetLoginHandler extends NetHandler {
 
     public NetLoginHandler(MinecraftServer minecraftserver, Socket socket, String s) {
         this.server = minecraftserver;
-        this.networkManager = new NetworkManager(socket, s, this, minecraftserver.E().getPrivate());
+        this.networkManager = new NetworkManager(socket, s, this, minecraftserver.F().getPrivate());
         this.networkManager.e = 0;
     }
 
@@ -57,10 +60,10 @@ public class NetLoginHandler extends NetHandler {
         if (!this.h.equals(StripColor.a(this.h))) {
             this.disconnect("Invalid username!");
         } else {
-            PublicKey publickey = this.server.E().getPublic();
+            PublicKey publickey = this.server.F().getPublic();
 
-            if (packet2handshake.d() != 39) {
-                if (packet2handshake.d() > 39) {
+            if (packet2handshake.d() != 47) {
+                if (packet2handshake.d() > 47) {
                     this.disconnect("Outdated server!");
                 } else {
                     this.disconnect("Outdated client!");
@@ -75,7 +78,7 @@ public class NetLoginHandler extends NetHandler {
     }
 
     public void a(Packet252KeyResponse packet252keyresponse) {
-        PrivateKey privatekey = this.server.E().getPrivate();
+        PrivateKey privatekey = this.server.F().getPrivate();
 
         this.k = packet252keyresponse.a(privatekey);
         if (!Arrays.equals(this.d, packet252keyresponse.b(privatekey))) {
@@ -120,7 +123,26 @@ public class NetLoginHandler extends NetHandler {
 
     public void a(Packet254GetInfo packet254getinfo) {
         try {
-            String s = this.server.getMotd() + "\u00A7" + this.server.getServerConfigurationManager().getPlayerCount() + "\u00A7" + this.server.getServerConfigurationManager().getMaxPlayers();
+            ServerConfigurationManagerAbstract serverconfigurationmanagerabstract = this.server.getServerConfigurationManager();
+            String s = null;
+
+            if (packet254getinfo.a == 1) {
+                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(47), this.server.getVersion(), this.server.getMotd(), Integer.valueOf(serverconfigurationmanagerabstract.getPlayerCount()), Integer.valueOf(serverconfigurationmanagerabstract.getMaxPlayers())});
+
+                Object object;
+
+                for (Iterator iterator = list.iterator(); iterator.hasNext(); s = s + object.toString().replaceAll(", "")) {
+                    object = iterator.next();
+                    if (s == null) {
+                        s = "\u00A7";
+                    } else {
+                        s = s + ";
+                    }
+                }
+            } else {
+                s = this.server.getMotd() + "\u00A7" + serverconfigurationmanagerabstract.getPlayerCount() + "\u00A7" + serverconfigurationmanagerabstract.getMaxPlayers();
+            }
+
             InetAddress inetaddress = null;
 
             if (this.networkManager.getSocket() != null) {
@@ -129,8 +151,8 @@ public class NetLoginHandler extends NetHandler {
 
             this.networkManager.queue(new Packet255KickDisconnect(s));
             this.networkManager.d();
-            if (inetaddress != null && this.server.ac() instanceof DedicatedServerConnection) {
-                ((DedicatedServerConnection) this.server.ac()).a(inetaddress);
+            if (inetaddress != null && this.server.ae() instanceof DedicatedServerConnection) {
+                ((DedicatedServerConnection) this.server.ae()).a(inetaddress);
             }
 
             this.c = true;

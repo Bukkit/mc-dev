@@ -9,7 +9,7 @@ public class BlockHalfTransparant extends Block {
         this.a = flag;
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 }

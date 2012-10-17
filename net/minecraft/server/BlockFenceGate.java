@@ -18,7 +18,7 @@ public class BlockFenceGate extends BlockDirectional {
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        int l = d(iblockaccess.getData(i, j, k));
+        int l = e(iblockaccess.getData(i, j, k));
 
         if (l != 2 && l != 0) {
             this.a(0.375F, 0.0F, 0.0F, 0.625F, 1.0F, 1.0F);
@@ -27,11 +27,11 @@ public class BlockFenceGate extends BlockDirectional {
         }
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 
@@ -39,7 +39,7 @@ public class BlockFenceGate extends BlockDirectional {
         return c(iblockaccess.getData(i, j, k));
     }
 
-    public int b() {
+    public int d() {
         return 21;
     }
 
@@ -56,7 +56,7 @@ public class BlockFenceGate extends BlockDirectional {
             world.setData(i, j, k, i1 & -5);
         } else {
             int j1 = (MathHelper.floor((double) (entityhuman.yaw * 4.0F / 360.0F) + 0.5D) & 3) % 4;
-            int k1 = d(i1);
+            int k1 = e(i1);
 
             if (k1 == (j1 + 2) % 4) {
                 i1 = j1;

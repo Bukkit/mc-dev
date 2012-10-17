@@ -11,7 +11,7 @@ public abstract class BlockStepAbstract extends Block {
         super(i, 6, material);
         this.a = flag;
         if (flag) {
-            n[i] = true;
+            q[i] = true;
         } else {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
         }
@@ -50,7 +50,7 @@ public abstract class BlockStepAbstract extends Block {
         return this.a(i, 0);
     }
 
-    public boolean d() {
+    public boolean c() {
         return this.a;
     }
 
@@ -68,11 +68,11 @@ public abstract class BlockStepAbstract extends Block {
         return this.a ? 2 : 1;
     }
 
-    protected int getDropData(int i) {
+    public int getDropData(int i) {
         return i & 7;
     }
 
-    public boolean c() {
+    public boolean b() {
         return this.a;
     }
 

@@ -12,12 +12,12 @@ public class PathfinderGoalOfferFlower extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (!this.a.world.s()) {
+        if (!this.a.world.t()) {
             return false;
-        } else if (this.a.au().nextInt(8000) != 0) {
+        } else if (this.a.aA().nextInt(8000) != 0) {
             return false;
         } else {
-            this.b = (EntityVillager) this.a.world.a(EntityVillager.class, this.a.boundingBox.grow(6.0D, 2.0D, 6.0D), this.a);
+            this.b = (EntityVillager) this.a.world.a(EntityVillager.class, this.a.boundingBox.grow(6.0D, 2.0D, 6.0D), (Entity) this.a);
             return this.b != null;
         }
     }
@@ -26,17 +26,17 @@ public class PathfinderGoalOfferFlower extends PathfinderGoal {
         return this.c > 0;
     }
 
-    public void e() {
-        this.c = 400;
-        this.a.e(true);
-    }
-
     public void c() {
-        this.a.e(false);
-        this.b = null;
+        this.c = 400;
+        this.a.f(true);
     }
 
     public void d() {
+        this.a.f(false);
+        this.b = null;
+    }
+
+    public void e() {
         this.a.getControllerLook().a(this.b, 30.0F, 30.0F);
         --this.c;
     }

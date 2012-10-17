@@ -7,11 +7,11 @@ public class RemoteControlCommandListener implements ICommandListener {
 
     public RemoteControlCommandListener() {}
 
-    public void b() {
+    public void c() {
         this.b.setLength(0);
     }
 
-    public String c() {
+    public String d() {
         return this.b.toString();
     }
 
@@ -23,11 +23,15 @@ public class RemoteControlCommandListener implements ICommandListener {
         this.b.append(s);
     }
 
-    public boolean b(String s) {
+    public boolean a(int i, String s) {
         return true;
     }
 
     public String a(String s, Object... aobject) {
         return LocaleLanguage.a().a(s, aobject);
+    }
+
+    public ChunkCoordinates b() {
+        return new ChunkCoordinates(0, 0, 0);
     }
 }

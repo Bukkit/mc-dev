@@ -14,12 +14,12 @@ public class ServerConfigurationManager extends ServerConfigurationManagerAbstra
 
     public ServerConfigurationManager(DedicatedServer dedicatedserver) {
         super(dedicatedserver);
-        this.e = dedicatedserver.f("ops.txt");
-        this.f = dedicatedserver.f("white-list.txt");
+        this.e = dedicatedserver.e("ops.txt");
+        this.f = dedicatedserver.e("white-list.txt");
         this.d = dedicatedserver.a("view-distance", 10);
         this.maxPlayers = dedicatedserver.a("max-players", 20);
         this.setHasWhitelist(dedicatedserver.a("white-list", false));
-        if (!dedicatedserver.H()) {
+        if (!dedicatedserver.I()) {
             this.getNameBans().setEnabled(true);
             this.getIPBans().setEnabled(true);
         }

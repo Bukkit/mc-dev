@@ -306,4 +306,6 @@ public class ChunkProviderTheEnd implements IChunkProvider {
     public int getLoadedChunks() {
         return 0;
     }
+
+    public void recreateStructures(int i, int j) {}
 }

@@ -32,15 +32,15 @@ public class BlockLadder extends Block {
         return super.e(world, i, j, k);
     }
 
-    public boolean d() {
-        return false;
-    }
-
     public boolean c() {
         return false;
     }
 
-    public int b() {
+    public boolean b() {
+        return false;
+    }
+
+    public int d() {
         return 8;
     }
 

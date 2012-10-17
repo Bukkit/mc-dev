@@ -1,11 +1,29 @@
 package net.minecraft.server;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class WorldGenMineshaft extends StructureGenerator {
+
+    private double e = 0.01D;
 
     public WorldGenMineshaft() {}
 
+    public WorldGenMineshaft(Map map) {
+        Iterator iterator = map.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Entry entry = (Entry) iterator.next();
+
+            if (((String) entry.getKey()).equals("chance")) {
+                this.e = MathHelper.a((String) entry.getValue(), this.e);
+            }
+        }
+    }
+
     protected boolean a(int i, int j) {
-        return this.b.nextInt(100) == 0 && this.b.nextInt(80) < Math.max(Math.abs(i), Math.abs(j));
+        return this.b.nextDouble() < this.e && this.b.nextInt(80) < Math.max(Math.abs(i), Math.abs(j));
     }
 
     protected StructureStart b(int i, int j) {

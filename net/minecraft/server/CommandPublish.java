@@ -4,8 +4,12 @@ public class CommandPublish extends CommandAbstract {
 
     public CommandPublish() {}
 
-    public String b() {
+    public String c() {
         return "publish";
+    }
+
+    public int a() {
+        return 4;
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {

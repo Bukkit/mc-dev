@@ -2,16 +2,17 @@ package net.minecraft.server;
 
 public class NextTickListEntry implements Comparable {
 
-    private static long f = 0L;
+    private static long g = 0L;
     public int a;
     public int b;
     public int c;
     public int d;
     public long e;
-    private long g;
+    public int f;
+    private long h;
 
     public NextTickListEntry(int i, int j, int k, int l) {
-        this.g = (long) (f++);
+        this.h = (long) (g++);
         this.a = i;
         this.b = j;
         this.c = k;
@@ -37,8 +38,12 @@ public class NextTickListEntry implements Comparable {
         return this;
     }
 
+    public void a(int i) {
+        this.f = i;
+    }
+
     public int compareTo(NextTickListEntry nextticklistentry) {
-        return this.e < nextticklistentry.e ? -1 : (this.e > nextticklistentry.e ? 1 : (this.g < nextticklistentry.g ? -1 : (this.g > nextticklistentry.g ? 1 : 0)));
+        return this.e < nextticklistentry.e ? -1 : (this.e > nextticklistentry.e ? 1 : (this.f != nextticklistentry.f ? this.f - nextticklistentry.f : (this.h < nextticklistentry.h ? -1 : (this.h > nextticklistentry.h ? 1 : 0))));
     }
 
     public int compareTo(Object object) {

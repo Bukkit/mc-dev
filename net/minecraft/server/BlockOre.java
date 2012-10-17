@@ -37,20 +37,20 @@ public class BlockOre extends Block {
             int j1 = 0;
 
             if (this.id == Block.COAL_ORE.id) {
-                j1 = MathHelper.a(world.random, 0, 2);
+                j1 = MathHelper.nextInt(world.random, 0, 2);
             } else if (this.id == Block.DIAMOND_ORE.id) {
-                j1 = MathHelper.a(world.random, 3, 7);
+                j1 = MathHelper.nextInt(world.random, 3, 7);
             } else if (this.id == Block.EMERALD_ORE.id) {
-                j1 = MathHelper.a(world.random, 3, 7);
+                j1 = MathHelper.nextInt(world.random, 3, 7);
             } else if (this.id == Block.LAPIS_ORE.id) {
-                j1 = MathHelper.a(world.random, 2, 5);
+                j1 = MathHelper.nextInt(world.random, 2, 5);
             }
 
-            this.g(world, i, j, k, j1);
+            this.f(world, i, j, k, j1);
         }
     }
 
-    protected int getDropData(int i) {
+    public int getDropData(int i) {
         return this.id == Block.LAPIS_ORE.id ? 4 : 0;
     }
 }

@@ -51,6 +51,31 @@ public class PlayerInventory implements IInventory {
         return -1;
     }
 
+    public int b(int i, int j) {
+        int k = 0;
+
+        int l;
+        ItemStack itemstack;
+
+        for (l = 0; l < this.items.length; ++l) {
+            itemstack = this.items[l];
+            if (itemstack != null && (i <= -1 || itemstack.id == i) && (j <= -1 || itemstack.getData() == j)) {
+                k += itemstack.count;
+                this.items[l] = null;
+            }
+        }
+
+        for (l = 0; l < this.armor.length; ++l) {
+            itemstack = this.armor[l];
+            if (itemstack != null && (i <= -1 || itemstack.id == i) && (j <= -1 || itemstack.getData() == j)) {
+                k += itemstack.count;
+                this.armor[l] = null;
+            }
+        }
+
+        return k;
+    }
+
     private int e(ItemStack itemstack) {
         int i = itemstack.id;
         int j = itemstack.count;
@@ -105,7 +130,7 @@ public class PlayerInventory implements IInventory {
         }
     }
 
-    public void k() {
+    public void j() {
         for (int i = 0; i < this.items.length; ++i) {
             if (this.items[i] != null) {
                 this.items[i].a(this.player.world, this.player, i, this.itemInHandIndex == i);
@@ -316,7 +341,11 @@ public class PlayerInventory implements IInventory {
         }
     }
 
-    public int l() {
+    public ItemStack f(int i) {
+        return this.armor[i];
+    }
+
+    public int k() {
         int i = 0;
         ItemStack[] aitemstack = this.armor;
         int j = aitemstack.length;
@@ -350,7 +379,7 @@ public class PlayerInventory implements IInventory {
         }
     }
 
-    public void m() {
+    public void l() {
         int i;
 
         for (i = 0; i < this.items.length; ++i) {
@@ -393,7 +422,7 @@ public class PlayerInventory implements IInventory {
 
         for (j = 0; j < i; ++j) {
             itemstack1 = aitemstack[j];
-            if (itemstack1 != null && itemstack1.c(itemstack)) {
+            if (itemstack1 != null && itemstack1.doMaterialsMatch(itemstack)) {
                 return true;
             }
         }
@@ -403,7 +432,7 @@ public class PlayerInventory implements IInventory {
 
         for (j = 0; j < i; ++j) {
             itemstack1 = aitemstack[j];
-            if (itemstack1 != null && itemstack1.c(itemstack)) {
+            if (itemstack1 != null && itemstack1.doMaterialsMatch(itemstack)) {
                 return true;
             }
         }

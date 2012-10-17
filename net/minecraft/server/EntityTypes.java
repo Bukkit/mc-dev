@@ -94,18 +94,26 @@ public class EntityTypes {
         return (String) c.get(entity.getClass());
     }
 
+    public static String a(int i) {
+        Class oclass = (Class) d.get(Integer.valueOf(i));
+
+        return oclass != null ? (String) c.get(oclass) : null;
+    }
+
     static {
         a(EntityItem.class, "Item", 1);
         a(EntityExperienceOrb.class, "XPOrb", 2);
         a(EntityPainting.class, "Painting", 9);
         a(EntityArrow.class, "Arrow", 10);
         a(EntitySnowball.class, "Snowball", 11);
-        a(EntityFireball.class, "Fireball", 12);
+        a(EntityLargeFireball.class, "Fireball", 12);
         a(EntitySmallFireball.class, "SmallFireball", 13);
         a(EntityEnderPearl.class, "ThrownEnderpearl", 14);
         a(EntityEnderSignal.class, "EyeOfEnderSignal", 15);
         a(EntityPotion.class, "ThrownPotion", 16);
         a(EntityThrownExpBottle.class, "ThrownExpBottle", 17);
+        a(EntityItemFrame.class, "ItemFrame", 18);
+        a(EntityWitherSkull.class, "WitherSkull", 19);
         a(EntityTNTPrimed.class, "PrimedTnt", 20);
         a(EntityFallingBlock.class, "FallingSand", 21);
         a(EntityMinecart.class, "Minecart", 40);
@@ -126,6 +134,9 @@ public class EntityTypes {
         a(EntityBlaze.class, "Blaze", 61, 16167425, 16775294);
         a(EntityMagmaCube.class, "LavaSlime", 62, 3407872, 16579584);
         a(EntityEnderDragon.class, "EnderDragon", 63);
+        a(EntityWither.class, "WitherBoss", 64);
+        a(EntityBat.class, "Bat", 65, 4996656, 986895);
+        a(EntityWitch.class, "Witch", 66, 3407872, 5349438);
         a(EntityPig.class, "Pig", 90, 15771042, 14377823);
         a(EntitySheep.class, "Sheep", 91, 15198183, 16758197);
         a(EntityCow.class, "Cow", 92, 4470310, 10592673);

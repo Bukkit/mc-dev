@@ -58,7 +58,7 @@ abstract class WorldGenVillagePiece extends StructurePiece {
         for (int k = this.e.c; k <= this.e.f; ++k) {
             for (int l = this.e.a; l <= this.e.d; ++l) {
                 if (structureboundingbox.b(l, 64, k)) {
-                    i += Math.max(world.h(l, k), world.worldProvider.getSeaLevel());
+                    i += Math.max(world.i(l, k), world.worldProvider.getSeaLevel());
                     ++j;
                 }
             }

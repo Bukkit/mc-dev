@@ -279,7 +279,7 @@ public abstract class StructurePiece {
                     }
                 } else if (this.f == 0) {
                     if (j == 0 || j == 2) {
-                        return Direction.e[j];
+                        return Direction.f[j];
                     }
                 } else if (this.f == 1) {
                     if (j == 2) {

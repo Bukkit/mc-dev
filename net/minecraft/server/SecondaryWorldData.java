@@ -36,20 +36,24 @@ public class SecondaryWorldData extends WorldData {
         return this.a.getTime();
     }
 
-    public NBTTagCompound h() {
-        return this.a.h();
+    public long g() {
+        return this.a.g();
     }
 
-    public int i() {
+    public NBTTagCompound i() {
         return this.a.i();
+    }
+
+    public int j() {
+        return this.a.j();
     }
 
     public String getName() {
         return this.a.getName();
     }
 
-    public int k() {
-        return this.a.k();
+    public int l() {
+        return this.a.l();
     }
 
     public boolean isThundering() {
@@ -73,6 +77,8 @@ public class SecondaryWorldData extends WorldData {
     }
 
     public void b(long i) {}
+
+    public void c(long i) {}
 
     public void setSpawn(int i, int j, int k) {}
 
@@ -111,4 +117,8 @@ public class SecondaryWorldData extends WorldData {
     }
 
     public void d(boolean flag) {}
+
+    public GameRules getGameRules() {
+        return this.a.getGameRules();
+    }
 }

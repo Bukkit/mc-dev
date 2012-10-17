@@ -52,13 +52,13 @@ public abstract class PathfinderGoalDoorInteract extends PathfinderGoal {
         return !this.f;
     }
 
-    public void e() {
+    public void c() {
         this.f = false;
         this.g = (float) ((double) ((float) this.b + 0.5F) - this.a.locX);
         this.h = (float) ((double) ((float) this.d + 0.5F) - this.a.locZ);
     }
 
-    public void d() {
+    public void e() {
         float f = (float) ((double) ((float) this.b + 0.5F) - this.a.locX);
         float f1 = (float) ((double) ((float) this.d + 0.5F) - this.a.locZ);
         float f2 = this.g * f + this.h * f1;

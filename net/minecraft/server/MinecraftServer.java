@@ -65,25 +65,47 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         this.universe = file1;
         this.q = new CommandDispatcher();
         this.convertable = new WorldLoaderServer(file1);
+        this.al();
+    }
+
+    private void al() {
+        BlockDispenser.a.a(Item.ARROW, new DispenseBehaviorArrow(this));
+        BlockDispenser.a.a(Item.EGG, new DispenseBehaviorEgg(this));
+        BlockDispenser.a.a(Item.SNOW_BALL, new DispenseBehaviorSnowBall(this));
+        BlockDispenser.a.a(Item.EXP_BOTTLE, new DispenseBehaviorExpBottle(this));
+        BlockDispenser.a.a(Item.POTION, new DispenseBehaviorPotion(this));
+        BlockDispenser.a.a(Item.MONSTER_EGG, new DispenseBehaviorMonsterEgg(this));
+        BlockDispenser.a.a(Item.FIREBALL, new DispenseBehaviorFireball(this));
+        DispenseBehaviorMinecart dispensebehaviorminecart = new DispenseBehaviorMinecart(this);
+
+        BlockDispenser.a.a(Item.MINECART, dispensebehaviorminecart);
+        BlockDispenser.a.a(Item.STORAGE_MINECART, dispensebehaviorminecart);
+        BlockDispenser.a.a(Item.POWERED_MINECART, dispensebehaviorminecart);
+        BlockDispenser.a.a(Item.BOAT, new DispenseBehaviorBoat(this));
+        DispenseBehaviorFilledBucket dispensebehaviorfilledbucket = new DispenseBehaviorFilledBucket(this);
+
+        BlockDispenser.a.a(Item.LAVA_BUCKET, dispensebehaviorfilledbucket);
+        BlockDispenser.a.a(Item.WATER_BUCKET, dispensebehaviorfilledbucket);
+        BlockDispenser.a.a(Item.BUCKET, new DispenseBehaviorEmptyBucket(this));
     }
 
     protected abstract boolean init();
 
-    protected void c(String s) {
+    protected void b(String s) {
         if (this.getConvertable().isConvertable(s)) {
             log.info("Converting map!");
-            this.d("menu.convertingLevel");
+            this.c("menu.convertingLevel");
             this.getConvertable().convert(s, new ConvertProgressUpdater(this));
         }
     }
 
-    protected synchronized void d(String s) {
+    protected synchronized void c(String s) {
         this.S = s;
     }
 
-    protected void a(String s, String s1, long i, WorldType worldtype) {
-        this.c(s);
-        this.d("menu.loadingLevel");
+    protected void a(String s, String s1, long i, WorldType worldtype, String s2) {
+        this.b(s);
+        this.c("menu.loadingLevel");
         this.worldServer = new WorldServer[3];
         this.k = new long[this.worldServer.length][100];
         IDataManager idatamanager = this.convertable.a(s, true);
@@ -92,6 +114,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
 
         if (worlddata == null) {
             worldsettings = new WorldSettings(i, this.getGamemode(), this.getGenerateStructures(), this.isHardcore(), worldtype);
+            worldsettings.a(s2);
         } else {
             worldsettings = new WorldSettings(worlddata);
         }
@@ -112,7 +135,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
             }
 
             if (j == 0) {
-                if (this.L()) {
+                if (this.M()) {
                     this.worldServer[j] = new DemoWorldServer(this, idatamanager, s1, b0, this.methodProfiler);
                 } else {
                     this.worldServer[j] = new WorldServer(this, idatamanager, s1, b0, worldsettings, this.methodProfiler);
@@ -122,7 +145,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
             }
 
             this.worldServer[j].addIWorldAccess(new WorldManager(this, this.worldServer[j]));
-            if (!this.H()) {
+            if (!this.I()) {
                 this.worldServer[j].getWorldData().setGameType(this.getGamemode());
             }
 
@@ -130,46 +153,35 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         }
 
         this.c(this.getDifficulty());
-        this.d();
+        this.e();
     }
 
-    protected void d() {
-        short short1 = 196;
-        long i = System.currentTimeMillis();
+    protected void e() {
+        int i = 0;
 
-        this.d("menu.generatingTerrain");
+        this.c("menu.generatingTerrain");
+        byte b0 = 0;
 
-        for (int j = 0; j < 1; ++j) {
-            log.info("Preparing start region for level " + j);
-            WorldServer worldserver = this.worldServer[j];
-            ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
+        log.info("Preparing start region for level " + b0);
+        WorldServer worldserver = this.worldServer[b0];
+        ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
+        long j = System.currentTimeMillis();
 
-            for (int k = -short1; k <= short1 && this.isRunning(); k += 16) {
-                for (int l = -short1; l <= short1 && this.isRunning(); l += 16) {
-                    long i1 = System.currentTimeMillis();
+        for (int k = -192; k <= 192 && this.isRunning(); k += 16) {
+            for (int l = -192; l <= 192 && this.isRunning(); l += 16) {
+                long i1 = System.currentTimeMillis();
 
-                    if (i1 < i) {
-                        i = i1;
-                    }
-
-                    if (i1 > i + 1000L) {
-                        int j1 = (short1 * 2 + 1) * (short1 * 2 + 1);
-                        int k1 = (k + short1) * (short1 * 2 + 1) + l + 1;
-
-                        this.a_("Preparing spawn area", k1 * 100 / j1);
-                        i = i1;
-                    }
-
-                    worldserver.chunkProviderServer.getChunkAt(chunkcoordinates.x + k >> 4, chunkcoordinates.z + l >> 4);
-
-                    while (worldserver.updateLights() && this.isRunning()) {
-                        ;
-                    }
+                if (i1 - j > 1000L) {
+                    this.a_("Preparing spawn area", i * 100 / 625);
+                    j = i1;
                 }
+
+                ++i;
+                worldserver.chunkProviderServer.getChunkAt(chunkcoordinates.x + k >> 4, chunkcoordinates.z + l >> 4);
             }
         }
 
-        this.i();
+        this.j();
     }
 
     public abstract boolean getGenerateStructures();
@@ -186,7 +198,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         log.info(s + ": " + i + "%");
     }
 
-    protected void i() {
+    protected void j() {
         this.d = null;
         this.e = 0;
     }
@@ -217,8 +229,8 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
     public void stop() {
         if (!this.O) {
             log.info("Stopping server");
-            if (this.ac() != null) {
-                this.ac().a();
+            if (this.ae() != null) {
+                this.ae().a();
             }
 
             if (this.t != null) {
@@ -248,7 +260,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         return this.serverIp;
     }
 
-    public void e(String s) {
+    public void d(String s) {
         this.serverIp = s;
     }
 
@@ -283,12 +295,12 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
                     j += l;
                     i = k;
                     if (this.worldServer[0].everyoneDeeplySleeping()) {
-                        this.p();
+                        this.q();
                         j = 0L;
                     } else {
                         while (j > 50L) {
                             j -= 50L;
-                            this.p();
+                            this.q();
                         }
                     }
 
@@ -308,7 +320,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
                 crashreport = this.b(new CrashReport("Exception in server tick loop", throwable));
             }
 
-            File file1 = new File(new File(this.n(), "crash-reports"), "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-server.txt");
+            File file1 = new File(new File(this.o(), "crash-reports"), "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-server.txt");
 
             if (crashreport.a(file1)) {
                 log.severe("This crash report has been saved to: " + file1.getAbsolutePath());
@@ -324,24 +336,23 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
             } catch (Throwable throwable1) {
                 throwable1.printStackTrace();
             } finally {
-                this.o();
+                this.p();
             }
         }
     }
 
-    protected File n() {
+    protected File o() {
         return new File(".");
     }
 
     protected void a(CrashReport crashreport) {}
 
-    protected void o() {}
+    protected void p() {}
 
-    protected void p() {
+    protected void q() {
         long i = System.nanoTime();
 
         AxisAlignedBB.a().a();
-        Vec3D.a().a();
         ++this.ticks;
         if (this.T) {
             this.T = false;
@@ -350,7 +361,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         }
 
         this.methodProfiler.a("root");
-        this.q();
+        this.r();
         if (this.ticks % 900 == 0) {
             this.methodProfiler.a("save");
             this.t.savePlayers();
@@ -382,7 +393,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         this.methodProfiler.b();
     }
 
-    public void q() {
+    public void r() {
         this.methodProfiler.a("levels");
 
         for (int i = 0; i < this.worldServer.length; ++i) {
@@ -392,34 +403,30 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
                 WorldServer worldserver = this.worldServer[i];
 
                 this.methodProfiler.a(worldserver.getWorldData().getName());
+                this.methodProfiler.a("pools");
+                worldserver.getVec3DPool().a();
+                this.methodProfiler.b();
                 if (this.ticks % 20 == 0) {
                     this.methodProfiler.a("timeSync");
-                    this.t.a(new Packet4UpdateTime(worldserver.getTime()), worldserver.worldProvider.dimension);
+                    this.t.a(new Packet4UpdateTime(worldserver.getTime(), worldserver.F()), worldserver.worldProvider.dimension);
                     this.methodProfiler.b();
                 }
 
                 this.methodProfiler.a("tick");
                 worldserver.doTick();
-                this.methodProfiler.c("lights");
-
-                while (true) {
-                    if (!worldserver.updateLights()) {
-                        this.methodProfiler.b();
-                        worldserver.tickEntities();
-                        this.methodProfiler.a("tracker");
-                        worldserver.getTracker().updatePlayers();
-                        this.methodProfiler.b();
-                        this.methodProfiler.b();
-                        break;
-                    }
-                }
+                worldserver.tickEntities();
+                this.methodProfiler.b();
+                this.methodProfiler.a("tracker");
+                worldserver.getTracker().updatePlayers();
+                this.methodProfiler.b();
+                this.methodProfiler.b();
             }
 
             this.k[i][this.ticks % 100] = System.nanoTime() - j;
         }
 
         this.methodProfiler.c("connection");
-        this.ac().b();
+        this.ae().b();
         this.methodProfiler.c("players");
         this.t.tick();
         this.methodProfiler.c("tickables");
@@ -494,11 +501,11 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
             DedicatedServer dedicatedserver = new DedicatedServer(new File(s1));
 
             if (s != null) {
-                dedicatedserver.l(s);
+                dedicatedserver.k(s);
             }
 
             if (s2 != null) {
-                dedicatedserver.m(s2);
+                dedicatedserver.l(s2);
             }
 
             if (i >= 0) {
@@ -514,22 +521,22 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
             }
 
             if (flag) {
-                dedicatedserver.ak();
+                dedicatedserver.an();
             }
 
-            dedicatedserver.s();
+            dedicatedserver.t();
             Runtime.getRuntime().addShutdownHook(new ThreadShutdown(dedicatedserver));
         } catch (Exception exception) {
             log.log(Level.SEVERE, "Failed to start the minecraft server", exception);
         }
     }
 
-    public void s() {
+    public void t() {
         (new ThreadServerApplication(this, "Server thread")).start();
     }
 
-    public File f(String s) {
-        return new File(this.n(), s);
+    public File e(String s) {
+        return new File(this.o(), s);
     }
 
     public void info(String s) {
@@ -544,27 +551,27 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         return i == -1 ? this.worldServer[1] : (i == 1 ? this.worldServer[2] : this.worldServer[0]);
     }
 
-    public String t() {
+    public String u() {
         return this.serverIp;
     }
 
-    public int u() {
+    public int v() {
         return this.s;
     }
 
-    public String v() {
+    public String w() {
         return this.motd;
     }
 
     public String getVersion() {
-        return "1.3.2";
-    }
-
-    public int x() {
-        return this.t.getPlayerCount();
+        return "1.4.2";
     }
 
     public int y() {
+        return this.t.getPlayerCount();
+    }
+
+    public int z() {
         return this.t.getMaxPlayers();
     }
 
@@ -576,21 +583,21 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         return "";
     }
 
-    public String i(String s) {
-        RemoteControlCommandListener.instance.b();
+    public String h(String s) {
+        RemoteControlCommandListener.instance.c();
         this.q.a(RemoteControlCommandListener.instance, s);
-        return RemoteControlCommandListener.instance.c();
+        return RemoteControlCommandListener.instance.d();
     }
 
     public boolean isDebugging() {
         return false;
     }
 
-    public void j(String s) {
+    public void i(String s) {
         log.log(Level.SEVERE, s);
     }
 
-    public void k(String s) {
+    public void j(String s) {
         if (this.isDebugging()) {
             log.log(Level.INFO, s);
         }
@@ -603,6 +610,10 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
     public CrashReport b(CrashReport crashreport) {
         crashreport.a("Is Modded", (Callable) (new CrashReportModded(this)));
         crashreport.a("Profiler Position", (Callable) (new CrashReportProfilerPosition(this)));
+        if (this.worldServer != null && this.worldServer.length > 0 && this.worldServer[0] != null) {
+            crashreport.a("Vec3 Pool Size", (Callable) (new CrashReportVec3DPoolSize(this)));
+        }
+
         if (this.t != null) {
             crashreport.a("Player Count", (Callable) (new CrashReportPlayerCount(this)));
         }
@@ -676,7 +687,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         log.info(StripColor.a(s));
     }
 
-    public boolean b(String s) {
+    public boolean a(int i, String s) {
         return true;
     }
 
@@ -688,11 +699,11 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         return this.q;
     }
 
-    public KeyPair E() {
+    public KeyPair F() {
         return this.I;
     }
 
-    public int F() {
+    public int G() {
         return this.s;
     }
 
@@ -700,23 +711,23 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         this.s = i;
     }
 
-    public String G() {
+    public String H() {
         return this.J;
     }
 
-    public void l(String s) {
+    public void k(String s) {
         this.J = s;
     }
 
-    public boolean H() {
+    public boolean I() {
         return this.J != null;
     }
 
-    public String I() {
+    public String J() {
         return this.K;
     }
 
-    public void m(String s) {
+    public void l(String s) {
         this.K = s;
     }
 
@@ -732,7 +743,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
                 if (worldserver.getWorldData().isHardcore()) {
                     worldserver.difficulty = 3;
                     worldserver.setSpawnFlags(true, true);
-                } else if (this.H()) {
+                } else if (this.I()) {
                     worldserver.difficulty = i;
                     worldserver.setSpawnFlags(worldserver.difficulty > 0, true);
                 } else {
@@ -747,7 +758,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         return true;
     }
 
-    public boolean L() {
+    public boolean M() {
         return this.demoMode;
     }
 
@@ -763,7 +774,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         return this.convertable;
     }
 
-    public void O() {
+    public void P() {
         this.O = true;
         this.getConvertable().d();
 
@@ -790,11 +801,11 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
     public void a(MojangStatisticsGenerator mojangstatisticsgenerator) {
         mojangstatisticsgenerator.a("whitelist_enabled", Boolean.valueOf(false));
         mojangstatisticsgenerator.a("whitelist_count", Integer.valueOf(0));
-        mojangstatisticsgenerator.a("players_current", Integer.valueOf(this.x()));
-        mojangstatisticsgenerator.a("players_max", Integer.valueOf(this.y()));
+        mojangstatisticsgenerator.a("players_current", Integer.valueOf(this.y()));
+        mojangstatisticsgenerator.a("players_max", Integer.valueOf(this.z()));
         mojangstatisticsgenerator.a("players_seen", Integer.valueOf(this.t.getSeenPlayers().length));
         mojangstatisticsgenerator.a("uses_auth", Boolean.valueOf(this.onlineMode));
-        mojangstatisticsgenerator.a("gui_state", this.ae() ? "enabled" : "disabled");
+        mojangstatisticsgenerator.a("gui_state", this.ag() ? "enabled" : "disabled");
         mojangstatisticsgenerator.a("avg_tick_ms", Integer.valueOf((int) (MathHelper.a(this.j) * 1.0E-6D)));
         mojangstatisticsgenerator.a("avg_sent_packet_count", Integer.valueOf((int) MathHelper.a(this.f)));
         mojangstatisticsgenerator.a("avg_sent_packet_size", Integer.valueOf((int) MathHelper.a(this.g)));
@@ -814,7 +825,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
                 mojangstatisticsgenerator.a("world[" + i + "][generator_name]", worlddata.getType().name());
                 mojangstatisticsgenerator.a("world[" + i + "][generator_version]", Integer.valueOf(worlddata.getType().getVersion()));
                 mojangstatisticsgenerator.a("world[" + i + "][height]", Integer.valueOf(this.D));
-                mojangstatisticsgenerator.a("world[" + i + "][chunks_loaded]", Integer.valueOf(worldserver.F().getLoadedChunks()));
+                mojangstatisticsgenerator.a("world[" + i + "][chunks_loaded]", Integer.valueOf(worldserver.H().getLoadedChunks()));
                 ++i;
             }
         }
@@ -823,21 +834,21 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
     }
 
     public void b(MojangStatisticsGenerator mojangstatisticsgenerator) {
-        mojangstatisticsgenerator.a("singleplayer", Boolean.valueOf(this.H()));
+        mojangstatisticsgenerator.a("singleplayer", Boolean.valueOf(this.I()));
         mojangstatisticsgenerator.a("server_brand", this.getServerModName());
         mojangstatisticsgenerator.a("gui_supported", GraphicsEnvironment.isHeadless() ? "headless" : "supported");
-        mojangstatisticsgenerator.a("dedicated", Boolean.valueOf(this.S()));
+        mojangstatisticsgenerator.a("dedicated", Boolean.valueOf(this.T()));
     }
 
     public boolean getSnooperEnabled() {
         return true;
     }
 
-    public int R() {
+    public int S() {
         return 16;
     }
 
-    public abstract boolean S();
+    public abstract boolean T();
 
     public boolean getOnlineMode() {
         return this.onlineMode;
@@ -879,6 +890,8 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         this.allowFlight = flag;
     }
 
+    public abstract boolean getEnableCommandBlock();
+
     public String getMotd() {
         return this.motd;
     }
@@ -913,20 +926,28 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
         }
     }
 
-    public abstract ServerConnection ac();
+    public abstract ServerConnection ae();
 
-    public boolean ae() {
+    public boolean ag() {
         return false;
     }
 
     public abstract String a(EnumGamemode enumgamemode, boolean flag);
 
-    public int af() {
+    public int ah() {
         return this.ticks;
     }
 
-    public void ag() {
+    public void ai() {
         this.T = true;
+    }
+
+    public ChunkCoordinates b() {
+        return new ChunkCoordinates(0, 0, 0);
+    }
+
+    public int getSpawnProtection() {
+        return 16;
     }
 
     public static ServerConfigurationManagerAbstract a(MinecraftServer minecraftserver) {

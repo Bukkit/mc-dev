@@ -13,15 +13,15 @@ public class BlockGlass extends BlockHalfTransparant {
         return 0;
     }
 
-    public boolean d() {
-        return false;
-    }
-
     public boolean c() {
         return false;
     }
 
-    protected boolean q_() {
+    public boolean b() {
+        return false;
+    }
+
+    protected boolean s_() {
         return true;
     }
 }

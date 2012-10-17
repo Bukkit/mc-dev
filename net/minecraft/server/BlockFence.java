@@ -70,11 +70,11 @@ public class BlockFence extends Block {
         this.a(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 
@@ -82,7 +82,7 @@ public class BlockFence extends Block {
         return false;
     }
 
-    public int b() {
+    public int d() {
         return 11;
     }
 
@@ -92,7 +92,7 @@ public class BlockFence extends Block {
         if (l != this.id && l != Block.FENCE_GATE.id) {
             Block block = Block.byId[l];
 
-            return block != null && block.material.k() && block.c() ? block.material != Material.PUMPKIN : false;
+            return block != null && block.material.k() && block.b() ? block.material != Material.PUMPKIN : false;
         } else {
             return true;
         }

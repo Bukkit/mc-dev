@@ -14,15 +14,15 @@ public class BlockTorch extends Block {
         return null;
     }
 
-    public boolean d() {
-        return false;
-    }
-
     public boolean c() {
         return false;
     }
 
-    public int b() {
+    public boolean b() {
+        return false;
+    }
+
+    public int d() {
         return 2;
     }
 
@@ -32,7 +32,7 @@ public class BlockTorch extends Block {
         } else {
             int l = world.getTypeId(i, j, k);
 
-            return l == Block.FENCE.id || l == Block.NETHER_FENCE.id || l == Block.GLASS.id;
+            return l == Block.FENCE.id || l == Block.NETHER_FENCE.id || l == Block.GLASS.id || l == Block.COBBLE_WALL.id;
         }
     }
 

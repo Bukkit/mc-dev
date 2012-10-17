@@ -19,7 +19,7 @@ public class ItemShears extends Item {
     }
 
     public boolean canDestroySpecialBlock(Block block) {
-        return block.id == Block.WEB.id;
+        return block.id == Block.WEB.id || block.id == Block.REDSTONE_WIRE.id || block.id == Block.TRIPWIRE.id;
     }
 
     public float getDestroySpeed(ItemStack itemstack, Block block) {

@@ -58,15 +58,15 @@ public class PathfinderGoalFollowParent extends PathfinderGoal {
         }
     }
 
-    public void e() {
+    public void c() {
         this.d = 0;
     }
 
-    public void c() {
+    public void d() {
         this.b = null;
     }
 
-    public void d() {
+    public void e() {
         if (--this.d <= 0) {
             this.d = 10;
             this.a.getNavigation().a((EntityLiving) this.b, this.c);

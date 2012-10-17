@@ -6,7 +6,7 @@ public abstract class EntityWaterAnimal extends EntityCreature implements IAnima
         super(world);
     }
 
-    public boolean aU() {
+    public boolean ba() {
         return true;
     }
 
@@ -14,11 +14,11 @@ public abstract class EntityWaterAnimal extends EntityCreature implements IAnima
         return this.world.b(this.boundingBox);
     }
 
-    public int aG() {
+    public int aM() {
         return 120;
     }
 
-    protected boolean ba() {
+    protected boolean bg() {
         return true;
     }
 

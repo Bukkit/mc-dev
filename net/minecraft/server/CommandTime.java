@@ -6,8 +6,12 @@ public class CommandTime extends CommandAbstract {
 
     public CommandTime() {}
 
-    public String b() {
+    public String c() {
         return "time";
+    }
+
+    public int a() {
+        return 2;
     }
 
     public String a(ICommandListener icommandlistener) {
@@ -49,7 +53,7 @@ public class CommandTime extends CommandAbstract {
 
     protected void a(ICommandListener icommandlistener, int i) {
         for (int j = 0; j < MinecraftServer.getServer().worldServer.length; ++j) {
-            MinecraftServer.getServer().worldServer[j].setTimeAndFixTicklists((long) i);
+            MinecraftServer.getServer().worldServer[j].setTime((long) i);
         }
     }
 
@@ -57,7 +61,7 @@ public class CommandTime extends CommandAbstract {
         for (int j = 0; j < MinecraftServer.getServer().worldServer.length; ++j) {
             WorldServer worldserver = MinecraftServer.getServer().worldServer[j];
 
-            worldserver.setTimeAndFixTicklists(worldserver.getTime() + (long) i);
+            worldserver.setTime(worldserver.F() + (long) i);
         }
     }
 }

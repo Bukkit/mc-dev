@@ -34,7 +34,7 @@ public class ItemSign extends Item {
                 ++i;
             }
 
-            if (!entityhuman.e(i, j, k)) {
+            if (!entityhuman.a(i, j, k, l, itemstack)) {
                 return false;
             } else if (!Block.SIGN_POST.canPlace(world, i, j, k)) {
                 return false;
@@ -51,7 +51,7 @@ public class ItemSign extends Item {
                 TileEntitySign tileentitysign = (TileEntitySign) world.getTileEntity(i, j, k);
 
                 if (tileentitysign != null) {
-                    entityhuman.a(tileentitysign);
+                    entityhuman.a((TileEntity) tileentitysign);
                 }
 
                 return true;

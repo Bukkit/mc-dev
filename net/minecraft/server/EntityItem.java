@@ -22,7 +22,7 @@ public class EntityItem extends Entity {
         this.motZ = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
     }
 
-    protected boolean e_() {
+    protected boolean f_() {
         return false;
     }
 
@@ -34,8 +34,8 @@ public class EntityItem extends Entity {
 
     protected void a() {}
 
-    public void h_() {
-        super.h_();
+    public void j_() {
+        super.j_();
         if (this.pickupDelay > 0) {
             --this.pickupDelay;
         }
@@ -86,7 +86,7 @@ public class EntityItem extends Entity {
         }
 
         ++this.age;
-        if (this.age >= 6000) {
+        if (!this.world.isStatic && this.age >= 6000) {
             this.die();
         }
     }
@@ -97,30 +97,34 @@ public class EntityItem extends Entity {
         } else if (entityitem.isAlive() && this.isAlive()) {
             if (entityitem.itemStack.getItem() != this.itemStack.getItem()) {
                 return false;
-            } else if (entityitem.itemStack.getItem().k() && entityitem.itemStack.getData() != this.itemStack.getData()) {
-                return false;
-            } else if (entityitem.itemStack.count < this.itemStack.count) {
-                return entityitem.a(this);
-            } else if (entityitem.itemStack.count + this.itemStack.count > entityitem.itemStack.getMaxStackSize()) {
-                return false;
+            } else if (!entityitem.itemStack.hasTag() && !this.itemStack.hasTag()) {
+                if (entityitem.itemStack.getItem().l() && entityitem.itemStack.getData() != this.itemStack.getData()) {
+                    return false;
+                } else if (entityitem.itemStack.count < this.itemStack.count) {
+                    return entityitem.a(this);
+                } else if (entityitem.itemStack.count + this.itemStack.count > entityitem.itemStack.getMaxStackSize()) {
+                    return false;
+                } else {
+                    entityitem.itemStack.count += this.itemStack.count;
+                    entityitem.pickupDelay = Math.max(entityitem.pickupDelay, this.pickupDelay);
+                    entityitem.age = Math.min(entityitem.age, this.age);
+                    this.die();
+                    return true;
+                }
             } else {
-                entityitem.itemStack.count += this.itemStack.count;
-                entityitem.pickupDelay = Math.max(entityitem.pickupDelay, this.pickupDelay);
-                entityitem.age = Math.min(entityitem.age, this.age);
-                this.die();
-                return true;
+                return false;
             }
         } else {
             return false;
         }
     }
 
-    public void d() {
+    public void c() {
         this.age = 4800;
     }
 
     public boolean I() {
-        return this.world.a(this.boundingBox, Material.WATER, this);
+        return this.world.a(this.boundingBox, Material.WATER, (Entity) this);
     }
 
     protected void burn(int i) {
@@ -190,7 +194,7 @@ public class EntityItem extends Entity {
         return LocaleI18n.get("item." + this.itemStack.a());
     }
 
-    public boolean an() {
+    public boolean aq() {
         return false;
     }
 }

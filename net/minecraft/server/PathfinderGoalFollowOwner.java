@@ -41,20 +41,20 @@ public class PathfinderGoalFollowOwner extends PathfinderGoal {
         return !this.g.f() && this.d.e(this.e) > (double) (this.b * this.b) && !this.d.isSitting();
     }
 
-    public void e() {
+    public void c() {
         this.h = 0;
         this.i = this.d.getNavigation().a();
         this.d.getNavigation().a(false);
     }
 
-    public void c() {
+    public void d() {
         this.e = null;
         this.g.g();
         this.d.getNavigation().a(this.i);
     }
 
-    public void d() {
-        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.bf());
+    public void e() {
+        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.bm());
         if (!this.d.isSitting()) {
             if (--this.h <= 0) {
                 this.h = 10;

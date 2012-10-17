@@ -56,9 +56,9 @@ public class WorldGenLiquids extends WorldGenerator {
 
             if (l == 3 && i1 == 1) {
                 world.setTypeId(i, j, k, this.a);
-                world.e = true;
+                world.d = true;
                 Block.byId[this.a].b(world, i, j, k, random);
-                world.e = false;
+                world.d = false;
             }
 
             return true;

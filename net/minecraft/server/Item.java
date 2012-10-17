@@ -31,9 +31,9 @@ public class Item {
     public static Item DIAMOND_SPADE = (new ItemSpade(21, EnumToolMaterial.DIAMOND)).b(3, 5).b("shovelDiamond");
     public static Item DIAMOND_PICKAXE = (new ItemPickaxe(22, EnumToolMaterial.DIAMOND)).b(3, 6).b("pickaxeDiamond");
     public static Item DIAMOND_AXE = (new ItemAxe(23, EnumToolMaterial.DIAMOND)).b(3, 7).b("hatchetDiamond");
-    public static Item STICK = (new Item(24)).b(5, 3).n().b("stick").a(CreativeModeTab.l);
+    public static Item STICK = (new Item(24)).b(5, 3).o().b("stick").a(CreativeModeTab.l);
     public static Item BOWL = (new Item(25)).b(7, 4).b("bowl").a(CreativeModeTab.l);
-    public static Item MUSHROOM_SOUP = (new ItemSoup(26, 8)).b(8, 4).b("mushroomStew");
+    public static Item MUSHROOM_SOUP = (new ItemSoup(26, 6)).b(8, 4).b("mushroomStew");
     public static Item GOLD_SWORD = (new ItemSword(27, EnumToolMaterial.GOLD)).b(4, 4).b("swordGold");
     public static Item GOLD_SPADE = (new ItemSpade(28, EnumToolMaterial.GOLD)).b(4, 5).b("shovelGold");
     public static Item GOLD_PICKAXE = (new ItemPickaxe(29, EnumToolMaterial.GOLD)).b(4, 6).b("pickaxeGold");
@@ -72,8 +72,8 @@ public class Item {
     public static Item FLINT = (new Item(62)).b(6, 0).b("flint").a(CreativeModeTab.l);
     public static Item PORK = (new ItemFood(63, 3, 0.3F, true)).b(7, 5).b("porkchopRaw");
     public static Item GRILLED_PORK = (new ItemFood(64, 8, 0.8F, true)).b(8, 5).b("porkchopCooked");
-    public static Item PAINTING = (new ItemPainting(65)).b(10, 1).b("painting");
-    public static Item GOLDEN_APPLE = (new ItemGoldenApple(66, 4, 1.2F, false)).i().a(MobEffectList.REGENERATION.id, 5, 0, 1.0F).b(11, 0).b("appleGold");
+    public static Item PAINTING = (new ItemHanging(65, EntityPainting.class)).b(10, 1).b("painting");
+    public static Item GOLDEN_APPLE = (new ItemGoldenApple(66, 4, 1.2F, false)).j().a(MobEffectList.REGENERATION.id, 5, 0, 1.0F).b(11, 0).b("appleGold");
     public static Item SIGN = (new ItemSign(67)).b(10, 2).b("sign");
     public static Item WOOD_DOOR = (new ItemDoor(68, Material.WOOD)).b(11, 2).b("doorWood");
     public static Item BUCKET = (new ItemBucket(69, 0)).b(10, 4).b("bucket").d(16);
@@ -103,7 +103,7 @@ public class Item {
     public static Item RAW_FISH = (new ItemFood(93, 2, 0.3F, false)).b(9, 5).b("fishRaw");
     public static Item COOKED_FISH = (new ItemFood(94, 5, 0.6F, false)).b(10, 5).b("fishCooked");
     public static Item INK_SACK = (new ItemDye(95)).b(14, 4).b("dyePowder");
-    public static Item BONE = (new Item(96)).b(12, 1).b("bone").n().a(CreativeModeTab.f);
+    public static Item BONE = (new Item(96)).b(12, 1).b("bone").o().a(CreativeModeTab.f);
     public static Item SUGAR = (new Item(97)).b(13, 0).b("sugar").c(PotionBrewer.b).a(CreativeModeTab.l);
     public static Item CAKE = (new ItemReed(98, Block.CAKE_BLOCK)).d(1).b(13, 1).b("cake").a(CreativeModeTab.h);
     public static Item BED = (new ItemBed(99)).d(1).b(13, 2).b("bed");
@@ -140,6 +140,18 @@ public class Item {
     public static Item BOOK_AND_QUILL = (new ItemBookAndQuill(130)).b(11, 11).b("writingBook").a(CreativeModeTab.f);
     public static Item WRITTEN_BOOK = (new ItemWrittenBook(131)).b(12, 11).b("writtenBook");
     public static Item EMERALD = (new Item(132)).b(10, 11).b("emerald").a(CreativeModeTab.l);
+    public static Item ITEM_FRAME = (new ItemHanging(133, EntityItemFrame.class)).b(14, 12).b("frame");
+    public static Item FLOWER_POT = (new ItemReed(134, Block.FLOWER_POT)).b(13, 11).b("flowerPot").a(CreativeModeTab.c);
+    public static Item CARROT = (new ItemSeedFood(135, 4, 0.6F, Block.CARROTS.id, Block.SOIL.id)).b(8, 7).b("carrots");
+    public static Item POTATO = (new ItemSeedFood(136, 1, 0.3F, Block.POTATOES.id, Block.SOIL.id)).b(7, 7).b("potato");
+    public static Item POTATO_BAKED = (new ItemFood(137, 6, 0.6F, false)).b(6, 7).b("potatoBaked");
+    public static Item POTATO_POISON = (new ItemFood(138, 2, 0.3F, false)).a(MobEffectList.POISON.id, 5, 0, 0.6F).b(6, 8).b("potatoPoisonous");
+    public static ItemMapEmpty MAP_EMPTY = (ItemMapEmpty) (new ItemMapEmpty(139)).b(13, 12).b("emptyMap");
+    public static Item CARROT_GOLDEN = (new ItemFood(140, 6, 1.2F, false)).b(6, 9).b("carrotGolden").c(PotionBrewer.l);
+    public static Item SKULL = (new ItemSkull(141)).b("skull");
+    public static Item CARROT_STICK = (new ItemCarrotStick(142)).b(6, 6).b("carrotOnAStick");
+    public static Item NETHER_STAR = (new ItemNetherStar(143)).b(9, 11).b("netherStar").a(CreativeModeTab.l);
+    public static Item PUMPKIN_PIE = (new ItemFood(144, 8, 0.3F, false)).b(8, 9).b("pumpkinPie").a(CreativeModeTab.h);
     public static Item RECORD_1 = (new ItemRecord(2000, "13")).b(0, 15).b("record");
     public static Item RECORD_2 = (new ItemRecord(2001, "cat")).b(1, 15).b("record");
     public static Item RECORD_3 = (new ItemRecord(2002, "blocks")).b(2, 15).b("record");
@@ -155,10 +167,10 @@ public class Item {
     protected int maxStackSize = 64;
     private int durability = 0;
     protected int textureId;
-    protected boolean bW = false;
-    protected boolean bX = false;
+    protected boolean ci = false;
+    protected boolean cj = false;
     private Item craftingResult = null;
-    private String bY = null;
+    private String ck = null;
     private String name;
 
     protected Item(int i) {
@@ -209,12 +221,12 @@ public class Item {
         return 0;
     }
 
-    public boolean k() {
-        return this.bX;
+    public boolean l() {
+        return this.cj;
     }
 
     protected Item a(boolean flag) {
-        this.bX = flag;
+        this.cj = flag;
         return this;
     }
 
@@ -227,8 +239,8 @@ public class Item {
         return this;
     }
 
-    public boolean m() {
-        return this.durability > 0 && !this.bX;
+    public boolean n() {
+        return this.durability > 0 && !this.cj;
     }
 
     public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
@@ -251,8 +263,8 @@ public class Item {
         return false;
     }
 
-    public Item n() {
-        this.bW = true;
+    public Item o() {
+        this.ci = true;
         return this;
     }
 
@@ -261,11 +273,17 @@ public class Item {
         return this;
     }
 
+    public String g(ItemStack itemstack) {
+        String s = this.c_(itemstack);
+
+        return s == null ? "" : LocaleI18n.get(s);
+    }
+
     public String getName() {
         return this.name;
     }
 
-    public String c(ItemStack itemstack) {
+    public String c_(ItemStack itemstack) {
         return this.name;
     }
 
@@ -278,35 +296,35 @@ public class Item {
         return true;
     }
 
-    public boolean p() {
-        return false;
+    public boolean q() {
+        return true;
     }
 
-    public Item q() {
+    public Item r() {
         return this.craftingResult;
     }
 
-    public boolean r() {
+    public boolean s() {
         return this.craftingResult != null;
     }
 
-    public String s() {
+    public String t() {
         return LocaleI18n.get(this.getName() + ".name");
     }
 
     public String i(ItemStack itemstack) {
-        return LocaleI18n.get(this.c(itemstack) + ".name");
+        return LocaleI18n.get(this.c_(itemstack) + ".name");
     }
 
     public void a(ItemStack itemstack, World world, Entity entity, int i, boolean flag) {}
 
     public void d(ItemStack itemstack, World world, EntityHuman entityhuman) {}
 
-    public boolean m_() {
+    public boolean f() {
         return false;
     }
 
-    public EnumAnimation b(ItemStack itemstack) {
+    public EnumAnimation d_(ItemStack itemstack) {
         return EnumAnimation.a;
     }
 
@@ -317,20 +335,24 @@ public class Item {
     public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {}
 
     protected Item c(String s) {
-        this.bY = s;
+        this.ck = s;
         return this;
     }
 
-    public String t() {
-        return this.bY;
+    public String u() {
+        return this.ck;
     }
 
-    public boolean u() {
-        return this.bY != null;
+    public boolean v() {
+        return this.ck != null;
+    }
+
+    public String j(ItemStack itemstack) {
+        return ("" + LocaleLanguage.a().c(this.g(itemstack))).trim();
     }
 
     public boolean k(ItemStack itemstack) {
-        return this.getMaxStackSize() == 1 && this.m();
+        return this.getMaxStackSize() == 1 && this.n();
     }
 
     protected MovingObjectPosition a(World world, EntityHuman entityhuman, boolean flag) {
@@ -340,7 +362,7 @@ public class Item {
         double d0 = entityhuman.lastX + (entityhuman.locX - entityhuman.lastX) * (double) f;
         double d1 = entityhuman.lastY + (entityhuman.locY - entityhuman.lastY) * (double) f + 1.62D - (double) entityhuman.height;
         double d2 = entityhuman.lastZ + (entityhuman.locZ - entityhuman.lastZ) * (double) f;
-        Vec3D vec3d = Vec3D.a().create(d0, d1, d2);
+        Vec3D vec3d = world.getVec3DPool().create(d0, d1, d2);
         float f3 = MathHelper.cos(-f2 * 0.017453292F - 3.1415927F);
         float f4 = MathHelper.sin(-f2 * 0.017453292F - 3.1415927F);
         float f5 = -MathHelper.cos(-f1 * 0.017453292F);
@@ -353,13 +375,21 @@ public class Item {
         return world.rayTrace(vec3d, vec3d1, flag, !flag);
     }
 
-    public int b() {
+    public int c() {
         return 0;
     }
 
     public Item a(CreativeModeTab creativemodetab) {
         this.a = creativemodetab;
         return this;
+    }
+
+    public boolean x() {
+        return true;
+    }
+
+    public boolean a(ItemStack itemstack, ItemStack itemstack1) {
+        return false;
     }
 
     static {

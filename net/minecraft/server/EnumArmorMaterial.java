@@ -16,7 +16,7 @@ public enum EnumArmorMaterial {
     }
 
     public int a(int i) {
-        return ItemArmor.c()[i] * this.f;
+        return ItemArmor.e()[i] * this.f;
     }
 
     public int b(int i) {
@@ -25,5 +25,9 @@ public enum EnumArmorMaterial {
 
     public int a() {
         return this.h;
+    }
+
+    public int b() {
+        return this == CLOTH ? Item.LEATHER.id : (this == CHAIN ? Item.IRON_INGOT.id : (this == GOLD ? Item.GOLD_INGOT.id : (this == IRON ? Item.IRON_INGOT.id : (this == DIAMOND ? Item.DIAMOND.id : 0))));
     }
 }

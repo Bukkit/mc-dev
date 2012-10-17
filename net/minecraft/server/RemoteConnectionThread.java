@@ -34,7 +34,7 @@ public abstract class RemoteConnectionThread implements Runnable {
     }
 
     protected void debug(String s) {
-        this.server.k(s);
+        this.server.j(s);
     }
 
     protected void info(String s) {
@@ -46,11 +46,11 @@ public abstract class RemoteConnectionThread implements Runnable {
     }
 
     protected void error(String s) {
-        this.server.j(s);
+        this.server.i(s);
     }
 
     protected int d() {
-        return this.server.x();
+        return this.server.y();
     }
 
     protected void a(DatagramSocket datagramsocket) {

@@ -101,19 +101,19 @@ public class BiomeDecorator {
         for (i = 0; i < this.H; ++i) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
-            this.g.a(this.a, this.b, j, this.a.h(j, k), k);
+            this.g.a(this.a, this.b, j, this.a.i(j, k), k);
         }
 
         for (i = 0; i < this.I; ++i) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
-            this.f.a(this.a, this.b, j, this.a.h(j, k), k);
+            this.f.a(this.a, this.b, j, this.a.i(j, k), k);
         }
 
         for (i = 0; i < this.G; ++i) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
-            this.g.a(this.a, this.b, j, this.a.h(j, k), k);
+            this.g.a(this.a, this.b, j, this.a.i(j, k), k);
         }
 
         i = this.z;

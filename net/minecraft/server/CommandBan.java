@@ -6,8 +6,12 @@ public class CommandBan extends CommandAbstract {
 
     public CommandBan() {}
 
-    public String b() {
+    public String c() {
         return "ban";
+    }
+
+    public int a() {
+        return 3;
     }
 
     public String a(ICommandListener icommandlistener) {
@@ -25,7 +29,7 @@ public class CommandBan extends CommandAbstract {
 
             banentry.setSource(icommandlistener.getName());
             if (astring.length >= 2) {
-                banentry.setReason(a(astring, 1));
+                banentry.setReason(a(icommandlistener, astring, 1));
             }
 
             MinecraftServer.getServer().getServerConfigurationManager().getNameBans().add(banentry);

@@ -14,8 +14,18 @@ public class ItemSword extends Item {
         this.damage = 4 + enumtoolmaterial.c();
     }
 
+    public int g() {
+        return this.b.c();
+    }
+
     public float getDestroySpeed(ItemStack itemstack, Block block) {
-        return block.id == Block.WEB.id ? 15.0F : 1.5F;
+        if (block.id == Block.WEB.id) {
+            return 15.0F;
+        } else {
+            Material material = block.material;
+
+            return material != Material.PLANT && material != Material.REPLACEABLE_PLANT && material != Material.CORAL && material != Material.LEAVES && material != Material.PUMPKIN ? 1.0F : 1.5F;
+        }
     }
 
     public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
@@ -35,7 +45,7 @@ public class ItemSword extends Item {
         return this.damage;
     }
 
-    public EnumAnimation b(ItemStack itemstack) {
+    public EnumAnimation d_(ItemStack itemstack) {
         return EnumAnimation.d;
     }
 
@@ -52,11 +62,15 @@ public class ItemSword extends Item {
         return block.id == Block.WEB.id;
     }
 
-    public int b() {
+    public int c() {
         return this.b.e();
     }
 
-    public String f() {
+    public String h() {
         return this.b.toString();
+    }
+
+    public boolean a(ItemStack itemstack, ItemStack itemstack1) {
+        return this.b.f() == itemstack1.id ? true : super.a(itemstack, itemstack1);
     }
 }

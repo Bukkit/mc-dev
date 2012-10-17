@@ -44,8 +44,4 @@ public class Packet43SetExperience extends Packet {
     public boolean a(Packet packet) {
         return true;
     }
-
-    public boolean a_() {
-        return true;
-    }
 }

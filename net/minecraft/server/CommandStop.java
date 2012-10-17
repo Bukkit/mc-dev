@@ -4,8 +4,12 @@ public class CommandStop extends CommandAbstract {
 
     public CommandStop() {}
 
-    public String b() {
+    public String c() {
         return "stop";
+    }
+
+    public int a() {
+        return 4;
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {

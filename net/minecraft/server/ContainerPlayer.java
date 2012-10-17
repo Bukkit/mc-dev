@@ -2,19 +2,14 @@ package net.minecraft.server;
 
 public class ContainerPlayer extends Container {
 
-    public InventoryCrafting craftInventory;
-    public IInventory resultInventory;
-    public boolean g;
+    public InventoryCrafting craftInventory = new InventoryCrafting(this, 2, 2);
+    public IInventory resultInventory = new InventoryCraftResult();
+    public boolean g = false;
+    private final EntityHuman h;
 
-    public ContainerPlayer(PlayerInventory playerinventory) {
-        this(playerinventory, true);
-    }
-
-    public ContainerPlayer(PlayerInventory playerinventory, boolean flag) {
-        this.craftInventory = new InventoryCrafting(this, 2, 2);
-        this.resultInventory = new InventoryCraftResult();
-        this.g = false;
+    public ContainerPlayer(PlayerInventory playerinventory, boolean flag, EntityHuman entityhuman) {
         this.g = flag;
+        this.h = entityhuman;
         this.a((Slot) (new SlotResult(playerinventory.player, this.craftInventory, this.resultInventory, 0, 144, 36)));
 
         int i;
@@ -44,7 +39,7 @@ public class ContainerPlayer extends Container {
     }
 
     public void a(IInventory iinventory) {
-        this.resultInventory.setItem(0, CraftingManager.getInstance().craft(this.craftInventory));
+        this.resultInventory.setItem(0, CraftingManager.getInstance().craft(this.craftInventory, this.h.world));
     }
 
     public void a(EntityHuman entityhuman) {
@@ -65,7 +60,7 @@ public class ContainerPlayer extends Container {
         return true;
     }
 
-    public ItemStack b(int i) {
+    public ItemStack b(EntityHuman entityhuman, int i) {
         ItemStack itemstack = null;
         Slot slot = (Slot) this.b.get(i);
 
@@ -115,7 +110,7 @@ public class ContainerPlayer extends Container {
                 return null;
             }
 
-            slot.b(itemstack1);
+            slot.a(entityhuman, itemstack1);
         }
 
         return itemstack;
