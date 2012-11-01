@@ -37,7 +37,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return world.t(i, j - 1, k) || world.getTypeId(i, j - 1, k) == Block.GLOWSTONE.id;
+        return world.v(i, j - 1, k) || world.getTypeId(i, j - 1, k) == Block.GLOWSTONE.id;
     }
 
     private void l(World world, int i, int j, int k) {
@@ -92,11 +92,11 @@ public class BlockRedstoneWire extends Block {
                     l1 = this.getPower(world, j2, j, k2, l1);
                 }
 
-                if (world.s(j2, j, k2) && !world.s(i, j + 1, k)) {
+                if (world.t(j2, j, k2) && !world.t(i, j + 1, k)) {
                     if (j2 != l || j + 1 != i1 || k2 != j1) {
                         l1 = this.getPower(world, j2, j + 1, k2, l1);
                     }
-                } else if (!world.s(j2, j, k2) && (j2 != l || j - 1 != i1 || k2 != j1)) {
+                } else if (!world.t(j2, j, k2) && (j2 != l || j - 1 != i1 || k2 != j1)) {
                     l1 = this.getPower(world, j2, j - 1, k2, l1);
                 }
             }
@@ -135,7 +135,7 @@ public class BlockRedstoneWire extends Block {
                     ++k2;
                 }
 
-                if (world.s(j2, j, k2)) {
+                if (world.t(j2, j, k2)) {
                     l2 += 2;
                 }
 
@@ -196,25 +196,25 @@ public class BlockRedstoneWire extends Block {
             this.n(world, i + 1, j, k);
             this.n(world, i, j, k - 1);
             this.n(world, i, j, k + 1);
-            if (world.s(i - 1, j, k)) {
+            if (world.t(i - 1, j, k)) {
                 this.n(world, i - 1, j + 1, k);
             } else {
                 this.n(world, i - 1, j - 1, k);
             }
 
-            if (world.s(i + 1, j, k)) {
+            if (world.t(i + 1, j, k)) {
                 this.n(world, i + 1, j + 1, k);
             } else {
                 this.n(world, i + 1, j - 1, k);
             }
 
-            if (world.s(i, j, k - 1)) {
+            if (world.t(i, j, k - 1)) {
                 this.n(world, i, j + 1, k - 1);
             } else {
                 this.n(world, i, j - 1, k - 1);
             }
 
-            if (world.s(i, j, k + 1)) {
+            if (world.t(i, j, k + 1)) {
                 this.n(world, i, j + 1, k + 1);
             } else {
                 this.n(world, i, j - 1, k + 1);
@@ -236,25 +236,25 @@ public class BlockRedstoneWire extends Block {
             this.n(world, i + 1, j, k);
             this.n(world, i, j, k - 1);
             this.n(world, i, j, k + 1);
-            if (world.s(i - 1, j, k)) {
+            if (world.t(i - 1, j, k)) {
                 this.n(world, i - 1, j + 1, k);
             } else {
                 this.n(world, i - 1, j - 1, k);
             }
 
-            if (world.s(i + 1, j, k)) {
+            if (world.t(i + 1, j, k)) {
                 this.n(world, i + 1, j + 1, k);
             } else {
                 this.n(world, i + 1, j - 1, k);
             }
 
-            if (world.s(i, j, k - 1)) {
+            if (world.t(i, j, k - 1)) {
                 this.n(world, i, j + 1, k - 1);
             } else {
                 this.n(world, i, j - 1, k - 1);
             }
 
-            if (world.s(i, j, k + 1)) {
+            if (world.t(i, j, k + 1)) {
                 this.n(world, i, j + 1, k + 1);
             } else {
                 this.n(world, i, j - 1, k + 1);
@@ -304,25 +304,25 @@ public class BlockRedstoneWire extends Block {
         } else if (l == 1) {
             return true;
         } else {
-            boolean flag = g(iblockaccess, i - 1, j, k, 1) || !iblockaccess.s(i - 1, j, k) && g(iblockaccess, i - 1, j - 1, k, -1);
-            boolean flag1 = g(iblockaccess, i + 1, j, k, 3) || !iblockaccess.s(i + 1, j, k) && g(iblockaccess, i + 1, j - 1, k, -1);
-            boolean flag2 = g(iblockaccess, i, j, k - 1, 2) || !iblockaccess.s(i, j, k - 1) && g(iblockaccess, i, j - 1, k - 1, -1);
-            boolean flag3 = g(iblockaccess, i, j, k + 1, 0) || !iblockaccess.s(i, j, k + 1) && g(iblockaccess, i, j - 1, k + 1, -1);
+            boolean flag = g(iblockaccess, i - 1, j, k, 1) || !iblockaccess.t(i - 1, j, k) && g(iblockaccess, i - 1, j - 1, k, -1);
+            boolean flag1 = g(iblockaccess, i + 1, j, k, 3) || !iblockaccess.t(i + 1, j, k) && g(iblockaccess, i + 1, j - 1, k, -1);
+            boolean flag2 = g(iblockaccess, i, j, k - 1, 2) || !iblockaccess.t(i, j, k - 1) && g(iblockaccess, i, j - 1, k - 1, -1);
+            boolean flag3 = g(iblockaccess, i, j, k + 1, 0) || !iblockaccess.t(i, j, k + 1) && g(iblockaccess, i, j - 1, k + 1, -1);
 
-            if (!iblockaccess.s(i, j + 1, k)) {
-                if (iblockaccess.s(i - 1, j, k) && g(iblockaccess, i - 1, j + 1, k, -1)) {
+            if (!iblockaccess.t(i, j + 1, k)) {
+                if (iblockaccess.t(i - 1, j, k) && g(iblockaccess, i - 1, j + 1, k, -1)) {
                     flag = true;
                 }
 
-                if (iblockaccess.s(i + 1, j, k) && g(iblockaccess, i + 1, j + 1, k, -1)) {
+                if (iblockaccess.t(i + 1, j, k) && g(iblockaccess, i + 1, j + 1, k, -1)) {
                     flag1 = true;
                 }
 
-                if (iblockaccess.s(i, j, k - 1) && g(iblockaccess, i, j + 1, k - 1, -1)) {
+                if (iblockaccess.t(i, j, k - 1) && g(iblockaccess, i, j + 1, k - 1, -1)) {
                     flag2 = true;
                 }
 
-                if (iblockaccess.s(i, j, k + 1) && g(iblockaccess, i, j + 1, k + 1, -1)) {
+                if (iblockaccess.t(i, j, k + 1) && g(iblockaccess, i, j + 1, k + 1, -1)) {
                     flag3 = true;
                 }
             }

@@ -7,7 +7,6 @@ public class BlockAnvil extends BlockSand {
 
     protected BlockAnvil(int i) {
         super(i, 215, Material.HEAVY);
-        this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
         this.h(0);
         this.a(CreativeModeTab.c);
     }
@@ -81,6 +80,16 @@ public class BlockAnvil extends BlockSand {
 
     public int getDropData(int i) {
         return i >> 2;
+    }
+
+    public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
+        int l = iblockaccess.getData(i, j, k) & 3;
+
+        if (l != 3 && l != 1) {
+            this.a(0.125F, 0.0F, 0.0F, 0.875F, 1.0F, 1.0F);
+        } else {
+            this.a(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.875F);
+        }
     }
 
     protected void a(EntityFallingBlock entityfallingblock) {

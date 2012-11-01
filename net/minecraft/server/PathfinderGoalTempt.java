@@ -33,7 +33,7 @@ public class PathfinderGoalTempt extends PathfinderGoal {
             if (this.h == null) {
                 return false;
             } else {
-                ItemStack itemstack = this.h.bP();
+                ItemStack itemstack = this.h.bS();
 
                 return itemstack == null ? false : itemstack.id == this.k;
             }
@@ -81,7 +81,7 @@ public class PathfinderGoalTempt extends PathfinderGoal {
     }
 
     public void e() {
-        this.a.getControllerLook().a(this.h, 30.0F, (float) this.a.bm());
+        this.a.getControllerLook().a(this.h, 30.0F, (float) this.a.bo());
         if (this.a.e(this.h) < 6.25D) {
             this.a.getNavigation().g();
         } else {

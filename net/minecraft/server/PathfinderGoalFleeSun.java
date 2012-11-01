@@ -19,11 +19,11 @@ public class PathfinderGoalFleeSun extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (!this.f.t()) {
+        if (!this.f.u()) {
             return false;
         } else if (!this.a.isBurning()) {
             return false;
-        } else if (!this.f.j(MathHelper.floor(this.a.locX), (int) this.a.boundingBox.b, MathHelper.floor(this.a.locZ))) {
+        } else if (!this.f.k(MathHelper.floor(this.a.locX), (int) this.a.boundingBox.b, MathHelper.floor(this.a.locZ))) {
             return false;
         } else {
             Vec3D vec3d = this.f();
@@ -55,7 +55,7 @@ public class PathfinderGoalFleeSun extends PathfinderGoal {
             int k = MathHelper.floor(this.a.boundingBox.b + (double) random.nextInt(6) - 3.0D);
             int l = MathHelper.floor(this.a.locZ + (double) random.nextInt(20) - 10.0D);
 
-            if (!this.f.j(j, k, l) && this.a.a(j, k, l) < 0.0F) {
+            if (!this.f.k(j, k, l) && this.a.a(j, k, l) < 0.0F) {
                 return this.f.getVec3DPool().create((double) j, (double) k, (double) l);
             }
         }

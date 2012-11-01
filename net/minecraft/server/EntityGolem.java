@@ -8,10 +8,6 @@ public abstract class EntityGolem extends EntityCreature implements IAnimal {
 
     protected void a(float f) {}
 
-    protected String aW() {
-        return "none";
-    }
-
     protected String aX() {
         return "none";
     }
@@ -20,11 +16,15 @@ public abstract class EntityGolem extends EntityCreature implements IAnimal {
         return "none";
     }
 
+    protected String aZ() {
+        return "none";
+    }
+
     public int aM() {
         return 120;
     }
 
-    protected boolean bg() {
+    protected boolean bi() {
         return false;
     }
 }

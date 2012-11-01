@@ -18,14 +18,14 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     public double e;
     public final List chunkCoordIntPairQueue = new LinkedList();
     public final List removeQueue = new LinkedList();
-    private int cn = -99999999;
-    private int co = -99999999;
-    private boolean cp = true;
+    private int ck = -99999999;
+    private int cl = -99999999;
+    private boolean cm = true;
     private int lastSentExp = -99999999;
     private int invulnerableTicks = 60;
-    private int cs = 0;
-    private int ct = 0;
-    private boolean cu = true;
+    private int cp = 0;
+    private int cq = 0;
+    private boolean cr = true;
     private int containerCounter = 0;
     public boolean h;
     public int ping;
@@ -35,7 +35,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         super(world);
         iteminworldmanager.player = this;
         this.itemInWorldManager = iteminworldmanager;
-        this.cs = minecraftserver.getServerConfigurationManager().o();
+        this.cp = minecraftserver.getServerConfigurationManager().o();
         ChunkCoordinates chunkcoordinates = world.getSpawn();
         int i = chunkcoordinates.x;
         int j = chunkcoordinates.z;
@@ -113,6 +113,14 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
                     this.b(tileentity);
                 }
+
+                iterator1 = arraylist.iterator();
+
+                while (iterator1.hasNext()) {
+                    Chunk chunk = (Chunk) iterator1.next();
+
+                    this.p().getTracker().a(this, chunk);
+                }
             }
         }
 
@@ -146,11 +154,11 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             }
         }
 
-        if (this.getHealth() != this.cn || this.co != this.foodData.a() || this.foodData.e() == 0.0F != this.cp) {
+        if (this.getHealth() != this.ck || this.cl != this.foodData.a() || this.foodData.e() == 0.0F != this.cm) {
             this.netServerHandler.sendPacket(new Packet8UpdateHealth(this.getHealth(), this.foodData.a(), this.foodData.e()));
-            this.cn = this.getHealth();
-            this.co = this.foodData.a();
-            this.cp = this.foodData.e() == 0.0F;
+            this.ck = this.getHealth();
+            this.cl = this.foodData.a();
+            this.cm = this.foodData.e() == 0.0F;
         }
 
         if (this.expTotal != this.lastSentExp) {
@@ -167,26 +175,32 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        if (this.invulnerableTicks > 0) {
+        if (this.isInvulnerable()) {
             return false;
         } else {
-            if (!this.server.getPvP() && damagesource instanceof EntityDamageSource) {
-                Entity entity = damagesource.getEntity();
+            boolean flag = this.server.T() && this.server.getPvP() && "fall".equals(damagesource.translationIndex);
 
-                if (entity instanceof EntityHuman) {
-                    return false;
-                }
+            if (!flag && this.invulnerableTicks > 0) {
+                return false;
+            } else {
+                if (!this.server.getPvP() && damagesource instanceof EntityDamageSource) {
+                    Entity entity = damagesource.getEntity();
 
-                if (entity instanceof EntityArrow) {
-                    EntityArrow entityarrow = (EntityArrow) entity;
-
-                    if (entityarrow.shooter instanceof EntityHuman) {
+                    if (entity instanceof EntityHuman) {
                         return false;
                     }
-                }
-            }
 
-            return super.damageEntity(damagesource, i);
+                    if (entity instanceof EntityArrow) {
+                        EntityArrow entityarrow = (EntityArrow) entity;
+
+                        if (entityarrow.shooter instanceof EntityHuman) {
+                            return false;
+                        }
+                    }
+                }
+
+                return super.damageEntity(damagesource, i);
+            }
         }
     }
 
@@ -216,14 +230,14 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
             this.server.getServerConfigurationManager().changeDimension(this, i);
             this.lastSentExp = -1;
-            this.cn = -1;
-            this.co = -1;
+            this.ck = -1;
+            this.cl = -1;
         }
     }
 
     private void b(TileEntity tileentity) {
         if (tileentity != null) {
-            Packet packet = tileentity.l();
+            Packet packet = tileentity.getUpdatePacket();
 
             if (packet != null) {
                 this.netServerHandler.sendPacket(packet);
@@ -242,7 +256,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         if (enumbedresult == EnumBedResult.OK) {
             Packet17EntityLocationAction packet17entitylocationaction = new Packet17EntityLocationAction(this, 0, i, j, k);
 
-            this.p().getTracker().a(this, packet17entitylocationaction);
+            this.p().getTracker().a((Entity) this, (Packet) packet17entitylocationaction);
             this.netServerHandler.a(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
             this.netServerHandler.sendPacket(packet17entitylocationaction);
         }
@@ -402,7 +416,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void k() {
-        this.activeContainer.a((EntityHuman) this);
+        this.activeContainer.b(this);
         this.activeContainer = this.defaultContainer;
     }
 
@@ -434,7 +448,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void m() {
-        this.cn = -99999999;
+        this.ck = -99999999;
     }
 
     public void b(String s) {
@@ -459,8 +473,8 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     public void copyTo(EntityHuman entityhuman, boolean flag) {
         super.copyTo(entityhuman, flag);
         this.lastSentExp = -1;
-        this.cn = -1;
-        this.co = -1;
+        this.ck = -1;
+        this.cl = -1;
         this.removeQueue.addAll(((EntityPlayer) entityhuman).removeQueue);
     }
 
@@ -530,11 +544,11 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         int i = 256 >> packet204localeandviewdistance.f();
 
         if (i > 3 && i < 15) {
-            this.cs = i;
+            this.cp = i;
         }
 
-        this.ct = packet204localeandviewdistance.g();
-        this.cu = packet204localeandviewdistance.h();
+        this.cq = packet204localeandviewdistance.g();
+        this.cr = packet204localeandviewdistance.h();
         if (this.server.I() && this.server.H().equals(this.name)) {
             this.server.c(packet204localeandviewdistance.i());
         }
@@ -547,7 +561,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public int getChatFlags() {
-        return this.ct;
+        return this.cq;
     }
 
     public void a(String s, int i) {

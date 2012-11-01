@@ -53,7 +53,7 @@ public class CommandTime extends CommandAbstract {
 
     protected void a(ICommandListener icommandlistener, int i) {
         for (int j = 0; j < MinecraftServer.getServer().worldServer.length; ++j) {
-            MinecraftServer.getServer().worldServer[j].setTime((long) i);
+            MinecraftServer.getServer().worldServer[j].setDayTime((long) i);
         }
     }
 
@@ -61,7 +61,7 @@ public class CommandTime extends CommandAbstract {
         for (int j = 0; j < MinecraftServer.getServer().worldServer.length; ++j) {
             WorldServer worldserver = MinecraftServer.getServer().worldServer[j];
 
-            worldserver.setTime(worldserver.F() + (long) i);
+            worldserver.setDayTime(worldserver.getDayTime() + (long) i);
         }
     }
 }

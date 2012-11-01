@@ -163,14 +163,15 @@ public class Item {
     public static Item RECORD_9 = (new ItemRecord(2008, "strad")).b(8, 15).b("record");
     public static Item RECORD_10 = (new ItemRecord(2009, "ward")).b(9, 15).b("record");
     public static Item RECORD_11 = (new ItemRecord(2010, "11")).b(10, 15).b("record");
+    public static Item RECORD_12 = (new ItemRecord(2011, "wait")).b(11, 15).b("record");
     public final int id;
     protected int maxStackSize = 64;
     private int durability = 0;
     protected int textureId;
-    protected boolean ci = false;
     protected boolean cj = false;
+    protected boolean ck = false;
     private Item craftingResult = null;
-    private String ck = null;
+    private String cl = null;
     private String name;
 
     protected Item(int i) {
@@ -222,11 +223,11 @@ public class Item {
     }
 
     public boolean l() {
-        return this.cj;
+        return this.ck;
     }
 
     protected Item a(boolean flag) {
-        this.cj = flag;
+        this.ck = flag;
         return this;
     }
 
@@ -240,7 +241,7 @@ public class Item {
     }
 
     public boolean n() {
-        return this.durability > 0 && !this.cj;
+        return this.durability > 0 && !this.ck;
     }
 
     public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
@@ -264,7 +265,7 @@ public class Item {
     }
 
     public Item o() {
-        this.ci = true;
+        this.cj = true;
         return this;
     }
 
@@ -335,16 +336,16 @@ public class Item {
     public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {}
 
     protected Item c(String s) {
-        this.ck = s;
+        this.cl = s;
         return this;
     }
 
     public String u() {
-        return this.ck;
+        return this.cl;
     }
 
     public boolean v() {
-        return this.ck != null;
+        return this.cl != null;
     }
 
     public String j(ItemStack itemstack) {

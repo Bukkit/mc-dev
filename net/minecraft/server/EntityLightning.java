@@ -15,7 +15,7 @@ public class EntityLightning extends EntityWeather {
         this.lifeTicks = 2;
         this.a = this.random.nextLong();
         this.c = this.random.nextInt(3) + 1;
-        if (world.difficulty >= 2 && world.areChunksLoaded(MathHelper.floor(d0), MathHelper.floor(d1), MathHelper.floor(d2), 10)) {
+        if (!world.isStatic && world.difficulty >= 2 && world.areChunksLoaded(MathHelper.floor(d0), MathHelper.floor(d1), MathHelper.floor(d2), 10)) {
             int i = MathHelper.floor(d0);
             int j = MathHelper.floor(d1);
             int k = MathHelper.floor(d2);
@@ -51,7 +51,7 @@ public class EntityLightning extends EntityWeather {
                 --this.c;
                 this.lifeTicks = 1;
                 this.a = this.random.nextLong();
-                if (this.world.areChunksLoaded(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ), 10)) {
+                if (!this.world.isStatic && this.world.areChunksLoaded(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ), 10)) {
                     int i = MathHelper.floor(this.locX);
                     int j = MathHelper.floor(this.locY);
                     int k = MathHelper.floor(this.locZ);
@@ -63,7 +63,7 @@ public class EntityLightning extends EntityWeather {
             }
         }
 
-        if (this.lifeTicks >= 0) {
+        if (!this.world.isStatic && this.lifeTicks >= 0) {
             double d0 = 3.0D;
             List list = this.world.getEntities(this, AxisAlignedBB.a().a(this.locX - d0, this.locY - d0, this.locZ - d0, this.locX + d0, this.locY + 6.0D + d0, this.locZ + d0));
             Iterator iterator = list.iterator();

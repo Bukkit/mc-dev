@@ -26,12 +26,12 @@ class SlotAnvilResult extends Slot {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return (entityhuman.abilities.canInstantlyBuild || entityhuman.expLevel >= this.e.e) && this.e.e > 0 && this.d();
+        return (entityhuman.abilities.canInstantlyBuild || entityhuman.expLevel >= this.e.a) && this.e.a > 0 && this.d();
     }
 
     public void a(EntityHuman entityhuman, ItemStack itemstack) {
         if (!entityhuman.abilities.canInstantlyBuild) {
-            entityhuman.levelDown(-this.e.e);
+            entityhuman.levelDown(-this.e.a);
         }
 
         ContainerAnvil.a(this.e).setItem(0, (ItemStack) null);
@@ -48,7 +48,7 @@ class SlotAnvilResult extends Slot {
             ContainerAnvil.a(this.e).setItem(1, (ItemStack) null);
         }
 
-        this.e.e = 0;
+        this.e.a = 0;
         if (!entityhuman.abilities.canInstantlyBuild && !this.a.isStatic && this.a.getTypeId(this.b, this.c, this.d) == Block.ANVIL.id && entityhuman.aA().nextFloat() < 0.12F) {
             int i = this.a.getData(this.b, this.c, this.d);
             int j = i & 3;

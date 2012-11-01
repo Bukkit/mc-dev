@@ -212,7 +212,12 @@ public class EntityArrow extends Entity implements IProjectile {
 
                     if (movingobjectposition.entity.damageEntity(damagesource, l)) {
                         if (movingobjectposition.entity instanceof EntityLiving) {
-                            ++((EntityLiving) movingobjectposition.entity).bk;
+                            if (!this.world.isStatic) {
+                                EntityLiving entityliving = (EntityLiving) movingobjectposition.entity;
+
+                                entityliving.r(entityliving.bI() + 1);
+                            }
+
                             if (this.au > 0) {
                                 float f3 = MathHelper.sqrt(this.motX * this.motX + this.motZ * this.motZ);
 
@@ -222,7 +227,7 @@ public class EntityArrow extends Entity implements IProjectile {
                             }
                         }
 
-                        this.world.makeSound(this, "random.bowhit", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                        this.makeSound("random.bowhit", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                         this.die();
                     } else {
                         this.motX *= -0.10000000149011612D;
@@ -245,10 +250,13 @@ public class EntityArrow extends Entity implements IProjectile {
                     this.locX -= this.motX / (double) f2 * 0.05000000074505806D;
                     this.locY -= this.motY / (double) f2 * 0.05000000074505806D;
                     this.locZ -= this.motZ / (double) f2 * 0.05000000074505806D;
-                    this.world.makeSound(this, "random.bowhit", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                    this.makeSound("random.bowhit", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                     this.inGround = true;
                     this.shake = 7;
                     this.e(false);
+                    if (this.g != 0) {
+                        Block.byId[this.g].a(this.world, this.d, this.e, this.f, this);
+                    }
                 }
             }
 
@@ -344,7 +352,7 @@ public class EntityArrow extends Entity implements IProjectile {
             }
 
             if (flag) {
-                this.world.makeSound(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                this.makeSound("random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 entityhuman.receive(this, 1);
                 this.die();
             }

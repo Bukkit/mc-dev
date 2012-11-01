@@ -2,18 +2,18 @@ package net.minecraft.server;
 
 import java.util.concurrent.Callable;
 
-public class CrashReportModded implements Callable {
+class CrashReportModded implements Callable {
 
-    final MinecraftServer a;
+    final DedicatedServer a;
 
-    public CrashReportModded(MinecraftServer minecraftserver) {
-        this.a = minecraftserver;
+    CrashReportModded(DedicatedServer dedicatedserver) {
+        this.a = dedicatedserver;
     }
 
     public String a() {
         String s = this.a.getServerModName();
 
-        return !s.equals("vanilla") ? "Definitely; \'" + s + "\'" : "Unknown (can\'t tell)";
+        return !s.equals("vanilla") ? "Definitely; Server brand changed to \'" + s + "\'" : "Unknown (can\'t tell)";
     }
 
     public Object call() {

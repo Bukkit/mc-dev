@@ -68,7 +68,7 @@ public class BlockCake extends Block {
                 world.setTypeId(i, j, k, 0);
             } else {
                 world.setData(i, j, k, l);
-                world.i(i, j, k);
+                world.j(i, j, k);
             }
         }
     }

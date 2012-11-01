@@ -16,7 +16,7 @@ public class EntityEgg extends EntityProjectile {
 
     protected void a(MovingObjectPosition movingobjectposition) {
         if (movingobjectposition.entity != null) {
-            movingobjectposition.entity.damageEntity(DamageSource.projectile(this, this.shooter), 0);
+            movingobjectposition.entity.damageEntity(DamageSource.projectile(this, this.getShooter()), 0);
         }
 
         if (!this.world.isStatic && this.random.nextInt(8) == 0) {

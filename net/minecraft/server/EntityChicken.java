@@ -27,7 +27,7 @@ public class EntityChicken extends EntityAnimal {
         this.goalSelector.a(7, new PathfinderGoalRandomLookaround(this));
     }
 
-    public boolean bb() {
+    public boolean bd() {
         return true;
     }
 
@@ -59,7 +59,7 @@ public class EntityChicken extends EntityAnimal {
 
         this.e += this.i * 2.0F;
         if (!this.isBaby() && !this.world.isStatic && --this.j <= 0) {
-            this.world.makeSound(this, "mob.chicken.plop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.makeSound("mob.chicken.plop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             this.b(Item.EGG.id, 1);
             this.j = this.random.nextInt(6000) + 6000;
         }
@@ -67,20 +67,20 @@ public class EntityChicken extends EntityAnimal {
 
     protected void a(float f) {}
 
-    protected String aW() {
-        return "mob.chicken.say";
-    }
-
     protected String aX() {
-        return "mob.chicken.hurt";
+        return "mob.chicken.say";
     }
 
     protected String aY() {
         return "mob.chicken.hurt";
     }
 
+    protected String aZ() {
+        return "mob.chicken.hurt";
+    }
+
     protected void a(int i, int j, int k, int l) {
-        this.world.makeSound(this, "mob.chicken.step", 0.15F, 1.0F);
+        this.makeSound("mob.chicken.step", 0.15F, 1.0F);
     }
 
     protected int getLootId() {

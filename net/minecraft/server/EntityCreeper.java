@@ -21,7 +21,7 @@ public class EntityCreeper extends EntityMonster {
         this.targetSelector.a(2, new PathfinderGoalHurtByTarget(this, false));
     }
 
-    public boolean bb() {
+    public boolean bd() {
         return true;
     }
 
@@ -75,7 +75,7 @@ public class EntityCreeper extends EntityMonster {
             int i = this.o();
 
             if (i > 0 && this.fuseTicks == 0) {
-                this.world.makeSound(this, "random.fuse", 1.0F, 0.5F);
+                this.makeSound("random.fuse", 1.0F, 0.5F);
             }
 
             this.fuseTicks += i;
@@ -102,22 +102,24 @@ public class EntityCreeper extends EntityMonster {
         super.j_();
     }
 
-    protected String aX() {
+    protected String aY() {
         return "mob.creeper.say";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.creeper.death";
     }
 
     public void die(DamageSource damagesource) {
         super.die(damagesource);
         if (damagesource.getEntity() instanceof EntitySkeleton) {
-            this.b(Item.RECORD_1.id + this.random.nextInt(10), 1);
+            int i = Item.RECORD_1.id + this.random.nextInt(Item.RECORD_12.id - Item.RECORD_1.id + 1);
+
+            this.b(i, 1);
         }
     }
 
-    public boolean l(Entity entity) {
+    public boolean m(Entity entity) {
         return true;
     }
 

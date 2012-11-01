@@ -27,6 +27,7 @@ public class EntityTrackerEntry {
     private boolean isMoving;
     private int u = 0;
     private Entity v;
+    private boolean w = false;
     public boolean n = false;
     public Set trackedPlayers = new HashSet();
 
@@ -73,18 +74,18 @@ public class EntityTrackerEntry {
 
             if (i5 != null && i5.getItem() instanceof ItemWorldMap) {
                 WorldMap i7 = Item.MAP.getSavedMap(i5, this.tracker.world);
-                Iterator i8 = list.iterator();
+                Iterator j0 = list.iterator();
 
-                while (i8.hasNext()) {
-                    EntityHuman j0 = (EntityHuman) i8.next();
-                    EntityPlayer j1 = (EntityPlayer) j0;
+                while (j0.hasNext()) {
+                    EntityHuman j1 = (EntityHuman) j0.next();
+                    EntityPlayer j2 = (EntityPlayer) j1;
 
-                    i7.a(j1, i5);
-                    if (j1.netServerHandler.lowPriorityCount() <= 5) {
-                        Packet j2 = Item.MAP.c(i5, this.tracker.world, j1);
+                    i7.a(j2, i5);
+                    if (j2.netServerHandler.lowPriorityCount() <= 5) {
+                        Packet j3 = Item.MAP.c(i5, this.tracker.world, j2);
 
-                        if (j2 != null) {
-                            j1.netServerHandler.sendPacket(j2);
+                        if (j3 != null) {
+                            j2.netServerHandler.sendPacket(j3);
                         }
                     }
                 }
@@ -113,7 +114,7 @@ public class EntityTrackerEntry {
                 boolean flag = Math.abs(j1) >= 4 || Math.abs(k1) >= 4 || Math.abs(l1) >= 4 || this.m % 60 == 0;
                 boolean flag1 = Math.abs(l - this.yRot) >= 4 || Math.abs(i1 - this.xRot) >= 4;
 
-                if (j1 >= -128 && j1 < 128 && k1 >= -128 && k1 < 128 && l1 >= -128 && l1 < 128 && this.u <= 400) {
+                if (j1 >= -128 && j1 < 128 && k1 >= -128 && k1 < 128 && l1 >= -128 && l1 < 128 && this.u <= 400 && !this.w) {
                     if (flag && flag1) {
                         object = new Packet33RelEntityMoveLook(this.tracker.id, (byte) j1, (byte) k1, (byte) l1, (byte) l, (byte) i1);
                     } else if (flag) {
@@ -161,6 +162,8 @@ public class EntityTrackerEntry {
                     this.yRot = l;
                     this.xRot = i1;
                 }
+
+                this.w = false;
             } else {
                 i = MathHelper.d(this.tracker.yaw * 256.0F / 360.0F);
                 j = MathHelper.d(this.tracker.pitch * 256.0F / 360.0F);
@@ -175,6 +178,13 @@ public class EntityTrackerEntry {
                 this.xLoc = this.tracker.ar.a(this.tracker.locX);
                 this.yLoc = MathHelper.floor(this.tracker.locY * 32.0D);
                 this.zLoc = this.tracker.ar.a(this.tracker.locZ);
+                DataWatcher datawatcher2 = this.tracker.getDataWatcher();
+
+                if (datawatcher2.a()) {
+                    this.broadcastIncludingSelf(new Packet40EntityMetadata(this.tracker.id, datawatcher2, false));
+                }
+
+                this.w = true;
             }
 
             i = MathHelper.d(this.tracker.ap() * 256.0F / 360.0F);

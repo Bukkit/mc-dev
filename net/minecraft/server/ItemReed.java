@@ -47,14 +47,15 @@ public class ItemReed extends Item {
         } else {
             if (world.mayPlace(this.id, i, j, k, false, l, (Entity) null)) {
                 Block block = Block.byId[this.id];
+                int j1 = block.getPlacedData(world, i, j, k, l, f, f1, f2, 0);
 
-                if (world.setTypeId(i, j, k, this.id)) {
+                if (world.setTypeIdAndData(i, j, k, this.id, j1)) {
                     if (world.getTypeId(i, j, k) == this.id) {
-                        Block.byId[this.id].postPlace(world, i, j, k, l, f, f1, f2);
                         Block.byId[this.id].postPlace(world, i, j, k, entityhuman);
+                        Block.byId[this.id].postPlace(world, i, j, k, j1);
                     }
 
-                    world.makeSound((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), block.stepSound.b(), (block.stepSound.getVolume1() + 1.0F) / 2.0F, block.stepSound.getVolume2() * 0.8F);
+                    world.makeSound((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), block.stepSound.getPlaceSound(), (block.stepSound.getVolume1() + 1.0F) / 2.0F, block.stepSound.getVolume2() * 0.8F);
                     --itemstack.count;
                 }
             }

@@ -29,7 +29,7 @@ public class WorldGenBonusChest extends WorldGenerator {
                 int k1 = j + random.nextInt(3) - random.nextInt(3);
                 int l1 = k + random.nextInt(4) - random.nextInt(4);
 
-                if (world.isEmpty(j1, k1, l1) && world.t(j1, k1 - 1, l1)) {
+                if (world.isEmpty(j1, k1, l1) && world.v(j1, k1 - 1, l1)) {
                     world.setTypeId(j1, k1, l1, Block.CHEST.id);
                     TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(j1, k1, l1);
 
@@ -37,19 +37,19 @@ public class WorldGenBonusChest extends WorldGenerator {
                         StructurePieceTreasure.a(random, this.a, tileentitychest, this.b);
                     }
 
-                    if (world.isEmpty(j1 - 1, k1, l1) && world.t(j1 - 1, k1 - 1, l1)) {
+                    if (world.isEmpty(j1 - 1, k1, l1) && world.v(j1 - 1, k1 - 1, l1)) {
                         world.setTypeId(j1 - 1, k1, l1, Block.TORCH.id);
                     }
 
-                    if (world.isEmpty(j1 + 1, k1, l1) && world.t(j1 - 1, k1 - 1, l1)) {
+                    if (world.isEmpty(j1 + 1, k1, l1) && world.v(j1 - 1, k1 - 1, l1)) {
                         world.setTypeId(j1 + 1, k1, l1, Block.TORCH.id);
                     }
 
-                    if (world.isEmpty(j1, k1, l1 - 1) && world.t(j1 - 1, k1 - 1, l1)) {
+                    if (world.isEmpty(j1, k1, l1 - 1) && world.v(j1 - 1, k1 - 1, l1)) {
                         world.setTypeId(j1, k1, l1 - 1, Block.TORCH.id);
                     }
 
-                    if (world.isEmpty(j1, k1, l1 + 1) && world.t(j1 - 1, k1 - 1, l1)) {
+                    if (world.isEmpty(j1, k1, l1 + 1) && world.v(j1 - 1, k1 - 1, l1)) {
                         world.setTypeId(j1, k1, l1 + 1, Block.TORCH.id);
                     }
 

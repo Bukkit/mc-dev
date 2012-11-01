@@ -24,6 +24,7 @@ public class CommandGamemode extends CommandAbstract {
             EntityPlayer entityplayer = astring.length >= 2 ? c(icommandlistener, astring[1]) : c(icommandlistener);
 
             entityplayer.a(enumgamemode);
+            entityplayer.fallDistance = 0.0F;
             String s = LocaleI18n.get("gameMode." + enumgamemode.b());
 
             if (entityplayer != icommandlistener) {

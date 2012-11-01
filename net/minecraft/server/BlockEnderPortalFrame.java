@@ -6,7 +6,7 @@ import java.util.Random;
 public class BlockEnderPortalFrame extends Block {
 
     public BlockEnderPortalFrame(int i) {
-        super(i, 159, Material.SHATTERABLE);
+        super(i, 159, Material.STONE);
     }
 
     public int a(int i, int j) {

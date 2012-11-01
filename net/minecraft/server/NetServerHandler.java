@@ -14,7 +14,7 @@ public class NetServerHandler extends NetHandler {
     public INetworkManager networkManager;
     public boolean disconnected = false;
     private MinecraftServer minecraftServer;
-    private EntityPlayer player;
+    public EntityPlayer player;
     private int f;
     private int g;
     private boolean h;
@@ -60,13 +60,6 @@ public class NetServerHandler extends NetHandler {
         }
 
         this.minecraftServer.methodProfiler.c("playerTick");
-        if (!this.h && !this.player.viewingCredits) {
-            this.player.g();
-            if (this.player.vehicle == null) {
-                this.player.setPositionRotation(this.y, this.z, this.q, this.player.yaw, this.player.pitch);
-            }
-        }
-
         this.minecraftServer.methodProfiler.b();
     }
 
@@ -284,9 +277,9 @@ public class NetServerHandler extends NetHandler {
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
         if (packet14blockdig.e == 4) {
-            this.player.bN();
+            this.player.bQ();
         } else if (packet14blockdig.e == 5) {
-            this.player.bK();
+            this.player.bN();
         } else {
             boolean flag = worldserver.worldProvider.dimension != 0 || this.minecraftServer.getServerConfigurationManager().getOPs().isEmpty() || this.minecraftServer.getServerConfigurationManager().isOp(this.player.name) || this.minecraftServer.I();
             boolean flag1 = false;
@@ -524,7 +517,7 @@ public class NetServerHandler extends NetHandler {
 
     public void a(Packet18ArmAnimation packet18armanimation) {
         if (packet18armanimation.b == 1) {
-            this.player.bE();
+            this.player.bG();
         }
     }
 
@@ -556,7 +549,7 @@ public class NetServerHandler extends NetHandler {
         Entity entity = worldserver.getEntity(packet7useentity.target);
 
         if (entity != null) {
-            boolean flag = this.player.m(entity);
+            boolean flag = this.player.n(entity);
             double d0 = 36.0D;
 
             if (!flag) {
@@ -565,7 +558,7 @@ public class NetServerHandler extends NetHandler {
 
             if (this.player.e(entity) < d0) {
                 if (packet7useentity.action == 0) {
-                    this.player.o(entity);
+                    this.player.p(entity);
                 } else if (packet7useentity.action == 1) {
                     this.player.attack(entity);
                 }
@@ -609,7 +602,7 @@ public class NetServerHandler extends NetHandler {
     }
 
     public void a(Packet102WindowClick packet102windowclick) {
-        if (this.player.activeContainer.windowId == packet102windowclick.a && this.player.activeContainer.b(this.player)) {
+        if (this.player.activeContainer.windowId == packet102windowclick.a && this.player.activeContainer.c(this.player)) {
             ItemStack itemstack = this.player.activeContainer.clickItem(packet102windowclick.slot, packet102windowclick.button, packet102windowclick.shift, this.player);
 
             if (ItemStack.matches(packet102windowclick.item, itemstack)) {
@@ -624,8 +617,8 @@ public class NetServerHandler extends NetHandler {
                 this.player.activeContainer.a(this.player, false);
                 ArrayList arraylist = new ArrayList();
 
-                for (int i = 0; i < this.player.activeContainer.b.size(); ++i) {
-                    arraylist.add(((Slot) this.player.activeContainer.b.get(i)).getItem());
+                for (int i = 0; i < this.player.activeContainer.c.size(); ++i) {
+                    arraylist.add(((Slot) this.player.activeContainer.c.get(i)).getItem());
                 }
 
                 this.player.a(this.player.activeContainer, arraylist);
@@ -634,7 +627,7 @@ public class NetServerHandler extends NetHandler {
     }
 
     public void a(Packet108ButtonClick packet108buttonclick) {
-        if (this.player.activeContainer.windowId == packet108buttonclick.a && this.player.activeContainer.b(this.player)) {
+        if (this.player.activeContainer.windowId == packet108buttonclick.a && this.player.activeContainer.c(this.player)) {
             this.player.activeContainer.a((EntityHuman) this.player, packet108buttonclick.b);
             this.player.activeContainer.b();
         }
@@ -670,7 +663,7 @@ public class NetServerHandler extends NetHandler {
     public void a(Packet106Transaction packet106transaction) {
         Short oshort = (Short) this.s.get(this.player.activeContainer.windowId);
 
-        if (oshort != null && packet106transaction.b == oshort.shortValue() && this.player.activeContainer.windowId == packet106transaction.a && !this.player.activeContainer.b(this.player)) {
+        if (oshort != null && packet106transaction.b == oshort.shortValue() && this.player.activeContainer.windowId == packet106transaction.a && !this.player.activeContainer.c(this.player)) {
             this.player.activeContainer.a(this.player, true);
         }
     }
@@ -775,7 +768,7 @@ public class NetServerHandler extends NetHandler {
 
                 itemstack1 = this.player.inventory.getItemInHand();
                 if (itemstack != null && itemstack.id == Item.BOOK_AND_QUILL.id && itemstack.id == itemstack1.id) {
-                    itemstack1.setTag(itemstack.getTag());
+                    itemstack1.a("pages", (NBTBase) itemstack.getTag().getList("pages"));
                 }
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -790,7 +783,9 @@ public class NetServerHandler extends NetHandler {
 
                 itemstack1 = this.player.inventory.getItemInHand();
                 if (itemstack != null && itemstack.id == Item.WRITTEN_BOOK.id && itemstack1.id == Item.BOOK_AND_QUILL.id) {
-                    itemstack1.setTag(itemstack.getTag());
+                    itemstack1.a("author", (NBTBase) (new NBTTagString("author", this.player.name)));
+                    itemstack1.a("title", (NBTBase) (new NBTTagString("title", itemstack.getTag().getString("title"))));
+                    itemstack1.a("pages", (NBTBase) itemstack.getTag().getList("pages"));
                     itemstack1.id = Item.WRITTEN_BOOK.id;
                 }
             } catch (Exception exception1) {

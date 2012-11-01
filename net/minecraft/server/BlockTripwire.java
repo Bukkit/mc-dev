@@ -39,7 +39,7 @@ public class BlockTripwire extends Block {
     public void doPhysics(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
         boolean flag = (i1 & 2) == 2;
-        boolean flag1 = !world.t(i, j - 1, k);
+        boolean flag1 = !world.v(i, j - 1, k);
 
         if (flag != flag1) {
             this.c(world, i, j, k, i1, 0);
@@ -62,7 +62,7 @@ public class BlockTripwire extends Block {
     }
 
     public void onPlace(World world, int i, int j, int k) {
-        int l = world.t(i, j - 1, k) ? 0 : 2;
+        int l = world.v(i, j - 1, k) ? 0 : 2;
 
         world.setData(i, j, k, l);
         this.d(world, i, j, k, l);
@@ -74,7 +74,7 @@ public class BlockTripwire extends Block {
 
     public void a(World world, int i, int j, int k, int l, EntityHuman entityhuman) {
         if (!world.isStatic) {
-            if (entityhuman.bP() != null && entityhuman.bP().id == Item.SHEARS.id) {
+            if (entityhuman.bS() != null && entityhuman.bS().id == Item.SHEARS.id) {
                 world.setData(i, j, k, l | 8);
             }
         }

@@ -19,7 +19,7 @@ public abstract class BlockContainer extends Block {
 
     public void remove(World world, int i, int j, int k, int l, int i1) {
         super.remove(world, i, j, k, l, i1);
-        world.q(i, j, k);
+        world.r(i, j, k);
     }
 
     public abstract TileEntity a(World world);

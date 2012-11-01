@@ -4,6 +4,7 @@ public class MaterialDecoration extends Material {
 
     public MaterialDecoration(MaterialMapColor materialmapcolor) {
         super(materialmapcolor);
+        this.p();
     }
 
     public boolean isBuildable() {

@@ -28,9 +28,12 @@ public class EntityItemFrame extends EntityHanging {
 
     public void h() {
         this.a(new ItemStack(Item.ITEM_FRAME), 0.0F);
-        if (this.i() != null && this.random.nextFloat() < this.e) {
-            this.i().a((EntityItemFrame) null);
-            this.a(this.i(), 0.0F);
+        ItemStack itemstack = this.i();
+
+        if (itemstack != null && this.random.nextFloat() < this.e) {
+            itemstack = itemstack.cloneItemStack();
+            itemstack.a((EntityItemFrame) null);
+            this.a(itemstack, 0.0F);
         }
     }
 
@@ -80,7 +83,7 @@ public class EntityItemFrame extends EntityHanging {
 
     public boolean c(EntityHuman entityhuman) {
         if (this.i() == null) {
-            ItemStack itemstack = entityhuman.bA();
+            ItemStack itemstack = entityhuman.bC();
 
             if (itemstack != null && !this.world.isStatic) {
                 this.a(itemstack);

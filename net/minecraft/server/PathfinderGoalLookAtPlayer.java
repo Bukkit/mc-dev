@@ -52,7 +52,7 @@ public class PathfinderGoalLookAtPlayer extends PathfinderGoal {
     }
 
     public void e() {
-        this.b.getControllerLook().a(this.a.locX, this.a.locY + (double) this.a.getHeadHeight(), this.a.locZ, 10.0F, (float) this.b.bm());
+        this.b.getControllerLook().a(this.a.locX, this.a.locY + (double) this.a.getHeadHeight(), this.a.locZ, 10.0F, (float) this.b.bo());
         --this.d;
     }
 }

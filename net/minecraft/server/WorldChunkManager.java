@@ -159,7 +159,7 @@ public class WorldChunkManager {
         ChunkPosition chunkposition = null;
         int j2 = 0;
 
-        for (int k2 = 0; k2 < aint.length; ++k2) {
+        for (int k2 = 0; k2 < l1 * i2; ++k2) {
             int l2 = l + k2 % l1 << 2;
             int i3 = i1 + k2 / l1 << 2;
             BiomeBase biomebase = BiomeBase.biomes[aint[k2]];

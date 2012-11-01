@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class EntitySheep extends EntityAnimal {
 
-    public static final float[][] d = new float[][] { { 1.0F, 1.0F, 1.0F}, { 0.95F, 0.7F, 0.2F}, { 0.9F, 0.5F, 0.85F}, { 0.6F, 0.7F, 0.95F}, { 0.9F, 0.9F, 0.2F}, { 0.5F, 0.8F, 0.1F}, { 0.95F, 0.7F, 0.8F}, { 0.3F, 0.3F, 0.3F}, { 0.6F, 0.6F, 0.6F}, { 0.3F, 0.6F, 0.7F}, { 0.7F, 0.4F, 0.9F}, { 0.2F, 0.4F, 0.8F}, { 0.5F, 0.4F, 0.3F}, { 0.4F, 0.5F, 0.2F}, { 0.8F, 0.3F, 0.3F}, { 0.1F, 0.1F, 0.1F}};
+    public static final float[][] d = new float[][] { { 1.0F, 1.0F, 1.0F}, { 0.85F, 0.5F, 0.2F}, { 0.7F, 0.3F, 0.85F}, { 0.4F, 0.6F, 0.85F}, { 0.9F, 0.9F, 0.2F}, { 0.5F, 0.8F, 0.1F}, { 0.95F, 0.5F, 0.65F}, { 0.3F, 0.3F, 0.3F}, { 0.6F, 0.6F, 0.6F}, { 0.3F, 0.5F, 0.6F}, { 0.5F, 0.25F, 0.7F}, { 0.2F, 0.3F, 0.7F}, { 0.4F, 0.3F, 0.2F}, { 0.4F, 0.5F, 0.2F}, { 0.6F, 0.2F, 0.2F}, { 0.1F, 0.1F, 0.1F}};
     private int e;
     private PathfinderGoalEatTile f = new PathfinderGoalEatTile(this);
 
@@ -17,7 +17,7 @@ public class EntitySheep extends EntityAnimal {
         this.getNavigation().a(true);
         this.goalSelector.a(0, new PathfinderGoalFloat(this));
         this.goalSelector.a(1, new PathfinderGoalPanic(this, 0.38F));
-        this.goalSelector.a(2, new PathfinderGoalBreed(this, f));
+        this.goalSelector.a(2, new PathfinderGoalSheepBreed(this, f));
         this.goalSelector.a(3, new PathfinderGoalTempt(this, 0.25F, Item.WHEAT.id, false));
         this.goalSelector.a(4, new PathfinderGoalFollowParent(this, 0.25F));
         this.goalSelector.a(5, this.f);
@@ -26,13 +26,13 @@ public class EntitySheep extends EntityAnimal {
         this.goalSelector.a(8, new PathfinderGoalRandomLookaround(this));
     }
 
-    protected boolean bb() {
+    protected boolean bd() {
         return true;
     }
 
-    protected void bi() {
+    protected void bk() {
         this.e = this.f.f();
-        super.bi();
+        super.bk();
     }
 
     public void c() {
@@ -80,7 +80,7 @@ public class EntitySheep extends EntityAnimal {
             }
 
             itemstack.damage(1, entityhuman);
-            this.world.makeSound(this, "mob.sheep.shear", 1.0F, 1.0F);
+            this.makeSound("mob.sheep.shear", 1.0F, 1.0F);
         }
 
         return super.c(entityhuman);
@@ -98,10 +98,6 @@ public class EntitySheep extends EntityAnimal {
         this.setColor(nbttagcompound.getByte("Color"));
     }
 
-    protected String aW() {
-        return "mob.sheep.say";
-    }
-
     protected String aX() {
         return "mob.sheep.say";
     }
@@ -110,8 +106,12 @@ public class EntitySheep extends EntityAnimal {
         return "mob.sheep.say";
     }
 
+    protected String aZ() {
+        return "mob.sheep.say";
+    }
+
     protected void a(int i, int j, int k, int l) {
-        this.world.makeSound(this, "mob.sheep.step", 0.15F, 1.0F);
+        this.makeSound("mob.sheep.step", 0.15F, 1.0F);
     }
 
     public int getColor() {
@@ -170,7 +170,7 @@ public class EntitySheep extends EntityAnimal {
         }
     }
 
-    public void bD() {
+    public void bF() {
         this.setColor(a(this.world.random));
     }
 }

@@ -61,7 +61,7 @@ public class BlockPiston extends Block {
             boolean flag = this.d(world, i, j, k, i1);
 
             if (flag && !f(l)) {
-                if (h(world, i, j, k, i1)) {
+                if (i(world, i, j, k, i1)) {
                     world.playNote(i, j, k, this.id, 0, i1);
                 }
             } else if (!flag && f(l)) {
@@ -82,7 +82,7 @@ public class BlockPiston extends Block {
         }
 
         if (l == 0) {
-            if (this.i(world, i, j, k, i1)) {
+            if (this.j(world, i, j, k, i1)) {
                 world.setData(i, j, k, i1 | 8);
                 world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "tile.piston.out", 0.5F, world.random.nextFloat() * 0.25F + 0.6F);
             } else {
@@ -239,7 +239,7 @@ public class BlockPiston extends Block {
         }
     }
 
-    private static boolean h(World world, int i, int j, int k, int l) {
+    private static boolean i(World world, int i, int j, int k, int l) {
         int i1 = i + Facing.b[l];
         int j1 = j + Facing.c[l];
         int k1 = k + Facing.d[l];
@@ -276,7 +276,7 @@ public class BlockPiston extends Block {
         }
     }
 
-    private boolean i(World world, int i, int j, int k, int l) {
+    private boolean j(World world, int i, int j, int k, int l) {
         int i1 = i + Facing.b[l];
         int j1 = j + Facing.c[l];
         int k1 = k + Facing.d[l];

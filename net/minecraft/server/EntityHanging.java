@@ -168,24 +168,32 @@ public abstract class EntityHanging extends Entity {
         return true;
     }
 
+    public boolean j(Entity entity) {
+        return entity instanceof EntityHuman ? this.damageEntity(DamageSource.playerAttack((EntityHuman) entity), 0) : false;
+    }
+
     public boolean damageEntity(DamageSource damagesource, int i) {
-        if (!this.dead && !this.world.isStatic) {
-            this.die();
-            this.K();
-            EntityHuman entityhuman = null;
+        if (this.isInvulnerable()) {
+            return false;
+        } else {
+            if (!this.dead && !this.world.isStatic) {
+                this.die();
+                this.K();
+                EntityHuman entityhuman = null;
 
-            if (damagesource.getEntity() instanceof EntityHuman) {
-                entityhuman = (EntityHuman) damagesource.getEntity();
+                if (damagesource.getEntity() instanceof EntityHuman) {
+                    entityhuman = (EntityHuman) damagesource.getEntity();
+                }
+
+                if (entityhuman != null && entityhuman.abilities.canInstantlyBuild) {
+                    return true;
+                }
+
+                this.h();
             }
 
-            if (entityhuman != null && entityhuman.abilities.canInstantlyBuild) {
-                return true;
-            }
-
-            this.h();
+            return true;
         }
-
-        return true;
     }
 
     public void move(double d0, double d1, double d2) {

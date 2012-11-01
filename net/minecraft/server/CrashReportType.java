@@ -11,7 +11,7 @@ class CrashReportType implements Callable {
     }
 
     public String a() {
-        return "Dedicated Server";
+        return "Dedicated Server (map_server.txt)";
     }
 
     public Object call() {

@@ -9,15 +9,15 @@ public class EntityZombie extends EntityMonster {
     public EntityZombie(World world) {
         super(world);
         this.texture = "/mob/zombie.png";
-        this.bI = 0.23F;
+        this.bG = 0.23F;
         this.getNavigation().b(true);
         this.goalSelector.a(0, new PathfinderGoalFloat(this));
         this.goalSelector.a(1, new PathfinderGoalBreakDoor(this));
-        this.goalSelector.a(2, new PathfinderGoalMeleeAttack(this, EntityHuman.class, this.bI, false));
-        this.goalSelector.a(3, new PathfinderGoalMeleeAttack(this, EntityVillager.class, this.bI, true));
-        this.goalSelector.a(4, new PathfinderGoalMoveTowardsRestriction(this, this.bI));
-        this.goalSelector.a(5, new PathfinderGoalMoveThroughVillage(this, this.bI, false));
-        this.goalSelector.a(6, new PathfinderGoalRandomStroll(this, this.bI));
+        this.goalSelector.a(2, new PathfinderGoalMeleeAttack(this, EntityHuman.class, this.bG, false));
+        this.goalSelector.a(3, new PathfinderGoalMeleeAttack(this, EntityVillager.class, this.bG, true));
+        this.goalSelector.a(4, new PathfinderGoalMoveTowardsRestriction(this, this.bG));
+        this.goalSelector.a(5, new PathfinderGoalMoveThroughVillage(this, this.bG, false));
+        this.goalSelector.a(6, new PathfinderGoalRandomStroll(this, this.bG));
         this.goalSelector.a(7, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 8.0F));
         this.goalSelector.a(7, new PathfinderGoalRandomLookaround(this));
         this.targetSelector.a(1, new PathfinderGoalHurtByTarget(this, false));
@@ -25,8 +25,8 @@ public class EntityZombie extends EntityMonster {
         this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityVillager.class, 16.0F, 0, false));
     }
 
-    public float by() {
-        return super.by() * (this.isBaby() ? 1.5F : 1.0F);
+    public float bA() {
+        return super.bA() * (this.isBaby() ? 1.5F : 1.0F);
     }
 
     protected void a() {
@@ -40,8 +40,8 @@ public class EntityZombie extends EntityMonster {
         return 20;
     }
 
-    public int aU() {
-        int i = super.aU() + 2;
+    public int aV() {
+        int i = super.aV() + 2;
 
         if (i > 20) {
             i = 20;
@@ -50,7 +50,7 @@ public class EntityZombie extends EntityMonster {
         return i;
     }
 
-    protected boolean bb() {
+    protected boolean bd() {
         return true;
     }
 
@@ -71,10 +71,10 @@ public class EntityZombie extends EntityMonster {
     }
 
     public void c() {
-        if (this.world.t() && !this.world.isStatic && !this.isBaby()) {
+        if (this.world.u() && !this.world.isStatic && !this.isBaby()) {
             float f = this.c(1.0F);
 
-            if (f > 0.5F && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.j(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ))) {
+            if (f > 0.5F && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.k(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ))) {
                 boolean flag = true;
                 ItemStack itemstack = this.getEquipment(4);
 
@@ -113,7 +113,7 @@ public class EntityZombie extends EntityMonster {
     }
 
     public int c(Entity entity) {
-        ItemStack itemstack = this.bA();
+        ItemStack itemstack = this.bC();
         int i = 4;
 
         if (itemstack != null) {
@@ -123,20 +123,20 @@ public class EntityZombie extends EntityMonster {
         return i;
     }
 
-    protected String aW() {
+    protected String aX() {
         return "mob.zombie.say";
     }
 
-    protected String aX() {
+    protected String aY() {
         return "mob.zombie.hurt";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.zombie.death";
     }
 
     protected void a(int i, int j, int k, int l) {
-        this.world.makeSound(this, "mob.zombie.step", 0.15F, 1.0F);
+        this.makeSound("mob.zombie.step", 0.15F, 1.0F);
     }
 
     protected int getLootId() {
@@ -162,8 +162,8 @@ public class EntityZombie extends EntityMonster {
         }
     }
 
-    protected void bB() {
-        super.bB();
+    protected void bD() {
+        super.bD();
         if (this.random.nextFloat() < (this.world.difficulty == 3 ? 0.05F : 0.01F)) {
             int i = this.random.nextInt(3);
 
@@ -212,9 +212,9 @@ public class EntityZombie extends EntityMonster {
 
             EntityZombie entityzombie = new EntityZombie(this.world);
 
-            entityzombie.j(entityliving);
+            entityzombie.k(entityliving);
             this.world.kill(entityliving);
-            entityzombie.bD();
+            entityzombie.bF();
             entityzombie.setVillager(true);
             if (entityliving.isBaby()) {
                 entityzombie.setBaby(true);
@@ -225,16 +225,16 @@ public class EntityZombie extends EntityMonster {
         }
     }
 
-    public void bD() {
+    public void bF() {
         this.canPickUpLoot = this.random.nextFloat() < as[this.world.difficulty];
         if (this.world.random.nextFloat() < 0.05F) {
             this.setVillager(true);
         }
 
-        this.bB();
-        this.bC();
+        this.bD();
+        this.bE();
         if (this.getEquipment(4) == null) {
-            Calendar calendar = this.world.S();
+            Calendar calendar = this.world.T();
 
             if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && this.random.nextFloat() < 0.25F) {
                 this.setEquipment(4, new ItemStack(this.random.nextFloat() < 0.1F ? Block.JACK_O_LANTERN : Block.PUMPKIN));
@@ -244,7 +244,7 @@ public class EntityZombie extends EntityMonster {
     }
 
     public boolean c(EntityHuman entityhuman) {
-        ItemStack itemstack = entityhuman.bP();
+        ItemStack itemstack = entityhuman.bS();
 
         if (itemstack != null && itemstack.getItem() == Item.GOLDEN_APPLE && itemstack.getData() == 0 && this.isVillager() && this.hasEffect(MobEffectList.WEAKNESS)) {
             if (!entityhuman.abilities.canInstantlyBuild) {
@@ -280,8 +280,8 @@ public class EntityZombie extends EntityMonster {
     protected void p() {
         EntityVillager entityvillager = new EntityVillager(this.world);
 
-        entityvillager.j(this);
-        entityvillager.bD();
+        entityvillager.k(this);
+        entityvillager.bF();
         entityvillager.q();
         if (this.isBaby()) {
             entityvillager.setAge(-24000);

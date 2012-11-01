@@ -24,23 +24,27 @@ public class TileEntitySkull extends TileEntity {
         }
     }
 
-    public Packet l() {
+    public Packet getUpdatePacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 
         this.b(nbttagcompound);
         return new Packet132TileEntityData(this.x, this.y, this.z, 4, nbttagcompound);
     }
 
-    public void a(int i, String s) {
+    public void setSkullType(int i, String s) {
         this.a = i;
         this.c = s;
     }
 
-    public int a() {
+    public int getSkullType() {
         return this.a;
     }
 
-    public void a(int i) {
+    public void setRotation(int i) {
         this.b = i;
+    }
+
+    public String getExtraType() {
+        return this.c;
     }
 }

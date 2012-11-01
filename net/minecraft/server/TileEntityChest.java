@@ -1,5 +1,8 @@
 package net.minecraft.server;
 
+import java.util.Iterator;
+import java.util.List;
+
 public class TileEntityChest extends TileEntity implements IInventory {
 
     private ItemStack[] items = new ItemStack[36];
@@ -160,12 +163,26 @@ public class TileEntityChest extends TileEntity implements IInventory {
     public void g() {
         super.g();
         this.i();
-        if (++this.ticks % 20 * 4 == 0) {
-            ;
+        ++this.ticks;
+        float f;
+
+        if (!this.world.isStatic && this.h != 0 && (this.ticks + this.x + this.y + this.z) % 200 == 0) {
+            this.h = 0;
+            f = 5.0F;
+            List list = this.world.a(EntityHuman.class, AxisAlignedBB.a().a((double) ((float) this.x - f), (double) ((float) this.y - f), (double) ((float) this.z - f), (double) ((float) (this.x + 1) + f), (double) ((float) (this.y + 1) + f), (double) ((float) (this.z + 1) + f)));
+            Iterator iterator = list.iterator();
+
+            while (iterator.hasNext()) {
+                EntityHuman entityhuman = (EntityHuman) iterator.next();
+
+                if (entityhuman.activeContainer instanceof ContainerChest && ((ContainerChest) entityhuman.activeContainer).d() == this) {
+                    ++this.h;
+                }
+            }
         }
 
         this.g = this.f;
-        float f = 0.1F;
+        f = 0.1F;
         double d0;
 
         if (this.h > 0 && this.f == 0.0F && this.b == null && this.d == null) {

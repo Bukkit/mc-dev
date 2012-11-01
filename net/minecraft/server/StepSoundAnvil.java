@@ -6,11 +6,11 @@ final class StepSoundAnvil extends StepSound {
         super(s, f, f1);
     }
 
-    public String a() {
+    public String getBreakSound() {
         return "dig.stone";
     }
 
-    public String b() {
+    public String getPlaceSound() {
         return "random.anvil_land";
     }
 }

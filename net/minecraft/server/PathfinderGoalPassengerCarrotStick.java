@@ -25,7 +25,7 @@ public class PathfinderGoalPassengerCarrotStick extends PathfinderGoal {
     }
 
     public boolean a() {
-        return this.a.isAlive() && this.a.passenger != null && this.a.passenger instanceof EntityHuman && (this.d || this.a.bF());
+        return this.a.isAlive() && this.a.passenger != null && this.a.passenger instanceof EntityHuman && (this.d || this.a.bH());
     }
 
     public void e() {
@@ -115,7 +115,7 @@ public class PathfinderGoalPassengerCarrotStick extends PathfinderGoal {
         }
 
         if (!entityhuman.abilities.canInstantlyBuild && this.c >= this.b * 0.5F && this.a.aA().nextFloat() < 0.006F && !this.d) {
-            ItemStack itemstack = entityhuman.bA();
+            ItemStack itemstack = entityhuman.bC();
 
             if (itemstack != null && itemstack.id == Item.CARROT_STICK.id) {
                 itemstack.damage(1, entityhuman);

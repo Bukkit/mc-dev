@@ -60,11 +60,11 @@ public class BlockFlowerPot extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return super.canPlace(world, i, j, k) && world.t(i, j - 1, k);
+        return super.canPlace(world, i, j, k) && world.v(i, j - 1, k);
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        if (!world.t(i, j - 1, k)) {
+        if (!world.v(i, j - 1, k)) {
             this.c(world, i, j, k, world.getData(i, j, k), 0);
             world.setTypeId(i, j, k, 0);
         }
@@ -76,7 +76,7 @@ public class BlockFlowerPot extends Block {
             ItemStack itemstack = c(l);
 
             if (itemstack != null) {
-                this.a(world, i, j, k, itemstack);
+                this.b(world, i, j, k, itemstack);
             }
         }
     }

@@ -56,4 +56,8 @@ public class IntCache {
         e.clear();
         c.clear();
     }
+
+    public static synchronized String b() {
+        return "cache: " + d.size() + ", tcache: " + b.size() + ", allocated: " + e.size() + ", tallocated: " + c.size();
+    }
 }

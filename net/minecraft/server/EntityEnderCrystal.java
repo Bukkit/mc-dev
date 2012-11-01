@@ -46,16 +46,20 @@ public class EntityEnderCrystal extends Entity {
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        if (!this.dead && !this.world.isStatic) {
-            this.b = 0;
-            if (this.b <= 0) {
-                this.die();
-                if (!this.world.isStatic) {
-                    this.world.explode((Entity) null, this.locX, this.locY, this.locZ, 6.0F, true);
+        if (this.isInvulnerable()) {
+            return false;
+        } else {
+            if (!this.dead && !this.world.isStatic) {
+                this.b = 0;
+                if (this.b <= 0) {
+                    this.die();
+                    if (!this.world.isStatic) {
+                        this.world.explode((Entity) null, this.locX, this.locY, this.locZ, 6.0F, true);
+                    }
                 }
             }
-        }
 
-        return true;
+            return true;
+        }
     }
 }

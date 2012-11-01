@@ -336,12 +336,8 @@ public class BlockStairs extends Block {
         }
     }
 
-    public void postPlace(World world, int i, int j, int k, int l, float f, float f1, float f2) {
-        if (l == 0 || l != 1 && (double) f1 > 0.5D) {
-            int i1 = world.getData(i, j, k);
-
-            world.setData(i, j, k, i1 | 4);
-        }
+    public int getPlacedData(World world, int i, int j, int k, int l, float f, float f1, float f2, int i1) {
+        return l != 0 && (l == 1 || (double) f1 <= 0.5D) ? i1 : i1 | 4;
     }
 
     public MovingObjectPosition a(World world, int i, int j, int k, Vec3D vec3d, Vec3D vec3d1) {

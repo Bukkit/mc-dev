@@ -54,14 +54,8 @@ public abstract class BlockStepAbstract extends Block {
         return this.a;
     }
 
-    public void postPlace(World world, int i, int j, int k, int l, float f, float f1, float f2) {
-        if (!this.a) {
-            if (l == 0 || l != 1 && (double) f1 > 0.5D) {
-                int i1 = world.getData(i, j, k) & 7;
-
-                world.setData(i, j, k, i1 | 8);
-            }
-        }
+    public int getPlacedData(World world, int i, int j, int k, int l, float f, float f1, float f2, int i1) {
+        return this.a ? 0 : (l != 0 && (l == 1 || (double) f1 <= 0.5D) ? i1 : i1 | 8);
     }
 
     public int a(Random random) {

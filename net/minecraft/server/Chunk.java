@@ -145,7 +145,7 @@ public class Chunk {
 
                                 if (chunksection != null) {
                                     chunksection.c(j, i1 & 15, k, l);
-                                    this.world.n((this.x << 4) + j, i1, (this.z << 4) + k);
+                                    this.world.o((this.x << 4) + j, i1, (this.z << 4) + k);
                                 }
                             }
 
@@ -263,7 +263,7 @@ public class Chunk {
                         chunksection = this.sections[l1 >> 4];
                         if (chunksection != null) {
                             chunksection.c(i, l1 & 15, k, 15);
-                            this.world.n((this.x << 4) + i, l1, (this.z << 4) + k);
+                            this.world.o((this.x << 4) + i, l1, (this.z << 4) + k);
                         }
                     }
                 } else {
@@ -271,7 +271,7 @@ public class Chunk {
                         chunksection = this.sections[l1 >> 4];
                         if (chunksection != null) {
                             chunksection.c(i, l1 & 15, k, 0);
-                            this.world.n((this.x << 4) + i, l1, (this.z << 4) + k);
+                            this.world.o((this.x << 4) + i, l1, (this.z << 4) + k);
                         }
                     }
                 }
@@ -381,7 +381,7 @@ public class Chunk {
             int k2 = this.z * 16 + k;
 
             if (l1 != 0 && !this.world.isStatic) {
-                Block.byId[l1].g(this.world, j2, j, k2, i2);
+                Block.byId[l1].h(this.world, j2, j, k2, i2);
             }
 
             chunksection.a(i, j & 15, k, l);
@@ -389,7 +389,7 @@ public class Chunk {
                 if (!this.world.isStatic) {
                     Block.byId[l1].remove(this.world, j2, j, k2, l1, i2);
                 } else if (Block.byId[l1] instanceof BlockContainer && l1 != l) {
-                    this.world.q(j2, j, k2);
+                    this.world.r(j2, j, k2);
                 }
             }
 
@@ -873,30 +873,30 @@ public class Chunk {
 
                 if (this.sections[j] == null && (k1 == 0 || k1 == 15 || k == 0 || k == 15 || l == 0 || l == 15) || this.sections[j] != null && this.sections[j].a(k, k1, l) == 0) {
                     if (Block.lightEmission[this.world.getTypeId(i1, l1 - 1, j1)] > 0) {
-                        this.world.x(i1, l1 - 1, j1);
+                        this.world.z(i1, l1 - 1, j1);
                     }
 
                     if (Block.lightEmission[this.world.getTypeId(i1, l1 + 1, j1)] > 0) {
-                        this.world.x(i1, l1 + 1, j1);
+                        this.world.z(i1, l1 + 1, j1);
                     }
 
                     if (Block.lightEmission[this.world.getTypeId(i1 - 1, l1, j1)] > 0) {
-                        this.world.x(i1 - 1, l1, j1);
+                        this.world.z(i1 - 1, l1, j1);
                     }
 
                     if (Block.lightEmission[this.world.getTypeId(i1 + 1, l1, j1)] > 0) {
-                        this.world.x(i1 + 1, l1, j1);
+                        this.world.z(i1 + 1, l1, j1);
                     }
 
                     if (Block.lightEmission[this.world.getTypeId(i1, l1, j1 - 1)] > 0) {
-                        this.world.x(i1, l1, j1 - 1);
+                        this.world.z(i1, l1, j1 - 1);
                     }
 
                     if (Block.lightEmission[this.world.getTypeId(i1, l1, j1 + 1)] > 0) {
-                        this.world.x(i1, l1, j1 + 1);
+                        this.world.z(i1, l1, j1 + 1);
                     }
 
-                    this.world.x(i1, l1, j1);
+                    this.world.z(i1, l1, j1);
                 }
             }
         }

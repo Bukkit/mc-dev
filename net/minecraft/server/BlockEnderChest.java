@@ -62,7 +62,7 @@ public class BlockEnderChest extends BlockContainer {
         TileEntityEnderChest tileentityenderchest = (TileEntityEnderChest) world.getTileEntity(i, j, k);
 
         if (inventoryenderchest != null && tileentityenderchest != null) {
-            if (world.s(i, j + 1, k)) {
+            if (world.t(i, j + 1, k)) {
                 return true;
             } else if (world.isStatic) {
                 return true;

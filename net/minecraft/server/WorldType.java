@@ -65,4 +65,8 @@ public class WorldType {
 
         return null;
     }
+
+    public int f() {
+        return this.f;
+    }
 }

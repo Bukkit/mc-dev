@@ -88,7 +88,7 @@ public class EntityFishingHook extends Entity {
             this.b(this.yaw, this.pitch);
         } else {
             if (!this.world.isStatic) {
-                ItemStack itemstack = this.owner.bP();
+                ItemStack itemstack = this.owner.bS();
 
                 if (this.owner.dead || !this.owner.isAlive() || itemstack == null || itemstack.getItem() != Item.FISHING_ROD || this.e(this.owner) > 1024.0D) {
                     this.die();
@@ -232,14 +232,14 @@ public class EntityFishingHook extends Entity {
                     } else {
                         short short1 = 500;
 
-                        if (this.world.B(MathHelper.floor(this.locX), MathHelper.floor(this.locY) + 1, MathHelper.floor(this.locZ))) {
+                        if (this.world.D(MathHelper.floor(this.locX), MathHelper.floor(this.locY) + 1, MathHelper.floor(this.locZ))) {
                             short1 = 300;
                         }
 
                         if (this.random.nextInt(short1) == 0) {
                             this.as = this.random.nextInt(30) + 10;
                             this.motY -= 0.20000000298023224D;
-                            this.world.makeSound(this, "random.splash", 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+                            this.makeSound("random.splash", 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
                             float f3 = (float) MathHelper.floor(this.boundingBox.b);
 
                             float f4;

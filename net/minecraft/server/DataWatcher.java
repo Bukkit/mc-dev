@@ -73,9 +73,10 @@ public class DataWatcher {
         try {
             watchableobject = (WatchableObject) this.b.get(Integer.valueOf(i));
         } catch (Throwable throwable) {
-            CrashReport crashreport = new CrashReport("getting synched entity data", throwable);
+            CrashReport crashreport = CrashReport.a(throwable, "Getting synched entity data");
+            CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Synched entity data");
 
-            crashreport.a("EntityData ID", Integer.valueOf(i));
+            crashreportsystemdetails.a("Data ID", Integer.valueOf(i));
             throw new ReportedException(crashreport);
         }
 
@@ -203,13 +204,7 @@ public class DataWatcher {
         case 5:
             ItemStack itemstack = (ItemStack) watchableobject.b();
 
-            if (itemstack == null) {
-                dataoutputstream.writeShort(-1);
-            } else {
-                dataoutputstream.writeShort(itemstack.getItem().id);
-                dataoutputstream.writeByte(itemstack.count);
-                dataoutputstream.writeShort(itemstack.getData());
-            }
+            Packet.a(itemstack, dataoutputstream);
             break;
 
         case 6:
@@ -255,16 +250,7 @@ public class DataWatcher {
                 break;
 
             case 5:
-                short short1 = datainputstream.readShort();
-
-                if (short1 > -1) {
-                    byte b1 = datainputstream.readByte();
-                    short short2 = datainputstream.readShort();
-
-                    watchableobject = new WatchableObject(i, j, new ItemStack(short1, b1, short2));
-                } else {
-                    watchableobject = new WatchableObject(i, j, null);
-                }
+                watchableobject = new WatchableObject(i, j, Packet.c(datainputstream));
                 break;
 
             case 6:

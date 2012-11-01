@@ -30,7 +30,7 @@ public class BlockPotatoes extends BlockCrops {
         super.dropNaturally(world, i, j, k, l, f, 0);
         if (!world.isStatic) {
             if (l >= 7 && world.random.nextInt(50) == 0) {
-                this.a(world, i, j, k, new ItemStack(Item.POTATO_POISON));
+                this.b(world, i, j, k, new ItemStack(Item.POTATO_POISON));
             }
         }
     }

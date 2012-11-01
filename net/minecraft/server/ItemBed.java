@@ -8,7 +8,9 @@ public class ItemBed extends Item {
     }
 
     public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l, float f, float f1, float f2) {
-        if (l != 1) {
+        if (world.isStatic) {
+            return true;
+        } else if (l != 1) {
             return false;
         } else {
             ++j;
@@ -34,7 +36,7 @@ public class ItemBed extends Item {
             }
 
             if (entityhuman.a(i, j, k, l, itemstack) && entityhuman.a(i + b0, j, k + b1, l, itemstack)) {
-                if (world.isEmpty(i, j, k) && world.isEmpty(i + b0, j, k + b1) && world.t(i, j - 1, k) && world.t(i + b0, j - 1, k + b1)) {
+                if (world.isEmpty(i, j, k) && world.isEmpty(i + b0, j, k + b1) && world.v(i, j - 1, k) && world.v(i + b0, j - 1, k + b1)) {
                     world.setTypeIdAndData(i, j, k, blockbed.id, i1);
                     if (world.getTypeId(i, j, k) == blockbed.id) {
                         world.setTypeIdAndData(i + b0, j, k + b1, blockbed.id, i1 + 8);

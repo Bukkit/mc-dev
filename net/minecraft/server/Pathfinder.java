@@ -225,7 +225,9 @@ public class Pathfinder {
                         Block block = Block.byId[k1];
 
                         if (!block.c(entity.world, l, i1, j1) && (!flag1 || k1 != Block.WOODEN_DOOR.id)) {
-                            if (k1 == Block.FENCE.id || k1 == Block.FENCE_GATE.id || k1 == Block.COBBLE_WALL.id) {
+                            int l1 = block.d();
+
+                            if (l1 == 11 || k1 == Block.FENCE_GATE.id || l1 == 32) {
                                 return -3;
                             }
 

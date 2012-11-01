@@ -18,7 +18,7 @@ public class CommandToggleDownfall extends CommandAbstract {
     }
 
     protected void d() {
-        MinecraftServer.getServer().worldServer[0].x();
+        MinecraftServer.getServer().worldServer[0].y();
         MinecraftServer.getServer().worldServer[0].getWorldData().setThundering(true);
     }
 }

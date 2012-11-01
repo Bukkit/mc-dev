@@ -59,12 +59,18 @@ public class ItemBoat extends Item {
                     int j = movingobjectposition.c;
                     int k = movingobjectposition.d;
 
-                    if (!world.isStatic) {
-                        if (world.getTypeId(i, j, k) == Block.SNOW.id) {
-                            --j;
-                        }
+                    if (world.getTypeId(i, j, k) == Block.SNOW.id) {
+                        --j;
+                    }
 
-                        world.addEntity(new EntityBoat(world, (double) ((float) i + 0.5F), (double) ((float) j + 1.0F), (double) ((float) k + 0.5F)));
+                    EntityBoat entityboat = new EntityBoat(world, (double) ((float) i + 0.5F), (double) ((float) j + 1.0F), (double) ((float) k + 0.5F));
+
+                    if (!world.getCubes(entityboat, entityboat.boundingBox.grow(-0.1D, -0.1D, -0.1D)).isEmpty()) {
+                        return itemstack;
+                    }
+
+                    if (!world.isStatic) {
+                        world.addEntity(entityboat);
                     }
 
                     if (!entityhuman.abilities.canInstantlyBuild) {

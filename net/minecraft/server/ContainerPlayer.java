@@ -42,8 +42,8 @@ public class ContainerPlayer extends Container {
         this.resultInventory.setItem(0, CraftingManager.getInstance().craft(this.craftInventory, this.h.world));
     }
 
-    public void a(EntityHuman entityhuman) {
-        super.a(entityhuman);
+    public void b(EntityHuman entityhuman) {
+        super.b(entityhuman);
 
         for (int i = 0; i < 4; ++i) {
             ItemStack itemstack = this.craftInventory.splitWithoutUpdate(i);
@@ -56,13 +56,13 @@ public class ContainerPlayer extends Container {
         this.resultInventory.setItem(0, (ItemStack) null);
     }
 
-    public boolean c(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         return true;
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.b.get(i);
+        Slot slot = (Slot) this.c.get(i);
 
         if (slot != null && slot.d()) {
             ItemStack itemstack1 = slot.getItem();
@@ -82,7 +82,7 @@ public class ContainerPlayer extends Container {
                 if (!this.a(itemstack1, 9, 45, false)) {
                     return null;
                 }
-            } else if (itemstack.getItem() instanceof ItemArmor && !((Slot) this.b.get(5 + ((ItemArmor) itemstack.getItem()).a)).d()) {
+            } else if (itemstack.getItem() instanceof ItemArmor && !((Slot) this.c.get(5 + ((ItemArmor) itemstack.getItem()).a)).d()) {
                 int j = 5 + ((ItemArmor) itemstack.getItem()).a;
 
                 if (!this.a(itemstack1, j, j + 1, false)) {

@@ -213,26 +213,30 @@ public abstract class EntityFireball extends Entity {
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        this.K();
-        if (damagesource.getEntity() != null) {
-            Vec3D vec3d = damagesource.getEntity().Z();
-
-            if (vec3d != null) {
-                this.motX = vec3d.c;
-                this.motY = vec3d.d;
-                this.motZ = vec3d.e;
-                this.dirX = this.motX * 0.1D;
-                this.dirY = this.motY * 0.1D;
-                this.dirZ = this.motZ * 0.1D;
-            }
-
-            if (damagesource.getEntity() instanceof EntityLiving) {
-                this.shooter = (EntityLiving) damagesource.getEntity();
-            }
-
-            return true;
-        } else {
+        if (this.isInvulnerable()) {
             return false;
+        } else {
+            this.K();
+            if (damagesource.getEntity() != null) {
+                Vec3D vec3d = damagesource.getEntity().Z();
+
+                if (vec3d != null) {
+                    this.motX = vec3d.c;
+                    this.motY = vec3d.d;
+                    this.motZ = vec3d.e;
+                    this.dirX = this.motX * 0.1D;
+                    this.dirY = this.motY * 0.1D;
+                    this.dirZ = this.motZ * 0.1D;
+                }
+
+                if (damagesource.getEntity() instanceof EntityLiving) {
+                    this.shooter = (EntityLiving) damagesource.getEntity();
+                }
+
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

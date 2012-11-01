@@ -12,7 +12,7 @@ import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class MinecraftServer implements Runnable, IMojangStatistics, ICommandListener {
+public abstract class MinecraftServer implements ICommandListener, Runnable, IMojangStatistics {
 
     public static Logger log = Logger.getLogger("Minecraft");
     private static MinecraftServer l = null;
@@ -408,13 +408,30 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
                 this.methodProfiler.b();
                 if (this.ticks % 20 == 0) {
                     this.methodProfiler.a("timeSync");
-                    this.t.a(new Packet4UpdateTime(worldserver.getTime(), worldserver.F()), worldserver.worldProvider.dimension);
+                    this.t.a(new Packet4UpdateTime(worldserver.getTime(), worldserver.getDayTime()), worldserver.worldProvider.dimension);
                     this.methodProfiler.b();
                 }
 
                 this.methodProfiler.a("tick");
-                worldserver.doTick();
-                worldserver.tickEntities();
+
+                CrashReport crashreport;
+
+                try {
+                    worldserver.doTick();
+                } catch (Throwable throwable) {
+                    crashreport = CrashReport.a(throwable, "Exception ticking world");
+                    worldserver.a(crashreport);
+                    throw new ReportedException(crashreport);
+                }
+
+                try {
+                    worldserver.tickEntities();
+                } catch (Throwable throwable1) {
+                    crashreport = CrashReport.a(throwable1, "Exception ticking world entities");
+                    worldserver.a(crashreport);
+                    throw new ReportedException(crashreport);
+                }
+
                 this.methodProfiler.b();
                 this.methodProfiler.a("tracker");
                 worldserver.getTracker().updatePlayers();
@@ -564,7 +581,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
     }
 
     public String getVersion() {
-        return "1.4.2";
+        return "1.4.3";
     }
 
     public int y() {
@@ -608,27 +625,13 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
     }
 
     public CrashReport b(CrashReport crashreport) {
-        crashreport.a("Is Modded", (Callable) (new CrashReportModded(this)));
-        crashreport.a("Profiler Position", (Callable) (new CrashReportProfilerPosition(this)));
+        crashreport.g().a("Profiler Position", (Callable) (new CrashReportProfilerPosition(this)));
         if (this.worldServer != null && this.worldServer.length > 0 && this.worldServer[0] != null) {
-            crashreport.a("Vec3 Pool Size", (Callable) (new CrashReportVec3DPoolSize(this)));
+            crashreport.g().a("Vec3 Pool Size", (Callable) (new CrashReportVec3DPoolSize(this)));
         }
 
         if (this.t != null) {
-            crashreport.a("Player Count", (Callable) (new CrashReportPlayerCount(this)));
-        }
-
-        if (this.worldServer != null) {
-            WorldServer[] aworldserver = this.worldServer;
-            int i = aworldserver.length;
-
-            for (int j = 0; j < i; ++j) {
-                WorldServer worldserver = aworldserver[j];
-
-                if (worldserver != null) {
-                    worldserver.a(crashreport);
-                }
-            }
+            crashreport.g().a("Player Count", (Callable) (new CrashReportPlayerCount(this)));
         }
 
         return crashreport;
@@ -825,7 +828,7 @@ public abstract class MinecraftServer implements Runnable, IMojangStatistics, IC
                 mojangstatisticsgenerator.a("world[" + i + "][generator_name]", worlddata.getType().name());
                 mojangstatisticsgenerator.a("world[" + i + "][generator_version]", Integer.valueOf(worlddata.getType().getVersion()));
                 mojangstatisticsgenerator.a("world[" + i + "][height]", Integer.valueOf(this.D));
-                mojangstatisticsgenerator.a("world[" + i + "][chunks_loaded]", Integer.valueOf(worldserver.H().getLoadedChunks()));
+                mojangstatisticsgenerator.a("world[" + i + "][chunks_loaded]", Integer.valueOf(worldserver.I().getLoadedChunks()));
                 ++i;
             }
         }

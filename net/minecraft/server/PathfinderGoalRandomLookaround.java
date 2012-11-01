@@ -30,6 +30,6 @@ public class PathfinderGoalRandomLookaround extends PathfinderGoal {
 
     public void e() {
         --this.d;
-        this.a.getControllerLook().a(this.a.locX + this.b, this.a.locY + (double) this.a.getHeadHeight(), this.a.locZ + this.c, 10.0F, (float) this.a.bm());
+        this.a.getControllerLook().a(this.a.locX + this.b, this.a.locY + (double) this.a.getHeadHeight(), this.a.locZ + this.c, 10.0F, (float) this.a.bo());
     }
 }

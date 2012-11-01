@@ -47,8 +47,8 @@ public class BlockLog extends Block {
         }
     }
 
-    public void postPlace(World world, int i, int j, int k, int l, float f, float f1, float f2) {
-        int i1 = world.getData(i, j, k) & 3;
+    public int getPlacedData(World world, int i, int j, int k, int l, float f, float f1, float f2, int i1) {
+        int j1 = i1 & 3;
         byte b0 = 0;
 
         switch (l) {
@@ -67,7 +67,7 @@ public class BlockLog extends Block {
             b0 = 4;
         }
 
-        world.setData(i, j, k, i1 | b0);
+        return j1 | b0;
     }
 
     public int a(int i, int j) {

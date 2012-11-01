@@ -52,7 +52,7 @@ public class BlockNetherWart extends BlockFlower {
             }
 
             for (int k1 = 0; k1 < j1; ++k1) {
-                this.a(world, i, j, k, new ItemStack(Item.NETHER_STALK));
+                this.b(world, i, j, k, new ItemStack(Item.NETHER_STALK));
             }
         }
     }

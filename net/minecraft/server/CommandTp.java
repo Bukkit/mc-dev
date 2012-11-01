@@ -41,6 +41,11 @@ public class CommandTp extends CommandAbstract {
                         throw new ExceptionPlayerNotFound();
                     }
 
+                    if (entityplayer1.world != entityplayer.world) {
+                        a(icommandlistener, "commands.tp.notSameDimension", new Object[0]);
+                        return;
+                    }
+
                     entityplayer.netServerHandler.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
                     a(icommandlistener, "commands.tp.success", new Object[] { entityplayer.getLocalizedName(), entityplayer1.getLocalizedName()});
                 }

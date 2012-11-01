@@ -51,7 +51,7 @@ public class TileEntityCommand extends TileEntity implements ICommandListener {
         return new ChunkCoordinates(this.x, this.y, this.z);
     }
 
-    public Packet l() {
+    public Packet getUpdatePacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 
         this.b(nbttagcompound);

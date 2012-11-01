@@ -6,7 +6,7 @@ public class EntitySpider extends EntityMonster {
         super(world);
         this.texture = "/mob/spider.png";
         this.a(1.4F, 0.9F);
-        this.bI = 0.8F;
+        this.bG = 0.8F;
     }
 
     protected void a() {
@@ -41,20 +41,20 @@ public class EntitySpider extends EntityMonster {
         }
     }
 
-    protected String aW() {
-        return "mob.spider.say";
-    }
-
     protected String aX() {
         return "mob.spider.say";
     }
 
     protected String aY() {
+        return "mob.spider.say";
+    }
+
+    protected String aZ() {
         return "mob.spider.death";
     }
 
     protected void a(int i, int j, int k, int l) {
-        this.world.makeSound(this, "mob.spider.step", 0.15F, 1.0F);
+        this.makeSound("mob.spider.step", 0.15F, 1.0F);
     }
 
     protected void a(Entity entity, float f) {
@@ -120,12 +120,12 @@ public class EntitySpider extends EntityMonster {
         this.datawatcher.watch(16, Byte.valueOf(b0));
     }
 
-    public void bD() {
+    public void bF() {
         if (this.world.random.nextInt(100) == 0) {
             EntitySkeleton entityskeleton = new EntitySkeleton(this.world);
 
             entityskeleton.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, 0.0F);
-            entityskeleton.bD();
+            entityskeleton.bF();
             this.world.addEntity(entityskeleton);
             entityskeleton.mount(this);
         }

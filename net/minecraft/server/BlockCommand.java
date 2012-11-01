@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.Random;
+
 public class BlockCommand extends BlockContainer {
 
     public BlockCommand(int i) {
@@ -17,17 +19,24 @@ public class BlockCommand extends BlockContainer {
             boolean flag1 = (i1 & 1) != 0;
 
             if (flag && !flag1) {
-                TileEntity tileentity = world.getTileEntity(i, j, k);
-
-                if (tileentity != null && tileentity instanceof TileEntityCommand) {
-                    ((TileEntityCommand) tileentity).a(world);
-                }
-
                 world.setRawData(i, j, k, i1 | 1);
+                world.a(i, j, k, this.id, this.r_());
             } else if (!flag && flag1) {
                 world.setRawData(i, j, k, i1 & -2);
             }
         }
+    }
+
+    public void b(World world, int i, int j, int k, Random random) {
+        TileEntity tileentity = world.getTileEntity(i, j, k);
+
+        if (tileentity != null && tileentity instanceof TileEntityCommand) {
+            ((TileEntityCommand) tileentity).a(world);
+        }
+    }
+
+    public int r_() {
+        return 1;
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {

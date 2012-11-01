@@ -251,7 +251,7 @@ public class BlockVine extends Block {
         }
     }
 
-    public void postPlace(World world, int i, int j, int k, int l, float f, float f1, float f2) {
+    public int getPlacedData(World world, int i, int j, int k, int l, float f, float f1, float f2, int i1) {
         byte b0 = 0;
 
         switch (l) {
@@ -271,9 +271,7 @@ public class BlockVine extends Block {
             b0 = 2;
         }
 
-        if (b0 != 0) {
-            world.setData(i, j, k, b0);
-        }
+        return b0 != 0 ? b0 : i1;
     }
 
     public int getDropType(int i, Random random, int j) {
@@ -285,9 +283,9 @@ public class BlockVine extends Block {
     }
 
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
-        if (!world.isStatic && entityhuman.bP() != null && entityhuman.bP().id == Item.SHEARS.id) {
+        if (!world.isStatic && entityhuman.bS() != null && entityhuman.bS().id == Item.SHEARS.id) {
             entityhuman.a(StatisticList.C[this.id], 1);
-            this.a(world, i, j, k, new ItemStack(Block.VINE, 1, 0));
+            this.b(world, i, j, k, new ItemStack(Block.VINE, 1, 0));
         } else {
             super.a(world, entityhuman, i, j, k, l);
         }

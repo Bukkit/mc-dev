@@ -33,7 +33,13 @@ public abstract class ServerConnection {
             try {
                 netserverhandler.d();
             } catch (Exception exception) {
-                a.log(Level.WARNING, "Failed to handle packet: " + exception, exception);
+                if (netserverhandler.networkManager instanceof MemoryNetworkManager) {
+                    CrashReport crashreport = CrashReport.a(exception, "Ticking memory connection");
+
+                    throw new ReportedException(crashreport);
+                }
+
+                a.log(Level.WARNING, "Failed to handle packet for " + netserverhandler.player.getLocalizedName() + "/" + netserverhandler.player.q() + ": " + exception, exception);
                 netserverhandler.disconnect("Internal server error");
             }
 

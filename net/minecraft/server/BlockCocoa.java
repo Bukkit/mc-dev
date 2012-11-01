@@ -83,14 +83,12 @@ public class BlockCocoa extends BlockDirectional {
         world.setData(i, j, k, l);
     }
 
-    public void postPlace(World world, int i, int j, int k, int l, float f, float f1, float f2) {
+    public int getPlacedData(World world, int i, int j, int k, int l, float f, float f1, float f2, int i1) {
         if (l == 1 || l == 0) {
             l = 2;
         }
 
-        int i1 = Direction.f[Direction.e[l]];
-
-        world.setData(i, j, k, i1);
+        return Direction.f[Direction.e[l]];
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
@@ -113,7 +111,7 @@ public class BlockCocoa extends BlockDirectional {
         }
 
         for (int k1 = 0; k1 < b0; ++k1) {
-            this.a(world, i, j, k, new ItemStack(Item.INK_SACK, 1, 3));
+            this.b(world, i, j, k, new ItemStack(Item.INK_SACK, 1, 3));
         }
     }
 

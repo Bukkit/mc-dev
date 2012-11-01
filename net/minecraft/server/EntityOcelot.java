@@ -28,7 +28,7 @@ public class EntityOcelot extends EntityTameableAnimal {
         this.datawatcher.a(18, Byte.valueOf((byte) 0));
     }
 
-    public void bj() {
+    public void bl() {
         if (this.getControllerMove().a()) {
             float f = this.getControllerMove().b();
 
@@ -48,11 +48,11 @@ public class EntityOcelot extends EntityTameableAnimal {
         }
     }
 
-    protected boolean bg() {
+    protected boolean bi() {
         return !this.isTamed();
     }
 
-    public boolean bb() {
+    public boolean bd() {
         return true;
     }
 
@@ -72,19 +72,19 @@ public class EntityOcelot extends EntityTameableAnimal {
         this.setCatType(nbttagcompound.getInt("CatType"));
     }
 
-    protected String aW() {
-        return this.isTamed() ? (this.r() ? "mob.cat.purr" : (this.random.nextInt(4) == 0 ? "mob.cat.purreow" : "mob.cat.meow")) : "";
-    }
-
     protected String aX() {
-        return "mob.cat.hitt";
+        return this.isTamed() ? (this.r() ? "mob.cat.purr" : (this.random.nextInt(4) == 0 ? "mob.cat.purreow" : "mob.cat.meow")) : "";
     }
 
     protected String aY() {
         return "mob.cat.hitt";
     }
 
-    protected float aV() {
+    protected String aZ() {
+        return "mob.cat.hitt";
+    }
+
+    protected float aW() {
         return 0.4F;
     }
 
@@ -92,13 +92,17 @@ public class EntityOcelot extends EntityTameableAnimal {
         return Item.LEATHER.id;
     }
 
-    public boolean l(Entity entity) {
+    public boolean m(Entity entity) {
         return entity.damageEntity(DamageSource.mobAttack(this), 3);
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        this.d.a(false);
-        return super.damageEntity(damagesource, i);
+        if (this.isInvulnerable()) {
+            return false;
+        } else {
+            this.d.a(false);
+            return super.damageEntity(damagesource, i);
+        }
     }
 
     protected void dropDeathLoot(boolean flag, int i) {}
@@ -205,7 +209,7 @@ public class EntityOcelot extends EntityTameableAnimal {
         return this.isTamed() ? "entity.Cat.name" : super.getLocalizedName();
     }
 
-    public void bD() {
+    public void bF() {
         if (this.world.random.nextInt(7) == 0) {
             for (int i = 0; i < 2; ++i) {
                 EntityOcelot entityocelot = new EntityOcelot(this.world);

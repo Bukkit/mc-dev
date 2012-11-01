@@ -75,7 +75,7 @@ public class BlockMinecartTrack extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return world.t(i, j - 1, k);
+        return world.v(i, j - 1, k);
     }
 
     public void onPlace(World world, int i, int j, int k) {
@@ -98,23 +98,23 @@ public class BlockMinecartTrack extends Block {
 
             boolean flag = false;
 
-            if (!world.t(i, j - 1, k)) {
+            if (!world.v(i, j - 1, k)) {
                 flag = true;
             }
 
-            if (j1 == 2 && !world.t(i + 1, j, k)) {
+            if (j1 == 2 && !world.v(i + 1, j, k)) {
                 flag = true;
             }
 
-            if (j1 == 3 && !world.t(i - 1, j, k)) {
+            if (j1 == 3 && !world.v(i - 1, j, k)) {
                 flag = true;
             }
 
-            if (j1 == 4 && !world.t(i, j, k - 1)) {
+            if (j1 == 4 && !world.v(i, j, k - 1)) {
                 flag = true;
             }
 
-            if (j1 == 5 && !world.t(i, j, k + 1)) {
+            if (j1 == 5 && !world.v(i, j, k + 1)) {
                 flag = true;
             }
 

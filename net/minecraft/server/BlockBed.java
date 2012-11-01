@@ -58,7 +58,7 @@ public class BlockBed extends BlockDirectional {
                         EntityHuman entityhuman2 = (EntityHuman) iterator.next();
 
                         if (entityhuman2.isSleeping()) {
-                            ChunkCoordinates chunkcoordinates = entityhuman2.cc;
+                            ChunkCoordinates chunkcoordinates = entityhuman2.bZ;
 
                             if (chunkcoordinates.x == i && chunkcoordinates.y == j && chunkcoordinates.z == k) {
                                 entityhuman1 = entityhuman2;
@@ -175,7 +175,7 @@ public class BlockBed extends BlockDirectional {
 
             for (int l2 = l1; l2 <= j2; ++l2) {
                 for (int i3 = i2; i3 <= k2; ++i3) {
-                    if (world.t(l2, j - 1, i3) && world.isEmpty(l2, j, i3) && world.isEmpty(l2, j + 1, i3)) {
+                    if (world.v(l2, j - 1, i3) && world.isEmpty(l2, j, i3) && world.isEmpty(l2, j + 1, i3)) {
                         if (l <= 0) {
                             return new ChunkCoordinates(l2, j, i3);
                         }
@@ -197,5 +197,17 @@ public class BlockBed extends BlockDirectional {
 
     public int q_() {
         return 1;
+    }
+
+    public void a(World world, int i, int j, int k, int l, EntityHuman entityhuman) {
+        if (entityhuman.abilities.canInstantlyBuild && b_(l)) {
+            int i1 = e(l);
+
+            i -= a[i1][0];
+            k -= a[i1][1];
+            if (world.getTypeId(i, j, k) == this.id) {
+                world.setTypeId(i, j, k, 0);
+            }
+        }
     }
 }

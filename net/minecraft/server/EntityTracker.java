@@ -176,4 +176,16 @@ public class EntityTracker {
             entitytrackerentry.clear(entityplayer);
         }
     }
+
+    public void a(EntityPlayer entityplayer, Chunk chunk) {
+        Iterator iterator = this.b.iterator();
+
+        while (iterator.hasNext()) {
+            EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
+
+            if (entitytrackerentry.tracker != entityplayer && entitytrackerentry.tracker.ai == chunk.x && entitytrackerentry.tracker.ak == chunk.z) {
+                entitytrackerentry.updatePlayer(entityplayer);
+            }
+        }
+    }
 }

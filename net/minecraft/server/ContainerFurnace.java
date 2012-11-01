@@ -60,13 +60,13 @@ public class ContainerFurnace extends Container {
         this.h = this.furnace.ticksForCurrentFuel;
     }
 
-    public boolean c(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         return this.furnace.a(entityhuman);
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.b.get(i);
+        Slot slot = (Slot) this.c.get(i);
 
         if (slot != null && slot.d()) {
             ItemStack itemstack1 = slot.getItem();

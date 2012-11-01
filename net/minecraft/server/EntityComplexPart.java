@@ -23,7 +23,7 @@ public class EntityComplexPart extends Entity {
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        return this.owner.a(this, damagesource, i);
+        return this.isInvulnerable() ? false : this.owner.a(this, damagesource, i);
     }
 
     public boolean i(Entity entity) {

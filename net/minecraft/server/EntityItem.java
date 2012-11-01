@@ -44,7 +44,7 @@ public class EntityItem extends Entity {
         this.lastY = this.locY;
         this.lastZ = this.locZ;
         this.motY -= 0.03999999910593033D;
-        this.i(this.locX, (this.boundingBox.b + this.boundingBox.e) / 2.0D, this.locZ);
+        this.Y = this.i(this.locX, (this.boundingBox.b + this.boundingBox.e) / 2.0D, this.locZ);
         this.move(this.motX, this.motY, this.motZ);
         boolean flag = (int) this.lastX != (int) this.locX || (int) this.lastY != (int) this.locY || (int) this.lastZ != (int) this.locZ;
 
@@ -53,17 +53,11 @@ public class EntityItem extends Entity {
                 this.motY = 0.20000000298023224D;
                 this.motX = (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
                 this.motZ = (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
-                this.world.makeSound(this, "random.fizz", 0.4F, 2.0F + this.random.nextFloat() * 0.4F);
+                this.makeSound("random.fizz", 0.4F, 2.0F + this.random.nextFloat() * 0.4F);
             }
 
             if (!this.world.isStatic) {
-                Iterator iterator = this.world.a(EntityItem.class, this.boundingBox.grow(0.5D, 0.0D, 0.5D)).iterator();
-
-                while (iterator.hasNext()) {
-                    EntityItem entityitem = (EntityItem) iterator.next();
-
-                    this.a(entityitem);
-                }
+                this.d();
             }
         }
 
@@ -91,28 +85,38 @@ public class EntityItem extends Entity {
         }
     }
 
+    private void d() {
+        Iterator iterator = this.world.a(EntityItem.class, this.boundingBox.grow(0.5D, 0.0D, 0.5D)).iterator();
+
+        while (iterator.hasNext()) {
+            EntityItem entityitem = (EntityItem) iterator.next();
+
+            this.a(entityitem);
+        }
+    }
+
     public boolean a(EntityItem entityitem) {
         if (entityitem == this) {
             return false;
         } else if (entityitem.isAlive() && this.isAlive()) {
             if (entityitem.itemStack.getItem() != this.itemStack.getItem()) {
                 return false;
-            } else if (!entityitem.itemStack.hasTag() && !this.itemStack.hasTag()) {
-                if (entityitem.itemStack.getItem().l() && entityitem.itemStack.getData() != this.itemStack.getData()) {
-                    return false;
-                } else if (entityitem.itemStack.count < this.itemStack.count) {
-                    return entityitem.a(this);
-                } else if (entityitem.itemStack.count + this.itemStack.count > entityitem.itemStack.getMaxStackSize()) {
-                    return false;
-                } else {
-                    entityitem.itemStack.count += this.itemStack.count;
-                    entityitem.pickupDelay = Math.max(entityitem.pickupDelay, this.pickupDelay);
-                    entityitem.age = Math.min(entityitem.age, this.age);
-                    this.die();
-                    return true;
-                }
-            } else {
+            } else if (entityitem.itemStack.hasTag() ^ this.itemStack.hasTag()) {
                 return false;
+            } else if (entityitem.itemStack.hasTag() && !entityitem.itemStack.getTag().equals(this.itemStack.getTag())) {
+                return false;
+            } else if (entityitem.itemStack.getItem().l() && entityitem.itemStack.getData() != this.itemStack.getData()) {
+                return false;
+            } else if (entityitem.itemStack.count < this.itemStack.count) {
+                return entityitem.a(this);
+            } else if (entityitem.itemStack.count + this.itemStack.count > entityitem.itemStack.getMaxStackSize()) {
+                return false;
+            } else {
+                entityitem.itemStack.count += this.itemStack.count;
+                entityitem.pickupDelay = Math.max(entityitem.pickupDelay, this.pickupDelay);
+                entityitem.age = Math.min(entityitem.age, this.age);
+                this.die();
+                return true;
             }
         } else {
             return false;
@@ -132,13 +136,17 @@ public class EntityItem extends Entity {
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        this.K();
-        this.e -= i;
-        if (this.e <= 0) {
-            this.die();
-        }
+        if (this.isInvulnerable()) {
+            return false;
+        } else {
+            this.K();
+            this.e -= i;
+            if (this.e <= 0) {
+                this.die();
+            }
 
-        return false;
+            return false;
+        }
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -181,7 +189,7 @@ public class EntityItem extends Entity {
                     entityhuman.a((Statistic) AchievementList.z);
                 }
 
-                this.world.makeSound(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                this.makeSound("random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 entityhuman.receive(this, i);
                 if (this.itemStack.count <= 0) {
                     this.die();
@@ -196,5 +204,12 @@ public class EntityItem extends Entity {
 
     public boolean aq() {
         return false;
+    }
+
+    public void b(int i) {
+        super.b(i);
+        if (!this.world.isStatic) {
+            this.d();
+        }
     }
 }

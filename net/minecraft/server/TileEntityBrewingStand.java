@@ -23,7 +23,7 @@ public class TileEntityBrewingStand extends TileEntity implements IInventory {
         if (this.brewTime > 0) {
             --this.brewTime;
             if (this.brewTime == 0) {
-                this.t();
+                this.u();
                 this.update();
             } else if (!this.k()) {
                 this.brewTime = 0;
@@ -87,7 +87,7 @@ public class TileEntityBrewingStand extends TileEntity implements IInventory {
         }
     }
 
-    private void t() {
+    private void u() {
         if (this.k()) {
             ItemStack itemstack = this.items[3];
 

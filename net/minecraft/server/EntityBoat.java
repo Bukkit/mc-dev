@@ -61,7 +61,9 @@ public class EntityBoat extends Entity {
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        if (!this.world.isStatic && !this.dead) {
+        if (this.isInvulnerable()) {
+            return false;
+        } else if (!this.world.isStatic && !this.dead) {
             this.h(-this.h());
             this.g(10);
             this.setDamage(this.getDamage() + i * 10);

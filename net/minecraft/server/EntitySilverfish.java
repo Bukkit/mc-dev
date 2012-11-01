@@ -8,7 +8,7 @@ public class EntitySilverfish extends EntityMonster {
         super(world);
         this.texture = "/mob/silverfish.png";
         this.a(0.3F, 0.7F);
-        this.bI = 0.6F;
+        this.bG = 0.6F;
     }
 
     public int getMaxHealth() {
@@ -25,24 +25,28 @@ public class EntitySilverfish extends EntityMonster {
         return this.world.findNearbyVulnerablePlayer(this, d0);
     }
 
-    protected String aW() {
+    protected String aX() {
         return "mob.silverfish.say";
     }
 
-    protected String aX() {
+    protected String aY() {
         return "mob.silverfish.hit";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.silverfish.kill";
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        if (this.d <= 0 && (damagesource instanceof EntityDamageSource || damagesource == DamageSource.MAGIC)) {
-            this.d = 20;
-        }
+        if (this.isInvulnerable()) {
+            return false;
+        } else {
+            if (this.d <= 0 && (damagesource instanceof EntityDamageSource || damagesource == DamageSource.MAGIC)) {
+                this.d = 20;
+            }
 
-        return super.damageEntity(damagesource, i);
+            return super.damageEntity(damagesource, i);
+        }
     }
 
     protected void a(Entity entity, float f) {
@@ -53,7 +57,7 @@ public class EntitySilverfish extends EntityMonster {
     }
 
     protected void a(int i, int j, int k, int l) {
-        this.world.makeSound(this, "mob.silverfish.step", 0.15F, 1.0F);
+        this.makeSound("mob.silverfish.step", 0.15F, 1.0F);
     }
 
     protected int getLootId() {
@@ -65,8 +69,8 @@ public class EntitySilverfish extends EntityMonster {
         super.j_();
     }
 
-    protected void bk() {
-        super.bk();
+    protected void bm() {
+        super.bm();
         if (!this.world.isStatic) {
             int i;
             int j;

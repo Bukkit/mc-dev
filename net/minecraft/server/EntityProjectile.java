@@ -11,9 +11,10 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
     private int inBlockId = 0;
     protected boolean inGround = false;
     public int shake = 0;
-    protected EntityLiving shooter;
-    private int h;
-    private int i = 0;
+    private EntityLiving shooter;
+    private String shooterName = null;
+    private int i;
+    private int j = 0;
 
     public EntityProjectile(World world) {
         super(world);
@@ -42,7 +43,7 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
 
     public EntityProjectile(World world, double d0, double d1, double d2) {
         super(world);
-        this.h = 0;
+        this.i = 0;
         this.a(0.25F, 0.25F);
         this.setPosition(d0, d1, d2);
         this.height = 0.0F;
@@ -75,7 +76,7 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
 
         this.lastYaw = this.yaw = (float) (Math.atan2(d0, d2) * 180.0D / 3.1415927410125732D);
         this.lastPitch = this.pitch = (float) (Math.atan2(d1, (double) f3) * 180.0D / 3.1415927410125732D);
-        this.h = 0;
+        this.i = 0;
     }
 
     public void j_() {
@@ -91,8 +92,8 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
             int i = this.world.getTypeId(this.blockX, this.blockY, this.blockZ);
 
             if (i == this.inBlockId) {
-                ++this.h;
-                if (this.h == 1200) {
+                ++this.i;
+                if (this.i == 1200) {
                     this.die();
                 }
 
@@ -103,10 +104,10 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
             this.motX *= (double) (this.random.nextFloat() * 0.2F);
             this.motY *= (double) (this.random.nextFloat() * 0.2F);
             this.motZ *= (double) (this.random.nextFloat() * 0.2F);
-            this.h = 0;
             this.i = 0;
+            this.j = 0;
         } else {
-            ++this.i;
+            ++this.j;
         }
 
         Vec3D vec3d = this.world.getVec3DPool().create(this.locX, this.locY, this.locZ);
@@ -123,12 +124,13 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
             Entity entity = null;
             List list = this.world.getEntities(this, this.boundingBox.a(this.motX, this.motY, this.motZ).grow(1.0D, 1.0D, 1.0D));
             double d0 = 0.0D;
+            EntityLiving entityliving = this.getShooter();
             Iterator iterator = list.iterator();
 
             while (iterator.hasNext()) {
                 Entity entity1 = (Entity) iterator.next();
 
-                if (entity1.L() && (entity1 != this.shooter || this.i >= 5)) {
+                if (entity1.L() && (entity1 != entityliving || this.j >= 5)) {
                     float f = 0.3F;
                     AxisAlignedBB axisalignedbb = entity1.boundingBox.grow((double) f, (double) f, (double) f);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
@@ -215,6 +217,11 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
         nbttagcompound.setByte("inTile", (byte) this.inBlockId);
         nbttagcompound.setByte("shake", (byte) this.shake);
         nbttagcompound.setByte("inGround", (byte) (this.inGround ? 1 : 0));
+        if ((this.shooterName == null || this.shooterName.length() == 0) && this.shooter != null && this.shooter instanceof EntityHuman) {
+            this.shooterName = this.shooter.getLocalizedName();
+        }
+
+        nbttagcompound.setString("ownerName", this.shooterName == null ? "" : this.shooterName);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -224,5 +231,17 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
         this.inBlockId = nbttagcompound.getByte("inTile") & 255;
         this.shake = nbttagcompound.getByte("shake") & 255;
         this.inGround = nbttagcompound.getByte("inGround") == 1;
+        this.shooterName = nbttagcompound.getString("ownerName");
+        if (this.shooterName != null && this.shooterName.length() == 0) {
+            this.shooterName = null;
+        }
+    }
+
+    public EntityLiving getShooter() {
+        if (this.shooter == null && this.shooterName != null && this.shooterName.length() > 0) {
+            this.shooter = this.world.a(this.shooterName);
+        }
+
+        return this.shooter;
     }
 }

@@ -22,7 +22,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
         this.datawatcher.a(16, new Byte((byte) 1));
     }
 
-    public void setSize(int i) {
+    protected void setSize(int i) {
         this.datawatcher.watch(16, new Byte((byte) i));
         this.a(0.6F * (float) i, 0.6F * (float) i);
         this.setPosition(this.locX, this.locY, this.locZ);
@@ -68,8 +68,10 @@ public class EntitySlime extends EntityLiving implements IMonster {
         boolean flag = this.onGround;
 
         super.j_();
+        int i;
+
         if (this.onGround && !flag) {
-            int i = this.getSize();
+            i = this.getSize();
 
             for (int j = 0; j < i * 8; ++j) {
                 float f = this.random.nextFloat() * 3.1415927F * 2.0F;
@@ -81,7 +83,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
             }
 
             if (this.o()) {
-                this.world.makeSound(this, this.n(), this.aV(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+                this.makeSound(this.n(), this.aW(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);
             }
 
             this.b = -0.5F;
@@ -90,10 +92,14 @@ public class EntitySlime extends EntityLiving implements IMonster {
         }
 
         this.k();
+        if (this.world.isStatic) {
+            i = this.getSize();
+            this.a(0.6F * (float) i, 0.6F * (float) i);
+        }
     }
 
-    protected void bk() {
-        this.bh();
+    protected void bm() {
+        this.bj();
         EntityHuman entityhuman = this.world.findNearbyVulnerablePlayer(this, 16.0D);
 
         if (entityhuman != null) {
@@ -106,17 +112,17 @@ public class EntitySlime extends EntityLiving implements IMonster {
                 this.jumpDelay /= 3;
             }
 
-            this.bG = true;
+            this.bE = true;
             if (this.q()) {
-                this.world.makeSound(this, this.n(), this.aV(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+                this.makeSound(this.n(), this.aW(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.bD = 1.0F - this.random.nextFloat() * 2.0F;
-            this.bE = (float) (1 * this.getSize());
+            this.bB = 1.0F - this.random.nextFloat() * 2.0F;
+            this.bC = (float) (1 * this.getSize());
         } else {
-            this.bG = false;
+            this.bE = false;
             if (this.onGround) {
-                this.bD = this.bE = 0.0F;
+                this.bB = this.bC = 0.0F;
             }
         }
     }
@@ -157,8 +163,8 @@ public class EntitySlime extends EntityLiving implements IMonster {
         if (this.l()) {
             int i = this.getSize();
 
-            if (this.m(entityhuman) && this.e(entityhuman) < 0.6D * (double) i * 0.6D * (double) i && entityhuman.damageEntity(DamageSource.mobAttack(this), this.m())) {
-                this.world.makeSound(this, "mob.attack", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            if (this.n(entityhuman) && this.e(entityhuman) < 0.6D * (double) i * 0.6D * (double) i && entityhuman.damageEntity(DamageSource.mobAttack(this), this.m())) {
+                this.makeSound("mob.attack", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             }
         }
     }
@@ -171,11 +177,11 @@ public class EntitySlime extends EntityLiving implements IMonster {
         return this.getSize();
     }
 
-    protected String aX() {
+    protected String aY() {
         return "mob.slime." + (this.getSize() > 1 ? "big" : "small");
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.slime." + (this.getSize() > 1 ? "big" : "small");
     }
 
@@ -203,11 +209,11 @@ public class EntitySlime extends EntityLiving implements IMonster {
         }
     }
 
-    protected float aV() {
+    protected float aW() {
         return 0.4F * (float) this.getSize();
     }
 
-    public int bm() {
+    public int bo() {
         return 0;
     }
 

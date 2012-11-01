@@ -49,17 +49,22 @@ public class WorldGenLargeFeature extends StructureGenerator {
 
         int i1 = i / this.g;
         int j1 = j / this.g;
-        Random random = this.c.D(i1, j1, 14357617);
+        Random random = this.c.F(i1, j1, 14357617);
 
         i1 *= this.g;
         j1 *= this.g;
         i1 += random.nextInt(this.g - this.h);
         j1 += random.nextInt(this.g - this.h);
         if (k == i1 && l == j1) {
-            boolean flag = this.c.getWorldChunkManager().a(k * 16 + 8, l * 16 + 8, 0, e);
+            BiomeBase biomebase = this.c.getWorldChunkManager().getBiome(k * 16 + 8, l * 16 + 8);
+            Iterator iterator = e.iterator();
 
-            if (flag) {
-                return true;
+            while (iterator.hasNext()) {
+                BiomeBase biomebase1 = (BiomeBase) iterator.next();
+
+                if (biomebase == biomebase1) {
+                    return true;
+                }
             }
         }
 

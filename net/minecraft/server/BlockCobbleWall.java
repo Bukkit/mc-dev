@@ -73,32 +73,8 @@ public class BlockCobbleWall extends Block {
     }
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
-        boolean flag = this.d(world, i, j, k - 1);
-        boolean flag1 = this.d(world, i, j, k + 1);
-        boolean flag2 = this.d(world, i - 1, j, k);
-        boolean flag3 = this.d(world, i + 1, j, k);
-        float f = 0.375F;
-        float f1 = 0.625F;
-        float f2 = 0.375F;
-        float f3 = 0.625F;
-
-        if (flag) {
-            f2 = 0.0F;
-        }
-
-        if (flag1) {
-            f3 = 1.0F;
-        }
-
-        if (flag2) {
-            f = 0.0F;
-        }
-
-        if (flag3) {
-            f1 = 1.0F;
-        }
-
-        return AxisAlignedBB.a().a((double) ((float) i + f), (double) j, (double) ((float) k + f2), (double) ((float) i + f1), (double) ((float) j + 1.5F), (double) ((float) k + f3));
+        this.updateShape(world, i, j, k);
+        return super.e(world, i, j, k);
     }
 
     public boolean d(IBlockAccess iblockaccess, int i, int j, int k) {

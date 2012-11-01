@@ -77,7 +77,7 @@ public class ChunkRegionLoader implements IAsyncChunkSaver, IChunkLoader {
     }
 
     public void a(World world, Chunk chunk) {
-        world.C();
+        world.D();
 
         try {
             NBTTagCompound nbttagcompound = new NBTTagCompound();

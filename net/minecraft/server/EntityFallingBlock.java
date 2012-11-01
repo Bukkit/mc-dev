@@ -175,4 +175,8 @@ public class EntityFallingBlock extends Entity {
     public void e(boolean flag) {
         this.hurtEntities = flag;
     }
+
+    public boolean isBurning() {
+        return false;
+    }
 }

@@ -36,8 +36,8 @@ public class SecondaryWorldData extends WorldData {
         return this.a.getTime();
     }
 
-    public long g() {
-        return this.a.g();
+    public long getDayTime() {
+        return this.a.getDayTime();
     }
 
     public NBTTagCompound i() {
@@ -76,9 +76,9 @@ public class SecondaryWorldData extends WorldData {
         return this.a.getGameType();
     }
 
-    public void b(long i) {}
+    public void setTime(long i) {}
 
-    public void c(long i) {}
+    public void setDayTime(long i) {}
 
     public void setSpawn(int i, int j, int k) {}
 

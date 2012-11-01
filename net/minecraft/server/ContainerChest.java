@@ -31,20 +31,20 @@ public class ContainerChest extends Container {
         }
     }
 
-    public boolean c(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         return this.container.a(entityhuman);
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.b.get(i);
+        Slot slot = (Slot) this.c.get(i);
 
         if (slot != null && slot.d()) {
             ItemStack itemstack1 = slot.getItem();
 
             itemstack = itemstack1.cloneItemStack();
             if (i < this.f * 9) {
-                if (!this.a(itemstack1, this.f * 9, this.b.size(), true)) {
+                if (!this.a(itemstack1, this.f * 9, this.c.size(), true)) {
                     return null;
                 }
             } else if (!this.a(itemstack1, 0, this.f * 9, false)) {
@@ -61,8 +61,12 @@ public class ContainerChest extends Container {
         return itemstack;
     }
 
-    public void a(EntityHuman entityhuman) {
-        super.a(entityhuman);
+    public void b(EntityHuman entityhuman) {
+        super.b(entityhuman);
         this.container.f();
+    }
+
+    public IInventory d() {
+        return this.container;
     }
 }

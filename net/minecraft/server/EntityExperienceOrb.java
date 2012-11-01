@@ -48,7 +48,7 @@ public class EntityExperienceOrb extends Entity {
             this.motY = 0.20000000298023224D;
             this.motX = (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
             this.motZ = (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
-            this.world.makeSound(this, "random.fizz", 0.4F, 2.0F + this.random.nextFloat() * 0.4F);
+            this.makeSound("random.fizz", 0.4F, 2.0F + this.random.nextFloat() * 0.4F);
         }
 
         this.i(this.locX, (this.boundingBox.b + this.boundingBox.e) / 2.0D, this.locZ);
@@ -112,13 +112,17 @@ public class EntityExperienceOrb extends Entity {
     }
 
     public boolean damageEntity(DamageSource damagesource, int i) {
-        this.K();
-        this.d -= i;
-        if (this.d <= 0) {
-            this.die();
-        }
+        if (this.isInvulnerable()) {
+            return false;
+        } else {
+            this.K();
+            this.d -= i;
+            if (this.d <= 0) {
+                this.die();
+            }
 
-        return false;
+            return false;
+        }
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -135,9 +139,9 @@ public class EntityExperienceOrb extends Entity {
 
     public void b_(EntityHuman entityhuman) {
         if (!this.world.isStatic) {
-            if (this.c == 0 && entityhuman.bU == 0) {
-                entityhuman.bU = 2;
-                this.world.makeSound(this, "random.orb", 0.1F, 0.5F * ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.8F));
+            if (this.c == 0 && entityhuman.bR == 0) {
+                entityhuman.bR = 2;
+                this.makeSound("random.orb", 0.1F, 0.5F * ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.8F));
                 entityhuman.receive(this, 1);
                 entityhuman.giveExp(this.value);
                 this.die();

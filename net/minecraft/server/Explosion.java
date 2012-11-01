@@ -176,12 +176,17 @@ public class Explosion {
                 }
 
                 if (l > 0) {
-                    Block.byId[l].dropNaturally(this.world, i, j, k, this.world.getData(i, j, k), 0.3F, 0);
+                    Block block = Block.byId[l];
+
+                    if (block.a(this)) {
+                        block.dropNaturally(this.world, i, j, k, this.world.getData(i, j, k), 0.3F, 0);
+                    }
+
                     if (this.world.setRawTypeIdAndData(i, j, k, 0, 0, this.world.isStatic)) {
                         this.world.applyPhysics(i, j, k, 0);
                     }
 
-                    Block.byId[l].wasExploded(this.world, i, j, k);
+                    block.wasExploded(this.world, i, j, k);
                 }
             }
         }

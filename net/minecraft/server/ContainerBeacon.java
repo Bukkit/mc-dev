@@ -2,14 +2,14 @@ package net.minecraft.server;
 
 public class ContainerBeacon extends Container {
 
-    private TileEntityBeacon e;
+    private TileEntityBeacon a;
     private final SlotBeacon f;
     private int g;
     private int h;
     private int i;
 
     public ContainerBeacon(PlayerInventory playerinventory, TileEntityBeacon tileentitybeacon) {
-        this.e = tileentitybeacon;
+        this.a = tileentitybeacon;
         this.a(this.f = new SlotBeacon(this, tileentitybeacon, 0, 136, 110));
         byte b0 = 36;
         short short1 = 137;
@@ -43,16 +43,16 @@ public class ContainerBeacon extends Container {
     }
 
     public TileEntityBeacon d() {
-        return this.e;
+        return this.a;
     }
 
-    public boolean c(EntityHuman entityhuman) {
-        return this.e.a(entityhuman);
+    public boolean a(EntityHuman entityhuman) {
+        return this.a.a(entityhuman);
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.b.get(i);
+        Slot slot = (Slot) this.c.get(i);
 
         if (slot != null && slot.d()) {
             ItemStack itemstack1 = slot.getItem();

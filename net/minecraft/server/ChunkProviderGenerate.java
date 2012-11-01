@@ -390,11 +390,11 @@ public class ChunkProviderGenerate implements IChunkProvider {
         for (k1 = 0; k1 < 16; ++k1) {
             for (l1 = 0; l1 < 16; ++l1) {
                 i2 = this.p.h(k + k1, l + l1);
-                if (this.p.u(k1 + k, i2 - 1, l1 + l)) {
+                if (this.p.w(k1 + k, i2 - 1, l1 + l)) {
                     this.p.setTypeId(k1 + k, i2 - 1, l1 + l, Block.ICE.id);
                 }
 
-                if (this.p.w(k1 + k, i2, l1 + l)) {
+                if (this.p.y(k1 + k, i2, l1 + l)) {
                     this.p.setTypeId(k1 + k, i2, l1 + l, Block.SNOW.id);
                 }
             }

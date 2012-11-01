@@ -61,7 +61,7 @@ public abstract class ServerConfigurationManagerAbstract {
         this.c(entityplayer);
         netserverhandler.a(entityplayer.locX, entityplayer.locY, entityplayer.locZ, entityplayer.yaw, entityplayer.pitch);
         this.server.ae().a(netserverhandler);
-        netserverhandler.sendPacket(new Packet4UpdateTime(worldserver.getTime(), worldserver.F()));
+        netserverhandler.sendPacket(new Packet4UpdateTime(worldserver.getTime(), worldserver.getDayTime()));
         if (this.server.getTexturePack().length() > 0) {
             entityplayer.a(this.server.getTexturePack(), this.server.S());
         }
@@ -114,10 +114,6 @@ public abstract class ServerConfigurationManagerAbstract {
         this.sendAll(new Packet201PlayerInfo(entityplayer.name, true, 1000));
         this.players.add(entityplayer);
         WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
-
-        while (!worldserver.getCubes(entityplayer, entityplayer.boundingBox).isEmpty()) {
-            entityplayer.setPosition(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
-        }
 
         worldserver.addEntity(entityplayer);
         this.a(entityplayer, (WorldServer) null);
@@ -298,6 +294,7 @@ public abstract class ServerConfigurationManagerAbstract {
         double d5 = entity.locZ;
         float f = entity.yaw;
 
+        worldserver.methodProfiler.a("moving");
         if (entity.dimension == -1) {
             d0 /= d2;
             d1 /= d2;
@@ -330,15 +327,19 @@ public abstract class ServerConfigurationManagerAbstract {
             }
         }
 
+        worldserver.methodProfiler.b();
         if (i != 1) {
+            worldserver.methodProfiler.a("placing");
             d0 = (double) MathHelper.a((int) d0, -29999872, 29999872);
             d1 = (double) MathHelper.a((int) d1, -29999872, 29999872);
             if (entity.isAlive()) {
                 worldserver1.addEntity(entity);
                 entity.setPositionRotation(d0, entity.locY, d1, entity.yaw, entity.pitch);
                 worldserver1.entityJoinedWorld(entity, false);
-                (new PortalTravelAgent()).a(worldserver1, entity, d3, d4, d5, f);
+                worldserver1.s().a(entity, d3, d4, d5, f);
             }
+
+            worldserver.methodProfiler.b();
         }
 
         entity.spawnIn(worldserver1);
@@ -533,8 +534,8 @@ public abstract class ServerConfigurationManagerAbstract {
     public void reloadWhitelist() {}
 
     public void b(EntityPlayer entityplayer, WorldServer worldserver) {
-        entityplayer.netServerHandler.sendPacket(new Packet4UpdateTime(worldserver.getTime(), worldserver.F()));
-        if (worldserver.M()) {
+        entityplayer.netServerHandler.sendPacket(new Packet4UpdateTime(worldserver.getTime(), worldserver.getDayTime()));
+        if (worldserver.N()) {
             entityplayer.netServerHandler.sendPacket(new Packet70Bed(1, 0));
         }
     }

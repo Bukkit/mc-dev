@@ -20,15 +20,15 @@ public class StepSound {
         return this.c;
     }
 
-    public String a() {
+    public String getBreakSound() {
         return "dig." + this.a;
     }
 
-    public String getName() {
+    public String getStepSound() {
         return "step." + this.a;
     }
 
-    public String b() {
-        return this.a();
+    public String getPlaceSound() {
+        return this.getBreakSound();
     }
 }

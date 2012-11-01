@@ -6,7 +6,7 @@ final class StepSoundLadder extends StepSound {
         super(s, f, f1);
     }
 
-    public String a() {
+    public String getBreakSound() {
         return "dig.wood";
     }
 }

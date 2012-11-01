@@ -62,8 +62,8 @@ public class NetLoginHandler extends NetHandler {
         } else {
             PublicKey publickey = this.server.F().getPublic();
 
-            if (packet2handshake.d() != 47) {
-                if (packet2handshake.d() > 47) {
+            if (packet2handshake.d() != 48) {
+                if (packet2handshake.d() > 48) {
                     this.disconnect("Outdated server!");
                 } else {
                     this.disconnect("Outdated client!");
@@ -127,7 +127,7 @@ public class NetLoginHandler extends NetHandler {
             String s = null;
 
             if (packet254getinfo.a == 1) {
-                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(47), this.server.getVersion(), this.server.getMotd(), Integer.valueOf(serverconfigurationmanagerabstract.getPlayerCount()), Integer.valueOf(serverconfigurationmanagerabstract.getMaxPlayers())});
+                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(48), this.server.getVersion(), this.server.getMotd(), Integer.valueOf(serverconfigurationmanagerabstract.getPlayerCount()), Integer.valueOf(serverconfigurationmanagerabstract.getMaxPlayers())});
 
                 Object object;
 

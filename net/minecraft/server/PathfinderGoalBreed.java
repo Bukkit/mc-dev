@@ -38,7 +38,7 @@ public class PathfinderGoalBreed extends PathfinderGoal {
     }
 
     public void e() {
-        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.bm());
+        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.bo());
         this.d.getNavigation().a((EntityLiving) this.e, this.c);
         ++this.b;
         if (this.b == 60) {
@@ -74,6 +74,7 @@ public class PathfinderGoalBreed extends PathfinderGoal {
             this.e.s();
             entityanimal.setAge(-24000);
             entityanimal.setPositionRotation(this.d.locX, this.d.locY, this.d.locZ, 0.0F, 0.0F);
+            this.a(this.d, this.e, entityanimal);
             this.a.addEntity(entityanimal);
             Random random = this.d.aA();
 
@@ -88,4 +89,6 @@ public class PathfinderGoalBreed extends PathfinderGoal {
             this.a.addEntity(new EntityExperienceOrb(this.a, this.d.locX, this.d.locY, this.d.locZ, random.nextInt(4) + 1));
         }
     }
+
+    protected void a(EntityAnimal entityanimal, EntityAnimal entityanimal1, EntityAnimal entityanimal2) {}
 }

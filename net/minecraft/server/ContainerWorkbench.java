@@ -42,8 +42,8 @@ public class ContainerWorkbench extends Container {
         this.resultInventory.setItem(0, CraftingManager.getInstance().craft(this.craftInventory, this.g));
     }
 
-    public void a(EntityHuman entityhuman) {
-        super.a(entityhuman);
+    public void b(EntityHuman entityhuman) {
+        super.b(entityhuman);
         if (!this.g.isStatic) {
             for (int i = 0; i < 9; ++i) {
                 ItemStack itemstack = this.craftInventory.splitWithoutUpdate(i);
@@ -55,13 +55,13 @@ public class ContainerWorkbench extends Container {
         }
     }
 
-    public boolean c(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         return this.g.getTypeId(this.h, this.i, this.j) != Block.WORKBENCH.id ? false : entityhuman.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.b.get(i);
+        Slot slot = (Slot) this.c.get(i);
 
         if (slot != null && slot.d()) {
             ItemStack itemstack1 = slot.getItem();

@@ -187,13 +187,13 @@ public class ItemInWorldManager {
             if (this.isCreative()) {
                 this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
             } else {
-                ItemStack itemstack = this.player.bP();
+                ItemStack itemstack = this.player.bS();
                 boolean flag1 = this.player.b(Block.byId[l]);
 
                 if (itemstack != null) {
                     itemstack.a(this.world, l, i, j, k, this.player);
                     if (itemstack.count == 0) {
-                        this.player.bQ();
+                        this.player.bT();
                     }
                 }
 
@@ -226,7 +226,7 @@ public class ItemInWorldManager {
                 entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = null;
             }
 
-            if (!entityhuman.bI()) {
+            if (!entityhuman.bL()) {
                 ((EntityPlayer) entityhuman).updateInventory(entityhuman.defaultContainer);
             }
 

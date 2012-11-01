@@ -210,11 +210,11 @@ public class Navigation {
     }
 
     private void m() {
-        if (!this.b.j(MathHelper.floor(this.a.locX), (int) (this.a.boundingBox.b + 0.5D), MathHelper.floor(this.a.locZ))) {
+        if (!this.b.k(MathHelper.floor(this.a.locX), (int) (this.a.boundingBox.b + 0.5D), MathHelper.floor(this.a.locZ))) {
             for (int i = 0; i < this.c.d(); ++i) {
                 PathPoint pathpoint = this.c.a(i);
 
-                if (this.b.j(pathpoint.a, pathpoint.b, pathpoint.c)) {
+                if (this.b.k(pathpoint.a, pathpoint.b, pathpoint.c)) {
                     this.c.b(i - 1);
                     return;
                 }

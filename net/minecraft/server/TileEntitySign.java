@@ -28,7 +28,7 @@ public class TileEntitySign extends TileEntity {
         }
     }
 
-    public Packet l() {
+    public Packet getUpdatePacket() {
         String[] astring = new String[4];
 
         System.arraycopy(this.lines, 0, astring, 0, 4);

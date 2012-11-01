@@ -44,7 +44,7 @@ public class EntityMinecart extends Entity implements IInventory {
     }
 
     public AxisAlignedBB g(Entity entity) {
-        return entity.boundingBox;
+        return entity.M() ? entity.boundingBox : null;
     }
 
     public AxisAlignedBB E() {
@@ -73,58 +73,62 @@ public class EntityMinecart extends Entity implements IInventory {
 
     public boolean damageEntity(DamageSource damagesource, int i) {
         if (!this.world.isStatic && !this.dead) {
-            this.i(-this.k());
-            this.h(10);
-            this.K();
-            this.setDamage(this.getDamage() + i * 10);
-            if (damagesource.getEntity() instanceof EntityHuman && ((EntityHuman) damagesource.getEntity()).abilities.canInstantlyBuild) {
-                this.setDamage(100);
-            }
-
-            if (this.getDamage() > 40) {
-                if (this.passenger != null) {
-                    this.passenger.mount(this);
+            if (this.isInvulnerable()) {
+                return false;
+            } else {
+                this.i(-this.k());
+                this.h(10);
+                this.K();
+                this.setDamage(this.getDamage() + i * 10);
+                if (damagesource.getEntity() instanceof EntityHuman && ((EntityHuman) damagesource.getEntity()).abilities.canInstantlyBuild) {
+                    this.setDamage(100);
                 }
 
-                this.die();
-                this.a(Item.MINECART.id, 1, 0.0F);
-                if (this.type == 1) {
-                    EntityMinecart entityminecart = this;
-
-                    for (int j = 0; j < entityminecart.getSize(); ++j) {
-                        ItemStack itemstack = entityminecart.getItem(j);
-
-                        if (itemstack != null) {
-                            float f = this.random.nextFloat() * 0.8F + 0.1F;
-                            float f1 = this.random.nextFloat() * 0.8F + 0.1F;
-                            float f2 = this.random.nextFloat() * 0.8F + 0.1F;
-
-                            while (itemstack.count > 0) {
-                                int k = this.random.nextInt(21) + 10;
-
-                                if (k > itemstack.count) {
-                                    k = itemstack.count;
-                                }
-
-                                itemstack.count -= k;
-                                EntityItem entityitem = new EntityItem(this.world, this.locX + (double) f, this.locY + (double) f1, this.locZ + (double) f2, new ItemStack(itemstack.id, k, itemstack.getData()));
-                                float f3 = 0.05F;
-
-                                entityitem.motX = (double) ((float) this.random.nextGaussian() * f3);
-                                entityitem.motY = (double) ((float) this.random.nextGaussian() * f3 + 0.2F);
-                                entityitem.motZ = (double) ((float) this.random.nextGaussian() * f3);
-                                this.world.addEntity(entityitem);
-                            }
-                        }
+                if (this.getDamage() > 40) {
+                    if (this.passenger != null) {
+                        this.passenger.mount(this);
                     }
 
-                    this.a(Block.CHEST.id, 1, 0.0F);
-                } else if (this.type == 2) {
-                    this.a(Block.FURNACE.id, 1, 0.0F);
-                }
-            }
+                    this.die();
+                    this.a(Item.MINECART.id, 1, 0.0F);
+                    if (this.type == 1) {
+                        EntityMinecart entityminecart = this;
 
-            return true;
+                        for (int j = 0; j < entityminecart.getSize(); ++j) {
+                            ItemStack itemstack = entityminecart.getItem(j);
+
+                            if (itemstack != null) {
+                                float f = this.random.nextFloat() * 0.8F + 0.1F;
+                                float f1 = this.random.nextFloat() * 0.8F + 0.1F;
+                                float f2 = this.random.nextFloat() * 0.8F + 0.1F;
+
+                                while (itemstack.count > 0) {
+                                    int k = this.random.nextInt(21) + 10;
+
+                                    if (k > itemstack.count) {
+                                        k = itemstack.count;
+                                    }
+
+                                    itemstack.count -= k;
+                                    EntityItem entityitem = new EntityItem(this.world, this.locX + (double) f, this.locY + (double) f1, this.locZ + (double) f2, new ItemStack(itemstack.id, k, itemstack.getData()));
+                                    float f3 = 0.05F;
+
+                                    entityitem.motX = (double) ((float) this.random.nextGaussian() * f3);
+                                    entityitem.motY = (double) ((float) this.random.nextGaussian() * f3 + 0.2F);
+                                    entityitem.motZ = (double) ((float) this.random.nextGaussian() * f3);
+                                    this.world.addEntity(entityitem);
+                                }
+                            }
+                        }
+
+                        this.a(Block.CHEST.id, 1, 0.0F);
+                    } else if (this.type == 2) {
+                        this.a(Block.FURNACE.id, 1, 0.0F);
+                    }
+                }
+
+                return true;
+            }
         } else {
             return true;
         }
@@ -235,6 +239,7 @@ public class EntityMinecart extends Entity implements IInventory {
             int l = this.world.getTypeId(i, j, k);
 
             if (BlockMinecartTrack.d(l)) {
+                this.fallDistance = 0.0F;
                 Vec3D vec3d = this.a(this.locX, this.locY, this.locZ);
                 int i1 = this.world.getData(i, j, k);
 
@@ -448,15 +453,15 @@ public class EntityMinecart extends Entity implements IInventory {
                         this.motX += this.motX / d21 * d22;
                         this.motZ += this.motZ / d21 * d22;
                     } else if (i1 == 1) {
-                        if (this.world.s(i - 1, j, k)) {
+                        if (this.world.t(i - 1, j, k)) {
                             this.motX = 0.02D;
-                        } else if (this.world.s(i + 1, j, k)) {
+                        } else if (this.world.t(i + 1, j, k)) {
                             this.motX = -0.02D;
                         }
                     } else if (i1 == 0) {
-                        if (this.world.s(i, j, k - 1)) {
+                        if (this.world.t(i, j, k - 1)) {
                             this.motZ = 0.02D;
-                        } else if (this.world.s(i, j, k + 1)) {
+                        } else if (this.world.t(i, j, k + 1)) {
                             this.motZ = -0.02D;
                         }
                     }

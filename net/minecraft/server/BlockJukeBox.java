@@ -20,12 +20,12 @@ public class BlockJukeBox extends BlockContainer {
         }
     }
 
-    public void d(World world, int i, int j, int k, int l) {
+    public void a(World world, int i, int j, int k, ItemStack itemstack) {
         if (!world.isStatic) {
             TileEntityRecordPlayer tileentityrecordplayer = (TileEntityRecordPlayer) world.getTileEntity(i, j, k);
 
             if (tileentityrecordplayer != null) {
-                tileentityrecordplayer.record = l;
+                tileentityrecordplayer.record = itemstack.cloneItemStack();
                 tileentityrecordplayer.update();
                 world.setData(i, j, k, 1);
             }
@@ -37,19 +37,20 @@ public class BlockJukeBox extends BlockContainer {
             TileEntityRecordPlayer tileentityrecordplayer = (TileEntityRecordPlayer) world.getTileEntity(i, j, k);
 
             if (tileentityrecordplayer != null) {
-                int l = tileentityrecordplayer.record;
+                ItemStack itemstack = tileentityrecordplayer.record;
 
-                if (l != 0) {
+                if (itemstack != null) {
                     world.triggerEffect(1005, i, j, k, 0);
                     world.a((String) null, i, j, k);
-                    tileentityrecordplayer.record = 0;
+                    tileentityrecordplayer.record = null;
                     tileentityrecordplayer.update();
                     world.setData(i, j, k, 0);
                     float f = 0.7F;
                     double d0 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
                     double d1 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.2D + 0.6D;
                     double d2 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                    EntityItem entityitem = new EntityItem(world, (double) i + d0, (double) j + d1, (double) k + d2, new ItemStack(l, 1, 0));
+                    ItemStack itemstack1 = itemstack.cloneItemStack();
+                    EntityItem entityitem = new EntityItem(world, (double) i + d0, (double) j + d1, (double) k + d2, itemstack1);
 
                     entityitem.pickupDelay = 10;
                     world.addEntity(entityitem);

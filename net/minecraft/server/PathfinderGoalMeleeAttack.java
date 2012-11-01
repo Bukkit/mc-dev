@@ -69,11 +69,11 @@ public class PathfinderGoalMeleeAttack extends PathfinderGoal {
         if (this.b.e(this.c.locX, this.c.boundingBox.b, this.c.locZ) <= d0) {
             if (this.d <= 0) {
                 this.d = 20;
-                if (this.b.bA() != null) {
-                    this.b.bE();
+                if (this.b.bC() != null) {
+                    this.b.bG();
                 }
 
-                this.b.l(this.c);
+                this.b.m(this.c);
             }
         }
     }

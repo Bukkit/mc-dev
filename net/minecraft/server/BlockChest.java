@@ -11,6 +11,7 @@ public class BlockChest extends BlockContainer {
         super(i, Material.WOOD);
         this.textureId = 26;
         this.a(CreativeModeTab.c);
+        this.a(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
     }
 
     public boolean c() {
@@ -23,6 +24,20 @@ public class BlockChest extends BlockContainer {
 
     public int d() {
         return 22;
+    }
+
+    public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
+        if (iblockaccess.getTypeId(i, j, k - 1) == this.id) {
+            this.a(0.0625F, 0.0F, 0.0F, 0.9375F, 0.875F, 0.9375F);
+        } else if (iblockaccess.getTypeId(i, j, k + 1) == this.id) {
+            this.a(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 1.0F);
+        } else if (iblockaccess.getTypeId(i - 1, j, k) == this.id) {
+            this.a(0.0F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
+        } else if (iblockaccess.getTypeId(i + 1, j, k) == this.id) {
+            this.a(0.0625F, 0.0F, 0.0625F, 1.0F, 0.875F, 0.9375F);
+        } else {
+            this.a(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
+        }
     }
 
     public void onPlace(World world, int i, int j, int k) {
@@ -263,17 +278,17 @@ public class BlockChest extends BlockContainer {
 
         if (object == null) {
             return true;
-        } else if (world.s(i, j + 1, k)) {
+        } else if (world.t(i, j + 1, k)) {
             return true;
         } else if (n(world, i, j, k)) {
             return true;
-        } else if (world.getTypeId(i - 1, j, k) == this.id && (world.s(i - 1, j + 1, k) || n(world, i - 1, j, k))) {
+        } else if (world.getTypeId(i - 1, j, k) == this.id && (world.t(i - 1, j + 1, k) || n(world, i - 1, j, k))) {
             return true;
-        } else if (world.getTypeId(i + 1, j, k) == this.id && (world.s(i + 1, j + 1, k) || n(world, i + 1, j, k))) {
+        } else if (world.getTypeId(i + 1, j, k) == this.id && (world.t(i + 1, j + 1, k) || n(world, i + 1, j, k))) {
             return true;
-        } else if (world.getTypeId(i, j, k - 1) == this.id && (world.s(i, j + 1, k - 1) || n(world, i, j, k - 1))) {
+        } else if (world.getTypeId(i, j, k - 1) == this.id && (world.t(i, j + 1, k - 1) || n(world, i, j, k - 1))) {
             return true;
-        } else if (world.getTypeId(i, j, k + 1) == this.id && (world.s(i, j + 1, k + 1) || n(world, i, j, k + 1))) {
+        } else if (world.getTypeId(i, j, k + 1) == this.id && (world.t(i, j + 1, k + 1) || n(world, i, j, k + 1))) {
             return true;
         } else {
             if (world.getTypeId(i - 1, j, k) == this.id) {

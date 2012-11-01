@@ -19,11 +19,11 @@ public class BlockDiode extends BlockDirectional {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return !world.t(i, j - 1, k) ? false : super.canPlace(world, i, j, k);
+        return !world.v(i, j - 1, k) ? false : super.canPlace(world, i, j, k);
     }
 
     public boolean d(World world, int i, int j, int k) {
-        return !world.t(i, j - 1, k) ? false : super.d(world, i, j, k);
+        return !world.v(i, j - 1, k) ? false : super.d(world, i, j, k);
     }
 
     public void b(World world, int i, int j, int k, Random random) {
@@ -31,7 +31,7 @@ public class BlockDiode extends BlockDirectional {
         boolean flag = this.e(world, i, j, k, l);
 
         if (!flag) {
-            boolean flag1 = this.h(world, i, j, k, l);
+            boolean flag1 = this.i(world, i, j, k, l);
 
             if (this.c && !flag1) {
                 world.setTypeIdAndData(i, j, k, Block.DIODE_OFF.id, l);
@@ -87,7 +87,7 @@ public class BlockDiode extends BlockDirectional {
             boolean flag = this.e(world, i, j, k, i1);
 
             if (!flag) {
-                boolean flag1 = this.h(world, i, j, k, i1);
+                boolean flag1 = this.i(world, i, j, k, i1);
                 int j1 = (i1 & 12) >> 2;
 
                 if (this.c && !flag1 || !this.c && flag1) {
@@ -103,7 +103,7 @@ public class BlockDiode extends BlockDirectional {
         }
     }
 
-    private boolean h(World world, int i, int j, int k, int l) {
+    private boolean i(World world, int i, int j, int k, int l) {
         int i1 = e(l);
 
         switch (i1) {
@@ -158,7 +158,7 @@ public class BlockDiode extends BlockDirectional {
         int l = ((MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
 
         world.setData(i, j, k, l);
-        boolean flag = this.h(world, i, j, k, l);
+        boolean flag = this.i(world, i, j, k, l);
 
         if (flag) {
             world.a(i, j, k, this.id, 1);

@@ -53,15 +53,16 @@ public class BlockDragonEgg extends Block {
 
     private void n(World world, int i, int j, int k) {
         if (world.getTypeId(i, j, k) == this.id) {
-            if (!world.isStatic) {
-                for (int l = 0; l < 1000; ++l) {
-                    int i1 = i + world.random.nextInt(16) - world.random.nextInt(16);
-                    int j1 = j + world.random.nextInt(8) - world.random.nextInt(8);
-                    int k1 = k + world.random.nextInt(16) - world.random.nextInt(16);
+            for (int l = 0; l < 1000; ++l) {
+                int i1 = i + world.random.nextInt(16) - world.random.nextInt(16);
+                int j1 = j + world.random.nextInt(8) - world.random.nextInt(8);
+                int k1 = k + world.random.nextInt(16) - world.random.nextInt(16);
 
-                    if (world.getTypeId(i1, j1, k1) == 0) {
+                if (world.getTypeId(i1, j1, k1) == 0) {
+                    if (!world.isStatic) {
                         world.setTypeIdAndData(i1, j1, k1, this.id, world.getData(i, j, k));
                         world.setTypeId(i, j, k, 0);
+                    } else {
                         short short1 = 128;
 
                         for (int l1 = 0; l1 < short1; ++l1) {
@@ -75,16 +76,16 @@ public class BlockDragonEgg extends Block {
 
                             world.addParticle("portal", d1, d2, d3, (double) f, (double) f1, (double) f2);
                         }
-
-                        return;
                     }
+
+                    return;
                 }
             }
         }
     }
 
     public int r_() {
-        return 3;
+        return 5;
     }
 
     public boolean c() {

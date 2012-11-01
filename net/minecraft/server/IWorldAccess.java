@@ -10,6 +10,8 @@ public interface IWorldAccess {
 
     void a(String s, double d0, double d1, double d2, float f, float f1);
 
+    void a(EntityHuman entityhuman, String s, double d0, double d1, double d2, float f, float f1);
+
     void a(String s, double d0, double d1, double d2, double d3, double d4, double d5);
 
     void a(Entity entity);

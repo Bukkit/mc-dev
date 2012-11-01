@@ -27,7 +27,7 @@ public class BlockTorch extends Block {
     }
 
     private boolean l(World world, int i, int j, int k) {
-        if (world.t(i, j, k)) {
+        if (world.v(i, j, k)) {
             return true;
         } else {
             int l = world.getTypeId(i, j, k);
@@ -40,30 +40,30 @@ public class BlockTorch extends Block {
         return world.b(i - 1, j, k, true) ? true : (world.b(i + 1, j, k, true) ? true : (world.b(i, j, k - 1, true) ? true : (world.b(i, j, k + 1, true) ? true : this.l(world, i, j - 1, k))));
     }
 
-    public void postPlace(World world, int i, int j, int k, int l, float f, float f1, float f2) {
-        int i1 = world.getData(i, j, k);
+    public int getPlacedData(World world, int i, int j, int k, int l, float f, float f1, float f2, int i1) {
+        int j1 = i1;
 
         if (l == 1 && this.l(world, i, j - 1, k)) {
-            i1 = 5;
+            j1 = 5;
         }
 
         if (l == 2 && world.b(i, j, k + 1, true)) {
-            i1 = 4;
+            j1 = 4;
         }
 
         if (l == 3 && world.b(i, j, k - 1, true)) {
-            i1 = 3;
+            j1 = 3;
         }
 
         if (l == 4 && world.b(i + 1, j, k, true)) {
-            i1 = 2;
+            j1 = 2;
         }
 
         if (l == 5 && world.b(i - 1, j, k, true)) {
-            i1 = 1;
+            j1 = 1;
         }
 
-        world.setData(i, j, k, i1);
+        return j1;
     }
 
     public void b(World world, int i, int j, int k, Random random) {

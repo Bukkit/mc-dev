@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.Callable;
 
 public abstract class StructureGenerator extends WorldGenBase {
 
@@ -15,10 +16,22 @@ public abstract class StructureGenerator extends WorldGenBase {
     protected void a(World world, int i, int j, int k, int l, byte[] abyte) {
         if (!this.d.containsKey(Long.valueOf(ChunkCoordIntPair.a(i, j)))) {
             this.b.nextInt();
-            if (this.a(i, j)) {
-                StructureStart structurestart = this.b(i, j);
 
-                this.d.put(Long.valueOf(ChunkCoordIntPair.a(i, j)), structurestart);
+            try {
+                if (this.a(i, j)) {
+                    StructureStart structurestart = this.b(i, j);
+
+                    this.d.put(Long.valueOf(ChunkCoordIntPair.a(i, j)), structurestart);
+                }
+            } catch (Throwable throwable) {
+                CrashReport crashreport = CrashReport.a(throwable, "Exception preparing structure feature");
+                CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Feature being prepared");
+
+                crashreportsystemdetails.a("Is feature chunk", (Callable) (new CrashReportIsFeatureChunk(this, i, j)));
+                crashreportsystemdetails.a("Chunk location", String.format("%d,%d", new Object[] { Integer.valueOf(i), Integer.valueOf(j)}));
+                crashreportsystemdetails.a("Chunk pos hash", (Callable) (new CrashReportChunkPosHash(this, i, j)));
+                crashreportsystemdetails.a("Structure type", (Callable) (new CrashReportStructureType(this)));
+                throw new ReportedException(crashreport);
             }
         }
     }

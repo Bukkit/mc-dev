@@ -117,7 +117,7 @@ public class WorldGenLakes extends WorldGenerator {
                     for (i2 = 0; i2 < 16; ++i2) {
                         byte b0 = 4;
 
-                        if (world.u(i + i1, j + b0, k + i2)) {
+                        if (world.w(i + i1, j + b0, k + i2)) {
                             world.setRawTypeId(i + i1, j + b0, k + i2, Block.ICE.id);
                         }
                     }

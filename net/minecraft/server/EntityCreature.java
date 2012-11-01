@@ -15,7 +15,7 @@ public abstract class EntityCreature extends EntityLiving {
         return false;
     }
 
-    protected void bk() {
+    protected void bm() {
         this.world.methodProfiler.a("ai");
         if (this.c > 0) {
             --this.c;
@@ -32,7 +32,7 @@ public abstract class EntityCreature extends EntityLiving {
         } else if (this.target.isAlive()) {
             float f1 = this.target.d((Entity) this);
 
-            if (this.m(this.target)) {
+            if (this.n(this.target)) {
                 this.a(this.target, f1);
             }
         } else {
@@ -42,7 +42,7 @@ public abstract class EntityCreature extends EntityLiving {
         this.world.methodProfiler.b();
         if (!this.b && this.target != null && (this.pathEntity == null || this.random.nextInt(20) == 0)) {
             this.pathEntity = this.world.findPath(this, this.target, f, true, false, false, true);
-        } else if (!this.b && (this.pathEntity == null && this.random.nextInt(180) == 0 || this.random.nextInt(120) == 0 || this.c > 0) && this.bC < 100) {
+        } else if (!this.b && (this.pathEntity == null && this.random.nextInt(180) == 0 || this.random.nextInt(120) == 0 || this.c > 0) && this.bA < 100) {
             this.i();
         }
 
@@ -66,7 +66,7 @@ public abstract class EntityCreature extends EntityLiving {
                 }
             }
 
-            this.bG = false;
+            this.bE = false;
             if (vec3d != null) {
                 double d1 = vec3d.c - this.locX;
                 double d2 = vec3d.e - this.locZ;
@@ -74,7 +74,7 @@ public abstract class EntityCreature extends EntityLiving {
                 float f2 = (float) (Math.atan2(d2, d1) * 180.0D / 3.1415927410125732D) - 90.0F;
                 float f3 = MathHelper.g(f2 - this.yaw);
 
-                this.bE = this.bI;
+                this.bC = this.bG;
                 if (f3 > 30.0F) {
                     f3 = 30.0F;
                 }
@@ -91,12 +91,12 @@ public abstract class EntityCreature extends EntityLiving {
 
                     this.yaw = (float) (Math.atan2(d5, d4) * 180.0D / 3.1415927410125732D) - 90.0F;
                     f3 = (f4 - this.yaw + 90.0F) * 3.1415927F / 180.0F;
-                    this.bD = -MathHelper.sin(f3) * this.bE * 1.0F;
-                    this.bE = MathHelper.cos(f3) * this.bE * 1.0F;
+                    this.bB = -MathHelper.sin(f3) * this.bC * 1.0F;
+                    this.bC = MathHelper.cos(f3) * this.bC * 1.0F;
                 }
 
                 if (d3 > 0.0D) {
-                    this.bG = true;
+                    this.bE = true;
                 }
             }
 
@@ -105,16 +105,16 @@ public abstract class EntityCreature extends EntityLiving {
             }
 
             if (this.positionChanged && !this.k()) {
-                this.bG = true;
+                this.bE = true;
             }
 
             if (this.random.nextFloat() < 0.8F && (flag || flag1)) {
-                this.bG = true;
+                this.bE = true;
             }
 
             this.world.methodProfiler.b();
         } else {
-            super.bk();
+            super.bm();
             this.pathEntity = null;
         }
     }
@@ -183,10 +183,10 @@ public abstract class EntityCreature extends EntityLiving {
         this.target = entity;
     }
 
-    public float by() {
-        float f = super.by();
+    public float bA() {
+        float f = super.bA();
 
-        if (this.c > 0 && !this.bb()) {
+        if (this.c > 0 && !this.bd()) {
             f *= 2.0F;
         }
 

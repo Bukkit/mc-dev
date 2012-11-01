@@ -42,7 +42,7 @@ public class DedicatedServerConnectionThread extends Thread {
                     netloginhandler.c();
                 } catch (Exception exception) {
                     netloginhandler.disconnect("Internal server error");
-                    a.log(Level.WARNING, "Failed to handle packet: " + exception, exception);
+                    a.log(Level.WARNING, "Failed to handle packet for " + netloginhandler.getName() + ": " + exception, exception);
                 }
 
                 if (netloginhandler.c) {

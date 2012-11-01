@@ -22,7 +22,7 @@ public class EntitySnowball extends EntityProjectile {
                 b0 = 3;
             }
 
-            movingobjectposition.entity.damageEntity(DamageSource.projectile(this, this.shooter), b0);
+            movingobjectposition.entity.damageEntity(DamageSource.projectile(this, this.getShooter()), b0);
         }
 
         for (int i = 0; i < 8; ++i) {

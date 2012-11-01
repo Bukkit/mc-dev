@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.concurrent.Callable;
+
 public class WorldData {
 
     private long seed;
@@ -215,7 +217,7 @@ public class WorldData {
         return this.time;
     }
 
-    public long g() {
+    public long getDayTime() {
         return this.dayTime;
     }
 
@@ -227,11 +229,11 @@ public class WorldData {
         return this.dimension;
     }
 
-    public void b(long i) {
+    public void setTime(long i) {
         this.time = i;
     }
 
-    public void c(long i) {
+    public void setDayTime(long i) {
         this.dayTime = i;
     }
 
@@ -331,5 +333,85 @@ public class WorldData {
 
     public GameRules getGameRules() {
         return this.gameRules;
+    }
+
+    public void a(CrashReportSystemDetails crashreportsystemdetails) {
+        crashreportsystemdetails.a("Level seed", (Callable) (new CrashReportLevelSeed(this)));
+        crashreportsystemdetails.a("Level generator", (Callable) (new CrashReportLevelGenerator(this)));
+        crashreportsystemdetails.a("Level generator options", (Callable) (new CrashReportLevelGeneratorOptions(this)));
+        crashreportsystemdetails.a("Level spawn location", (Callable) (new CrashReportLevelSpawnLocation(this)));
+        crashreportsystemdetails.a("Level time", (Callable) (new CrashReportLevelTime(this)));
+        crashreportsystemdetails.a("Level dimension", (Callable) (new CrashReportLevelDimension(this)));
+        crashreportsystemdetails.a("Level storage version", (Callable) (new CrashReportLevelStorageVersion(this)));
+        crashreportsystemdetails.a("Level weather", (Callable) (new CrashReportLevelWeather(this)));
+        crashreportsystemdetails.a("Level game mode", (Callable) (new CrashReportLevelGameMode(this)));
+    }
+
+    static WorldType a(WorldData worlddata) {
+        return worlddata.type;
+    }
+
+    static boolean b(WorldData worlddata) {
+        return worlddata.useMapFeatures;
+    }
+
+    static String c(WorldData worlddata) {
+        return worlddata.generatorOptions;
+    }
+
+    static int d(WorldData worlddata) {
+        return worlddata.spawnX;
+    }
+
+    static int e(WorldData worlddata) {
+        return worlddata.spawnY;
+    }
+
+    static int f(WorldData worlddata) {
+        return worlddata.spawnZ;
+    }
+
+    static long g(WorldData worlddata) {
+        return worlddata.time;
+    }
+
+    static long h(WorldData worlddata) {
+        return worlddata.dayTime;
+    }
+
+    static int i(WorldData worlddata) {
+        return worlddata.dimension;
+    }
+
+    static int j(WorldData worlddata) {
+        return worlddata.version;
+    }
+
+    static int k(WorldData worlddata) {
+        return worlddata.rainTicks;
+    }
+
+    static boolean l(WorldData worlddata) {
+        return worlddata.isRaining;
+    }
+
+    static int m(WorldData worlddata) {
+        return worlddata.thunderTicks;
+    }
+
+    static boolean n(WorldData worlddata) {
+        return worlddata.isThundering;
+    }
+
+    static EnumGamemode o(WorldData worlddata) {
+        return worlddata.gameType;
+    }
+
+    static boolean p(WorldData worlddata) {
+        return worlddata.hardcore;
+    }
+
+    static boolean q(WorldData worlddata) {
+        return worlddata.allowCommands;
     }
 }
