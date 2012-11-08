@@ -18,7 +18,7 @@ public class PathfinderGoalMoveTowardsTarget extends PathfinderGoal {
     }
 
     public boolean a() {
-        this.b = this.a.aF();
+        this.b = this.a.aG();
         if (this.b == null) {
             return false;
         } else if (this.b.e(this.a) > (double) (this.g * this.g)) {

@@ -29,7 +29,7 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         this.datawatcher.a(13, new Byte((byte) 0));
     }
 
-    public boolean bd() {
+    public boolean be() {
         return true;
     }
 
@@ -37,15 +37,15 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         return 20;
     }
 
-    protected String aX() {
+    protected String aY() {
         return "mob.skeleton.say";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.skeleton.hurt";
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.skeleton.death";
     }
 
@@ -67,7 +67,7 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
 
     public int c(Entity entity) {
         if (this.getSkeletonType() == 1) {
-            ItemStack itemstack = this.bC();
+            ItemStack itemstack = this.bD();
             int i = 4;
 
             if (itemstack != null) {
@@ -161,20 +161,20 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         }
     }
 
-    protected void bD() {
-        super.bD();
+    protected void bE() {
+        super.bE();
         this.setEquipment(0, new ItemStack(Item.BOW));
     }
 
-    public void bF() {
-        if (this.world.worldProvider instanceof WorldProviderHell && this.aA().nextInt(5) > 0) {
+    public void bG() {
+        if (this.world.worldProvider instanceof WorldProviderHell && this.aB().nextInt(5) > 0) {
             this.goalSelector.a(4, this.e);
             this.setSkeletonType(1);
             this.setEquipment(0, new ItemStack(Item.STONE_SWORD));
         } else {
             this.goalSelector.a(4, this.d);
-            this.bD();
             this.bE();
+            this.bF();
         }
 
         if (this.random.nextFloat() >= as[this.world.difficulty]) {
@@ -195,7 +195,7 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
     public void m() {
         this.goalSelector.a((PathfinderGoal) this.e);
         this.goalSelector.a((PathfinderGoal) this.d);
-        ItemStack itemstack = this.bC();
+        ItemStack itemstack = this.bD();
 
         if (itemstack != null && itemstack.id == Item.BOW.id) {
             this.goalSelector.a(4, this.d);
@@ -206,8 +206,8 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
 
     public void d(EntityLiving entityliving) {
         EntityArrow entityarrow = new EntityArrow(this.world, this, entityliving, 1.6F, 12.0F);
-        int i = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.bC());
-        int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.bC());
+        int i = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.bD());
+        int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.bD());
 
         if (i > 0) {
             entityarrow.b(entityarrow.c() + (double) i * 0.5D + 0.5D);
@@ -217,11 +217,11 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
             entityarrow.a(j);
         }
 
-        if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.bC()) > 0 || this.getSkeletonType() == 1) {
+        if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.bD()) > 0 || this.getSkeletonType() == 1) {
             entityarrow.setOnFire(100);
         }
 
-        this.makeSound("random.bow", 1.0F, 1.0F / (this.aA().nextFloat() * 0.4F + 0.8F));
+        this.makeSound("random.bow", 1.0F, 1.0F / (this.aB().nextFloat() * 0.4F + 0.8F));
         this.world.addEntity(entityarrow);
     }
 

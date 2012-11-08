@@ -18,7 +18,7 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
     }
 
     public boolean a() {
-        return this.a.isTamed() && !this.a.isSitting() && this.a.aA().nextDouble() <= 0.006500000134110451D && this.f();
+        return this.a.isTamed() && !this.a.isSitting() && this.a.aB().nextDouble() <= 0.006500000134110451D && this.f();
     }
 
     public boolean b() {
@@ -29,7 +29,7 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
         this.a.getNavigation().a((double) ((float) this.f) + 0.5D, (double) (this.g + 1), (double) ((float) this.h) + 0.5D, this.b);
         this.c = 0;
         this.d = 0;
-        this.e = this.a.aA().nextInt(this.a.aA().nextInt(1200) + 1200) + 1200;
+        this.e = this.a.aB().nextInt(this.a.aB().nextInt(1200) + 1200) + 1200;
         this.a.q().a(false);
     }
 

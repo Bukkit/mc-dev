@@ -342,10 +342,8 @@ public class EntityEnderDragon extends EntityLiving implements IComplex {
     }
 
     private void b(List list) {
-        Iterator iterator = list.iterator();
-
-        while (iterator.hasNext()) {
-            Entity entity = (Entity) iterator.next();
+        for (int i = 0; i < list.size(); ++i) {
+            Entity entity = (Entity) list.get(i);
 
             if (entity instanceof EntityLiving) {
                 entity.damageEntity(DamageSource.mobAttack(this), 10);
@@ -447,7 +445,7 @@ public class EntityEnderDragon extends EntityLiving implements IComplex {
         return super.damageEntity(damagesource, i);
     }
 
-    protected void aO() {
+    protected void aP() {
         ++this.bP;
         if (this.bP >= 180 && this.bP <= 200) {
             float f = (this.random.nextFloat() - 0.5F) * 8.0F;
@@ -534,7 +532,7 @@ public class EntityEnderDragon extends EntityLiving implements IComplex {
         BlockEnderPortal.a = false;
     }
 
-    protected void bj() {}
+    protected void bk() {}
 
     public Entity[] ao() {
         return this.children;
@@ -548,15 +546,15 @@ public class EntityEnderDragon extends EntityLiving implements IComplex {
         return this.world;
     }
 
-    protected String aX() {
+    protected String aY() {
         return "mob.enderdragon.growl";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.enderdragon.hit";
     }
 
-    protected float aW() {
+    protected float aX() {
         return 5.0F;
     }
 }

@@ -110,13 +110,44 @@ public class TileEntityChest extends TileEntity implements IInventory {
         return 64;
     }
 
-    public boolean a(EntityHuman entityhuman) {
+    public boolean a_(EntityHuman entityhuman) {
         return this.world.getTileEntity(this.x, this.y, this.z) != this ? false : entityhuman.e((double) this.x + 0.5D, (double) this.y + 0.5D, (double) this.z + 0.5D) <= 64.0D;
     }
 
     public void h() {
         super.h();
         this.a = false;
+    }
+
+    private void a(TileEntityChest tileentitychest, int i) {
+        if (tileentitychest.r()) {
+            this.a = false;
+        } else if (this.a) {
+            switch (i) {
+            case 0:
+                if (this.e != tileentitychest) {
+                    this.a = false;
+                }
+                break;
+
+            case 1:
+                if (this.d != tileentitychest) {
+                    this.a = false;
+                }
+                break;
+
+            case 2:
+                if (this.b != tileentitychest) {
+                    this.a = false;
+                }
+                break;
+
+            case 3:
+                if (this.c != tileentitychest) {
+                    this.a = false;
+                }
+            }
+        }
     }
 
     public void i() {
@@ -143,19 +174,19 @@ public class TileEntityChest extends TileEntity implements IInventory {
             }
 
             if (this.b != null) {
-                this.b.h();
+                this.b.a(this, 0);
             }
 
             if (this.e != null) {
-                this.e.h();
+                this.e.a(this, 2);
             }
 
             if (this.c != null) {
-                this.c.h();
+                this.c.a(this, 1);
             }
 
             if (this.d != null) {
-                this.d.h();
+                this.d.a(this, 3);
             }
         }
     }
@@ -175,8 +206,12 @@ public class TileEntityChest extends TileEntity implements IInventory {
             while (iterator.hasNext()) {
                 EntityHuman entityhuman = (EntityHuman) iterator.next();
 
-                if (entityhuman.activeContainer instanceof ContainerChest && ((ContainerChest) entityhuman.activeContainer).d() == this) {
-                    ++this.h;
+                if (entityhuman.activeContainer instanceof ContainerChest) {
+                    IInventory iinventory = ((ContainerChest) entityhuman.activeContainer).d();
+
+                    if (iinventory == this || iinventory instanceof InventoryLargeChest && ((InventoryLargeChest) iinventory).a(this)) {
+                        ++this.h;
+                    }
                 }
             }
         }
@@ -253,8 +288,8 @@ public class TileEntityChest extends TileEntity implements IInventory {
     }
 
     public void w_() {
+        super.w_();
         this.h();
         this.i();
-        super.w_();
     }
 }

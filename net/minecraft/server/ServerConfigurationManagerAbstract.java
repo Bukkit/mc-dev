@@ -117,10 +117,9 @@ public abstract class ServerConfigurationManagerAbstract {
 
         worldserver.addEntity(entityplayer);
         this.a(entityplayer, (WorldServer) null);
-        Iterator iterator = this.players.iterator();
 
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer1 = (EntityPlayer) iterator.next();
+        for (int i = 0; i < this.players.size(); ++i) {
+            EntityPlayer entityplayer1 = (EntityPlayer) this.players.get(i);
 
             entityplayer.netServerHandler.sendPacket(new Packet201PlayerInfo(entityplayer1.name, true, entityplayer1.ping));
         }
@@ -174,18 +173,17 @@ public abstract class ServerConfigurationManagerAbstract {
 
     public EntityPlayer processLogin(String s) {
         ArrayList arraylist = new ArrayList();
-        Iterator iterator = this.players.iterator();
 
         EntityPlayer entityplayer;
 
-        while (iterator.hasNext()) {
-            entityplayer = (EntityPlayer) iterator.next();
+        for (int i = 0; i < this.players.size(); ++i) {
+            entityplayer = (EntityPlayer) this.players.get(i);
             if (entityplayer.name.equalsIgnoreCase(s)) {
                 arraylist.add(entityplayer);
             }
         }
 
-        iterator = arraylist.iterator();
+        Iterator iterator = arraylist.iterator();
 
         while (iterator.hasNext()) {
             entityplayer = (EntityPlayer) iterator.next();
@@ -364,10 +362,8 @@ public abstract class ServerConfigurationManagerAbstract {
     }
 
     public void a(Packet packet, int i) {
-        Iterator iterator = this.players.iterator();
-
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
+        for (int j = 0; j < this.players.size(); ++j) {
+            EntityPlayer entityplayer = (EntityPlayer) this.players.get(j);
 
             if (entityplayer.dimension == i) {
                 entityplayer.netServerHandler.sendPacket(packet);
@@ -488,10 +484,8 @@ public abstract class ServerConfigurationManagerAbstract {
     }
 
     public void sendPacketNearby(EntityHuman entityhuman, double d0, double d1, double d2, double d3, int i, Packet packet) {
-        Iterator iterator = this.players.iterator();
-
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
+        for (int j = 0; j < this.players.size(); ++j) {
+            EntityPlayer entityplayer = (EntityPlayer) this.players.get(j);
 
             if (entityplayer != entityhuman && entityplayer.dimension == i) {
                 double d4 = d0 - entityplayer.locX;
@@ -506,12 +500,8 @@ public abstract class ServerConfigurationManagerAbstract {
     }
 
     public void savePlayers() {
-        Iterator iterator = this.players.iterator();
-
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
-
-            this.b(entityplayer);
+        for (int i = 0; i < this.players.size(); ++i) {
+            this.b((EntityPlayer) this.players.get(i));
         }
     }
 

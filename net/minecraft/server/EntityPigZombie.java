@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class EntityPigZombie extends EntityZombie {
@@ -15,14 +14,14 @@ public class EntityPigZombie extends EntityZombie {
         this.fireProof = true;
     }
 
-    protected boolean bd() {
+    protected boolean be() {
         return false;
     }
 
     public void j_() {
         this.bG = this.target != null ? 0.95F : 0.5F;
         if (this.soundDelay > 0 && --this.soundDelay == 0) {
-            this.makeSound("mob.zombiepig.zpigangry", this.aW() * 2.0F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+            this.makeSound("mob.zombiepig.zpigangry", this.aX() * 2.0F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
         super.j_();
@@ -54,10 +53,9 @@ public class EntityPigZombie extends EntityZombie {
 
             if (entity instanceof EntityHuman) {
                 List list = this.world.getEntities(this, this.boundingBox.grow(32.0D, 32.0D, 32.0D));
-                Iterator iterator = list.iterator();
 
-                while (iterator.hasNext()) {
-                    Entity entity1 = (Entity) iterator.next();
+                for (int j = 0; j < list.size(); ++j) {
+                    Entity entity1 = (Entity) list.get(j);
 
                     if (entity1 instanceof EntityPigZombie) {
                         EntityPigZombie entitypigzombie = (EntityPigZombie) entity1;
@@ -79,15 +77,15 @@ public class EntityPigZombie extends EntityZombie {
         this.soundDelay = this.random.nextInt(40);
     }
 
-    protected String aX() {
+    protected String aY() {
         return "mob.zombiepig.zpig";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.zombiepig.zpighurt";
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.zombiepig.zpigdeath";
     }
 
@@ -107,7 +105,7 @@ public class EntityPigZombie extends EntityZombie {
         }
     }
 
-    public boolean c(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         return false;
     }
 
@@ -119,17 +117,17 @@ public class EntityPigZombie extends EntityZombie {
         return Item.ROTTEN_FLESH.id;
     }
 
-    protected void bD() {
+    protected void bE() {
         this.setEquipment(0, new ItemStack(Item.GOLD_SWORD));
     }
 
-    public void bF() {
-        super.bF();
+    public void bG() {
+        super.bG();
         this.setVillager(false);
     }
 
     public int c(Entity entity) {
-        ItemStack itemstack = this.bC();
+        ItemStack itemstack = this.bD();
         int i = 5;
 
         if (itemstack != null) {

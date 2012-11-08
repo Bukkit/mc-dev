@@ -277,9 +277,9 @@ public class NetServerHandler extends NetHandler {
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
         if (packet14blockdig.e == 4) {
-            this.player.bQ();
+            this.player.bR();
         } else if (packet14blockdig.e == 5) {
-            this.player.bN();
+            this.player.bO();
         } else {
             boolean flag = worldserver.worldProvider.dimension != 0 || this.minecraftServer.getServerConfigurationManager().getOPs().isEmpty() || this.minecraftServer.getServerConfigurationManager().isOp(this.player.name) || this.minecraftServer.I();
             boolean flag1 = false;
@@ -517,7 +517,7 @@ public class NetServerHandler extends NetHandler {
 
     public void a(Packet18ArmAnimation packet18armanimation) {
         if (packet18armanimation.b == 1) {
-            this.player.bG();
+            this.player.bH();
         }
     }
 

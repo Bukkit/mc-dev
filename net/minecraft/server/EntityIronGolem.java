@@ -30,16 +30,16 @@ public class EntityIronGolem extends EntityGolem {
         this.datawatcher.a(16, Byte.valueOf((byte) 0));
     }
 
-    public boolean bd() {
+    public boolean be() {
         return true;
     }
 
-    protected void bl() {
+    protected void bm() {
         if (--this.e <= 0) {
             this.e = 70 + this.random.nextInt(50);
             this.d = this.world.villages.getClosestVillage(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ), 32);
             if (this.d == null) {
-                this.aK();
+                this.aL();
             } else {
                 ChunkCoordinates chunkcoordinates = this.d.getCenter();
 
@@ -47,7 +47,7 @@ public class EntityIronGolem extends EntityGolem {
             }
         }
 
-        super.bl();
+        super.bm();
     }
 
     public int getMaxHealth() {
@@ -59,7 +59,7 @@ public class EntityIronGolem extends EntityGolem {
     }
 
     protected void o(Entity entity) {
-        if (entity instanceof IMonster && this.aA().nextInt(20) == 0) {
+        if (entity instanceof IMonster && this.aB().nextInt(20) == 0) {
             this.b((EntityLiving) entity);
         }
 
@@ -83,7 +83,7 @@ public class EntityIronGolem extends EntityGolem {
             int l = this.world.getTypeId(i, j, k);
 
             if (l > 0) {
-                this.world.addParticle("tilecrack_" + l + "_", this.locX + ((double) this.random.nextFloat() - 0.5D) * (double) this.width, this.boundingBox.b + 0.1D, this.locZ + ((double) this.random.nextFloat() - 0.5D) * (double) this.width, 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
+                this.world.addParticle("tilecrack_" + l + "_" + this.world.getData(i, j, k), this.locX + ((double) this.random.nextFloat() - 0.5D) * (double) this.width, this.boundingBox.b + 0.1D, this.locZ + ((double) this.random.nextFloat() - 0.5D) * (double) this.width, 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
             }
         }
     }
@@ -124,15 +124,15 @@ public class EntityIronGolem extends EntityGolem {
         this.world.broadcastEntityEffect(this, (byte) 11);
     }
 
-    protected String aX() {
+    protected String aY() {
         return "none";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.irongolem.hit";
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.irongolem.death";
     }
 

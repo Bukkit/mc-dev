@@ -74,7 +74,7 @@ public class BlockTripwire extends Block {
 
     public void a(World world, int i, int j, int k, int l, EntityHuman entityhuman) {
         if (!world.isStatic) {
-            if (entityhuman.bS() != null && entityhuman.bS().id == Item.SHEARS.id) {
+            if (entityhuman.bT() != null && entityhuman.bT().id == Item.SHEARS.id) {
                 world.setData(i, j, k, l | 8);
             }
         }

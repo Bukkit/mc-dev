@@ -11,14 +11,14 @@ public class PathfinderGoalSwell extends PathfinderGoal {
     }
 
     public boolean a() {
-        EntityLiving entityliving = this.a.aF();
+        EntityLiving entityliving = this.a.aG();
 
         return this.a.o() > 0 || entityliving != null && this.a.e(entityliving) < 9.0D;
     }
 
     public void c() {
         this.a.getNavigation().g();
-        this.b = this.a.aF();
+        this.b = this.a.aG();
     }
 
     public void d() {
@@ -30,7 +30,7 @@ public class PathfinderGoalSwell extends PathfinderGoal {
             this.a.a(-1);
         } else if (this.a.e(this.b) > 49.0D) {
             this.a.a(-1);
-        } else if (!this.a.az().canSee(this.b)) {
+        } else if (!this.a.aA().canSee(this.b)) {
             this.a.a(-1);
         } else {
             this.a.a(1);

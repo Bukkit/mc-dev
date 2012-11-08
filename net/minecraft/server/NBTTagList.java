@@ -28,12 +28,9 @@ public class NBTTagList extends NBTBase {
 
         dataoutput.writeByte(this.type);
         dataoutput.writeInt(this.list.size());
-        Iterator iterator = this.list.iterator();
 
-        while (iterator.hasNext()) {
-            NBTBase nbtbase = (NBTBase) iterator.next();
-
-            nbtbase.write(dataoutput);
+        for (int i = 0; i < this.list.size(); ++i) {
+            ((NBTBase) this.list.get(i)).write(dataoutput);
         }
     }
 

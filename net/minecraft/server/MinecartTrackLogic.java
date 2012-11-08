@@ -1,7 +1,6 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 class MinecartTrackLogic {
@@ -91,35 +90,27 @@ class MinecartTrackLogic {
     }
 
     private boolean b(MinecartTrackLogic minecarttracklogic) {
-        Iterator iterator = this.g.iterator();
+        for (int i = 0; i < this.g.size(); ++i) {
+            ChunkPosition chunkposition = (ChunkPosition) this.g.get(i);
 
-        ChunkPosition chunkposition;
-
-        do {
-            if (!iterator.hasNext()) {
-                return false;
+            if (chunkposition.x == minecarttracklogic.c && chunkposition.z == minecarttracklogic.e) {
+                return true;
             }
+        }
 
-            chunkposition = (ChunkPosition) iterator.next();
-        } while (chunkposition.x != minecarttracklogic.c || chunkposition.z != minecarttracklogic.e);
-
-        return true;
+        return false;
     }
 
     private boolean b(int i, int j, int k) {
-        Iterator iterator = this.g.iterator();
+        for (int l = 0; l < this.g.size(); ++l) {
+            ChunkPosition chunkposition = (ChunkPosition) this.g.get(l);
 
-        ChunkPosition chunkposition;
-
-        do {
-            if (!iterator.hasNext()) {
-                return false;
+            if (chunkposition.x == i && chunkposition.z == k) {
+                return true;
             }
+        }
 
-            chunkposition = (ChunkPosition) iterator.next();
-        } while (chunkposition.x != i || chunkposition.z != k);
-
-        return true;
+        return false;
     }
 
     private int b() {
@@ -348,11 +339,9 @@ class MinecartTrackLogic {
 
         if (flag1 || this.b.getData(this.c, this.d, this.e) != i) {
             this.b.setData(this.c, this.d, this.e, i);
-            Iterator iterator = this.g.iterator();
 
-            while (iterator.hasNext()) {
-                ChunkPosition chunkposition = (ChunkPosition) iterator.next();
-                MinecartTrackLogic minecarttracklogic = this.a(chunkposition);
+            for (int j = 0; j < this.g.size(); ++j) {
+                MinecartTrackLogic minecarttracklogic = this.a((ChunkPosition) this.g.get(j));
 
                 if (minecarttracklogic != null) {
                     minecarttracklogic.a();

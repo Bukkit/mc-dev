@@ -19,13 +19,9 @@ public class NBTTagIntArray extends NBTBase {
 
     void write(DataOutput dataoutput) {
         dataoutput.writeInt(this.data.length);
-        int[] aint = this.data;
-        int i = aint.length;
 
-        for (int j = 0; j < i; ++j) {
-            int k = aint[j];
-
-            dataoutput.writeInt(k);
+        for (int i = 0; i < this.data.length; ++i) {
+            dataoutput.writeInt(this.data[i]);
         }
     }
 

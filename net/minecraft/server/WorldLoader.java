@@ -82,11 +82,8 @@ public class WorldLoader implements Convertable {
     }
 
     protected static boolean a(File[] afile) {
-        File[] afile1 = afile;
-        int i = afile.length;
-
-        for (int j = 0; j < i; ++j) {
-            File file1 = afile1[j];
+        for (int i = 0; i < afile.length; ++i) {
+            File file1 = afile[i];
 
             System.out.println("Deleting " + file1);
             if (file1.isDirectory() && !a(file1.listFiles())) {

@@ -105,20 +105,20 @@ public class VillageCollection extends WorldMapBase {
     }
 
     private void g() {
-        Iterator iterator = this.c.iterator();
+        int i = 0;
 
-        while (iterator.hasNext()) {
-            VillageDoor villagedoor = (VillageDoor) iterator.next();
+        while (i < this.c.size()) {
+            VillageDoor villagedoor = (VillageDoor) this.c.get(i);
             boolean flag = false;
-            Iterator iterator1 = this.villages.iterator();
+            Iterator iterator = this.villages.iterator();
 
             while (true) {
-                if (iterator1.hasNext()) {
-                    Village village = (Village) iterator1.next();
-                    int i = (int) village.getCenter().e(villagedoor.locX, villagedoor.locY, villagedoor.locZ);
-                    int j = 32 + village.getSize();
+                if (iterator.hasNext()) {
+                    Village village = (Village) iterator.next();
+                    int j = (int) village.getCenter().e(villagedoor.locX, villagedoor.locY, villagedoor.locZ);
+                    int k = 32 + village.getSize();
 
-                    if (i > j * j) {
+                    if (j > k * k) {
                         continue;
                     }
 
@@ -133,6 +133,8 @@ public class VillageCollection extends WorldMapBase {
                     this.villages.add(village1);
                     this.c();
                 }
+
+                ++i;
                 break;
             }
         }

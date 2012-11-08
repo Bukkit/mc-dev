@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class EntityArrow extends Entity implements IProjectile {
@@ -160,12 +159,12 @@ public class EntityArrow extends Entity implements IProjectile {
             Entity entity = null;
             List list = this.world.getEntities(this, this.boundingBox.a(this.motX, this.motY, this.motZ).grow(1.0D, 1.0D, 1.0D));
             double d0 = 0.0D;
-            Iterator iterator = list.iterator();
 
+            int l;
             float f1;
 
-            while (iterator.hasNext()) {
-                Entity entity1 = (Entity) iterator.next();
+            for (l = 0; l < list.size(); ++l) {
+                Entity entity1 = (Entity) list.get(l);
 
                 if (entity1.L() && (entity1 != this.shooter || this.as >= 5)) {
                     f1 = 0.3F;
@@ -192,10 +191,10 @@ public class EntityArrow extends Entity implements IProjectile {
             if (movingobjectposition != null) {
                 if (movingobjectposition.entity != null) {
                     f2 = MathHelper.sqrt(this.motX * this.motX + this.motY * this.motY + this.motZ * this.motZ);
-                    int l = MathHelper.f((double) f2 * this.damage);
+                    int i1 = MathHelper.f((double) f2 * this.damage);
 
                     if (this.d()) {
-                        l += this.random.nextInt(l / 2 + 2);
+                        i1 += this.random.nextInt(i1 / 2 + 2);
                     }
 
                     DamageSource damagesource = null;
@@ -210,12 +209,12 @@ public class EntityArrow extends Entity implements IProjectile {
                         movingobjectposition.entity.setOnFire(5);
                     }
 
-                    if (movingobjectposition.entity.damageEntity(damagesource, l)) {
+                    if (movingobjectposition.entity.damageEntity(damagesource, i1)) {
                         if (movingobjectposition.entity instanceof EntityLiving) {
                             if (!this.world.isStatic) {
                                 EntityLiving entityliving = (EntityLiving) movingobjectposition.entity;
 
-                                entityliving.r(entityliving.bI() + 1);
+                                entityliving.r(entityliving.bJ() + 1);
                             }
 
                             if (this.au > 0) {
@@ -261,8 +260,8 @@ public class EntityArrow extends Entity implements IProjectile {
             }
 
             if (this.d()) {
-                for (int i1 = 0; i1 < 4; ++i1) {
-                    this.world.addParticle("crit", this.locX + this.motX * (double) i1 / 4.0D, this.locY + this.motY * (double) i1 / 4.0D, this.locZ + this.motZ * (double) i1 / 4.0D, -this.motX, -this.motY + 0.2D, -this.motZ);
+                for (l = 0; l < 4; ++l) {
+                    this.world.addParticle("crit", this.locX + this.motX * (double) l / 4.0D, this.locY + this.motY * (double) l / 4.0D, this.locZ + this.motZ * (double) l / 4.0D, -this.motX, -this.motY + 0.2D, -this.motZ);
                 }
             }
 
@@ -343,7 +342,7 @@ public class EntityArrow extends Entity implements IProjectile {
         }
     }
 
-    public void b_(EntityHuman entityhuman) {
+    public void c_(EntityHuman entityhuman) {
         if (!this.world.isStatic && this.inGround && this.shake <= 0) {
             boolean flag = this.fromPlayer == 1 || this.fromPlayer == 2 && entityhuman.abilities.canInstantlyBuild;
 

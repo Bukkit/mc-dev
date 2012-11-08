@@ -1,7 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Iterator;
-
 public class ContainerBrewingStand extends Container {
 
     private TileEntityBrewingStand brewingStand;
@@ -35,10 +33,9 @@ public class ContainerBrewingStand extends Container {
 
     public void b() {
         super.b();
-        Iterator iterator = this.listeners.iterator();
 
-        while (iterator.hasNext()) {
-            ICrafting icrafting = (ICrafting) iterator.next();
+        for (int i = 0; i < this.listeners.size(); ++i) {
+            ICrafting icrafting = (ICrafting) this.listeners.get(i);
 
             if (this.g != this.brewingStand.x_()) {
                 icrafting.setContainerData(this, 0, this.brewingStand.x_());
@@ -49,7 +46,7 @@ public class ContainerBrewingStand extends Container {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.brewingStand.a(entityhuman);
+        return this.brewingStand.a_(entityhuman);
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {

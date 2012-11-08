@@ -355,12 +355,8 @@ public abstract class World implements IBlockAccess {
     }
 
     public void notify(int i, int j, int k) {
-        Iterator iterator = this.w.iterator();
-
-        while (iterator.hasNext()) {
-            IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
-
-            iworldaccess.a(i, j, k);
+        for (int l = 0; l < this.w.size(); ++l) {
+            ((IWorldAccess) this.w.get(l)).a(i, j, k);
         }
     }
 
@@ -387,22 +383,14 @@ public abstract class World implements IBlockAccess {
     }
 
     public void j(int i, int j, int k) {
-        Iterator iterator = this.w.iterator();
-
-        while (iterator.hasNext()) {
-            IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
-
-            iworldaccess.a(i, j, k, i, j, k);
+        for (int l = 0; l < this.w.size(); ++l) {
+            ((IWorldAccess) this.w.get(l)).a(i, j, k, i, j, k);
         }
     }
 
     public void e(int i, int j, int k, int l, int i1, int j1) {
-        Iterator iterator = this.w.iterator();
-
-        while (iterator.hasNext()) {
-            IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
-
-            iworldaccess.a(i, j, k, l, i1, j1);
+        for (int k1 = 0; k1 < this.w.size(); ++k1) {
+            ((IWorldAccess) this.w.get(k1)).a(i, j, k, l, i1, j1);
         }
     }
 
@@ -574,12 +562,9 @@ public abstract class World implements IBlockAccess {
                         Chunk chunk = this.getChunkAt(i >> 4, k >> 4);
 
                         chunk.a(enumskyblock, i & 15, j, k & 15, l);
-                        Iterator iterator = this.w.iterator();
 
-                        while (iterator.hasNext()) {
-                            IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
-
-                            iworldaccess.b(i, j, k);
+                        for (int i1 = 0; i1 < this.w.size(); ++i1) {
+                            ((IWorldAccess) this.w.get(i1)).b(i, j, k);
                         }
                     }
                 }
@@ -588,12 +573,8 @@ public abstract class World implements IBlockAccess {
     }
 
     public void o(int i, int j, int k) {
-        Iterator iterator = this.w.iterator();
-
-        while (iterator.hasNext()) {
-            IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
-
-            iworldaccess.b(i, j, k);
+        for (int l = 0; l < this.w.size(); ++l) {
+            ((IWorldAccess) this.w.get(l)).b(i, j, k);
         }
     }
 
@@ -774,36 +755,24 @@ public abstract class World implements IBlockAccess {
 
     public void makeSound(Entity entity, String s, float f, float f1) {
         if (entity != null && s != null) {
-            Iterator iterator = this.w.iterator();
-
-            while (iterator.hasNext()) {
-                IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
-
-                iworldaccess.a(s, entity.locX, entity.locY - (double) entity.height, entity.locZ, f, f1);
+            for (int i = 0; i < this.w.size(); ++i) {
+                ((IWorldAccess) this.w.get(i)).a(s, entity.locX, entity.locY - (double) entity.height, entity.locZ, f, f1);
             }
         }
     }
 
     public void a(EntityHuman entityhuman, String s, float f, float f1) {
         if (entityhuman != null && s != null) {
-            Iterator iterator = this.w.iterator();
-
-            while (iterator.hasNext()) {
-                IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
-
-                iworldaccess.a(entityhuman, s, entityhuman.locX, entityhuman.locY - (double) entityhuman.height, entityhuman.locZ, f, f1);
+            for (int i = 0; i < this.w.size(); ++i) {
+                ((IWorldAccess) this.w.get(i)).a(entityhuman, s, entityhuman.locX, entityhuman.locY - (double) entityhuman.height, entityhuman.locZ, f, f1);
             }
         }
     }
 
     public void makeSound(double d0, double d1, double d2, String s, float f, float f1) {
         if (s != null) {
-            Iterator iterator = this.w.iterator();
-
-            while (iterator.hasNext()) {
-                IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
-
-                iworldaccess.a(s, d0, d1, d2, f, f1);
+            for (int i = 0; i < this.w.size(); ++i) {
+                ((IWorldAccess) this.w.get(i)).a(s, d0, d1, d2, f, f1);
             }
         }
     }
@@ -811,22 +780,14 @@ public abstract class World implements IBlockAccess {
     public void b(double d0, double d1, double d2, String s, float f, float f1) {}
 
     public void a(String s, int i, int j, int k) {
-        Iterator iterator = this.w.iterator();
-
-        while (iterator.hasNext()) {
-            IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
-
-            iworldaccess.a(s, i, j, k);
+        for (int l = 0; l < this.w.size(); ++l) {
+            ((IWorldAccess) this.w.get(l)).a(s, i, j, k);
         }
     }
 
     public void addParticle(String s, double d0, double d1, double d2, double d3, double d4, double d5) {
-        Iterator iterator = this.w.iterator();
-
-        while (iterator.hasNext()) {
-            IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
-
-            iworldaccess.a(s, d0, d1, d2, d3, d4, d5);
+        for (int i = 0; i < this.w.size(); ++i) {
+            ((IWorldAccess) this.w.get(i)).a(s, d0, d1, d2, d3, d4, d5);
         }
     }
 
@@ -862,22 +823,14 @@ public abstract class World implements IBlockAccess {
     }
 
     protected void a(Entity entity) {
-        Iterator iterator = this.w.iterator();
-
-        while (iterator.hasNext()) {
-            IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
-
-            iworldaccess.a(entity);
+        for (int i = 0; i < this.w.size(); ++i) {
+            ((IWorldAccess) this.w.get(i)).a(entity);
         }
     }
 
     protected void b(Entity entity) {
-        Iterator iterator = this.w.iterator();
-
-        while (iterator.hasNext()) {
-            IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
-
-            iworldaccess.b(entity);
+        for (int i = 0; i < this.w.size(); ++i) {
+            ((IWorldAccess) this.w.get(i)).b(entity);
         }
     }
 
@@ -944,17 +897,15 @@ public abstract class World implements IBlockAccess {
 
         double d0 = 0.25D;
         List list = this.getEntities(entity, axisalignedbb.grow(d0, d0, d0));
-        Iterator iterator = list.iterator();
 
-        while (iterator.hasNext()) {
-            Entity entity1 = (Entity) iterator.next();
-            AxisAlignedBB axisalignedbb1 = entity1.E();
+        for (int j2 = 0; j2 < list.size(); ++j2) {
+            AxisAlignedBB axisalignedbb1 = ((Entity) list.get(j2)).E();
 
             if (axisalignedbb1 != null && axisalignedbb1.a(axisalignedbb)) {
                 this.M.add(axisalignedbb1);
             }
 
-            axisalignedbb1 = entity.g(entity1);
+            axisalignedbb1 = entity.g((Entity) list.get(j2));
             if (axisalignedbb1 != null && axisalignedbb1.a(axisalignedbb)) {
                 this.M.add(axisalignedbb1);
             }
@@ -1072,13 +1023,12 @@ public abstract class World implements IBlockAccess {
 
         this.methodProfiler.c("remove");
         this.entityList.removeAll(this.f);
-        Iterator iterator = this.f.iterator();
 
         int j;
         int k;
 
-        while (iterator.hasNext()) {
-            entity = (Entity) iterator.next();
+        for (i = 0; i < this.f.size(); ++i) {
+            entity = (Entity) this.f.get(i);
             j = entity.ai;
             k = entity.ak;
             if (entity.ah && this.isChunkLoaded(j, k)) {
@@ -1086,11 +1036,8 @@ public abstract class World implements IBlockAccess {
             }
         }
 
-        iterator = this.f.iterator();
-
-        while (iterator.hasNext()) {
-            entity = (Entity) iterator.next();
-            this.b(entity);
+        for (i = 0; i < this.f.size(); ++i) {
+            this.b((Entity) this.f.get(i));
         }
 
         this.f.clear();
@@ -1142,7 +1089,7 @@ public abstract class World implements IBlockAccess {
 
         this.methodProfiler.c("tileEntities");
         this.N = true;
-        iterator = this.tileEntityList.iterator();
+        Iterator iterator = this.tileEntityList.iterator();
 
         while (iterator.hasNext()) {
             TileEntity tileentity = (TileEntity) iterator.next();
@@ -1183,10 +1130,8 @@ public abstract class World implements IBlockAccess {
 
         this.methodProfiler.c("pendingTileEntities");
         if (!this.a.isEmpty()) {
-            Iterator iterator1 = this.a.iterator();
-
-            while (iterator1.hasNext()) {
-                TileEntity tileentity1 = (TileEntity) iterator1.next();
+            for (int l = 0; l < this.a.size(); ++l) {
+                TileEntity tileentity1 = (TileEntity) this.a.get(l);
 
                 if (!tileentity1.r()) {
                     if (!this.tileEntityList.contains(tileentity1)) {
@@ -1299,19 +1244,16 @@ public abstract class World implements IBlockAccess {
 
     public boolean a(AxisAlignedBB axisalignedbb, Entity entity) {
         List list = this.getEntities((Entity) null, axisalignedbb);
-        Iterator iterator = list.iterator();
 
-        Entity entity1;
+        for (int i = 0; i < list.size(); ++i) {
+            Entity entity1 = (Entity) list.get(i);
 
-        do {
-            if (!iterator.hasNext()) {
-                return true;
+            if (!entity1.dead && entity1.m && entity1 != entity) {
+                return false;
             }
+        }
 
-            entity1 = (Entity) iterator.next();
-        } while (entity1.dead || !entity1.m || entity1 == entity);
-
-        return false;
+        return true;
     }
 
     public boolean c(AxisAlignedBB axisalignedbb) {
@@ -1594,10 +1536,8 @@ public abstract class World implements IBlockAccess {
                 TileEntity tileentity = chunk.e(i & 15, j, k & 15);
 
                 if (tileentity == null) {
-                    Iterator iterator = this.a.iterator();
-
-                    while (iterator.hasNext()) {
-                        TileEntity tileentity1 = (TileEntity) iterator.next();
+                    for (int l = 0; l < this.a.size(); ++l) {
+                        TileEntity tileentity1 = (TileEntity) this.a.get(l);
 
                         if (!tileentity1.r() && tileentity1.x == i && tileentity1.y == j && tileentity1.z == k) {
                             tileentity = tileentity1;
@@ -2247,10 +2187,9 @@ public abstract class World implements IBlockAccess {
         List list = this.a(oclass, axisalignedbb);
         Entity entity1 = null;
         double d0 = Double.MAX_VALUE;
-        Iterator iterator = list.iterator();
 
-        while (iterator.hasNext()) {
-            Entity entity2 = (Entity) iterator.next();
+        for (int i = 0; i < list.size(); ++i) {
+            Entity entity2 = (Entity) list.get(i);
 
             if (entity2 != entity) {
                 double d1 = entity.e(entity2);
@@ -2423,7 +2362,7 @@ public abstract class World implements IBlockAccess {
                 }
 
                 if (entityhuman1.isInvisible()) {
-                    float f = entityhuman1.bR();
+                    float f = entityhuman1.bS();
 
                     if (f < 0.1F) {
                         f = 0.1F;
@@ -2610,10 +2549,8 @@ public abstract class World implements IBlockAccess {
     }
 
     public void g(int i, int j, int k, int l, int i1) {
-        Iterator iterator = this.w.iterator();
-
-        while (iterator.hasNext()) {
-            IWorldAccess iworldaccess = (IWorldAccess) iterator.next();
+        for (int j1 = 0; j1 < this.w.size(); ++j1) {
+            IWorldAccess iworldaccess = (IWorldAccess) this.w.get(j1);
 
             iworldaccess.b(i, j, k, l, i1);
         }

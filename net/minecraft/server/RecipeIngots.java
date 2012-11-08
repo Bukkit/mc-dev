@@ -9,13 +9,9 @@ public class RecipeIngots {
     }
 
     public void a(CraftingManager craftingmanager) {
-        Object[][] aobject = this.a;
-        int i = aobject.length;
-
-        for (int j = 0; j < i; ++j) {
-            Object[] aobject1 = aobject[j];
-            Block block = (Block) aobject1[0];
-            ItemStack itemstack = (ItemStack) aobject1[1];
+        for (int i = 0; i < this.a.length; ++i) {
+            Block block = (Block) this.a[i][0];
+            ItemStack itemstack = (ItemStack) this.a[i][1];
 
             craftingmanager.registerShapedRecipe(new ItemStack(block), new Object[] { "###", "###", "###", Character.valueOf('#'), itemstack});
             craftingmanager.registerShapedRecipe(itemstack, new Object[] { "#", Character.valueOf('#'), block});

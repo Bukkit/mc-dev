@@ -2,7 +2,6 @@ package net.minecraft.server;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
@@ -45,10 +44,9 @@ public class BlockRedstoneWire extends Block {
         ArrayList arraylist = new ArrayList(this.b);
 
         this.b.clear();
-        Iterator iterator = arraylist.iterator();
 
-        while (iterator.hasNext()) {
-            ChunkPosition chunkposition = (ChunkPosition) iterator.next();
+        for (int l = 0; l < arraylist.size(); ++l) {
+            ChunkPosition chunkposition = (ChunkPosition) arraylist.get(l);
 
             world.applyPhysics(chunkposition.x, chunkposition.y, chunkposition.z, this.id);
         }

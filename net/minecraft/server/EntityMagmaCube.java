@@ -13,7 +13,7 @@ public class EntityMagmaCube extends EntitySlime {
         return this.world.difficulty > 0 && this.world.b(this.boundingBox) && this.world.getCubes(this, this.boundingBox).isEmpty() && !this.world.containsLiquid(this.boundingBox);
     }
 
-    public int aV() {
+    public int aW() {
         return this.getSize() * 3;
     }
 
@@ -61,7 +61,7 @@ public class EntityMagmaCube extends EntitySlime {
         this.b *= 0.9F;
     }
 
-    protected void bh() {
+    protected void bi() {
         this.motY = (double) (0.42F + (float) this.getSize() * 0.1F);
         this.am = true;
     }
@@ -76,11 +76,11 @@ public class EntityMagmaCube extends EntitySlime {
         return super.m() + 2;
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.slime." + (this.getSize() > 1 ? "big" : "small");
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.slime." + (this.getSize() > 1 ? "big" : "small");
     }
 

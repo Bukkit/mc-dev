@@ -25,15 +25,15 @@ public class EntitySilverfish extends EntityMonster {
         return this.world.findNearbyVulnerablePlayer(this, d0);
     }
 
-    protected String aX() {
+    protected String aY() {
         return "mob.silverfish.say";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.silverfish.hit";
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.silverfish.kill";
     }
 
@@ -69,8 +69,8 @@ public class EntitySilverfish extends EntityMonster {
         super.j_();
     }
 
-    protected void bm() {
-        super.bm();
+    protected void bn() {
+        super.bn();
         if (!this.world.isStatic) {
             int i;
             int j;
@@ -114,7 +114,7 @@ public class EntitySilverfish extends EntityMonster {
                 l = this.world.getTypeId(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1]);
                 if (BlockMonsterEggs.e(l)) {
                     this.world.setTypeIdAndData(i + Facing.b[l1], j + Facing.c[l1], k + Facing.d[l1], Block.MONSTER_EGGS.id, BlockMonsterEggs.f(l));
-                    this.aQ();
+                    this.aR();
                     this.die();
                 } else {
                     this.i();

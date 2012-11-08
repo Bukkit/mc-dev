@@ -66,19 +66,19 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
         this.datawatcher.a(18, Integer.valueOf(0));
     }
 
-    public boolean bL() {
+    public boolean bM() {
         return this.f != null;
     }
 
-    public void bN() {
+    public void bO() {
         if (this.f != null) {
             this.f.b(this.world, this, this.g);
         }
 
-        this.bO();
+        this.bP();
     }
 
-    public void bO() {
+    public void bP() {
         this.f = null;
         this.g = 0;
         if (!this.world.isStatic) {
@@ -86,8 +86,8 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
         }
     }
 
-    public boolean bg() {
-        return this.bL() && Item.byId[this.f.id].d_(this.f) == EnumAnimation.d;
+    public boolean bh() {
+        return this.bM() && Item.byId[this.f.id].d_(this.f) == EnumAnimation.d;
     }
 
     public void j_() {
@@ -103,7 +103,7 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
                     this.n();
                 }
             } else {
-                this.bO();
+                this.bP();
             }
         }
 
@@ -234,11 +234,11 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
                 }
             }
 
-            this.bO();
+            this.bP();
         }
     }
 
-    protected boolean bf() {
+    protected boolean bg() {
         return this.getHealth() <= 0 || this.isSleeping();
     }
 
@@ -264,8 +264,8 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
         }
     }
 
-    protected void bm() {
-        this.bn();
+    protected void bn() {
+        this.bo();
     }
 
     public void c() {
@@ -308,10 +308,8 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
             List list = this.world.getEntities(this, this.boundingBox.grow(1.0D, 0.5D, 1.0D));
 
             if (list != null) {
-                Iterator iterator = list.iterator();
-
-                while (iterator.hasNext()) {
-                    Entity entity = (Entity) iterator.next();
+                for (int i = 0; i < list.size(); ++i) {
+                    Entity entity = (Entity) list.get(i);
 
                     if (!entity.dead) {
                         this.r(entity);
@@ -322,7 +320,7 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
     }
 
     private void r(Entity entity) {
-        entity.b_(this);
+        entity.c_(this);
     }
 
     public int getScore() {
@@ -372,7 +370,7 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
         }
     }
 
-    public EntityItem bQ() {
+    public EntityItem bR() {
         return this.a(this.inventory.splitStack(this.inventory.itemInHandIndex, 1), false);
     }
 
@@ -624,11 +622,11 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
         this.inventory.g(i);
     }
 
-    public int aV() {
+    public int aW() {
         return this.inventory.k();
     }
 
-    public float bR() {
+    public float bS() {
         int i = 0;
         ItemStack[] aitemstack = this.inventory.armor;
         int j = aitemstack.length;
@@ -646,7 +644,7 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
 
     protected void d(DamageSource damagesource, int i) {
         if (!this.isInvulnerable()) {
-            if (!damagesource.ignoresArmor() && this.bg()) {
+            if (!damagesource.ignoresArmor() && this.bh()) {
                 i = 1 + i >> 1;
             }
 
@@ -672,10 +670,10 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
     public void d(ItemStack itemstack) {}
 
     public boolean p(Entity entity) {
-        if (entity.c(this)) {
+        if (entity.a(this)) {
             return true;
         } else {
-            ItemStack itemstack = this.bS();
+            ItemStack itemstack = this.bT();
 
             if (itemstack != null && entity instanceof EntityLiving) {
                 if (this.abilities.canInstantlyBuild) {
@@ -684,7 +682,7 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
 
                 if (itemstack.a((EntityLiving) entity)) {
                     if (itemstack.count <= 0 && !this.abilities.canInstantlyBuild) {
-                        this.bT();
+                        this.bU();
                     }
 
                     return true;
@@ -695,11 +693,11 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
         }
     }
 
-    public ItemStack bS() {
+    public ItemStack bT() {
         return this.inventory.getItemInHand();
     }
 
-    public void bT() {
+    public void bU() {
         this.inventory.setItem(this.inventory.itemInHandIndex, (ItemStack) null);
     }
 
@@ -740,9 +738,17 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
                     }
 
                     i += k;
-                    boolean flag1 = entity.damageEntity(DamageSource.playerAttack(this), i);
+                    boolean flag1 = false;
+                    int l = EnchantmentManager.getFireAspectEnchantmentLevel(this);
 
-                    if (flag1) {
+                    if (entity instanceof EntityLiving && l > 0 && !entity.isBurning()) {
+                        flag1 = true;
+                        entity.setOnFire(1);
+                    }
+
+                    boolean flag2 = entity.damageEntity(DamageSource.playerAttack(this), i);
+
+                    if (flag2) {
                         if (j > 0) {
                             entity.g((double) (-MathHelper.sin(this.yaw * 3.1415927F / 180.0F) * (float) j * 0.5F), 0.1D, (double) (MathHelper.cos(this.yaw * 3.1415927F / 180.0F) * (float) j * 0.5F));
                             this.motX *= 0.6D;
@@ -765,12 +771,12 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
                         this.l(entity);
                     }
 
-                    ItemStack itemstack = this.bS();
+                    ItemStack itemstack = this.bT();
 
                     if (itemstack != null && entity instanceof EntityLiving) {
                         itemstack.a((EntityLiving) entity, this);
                         if (itemstack.count <= 0) {
-                            this.bT();
+                            this.bU();
                         }
                     }
 
@@ -780,10 +786,10 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
                         }
 
                         this.a(StatisticList.w, i);
-                        int l = EnchantmentManager.getFireAspectEnchantmentLevel(this, (EntityLiving) entity);
-
-                        if (l > 0 && flag1) {
+                        if (l > 0 && flag2) {
                             entity.setOnFire(l * 4);
+                        } else if (flag1) {
+                            entity.extinguish();
                         }
                     }
 
@@ -809,7 +815,7 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
         return !this.sleeping && super.inBlock();
     }
 
-    public boolean bV() {
+    public boolean bW() {
         return false;
     }
 
@@ -1004,8 +1010,8 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
 
     public void a(Statistic statistic, int i) {}
 
-    protected void bh() {
-        super.bh();
+    protected void bi() {
+        super.bi();
         this.a(StatisticList.u, 1);
         if (this.isSprinting()) {
             this.j(0.8F);
@@ -1120,9 +1126,9 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
         return this.inventory.f(i);
     }
 
-    protected void bD() {}
-
     protected void bE() {}
+
+    protected void bF() {}
 
     public void giveExp(int i) {
         this.addScore(i);
@@ -1174,7 +1180,7 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
         return (flag || this.foodData.c()) && !this.abilities.isInvulnerable;
     }
 
-    public boolean cd() {
+    public boolean ce() {
         return this.getHealth() > 0 && this.getHealth() < this.getMaxHealth();
     }
 
@@ -1201,8 +1207,8 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
                     return true;
                 }
 
-                if (this.bS() != null) {
-                    ItemStack itemstack = this.bS();
+                if (this.bT() != null) {
+                    ItemStack itemstack = this.bT();
 
                     if (itemstack.b(block) || itemstack.a(block) > 1.0F) {
                         return true;
@@ -1285,7 +1291,7 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
         return i == 0 ? this.inventory.getItemInHand() : this.inventory.armor[i - 1];
     }
 
-    public ItemStack bC() {
+    public ItemStack bD() {
         return this.inventory.getItemInHand();
     }
 

@@ -19,13 +19,8 @@ public class ItemTool extends Item {
     }
 
     public float getDestroySpeed(ItemStack itemstack, Block block) {
-        Block[] ablock = this.c;
-        int i = ablock.length;
-
-        for (int j = 0; j < i; ++j) {
-            Block block1 = ablock[j];
-
-            if (block1 == block) {
+        for (int i = 0; i < this.c.length; ++i) {
+            if (this.c[i] == block) {
                 return this.a;
             }
         }

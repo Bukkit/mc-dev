@@ -96,7 +96,7 @@ public class ContainerMerchant extends Container {
 
     public void b(EntityHuman entityhuman) {
         super.b(entityhuman);
-        this.merchant.a_((EntityHuman) null);
+        this.merchant.b_((EntityHuman) null);
         super.b(entityhuman);
         if (!this.g.isStatic) {
             ItemStack itemstack = this.f.splitWithoutUpdate(0);

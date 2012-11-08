@@ -18,7 +18,7 @@ public interface IInventory {
 
     void update();
 
-    boolean a(EntityHuman entityhuman);
+    boolean a_(EntityHuman entityhuman);
 
     void startOpen();
 

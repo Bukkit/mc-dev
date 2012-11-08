@@ -8,6 +8,7 @@ public class BlockEnderChest extends BlockContainer {
         super(i, Material.STONE);
         this.textureId = 37;
         this.a(CreativeModeTab.c);
+        this.a(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
     }
 
     public boolean c() {

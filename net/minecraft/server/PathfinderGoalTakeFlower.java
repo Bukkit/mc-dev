@@ -47,7 +47,7 @@ public class PathfinderGoalTakeFlower extends PathfinderGoal {
     }
 
     public void c() {
-        this.c = this.a.aA().nextInt(320);
+        this.c = this.a.aB().nextInt(320);
         this.d = false;
         this.b.getNavigation().g();
     }

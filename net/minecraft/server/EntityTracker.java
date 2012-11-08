@@ -134,18 +134,15 @@ public class EntityTracker {
             }
         }
 
-        iterator = arraylist.iterator();
-
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
-            EntityPlayer entityplayer1 = entityplayer;
+        for (int i = 0; i < arraylist.size(); ++i) {
+            EntityPlayer entityplayer = (EntityPlayer) arraylist.get(i);
             Iterator iterator1 = this.b.iterator();
 
             while (iterator1.hasNext()) {
                 EntityTrackerEntry entitytrackerentry1 = (EntityTrackerEntry) iterator1.next();
 
-                if (entitytrackerentry1.tracker != entityplayer1) {
-                    entitytrackerentry1.updatePlayer(entityplayer1);
+                if (entitytrackerentry1.tracker != entityplayer) {
+                    entitytrackerentry1.updatePlayer(entityplayer);
                 }
             }
         }

@@ -1,7 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Iterator;
-
 public class ContainerFurnace extends Container {
 
     private TileEntityFurnace furnace;
@@ -37,10 +35,9 @@ public class ContainerFurnace extends Container {
 
     public void b() {
         super.b();
-        Iterator iterator = this.listeners.iterator();
 
-        while (iterator.hasNext()) {
-            ICrafting icrafting = (ICrafting) iterator.next();
+        for (int i = 0; i < this.listeners.size(); ++i) {
+            ICrafting icrafting = (ICrafting) this.listeners.get(i);
 
             if (this.f != this.furnace.cookTime) {
                 icrafting.setContainerData(this, 0, this.furnace.cookTime);
@@ -61,7 +58,7 @@ public class ContainerFurnace extends Container {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.furnace.a(entityhuman);
+        return this.furnace.a_(entityhuman);
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {

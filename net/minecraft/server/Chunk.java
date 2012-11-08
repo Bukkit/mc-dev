@@ -631,13 +631,9 @@ public class Chunk {
     public void addEntities() {
         this.d = true;
         this.world.a(this.tileEntities.values());
-        List[] alist = this.entitySlices;
-        int i = alist.length;
 
-        for (int j = 0; j < i; ++j) {
-            List list = alist[j];
-
-            this.world.a(list);
+        for (int i = 0; i < this.entitySlices.length; ++i) {
+            this.world.a(this.entitySlices[i]);
         }
     }
 
@@ -651,13 +647,8 @@ public class Chunk {
             this.world.a(tileentity);
         }
 
-        List[] alist = this.entitySlices;
-        int i = alist.length;
-
-        for (int j = 0; j < i; ++j) {
-            List list = alist[j];
-
-            this.world.b(list);
+        for (int i = 0; i < this.entitySlices.length; ++i) {
+            this.world.b(this.entitySlices[i]);
         }
     }
 
@@ -679,18 +670,17 @@ public class Chunk {
 
         for (int k = i; k <= j; ++k) {
             List list1 = this.entitySlices[k];
-            Iterator iterator = list1.iterator();
 
-            while (iterator.hasNext()) {
-                Entity entity1 = (Entity) iterator.next();
+            for (int l = 0; l < list1.size(); ++l) {
+                Entity entity1 = (Entity) list1.get(l);
 
                 if (entity1 != entity && entity1.boundingBox.a(axisalignedbb)) {
                     list.add(entity1);
                     Entity[] aentity = entity1.ao();
 
                     if (aentity != null) {
-                        for (int l = 0; l < aentity.length; ++l) {
-                            entity1 = aentity[l];
+                        for (int i1 = 0; i1 < aentity.length; ++i1) {
+                            entity1 = aentity[i1];
                             if (entity1 != entity && entity1.boundingBox.a(axisalignedbb)) {
                                 list.add(entity1);
                             }
@@ -719,10 +709,9 @@ public class Chunk {
 
         for (int k = i; k <= j; ++k) {
             List list1 = this.entitySlices[k];
-            Iterator iterator = list1.iterator();
 
-            while (iterator.hasNext()) {
-                Entity entity = (Entity) iterator.next();
+            for (int l = 0; l < list1.size(); ++l) {
+                Entity entity = (Entity) list1.get(l);
 
                 if (oclass.isAssignableFrom(entity.getClass()) && entity.boundingBox.a(axisalignedbb) && (ientityselector == null || ientityselector.a(entity))) {
                     list.add(entity);

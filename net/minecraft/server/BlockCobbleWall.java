@@ -74,6 +74,7 @@ public class BlockCobbleWall extends Block {
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
         this.updateShape(world, i, j, k);
+        this.maxY = 1.5D;
         return super.e(world, i, j, k);
     }
 

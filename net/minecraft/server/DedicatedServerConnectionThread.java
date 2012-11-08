@@ -25,9 +25,9 @@ public class DedicatedServerConnectionThread extends Thread {
     public DedicatedServerConnectionThread(ServerConnection serverconnection, InetAddress inetaddress, int i) {
         super("Listen thread");
         this.f = serverconnection;
-        this.g = inetaddress;
         this.h = i;
         this.e = new ServerSocket(i, 0, inetaddress);
+        this.g = inetaddress == null ? this.e.getInetAddress() : inetaddress;
         this.e.setPerformancePreferences(0, 2, 1);
     }
 

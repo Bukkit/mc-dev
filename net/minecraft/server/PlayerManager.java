@@ -1,7 +1,6 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class PlayerManager {
@@ -29,12 +28,8 @@ public class PlayerManager {
     }
 
     public void flush() {
-        Iterator iterator = this.d.iterator();
-
-        while (iterator.hasNext()) {
-            PlayerInstance playerinstance = (PlayerInstance) iterator.next();
-
-            playerinstance.a();
+        for (int i = 0; i < this.d.size(); ++i) {
+            ((PlayerInstance) this.d.get(i)).a();
         }
 
         this.d.clear();

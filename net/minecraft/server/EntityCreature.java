@@ -15,7 +15,7 @@ public abstract class EntityCreature extends EntityLiving {
         return false;
     }
 
-    protected void bm() {
+    protected void bn() {
         this.world.methodProfiler.a("ai");
         if (this.c > 0) {
             --this.c;
@@ -114,7 +114,7 @@ public abstract class EntityCreature extends EntityLiving {
 
             this.world.methodProfiler.b();
         } else {
-            super.bm();
+            super.bn();
             this.pathEntity = null;
         }
     }
@@ -183,10 +183,10 @@ public abstract class EntityCreature extends EntityLiving {
         this.target = entity;
     }
 
-    public float bA() {
-        float f = super.bA();
+    public float bB() {
+        float f = super.bB();
 
-        if (this.c > 0 && !this.bd()) {
+        if (this.c > 0 && !this.be()) {
             f *= 2.0F;
         }
 

@@ -28,10 +28,6 @@ public class EntitySquid extends EntityWaterAnimal {
         return 10;
     }
 
-    protected String aX() {
-        return null;
-    }
-
     protected String aY() {
         return null;
     }
@@ -40,7 +36,11 @@ public class EntitySquid extends EntityWaterAnimal {
         return null;
     }
 
-    protected float aW() {
+    protected String ba() {
+        return null;
+    }
+
+    protected float aX() {
         return 0.4F;
     }
 
@@ -120,7 +120,7 @@ public class EntitySquid extends EntityWaterAnimal {
         this.move(this.motX, this.motY, this.motZ);
     }
 
-    protected void bm() {
+    protected void bn() {
         ++this.bA;
         if (this.bA > 100) {
             this.bM = this.bN = this.bO = 0.0F;
@@ -132,7 +132,7 @@ public class EntitySquid extends EntityWaterAnimal {
             this.bO = MathHelper.sin(f) * 0.2F;
         }
 
-        this.bj();
+        this.bk();
     }
 
     public boolean canSpawn() {

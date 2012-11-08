@@ -32,4 +32,8 @@ public class BlockWeb extends Block {
     public int getDropType(int i, Random random, int j) {
         return Item.STRING.id;
     }
+
+    protected boolean s_() {
+        return true;
+    }
 }

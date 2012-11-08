@@ -89,15 +89,30 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.itemInWorldManager.a();
         --this.invulnerableTicks;
         this.activeContainer.b();
+
+        while (!this.removeQueue.isEmpty()) {
+            int i = Math.min(this.removeQueue.size(), 127);
+            int[] aint = new int[i];
+            Iterator iterator = this.removeQueue.iterator();
+            int j = 0;
+
+            while (iterator.hasNext() && j < i) {
+                aint[j++] = ((Integer) iterator.next()).intValue();
+                iterator.remove();
+            }
+
+            this.netServerHandler.sendPacket(new Packet29DestroyEntity(aint));
+        }
+
         if (!this.chunkCoordIntPairQueue.isEmpty()) {
             ArrayList arraylist = new ArrayList();
-            Iterator iterator = this.chunkCoordIntPairQueue.iterator();
+            Iterator iterator1 = this.chunkCoordIntPairQueue.iterator();
             ArrayList arraylist1 = new ArrayList();
 
-            while (iterator.hasNext() && arraylist.size() < 5) {
-                ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) iterator.next();
+            while (iterator1.hasNext() && arraylist.size() < 5) {
+                ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) iterator1.next();
 
-                iterator.remove();
+                iterator1.remove();
                 if (chunkcoordintpair != null && this.world.isLoaded(chunkcoordintpair.x << 4, 0, chunkcoordintpair.z << 4)) {
                     arraylist.add(this.world.getChunkAt(chunkcoordintpair.x, chunkcoordintpair.z));
                     arraylist1.addAll(((WorldServer) this.world).getTileEntities(chunkcoordintpair.x * 16, 0, chunkcoordintpair.z * 16, chunkcoordintpair.x * 16 + 16, 256, chunkcoordintpair.z * 16 + 16));
@@ -106,36 +121,22 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
             if (!arraylist.isEmpty()) {
                 this.netServerHandler.sendPacket(new Packet56MapChunkBulk(arraylist));
-                Iterator iterator1 = arraylist1.iterator();
+                Iterator iterator2 = arraylist1.iterator();
 
-                while (iterator1.hasNext()) {
-                    TileEntity tileentity = (TileEntity) iterator1.next();
+                while (iterator2.hasNext()) {
+                    TileEntity tileentity = (TileEntity) iterator2.next();
 
                     this.b(tileentity);
                 }
 
-                iterator1 = arraylist.iterator();
+                iterator2 = arraylist.iterator();
 
-                while (iterator1.hasNext()) {
-                    Chunk chunk = (Chunk) iterator1.next();
+                while (iterator2.hasNext()) {
+                    Chunk chunk = (Chunk) iterator2.next();
 
                     this.p().getTracker().a(this, chunk);
                 }
             }
-        }
-
-        if (!this.removeQueue.isEmpty()) {
-            int i = Math.min(this.removeQueue.size(), 127);
-            int[] aint = new int[i];
-            Iterator iterator2 = this.removeQueue.iterator();
-            int j = 0;
-
-            while (iterator2.hasNext() && j < i) {
-                aint[j++] = ((Integer) iterator2.next()).intValue();
-                iterator2.remove();
-            }
-
-            this.netServerHandler.sendPacket(new Packet29DestroyEntity(aint));
         }
     }
 

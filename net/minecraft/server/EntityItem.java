@@ -168,7 +168,7 @@ public class EntityItem extends Entity {
         }
     }
 
-    public void b_(EntityHuman entityhuman) {
+    public void c_(EntityHuman entityhuman) {
         if (!this.world.isStatic) {
             int i = this.itemStack.count;
 

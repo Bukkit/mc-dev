@@ -241,11 +241,9 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
 
             log.info("Saving worlds");
             this.saveChunks(false);
-            WorldServer[] aworldserver = this.worldServer;
-            int i = aworldserver.length;
 
-            for (int j = 0; j < i; ++j) {
-                WorldServer worldserver = aworldserver[j];
+            for (int i = 0; i < this.worldServer.length; ++i) {
+                WorldServer worldserver = this.worldServer[i];
 
                 worldserver.saveLevel();
             }
@@ -396,7 +394,9 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
     public void r() {
         this.methodProfiler.a("levels");
 
-        for (int i = 0; i < this.worldServer.length; ++i) {
+        int i;
+
+        for (i = 0; i < this.worldServer.length; ++i) {
             long j = System.nanoTime();
 
             if (i == 0 || this.getAllowNether()) {
@@ -447,12 +447,9 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
         this.methodProfiler.c("players");
         this.t.tick();
         this.methodProfiler.c("tickables");
-        Iterator iterator = this.p.iterator();
 
-        while (iterator.hasNext()) {
-            IUpdatePlayerListBox iupdateplayerlistbox = (IUpdatePlayerListBox) iterator.next();
-
-            iupdateplayerlistbox.a();
+        for (i = 0; i < this.p.size(); ++i) {
+            ((IUpdatePlayerListBox) this.p.get(i)).a();
         }
 
         this.methodProfiler.b();
@@ -581,7 +578,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
     }
 
     public String getVersion() {
-        return "1.4.3";
+        return "1.4.4";
     }
 
     public int y() {

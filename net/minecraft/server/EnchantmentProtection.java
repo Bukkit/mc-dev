@@ -38,6 +38,10 @@ public class EnchantmentProtection extends Enchantment {
         }
     }
 
+    public String a() {
+        return "enchantment.protect." + A[this.a];
+    }
+
     public boolean a(Enchantment enchantment) {
         if (enchantment instanceof EnchantmentProtection) {
             EnchantmentProtection enchantmentprotection = (EnchantmentProtection) enchantment;

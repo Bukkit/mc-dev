@@ -27,7 +27,7 @@ public class EntityChicken extends EntityAnimal {
         this.goalSelector.a(7, new PathfinderGoalRandomLookaround(this));
     }
 
-    public boolean bd() {
+    public boolean be() {
         return true;
     }
 
@@ -67,15 +67,15 @@ public class EntityChicken extends EntityAnimal {
 
     protected void a(float f) {}
 
-    protected String aX() {
+    protected String aY() {
         return "mob.chicken.say";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.chicken.hurt";
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.chicken.hurt";
     }
 
@@ -101,11 +101,15 @@ public class EntityChicken extends EntityAnimal {
         }
     }
 
-    public EntityAnimal createChild(EntityAnimal entityanimal) {
+    public EntityChicken b(EntityAgeable entityageable) {
         return new EntityChicken(this.world);
     }
 
     public boolean c(ItemStack itemstack) {
         return itemstack != null && itemstack.getItem() instanceof ItemSeeds;
+    }
+
+    public EntityAgeable createChild(EntityAgeable entityageable) {
+        return this.b(entityageable);
     }
 }

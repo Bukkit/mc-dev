@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class ItemBoat extends Item {
@@ -36,10 +35,11 @@ public class ItemBoat extends Item {
             boolean flag = false;
             float f9 = 1.0F;
             List list = world.getEntities(entityhuman, entityhuman.boundingBox.a(vec3d2.c * d3, vec3d2.d * d3, vec3d2.e * d3).grow((double) f9, (double) f9, (double) f9));
-            Iterator iterator = list.iterator();
 
-            while (iterator.hasNext()) {
-                Entity entity = (Entity) iterator.next();
+            int i;
+
+            for (i = 0; i < list.size(); ++i) {
+                Entity entity = (Entity) list.get(i);
 
                 if (entity.L()) {
                     float f10 = entity.Y();
@@ -55,7 +55,7 @@ public class ItemBoat extends Item {
                 return itemstack;
             } else {
                 if (movingobjectposition.type == EnumMovingObjectType.TILE) {
-                    int i = movingobjectposition.b;
+                    i = movingobjectposition.b;
                     int j = movingobjectposition.c;
                     int k = movingobjectposition.d;
 

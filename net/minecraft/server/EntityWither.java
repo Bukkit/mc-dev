@@ -51,15 +51,15 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
         this.datawatcher.watch(16, Integer.valueOf(this.health));
     }
 
-    protected String aX() {
+    protected String aY() {
         return "mob.wither.idle";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.wither.hurt";
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.wither.death";
     }
 
@@ -158,7 +158,7 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
         }
     }
 
-    protected void bk() {
+    protected void bl() {
         int i;
 
         if (this.n() > 0) {
@@ -173,7 +173,7 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
                 this.heal(10);
             }
         } else {
-            super.bk();
+            super.bl();
 
             int j;
 
@@ -231,8 +231,8 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
                 }
             }
 
-            if (this.aF() != null) {
-                this.c(0, this.aF().id);
+            if (this.aG() != null) {
+                this.c(0, this.aG().id);
             } else {
                 this.c(0, 0);
             }
@@ -284,7 +284,7 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
 
     public void am() {}
 
-    public int aV() {
+    public int aW() {
         return 4;
     }
 
@@ -394,7 +394,7 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
         this.b(Item.NETHER_STAR.id, 1);
     }
 
-    protected void bj() {
+    protected void bk() {
         this.bA = 0;
     }
 
@@ -410,7 +410,7 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
 
     public void addEffect(MobEffect mobeffect) {}
 
-    protected boolean bd() {
+    protected boolean be() {
         return true;
     }
 

@@ -83,7 +83,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
             }
 
             if (this.o()) {
-                this.makeSound(this.n(), this.aW(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+                this.makeSound(this.n(), this.aX(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);
             }
 
             this.b = -0.5F;
@@ -98,8 +98,8 @@ public class EntitySlime extends EntityLiving implements IMonster {
         }
     }
 
-    protected void bm() {
-        this.bj();
+    protected void bn() {
+        this.bk();
         EntityHuman entityhuman = this.world.findNearbyVulnerablePlayer(this, 16.0D);
 
         if (entityhuman != null) {
@@ -114,7 +114,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
 
             this.bE = true;
             if (this.q()) {
-                this.makeSound(this.n(), this.aW(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+                this.makeSound(this.n(), this.aX(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.bB = 1.0F - this.random.nextFloat() * 2.0F;
@@ -159,7 +159,7 @@ public class EntitySlime extends EntityLiving implements IMonster {
         super.die();
     }
 
-    public void b_(EntityHuman entityhuman) {
+    public void c_(EntityHuman entityhuman) {
         if (this.l()) {
             int i = this.getSize();
 
@@ -177,11 +177,11 @@ public class EntitySlime extends EntityLiving implements IMonster {
         return this.getSize();
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.slime." + (this.getSize() > 1 ? "big" : "small");
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.slime." + (this.getSize() > 1 ? "big" : "small");
     }
 
@@ -209,11 +209,11 @@ public class EntitySlime extends EntityLiving implements IMonster {
         }
     }
 
-    protected float aW() {
+    protected float aX() {
         return 0.4F * (float) this.getSize();
     }
 
-    public int bo() {
+    public int bp() {
         return 0;
     }
 

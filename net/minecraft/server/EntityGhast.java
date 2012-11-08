@@ -47,12 +47,12 @@ public class EntityGhast extends EntityFlying implements IMonster {
         this.texture = b0 == 1 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
     }
 
-    protected void bm() {
+    protected void bn() {
         if (!this.world.isStatic && this.world.difficulty == 0) {
             this.die();
         }
 
-        this.bj();
+        this.bk();
         this.f = this.g;
         double d0 = this.c - this.locX;
         double d1 = this.d - this.locY;
@@ -152,15 +152,15 @@ public class EntityGhast extends EntityFlying implements IMonster {
         return true;
     }
 
-    protected String aX() {
+    protected String aY() {
         return "mob.ghast.moan";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.ghast.scream";
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.ghast.death";
     }
 
@@ -184,7 +184,7 @@ public class EntityGhast extends EntityFlying implements IMonster {
         }
     }
 
-    protected float aW() {
+    protected float aX() {
         return 10.0F;
     }
 
@@ -192,7 +192,7 @@ public class EntityGhast extends EntityFlying implements IMonster {
         return this.random.nextInt(20) == 0 && super.canSpawn() && this.world.difficulty > 0;
     }
 
-    public int bu() {
+    public int bv() {
         return 1;
     }
 }

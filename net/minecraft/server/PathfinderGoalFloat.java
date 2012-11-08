@@ -15,7 +15,7 @@ public class PathfinderGoalFloat extends PathfinderGoal {
     }
 
     public void e() {
-        if (this.a.aA().nextFloat() < 0.8F) {
+        if (this.a.aB().nextFloat() < 0.8F) {
             this.a.getControllerJump().a();
         }
     }

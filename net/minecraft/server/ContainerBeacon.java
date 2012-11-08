@@ -47,7 +47,7 @@ public class ContainerBeacon extends Container {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.a.a(entityhuman);
+        return this.a.a_(entityhuman);
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {

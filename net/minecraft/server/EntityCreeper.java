@@ -21,12 +21,12 @@ public class EntityCreeper extends EntityMonster {
         this.targetSelector.a(2, new PathfinderGoalHurtByTarget(this, false));
     }
 
-    public boolean bd() {
+    public boolean be() {
         return true;
     }
 
     public int as() {
-        return this.aF() == null ? 3 : 3 + (this.health - 1);
+        return this.aG() == null ? 3 : 3 + (this.health - 1);
     }
 
     protected void a(float f) {
@@ -102,11 +102,11 @@ public class EntityCreeper extends EntityMonster {
         super.j_();
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.creeper.say";
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.creeper.death";
     }
 

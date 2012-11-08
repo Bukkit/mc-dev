@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Iterator;
 import java.util.List;
 
 public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
@@ -12,12 +11,12 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         super(world);
     }
 
-    protected void bl() {
+    protected void bm() {
         if (this.getAge() != 0) {
             this.love = 0;
         }
 
-        super.bl();
+        super.bm();
     }
 
     public void c() {
@@ -54,7 +53,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
             EntityHuman entityhuman = (EntityHuman) entity;
 
-            if (entityhuman.bS() == null || !this.c(entityhuman.bS())) {
+            if (entityhuman.bT() == null || !this.c(entityhuman.bT())) {
                 this.target = null;
             }
         } else if (entity instanceof EntityAnimal) {
@@ -78,7 +77,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                     }
 
                     if (this.e == 60) {
-                        this.c((EntityAnimal) entity);
+                        this.b((EntityAnimal) entity);
                     }
                 } else {
                     this.e = 0;
@@ -90,10 +89,10 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         }
     }
 
-    private void c(EntityAnimal entityanimal) {
-        EntityAnimal entityanimal1 = this.createChild(entityanimal);
+    private void b(EntityAnimal entityanimal) {
+        EntityAgeable entityageable = this.createChild(entityanimal);
 
-        if (entityanimal1 != null) {
+        if (entityageable != null) {
             this.setAge(6000);
             entityanimal.setAge(6000);
             this.love = 0;
@@ -102,8 +101,8 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
             entityanimal.target = null;
             entityanimal.e = 0;
             entityanimal.love = 0;
-            entityanimal1.setAge(-24000);
-            entityanimal1.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
+            entityageable.setAge(-24000);
+            entityageable.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
 
             for (int i = 0; i < 7; ++i) {
                 double d0 = this.random.nextGaussian() * 0.02D;
@@ -113,11 +112,9 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 this.world.addParticle("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
             }
 
-            this.world.addEntity(entityanimal1);
+            this.world.addEntity(entityageable);
         }
     }
-
-    public abstract EntityAnimal createChild(EntityAnimal entityanimal);
 
     public boolean damageEntity(DamageSource damagesource, int i) {
         if (this.isInvulnerable()) {
@@ -150,36 +147,33 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         } else {
             float f = 8.0F;
             List list;
-            Iterator iterator;
+            int i;
             EntityAnimal entityanimal;
 
             if (this.love > 0) {
                 list = this.world.a(this.getClass(), this.boundingBox.grow((double) f, (double) f, (double) f));
-                iterator = list.iterator();
 
-                while (iterator.hasNext()) {
-                    entityanimal = (EntityAnimal) iterator.next();
+                for (i = 0; i < list.size(); ++i) {
+                    entityanimal = (EntityAnimal) list.get(i);
                     if (entityanimal != this && entityanimal.love > 0) {
                         return entityanimal;
                     }
                 }
             } else if (this.getAge() == 0) {
                 list = this.world.a(EntityHuman.class, this.boundingBox.grow((double) f, (double) f, (double) f));
-                iterator = list.iterator();
 
-                while (iterator.hasNext()) {
-                    EntityHuman entityhuman = (EntityHuman) iterator.next();
+                for (i = 0; i < list.size(); ++i) {
+                    EntityHuman entityhuman = (EntityHuman) list.get(i);
 
-                    if (entityhuman.bS() != null && this.c(entityhuman.bS())) {
+                    if (entityhuman.bT() != null && this.c(entityhuman.bT())) {
                         return entityhuman;
                     }
                 }
             } else if (this.getAge() > 0) {
                 list = this.world.a(this.getClass(), this.boundingBox.grow((double) f, (double) f, (double) f));
-                iterator = list.iterator();
 
-                while (iterator.hasNext()) {
-                    entityanimal = (EntityAnimal) iterator.next();
+                for (i = 0; i < list.size(); ++i) {
+                    entityanimal = (EntityAnimal) list.get(i);
                     if (entityanimal != this && entityanimal.getAge() < 0) {
                         return entityanimal;
                     }
@@ -198,11 +192,11 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.l(i, j, k) > 8 && super.canSpawn();
     }
 
-    public int aM() {
+    public int aN() {
         return 120;
     }
 
-    protected boolean bi() {
+    protected boolean bj() {
         return false;
     }
 
@@ -214,7 +208,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         return itemstack.id == Item.WHEAT.id;
     }
 
-    public boolean c(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
         if (itemstack != null && this.c(itemstack) && this.getAge() == 0) {
@@ -238,7 +232,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
             return true;
         } else {
-            return super.c(entityhuman);
+            return super.a(entityhuman);
         }
     }
 

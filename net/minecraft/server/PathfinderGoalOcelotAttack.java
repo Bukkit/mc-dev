@@ -14,7 +14,7 @@ public class PathfinderGoalOcelotAttack extends PathfinderGoal {
     }
 
     public boolean a() {
-        EntityLiving entityliving = this.b.aF();
+        EntityLiving entityliving = this.b.aG();
 
         if (entityliving == null) {
             return false;

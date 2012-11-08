@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.lang.ref.Reference;
-import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -17,38 +15,33 @@ public class RegionFileCache {
     public static synchronized RegionFile a(File file1, int i, int j) {
         File file2 = new File(file1, "region");
         File file3 = new File(file2, "r." + (i >> 5) + "." + (j >> 5) + ".mca");
-        Reference reference = (Reference) a.get(file3);
-        RegionFile regionfile;
+        RegionFile regionfile = (RegionFile) a.get(file3);
 
-        if (reference != null) {
-            regionfile = (RegionFile) reference.get();
-            if (regionfile != null) {
-                return regionfile;
+        if (regionfile != null) {
+            return regionfile;
+        } else {
+            if (!file2.exists()) {
+                file2.mkdirs();
             }
-        }
 
-        if (!file2.exists()) {
-            file2.mkdirs();
-        }
+            if (a.size() >= 256) {
+                a();
+            }
 
-        if (a.size() >= 256) {
-            a();
-        }
+            RegionFile regionfile1 = new RegionFile(file3);
 
-        regionfile = new RegionFile(file3);
-        a.put(file3, new SoftReference(regionfile));
-        return regionfile;
+            a.put(file3, regionfile1);
+            return regionfile1;
+        }
     }
 
     public static synchronized void a() {
         Iterator iterator = a.values().iterator();
 
         while (iterator.hasNext()) {
-            Reference reference = (Reference) iterator.next();
+            RegionFile regionfile = (RegionFile) iterator.next();
 
             try {
-                RegionFile regionfile = (RegionFile) reference.get();
-
                 if (regionfile != null) {
                     regionfile.c();
                 }

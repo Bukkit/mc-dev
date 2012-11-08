@@ -26,7 +26,7 @@ public class PathfinderGoalArrowAttack extends PathfinderGoal {
     }
 
     public boolean a() {
-        EntityLiving entityliving = this.a.aF();
+        EntityLiving entityliving = this.a.aG();
 
         if (entityliving == null) {
             return false;
@@ -48,7 +48,7 @@ public class PathfinderGoalArrowAttack extends PathfinderGoal {
 
     public void e() {
         double d0 = this.a.e(this.c.locX, this.c.boundingBox.b, this.c.locZ);
-        boolean flag = this.a.az().canSee(this.c);
+        boolean flag = this.a.aA().canSee(this.c);
 
         if (flag) {
             ++this.f;

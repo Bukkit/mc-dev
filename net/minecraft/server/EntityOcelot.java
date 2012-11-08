@@ -28,7 +28,7 @@ public class EntityOcelot extends EntityTameableAnimal {
         this.datawatcher.a(18, Byte.valueOf((byte) 0));
     }
 
-    public void bl() {
+    public void bm() {
         if (this.getControllerMove().a()) {
             float f = this.getControllerMove().b();
 
@@ -48,11 +48,11 @@ public class EntityOcelot extends EntityTameableAnimal {
         }
     }
 
-    protected boolean bi() {
+    protected boolean bj() {
         return !this.isTamed();
     }
 
-    public boolean bd() {
+    public boolean be() {
         return true;
     }
 
@@ -72,19 +72,19 @@ public class EntityOcelot extends EntityTameableAnimal {
         this.setCatType(nbttagcompound.getInt("CatType"));
     }
 
-    protected String aX() {
-        return this.isTamed() ? (this.r() ? "mob.cat.purr" : (this.random.nextInt(4) == 0 ? "mob.cat.purreow" : "mob.cat.meow")) : "";
-    }
-
     protected String aY() {
-        return "mob.cat.hitt";
+        return this.isTamed() ? (this.r() ? "mob.cat.purr" : (this.random.nextInt(4) == 0 ? "mob.cat.purreow" : "mob.cat.meow")) : "";
     }
 
     protected String aZ() {
         return "mob.cat.hitt";
     }
 
-    protected float aW() {
+    protected String ba() {
+        return "mob.cat.hitt";
+    }
+
+    protected float aX() {
         return 0.4F;
     }
 
@@ -107,7 +107,7 @@ public class EntityOcelot extends EntityTameableAnimal {
 
     protected void dropDeathLoot(boolean flag, int i) {}
 
-    public boolean c(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
         if (this.isTamed()) {
@@ -140,10 +140,10 @@ public class EntityOcelot extends EntityTameableAnimal {
             return true;
         }
 
-        return super.c(entityhuman);
+        return super.a(entityhuman);
     }
 
-    public EntityAnimal createChild(EntityAnimal entityanimal) {
+    public EntityOcelot b(EntityAgeable entityageable) {
         EntityOcelot entityocelot = new EntityOcelot(this.world);
 
         if (this.isTamed()) {
@@ -209,7 +209,7 @@ public class EntityOcelot extends EntityTameableAnimal {
         return this.isTamed() ? "entity.Cat.name" : super.getLocalizedName();
     }
 
-    public void bF() {
+    public void bG() {
         if (this.world.random.nextInt(7) == 0) {
             for (int i = 0; i < 2; ++i) {
                 EntityOcelot entityocelot = new EntityOcelot(this.world);
@@ -219,5 +219,9 @@ public class EntityOcelot extends EntityTameableAnimal {
                 this.world.addEntity(entityocelot);
             }
         }
+    }
+
+    public EntityAgeable createChild(EntityAgeable entityageable) {
+        return this.b(entityageable);
     }
 }

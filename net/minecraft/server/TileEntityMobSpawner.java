@@ -79,7 +79,7 @@ public class TileEntityMobSpawner extends TileEntity {
                             this.world.addEntity(entity);
                             this.world.triggerEffect(2004, this.x, this.y, this.z, 0);
                             if (entityliving != null) {
-                                entityliving.aQ();
+                                entityliving.aR();
                             }
 
                             this.e();
@@ -107,7 +107,7 @@ public class TileEntityMobSpawner extends TileEntity {
 
             entity.e(nbttagcompound);
         } else if (entity instanceof EntityLiving && entity.world != null) {
-            ((EntityLiving) entity).bF();
+            ((EntityLiving) entity).bG();
         }
     }
 

@@ -49,13 +49,9 @@ public class GuiStatsComponent extends JComponent {
 
     private double a(long[] along) {
         long i = 0L;
-        long[] along1 = along;
-        int j = along.length;
 
-        for (int k = 0; k < j; ++k) {
-            long l = along1[k];
-
-            i += l;
+        for (int j = 0; j < along.length; ++j) {
+            i += along[j];
         }
 
         return (double) i / (double) along.length;

@@ -88,7 +88,7 @@ public class InventoryMerchant implements IInventory {
         return 64;
     }
 
-    public boolean a(EntityHuman entityhuman) {
+    public boolean a_(EntityHuman entityhuman) {
         return this.merchant.m_() == entityhuman;
     }
 

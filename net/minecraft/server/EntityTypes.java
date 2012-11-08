@@ -90,11 +90,15 @@ public class EntityTypes {
         return e.containsKey(oclass) ? ((Integer) e.get(oclass)).intValue() : 0;
     }
 
+    public static Class a(int i) {
+        return (Class) d.get(Integer.valueOf(i));
+    }
+
     public static String b(Entity entity) {
         return (String) c.get(entity.getClass());
     }
 
-    public static String a(int i) {
+    public static String b(int i) {
         Class oclass = (Class) d.get(Integer.valueOf(i));
 
         return oclass != null ? (String) c.get(oclass) : null;

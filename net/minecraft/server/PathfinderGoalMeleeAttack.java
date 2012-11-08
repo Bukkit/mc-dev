@@ -27,7 +27,7 @@ public class PathfinderGoalMeleeAttack extends PathfinderGoal {
     }
 
     public boolean a() {
-        EntityLiving entityliving = this.b.aF();
+        EntityLiving entityliving = this.b.aG();
 
         if (entityliving == null) {
             return false;
@@ -41,7 +41,7 @@ public class PathfinderGoalMeleeAttack extends PathfinderGoal {
     }
 
     public boolean b() {
-        EntityLiving entityliving = this.b.aF();
+        EntityLiving entityliving = this.b.aG();
 
         return entityliving == null ? false : (!this.c.isAlive() ? false : (!this.f ? !this.b.getNavigation().f() : this.b.e(MathHelper.floor(this.c.locX), MathHelper.floor(this.c.locY), MathHelper.floor(this.c.locZ))));
     }
@@ -58,8 +58,8 @@ public class PathfinderGoalMeleeAttack extends PathfinderGoal {
 
     public void e() {
         this.b.getControllerLook().a(this.c, 30.0F, 30.0F);
-        if ((this.f || this.b.az().canSee(this.c)) && --this.i <= 0) {
-            this.i = 4 + this.b.aA().nextInt(7);
+        if ((this.f || this.b.aA().canSee(this.c)) && --this.i <= 0) {
+            this.i = 4 + this.b.aB().nextInt(7);
             this.b.getNavigation().a(this.c, this.e);
         }
 
@@ -69,8 +69,8 @@ public class PathfinderGoalMeleeAttack extends PathfinderGoal {
         if (this.b.e(this.c.locX, this.c.boundingBox.b, this.c.locZ) <= d0) {
             if (this.d <= 0) {
                 this.d = 20;
-                if (this.b.bC() != null) {
-                    this.b.bG();
+                if (this.b.bD() != null) {
+                    this.b.bH();
                 }
 
                 this.b.m(this.c);

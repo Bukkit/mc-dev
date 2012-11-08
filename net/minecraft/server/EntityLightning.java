@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class EntityLightning extends EntityWeather {
@@ -66,10 +65,9 @@ public class EntityLightning extends EntityWeather {
         if (!this.world.isStatic && this.lifeTicks >= 0) {
             double d0 = 3.0D;
             List list = this.world.getEntities(this, AxisAlignedBB.a().a(this.locX - d0, this.locY - d0, this.locZ - d0, this.locX + d0, this.locY + 6.0D + d0, this.locZ + d0));
-            Iterator iterator = list.iterator();
 
-            while (iterator.hasNext()) {
-                Entity entity = (Entity) iterator.next();
+            for (int l = 0; l < list.size(); ++l) {
+                Entity entity = (Entity) list.get(l);
 
                 entity.a(this);
             }

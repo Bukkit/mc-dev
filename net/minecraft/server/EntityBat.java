@@ -18,23 +18,23 @@ public class EntityBat extends EntityAmbient {
         this.datawatcher.a(16, new Byte((byte) 0));
     }
 
-    protected float aW() {
+    protected float aX() {
         return 0.1F;
     }
 
-    protected float aU() {
-        return super.aU() * 0.95F;
-    }
-
-    protected String aX() {
-        return this.h() && this.random.nextInt(4) != 0 ? null : "mob.bat.idle";
+    protected float aV() {
+        return super.aV() * 0.95F;
     }
 
     protected String aY() {
-        return "mob.bat.hurt";
+        return this.h() && this.random.nextInt(4) != 0 ? null : "mob.bat.idle";
     }
 
     protected String aZ() {
+        return "mob.bat.hurt";
+    }
+
+    protected String ba() {
         return "mob.bat.death";
     }
 
@@ -44,7 +44,7 @@ public class EntityBat extends EntityAmbient {
 
     protected void o(Entity entity) {}
 
-    protected void bc() {}
+    protected void bd() {}
 
     public int getMaxHealth() {
         return 6;
@@ -64,7 +64,7 @@ public class EntityBat extends EntityAmbient {
         }
     }
 
-    protected boolean bd() {
+    protected boolean be() {
         return true;
     }
 
@@ -78,8 +78,8 @@ public class EntityBat extends EntityAmbient {
         }
     }
 
-    protected void bk() {
-        super.bk();
+    protected void bl() {
+        super.bl();
         if (this.h()) {
             if (!this.world.t(MathHelper.floor(this.locX), (int) this.locY + 1, MathHelper.floor(this.locZ))) {
                 this.f(false);
@@ -179,5 +179,5 @@ public class EntityBat extends EntityAmbient {
         }
     }
 
-    public void bF() {}
+    public void bG() {}
 }

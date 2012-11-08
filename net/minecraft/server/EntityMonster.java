@@ -8,7 +8,7 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
     }
 
     public void c() {
-        this.bn();
+        this.bo();
         float f = this.c(1.0F);
 
         if (f > 0.5F) {
@@ -78,7 +78,7 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
                 this.motZ *= 0.6D;
             }
 
-            int k = EnchantmentManager.getFireAspectEnchantmentLevel(this, (EntityLiving) entity);
+            int k = EnchantmentManager.getFireAspectEnchantmentLevel(this);
 
             if (k > 0) {
                 entity.setOnFire(k * 4);

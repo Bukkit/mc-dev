@@ -2,10 +2,10 @@ package net.minecraft.server;
 
 class ContainerSheepBreed extends Container {
 
-    final PathfinderGoalSheepBreed a;
+    final EntitySheep a;
 
-    ContainerSheepBreed(PathfinderGoalSheepBreed pathfindergoalsheepbreed) {
-        this.a = pathfindergoalsheepbreed;
+    ContainerSheepBreed(EntitySheep entitysheep) {
+        this.a = entitysheep;
     }
 
     public boolean a(EntityHuman entityhuman) {

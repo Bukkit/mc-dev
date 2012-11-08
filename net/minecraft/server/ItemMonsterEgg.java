@@ -10,7 +10,7 @@ public class ItemMonsterEgg extends Item {
 
     public String j(ItemStack itemstack) {
         String s = ("" + LocaleI18n.get(this.getName() + ".name")).trim();
-        String s1 = EntityTypes.a(itemstack.getData());
+        String s1 = EntityTypes.b(itemstack.getData());
 
         if (s1 != null) {
             s = s + " " + LocaleI18n.get("entity." + s1 + ".name");
@@ -52,9 +52,9 @@ public class ItemMonsterEgg extends Item {
                 entity = EntityTypes.a(i, world);
                 if (entity != null) {
                     entity.setPositionRotation(d0, d1, d2, world.random.nextFloat() * 360.0F, 0.0F);
-                    ((EntityLiving) entity).bF();
+                    ((EntityLiving) entity).bG();
                     world.addEntity(entity);
-                    ((EntityLiving) entity).aN();
+                    ((EntityLiving) entity).aO();
                 }
             }
 

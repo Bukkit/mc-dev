@@ -790,7 +790,7 @@ public class EntityMinecart extends Entity implements IInventory {
 
     public void update() {}
 
-    public boolean c(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         if (this.type == 0) {
             if (this.passenger != null && this.passenger instanceof EntityHuman && this.passenger != entityhuman) {
                 return true;
@@ -821,7 +821,7 @@ public class EntityMinecart extends Entity implements IInventory {
         return true;
     }
 
-    public boolean a(EntityHuman entityhuman) {
+    public boolean a_(EntityHuman entityhuman) {
         return this.dead ? false : entityhuman.e(this) <= 64.0D;
     }
 

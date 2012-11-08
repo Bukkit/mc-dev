@@ -132,16 +132,16 @@ public class EnchantmentManager {
     public static int a(EntityLiving entityliving, EntityLiving entityliving1) {
         c.a = 0;
         c.b = entityliving1;
-        a((EnchantmentModifier) c, entityliving.bC());
+        a((EnchantmentModifier) c, entityliving.bD());
         return c.a > 0 ? 1 + random.nextInt(c.a) : 0;
     }
 
     public static int getKnockbackEnchantmentLevel(EntityLiving entityliving, EntityLiving entityliving1) {
-        return getEnchantmentLevel(Enchantment.KNOCKBACK.id, entityliving.bC());
+        return getEnchantmentLevel(Enchantment.KNOCKBACK.id, entityliving.bD());
     }
 
-    public static int getFireAspectEnchantmentLevel(EntityLiving entityliving, EntityLiving entityliving1) {
-        return getEnchantmentLevel(Enchantment.FIRE_ASPECT.id, entityliving.bC());
+    public static int getFireAspectEnchantmentLevel(EntityLiving entityliving) {
+        return getEnchantmentLevel(Enchantment.FIRE_ASPECT.id, entityliving.bD());
     }
 
     public static int getOxygenEnchantmentLevel(EntityLiving entityliving) {
@@ -149,23 +149,23 @@ public class EnchantmentManager {
     }
 
     public static int getDigSpeedEnchantmentLevel(EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.DIG_SPEED.id, entityliving.bC());
+        return getEnchantmentLevel(Enchantment.DIG_SPEED.id, entityliving.bD());
     }
 
     public static int getDurabilityEnchantmentLevel(EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.DURABILITY.id, entityliving.bC());
+        return getEnchantmentLevel(Enchantment.DURABILITY.id, entityliving.bD());
     }
 
     public static boolean hasSilkTouchEnchantment(EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.SILK_TOUCH.id, entityliving.bC()) > 0;
+        return getEnchantmentLevel(Enchantment.SILK_TOUCH.id, entityliving.bD()) > 0;
     }
 
     public static int getBonusBlockLootEnchantmentLevel(EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS.id, entityliving.bC());
+        return getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS.id, entityliving.bD());
     }
 
     public static int getBonusMonsterLootEnchantmentLevel(EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS.id, entityliving.bC());
+        return getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS.id, entityliving.bD());
     }
 
     public static boolean hasWaterWorkerEnchantment(EntityLiving entityliving) {

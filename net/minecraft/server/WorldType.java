@@ -52,14 +52,9 @@ public class WorldType {
     }
 
     public static WorldType getType(String s) {
-        WorldType[] aworldtype = types;
-        int i = aworldtype.length;
-
-        for (int j = 0; j < i; ++j) {
-            WorldType worldtype = aworldtype[j];
-
-            if (worldtype != null && worldtype.name.equalsIgnoreCase(s)) {
-                return worldtype;
+        for (int i = 0; i < types.length; ++i) {
+            if (types[i] != null && types[i].name.equalsIgnoreCase(s)) {
+                return types[i];
             }
         }
 

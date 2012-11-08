@@ -123,7 +123,7 @@ public final class SpawnerCreature {
                                                                 ++j2;
                                                                 worldserver.addEntity(entityliving);
                                                                 a(entityliving, worldserver, f, f1, f2);
-                                                                if (j2 >= entityliving.bu()) {
+                                                                if (j2 >= entityliving.bv()) {
                                                                     continue label110;
                                                                 }
                                                             }
@@ -165,7 +165,7 @@ public final class SpawnerCreature {
     }
 
     private static void a(EntityLiving entityliving, World world, float f, float f1, float f2) {
-        entityliving.bF();
+        entityliving.bG();
     }
 
     public static void a(World world, BiomeBase biomebase, int i, int j, int k, int l, Random random) {

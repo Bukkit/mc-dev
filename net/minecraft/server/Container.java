@@ -2,7 +2,6 @@ package net.minecraft.server;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -36,12 +35,9 @@ public abstract class Container {
 
     public List a() {
         ArrayList arraylist = new ArrayList();
-        Iterator iterator = this.c.iterator();
 
-        while (iterator.hasNext()) {
-            Slot slot = (Slot) iterator.next();
-
-            arraylist.add(slot.getItem());
+        for (int i = 0; i < this.c.size(); ++i) {
+            arraylist.add(((Slot) this.c.get(i)).getItem());
         }
 
         return arraylist;
@@ -55,12 +51,9 @@ public abstract class Container {
             if (!ItemStack.matches(itemstack1, itemstack)) {
                 itemstack1 = itemstack == null ? null : itemstack.cloneItemStack();
                 this.b.set(i, itemstack1);
-                Iterator iterator = this.listeners.iterator();
 
-                while (iterator.hasNext()) {
-                    ICrafting icrafting = (ICrafting) iterator.next();
-
-                    icrafting.a(this, i, itemstack1);
+                for (int j = 0; j < this.listeners.size(); ++j) {
+                    ((ICrafting) this.listeners.get(j)).a(this, i, itemstack1);
                 }
             }
         }
@@ -71,19 +64,15 @@ public abstract class Container {
     }
 
     public Slot a(IInventory iinventory, int i) {
-        Iterator iterator = this.c.iterator();
+        for (int j = 0; j < this.c.size(); ++j) {
+            Slot slot = (Slot) this.c.get(j);
 
-        Slot slot;
-
-        do {
-            if (!iterator.hasNext()) {
-                return null;
+            if (slot.a(iinventory, i)) {
+                return slot;
             }
+        }
 
-            slot = (Slot) iterator.next();
-        } while (!slot.a(iinventory, i));
-
-        return slot;
+        return null;
     }
 
     public Slot getSlot(int i) {

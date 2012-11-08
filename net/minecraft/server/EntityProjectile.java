@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Iterator;
 import java.util.List;
 
 public abstract class EntityProjectile extends Entity implements IProjectile {
@@ -125,10 +124,9 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
             List list = this.world.getEntities(this, this.boundingBox.a(this.motX, this.motY, this.motZ).grow(1.0D, 1.0D, 1.0D));
             double d0 = 0.0D;
             EntityLiving entityliving = this.getShooter();
-            Iterator iterator = list.iterator();
 
-            while (iterator.hasNext()) {
-                Entity entity1 = (Entity) iterator.next();
+            for (int j = 0; j < list.size(); ++j) {
+                Entity entity1 = (Entity) list.get(j);
 
                 if (entity1.L() && (entity1 != entityliving || this.j >= 5)) {
                     float f = 0.3F;
@@ -188,7 +186,7 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
         float f3 = this.g();
 
         if (this.H()) {
-            for (int j = 0; j < 4; ++j) {
+            for (int k = 0; k < 4; ++k) {
                 float f4 = 0.25F;
 
                 this.world.addParticle("bubble", this.locX - this.motX * (double) f4, this.locY - this.motY * (double) f4, this.locZ - this.motZ * (double) f4, this.motX, this.motY, this.motZ);

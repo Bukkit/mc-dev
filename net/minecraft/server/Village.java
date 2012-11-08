@@ -230,10 +230,9 @@ public class Village {
     public EntityLiving b(EntityLiving entityliving) {
         double d0 = Double.MAX_VALUE;
         VillageAggressor villageaggressor = null;
-        Iterator iterator = this.aggressors.iterator();
 
-        while (iterator.hasNext()) {
-            VillageAggressor villageaggressor1 = (VillageAggressor) iterator.next();
+        for (int i = 0; i < this.aggressors.size(); ++i) {
+            VillageAggressor villageaggressor1 = (VillageAggressor) this.aggressors.get(i);
             double d1 = villageaggressor1.a.e(entityliving);
 
             if (d1 <= d0) {

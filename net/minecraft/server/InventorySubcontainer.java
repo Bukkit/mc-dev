@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class InventorySubcontainer implements IInventory {
@@ -77,17 +76,13 @@ public class InventorySubcontainer implements IInventory {
 
     public void update() {
         if (this.d != null) {
-            Iterator iterator = this.d.iterator();
-
-            while (iterator.hasNext()) {
-                IInventoryListener iinventorylistener = (IInventoryListener) iterator.next();
-
-                iinventorylistener.a(this);
+            for (int i = 0; i < this.d.size(); ++i) {
+                ((IInventoryListener) this.d.get(i)).a(this);
             }
         }
     }
 
-    public boolean a(EntityHuman entityhuman) {
+    public boolean a_(EntityHuman entityhuman) {
         return true;
     }
 

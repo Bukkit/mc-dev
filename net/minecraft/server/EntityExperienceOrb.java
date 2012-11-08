@@ -137,7 +137,7 @@ public class EntityExperienceOrb extends Entity {
         this.value = nbttagcompound.getShort("Value");
     }
 
-    public void b_(EntityHuman entityhuman) {
+    public void c_(EntityHuman entityhuman) {
         if (!this.world.isStatic) {
             if (this.c == 0 && entityhuman.bR == 0) {
                 entityhuman.bR = 2;

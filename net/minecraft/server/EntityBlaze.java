@@ -22,15 +22,15 @@ public class EntityBlaze extends EntityMonster {
         this.datawatcher.a(16, new Byte((byte) 0));
     }
 
-    protected String aX() {
+    protected String aY() {
         return "mob.blaze.breathe";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.blaze.hit";
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.blaze.death";
     }
 

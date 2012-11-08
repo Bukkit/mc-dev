@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public interface IMerchant {
 
-    void a_(EntityHuman entityhuman);
+    void b_(EntityHuman entityhuman);
 
     EntityHuman m_();
 

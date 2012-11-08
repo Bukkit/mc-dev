@@ -241,15 +241,15 @@ public class EntityEnderman extends EntityMonster {
         }
     }
 
-    protected String aX() {
+    protected String aY() {
         return this.q() ? "mob.endermen.scream" : "mob.endermen.idle";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.endermen.hit";
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.endermen.death";
     }
 

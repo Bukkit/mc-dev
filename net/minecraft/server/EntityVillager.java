@@ -55,17 +55,17 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
         this.goalSelector.a(10, new PathfinderGoalLookAtPlayer(this, EntityLiving.class, 8.0F));
     }
 
-    public boolean bd() {
+    public boolean be() {
         return true;
     }
 
-    protected void bl() {
+    protected void bm() {
         if (--this.profession <= 0) {
             this.world.villages.a(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ));
             this.profession = 70 + this.random.nextInt(50);
             this.village = this.world.villages.getClosestVillage(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ), 32);
             if (this.village == null) {
-                this.aK();
+                this.aL();
             } else {
                 ChunkCoordinates chunkcoordinates = this.village.getCenter();
 
@@ -105,19 +105,22 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
             }
         }
 
-        super.bl();
+        super.bm();
     }
 
-    public boolean c(EntityHuman entityhuman) {
-        if (this.isAlive() && !this.p() && !this.isBaby()) {
+    public boolean a(EntityHuman entityhuman) {
+        ItemStack itemstack = entityhuman.inventory.getItemInHand();
+        boolean flag = itemstack != null && itemstack.id == Item.MONSTER_EGG.id;
+
+        if (!flag && this.isAlive() && !this.p() && !this.isBaby()) {
             if (!this.world.isStatic) {
-                this.a_(entityhuman);
+                this.b_(entityhuman);
                 entityhuman.openTrade(this);
             }
 
             return true;
         } else {
-            return super.c(entityhuman);
+            return super.a(entityhuman);
         }
     }
 
@@ -150,19 +153,19 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
         }
     }
 
-    protected boolean bi() {
+    protected boolean bj() {
         return false;
     }
 
-    protected String aX() {
+    protected String aY() {
         return "mob.villager.default";
     }
 
-    protected String aY() {
+    protected String aZ() {
         return "mob.villager.defaulthurt";
     }
 
-    protected String aZ() {
+    protected String ba() {
         return "mob.villager.defaultdeath";
     }
 
@@ -231,7 +234,7 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
         super.die(damagesource);
     }
 
-    public void a_(EntityHuman entityhuman) {
+    public void b_(EntityHuman entityhuman) {
         this.h = entityhuman;
     }
 
@@ -434,12 +437,20 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
         return tuple == null ? 1 : (((Integer) tuple.a()).intValue() >= ((Integer) tuple.b()).intValue() ? ((Integer) tuple.a()).intValue() : ((Integer) tuple.a()).intValue() + random.nextInt(((Integer) tuple.b()).intValue() - ((Integer) tuple.a()).intValue()));
     }
 
-    public void bF() {
+    public void bG() {
         this.setProfession(this.world.random.nextInt(5));
     }
 
     public void q() {
         this.bL = true;
+    }
+
+    public EntityVillager b(EntityAgeable entityageable) {
+        return new EntityVillager(this.world);
+    }
+
+    public EntityAgeable createChild(EntityAgeable entityageable) {
+        return this.b(entityageable);
     }
 
     static {

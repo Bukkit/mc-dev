@@ -30,6 +30,6 @@ public class PathfinderGoalTradeWithPlayer extends PathfinderGoal {
     }
 
     public void d() {
-        this.a.a_((EntityHuman) null);
+        this.a.b_((EntityHuman) null);
     }
 }

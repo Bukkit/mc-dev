@@ -78,10 +78,8 @@ public class WorldMapCollection {
     }
 
     public void a() {
-        Iterator iterator = this.c.iterator();
-
-        while (iterator.hasNext()) {
-            WorldMapBase worldmapbase = (WorldMapBase) iterator.next();
+        for (int i = 0; i < this.c.size(); ++i) {
+            WorldMapBase worldmapbase = (WorldMapBase) this.c.get(i);
 
             if (worldmapbase.d()) {
                 this.a(worldmapbase);

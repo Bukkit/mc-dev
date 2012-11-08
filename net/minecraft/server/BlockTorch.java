@@ -74,16 +74,18 @@ public class BlockTorch extends Block {
     }
 
     public void onPlace(World world, int i, int j, int k) {
-        if (world.b(i - 1, j, k, true)) {
-            world.setData(i, j, k, 1);
-        } else if (world.b(i + 1, j, k, true)) {
-            world.setData(i, j, k, 2);
-        } else if (world.b(i, j, k - 1, true)) {
-            world.setData(i, j, k, 3);
-        } else if (world.b(i, j, k + 1, true)) {
-            world.setData(i, j, k, 4);
-        } else if (this.l(world, i, j - 1, k)) {
-            world.setData(i, j, k, 5);
+        if (world.getData(i, j, k) == 0) {
+            if (world.b(i - 1, j, k, true)) {
+                world.setData(i, j, k, 1);
+            } else if (world.b(i + 1, j, k, true)) {
+                world.setData(i, j, k, 2);
+            } else if (world.b(i, j, k - 1, true)) {
+                world.setData(i, j, k, 3);
+            } else if (world.b(i, j, k + 1, true)) {
+                world.setData(i, j, k, 4);
+            } else if (this.l(world, i, j - 1, k)) {
+                world.setData(i, j, k, 5);
+            }
         }
 
         this.n(world, i, j, k);

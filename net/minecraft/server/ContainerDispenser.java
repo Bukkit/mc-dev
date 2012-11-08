@@ -28,7 +28,7 @@ public class ContainerDispenser extends Container {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.items.a(entityhuman);
+        return this.items.a_(entityhuman);
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {

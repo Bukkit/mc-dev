@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
@@ -392,10 +391,8 @@ public abstract class Entity {
 
             List list = this.world.getCubes(this, this.boundingBox.a(d0, d1, d2));
 
-            AxisAlignedBB axisalignedbb1;
-
-            for (Iterator iterator = list.iterator(); iterator.hasNext(); d1 = axisalignedbb1.b(this.boundingBox, d1)) {
-                axisalignedbb1 = (AxisAlignedBB) iterator.next();
+            for (int i = 0; i < list.size(); ++i) {
+                d1 = ((AxisAlignedBB) list.get(i)).b(this.boundingBox, d1);
             }
 
             this.boundingBox.d(0.0D, d1, 0.0D);
@@ -407,11 +404,10 @@ public abstract class Entity {
 
             boolean flag1 = this.onGround || d7 != d1 && d7 < 0.0D;
 
-            AxisAlignedBB axisalignedbb2;
-            Iterator iterator1;
+            int j;
 
-            for (iterator1 = list.iterator(); iterator1.hasNext(); d0 = axisalignedbb2.a(this.boundingBox, d0)) {
-                axisalignedbb2 = (AxisAlignedBB) iterator1.next();
+            for (j = 0; j < list.size(); ++j) {
+                d0 = ((AxisAlignedBB) list.get(j)).a(this.boundingBox, d0);
             }
 
             this.boundingBox.d(d0, 0.0D, 0.0D);
@@ -421,8 +417,8 @@ public abstract class Entity {
                 d0 = 0.0D;
             }
 
-            for (iterator1 = list.iterator(); iterator1.hasNext(); d2 = axisalignedbb2.c(this.boundingBox, d2)) {
-                axisalignedbb2 = (AxisAlignedBB) iterator1.next();
+            for (j = 0; j < list.size(); ++j) {
+                d2 = ((AxisAlignedBB) list.get(j)).c(this.boundingBox, d2);
             }
 
             this.boundingBox.d(0.0D, 0.0D, d2);
@@ -435,6 +431,7 @@ public abstract class Entity {
             double d10;
             double d11;
             double d12;
+            int k;
 
             if (this.X > 0.0F && flag1 && (flag || this.W < 0.05F) && (d6 != d0 || d8 != d2)) {
                 d10 = d0;
@@ -443,16 +440,13 @@ public abstract class Entity {
                 d0 = d6;
                 d1 = (double) this.X;
                 d2 = d8;
-                AxisAlignedBB axisalignedbb3 = this.boundingBox.clone();
+                AxisAlignedBB axisalignedbb1 = this.boundingBox.clone();
 
                 this.boundingBox.c(axisalignedbb);
                 list = this.world.getCubes(this, this.boundingBox.a(d6, d1, d8));
 
-                Iterator iterator2;
-                AxisAlignedBB axisalignedbb4;
-
-                for (iterator2 = list.iterator(); iterator2.hasNext(); d1 = axisalignedbb4.b(this.boundingBox, d1)) {
-                    axisalignedbb4 = (AxisAlignedBB) iterator2.next();
+                for (k = 0; k < list.size(); ++k) {
+                    d1 = ((AxisAlignedBB) list.get(k)).b(this.boundingBox, d1);
                 }
 
                 this.boundingBox.d(0.0D, d1, 0.0D);
@@ -462,8 +456,8 @@ public abstract class Entity {
                     d0 = 0.0D;
                 }
 
-                for (iterator2 = list.iterator(); iterator2.hasNext(); d0 = axisalignedbb4.a(this.boundingBox, d0)) {
-                    axisalignedbb4 = (AxisAlignedBB) iterator2.next();
+                for (k = 0; k < list.size(); ++k) {
+                    d0 = ((AxisAlignedBB) list.get(k)).a(this.boundingBox, d0);
                 }
 
                 this.boundingBox.d(d0, 0.0D, 0.0D);
@@ -473,8 +467,8 @@ public abstract class Entity {
                     d0 = 0.0D;
                 }
 
-                for (iterator2 = list.iterator(); iterator2.hasNext(); d2 = axisalignedbb4.c(this.boundingBox, d2)) {
-                    axisalignedbb4 = (AxisAlignedBB) iterator2.next();
+                for (k = 0; k < list.size(); ++k) {
+                    d2 = ((AxisAlignedBB) list.get(k)).c(this.boundingBox, d2);
                 }
 
                 this.boundingBox.d(0.0D, 0.0D, d2);
@@ -491,8 +485,8 @@ public abstract class Entity {
                 } else {
                     d1 = (double) (-this.X);
 
-                    for (iterator2 = list.iterator(); iterator2.hasNext(); d1 = axisalignedbb4.b(this.boundingBox, d1)) {
-                        axisalignedbb4 = (AxisAlignedBB) iterator2.next();
+                    for (k = 0; k < list.size(); ++k) {
+                        d1 = ((AxisAlignedBB) list.get(k)).b(this.boundingBox, d1);
                     }
 
                     this.boundingBox.d(0.0D, d1, 0.0D);
@@ -502,7 +496,7 @@ public abstract class Entity {
                     d0 = d10;
                     d1 = d11;
                     d2 = d12;
-                    this.boundingBox.c(axisalignedbb3);
+                    this.boundingBox.c(axisalignedbb1);
                 } else {
                     double d13 = this.boundingBox.b - (double) ((int) this.boundingBox.b);
 
@@ -538,26 +532,27 @@ public abstract class Entity {
             d11 = this.locY - d4;
             d12 = this.locZ - d5;
             if (this.f_() && !flag && this.vehicle == null) {
-                int i = MathHelper.floor(this.locX);
-                int j = MathHelper.floor(this.locY - 0.20000000298023224D - (double) this.height);
-                int k = MathHelper.floor(this.locZ);
-                int l = this.world.getTypeId(i, j, k);
+                int l = MathHelper.floor(this.locX);
 
-                if (l == 0) {
-                    int i1 = this.world.e(i, j - 1, k);
+                k = MathHelper.floor(this.locY - 0.20000000298023224D - (double) this.height);
+                int i1 = MathHelper.floor(this.locZ);
+                int j1 = this.world.getTypeId(l, k, i1);
 
-                    if (i1 == 11 || i1 == 32 || i1 == 21) {
-                        l = this.world.getTypeId(i, j - 1, k);
+                if (j1 == 0) {
+                    int k1 = this.world.e(l, k - 1, i1);
+
+                    if (k1 == 11 || k1 == 32 || k1 == 21) {
+                        j1 = this.world.getTypeId(l, k - 1, i1);
                     }
                 }
 
-                if (l != Block.LADDER.id) {
+                if (j1 != Block.LADDER.id) {
                     d11 = 0.0D;
                 }
 
                 this.Q = (float) ((double) this.Q + (double) MathHelper.sqrt(d10 * d10 + d12 * d12) * 0.6D);
                 this.R = (float) ((double) this.R + (double) MathHelper.sqrt(d10 * d10 + d11 * d11 + d12 * d12) * 0.6D);
-                if (this.R > (float) this.c && l > 0) {
+                if (this.R > (float) this.c && j1 > 0) {
                     this.c = (int) this.R + 1;
                     if (this.H()) {
                         float f = MathHelper.sqrt(this.motX * this.motX * 0.20000000298023224D + this.motY * this.motY + this.motZ * this.motZ * 0.20000000298023224D) * 0.35F;
@@ -569,8 +564,8 @@ public abstract class Entity {
                         this.makeSound("liquid.swim", f, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
                     }
 
-                    this.a(i, j, k, l);
-                    Block.byId[l].b(this.world, i, j, k, this);
+                    this.a(l, k, i1, j1);
+                    Block.byId[j1].b(this.world, l, k, i1, this);
                 }
             }
 
@@ -843,7 +838,7 @@ public abstract class Entity {
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
-    public void b_(EntityHuman entityhuman) {}
+    public void c_(EntityHuman entityhuman) {}
 
     public void collide(Entity entity) {
         if (entity.passenger != this && entity.vehicle != this) {
@@ -1055,7 +1050,7 @@ public abstract class Entity {
         return false;
     }
 
-    public boolean c(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         return false;
     }
 
@@ -1120,7 +1115,7 @@ public abstract class Entity {
     }
 
     public void V() {
-        if (!(this.passenger instanceof EntityHuman) || !((EntityHuman) this.passenger).bV()) {
+        if (!(this.passenger instanceof EntityHuman) || !((EntityHuman) this.passenger).bW()) {
             this.passenger.T = this.T;
             this.passenger.U = this.U + this.X() + this.passenger.W();
             this.passenger.V = this.V;

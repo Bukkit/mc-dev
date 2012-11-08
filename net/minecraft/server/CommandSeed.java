@@ -17,8 +17,8 @@ public class CommandSeed extends CommandAbstract {
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {
-        EntityPlayer entityplayer = c(icommandlistener);
+        Object object = icommandlistener instanceof EntityHuman ? ((EntityHuman) icommandlistener).world : MinecraftServer.getServer().getWorldServer(0);
 
-        icommandlistener.sendMessage("Seed: " + entityplayer.world.getSeed());
+        icommandlistener.sendMessage("Seed: " + ((World) object).getSeed());
     }
 }

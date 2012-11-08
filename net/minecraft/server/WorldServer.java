@@ -429,10 +429,9 @@ public class WorldServer extends World {
 
     public List getTileEntities(int i, int j, int k, int l, int i1, int j1) {
         ArrayList arraylist = new ArrayList();
-        Iterator iterator = this.tileEntityList.iterator();
 
-        while (iterator.hasNext()) {
-            TileEntity tileentity = (TileEntity) iterator.next();
+        for (int k1 = 0; k1 < this.tileEntityList.size(); ++k1) {
+            TileEntity tileentity = (TileEntity) this.tileEntityList.get(k1);
 
             if (tileentity.x >= i && tileentity.y >= j && tileentity.z >= k && tileentity.x < l && tileentity.y < i1 && tileentity.z < j1) {
                 arraylist.add(tileentity);
@@ -554,13 +553,8 @@ public class WorldServer extends World {
         Entity[] aentity = entity.ao();
 
         if (aentity != null) {
-            Entity[] aentity1 = aentity;
-            int i = aentity.length;
-
-            for (int j = 0; j < i; ++j) {
-                Entity entity1 = aentity1[j];
-
-                this.entitiesById.a(entity1.id, entity1);
+            for (int i = 0; i < aentity.length; ++i) {
+                this.entitiesById.a(aentity[i].id, aentity[i]);
             }
         }
     }
@@ -571,13 +565,8 @@ public class WorldServer extends World {
         Entity[] aentity = entity.ao();
 
         if (aentity != null) {
-            Entity[] aentity1 = aentity;
-            int i = aentity.length;
-
-            for (int j = 0; j < i; ++j) {
-                Entity entity1 = aentity1[j];
-
-                this.entitiesById.d(entity1.id);
+            for (int i = 0; i < aentity.length; ++i) {
+                this.entitiesById.d(aentity[i].id);
             }
         }
     }

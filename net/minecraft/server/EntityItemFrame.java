@@ -81,9 +81,9 @@ public class EntityItemFrame extends EntityHanging {
         super.a(nbttagcompound);
     }
 
-    public boolean c(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         if (this.i() == null) {
-            ItemStack itemstack = entityhuman.bC();
+            ItemStack itemstack = entityhuman.bD();
 
             if (itemstack != null && !this.world.isStatic) {
                 this.a(itemstack);

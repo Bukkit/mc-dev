@@ -157,10 +157,9 @@ public class ChunkProviderServer implements IChunkProvider {
 
     public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
         int i = 0;
-        Iterator iterator = this.chunkList.iterator();
 
-        while (iterator.hasNext()) {
-            Chunk chunk = (Chunk) iterator.next();
+        for (int j = 0; j < this.chunkList.size(); ++j) {
+            Chunk chunk = (Chunk) this.chunkList.get(j);
 
             if (flag) {
                 this.saveChunkNOP(chunk);

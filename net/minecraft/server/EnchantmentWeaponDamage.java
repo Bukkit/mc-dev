@@ -29,6 +29,10 @@ public class EnchantmentWeaponDamage extends Enchantment {
         return this.a == 0 ? i * 3 : (this.a == 1 && entityliving.getMonsterType() == EnumMonsterType.UNDEAD ? i * 4 : (this.a == 2 && entityliving.getMonsterType() == EnumMonsterType.ARTHROPOD ? i * 4 : 0));
     }
 
+    public String a() {
+        return "enchantment.damage." + A[this.a];
+    }
+
     public boolean a(Enchantment enchantment) {
         return !(enchantment instanceof EnchantmentWeaponDamage);
     }

@@ -303,12 +303,8 @@ public class EntityTrackerEntry {
     }
 
     public void scanPlayers(List list) {
-        Iterator iterator = list.iterator();
-
-        while (iterator.hasNext()) {
-            EntityHuman entityhuman = (EntityHuman) iterator.next();
-
-            this.updatePlayer((EntityPlayer) entityhuman);
+        for (int i = 0; i < list.size(); ++i) {
+            this.updatePlayer((EntityPlayer) list.get(i));
         }
     }
 

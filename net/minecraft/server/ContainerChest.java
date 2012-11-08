@@ -32,7 +32,7 @@ public class ContainerChest extends Container {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.container.a(entityhuman);
+        return this.container.a_(entityhuman);
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {

@@ -13,7 +13,7 @@ public class PathfinderGoalEatTile extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (this.b.aA().nextInt(this.b.isBaby() ? 50 : 1000) != 0) {
+        if (this.b.aB().nextInt(this.b.isBaby() ? 50 : 1000) != 0) {
             return false;
         } else {
             int i = MathHelper.floor(this.b.locX);
@@ -52,11 +52,11 @@ public class PathfinderGoalEatTile extends PathfinderGoal {
             if (this.c.getTypeId(i, j, k) == Block.LONG_GRASS.id) {
                 this.c.triggerEffect(2001, i, j, k, Block.LONG_GRASS.id + 4096);
                 this.c.setTypeId(i, j, k, 0);
-                this.b.aG();
+                this.b.aH();
             } else if (this.c.getTypeId(i, j - 1, k) == Block.GRASS.id) {
                 this.c.triggerEffect(2001, i, j - 1, k, Block.GRASS.id);
                 this.c.setTypeId(i, j - 1, k, Block.DIRT.id);
-                this.b.aG();
+                this.b.aH();
             }
         }
     }

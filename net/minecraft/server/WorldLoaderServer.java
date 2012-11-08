@@ -74,14 +74,14 @@ public class WorldLoaderServer extends WorldLoader {
             worlddata.setType(WorldType.NORMAL);
         }
 
-        this.f(s);
+        this.g(s);
         IDataManager idatamanager = this.a(s, false);
 
         idatamanager.saveWorldData(worlddata);
         return true;
     }
 
-    private void f(String s) {
+    private void g(String s) {
         File file1 = new File(this.a, s);
 
         if (!file1.exists()) {
