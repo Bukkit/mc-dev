@@ -28,7 +28,7 @@ public class CommandHelp extends CommandAbstract {
     public void b(ICommandListener icommandlistener, String[] astring) {
         List list = this.d(icommandlistener);
         byte b0 = 7;
-        int i = list.size() / b0;
+        int i = (list.size() - 1) / b0;
         boolean flag = false;
 
         ICommand icommand;

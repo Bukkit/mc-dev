@@ -83,7 +83,6 @@ public class PathfinderGoalMakeLove extends PathfinderGoal {
         this.c.setAge(6000);
         this.b.setAge(6000);
         entityvillager.setAge(-24000);
-        entityvillager.setProfession(this.b.aB().nextInt(5));
         entityvillager.setPositionRotation(this.b.locX, this.b.locY, this.b.locZ, 0.0F, 0.0F);
         this.d.addEntity(entityvillager);
         this.d.broadcastEntityEffect(entityvillager, (byte) 12);

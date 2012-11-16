@@ -446,7 +446,10 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
     }
 
     public EntityVillager b(EntityAgeable entityageable) {
-        return new EntityVillager(this.world);
+        EntityVillager entityvillager = new EntityVillager(this.world);
+
+        entityvillager.bG();
+        return entityvillager;
     }
 
     public EntityAgeable createChild(EntityAgeable entityageable) {
