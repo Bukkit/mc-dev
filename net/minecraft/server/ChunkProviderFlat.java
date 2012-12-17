@@ -83,7 +83,7 @@ public class ChunkProviderFlat implements IChunkProvider {
             ChunkSection chunksection = chunk.i()[l];
 
             if (chunksection == null) {
-                chunksection = new ChunkSection(k);
+                chunksection = new ChunkSection(k, !this.a.worldProvider.f);
                 chunk.i()[l] = chunksection;
             }
 

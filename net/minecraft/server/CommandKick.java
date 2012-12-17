@@ -20,7 +20,7 @@ public class CommandKick extends CommandAbstract {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0 && astring[0].length() > 1) {
-            EntityPlayer entityplayer = MinecraftServer.getServer().getServerConfigurationManager().f(astring[0]);
+            EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().f(astring[0]);
             String s = "Kicked by an operator.";
             boolean flag = false;
 
@@ -32,7 +32,7 @@ public class CommandKick extends CommandAbstract {
                     flag = true;
                 }
 
-                entityplayer.netServerHandler.disconnect(s);
+                entityplayer.playerConnection.disconnect(s);
                 if (flag) {
                     a(icommandlistener, "commands.kick.success.reason", new Object[] { entityplayer.getLocalizedName(), s});
                 } else {

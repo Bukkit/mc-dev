@@ -4,7 +4,7 @@ import java.net.SocketAddress;
 
 public interface INetworkManager {
 
-    void a(NetHandler nethandler);
+    void a(Connection connection);
 
     void queue(Packet packet);
 

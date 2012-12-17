@@ -46,7 +46,7 @@ public class CommandTp extends CommandAbstract {
                         return;
                     }
 
-                    entityplayer.netServerHandler.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
+                    entityplayer.playerConnection.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
                     a(icommandlistener, "commands.tp.success", new Object[] { entityplayer.getLocalizedName(), entityplayer1.getLocalizedName()});
                 }
             } else if (entityplayer.world != null) {

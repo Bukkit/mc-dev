@@ -204,7 +204,7 @@ public class WorldGenPyramidPiece extends WorldGenScatteredPiece {
                 int j1 = Direction.a[i1] * 2;
                 int k1 = Direction.b[i1] * 2;
 
-                this.h[i1] = this.a(world, structureboundingbox, random, 10 + j1, -11, 10 + k1, i, 2 + random.nextInt(5));
+                this.h[i1] = this.a(world, structureboundingbox, random, 10 + j1, -11, 10 + k1, StructurePieceTreasure.a(i, new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 2 + random.nextInt(5));
             }
         }
 

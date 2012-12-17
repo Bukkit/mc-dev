@@ -1,8 +1,8 @@
 package net.minecraft.server;
 
-public abstract class NetHandler {
+public abstract class Connection {
 
-    public NetHandler() {}
+    public Connection() {}
 
     public abstract boolean a();
 
@@ -58,10 +58,6 @@ public abstract class NetHandler {
 
     public void a(Packet29DestroyEntity packet29destroyentity) {
         this.onUnhandledPacket(packet29destroyentity);
-    }
-
-    public void a(Packet21PickupSpawn packet21pickupspawn) {
-        this.onUnhandledPacket(packet21pickupspawn);
     }
 
     public void a(Packet22Collect packet22collect) {

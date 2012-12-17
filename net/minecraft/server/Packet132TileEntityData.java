@@ -40,8 +40,8 @@ public class Packet132TileEntityData extends Packet {
         a(this.e, dataoutputstream);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

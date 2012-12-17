@@ -76,7 +76,7 @@ public abstract class CommandAbstract implements ICommand {
         if (entityplayer != null) {
             return entityplayer;
         } else {
-            entityplayer = MinecraftServer.getServer().getServerConfigurationManager().f(s);
+            entityplayer = MinecraftServer.getServer().getPlayerList().f(s);
             if (entityplayer == null) {
                 throw new ExceptionPlayerNotFound();
             } else {

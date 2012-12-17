@@ -15,13 +15,13 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
     private EntityHuman h;
     private MerchantRecipeList i;
     private int j;
-    private boolean bI;
-    private int bJ;
-    private String bK;
-    private boolean bL;
-    private float bM;
-    private static final Map bN = new HashMap();
+    private boolean bJ;
+    private int bK;
+    private String bL;
+    private boolean bM;
+    private float bN;
     private static final Map bO = new HashMap();
+    private static final Map bP = new HashMap();
 
     public EntityVillager(World world) {
         this(world, 0);
@@ -35,7 +35,7 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
         this.village = null;
         this.setProfession(i);
         this.texture = "/mob/villager/villager.png";
-        this.bG = 0.5F;
+        this.bH = 0.5F;
         this.getNavigation().b(true);
         this.getNavigation().a(true);
         this.goalSelector.a(0, new PathfinderGoalFloat(this));
@@ -70,8 +70,8 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
                 ChunkCoordinates chunkcoordinates = this.village.getCenter();
 
                 this.b(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, (int) ((float) this.village.getSize() * 0.6F));
-                if (this.bL) {
-                    this.bL = false;
+                if (this.bM) {
+                    this.bM = false;
                     this.village.b(5);
                 }
             }
@@ -80,7 +80,7 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
         if (!this.p() && this.j > 0) {
             --this.j;
             if (this.j <= 0) {
-                if (this.bI) {
+                if (this.bJ) {
                     if (this.i.size() > 1) {
                         Iterator iterator = this.i.iterator();
 
@@ -94,10 +94,10 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
                     }
 
                     this.t(1);
-                    this.bI = false;
-                    if (this.village != null && this.bK != null) {
+                    this.bJ = false;
+                    if (this.village != null && this.bL != null) {
                         this.world.broadcastEntityEffect(this, (byte) 14);
-                        this.village.a(this.bK, 1);
+                        this.village.a(this.bL, 1);
                     }
                 }
 
@@ -136,7 +136,7 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
         nbttagcompound.setInt("Profession", this.getProfession());
-        nbttagcompound.setInt("Riches", this.bJ);
+        nbttagcompound.setInt("Riches", this.bK);
         if (this.i != null) {
             nbttagcompound.setCompound("Offers", this.i.a());
         }
@@ -145,7 +145,7 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
         this.setProfession(nbttagcompound.getInt("Profession"));
-        this.bJ = nbttagcompound.getInt("Riches");
+        this.bK = nbttagcompound.getInt("Riches");
         if (nbttagcompound.hasKey("Offers")) {
             NBTTagCompound nbttagcompound1 = nbttagcompound.getCompound("Offers");
 
@@ -250,16 +250,16 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
         merchantrecipe.f();
         if (merchantrecipe.a((MerchantRecipe) this.i.get(this.i.size() - 1))) {
             this.j = 40;
-            this.bI = true;
+            this.bJ = true;
             if (this.h != null) {
-                this.bK = this.h.getName();
+                this.bL = this.h.getName();
             } else {
-                this.bK = null;
+                this.bL = null;
             }
         }
 
         if (merchantrecipe.getBuyItem1().id == Item.EMERALD.id) {
-            this.bJ += merchantrecipe.getBuyItem1().count;
+            this.bK += merchantrecipe.getBuyItem1().count;
         }
     }
 
@@ -272,22 +272,24 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
     }
 
     private float j(float f) {
-        float f1 = f + this.bM;
+        float f1 = f + this.bN;
 
         return f1 > 0.9F ? 0.9F - (f1 - 0.9F) : f1;
     }
 
     private void t(int i) {
         if (this.i != null) {
-            this.bM = MathHelper.c((float) this.i.size()) * 0.2F;
+            this.bN = MathHelper.c((float) this.i.size()) * 0.2F;
         } else {
-            this.bM = 0.0F;
+            this.bN = 0.0F;
         }
 
         MerchantRecipeList merchantrecipelist;
 
         merchantrecipelist = new MerchantRecipeList();
-        label48:
+        int j;
+
+        label50:
         switch (this.getProfession()) {
         case 0:
             a(merchantrecipelist, Item.WHEAT.id, this.random, this.j(0.9F));
@@ -315,6 +317,14 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
             b(merchantrecipelist, Block.GLASS.id, this.random, this.j(0.2F));
             b(merchantrecipelist, Item.COMPASS.id, this.random, this.j(0.2F));
             b(merchantrecipelist, Item.WATCH.id, this.random, this.j(0.2F));
+            if (this.random.nextFloat() < this.j(0.07F)) {
+                Enchantment enchantment = Enchantment.c[this.random.nextInt(Enchantment.c.length)];
+                int k = MathHelper.nextInt(this.random, enchantment.getStartLevel(), enchantment.getMaxLevel());
+                ItemStack itemstack = Item.ENCHANTED_BOOK.a(new EnchantmentInstance(enchantment, k));
+
+                j = 2 + this.random.nextInt(5 + k * 10) + 3 * k;
+                merchantrecipelist.add(new MerchantRecipe(new ItemStack(Item.BOOK), new ItemStack(Item.EMERALD, j), itemstack));
+            }
             break;
 
         case 2:
@@ -324,21 +334,22 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
             b(merchantrecipelist, Block.GLOWSTONE.id, this.random, this.j(0.3F));
             int[] aint = new int[] { Item.IRON_SWORD.id, Item.DIAMOND_SWORD.id, Item.IRON_CHESTPLATE.id, Item.DIAMOND_CHESTPLATE.id, Item.IRON_AXE.id, Item.DIAMOND_AXE.id, Item.IRON_PICKAXE.id, Item.DIAMOND_PICKAXE.id};
             int[] aint1 = aint;
-            int j = aint.length;
-            int k = 0;
+            int l = aint.length;
+
+            j = 0;
 
             while (true) {
-                if (k >= j) {
-                    break label48;
+                if (j >= l) {
+                    break label50;
                 }
 
-                int l = aint1[k];
+                int i1 = aint1[j];
 
                 if (this.random.nextFloat() < this.j(0.05F)) {
-                    merchantrecipelist.add(new MerchantRecipe(new ItemStack(l, 1, 0), new ItemStack(Item.EMERALD, 2 + this.random.nextInt(3), 0), EnchantmentManager.a(this.random, new ItemStack(l, 1, 0), 5 + this.random.nextInt(15))));
+                    merchantrecipelist.add(new MerchantRecipe(new ItemStack(i1, 1, 0), new ItemStack(Item.EMERALD, 2 + this.random.nextInt(3), 0), EnchantmentManager.a(this.random, new ItemStack(i1, 1, 0), 5 + this.random.nextInt(15))));
                 }
 
-                ++k;
+                ++j;
             }
 
         case 3:
@@ -392,8 +403,8 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
             this.i = new MerchantRecipeList();
         }
 
-        for (int i1 = 0; i1 < i && i1 < merchantrecipelist.size(); ++i1) {
-            this.i.a((MerchantRecipe) merchantrecipelist.get(i1));
+        for (int j1 = 0; j1 < i && j1 < merchantrecipelist.size(); ++j1) {
+            this.i.a((MerchantRecipe) merchantrecipelist.get(j1));
         }
     }
 
@@ -408,7 +419,7 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
     }
 
     private static int b(int i, Random random) {
-        Tuple tuple = (Tuple) bN.get(Integer.valueOf(i));
+        Tuple tuple = (Tuple) bO.get(Integer.valueOf(i));
 
         return tuple == null ? 1 : (((Integer) tuple.a()).intValue() >= ((Integer) tuple.b()).intValue() ? ((Integer) tuple.a()).intValue() : ((Integer) tuple.a()).intValue() + random.nextInt(((Integer) tuple.b()).intValue() - ((Integer) tuple.a()).intValue()));
     }
@@ -432,7 +443,7 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
     }
 
     private static int c(int i, Random random) {
-        Tuple tuple = (Tuple) bO.get(Integer.valueOf(i));
+        Tuple tuple = (Tuple) bP.get(Integer.valueOf(i));
 
         return tuple == null ? 1 : (((Integer) tuple.a()).intValue() >= ((Integer) tuple.b()).intValue() ? ((Integer) tuple.a()).intValue() : ((Integer) tuple.a()).intValue() + random.nextInt(((Integer) tuple.b()).intValue() - ((Integer) tuple.a()).intValue()));
     }
@@ -442,7 +453,7 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
     }
 
     public void q() {
-        this.bL = true;
+        this.bM = true;
     }
 
     public EntityVillager b(EntityAgeable entityageable) {
@@ -457,69 +468,69 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
     }
 
     static {
-        bN.put(Integer.valueOf(Item.COAL.id), new Tuple(Integer.valueOf(16), Integer.valueOf(24)));
-        bN.put(Integer.valueOf(Item.IRON_INGOT.id), new Tuple(Integer.valueOf(8), Integer.valueOf(10)));
-        bN.put(Integer.valueOf(Item.GOLD_INGOT.id), new Tuple(Integer.valueOf(8), Integer.valueOf(10)));
-        bN.put(Integer.valueOf(Item.DIAMOND.id), new Tuple(Integer.valueOf(4), Integer.valueOf(6)));
-        bN.put(Integer.valueOf(Item.PAPER.id), new Tuple(Integer.valueOf(24), Integer.valueOf(36)));
-        bN.put(Integer.valueOf(Item.BOOK.id), new Tuple(Integer.valueOf(11), Integer.valueOf(13)));
-        bN.put(Integer.valueOf(Item.WRITTEN_BOOK.id), new Tuple(Integer.valueOf(1), Integer.valueOf(1)));
-        bN.put(Integer.valueOf(Item.ENDER_PEARL.id), new Tuple(Integer.valueOf(3), Integer.valueOf(4)));
-        bN.put(Integer.valueOf(Item.EYE_OF_ENDER.id), new Tuple(Integer.valueOf(2), Integer.valueOf(3)));
-        bN.put(Integer.valueOf(Item.PORK.id), new Tuple(Integer.valueOf(14), Integer.valueOf(18)));
-        bN.put(Integer.valueOf(Item.RAW_BEEF.id), new Tuple(Integer.valueOf(14), Integer.valueOf(18)));
-        bN.put(Integer.valueOf(Item.RAW_CHICKEN.id), new Tuple(Integer.valueOf(14), Integer.valueOf(18)));
-        bN.put(Integer.valueOf(Item.COOKED_FISH.id), new Tuple(Integer.valueOf(9), Integer.valueOf(13)));
-        bN.put(Integer.valueOf(Item.SEEDS.id), new Tuple(Integer.valueOf(34), Integer.valueOf(48)));
-        bN.put(Integer.valueOf(Item.MELON_SEEDS.id), new Tuple(Integer.valueOf(30), Integer.valueOf(38)));
-        bN.put(Integer.valueOf(Item.PUMPKIN_SEEDS.id), new Tuple(Integer.valueOf(30), Integer.valueOf(38)));
-        bN.put(Integer.valueOf(Item.WHEAT.id), new Tuple(Integer.valueOf(18), Integer.valueOf(22)));
-        bN.put(Integer.valueOf(Block.WOOL.id), new Tuple(Integer.valueOf(14), Integer.valueOf(22)));
-        bN.put(Integer.valueOf(Item.ROTTEN_FLESH.id), new Tuple(Integer.valueOf(36), Integer.valueOf(64)));
-        bO.put(Integer.valueOf(Item.FLINT_AND_STEEL.id), new Tuple(Integer.valueOf(3), Integer.valueOf(4)));
-        bO.put(Integer.valueOf(Item.SHEARS.id), new Tuple(Integer.valueOf(3), Integer.valueOf(4)));
-        bO.put(Integer.valueOf(Item.IRON_SWORD.id), new Tuple(Integer.valueOf(7), Integer.valueOf(11)));
-        bO.put(Integer.valueOf(Item.DIAMOND_SWORD.id), new Tuple(Integer.valueOf(12), Integer.valueOf(14)));
-        bO.put(Integer.valueOf(Item.IRON_AXE.id), new Tuple(Integer.valueOf(6), Integer.valueOf(8)));
-        bO.put(Integer.valueOf(Item.DIAMOND_AXE.id), new Tuple(Integer.valueOf(9), Integer.valueOf(12)));
-        bO.put(Integer.valueOf(Item.IRON_PICKAXE.id), new Tuple(Integer.valueOf(7), Integer.valueOf(9)));
-        bO.put(Integer.valueOf(Item.DIAMOND_PICKAXE.id), new Tuple(Integer.valueOf(10), Integer.valueOf(12)));
-        bO.put(Integer.valueOf(Item.IRON_SPADE.id), new Tuple(Integer.valueOf(4), Integer.valueOf(6)));
-        bO.put(Integer.valueOf(Item.DIAMOND_SPADE.id), new Tuple(Integer.valueOf(7), Integer.valueOf(8)));
-        bO.put(Integer.valueOf(Item.IRON_HOE.id), new Tuple(Integer.valueOf(4), Integer.valueOf(6)));
-        bO.put(Integer.valueOf(Item.DIAMOND_HOE.id), new Tuple(Integer.valueOf(7), Integer.valueOf(8)));
-        bO.put(Integer.valueOf(Item.IRON_BOOTS.id), new Tuple(Integer.valueOf(4), Integer.valueOf(6)));
-        bO.put(Integer.valueOf(Item.DIAMOND_BOOTS.id), new Tuple(Integer.valueOf(7), Integer.valueOf(8)));
-        bO.put(Integer.valueOf(Item.IRON_HELMET.id), new Tuple(Integer.valueOf(4), Integer.valueOf(6)));
-        bO.put(Integer.valueOf(Item.DIAMOND_HELMET.id), new Tuple(Integer.valueOf(7), Integer.valueOf(8)));
-        bO.put(Integer.valueOf(Item.IRON_CHESTPLATE.id), new Tuple(Integer.valueOf(10), Integer.valueOf(14)));
-        bO.put(Integer.valueOf(Item.DIAMOND_CHESTPLATE.id), new Tuple(Integer.valueOf(16), Integer.valueOf(19)));
-        bO.put(Integer.valueOf(Item.IRON_LEGGINGS.id), new Tuple(Integer.valueOf(8), Integer.valueOf(10)));
-        bO.put(Integer.valueOf(Item.DIAMOND_LEGGINGS.id), new Tuple(Integer.valueOf(11), Integer.valueOf(14)));
-        bO.put(Integer.valueOf(Item.CHAINMAIL_BOOTS.id), new Tuple(Integer.valueOf(5), Integer.valueOf(7)));
-        bO.put(Integer.valueOf(Item.CHAINMAIL_HELMET.id), new Tuple(Integer.valueOf(5), Integer.valueOf(7)));
-        bO.put(Integer.valueOf(Item.CHAINMAIL_CHESTPLATE.id), new Tuple(Integer.valueOf(11), Integer.valueOf(15)));
-        bO.put(Integer.valueOf(Item.CHAINMAIL_LEGGINGS.id), new Tuple(Integer.valueOf(9), Integer.valueOf(11)));
-        bO.put(Integer.valueOf(Item.BREAD.id), new Tuple(Integer.valueOf(-4), Integer.valueOf(-2)));
-        bO.put(Integer.valueOf(Item.MELON.id), new Tuple(Integer.valueOf(-8), Integer.valueOf(-4)));
-        bO.put(Integer.valueOf(Item.APPLE.id), new Tuple(Integer.valueOf(-8), Integer.valueOf(-4)));
-        bO.put(Integer.valueOf(Item.COOKIE.id), new Tuple(Integer.valueOf(-10), Integer.valueOf(-7)));
-        bO.put(Integer.valueOf(Block.GLASS.id), new Tuple(Integer.valueOf(-5), Integer.valueOf(-3)));
-        bO.put(Integer.valueOf(Block.BOOKSHELF.id), new Tuple(Integer.valueOf(3), Integer.valueOf(4)));
-        bO.put(Integer.valueOf(Item.LEATHER_CHESTPLATE.id), new Tuple(Integer.valueOf(4), Integer.valueOf(5)));
-        bO.put(Integer.valueOf(Item.LEATHER_BOOTS.id), new Tuple(Integer.valueOf(2), Integer.valueOf(4)));
-        bO.put(Integer.valueOf(Item.LEATHER_HELMET.id), new Tuple(Integer.valueOf(2), Integer.valueOf(4)));
-        bO.put(Integer.valueOf(Item.LEATHER_LEGGINGS.id), new Tuple(Integer.valueOf(2), Integer.valueOf(4)));
-        bO.put(Integer.valueOf(Item.SADDLE.id), new Tuple(Integer.valueOf(6), Integer.valueOf(8)));
-        bO.put(Integer.valueOf(Item.EXP_BOTTLE.id), new Tuple(Integer.valueOf(-4), Integer.valueOf(-1)));
-        bO.put(Integer.valueOf(Item.REDSTONE.id), new Tuple(Integer.valueOf(-4), Integer.valueOf(-1)));
-        bO.put(Integer.valueOf(Item.COMPASS.id), new Tuple(Integer.valueOf(10), Integer.valueOf(12)));
-        bO.put(Integer.valueOf(Item.WATCH.id), new Tuple(Integer.valueOf(10), Integer.valueOf(12)));
-        bO.put(Integer.valueOf(Block.GLOWSTONE.id), new Tuple(Integer.valueOf(-3), Integer.valueOf(-1)));
-        bO.put(Integer.valueOf(Item.GRILLED_PORK.id), new Tuple(Integer.valueOf(-7), Integer.valueOf(-5)));
-        bO.put(Integer.valueOf(Item.COOKED_BEEF.id), new Tuple(Integer.valueOf(-7), Integer.valueOf(-5)));
-        bO.put(Integer.valueOf(Item.COOKED_CHICKEN.id), new Tuple(Integer.valueOf(-8), Integer.valueOf(-6)));
-        bO.put(Integer.valueOf(Item.EYE_OF_ENDER.id), new Tuple(Integer.valueOf(7), Integer.valueOf(11)));
-        bO.put(Integer.valueOf(Item.ARROW.id), new Tuple(Integer.valueOf(-12), Integer.valueOf(-8)));
+        bO.put(Integer.valueOf(Item.COAL.id), new Tuple(Integer.valueOf(16), Integer.valueOf(24)));
+        bO.put(Integer.valueOf(Item.IRON_INGOT.id), new Tuple(Integer.valueOf(8), Integer.valueOf(10)));
+        bO.put(Integer.valueOf(Item.GOLD_INGOT.id), new Tuple(Integer.valueOf(8), Integer.valueOf(10)));
+        bO.put(Integer.valueOf(Item.DIAMOND.id), new Tuple(Integer.valueOf(4), Integer.valueOf(6)));
+        bO.put(Integer.valueOf(Item.PAPER.id), new Tuple(Integer.valueOf(24), Integer.valueOf(36)));
+        bO.put(Integer.valueOf(Item.BOOK.id), new Tuple(Integer.valueOf(11), Integer.valueOf(13)));
+        bO.put(Integer.valueOf(Item.WRITTEN_BOOK.id), new Tuple(Integer.valueOf(1), Integer.valueOf(1)));
+        bO.put(Integer.valueOf(Item.ENDER_PEARL.id), new Tuple(Integer.valueOf(3), Integer.valueOf(4)));
+        bO.put(Integer.valueOf(Item.EYE_OF_ENDER.id), new Tuple(Integer.valueOf(2), Integer.valueOf(3)));
+        bO.put(Integer.valueOf(Item.PORK.id), new Tuple(Integer.valueOf(14), Integer.valueOf(18)));
+        bO.put(Integer.valueOf(Item.RAW_BEEF.id), new Tuple(Integer.valueOf(14), Integer.valueOf(18)));
+        bO.put(Integer.valueOf(Item.RAW_CHICKEN.id), new Tuple(Integer.valueOf(14), Integer.valueOf(18)));
+        bO.put(Integer.valueOf(Item.COOKED_FISH.id), new Tuple(Integer.valueOf(9), Integer.valueOf(13)));
+        bO.put(Integer.valueOf(Item.SEEDS.id), new Tuple(Integer.valueOf(34), Integer.valueOf(48)));
+        bO.put(Integer.valueOf(Item.MELON_SEEDS.id), new Tuple(Integer.valueOf(30), Integer.valueOf(38)));
+        bO.put(Integer.valueOf(Item.PUMPKIN_SEEDS.id), new Tuple(Integer.valueOf(30), Integer.valueOf(38)));
+        bO.put(Integer.valueOf(Item.WHEAT.id), new Tuple(Integer.valueOf(18), Integer.valueOf(22)));
+        bO.put(Integer.valueOf(Block.WOOL.id), new Tuple(Integer.valueOf(14), Integer.valueOf(22)));
+        bO.put(Integer.valueOf(Item.ROTTEN_FLESH.id), new Tuple(Integer.valueOf(36), Integer.valueOf(64)));
+        bP.put(Integer.valueOf(Item.FLINT_AND_STEEL.id), new Tuple(Integer.valueOf(3), Integer.valueOf(4)));
+        bP.put(Integer.valueOf(Item.SHEARS.id), new Tuple(Integer.valueOf(3), Integer.valueOf(4)));
+        bP.put(Integer.valueOf(Item.IRON_SWORD.id), new Tuple(Integer.valueOf(7), Integer.valueOf(11)));
+        bP.put(Integer.valueOf(Item.DIAMOND_SWORD.id), new Tuple(Integer.valueOf(12), Integer.valueOf(14)));
+        bP.put(Integer.valueOf(Item.IRON_AXE.id), new Tuple(Integer.valueOf(6), Integer.valueOf(8)));
+        bP.put(Integer.valueOf(Item.DIAMOND_AXE.id), new Tuple(Integer.valueOf(9), Integer.valueOf(12)));
+        bP.put(Integer.valueOf(Item.IRON_PICKAXE.id), new Tuple(Integer.valueOf(7), Integer.valueOf(9)));
+        bP.put(Integer.valueOf(Item.DIAMOND_PICKAXE.id), new Tuple(Integer.valueOf(10), Integer.valueOf(12)));
+        bP.put(Integer.valueOf(Item.IRON_SPADE.id), new Tuple(Integer.valueOf(4), Integer.valueOf(6)));
+        bP.put(Integer.valueOf(Item.DIAMOND_SPADE.id), new Tuple(Integer.valueOf(7), Integer.valueOf(8)));
+        bP.put(Integer.valueOf(Item.IRON_HOE.id), new Tuple(Integer.valueOf(4), Integer.valueOf(6)));
+        bP.put(Integer.valueOf(Item.DIAMOND_HOE.id), new Tuple(Integer.valueOf(7), Integer.valueOf(8)));
+        bP.put(Integer.valueOf(Item.IRON_BOOTS.id), new Tuple(Integer.valueOf(4), Integer.valueOf(6)));
+        bP.put(Integer.valueOf(Item.DIAMOND_BOOTS.id), new Tuple(Integer.valueOf(7), Integer.valueOf(8)));
+        bP.put(Integer.valueOf(Item.IRON_HELMET.id), new Tuple(Integer.valueOf(4), Integer.valueOf(6)));
+        bP.put(Integer.valueOf(Item.DIAMOND_HELMET.id), new Tuple(Integer.valueOf(7), Integer.valueOf(8)));
+        bP.put(Integer.valueOf(Item.IRON_CHESTPLATE.id), new Tuple(Integer.valueOf(10), Integer.valueOf(14)));
+        bP.put(Integer.valueOf(Item.DIAMOND_CHESTPLATE.id), new Tuple(Integer.valueOf(16), Integer.valueOf(19)));
+        bP.put(Integer.valueOf(Item.IRON_LEGGINGS.id), new Tuple(Integer.valueOf(8), Integer.valueOf(10)));
+        bP.put(Integer.valueOf(Item.DIAMOND_LEGGINGS.id), new Tuple(Integer.valueOf(11), Integer.valueOf(14)));
+        bP.put(Integer.valueOf(Item.CHAINMAIL_BOOTS.id), new Tuple(Integer.valueOf(5), Integer.valueOf(7)));
+        bP.put(Integer.valueOf(Item.CHAINMAIL_HELMET.id), new Tuple(Integer.valueOf(5), Integer.valueOf(7)));
+        bP.put(Integer.valueOf(Item.CHAINMAIL_CHESTPLATE.id), new Tuple(Integer.valueOf(11), Integer.valueOf(15)));
+        bP.put(Integer.valueOf(Item.CHAINMAIL_LEGGINGS.id), new Tuple(Integer.valueOf(9), Integer.valueOf(11)));
+        bP.put(Integer.valueOf(Item.BREAD.id), new Tuple(Integer.valueOf(-4), Integer.valueOf(-2)));
+        bP.put(Integer.valueOf(Item.MELON.id), new Tuple(Integer.valueOf(-8), Integer.valueOf(-4)));
+        bP.put(Integer.valueOf(Item.APPLE.id), new Tuple(Integer.valueOf(-8), Integer.valueOf(-4)));
+        bP.put(Integer.valueOf(Item.COOKIE.id), new Tuple(Integer.valueOf(-10), Integer.valueOf(-7)));
+        bP.put(Integer.valueOf(Block.GLASS.id), new Tuple(Integer.valueOf(-5), Integer.valueOf(-3)));
+        bP.put(Integer.valueOf(Block.BOOKSHELF.id), new Tuple(Integer.valueOf(3), Integer.valueOf(4)));
+        bP.put(Integer.valueOf(Item.LEATHER_CHESTPLATE.id), new Tuple(Integer.valueOf(4), Integer.valueOf(5)));
+        bP.put(Integer.valueOf(Item.LEATHER_BOOTS.id), new Tuple(Integer.valueOf(2), Integer.valueOf(4)));
+        bP.put(Integer.valueOf(Item.LEATHER_HELMET.id), new Tuple(Integer.valueOf(2), Integer.valueOf(4)));
+        bP.put(Integer.valueOf(Item.LEATHER_LEGGINGS.id), new Tuple(Integer.valueOf(2), Integer.valueOf(4)));
+        bP.put(Integer.valueOf(Item.SADDLE.id), new Tuple(Integer.valueOf(6), Integer.valueOf(8)));
+        bP.put(Integer.valueOf(Item.EXP_BOTTLE.id), new Tuple(Integer.valueOf(-4), Integer.valueOf(-1)));
+        bP.put(Integer.valueOf(Item.REDSTONE.id), new Tuple(Integer.valueOf(-4), Integer.valueOf(-1)));
+        bP.put(Integer.valueOf(Item.COMPASS.id), new Tuple(Integer.valueOf(10), Integer.valueOf(12)));
+        bP.put(Integer.valueOf(Item.WATCH.id), new Tuple(Integer.valueOf(10), Integer.valueOf(12)));
+        bP.put(Integer.valueOf(Block.GLOWSTONE.id), new Tuple(Integer.valueOf(-3), Integer.valueOf(-1)));
+        bP.put(Integer.valueOf(Item.GRILLED_PORK.id), new Tuple(Integer.valueOf(-7), Integer.valueOf(-5)));
+        bP.put(Integer.valueOf(Item.COOKED_BEEF.id), new Tuple(Integer.valueOf(-7), Integer.valueOf(-5)));
+        bP.put(Integer.valueOf(Item.COOKED_CHICKEN.id), new Tuple(Integer.valueOf(-8), Integer.valueOf(-6)));
+        bP.put(Integer.valueOf(Item.EYE_OF_ENDER.id), new Tuple(Integer.valueOf(7), Integer.valueOf(11)));
+        bP.put(Integer.valueOf(Item.ARROW.id), new Tuple(Integer.valueOf(-12), Integer.valueOf(-8)));
     }
 }

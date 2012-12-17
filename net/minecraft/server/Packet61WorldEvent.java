@@ -41,8 +41,8 @@ public class Packet61WorldEvent extends Packet {
         dataoutputstream.writeBoolean(this.f);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

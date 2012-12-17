@@ -58,8 +58,8 @@ public class Packet202Abilities extends Packet {
         dataoutputstream.writeByte((int) (this.f * 255.0F));
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

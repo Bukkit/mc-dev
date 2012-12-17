@@ -91,7 +91,7 @@ public class Item {
     public static Item CLAY_BALL = (new Item(81)).b(9, 3).b("clay").a(CreativeModeTab.l);
     public static Item SUGAR_CANE = (new ItemReed(82, Block.SUGAR_CANE_BLOCK)).b(11, 1).b("reeds").a(CreativeModeTab.l);
     public static Item PAPER = (new Item(83)).b(10, 3).b("paper").a(CreativeModeTab.f);
-    public static Item BOOK = (new Item(84)).b(11, 3).b("book").a(CreativeModeTab.f);
+    public static Item BOOK = (new ItemBook(84)).b(11, 3).b("book").a(CreativeModeTab.f);
     public static Item SLIME_BALL = (new Item(85)).b(14, 1).b("slimeball").a(CreativeModeTab.f);
     public static Item STORAGE_MINECART = (new ItemMinecart(86, 1)).b(7, 9).b("minecartChest");
     public static Item POWERED_MINECART = (new ItemMinecart(87, 2)).b(7, 10).b("minecartFurnace");
@@ -152,6 +152,9 @@ public class Item {
     public static Item CARROT_STICK = (new ItemCarrotStick(142)).b(6, 6).b("carrotOnAStick");
     public static Item NETHER_STAR = (new ItemNetherStar(143)).b(9, 11).b("netherStar").a(CreativeModeTab.l);
     public static Item PUMPKIN_PIE = (new ItemFood(144, 8, 0.3F, false)).b(8, 9).b("pumpkinPie").a(CreativeModeTab.h);
+    public static Item FIREWORKS = (new ItemFireworks(145)).b(9, 12).b("fireworks");
+    public static Item FIREWORKS_CHARGE = (new ItemFireworksCharge(146)).b(10, 12).b("fireworksCharge").a(CreativeModeTab.f);
+    public static ItemEnchantedBook ENCHANTED_BOOK = (ItemEnchantedBook) (new ItemEnchantedBook(147)).b(15, 12).d(1).b("enchantedBook");
     public static Item RECORD_1 = (new ItemRecord(2000, "13")).b(0, 15).b("record");
     public static Item RECORD_2 = (new ItemRecord(2001, "cat")).b(1, 15).b("record");
     public static Item RECORD_3 = (new ItemRecord(2002, "blocks")).b(2, 15).b("record");
@@ -168,10 +171,10 @@ public class Item {
     protected int maxStackSize = 64;
     private int durability = 0;
     protected int textureId;
-    protected boolean cj = false;
-    protected boolean ck = false;
+    protected boolean cm = false;
+    protected boolean cn = false;
     private Item craftingResult = null;
-    private String cl = null;
+    private String co = null;
     private String name;
 
     protected Item(int i) {
@@ -223,11 +226,11 @@ public class Item {
     }
 
     public boolean l() {
-        return this.ck;
+        return this.cn;
     }
 
     protected Item a(boolean flag) {
-        this.ck = flag;
+        this.cn = flag;
         return this;
     }
 
@@ -241,7 +244,7 @@ public class Item {
     }
 
     public boolean n() {
-        return this.durability > 0 && !this.ck;
+        return this.durability > 0 && !this.cn;
     }
 
     public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
@@ -265,7 +268,7 @@ public class Item {
     }
 
     public Item o() {
-        this.cj = true;
+        this.cm = true;
         return this;
     }
 
@@ -274,8 +277,8 @@ public class Item {
         return this;
     }
 
-    public String g(ItemStack itemstack) {
-        String s = this.c_(itemstack);
+    public String i(ItemStack itemstack) {
+        String s = this.d(itemstack);
 
         return s == null ? "" : LocaleI18n.get(s);
     }
@@ -284,7 +287,7 @@ public class Item {
         return this.name;
     }
 
-    public String c_(ItemStack itemstack) {
+    public String d(ItemStack itemstack) {
         return this.name;
     }
 
@@ -293,7 +296,7 @@ public class Item {
         return this;
     }
 
-    public boolean h(ItemStack itemstack) {
+    public boolean j(ItemStack itemstack) {
         return true;
     }
 
@@ -313,8 +316,8 @@ public class Item {
         return LocaleI18n.get(this.getName() + ".name");
     }
 
-    public String i(ItemStack itemstack) {
-        return LocaleI18n.get(this.c_(itemstack) + ".name");
+    public String k(ItemStack itemstack) {
+        return LocaleI18n.get(this.d(itemstack) + ".name");
     }
 
     public void a(ItemStack itemstack, World world, Entity entity, int i, boolean flag) {}
@@ -325,34 +328,34 @@ public class Item {
         return false;
     }
 
-    public EnumAnimation d_(ItemStack itemstack) {
+    public EnumAnimation b_(ItemStack itemstack) {
         return EnumAnimation.a;
     }
 
-    public int a(ItemStack itemstack) {
+    public int c_(ItemStack itemstack) {
         return 0;
     }
 
     public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {}
 
     protected Item c(String s) {
-        this.cl = s;
+        this.co = s;
         return this;
     }
 
     public String u() {
-        return this.cl;
+        return this.co;
     }
 
     public boolean v() {
-        return this.cl != null;
+        return this.co != null;
     }
 
-    public String j(ItemStack itemstack) {
-        return ("" + LocaleLanguage.a().c(this.g(itemstack))).trim();
+    public String l(ItemStack itemstack) {
+        return ("" + LocaleLanguage.a().c(this.i(itemstack))).trim();
     }
 
-    public boolean k(ItemStack itemstack) {
+    public boolean d_(ItemStack itemstack) {
         return this.getMaxStackSize() == 1 && this.n();
     }
 

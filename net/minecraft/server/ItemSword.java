@@ -45,16 +45,16 @@ public class ItemSword extends Item {
         return this.damage;
     }
 
-    public EnumAnimation d_(ItemStack itemstack) {
+    public EnumAnimation b_(ItemStack itemstack) {
         return EnumAnimation.d;
     }
 
-    public int a(ItemStack itemstack) {
+    public int c_(ItemStack itemstack) {
         return 72000;
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        entityhuman.a(itemstack, this.a(itemstack));
+        entityhuman.a(itemstack, this.c_(itemstack));
         return itemstack;
     }
 

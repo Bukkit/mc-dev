@@ -12,7 +12,7 @@ public class ItemLeaves extends ItemBlock {
         return i | 4;
     }
 
-    public String c_(ItemStack itemstack) {
+    public String d(ItemStack itemstack) {
         int i = itemstack.getData();
 
         if (i < 0 || i >= BlockLeaves.a.length) {

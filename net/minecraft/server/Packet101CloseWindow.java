@@ -13,8 +13,8 @@ public class Packet101CloseWindow extends Packet {
         this.a = i;
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.handleContainerClose(this);
+    public void handle(Connection connection) {
+        connection.handleContainerClose(this);
     }
 
     public void a(DataInputStream datainputstream) {

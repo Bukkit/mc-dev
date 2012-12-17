@@ -51,6 +51,10 @@ public class DamageSource {
         return (new EntityDamageSourceIndirect("indirectMagic", entity, entity1)).h().p();
     }
 
+    public static DamageSource a(Entity entity) {
+        return (new EntityDamageSource("thorns", entity)).p();
+    }
+
     public boolean a() {
         return this.v;
     }

@@ -19,7 +19,7 @@ public class ItemWrittenBook extends Item {
         }
     }
 
-    public String j(ItemStack itemstack) {
+    public String l(ItemStack itemstack) {
         if (itemstack.hasTag()) {
             NBTTagCompound nbttagcompound = itemstack.getTag();
             NBTTagString nbttagstring = (NBTTagString) nbttagcompound.get("title");
@@ -29,7 +29,7 @@ public class ItemWrittenBook extends Item {
             }
         }
 
-        return super.j(itemstack);
+        return super.l(itemstack);
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {

@@ -21,7 +21,7 @@ public class CommandOp extends CommandAbstract {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length == 1 && astring[0].length() > 0) {
-            MinecraftServer.getServer().getServerConfigurationManager().addOp(astring[0]);
+            MinecraftServer.getServer().getPlayerList().addOp(astring[0]);
             a(icommandlistener, "commands.op.success", new Object[] { astring[0]});
         } else {
             throw new ExceptionUsage("commands.op.usage", new Object[0]);
@@ -38,7 +38,7 @@ public class CommandOp extends CommandAbstract {
             for (int j = 0; j < i; ++j) {
                 String s1 = astring1[j];
 
-                if (!MinecraftServer.getServer().getServerConfigurationManager().isOp(s1) && a(s, s1)) {
+                if (!MinecraftServer.getServer().getPlayerList().isOp(s1) && a(s, s1)) {
                     arraylist.add(s1);
                 }
             }

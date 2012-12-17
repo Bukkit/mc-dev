@@ -95,6 +95,8 @@ public class WorldGenFlatInfo {
                     stringbuilder.append(")");
                 }
             }
+        } else {
+            stringbuilder.append(";");
         }
 
         return stringbuilder.toString();

@@ -66,7 +66,7 @@ public class SlotResult extends Slot {
                 if (itemstack1.getItem().s()) {
                     ItemStack itemstack2 = new ItemStack(itemstack1.getItem().r());
 
-                    if (!itemstack1.getItem().h(itemstack1) || !this.b.inventory.pickup(itemstack2)) {
+                    if (!itemstack1.getItem().j(itemstack1) || !this.b.inventory.pickup(itemstack2)) {
                         if (this.a.getItem(i) == null) {
                             this.a.setItem(i, itemstack2);
                         } else {

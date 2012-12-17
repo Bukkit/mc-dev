@@ -42,8 +42,8 @@ public class Packet104WindowItems extends Packet {
         }
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

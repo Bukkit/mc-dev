@@ -69,11 +69,11 @@ public abstract class Entity {
     public boolean am;
     public int portalCooldown;
     protected boolean ao;
-    private int h;
+    protected int ap;
     public int dimension;
-    protected int aq;
+    protected int ar;
     private boolean invulnerable;
-    public EnumEntitySize ar;
+    public EnumEntitySize as;
 
     public Entity(World world) {
         this.id = entityCount++;
@@ -107,9 +107,9 @@ public abstract class Entity {
         this.fireProof = false;
         this.datawatcher = new DataWatcher();
         this.ah = false;
-        this.aq = 0;
+        this.ar = 0;
         this.invulnerable = false;
-        this.ar = EnumEntitySize.SIZE_2;
+        this.as = EnumEntitySize.SIZE_2;
         this.world = world;
         this.setPosition(0.0D, 0.0D, 0.0D);
         if (world != null) {
@@ -145,17 +145,17 @@ public abstract class Entity {
         float f2 = f % 2.0F;
 
         if ((double) f2 < 0.375D) {
-            this.ar = EnumEntitySize.SIZE_1;
+            this.as = EnumEntitySize.SIZE_1;
         } else if ((double) f2 < 0.75D) {
-            this.ar = EnumEntitySize.SIZE_2;
+            this.as = EnumEntitySize.SIZE_2;
         } else if ((double) f2 < 1.0D) {
-            this.ar = EnumEntitySize.SIZE_3;
+            this.as = EnumEntitySize.SIZE_3;
         } else if ((double) f2 < 1.375D) {
-            this.ar = EnumEntitySize.SIZE_4;
+            this.as = EnumEntitySize.SIZE_4;
         } else if ((double) f2 < 1.75D) {
-            this.ar = EnumEntitySize.SIZE_5;
+            this.as = EnumEntitySize.SIZE_5;
         } else {
-            this.ar = EnumEntitySize.SIZE_6;
+            this.as = EnumEntitySize.SIZE_6;
         }
     }
 
@@ -184,7 +184,6 @@ public abstract class Entity {
             this.vehicle = null;
         }
 
-        ++this.ticksLived;
         this.P = this.Q;
         this.lastX = this.locX;
         this.lastY = this.locY;
@@ -200,8 +199,8 @@ public abstract class Entity {
             i = this.z();
             if (this.ao) {
                 if (minecraftserver.getAllowNether()) {
-                    if (this.vehicle == null && this.h++ >= i) {
-                        this.h = i;
+                    if (this.vehicle == null && this.ap++ >= i) {
+                        this.ap = i;
                         this.portalCooldown = this.ab();
                         byte b0;
 
@@ -217,12 +216,12 @@ public abstract class Entity {
                     this.ao = false;
                 }
             } else {
-                if (this.h > 0) {
-                    this.h -= 4;
+                if (this.ap > 0) {
+                    this.ap -= 4;
                 }
 
-                if (this.h < 0) {
-                    this.h = 0;
+                if (this.ap < 0) {
+                    this.ap = 0;
                 }
             }
 
@@ -295,6 +294,7 @@ public abstract class Entity {
     public void setOnFire(int i) {
         int j = i * 20;
 
+        j = EnchantmentProtection.a(this, j);
         if (this.fireTicks < j) {
             this.fireTicks = j;
         }
@@ -627,7 +627,7 @@ public abstract class Entity {
         }
     }
 
-    protected void makeSound(String s, float f, float f1) {
+    public void makeSound(String s, float f, float f1) {
         this.world.makeSound(this, s, f, f1);
     }
 
@@ -721,7 +721,7 @@ public abstract class Entity {
         int l = this.world.getTypeId(i, j, k);
 
         if (l != 0 && Block.byId[l].material == material) {
-            float f = BlockFluids.d(this.world.getData(i, j, k)) - 0.11111111F;
+            float f = BlockFluids.e(this.world.getData(i, j, k)) - 0.11111111F;
             float f1 = (float) (j + 1) - f;
 
             return d0 < (double) f1;
@@ -1115,7 +1115,7 @@ public abstract class Entity {
     }
 
     public void V() {
-        if (!(this.passenger instanceof EntityHuman) || !((EntityHuman) this.passenger).bW()) {
+        if (!(this.passenger instanceof EntityHuman) || !((EntityHuman) this.passenger).bV()) {
             this.passenger.T = this.T;
             this.passenger.U = this.U + this.X() + this.passenger.W();
             this.passenger.V = this.V;
@@ -1207,7 +1207,7 @@ public abstract class Entity {
             double d1 = this.lastZ - this.locZ;
 
             if (!this.world.isStatic && !this.ao) {
-                this.aq = Direction.a(d0, d1);
+                this.ar = Direction.a(d0, d1);
             }
 
             this.ao = true;
@@ -1421,7 +1421,7 @@ public abstract class Entity {
         entity.d(nbttagcompound);
         this.e(nbttagcompound);
         this.portalCooldown = entity.portalCooldown;
-        this.aq = entity.aq;
+        this.ar = entity.ar;
     }
 
     public void b(int i) {
@@ -1436,7 +1436,7 @@ public abstract class Entity {
             this.world.kill(this);
             this.dead = false;
             this.world.methodProfiler.a("reposition");
-            minecraftserver.getServerConfigurationManager().a(this, j, worldserver, worldserver1);
+            minecraftserver.getPlayerList().a(this, j, worldserver, worldserver1);
             this.world.methodProfiler.c("reloading");
             Entity entity = EntityTypes.createEntityByName(EntityTypes.b(this), worldserver1);
 
@@ -1462,7 +1462,7 @@ public abstract class Entity {
     }
 
     public int at() {
-        return this.aq;
+        return this.ar;
     }
 
     public boolean au() {

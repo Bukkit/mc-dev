@@ -37,8 +37,8 @@ public class Packet55BlockBreakAnimation extends Packet {
         dataoutputstream.write(this.e);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

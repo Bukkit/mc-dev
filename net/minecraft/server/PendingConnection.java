@@ -12,7 +12,7 @@ import java.util.Random;
 import java.util.logging.Logger;
 import javax.crypto.SecretKey;
 
-public class NetLoginHandler extends NetHandler {
+public class PendingConnection extends Connection {
 
     private byte[] d;
     public static Logger logger = Logger.getLogger("Minecraft");
@@ -24,9 +24,10 @@ public class NetLoginHandler extends NetHandler {
     private String h = null;
     private volatile boolean i = false;
     private String loginKey = "";
-    private SecretKey k = null;
+    private boolean k = false;
+    private SecretKey l = null;
 
-    public NetLoginHandler(MinecraftServer minecraftserver, Socket socket, String s) {
+    public PendingConnection(MinecraftServer minecraftserver, Socket socket, String s) {
         this.server = minecraftserver;
         this.networkManager = new NetworkManager(socket, s, this, minecraftserver.F().getPrivate());
         this.networkManager.e = 0;
@@ -62,8 +63,8 @@ public class NetLoginHandler extends NetHandler {
         } else {
             PublicKey publickey = this.server.F().getPublic();
 
-            if (packet2handshake.d() != 49) {
-                if (packet2handshake.d() > 49) {
+            if (packet2handshake.d() != 51) {
+                if (packet2handshake.d() > 51) {
                     this.disconnect("Outdated server!");
                 } else {
                     this.disconnect("Outdated client!");
@@ -80,7 +81,7 @@ public class NetLoginHandler extends NetHandler {
     public void a(Packet252KeyResponse packet252keyresponse) {
         PrivateKey privatekey = this.server.F().getPrivate();
 
-        this.k = packet252keyresponse.a(privatekey);
+        this.l = packet252keyresponse.a(privatekey);
         if (!Arrays.equals(this.d, packet252keyresponse.b(privatekey))) {
             this.disconnect("Invalid client reply");
         }
@@ -90,6 +91,12 @@ public class NetLoginHandler extends NetHandler {
 
     public void a(Packet205ClientCommand packet205clientcommand) {
         if (packet205clientcommand.a == 0) {
+            if (this.k) {
+                this.disconnect("Duplicate login");
+                return;
+            }
+
+            this.k = true;
             if (this.server.getOnlineMode()) {
                 (new ThreadLoginVerifier(this)).start();
             } else {
@@ -101,15 +108,15 @@ public class NetLoginHandler extends NetHandler {
     public void a(Packet1Login packet1login) {}
 
     public void d() {
-        String s = this.server.getServerConfigurationManager().attemptLogin(this.networkManager.getSocketAddress(), this.h);
+        String s = this.server.getPlayerList().attemptLogin(this.networkManager.getSocketAddress(), this.h);
 
         if (s != null) {
             this.disconnect(s);
         } else {
-            EntityPlayer entityplayer = this.server.getServerConfigurationManager().processLogin(this.h);
+            EntityPlayer entityplayer = this.server.getPlayerList().processLogin(this.h);
 
             if (entityplayer != null) {
-                this.server.getServerConfigurationManager().a((INetworkManager) this.networkManager, entityplayer);
+                this.server.getPlayerList().a((INetworkManager) this.networkManager, entityplayer);
             }
         }
 
@@ -123,11 +130,11 @@ public class NetLoginHandler extends NetHandler {
 
     public void a(Packet254GetInfo packet254getinfo) {
         try {
-            ServerConfigurationManagerAbstract serverconfigurationmanagerabstract = this.server.getServerConfigurationManager();
+            PlayerList playerlist = this.server.getPlayerList();
             String s = null;
 
             if (packet254getinfo.a == 1) {
-                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(49), this.server.getVersion(), this.server.getMotd(), Integer.valueOf(serverconfigurationmanagerabstract.getPlayerCount()), Integer.valueOf(serverconfigurationmanagerabstract.getMaxPlayers())});
+                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(51), this.server.getVersion(), this.server.getMotd(), Integer.valueOf(playerlist.getPlayerCount()), Integer.valueOf(playerlist.getMaxPlayers())});
 
                 Object object;
 
@@ -140,7 +147,7 @@ public class NetLoginHandler extends NetHandler {
                     }
                 }
             } else {
-                s = this.server.getMotd() + "\u00A7" + serverconfigurationmanagerabstract.getPlayerCount() + "\u00A7" + serverconfigurationmanagerabstract.getMaxPlayers();
+                s = this.server.getMotd() + "\u00A7" + playerlist.getPlayerCount() + "\u00A7" + playerlist.getMaxPlayers();
             }
 
             InetAddress inetaddress = null;
@@ -173,23 +180,23 @@ public class NetLoginHandler extends NetHandler {
         return true;
     }
 
-    static String a(NetLoginHandler netloginhandler) {
-        return netloginhandler.loginKey;
+    static String a(PendingConnection pendingconnection) {
+        return pendingconnection.loginKey;
     }
 
-    static MinecraftServer b(NetLoginHandler netloginhandler) {
-        return netloginhandler.server;
+    static MinecraftServer b(PendingConnection pendingconnection) {
+        return pendingconnection.server;
     }
 
-    static SecretKey c(NetLoginHandler netloginhandler) {
-        return netloginhandler.k;
+    static SecretKey c(PendingConnection pendingconnection) {
+        return pendingconnection.l;
     }
 
-    static String d(NetLoginHandler netloginhandler) {
-        return netloginhandler.h;
+    static String d(PendingConnection pendingconnection) {
+        return pendingconnection.h;
     }
 
-    static boolean a(NetLoginHandler netloginhandler, boolean flag) {
-        return netloginhandler.i = flag;
+    static boolean a(PendingConnection pendingconnection, boolean flag) {
+        return pendingconnection.i = flag;
     }
 }

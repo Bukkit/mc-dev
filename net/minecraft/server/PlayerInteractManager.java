@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-public class ItemInWorldManager {
+public class PlayerInteractManager {
 
     public World world;
     public EntityPlayer player;
@@ -18,7 +18,7 @@ public class ItemInWorldManager {
     private int n;
     private int o;
 
-    public ItemInWorldManager(World world) {
+    public PlayerInteractManager(World world) {
         this.gamemode = EnumGamemode.NONE;
         this.o = -1;
         this.world = world;
@@ -185,15 +185,15 @@ public class ItemInWorldManager {
             boolean flag = this.d(i, j, k);
 
             if (this.isCreative()) {
-                this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
+                this.player.playerConnection.sendPacket(new Packet53BlockChange(i, j, k, this.world));
             } else {
-                ItemStack itemstack = this.player.bT();
+                ItemStack itemstack = this.player.bS();
                 boolean flag1 = this.player.b(Block.byId[l]);
 
                 if (itemstack != null) {
                     itemstack.a(this.world, l, i, j, k, this.player);
                     if (itemstack.count == 0) {
-                        this.player.bU();
+                        this.player.bT();
                     }
                 }
 
@@ -235,19 +235,24 @@ public class ItemInWorldManager {
     }
 
     public boolean interact(EntityHuman entityhuman, World world, ItemStack itemstack, int i, int j, int k, int l, float f, float f1, float f2) {
-        int i1 = world.getTypeId(i, j, k);
+        int i1;
 
-        if (i1 > 0 && Block.byId[i1].interact(world, i, j, k, entityhuman, l, f, f1, f2)) {
-            return true;
-        } else if (itemstack == null) {
+        if (!entityhuman.isSneaking() || entityhuman.bD() == null) {
+            i1 = world.getTypeId(i, j, k);
+            if (i1 > 0 && Block.byId[i1].interact(world, i, j, k, entityhuman, l, f, f1, f2)) {
+                return true;
+            }
+        }
+
+        if (itemstack == null) {
             return false;
         } else if (this.isCreative()) {
-            int j1 = itemstack.getData();
-            int k1 = itemstack.count;
+            i1 = itemstack.getData();
+            int j1 = itemstack.count;
             boolean flag = itemstack.placeItem(entityhuman, world, i, j, k, l, f, f1, f2);
 
-            itemstack.setData(j1);
-            itemstack.count = k1;
+            itemstack.setData(i1);
+            itemstack.count = j1;
             return flag;
         } else {
             return itemstack.placeItem(entityhuman, world, i, j, k, l, f, f1, f2);

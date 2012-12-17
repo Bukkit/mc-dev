@@ -55,12 +55,12 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
         }
 
         if (flag) {
-            Iterator iterator = MinecraftServer.getServer().getServerConfigurationManager().players.iterator();
+            Iterator iterator = MinecraftServer.getServer().getPlayerList().players.iterator();
 
             while (iterator.hasNext()) {
                 EntityPlayer entityplayer = (EntityPlayer) iterator.next();
 
-                if (entityplayer != icommandlistener && MinecraftServer.getServer().getServerConfigurationManager().isOp(entityplayer.name)) {
+                if (entityplayer != icommandlistener && MinecraftServer.getServer().getPlayerList().isOp(entityplayer.name)) {
                     entityplayer.sendMessage("\u00A77\u00A7o[" + icommandlistener.getName() + ": " + entityplayer.a(s, aobject) + "]");
                 }
             }

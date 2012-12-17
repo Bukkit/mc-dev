@@ -17,7 +17,10 @@ public class ItemCarrotStick extends Item {
                 entitypig.n().g();
                 itemstack.damage(7, entityhuman);
                 if (itemstack.count == 0) {
-                    return new ItemStack(Item.FISHING_ROD);
+                    ItemStack itemstack1 = new ItemStack(Item.FISHING_ROD);
+
+                    itemstack1.setTag(itemstack.tag);
+                    return itemstack1;
                 }
             }
         }

@@ -23,9 +23,9 @@ public class CommandEnchant extends CommandAbstract {
             throw new ExceptionUsage("commands.enchant.usage", new Object[0]);
         } else {
             EntityPlayer entityplayer = c(icommandlistener, astring[0]);
-            int i = a(icommandlistener, astring[1], 1, Enchantment.byId.length - 1);
+            int i = a(icommandlistener, astring[1], 0, Enchantment.byId.length - 1);
             int j = 1;
-            ItemStack itemstack = entityplayer.bT();
+            ItemStack itemstack = entityplayer.bS();
 
             if (itemstack == null) {
                 a(icommandlistener, "commands.enchant.noItem", new Object[0]);
@@ -34,7 +34,7 @@ public class CommandEnchant extends CommandAbstract {
 
                 if (enchantment == null) {
                     throw new ExceptionInvalidNumber("commands.enchant.notFound", new Object[] { Integer.valueOf(i)});
-                } else if (!enchantment.slot.canEnchant(itemstack.getItem())) {
+                } else if (!enchantment.canEnchant(itemstack)) {
                     a(icommandlistener, "commands.enchant.cantEnchant", new Object[0]);
                 } else {
                     if (astring.length >= 3) {

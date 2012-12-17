@@ -40,4 +40,10 @@ public class PathfinderGoalHurtByTarget extends PathfinderGoalTarget {
 
         super.c();
     }
+
+    public void d() {
+        if (this.d.aG() != null && this.d.aG() instanceof EntityHuman && ((EntityHuman) this.d.aG()).abilities.isInvulnerable) {
+            super.d();
+        }
+    }
 }

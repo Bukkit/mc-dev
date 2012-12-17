@@ -23,8 +23,8 @@ public class Packet7UseEntity extends Packet {
         dataoutputstream.writeByte(this.action);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

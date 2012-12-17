@@ -17,8 +17,8 @@ public class Packet106Transaction extends Packet {
         this.c = flag;
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public void a(DataInputStream datainputstream) {

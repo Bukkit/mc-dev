@@ -17,8 +17,8 @@ public class Packet103SetSlot extends Packet {
         this.c = itemstack == null ? itemstack : itemstack.cloneItemStack();
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public void a(DataInputStream datainputstream) {

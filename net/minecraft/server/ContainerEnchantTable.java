@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -118,15 +117,26 @@ public class ContainerEnchantTable extends Container {
         if (this.costs[i] > 0 && itemstack != null && (entityhuman.expLevel >= this.costs[i] || entityhuman.abilities.canInstantlyBuild)) {
             if (!this.world.isStatic) {
                 List list = EnchantmentManager.b(this.l, itemstack, this.costs[i]);
+                boolean flag = itemstack.id == Item.BOOK.id;
 
                 if (list != null) {
                     entityhuman.levelDown(-this.costs[i]);
-                    Iterator iterator = list.iterator();
+                    if (flag) {
+                        itemstack.id = Item.ENCHANTED_BOOK.id;
+                    }
 
-                    while (iterator.hasNext()) {
-                        EnchantmentInstance enchantmentinstance = (EnchantmentInstance) iterator.next();
+                    int j = flag ? this.l.nextInt(list.size()) : -1;
 
-                        itemstack.addEnchantment(enchantmentinstance.enchantment, enchantmentinstance.level);
+                    for (int k = 0; k < list.size(); ++k) {
+                        EnchantmentInstance enchantmentinstance = (EnchantmentInstance) list.get(k);
+
+                        if (!flag || k == j) {
+                            if (flag) {
+                                Item.ENCHANTED_BOOK.a(itemstack, enchantmentinstance);
+                            } else {
+                                itemstack.addEnchantment(enchantmentinstance.enchantment, enchantmentinstance.level);
+                            }
+                        }
                     }
 
                     this.a(this.enchantSlots);

@@ -25,7 +25,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
     private String serverIp;
     private int s = -1;
     public WorldServer[] worldServer;
-    private ServerConfigurationManagerAbstract t;
+    private PlayerList t;
     private boolean isRunning = true;
     private boolean isStopped = false;
     private int ticks = 0;
@@ -75,6 +75,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
         BlockDispenser.a.a(Item.EXP_BOTTLE, new DispenseBehaviorExpBottle(this));
         BlockDispenser.a.a(Item.POTION, new DispenseBehaviorPotion(this));
         BlockDispenser.a.a(Item.MONSTER_EGG, new DispenseBehaviorMonsterEgg(this));
+        BlockDispenser.a.a(Item.FIREWORKS, new DispenseBehaviorFireworks(this));
         BlockDispenser.a.a(Item.FIREBALL, new DispenseBehaviorFireball(this));
         DispenseBehaviorMinecart dispensebehaviorminecart = new DispenseBehaviorMinecart(this);
 
@@ -578,7 +579,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
     }
 
     public String getVersion() {
-        return "1.4.5";
+        return "1.4.6";
     }
 
     public int y() {
@@ -912,12 +913,12 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
         return this.isStopped;
     }
 
-    public ServerConfigurationManagerAbstract getServerConfigurationManager() {
+    public PlayerList getPlayerList() {
         return this.t;
     }
 
-    public void a(ServerConfigurationManagerAbstract serverconfigurationmanagerabstract) {
-        this.t = serverconfigurationmanagerabstract;
+    public void a(PlayerList playerlist) {
+        this.t = playerlist;
     }
 
     public void a(EnumGamemode enumgamemode) {
@@ -950,7 +951,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IMo
         return 16;
     }
 
-    public static ServerConfigurationManagerAbstract a(MinecraftServer minecraftserver) {
+    public static PlayerList a(MinecraftServer minecraftserver) {
         return minecraftserver.t;
     }
 }

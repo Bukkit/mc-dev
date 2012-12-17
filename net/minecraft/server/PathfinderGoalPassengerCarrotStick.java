@@ -120,7 +120,10 @@ public class PathfinderGoalPassengerCarrotStick extends PathfinderGoal {
             if (itemstack != null && itemstack.id == Item.CARROT_STICK.id) {
                 itemstack.damage(1, entityhuman);
                 if (itemstack.count == 0) {
-                    entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = new ItemStack(Item.FISHING_ROD);
+                    ItemStack itemstack1 = new ItemStack(Item.FISHING_ROD);
+
+                    itemstack1.setTag(itemstack.tag);
+                    entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = itemstack1;
                 }
             }
         }

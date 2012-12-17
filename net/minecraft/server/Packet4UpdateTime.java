@@ -25,8 +25,8 @@ public class Packet4UpdateTime extends Packet {
         dataoutputstream.writeLong(this.b);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

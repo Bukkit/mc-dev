@@ -22,7 +22,7 @@ public class CommandMe extends CommandAbstract {
         if (astring.length > 0) {
             String s = a(icommandlistener, astring, 0);
 
-            MinecraftServer.getServer().getServerConfigurationManager().sendAll(new Packet3Chat("* " + icommandlistener.getName() + " " + s));
+            MinecraftServer.getServer().getPlayerList().sendAll(new Packet3Chat("* " + icommandlistener.getName() + " " + s));
         } else {
             throw new ExceptionUsage("commands.me.usage", new Object[0]);
         }

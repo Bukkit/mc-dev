@@ -21,8 +21,8 @@ public class Packet203TabComplete extends Packet {
         a(this.a, dataoutputstream);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

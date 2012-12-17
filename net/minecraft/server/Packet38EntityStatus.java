@@ -25,8 +25,8 @@ public class Packet38EntityStatus extends Packet {
         dataoutputstream.writeByte(this.b);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

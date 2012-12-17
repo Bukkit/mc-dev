@@ -35,8 +35,8 @@ public class Packet3Chat extends Packet {
         a(this.message, dataoutputstream);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

@@ -40,7 +40,7 @@ public class CommandGive extends CommandAbstract {
                 EntityItem entityitem = entityplayer.drop(itemstack);
 
                 entityitem.pickupDelay = 0;
-                a(icommandlistener, "commands.give.success", new Object[] { Item.byId[i].i(itemstack), Integer.valueOf(i), Integer.valueOf(j), entityplayer.getLocalizedName()});
+                a(icommandlistener, "commands.give.success", new Object[] { Item.byId[i].k(itemstack), Integer.valueOf(i), Integer.valueOf(j), entityplayer.getLocalizedName()});
             }
         } else {
             throw new ExceptionUsage("commands.give.usage", new Object[0]);

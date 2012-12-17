@@ -8,28 +8,28 @@ import java.net.URLEncoder;
 
 class ThreadLoginVerifier extends Thread {
 
-    final NetLoginHandler netLoginHandler;
+    final PendingConnection pendingConnection;
 
-    ThreadLoginVerifier(NetLoginHandler netloginhandler) {
-        this.netLoginHandler = netloginhandler;
+    ThreadLoginVerifier(PendingConnection pendingconnection) {
+        this.pendingConnection = pendingconnection;
     }
 
     public void run() {
         try {
-            String s = (new BigInteger(MinecraftEncryption.a(NetLoginHandler.a(this.netLoginHandler), NetLoginHandler.b(this.netLoginHandler).F().getPublic(), NetLoginHandler.c(this.netLoginHandler)))).toString(16);
-            URL url = new URL("http://session.minecraft.net/game/checkserver.jsp?user=" + URLEncoder.encode(NetLoginHandler.d(this.netLoginHandler), "UTF-8") + "&serverId=" + URLEncoder.encode(s, "UTF-8"));
+            String s = (new BigInteger(MinecraftEncryption.a(PendingConnection.a(this.pendingConnection), PendingConnection.b(this.pendingConnection).F().getPublic(), PendingConnection.c(this.pendingConnection)))).toString(16);
+            URL url = new URL("http://session.minecraft.net/game/checkserver.jsp?user=" + URLEncoder.encode(PendingConnection.d(this.pendingConnection), "UTF-8") + "&serverId=" + URLEncoder.encode(s, "UTF-8"));
             BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(url.openStream()));
             String s1 = bufferedreader.readLine();
 
             bufferedreader.close();
             if (!"YES".equals(s1)) {
-                this.netLoginHandler.disconnect("Failed to verify username!");
+                this.pendingConnection.disconnect("Failed to verify username!");
                 return;
             }
 
-            NetLoginHandler.a(this.netLoginHandler, true);
+            PendingConnection.a(this.pendingConnection, true);
         } catch (Exception exception) {
-            this.netLoginHandler.disconnect("Failed to verify username! [internal error " + exception + "]");
+            this.pendingConnection.disconnect("Failed to verify username! [internal error " + exception + "]");
             exception.printStackTrace();
         }
     }

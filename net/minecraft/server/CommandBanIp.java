@@ -20,7 +20,7 @@ public class CommandBanIp extends CommandAbstract {
     }
 
     public boolean b(ICommandListener icommandlistener) {
-        return MinecraftServer.getServer().getServerConfigurationManager().getIPBans().isEnabled() && super.b(icommandlistener);
+        return MinecraftServer.getServer().getPlayerList().getIPBans().isEnabled() && super.b(icommandlistener);
     }
 
     public String a(ICommandListener icommandlistener) {
@@ -39,7 +39,7 @@ public class CommandBanIp extends CommandAbstract {
             if (matcher.matches()) {
                 this.a(icommandlistener, astring[0], s);
             } else {
-                EntityPlayer entityplayer = MinecraftServer.getServer().getServerConfigurationManager().f(astring[0]);
+                EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().f(astring[0]);
 
                 if (entityplayer == null) {
                     throw new ExceptionPlayerNotFound("commands.banip.invalid", new Object[0]);
@@ -64,8 +64,8 @@ public class CommandBanIp extends CommandAbstract {
             banentry.setReason(s1);
         }
 
-        MinecraftServer.getServer().getServerConfigurationManager().getIPBans().add(banentry);
-        List list = MinecraftServer.getServer().getServerConfigurationManager().j(s);
+        MinecraftServer.getServer().getPlayerList().getIPBans().add(banentry);
+        List list = MinecraftServer.getServer().getPlayerList().j(s);
         String[] astring = new String[list.size()];
         int i = 0;
 
@@ -73,7 +73,7 @@ public class CommandBanIp extends CommandAbstract {
 
         for (Iterator iterator = list.iterator(); iterator.hasNext(); astring[i++] = entityplayer.getLocalizedName()) {
             entityplayer = (EntityPlayer) iterator.next();
-            entityplayer.netServerHandler.disconnect("You have been IP banned.");
+            entityplayer.playerConnection.disconnect("You have been IP banned.");
         }
 
         if (list.isEmpty()) {

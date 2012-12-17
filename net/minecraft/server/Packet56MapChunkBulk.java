@@ -17,6 +17,7 @@ public class Packet56MapChunkBulk extends Packet {
     private byte[] buffer;
     private byte[][] inflatedBuffers;
     private int size;
+    private boolean h;
     private static byte[] buildBuffer = new byte[0];
 
     public Packet56MapChunkBulk() {}
@@ -29,6 +30,7 @@ public class Packet56MapChunkBulk extends Packet {
         this.a = new int[i];
         this.b = new int[i];
         this.inflatedBuffers = new byte[i][];
+        this.h = !list.isEmpty() && !((Chunk) list.get(0)).world.worldProvider.f;
         int j = 0;
 
         for (int k = 0; k < i; ++k) {
@@ -67,6 +69,7 @@ public class Packet56MapChunkBulk extends Packet {
         short short1 = datainputstream.readShort();
 
         this.size = datainputstream.readInt();
+        this.h = datainputstream.readBoolean();
         this.c = new int[short1];
         this.d = new int[short1];
         this.a = new int[short1];
@@ -98,23 +101,31 @@ public class Packet56MapChunkBulk extends Packet {
             this.a[j] = datainputstream.readShort();
             this.b[j] = datainputstream.readShort();
             int k = 0;
+            int l = 0;
 
-            int l;
+            int i1;
 
-            for (l = 0; l < 16; ++l) {
-                k += this.a[j] >> l & 1;
+            for (i1 = 0; i1 < 16; ++i1) {
+                k += this.a[j] >> i1 & 1;
+                l += this.b[j] >> i1 & 1;
             }
 
-            l = 2048 * 5 * k + 256;
-            this.inflatedBuffers[j] = new byte[l];
-            System.arraycopy(abyte, i, this.inflatedBuffers[j], 0, l);
-            i += l;
+            i1 = 2048 * 4 * k + 256;
+            i1 += 2048 * l;
+            if (this.h) {
+                i1 += 2048 * k;
+            }
+
+            this.inflatedBuffers[j] = new byte[i1];
+            System.arraycopy(abyte, i, this.inflatedBuffers[j], 0, i1);
+            i += i1;
         }
     }
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeShort(this.c.length);
         dataoutputstream.writeInt(this.size);
+        dataoutputstream.writeBoolean(this.h);
         dataoutputstream.write(this.buffer, 0, this.size);
 
         for (int i = 0; i < this.c.length; ++i) {
@@ -125,8 +136,8 @@ public class Packet56MapChunkBulk extends Packet {
         }
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

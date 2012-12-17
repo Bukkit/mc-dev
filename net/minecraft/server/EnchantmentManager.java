@@ -39,7 +39,7 @@ public class EnchantmentManager {
 
     public static Map a(ItemStack itemstack) {
         LinkedHashMap linkedhashmap = new LinkedHashMap();
-        NBTTagList nbttaglist = itemstack.getEnchantments();
+        NBTTagList nbttaglist = itemstack.id == Item.ENCHANTED_BOOK.id ? Item.ENCHANTED_BOOK.g(itemstack) : itemstack.getEnchantments();
 
         if (nbttaglist != null) {
             for (int i = 0; i < nbttaglist.size(); ++i) {
@@ -64,30 +64,39 @@ public class EnchantmentManager {
             nbttagcompound.setShort("id", (short) i);
             nbttagcompound.setShort("lvl", (short) ((Integer) map.get(Integer.valueOf(i))).intValue());
             nbttaglist.add(nbttagcompound);
+            if (itemstack.id == Item.ENCHANTED_BOOK.id) {
+                Item.ENCHANTED_BOOK.a(itemstack, new EnchantmentInstance(i, ((Integer) map.get(Integer.valueOf(i))).intValue()));
+            }
         }
 
         if (nbttaglist.size() > 0) {
-            itemstack.a("ench", (NBTBase) nbttaglist);
+            if (itemstack.id != Item.ENCHANTED_BOOK.id) {
+                itemstack.a("ench", (NBTBase) nbttaglist);
+            }
         } else if (itemstack.hasTag()) {
             itemstack.getTag().o("ench");
         }
     }
 
-    private static int getEnchantmentLevel(int i, ItemStack[] aitemstack) {
-        int j = 0;
-        ItemStack[] aitemstack1 = aitemstack;
-        int k = aitemstack.length;
+    public static int getEnchantmentLevel(int i, ItemStack[] aitemstack) {
+        if (aitemstack == null) {
+            return 0;
+        } else {
+            int j = 0;
+            ItemStack[] aitemstack1 = aitemstack;
+            int k = aitemstack.length;
 
-        for (int l = 0; l < k; ++l) {
-            ItemStack itemstack = aitemstack1[l];
-            int i1 = getEnchantmentLevel(i, itemstack);
+            for (int l = 0; l < k; ++l) {
+                ItemStack itemstack = aitemstack1[l];
+                int i1 = getEnchantmentLevel(i, itemstack);
 
-            if (i1 > j) {
-                j = i1;
+                if (i1 > j) {
+                    j = i1;
+                }
             }
-        }
 
-        return j;
+            return j;
+        }
     }
 
     private static void a(EnchantmentModifier enchantmentmodifier, ItemStack itemstack) {
@@ -152,10 +161,6 @@ public class EnchantmentManager {
         return getEnchantmentLevel(Enchantment.DIG_SPEED.id, entityliving.bD());
     }
 
-    public static int getDurabilityEnchantmentLevel(EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.DURABILITY.id, entityliving.bD());
-    }
-
     public static boolean hasSilkTouchEnchantment(EntityLiving entityliving) {
         return getEnchantmentLevel(Enchantment.SILK_TOUCH.id, entityliving.bD()) > 0;
     }
@@ -170,6 +175,25 @@ public class EnchantmentManager {
 
     public static boolean hasWaterWorkerEnchantment(EntityLiving entityliving) {
         return getEnchantmentLevel(Enchantment.WATER_WORKER.id, entityliving.getEquipment()) > 0;
+    }
+
+    public static int getThornsEnchantmentLevel(EntityLiving entityliving) {
+        return getEnchantmentLevel(Enchantment.THORNS.id, entityliving.getEquipment());
+    }
+
+    public static ItemStack a(Enchantment enchantment, EntityLiving entityliving) {
+        ItemStack[] aitemstack = entityliving.getEquipment();
+        int i = aitemstack.length;
+
+        for (int j = 0; j < i; ++j) {
+            ItemStack itemstack = aitemstack[j];
+
+            if (itemstack != null && getEnchantmentLevel(enchantment.id, itemstack) > 0) {
+                return itemstack;
+            }
+        }
+
+        return null;
     }
 
     public static int a(Random random, int i, int j, ItemStack itemstack) {
@@ -191,6 +215,11 @@ public class EnchantmentManager {
 
     public static ItemStack a(Random random, ItemStack itemstack, int i) {
         List list = b(random, itemstack, i);
+        boolean flag = itemstack.id == Item.BOOK.id;
+
+        if (flag) {
+            itemstack.id = Item.ENCHANTED_BOOK.id;
+        }
 
         if (list != null) {
             Iterator iterator = list.iterator();
@@ -198,7 +227,11 @@ public class EnchantmentManager {
             while (iterator.hasNext()) {
                 EnchantmentInstance enchantmentinstance = (EnchantmentInstance) iterator.next();
 
-                itemstack.addEnchantment(enchantmentinstance.enchantment, enchantmentinstance.level);
+                if (flag) {
+                    Item.ENCHANTED_BOOK.a(itemstack, enchantmentinstance);
+                } else {
+                    itemstack.addEnchantment(enchantmentinstance.enchantment, enchantmentinstance.level);
+                }
             }
         }
 
@@ -274,13 +307,14 @@ public class EnchantmentManager {
     public static Map b(int i, ItemStack itemstack) {
         Item item = itemstack.getItem();
         HashMap hashmap = null;
+        boolean flag = itemstack.id == Item.BOOK.id;
         Enchantment[] aenchantment = Enchantment.byId;
         int j = aenchantment.length;
 
         for (int k = 0; k < j; ++k) {
             Enchantment enchantment = aenchantment[k];
 
-            if (enchantment != null && enchantment.slot.canEnchant(item)) {
+            if (enchantment != null && (enchantment.slot.canEnchant(item) || flag)) {
                 for (int l = enchantment.getStartLevel(); l <= enchantment.getMaxLevel(); ++l) {
                     if (i >= enchantment.a(l) && i <= enchantment.b(l)) {
                         if (hashmap == null) {

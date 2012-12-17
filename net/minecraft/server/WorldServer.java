@@ -13,37 +13,37 @@ public class WorldServer extends World {
 
     private final MinecraftServer server;
     private final EntityTracker tracker;
-    private final PlayerManager manager;
-    private Set M;
-    private TreeSet N;
+    private final PlayerChunkMap manager;
+    private Set L;
+    private TreeSet M;
     public ChunkProviderServer chunkProviderServer;
     public boolean savingDisabled;
-    private boolean O;
+    private boolean N;
     private int emptyTime = 0;
-    private final PortalTravelAgent Q;
-    private NoteDataList[] R = new NoteDataList[] { new NoteDataList((EmptyClass2) null), new NoteDataList((EmptyClass2) null)};
-    private int S = 0;
-    private static final StructurePieceTreasure[] T = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.STICK.id, 0, 1, 3, 10), new StructurePieceTreasure(Block.WOOD.id, 0, 1, 3, 10), new StructurePieceTreasure(Block.LOG.id, 0, 1, 3, 10), new StructurePieceTreasure(Item.STONE_AXE.id, 0, 1, 1, 3), new StructurePieceTreasure(Item.WOOD_AXE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.STONE_PICKAXE.id, 0, 1, 1, 3), new StructurePieceTreasure(Item.WOOD_PICKAXE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.APPLE.id, 0, 2, 3, 5), new StructurePieceTreasure(Item.BREAD.id, 0, 2, 3, 3)};
+    private final PortalTravelAgent P;
+    private NoteDataList[] Q = new NoteDataList[] { new NoteDataList((EmptyClass2) null), new NoteDataList((EmptyClass2) null)};
+    private int R = 0;
+    private static final StructurePieceTreasure[] S = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.STICK.id, 0, 1, 3, 10), new StructurePieceTreasure(Block.WOOD.id, 0, 1, 3, 10), new StructurePieceTreasure(Block.LOG.id, 0, 1, 3, 10), new StructurePieceTreasure(Item.STONE_AXE.id, 0, 1, 1, 3), new StructurePieceTreasure(Item.WOOD_AXE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.STONE_PICKAXE.id, 0, 1, 1, 3), new StructurePieceTreasure(Item.WOOD_PICKAXE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.APPLE.id, 0, 2, 3, 5), new StructurePieceTreasure(Item.BREAD.id, 0, 2, 3, 3)};
     private IntHashMap entitiesById;
 
     public WorldServer(MinecraftServer minecraftserver, IDataManager idatamanager, String s, int i, WorldSettings worldsettings, MethodProfiler methodprofiler) {
         super(idatamanager, s, worldsettings, WorldProvider.byDimension(i), methodprofiler);
         this.server = minecraftserver;
         this.tracker = new EntityTracker(this);
-        this.manager = new PlayerManager(this, minecraftserver.getServerConfigurationManager().o());
+        this.manager = new PlayerChunkMap(this, minecraftserver.getPlayerList().o());
         if (this.entitiesById == null) {
             this.entitiesById = new IntHashMap();
         }
 
+        if (this.L == null) {
+            this.L = new HashSet();
+        }
+
         if (this.M == null) {
-            this.M = new HashSet();
+            this.M = new TreeSet();
         }
 
-        if (this.N == null) {
-            this.N = new TreeSet();
-        }
-
-        this.Q = new PortalTravelAgent(this);
+        this.P = new PortalTravelAgent(this);
     }
 
     public void doTick() {
@@ -94,7 +94,7 @@ public class WorldServer extends World {
         this.villages.tick();
         this.siegeManager.a();
         this.methodProfiler.c("portalForcer");
-        this.Q.a(this.getTime());
+        this.P.a(this.getTime());
         this.methodProfiler.b();
         this.V();
     }
@@ -106,21 +106,21 @@ public class WorldServer extends World {
     }
 
     public void everyoneSleeping() {
-        this.O = !this.players.isEmpty();
+        this.N = !this.players.isEmpty();
         Iterator iterator = this.players.iterator();
 
         while (iterator.hasNext()) {
             EntityHuman entityhuman = (EntityHuman) iterator.next();
 
             if (!entityhuman.isSleeping()) {
-                this.O = false;
+                this.N = false;
                 break;
             }
         }
     }
 
     protected void d() {
-        this.O = false;
+        this.N = false;
         Iterator iterator = this.players.iterator();
 
         while (iterator.hasNext()) {
@@ -142,7 +142,7 @@ public class WorldServer extends World {
     }
 
     public boolean everyoneDeeplySleeping() {
-        if (this.O && !this.isStatic) {
+        if (this.N && !this.isStatic) {
             Iterator iterator = this.players.iterator();
 
             EntityHuman entityhuman;
@@ -192,7 +192,6 @@ public class WorldServer extends World {
                 l1 = this.h(j1, k1);
                 if (this.D(j1, l1, k1)) {
                     this.strikeLightning(new EntityLightning(this, (double) j1, (double) l1, (double) k1));
-                    this.q = 2;
                 }
             }
 
@@ -287,9 +286,9 @@ public class WorldServer extends World {
                 nextticklistentry.a(j1);
             }
 
-            if (!this.M.contains(nextticklistentry)) {
+            if (!this.L.contains(nextticklistentry)) {
+                this.L.add(nextticklistentry);
                 this.M.add(nextticklistentry);
-                this.N.add(nextticklistentry);
             }
         }
     }
@@ -301,9 +300,9 @@ public class WorldServer extends World {
             nextticklistentry.a((long) i1 + this.worldData.getTime());
         }
 
-        if (!this.M.contains(nextticklistentry)) {
+        if (!this.L.contains(nextticklistentry)) {
+            this.L.add(nextticklistentry);
             this.M.add(nextticklistentry);
-            this.N.add(nextticklistentry);
         }
     }
 
@@ -324,9 +323,9 @@ public class WorldServer extends World {
     }
 
     public boolean a(boolean flag) {
-        int i = this.N.size();
+        int i = this.M.size();
 
-        if (i != this.M.size()) {
+        if (i != this.L.size()) {
             throw new IllegalStateException("TickNextTick list out of synch");
         } else {
             if (i > 1000) {
@@ -334,14 +333,14 @@ public class WorldServer extends World {
             }
 
             for (int j = 0; j < i; ++j) {
-                NextTickListEntry nextticklistentry = (NextTickListEntry) this.N.first();
+                NextTickListEntry nextticklistentry = (NextTickListEntry) this.M.first();
 
                 if (!flag && nextticklistentry.e > this.worldData.getTime()) {
                     break;
                 }
 
-                this.N.remove(nextticklistentry);
                 this.M.remove(nextticklistentry);
+                this.L.remove(nextticklistentry);
                 byte b0 = 8;
 
                 if (this.d(nextticklistentry.a - b0, nextticklistentry.b - b0, nextticklistentry.c - b0, nextticklistentry.a + b0, nextticklistentry.b + b0, nextticklistentry.c + b0)) {
@@ -369,7 +368,7 @@ public class WorldServer extends World {
                 }
             }
 
-            return !this.N.isEmpty();
+            return !this.M.isEmpty();
         }
     }
 
@@ -380,14 +379,14 @@ public class WorldServer extends World {
         int j = i + 16;
         int k = chunkcoordintpair.z << 4;
         int l = k + 16;
-        Iterator iterator = this.N.iterator();
+        Iterator iterator = this.M.iterator();
 
         while (iterator.hasNext()) {
             NextTickListEntry nextticklistentry = (NextTickListEntry) iterator.next();
 
             if (nextticklistentry.a >= i && nextticklistentry.a < j && nextticklistentry.c >= k && nextticklistentry.c < l) {
                 if (flag) {
-                    this.M.remove(nextticklistentry);
+                    this.L.remove(nextticklistentry);
                     iterator.remove();
                 }
 
@@ -449,7 +448,7 @@ public class WorldServer extends World {
             i1 = l;
         }
 
-        return i1 > 16 || this.server.getServerConfigurationManager().isOp(entityhuman.name) || this.server.I();
+        return i1 > 16 || this.server.getPlayerList().isOp(entityhuman.name) || this.server.I();
     }
 
     protected void a(WorldSettings worldsettings) {
@@ -457,12 +456,12 @@ public class WorldServer extends World {
             this.entitiesById = new IntHashMap();
         }
 
-        if (this.M == null) {
-            this.M = new HashSet();
+        if (this.L == null) {
+            this.L = new HashSet();
         }
 
-        if (this.N == null) {
-            this.N = new TreeSet();
+        if (this.M == null) {
+            this.M = new TreeSet();
         }
 
         this.b(worldsettings);
@@ -509,7 +508,7 @@ public class WorldServer extends World {
     }
 
     protected void k() {
-        WorldGenBonusChest worldgenbonuschest = new WorldGenBonusChest(T, 10);
+        WorldGenBonusChest worldgenbonuschest = new WorldGenBonusChest(S, 10);
 
         for (int i = 0; i < 10; ++i) {
             int j = this.worldData.c() + this.random.nextInt(6) - this.random.nextInt(6);
@@ -543,7 +542,7 @@ public class WorldServer extends World {
 
     protected void a() {
         this.D();
-        this.dataManager.saveWorldData(this.worldData, this.server.getServerConfigurationManager().q());
+        this.dataManager.saveWorldData(this.worldData, this.server.getPlayerList().q());
         this.worldMaps.a();
     }
 
@@ -577,7 +576,7 @@ public class WorldServer extends World {
 
     public boolean strikeLightning(Entity entity) {
         if (super.strikeLightning(entity)) {
-            this.server.getServerConfigurationManager().sendPacketNearby(entity.locX, entity.locY, entity.locZ, 512.0D, this.worldProvider.dimension, new Packet71Weather(entity));
+            this.server.getPlayerList().sendPacketNearby(entity.locX, entity.locY, entity.locZ, 512.0D, this.worldProvider.dimension, new Packet71Weather(entity));
             return true;
         } else {
             return false;
@@ -607,7 +606,7 @@ public class WorldServer extends World {
             EntityHuman entityhuman = (EntityHuman) iterator.next();
 
             if (entityhuman.e(d0, d1, d2) < 4096.0D) {
-                ((EntityPlayer) entityhuman).netServerHandler.sendPacket(new Packet60Explosion(d0, d1, d2, f, explosion.blocks, (Vec3D) explosion.b().get(entityhuman)));
+                ((EntityPlayer) entityhuman).playerConnection.sendPacket(new Packet60Explosion(d0, d1, d2, f, explosion.blocks, (Vec3D) explosion.b().get(entityhuman)));
             }
         }
 
@@ -616,13 +615,13 @@ public class WorldServer extends World {
 
     public void playNote(int i, int j, int k, int l, int i1, int j1) {
         NoteBlockData noteblockdata = new NoteBlockData(i, j, k, l, i1, j1);
-        Iterator iterator = this.R[this.S].iterator();
+        Iterator iterator = this.Q[this.R].iterator();
 
         NoteBlockData noteblockdata1;
 
         do {
             if (!iterator.hasNext()) {
-                this.R[this.S].add(noteblockdata);
+                this.Q[this.R].add(noteblockdata);
                 return;
             }
 
@@ -632,21 +631,21 @@ public class WorldServer extends World {
     }
 
     private void V() {
-        while (!this.R[this.S].isEmpty()) {
-            int i = this.S;
+        while (!this.Q[this.R].isEmpty()) {
+            int i = this.R;
 
-            this.S ^= 1;
-            Iterator iterator = this.R[i].iterator();
+            this.R ^= 1;
+            Iterator iterator = this.Q[i].iterator();
 
             while (iterator.hasNext()) {
                 NoteBlockData noteblockdata = (NoteBlockData) iterator.next();
 
                 if (this.a(noteblockdata)) {
-                    this.server.getServerConfigurationManager().sendPacketNearby((double) noteblockdata.a(), (double) noteblockdata.b(), (double) noteblockdata.c(), 64.0D, this.worldProvider.dimension, new Packet54PlayNoteBlock(noteblockdata.a(), noteblockdata.b(), noteblockdata.c(), noteblockdata.f(), noteblockdata.d(), noteblockdata.e()));
+                    this.server.getPlayerList().sendPacketNearby((double) noteblockdata.a(), (double) noteblockdata.b(), (double) noteblockdata.c(), 64.0D, this.worldProvider.dimension, new Packet54PlayNoteBlock(noteblockdata.a(), noteblockdata.b(), noteblockdata.c(), noteblockdata.f(), noteblockdata.d(), noteblockdata.e()));
                 }
             }
 
-            this.R[i].clear();
+            this.Q[i].clear();
         }
     }
 
@@ -671,9 +670,9 @@ public class WorldServer extends World {
         super.n();
         if (flag != this.N()) {
             if (flag) {
-                this.server.getServerConfigurationManager().sendAll(new Packet70Bed(2, 0));
+                this.server.getPlayerList().sendAll(new Packet70Bed(2, 0));
             } else {
-                this.server.getServerConfigurationManager().sendAll(new Packet70Bed(1, 0));
+                this.server.getPlayerList().sendAll(new Packet70Bed(1, 0));
             }
         }
     }
@@ -686,11 +685,11 @@ public class WorldServer extends World {
         return this.tracker;
     }
 
-    public PlayerManager getPlayerManager() {
+    public PlayerChunkMap getPlayerChunkMap() {
         return this.manager;
     }
 
     public PortalTravelAgent s() {
-        return this.Q;
+        return this.P;
     }
 }

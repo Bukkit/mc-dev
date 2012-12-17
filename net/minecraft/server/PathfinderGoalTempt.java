@@ -33,7 +33,7 @@ public class PathfinderGoalTempt extends PathfinderGoal {
             if (this.h == null) {
                 return false;
             } else {
-                ItemStack itemstack = this.h.bT();
+                ItemStack itemstack = this.h.bS();
 
                 return itemstack == null ? false : itemstack.id == this.k;
             }

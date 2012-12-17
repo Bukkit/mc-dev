@@ -3,7 +3,7 @@ package net.minecraft.server;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerManager {
+public class PlayerChunkMap {
 
     private final WorldServer world;
     private final List managedPlayers = new ArrayList();
@@ -12,7 +12,7 @@ public class PlayerManager {
     private final int e;
     private final int[][] f = new int[][] { { 1, 0}, { 0, 1}, { -1, 0}, { 0, -1}};
 
-    public PlayerManager(WorldServer worldserver, int i) {
+    public PlayerChunkMap(WorldServer worldserver, int i) {
         if (i > 15) {
             throw new IllegalArgumentException("Too big view radius!");
         } else if (i < 3) {
@@ -29,7 +29,7 @@ public class PlayerManager {
 
     public void flush() {
         for (int i = 0; i < this.d.size(); ++i) {
-            ((PlayerInstance) this.d.get(i)).a();
+            ((PlayerChunk) this.d.get(i)).a();
         }
 
         this.d.clear();
@@ -42,25 +42,25 @@ public class PlayerManager {
         }
     }
 
-    private PlayerInstance a(int i, int j, boolean flag) {
+    private PlayerChunk a(int i, int j, boolean flag) {
         long k = (long) i + 2147483647L | (long) j + 2147483647L << 32;
-        PlayerInstance playerinstance = (PlayerInstance) this.c.getEntry(k);
+        PlayerChunk playerchunk = (PlayerChunk) this.c.getEntry(k);
 
-        if (playerinstance == null && flag) {
-            playerinstance = new PlayerInstance(this, i, j);
-            this.c.put(k, playerinstance);
+        if (playerchunk == null && flag) {
+            playerchunk = new PlayerChunk(this, i, j);
+            this.c.put(k, playerchunk);
         }
 
-        return playerinstance;
+        return playerchunk;
     }
 
     public void flagDirty(int i, int j, int k) {
         int l = i >> 4;
         int i1 = k >> 4;
-        PlayerInstance playerinstance = this.a(l, i1, false);
+        PlayerChunk playerchunk = this.a(l, i1, false);
 
-        if (playerinstance != null) {
-            playerinstance.a(i & 15, j, k & 15);
+        if (playerchunk != null) {
+            playerchunk.a(i & 15, j, k & 15);
         }
     }
 
@@ -89,7 +89,7 @@ public class PlayerManager {
         int l = (int) entityplayer.locZ >> 4;
         int i1 = 0;
         int j1 = 0;
-        ChunkCoordIntPair chunkcoordintpair = PlayerInstance.a(this.a(k, l, true));
+        ChunkCoordIntPair chunkcoordintpair = PlayerChunk.a(this.a(k, l, true));
 
         entityplayer.chunkCoordIntPairQueue.clear();
         if (arraylist.contains(chunkcoordintpair)) {
@@ -105,7 +105,7 @@ public class PlayerManager {
                 for (int i2 = 0; i2 < k1; ++i2) {
                     i1 += aint[0];
                     j1 += aint[1];
-                    chunkcoordintpair = PlayerInstance.a(this.a(k + i1, l + j1, true));
+                    chunkcoordintpair = PlayerChunk.a(this.a(k + i1, l + j1, true));
                     if (arraylist.contains(chunkcoordintpair)) {
                         entityplayer.chunkCoordIntPairQueue.add(chunkcoordintpair);
                     }
@@ -118,7 +118,7 @@ public class PlayerManager {
         for (k1 = 0; k1 < j * 2; ++k1) {
             i1 += this.f[i][0];
             j1 += this.f[i][1];
-            chunkcoordintpair = PlayerInstance.a(this.a(k + i1, l + j1, true));
+            chunkcoordintpair = PlayerChunk.a(this.a(k + i1, l + j1, true));
             if (arraylist.contains(chunkcoordintpair)) {
                 entityplayer.chunkCoordIntPairQueue.add(chunkcoordintpair);
             }
@@ -131,10 +131,10 @@ public class PlayerManager {
 
         for (int k = i - this.e; k <= i + this.e; ++k) {
             for (int l = j - this.e; l <= j + this.e; ++l) {
-                PlayerInstance playerinstance = this.a(k, l, false);
+                PlayerChunk playerchunk = this.a(k, l, false);
 
-                if (playerinstance != null) {
-                    playerinstance.b(entityplayer);
+                if (playerchunk != null) {
+                    playerchunk.b(entityplayer);
                 }
             }
         }
@@ -171,10 +171,10 @@ public class PlayerManager {
                         }
 
                         if (!this.a(l1 - j1, i2 - k1, i, j, i1)) {
-                            PlayerInstance playerinstance = this.a(l1 - j1, i2 - k1, false);
+                            PlayerChunk playerchunk = this.a(l1 - j1, i2 - k1, false);
 
-                            if (playerinstance != null) {
-                                playerinstance.b(entityplayer);
+                            if (playerchunk != null) {
+                                playerchunk.b(entityplayer);
                             }
                         }
                     }
@@ -188,24 +188,24 @@ public class PlayerManager {
     }
 
     public boolean a(EntityPlayer entityplayer, int i, int j) {
-        PlayerInstance playerinstance = this.a(i, j, false);
+        PlayerChunk playerchunk = this.a(i, j, false);
 
-        return playerinstance == null ? false : PlayerInstance.b(playerinstance).contains(entityplayer) && !entityplayer.chunkCoordIntPairQueue.contains(PlayerInstance.a(playerinstance));
+        return playerchunk == null ? false : PlayerChunk.b(playerchunk).contains(entityplayer) && !entityplayer.chunkCoordIntPairQueue.contains(PlayerChunk.a(playerchunk));
     }
 
     public static int getFurthestViewableBlock(int i) {
         return i * 16 - 16;
     }
 
-    static WorldServer a(PlayerManager playermanager) {
-        return playermanager.world;
+    static WorldServer a(PlayerChunkMap playerchunkmap) {
+        return playerchunkmap.world;
     }
 
-    static LongHashMap b(PlayerManager playermanager) {
-        return playermanager.c;
+    static LongHashMap b(PlayerChunkMap playerchunkmap) {
+        return playerchunkmap.c;
     }
 
-    static List c(PlayerManager playermanager) {
-        return playermanager.d;
+    static List c(PlayerChunkMap playerchunkmap) {
+        return playerchunkmap.d;
     }
 }

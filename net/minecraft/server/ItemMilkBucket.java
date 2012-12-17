@@ -20,16 +20,16 @@ public class ItemMilkBucket extends Item {
         return itemstack.count <= 0 ? new ItemStack(Item.BUCKET) : itemstack;
     }
 
-    public int a(ItemStack itemstack) {
+    public int c_(ItemStack itemstack) {
         return 32;
     }
 
-    public EnumAnimation d_(ItemStack itemstack) {
+    public EnumAnimation b_(ItemStack itemstack) {
         return EnumAnimation.c;
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        entityhuman.a(itemstack, this.a(itemstack));
+        entityhuman.a(itemstack, this.c_(itemstack));
         return itemstack;
     }
 }

@@ -38,8 +38,8 @@ public class Packet15Place extends Packet {
         dataoutputstream.write((int) (this.h * 16.0F));
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

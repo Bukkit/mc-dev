@@ -13,8 +13,8 @@ public class Packet0KeepAlive extends Packet {
         this.a = i;
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public void a(DataInputStream datainputstream) {

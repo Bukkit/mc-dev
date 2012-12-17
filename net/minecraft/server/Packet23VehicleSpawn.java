@@ -14,6 +14,8 @@ public class Packet23VehicleSpawn extends Packet {
     public int g;
     public int h;
     public int i;
+    public int j;
+    public int k;
 
     public Packet23VehicleSpawn() {}
 
@@ -26,8 +28,10 @@ public class Packet23VehicleSpawn extends Packet {
         this.b = MathHelper.floor(entity.locX * 32.0D);
         this.c = MathHelper.floor(entity.locY * 32.0D);
         this.d = MathHelper.floor(entity.locZ * 32.0D);
-        this.h = i;
-        this.i = j;
+        this.h = MathHelper.d(entity.pitch * 256.0F / 360.0F);
+        this.i = MathHelper.d(entity.yaw * 256.0F / 360.0F);
+        this.j = i;
+        this.k = j;
         if (j > 0) {
             double d0 = entity.motX;
             double d1 = entity.motY;
@@ -66,12 +70,14 @@ public class Packet23VehicleSpawn extends Packet {
 
     public void a(DataInputStream datainputstream) {
         this.a = datainputstream.readInt();
-        this.h = datainputstream.readByte();
+        this.j = datainputstream.readByte();
         this.b = datainputstream.readInt();
         this.c = datainputstream.readInt();
         this.d = datainputstream.readInt();
-        this.i = datainputstream.readInt();
-        if (this.i > 0) {
+        this.h = datainputstream.readByte();
+        this.i = datainputstream.readByte();
+        this.k = datainputstream.readInt();
+        if (this.k > 0) {
             this.e = datainputstream.readShort();
             this.f = datainputstream.readShort();
             this.g = datainputstream.readShort();
@@ -80,23 +86,25 @@ public class Packet23VehicleSpawn extends Packet {
 
     public void a(DataOutputStream dataoutputstream) {
         dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeByte(this.h);
+        dataoutputstream.writeByte(this.j);
         dataoutputstream.writeInt(this.b);
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);
-        dataoutputstream.writeInt(this.i);
-        if (this.i > 0) {
+        dataoutputstream.writeByte(this.h);
+        dataoutputstream.writeByte(this.i);
+        dataoutputstream.writeInt(this.k);
+        if (this.k > 0) {
             dataoutputstream.writeShort(this.e);
             dataoutputstream.writeShort(this.f);
             dataoutputstream.writeShort(this.g);
         }
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {
-        return 21 + this.i > 0 ? 6 : 0;
+        return 21 + this.k > 0 ? 6 : 0;
     }
 }

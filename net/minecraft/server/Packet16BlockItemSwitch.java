@@ -9,6 +9,10 @@ public class Packet16BlockItemSwitch extends Packet {
 
     public Packet16BlockItemSwitch() {}
 
+    public Packet16BlockItemSwitch(int i) {
+        this.itemInHandIndex = i;
+    }
+
     public void a(DataInputStream datainputstream) {
         this.itemInHandIndex = datainputstream.readShort();
     }
@@ -17,8 +21,8 @@ public class Packet16BlockItemSwitch extends Packet {
         dataoutputstream.writeShort(this.itemInHandIndex);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

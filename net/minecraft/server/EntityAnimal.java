@@ -53,7 +53,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
             EntityHuman entityhuman = (EntityHuman) entity;
 
-            if (entityhuman.bT() == null || !this.c(entityhuman.bT())) {
+            if (entityhuman.bS() == null || !this.c(entityhuman.bS())) {
                 this.target = null;
             }
         } else if (entity instanceof EntityAnimal) {
@@ -165,7 +165,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 for (i = 0; i < list.size(); ++i) {
                     EntityHuman entityhuman = (EntityHuman) list.get(i);
 
-                    if (entityhuman.bT() != null && this.c(entityhuman.bT())) {
+                    if (entityhuman.bS() != null && this.c(entityhuman.bS())) {
                         return entityhuman;
                     }
                 }

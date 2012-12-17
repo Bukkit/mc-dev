@@ -18,8 +18,8 @@ public abstract class ServerConnection {
         this.b = true;
     }
 
-    public void a(NetServerHandler netserverhandler) {
-        this.d.add(netserverhandler);
+    public void a(PlayerConnection playerconnection) {
+        this.d.add(playerconnection);
     }
 
     public void a() {
@@ -28,26 +28,26 @@ public abstract class ServerConnection {
 
     public void b() {
         for (int i = 0; i < this.d.size(); ++i) {
-            NetServerHandler netserverhandler = (NetServerHandler) this.d.get(i);
+            PlayerConnection playerconnection = (PlayerConnection) this.d.get(i);
 
             try {
-                netserverhandler.d();
+                playerconnection.d();
             } catch (Exception exception) {
-                if (netserverhandler.networkManager instanceof MemoryNetworkManager) {
+                if (playerconnection.networkManager instanceof MemoryNetworkManager) {
                     CrashReport crashreport = CrashReport.a(exception, "Ticking memory connection");
 
                     throw new ReportedException(crashreport);
                 }
 
-                a.log(Level.WARNING, "Failed to handle packet for " + netserverhandler.player.getLocalizedName() + "/" + netserverhandler.player.q() + ": " + exception, exception);
-                netserverhandler.disconnect("Internal server error");
+                a.log(Level.WARNING, "Failed to handle packet for " + playerconnection.player.getLocalizedName() + "/" + playerconnection.player.q() + ": " + exception, exception);
+                playerconnection.disconnect("Internal server error");
             }
 
-            if (netserverhandler.disconnected) {
+            if (playerconnection.disconnected) {
                 this.d.remove(i--);
             }
 
-            netserverhandler.networkManager.a();
+            playerconnection.networkManager.a();
         }
     }
 

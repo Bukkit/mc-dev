@@ -11,12 +11,14 @@ public class ChunkSection {
     private NibbleArray blockLight;
     private NibbleArray skyLight;
 
-    public ChunkSection(int i) {
+    public ChunkSection(int i, boolean flag) {
         this.yPos = i;
         this.blockIds = new byte[4096];
         this.blockData = new NibbleArray(this.blockIds.length, 4);
-        this.skyLight = new NibbleArray(this.blockIds.length, 4);
         this.blockLight = new NibbleArray(this.blockIds.length, 4);
+        if (flag) {
+            this.skyLight = new NibbleArray(this.blockIds.length, 4);
+        }
     }
 
     public int a(int i, int j, int k) {

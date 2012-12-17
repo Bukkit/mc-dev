@@ -118,7 +118,7 @@ public class WorldGenStrongholdRoomCrossing extends WorldGenStrongholdPiece {
                 this.a(world, Block.LADDER.id, this.c(Block.LADDER.id, 4), 9, 1, 3, structureboundingbox);
                 this.a(world, Block.LADDER.id, this.c(Block.LADDER.id, 4), 9, 2, 3, structureboundingbox);
                 this.a(world, Block.LADDER.id, this.c(Block.LADDER.id, 4), 9, 3, 3, structureboundingbox);
-                this.a(world, structureboundingbox, random, 3, 4, 8, c, 1 + random.nextInt(4));
+                this.a(world, structureboundingbox, random, 3, 4, 8, StructurePieceTreasure.a(c, new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 1 + random.nextInt(4));
             }
 
             return true;

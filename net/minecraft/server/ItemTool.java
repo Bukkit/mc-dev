@@ -4,7 +4,7 @@ public class ItemTool extends Item {
 
     private Block[] c;
     protected float a = 4.0F;
-    private int cl;
+    private int co;
     protected EnumToolMaterial b;
 
     protected ItemTool(int i, int j, EnumToolMaterial enumtoolmaterial, Block[] ablock) {
@@ -14,7 +14,7 @@ public class ItemTool extends Item {
         this.maxStackSize = 1;
         this.setMaxDurability(enumtoolmaterial.a());
         this.a = enumtoolmaterial.b();
-        this.cl = j + enumtoolmaterial.c();
+        this.co = j + enumtoolmaterial.c();
         this.a(CreativeModeTab.i);
     }
 
@@ -42,7 +42,7 @@ public class ItemTool extends Item {
     }
 
     public int a(Entity entity) {
-        return this.cl;
+        return this.co;
     }
 
     public int c() {

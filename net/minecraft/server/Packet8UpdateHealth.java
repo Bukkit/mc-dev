@@ -29,8 +29,8 @@ public class Packet8UpdateHealth extends Packet {
         dataoutputstream.writeFloat(this.c);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

@@ -18,4 +18,8 @@ public class EnchantmentDigging extends Enchantment {
     public int getMaxLevel() {
         return 5;
     }
+
+    public boolean canEnchant(ItemStack itemstack) {
+        return itemstack.getItem().id == Item.SHEARS.id ? true : super.canEnchant(itemstack);
+    }
 }

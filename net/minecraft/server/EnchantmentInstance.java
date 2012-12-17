@@ -10,4 +10,8 @@ public class EnchantmentInstance extends WeightedRandomChoice {
         this.enchantment = enchantment;
         this.level = i;
     }
+
+    public EnchantmentInstance(int i, int j) {
+        this(Enchantment.byId[i], j);
+    }
 }

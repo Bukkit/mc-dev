@@ -52,7 +52,7 @@ public class WorldGenStrongholdChestCorridor extends WorldGenStrongholdPiece {
 
                 if (structureboundingbox.b(j, i, k)) {
                     this.c = true;
-                    this.a(world, structureboundingbox, random, 3, 2, 3, a, 2 + random.nextInt(2));
+                    this.a(world, structureboundingbox, random, 3, 2, 3, StructurePieceTreasure.a(a, new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 2 + random.nextInt(2));
                 }
             }
 

@@ -19,12 +19,12 @@ public class CommandBan extends CommandAbstract {
     }
 
     public boolean b(ICommandListener icommandlistener) {
-        return MinecraftServer.getServer().getServerConfigurationManager().getNameBans().isEnabled() && super.b(icommandlistener);
+        return MinecraftServer.getServer().getPlayerList().getNameBans().isEnabled() && super.b(icommandlistener);
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 1 && astring[0].length() > 0) {
-            EntityPlayer entityplayer = MinecraftServer.getServer().getServerConfigurationManager().f(astring[0]);
+            EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().f(astring[0]);
             BanEntry banentry = new BanEntry(astring[0]);
 
             banentry.setSource(icommandlistener.getName());
@@ -32,9 +32,9 @@ public class CommandBan extends CommandAbstract {
                 banentry.setReason(a(icommandlistener, astring, 1));
             }
 
-            MinecraftServer.getServer().getServerConfigurationManager().getNameBans().add(banentry);
+            MinecraftServer.getServer().getPlayerList().getNameBans().add(banentry);
             if (entityplayer != null) {
-                entityplayer.netServerHandler.disconnect("You are banned from this server.");
+                entityplayer.playerConnection.disconnect("You are banned from this server.");
             }
 
             a(icommandlistener, "commands.ban.success", new Object[] { astring[0]});

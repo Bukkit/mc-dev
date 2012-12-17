@@ -22,7 +22,7 @@ public class CommandSay extends CommandAbstract {
         if (astring.length > 0 && astring[0].length() > 0) {
             String s = a(icommandlistener, astring, 0, true);
 
-            MinecraftServer.getServer().getServerConfigurationManager().sendAll(new Packet3Chat(String.format("[%s] %s", new Object[] { icommandlistener.getName(), s})));
+            MinecraftServer.getServer().getPlayerList().k(String.format("[%s] %s", new Object[] { icommandlistener.getName(), s}));
         } else {
             throw new ExceptionUsage("commands.say.usage", new Object[0]);
         }

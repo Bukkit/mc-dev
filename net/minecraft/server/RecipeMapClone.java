@@ -1,8 +1,8 @@
 package net.minecraft.server;
 
-public class RecipesMapClone implements IRecipe {
+public class RecipeMapClone implements IRecipe {
 
-    public RecipesMapClone() {}
+    public RecipeMapClone() {}
 
     public boolean a(InventoryCrafting inventorycrafting, World world) {
         int i = 0;

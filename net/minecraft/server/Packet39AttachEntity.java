@@ -29,8 +29,8 @@ public class Packet39AttachEntity extends Packet {
         dataoutputstream.writeInt(this.b);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public boolean e() {

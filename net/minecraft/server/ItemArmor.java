@@ -2,15 +2,15 @@ package net.minecraft.server;
 
 public class ItemArmor extends Item {
 
-    private static final int[] cl = new int[] { 11, 16, 15, 13};
+    private static final int[] co = new int[] { 11, 16, 15, 13};
     public final int a;
     public final int b;
     public final int c;
-    private final EnumArmorMaterial cm;
+    private final EnumArmorMaterial cp;
 
     public ItemArmor(int i, EnumArmorMaterial enumarmormaterial, int j, int k) {
         super(i);
-        this.cm = enumarmormaterial;
+        this.cp = enumarmormaterial;
         this.a = k;
         this.c = j;
         this.b = enumarmormaterial.b(k);
@@ -20,19 +20,19 @@ public class ItemArmor extends Item {
     }
 
     public int c() {
-        return this.cm.a();
+        return this.cp.a();
     }
 
     public EnumArmorMaterial d() {
-        return this.cm;
+        return this.cp;
     }
 
-    public boolean b_(ItemStack itemstack) {
-        return this.cm != EnumArmorMaterial.CLOTH ? false : (!itemstack.hasTag() ? false : (!itemstack.getTag().hasKey("display") ? false : itemstack.getTag().getCompound("display").hasKey("color")));
+    public boolean a(ItemStack itemstack) {
+        return this.cp != EnumArmorMaterial.CLOTH ? false : (!itemstack.hasTag() ? false : (!itemstack.getTag().hasKey("display") ? false : itemstack.getTag().getCompound("display").hasKey("color")));
     }
 
     public int b(ItemStack itemstack) {
-        if (this.cm != EnumArmorMaterial.CLOTH) {
+        if (this.cp != EnumArmorMaterial.CLOTH) {
             return -1;
         } else {
             NBTTagCompound nbttagcompound = itemstack.getTag();
@@ -48,7 +48,7 @@ public class ItemArmor extends Item {
     }
 
     public void c(ItemStack itemstack) {
-        if (this.cm == EnumArmorMaterial.CLOTH) {
+        if (this.cp == EnumArmorMaterial.CLOTH) {
             NBTTagCompound nbttagcompound = itemstack.getTag();
 
             if (nbttagcompound != null) {
@@ -62,7 +62,7 @@ public class ItemArmor extends Item {
     }
 
     public void b(ItemStack itemstack, int i) {
-        if (this.cm != EnumArmorMaterial.CLOTH) {
+        if (this.cp != EnumArmorMaterial.CLOTH) {
             throw new UnsupportedOperationException("Can\'t dye non-leather!");
         } else {
             NBTTagCompound nbttagcompound = itemstack.getTag();
@@ -83,10 +83,10 @@ public class ItemArmor extends Item {
     }
 
     public boolean a(ItemStack itemstack, ItemStack itemstack1) {
-        return this.cm.b() == itemstack1.id ? true : super.a(itemstack, itemstack1);
+        return this.cp.b() == itemstack1.id ? true : super.a(itemstack, itemstack1);
     }
 
     static int[] e() {
-        return cl;
+        return co;
     }
 }

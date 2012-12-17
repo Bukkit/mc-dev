@@ -118,10 +118,10 @@ public class WorldGenStrongholdLibrary extends WorldGenStrongholdPiece {
                 this.a(world, Block.TORCH.id, 0, b1, 8, b2 + 1, structureboundingbox);
             }
 
-            this.a(world, structureboundingbox, random, 3, 3, 5, b, 1 + random.nextInt(4));
+            this.a(world, structureboundingbox, random, 3, 3, 5, StructurePieceTreasure.a(b, new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.a(random, 1, 5, 2)}), 1 + random.nextInt(4));
             if (this.c) {
                 this.a(world, 0, 0, 12, 9, 1, structureboundingbox);
-                this.a(world, structureboundingbox, random, 12, 8, 1, b, 1 + random.nextInt(4));
+                this.a(world, structureboundingbox, random, 12, 8, 1, StructurePieceTreasure.a(b, new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.a(random, 1, 5, 2)}), 1 + random.nextInt(4));
             }
 
             return true;

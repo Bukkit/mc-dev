@@ -54,7 +54,7 @@ public abstract class EntityFlying extends EntityLiving {
             this.motZ *= (double) f2;
         }
 
-        this.bf = this.bg;
+        this.bg = this.bh;
         double d0 = this.locX - this.lastX;
         double d1 = this.locZ - this.lastZ;
         float f4 = MathHelper.sqrt(d0 * d0 + d1 * d1) * 4.0F;
@@ -63,8 +63,8 @@ public abstract class EntityFlying extends EntityLiving {
             f4 = 1.0F;
         }
 
-        this.bg += (f4 - this.bg) * 0.4F;
-        this.bh += this.bg;
+        this.bh += (f4 - this.bh) * 0.4F;
+        this.bi += this.bh;
     }
 
     public boolean g_() {

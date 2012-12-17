@@ -55,7 +55,7 @@ public abstract class BlockStepAbstract extends Block {
     }
 
     public int getPlacedData(World world, int i, int j, int k, int l, float f, float f1, float f2, int i1) {
-        return this.a ? 0 : (l != 0 && (l == 1 || (double) f1 <= 0.5D) ? i1 : i1 | 8);
+        return this.a ? i1 : (l != 0 && (l == 1 || (double) f1 <= 0.5D) ? i1 : i1 | 8);
     }
 
     public int a(Random random) {
@@ -71,4 +71,8 @@ public abstract class BlockStepAbstract extends Block {
     }
 
     public abstract String d(int i);
+
+    public int getDropData(World world, int i, int j, int k) {
+        return super.getDropData(world, i, j, k) & 7;
+    }
 }

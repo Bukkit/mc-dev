@@ -29,8 +29,8 @@ public class Packet5EntityEquipment extends Packet {
         a(this.c, dataoutputstream);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

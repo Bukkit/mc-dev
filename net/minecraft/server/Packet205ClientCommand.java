@@ -17,8 +17,8 @@ public class Packet205ClientCommand extends Packet {
         dataoutputstream.writeByte(this.a & 255);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

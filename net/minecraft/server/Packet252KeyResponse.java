@@ -23,8 +23,8 @@ public class Packet252KeyResponse extends Packet {
         a(dataoutputstream, this.b);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

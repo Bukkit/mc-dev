@@ -16,8 +16,8 @@ public class CommandSaveAll extends CommandAbstract {
         MinecraftServer minecraftserver = MinecraftServer.getServer();
 
         icommandlistener.sendMessage(icommandlistener.a("commands.save.start", new Object[0]));
-        if (minecraftserver.getServerConfigurationManager() != null) {
-            minecraftserver.getServerConfigurationManager().savePlayers();
+        if (minecraftserver.getPlayerList() != null) {
+            minecraftserver.getPlayerList().savePlayers();
         }
 
         try {

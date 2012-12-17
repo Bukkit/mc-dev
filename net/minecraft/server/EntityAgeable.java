@@ -21,6 +21,12 @@ public abstract class EntityAgeable extends EntityCreature {
                     entityageable.setAge(-24000);
                     entityageable.setPositionRotation(this.locX, this.locY, this.locZ, 0.0F, 0.0F);
                     this.world.addEntity(entityageable);
+                    if (!entityhuman.abilities.canInstantlyBuild) {
+                        --itemstack.count;
+                        if (itemstack.count <= 0) {
+                            entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
+                        }
+                    }
                 }
             }
         }

@@ -1,13 +1,13 @@
 package net.minecraft.server;
 
-public class DemoItemInWorldManager extends ItemInWorldManager {
+public class DemoPlayerInteractManager extends PlayerInteractManager {
 
     private boolean c = false;
     private boolean d = false;
     private int e = 0;
     private int f = 0;
 
-    public DemoItemInWorldManager(World world) {
+    public DemoPlayerInteractManager(World world) {
         super(world);
     }
 
@@ -19,7 +19,7 @@ public class DemoItemInWorldManager extends ItemInWorldManager {
 
         if (!this.c && this.f > 20) {
             this.c = true;
-            this.player.netServerHandler.sendPacket(new Packet70Bed(5, 0));
+            this.player.playerConnection.sendPacket(new Packet70Bed(5, 0));
         }
 
         this.d = i > 120500L;
@@ -33,11 +33,11 @@ public class DemoItemInWorldManager extends ItemInWorldManager {
             }
         } else if (j == 1L) {
             if (i == 100L) {
-                this.player.netServerHandler.sendPacket(new Packet70Bed(5, 101));
+                this.player.playerConnection.sendPacket(new Packet70Bed(5, 101));
             } else if (i == 175L) {
-                this.player.netServerHandler.sendPacket(new Packet70Bed(5, 102));
+                this.player.playerConnection.sendPacket(new Packet70Bed(5, 102));
             } else if (i == 250L) {
-                this.player.netServerHandler.sendPacket(new Packet70Bed(5, 103));
+                this.player.playerConnection.sendPacket(new Packet70Bed(5, 103));
             }
         } else if (j == 5L && i % 24000L == 22000L) {
             this.player.sendMessage(this.player.a("demo.day.warning", new Object[0]));

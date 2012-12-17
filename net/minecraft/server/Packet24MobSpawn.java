@@ -25,12 +25,12 @@ public class Packet24MobSpawn extends Packet {
     public Packet24MobSpawn(EntityLiving entityliving) {
         this.a = entityliving.id;
         this.b = (byte) EntityTypes.a(entityliving);
-        this.c = entityliving.ar.a(entityliving.locX);
+        this.c = entityliving.as.a(entityliving.locX);
         this.d = MathHelper.floor(entityliving.locY * 32.0D);
-        this.e = entityliving.ar.a(entityliving.locZ);
+        this.e = entityliving.as.a(entityliving.locZ);
         this.i = (byte) ((int) (entityliving.yaw * 256.0F / 360.0F));
         this.j = (byte) ((int) (entityliving.pitch * 256.0F / 360.0F));
-        this.k = (byte) ((int) (entityliving.ay * 256.0F / 360.0F));
+        this.k = (byte) ((int) (entityliving.az * 256.0F / 360.0F));
         double d0 = 3.9D;
         double d1 = entityliving.motX;
         double d2 = entityliving.motY;
@@ -96,8 +96,8 @@ public class Packet24MobSpawn extends Packet {
         this.s.a(dataoutputstream);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

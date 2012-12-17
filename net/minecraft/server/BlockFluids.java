@@ -17,7 +17,7 @@ public abstract class BlockFluids extends Block {
         return this.material != Material.LAVA;
     }
 
-    public static float d(int i) {
+    public static float e(int i) {
         if (i >= 8) {
             i = 0;
         }

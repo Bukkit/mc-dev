@@ -29,8 +29,8 @@ public class Packet14BlockDig extends Packet {
         dataoutputstream.write(this.face);
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public int a() {

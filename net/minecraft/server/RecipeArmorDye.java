@@ -2,9 +2,9 @@ package net.minecraft.server;
 
 import java.util.ArrayList;
 
-public class RecipesArmorDye implements IRecipe {
+public class RecipeArmorDye implements IRecipe {
 
-    public RecipesArmorDye() {}
+    public RecipeArmorDye() {}
 
     public boolean a(InventoryCrafting inventorycrafting, World world) {
         ItemStack itemstack = null;
@@ -59,7 +59,7 @@ public class RecipesArmorDye implements IRecipe {
                     }
 
                     itemstack = itemstack1.cloneItemStack();
-                    if (itemarmor.b_(itemstack1)) {
+                    if (itemarmor.a(itemstack1)) {
                         l = itemarmor.b(itemstack);
                         f = (float) (l >> 16 & 255) / 255.0F;
                         f1 = (float) (l >> 8 & 255) / 255.0F;

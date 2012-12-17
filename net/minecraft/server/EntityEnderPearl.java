@@ -23,7 +23,7 @@ public class EntityEnderPearl extends EntityProjectile {
             if (this.getShooter() != null && this.getShooter() instanceof EntityPlayer) {
                 EntityPlayer entityplayer = (EntityPlayer) this.getShooter();
 
-                if (!entityplayer.netServerHandler.disconnected && entityplayer.world == this.world) {
+                if (!entityplayer.playerConnection.disconnected && entityplayer.world == this.world) {
                     this.getShooter().enderTeleportTo(this.locX, this.locY, this.locZ);
                     this.getShooter().fallDistance = 0.0F;
                     this.getShooter().damageEntity(DamageSource.FALL, 5);

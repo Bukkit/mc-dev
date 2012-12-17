@@ -263,7 +263,7 @@ public class BlockChest extends BlockContainer {
                         entityitem.motY = (double) ((float) this.a.nextGaussian() * f3 + 0.2F);
                         entityitem.motZ = (double) ((float) this.a.nextGaussian() * f3);
                         if (itemstack.hasTag()) {
-                            entityitem.itemStack.setTag((NBTTagCompound) itemstack.getTag().clone());
+                            entityitem.getItemStack().setTag((NBTTagCompound) itemstack.getTag().clone());
                         }
                     }
                 }

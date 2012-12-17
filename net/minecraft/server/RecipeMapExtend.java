@@ -1,8 +1,8 @@
 package net.minecraft.server;
 
-public class RecipesMapExtend extends ShapedRecipes {
+public class RecipeMapExtend extends ShapedRecipes {
 
-    public RecipesMapExtend() {
+    public RecipeMapExtend() {
         super(3, 3, new ItemStack[] { new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.MAP, 0, -1), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER)}, new ItemStack(Item.MAP_EMPTY, 0, 0));
     }
 

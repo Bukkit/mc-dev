@@ -21,8 +21,8 @@ public class Packet9Respawn extends Packet {
         this.e = worldtype;
     }
 
-    public void handle(NetHandler nethandler) {
-        nethandler.a(this);
+    public void handle(Connection connection) {
+        connection.a(this);
     }
 
     public void a(DataInputStream datainputstream) {

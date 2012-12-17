@@ -169,11 +169,11 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
                 this.a(world, structureboundingbox, random, 0.05F, 1, 2, k - 1, Block.TORCH.id, 0);
                 this.a(world, structureboundingbox, random, 0.05F, 1, 2, k + 1, Block.TORCH.id, 0);
                 if (random.nextInt(100) == 0) {
-                    this.a(world, structureboundingbox, random, 2, 0, k - 1, WorldGenMineshaftPieces.a(), 3 + random.nextInt(4));
+                    this.a(world, structureboundingbox, random, 2, 0, k - 1, StructurePieceTreasure.a(WorldGenMineshaftPieces.a(), new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 3 + random.nextInt(4));
                 }
 
                 if (random.nextInt(100) == 0) {
-                    this.a(world, structureboundingbox, random, 0, 0, k + 1, WorldGenMineshaftPieces.a(), 3 + random.nextInt(4));
+                    this.a(world, structureboundingbox, random, 0, 0, k + 1, StructurePieceTreasure.a(WorldGenMineshaftPieces.a(), new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 3 + random.nextInt(4));
                 }
 
                 if (this.b && !this.c) {

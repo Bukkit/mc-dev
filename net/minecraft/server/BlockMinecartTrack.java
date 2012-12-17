@@ -12,7 +12,7 @@ public class BlockMinecartTrack extends Block {
         return l == Block.RAILS.id || l == Block.GOLDEN_RAIL.id || l == Block.DETECTOR_RAIL.id;
     }
 
-    public static final boolean d(int i) {
+    public static final boolean e(int i) {
         return i == Block.RAILS.id || i == Block.GOLDEN_RAIL.id || i == Block.DETECTOR_RAIL.id;
     }
 

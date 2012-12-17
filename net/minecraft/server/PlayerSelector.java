@@ -91,13 +91,13 @@ public class PlayerSelector {
                 if (!s1.equals("r")) {
                     return null;
                 } else {
-                    list = MinecraftServer.getServer().getServerConfigurationManager().a(chunkcoordinates, i, j, 0, j1, k, l);
+                    list = MinecraftServer.getServer().getPlayerList().a(chunkcoordinates, i, j, 0, j1, k, l);
                     Collections.shuffle(list);
                     list = list.subList(0, Math.min(i1, list.size()));
                     return list != null && !list.isEmpty() ? (EntityPlayer[]) list.toArray(new EntityPlayer[0]) : new EntityPlayer[0];
                 }
             } else {
-                list = MinecraftServer.getServer().getServerConfigurationManager().a(chunkcoordinates, i, j, i1, j1, k, l);
+                list = MinecraftServer.getServer().getPlayerList().a(chunkcoordinates, i, j, i1, j1, k, l);
                 return list != null && !list.isEmpty() ? (EntityPlayer[]) list.toArray(new EntityPlayer[0]) : new EntityPlayer[0];
             }
         } else {

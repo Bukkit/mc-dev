@@ -20,7 +20,7 @@ public class ItemPotion extends Item {
         this.a(CreativeModeTab.k);
     }
 
-    public List l(ItemStack itemstack) {
+    public List g(ItemStack itemstack) {
         if (itemstack.hasTag() && itemstack.getTag().hasKey("CustomPotionEffects")) {
             ArrayList arraylist = new ArrayList();
             NBTTagList nbttaglist = itemstack.getTag().getList("CustomPotionEffects");
@@ -61,7 +61,7 @@ public class ItemPotion extends Item {
         }
 
         if (!world.isStatic) {
-            List list = this.l(itemstack);
+            List list = this.g(itemstack);
 
             if (list != null) {
                 Iterator iterator = list.iterator();
@@ -85,11 +85,11 @@ public class ItemPotion extends Item {
         return itemstack;
     }
 
-    public int a(ItemStack itemstack) {
+    public int c_(ItemStack itemstack) {
         return 32;
     }
 
-    public EnumAnimation d_(ItemStack itemstack) {
+    public EnumAnimation b_(ItemStack itemstack) {
         return EnumAnimation.c;
     }
 
@@ -106,7 +106,7 @@ public class ItemPotion extends Item {
 
             return itemstack;
         } else {
-            entityhuman.a(itemstack, this.a(itemstack));
+            entityhuman.a(itemstack, this.c_(itemstack));
             return itemstack;
         }
     }
@@ -119,7 +119,7 @@ public class ItemPotion extends Item {
         return (i & 16384) != 0;
     }
 
-    public String j(ItemStack itemstack) {
+    public String l(ItemStack itemstack) {
         if (itemstack.getData() == 0) {
             return LocaleI18n.get("item.emptyPotion.name").trim();
         } else {
@@ -129,7 +129,7 @@ public class ItemPotion extends Item {
                 s = LocaleI18n.get("potion.prefix.grenade").trim() + " ";
             }
 
-            List list = Item.POTION.l(itemstack);
+            List list = Item.POTION.g(itemstack);
             String s1;
 
             if (list != null && !list.isEmpty()) {
@@ -138,7 +138,7 @@ public class ItemPotion extends Item {
                 return s + LocaleI18n.get(s1).trim();
             } else {
                 s1 = PotionBrewer.c(itemstack.getData());
-                return LocaleI18n.get(s1).trim() + " " + super.j(itemstack);
+                return LocaleI18n.get(s1).trim() + " " + super.l(itemstack);
             }
         }
     }

@@ -120,6 +120,7 @@ public class EntityTypes {
         a(EntityWitherSkull.class, "WitherSkull", 19);
         a(EntityTNTPrimed.class, "PrimedTnt", 20);
         a(EntityFallingBlock.class, "FallingSand", 21);
+        a(EntityFireworks.class, "FireworksRocketEntity", 22);
         a(EntityMinecart.class, "Minecart", 40);
         a(EntityBoat.class, "Boat", 41);
         a(EntityLiving.class, "Mob", 48);

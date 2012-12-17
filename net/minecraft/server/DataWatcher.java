@@ -12,37 +12,40 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DataWatcher {
 
-    private static final HashMap a = new HashMap();
-    private final Map b = new HashMap();
-    private boolean c;
-    private ReadWriteLock d = new ReentrantReadWriteLock();
+    private boolean a = true;
+    private static final HashMap b = new HashMap();
+    private final Map c = new HashMap();
+    private boolean d;
+    private ReadWriteLock e = new ReentrantReadWriteLock();
 
     public DataWatcher() {}
 
     public void a(int i, Object object) {
-        Integer integer = (Integer) a.get(object.getClass());
+        Integer integer = (Integer) b.get(object.getClass());
 
         if (integer == null) {
             throw new IllegalArgumentException("Unknown data type: " + object.getClass());
         } else if (i > 31) {
             throw new IllegalArgumentException("Data value id is too big with " + i + "! (Max is " + 31 + ")");
-        } else if (this.b.containsKey(Integer.valueOf(i))) {
+        } else if (this.c.containsKey(Integer.valueOf(i))) {
             throw new IllegalArgumentException("Duplicate id value for " + i + "!");
         } else {
             WatchableObject watchableobject = new WatchableObject(integer.intValue(), i, object);
 
-            this.d.writeLock().lock();
-            this.b.put(Integer.valueOf(i), watchableobject);
-            this.d.writeLock().unlock();
+            this.e.writeLock().lock();
+            this.c.put(Integer.valueOf(i), watchableobject);
+            this.e.writeLock().unlock();
+            this.a = false;
         }
     }
 
     public void a(int i, int j) {
         WatchableObject watchableobject = new WatchableObject(j, i, null);
 
-        this.d.writeLock().lock();
-        this.b.put(Integer.valueOf(i), watchableobject);
-        this.d.writeLock().unlock();
+        this.e.writeLock().lock();
+        this.c.put(Integer.valueOf(i), watchableobject);
+        this.e.writeLock().unlock();
+        this.a = false;
     }
 
     public byte getByte(int i) {
@@ -66,12 +69,12 @@ public class DataWatcher {
     }
 
     private WatchableObject i(int i) {
-        this.d.readLock().lock();
+        this.e.readLock().lock();
 
         WatchableObject watchableobject;
 
         try {
-            watchableobject = (WatchableObject) this.b.get(Integer.valueOf(i));
+            watchableobject = (WatchableObject) this.c.get(Integer.valueOf(i));
         } catch (Throwable throwable) {
             CrashReport crashreport = CrashReport.a(throwable, "Getting synched entity data");
             CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Synched entity data");
@@ -80,7 +83,7 @@ public class DataWatcher {
             throw new ReportedException(crashreport);
         }
 
-        this.d.readLock().unlock();
+        this.e.readLock().unlock();
         return watchableobject;
     }
 
@@ -90,17 +93,17 @@ public class DataWatcher {
         if (!object.equals(watchableobject.b())) {
             watchableobject.a(object);
             watchableobject.a(true);
-            this.c = true;
+            this.d = true;
         }
     }
 
     public void h(int i) {
         WatchableObject.a(this.i(i), true);
-        this.c = true;
+        this.d = true;
     }
 
     public boolean a() {
-        return this.c;
+        return this.d;
     }
 
     public static void a(List list, DataOutputStream dataoutputstream) {
@@ -120,9 +123,9 @@ public class DataWatcher {
     public List b() {
         ArrayList arraylist = null;
 
-        if (this.c) {
-            this.d.readLock().lock();
-            Iterator iterator = this.b.values().iterator();
+        if (this.d) {
+            this.e.readLock().lock();
+            Iterator iterator = this.c.values().iterator();
 
             while (iterator.hasNext()) {
                 WatchableObject watchableobject = (WatchableObject) iterator.next();
@@ -137,16 +140,16 @@ public class DataWatcher {
                 }
             }
 
-            this.d.readLock().unlock();
+            this.e.readLock().unlock();
         }
 
-        this.c = false;
+        this.d = false;
         return arraylist;
     }
 
     public void a(DataOutputStream dataoutputstream) {
-        this.d.readLock().lock();
-        Iterator iterator = this.b.values().iterator();
+        this.e.readLock().lock();
+        Iterator iterator = this.c.values().iterator();
 
         while (iterator.hasNext()) {
             WatchableObject watchableobject = (WatchableObject) iterator.next();
@@ -154,25 +157,25 @@ public class DataWatcher {
             a(dataoutputstream, watchableobject);
         }
 
-        this.d.readLock().unlock();
+        this.e.readLock().unlock();
         dataoutputstream.writeByte(127);
     }
 
     public List c() {
         ArrayList arraylist = null;
 
-        this.d.readLock().lock();
+        this.e.readLock().lock();
 
         WatchableObject watchableobject;
 
-        for (Iterator iterator = this.b.values().iterator(); iterator.hasNext(); arraylist.add(watchableobject)) {
+        for (Iterator iterator = this.c.values().iterator(); iterator.hasNext(); arraylist.add(watchableobject)) {
             watchableobject = (WatchableObject) iterator.next();
             if (arraylist == null) {
                 arraylist = new ArrayList();
             }
         }
 
-        this.d.readLock().unlock();
+        this.e.readLock().unlock();
         return arraylist;
     }
 
@@ -267,13 +270,17 @@ public class DataWatcher {
         return arraylist;
     }
 
+    public boolean d() {
+        return this.a;
+    }
+
     static {
-        a.put(Byte.class, Integer.valueOf(0));
-        a.put(Short.class, Integer.valueOf(1));
-        a.put(Integer.class, Integer.valueOf(2));
-        a.put(Float.class, Integer.valueOf(3));
-        a.put(String.class, Integer.valueOf(4));
-        a.put(ItemStack.class, Integer.valueOf(5));
-        a.put(ChunkCoordinates.class, Integer.valueOf(6));
+        b.put(Byte.class, Integer.valueOf(0));
+        b.put(Short.class, Integer.valueOf(1));
+        b.put(Integer.class, Integer.valueOf(2));
+        b.put(Float.class, Integer.valueOf(3));
+        b.put(String.class, Integer.valueOf(4));
+        b.put(ItemStack.class, Integer.valueOf(5));
+        b.put(ChunkCoordinates.class, Integer.valueOf(6));
     }
 }

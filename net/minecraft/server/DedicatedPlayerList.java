@@ -7,12 +7,12 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Iterator;
 
-public class ServerConfigurationManager extends ServerConfigurationManagerAbstract {
+public class DedicatedPlayerList extends PlayerList {
 
     private File e;
     private File f;
 
-    public ServerConfigurationManager(DedicatedServer dedicatedserver) {
+    public DedicatedPlayerList(DedicatedServer dedicatedserver) {
         super(dedicatedserver);
         this.e = dedicatedserver.e("ops.txt");
         this.f = dedicatedserver.e("white-list.txt");

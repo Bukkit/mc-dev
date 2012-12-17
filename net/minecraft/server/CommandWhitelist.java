@@ -22,20 +22,20 @@ public class CommandWhitelist extends CommandAbstract {
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 1) {
             if (astring[0].equals("on")) {
-                MinecraftServer.getServer().getServerConfigurationManager().setHasWhitelist(true);
+                MinecraftServer.getServer().getPlayerList().setHasWhitelist(true);
                 a(icommandlistener, "commands.whitelist.enabled", new Object[0]);
                 return;
             }
 
             if (astring[0].equals("off")) {
-                MinecraftServer.getServer().getServerConfigurationManager().setHasWhitelist(false);
+                MinecraftServer.getServer().getPlayerList().setHasWhitelist(false);
                 a(icommandlistener, "commands.whitelist.disabled", new Object[0]);
                 return;
             }
 
             if (astring[0].equals("list")) {
-                icommandlistener.sendMessage(icommandlistener.a("commands.whitelist.list", new Object[] { Integer.valueOf(MinecraftServer.getServer().getServerConfigurationManager().getWhitelisted().size()), Integer.valueOf(MinecraftServer.getServer().getServerConfigurationManager().getSeenPlayers().length)}));
-                icommandlistener.sendMessage(a(MinecraftServer.getServer().getServerConfigurationManager().getWhitelisted().toArray(new String[0])));
+                icommandlistener.sendMessage(icommandlistener.a("commands.whitelist.list", new Object[] { Integer.valueOf(MinecraftServer.getServer().getPlayerList().getWhitelisted().size()), Integer.valueOf(MinecraftServer.getServer().getPlayerList().getSeenPlayers().length)}));
+                icommandlistener.sendMessage(a(MinecraftServer.getServer().getPlayerList().getWhitelisted().toArray(new String[0])));
                 return;
             }
 
@@ -44,7 +44,7 @@ public class CommandWhitelist extends CommandAbstract {
                     throw new ExceptionUsage("commands.whitelist.add.usage", new Object[0]);
                 }
 
-                MinecraftServer.getServer().getServerConfigurationManager().addWhitelist(astring[1]);
+                MinecraftServer.getServer().getPlayerList().addWhitelist(astring[1]);
                 a(icommandlistener, "commands.whitelist.add.success", new Object[] { astring[1]});
                 return;
             }
@@ -54,13 +54,13 @@ public class CommandWhitelist extends CommandAbstract {
                     throw new ExceptionUsage("commands.whitelist.remove.usage", new Object[0]);
                 }
 
-                MinecraftServer.getServer().getServerConfigurationManager().removeWhitelist(astring[1]);
+                MinecraftServer.getServer().getPlayerList().removeWhitelist(astring[1]);
                 a(icommandlistener, "commands.whitelist.remove.success", new Object[] { astring[1]});
                 return;
             }
 
             if (astring[0].equals("reload")) {
-                MinecraftServer.getServer().getServerConfigurationManager().reloadWhitelist();
+                MinecraftServer.getServer().getPlayerList().reloadWhitelist();
                 a(icommandlistener, "commands.whitelist.reloaded", new Object[0]);
                 return;
             }
@@ -75,7 +75,7 @@ public class CommandWhitelist extends CommandAbstract {
         } else {
             if (astring.length == 2) {
                 if (astring[0].equals("add")) {
-                    String[] astring1 = MinecraftServer.getServer().getServerConfigurationManager().getSeenPlayers();
+                    String[] astring1 = MinecraftServer.getServer().getPlayerList().getSeenPlayers();
                     ArrayList arraylist = new ArrayList();
                     String s = astring[astring.length - 1];
                     String[] astring2 = astring1;
@@ -84,7 +84,7 @@ public class CommandWhitelist extends CommandAbstract {
                     for (int j = 0; j < i; ++j) {
                         String s1 = astring2[j];
 
-                        if (a(s, s1) && !MinecraftServer.getServer().getServerConfigurationManager().getWhitelisted().contains(s1)) {
+                        if (a(s, s1) && !MinecraftServer.getServer().getPlayerList().getWhitelisted().contains(s1)) {
                             arraylist.add(s1);
                         }
                     }
@@ -93,7 +93,7 @@ public class CommandWhitelist extends CommandAbstract {
                 }
 
                 if (astring[0].equals("remove")) {
-                    return a(astring, MinecraftServer.getServer().getServerConfigurationManager().getWhitelisted());
+                    return a(astring, MinecraftServer.getServer().getPlayerList().getWhitelisted());
                 }
             }
 

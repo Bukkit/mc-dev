@@ -17,7 +17,7 @@ public class ItemMultiTexture extends ItemBlock {
         return i;
     }
 
-    public String c_(ItemStack itemstack) {
+    public String d(ItemStack itemstack) {
         int i = itemstack.getData();
 
         if (i < 0 || i >= this.b.length) {

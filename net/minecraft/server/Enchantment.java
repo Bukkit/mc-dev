@@ -1,8 +1,11 @@
 package net.minecraft.server;
 
+import java.util.ArrayList;
+
 public abstract class Enchantment {
 
     public static final Enchantment[] byId = new Enchantment[256];
+    public static final Enchantment[] c;
     public static final Enchantment PROTECTION_ENVIRONMENTAL = new EnchantmentProtection(0, 10, 0);
     public static final Enchantment PROTECTION_FIRE = new EnchantmentProtection(1, 5, 1);
     public static final Enchantment PROTECTION_FALL = new EnchantmentProtection(2, 5, 2);
@@ -10,6 +13,7 @@ public abstract class Enchantment {
     public static final Enchantment PROTECTION_PROJECTILE = new EnchantmentProtection(4, 5, 4);
     public static final Enchantment OXYGEN = new EnchantmentOxygen(5, 2);
     public static final Enchantment WATER_WORKER = new EnchantmentWaterWorker(6, 2);
+    public static final Enchantment THORNS = new EnchantmentThorns(7, 1);
     public static final Enchantment DAMAGE_ALL = new EnchantmentWeaponDamage(16, 10, 0);
     public static final Enchantment DAMAGE_UNDEAD = new EnchantmentWeaponDamage(17, 5, 1);
     public static final Enchantment DAMAGE_ARTHROPODS = new EnchantmentWeaponDamage(18, 5, 2);
@@ -85,5 +89,25 @@ public abstract class Enchantment {
         String s = LocaleI18n.get(this.a());
 
         return s + " " + LocaleI18n.get("enchantment.level." + i);
+    }
+
+    public boolean canEnchant(ItemStack itemstack) {
+        return this.slot.canEnchant(itemstack.getItem());
+    }
+
+    static {
+        ArrayList arraylist = new ArrayList();
+        Enchantment[] aenchantment = byId;
+        int i = aenchantment.length;
+
+        for (int j = 0; j < i; ++j) {
+            Enchantment enchantment = aenchantment[j];
+
+            if (enchantment != null) {
+                arraylist.add(enchantment);
+            }
+        }
+
+        c = (Enchantment[]) arraylist.toArray(new Enchantment[0]);
     }
 }
