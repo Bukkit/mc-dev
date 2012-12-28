@@ -13,7 +13,7 @@ public class PathfinderGoalLeapAtTarget extends PathfinderGoal {
     }
 
     public boolean a() {
-        this.b = this.a.aG();
+        this.b = this.a.getGoalTarget();
         if (this.b == null) {
             return false;
         } else {

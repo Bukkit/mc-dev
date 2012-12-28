@@ -27,7 +27,7 @@ public class PathfinderGoalOwnerHurtByTarget extends PathfinderGoalTarget {
     }
 
     public void c() {
-        this.d.b(this.b);
+        this.d.setGoalTarget(this.b);
         super.c();
     }
 }

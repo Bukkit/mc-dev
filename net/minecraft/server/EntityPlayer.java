@@ -448,7 +448,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
     }
 
-    public void m() {
+    public void triggerHealthUpdate() {
         this.cl = -99999999;
     }
 

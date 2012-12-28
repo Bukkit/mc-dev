@@ -196,7 +196,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         return 120;
     }
 
-    protected boolean bj() {
+    protected boolean isTypeNotPersistent() {
         return false;
     }
 

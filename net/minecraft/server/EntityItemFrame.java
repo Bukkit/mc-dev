@@ -38,7 +38,7 @@ public class EntityItemFrame extends EntityHanging {
     }
 
     public ItemStack i() {
-        return this.getDataWatcher().f(2);
+        return this.getDataWatcher().getItemStack(2);
     }
 
     public void a(ItemStack itemstack) {
@@ -70,8 +70,8 @@ public class EntityItemFrame extends EntityHanging {
     public void a(NBTTagCompound nbttagcompound) {
         NBTTagCompound nbttagcompound1 = nbttagcompound.getCompound("Item");
 
-        if (nbttagcompound1 != null && !nbttagcompound1.d()) {
-            this.a(ItemStack.a(nbttagcompound1));
+        if (nbttagcompound1 != null && !nbttagcompound1.isEmpty()) {
+            this.a(ItemStack.createStack(nbttagcompound1));
             this.g(nbttagcompound.getByte("ItemRotation"));
             if (nbttagcompound.hasKey("ItemDropChance")) {
                 this.e = nbttagcompound.getFloat("ItemDropChance");

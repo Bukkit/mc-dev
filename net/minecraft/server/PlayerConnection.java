@@ -22,7 +22,7 @@ public class PlayerConnection extends Connection {
     private long j;
     private static Random k = new Random();
     private long l;
-    private int m = 0;
+    private int chatThrottle = 0;
     private int x = 0;
     private double y;
     private double z;
@@ -51,8 +51,8 @@ public class PlayerConnection extends Connection {
             this.sendPacket(new Packet0KeepAlive(this.i));
         }
 
-        if (this.m > 0) {
-            --this.m;
+        if (this.chatThrottle > 0) {
+            --this.chatThrottle;
         }
 
         if (this.x > 0) {
@@ -502,8 +502,8 @@ public class PlayerConnection extends Connection {
                     this.minecraftServer.getPlayerList().sendAll(new Packet3Chat(s, false));
                 }
 
-                this.m += 20;
-                if (this.m > 200 && !this.minecraftServer.getPlayerList().isOp(this.player.name)) {
+                this.chatThrottle += 20;
+                if (this.chatThrottle > 200 && !this.minecraftServer.getPlayerList().isOp(this.player.name)) {
                     this.disconnect("disconnect.spam");
                 }
             }

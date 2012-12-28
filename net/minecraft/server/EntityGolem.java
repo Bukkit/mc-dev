@@ -24,7 +24,7 @@ public abstract class EntityGolem extends EntityCreature implements IAnimal {
         return 120;
     }
 
-    protected boolean bj() {
+    protected boolean isTypeNotPersistent() {
         return false;
     }
 }

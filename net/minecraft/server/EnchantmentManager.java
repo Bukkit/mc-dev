@@ -74,7 +74,7 @@ public class EnchantmentManager {
                 itemstack.a("ench", (NBTBase) nbttaglist);
             }
         } else if (itemstack.hasTag()) {
-            itemstack.getTag().o("ench");
+            itemstack.getTag().remove("ench");
         }
     }
 

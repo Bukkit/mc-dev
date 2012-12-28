@@ -9,7 +9,7 @@ public class TileEntityRecordPlayer extends TileEntity {
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
         if (nbttagcompound.hasKey("RecordItem")) {
-            this.record = ItemStack.a(nbttagcompound.getCompound("RecordItem"));
+            this.record = ItemStack.createStack(nbttagcompound.getCompound("RecordItem"));
         } else {
             this.record = new ItemStack(nbttagcompound.getInt("Record"), 1, 0);
         }

@@ -69,7 +69,7 @@ public abstract class EntityLiving extends Entity {
     private Navigation navigation;
     protected final PathfinderGoalSelector goalSelector;
     protected final PathfinderGoalSelector targetSelector;
-    private EntityLiving bN;
+    private EntityLiving goalTarget;
     private EntitySenses bO;
     private float bP;
     private ChunkCoordinates bQ = new ChunkCoordinates(0, 0, 0);
@@ -184,12 +184,12 @@ public abstract class EntityLiving extends Entity {
         return false;
     }
 
-    public EntityLiving aG() {
-        return this.bN;
+    public EntityLiving getGoalTarget() {
+        return this.goalTarget;
     }
 
-    public void b(EntityLiving entityliving) {
-        this.bN = entityliving;
+    public void setGoalTarget(EntityLiving entityliving) {
+        this.goalTarget = entityliving;
     }
 
     public boolean a(Class oclass) {
@@ -1060,7 +1060,7 @@ public abstract class EntityLiving extends Entity {
             nbttaglist = nbttagcompound.getList("Equipment");
 
             for (i = 0; i < this.equipment.length; ++i) {
-                this.equipment[i] = ItemStack.a((NBTTagCompound) nbttaglist.get(i));
+                this.equipment[i] = ItemStack.createStack((NBTTagCompound) nbttaglist.get(i));
             }
         }
 
@@ -1302,7 +1302,7 @@ public abstract class EntityLiving extends Entity {
         this.am = true;
     }
 
-    protected boolean bj() {
+    protected boolean isTypeNotPersistent() {
         return true;
     }
 
@@ -1316,11 +1316,11 @@ public abstract class EntityLiving extends Entity {
                 double d2 = entityhuman.locZ - this.locZ;
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
-                if (this.bj() && d3 > 16384.0D) {
+                if (this.isTypeNotPersistent() && d3 > 16384.0D) {
                     this.die();
                 }
 
-                if (this.bB > 600 && this.random.nextInt(800) == 0 && d3 > 1024.0D && this.bj()) {
+                if (this.bB > 600 && this.random.nextInt(800) == 0 && d3 > 1024.0D && this.isTypeNotPersistent()) {
                     this.die();
                 } else if (d3 < 1024.0D) {
                     this.bB = 0;
@@ -1685,7 +1685,7 @@ public abstract class EntityLiving extends Entity {
     }
 
     public int as() {
-        if (this.aG() == null) {
+        if (this.getGoalTarget() == null) {
             return 3;
         } else {
             int i = (int) ((float) this.health - (float) this.getMaxHealth() * 0.33F);

@@ -64,7 +64,7 @@ public class DataWatcher {
         return (String) this.i(i).b();
     }
 
-    public ItemStack f(int i) {
+    public ItemStack getItemStack(int i) {
         return (ItemStack) this.i(i).b();
     }
 

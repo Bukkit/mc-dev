@@ -153,7 +153,7 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
         }
     }
 
-    protected boolean bj() {
+    protected boolean isTypeNotPersistent() {
         return false;
     }
 

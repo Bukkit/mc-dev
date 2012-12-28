@@ -231,8 +231,8 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
                 }
             }
 
-            if (this.aG() != null) {
-                this.c(0, this.aG().id);
+            if (this.getGoalTarget() != null) {
+                this.c(0, this.getGoalTarget().id);
             } else {
                 this.c(0, 0);
             }

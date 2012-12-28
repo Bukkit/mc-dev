@@ -35,8 +35,8 @@ public class EntityWolf extends EntityTameableAnimal {
         return true;
     }
 
-    public void b(EntityLiving entityliving) {
-        super.b(entityliving);
+    public void setGoalTarget(EntityLiving entityliving) {
+        super.setGoalTarget(entityliving);
         if (entityliving instanceof EntityHuman) {
             this.setAngry(true);
         }
@@ -75,7 +75,7 @@ public class EntityWolf extends EntityTameableAnimal {
         }
     }
 
-    protected boolean bj() {
+    protected boolean isTypeNotPersistent() {
         return this.isAngry();
     }
 
@@ -169,7 +169,7 @@ public class EntityWolf extends EntityTameableAnimal {
         } else {
             Entity entity = damagesource.getEntity();
 
-            this.d.a(false);
+            this.d.setSitting(false);
             if (entity != null && !(entity instanceof EntityHuman) && !(entity instanceof EntityArrow)) {
                 i = (i + 1) / 2;
             }
@@ -219,7 +219,7 @@ public class EntityWolf extends EntityTameableAnimal {
             }
 
             if (entityhuman.name.equalsIgnoreCase(this.getOwnerName()) && !this.world.isStatic && !this.c(itemstack)) {
-                this.d.a(!this.isSitting());
+                this.d.setSitting(!this.isSitting());
                 this.bF = false;
                 this.setPathEntity((PathEntity) null);
             }
@@ -236,8 +236,8 @@ public class EntityWolf extends EntityTameableAnimal {
                 if (this.random.nextInt(3) == 0) {
                     this.setTamed(true);
                     this.setPathEntity((PathEntity) null);
-                    this.b((EntityLiving) null);
-                    this.d.a(true);
+                    this.setGoalTarget((EntityLiving) null);
+                    this.d.setSitting(true);
                     this.setHealth(20);
                     this.setOwnerName(entityhuman.name);
                     this.f(true);

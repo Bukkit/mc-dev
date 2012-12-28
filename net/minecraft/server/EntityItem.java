@@ -179,7 +179,7 @@ public class EntityItem extends Entity {
         this.age = nbttagcompound.getShort("Age");
         NBTTagCompound nbttagcompound1 = nbttagcompound.getCompound("Item");
 
-        this.setItemStack(ItemStack.a(nbttagcompound1));
+        this.setItemStack(ItemStack.createStack(nbttagcompound1));
         if (this.getItemStack() == null) {
             this.die();
         }
@@ -232,7 +232,7 @@ public class EntityItem extends Entity {
     }
 
     public ItemStack getItemStack() {
-        ItemStack itemstack = this.getDataWatcher().f(10);
+        ItemStack itemstack = this.getDataWatcher().getItemStack(10);
 
         if (itemstack == null) {
             System.out.println("Item entity " + this.id + " has no item?!");

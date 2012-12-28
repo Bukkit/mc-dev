@@ -41,7 +41,7 @@ public final class ItemStack {
         this.damage = k;
     }
 
-    public static ItemStack a(NBTTagCompound nbttagcompound) {
+    public static ItemStack createStack(NBTTagCompound nbttagcompound) {
         ItemStack itemstack = new ItemStack();
 
         itemstack.c(nbttagcompound);

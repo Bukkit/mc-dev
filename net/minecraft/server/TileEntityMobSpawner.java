@@ -221,7 +221,7 @@ public class TileEntityMobSpawner extends TileEntity {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 
         this.b(nbttagcompound);
-        nbttagcompound.o("SpawnPotentials");
+        nbttagcompound.remove("SpawnPotentials");
         return new Packet132TileEntityData(this.x, this.y, this.z, 1, nbttagcompound);
     }
 

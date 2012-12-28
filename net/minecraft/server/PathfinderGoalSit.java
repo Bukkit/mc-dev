@@ -2,38 +2,38 @@ package net.minecraft.server;
 
 public class PathfinderGoalSit extends PathfinderGoal {
 
-    private EntityTameableAnimal a;
-    private boolean b = false;
+    private EntityTameableAnimal entity;
+    private boolean willSit = false;
 
     public PathfinderGoalSit(EntityTameableAnimal entitytameableanimal) {
-        this.a = entitytameableanimal;
+        this.entity = entitytameableanimal;
         this.a(5);
     }
 
     public boolean a() {
-        if (!this.a.isTamed()) {
+        if (!this.entity.isTamed()) {
             return false;
-        } else if (this.a.H()) {
+        } else if (this.entity.H()) {
             return false;
-        } else if (!this.a.onGround) {
+        } else if (!this.entity.onGround) {
             return false;
         } else {
-            EntityLiving entityliving = this.a.getOwner();
+            EntityLiving entityliving = this.entity.getOwner();
 
-            return entityliving == null ? true : (this.a.e(entityliving) < 144.0D && entityliving.aC() != null ? false : this.b);
+            return entityliving == null ? true : (this.entity.e(entityliving) < 144.0D && entityliving.aC() != null ? false : this.willSit);
         }
     }
 
     public void c() {
-        this.a.getNavigation().g();
-        this.a.setSitting(true);
+        this.entity.getNavigation().g();
+        this.entity.setSitting(true);
     }
 
     public void d() {
-        this.a.setSitting(false);
+        this.entity.setSitting(false);
     }
 
-    public void a(boolean flag) {
-        this.b = flag;
+    public void setSitting(boolean flag) {
+        this.willSit = flag;
     }
 }

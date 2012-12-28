@@ -63,7 +63,7 @@ public class PathfinderGoalNearestAttackableTarget extends PathfinderGoalTarget 
     }
 
     public void c() {
-        this.d.b(this.a);
+        this.d.setGoalTarget(this.a);
         super.c();
     }
 }

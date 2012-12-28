@@ -25,7 +25,7 @@ public abstract class PathfinderGoalTarget extends PathfinderGoal {
     }
 
     public boolean b() {
-        EntityLiving entityliving = this.d.aG();
+        EntityLiving entityliving = this.d.getGoalTarget();
 
         if (entityliving == null) {
             return false;
@@ -53,7 +53,7 @@ public abstract class PathfinderGoalTarget extends PathfinderGoal {
     }
 
     public void d() {
-        this.d.b((EntityLiving) null);
+        this.d.setGoalTarget((EntityLiving) null);
     }
 
     protected boolean a(EntityLiving entityliving, boolean flag) {

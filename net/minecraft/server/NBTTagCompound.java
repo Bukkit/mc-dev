@@ -198,7 +198,7 @@ public class NBTTagCompound extends NBTBase {
         return this.getByte(s) != 0;
     }
 
-    public void o(String s) {
+    public void remove(String s) {
         this.map.remove(s);
     }
 
@@ -206,7 +206,7 @@ public class NBTTagCompound extends NBTBase {
         return "" + this.map.size() + " entries";
     }
 
-    public boolean d() {
+    public boolean isEmpty() {
         return this.map.isEmpty();
     }
 

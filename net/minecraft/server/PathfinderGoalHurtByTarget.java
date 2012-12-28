@@ -23,7 +23,7 @@ public class PathfinderGoalHurtByTarget extends PathfinderGoalTarget {
     }
 
     public void c() {
-        this.d.b(this.d.aC());
+        this.d.setGoalTarget(this.d.aC());
         this.b = this.d.aC();
         if (this.a) {
             List list = this.d.world.a(this.d.getClass(), AxisAlignedBB.a().a(this.d.locX, this.d.locY, this.d.locZ, this.d.locX + 1.0D, this.d.locY + 1.0D, this.d.locZ + 1.0D).grow((double) this.e, 4.0D, (double) this.e));
@@ -32,8 +32,8 @@ public class PathfinderGoalHurtByTarget extends PathfinderGoalTarget {
             while (iterator.hasNext()) {
                 EntityLiving entityliving = (EntityLiving) iterator.next();
 
-                if (this.d != entityliving && entityliving.aG() == null) {
-                    entityliving.b(this.d.aC());
+                if (this.d != entityliving && entityliving.getGoalTarget() == null) {
+                    entityliving.setGoalTarget(this.d.aC());
                 }
             }
         }
@@ -42,7 +42,7 @@ public class PathfinderGoalHurtByTarget extends PathfinderGoalTarget {
     }
 
     public void d() {
-        if (this.d.aG() != null && this.d.aG() instanceof EntityHuman && ((EntityHuman) this.d.aG()).abilities.isInvulnerable) {
+        if (this.d.getGoalTarget() != null && this.d.getGoalTarget() instanceof EntityHuman && ((EntityHuman) this.d.getGoalTarget()).abilities.isInvulnerable) {
             super.d();
         }
     }

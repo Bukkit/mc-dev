@@ -30,7 +30,7 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
         this.c = 0;
         this.d = 0;
         this.e = this.a.aB().nextInt(this.a.aB().nextInt(1200) + 1200) + 1200;
-        this.a.q().a(false);
+        this.a.getGoalSit().setSitting(false);
     }
 
     public void d() {
@@ -39,7 +39,7 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
 
     public void e() {
         ++this.c;
-        this.a.q().a(false);
+        this.a.getGoalSit().setSitting(false);
         if (this.a.e((double) this.f, (double) (this.g + 1), (double) this.h) > 1.0D) {
             this.a.setSitting(false);
             this.a.getNavigation().a((double) ((float) this.f) + 0.5D, (double) (this.g + 1), (double) ((float) this.h) + 0.5D, this.b);

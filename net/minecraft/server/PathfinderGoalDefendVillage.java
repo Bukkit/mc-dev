@@ -32,7 +32,7 @@ public class PathfinderGoalDefendVillage extends PathfinderGoalTarget {
     }
 
     public void c() {
-        this.a.b(this.b);
+        this.a.setGoalTarget(this.b);
         super.c();
     }
 }

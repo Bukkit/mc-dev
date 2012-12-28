@@ -34,7 +34,7 @@ public abstract class EntityTameableAnimal extends EntityAnimal {
             this.setTamed(true);
         }
 
-        this.d.a(nbttagcompound.getBoolean("Sitting"));
+        this.d.setSitting(nbttagcompound.getBoolean("Sitting"));
         this.setSitting(nbttagcompound.getBoolean("Sitting"));
     }
 
@@ -94,7 +94,7 @@ public abstract class EntityTameableAnimal extends EntityAnimal {
         return this.world.a(this.getOwnerName());
     }
 
-    public PathfinderGoalSit q() {
+    public PathfinderGoalSit getGoalSit() {
         return this.d;
     }
 }
