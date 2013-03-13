@@ -70,11 +70,11 @@ public class Packet15Place extends Packet {
         return this.f;
     }
 
-    public float l() {
+    public float k() {
         return this.g;
     }
 
-    public float m() {
+    public float l() {
         return this.h;
     }
 }

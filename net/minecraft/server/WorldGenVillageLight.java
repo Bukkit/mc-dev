@@ -34,10 +34,10 @@ public class WorldGenVillageLight extends WorldGenVillagePiece {
         this.a(world, Block.FENCE.id, 0, 1, 1, 0, structureboundingbox);
         this.a(world, Block.FENCE.id, 0, 1, 2, 0, structureboundingbox);
         this.a(world, Block.WOOL.id, 15, 1, 3, 0, structureboundingbox);
-        this.a(world, Block.TORCH.id, 15, 0, 3, 0, structureboundingbox);
-        this.a(world, Block.TORCH.id, 15, 1, 3, 1, structureboundingbox);
-        this.a(world, Block.TORCH.id, 15, 2, 3, 0, structureboundingbox);
-        this.a(world, Block.TORCH.id, 15, 1, 3, -1, structureboundingbox);
+        this.a(world, Block.TORCH.id, 0, 0, 3, 0, structureboundingbox);
+        this.a(world, Block.TORCH.id, 0, 1, 3, 1, structureboundingbox);
+        this.a(world, Block.TORCH.id, 0, 2, 3, 0, structureboundingbox);
+        this.a(world, Block.TORCH.id, 0, 1, 3, -1, structureboundingbox);
         return true;
     }
 }

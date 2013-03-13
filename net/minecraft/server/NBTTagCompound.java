@@ -203,7 +203,15 @@ public class NBTTagCompound extends NBTBase {
     }
 
     public String toString() {
-        return "" + this.map.size() + " entries";
+        String s = this.getName() + ":[";
+
+        String s1;
+
+        for (Iterator iterator = this.map.keySet().iterator(); iterator.hasNext(); s = s + s1 + ":" + this.map.get(s1) + ",") {
+            s1 = (String) iterator.next();
+        }
+
+        return s + "]";
     }
 
     public boolean isEmpty() {
@@ -211,7 +219,7 @@ public class NBTTagCompound extends NBTBase {
     }
 
     private CrashReport a(String s, int i, ClassCastException classcastexception) {
-        CrashReport crashreport = CrashReport.a(classcastexception, "Reading NBT data");
+        CrashReport crashreport = CrashReport.a((Throwable) classcastexception, "Reading NBT data");
         CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Corrupt NBT tag", 1);
 
         crashreportsystemdetails.a("Tag type found", (Callable) (new CrashReportCorruptNBTTag(this, s)));

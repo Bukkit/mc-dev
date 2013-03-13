@@ -20,7 +20,7 @@ public class CommandGamemode extends CommandAbstract {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0) {
-            EnumGamemode enumgamemode = this.d(icommandlistener, astring[0]);
+            EnumGamemode enumgamemode = this.e(icommandlistener, astring[0]);
             EntityPlayer entityplayer = astring.length >= 2 ? c(icommandlistener, astring[1]) : c(icommandlistener);
 
             entityplayer.a(enumgamemode);
@@ -37,7 +37,7 @@ public class CommandGamemode extends CommandAbstract {
         }
     }
 
-    protected EnumGamemode d(ICommandListener icommandlistener, String s) {
+    protected EnumGamemode e(ICommandListener icommandlistener, String s) {
         return !s.equalsIgnoreCase(EnumGamemode.SURVIVAL.b()) && !s.equalsIgnoreCase("s") ? (!s.equalsIgnoreCase(EnumGamemode.CREATIVE.b()) && !s.equalsIgnoreCase("c") ? (!s.equalsIgnoreCase(EnumGamemode.ADVENTURE.b()) && !s.equalsIgnoreCase("a") ? WorldSettings.a(a(icommandlistener, s, 0, EnumGamemode.values().length - 2)) : EnumGamemode.ADVENTURE) : EnumGamemode.CREATIVE) : EnumGamemode.SURVIVAL;
     }
 
@@ -49,7 +49,7 @@ public class CommandGamemode extends CommandAbstract {
         return MinecraftServer.getServer().getPlayers();
     }
 
-    public boolean a(int i) {
+    public boolean a(String[] astring, int i) {
         return i == 1;
     }
 }

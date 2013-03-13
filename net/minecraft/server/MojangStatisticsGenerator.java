@@ -19,8 +19,9 @@ public class MojangStatisticsGenerator {
     private final IMojangStatistics d;
     private final Timer e = new Timer("Snooper Timer", true);
     private final Object f = new Object();
-    private boolean g = false;
-    private int h = 0;
+    private final long g = System.currentTimeMillis();
+    private boolean h = false;
+    private int i = 0;
 
     public MojangStatisticsGenerator(String s, IMojangStatistics imojangstatistics) {
         try {
@@ -33,8 +34,8 @@ public class MojangStatisticsGenerator {
     }
 
     public void a() {
-        if (!this.g) {
-            this.g = true;
+        if (!this.h) {
+            this.h = true;
             this.g();
             this.e.schedule(new MojangStatisticsTask(this), 0L, 900000L);
         }
@@ -47,7 +48,7 @@ public class MojangStatisticsGenerator {
         this.a("os_version", System.getProperty("os.version"));
         this.a("os_architecture", System.getProperty("os.arch"));
         this.a("java_version", System.getProperty("java.version"));
-        this.a("version", "1.4.7");
+        this.a("version", "1.5");
         this.d.b(this);
     }
 
@@ -73,6 +74,7 @@ public class MojangStatisticsGenerator {
         this.a("memory_max", Long.valueOf(Runtime.getRuntime().maxMemory()));
         this.a("memory_free", Long.valueOf(Runtime.getRuntime().freeMemory()));
         this.a("cpu_cores", Integer.valueOf(Runtime.getRuntime().availableProcessors()));
+        this.a("run_time", Long.valueOf((System.currentTimeMillis() - this.g) / 60L * 1000L));
         this.d.a(this);
     }
 
@@ -85,7 +87,7 @@ public class MojangStatisticsGenerator {
     }
 
     public boolean d() {
-        return this.g;
+        return this.h;
     }
 
     public void e() {
@@ -105,7 +107,7 @@ public class MojangStatisticsGenerator {
     }
 
     static int d(MojangStatisticsGenerator mojangstatisticsgenerator) {
-        return mojangstatisticsgenerator.h++;
+        return mojangstatisticsgenerator.i++;
     }
 
     static URL e(MojangStatisticsGenerator mojangstatisticsgenerator) {

@@ -6,27 +6,25 @@ import java.util.Random;
 public class BlockStairs extends Block {
 
     private static final int[][] a = new int[][] { { 2, 6}, { 3, 7}, { 2, 3}, { 6, 7}, { 0, 4}, { 1, 5}, { 0, 1}, { 4, 5}};
-    private static final int[] b = new int[] { 1, -1, 0, 0};
-    private static final int[] c = new int[] { 0, 0, 1, -1};
-    private final Block cD;
-    private final int cE;
-    private boolean cF = false;
-    private int cG = 0;
+    private final Block b;
+    private final int c;
+    private boolean d = false;
+    private int e = 0;
 
     protected BlockStairs(int i, Block block, int j) {
-        super(i, block.textureId, block.material);
-        this.cD = block;
-        this.cE = j;
+        super(i, block.material);
+        this.b = block;
+        this.c = j;
         this.c(block.strength);
         this.b(block.durability / 3.0F);
         this.a(block.stepSound);
-        this.h(255);
+        this.k(255);
         this.a(CreativeModeTab.b);
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        if (this.cF) {
-            this.a(0.5F * (float) (this.cG % 2), 0.5F * (float) (this.cG / 2 % 2), 0.5F * (float) (this.cG / 4 % 2), 0.5F + 0.5F * (float) (this.cG % 2), 0.5F + 0.5F * (float) (this.cG / 2 % 2), 0.5F + 0.5F * (float) (this.cG / 4 % 2));
+        if (this.d) {
+            this.a(0.5F * (float) (this.e % 2), 0.5F * (float) (this.e / 2 % 2), 0.5F * (float) (this.e / 4 % 2), 0.5F + 0.5F * (float) (this.e % 2), 0.5F + 0.5F * (float) (this.e / 2 % 2), 0.5F + 0.5F * (float) (this.e / 4 % 2));
         } else {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         }
@@ -54,14 +52,14 @@ public class BlockStairs extends Block {
         }
     }
 
-    public static boolean e(int i) {
+    public static boolean d(int i) {
         return i > 0 && Block.byId[i] instanceof BlockStairs;
     }
 
     private boolean f(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         int i1 = iblockaccess.getTypeId(i, j, k);
 
-        return e(i1) && iblockaccess.getData(i, j, k) == l;
+        return d(i1) && iblockaccess.getData(i, j, k) == l;
     }
 
     public boolean g(IBlockAccess iblockaccess, int i, int j, int k) {
@@ -89,7 +87,7 @@ public class BlockStairs extends Block {
             f5 = 1.0F;
             j1 = iblockaccess.getTypeId(i + 1, j, k);
             k1 = iblockaccess.getData(i + 1, j, k);
-            if (e(j1) && (l & 4) == (k1 & 4)) {
+            if (d(j1) && (l & 4) == (k1 & 4)) {
                 l1 = k1 & 3;
                 if (l1 == 3 && !this.f(iblockaccess, i, j, k + 1, l)) {
                     f5 = 0.5F;
@@ -104,7 +102,7 @@ public class BlockStairs extends Block {
             f5 = 1.0F;
             j1 = iblockaccess.getTypeId(i - 1, j, k);
             k1 = iblockaccess.getData(i - 1, j, k);
-            if (e(j1) && (l & 4) == (k1 & 4)) {
+            if (d(j1) && (l & 4) == (k1 & 4)) {
                 l1 = k1 & 3;
                 if (l1 == 3 && !this.f(iblockaccess, i, j, k + 1, l)) {
                     f5 = 0.5F;
@@ -119,7 +117,7 @@ public class BlockStairs extends Block {
             f5 = 1.0F;
             j1 = iblockaccess.getTypeId(i, j, k + 1);
             k1 = iblockaccess.getData(i, j, k + 1);
-            if (e(j1) && (l & 4) == (k1 & 4)) {
+            if (d(j1) && (l & 4) == (k1 & 4)) {
                 l1 = k1 & 3;
                 if (l1 == 1 && !this.f(iblockaccess, i + 1, j, k, l)) {
                     f3 = 0.5F;
@@ -132,7 +130,7 @@ public class BlockStairs extends Block {
         } else if (i1 == 3) {
             j1 = iblockaccess.getTypeId(i, j, k - 1);
             k1 = iblockaccess.getData(i, j, k - 1);
-            if (e(j1) && (l & 4) == (k1 & 4)) {
+            if (d(j1) && (l & 4) == (k1 & 4)) {
                 l1 = k1 & 3;
                 if (l1 == 1 && !this.f(iblockaccess, i + 1, j, k, l)) {
                     f3 = 0.5F;
@@ -171,7 +169,7 @@ public class BlockStairs extends Block {
         if (i1 == 0) {
             j1 = iblockaccess.getTypeId(i - 1, j, k);
             k1 = iblockaccess.getData(i - 1, j, k);
-            if (e(j1) && (l & 4) == (k1 & 4)) {
+            if (d(j1) && (l & 4) == (k1 & 4)) {
                 l1 = k1 & 3;
                 if (l1 == 3 && !this.f(iblockaccess, i, j, k - 1, l)) {
                     f4 = 0.0F;
@@ -186,7 +184,7 @@ public class BlockStairs extends Block {
         } else if (i1 == 1) {
             j1 = iblockaccess.getTypeId(i + 1, j, k);
             k1 = iblockaccess.getData(i + 1, j, k);
-            if (e(j1) && (l & 4) == (k1 & 4)) {
+            if (d(j1) && (l & 4) == (k1 & 4)) {
                 f2 = 0.5F;
                 f3 = 1.0F;
                 l1 = k1 & 3;
@@ -203,7 +201,7 @@ public class BlockStairs extends Block {
         } else if (i1 == 2) {
             j1 = iblockaccess.getTypeId(i, j, k - 1);
             k1 = iblockaccess.getData(i, j, k - 1);
-            if (e(j1) && (l & 4) == (k1 & 4)) {
+            if (d(j1) && (l & 4) == (k1 & 4)) {
                 f4 = 0.0F;
                 f5 = 0.5F;
                 l1 = k1 & 3;
@@ -218,7 +216,7 @@ public class BlockStairs extends Block {
         } else if (i1 == 3) {
             j1 = iblockaccess.getTypeId(i, j, k + 1);
             k1 = iblockaccess.getData(i, j, k + 1);
-            if (e(j1) && (l & 4) == (k1 & 4)) {
+            if (d(j1) && (l & 4) == (k1 & 4)) {
                 l1 = k1 & 3;
                 if (l1 == 1 && !this.f(iblockaccess, i - 1, j, k, l)) {
                     flag = true;
@@ -251,88 +249,80 @@ public class BlockStairs extends Block {
     }
 
     public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
-        this.cD.attack(world, i, j, k, entityhuman);
+        this.b.attack(world, i, j, k, entityhuman);
     }
 
     public void postBreak(World world, int i, int j, int k, int l) {
-        this.cD.postBreak(world, i, j, k, l);
+        this.b.postBreak(world, i, j, k, l);
     }
 
     public float a(Entity entity) {
-        return this.cD.a(entity);
+        return this.b.a(entity);
     }
 
-    public int a(int i, int j) {
-        return this.cD.a(i, this.cE);
-    }
-
-    public int a(int i) {
-        return this.cD.a(i, this.cE);
-    }
-
-    public int r_() {
-        return this.cD.r_();
+    public int a(World world) {
+        return this.b.a(world);
     }
 
     public void a(World world, int i, int j, int k, Entity entity, Vec3D vec3d) {
-        this.cD.a(world, i, j, k, entity, vec3d);
+        this.b.a(world, i, j, k, entity, vec3d);
     }
 
     public boolean m() {
-        return this.cD.m();
+        return this.b.m();
     }
 
     public boolean a(int i, boolean flag) {
-        return this.cD.a(i, flag);
+        return this.b.a(i, flag);
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return this.cD.canPlace(world, i, j, k);
+        return this.b.canPlace(world, i, j, k);
     }
 
     public void onPlace(World world, int i, int j, int k) {
         this.doPhysics(world, i, j, k, 0);
-        this.cD.onPlace(world, i, j, k);
+        this.b.onPlace(world, i, j, k);
     }
 
     public void remove(World world, int i, int j, int k, int l, int i1) {
-        this.cD.remove(world, i, j, k, l, i1);
+        this.b.remove(world, i, j, k, l, i1);
     }
 
     public void b(World world, int i, int j, int k, Entity entity) {
-        this.cD.b(world, i, j, k, entity);
+        this.b.b(world, i, j, k, entity);
     }
 
-    public void b(World world, int i, int j, int k, Random random) {
-        this.cD.b(world, i, j, k, random);
+    public void a(World world, int i, int j, int k, Random random) {
+        this.b.a(world, i, j, k, random);
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
-        return this.cD.interact(world, i, j, k, entityhuman, 0, 0.0F, 0.0F, 0.0F);
+        return this.b.interact(world, i, j, k, entityhuman, 0, 0.0F, 0.0F, 0.0F);
     }
 
-    public void wasExploded(World world, int i, int j, int k) {
-        this.cD.wasExploded(world, i, j, k);
+    public void wasExploded(World world, int i, int j, int k, Explosion explosion) {
+        this.b.wasExploded(world, i, j, k, explosion);
     }
 
-    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
         int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
         int i1 = world.getData(i, j, k) & 4;
 
         if (l == 0) {
-            world.setData(i, j, k, 2 | i1);
+            world.setData(i, j, k, 2 | i1, 2);
         }
 
         if (l == 1) {
-            world.setData(i, j, k, 1 | i1);
+            world.setData(i, j, k, 1 | i1, 2);
         }
 
         if (l == 2) {
-            world.setData(i, j, k, 3 | i1);
+            world.setData(i, j, k, 3 | i1, 2);
         }
 
         if (l == 3) {
-            world.setData(i, j, k, 0 | i1);
+            world.setData(i, j, k, 0 | i1, 2);
         }
     }
 
@@ -347,14 +337,14 @@ public class BlockStairs extends Block {
         boolean flag = (l & 4) == 4;
         int[] aint = a[i1 + (flag ? 4 : 0)];
 
-        this.cF = true;
+        this.d = true;
 
         int j1;
         int k1;
         int l1;
 
         for (int i2 = 0; i2 < 8; ++i2) {
-            this.cG = i2;
+            this.e = i2;
             int[] aint1 = aint;
 
             j1 = aint.length;

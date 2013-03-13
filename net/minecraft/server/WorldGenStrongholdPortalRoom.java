@@ -110,11 +110,11 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
 
             if (structureboundingbox.b(l, k, i1)) {
                 this.a = true;
-                world.setTypeId(l, k, i1, Block.MOB_SPAWNER.id);
+                world.setTypeIdAndData(l, k, i1, Block.MOB_SPAWNER.id, 0, 2);
                 TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(l, k, i1);
 
                 if (tileentitymobspawner != null) {
-                    tileentitymobspawner.a("Silverfish");
+                    tileentitymobspawner.a().a("Silverfish");
                 }
             }
         }

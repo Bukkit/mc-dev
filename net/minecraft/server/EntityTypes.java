@@ -45,6 +45,23 @@ public class EntityTypes {
     public static Entity a(NBTTagCompound nbttagcompound, World world) {
         Entity entity = null;
 
+        if ("Minecart".equals(nbttagcompound.getString("id"))) {
+            switch (nbttagcompound.getInt("Type")) {
+            case 0:
+                nbttagcompound.setString("id", "MinecartRideable");
+                break;
+
+            case 1:
+                nbttagcompound.setString("id", "MinecartChest");
+                break;
+
+            case 2:
+                nbttagcompound.setString("id", "MinecartFurnace");
+            }
+
+            nbttagcompound.remove("Type");
+        }
+
         try {
             Class oclass = (Class) b.get(nbttagcompound.getString("id"));
 
@@ -56,9 +73,9 @@ public class EntityTypes {
         }
 
         if (entity != null) {
-            entity.e(nbttagcompound);
+            entity.f(nbttagcompound);
         } else {
-            System.out.println("Skipping Entity with id " + nbttagcompound.getString("id"));
+            world.getLogger().warning("Skipping Entity with id " + nbttagcompound.getString("id"));
         }
 
         return entity;
@@ -68,7 +85,7 @@ public class EntityTypes {
         Entity entity = null;
 
         try {
-            Class oclass = (Class) d.get(Integer.valueOf(i));
+            Class oclass = a(i);
 
             if (oclass != null) {
                 entity = (Entity) oclass.getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
@@ -78,7 +95,7 @@ public class EntityTypes {
         }
 
         if (entity == null) {
-            System.out.println("Skipping Entity with id " + i);
+            world.getLogger().warning("Skipping Entity with id " + i);
         }
 
         return entity;
@@ -99,7 +116,7 @@ public class EntityTypes {
     }
 
     public static String b(int i) {
-        Class oclass = (Class) d.get(Integer.valueOf(i));
+        Class oclass = a(i);
 
         return oclass != null ? (String) c.get(oclass) : null;
     }
@@ -121,8 +138,13 @@ public class EntityTypes {
         a(EntityTNTPrimed.class, "PrimedTnt", 20);
         a(EntityFallingBlock.class, "FallingSand", 21);
         a(EntityFireworks.class, "FireworksRocketEntity", 22);
-        a(EntityMinecart.class, "Minecart", 40);
         a(EntityBoat.class, "Boat", 41);
+        a(EntityMinecartRideable.class, "MinecartRideable", 42);
+        a(EntityMinecartChest.class, "MinecartChest", 43);
+        a(EntityMinecartFurnace.class, "MinecartFurnace", 44);
+        a(EntityMinecartTNT.class, "MinecartTNT", 45);
+        a(EntityMinecartHopper.class, "MinecartHopper", 46);
+        a(EntityMinecartMobSpawner.class, "MinecartSpawner", 47);
         a(EntityLiving.class, "Mob", 48);
         a(EntityMonster.class, "Monster", 49);
         a(EntityCreeper.class, "Creeper", 50, 894731, 0);

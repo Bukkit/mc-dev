@@ -9,14 +9,14 @@ import java.util.Iterator;
 
 public class DedicatedPlayerList extends PlayerList {
 
+    private File d;
     private File e;
-    private File f;
 
     public DedicatedPlayerList(DedicatedServer dedicatedserver) {
         super(dedicatedserver);
-        this.e = dedicatedserver.e("ops.txt");
-        this.f = dedicatedserver.e("white-list.txt");
-        this.d = dedicatedserver.a("view-distance", 10);
+        this.d = dedicatedserver.e("ops.txt");
+        this.e = dedicatedserver.e("white-list.txt");
+        this.c = dedicatedserver.a("view-distance", 10);
         this.maxPlayers = dedicatedserver.a("max-players", 20);
         this.setHasWhitelist(dedicatedserver.a("white-list", false));
         if (!dedicatedserver.I()) {
@@ -31,7 +31,9 @@ public class DedicatedPlayerList extends PlayerList {
         this.t();
         this.v();
         this.u();
-        this.w();
+        if (!this.e.exists()) {
+            this.w();
+        }
     }
 
     public void setHasWhitelist(boolean flag) {
@@ -67,7 +69,7 @@ public class DedicatedPlayerList extends PlayerList {
     private void t() {
         try {
             this.getOPs().clear();
-            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.e));
+            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.d));
             String s = "";
 
             while ((s = bufferedreader.readLine()) != null) {
@@ -76,13 +78,13 @@ public class DedicatedPlayerList extends PlayerList {
 
             bufferedreader.close();
         } catch (Exception exception) {
-            a.warning("Failed to load operators list: " + exception);
+            this.getServer().getLogger().warning("Failed to load operators list: " + exception);
         }
     }
 
     private void u() {
         try {
-            PrintWriter printwriter = new PrintWriter(new FileWriter(this.e, false));
+            PrintWriter printwriter = new PrintWriter(new FileWriter(this.d, false));
             Iterator iterator = this.getOPs().iterator();
 
             while (iterator.hasNext()) {
@@ -93,14 +95,14 @@ public class DedicatedPlayerList extends PlayerList {
 
             printwriter.close();
         } catch (Exception exception) {
-            a.warning("Failed to save operators list: " + exception);
+            this.getServer().getLogger().warning("Failed to save operators list: " + exception);
         }
     }
 
     private void v() {
         try {
             this.getWhitelisted().clear();
-            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.f));
+            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.e));
             String s = "";
 
             while ((s = bufferedreader.readLine()) != null) {
@@ -109,13 +111,13 @@ public class DedicatedPlayerList extends PlayerList {
 
             bufferedreader.close();
         } catch (Exception exception) {
-            a.warning("Failed to load white-list: " + exception);
+            this.getServer().getLogger().warning("Failed to load white-list: " + exception);
         }
     }
 
     private void w() {
         try {
-            PrintWriter printwriter = new PrintWriter(new FileWriter(this.f, false));
+            PrintWriter printwriter = new PrintWriter(new FileWriter(this.e, false));
             Iterator iterator = this.getWhitelisted().iterator();
 
             while (iterator.hasNext()) {
@@ -126,7 +128,7 @@ public class DedicatedPlayerList extends PlayerList {
 
             printwriter.close();
         } catch (Exception exception) {
-            a.warning("Failed to save white-list: " + exception);
+            this.getServer().getLogger().warning("Failed to save white-list: " + exception);
         }
     }
 

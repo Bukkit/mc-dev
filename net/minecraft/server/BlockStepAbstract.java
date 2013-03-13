@@ -5,18 +5,18 @@ import java.util.Random;
 
 public abstract class BlockStepAbstract extends Block {
 
-    private final boolean a;
+    protected final boolean a;
 
     public BlockStepAbstract(int i, boolean flag, Material material) {
-        super(i, 6, material);
+        super(i, material);
         this.a = flag;
         if (flag) {
-            q[i] = true;
+            s[i] = true;
         } else {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
         }
 
-        this.h(255);
+        this.k(255);
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
@@ -33,7 +33,7 @@ public abstract class BlockStepAbstract extends Block {
         }
     }
 
-    public void f() {
+    public void g() {
         if (this.a) {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         } else {
@@ -44,10 +44,6 @@ public abstract class BlockStepAbstract extends Block {
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List list, Entity entity) {
         this.updateShape(world, i, j, k);
         super.a(world, i, j, k, axisalignedbb, list, entity);
-    }
-
-    public int a(int i) {
-        return this.a(i, 0);
     }
 
     public boolean c() {
@@ -70,7 +66,7 @@ public abstract class BlockStepAbstract extends Block {
         return this.a;
     }
 
-    public abstract String d(int i);
+    public abstract String c(int i);
 
     public int getDropData(World world, int i, int j, int k) {
         return super.getDropData(world, i, j, k) & 7;

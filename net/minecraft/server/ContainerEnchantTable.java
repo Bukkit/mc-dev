@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class ContainerEnchantTable extends Container {
 
-    public IInventory enchantSlots = new ContainerEnchantTableInventory(this, "Enchant", 1);
+    public IInventory enchantSlots = new ContainerEnchantTableInventory(this, "Enchant", true, 1);
     private World world;
     private int x;
     private int y;
@@ -58,7 +58,7 @@ public class ContainerEnchantTable extends Container {
             ItemStack itemstack = iinventory.getItem(0);
             int i;
 
-            if (itemstack != null && itemstack.v()) {
+            if (itemstack != null && itemstack.w()) {
                 this.f = this.l.nextLong();
                 if (!this.world.isStatic) {
                     i = 0;

@@ -2,13 +2,9 @@ package net.minecraft.server;
 
 public class BlockJukeBox extends BlockContainer {
 
-    protected BlockJukeBox(int i, int j) {
-        super(i, j, Material.WOOD);
+    protected BlockJukeBox(int i) {
+        super(i, Material.WOOD);
         this.a(CreativeModeTab.c);
-    }
-
-    public int a(int i) {
-        return this.textureId + (i == 1 ? 1 : 0);
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
@@ -25,9 +21,8 @@ public class BlockJukeBox extends BlockContainer {
             TileEntityRecordPlayer tileentityrecordplayer = (TileEntityRecordPlayer) world.getTileEntity(i, j, k);
 
             if (tileentityrecordplayer != null) {
-                tileentityrecordplayer.record = itemstack.cloneItemStack();
-                tileentityrecordplayer.update();
-                world.setData(i, j, k, 1);
+                tileentityrecordplayer.setRecord(itemstack.cloneItemStack());
+                world.setData(i, j, k, 1, 2);
             }
         }
     }
@@ -37,14 +32,13 @@ public class BlockJukeBox extends BlockContainer {
             TileEntityRecordPlayer tileentityrecordplayer = (TileEntityRecordPlayer) world.getTileEntity(i, j, k);
 
             if (tileentityrecordplayer != null) {
-                ItemStack itemstack = tileentityrecordplayer.record;
+                ItemStack itemstack = tileentityrecordplayer.getRecord();
 
                 if (itemstack != null) {
                     world.triggerEffect(1005, i, j, k, 0);
                     world.a((String) null, i, j, k);
-                    tileentityrecordplayer.record = null;
-                    tileentityrecordplayer.update();
-                    world.setData(i, j, k, 0);
+                    tileentityrecordplayer.setRecord((ItemStack) null);
+                    world.setData(i, j, k, 0, 2);
                     float f = 0.7F;
                     double d0 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
                     double d1 = (double) (world.random.nextFloat() * f) + (double) (1.0F - f) * 0.2D + 0.6D;
@@ -70,7 +64,17 @@ public class BlockJukeBox extends BlockContainer {
         }
     }
 
-    public TileEntity a(World world) {
+    public TileEntity b(World world) {
         return new TileEntityRecordPlayer();
+    }
+
+    public boolean q_() {
+        return true;
+    }
+
+    public int b_(World world, int i, int j, int k, int l) {
+        ItemStack itemstack = ((TileEntityRecordPlayer) world.getTileEntity(i, j, k)).getRecord();
+
+        return itemstack == null ? 0 : itemstack.id + 1 - Item.RECORD_1.id;
     }
 }

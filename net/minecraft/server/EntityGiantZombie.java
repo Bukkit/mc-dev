@@ -5,7 +5,7 @@ public class EntityGiantZombie extends EntityMonster {
     public EntityGiantZombie(World world) {
         super(world);
         this.texture = "/mob/zombie.png";
-        this.bH = 0.5F;
+        this.bI = 0.5F;
         this.height *= 6.0F;
         this.a(this.width * 6.0F, this.length * 6.0F);
     }
@@ -15,7 +15,7 @@ public class EntityGiantZombie extends EntityMonster {
     }
 
     public float a(int i, int j, int k) {
-        return this.world.p(i, j, k) - 0.5F;
+        return this.world.q(i, j, k) - 0.5F;
     }
 
     public int c(Entity entity) {

@@ -22,8 +22,8 @@ public class WorldGenDeadBush extends WorldGenerator {
             int k1 = j + random.nextInt(4) - random.nextInt(4);
             int l1 = k + random.nextInt(8) - random.nextInt(8);
 
-            if (world.isEmpty(j1, k1, l1) && Block.byId[this.a].d(world, j1, k1, l1)) {
-                world.setRawTypeId(j1, k1, l1, this.a);
+            if (world.isEmpty(j1, k1, l1) && Block.byId[this.a].f(world, j1, k1, l1)) {
+                world.setTypeIdAndData(j1, k1, l1, this.a, 0, 2);
             }
         }
 

@@ -17,20 +17,20 @@ public class Packet24MobSpawn extends Packet {
     public byte i;
     public byte j;
     public byte k;
-    private DataWatcher s;
-    private List t;
+    private DataWatcher t;
+    private List u;
 
     public Packet24MobSpawn() {}
 
     public Packet24MobSpawn(EntityLiving entityliving) {
         this.a = entityliving.id;
         this.b = (byte) EntityTypes.a(entityliving);
-        this.c = entityliving.as.a(entityliving.locX);
+        this.c = entityliving.at.a(entityliving.locX);
         this.d = MathHelper.floor(entityliving.locY * 32.0D);
-        this.e = entityliving.as.a(entityliving.locZ);
+        this.e = entityliving.at.a(entityliving.locZ);
         this.i = (byte) ((int) (entityliving.yaw * 256.0F / 360.0F));
         this.j = (byte) ((int) (entityliving.pitch * 256.0F / 360.0F));
-        this.k = (byte) ((int) (entityliving.az * 256.0F / 360.0F));
+        this.k = (byte) ((int) (entityliving.aA * 256.0F / 360.0F));
         double d0 = 3.9D;
         double d1 = entityliving.motX;
         double d2 = entityliving.motY;
@@ -63,7 +63,7 @@ public class Packet24MobSpawn extends Packet {
         this.f = (int) (d1 * 8000.0D);
         this.g = (int) (d2 * 8000.0D);
         this.h = (int) (d3 * 8000.0D);
-        this.s = entityliving.getDataWatcher();
+        this.t = entityliving.getDataWatcher();
     }
 
     public void a(DataInputStream datainputstream) {
@@ -78,7 +78,7 @@ public class Packet24MobSpawn extends Packet {
         this.f = datainputstream.readShort();
         this.g = datainputstream.readShort();
         this.h = datainputstream.readShort();
-        this.t = DataWatcher.a(datainputstream);
+        this.u = DataWatcher.a(datainputstream);
     }
 
     public void a(DataOutputStream dataoutputstream) {
@@ -93,7 +93,7 @@ public class Packet24MobSpawn extends Packet {
         dataoutputstream.writeShort(this.f);
         dataoutputstream.writeShort(this.g);
         dataoutputstream.writeShort(this.h);
-        this.s.a(dataoutputstream);
+        this.t.a(dataoutputstream);
     }
 
     public void handle(Connection connection) {

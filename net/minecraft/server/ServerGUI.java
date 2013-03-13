@@ -3,7 +3,6 @@ package net.minecraft.server;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,9 +15,8 @@ import javax.swing.border.TitledBorder;
 
 public class ServerGUI extends JComponent {
 
-    public static Logger a = Logger.getLogger("Minecraft");
-    private static boolean b = false;
-    private DedicatedServer c;
+    private static boolean a = false;
+    private DedicatedServer b;
 
     public static void a(DedicatedServer dedicatedserver) {
         try {
@@ -29,7 +27,7 @@ public class ServerGUI extends JComponent {
 
         ServerGUI servergui = new ServerGUI(dedicatedserver);
 
-        b = true;
+        a = true;
         JFrame jframe = new JFrame("Minecraft server");
 
         jframe.add(servergui);
@@ -40,7 +38,7 @@ public class ServerGUI extends JComponent {
     }
 
     public ServerGUI(DedicatedServer dedicatedserver) {
-        this.c = dedicatedserver;
+        this.b = dedicatedserver;
         this.setPreferredSize(new Dimension(854, 480));
         this.setLayout(new BorderLayout());
 
@@ -55,14 +53,14 @@ public class ServerGUI extends JComponent {
     private JComponent b() {
         JPanel jpanel = new JPanel(new BorderLayout());
 
-        jpanel.add(new GuiStatsComponent(this.c), "North");
+        jpanel.add(new GuiStatsComponent(this.b), "North");
         jpanel.add(this.c(), "Center");
         jpanel.setBorder(new TitledBorder(new EtchedBorder(), "Stats"));
         return jpanel;
     }
 
     private JComponent c() {
-        PlayerListBox playerlistbox = new PlayerListBox(this.c);
+        PlayerListBox playerlistbox = new PlayerListBox(this.b);
         JScrollPane jscrollpane = new JScrollPane(playerlistbox, 22, 30);
 
         jscrollpane.setBorder(new TitledBorder(new EtchedBorder(), "Players"));
@@ -73,7 +71,7 @@ public class ServerGUI extends JComponent {
         JPanel jpanel = new JPanel(new BorderLayout());
         JTextArea jtextarea = new JTextArea();
 
-        a.addHandler(new GuiLogOutputHandler(jtextarea));
+        this.b.getLogger().getLogger().addHandler(new GuiLogOutputHandler(jtextarea));
         JScrollPane jscrollpane = new JScrollPane(jtextarea, 22, 30);
 
         jtextarea.setEditable(false);
@@ -88,6 +86,6 @@ public class ServerGUI extends JComponent {
     }
 
     static DedicatedServer a(ServerGUI servergui) {
-        return servergui.c;
+        return servergui.b;
     }
 }

@@ -3,11 +3,12 @@ package net.minecraft.server;
 public class BlockAnvil extends BlockSand {
 
     public static final String[] a = new String[] { "intact", "slightlyDamaged", "veryDamaged"};
+    private static final String[] d = new String[] { "anvil_top", "anvil_top_damaged_1", "anvil_top_damaged_2"};
     public int b = 0;
 
     protected BlockAnvil(int i) {
-        super(i, 215, Material.HEAVY);
-        this.h(0);
+        super(i, Material.HEAVY);
+        this.k(0);
         this.a(CreativeModeTab.c);
     }
 
@@ -19,49 +20,26 @@ public class BlockAnvil extends BlockSand {
         return false;
     }
 
-    public int a(int i, int j) {
-        if (this.b == 3 && i == 1) {
-            int k = j >> 2;
-
-            switch (k) {
-            case 1:
-                return this.textureId + 1;
-
-            case 2:
-                return this.textureId + 16 + 1;
-
-            default:
-                return this.textureId + 16;
-            }
-        } else {
-            return this.textureId;
-        }
-    }
-
-    public int a(int i) {
-        return super.a(i);
-    }
-
-    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
         int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
         int i1 = world.getData(i, j, k) >> 2;
 
         ++l;
         l %= 4;
         if (l == 0) {
-            world.setData(i, j, k, 2 | i1 << 2);
+            world.setData(i, j, k, 2 | i1 << 2, 2);
         }
 
         if (l == 1) {
-            world.setData(i, j, k, 3 | i1 << 2);
+            world.setData(i, j, k, 3 | i1 << 2, 2);
         }
 
         if (l == 2) {
-            world.setData(i, j, k, 0 | i1 << 2);
+            world.setData(i, j, k, 0 | i1 << 2, 2);
         }
 
         if (l == 3) {
-            world.setData(i, j, k, 1 | i1 << 2);
+            world.setData(i, j, k, 1 | i1 << 2, 2);
         }
     }
 
@@ -93,7 +71,7 @@ public class BlockAnvil extends BlockSand {
     }
 
     protected void a(EntityFallingBlock entityfallingblock) {
-        entityfallingblock.e(true);
+        entityfallingblock.a(true);
     }
 
     public void a_(World world, int i, int j, int k, int l) {

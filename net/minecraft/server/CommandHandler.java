@@ -16,7 +16,8 @@ public class CommandHandler implements ICommandHandler {
 
     public CommandHandler() {}
 
-    public void a(ICommandListener icommandlistener, String s) {
+    public int a(ICommandListener icommandlistener, String s) {
+        s = s.trim();
         if (s.startsWith("/")) {
             s = s.substring(1);
         }
@@ -27,6 +28,7 @@ public class CommandHandler implements ICommandHandler {
         astring = a(astring);
         ICommand icommand = (ICommand) this.a.get(s1);
         int i = this.a(icommand, astring);
+        int j = 0;
 
         try {
             if (icommand == null) {
@@ -38,35 +40,39 @@ public class CommandHandler implements ICommandHandler {
                     EntityPlayer[] aentityplayer = PlayerSelector.getPlayers(icommandlistener, astring[i]);
                     String s2 = astring[i];
                     EntityPlayer[] aentityplayer1 = aentityplayer;
-                    int j = aentityplayer.length;
+                    int k = aentityplayer.length;
 
-                    for (int k = 0; k < j; ++k) {
-                        EntityPlayer entityplayer = aentityplayer1[k];
+                    for (int l = 0; l < k; ++l) {
+                        EntityPlayer entityplayer = aentityplayer1[l];
 
                         astring[i] = entityplayer.getLocalizedName();
 
                         try {
                             icommand.b(icommandlistener, astring);
-                        } catch (ExceptionPlayerNotFound exceptionplayernotfound) {
-                            icommandlistener.sendMessage("\u00A7c" + icommandlistener.a(exceptionplayernotfound.getMessage(), exceptionplayernotfound.a()));
+                            ++j;
+                        } catch (CommandException commandexception) {
+                            icommandlistener.sendMessage(EnumChatFormat.RED + icommandlistener.a(commandexception.getMessage(), commandexception.a()));
                         }
                     }
 
                     astring[i] = s2;
                 } else {
                     icommand.b(icommandlistener, astring);
+                    ++j;
                 }
             } else {
-                icommandlistener.sendMessage("\u00A7cYou do not have permission to use this command.");
+                icommandlistener.sendMessage("" + EnumChatFormat.RED + "You do not have permission to use this command.");
             }
         } catch (ExceptionUsage exceptionusage) {
-            icommandlistener.sendMessage("\u00A7c" + icommandlistener.a("commands.generic.usage", new Object[] { icommandlistener.a(exceptionusage.getMessage(), exceptionusage.a())}));
-        } catch (CommandException commandexception) {
-            icommandlistener.sendMessage("\u00A7c" + icommandlistener.a(commandexception.getMessage(), commandexception.a()));
+            icommandlistener.sendMessage(EnumChatFormat.RED + icommandlistener.a("commands.generic.usage", new Object[] { icommandlistener.a(exceptionusage.getMessage(), exceptionusage.a())}));
+        } catch (CommandException commandexception1) {
+            icommandlistener.sendMessage(EnumChatFormat.RED + icommandlistener.a(commandexception1.getMessage(), commandexception1.a()));
         } catch (Throwable throwable) {
-            icommandlistener.sendMessage("\u00A7c" + icommandlistener.a("commands.generic.exception", new Object[0]));
+            icommandlistener.sendMessage(EnumChatFormat.RED + icommandlistener.a("commands.generic.exception", new Object[0]));
             throwable.printStackTrace();
         }
+
+        return j;
     }
 
     public ICommand a(ICommand icommand) {
@@ -154,7 +160,7 @@ public class CommandHandler implements ICommandHandler {
             return -1;
         } else {
             for (int i = 0; i < astring.length; ++i) {
-                if (icommand.a(i) && PlayerSelector.isList(astring[i])) {
+                if (icommand.a(astring, i) && PlayerSelector.isList(astring[i])) {
                     return i;
                 }
             }

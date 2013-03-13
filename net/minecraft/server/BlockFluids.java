@@ -5,7 +5,7 @@ import java.util.Random;
 public abstract class BlockFluids extends Block {
 
     protected BlockFluids(int i, Material material) {
-        super(i, (material == Material.LAVA ? 14 : 12) * 16 + 13, material);
+        super(i, material);
         float f = 0.0F;
         float f1 = 0.0F;
 
@@ -13,11 +13,11 @@ public abstract class BlockFluids extends Block {
         this.b(true);
     }
 
-    public boolean c(IBlockAccess iblockaccess, int i, int j, int k) {
+    public boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
         return this.material != Material.LAVA;
     }
 
-    public static float e(int i) {
+    public static float d(int i) {
         if (i >= 8) {
             i = 0;
         }
@@ -25,11 +25,7 @@ public abstract class BlockFluids extends Block {
         return (float) (i + 1) / 9.0F;
     }
 
-    public int a(int i) {
-        return i != 0 && i != 1 ? this.textureId + 1 : this.textureId;
-    }
-
-    protected int f_(World world, int i, int j, int k) {
+    protected int k_(World world, int i, int j, int k) {
         return world.getMaterial(i, j, k) == this.material ? world.getData(i, j, k) : -1;
     }
 
@@ -65,7 +61,7 @@ public abstract class BlockFluids extends Block {
         return material == this.material ? false : (l == 1 ? true : (material == Material.ICE ? false : super.a_(iblockaccess, i, j, k, l)));
     }
 
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public AxisAlignedBB b(World world, int i, int j, int k) {
         return null;
     }
 
@@ -174,19 +170,19 @@ public abstract class BlockFluids extends Block {
         vec3d.e += vec3d1.e;
     }
 
-    public int r_() {
-        return this.material == Material.WATER ? 5 : (this.material == Material.LAVA ? 30 : 0);
+    public int a(World world) {
+        return this.material == Material.WATER ? 5 : (this.material == Material.LAVA ? (world.worldProvider.f ? 10 : 30) : 0);
     }
 
     public void onPlace(World world, int i, int j, int k) {
-        this.l(world, i, j, k);
+        this.k(world, i, j, k);
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        this.l(world, i, j, k);
+        this.k(world, i, j, k);
     }
 
-    private void l(World world, int i, int j, int k) {
+    private void k(World world, int i, int j, int k) {
         if (world.getTypeId(i, j, k) == this.id) {
             if (this.material == Material.LAVA) {
                 boolean flag = false;
@@ -215,9 +211,9 @@ public abstract class BlockFluids extends Block {
                     int l = world.getData(i, j, k);
 
                     if (l == 0) {
-                        world.setTypeId(i, j, k, Block.OBSIDIAN.id);
+                        world.setTypeIdUpdate(i, j, k, Block.OBSIDIAN.id);
                     } else if (l <= 4) {
-                        world.setTypeId(i, j, k, Block.COBBLESTONE.id);
+                        world.setTypeIdUpdate(i, j, k, Block.COBBLESTONE.id);
                     }
 
                     this.fizz(world, i, j, k);

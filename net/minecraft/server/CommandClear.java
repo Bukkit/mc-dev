@@ -25,7 +25,11 @@ public class CommandClear extends CommandAbstract {
         int k = entityplayer.inventory.b(i, j);
 
         entityplayer.defaultContainer.b();
-        a(icommandlistener, "commands.clear.success", new Object[] { entityplayer.getLocalizedName(), Integer.valueOf(k)});
+        if (k == 0) {
+            throw new CommandException("commands.clear.failure", new Object[] { entityplayer.getLocalizedName()});
+        } else {
+            a(icommandlistener, "commands.clear.success", new Object[] { entityplayer.getLocalizedName(), Integer.valueOf(k)});
+        }
     }
 
     public List a(ICommandListener icommandlistener, String[] astring) {
@@ -36,7 +40,7 @@ public class CommandClear extends CommandAbstract {
         return MinecraftServer.getServer().getPlayers();
     }
 
-    public boolean a(int i) {
+    public boolean a(String[] astring, int i) {
         return i == 0;
     }
 }

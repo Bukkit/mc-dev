@@ -46,11 +46,11 @@ public class HttpUtilities {
         return stringbuilder.toString();
     }
 
-    public static String a(URL url, Map map, boolean flag) {
-        return a(url, a(map), flag);
+    public static String a(IConsoleLogManager iconsolelogmanager, URL url, Map map, boolean flag) {
+        return a(iconsolelogmanager, url, a(map), flag);
     }
 
-    public static String a(URL url, String s, boolean flag) {
+    public static String a(IConsoleLogManager iconsolelogmanager, URL url, String s, boolean flag) {
         try {
             HttpURLConnection httpurlconnection = (HttpURLConnection) url.openConnection();
 
@@ -80,7 +80,11 @@ public class HttpUtilities {
             return stringbuffer.toString();
         } catch (Exception exception) {
             if (!flag) {
-                Logger.getLogger("Minecraft").log(Level.SEVERE, "Could not post to " + url, exception);
+                if (iconsolelogmanager != null) {
+                    iconsolelogmanager.severe("Could not post to " + url, exception);
+                } else {
+                    Logger.getAnonymousLogger().log(Level.SEVERE, "Could not post to " + url, exception);
+                }
             }
 
             return "";

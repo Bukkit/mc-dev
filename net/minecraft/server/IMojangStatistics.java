@@ -7,4 +7,6 @@ public interface IMojangStatistics {
     void b(MojangStatisticsGenerator mojangstatisticsgenerator);
 
     boolean getSnooperEnabled();
+
+    IConsoleLogManager getLogger();
 }

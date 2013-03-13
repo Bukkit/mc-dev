@@ -16,8 +16,8 @@ public class WorldGenReed extends WorldGenerator {
                 int l1 = 2 + random.nextInt(random.nextInt(3) + 1);
 
                 for (int i2 = 0; i2 < l1; ++i2) {
-                    if (Block.SUGAR_CANE_BLOCK.d(world, i1, j1 + i2, k1)) {
-                        world.setRawTypeId(i1, j1 + i2, k1, Block.SUGAR_CANE_BLOCK.id);
+                    if (Block.SUGAR_CANE_BLOCK.f(world, i1, j1 + i2, k1)) {
+                        world.setTypeIdAndData(i1, j1 + i2, k1, Block.SUGAR_CANE_BLOCK.id, 0, 2);
                     }
                 }
             }

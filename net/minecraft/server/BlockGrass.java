@@ -6,19 +6,14 @@ public class BlockGrass extends Block {
 
     protected BlockGrass(int i) {
         super(i, Material.GRASS);
-        this.textureId = 3;
         this.b(true);
         this.a(CreativeModeTab.b);
     }
 
-    public int a(int i, int j) {
-        return i == 1 ? 0 : (i == 0 ? 2 : 3);
-    }
-
-    public void b(World world, int i, int j, int k, Random random) {
+    public void a(World world, int i, int j, int k, Random random) {
         if (!world.isStatic) {
             if (world.getLightLevel(i, j + 1, k) < 4 && Block.lightBlock[world.getTypeId(i, j + 1, k)] > 2) {
-                world.setTypeId(i, j, k, Block.DIRT.id);
+                world.setTypeIdUpdate(i, j, k, Block.DIRT.id);
             } else if (world.getLightLevel(i, j + 1, k) >= 9) {
                 for (int l = 0; l < 4; ++l) {
                     int i1 = i + random.nextInt(3) - 1;
@@ -27,7 +22,7 @@ public class BlockGrass extends Block {
                     int l1 = world.getTypeId(i1, j1 + 1, k1);
 
                     if (world.getTypeId(i1, j1, k1) == Block.DIRT.id && world.getLightLevel(i1, j1 + 1, k1) >= 4 && Block.lightBlock[l1] <= 2) {
-                        world.setTypeId(i1, j1, k1, Block.GRASS.id);
+                        world.setTypeIdUpdate(i1, j1, k1, Block.GRASS.id);
                     }
                 }
             }

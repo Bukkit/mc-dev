@@ -38,7 +38,7 @@ public abstract class EntityTameableAnimal extends EntityAnimal {
         this.setSitting(nbttagcompound.getBoolean("Sitting"));
     }
 
-    protected void f(boolean flag) {
+    protected void i(boolean flag) {
         String s = "heart";
 
         if (!flag) {

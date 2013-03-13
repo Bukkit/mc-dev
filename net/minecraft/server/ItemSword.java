@@ -34,7 +34,7 @@ public class ItemSword extends Item {
     }
 
     public boolean a(ItemStack itemstack, World world, int i, int j, int k, int l, EntityLiving entityliving) {
-        if ((double) Block.byId[i].m(world, j, k, l) != 0.0D) {
+        if ((double) Block.byId[i].l(world, j, k, l) != 0.0D) {
             itemstack.damage(2, entityliving);
         }
 
@@ -46,7 +46,7 @@ public class ItemSword extends Item {
     }
 
     public EnumAnimation b_(ItemStack itemstack) {
-        return EnumAnimation.d;
+        return EnumAnimation.BLOCK;
     }
 
     public int c_(ItemStack itemstack) {

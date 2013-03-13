@@ -31,7 +31,7 @@ public class PathfinderGoalNearestAttackableTarget extends PathfinderGoalTarget 
     }
 
     public boolean a() {
-        if (this.c > 0 && this.d.aB().nextInt(this.c) != 0) {
+        if (this.c > 0 && this.d.aE().nextInt(this.c) != 0) {
             return false;
         } else {
             if (this.b == EntityHuman.class) {

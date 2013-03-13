@@ -32,8 +32,8 @@ public class CommandTell extends CommandAbstract {
             } else {
                 String s = a(icommandlistener, astring, 1, !(icommandlistener instanceof EntityHuman));
 
-                entityplayer.sendMessage("\u00A77\u00A7o" + entityplayer.a("commands.message.display.incoming", new Object[] { icommandlistener.getName(), s}));
-                icommandlistener.sendMessage("\u00A77\u00A7o" + icommandlistener.a("commands.message.display.outgoing", new Object[] { entityplayer.getName(), s}));
+                entityplayer.sendMessage(EnumChatFormat.GRAY + "" + EnumChatFormat.ITALIC + entityplayer.a("commands.message.display.incoming", new Object[] { icommandlistener.getName(), s}));
+                icommandlistener.sendMessage(EnumChatFormat.GRAY + "" + EnumChatFormat.ITALIC + icommandlistener.a("commands.message.display.outgoing", new Object[] { entityplayer.getName(), s}));
             }
         }
     }
@@ -42,7 +42,7 @@ public class CommandTell extends CommandAbstract {
         return a(astring, MinecraftServer.getServer().getPlayers());
     }
 
-    public boolean a(int i) {
+    public boolean a(String[] astring, int i) {
         return i == 0;
     }
 }

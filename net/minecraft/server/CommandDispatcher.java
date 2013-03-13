@@ -15,6 +15,7 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
         this.a(new CommandXp());
         this.a(new CommandTp());
         this.a(new CommandGive());
+        this.a(new CommandEffect());
         this.a(new CommandEnchant());
         this.a(new CommandMe());
         this.a(new CommandSeed());
@@ -25,6 +26,8 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
         this.a(new CommandSpawnpoint());
         this.a(new CommandGamerule());
         this.a(new CommandClear());
+        this.a(new CommandTestFor());
+        this.a(new CommandScoreboard());
         if (MinecraftServer.getServer().T()) {
             this.a(new CommandOp());
             this.a(new CommandDeop());
@@ -61,13 +64,13 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
                 EntityPlayer entityplayer = (EntityPlayer) iterator.next();
 
                 if (entityplayer != icommandlistener && MinecraftServer.getServer().getPlayerList().isOp(entityplayer.name)) {
-                    entityplayer.sendMessage("\u00A77\u00A7o[" + icommandlistener.getName() + ": " + entityplayer.a(s, aobject) + "]");
+                    entityplayer.sendMessage("" + EnumChatFormat.GRAY + "" + EnumChatFormat.ITALIC + "[" + icommandlistener.getName() + ": " + entityplayer.a(s, aobject) + "]");
                 }
             }
         }
 
         if (icommandlistener != MinecraftServer.getServer()) {
-            MinecraftServer.log.info("[" + icommandlistener.getName() + ": " + MinecraftServer.getServer().a(s, aobject) + "]");
+            MinecraftServer.getServer().getLogger().info("[" + icommandlistener.getName() + ": " + MinecraftServer.getServer().a(s, aobject) + "]");
         }
 
         if ((i & 1) != 1) {

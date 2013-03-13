@@ -55,7 +55,7 @@ public class CommandGive extends CommandAbstract {
         return MinecraftServer.getServer().getPlayers();
     }
 
-    public boolean a(int i) {
+    public boolean a(String[] astring, int i) {
         return i == 0;
     }
 }

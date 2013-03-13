@@ -3,26 +3,20 @@ package net.minecraft.server;
 public class BlockNote extends BlockContainer {
 
     public BlockNote(int i) {
-        super(i, 74, Material.WOOD);
+        super(i, Material.WOOD);
         this.a(CreativeModeTab.d);
     }
 
-    public int a(int i) {
-        return this.textureId;
-    }
-
     public void doPhysics(World world, int i, int j, int k, int l) {
-        if (l > 0) {
-            boolean flag = world.isBlockIndirectlyPowered(i, j, k);
-            TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
+        boolean flag = world.isBlockIndirectlyPowered(i, j, k);
+        TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 
-            if (tileentitynote != null && tileentitynote.b != flag) {
-                if (flag) {
-                    tileentitynote.play(world, i, j, k);
-                }
-
-                tileentitynote.b = flag;
+        if (tileentitynote != null && tileentitynote.b != flag) {
+            if (flag) {
+                tileentitynote.play(world, i, j, k);
             }
+
+            tileentitynote.b = flag;
         }
     }
 
@@ -51,11 +45,11 @@ public class BlockNote extends BlockContainer {
         }
     }
 
-    public TileEntity a(World world) {
+    public TileEntity b(World world) {
         return new TileEntityNote();
     }
 
-    public void b(World world, int i, int j, int k, int l, int i1) {
+    public boolean b(World world, int i, int j, int k, int l, int i1) {
         float f = (float) Math.pow(2.0D, (double) (i1 - 12) / 12.0D);
         String s = "harp";
 
@@ -77,5 +71,6 @@ public class BlockNote extends BlockContainer {
 
         world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "note." + s, 3.0F, f);
         world.addParticle("note", (double) i + 0.5D, (double) j + 1.2D, (double) k + 0.5D, (double) i1 / 24.0D, 0.0D, 0.0D);
+        return true;
     }
 }

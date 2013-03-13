@@ -44,7 +44,7 @@ public class ItemPotion extends Item {
         }
     }
 
-    public List f(int i) {
+    public List c(int i) {
         List list = (List) this.a.get(Integer.valueOf(i));
 
         if (list == null) {
@@ -90,16 +90,16 @@ public class ItemPotion extends Item {
     }
 
     public EnumAnimation b_(ItemStack itemstack) {
-        return EnumAnimation.c;
+        return EnumAnimation.DRINK;
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        if (g(itemstack.getData())) {
+        if (f(itemstack.getData())) {
             if (!entityhuman.abilities.canInstantlyBuild) {
                 --itemstack.count;
             }
 
-            world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
+            world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (e.nextFloat() * 0.4F + 0.8F));
             if (!world.isStatic) {
                 world.addEntity(new EntityPotion(world, entityhuman, itemstack));
             }
@@ -115,7 +115,7 @@ public class ItemPotion extends Item {
         return false;
     }
 
-    public static boolean g(int i) {
+    public static boolean f(int i) {
         return (i & 16384) != 0;
     }
 
@@ -125,7 +125,7 @@ public class ItemPotion extends Item {
         } else {
             String s = "";
 
-            if (g(itemstack.getData())) {
+            if (f(itemstack.getData())) {
                 s = LocaleI18n.get("potion.prefix.grenade").trim() + " ";
             }
 

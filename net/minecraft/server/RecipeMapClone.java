@@ -58,8 +58,8 @@ public class RecipeMapClone implements IRecipe {
         if (itemstack != null && i >= 1) {
             ItemStack itemstack2 = new ItemStack(Item.MAP, i + 1, itemstack.getData());
 
-            if (itemstack.s()) {
-                itemstack2.c(itemstack.r());
+            if (itemstack.hasName()) {
+                itemstack2.c(itemstack.getName());
             }
 
             return itemstack2;

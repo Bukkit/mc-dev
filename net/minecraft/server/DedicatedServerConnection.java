@@ -4,22 +4,22 @@ import java.net.InetAddress;
 
 public class DedicatedServerConnection extends ServerConnection {
 
-    private final DedicatedServerConnectionThread c;
+    private final DedicatedServerConnectionThread b;
 
     public DedicatedServerConnection(MinecraftServer minecraftserver, InetAddress inetaddress, int i) {
         super(minecraftserver);
-        this.c = new DedicatedServerConnectionThread(this, inetaddress, i);
-        this.c.start();
+        this.b = new DedicatedServerConnectionThread(this, inetaddress, i);
+        this.b.start();
     }
 
     public void a() {
         super.a();
-        this.c.b();
-        this.c.interrupt();
+        this.b.b();
+        this.b.interrupt();
     }
 
     public void b() {
-        this.c.a();
+        this.b.a();
         super.b();
     }
 
@@ -28,7 +28,7 @@ public class DedicatedServerConnection extends ServerConnection {
     }
 
     public void a(InetAddress inetaddress) {
-        this.c.a(inetaddress);
+        this.b.a(inetaddress);
     }
 
     public MinecraftServer d() {

@@ -37,7 +37,7 @@ public class ItemBucket extends Item {
                     }
 
                     if (world.getMaterial(i, j, k) == Material.WATER && world.getData(i, j, k) == 0) {
-                        world.setTypeId(i, j, k, 0);
+                        world.setAir(i, j, k);
                         if (entityhuman.abilities.canInstantlyBuild) {
                             return itemstack;
                         }
@@ -54,7 +54,7 @@ public class ItemBucket extends Item {
                     }
 
                     if (world.getMaterial(i, j, k) == Material.LAVA && world.getData(i, j, k) == 0) {
-                        world.setTypeId(i, j, k, 0);
+                        world.setAir(i, j, k);
                         if (entityhuman.abilities.canInstantlyBuild) {
                             return itemstack;
                         }
@@ -127,7 +127,7 @@ public class ItemBucket extends Item {
                     world.addParticle("largesmoke", (double) i + Math.random(), (double) j + Math.random(), (double) k + Math.random(), 0.0D, 0.0D, 0.0D);
                 }
             } else {
-                world.setTypeIdAndData(i, j, k, this.a, 0);
+                world.setTypeIdAndData(i, j, k, this.a, 0, 3);
             }
 
             return true;

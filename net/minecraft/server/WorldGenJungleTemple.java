@@ -176,9 +176,9 @@ public class WorldGenJungleTemple extends WorldGenScatteredPiece {
             this.a(world, Block.SMOOTH_BRICK.id, 3, 8, -2, 11, structureboundingbox);
             this.a(world, Block.SMOOTH_BRICK.id, 3, 9, -2, 11, structureboundingbox);
             this.a(world, Block.SMOOTH_BRICK.id, 3, 10, -2, 11, structureboundingbox);
-            this.a(world, Block.LEVER.id, BlockLever.e(this.c(Block.LEVER.id, 2)), 8, -2, 12, structureboundingbox);
-            this.a(world, Block.LEVER.id, BlockLever.e(this.c(Block.LEVER.id, 2)), 9, -2, 12, structureboundingbox);
-            this.a(world, Block.LEVER.id, BlockLever.e(this.c(Block.LEVER.id, 2)), 10, -2, 12, structureboundingbox);
+            this.a(world, Block.LEVER.id, BlockLever.d(this.c(Block.LEVER.id, 2)), 8, -2, 12, structureboundingbox);
+            this.a(world, Block.LEVER.id, BlockLever.d(this.c(Block.LEVER.id, 2)), 9, -2, 12, structureboundingbox);
+            this.a(world, Block.LEVER.id, BlockLever.d(this.c(Block.LEVER.id, 2)), 10, -2, 12, structureboundingbox);
             this.a(world, structureboundingbox, 8, -3, 8, 8, -3, 10, false, random, n);
             this.a(world, structureboundingbox, 10, -3, 8, 10, -3, 10, false, random, n);
             this.a(world, Block.MOSSY_COBBLESTONE.id, 0, 10, -2, 9, structureboundingbox);

@@ -4,7 +4,7 @@ public class ItemTool extends Item {
 
     private Block[] c;
     protected float a = 4.0F;
-    private int co;
+    private int d;
     protected EnumToolMaterial b;
 
     protected ItemTool(int i, int j, EnumToolMaterial enumtoolmaterial, Block[] ablock) {
@@ -14,7 +14,7 @@ public class ItemTool extends Item {
         this.maxStackSize = 1;
         this.setMaxDurability(enumtoolmaterial.a());
         this.a = enumtoolmaterial.b();
-        this.co = j + enumtoolmaterial.c();
+        this.d = j + enumtoolmaterial.c();
         this.a(CreativeModeTab.i);
     }
 
@@ -34,7 +34,7 @@ public class ItemTool extends Item {
     }
 
     public boolean a(ItemStack itemstack, World world, int i, int j, int k, int l, EntityLiving entityliving) {
-        if ((double) Block.byId[i].m(world, j, k, l) != 0.0D) {
+        if ((double) Block.byId[i].l(world, j, k, l) != 0.0D) {
             itemstack.damage(1, entityliving);
         }
 
@@ -42,7 +42,7 @@ public class ItemTool extends Item {
     }
 
     public int a(Entity entity) {
-        return this.co;
+        return this.d;
     }
 
     public int c() {

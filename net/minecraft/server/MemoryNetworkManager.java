@@ -2,32 +2,26 @@ package net.minecraft.server;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MemoryNetworkManager implements INetworkManager {
 
     private static final SocketAddress a = new InetSocketAddress("127.0.0.1", 0);
-    private final List b = Collections.synchronizedList(new ArrayList());
-    private MemoryNetworkManager c;
-    private Connection d;
-    private boolean e = false;
-    private String f = "";
-    private Object[] g;
-    private boolean h = false;
-
-    public MemoryNetworkManager(Connection connection) {
-        this.d = connection;
-    }
+    private final List b;
+    private final IConsoleLogManager c;
+    private MemoryNetworkManager d;
+    private Connection e;
+    private boolean f;
+    private String g;
+    private Object[] h;
 
     public void a(Connection connection) {
-        this.d = connection;
+        this.e = connection;
     }
 
     public void queue(Packet packet) {
-        if (!this.e) {
-            this.c.b(packet);
+        if (!this.f) {
+            this.d.b(packet);
         }
     }
 
@@ -39,15 +33,15 @@ public class MemoryNetworkManager implements INetworkManager {
         while (i-- >= 0 && !this.b.isEmpty()) {
             Packet packet = (Packet) this.b.remove(0);
 
-            packet.handle(this.d);
+            packet.handle(this.e);
         }
 
         if (this.b.size() > i) {
-            System.out.println("Memory connection overburdened; after processing 2500 packets, we still have " + this.b.size() + " to go!");
+            this.c.warning("Memory connection overburdened; after processing 2500 packets, we still have " + this.b.size() + " to go!");
         }
 
-        if (this.e && this.b.isEmpty()) {
-            this.d.a(this.f, this.g);
+        if (this.f && this.b.isEmpty()) {
+            this.e.a(this.g, this.h);
         }
     }
 
@@ -56,13 +50,13 @@ public class MemoryNetworkManager implements INetworkManager {
     }
 
     public void d() {
-        this.e = true;
+        this.f = true;
     }
 
     public void a(String s, Object... aobject) {
-        this.e = true;
-        this.f = s;
-        this.g = aobject;
+        this.f = true;
+        this.g = s;
+        this.h = aobject;
     }
 
     public int e() {
@@ -70,10 +64,8 @@ public class MemoryNetworkManager implements INetworkManager {
     }
 
     public void b(Packet packet) {
-        String s = this.d.a() ? ">" : "<";
-
-        if (packet.a_() && this.d.b()) {
-            packet.handle(this.d);
+        if (packet.a_() && this.e.b()) {
+            packet.handle(this.e);
         } else {
             this.b.add(packet);
         }

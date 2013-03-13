@@ -2,22 +2,26 @@ package net.minecraft.server;
 
 public class EntityDamageSource extends DamageSource {
 
-    protected Entity r;
+    protected Entity p;
 
     public EntityDamageSource(String s, Entity entity) {
         super(s);
-        this.r = entity;
+        this.p = entity;
     }
 
     public Entity getEntity() {
-        return this.r;
+        return this.p;
     }
 
-    public String getLocalizedDeathMessage(EntityHuman entityhuman) {
-        return LocaleI18n.get("death." + this.translationIndex, new Object[] { entityhuman.name, this.r.getLocalizedName()});
+    public String getLocalizedDeathMessage(EntityLiving entityliving) {
+        ItemStack itemstack = this.p instanceof EntityLiving ? ((EntityLiving) this.p).bG() : null;
+        String s = "death.attack." + this.translationIndex;
+        String s1 = s + ".item";
+
+        return itemstack != null && itemstack.hasName() && LocaleI18n.b(s1) ? LocaleI18n.get(s1, new Object[] { entityliving.getScoreboardDisplayName(), this.p.getScoreboardDisplayName(), itemstack.getName()}) : LocaleI18n.get(s, new Object[] { entityliving.getScoreboardDisplayName(), this.p.getScoreboardDisplayName()});
     }
 
-    public boolean n() {
-        return this.r != null && this.r instanceof EntityLiving && !(this.r instanceof EntityHuman);
+    public boolean p() {
+        return this.p != null && this.p instanceof EntityLiving && !(this.p instanceof EntityHuman);
     }
 }

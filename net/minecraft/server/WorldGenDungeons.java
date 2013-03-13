@@ -41,14 +41,14 @@ public class WorldGenDungeons extends WorldGenerator {
                 for (l1 = j + b0; l1 >= j - 1; --l1) {
                     for (i2 = k - i1 - 1; i2 <= k + i1 + 1; ++i2) {
                         if (k1 != i - l - 1 && l1 != j - 1 && i2 != k - i1 - 1 && k1 != i + l + 1 && l1 != j + b0 + 1 && i2 != k + i1 + 1) {
-                            world.setTypeId(k1, l1, i2, 0);
+                            world.setAir(k1, l1, i2);
                         } else if (l1 >= 0 && !world.getMaterial(k1, l1 - 1, i2).isBuildable()) {
-                            world.setTypeId(k1, l1, i2, 0);
+                            world.setAir(k1, l1, i2);
                         } else if (world.getMaterial(k1, l1, i2).isBuildable()) {
                             if (l1 == j - 1 && random.nextInt(4) != 0) {
-                                world.setTypeId(k1, l1, i2, Block.MOSSY_COBBLESTONE.id);
+                                world.setTypeIdAndData(k1, l1, i2, Block.MOSSY_COBBLESTONE.id, 0, 2);
                             } else {
-                                world.setTypeId(k1, l1, i2, Block.COBBLESTONE.id);
+                                world.setTypeIdAndData(k1, l1, i2, Block.COBBLESTONE.id, 0, 2);
                             }
                         }
                     }
@@ -86,7 +86,7 @@ public class WorldGenDungeons extends WorldGenerator {
                                 }
 
                                 if (k2 == 1) {
-                                    world.setTypeId(i2, j, j2, Block.CHEST.id);
+                                    world.setTypeIdAndData(i2, j, j2, Block.CHEST.id, 0, 2);
                                     TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i2, j, j2);
 
                                     if (tileentitychest != null) {
@@ -112,11 +112,11 @@ public class WorldGenDungeons extends WorldGenerator {
                 }
             }
 
-            world.setTypeId(i, j, k, Block.MOB_SPAWNER.id);
+            world.setTypeIdAndData(i, j, k, Block.MOB_SPAWNER.id, 0, 2);
             TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(i, j, k);
 
             if (tileentitymobspawner != null) {
-                tileentitymobspawner.a(this.b(random));
+                tileentitymobspawner.a().a(this.b(random));
             } else {
                 System.err.println("Failed to fetch mob spawner entity at (" + i + ", " + j + ", " + k + ")");
             }

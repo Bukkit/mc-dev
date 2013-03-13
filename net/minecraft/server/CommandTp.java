@@ -46,6 +46,7 @@ public class CommandTp extends CommandAbstract {
                         return;
                     }
 
+                    entityplayer.mount((Entity) null);
                     entityplayer.playerConnection.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
                     a(icommandlistener, "commands.tp.success", new Object[] { entityplayer.getLocalizedName(), entityplayer1.getLocalizedName()});
                 }
@@ -55,6 +56,7 @@ public class CommandTp extends CommandAbstract {
                 double d1 = this.a(icommandlistener, entityplayer.locY, astring[i++], 0, 0);
                 double d2 = this.a(icommandlistener, entityplayer.locZ, astring[i++]);
 
+                entityplayer.mount((Entity) null);
                 entityplayer.enderTeleportTo(d0, d1, d2);
                 a(icommandlistener, "commands.tp.success.coordinates", new Object[] { entityplayer.getLocalizedName(), Double.valueOf(d0), Double.valueOf(d1), Double.valueOf(d2)});
             }
@@ -99,7 +101,7 @@ public class CommandTp extends CommandAbstract {
         return astring.length != 1 && astring.length != 2 ? null : a(astring, MinecraftServer.getServer().getPlayers());
     }
 
-    public boolean a(int i) {
+    public boolean a(String[] astring, int i) {
         return i == 0;
     }
 }

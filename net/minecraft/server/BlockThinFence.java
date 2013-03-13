@@ -5,13 +5,15 @@ import java.util.Random;
 
 public class BlockThinFence extends Block {
 
-    private int a;
+    private final String a;
     private final boolean b;
+    private final String c;
 
-    protected BlockThinFence(int i, int j, int k, Material material, boolean flag) {
-        super(i, j, material);
-        this.a = k;
+    protected BlockThinFence(int i, String s, String s1, Material material, boolean flag) {
+        super(i, material);
+        this.a = s1;
         this.b = flag;
+        this.c = s;
         this.a(CreativeModeTab.c);
     }
 
@@ -32,10 +34,10 @@ public class BlockThinFence extends Block {
     }
 
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List list, Entity entity) {
-        boolean flag = this.e(world.getTypeId(i, j, k - 1));
-        boolean flag1 = this.e(world.getTypeId(i, j, k + 1));
-        boolean flag2 = this.e(world.getTypeId(i - 1, j, k));
-        boolean flag3 = this.e(world.getTypeId(i + 1, j, k));
+        boolean flag = this.d(world.getTypeId(i, j, k - 1));
+        boolean flag1 = this.d(world.getTypeId(i, j, k + 1));
+        boolean flag2 = this.d(world.getTypeId(i - 1, j, k));
+        boolean flag3 = this.d(world.getTypeId(i + 1, j, k));
 
         if ((!flag2 || !flag3) && (flag2 || flag3 || flag || flag1)) {
             if (flag2 && !flag3) {
@@ -64,7 +66,7 @@ public class BlockThinFence extends Block {
         }
     }
 
-    public void f() {
+    public void g() {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
@@ -73,10 +75,10 @@ public class BlockThinFence extends Block {
         float f1 = 0.5625F;
         float f2 = 0.4375F;
         float f3 = 0.5625F;
-        boolean flag = this.e(iblockaccess.getTypeId(i, j, k - 1));
-        boolean flag1 = this.e(iblockaccess.getTypeId(i, j, k + 1));
-        boolean flag2 = this.e(iblockaccess.getTypeId(i - 1, j, k));
-        boolean flag3 = this.e(iblockaccess.getTypeId(i + 1, j, k));
+        boolean flag = this.d(iblockaccess.getTypeId(i, j, k - 1));
+        boolean flag1 = this.d(iblockaccess.getTypeId(i, j, k + 1));
+        boolean flag2 = this.d(iblockaccess.getTypeId(i - 1, j, k));
+        boolean flag3 = this.d(iblockaccess.getTypeId(i + 1, j, k));
 
         if ((!flag2 || !flag3) && (flag2 || flag3 || flag || flag1)) {
             if (flag2 && !flag3) {
@@ -103,15 +105,15 @@ public class BlockThinFence extends Block {
         this.a(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
-    public final boolean e(int i) {
-        return Block.q[i] || i == this.id || i == Block.GLASS.id;
+    public final boolean d(int i) {
+        return Block.s[i] || i == this.id || i == Block.GLASS.id;
     }
 
-    protected boolean s_() {
+    protected boolean r_() {
         return true;
     }
 
-    protected ItemStack f_(int i) {
+    protected ItemStack c_(int i) {
         return new ItemStack(this.id, 1, i);
     }
 }

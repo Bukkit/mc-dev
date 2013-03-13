@@ -54,7 +54,7 @@ public class EntitySmallFireball extends EntityFireball {
                 }
 
                 if (this.world.isEmpty(i, j, k)) {
-                    this.world.setTypeId(i, j, k, Block.FIRE.id);
+                    this.world.setTypeIdUpdate(i, j, k, Block.FIRE.id);
                 }
             }
 
@@ -62,7 +62,7 @@ public class EntitySmallFireball extends EntityFireball {
         }
     }
 
-    public boolean L() {
+    public boolean K() {
         return false;
     }
 

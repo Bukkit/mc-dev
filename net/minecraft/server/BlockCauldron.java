@@ -7,11 +7,6 @@ public class BlockCauldron extends Block {
 
     public BlockCauldron(int i) {
         super(i, Material.ORE);
-        this.textureId = 154;
-    }
-
-    public int a(int i, int j) {
-        return i == 1 ? 138 : (i == 0 ? 155 : 154);
     }
 
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List list, Entity entity) {
@@ -27,10 +22,10 @@ public class BlockCauldron extends Block {
         super.a(world, i, j, k, axisalignedbb, list, entity);
         this.a(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
         super.a(world, i, j, k, axisalignedbb, list, entity);
-        this.f();
+        this.g();
     }
 
-    public void f() {
+    public void g() {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
@@ -63,7 +58,7 @@ public class BlockCauldron extends Block {
                             entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, new ItemStack(Item.BUCKET));
                         }
 
-                        world.setData(i, j, k, 3);
+                        world.setData(i, j, k, 3, 2);
                     }
 
                     return true;
@@ -83,13 +78,13 @@ public class BlockCauldron extends Block {
                                 entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
                             }
 
-                            world.setData(i, j, k, i1 - 1);
+                            world.setData(i, j, k, i1 - 1, 2);
                         }
                     } else if (i1 > 0 && itemstack.getItem() instanceof ItemArmor && ((ItemArmor) itemstack.getItem()).d() == EnumArmorMaterial.CLOTH) {
                         ItemArmor itemarmor = (ItemArmor) itemstack.getItem();
 
                         itemarmor.c(itemstack);
-                        world.setData(i, j, k, i1 - 1);
+                        world.setData(i, j, k, i1 - 1, 2);
                         return true;
                     }
 
@@ -99,12 +94,12 @@ public class BlockCauldron extends Block {
         }
     }
 
-    public void f(World world, int i, int j, int k) {
+    public void g(World world, int i, int j, int k) {
         if (world.random.nextInt(20) == 1) {
             int l = world.getData(i, j, k);
 
             if (l < 3) {
-                world.setData(i, j, k, l + 1);
+                world.setData(i, j, k, l + 1, 2);
             }
         }
     }

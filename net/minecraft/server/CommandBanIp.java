@@ -45,7 +45,7 @@ public class CommandBanIp extends CommandAbstract {
                     throw new ExceptionPlayerNotFound("commands.banip.invalid", new Object[0]);
                 }
 
-                this.a(icommandlistener, entityplayer.q(), s);
+                this.a(icommandlistener, entityplayer.p(), s);
             }
         } else {
             throw new ExceptionUsage("commands.banip.usage", new Object[0]);

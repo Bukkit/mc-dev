@@ -95,7 +95,7 @@ public class WorldGenNetherPiece6 extends WorldGenNetherPiece {
 
         if (structureboundingbox.b(i, j, k)) {
             world.d = true;
-            Block.byId[Block.LAVA.id].b(world, i, j, k, random);
+            Block.byId[Block.LAVA.id].a(world, i, j, k, random);
             world.d = false;
         }
 

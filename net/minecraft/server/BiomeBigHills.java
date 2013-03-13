@@ -26,7 +26,7 @@ public class BiomeBigHills extends BiomeBase {
             int l1 = world.getTypeId(i1, j1, k1);
 
             if (l1 == Block.STONE.id) {
-                world.setRawTypeId(i1, j1, k1, Block.EMERALD_ORE.id);
+                world.setTypeIdAndData(i1, j1, k1, Block.EMERALD_ORE.id, 0, 2);
             }
         }
 

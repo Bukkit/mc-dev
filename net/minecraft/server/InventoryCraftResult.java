@@ -18,6 +18,10 @@ public class InventoryCraftResult implements IInventory {
         return "Result";
     }
 
+    public boolean c() {
+        return false;
+    }
+
     public ItemStack splitStack(int i, int j) {
         if (this.items[0] != null) {
             ItemStack itemstack = this.items[0];
@@ -50,11 +54,15 @@ public class InventoryCraftResult implements IInventory {
 
     public void update() {}
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         return true;
     }
 
     public void startOpen() {}
 
-    public void f() {}
+    public void g() {}
+
+    public boolean b(int i, ItemStack itemstack) {
+        return true;
+    }
 }

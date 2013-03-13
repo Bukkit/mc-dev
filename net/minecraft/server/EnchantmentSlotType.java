@@ -17,7 +17,7 @@ public enum EnchantmentSlotType {
             } else {
                 ItemArmor itemarmor = (ItemArmor) item;
 
-                return itemarmor.a == 0 ? this == ARMOR_HEAD : (itemarmor.a == 2 ? this == ARMOR_LEGS : (itemarmor.a == 1 ? this == ARMOR_TORSO : (itemarmor.a == 3 ? this == ARMOR_FEET : false)));
+                return itemarmor.b == 0 ? this == ARMOR_HEAD : (itemarmor.b == 2 ? this == ARMOR_LEGS : (itemarmor.b == 1 ? this == ARMOR_TORSO : (itemarmor.b == 3 ? this == ARMOR_FEET : false)));
             }
         } else {
             return item instanceof ItemSword ? this == WEAPON : (item instanceof ItemTool ? this == DIGGER : (item instanceof ItemBow ? this == BOW : false));

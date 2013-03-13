@@ -26,7 +26,7 @@ public class ItemWaterLily extends ItemWithAuxData {
                 }
 
                 if (world.getMaterial(i, j, k) == Material.WATER && world.getData(i, j, k) == 0 && world.isEmpty(i, j + 1, k)) {
-                    world.setTypeId(i, j + 1, k, Block.WATER_LILY.id);
+                    world.setTypeIdUpdate(i, j + 1, k, Block.WATER_LILY.id);
                     if (!entityhuman.abilities.canInstantlyBuild) {
                         --itemstack.count;
                     }

@@ -6,13 +6,12 @@ public class BlockSoil extends Block {
 
     protected BlockSoil(int i) {
         super(i, Material.EARTH);
-        this.textureId = 87;
         this.b(true);
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
-        this.h(255);
+        this.k(255);
     }
 
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public AxisAlignedBB b(World world, int i, int j, int k) {
         return AxisAlignedBB.a().a((double) (i + 0), (double) (j + 0), (double) (k + 0), (double) (i + 1), (double) (j + 1), (double) (k + 1));
     }
 
@@ -24,21 +23,17 @@ public class BlockSoil extends Block {
         return false;
     }
 
-    public int a(int i, int j) {
-        return i == 1 && j > 0 ? this.textureId - 1 : (i == 1 ? this.textureId : 2);
-    }
-
-    public void b(World world, int i, int j, int k, Random random) {
-        if (!this.n(world, i, j, k) && !world.D(i, j + 1, k)) {
+    public void a(World world, int i, int j, int k, Random random) {
+        if (!this.m(world, i, j, k) && !world.F(i, j + 1, k)) {
             int l = world.getData(i, j, k);
 
             if (l > 0) {
-                world.setData(i, j, k, l - 1);
-            } else if (!this.l(world, i, j, k)) {
-                world.setTypeId(i, j, k, Block.DIRT.id);
+                world.setData(i, j, k, l - 1, 2);
+            } else if (!this.k(world, i, j, k)) {
+                world.setTypeIdUpdate(i, j, k, Block.DIRT.id);
             }
         } else {
-            world.setData(i, j, k, 7);
+            world.setData(i, j, k, 7, 2);
         }
     }
 
@@ -48,11 +43,11 @@ public class BlockSoil extends Block {
                 return;
             }
 
-            world.setTypeId(i, j, k, Block.DIRT.id);
+            world.setTypeIdUpdate(i, j, k, Block.DIRT.id);
         }
     }
 
-    private boolean l(World world, int i, int j, int k) {
+    private boolean k(World world, int i, int j, int k) {
         byte b0 = 0;
 
         for (int l = i - b0; l <= i + b0; ++l) {
@@ -68,7 +63,7 @@ public class BlockSoil extends Block {
         return false;
     }
 
-    private boolean n(World world, int i, int j, int k) {
+    private boolean m(World world, int i, int j, int k) {
         for (int l = i - 4; l <= i + 4; ++l) {
             for (int i1 = j; i1 <= j + 1; ++i1) {
                 for (int j1 = k - 4; j1 <= k + 4; ++j1) {
@@ -87,7 +82,7 @@ public class BlockSoil extends Block {
         Material material = world.getMaterial(i, j + 1, k);
 
         if (material.isBuildable()) {
-            world.setTypeId(i, j, k, Block.DIRT.id);
+            world.setTypeIdUpdate(i, j, k, Block.DIRT.id);
         }
     }
 

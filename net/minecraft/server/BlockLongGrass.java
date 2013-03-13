@@ -4,15 +4,13 @@ import java.util.Random;
 
 public class BlockLongGrass extends BlockFlower {
 
-    protected BlockLongGrass(int i, int j) {
-        super(i, j, Material.REPLACEABLE_PLANT);
+    private static final String[] a = new String[] { "deadbush", "tallgrass", "fern"};
+
+    protected BlockLongGrass(int i) {
+        super(i, Material.REPLACEABLE_PLANT);
         float f = 0.4F;
 
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
-    }
-
-    public int a(int i, int j) {
-        return j == 1 ? this.textureId : (j == 2 ? this.textureId + 16 + 1 : (j == 0 ? this.textureId + 16 : this.textureId));
     }
 
     public int getDropType(int i, Random random, int j) {
@@ -24,7 +22,7 @@ public class BlockLongGrass extends BlockFlower {
     }
 
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
-        if (!world.isStatic && entityhuman.bS() != null && entityhuman.bS().id == Item.SHEARS.id) {
+        if (!world.isStatic && entityhuman.cb() != null && entityhuman.cb().id == Item.SHEARS.id) {
             entityhuman.a(StatisticList.C[this.id], 1);
             this.b(world, i, j, k, new ItemStack(Block.LONG_GRASS, 1, l));
         } else {

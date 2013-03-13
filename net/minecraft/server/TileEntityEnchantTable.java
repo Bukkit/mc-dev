@@ -15,11 +15,26 @@ public class TileEntityEnchantTable extends TileEntity {
     public float i;
     public float j;
     private static Random r = new Random();
+    private String s;
 
     public TileEntityEnchantTable() {}
 
-    public void g() {
-        super.g();
+    public void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        if (this.b()) {
+            nbttagcompound.setString("CustomName", this.s);
+        }
+    }
+
+    public void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        if (nbttagcompound.hasKey("CustomName")) {
+            this.s = nbttagcompound.getString("CustomName");
+        }
+    }
+
+    public void h() {
+        super.h();
         this.g = this.f;
         this.i = this.h;
         EntityHuman entityhuman = this.world.findNearbyPlayer((double) ((float) this.x + 0.5F), (double) ((float) this.y + 0.5F), (double) ((float) this.z + 0.5F), 3.0D);
@@ -92,5 +107,17 @@ public class TileEntityEnchantTable extends TileEntity {
 
         this.e += (f2 - this.e) * 0.9F;
         this.b += this.e;
+    }
+
+    public String a() {
+        return this.b() ? this.s : "container.enchant";
+    }
+
+    public boolean b() {
+        return this.s != null && this.s.length() > 0;
+    }
+
+    public void a(String s) {
+        this.s = s;
     }
 }

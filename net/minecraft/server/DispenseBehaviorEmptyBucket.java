@@ -1,21 +1,16 @@
 package net.minecraft.server;
 
-public class DispenseBehaviorEmptyBucket extends DispenseBehaviorItem {
+final class DispenseBehaviorEmptyBucket extends DispenseBehaviorItem {
 
-    private final DispenseBehaviorItem c;
+    private final DispenseBehaviorItem b = new DispenseBehaviorItem();
 
-    final MinecraftServer b;
-
-    public DispenseBehaviorEmptyBucket(MinecraftServer minecraftserver) {
-        this.b = minecraftserver;
-        this.c = new DispenseBehaviorItem();
-    }
+    DispenseBehaviorEmptyBucket() {}
 
     public ItemStack b(ISourceBlock isourceblock, ItemStack itemstack) {
-        EnumFacing enumfacing = EnumFacing.a(isourceblock.h());
+        EnumFacing enumfacing = BlockDispenser.j_(isourceblock.h());
         World world = isourceblock.k();
         int i = isourceblock.getBlockX() + enumfacing.c();
-        int j = isourceblock.getBlockY();
+        int j = isourceblock.getBlockY() + enumfacing.d();
         int k = isourceblock.getBlockZ() + enumfacing.e();
         Material material = world.getMaterial(i, j, k);
         int l = world.getData(i, j, k);
@@ -31,12 +26,12 @@ public class DispenseBehaviorEmptyBucket extends DispenseBehaviorItem {
             item = Item.LAVA_BUCKET;
         }
 
-        world.setTypeId(i, j, k, 0);
+        world.setAir(i, j, k);
         if (--itemstack.count == 0) {
             itemstack.id = item.id;
             itemstack.count = 1;
         } else if (((TileEntityDispenser) isourceblock.getTileEntity()).addItem(new ItemStack(item)) < 0) {
-            this.c.a(isourceblock, new ItemStack(item));
+            this.b.a(isourceblock, new ItemStack(item));
         }
 
         return itemstack;

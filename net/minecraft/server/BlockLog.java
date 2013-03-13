@@ -5,10 +5,10 @@ import java.util.Random;
 public class BlockLog extends Block {
 
     public static final String[] a = new String[] { "oak", "spruce", "birch", "jungle"};
+    public static final String[] b = new String[] { "tree_side", "tree_spruce", "tree_birch", "tree_jungle"};
 
     protected BlockLog(int i) {
         super(i, Material.WOOD);
-        this.textureId = 20;
         this.a(CreativeModeTab.b);
     }
 
@@ -28,7 +28,7 @@ public class BlockLog extends Block {
         byte b0 = 4;
         int j1 = b0 + 1;
 
-        if (world.d(i - j1, j - j1, k - j1, i + j1, j + j1, k + j1)) {
+        if (world.e(i - j1, j - j1, k - j1, i + j1, j + j1, k + j1)) {
             for (int k1 = -b0; k1 <= b0; ++k1) {
                 for (int l1 = -b0; l1 <= b0; ++l1) {
                     for (int i2 = -b0; i2 <= b0; ++i2) {
@@ -38,7 +38,7 @@ public class BlockLog extends Block {
                             int k2 = world.getData(i + k1, j + l1, k + i2);
 
                             if ((k2 & 8) == 0) {
-                                world.setRawData(i + k1, j + l1, k + i2, k2 | 8);
+                                world.setData(i + k1, j + l1, k + i2, k2 | 8, 4);
                             }
                         }
                     }
@@ -70,22 +70,15 @@ public class BlockLog extends Block {
         return j1 | b0;
     }
 
-    public int a(int i, int j) {
-        int k = j & 12;
-        int l = j & 3;
-
-        return k == 0 && (i == 1 || i == 0) ? 21 : (k == 4 && (i == 5 || i == 4) ? 21 : (k == 8 && (i == 2 || i == 3) ? 21 : (l == 1 ? 116 : (l == 2 ? 117 : (l == 3 ? 153 : 20)))));
-    }
-
     public int getDropData(int i) {
         return i & 3;
     }
 
-    public static int e(int i) {
+    public static int d(int i) {
         return i & 3;
     }
 
-    protected ItemStack f_(int i) {
-        return new ItemStack(this.id, 1, e(i));
+    protected ItemStack c_(int i) {
+        return new ItemStack(this.id, 1, d(i));
     }
 }

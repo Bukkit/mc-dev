@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -9,9 +10,9 @@ import java.util.regex.Pattern;
 
 public class PlayerSelector {
 
-    private static final Pattern a = Pattern.compile("^@([parf])(?:\\[([\\w=,-]*)\\])?$");
-    private static final Pattern b = Pattern.compile("\\G(-?\\w*)(?:$|,)");
-    private static final Pattern c = Pattern.compile("\\G(\\w{1,2})=(-?\\w+)(?:$|,)");
+    private static final Pattern a = Pattern.compile("^@([parf])(?:\\[([\\w=,!-]*)\\])?$");
+    private static final Pattern b = Pattern.compile("\\G([-!]?\\w*)(?:$|,)");
+    private static final Pattern c = Pattern.compile("\\G(\\w+)=([-!]?\\w*)(?:$|,)");
 
     public static EntityPlayer getPlayer(ICommandListener icommandlistener, String s) {
         EntityPlayer[] aentityplayer = getPlayers(icommandlistener, s);
@@ -26,7 +27,7 @@ public class PlayerSelector {
             String[] astring = new String[aentityplayer.length];
 
             for (int i = 0; i < astring.length; ++i) {
-                astring[i] = aentityplayer[i].getLocalizedName();
+                astring[i] = aentityplayer[i].getScoreboardDisplayName();
             }
 
             return CommandAbstract.a((Object[]) astring);
@@ -48,6 +49,9 @@ public class PlayerSelector {
             int i1 = g(s1);
             int j1 = EnumGamemode.NONE.a();
             ChunkCoordinates chunkcoordinates = icommandlistener.b();
+            Map map1 = a(map);
+            String s2 = null;
+            String s3 = null;
 
             if (map.containsKey("rm")) {
                 i = MathHelper.a((String) map.get("rm"), i);
@@ -85,24 +89,49 @@ public class PlayerSelector {
                 i1 = MathHelper.a((String) map.get("c"), i1);
             }
 
+            if (map.containsKey("team")) {
+                s3 = (String) map.get("team");
+            }
+
+            if (map.containsKey("name")) {
+                s2 = (String) map.get("name");
+            }
+
             List list;
 
             if (!s1.equals("p") && !s1.equals("a")) {
                 if (!s1.equals("r")) {
                     return null;
                 } else {
-                    list = MinecraftServer.getServer().getPlayerList().a(chunkcoordinates, i, j, 0, j1, k, l);
+                    list = MinecraftServer.getServer().getPlayerList().a(chunkcoordinates, i, j, 0, j1, k, l, map1, s2, s3);
                     Collections.shuffle(list);
                     list = list.subList(0, Math.min(i1, list.size()));
                     return list != null && !list.isEmpty() ? (EntityPlayer[]) list.toArray(new EntityPlayer[0]) : new EntityPlayer[0];
                 }
             } else {
-                list = MinecraftServer.getServer().getPlayerList().a(chunkcoordinates, i, j, i1, j1, k, l);
+                list = MinecraftServer.getServer().getPlayerList().a(chunkcoordinates, i, j, i1, j1, k, l, map1, s2, s3);
                 return list != null && !list.isEmpty() ? (EntityPlayer[]) list.toArray(new EntityPlayer[0]) : new EntityPlayer[0];
             }
         } else {
             return null;
         }
+    }
+
+    public static Map a(Map map) {
+        HashMap hashmap = new HashMap();
+        Iterator iterator = map.keySet().iterator();
+
+        while (iterator.hasNext()) {
+            String s = (String) iterator.next();
+
+            if (s.startsWith("score_") && s.length() > "score_".length()) {
+                String s1 = s.substring("score_".length());
+
+                hashmap.put(s1, Integer.valueOf(MathHelper.a((String) map.get(s), 1)));
+            }
+        }
+
+        return hashmap;
     }
 
     public static boolean isList(String s) {
@@ -126,12 +155,12 @@ public class PlayerSelector {
     public static boolean isPattern(String s, String s1) {
         Matcher matcher = a.matcher(s);
 
-        if (!matcher.matches()) {
-            return false;
-        } else {
+        if (matcher.matches()) {
             String s2 = matcher.group(1);
 
             return s1 == null || s1.equals(s2);
+        } else {
+            return false;
         }
     }
 

@@ -3,9 +3,9 @@ package net.minecraft.server;
 public class BlockEnchantmentTable extends BlockContainer {
 
     protected BlockEnchantmentTable(int i) {
-        super(i, 166, Material.STONE);
+        super(i, Material.STONE);
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
-        this.h(0);
+        this.k(0);
         this.a(CreativeModeTab.c);
     }
 
@@ -17,15 +17,7 @@ public class BlockEnchantmentTable extends BlockContainer {
         return false;
     }
 
-    public int a(int i, int j) {
-        return this.a(i);
-    }
-
-    public int a(int i) {
-        return i == 0 ? this.textureId + 17 : (i == 1 ? this.textureId : this.textureId + 16);
-    }
-
-    public TileEntity a(World world) {
+    public TileEntity b(World world) {
         return new TileEntityEnchantTable();
     }
 
@@ -33,8 +25,17 @@ public class BlockEnchantmentTable extends BlockContainer {
         if (world.isStatic) {
             return true;
         } else {
-            entityhuman.startEnchanting(i, j, k);
+            TileEntityEnchantTable tileentityenchanttable = (TileEntityEnchantTable) world.getTileEntity(i, j, k);
+
+            entityhuman.startEnchanting(i, j, k, tileentityenchanttable.b() ? tileentityenchanttable.a() : null);
             return true;
+        }
+    }
+
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
+        super.postPlace(world, i, j, k, entityliving, itemstack);
+        if (itemstack.hasName()) {
+            ((TileEntityEnchantTable) world.getTileEntity(i, j, k)).a(itemstack.getName());
         }
     }
 }

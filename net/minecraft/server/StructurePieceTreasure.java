@@ -22,7 +22,7 @@ public class StructurePieceTreasure extends WeightedRandomChoice {
         this.d = j;
     }
 
-    public static void a(Random random, StructurePieceTreasure[] astructurepiecetreasure, TileEntityChest tileentitychest, int i) {
+    public static void a(Random random, StructurePieceTreasure[] astructurepiecetreasure, IInventory iinventory, int i) {
         for (int j = 0; j < i; ++j) {
             StructurePieceTreasure structurepiecetreasure = (StructurePieceTreasure) WeightedRandom.a(random, (WeightedRandomChoice[]) astructurepiecetreasure);
             int k = structurepiecetreasure.c + random.nextInt(structurepiecetreasure.d - structurepiecetreasure.c + 1);
@@ -31,13 +31,13 @@ public class StructurePieceTreasure extends WeightedRandomChoice {
                 ItemStack itemstack = structurepiecetreasure.b.cloneItemStack();
 
                 itemstack.count = k;
-                tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
+                iinventory.setItem(random.nextInt(iinventory.getSize()), itemstack);
             } else {
                 for (int l = 0; l < k; ++l) {
                     ItemStack itemstack1 = structurepiecetreasure.b.cloneItemStack();
 
                     itemstack1.count = 1;
-                    tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack1);
+                    iinventory.setItem(random.nextInt(iinventory.getSize()), itemstack1);
                 }
             }
         }

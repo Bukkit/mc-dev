@@ -37,7 +37,7 @@ public class ItemWrittenBook extends Item {
         return itemstack;
     }
 
-    public boolean q() {
+    public boolean r() {
         return true;
     }
 }

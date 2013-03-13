@@ -180,7 +180,7 @@ public class Navigation {
     }
 
     private int j() {
-        if (this.a.H() && this.m) {
+        if (this.a.G() && this.m) {
             int i = (int) this.a.boundingBox.b;
             int j = this.b.getTypeId(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
             int k = 0;
@@ -206,15 +206,15 @@ public class Navigation {
     }
 
     private boolean l() {
-        return this.a.H() || this.a.J();
+        return this.a.G() || this.a.I();
     }
 
     private void m() {
-        if (!this.b.k(MathHelper.floor(this.a.locX), (int) (this.a.boundingBox.b + 0.5D), MathHelper.floor(this.a.locZ))) {
+        if (!this.b.l(MathHelper.floor(this.a.locX), (int) (this.a.boundingBox.b + 0.5D), MathHelper.floor(this.a.locZ))) {
             for (int i = 0; i < this.c.d(); ++i) {
                 PathPoint pathpoint = this.c.a(i);
 
-                if (this.b.k(pathpoint.a, pathpoint.b, pathpoint.c)) {
+                if (this.b.l(pathpoint.a, pathpoint.b, pathpoint.c)) {
                     this.c.b(i - 1);
                     return;
                 }
@@ -307,7 +307,7 @@ public class Navigation {
 
                         Material material = Block.byId[k2].material;
 
-                        if (material == Material.WATER && !this.a.H()) {
+                        if (material == Material.WATER && !this.a.G()) {
                             return false;
                         }
 
@@ -332,7 +332,7 @@ public class Navigation {
                     if (d2 * d0 + d3 * d1 >= 0.0D) {
                         int j2 = this.b.getTypeId(k1, l1, i2);
 
-                        if (j2 > 0 && !Block.byId[j2].c(this.b, k1, l1, i2)) {
+                        if (j2 > 0 && !Block.byId[j2].b((IBlockAccess) this.b, k1, l1, i2)) {
                             return false;
                         }
                     }

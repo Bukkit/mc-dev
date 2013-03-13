@@ -11,8 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class BanList {
 
@@ -91,7 +89,7 @@ public class BanList {
                     }
                 }
             } catch (IOException ioexception) {
-                Logger.getLogger("Minecraft").log(Level.SEVERE, "Could not load ban list", ioexception);
+                MinecraftServer.getServer().getLogger().severe("Could not load ban list", ioexception);
             }
         }
     }
@@ -107,7 +105,7 @@ public class BanList {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.b, false));
 
             if (flag) {
-                printwriter.println("# Updated " + (new SimpleDateFormat()).format(new Date()) + " by Minecraft " + "1.4.7");
+                printwriter.println("# Updated " + (new SimpleDateFormat()).format(new Date()) + " by Minecraft " + "1.5");
                 printwriter.println("# victim name | ban date | banned by | banned until | reason");
                 printwriter.println();
             }
@@ -122,7 +120,7 @@ public class BanList {
 
             printwriter.close();
         } catch (IOException ioexception) {
-            Logger.getLogger("Minecraft").log(Level.SEVERE, "Could not save ban list", ioexception);
+            MinecraftServer.getServer().getLogger().severe("Could not save ban list", ioexception);
         }
     }
 }

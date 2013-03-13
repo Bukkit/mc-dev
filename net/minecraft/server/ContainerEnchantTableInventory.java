@@ -4,8 +4,8 @@ class ContainerEnchantTableInventory extends InventorySubcontainer {
 
     final ContainerEnchantTable enchantTable;
 
-    ContainerEnchantTableInventory(ContainerEnchantTable containerenchanttable, String s, int i) {
-        super(s, i);
+    ContainerEnchantTableInventory(ContainerEnchantTable containerenchanttable, String s, boolean flag, int i) {
+        super(s, flag, i);
         this.enchantTable = containerenchanttable;
     }
 
@@ -16,5 +16,9 @@ class ContainerEnchantTableInventory extends InventorySubcontainer {
     public void update() {
         super.update();
         this.enchantTable.a((IInventory) this);
+    }
+
+    public boolean b(int i, ItemStack itemstack) {
+        return true;
     }
 }

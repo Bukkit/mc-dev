@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface ICommandHandler {
 
-    void a(ICommandListener icommandlistener, String s);
+    int a(ICommandListener icommandlistener, String s);
 
     List b(ICommandListener icommandlistener, String s);
 

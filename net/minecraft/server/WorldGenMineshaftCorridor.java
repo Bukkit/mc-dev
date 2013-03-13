@@ -131,6 +131,23 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
         }
     }
 
+    protected boolean a(World world, StructureBoundingBox structureboundingbox, Random random, int i, int j, int k, StructurePieceTreasure[] astructurepiecetreasure, int l) {
+        int i1 = this.a(i, k);
+        int j1 = this.a(j);
+        int k1 = this.b(i, k);
+
+        if (structureboundingbox.b(i1, j1, k1) && world.getTypeId(i1, j1, k1) == 0) {
+            world.setTypeIdAndData(i1, j1, k1, Block.RAILS.id, this.c(Block.RAILS.id, random.nextBoolean() ? 1 : 0), 2);
+            EntityMinecartChest entityminecartchest = new EntityMinecartChest(world, (double) ((float) i1 + 0.5F), (double) ((float) j1 + 0.5F), (double) ((float) k1 + 0.5F));
+
+            StructurePieceTreasure.a(random, astructurepiecetreasure, (IInventory) entityminecartchest, l);
+            world.addEntity(entityminecartchest);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
         if (this.a(world, structureboundingbox)) {
             return false;
@@ -184,11 +201,11 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
                     i1 = this.b(1, i1);
                     if (structureboundingbox.b(j1, l, i1)) {
                         this.c = true;
-                        world.setTypeId(j1, l, i1, Block.MOB_SPAWNER.id);
+                        world.setTypeIdAndData(j1, l, i1, Block.MOB_SPAWNER.id, 0, 2);
                         TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(j1, l, i1);
 
                         if (tileentitymobspawner != null) {
-                            tileentitymobspawner.a("CaveSpider");
+                            tileentitymobspawner.a().a("CaveSpider");
                         }
                     }
                 }
@@ -206,7 +223,7 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
             if (this.a) {
                 for (j = 0; j <= i; ++j) {
                     k = this.a(world, 1, -1, j, structureboundingbox);
-                    if (k > 0 && Block.q[k]) {
+                    if (k > 0 && Block.s[k]) {
                         this.a(world, structureboundingbox, random, 0.7F, 1, 0, j, Block.RAILS.id, this.c(Block.RAILS.id, 0));
                     }
                 }

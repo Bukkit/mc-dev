@@ -16,5 +16,5 @@ public interface ICommand extends Comparable {
 
     List a(ICommandListener icommandlistener, String[] astring);
 
-    boolean a(int i);
+    boolean a(String[] astring, int i);
 }

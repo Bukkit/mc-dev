@@ -31,10 +31,6 @@ public class EmptyChunk extends Chunk {
         return true;
     }
 
-    public boolean a(int i, int j, int k, int l) {
-        return true;
-    }
-
     public int getData(int i, int j, int k) {
         return 0;
     }
@@ -79,7 +75,7 @@ public class EmptyChunk extends Chunk {
 
     public void e() {}
 
-    public void a(Entity entity, AxisAlignedBB axisalignedbb, List list) {}
+    public void a(Entity entity, AxisAlignedBB axisalignedbb, List list, IEntitySelector ientityselector) {}
 
     public void a(Class oclass, AxisAlignedBB axisalignedbb, List list, IEntitySelector ientityselector) {}
 

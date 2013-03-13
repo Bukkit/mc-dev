@@ -9,8 +9,8 @@ public class TileEntityEnderChest extends TileEntity {
 
     public TileEntityEnderChest() {}
 
-    public void g() {
-        super.g();
+    public void h() {
+        super.h();
         if (++this.d % 20 * 4 == 0) {
             this.world.playNote(this.x, this.y, this.z, Block.ENDER_CHEST.id, 1, this.c);
         }
@@ -54,14 +54,17 @@ public class TileEntityEnderChest extends TileEntity {
         }
     }
 
-    public void b(int i, int j) {
+    public boolean b(int i, int j) {
         if (i == 1) {
             this.c = j;
+            return true;
+        } else {
+            return super.b(i, j);
         }
     }
 
     public void w_() {
-        this.h();
+        this.i();
         super.w_();
     }
 

@@ -7,12 +7,12 @@ public class BlockFire extends Block {
     private int[] a = new int[256];
     private int[] b = new int[256];
 
-    protected BlockFire(int i, int j) {
-        super(i, j, Material.FIRE);
+    protected BlockFire(int i) {
+        super(i, Material.FIRE);
         this.b(true);
     }
 
-    public void t_() {
+    public void s_() {
         this.a(Block.WOOD.id, 5, 20);
         this.a(Block.WOOD_DOUBLE_STEP.id, 5, 20);
         this.a(Block.WOOD_STEP.id, 5, 20);
@@ -35,7 +35,7 @@ public class BlockFire extends Block {
         this.b[i] = k;
     }
 
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public AxisAlignedBB b(World world, int i, int j, int k) {
         return null;
     }
 
@@ -55,11 +55,11 @@ public class BlockFire extends Block {
         return 0;
     }
 
-    public int r_() {
+    public int a(World world) {
         return 30;
     }
 
-    public void b(World world, int i, int j, int k, Random random) {
+    public void a(World world, int i, int j, int k, Random random) {
         if (world.getGameRules().getBoolean("doFireTick")) {
             boolean flag = world.getTypeId(i, j - 1, k) == Block.NETHERRACK.id;
 
@@ -68,27 +68,27 @@ public class BlockFire extends Block {
             }
 
             if (!this.canPlace(world, i, j, k)) {
-                world.setTypeId(i, j, k, 0);
+                world.setAir(i, j, k);
             }
 
-            if (!flag && world.N() && (world.D(i, j, k) || world.D(i - 1, j, k) || world.D(i + 1, j, k) || world.D(i, j, k - 1) || world.D(i, j, k + 1))) {
-                world.setTypeId(i, j, k, 0);
+            if (!flag && world.O() && (world.F(i, j, k) || world.F(i - 1, j, k) || world.F(i + 1, j, k) || world.F(i, j, k - 1) || world.F(i, j, k + 1))) {
+                world.setAir(i, j, k);
             } else {
                 int l = world.getData(i, j, k);
 
                 if (l < 15) {
-                    world.setRawData(i, j, k, l + random.nextInt(3) / 2);
+                    world.setData(i, j, k, l + random.nextInt(3) / 2, 4);
                 }
 
-                world.a(i, j, k, this.id, this.r_() + random.nextInt(10));
-                if (!flag && !this.l(world, i, j, k)) {
-                    if (!world.v(i, j - 1, k) || l > 3) {
-                        world.setTypeId(i, j, k, 0);
+                world.a(i, j, k, this.id, this.a(world) + random.nextInt(10));
+                if (!flag && !this.k(world, i, j, k)) {
+                    if (!world.w(i, j - 1, k) || l > 3) {
+                        world.setAir(i, j, k);
                     }
                 } else if (!flag && !this.d(world, i, j - 1, k) && l == 15 && random.nextInt(4) == 0) {
-                    world.setTypeId(i, j, k, 0);
+                    world.setAir(i, j, k);
                 } else {
-                    boolean flag1 = world.E(i, j, k);
+                    boolean flag1 = world.G(i, j, k);
                     byte b0 = 0;
 
                     if (flag1) {
@@ -112,7 +112,7 @@ public class BlockFire extends Block {
                                         l1 += (k1 - (j + 1)) * 100;
                                     }
 
-                                    int i2 = this.n(world, i1, k1, j1);
+                                    int i2 = this.m(world, i1, k1, j1);
 
                                     if (i2 > 0) {
                                         int j2 = (i2 + 40 + world.difficulty * 7) / (l + 30);
@@ -121,14 +121,14 @@ public class BlockFire extends Block {
                                             j2 /= 2;
                                         }
 
-                                        if (j2 > 0 && random.nextInt(l1) <= j2 && (!world.N() || !world.D(i1, k1, j1)) && !world.D(i1 - 1, k1, k) && !world.D(i1 + 1, k1, j1) && !world.D(i1, k1, j1 - 1) && !world.D(i1, k1, j1 + 1)) {
+                                        if (j2 > 0 && random.nextInt(l1) <= j2 && (!world.O() || !world.F(i1, k1, j1)) && !world.F(i1 - 1, k1, k) && !world.F(i1 + 1, k1, j1) && !world.F(i1, k1, j1 - 1) && !world.F(i1, k1, j1 + 1)) {
                                             int k2 = l + random.nextInt(5) / 4;
 
                                             if (k2 > 15) {
                                                 k2 = 15;
                                             }
 
-                                            world.setTypeIdAndData(i1, k1, j1, this.id, k2);
+                                            world.setTypeIdAndData(i1, k1, j1, this.id, k2, 3);
                                         }
                                     }
                                 }
@@ -150,16 +150,16 @@ public class BlockFire extends Block {
         if (random.nextInt(l) < j1) {
             boolean flag = world.getTypeId(i, j, k) == Block.TNT.id;
 
-            if (random.nextInt(i1 + 10) < 5 && !world.D(i, j, k)) {
+            if (random.nextInt(i1 + 10) < 5 && !world.F(i, j, k)) {
                 int k1 = i1 + random.nextInt(5) / 4;
 
                 if (k1 > 15) {
                     k1 = 15;
                 }
 
-                world.setTypeIdAndData(i, j, k, this.id, k1);
+                world.setTypeIdAndData(i, j, k, this.id, k1, 3);
             } else {
-                world.setTypeId(i, j, k, 0);
+                world.setAir(i, j, k);
             }
 
             if (flag) {
@@ -168,11 +168,11 @@ public class BlockFire extends Block {
         }
     }
 
-    private boolean l(World world, int i, int j, int k) {
+    private boolean k(World world, int i, int j, int k) {
         return this.d(world, i + 1, j, k) ? true : (this.d(world, i - 1, j, k) ? true : (this.d(world, i, j - 1, k) ? true : (this.d(world, i, j + 1, k) ? true : (this.d(world, i, j, k - 1) ? true : this.d(world, i, j, k + 1)))));
     }
 
-    private int n(World world, int i, int j, int k) {
+    private int m(World world, int i, int j, int k) {
         byte b0 = 0;
 
         if (!world.isEmpty(i, j, k)) {
@@ -204,21 +204,21 @@ public class BlockFire extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return world.v(i, j - 1, k) || this.l(world, i, j, k);
+        return world.w(i, j - 1, k) || this.k(world, i, j, k);
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        if (!world.v(i, j - 1, k) && !this.l(world, i, j, k)) {
-            world.setTypeId(i, j, k, 0);
+        if (!world.w(i, j - 1, k) && !this.k(world, i, j, k)) {
+            world.setAir(i, j, k);
         }
     }
 
     public void onPlace(World world, int i, int j, int k) {
-        if (world.worldProvider.dimension > 0 || world.getTypeId(i, j - 1, k) != Block.OBSIDIAN.id || !Block.PORTAL.i_(world, i, j, k)) {
-            if (!world.v(i, j - 1, k) && !this.l(world, i, j, k)) {
-                world.setTypeId(i, j, k, 0);
+        if (world.worldProvider.dimension > 0 || world.getTypeId(i, j - 1, k) != Block.OBSIDIAN.id || !Block.PORTAL.n_(world, i, j, k)) {
+            if (!world.w(i, j - 1, k) && !this.k(world, i, j, k)) {
+                world.setAir(i, j, k);
             } else {
-                world.a(i, j, k, this.id, this.r_() + world.random.nextInt(10));
+                world.a(i, j, k, this.id, this.a(world) + world.random.nextInt(10));
             }
         }
     }

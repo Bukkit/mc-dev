@@ -4,20 +4,20 @@ import java.util.Random;
 
 public class BlockWeb extends Block {
 
-    public BlockWeb(int i, int j) {
-        super(i, j, Material.WEB);
+    public BlockWeb(int i) {
+        super(i, Material.WEB);
         this.a(CreativeModeTab.c);
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        entity.am();
+        entity.al();
     }
 
     public boolean c() {
         return false;
     }
 
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public AxisAlignedBB b(World world, int i, int j, int k) {
         return null;
     }
 
@@ -33,7 +33,7 @@ public class BlockWeb extends Block {
         return Item.STRING.id;
     }
 
-    protected boolean s_() {
+    protected boolean r_() {
         return true;
     }
 }

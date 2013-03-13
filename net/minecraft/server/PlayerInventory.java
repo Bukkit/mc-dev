@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.concurrent.Callable;
+
 public class PlayerInventory implements IInventory {
 
     public ItemStack[] items = new ItemStack[36];
@@ -41,7 +43,7 @@ public class PlayerInventory implements IInventory {
         return -1;
     }
 
-    public int i() {
+    public int j() {
         for (int i = 0; i < this.items.length; ++i) {
             if (this.items[i] == null) {
                 return i;
@@ -82,7 +84,7 @@ public class PlayerInventory implements IInventory {
         int k;
 
         if (itemstack.getMaxStackSize() == 1) {
-            k = this.i();
+            k = this.j();
             if (k < 0) {
                 return j;
             } else {
@@ -95,7 +97,7 @@ public class PlayerInventory implements IInventory {
         } else {
             k = this.firstPartial(itemstack);
             if (k < 0) {
-                k = this.i();
+                k = this.j();
             }
 
             if (k < 0) {
@@ -130,7 +132,7 @@ public class PlayerInventory implements IInventory {
         }
     }
 
-    public void j() {
+    public void k() {
         for (int i = 0; i < this.items.length; ++i) {
             if (this.items[i] != null) {
                 this.items[i].a(this.player.world, this.player, i, this.itemInHandIndex == i);
@@ -159,32 +161,46 @@ public class PlayerInventory implements IInventory {
     }
 
     public boolean pickup(ItemStack itemstack) {
-        int i;
-
-        if (itemstack.h()) {
-            i = this.i();
-            if (i >= 0) {
-                this.items[i] = ItemStack.b(itemstack);
-                this.items[i].b = 5;
-                itemstack.count = 0;
-                return true;
-            } else if (this.player.abilities.canInstantlyBuild) {
-                itemstack.count = 0;
-                return true;
-            } else {
-                return false;
-            }
+        if (itemstack == null) {
+            return false;
         } else {
-            do {
-                i = itemstack.count;
-                itemstack.count = this.e(itemstack);
-            } while (itemstack.count > 0 && itemstack.count < i);
+            try {
+                int i;
 
-            if (itemstack.count == i && this.player.abilities.canInstantlyBuild) {
-                itemstack.count = 0;
-                return true;
-            } else {
-                return itemstack.count < i;
+                if (itemstack.i()) {
+                    i = this.j();
+                    if (i >= 0) {
+                        this.items[i] = ItemStack.b(itemstack);
+                        this.items[i].b = 5;
+                        itemstack.count = 0;
+                        return true;
+                    } else if (this.player.abilities.canInstantlyBuild) {
+                        itemstack.count = 0;
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    do {
+                        i = itemstack.count;
+                        itemstack.count = this.e(itemstack);
+                    } while (itemstack.count > 0 && itemstack.count < i);
+
+                    if (itemstack.count == i && this.player.abilities.canInstantlyBuild) {
+                        itemstack.count = 0;
+                        return true;
+                    } else {
+                        return itemstack.count < i;
+                    }
+                }
+            } catch (Throwable throwable) {
+                CrashReport crashreport = CrashReport.a(throwable, "Adding item to inventory");
+                CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Item being added");
+
+                crashreportsystemdetails.a("Item ID", Integer.valueOf(itemstack.id));
+                crashreportsystemdetails.a("Item data", Integer.valueOf(itemstack.getData()));
+                crashreportsystemdetails.a("Item name", (Callable) (new CrashReportItemName(this, itemstack)));
+                throw new ReportedException(crashreport);
             }
         }
     }
@@ -321,6 +337,10 @@ public class PlayerInventory implements IInventory {
         return "container.inventory";
     }
 
+    public boolean c() {
+        return false;
+    }
+
     public int getMaxStackSize() {
         return 64;
     }
@@ -345,12 +365,12 @@ public class PlayerInventory implements IInventory {
         return this.armor[i];
     }
 
-    public int k() {
+    public int l() {
         int i = 0;
 
         for (int j = 0; j < this.armor.length; ++j) {
             if (this.armor[j] != null && this.armor[j].getItem() instanceof ItemArmor) {
-                int k = ((ItemArmor) this.armor[j].getItem()).b;
+                int k = ((ItemArmor) this.armor[j].getItem()).c;
 
                 i += k;
             }
@@ -375,7 +395,7 @@ public class PlayerInventory implements IInventory {
         }
     }
 
-    public void l() {
+    public void m() {
         int i;
 
         for (i = 0; i < this.items.length; ++i) {
@@ -405,7 +425,7 @@ public class PlayerInventory implements IInventory {
         return this.g;
     }
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         return this.player.dead ? false : entityhuman.e(this.player) <= 64.0D;
     }
 
@@ -429,7 +449,11 @@ public class PlayerInventory implements IInventory {
 
     public void startOpen() {}
 
-    public void f() {}
+    public void g() {}
+
+    public boolean b(int i, ItemStack itemstack) {
+        return true;
+    }
 
     public void b(PlayerInventory playerinventory) {
         int i;

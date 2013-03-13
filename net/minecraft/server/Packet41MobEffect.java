@@ -16,7 +16,11 @@ public class Packet41MobEffect extends Packet {
         this.a = i;
         this.b = (byte) (mobeffect.getEffectId() & 255);
         this.c = (byte) (mobeffect.getAmplifier() & 255);
-        this.d = (short) mobeffect.getDuration();
+        if (mobeffect.getDuration() > 32767) {
+            this.d = 32767;
+        } else {
+            this.d = (short) mobeffect.getDuration();
+        }
     }
 
     public void a(DataInputStream datainputstream) {

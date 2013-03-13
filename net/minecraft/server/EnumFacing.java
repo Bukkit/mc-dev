@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public enum EnumFacing {
 
-    a("DOWN", 0, 0, 1, 0, -1, 0), b("UP", 1, 1, 0, 0, 1, 0), c("NORTH", 2, 2, 3, 0, 0, -1), d("SOUTH", 3, 3, 2, 0, 0, 1), e("EAST", 4, 4, 5, -1, 0, 0), f("WEST", 5, 5, 4, 1, 0, 0);
+    DOWN("DOWN", 0, 0, 1, 0, -1, 0), UP("UP", 1, 1, 0, 0, 1, 0), NORTH("NORTH", 2, 2, 3, 0, 0, -1), SOUTH("SOUTH", 3, 3, 2, 0, 0, 1), EAST("EAST", 4, 4, 5, -1, 0, 0), WEST("WEST", 5, 5, 4, 1, 0, 0);
     private final int g;
     private final int h;
     private final int i;
@@ -10,7 +10,7 @@ public enum EnumFacing {
     private final int k;
     private static final EnumFacing[] l = new EnumFacing[6];
 
-    private static final EnumFacing[] m = new EnumFacing[] { a, b, c, d, e, f};
+    private static final EnumFacing[] m = new EnumFacing[] { DOWN, UP, NORTH, SOUTH, EAST, WEST};
 
     private EnumFacing(String s, int i, int j, int k, int l, int i1, int j1) {
         this.g = j;
@@ -22,6 +22,10 @@ public enum EnumFacing {
 
     public int c() {
         return this.i;
+    }
+
+    public int d() {
+        return this.j;
     }
 
     public int e() {

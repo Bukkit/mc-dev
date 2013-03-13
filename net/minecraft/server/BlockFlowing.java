@@ -12,19 +12,18 @@ public class BlockFlowing extends BlockFluids {
         super(i, material);
     }
 
-    private void l(World world, int i, int j, int k) {
+    private void k(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
 
-        world.setRawTypeIdAndData(i, j, k, this.id + 1, l);
-        world.e(i, j, k, i, j, k);
+        world.setTypeIdAndData(i, j, k, this.id + 1, l, 2);
     }
 
-    public boolean c(IBlockAccess iblockaccess, int i, int j, int k) {
+    public boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
         return this.material != Material.LAVA;
     }
 
-    public void b(World world, int i, int j, int k, Random random) {
-        int l = this.f_(world, i, j, k);
+    public void a(World world, int i, int j, int k, Random random) {
+        int l = this.k_(world, i, j, k);
         byte b0 = 1;
 
         if (this.material == Material.LAVA && !world.worldProvider.e) {
@@ -48,8 +47,8 @@ public class BlockFlowing extends BlockFluids {
                 i1 = -1;
             }
 
-            if (this.f_(world, i, j + 1, k) >= 0) {
-                int k1 = this.f_(world, i, j + 1, k);
+            if (this.k_(world, i, j + 1, k) >= 0) {
+                int k1 = this.k_(world, i, j + 1, k);
 
                 if (k1 >= 8) {
                     i1 = k1;
@@ -61,7 +60,7 @@ public class BlockFlowing extends BlockFluids {
             if (this.a >= 2 && this.material == Material.WATER) {
                 if (world.getMaterial(i, j - 1, k).isBuildable()) {
                     i1 = 0;
-                } else if (world.getMaterial(i, j - 1, k) == this.material && world.getData(i, j, k) == 0) {
+                } else if (world.getMaterial(i, j - 1, k) == this.material && world.getData(i, j - 1, k) == 0) {
                     i1 = 0;
                 }
             }
@@ -73,25 +72,25 @@ public class BlockFlowing extends BlockFluids {
 
             if (i1 == l) {
                 if (flag) {
-                    this.l(world, i, j, k);
+                    this.k(world, i, j, k);
                 }
             } else {
                 l = i1;
                 if (i1 < 0) {
-                    world.setTypeId(i, j, k, 0);
+                    world.setAir(i, j, k);
                 } else {
-                    world.setData(i, j, k, i1);
-                    world.a(i, j, k, this.id, this.r_());
+                    world.setData(i, j, k, i1, 2);
+                    world.a(i, j, k, this.id, this.a(world));
                     world.applyPhysics(i, j, k, this.id);
                 }
             }
         } else {
-            this.l(world, i, j, k);
+            this.k(world, i, j, k);
         }
 
-        if (this.p(world, i, j - 1, k)) {
+        if (this.o(world, i, j - 1, k)) {
             if (this.material == Material.LAVA && world.getMaterial(i, j - 1, k) == Material.WATER) {
-                world.setTypeId(i, j - 1, k, Block.STONE.id);
+                world.setTypeIdUpdate(i, j - 1, k, Block.STONE.id);
                 this.fizz(world, i, j - 1, k);
                 return;
             }
@@ -101,8 +100,8 @@ public class BlockFlowing extends BlockFluids {
             } else {
                 this.flow(world, i, j - 1, k, l + 8);
             }
-        } else if (l >= 0 && (l == 0 || this.o(world, i, j - 1, k))) {
-            boolean[] aboolean = this.n(world, i, j, k);
+        } else if (l >= 0 && (l == 0 || this.n(world, i, j - 1, k))) {
+            boolean[] aboolean = this.m(world, i, j, k);
 
             i1 = l + b0;
             if (l >= 8) {
@@ -132,7 +131,7 @@ public class BlockFlowing extends BlockFluids {
     }
 
     private void flow(World world, int i, int j, int k, int l) {
-        if (this.p(world, i, j, k)) {
+        if (this.o(world, i, j, k)) {
             int i1 = world.getTypeId(i, j, k);
 
             if (i1 > 0) {
@@ -143,7 +142,7 @@ public class BlockFlowing extends BlockFluids {
                 }
             }
 
-            world.setTypeIdAndData(i, j, k, this.id, l);
+            world.setTypeIdAndData(i, j, k, this.id, l, 3);
         }
     }
 
@@ -171,8 +170,8 @@ public class BlockFlowing extends BlockFluids {
                     ++i2;
                 }
 
-                if (!this.o(world, l1, j, i2) && (world.getMaterial(l1, j, i2) != this.material || world.getData(l1, j, i2) != 0)) {
-                    if (!this.o(world, l1, j - 1, i2)) {
+                if (!this.n(world, l1, j, i2) && (world.getMaterial(l1, j, i2) != this.material || world.getData(l1, j, i2) != 0)) {
+                    if (!this.n(world, l1, j - 1, i2)) {
                         return l;
                     }
 
@@ -190,7 +189,7 @@ public class BlockFlowing extends BlockFluids {
         return j1;
     }
 
-    private boolean[] n(World world, int i, int j, int k) {
+    private boolean[] m(World world, int i, int j, int k) {
         int l;
         int i1;
 
@@ -215,8 +214,8 @@ public class BlockFlowing extends BlockFluids {
                 ++j1;
             }
 
-            if (!this.o(world, i1, j, j1) && (world.getMaterial(i1, j, j1) != this.material || world.getData(i1, j, j1) != 0)) {
-                if (this.o(world, i1, j - 1, j1)) {
+            if (!this.n(world, i1, j, j1) && (world.getMaterial(i1, j, j1) != this.material || world.getData(i1, j, j1) != 0)) {
+                if (this.n(world, i1, j - 1, j1)) {
                     this.c[l] = this.d(world, i1, j, j1, 1, l);
                 } else {
                     this.c[l] = 0;
@@ -239,7 +238,7 @@ public class BlockFlowing extends BlockFluids {
         return this.b;
     }
 
-    private boolean o(World world, int i, int j, int k) {
+    private boolean n(World world, int i, int j, int k) {
         int l = world.getTypeId(i, j, k);
 
         if (l != Block.WOODEN_DOOR.id && l != Block.IRON_DOOR_BLOCK.id && l != Block.SIGN_POST.id && l != Block.LADDER.id && l != Block.SUGAR_CANE_BLOCK.id) {
@@ -256,7 +255,7 @@ public class BlockFlowing extends BlockFluids {
     }
 
     protected int d(World world, int i, int j, int k, int l) {
-        int i1 = this.f_(world, i, j, k);
+        int i1 = this.k_(world, i, j, k);
 
         if (i1 < 0) {
             return l;
@@ -273,16 +272,16 @@ public class BlockFlowing extends BlockFluids {
         }
     }
 
-    private boolean p(World world, int i, int j, int k) {
+    private boolean o(World world, int i, int j, int k) {
         Material material = world.getMaterial(i, j, k);
 
-        return material == this.material ? false : (material == Material.LAVA ? false : !this.o(world, i, j, k));
+        return material == this.material ? false : (material == Material.LAVA ? false : !this.n(world, i, j, k));
     }
 
     public void onPlace(World world, int i, int j, int k) {
         super.onPlace(world, i, j, k);
         if (world.getTypeId(i, j, k) == this.id) {
-            world.a(i, j, k, this.id, this.r_());
+            world.a(i, j, k, this.id, this.a(world));
         }
     }
 

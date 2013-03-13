@@ -20,7 +20,7 @@ public class CommandMe extends CommandAbstract {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0) {
-            String s = a(icommandlistener, astring, 0);
+            String s = a(icommandlistener, astring, 0, icommandlistener.a(1, "me"));
 
             MinecraftServer.getServer().getPlayerList().sendAll(new Packet3Chat("* " + icommandlistener.getName() + " " + s));
         } else {

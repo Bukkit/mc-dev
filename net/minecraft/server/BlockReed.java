@@ -4,16 +4,15 @@ import java.util.Random;
 
 public class BlockReed extends Block {
 
-    protected BlockReed(int i, int j) {
+    protected BlockReed(int i) {
         super(i, Material.PLANT);
-        this.textureId = j;
         float f = 0.375F;
 
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
         this.b(true);
     }
 
-    public void b(World world, int i, int j, int k, Random random) {
+    public void a(World world, int i, int j, int k, Random random) {
         if (world.isEmpty(i, j + 1, k)) {
             int l;
 
@@ -25,10 +24,10 @@ public class BlockReed extends Block {
                 int i1 = world.getData(i, j, k);
 
                 if (i1 == 15) {
-                    world.setTypeId(i, j + 1, k, this.id);
-                    world.setData(i, j, k, 0);
+                    world.setTypeIdUpdate(i, j + 1, k, this.id);
+                    world.setData(i, j, k, 0, 4);
                 } else {
-                    world.setData(i, j, k, i1 + 1);
+                    world.setData(i, j, k, i1 + 1, 4);
                 }
             }
         }
@@ -41,21 +40,21 @@ public class BlockReed extends Block {
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        this.k_(world, i, j, k);
+        this.p_(world, i, j, k);
     }
 
-    protected final void k_(World world, int i, int j, int k) {
-        if (!this.d(world, i, j, k)) {
+    protected final void p_(World world, int i, int j, int k) {
+        if (!this.f(world, i, j, k)) {
             this.c(world, i, j, k, world.getData(i, j, k), 0);
-            world.setTypeId(i, j, k, 0);
+            world.setAir(i, j, k);
         }
     }
 
-    public boolean d(World world, int i, int j, int k) {
+    public boolean f(World world, int i, int j, int k) {
         return this.canPlace(world, i, j, k);
     }
 
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public AxisAlignedBB b(World world, int i, int j, int k) {
         return null;
     }
 

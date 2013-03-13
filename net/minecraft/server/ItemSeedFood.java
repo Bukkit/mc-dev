@@ -18,7 +18,7 @@ public class ItemSeedFood extends ItemFood {
             int i1 = world.getTypeId(i, j, k);
 
             if (i1 == this.c && world.isEmpty(i, j + 1, k)) {
-                world.setTypeId(i, j + 1, k, this.b);
+                world.setTypeIdUpdate(i, j + 1, k, this.b);
                 --itemstack.count;
                 return true;
             } else {

@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -85,6 +86,18 @@ public abstract class CommandAbstract implements ICommand {
         }
     }
 
+    public static String d(ICommandListener icommandlistener, String s) {
+        EntityPlayer entityplayer = PlayerSelector.getPlayer(icommandlistener, s);
+
+        if (entityplayer != null) {
+            return entityplayer.getLocalizedName();
+        } else if (PlayerSelector.isPattern(s)) {
+            throw new ExceptionPlayerNotFound();
+        } else {
+            return s;
+        }
+    }
+
     public static String a(ICommandListener icommandlistener, String[] astring, int i) {
         return a(icommandlistener, astring, i, false);
     }
@@ -135,6 +148,10 @@ public abstract class CommandAbstract implements ICommand {
         return stringbuilder.toString();
     }
 
+    public static String a(Collection collection) {
+        return a(collection.toArray(new String[0]));
+    }
+
     public static boolean a(String s, String s1) {
         return s1.regionMatches(true, 0, s, 0, s.length());
     }
@@ -172,7 +189,7 @@ public abstract class CommandAbstract implements ICommand {
         return arraylist;
     }
 
-    public boolean a(int i) {
+    public boolean a(String[] astring, int i) {
         return false;
     }
 

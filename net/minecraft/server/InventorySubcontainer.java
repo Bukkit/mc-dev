@@ -8,9 +8,11 @@ public class InventorySubcontainer implements IInventory {
     private int b;
     private ItemStack[] items;
     private List d;
+    private boolean e;
 
-    public InventorySubcontainer(String s, int i) {
+    public InventorySubcontainer(String s, boolean flag, int i) {
         this.a = s;
+        this.e = flag;
         this.b = i;
         this.items = new ItemStack[i];
     }
@@ -70,6 +72,10 @@ public class InventorySubcontainer implements IInventory {
         return this.a;
     }
 
+    public boolean c() {
+        return this.e;
+    }
+
     public int getMaxStackSize() {
         return 64;
     }
@@ -82,11 +88,15 @@ public class InventorySubcontainer implements IInventory {
         }
     }
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         return true;
     }
 
     public void startOpen() {}
 
-    public void f() {}
+    public void g() {}
+
+    public boolean b(int i, ItemStack itemstack) {
+        return true;
+    }
 }

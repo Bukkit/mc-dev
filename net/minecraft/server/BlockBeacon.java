@@ -3,12 +3,12 @@ package net.minecraft.server;
 public class BlockBeacon extends BlockContainer {
 
     public BlockBeacon(int i) {
-        super(i, 41, Material.SHATTERABLE);
+        super(i, Material.SHATTERABLE);
         this.c(3.0F);
         this.a(CreativeModeTab.f);
     }
 
-    public TileEntity a(World world) {
+    public TileEntity b(World world) {
         return new TileEntityBeacon();
     }
 
@@ -36,5 +36,12 @@ public class BlockBeacon extends BlockContainer {
 
     public int d() {
         return 34;
+    }
+
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
+        super.postPlace(world, i, j, k, entityliving, itemstack);
+        if (itemstack.hasName()) {
+            ((TileEntityBeacon) world.getTileEntity(i, j, k)).a(itemstack.getName());
+        }
     }
 }

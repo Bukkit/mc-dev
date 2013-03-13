@@ -5,7 +5,8 @@ import java.util.Random;
 public class TileEntityDispenser extends TileEntity implements IInventory {
 
     private ItemStack[] items = new ItemStack[9];
-    private Random b = new Random();
+    private Random c = new Random();
+    protected String a;
 
     public TileEntityDispenser() {}
 
@@ -51,12 +52,12 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
         }
     }
 
-    public int i() {
+    public int j() {
         int i = -1;
         int j = 1;
 
         for (int k = 0; k < this.items.length; ++k) {
-            if (this.items[k] != null && this.b.nextInt(j++) == 0) {
+            if (this.items[k] != null && this.c.nextInt(j++) == 0) {
                 i = k;
             }
         }
@@ -76,7 +77,7 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
     public int addItem(ItemStack itemstack) {
         for (int i = 0; i < this.items.length; ++i) {
             if (this.items[i] == null || this.items[i].id == 0) {
-                this.items[i] = itemstack;
+                this.setItem(i, itemstack);
                 return i;
             }
         }
@@ -85,7 +86,15 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
     }
 
     public String getName() {
-        return "container.dispenser";
+        return this.c() ? this.a : "container.dispenser";
+    }
+
+    public void a(String s) {
+        this.a = s;
+    }
+
+    public boolean c() {
+        return this.a != null;
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -101,6 +110,10 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
             if (j >= 0 && j < this.items.length) {
                 this.items[j] = ItemStack.createStack(nbttagcompound1);
             }
+        }
+
+        if (nbttagcompound.hasKey("CustomName")) {
+            this.a = nbttagcompound.getString("CustomName");
         }
     }
 
@@ -119,17 +132,24 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
         }
 
         nbttagcompound.set("Items", nbttaglist);
+        if (this.c()) {
+            nbttagcompound.setString("CustomName", this.a);
+        }
     }
 
     public int getMaxStackSize() {
         return 64;
     }
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         return this.world.getTileEntity(this.x, this.y, this.z) != this ? false : entityhuman.e((double) this.x + 0.5D, (double) this.y + 0.5D, (double) this.z + 0.5D) <= 64.0D;
     }
 
     public void startOpen() {}
 
-    public void f() {}
+    public void g() {}
+
+    public boolean b(int i, ItemStack itemstack) {
+        return true;
+    }
 }

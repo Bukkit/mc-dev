@@ -6,7 +6,7 @@ public abstract class EntityWaterAnimal extends EntityCreature implements IAnima
         super(world);
     }
 
-    public boolean bc() {
+    public boolean bf() {
         return true;
     }
 
@@ -14,7 +14,7 @@ public abstract class EntityWaterAnimal extends EntityCreature implements IAnima
         return this.world.b(this.boundingBox);
     }
 
-    public int aN() {
+    public int aQ() {
         return 120;
     }
 
@@ -26,10 +26,10 @@ public abstract class EntityWaterAnimal extends EntityCreature implements IAnima
         return 1 + this.world.random.nextInt(3);
     }
 
-    public void y() {
+    public void x() {
         int i = this.getAirTicks();
 
-        super.y();
+        super.x();
         if (this.isAlive() && !this.a(Material.WATER)) {
             --i;
             this.setAirTicks(i);

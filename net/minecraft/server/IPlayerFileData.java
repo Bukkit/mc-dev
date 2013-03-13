@@ -1,10 +1,10 @@
 package net.minecraft.server;
 
-public interface PlayerFileData {
+public interface IPlayerFileData {
 
     void save(EntityHuman entityhuman);
 
-    void load(EntityHuman entityhuman);
+    NBTTagCompound load(EntityHuman entityhuman);
 
     String[] getSeenPlayers();
 }

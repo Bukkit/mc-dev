@@ -82,8 +82,8 @@ public class ContainerPlayer extends Container {
                 if (!this.a(itemstack1, 9, 45, false)) {
                     return null;
                 }
-            } else if (itemstack.getItem() instanceof ItemArmor && !((Slot) this.c.get(5 + ((ItemArmor) itemstack.getItem()).a)).d()) {
-                int j = 5 + ((ItemArmor) itemstack.getItem()).a;
+            } else if (itemstack.getItem() instanceof ItemArmor && !((Slot) this.c.get(5 + ((ItemArmor) itemstack.getItem()).b)).d()) {
+                int j = 5 + ((ItemArmor) itemstack.getItem()).b;
 
                 if (!this.a(itemstack1, j, j + 1, false)) {
                     return null;
@@ -114,5 +114,9 @@ public class ContainerPlayer extends Container {
         }
 
         return itemstack;
+    }
+
+    public boolean a(ItemStack itemstack, Slot slot) {
+        return slot.inventory != this.resultInventory && super.a(itemstack, slot);
     }
 }

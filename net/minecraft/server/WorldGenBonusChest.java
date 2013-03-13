@@ -29,28 +29,28 @@ public class WorldGenBonusChest extends WorldGenerator {
                 int k1 = j + random.nextInt(3) - random.nextInt(3);
                 int l1 = k + random.nextInt(4) - random.nextInt(4);
 
-                if (world.isEmpty(j1, k1, l1) && world.v(j1, k1 - 1, l1)) {
-                    world.setTypeId(j1, k1, l1, Block.CHEST.id);
+                if (world.isEmpty(j1, k1, l1) && world.w(j1, k1 - 1, l1)) {
+                    world.setTypeIdAndData(j1, k1, l1, Block.CHEST.id, 0, 2);
                     TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(j1, k1, l1);
 
                     if (tileentitychest != null && tileentitychest != null) {
-                        StructurePieceTreasure.a(random, this.a, tileentitychest, this.b);
+                        StructurePieceTreasure.a(random, this.a, (IInventory) tileentitychest, this.b);
                     }
 
-                    if (world.isEmpty(j1 - 1, k1, l1) && world.v(j1 - 1, k1 - 1, l1)) {
-                        world.setTypeId(j1 - 1, k1, l1, Block.TORCH.id);
+                    if (world.isEmpty(j1 - 1, k1, l1) && world.w(j1 - 1, k1 - 1, l1)) {
+                        world.setTypeIdAndData(j1 - 1, k1, l1, Block.TORCH.id, 0, 2);
                     }
 
-                    if (world.isEmpty(j1 + 1, k1, l1) && world.v(j1 - 1, k1 - 1, l1)) {
-                        world.setTypeId(j1 + 1, k1, l1, Block.TORCH.id);
+                    if (world.isEmpty(j1 + 1, k1, l1) && world.w(j1 - 1, k1 - 1, l1)) {
+                        world.setTypeIdAndData(j1 + 1, k1, l1, Block.TORCH.id, 0, 2);
                     }
 
-                    if (world.isEmpty(j1, k1, l1 - 1) && world.v(j1 - 1, k1 - 1, l1)) {
-                        world.setTypeId(j1, k1, l1 - 1, Block.TORCH.id);
+                    if (world.isEmpty(j1, k1, l1 - 1) && world.w(j1 - 1, k1 - 1, l1)) {
+                        world.setTypeIdAndData(j1, k1, l1 - 1, Block.TORCH.id, 0, 2);
                     }
 
-                    if (world.isEmpty(j1, k1, l1 + 1) && world.v(j1 - 1, k1 - 1, l1)) {
-                        world.setTypeId(j1, k1, l1 + 1, Block.TORCH.id);
+                    if (world.isEmpty(j1, k1, l1 + 1) && world.w(j1 - 1, k1 - 1, l1)) {
+                        world.setTypeIdAndData(j1, k1, l1 + 1, Block.TORCH.id, 0, 2);
                     }
 
                     return true;

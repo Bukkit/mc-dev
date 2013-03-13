@@ -9,7 +9,7 @@ public class BlockPistonMoving extends BlockContainer {
         this.c(-1.0F);
     }
 
-    public TileEntity a(World world) {
+    public TileEntity b(World world) {
         return null;
     }
 
@@ -47,7 +47,7 @@ public class BlockPistonMoving extends BlockContainer {
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
         if (!world.isStatic && world.getTileEntity(i, j, k) == null) {
-            world.setTypeId(i, j, k, 0);
+            world.setAir(i, j, k);
             return true;
         } else {
             return false;
@@ -78,7 +78,7 @@ public class BlockPistonMoving extends BlockContainer {
         return new TileEntityPiston(i, j, k, flag, flag1);
     }
 
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public AxisAlignedBB b(World world, int i, int j, int k) {
         TileEntityPiston tileentitypiston = this.d(world, i, j, k);
 
         if (tileentitypiston == null) {
@@ -113,18 +113,18 @@ public class BlockPistonMoving extends BlockContainer {
 
             int l = tileentitypiston.c();
 
-            this.minX = block.v() - (double) ((float) Facing.b[l] * f);
-            this.minY = block.x() - (double) ((float) Facing.c[l] * f);
-            this.minZ = block.z() - (double) ((float) Facing.d[l] * f);
-            this.maxX = block.w() - (double) ((float) Facing.b[l] * f);
-            this.maxY = block.y() - (double) ((float) Facing.c[l] * f);
-            this.maxZ = block.A() - (double) ((float) Facing.d[l] * f);
+            this.minX = block.u() - (double) ((float) Facing.b[l] * f);
+            this.minY = block.w() - (double) ((float) Facing.c[l] * f);
+            this.minZ = block.y() - (double) ((float) Facing.d[l] * f);
+            this.maxX = block.v() - (double) ((float) Facing.b[l] * f);
+            this.maxY = block.x() - (double) ((float) Facing.c[l] * f);
+            this.maxZ = block.z() - (double) ((float) Facing.d[l] * f);
         }
     }
 
     public AxisAlignedBB b(World world, int i, int j, int k, int l, float f, int i1) {
         if (l != 0 && l != this.id) {
-            AxisAlignedBB axisalignedbb = Block.byId[l].e(world, i, j, k);
+            AxisAlignedBB axisalignedbb = Block.byId[l].b(world, i, j, k);
 
             if (axisalignedbb == null) {
                 return null;

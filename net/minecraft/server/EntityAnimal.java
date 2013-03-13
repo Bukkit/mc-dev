@@ -11,12 +11,12 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         super(world);
     }
 
-    protected void bm() {
+    protected void bp() {
         if (this.getAge() != 0) {
             this.love = 0;
         }
 
-        super.bm();
+        super.bp();
     }
 
     public void c() {
@@ -53,7 +53,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
             EntityHuman entityhuman = (EntityHuman) entity;
 
-            if (entityhuman.bS() == null || !this.c(entityhuman.bS())) {
+            if (entityhuman.cb() == null || !this.c(entityhuman.cb())) {
                 this.target = null;
             }
         } else if (entity instanceof EntityAnimal) {
@@ -128,7 +128,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
     }
 
     public float a(int i, int j, int k) {
-        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id ? 10.0F : this.world.p(i, j, k) - 0.5F;
+        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id ? 10.0F : this.world.q(i, j, k) - 0.5F;
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -165,7 +165,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 for (i = 0; i < list.size(); ++i) {
                     EntityHuman entityhuman = (EntityHuman) list.get(i);
 
-                    if (entityhuman.bS() != null && this.c(entityhuman.bS())) {
+                    if (entityhuman.cb() != null && this.c(entityhuman.cb())) {
                         return entityhuman;
                     }
                 }
@@ -189,10 +189,10 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         int j = MathHelper.floor(this.boundingBox.b);
         int k = MathHelper.floor(this.locZ);
 
-        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.l(i, j, k) > 8 && super.canSpawn();
+        return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.m(i, j, k) > 8 && super.canSpawn();
     }
 
-    public int aN() {
+    public int aQ() {
         return 120;
     }
 
@@ -208,10 +208,10 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         return itemstack.id == Item.WHEAT.id;
     }
 
-    public boolean a(EntityHuman entityhuman) {
+    public boolean a_(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
-        if (itemstack != null && this.c(itemstack) && this.getAge() == 0) {
+        if (itemstack != null && this.c(itemstack) && this.getAge() == 0 && this.love <= 0) {
             if (!entityhuman.abilities.canInstantlyBuild) {
                 --itemstack.count;
                 if (itemstack.count <= 0) {
@@ -232,7 +232,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
             return true;
         } else {
-            return super.a(entityhuman);
+            return super.a_(entityhuman);
         }
     }
 

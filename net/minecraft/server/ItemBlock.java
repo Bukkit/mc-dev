@@ -7,7 +7,6 @@ public class ItemBlock extends Item {
     public ItemBlock(int i) {
         super(i);
         this.id = i + 256;
-        this.c(Block.byId[i + 256].a(2));
     }
 
     public int g() {
@@ -17,7 +16,7 @@ public class ItemBlock extends Item {
     public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l, float f, float f1, float f2) {
         int i1 = world.getTypeId(i, j, k);
 
-        if (i1 == Block.SNOW.id) {
+        if (i1 == Block.SNOW.id && (world.getData(i, j, k) & 7) < 1) {
             l = 1;
         } else if (i1 != Block.VINE.id && i1 != Block.LONG_GRASS.id && i1 != Block.DEAD_BUSH.id) {
             if (l == 0) {
@@ -51,14 +50,14 @@ public class ItemBlock extends Item {
             return false;
         } else if (j == 255 && Block.byId[this.id].material.isBuildable()) {
             return false;
-        } else if (world.mayPlace(this.id, i, j, k, false, l, entityhuman)) {
+        } else if (world.mayPlace(this.id, i, j, k, false, l, entityhuman, itemstack)) {
             Block block = Block.byId[this.id];
             int j1 = this.filterData(itemstack.getData());
             int k1 = Block.byId[this.id].getPlacedData(world, i, j, k, l, f, f1, f2, j1);
 
-            if (world.setTypeIdAndData(i, j, k, this.id, k1)) {
+            if (world.setTypeIdAndData(i, j, k, this.id, k1, 3)) {
                 if (world.getTypeId(i, j, k) == this.id) {
-                    Block.byId[this.id].postPlace(world, i, j, k, entityhuman);
+                    Block.byId[this.id].postPlace(world, i, j, k, entityhuman, itemstack);
                     Block.byId[this.id].postPlace(world, i, j, k, k1);
                 }
 

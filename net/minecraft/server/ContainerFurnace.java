@@ -58,7 +58,7 @@ public class ContainerFurnace extends Container {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.furnace.a_(entityhuman);
+        return this.furnace.a(entityhuman);
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {

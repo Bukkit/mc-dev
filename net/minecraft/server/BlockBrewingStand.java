@@ -9,7 +9,6 @@ public class BlockBrewingStand extends BlockContainer {
 
     public BlockBrewingStand(int i) {
         super(i, Material.ORE);
-        this.textureId = 157;
     }
 
     public boolean c() {
@@ -20,7 +19,7 @@ public class BlockBrewingStand extends BlockContainer {
         return 25;
     }
 
-    public TileEntity a(World world) {
+    public TileEntity b(World world) {
         return new TileEntityBrewingStand();
     }
 
@@ -31,11 +30,11 @@ public class BlockBrewingStand extends BlockContainer {
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List list, Entity entity) {
         this.a(0.4375F, 0.0F, 0.4375F, 0.5625F, 0.875F, 0.5625F);
         super.a(world, i, j, k, axisalignedbb, list, entity);
-        this.f();
+        this.g();
         super.a(world, i, j, k, axisalignedbb, list, entity);
     }
 
-    public void f() {
+    public void g() {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
@@ -50,6 +49,12 @@ public class BlockBrewingStand extends BlockContainer {
             }
 
             return true;
+        }
+    }
+
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
+        if (itemstack.hasName()) {
+            ((TileEntityBrewingStand) world.getTileEntity(i, j, k)).a(itemstack.getName());
         }
     }
 
@@ -92,5 +97,13 @@ public class BlockBrewingStand extends BlockContainer {
 
     public int getDropType(int i, Random random, int j) {
         return Item.BREWING_STAND.id;
+    }
+
+    public boolean q_() {
+        return true;
+    }
+
+    public int b_(World world, int i, int j, int k, int l) {
+        return Container.b((IInventory) world.getTileEntity(i, j, k));
     }
 }

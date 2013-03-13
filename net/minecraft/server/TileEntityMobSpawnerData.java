@@ -1,22 +1,63 @@
 package net.minecraft.server;
 
-class TileEntityMobSpawnerData extends WeightedRandomChoice {
+public class TileEntityMobSpawnerData extends WeightedRandomChoice {
 
     public final NBTTagCompound b;
     public final String c;
 
-    final TileEntityMobSpawner d;
+    final MobSpawnerAbstract d;
 
-    public TileEntityMobSpawnerData(TileEntityMobSpawner tileentitymobspawner, NBTTagCompound nbttagcompound) {
+    public TileEntityMobSpawnerData(MobSpawnerAbstract mobspawnerabstract, NBTTagCompound nbttagcompound) {
         super(nbttagcompound.getInt("Weight"));
-        this.d = tileentitymobspawner;
-        this.b = nbttagcompound.getCompound("Properties");
-        this.c = nbttagcompound.getString("Type");
+        this.d = mobspawnerabstract;
+        NBTTagCompound nbttagcompound1 = nbttagcompound.getCompound("Properties");
+        String s = nbttagcompound.getString("Type");
+
+        if (s.equals("Minecart")) {
+            if (nbttagcompound1 != null) {
+                switch (nbttagcompound1.getInt("Type")) {
+                case 0:
+                    s = "MinecartRideable";
+                    break;
+
+                case 1:
+                    s = "MinecartChest";
+                    break;
+
+                case 2:
+                    s = "MinecartFurnace";
+                }
+            } else {
+                s = "MinecartRideable";
+            }
+        }
+
+        this.b = nbttagcompound1;
+        this.c = s;
     }
 
-    public TileEntityMobSpawnerData(TileEntityMobSpawner tileentitymobspawner, NBTTagCompound nbttagcompound, String s) {
+    public TileEntityMobSpawnerData(MobSpawnerAbstract mobspawnerabstract, NBTTagCompound nbttagcompound, String s) {
         super(1);
-        this.d = tileentitymobspawner;
+        this.d = mobspawnerabstract;
+        if (s.equals("Minecart")) {
+            if (nbttagcompound != null) {
+                switch (nbttagcompound.getInt("Type")) {
+                case 0:
+                    s = "MinecartRideable";
+                    break;
+
+                case 1:
+                    s = "MinecartChest";
+                    break;
+
+                case 2:
+                    s = "MinecartFurnace";
+                }
+            } else {
+                s = "MinecartRideable";
+            }
+        }
+
         this.b = nbttagcompound;
         this.c = s;
     }

@@ -25,12 +25,12 @@ public class NextTickListEntry implements Comparable {
         } else {
             NextTickListEntry nextticklistentry = (NextTickListEntry) object;
 
-            return this.a == nextticklistentry.a && this.b == nextticklistentry.b && this.c == nextticklistentry.c && this.d == nextticklistentry.d;
+            return this.a == nextticklistentry.a && this.b == nextticklistentry.b && this.c == nextticklistentry.c && Block.b(this.d, nextticklistentry.d);
         }
     }
 
     public int hashCode() {
-        return (this.a * 1024 * 1024 + this.c * 1024 + this.b) * 256 + this.d;
+        return (this.a * 1024 * 1024 + this.c * 1024 + this.b) * 256;
     }
 
     public NextTickListEntry a(long i) {
@@ -44,6 +44,10 @@ public class NextTickListEntry implements Comparable {
 
     public int compareTo(NextTickListEntry nextticklistentry) {
         return this.e < nextticklistentry.e ? -1 : (this.e > nextticklistentry.e ? 1 : (this.f != nextticklistentry.f ? this.f - nextticklistentry.f : (this.h < nextticklistentry.h ? -1 : (this.h > nextticklistentry.h ? 1 : 0))));
+    }
+
+    public String toString() {
+        return this.d + ": (" + this.a + ", " + this.b + ", " + this.c + "), " + this.e + ", " + this.f + ", " + this.h;
     }
 
     public int compareTo(Object object) {

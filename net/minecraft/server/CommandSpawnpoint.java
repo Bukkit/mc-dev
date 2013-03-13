@@ -49,7 +49,7 @@ public class CommandSpawnpoint extends CommandAbstract {
         return astring.length != 1 && astring.length != 2 ? null : a(astring, MinecraftServer.getServer().getPlayers());
     }
 
-    public boolean a(int i) {
+    public boolean a(String[] astring, int i) {
         return i == 0;
     }
 }

@@ -64,7 +64,7 @@ public class PlayerInteractManager {
                 f = block.getDamage(this.player, this.player.world, this.k, this.l, this.m) * (float) (i + 1);
                 j = (int) (f * 10.0F);
                 if (j != this.o) {
-                    this.world.g(this.player.id, this.k, this.l, this.m, j);
+                    this.world.f(this.player.id, this.k, this.l, this.m, j);
                     this.o = j;
                 }
 
@@ -78,7 +78,7 @@ public class PlayerInteractManager {
             Block block1 = Block.byId[i];
 
             if (block1 == null) {
-                this.world.g(this.player.id, this.f, this.g, this.h, -1);
+                this.world.f(this.player.id, this.f, this.g, this.h, -1);
                 this.o = -1;
                 this.d = false;
             } else {
@@ -87,7 +87,7 @@ public class PlayerInteractManager {
                 f = block1.getDamage(this.player, this.player.world, this.f, this.g, this.h) * (float) (l + 1);
                 j = (int) (f * 10.0F);
                 if (j != this.o) {
-                    this.world.g(this.player.id, this.f, this.g, this.h, j);
+                    this.world.f(this.player.id, this.f, this.g, this.h, j);
                     this.o = j;
                 }
             }
@@ -95,13 +95,13 @@ public class PlayerInteractManager {
     }
 
     public void dig(int i, int j, int k, int l) {
-        if (!this.gamemode.isAdventure() || this.player.f(i, j, k)) {
+        if (!this.gamemode.isAdventure() || this.player.e(i, j, k)) {
             if (this.isCreative()) {
                 if (!this.world.douseFire((EntityHuman) null, i, j, k, l)) {
                     this.breakBlock(i, j, k);
                 }
             } else {
-                this.world.douseFire(this.player, i, j, k, l);
+                this.world.douseFire((EntityHuman) null, i, j, k, l);
                 this.lastDigTick = this.currentTick;
                 float f = 1.0F;
                 int i1 = this.world.getTypeId(i, j, k);
@@ -120,7 +120,7 @@ public class PlayerInteractManager {
                     this.h = k;
                     int j1 = (int) (f * 10.0F);
 
-                    this.world.g(this.player.id, i, j, k, j1);
+                    this.world.f(this.player.id, i, j, k, j1);
                     this.o = j1;
                 }
             }
@@ -138,7 +138,7 @@ public class PlayerInteractManager {
 
                 if (f >= 0.7F) {
                     this.d = false;
-                    this.world.g(this.player.id, i, j, k, -1);
+                    this.world.f(this.player.id, i, j, k, -1);
                     this.breakBlock(i, j, k);
                 } else if (!this.j) {
                     this.d = false;
@@ -154,7 +154,7 @@ public class PlayerInteractManager {
 
     public void c(int i, int j, int k) {
         this.d = false;
-        this.world.g(this.player.id, this.f, this.g, this.h, -1);
+        this.world.f(this.player.id, this.f, this.g, this.h, -1);
     }
 
     private boolean d(int i, int j, int k) {
@@ -165,7 +165,7 @@ public class PlayerInteractManager {
             block.a(this.world, i, j, k, l, this.player);
         }
 
-        boolean flag = this.world.setTypeId(i, j, k, 0);
+        boolean flag = this.world.setAir(i, j, k);
 
         if (block != null && flag) {
             block.postBreak(this.world, i, j, k, l);
@@ -175,7 +175,7 @@ public class PlayerInteractManager {
     }
 
     public boolean breakBlock(int i, int j, int k) {
-        if (this.gamemode.isAdventure() && !this.player.f(i, j, k)) {
+        if (this.gamemode.isAdventure() && !this.player.e(i, j, k)) {
             return false;
         } else {
             int l = this.world.getTypeId(i, j, k);
@@ -187,13 +187,13 @@ public class PlayerInteractManager {
             if (this.isCreative()) {
                 this.player.playerConnection.sendPacket(new Packet53BlockChange(i, j, k, this.world));
             } else {
-                ItemStack itemstack = this.player.bS();
-                boolean flag1 = this.player.b(Block.byId[l]);
+                ItemStack itemstack = this.player.cb();
+                boolean flag1 = this.player.a(Block.byId[l]);
 
                 if (itemstack != null) {
                     itemstack.a(this.world, l, i, j, k, this.player);
                     if (itemstack.count == 0) {
-                        this.player.bT();
+                        this.player.cc();
                     }
                 }
 
@@ -211,13 +211,13 @@ public class PlayerInteractManager {
         int j = itemstack.getData();
         ItemStack itemstack1 = itemstack.a(world, entityhuman);
 
-        if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.count == i && itemstack1.m() <= 0 && itemstack1.getData() == j)) {
+        if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.count == i && itemstack1.n() <= 0 && itemstack1.getData() == j)) {
             return false;
         } else {
             entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = itemstack1;
             if (this.isCreative()) {
                 itemstack1.count = i;
-                if (itemstack1.f()) {
+                if (itemstack1.g()) {
                     itemstack1.setData(j);
                 }
             }
@@ -226,7 +226,7 @@ public class PlayerInteractManager {
                 entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = null;
             }
 
-            if (!entityhuman.bM()) {
+            if (!entityhuman.bV()) {
                 ((EntityPlayer) entityhuman).updateInventory(entityhuman.defaultContainer);
             }
 
@@ -237,7 +237,7 @@ public class PlayerInteractManager {
     public boolean interact(EntityHuman entityhuman, World world, ItemStack itemstack, int i, int j, int k, int l, float f, float f1, float f2) {
         int i1;
 
-        if (!entityhuman.isSneaking() || entityhuman.bD() == null) {
+        if (!entityhuman.isSneaking() || entityhuman.bG() == null) {
             i1 = world.getTypeId(i, j, k);
             if (i1 > 0 && Block.byId[i1].interact(world, i, j, k, entityhuman, l, f, f1, f2)) {
                 return true;

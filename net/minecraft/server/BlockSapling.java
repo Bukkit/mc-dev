@@ -5,36 +5,36 @@ import java.util.Random;
 public class BlockSapling extends BlockFlower {
 
     public static final String[] a = new String[] { "oak", "spruce", "birch", "jungle"};
+    private static final String[] b = new String[] { "sapling", "sapling_spruce", "sapling_birch", "sapling_jungle"};
 
-    protected BlockSapling(int i, int j) {
-        super(i, j);
+    protected BlockSapling(int i) {
+        super(i);
         float f = 0.4F;
 
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
         this.a(CreativeModeTab.c);
     }
 
-    public void b(World world, int i, int j, int k, Random random) {
+    public void a(World world, int i, int j, int k, Random random) {
         if (!world.isStatic) {
-            super.b(world, i, j, k, random);
+            super.a(world, i, j, k, random);
             if (world.getLightLevel(i, j + 1, k) >= 9 && random.nextInt(7) == 0) {
-                int l = world.getData(i, j, k);
-
-                if ((l & 8) == 0) {
-                    world.setData(i, j, k, l | 8);
-                } else {
-                    this.grow(world, i, j, k, random);
-                }
+                this.grow(world, i, j, k, random);
             }
         }
     }
 
-    public int a(int i, int j) {
-        j &= 3;
-        return j == 1 ? 63 : (j == 2 ? 79 : (j == 3 ? 30 : super.a(i, j)));
+    public void grow(World world, int i, int j, int k, Random random) {
+        int l = world.getData(i, j, k);
+
+        if ((l & 8) == 0) {
+            world.setData(i, j, k, l | 8, 4);
+        } else {
+            this.d(world, i, j, k, random);
+        }
     }
 
-    public void grow(World world, int i, int j, int k, Random random) {
+    public void d(World world, int i, int j, int k, Random random) {
         int l = world.getData(i, j, k) & 3;
         Object object = null;
         int i1 = 0;
@@ -73,22 +73,22 @@ public class BlockSapling extends BlockFlower {
         }
 
         if (flag) {
-            world.setRawTypeId(i + i1, j, k + j1, 0);
-            world.setRawTypeId(i + i1 + 1, j, k + j1, 0);
-            world.setRawTypeId(i + i1, j, k + j1 + 1, 0);
-            world.setRawTypeId(i + i1 + 1, j, k + j1 + 1, 0);
+            world.setTypeIdAndData(i + i1, j, k + j1, 0, 0, 4);
+            world.setTypeIdAndData(i + i1 + 1, j, k + j1, 0, 0, 4);
+            world.setTypeIdAndData(i + i1, j, k + j1 + 1, 0, 0, 4);
+            world.setTypeIdAndData(i + i1 + 1, j, k + j1 + 1, 0, 0, 4);
         } else {
-            world.setRawTypeId(i, j, k, 0);
+            world.setTypeIdAndData(i, j, k, 0, 0, 4);
         }
 
         if (!((WorldGenerator) object).a(world, random, i + i1, j, k + j1)) {
             if (flag) {
-                world.setRawTypeIdAndData(i + i1, j, k + j1, this.id, l);
-                world.setRawTypeIdAndData(i + i1 + 1, j, k + j1, this.id, l);
-                world.setRawTypeIdAndData(i + i1, j, k + j1 + 1, this.id, l);
-                world.setRawTypeIdAndData(i + i1 + 1, j, k + j1 + 1, this.id, l);
+                world.setTypeIdAndData(i + i1, j, k + j1, this.id, l, 4);
+                world.setTypeIdAndData(i + i1 + 1, j, k + j1, this.id, l, 4);
+                world.setTypeIdAndData(i + i1, j, k + j1 + 1, this.id, l, 4);
+                world.setTypeIdAndData(i + i1 + 1, j, k + j1 + 1, this.id, l, 4);
             } else {
-                world.setRawTypeIdAndData(i, j, k, this.id, l);
+                world.setTypeIdAndData(i, j, k, this.id, l, 4);
             }
         }
     }

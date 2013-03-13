@@ -19,7 +19,7 @@ public class ItemSeeds extends Item {
             int i1 = world.getTypeId(i, j, k);
 
             if (i1 == this.b && world.isEmpty(i, j + 1, k)) {
-                world.setTypeId(i, j + 1, k, this.id);
+                world.setTypeIdUpdate(i, j + 1, k, this.id);
                 --itemstack.count;
                 return true;
             } else {

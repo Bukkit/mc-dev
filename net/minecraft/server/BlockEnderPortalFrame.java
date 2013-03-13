@@ -6,11 +6,7 @@ import java.util.Random;
 public class BlockEnderPortalFrame extends Block {
 
     public BlockEnderPortalFrame(int i) {
-        super(i, 159, Material.STONE);
-    }
-
-    public int a(int i, int j) {
-        return i == 1 ? this.textureId - 1 : (i == 0 ? this.textureId + 16 : this.textureId);
+        super(i, Material.STONE);
     }
 
     public boolean c() {
@@ -21,7 +17,7 @@ public class BlockEnderPortalFrame extends Block {
         return 26;
     }
 
-    public void f() {
+    public void g() {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.8125F, 1.0F);
     }
 
@@ -30,15 +26,15 @@ public class BlockEnderPortalFrame extends Block {
         super.a(world, i, j, k, axisalignedbb, list, entity);
         int l = world.getData(i, j, k);
 
-        if (e(l)) {
+        if (d(l)) {
             this.a(0.3125F, 0.8125F, 0.3125F, 0.6875F, 1.0F, 0.6875F);
             super.a(world, i, j, k, axisalignedbb, list, entity);
         }
 
-        this.f();
+        this.g();
     }
 
-    public static boolean e(int i) {
+    public static boolean d(int i) {
         return (i & 4) != 0;
     }
 
@@ -46,9 +42,9 @@ public class BlockEnderPortalFrame extends Block {
         return 0;
     }
 
-    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
         int l = ((MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
 
-        world.setData(i, j, k, l);
+        world.setData(i, j, k, l, 2);
     }
 }

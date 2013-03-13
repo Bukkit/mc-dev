@@ -382,7 +382,7 @@ public abstract class StructurePiece {
         int l1 = this.b(k, i1);
 
         if (structureboundingbox.b(j1, k1, l1)) {
-            world.setRawTypeIdAndData(j1, k1, l1, i, j);
+            world.setTypeIdAndData(j1, k1, l1, i, j, 2);
         }
     }
 
@@ -506,7 +506,7 @@ public abstract class StructurePiece {
 
         if (structureboundingbox.b(l, i1, j1)) {
             while (!world.isEmpty(l, i1, j1) && i1 < 255) {
-                world.setRawTypeIdAndData(l, i1, j1, 0, 0);
+                world.setTypeIdAndData(l, i1, j1, 0, 0, 2);
                 ++i1;
             }
         }
@@ -519,7 +519,7 @@ public abstract class StructurePiece {
 
         if (structureboundingbox.b(j1, k1, l1)) {
             while ((world.isEmpty(j1, k1, l1) || world.getMaterial(j1, k1, l1).isLiquid()) && k1 > 1) {
-                world.setRawTypeIdAndData(j1, k1, l1, i, j);
+                world.setTypeIdAndData(j1, k1, l1, i, j, 2);
                 --k1;
             }
         }
@@ -531,11 +531,11 @@ public abstract class StructurePiece {
         int k1 = this.b(i, k);
 
         if (structureboundingbox.b(i1, j1, k1) && world.getTypeId(i1, j1, k1) != Block.CHEST.id) {
-            world.setTypeId(i1, j1, k1, Block.CHEST.id);
+            world.setTypeIdAndData(i1, j1, k1, Block.CHEST.id, 0, 2);
             TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i1, j1, k1);
 
             if (tileentitychest != null) {
-                StructurePieceTreasure.a(random, astructurepiecetreasure, tileentitychest, l);
+                StructurePieceTreasure.a(random, astructurepiecetreasure, (IInventory) tileentitychest, l);
             }
 
             return true;
@@ -550,7 +550,7 @@ public abstract class StructurePiece {
         int l1 = this.b(i, k);
 
         if (structureboundingbox.b(j1, k1, l1) && world.getTypeId(j1, k1, l1) != Block.DISPENSER.id) {
-            world.setTypeIdAndData(j1, k1, l1, Block.DISPENSER.id, this.c(Block.DISPENSER.id, l));
+            world.setTypeIdAndData(j1, k1, l1, Block.DISPENSER.id, this.c(Block.DISPENSER.id, l), 2);
             TileEntityDispenser tileentitydispenser = (TileEntityDispenser) world.getTileEntity(j1, k1, l1);
 
             if (tileentitydispenser != null) {

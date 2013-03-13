@@ -5,7 +5,6 @@ import java.util.Random;
 public abstract class WorldGenerator {
 
     private final boolean a;
-    private int b = 1;
 
     public WorldGenerator() {
         this.a = false;
@@ -25,9 +24,9 @@ public abstract class WorldGenerator {
 
     protected void setTypeAndData(World world, int i, int j, int k, int l, int i1) {
         if (this.a) {
-            world.setTypeIdAndData(i, j, k, l, i1);
+            world.setTypeIdAndData(i, j, k, l, i1, 3);
         } else {
-            world.setRawTypeIdAndData(i, j, k, l, i1);
+            world.setTypeIdAndData(i, j, k, l, i1, 2);
         }
     }
 }

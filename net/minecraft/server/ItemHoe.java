@@ -28,7 +28,7 @@ public class ItemHoe extends Item {
                 if (world.isStatic) {
                     return true;
                 } else {
-                    world.setTypeId(i, j, k, block.id);
+                    world.setTypeIdUpdate(i, j, k, block.id);
                     itemstack.damage(1, entityhuman);
                     return true;
                 }

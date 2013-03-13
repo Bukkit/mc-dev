@@ -141,16 +141,16 @@ public class EnchantmentManager {
     public static int a(EntityLiving entityliving, EntityLiving entityliving1) {
         c.a = 0;
         c.b = entityliving1;
-        a((EnchantmentModifier) c, entityliving.bD());
+        a((EnchantmentModifier) c, entityliving.bG());
         return c.a > 0 ? 1 + random.nextInt(c.a) : 0;
     }
 
     public static int getKnockbackEnchantmentLevel(EntityLiving entityliving, EntityLiving entityliving1) {
-        return getEnchantmentLevel(Enchantment.KNOCKBACK.id, entityliving.bD());
+        return getEnchantmentLevel(Enchantment.KNOCKBACK.id, entityliving.bG());
     }
 
     public static int getFireAspectEnchantmentLevel(EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.FIRE_ASPECT.id, entityliving.bD());
+        return getEnchantmentLevel(Enchantment.FIRE_ASPECT.id, entityliving.bG());
     }
 
     public static int getOxygenEnchantmentLevel(EntityLiving entityliving) {
@@ -158,19 +158,19 @@ public class EnchantmentManager {
     }
 
     public static int getDigSpeedEnchantmentLevel(EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.DIG_SPEED.id, entityliving.bD());
+        return getEnchantmentLevel(Enchantment.DIG_SPEED.id, entityliving.bG());
     }
 
     public static boolean hasSilkTouchEnchantment(EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.SILK_TOUCH.id, entityliving.bD()) > 0;
+        return getEnchantmentLevel(Enchantment.SILK_TOUCH.id, entityliving.bG()) > 0;
     }
 
     public static int getBonusBlockLootEnchantmentLevel(EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS.id, entityliving.bD());
+        return getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS.id, entityliving.bG());
     }
 
     public static int getBonusMonsterLootEnchantmentLevel(EntityLiving entityliving) {
-        return getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS.id, entityliving.bD());
+        return getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS.id, entityliving.bG());
     }
 
     public static boolean hasWaterWorkerEnchantment(EntityLiving entityliving) {

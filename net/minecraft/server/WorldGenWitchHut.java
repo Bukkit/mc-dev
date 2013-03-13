@@ -64,7 +64,7 @@ public class WorldGenWitchHut extends WorldGenScatteredPiece {
                     EntityWitch entitywitch = new EntityWitch(world);
 
                     entitywitch.setPositionRotation((double) i1 + 0.5D, (double) j1, (double) k1 + 0.5D, 0.0F, 0.0F);
-                    entitywitch.bG();
+                    entitywitch.bJ();
                     world.addEntity(entitywitch);
                 }
             }

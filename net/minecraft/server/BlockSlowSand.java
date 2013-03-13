@@ -2,12 +2,12 @@ package net.minecraft.server;
 
 public class BlockSlowSand extends Block {
 
-    public BlockSlowSand(int i, int j) {
-        super(i, j, Material.SAND);
+    public BlockSlowSand(int i) {
+        super(i, Material.SAND);
         this.a(CreativeModeTab.b);
     }
 
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public AxisAlignedBB b(World world, int i, int j, int k) {
         float f = 0.125F;
 
         return AxisAlignedBB.a().a((double) i, (double) j, (double) k, (double) (i + 1), (double) ((float) (j + 1) - f), (double) (k + 1));

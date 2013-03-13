@@ -18,7 +18,7 @@ public class EntityComplexPart extends Entity {
 
     protected void b(NBTTagCompound nbttagcompound) {}
 
-    public boolean L() {
+    public boolean K() {
         return true;
     }
 

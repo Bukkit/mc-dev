@@ -2,9 +2,9 @@ package net.minecraft.server;
 
 public enum EnumAnimation {
 
-    a("none", 0), b("eat", 1), c("drink", 2), d("block", 3), e("bow", 4);
+    NONE("none", 0), EAT("eat", 1), DRINK("drink", 2), BLOCK("block", 3), BOW("bow", 4);
 
-    private static final EnumAnimation[] f = new EnumAnimation[] { a, b, c, d, e};
+    private static final EnumAnimation[] f = new EnumAnimation[] { NONE, EAT, DRINK, BLOCK, BOW};
 
     private EnumAnimation(String s, int i) {}
 }

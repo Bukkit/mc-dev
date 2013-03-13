@@ -6,34 +6,34 @@ public class BlockSand extends Block {
 
     public static boolean instaFall = false;
 
-    public BlockSand(int i, int j) {
-        super(i, j, Material.SAND);
+    public BlockSand(int i) {
+        super(i, Material.SAND);
         this.a(CreativeModeTab.b);
     }
 
-    public BlockSand(int i, int j, Material material) {
-        super(i, j, material);
+    public BlockSand(int i, Material material) {
+        super(i, material);
     }
 
     public void onPlace(World world, int i, int j, int k) {
-        world.a(i, j, k, this.id, this.r_());
+        world.a(i, j, k, this.id, this.a(world));
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        world.a(i, j, k, this.id, this.r_());
+        world.a(i, j, k, this.id, this.a(world));
     }
 
-    public void b(World world, int i, int j, int k, Random random) {
+    public void a(World world, int i, int j, int k, Random random) {
         if (!world.isStatic) {
-            this.l(world, i, j, k);
+            this.k(world, i, j, k);
         }
     }
 
-    private void l(World world, int i, int j, int k) {
+    private void k(World world, int i, int j, int k) {
         if (canFall(world, i, j - 1, k) && j >= 0) {
             byte b0 = 32;
 
-            if (!instaFall && world.d(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
+            if (!instaFall && world.e(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
                 if (!world.isStatic) {
                     EntityFallingBlock entityfallingblock = new EntityFallingBlock(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.id, world.getData(i, j, k));
 
@@ -41,14 +41,14 @@ public class BlockSand extends Block {
                     world.addEntity(entityfallingblock);
                 }
             } else {
-                world.setTypeId(i, j, k, 0);
+                world.setAir(i, j, k);
 
                 while (canFall(world, i, j - 1, k) && j > 0) {
                     --j;
                 }
 
                 if (j > 0) {
-                    world.setTypeId(i, j, k, this.id);
+                    world.setTypeIdUpdate(i, j, k, this.id);
                 }
             }
         }
@@ -56,8 +56,8 @@ public class BlockSand extends Block {
 
     protected void a(EntityFallingBlock entityfallingblock) {}
 
-    public int r_() {
-        return 5;
+    public int a(World world) {
+        return 2;
     }
 
     public static boolean canFall(World world, int i, int j, int k) {

@@ -100,4 +100,8 @@ public class ContainerWorkbench extends Container {
 
         return itemstack;
     }
+
+    public boolean a(ItemStack itemstack, Slot slot) {
+        return slot.inventory != this.resultInventory && super.a(itemstack, slot);
+    }
 }

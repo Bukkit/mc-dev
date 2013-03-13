@@ -5,17 +5,16 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class PropertyManager {
 
-    public static Logger a = Logger.getLogger("Minecraft");
-    private Properties properties = new Properties();
-    private File c;
+    private final Properties properties = new Properties();
+    private final IConsoleLogManager loggingAgent;
+    private final File c;
 
-    public PropertyManager(File file1) {
+    public PropertyManager(File file1, IConsoleLogManager iconsolelogmanager) {
         this.c = file1;
+        this.loggingAgent = iconsolelogmanager;
         if (file1.exists()) {
             FileInputStream fileinputstream = null;
 
@@ -23,7 +22,7 @@ public class PropertyManager {
                 fileinputstream = new FileInputStream(file1);
                 this.properties.load(fileinputstream);
             } catch (Exception exception) {
-                a.log(Level.WARNING, "Failed to load " + file1, exception);
+                iconsolelogmanager.warning("Failed to load " + file1, (Throwable) exception);
                 this.a();
             } finally {
                 if (fileinputstream != null) {
@@ -35,13 +34,13 @@ public class PropertyManager {
                 }
             }
         } else {
-            a.log(Level.WARNING, file1 + " does not exist");
+            iconsolelogmanager.warning(file1 + " does not exist");
             this.a();
         }
     }
 
     public void a() {
-        a.log(Level.INFO, "Generating new properties file");
+        this.loggingAgent.info("Generating new properties file");
         this.savePropertiesFile();
     }
 
@@ -52,7 +51,7 @@ public class PropertyManager {
             fileoutputstream = new FileOutputStream(this.c);
             this.properties.store(fileoutputstream, "Minecraft server properties");
         } catch (Exception exception) {
-            a.log(Level.WARNING, "Failed to save " + this.c, exception);
+            this.loggingAgent.warning("Failed to save " + this.c, (Throwable) exception);
             this.a();
         } finally {
             if (fileoutputstream != null) {

@@ -1,12 +1,8 @@
 package net.minecraft.server;
 
-public class DispenseBehaviorExpBottle extends DispenseBehaviorProjectile {
+final class DispenseBehaviorExpBottle extends DispenseBehaviorProjectile {
 
-    final MinecraftServer b;
-
-    public DispenseBehaviorExpBottle(MinecraftServer minecraftserver) {
-        this.b = minecraftserver;
-    }
+    DispenseBehaviorExpBottle() {}
 
     protected IProjectile a(World world, IPosition iposition) {
         return new EntityThrownExpBottle(world, iposition.getX(), iposition.getY(), iposition.getZ());

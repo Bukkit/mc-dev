@@ -48,11 +48,11 @@ public class WorldGenNetherPiece12 extends WorldGenNetherPiece {
 
             if (structureboundingbox.b(j, i, k)) {
                 this.a = true;
-                world.setTypeId(j, i, k, Block.MOB_SPAWNER.id);
+                world.setTypeIdAndData(j, i, k, Block.MOB_SPAWNER.id, 0, 2);
                 TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(j, i, k);
 
                 if (tileentitymobspawner != null) {
-                    tileentitymobspawner.a("Blaze");
+                    tileentitymobspawner.a().a("Blaze");
                 }
             }
         }

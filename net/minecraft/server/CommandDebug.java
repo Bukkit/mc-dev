@@ -5,8 +5,6 @@ import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CommandDebug extends CommandAbstract {
 
@@ -64,7 +62,7 @@ public class CommandDebug extends CommandAbstract {
             filewriter.write(this.b(i, j));
             filewriter.close();
         } catch (Throwable throwable) {
-            Logger.getLogger("Minecraft").log(Level.SEVERE, "Could not save profiler results to " + file1, throwable);
+            MinecraftServer.getServer().getLogger().severe("Could not save profiler results to " + file1, throwable);
         }
     }
 

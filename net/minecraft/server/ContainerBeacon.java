@@ -26,9 +26,9 @@ public class ContainerBeacon extends Container {
             this.a(new Slot(playerinventory, i, b0 + i * 18, 58 + short1));
         }
 
-        this.g = tileentitybeacon.k();
-        this.h = tileentitybeacon.i();
-        this.i = tileentitybeacon.j();
+        this.g = tileentitybeacon.l();
+        this.h = tileentitybeacon.j();
+        this.i = tileentitybeacon.k();
     }
 
     public void addSlotListener(ICrafting icrafting) {
@@ -42,12 +42,12 @@ public class ContainerBeacon extends Container {
         super.b();
     }
 
-    public TileEntityBeacon d() {
+    public TileEntityBeacon e() {
         return this.a;
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.a.a_(entityhuman);
+        return this.a.a(entityhuman);
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {

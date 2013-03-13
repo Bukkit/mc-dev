@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Enumeration;
@@ -13,12 +15,13 @@ public class LocaleLanguage {
     private static LocaleLanguage a = new LocaleLanguage("en_US");
     private Properties b = new Properties();
     private TreeMap c;
-    private String d;
-    private boolean e;
+    private TreeMap d = new TreeMap();
+    private String e;
+    private boolean f;
 
     public LocaleLanguage(String s) {
         this.e();
-        this.a(s);
+        this.a(s, false);
     }
 
     public static LocaleLanguage a() {
@@ -32,7 +35,7 @@ public class LocaleLanguage {
             BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(LocaleLanguage.class.getResourceAsStream("/lang/languages.txt"), "UTF-8"));
 
             for (String s = bufferedreader.readLine(); s != null; s = bufferedreader.readLine()) {
-                String[] astring = s.split("=");
+                String[] astring = s.trim().split("=");
 
                 if (astring != null && astring.length == 2) {
                     treemap.put(astring[0], astring[1]);
@@ -52,7 +55,13 @@ public class LocaleLanguage {
     }
 
     private void a(Properties properties, String s) {
-        BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(LocaleLanguage.class.getResourceAsStream("/lang/" + s + ".lang"), "UTF-8"));
+        BufferedReader bufferedreader = null;
+
+        if (this.d.containsKey(s)) {
+            bufferedreader = new BufferedReader(new FileReader((File) this.d.get(s)));
+        } else {
+            bufferedreader = new BufferedReader(new InputStreamReader(LocaleLanguage.class.getResourceAsStream("/lang/" + s + ".lang"), "UTF-8"));
+        }
 
         for (String s1 = bufferedreader.readLine(); s1 != null; s1 = bufferedreader.readLine()) {
             s1 = s1.trim();
@@ -66,8 +75,8 @@ public class LocaleLanguage {
         }
     }
 
-    public void a(String s) {
-        if (!s.equals(this.d)) {
+    public synchronized void a(String s, boolean flag) {
+        if (flag || !s.equals(this.e)) {
             Properties properties = new Properties();
 
             try {
@@ -76,13 +85,13 @@ public class LocaleLanguage {
                 ;
             }
 
-            this.e = false;
+            this.f = false;
             if (!"en_US".equals(s)) {
                 try {
                     this.a(properties, s);
                     Enumeration enumeration = properties.propertyNames();
 
-                    while (enumeration.hasMoreElements() && !this.e) {
+                    while (enumeration.hasMoreElements() && !this.f) {
                         Object object = enumeration.nextElement();
                         Object object1 = properties.get(object);
 
@@ -91,7 +100,7 @@ public class LocaleLanguage {
 
                             for (int i = 0; i < s1.length(); ++i) {
                                 if (s1.charAt(i) >= 256) {
-                                    this.e = true;
+                                    this.f = true;
                                     break;
                                 }
                             }
@@ -103,16 +112,16 @@ public class LocaleLanguage {
                 }
             }
 
-            this.d = s;
+            this.e = s;
             this.b = properties;
         }
     }
 
-    public String b(String s) {
+    public synchronized String a(String s) {
         return this.b.getProperty(s, s);
     }
 
-    public String a(String s, Object... aobject) {
+    public synchronized String a(String s, Object... aobject) {
         String s1 = this.b.getProperty(s, s);
 
         try {
@@ -122,7 +131,11 @@ public class LocaleLanguage {
         }
     }
 
-    public String c(String s) {
+    public synchronized boolean b(String s) {
+        return this.b.containsKey(s);
+    }
+
+    public synchronized String c(String s) {
         return this.b.getProperty(s + ".name", "");
     }
 }

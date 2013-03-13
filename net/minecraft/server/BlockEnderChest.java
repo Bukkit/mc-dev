@@ -6,7 +6,6 @@ public class BlockEnderChest extends BlockContainer {
 
     protected BlockEnderChest(int i) {
         super(i, Material.STONE);
-        this.textureId = 37;
         this.a(CreativeModeTab.c);
         this.a(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
     }
@@ -31,11 +30,11 @@ public class BlockEnderChest extends BlockContainer {
         return 8;
     }
 
-    protected boolean s_() {
+    protected boolean r_() {
         return true;
     }
 
-    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
         byte b0 = 0;
         int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
 
@@ -55,7 +54,7 @@ public class BlockEnderChest extends BlockContainer {
             b0 = 4;
         }
 
-        world.setData(i, j, k, b0);
+        world.setData(i, j, k, b0, 2);
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
@@ -63,7 +62,7 @@ public class BlockEnderChest extends BlockContainer {
         TileEntityEnderChest tileentityenderchest = (TileEntityEnderChest) world.getTileEntity(i, j, k);
 
         if (inventoryenderchest != null && tileentityenderchest != null) {
-            if (world.t(i, j + 1, k)) {
+            if (world.u(i, j + 1, k)) {
                 return true;
             } else if (world.isStatic) {
                 return true;
@@ -77,7 +76,7 @@ public class BlockEnderChest extends BlockContainer {
         }
     }
 
-    public TileEntity a(World world) {
+    public TileEntity b(World world) {
         return new TileEntityEnderChest();
     }
 }

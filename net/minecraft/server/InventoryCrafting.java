@@ -36,6 +36,10 @@ public class InventoryCrafting implements IInventory {
         return "container.crafting";
     }
 
+    public boolean c() {
+        return false;
+    }
+
     public ItemStack splitWithoutUpdate(int i) {
         if (this.items[i] != null) {
             ItemStack itemstack = this.items[i];
@@ -81,11 +85,15 @@ public class InventoryCrafting implements IInventory {
 
     public void update() {}
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         return true;
     }
 
     public void startOpen() {}
 
-    public void f() {}
+    public void g() {}
+
+    public boolean b(int i, ItemStack itemstack) {
+        return true;
+    }
 }

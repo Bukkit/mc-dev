@@ -27,7 +27,7 @@ public class Packet52MultiBlockChange extends Packet {
 
         try {
             if (k >= 64) {
-                System.out.println("ChunkTilesUpdatePacket compress " + k);
+                this.m.info("ChunkTilesUpdatePacket compress " + k);
                 if (e.length < l) {
                     e = new byte[l];
                 }
@@ -50,7 +50,7 @@ public class Packet52MultiBlockChange extends Packet {
                 }
             }
         } catch (IOException ioexception) {
-            System.err.println(ioexception.getMessage());
+            this.m.severe("Couldn\'t create chunk packet", ioexception);
             this.c = null;
         }
     }

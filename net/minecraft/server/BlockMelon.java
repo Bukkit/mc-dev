@@ -6,16 +6,7 @@ public class BlockMelon extends Block {
 
     protected BlockMelon(int i) {
         super(i, Material.PUMPKIN);
-        this.textureId = 136;
         this.a(CreativeModeTab.b);
-    }
-
-    public int a(int i, int j) {
-        return i != 1 && i != 0 ? 136 : 137;
-    }
-
-    public int a(int i) {
-        return i != 1 && i != 0 ? 136 : 137;
     }
 
     public int getDropType(int i, Random random, int j) {

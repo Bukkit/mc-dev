@@ -30,45 +30,45 @@ public class WorldGenDesertWell extends WorldGenerator {
             for (i1 = -1; i1 <= 0; ++i1) {
                 for (j1 = -2; j1 <= 2; ++j1) {
                     for (int k1 = -2; k1 <= 2; ++k1) {
-                        world.setRawTypeId(i + j1, j + i1, k + k1, Block.SANDSTONE.id);
+                        world.setTypeIdAndData(i + j1, j + i1, k + k1, Block.SANDSTONE.id, 0, 2);
                     }
                 }
             }
 
-            world.setRawTypeId(i, j, k, Block.WATER.id);
-            world.setRawTypeId(i - 1, j, k, Block.WATER.id);
-            world.setRawTypeId(i + 1, j, k, Block.WATER.id);
-            world.setRawTypeId(i, j, k - 1, Block.WATER.id);
-            world.setRawTypeId(i, j, k + 1, Block.WATER.id);
+            world.setTypeIdAndData(i, j, k, Block.WATER.id, 0, 2);
+            world.setTypeIdAndData(i - 1, j, k, Block.WATER.id, 0, 2);
+            world.setTypeIdAndData(i + 1, j, k, Block.WATER.id, 0, 2);
+            world.setTypeIdAndData(i, j, k - 1, Block.WATER.id, 0, 2);
+            world.setTypeIdAndData(i, j, k + 1, Block.WATER.id, 0, 2);
 
             for (i1 = -2; i1 <= 2; ++i1) {
                 for (j1 = -2; j1 <= 2; ++j1) {
                     if (i1 == -2 || i1 == 2 || j1 == -2 || j1 == 2) {
-                        world.setRawTypeId(i + i1, j + 1, k + j1, Block.SANDSTONE.id);
+                        world.setTypeIdAndData(i + i1, j + 1, k + j1, Block.SANDSTONE.id, 0, 2);
                     }
                 }
             }
 
-            world.setRawTypeIdAndData(i + 2, j + 1, k, Block.STEP.id, 1);
-            world.setRawTypeIdAndData(i - 2, j + 1, k, Block.STEP.id, 1);
-            world.setRawTypeIdAndData(i, j + 1, k + 2, Block.STEP.id, 1);
-            world.setRawTypeIdAndData(i, j + 1, k - 2, Block.STEP.id, 1);
+            world.setTypeIdAndData(i + 2, j + 1, k, Block.STEP.id, 1, 2);
+            world.setTypeIdAndData(i - 2, j + 1, k, Block.STEP.id, 1, 2);
+            world.setTypeIdAndData(i, j + 1, k + 2, Block.STEP.id, 1, 2);
+            world.setTypeIdAndData(i, j + 1, k - 2, Block.STEP.id, 1, 2);
 
             for (i1 = -1; i1 <= 1; ++i1) {
                 for (j1 = -1; j1 <= 1; ++j1) {
                     if (i1 == 0 && j1 == 0) {
-                        world.setRawTypeId(i + i1, j + 4, k + j1, Block.SANDSTONE.id);
+                        world.setTypeIdAndData(i + i1, j + 4, k + j1, Block.SANDSTONE.id, 0, 2);
                     } else {
-                        world.setRawTypeIdAndData(i + i1, j + 4, k + j1, Block.STEP.id, 1);
+                        world.setTypeIdAndData(i + i1, j + 4, k + j1, Block.STEP.id, 1, 2);
                     }
                 }
             }
 
             for (i1 = 1; i1 <= 3; ++i1) {
-                world.setRawTypeId(i - 1, j + i1, k - 1, Block.SANDSTONE.id);
-                world.setRawTypeId(i - 1, j + i1, k + 1, Block.SANDSTONE.id);
-                world.setRawTypeId(i + 1, j + i1, k - 1, Block.SANDSTONE.id);
-                world.setRawTypeId(i + 1, j + i1, k + 1, Block.SANDSTONE.id);
+                world.setTypeIdAndData(i - 1, j + i1, k - 1, Block.SANDSTONE.id, 0, 2);
+                world.setTypeIdAndData(i - 1, j + i1, k + 1, Block.SANDSTONE.id, 0, 2);
+                world.setTypeIdAndData(i + 1, j + i1, k - 1, Block.SANDSTONE.id, 0, 2);
+                world.setTypeIdAndData(i + 1, j + i1, k + 1, Block.SANDSTONE.id, 0, 2);
             }
 
             return true;

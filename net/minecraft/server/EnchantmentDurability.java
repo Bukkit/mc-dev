@@ -22,7 +22,7 @@ public class EnchantmentDurability extends Enchantment {
     }
 
     public boolean canEnchant(ItemStack itemstack) {
-        return itemstack.f() ? true : super.canEnchant(itemstack);
+        return itemstack.g() ? true : super.canEnchant(itemstack);
     }
 
     public static boolean a(ItemStack itemstack, int i, Random random) {

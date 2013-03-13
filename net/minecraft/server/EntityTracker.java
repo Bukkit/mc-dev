@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.Callable;
 
 public class EntityTracker {
 
@@ -54,7 +55,7 @@ public class EntityTracker {
             this.addEntity(entity, 64, 10, true);
         } else if (entity instanceof EntityItem) {
             this.addEntity(entity, 64, 20, true);
-        } else if (entity instanceof EntityMinecart) {
+        } else if (entity instanceof EntityMinecartAbstract) {
             this.addEntity(entity, 80, 3, true);
         } else if (entity instanceof EntityBoat) {
             this.addEntity(entity, 80, 3, true);
@@ -92,14 +93,24 @@ public class EntityTracker {
             i = this.d;
         }
 
-        if (this.trackedEntities.b(entity.id)) {
-            throw new IllegalStateException("Entity is already tracked!");
-        } else {
-            EntityTrackerEntry entitytrackerentry = new EntityTrackerEntry(entity, i, j, flag);
+        try {
+            if (this.trackedEntities.b(entity.id)) {
+                throw new IllegalStateException("Entity is already tracked!");
+            } else {
+                EntityTrackerEntry entitytrackerentry = new EntityTrackerEntry(entity, i, j, flag);
 
-            this.b.add(entitytrackerentry);
-            this.trackedEntities.a(entity.id, entitytrackerentry);
-            entitytrackerentry.scanPlayers(this.world.players);
+                this.b.add(entitytrackerentry);
+                this.trackedEntities.a(entity.id, entitytrackerentry);
+                entitytrackerentry.scanPlayers(this.world.players);
+            }
+        } catch (Throwable throwable) {
+            CrashReport crashreport = CrashReport.a(throwable, "Adding entity to track");
+            CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Entity To Track");
+
+            crashreportsystemdetails.a("Tracking range", (i + " blocks"));
+            crashreportsystemdetails.a("Update interval", (Callable) (new CrashReportEntityTrackerUpdateInterval(this, j)));
+            entity.a(crashreportsystemdetails);
+            throw new ReportedException(crashreport);
         }
     }
 
@@ -182,7 +193,7 @@ public class EntityTracker {
         while (iterator.hasNext()) {
             EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
 
-            if (entitytrackerentry.tracker != entityplayer && entitytrackerentry.tracker.ai == chunk.x && entitytrackerentry.tracker.ak == chunk.z) {
+            if (entitytrackerentry.tracker != entityplayer && entitytrackerentry.tracker.aj == chunk.x && entitytrackerentry.tracker.al == chunk.z) {
                 entitytrackerentry.updatePlayer(entityplayer);
             }
         }

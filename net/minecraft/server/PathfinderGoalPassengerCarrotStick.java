@@ -25,7 +25,7 @@ public class PathfinderGoalPassengerCarrotStick extends PathfinderGoal {
     }
 
     public boolean a() {
-        return this.a.isAlive() && this.a.passenger != null && this.a.passenger instanceof EntityHuman && (this.d || this.a.bI());
+        return this.a.isAlive() && this.a.passenger != null && this.a.passenger instanceof EntityHuman && (this.d || this.a.bL());
     }
 
     public void e() {
@@ -77,7 +77,7 @@ public class PathfinderGoalPassengerCarrotStick extends PathfinderGoal {
         float f3 = 0.16277136F / (f2 * f2 * f2);
         float f4 = MathHelper.sin(entitycreature.yaw * 3.1415927F / 180.0F);
         float f5 = MathHelper.cos(entitycreature.yaw * 3.1415927F / 180.0F);
-        float f6 = entitycreature.aF() * f3;
+        float f6 = entitycreature.aI() * f3;
         float f7 = Math.max(f1, 1.0F);
 
         f7 = f6 / f7;
@@ -110,12 +110,18 @@ public class PathfinderGoalPassengerCarrotStick extends PathfinderGoal {
         int j1 = MathHelper.floor(this.a.locZ + (double) f10);
         PathPoint pathpoint = new PathPoint(MathHelper.d(this.a.width + 1.0F), MathHelper.d(this.a.length + entityhuman.length + 1.0F), MathHelper.d(this.a.width + 1.0F));
 
-        if ((i != i1 || k != j1) && Pathfinder.a(this.a, i1, j, j1, pathpoint, false, false, true) == 0 && Pathfinder.a(this.a, i, j + 1, k, pathpoint, false, false, true) == 1 && Pathfinder.a(this.a, i1, j + 1, j1, pathpoint, false, false, true) == 1) {
-            entitycreature.getControllerJump().a();
+        if (i != i1 || k != j1) {
+            int k1 = this.a.world.getTypeId(i, j, k);
+            int l1 = this.a.world.getTypeId(i, j - 1, k);
+            boolean flag = this.b(k1) || Block.byId[k1] == null && this.b(l1);
+
+            if (!flag && Pathfinder.a(this.a, i1, j, j1, pathpoint, false, false, true) == 0 && Pathfinder.a(this.a, i, j + 1, k, pathpoint, false, false, true) == 1 && Pathfinder.a(this.a, i1, j + 1, j1, pathpoint, false, false, true) == 1) {
+                entitycreature.getControllerJump().a();
+            }
         }
 
-        if (!entityhuman.abilities.canInstantlyBuild && this.c >= this.b * 0.5F && this.a.aB().nextFloat() < 0.006F && !this.d) {
-            ItemStack itemstack = entityhuman.bD();
+        if (!entityhuman.abilities.canInstantlyBuild && this.c >= this.b * 0.5F && this.a.aE().nextFloat() < 0.006F && !this.d) {
+            ItemStack itemstack = entityhuman.bG();
 
             if (itemstack != null && itemstack.id == Item.CARROT_STICK.id) {
                 itemstack.damage(1, entityhuman);
@@ -131,6 +137,10 @@ public class PathfinderGoalPassengerCarrotStick extends PathfinderGoal {
         this.a.e(0.0F, f1);
     }
 
+    private boolean b(int i) {
+        return Block.byId[i] != null && (Block.byId[i].d() == 10 || Block.byId[i] instanceof BlockStepAbstract);
+    }
+
     public boolean f() {
         return this.d;
     }
@@ -138,7 +148,7 @@ public class PathfinderGoalPassengerCarrotStick extends PathfinderGoal {
     public void g() {
         this.d = true;
         this.e = 0;
-        this.f = this.a.aB().nextInt(841) + 140;
+        this.f = this.a.aE().nextInt(841) + 140;
     }
 
     public boolean h() {

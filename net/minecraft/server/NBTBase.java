@@ -50,7 +50,7 @@ public abstract class NBTBase {
                 nbtbase.load(datainput);
                 return nbtbase;
             } catch (IOException ioexception) {
-                CrashReport crashreport = CrashReport.a(ioexception, "Loading NBT data");
+                CrashReport crashreport = CrashReport.a((Throwable) ioexception, "Loading NBT data");
                 CrashReportSystemDetails crashreportsystemdetails = crashreport.a("NBT Tag");
 
                 crashreportsystemdetails.a("Tag name", s);

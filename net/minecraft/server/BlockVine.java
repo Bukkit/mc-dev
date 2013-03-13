@@ -5,12 +5,12 @@ import java.util.Random;
 public class BlockVine extends Block {
 
     public BlockVine(int i) {
-        super(i, 143, Material.REPLACEABLE_PLANT);
+        super(i, Material.REPLACEABLE_PLANT);
         this.b(true);
         this.a(CreativeModeTab.c);
     }
 
-    public void f() {
+    public void g() {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
@@ -76,7 +76,7 @@ public class BlockVine extends Block {
             flag = true;
         }
 
-        if (!flag && this.e(iblockaccess.getTypeId(i, j + 1, k))) {
+        if (!flag && this.d(iblockaccess.getTypeId(i, j + 1, k))) {
             f1 = Math.min(f1, 0.9375F);
             f4 = 1.0F;
             f = 0.0F;
@@ -88,33 +88,33 @@ public class BlockVine extends Block {
         this.a(f, f1, f2, f3, f4, f5);
     }
 
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public AxisAlignedBB b(World world, int i, int j, int k) {
         return null;
     }
 
     public boolean canPlace(World world, int i, int j, int k, int l) {
         switch (l) {
         case 1:
-            return this.e(world.getTypeId(i, j + 1, k));
+            return this.d(world.getTypeId(i, j + 1, k));
 
         case 2:
-            return this.e(world.getTypeId(i, j, k + 1));
+            return this.d(world.getTypeId(i, j, k + 1));
 
         case 3:
-            return this.e(world.getTypeId(i, j, k - 1));
+            return this.d(world.getTypeId(i, j, k - 1));
 
         case 4:
-            return this.e(world.getTypeId(i + 1, j, k));
+            return this.d(world.getTypeId(i + 1, j, k));
 
         case 5:
-            return this.e(world.getTypeId(i - 1, j, k));
+            return this.d(world.getTypeId(i - 1, j, k));
 
         default:
             return false;
         }
     }
 
-    private boolean e(int i) {
+    private boolean d(int i) {
         if (i == 0) {
             return false;
         } else {
@@ -124,7 +124,7 @@ public class BlockVine extends Block {
         }
     }
 
-    private boolean l(World world, int i, int j, int k) {
+    private boolean k(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
         int i1 = l;
 
@@ -132,17 +132,17 @@ public class BlockVine extends Block {
             for (int j1 = 0; j1 <= 3; ++j1) {
                 int k1 = 1 << j1;
 
-                if ((l & k1) != 0 && !this.e(world.getTypeId(i + Direction.a[j1], j, k + Direction.b[j1])) && (world.getTypeId(i, j + 1, k) != this.id || (world.getData(i, j + 1, k) & k1) == 0)) {
+                if ((l & k1) != 0 && !this.d(world.getTypeId(i + Direction.a[j1], j, k + Direction.b[j1])) && (world.getTypeId(i, j + 1, k) != this.id || (world.getData(i, j + 1, k) & k1) == 0)) {
                     i1 &= ~k1;
                 }
             }
         }
 
-        if (i1 == 0 && !this.e(world.getTypeId(i, j + 1, k))) {
+        if (i1 == 0 && !this.d(world.getTypeId(i, j + 1, k))) {
             return false;
         } else {
             if (i1 != l) {
-                world.setData(i, j, k, i1);
+                world.setData(i, j, k, i1, 2);
             }
 
             return true;
@@ -150,13 +150,13 @@ public class BlockVine extends Block {
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        if (!world.isStatic && !this.l(world, i, j, k)) {
+        if (!world.isStatic && !this.k(world, i, j, k)) {
             this.c(world, i, j, k, world.getData(i, j, k), 0);
-            world.setTypeId(i, j, k, 0);
+            world.setAir(i, j, k);
         }
     }
 
-    public void b(World world, int i, int j, int k, Random random) {
+    public void a(World world, int i, int j, int k, Random random) {
         if (!world.isStatic && world.random.nextInt(4) == 0) {
             byte b0 = 4;
             int l = 5;
@@ -195,13 +195,13 @@ public class BlockVine extends Block {
                 l1 = world.random.nextInt(16) & i1;
                 if (l1 > 0) {
                     for (i2 = 0; i2 <= 3; ++i2) {
-                        if (!this.e(world.getTypeId(i + Direction.a[i2], j + 1, k + Direction.b[i2]))) {
+                        if (!this.d(world.getTypeId(i + Direction.a[i2], j + 1, k + Direction.b[i2]))) {
                             l1 &= ~(1 << i2);
                         }
                     }
 
                     if (l1 > 0) {
-                        world.setTypeIdAndData(i, j + 1, k, this.id, l1);
+                        world.setTypeIdAndData(i, j + 1, k, this.id, l1, 2);
                     }
                 }
             } else {
@@ -215,21 +215,21 @@ public class BlockVine extends Block {
                     l1 = world.getTypeId(i + Direction.a[k1], j, k + Direction.b[k1]);
                     if (l1 != 0 && Block.byId[l1] != null) {
                         if (Block.byId[l1].material.k() && Block.byId[l1].b()) {
-                            world.setData(i, j, k, i1 | 1 << k1);
+                            world.setData(i, j, k, i1 | 1 << k1, 2);
                         }
                     } else {
                         i2 = k1 + 1 & 3;
                         j2 = k1 + 3 & 3;
-                        if ((i1 & 1 << i2) != 0 && this.e(world.getTypeId(i + Direction.a[k1] + Direction.a[i2], j, k + Direction.b[k1] + Direction.b[i2]))) {
-                            world.setTypeIdAndData(i + Direction.a[k1], j, k + Direction.b[k1], this.id, 1 << i2);
-                        } else if ((i1 & 1 << j2) != 0 && this.e(world.getTypeId(i + Direction.a[k1] + Direction.a[j2], j, k + Direction.b[k1] + Direction.b[j2]))) {
-                            world.setTypeIdAndData(i + Direction.a[k1], j, k + Direction.b[k1], this.id, 1 << j2);
-                        } else if ((i1 & 1 << i2) != 0 && world.isEmpty(i + Direction.a[k1] + Direction.a[i2], j, k + Direction.b[k1] + Direction.b[i2]) && this.e(world.getTypeId(i + Direction.a[i2], j, k + Direction.b[i2]))) {
-                            world.setTypeIdAndData(i + Direction.a[k1] + Direction.a[i2], j, k + Direction.b[k1] + Direction.b[i2], this.id, 1 << (k1 + 2 & 3));
-                        } else if ((i1 & 1 << j2) != 0 && world.isEmpty(i + Direction.a[k1] + Direction.a[j2], j, k + Direction.b[k1] + Direction.b[j2]) && this.e(world.getTypeId(i + Direction.a[j2], j, k + Direction.b[j2]))) {
-                            world.setTypeIdAndData(i + Direction.a[k1] + Direction.a[j2], j, k + Direction.b[k1] + Direction.b[j2], this.id, 1 << (k1 + 2 & 3));
-                        } else if (this.e(world.getTypeId(i + Direction.a[k1], j + 1, k + Direction.b[k1]))) {
-                            world.setTypeIdAndData(i + Direction.a[k1], j, k + Direction.b[k1], this.id, 0);
+                        if ((i1 & 1 << i2) != 0 && this.d(world.getTypeId(i + Direction.a[k1] + Direction.a[i2], j, k + Direction.b[k1] + Direction.b[i2]))) {
+                            world.setTypeIdAndData(i + Direction.a[k1], j, k + Direction.b[k1], this.id, 1 << i2, 2);
+                        } else if ((i1 & 1 << j2) != 0 && this.d(world.getTypeId(i + Direction.a[k1] + Direction.a[j2], j, k + Direction.b[k1] + Direction.b[j2]))) {
+                            world.setTypeIdAndData(i + Direction.a[k1], j, k + Direction.b[k1], this.id, 1 << j2, 2);
+                        } else if ((i1 & 1 << i2) != 0 && world.isEmpty(i + Direction.a[k1] + Direction.a[i2], j, k + Direction.b[k1] + Direction.b[i2]) && this.d(world.getTypeId(i + Direction.a[i2], j, k + Direction.b[i2]))) {
+                            world.setTypeIdAndData(i + Direction.a[k1] + Direction.a[i2], j, k + Direction.b[k1] + Direction.b[i2], this.id, 1 << (k1 + 2 & 3), 2);
+                        } else if ((i1 & 1 << j2) != 0 && world.isEmpty(i + Direction.a[k1] + Direction.a[j2], j, k + Direction.b[k1] + Direction.b[j2]) && this.d(world.getTypeId(i + Direction.a[j2], j, k + Direction.b[j2]))) {
+                            world.setTypeIdAndData(i + Direction.a[k1] + Direction.a[j2], j, k + Direction.b[k1] + Direction.b[j2], this.id, 1 << (k1 + 2 & 3), 2);
+                        } else if (this.d(world.getTypeId(i + Direction.a[k1], j + 1, k + Direction.b[k1]))) {
+                            world.setTypeIdAndData(i + Direction.a[k1], j, k + Direction.b[k1], this.id, 0, 2);
                         }
                     }
                 } else if (j > 1) {
@@ -237,13 +237,13 @@ public class BlockVine extends Block {
                     if (l1 == 0) {
                         i2 = world.random.nextInt(16) & i1;
                         if (i2 > 0) {
-                            world.setTypeIdAndData(i, j - 1, k, this.id, i2);
+                            world.setTypeIdAndData(i, j - 1, k, this.id, i2, 2);
                         }
                     } else if (l1 == this.id) {
                         i2 = world.random.nextInt(16) & i1;
                         j2 = world.getData(i, j - 1, k);
                         if (j2 != (j2 | i2)) {
-                            world.setData(i, j - 1, k, j2 | i2);
+                            world.setData(i, j - 1, k, j2 | i2, 2);
                         }
                     }
                 }
@@ -283,7 +283,7 @@ public class BlockVine extends Block {
     }
 
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
-        if (!world.isStatic && entityhuman.bS() != null && entityhuman.bS().id == Item.SHEARS.id) {
+        if (!world.isStatic && entityhuman.cb() != null && entityhuman.cb().id == Item.SHEARS.id) {
             entityhuman.a(StatisticList.C[this.id], 1);
             this.b(world, i, j, k, new ItemStack(Block.VINE, 1, 0));
         } else {

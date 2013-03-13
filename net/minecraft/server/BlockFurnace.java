@@ -4,14 +4,13 @@ import java.util.Random;
 
 public class BlockFurnace extends BlockContainer {
 
-    private Random a = new Random();
+    private final Random a = new Random();
     private final boolean b;
     private static boolean c = false;
 
     protected BlockFurnace(int i, boolean flag) {
         super(i, Material.STONE);
         this.b = flag;
-        this.textureId = 45;
     }
 
     public int getDropType(int i, Random random, int j) {
@@ -20,10 +19,10 @@ public class BlockFurnace extends BlockContainer {
 
     public void onPlace(World world, int i, int j, int k) {
         super.onPlace(world, i, j, k);
-        this.l(world, i, j, k);
+        this.k(world, i, j, k);
     }
 
-    private void l(World world, int i, int j, int k) {
+    private void k(World world, int i, int j, int k) {
         if (!world.isStatic) {
             int l = world.getTypeId(i, j, k - 1);
             int i1 = world.getTypeId(i, j, k + 1);
@@ -31,28 +30,24 @@ public class BlockFurnace extends BlockContainer {
             int k1 = world.getTypeId(i + 1, j, k);
             byte b0 = 3;
 
-            if (Block.q[l] && !Block.q[i1]) {
+            if (Block.s[l] && !Block.s[i1]) {
                 b0 = 3;
             }
 
-            if (Block.q[i1] && !Block.q[l]) {
+            if (Block.s[i1] && !Block.s[l]) {
                 b0 = 2;
             }
 
-            if (Block.q[j1] && !Block.q[k1]) {
+            if (Block.s[j1] && !Block.s[k1]) {
                 b0 = 5;
             }
 
-            if (Block.q[k1] && !Block.q[j1]) {
+            if (Block.s[k1] && !Block.s[j1]) {
                 b0 = 4;
             }
 
-            world.setData(i, j, k, b0);
+            world.setData(i, j, k, b0, 2);
         }
-    }
-
-    public int a(int i) {
-        return i == 1 ? this.textureId + 17 : (i == 0 ? this.textureId + 17 : (i == 3 ? this.textureId - 1 : this.textureId));
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
@@ -75,40 +70,44 @@ public class BlockFurnace extends BlockContainer {
 
         c = true;
         if (flag) {
-            world.setTypeId(i, j, k, Block.BURNING_FURNACE.id);
+            world.setTypeIdUpdate(i, j, k, Block.BURNING_FURNACE.id);
         } else {
-            world.setTypeId(i, j, k, Block.FURNACE.id);
+            world.setTypeIdUpdate(i, j, k, Block.FURNACE.id);
         }
 
         c = false;
-        world.setData(i, j, k, l);
+        world.setData(i, j, k, l, 2);
         if (tileentity != null) {
             tileentity.s();
             world.setTileEntity(i, j, k, tileentity);
         }
     }
 
-    public TileEntity a(World world) {
+    public TileEntity b(World world) {
         return new TileEntityFurnace();
     }
 
-    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
         int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         if (l == 0) {
-            world.setData(i, j, k, 2);
+            world.setData(i, j, k, 2, 2);
         }
 
         if (l == 1) {
-            world.setData(i, j, k, 5);
+            world.setData(i, j, k, 5, 2);
         }
 
         if (l == 2) {
-            world.setData(i, j, k, 3);
+            world.setData(i, j, k, 3, 2);
         }
 
         if (l == 3) {
-            world.setData(i, j, k, 4);
+            world.setData(i, j, k, 4, 2);
+        }
+
+        if (itemstack.hasName()) {
+            ((TileEntityFurnace) world.getTileEntity(i, j, k)).a(itemstack.getName());
         }
     }
 
@@ -152,5 +151,13 @@ public class BlockFurnace extends BlockContainer {
         }
 
         super.remove(world, i, j, k, l, i1);
+    }
+
+    public boolean q_() {
+        return true;
+    }
+
+    public int b_(World world, int i, int j, int k, int l) {
+        return Container.b((IInventory) world.getTileEntity(i, j, k));
     }
 }

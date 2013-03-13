@@ -4,41 +4,20 @@ public class BlockPumpkin extends BlockDirectional {
 
     private boolean a;
 
-    protected BlockPumpkin(int i, int j, boolean flag) {
+    protected BlockPumpkin(int i, boolean flag) {
         super(i, Material.PUMPKIN);
-        this.textureId = j;
         this.b(true);
         this.a = flag;
         this.a(CreativeModeTab.b);
-    }
-
-    public int a(int i, int j) {
-        if (i == 1) {
-            return this.textureId;
-        } else if (i == 0) {
-            return this.textureId;
-        } else {
-            int k = this.textureId + 1 + 16;
-
-            if (this.a) {
-                ++k;
-            }
-
-            return j == 2 && i == 2 ? k : (j == 3 && i == 5 ? k : (j == 0 && i == 3 ? k : (j == 1 && i == 4 ? k : this.textureId + 16)));
-        }
-    }
-
-    public int a(int i) {
-        return i == 1 ? this.textureId : (i == 0 ? this.textureId : (i == 3 ? this.textureId + 1 + 16 : this.textureId + 16));
     }
 
     public void onPlace(World world, int i, int j, int k) {
         super.onPlace(world, i, j, k);
         if (world.getTypeId(i, j - 1, k) == Block.SNOW_BLOCK.id && world.getTypeId(i, j - 2, k) == Block.SNOW_BLOCK.id) {
             if (!world.isStatic) {
-                world.setRawTypeId(i, j, k, 0);
-                world.setRawTypeId(i, j - 1, k, 0);
-                world.setRawTypeId(i, j - 2, k, 0);
+                world.setTypeIdAndData(i, j, k, 0, 0, 2);
+                world.setTypeIdAndData(i, j - 1, k, 0, 0, 2);
+                world.setTypeIdAndData(i, j - 2, k, 0, 0, 2);
                 EntitySnowman entitysnowman = new EntitySnowman(world);
 
                 entitysnowman.setPositionRotation((double) i + 0.5D, (double) j - 1.95D, (double) k + 0.5D, 0.0F, 0.0F);
@@ -56,15 +35,15 @@ public class BlockPumpkin extends BlockDirectional {
             boolean flag1 = world.getTypeId(i, j - 1, k - 1) == Block.IRON_BLOCK.id && world.getTypeId(i, j - 1, k + 1) == Block.IRON_BLOCK.id;
 
             if (flag || flag1) {
-                world.setRawTypeId(i, j, k, 0);
-                world.setRawTypeId(i, j - 1, k, 0);
-                world.setRawTypeId(i, j - 2, k, 0);
+                world.setTypeIdAndData(i, j, k, 0, 0, 2);
+                world.setTypeIdAndData(i, j - 1, k, 0, 0, 2);
+                world.setTypeIdAndData(i, j - 2, k, 0, 0, 2);
                 if (flag) {
-                    world.setRawTypeId(i - 1, j - 1, k, 0);
-                    world.setRawTypeId(i + 1, j - 1, k, 0);
+                    world.setTypeIdAndData(i - 1, j - 1, k, 0, 0, 2);
+                    world.setTypeIdAndData(i + 1, j - 1, k, 0, 0, 2);
                 } else {
-                    world.setRawTypeId(i, j - 1, k - 1, 0);
-                    world.setRawTypeId(i, j - 1, k + 1, 0);
+                    world.setTypeIdAndData(i, j - 1, k - 1, 0, 0, 2);
+                    world.setTypeIdAndData(i, j - 1, k + 1, 0, 0, 2);
                 }
 
                 EntityIronGolem entityirongolem = new EntityIronGolem(world);
@@ -94,12 +73,12 @@ public class BlockPumpkin extends BlockDirectional {
     public boolean canPlace(World world, int i, int j, int k) {
         int l = world.getTypeId(i, j, k);
 
-        return (l == 0 || Block.byId[l].material.isReplaceable()) && world.v(i, j - 1, k);
+        return (l == 0 || Block.byId[l].material.isReplaceable()) && world.w(i, j - 1, k);
     }
 
-    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
         int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 2.5D) & 3;
 
-        world.setData(i, j, k, l);
+        world.setData(i, j, k, l, 2);
     }
 }

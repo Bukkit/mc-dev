@@ -9,36 +9,34 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Logger;
 import javax.crypto.SecretKey;
 
 public class PendingConnection extends Connection {
 
-    private byte[] d;
-    public static Logger logger = Logger.getLogger("Minecraft");
     private static Random random = new Random();
-    public NetworkManager networkManager;
-    public boolean c = false;
-    private MinecraftServer server;
-    private int g = 0;
-    private String h = null;
-    private volatile boolean i = false;
+    private byte[] d;
+    private final MinecraftServer server;
+    public final NetworkManager networkManager;
+    public boolean b = false;
+    private int f = 0;
+    private String g = null;
+    private volatile boolean h = false;
     private String loginKey = "";
-    private boolean k = false;
-    private SecretKey l = null;
+    private boolean j = false;
+    private SecretKey k = null;
 
     public PendingConnection(MinecraftServer minecraftserver, Socket socket, String s) {
         this.server = minecraftserver;
-        this.networkManager = new NetworkManager(socket, s, this, minecraftserver.F().getPrivate());
+        this.networkManager = new NetworkManager(minecraftserver.getLogger(), socket, s, this, minecraftserver.F().getPrivate());
         this.networkManager.e = 0;
     }
 
     public void c() {
-        if (this.i) {
+        if (this.h) {
             this.d();
         }
 
-        if (this.g++ == 600) {
+        if (this.f++ == 600) {
             this.disconnect("Took too long to log in");
         } else {
             this.networkManager.b();
@@ -47,24 +45,24 @@ public class PendingConnection extends Connection {
 
     public void disconnect(String s) {
         try {
-            logger.info("Disconnecting " + this.getName() + ": " + s);
+            this.server.getLogger().info("Disconnecting " + this.getName() + ": " + s);
             this.networkManager.queue(new Packet255KickDisconnect(s));
             this.networkManager.d();
-            this.c = true;
+            this.b = true;
         } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
 
     public void a(Packet2Handshake packet2handshake) {
-        this.h = packet2handshake.f();
-        if (!this.h.equals(StripColor.a(this.h))) {
+        this.g = packet2handshake.f();
+        if (!this.g.equals(StripColor.a(this.g))) {
             this.disconnect("Invalid username!");
         } else {
             PublicKey publickey = this.server.F().getPublic();
 
-            if (packet2handshake.d() != 51) {
-                if (packet2handshake.d() > 51) {
+            if (packet2handshake.d() != 60) {
+                if (packet2handshake.d() > 60) {
                     this.disconnect("Outdated server!");
                 } else {
                     this.disconnect("Outdated client!");
@@ -81,7 +79,7 @@ public class PendingConnection extends Connection {
     public void a(Packet252KeyResponse packet252keyresponse) {
         PrivateKey privatekey = this.server.F().getPrivate();
 
-        this.l = packet252keyresponse.a(privatekey);
+        this.k = packet252keyresponse.a(privatekey);
         if (!Arrays.equals(this.d, packet252keyresponse.b(privatekey))) {
             this.disconnect("Invalid client reply");
         }
@@ -91,16 +89,16 @@ public class PendingConnection extends Connection {
 
     public void a(Packet205ClientCommand packet205clientcommand) {
         if (packet205clientcommand.a == 0) {
-            if (this.k) {
+            if (this.j) {
                 this.disconnect("Duplicate login");
                 return;
             }
 
-            this.k = true;
+            this.j = true;
             if (this.server.getOnlineMode()) {
                 (new ThreadLoginVerifier(this)).start();
             } else {
-                this.i = true;
+                this.h = true;
             }
         }
     }
@@ -108,24 +106,24 @@ public class PendingConnection extends Connection {
     public void a(Packet1Login packet1login) {}
 
     public void d() {
-        String s = this.server.getPlayerList().attemptLogin(this.networkManager.getSocketAddress(), this.h);
+        String s = this.server.getPlayerList().attemptLogin(this.networkManager.getSocketAddress(), this.g);
 
         if (s != null) {
             this.disconnect(s);
         } else {
-            EntityPlayer entityplayer = this.server.getPlayerList().processLogin(this.h);
+            EntityPlayer entityplayer = this.server.getPlayerList().processLogin(this.g);
 
             if (entityplayer != null) {
                 this.server.getPlayerList().a((INetworkManager) this.networkManager, entityplayer);
             }
         }
 
-        this.c = true;
+        this.b = true;
     }
 
     public void a(String s, Object[] aobject) {
-        logger.info(this.getName() + " lost connection");
-        this.c = true;
+        this.server.getLogger().info(this.getName() + " lost connection");
+        this.b = true;
     }
 
     public void a(Packet254GetInfo packet254getinfo) {
@@ -134,7 +132,7 @@ public class PendingConnection extends Connection {
             String s = null;
 
             if (packet254getinfo.a == 1) {
-                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(51), this.server.getVersion(), this.server.getMotd(), Integer.valueOf(playerlist.getPlayerCount()), Integer.valueOf(playerlist.getMaxPlayers())});
+                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(60), this.server.getVersion(), this.server.getMotd(), Integer.valueOf(playerlist.getPlayerCount()), Integer.valueOf(playerlist.getMaxPlayers())});
 
                 Object object;
 
@@ -162,7 +160,7 @@ public class PendingConnection extends Connection {
                 ((DedicatedServerConnection) this.server.ae()).a(inetaddress);
             }
 
-            this.c = true;
+            this.b = true;
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -173,7 +171,7 @@ public class PendingConnection extends Connection {
     }
 
     public String getName() {
-        return this.h != null ? this.h + " [" + this.networkManager.getSocketAddress().toString() + "]" : this.networkManager.getSocketAddress().toString();
+        return this.g != null ? this.g + " [" + this.networkManager.getSocketAddress().toString() + "]" : this.networkManager.getSocketAddress().toString();
     }
 
     public boolean a() {
@@ -189,14 +187,14 @@ public class PendingConnection extends Connection {
     }
 
     static SecretKey c(PendingConnection pendingconnection) {
-        return pendingconnection.l;
+        return pendingconnection.k;
     }
 
     static String d(PendingConnection pendingconnection) {
-        return pendingconnection.h;
+        return pendingconnection.g;
     }
 
     static boolean a(PendingConnection pendingconnection, boolean flag) {
-        return pendingconnection.i = flag;
+        return pendingconnection.h = flag;
     }
 }

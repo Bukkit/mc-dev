@@ -6,10 +6,16 @@ public class WorldGenMinable extends WorldGenerator {
 
     private int a;
     private int b;
+    private int c;
 
     public WorldGenMinable(int i, int j) {
+        this(i, j, Block.STONE.id);
+    }
+
+    public WorldGenMinable(int i, int j, int k) {
         this.a = i;
         this.b = j;
+        this.c = k;
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
@@ -46,8 +52,8 @@ public class WorldGenMinable extends WorldGenerator {
                             for (int i3 = k1; i3 <= j2; ++i3) {
                                 double d14 = ((double) i3 + 0.5D - d8) / (d10 / 2.0D);
 
-                                if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && world.getTypeId(k2, l2, i3) == Block.STONE.id) {
-                                    world.setRawTypeId(k2, l2, i3, this.a);
+                                if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && world.getTypeId(k2, l2, i3) == this.c) {
+                                    world.setTypeIdAndData(k2, l2, i3, this.a, 0, 2);
                                 }
                             }
                         }

@@ -3,48 +3,45 @@ package net.minecraft.server;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public abstract class ServerConnection {
 
-    public static Logger a = Logger.getLogger("Minecraft");
-    private final MinecraftServer c;
-    private final List d = Collections.synchronizedList(new ArrayList());
-    public volatile boolean b = false;
+    private final MinecraftServer b;
+    private final List c = Collections.synchronizedList(new ArrayList());
+    public volatile boolean a = false;
 
     public ServerConnection(MinecraftServer minecraftserver) {
-        this.c = minecraftserver;
-        this.b = true;
+        this.b = minecraftserver;
+        this.a = true;
     }
 
     public void a(PlayerConnection playerconnection) {
-        this.d.add(playerconnection);
+        this.c.add(playerconnection);
     }
 
     public void a() {
-        this.b = false;
+        this.a = false;
     }
 
     public void b() {
-        for (int i = 0; i < this.d.size(); ++i) {
-            PlayerConnection playerconnection = (PlayerConnection) this.d.get(i);
+        for (int i = 0; i < this.c.size(); ++i) {
+            PlayerConnection playerconnection = (PlayerConnection) this.c.get(i);
 
             try {
                 playerconnection.d();
             } catch (Exception exception) {
                 if (playerconnection.networkManager instanceof MemoryNetworkManager) {
-                    CrashReport crashreport = CrashReport.a(exception, "Ticking memory connection");
+                    CrashReport crashreport = CrashReport.a((Throwable) exception, "Ticking memory connection");
 
                     throw new ReportedException(crashreport);
                 }
 
-                a.log(Level.WARNING, "Failed to handle packet for " + playerconnection.player.getLocalizedName() + "/" + playerconnection.player.q() + ": " + exception, exception);
+                this.b.getLogger().warning("Failed to handle packet for " + playerconnection.player.getLocalizedName() + "/" + playerconnection.player.p() + ": " + exception, (Throwable) exception);
                 playerconnection.disconnect("Internal server error");
             }
 
             if (playerconnection.disconnected) {
-                this.d.remove(i--);
+                this.c.remove(i--);
             }
 
             playerconnection.networkManager.a();
@@ -52,6 +49,6 @@ public abstract class ServerConnection {
     }
 
     public MinecraftServer d() {
-        return this.c;
+        return this.b;
     }
 }

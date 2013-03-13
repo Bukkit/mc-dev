@@ -29,7 +29,7 @@ public class WorldGenSand extends WorldGenerator {
                             int j2 = world.getTypeId(i1, i2, j1);
 
                             if (j2 == Block.DIRT.id || j2 == Block.GRASS.id) {
-                                world.setRawTypeId(i1, i2, j1, this.a);
+                                world.setTypeIdAndData(i1, i2, j1, this.a, 0, 2);
                             }
                         }
                     }

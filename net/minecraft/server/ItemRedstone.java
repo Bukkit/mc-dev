@@ -43,7 +43,7 @@ public class ItemRedstone extends Item {
         } else {
             if (Block.REDSTONE_WIRE.canPlace(world, i, j, k)) {
                 --itemstack.count;
-                world.setTypeId(i, j, k, Block.REDSTONE_WIRE.id);
+                world.setTypeIdUpdate(i, j, k, Block.REDSTONE_WIRE.id);
             }
 
             return true;

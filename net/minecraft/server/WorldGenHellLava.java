@@ -5,9 +5,11 @@ import java.util.Random;
 public class WorldGenHellLava extends WorldGenerator {
 
     private int a;
+    private boolean b = false;
 
-    public WorldGenHellLava(int i) {
+    public WorldGenHellLava(int i, boolean flag) {
         this.a = i;
+        this.b = flag;
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
@@ -60,10 +62,10 @@ public class WorldGenHellLava extends WorldGenerator {
                 ++i1;
             }
 
-            if (l == 4 && i1 == 1) {
-                world.setTypeId(i, j, k, this.a);
+            if (!this.b && l == 4 && i1 == 1 || l == 5) {
+                world.setTypeIdAndData(i, j, k, this.a, 0, 2);
                 world.d = true;
-                Block.byId[this.a].b(world, i, j, k, random);
+                Block.byId[this.a].a(world, i, j, k, random);
                 world.d = false;
             }
 

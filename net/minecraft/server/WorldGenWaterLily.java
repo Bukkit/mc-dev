@@ -13,7 +13,7 @@ public class WorldGenWaterLily extends WorldGenerator {
             int k1 = k + random.nextInt(8) - random.nextInt(8);
 
             if (world.isEmpty(i1, j1, k1) && Block.WATER_LILY.canPlace(world, i1, j1, k1)) {
-                world.setRawTypeId(i1, j1, k1, Block.WATER_LILY.id);
+                world.setTypeIdAndData(i1, j1, k1, Block.WATER_LILY.id, 0, 2);
             }
         }
 

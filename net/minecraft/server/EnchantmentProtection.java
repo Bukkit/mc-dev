@@ -34,7 +34,7 @@ public class EnchantmentProtection extends Enchantment {
         } else {
             float f = (float) (6 + i * i) / 3.0F;
 
-            return this.a == 0 ? MathHelper.d(f * 0.75F) : (this.a == 1 && damagesource.k() ? MathHelper.d(f * 1.25F) : (this.a == 2 && damagesource == DamageSource.FALL ? MathHelper.d(f * 2.5F) : ((this.a != 3 || damagesource != DamageSource.EXPLOSION) && damagesource != DamageSource.EXPLOSION2 ? (this.a == 4 && damagesource.a() ? MathHelper.d(f * 1.5F) : 0) : MathHelper.d(f * 1.5F))));
+            return this.a == 0 ? MathHelper.d(f * 0.75F) : (this.a == 1 && damagesource.m() ? MathHelper.d(f * 1.25F) : (this.a == 2 && damagesource == DamageSource.FALL ? MathHelper.d(f * 2.5F) : (this.a == 3 && damagesource.c() ? MathHelper.d(f * 1.5F) : (this.a == 4 && damagesource.a() ? MathHelper.d(f * 1.5F) : 0))));
         }
     }
 

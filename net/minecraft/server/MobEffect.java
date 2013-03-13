@@ -70,13 +70,13 @@ public class MobEffect {
                 this.b(entityliving);
             }
 
-            this.g();
+            this.h();
         }
 
         return this.duration > 0;
     }
 
-    private int g() {
+    private int h() {
         return --this.duration;
     }
 

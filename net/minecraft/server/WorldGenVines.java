@@ -13,7 +13,7 @@ public class WorldGenVines extends WorldGenerator {
             if (world.isEmpty(i, j, k)) {
                 for (int j1 = 2; j1 <= 5; ++j1) {
                     if (Block.VINE.canPlace(world, i, j, k, j1)) {
-                        world.setRawTypeIdAndData(i, j, k, Block.VINE.id, 1 << Direction.e[Facing.OPPOSITE_FACING[j1]]);
+                        world.setTypeIdAndData(i, j, k, Block.VINE.id, 1 << Direction.e[Facing.OPPOSITE_FACING[j1]], 2);
                         break;
                     }
                 }

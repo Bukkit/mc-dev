@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class BlockStem extends BlockFlower {
 
-    private Block blockFruit;
+    private final Block blockFruit;
 
     protected BlockStem(int i, Block block) {
-        super(i, 111);
+        super(i);
         this.blockFruit = block;
         this.b(true);
         float f = 0.125F;
@@ -16,21 +16,21 @@ public class BlockStem extends BlockFlower {
         this.a((CreativeModeTab) null);
     }
 
-    protected boolean d_(int i) {
+    protected boolean f_(int i) {
         return i == Block.SOIL.id;
     }
 
-    public void b(World world, int i, int j, int k, Random random) {
-        super.b(world, i, j, k, random);
+    public void a(World world, int i, int j, int k, Random random) {
+        super.a(world, i, j, k, random);
         if (world.getLightLevel(i, j + 1, k) >= 9) {
-            float f = this.n(world, i, j, k);
+            float f = this.m(world, i, j, k);
 
             if (random.nextInt((int) (25.0F / f) + 1) == 0) {
                 int l = world.getData(i, j, k);
 
                 if (l < 7) {
                     ++l;
-                    world.setData(i, j, k, l);
+                    world.setData(i, j, k, l, 2);
                 } else {
                     if (world.getTypeId(i - 1, j, k) == this.blockFruit.id) {
                         return;
@@ -71,18 +71,24 @@ public class BlockStem extends BlockFlower {
                     int l1 = world.getTypeId(j1, j - 1, k1);
 
                     if (world.getTypeId(j1, j, k1) == 0 && (l1 == Block.SOIL.id || l1 == Block.DIRT.id || l1 == Block.GRASS.id)) {
-                        world.setTypeId(j1, j, k1, this.blockFruit.id);
+                        world.setTypeIdUpdate(j1, j, k1, this.blockFruit.id);
                     }
                 }
             }
         }
     }
 
-    public void l(World world, int i, int j, int k) {
-        world.setData(i, j, k, 7);
+    public void k(World world, int i, int j, int k) {
+        int l = world.getData(i, j, k) + MathHelper.nextInt(world.random, 2, 5);
+
+        if (l > 7) {
+            l = 7;
+        }
+
+        world.setData(i, j, k, l, 2);
     }
 
-    private float n(World world, int i, int j, int k) {
+    private float m(World world, int i, int j, int k) {
         float f = 1.0F;
         int l = world.getTypeId(i, j, k - 1);
         int i1 = world.getTypeId(i, j, k + 1);
@@ -123,11 +129,7 @@ public class BlockStem extends BlockFlower {
         return f;
     }
 
-    public int a(int i, int j) {
-        return this.textureId;
-    }
-
-    public void f() {
+    public void g() {
         float f = 0.125F;
 
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);

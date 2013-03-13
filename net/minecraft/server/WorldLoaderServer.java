@@ -44,7 +44,7 @@ public class WorldLoaderServer extends WorldLoader {
         File file2 = new File(file1, "DIM-1");
         File file3 = new File(file1, "DIM1");
 
-        System.out.println("Scanning folders...");
+        MinecraftServer.getServer().getLogger().info("Scanning folders...");
         this.a(file1, arraylist);
         if (file2.exists()) {
             this.a(file2, arraylist1);
@@ -56,7 +56,7 @@ public class WorldLoaderServer extends WorldLoader {
 
         int i = arraylist.size() + arraylist1.size() + arraylist2.size();
 
-        System.out.println("Total conversion count is " + i);
+        MinecraftServer.getServer().getLogger().info("Total conversion count is " + i);
         WorldData worlddata = this.c(s);
         Object object = null;
 
@@ -129,7 +129,7 @@ public class WorldLoaderServer extends WorldLoader {
                         DataInputStream datainputstream = regionfile.a(k, l);
 
                         if (datainputstream == null) {
-                            System.out.println("Failed to fetch input stream");
+                            MinecraftServer.getServer().getLogger().warning("Failed to fetch input stream");
                         } else {
                             NBTTagCompound nbttagcompound = NBTCompressedStreamTools.a((DataInput) datainputstream);
 

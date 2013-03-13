@@ -1,18 +1,18 @@
 package net.minecraft.server;
 
+import java.util.List;
+
 public class BlockFence extends Block {
 
-    public BlockFence(int i, int j) {
-        super(i, j, Material.WOOD);
+    private final String a;
+
+    public BlockFence(int i, String s, Material material) {
+        super(i, material);
+        this.a = s;
         this.a(CreativeModeTab.c);
     }
 
-    public BlockFence(int i, int j, Material material) {
-        super(i, j, material);
-        this.a(CreativeModeTab.c);
-    }
-
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List list, Entity entity) {
         boolean flag = this.d(world, i, j, k - 1);
         boolean flag1 = this.d(world, i, j, k + 1);
         boolean flag2 = this.d(world, i - 1, j, k);
@@ -30,6 +30,13 @@ public class BlockFence extends Block {
             f3 = 1.0F;
         }
 
+        if (flag || flag1) {
+            this.a(f, 0.0F, f2, f1, 1.5F, f3);
+            super.a(world, i, j, k, axisalignedbb, list, entity);
+        }
+
+        f2 = 0.375F;
+        f3 = 0.625F;
         if (flag2) {
             f = 0.0F;
         }
@@ -38,7 +45,20 @@ public class BlockFence extends Block {
             f1 = 1.0F;
         }
 
-        return AxisAlignedBB.a().a((double) ((float) i + f), (double) j, (double) ((float) k + f2), (double) ((float) i + f1), (double) ((float) j + 1.5F), (double) ((float) k + f3));
+        if (flag2 || flag3 || !flag && !flag1) {
+            this.a(f, 0.0F, f2, f1, 1.5F, f3);
+            super.a(world, i, j, k, axisalignedbb, list, entity);
+        }
+
+        if (flag) {
+            f2 = 0.0F;
+        }
+
+        if (flag1) {
+            f3 = 1.0F;
+        }
+
+        this.a(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
@@ -78,7 +98,7 @@ public class BlockFence extends Block {
         return false;
     }
 
-    public boolean c(IBlockAccess iblockaccess, int i, int j, int k) {
+    public boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
         return false;
     }
 
@@ -98,7 +118,7 @@ public class BlockFence extends Block {
         }
     }
 
-    public static boolean c(int i) {
+    public static boolean l_(int i) {
         return i == Block.FENCE.id || i == Block.NETHER_FENCE.id;
     }
 }

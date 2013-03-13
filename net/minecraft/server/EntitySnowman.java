@@ -14,7 +14,7 @@ public class EntitySnowman extends EntityGolem implements IRangedEntity {
         this.targetSelector.a(1, new PathfinderGoalNearestAttackableTarget(this, EntityLiving.class, 16.0F, 0, true, false, IMonster.a));
     }
 
-    public boolean be() {
+    public boolean bh() {
         return true;
     }
 
@@ -24,7 +24,7 @@ public class EntitySnowman extends EntityGolem implements IRangedEntity {
 
     public void c() {
         super.c();
-        if (this.G()) {
+        if (this.F()) {
             this.damageEntity(DamageSource.DROWN, 1);
         }
 
@@ -41,7 +41,7 @@ public class EntitySnowman extends EntityGolem implements IRangedEntity {
             int l = MathHelper.floor(this.locZ + (double) ((float) (i / 2 % 2 * 2 - 1) * 0.25F));
 
             if (this.world.getTypeId(j, k, l) == 0 && this.world.getBiome(j, l).j() < 0.8F && Block.SNOW.canPlace(this.world, j, k, l)) {
-                this.world.setTypeId(j, k, l, Block.SNOW.id);
+                this.world.setTypeIdUpdate(j, k, l, Block.SNOW.id);
             }
         }
     }
@@ -58,15 +58,15 @@ public class EntitySnowman extends EntityGolem implements IRangedEntity {
         }
     }
 
-    public void d(EntityLiving entityliving) {
+    public void a(EntityLiving entityliving, float f) {
         EntitySnowball entitysnowball = new EntitySnowball(this.world, this);
         double d0 = entityliving.locX - this.locX;
         double d1 = entityliving.locY + (double) entityliving.getHeadHeight() - 1.100000023841858D - entitysnowball.locY;
         double d2 = entityliving.locZ - this.locZ;
-        float f = MathHelper.sqrt(d0 * d0 + d2 * d2) * 0.2F;
+        float f1 = MathHelper.sqrt(d0 * d0 + d2 * d2) * 0.2F;
 
-        entitysnowball.shoot(d0, d1 + (double) f, d2, 1.6F, 12.0F);
-        this.makeSound("random.bow", 1.0F, 1.0F / (this.aB().nextFloat() * 0.4F + 0.8F));
+        entitysnowball.shoot(d0, d1 + (double) f1, d2, 1.6F, 12.0F);
+        this.makeSound("random.bow", 1.0F, 1.0F / (this.aE().nextFloat() * 0.4F + 0.8F));
         this.world.addEntity(entitysnowball);
     }
 }

@@ -25,7 +25,7 @@ public class CommandEnchant extends CommandAbstract {
             EntityPlayer entityplayer = c(icommandlistener, astring[0]);
             int i = a(icommandlistener, astring[1], 0, Enchantment.byId.length - 1);
             int j = 1;
-            ItemStack itemstack = entityplayer.bS();
+            ItemStack itemstack = entityplayer.cb();
 
             if (itemstack == null) {
                 a(icommandlistener, "commands.enchant.noItem", new Object[0]);
@@ -75,7 +75,7 @@ public class CommandEnchant extends CommandAbstract {
         return MinecraftServer.getServer().getPlayers();
     }
 
-    public boolean a(int i) {
+    public boolean a(String[] astring, int i) {
         return i == 0;
     }
 }

@@ -67,33 +67,33 @@ public abstract class EntityHanging extends Entity {
         }
 
         if (i == 2) {
-            f3 -= this.g(this.d());
+            f3 -= this.b(this.d());
         }
 
         if (i == 1) {
-            f5 += this.g(this.d());
+            f5 += this.b(this.d());
         }
 
         if (i == 0) {
-            f3 += this.g(this.d());
+            f3 += this.b(this.d());
         }
 
         if (i == 3) {
-            f5 -= this.g(this.d());
+            f5 -= this.b(this.d());
         }
 
-        f4 += this.g(this.g());
+        f4 += this.b(this.g());
         this.setPosition((double) f3, (double) f4, (double) f5);
         float f7 = -0.03125F;
 
         this.boundingBox.b((double) (f3 - f - f7), (double) (f4 - f1 - f7), (double) (f5 - f2 - f7), (double) (f3 + f + f7), (double) (f4 + f1 + f7), (double) (f5 + f2 + f7));
     }
 
-    private float g(int i) {
+    private float b(int i) {
         return i == 32 ? 0.5F : (i == 64 ? 0.5F : 0.0F);
     }
 
-    public void j_() {
+    public void l_() {
         if (this.e++ == 100 && !this.world.isStatic) {
             this.e = 0;
             if (!this.dead && !this.survives()) {
@@ -164,7 +164,7 @@ public abstract class EntityHanging extends Entity {
         }
     }
 
-    public boolean L() {
+    public boolean K() {
         return true;
     }
 
@@ -178,7 +178,7 @@ public abstract class EntityHanging extends Entity {
         } else {
             if (!this.dead && !this.world.isStatic) {
                 this.die();
-                this.K();
+                this.J();
                 EntityHuman entityhuman = null;
 
                 if (damagesource.getEntity() instanceof EntityHuman) {

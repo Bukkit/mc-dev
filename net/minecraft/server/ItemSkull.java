@@ -2,8 +2,8 @@ package net.minecraft.server;
 
 public class ItemSkull extends Item {
 
-    private static final String[] a = new String[] { "skeleton", "wither", "zombie", "char", "creeper"};
-    private static final int[] b = new int[] { 224, 225, 226, 227, 228};
+    private static final String[] b = new String[] { "skeleton", "wither", "zombie", "char", "creeper"};
+    public static final String[] a = new String[] { "skull_skeleton", "skull_wither", "skull_zombie", "skull_char", "skull_creeper"};
 
     public ItemSkull(int i) {
         super(i);
@@ -43,7 +43,7 @@ public class ItemSkull extends Item {
             } else if (!Block.SKULL.canPlace(world, i, j, k)) {
                 return false;
             } else {
-                world.setTypeIdAndData(i, j, k, Block.SKULL.id, l);
+                world.setTypeIdAndData(i, j, k, Block.SKULL.id, l, 2);
                 int i1 = 0;
 
                 if (l == 1) {
@@ -77,11 +77,11 @@ public class ItemSkull extends Item {
     public String d(ItemStack itemstack) {
         int i = itemstack.getData();
 
-        if (i < 0 || i >= a.length) {
+        if (i < 0 || i >= b.length) {
             i = 0;
         }
 
-        return super.getName() + "." + a[i];
+        return super.getName() + "." + b[i];
     }
 
     public String l(ItemStack itemstack) {

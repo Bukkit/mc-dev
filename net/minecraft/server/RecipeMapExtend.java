@@ -3,7 +3,7 @@ package net.minecraft.server;
 public class RecipeMapExtend extends ShapedRecipes {
 
     public RecipeMapExtend() {
-        super(3, 3, new ItemStack[] { new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.MAP, 0, -1), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER)}, new ItemStack(Item.MAP_EMPTY, 0, 0));
+        super(3, 3, new ItemStack[] { new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.MAP, 0, 32767), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER), new ItemStack(Item.PAPER)}, new ItemStack(Item.MAP_EMPTY, 0, 0));
     }
 
     public boolean a(InventoryCrafting inventorycrafting, World world) {

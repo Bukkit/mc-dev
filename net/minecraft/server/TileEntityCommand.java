@@ -2,29 +2,39 @@ package net.minecraft.server;
 
 public class TileEntityCommand extends TileEntity implements ICommandListener {
 
-    private String a = "";
+    private int a = 0;
+    private String b = "";
+    private String c = "@";
 
     public TileEntityCommand() {}
 
     public void b(String s) {
-        this.a = s;
+        this.b = s;
         this.update();
     }
 
-    public void a(World world) {
-        if (!world.isStatic) {
+    public int a(World world) {
+        if (world.isStatic) {
+            return 0;
+        } else {
             MinecraftServer minecraftserver = MinecraftServer.getServer();
 
             if (minecraftserver != null && minecraftserver.getEnableCommandBlock()) {
                 ICommandHandler icommandhandler = minecraftserver.getCommandHandler();
 
-                icommandhandler.a(this, this.a);
+                return icommandhandler.a(this, this.b);
+            } else {
+                return 0;
             }
         }
     }
 
     public String getName() {
-        return "@";
+        return this.c;
+    }
+
+    public void c(String s) {
+        this.c = s;
     }
 
     public void sendMessage(String s) {}
@@ -39,12 +49,18 @@ public class TileEntityCommand extends TileEntity implements ICommandListener {
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.setString("Command", this.a);
+        nbttagcompound.setString("Command", this.b);
+        nbttagcompound.setInt("SuccessCount", this.a);
+        nbttagcompound.setString("CustomName", this.c);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.a = nbttagcompound.getString("Command");
+        this.b = nbttagcompound.getString("Command");
+        this.a = nbttagcompound.getInt("SuccessCount");
+        if (nbttagcompound.hasKey("CustomName")) {
+            this.c = nbttagcompound.getString("CustomName");
+        }
     }
 
     public ChunkCoordinates b() {
@@ -56,5 +72,13 @@ public class TileEntityCommand extends TileEntity implements ICommandListener {
 
         this.b(nbttagcompound);
         return new Packet132TileEntityData(this.x, this.y, this.z, 2, nbttagcompound);
+    }
+
+    public int d() {
+        return this.a;
+    }
+
+    public void a(int i) {
+        this.a = i;
     }
 }

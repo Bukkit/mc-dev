@@ -37,7 +37,7 @@ public class WorldGenEnder extends WorldGenerator {
                         int j2 = l1 - k;
 
                         if (i2 * i2 + j2 * j2 <= i1 * i1 + 1) {
-                            world.setTypeId(k1, j1, l1, Block.OBSIDIAN.id);
+                            world.setTypeIdAndData(k1, j1, l1, Block.OBSIDIAN.id, 0, 2);
                         }
                     }
                 }
@@ -47,7 +47,7 @@ public class WorldGenEnder extends WorldGenerator {
 
             entityendercrystal.setPositionRotation((double) ((float) i + 0.5F), (double) (j + l), (double) ((float) k + 0.5F), random.nextFloat() * 360.0F, 0.0F);
             world.addEntity(entityendercrystal);
-            world.setTypeId(i, j + l, k, Block.BEDROCK.id);
+            world.setTypeIdAndData(i, j + l, k, Block.BEDROCK.id, 0, 2);
             return true;
         } else {
             return false;

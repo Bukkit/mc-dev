@@ -6,29 +6,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-import java.util.logging.Logger;
+import java.util.concurrent.Callable;
 
 public class PlayerConnection extends Connection {
 
-    public static Logger logger = Logger.getLogger("Minecraft");
-    public INetworkManager networkManager;
+    public final INetworkManager networkManager;
+    private final MinecraftServer minecraftServer;
     public boolean disconnected = false;
-    private MinecraftServer minecraftServer;
     public EntityPlayer player;
+    private int e;
     private int f;
-    private int g;
-    private boolean h;
-    private int i;
-    private long j;
-    private static Random k = new Random();
-    private long l;
+    private boolean g;
+    private int h;
+    private long i;
+    private static Random j = new Random();
+    private long k;
     private int chatThrottle = 0;
     private int x = 0;
     private double y;
     private double z;
-    private double q;
+    private double p;
     private boolean checkMovement = true;
-    private IntHashMap s = new IntHashMap();
+    private IntHashMap r = new IntHashMap();
 
     public PlayerConnection(MinecraftServer minecraftserver, INetworkManager inetworkmanager, EntityPlayer entityplayer) {
         this.minecraftServer = minecraftserver;
@@ -39,16 +38,16 @@ public class PlayerConnection extends Connection {
     }
 
     public void d() {
-        this.h = false;
-        ++this.f;
+        this.g = false;
+        ++this.e;
         this.minecraftServer.methodProfiler.a("packetflow");
         this.networkManager.b();
         this.minecraftServer.methodProfiler.c("keepAlive");
-        if ((long) this.f - this.l > 20L) {
-            this.l = (long) this.f;
-            this.j = System.nanoTime() / 1000000L;
-            this.i = k.nextInt();
-            this.sendPacket(new Packet0KeepAlive(this.i));
+        if ((long) this.e - this.k > 20L) {
+            this.k = (long) this.e;
+            this.i = System.nanoTime() / 1000000L;
+            this.h = j.nextInt();
+            this.sendPacket(new Packet0KeepAlive(this.h));
         }
 
         if (this.chatThrottle > 0) {
@@ -65,10 +64,10 @@ public class PlayerConnection extends Connection {
 
     public void disconnect(String s) {
         if (!this.disconnected) {
-            this.player.l();
+            this.player.k();
             this.sendPacket(new Packet255KickDisconnect(s));
             this.networkManager.d();
-            this.minecraftServer.getPlayerList().sendAll(new Packet3Chat("\u00A7e" + this.player.name + " left the game."));
+            this.minecraftServer.getPlayerList().sendAll(new Packet3Chat(EnumChatFormat.YELLOW + this.player.name + " left the game."));
             this.minecraftServer.getPlayerList().disconnect(this.player);
             this.disconnected = true;
         }
@@ -77,13 +76,13 @@ public class PlayerConnection extends Connection {
     public void a(Packet10Flying packet10flying) {
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
-        this.h = true;
+        this.g = true;
         if (!this.player.viewingCredits) {
             double d0;
 
             if (!this.checkMovement) {
                 d0 = packet10flying.y - this.z;
-                if (packet10flying.x == this.y && d0 * d0 < 0.01D && packet10flying.z == this.q) {
+                if (packet10flying.x == this.y && d0 * d0 < 0.01D && packet10flying.z == this.p) {
                     this.checkMovement = true;
                 }
             }
@@ -98,7 +97,7 @@ public class PlayerConnection extends Connection {
                     float f = this.player.yaw;
                     float f1 = this.player.pitch;
 
-                    this.player.vehicle.V();
+                    this.player.vehicle.U();
                     d1 = this.player.locX;
                     d2 = this.player.locY;
                     d3 = this.player.locZ;
@@ -132,20 +131,20 @@ public class PlayerConnection extends Connection {
                     }
 
                     if (this.player.vehicle != null) {
-                        this.player.vehicle.V();
+                        this.player.vehicle.U();
                     }
 
                     this.minecraftServer.getPlayerList().d(this.player);
                     this.y = this.player.locX;
                     this.z = this.player.locY;
-                    this.q = this.player.locZ;
+                    this.p = this.player.locZ;
                     worldserver.playerJoinedWorld(this.player);
                     return;
                 }
 
                 if (this.player.isSleeping()) {
                     this.player.g();
-                    this.player.setLocation(this.y, this.z, this.q, this.player.yaw, this.player.pitch);
+                    this.player.setLocation(this.y, this.z, this.p, this.player.yaw, this.player.pitch);
                     worldserver.playerJoinedWorld(this.player);
                     return;
                 }
@@ -153,7 +152,7 @@ public class PlayerConnection extends Connection {
                 d0 = this.player.locY;
                 this.y = this.player.locX;
                 this.z = this.player.locY;
-                this.q = this.player.locZ;
+                this.p = this.player.locZ;
                 d1 = this.player.locX;
                 d2 = this.player.locY;
                 d3 = this.player.locZ;
@@ -171,7 +170,7 @@ public class PlayerConnection extends Connection {
                     d4 = packet10flying.stance - packet10flying.y;
                     if (!this.player.isSleeping() && (d4 > 1.65D || d4 < 0.1D)) {
                         this.disconnect("Illegal stance");
-                        logger.warning(this.player.name + " had an illegal stance: " + d4);
+                        this.minecraftServer.getLogger().warning(this.player.name + " had an illegal stance: " + d4);
                         return;
                     }
 
@@ -187,8 +186,8 @@ public class PlayerConnection extends Connection {
                 }
 
                 this.player.g();
-                this.player.W = 0.0F;
-                this.player.setLocation(this.y, this.z, this.q, f2, f3);
+                this.player.X = 0.0F;
+                this.player.setLocation(this.y, this.z, this.p, f2, f3);
                 if (!this.checkMovement) {
                     return;
                 }
@@ -202,8 +201,8 @@ public class PlayerConnection extends Connection {
                 double d11 = d8 * d8 + d9 * d9 + d10 * d10;
 
                 if (d11 > 100.0D && (!this.minecraftServer.I() || !this.minecraftServer.H().equals(this.player.name))) {
-                    logger.warning(this.player.name + " moved too quickly! " + d4 + "," + d6 + "," + d7 + " (" + d8 + ", " + d9 + ", " + d10 + ")");
-                    this.a(this.y, this.z, this.q, this.player.yaw, this.player.pitch);
+                    this.minecraftServer.getLogger().warning(this.player.name + " moved too quickly! " + d4 + "," + d6 + "," + d7 + " (" + d8 + ", " + d9 + ", " + d10 + ")");
+                    this.a(this.y, this.z, this.p, this.player.yaw, this.player.pitch);
                     return;
                 }
 
@@ -231,14 +230,14 @@ public class PlayerConnection extends Connection {
 
                 if (d11 > 0.0625D && !this.player.isSleeping() && !this.player.playerInteractManager.isCreative()) {
                     flag1 = true;
-                    logger.warning(this.player.name + " moved wrongly!");
+                    this.minecraftServer.getLogger().warning(this.player.name + " moved wrongly!");
                 }
 
                 this.player.setLocation(d1, d2, d3, f2, f3);
                 boolean flag2 = worldserver.getCubes(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).isEmpty();
 
                 if (flag && (flag1 || !flag2) && !this.player.isSleeping()) {
-                    this.a(this.y, this.z, this.q, f2, f3);
+                    this.a(this.y, this.z, this.p, f2, f3);
                     return;
                 }
 
@@ -246,15 +245,15 @@ public class PlayerConnection extends Connection {
 
                 if (!this.minecraftServer.getAllowFlight() && !this.player.playerInteractManager.isCreative() && !worldserver.c(axisalignedbb)) {
                     if (d12 >= -0.03125D) {
-                        ++this.g;
-                        if (this.g > 80) {
-                            logger.warning(this.player.name + " was kicked for floating too long!");
+                        ++this.f;
+                        if (this.f > 80) {
+                            this.minecraftServer.getLogger().warning(this.player.name + " was kicked for floating too long!");
                             this.disconnect("Flying is not enabled on this server");
                             return;
                         }
                     }
                 } else {
-                    this.g = 0;
+                    this.f = 0;
                 }
 
                 this.player.onGround = packet10flying.g;
@@ -268,7 +267,7 @@ public class PlayerConnection extends Connection {
         this.checkMovement = false;
         this.y = d0;
         this.z = d1;
-        this.q = d2;
+        this.p = d2;
         this.player.setLocation(d0, d1, d2, f, f1);
         this.player.playerConnection.sendPacket(new Packet13PlayerLookMove(d0, d1 + 1.6200000047683716D, d1, d2, f, f1, false));
     }
@@ -277,70 +276,60 @@ public class PlayerConnection extends Connection {
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
         if (packet14blockdig.e == 4) {
-            this.player.f(false);
+            this.player.a(false);
         } else if (packet14blockdig.e == 3) {
-            this.player.f(true);
+            this.player.a(true);
         } else if (packet14blockdig.e == 5) {
-            this.player.bO();
+            this.player.bX();
         } else {
-            int i = this.minecraftServer.getSpawnProtection();
-            boolean flag = worldserver.worldProvider.dimension != 0 || this.minecraftServer.getPlayerList().getOPs().isEmpty() || this.minecraftServer.getPlayerList().isOp(this.player.name) || i <= 0 || this.minecraftServer.I();
-            boolean flag1 = false;
+            boolean flag = false;
 
             if (packet14blockdig.e == 0) {
-                flag1 = true;
+                flag = true;
             }
 
             if (packet14blockdig.e == 1) {
-                flag1 = true;
+                flag = true;
             }
 
             if (packet14blockdig.e == 2) {
-                flag1 = true;
+                flag = true;
             }
 
-            int j = packet14blockdig.a;
-            int k = packet14blockdig.b;
-            int l = packet14blockdig.c;
+            int i = packet14blockdig.a;
+            int j = packet14blockdig.b;
+            int k = packet14blockdig.c;
 
-            if (flag1) {
-                double d0 = this.player.locX - ((double) j + 0.5D);
-                double d1 = this.player.locY - ((double) k + 0.5D) + 1.5D;
-                double d2 = this.player.locZ - ((double) l + 0.5D);
+            if (flag) {
+                double d0 = this.player.locX - ((double) i + 0.5D);
+                double d1 = this.player.locY - ((double) j + 0.5D) + 1.5D;
+                double d2 = this.player.locZ - ((double) k + 0.5D);
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
                 if (d3 > 36.0D) {
                     return;
                 }
 
-                if (k >= this.minecraftServer.getMaxBuildHeight()) {
+                if (j >= this.minecraftServer.getMaxBuildHeight()) {
                     return;
                 }
             }
 
-            ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
-            int i1 = MathHelper.a(j - chunkcoordinates.x);
-            int j1 = MathHelper.a(l - chunkcoordinates.z);
-
-            if (i1 > j1) {
-                j1 = i1;
-            }
-
             if (packet14blockdig.e == 0) {
-                if (j1 <= i && !flag) {
-                    this.player.playerConnection.sendPacket(new Packet53BlockChange(j, k, l, worldserver));
+                if (!this.minecraftServer.a(worldserver, i, j, k, this.player)) {
+                    this.player.playerInteractManager.dig(i, j, k, packet14blockdig.face);
                 } else {
-                    this.player.playerInteractManager.dig(j, k, l, packet14blockdig.face);
+                    this.player.playerConnection.sendPacket(new Packet53BlockChange(i, j, k, worldserver));
                 }
             } else if (packet14blockdig.e == 2) {
-                this.player.playerInteractManager.a(j, k, l);
-                if (worldserver.getTypeId(j, k, l) != 0) {
-                    this.player.playerConnection.sendPacket(new Packet53BlockChange(j, k, l, worldserver));
+                this.player.playerInteractManager.a(i, j, k);
+                if (worldserver.getTypeId(i, j, k) != 0) {
+                    this.player.playerConnection.sendPacket(new Packet53BlockChange(i, j, k, worldserver));
                 }
             } else if (packet14blockdig.e == 1) {
-                this.player.playerInteractManager.c(j, k, l);
-                if (worldserver.getTypeId(j, k, l) != 0) {
-                    this.player.playerConnection.sendPacket(new Packet53BlockChange(j, k, l, worldserver));
+                this.player.playerInteractManager.c(i, j, k);
+                if (worldserver.getTypeId(i, j, k) != 0) {
+                    this.player.playerConnection.sendPacket(new Packet53BlockChange(i, j, k, worldserver));
                 }
             }
         }
@@ -354,8 +343,6 @@ public class PlayerConnection extends Connection {
         int j = packet15place.f();
         int k = packet15place.g();
         int l = packet15place.getFace();
-        int i1 = this.minecraftServer.getSpawnProtection();
-        boolean flag1 = worldserver.worldProvider.dimension != 0 || this.minecraftServer.getPlayerList().getOPs().isEmpty() || this.minecraftServer.getPlayerList().isOp(this.player.name) || i1 <= 0 || this.minecraftServer.I();
 
         if (packet15place.getFace() == 255) {
             if (itemstack == null) {
@@ -364,19 +351,11 @@ public class PlayerConnection extends Connection {
 
             this.player.playerInteractManager.useItem(this.player, worldserver, itemstack);
         } else if (packet15place.f() >= this.minecraftServer.getMaxBuildHeight() - 1 && (packet15place.getFace() == 1 || packet15place.f() >= this.minecraftServer.getMaxBuildHeight())) {
-            this.player.playerConnection.sendPacket(new Packet3Chat("\u00A77Height limit for building is " + this.minecraftServer.getMaxBuildHeight()));
+            this.player.playerConnection.sendPacket(new Packet3Chat("" + EnumChatFormat.GRAY + "Height limit for building is " + this.minecraftServer.getMaxBuildHeight()));
             flag = true;
         } else {
-            ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
-            int j1 = MathHelper.a(i - chunkcoordinates.x);
-            int k1 = MathHelper.a(k - chunkcoordinates.z);
-
-            if (j1 > k1) {
-                k1 = j1;
-            }
-
-            if (this.checkMovement && this.player.e((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D) < 64.0D && (k1 > i1 || flag1)) {
-                this.player.playerInteractManager.interact(this.player, worldserver, itemstack, i, j, k, l, packet15place.j(), packet15place.l(), packet15place.m());
+            if (this.checkMovement && this.player.e((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D) < 64.0D && !this.minecraftServer.a(worldserver, i, j, k, this.player)) {
+                this.player.playerInteractManager.interact(this.player, worldserver, itemstack, i, j, k, l, packet15place.j(), packet15place.k(), packet15place.l());
             }
 
             flag = true;
@@ -417,7 +396,7 @@ public class PlayerConnection extends Connection {
             itemstack = null;
         }
 
-        if (itemstack == null || itemstack.m() == 0) {
+        if (itemstack == null || itemstack.n() == 0) {
             this.player.h = true;
             this.player.inventory.items[this.player.inventory.itemInHandIndex] = ItemStack.b(this.player.inventory.items[this.player.inventory.itemInHandIndex]);
             Slot slot = this.player.activeContainer.a((IInventory) this.player.inventory, this.player.inventory.itemInHandIndex);
@@ -431,18 +410,18 @@ public class PlayerConnection extends Connection {
     }
 
     public void a(String s, Object[] aobject) {
-        logger.info(this.player.name + " lost connection: " + s);
-        this.minecraftServer.getPlayerList().sendAll(new Packet3Chat("\u00A7e" + this.player.name + " left the game."));
+        this.minecraftServer.getLogger().info(this.player.name + " lost connection: " + s);
+        this.minecraftServer.getPlayerList().sendAll(new Packet3Chat(EnumChatFormat.YELLOW + this.player.getScoreboardDisplayName() + " left the game."));
         this.minecraftServer.getPlayerList().disconnect(this.player);
         this.disconnected = true;
         if (this.minecraftServer.I() && this.player.name.equals(this.minecraftServer.H())) {
-            logger.info("Stopping singleplayer server as player logged out");
+            this.minecraftServer.getLogger().info("Stopping singleplayer server as player logged out");
             this.minecraftServer.safeShutdown();
         }
     }
 
     public void onUnhandledPacket(Packet packet) {
-        logger.warning(this.getClass() + " wasn\'t prepared to deal with a " + packet.getClass());
+        this.minecraftServer.getLogger().warning(this.getClass() + " wasn\'t prepared to deal with a " + packet.getClass());
         this.disconnect("Protocol error, unexpected packet");
     }
 
@@ -460,14 +439,23 @@ public class PlayerConnection extends Connection {
             }
         }
 
-        this.networkManager.queue(packet);
+        try {
+            this.networkManager.queue(packet);
+        } catch (Throwable throwable) {
+            CrashReport crashreport = CrashReport.a(throwable, "Sending packet");
+            CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Packet being sent");
+
+            crashreportsystemdetails.a("Packet ID", (Callable) (new CrashReportConnectionPacketID(this, packet)));
+            crashreportsystemdetails.a("Packet class", (Callable) (new CrashReportConnectionPacketClass(this, packet)));
+            throw new ReportedException(crashreport);
+        }
     }
 
     public void a(Packet16BlockItemSwitch packet16blockitemswitch) {
         if (packet16blockitemswitch.itemInHandIndex >= 0 && packet16blockitemswitch.itemInHandIndex < PlayerInventory.getHotbarSize()) {
             this.player.inventory.itemInHandIndex = packet16blockitemswitch.itemInHandIndex;
         } else {
-            logger.warning(this.player.name + " tried to set an invalid carried item");
+            this.minecraftServer.getLogger().warning(this.player.name + " tried to set an invalid carried item");
         }
     }
 
@@ -497,8 +485,8 @@ public class PlayerConnection extends Connection {
                         return;
                     }
 
-                    s = "<" + this.player.name + "> " + s;
-                    logger.info(s);
+                    s = "<" + this.player.getScoreboardDisplayName() + "> " + s;
+                    this.minecraftServer.getLogger().info(s);
                     this.minecraftServer.getPlayerList().sendAll(new Packet3Chat(s, false));
                 }
 
@@ -516,7 +504,7 @@ public class PlayerConnection extends Connection {
 
     public void a(Packet18ArmAnimation packet18armanimation) {
         if (packet18armanimation.b == 1) {
-            this.player.bH();
+            this.player.bK();
         }
     }
 
@@ -569,7 +557,7 @@ public class PlayerConnection extends Connection {
         if (packet205clientcommand.a == 1) {
             if (this.player.viewingCredits) {
                 this.player = this.minecraftServer.getPlayerList().moveToWorld(this.player, 0, true);
-            } else if (this.player.p().getWorldData().isHardcore()) {
+            } else if (this.player.o().getWorldData().isHardcore()) {
                 if (this.minecraftServer.I() && this.player.name.equals(this.minecraftServer.H())) {
                     this.player.playerConnection.disconnect("You have died. Game over, man, it\'s game over!");
                     this.minecraftServer.P();
@@ -597,7 +585,7 @@ public class PlayerConnection extends Connection {
     public void a(Packet9Respawn packet9respawn) {}
 
     public void handleContainerClose(Packet101CloseWindow packet101closewindow) {
-        this.player.k();
+        this.player.j();
     }
 
     public void a(Packet102WindowClick packet102windowclick) {
@@ -611,7 +599,7 @@ public class PlayerConnection extends Connection {
                 this.player.broadcastCarriedItem();
                 this.player.h = false;
             } else {
-                this.s.a(this.player.activeContainer.windowId, Short.valueOf(packet102windowclick.d));
+                this.r.a(this.player.activeContainer.windowId, Short.valueOf(packet102windowclick.d));
                 this.player.playerConnection.sendPacket(new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, false));
                 this.player.activeContainer.a(this.player, false);
                 ArrayList arraylist = new ArrayList();
@@ -660,7 +648,7 @@ public class PlayerConnection extends Connection {
     }
 
     public void a(Packet106Transaction packet106transaction) {
-        Short oshort = (Short) this.s.get(this.player.activeContainer.windowId);
+        Short oshort = (Short) this.r.get(this.player.activeContainer.windowId);
 
         if (oshort != null && packet106transaction.b == oshort.shortValue() && this.player.activeContainer.windowId == packet106transaction.a && !this.player.activeContainer.c(this.player)) {
             this.player.activeContainer.a(this.player, true);
@@ -718,8 +706,8 @@ public class PlayerConnection extends Connection {
     }
 
     public void a(Packet0KeepAlive packet0keepalive) {
-        if (packet0keepalive.a == this.i) {
-            int i = (int) (System.nanoTime() / 1000000L - this.j);
+        if (packet0keepalive.a == this.h) {
+            int i = (int) (System.nanoTime() / 1000000L - this.i);
 
             this.player.ping = (this.player.ping * 3 + i) / 4;
         }
@@ -800,7 +788,7 @@ public class PlayerConnection extends Connection {
                     Container container = this.player.activeContainer;
 
                     if (container instanceof ContainerMerchant) {
-                        ((ContainerMerchant) container).b(i);
+                        ((ContainerMerchant) container).e(i);
                     }
                 } catch (Exception exception2) {
                     exception2.printStackTrace();
@@ -842,7 +830,7 @@ public class PlayerConnection extends Connection {
 
                             if (slot.d()) {
                                 slot.a(1);
-                                TileEntityBeacon tileentitybeacon = containerbeacon.d();
+                                TileEntityBeacon tileentitybeacon = containerbeacon.e();
 
                                 tileentitybeacon.d(i);
                                 tileentitybeacon.e(j);

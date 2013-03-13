@@ -42,9 +42,9 @@ public class ItemSign extends Item {
                 if (l == 1) {
                     int i1 = MathHelper.floor((double) ((entityhuman.yaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
 
-                    world.setTypeIdAndData(i, j, k, Block.SIGN_POST.id, i1);
+                    world.setTypeIdAndData(i, j, k, Block.SIGN_POST.id, i1, 2);
                 } else {
-                    world.setTypeIdAndData(i, j, k, Block.WALL_SIGN.id, l);
+                    world.setTypeIdAndData(i, j, k, Block.WALL_SIGN.id, l, 2);
                 }
 
                 --itemstack.count;

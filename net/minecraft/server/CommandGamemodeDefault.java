@@ -14,7 +14,7 @@ public class CommandGamemodeDefault extends CommandGamemode {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0) {
-            EnumGamemode enumgamemode = this.d(icommandlistener, astring[0]);
+            EnumGamemode enumgamemode = this.e(icommandlistener, astring[0]);
 
             this.a(enumgamemode);
             String s = LocaleI18n.get("gameMode." + enumgamemode.b());

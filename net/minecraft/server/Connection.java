@@ -277,4 +277,24 @@ public abstract class Connection {
     public boolean b() {
         return false;
     }
+
+    public void a(Packet206SetScoreboardObjective packet206setscoreboardobjective) {
+        this.onUnhandledPacket(packet206setscoreboardobjective);
+    }
+
+    public void a(Packet207SetScoreboardScore packet207setscoreboardscore) {
+        this.onUnhandledPacket(packet207setscoreboardscore);
+    }
+
+    public void a(Packet208SetScoreboardDisplayObjective packet208setscoreboarddisplayobjective) {
+        this.onUnhandledPacket(packet208setscoreboarddisplayobjective);
+    }
+
+    public void a(Packet209SetScoreboardTeam packet209setscoreboardteam) {
+        this.onUnhandledPacket(packet209setscoreboardteam);
+    }
+
+    public void a(Packet63WorldParticles packet63worldparticles) {
+        this.onUnhandledPacket(packet63worldparticles);
+    }
 }

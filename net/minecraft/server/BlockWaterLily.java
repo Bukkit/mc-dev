@@ -4,8 +4,8 @@ import java.util.List;
 
 public class BlockWaterLily extends BlockFlower {
 
-    protected BlockWaterLily(int i, int j) {
-        super(i, j);
+    protected BlockWaterLily(int i) {
+        super(i);
         float f = 0.5F;
         float f1 = 0.015625F;
 
@@ -23,15 +23,15 @@ public class BlockWaterLily extends BlockFlower {
         }
     }
 
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public AxisAlignedBB b(World world, int i, int j, int k) {
         return AxisAlignedBB.a().a((double) i + this.minX, (double) j + this.minY, (double) k + this.minZ, (double) i + this.maxX, (double) j + this.maxY, (double) k + this.maxZ);
     }
 
-    protected boolean d_(int i) {
+    protected boolean f_(int i) {
         return i == Block.STATIONARY_WATER.id;
     }
 
-    public boolean d(World world, int i, int j, int k) {
+    public boolean f(World world, int i, int j, int k) {
         return j >= 0 && j < 256 ? world.getMaterial(i, j - 1, k) == Material.WATER && world.getData(i, j - 1, k) == 0 : false;
     }
 }

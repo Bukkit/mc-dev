@@ -11,13 +11,13 @@ public abstract class EntityFlying extends EntityLiving {
     protected void a(double d0, boolean flag) {}
 
     public void e(float f, float f1) {
-        if (this.H()) {
+        if (this.G()) {
             this.a(f, f1, 0.02F);
             this.move(this.motX, this.motY, this.motZ);
             this.motX *= 0.800000011920929D;
             this.motY *= 0.800000011920929D;
             this.motZ *= 0.800000011920929D;
-        } else if (this.J()) {
+        } else if (this.I()) {
             this.a(f, f1, 0.02F);
             this.move(this.motX, this.motY, this.motZ);
             this.motX *= 0.5D;
@@ -54,7 +54,7 @@ public abstract class EntityFlying extends EntityLiving {
             this.motZ *= (double) f2;
         }
 
-        this.bg = this.bh;
+        this.bh = this.bi;
         double d0 = this.locX - this.lastX;
         double d1 = this.locZ - this.lastZ;
         float f4 = MathHelper.sqrt(d0 * d0 + d1 * d1) * 4.0F;
@@ -63,8 +63,8 @@ public abstract class EntityFlying extends EntityLiving {
             f4 = 1.0F;
         }
 
-        this.bh += (f4 - this.bh) * 0.4F;
-        this.bi += this.bh;
+        this.bi += (f4 - this.bi) * 0.4F;
+        this.bj += this.bi;
     }
 
     public boolean g_() {

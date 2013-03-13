@@ -12,7 +12,7 @@ public class ItemReed extends Item {
     public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l, float f, float f1, float f2) {
         int i1 = world.getTypeId(i, j, k);
 
-        if (i1 == Block.SNOW.id) {
+        if (i1 == Block.SNOW.id && (world.getData(i, j, k) & 7) < 1) {
             l = 1;
         } else if (i1 != Block.VINE.id && i1 != Block.LONG_GRASS.id && i1 != Block.DEAD_BUSH.id) {
             if (l == 0) {
@@ -45,13 +45,13 @@ public class ItemReed extends Item {
         } else if (itemstack.count == 0) {
             return false;
         } else {
-            if (world.mayPlace(this.id, i, j, k, false, l, (Entity) null)) {
+            if (world.mayPlace(this.id, i, j, k, false, l, (Entity) null, itemstack)) {
                 Block block = Block.byId[this.id];
                 int j1 = block.getPlacedData(world, i, j, k, l, f, f1, f2, 0);
 
-                if (world.setTypeIdAndData(i, j, k, this.id, j1)) {
+                if (world.setTypeIdAndData(i, j, k, this.id, j1, 3)) {
                     if (world.getTypeId(i, j, k) == this.id) {
-                        Block.byId[this.id].postPlace(world, i, j, k, entityhuman);
+                        Block.byId[this.id].postPlace(world, i, j, k, entityhuman, itemstack);
                         Block.byId[this.id].postPlace(world, i, j, k, j1);
                     }
 

@@ -6,7 +6,7 @@ import java.util.Map;
 public class ContainerAnvil extends Container {
 
     private IInventory f = new InventoryCraftResult();
-    private IInventory g = new ContainerAnvilInventory(this, "Repair", 2);
+    private IInventory g = new ContainerAnvilInventory(this, "Repair", true, 2);
     private World h;
     private int i;
     private int j;
@@ -42,11 +42,11 @@ public class ContainerAnvil extends Container {
     public void a(IInventory iinventory) {
         super.a(iinventory);
         if (iinventory == this.g) {
-            this.d();
+            this.e();
         }
     }
 
-    public void d() {
+    public void e() {
         ItemStack itemstack = this.g.getItem(0);
 
         this.a = 0;
@@ -75,8 +75,8 @@ public class ContainerAnvil extends Container {
 
             if (itemstack2 != null) {
                 flag = itemstack2.id == Item.ENCHANTED_BOOK.id && Item.ENCHANTED_BOOK.g(itemstack2).size() > 0;
-                if (itemstack1.f() && Item.byId[itemstack1.id].a(itemstack, itemstack2)) {
-                    l = Math.min(itemstack1.i(), itemstack1.k() / 4);
+                if (itemstack1.g() && Item.byId[itemstack1.id].a(itemstack, itemstack2)) {
+                    l = Math.min(itemstack1.j(), itemstack1.l() / 4);
                     if (l <= 0) {
                         this.f.setItem(0, (ItemStack) null);
                         this.a = 0;
@@ -84,27 +84,27 @@ public class ContainerAnvil extends Container {
                     }
 
                     for (i1 = 0; l > 0 && i1 < itemstack2.count; ++i1) {
-                        j1 = itemstack1.i() - l;
+                        j1 = itemstack1.j() - l;
                         itemstack1.setData(j1);
                         i += Math.max(1, l / 100) + map.size();
-                        l = Math.min(itemstack1.i(), itemstack1.k() / 4);
+                        l = Math.min(itemstack1.j(), itemstack1.l() / 4);
                     }
 
                     this.l = i1;
                 } else {
-                    if (!flag && (itemstack1.id != itemstack2.id || !itemstack1.f())) {
+                    if (!flag && (itemstack1.id != itemstack2.id || !itemstack1.g())) {
                         this.f.setItem(0, (ItemStack) null);
                         this.a = 0;
                         return;
                     }
 
-                    if (itemstack1.f() && !flag) {
-                        l = itemstack.k() - itemstack.i();
-                        i1 = itemstack2.k() - itemstack2.i();
-                        j1 = i1 + itemstack1.k() * 12 / 100;
+                    if (itemstack1.g() && !flag) {
+                        l = itemstack.l() - itemstack.j();
+                        i1 = itemstack2.l() - itemstack2.j();
+                        j1 = i1 + itemstack1.l() * 12 / 100;
                         int i2 = l + j1;
 
-                        k1 = itemstack1.k() - i2;
+                        k1 = itemstack1.l() - i2;
                         if (k1 < 0) {
                             k1 = 0;
                         }
@@ -195,10 +195,10 @@ public class ContainerAnvil extends Container {
                 }
             }
 
-            if (this.m != null && !this.m.equalsIgnoreCase(itemstack.r()) && this.m.length() > 0) {
-                j = itemstack.f() ? 7 : itemstack.count * 5;
+            if (this.m != null && !this.m.equalsIgnoreCase(itemstack.getName()) && this.m.length() > 0) {
+                j = itemstack.g() ? 7 : itemstack.count * 5;
                 i += j;
-                if (itemstack.s()) {
+                if (itemstack.hasName()) {
                     k += j / 2;
                 }
 
@@ -253,7 +253,7 @@ public class ContainerAnvil extends Container {
             }
 
             if (j == i && j > 0 && this.a >= 40) {
-                System.out.println("Naming an item only, cost too high; giving discount to cap cost to 39 levels");
+                this.h.getLogger().info("Naming an item only, cost too high; giving discount to cap cost to 39 levels");
                 this.a = 39;
             }
 
@@ -267,7 +267,7 @@ public class ContainerAnvil extends Container {
                     i1 = itemstack2.getRepairCost();
                 }
 
-                if (itemstack1.s()) {
+                if (itemstack1.hasName()) {
                     i1 -= 9;
                 }
 
@@ -351,7 +351,7 @@ public class ContainerAnvil extends Container {
             this.getSlot(2).getItem().c(this.m);
         }
 
-        this.d();
+        this.e();
     }
 
     static IInventory a(ContainerAnvil containeranvil) {

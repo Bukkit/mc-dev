@@ -6,7 +6,6 @@ public class BlockSkull extends BlockContainer {
 
     protected BlockSkull(int i) {
         super(i, Material.ORIENTABLE);
-        this.textureId = 104;
         this.a(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
     }
 
@@ -48,18 +47,18 @@ public class BlockSkull extends BlockContainer {
         }
     }
 
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public AxisAlignedBB b(World world, int i, int j, int k) {
         this.updateShape(world, i, j, k);
-        return super.e(world, i, j, k);
+        return super.b(world, i, j, k);
     }
 
-    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
+    public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
         int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 2.5D) & 3;
 
-        world.setData(i, j, k, l);
+        world.setData(i, j, k, l, 2);
     }
 
-    public TileEntity a(World world) {
+    public TileEntity b(World world) {
         return new TileEntitySkull();
     }
 
@@ -78,7 +77,7 @@ public class BlockSkull extends BlockContainer {
     public void a(World world, int i, int j, int k, int l, EntityHuman entityhuman) {
         if (entityhuman.abilities.canInstantlyBuild) {
             l |= 8;
-            world.setData(i, j, k, l);
+            world.setData(i, j, k, l, 4);
         }
 
         super.a(world, i, j, k, l, entityhuman);
@@ -107,7 +106,7 @@ public class BlockSkull extends BlockContainer {
     }
 
     public void a(World world, int i, int j, int k, TileEntitySkull tileentityskull) {
-        if (tileentityskull.getSkullType() == 1 && j >= 2 && world.difficulty > 0) {
+        if (tileentityskull.getSkullType() == 1 && j >= 2 && world.difficulty > 0 && !world.isStatic) {
             int l = Block.SOUL_SAND.id;
 
             int i1;
@@ -116,20 +115,20 @@ public class BlockSkull extends BlockContainer {
 
             for (i1 = -2; i1 <= 0; ++i1) {
                 if (world.getTypeId(i, j - 1, k + i1) == l && world.getTypeId(i, j - 1, k + i1 + 1) == l && world.getTypeId(i, j - 2, k + i1 + 1) == l && world.getTypeId(i, j - 1, k + i1 + 2) == l && this.d(world, i, j, k + i1, 1) && this.d(world, i, j, k + i1 + 1, 1) && this.d(world, i, j, k + i1 + 2, 1)) {
-                    world.setRawData(i, j, k + i1, 8);
-                    world.setRawData(i, j, k + i1 + 1, 8);
-                    world.setRawData(i, j, k + i1 + 2, 8);
-                    world.setRawTypeId(i, j, k + i1, 0);
-                    world.setRawTypeId(i, j, k + i1 + 1, 0);
-                    world.setRawTypeId(i, j, k + i1 + 2, 0);
-                    world.setRawTypeId(i, j - 1, k + i1, 0);
-                    world.setRawTypeId(i, j - 1, k + i1 + 1, 0);
-                    world.setRawTypeId(i, j - 1, k + i1 + 2, 0);
-                    world.setRawTypeId(i, j - 2, k + i1 + 1, 0);
+                    world.setData(i, j, k + i1, 8, 2);
+                    world.setData(i, j, k + i1 + 1, 8, 2);
+                    world.setData(i, j, k + i1 + 2, 8, 2);
+                    world.setTypeIdAndData(i, j, k + i1, 0, 0, 2);
+                    world.setTypeIdAndData(i, j, k + i1 + 1, 0, 0, 2);
+                    world.setTypeIdAndData(i, j, k + i1 + 2, 0, 0, 2);
+                    world.setTypeIdAndData(i, j - 1, k + i1, 0, 0, 2);
+                    world.setTypeIdAndData(i, j - 1, k + i1 + 1, 0, 0, 2);
+                    world.setTypeIdAndData(i, j - 1, k + i1 + 2, 0, 0, 2);
+                    world.setTypeIdAndData(i, j - 2, k + i1 + 1, 0, 0, 2);
                     if (!world.isStatic) {
                         entitywither = new EntityWither(world);
                         entitywither.setPositionRotation((double) i + 0.5D, (double) j - 1.45D, (double) (k + i1) + 1.5D, 90.0F, 0.0F);
-                        entitywither.ax = 90.0F;
+                        entitywither.ay = 90.0F;
                         entitywither.m();
                         world.addEntity(entitywither);
                     }
@@ -151,16 +150,16 @@ public class BlockSkull extends BlockContainer {
 
             for (i1 = -2; i1 <= 0; ++i1) {
                 if (world.getTypeId(i + i1, j - 1, k) == l && world.getTypeId(i + i1 + 1, j - 1, k) == l && world.getTypeId(i + i1 + 1, j - 2, k) == l && world.getTypeId(i + i1 + 2, j - 1, k) == l && this.d(world, i + i1, j, k, 1) && this.d(world, i + i1 + 1, j, k, 1) && this.d(world, i + i1 + 2, j, k, 1)) {
-                    world.setRawData(i + i1, j, k, 8);
-                    world.setRawData(i + i1 + 1, j, k, 8);
-                    world.setRawData(i + i1 + 2, j, k, 8);
-                    world.setRawTypeId(i + i1, j, k, 0);
-                    world.setRawTypeId(i + i1 + 1, j, k, 0);
-                    world.setRawTypeId(i + i1 + 2, j, k, 0);
-                    world.setRawTypeId(i + i1, j - 1, k, 0);
-                    world.setRawTypeId(i + i1 + 1, j - 1, k, 0);
-                    world.setRawTypeId(i + i1 + 2, j - 1, k, 0);
-                    world.setRawTypeId(i + i1 + 1, j - 2, k, 0);
+                    world.setData(i + i1, j, k, 8, 2);
+                    world.setData(i + i1 + 1, j, k, 8, 2);
+                    world.setData(i + i1 + 2, j, k, 8, 2);
+                    world.setTypeIdAndData(i + i1, j, k, 0, 0, 2);
+                    world.setTypeIdAndData(i + i1 + 1, j, k, 0, 0, 2);
+                    world.setTypeIdAndData(i + i1 + 2, j, k, 0, 0, 2);
+                    world.setTypeIdAndData(i + i1, j - 1, k, 0, 0, 2);
+                    world.setTypeIdAndData(i + i1 + 1, j - 1, k, 0, 0, 2);
+                    world.setTypeIdAndData(i + i1 + 2, j - 1, k, 0, 0, 2);
+                    world.setTypeIdAndData(i + i1 + 1, j - 2, k, 0, 0, 2);
                     if (!world.isStatic) {
                         entitywither = new EntityWither(world);
                         entitywither.setPositionRotation((double) (i + i1) + 1.5D, (double) j - 1.45D, (double) k + 0.5D, 0.0F, 0.0F);

@@ -36,5 +36,5 @@ public class EntityCaveSpider extends EntitySpider {
         }
     }
 
-    public void bG() {}
+    public void bJ() {}
 }

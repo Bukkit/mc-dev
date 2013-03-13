@@ -33,7 +33,7 @@ public class Pathfinder {
         boolean flag = this.g;
         int i = MathHelper.floor(entity.boundingBox.b + 0.5D);
 
-        if (this.h && entity.H()) {
+        if (this.h && entity.G()) {
             i = (int) entity.boundingBox.b;
 
             for (int j = this.a.getTypeId(MathHelper.floor(entity.locX), i, MathHelper.floor(entity.locZ)); j == Block.WATER.id || j == Block.STATIONARY_WATER.id; j = this.a.getTypeId(MathHelper.floor(entity.locX), i, MathHelper.floor(entity.locZ))) {
@@ -164,7 +164,7 @@ public class Pathfinder {
                         break;
                     }
 
-                    if (j1++ >= entity.as()) {
+                    if (j1++ >= entity.ar()) {
                         return null;
                     }
 
@@ -223,10 +223,17 @@ public class Pathfinder {
                         }
 
                         Block block = Block.byId[k1];
+                        int l1 = block.d();
 
-                        if (!block.c(entity.world, l, i1, j1) && (!flag1 || k1 != Block.WOODEN_DOOR.id)) {
-                            int l1 = block.d();
+                        if (entity.world.e(l, i1, j1) == 9) {
+                            int i2 = MathHelper.floor(entity.locX);
+                            int j2 = MathHelper.floor(entity.locY);
+                            int k2 = MathHelper.floor(entity.locZ);
 
+                            if (entity.world.e(i2, j2, k2) != 9 && entity.world.e(i2, j2 - 1, k2) != 9) {
+                                return -3;
+                            }
+                        } else if (!block.b((IBlockAccess) entity.world, l, i1, j1) && (!flag1 || k1 != Block.WOODEN_DOOR.id)) {
                             if (l1 == 11 || k1 == Block.FENCE_GATE.id || l1 == 32) {
                                 return -3;
                             }
@@ -241,7 +248,7 @@ public class Pathfinder {
                                 return 0;
                             }
 
-                            if (!entity.J()) {
+                            if (!entity.I()) {
                                 return -2;
                             }
                         }

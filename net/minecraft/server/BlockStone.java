@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class BlockStone extends Block {
 
-    public BlockStone(int i, int j) {
-        super(i, j, Material.STONE);
+    public BlockStone(int i) {
+        super(i, Material.STONE);
         this.a(CreativeModeTab.b);
     }
 

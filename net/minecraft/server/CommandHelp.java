@@ -49,7 +49,7 @@ public class CommandHelp extends CommandAbstract {
 
         int k = Math.min((j + 1) * b0, list.size());
 
-        icommandlistener.sendMessage("\u00A72" + icommandlistener.a("commands.help.header", new Object[] { Integer.valueOf(j + 1), Integer.valueOf(i + 1)}));
+        icommandlistener.sendMessage(EnumChatFormat.DARK_GREEN + icommandlistener.a("commands.help.header", new Object[] { Integer.valueOf(j + 1), Integer.valueOf(i + 1)}));
 
         for (int l = j * b0; l < k; ++l) {
             icommand = (ICommand) list.get(l);
@@ -57,7 +57,7 @@ public class CommandHelp extends CommandAbstract {
         }
 
         if (j == 0 && icommandlistener instanceof EntityHuman) {
-            icommandlistener.sendMessage("\u00A7a" + icommandlistener.a("commands.help.footer", new Object[0]));
+            icommandlistener.sendMessage(EnumChatFormat.GREEN + icommandlistener.a("commands.help.footer", new Object[0]));
         }
     }
 

@@ -54,7 +54,7 @@ public class PathfinderGoalFollowOwner extends PathfinderGoal {
     }
 
     public void e() {
-        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.bp());
+        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.bs());
         if (!this.d.isSitting()) {
             if (--this.h <= 0) {
                 this.h = 10;
@@ -66,7 +66,7 @@ public class PathfinderGoalFollowOwner extends PathfinderGoal {
 
                         for (int l = 0; l <= 4; ++l) {
                             for (int i1 = 0; i1 <= 4; ++i1) {
-                                if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.a.v(i + l, k - 1, j + i1) && !this.a.t(i + l, k, j + i1) && !this.a.t(i + l, k + 1, j + i1)) {
+                                if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.a.w(i + l, k - 1, j + i1) && !this.a.u(i + l, k, j + i1) && !this.a.u(i + l, k + 1, j + i1)) {
                                     this.d.setPositionRotation((double) ((float) (i + l) + 0.5F), (double) k, (double) ((float) (j + i1) + 0.5F), this.d.yaw, this.d.pitch);
                                     this.g.g();
                                     return;

@@ -71,6 +71,10 @@ public abstract class WorldProvider {
         return f1;
     }
 
+    public int a(long i) {
+        return (int) (i / 24000L) % 8;
+    }
+
     public boolean d() {
         return true;
     }

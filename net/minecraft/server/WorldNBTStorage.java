@@ -8,16 +8,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.logging.Logger;
 
-public class WorldNBTStorage implements IDataManager, PlayerFileData {
+public class WorldNBTStorage implements IDataManager, IPlayerFileData {
 
-    private static final Logger log = Logger.getLogger("Minecraft");
     private final File baseDir;
     private final File playerDir;
     private final File dataDir;
     private final long sessionId = System.currentTimeMillis();
-    private final String f;
+    private final String e;
 
     public WorldNBTStorage(File file1, String s, boolean flag) {
         this.baseDir = new File(file1, s);
@@ -25,7 +23,7 @@ public class WorldNBTStorage implements IDataManager, PlayerFileData {
         this.playerDir = new File(this.baseDir, "players");
         this.dataDir = new File(this.baseDir, "data");
         this.dataDir.mkdirs();
-        this.f = s;
+        this.e = s;
         if (flag) {
             this.playerDir.mkdirs();
         }
@@ -167,7 +165,7 @@ public class WorldNBTStorage implements IDataManager, PlayerFileData {
         try {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-            entityhuman.d(nbttagcompound);
+            entityhuman.e(nbttagcompound);
             File file1 = new File(this.playerDir, entityhuman.name + ".dat.tmp");
             File file2 = new File(this.playerDir, entityhuman.name + ".dat");
 
@@ -178,16 +176,18 @@ public class WorldNBTStorage implements IDataManager, PlayerFileData {
 
             file1.renameTo(file2);
         } catch (Exception exception) {
-            log.warning("Failed to save player data for " + entityhuman.name);
+            MinecraftServer.getServer().getLogger().warning("Failed to save player data for " + entityhuman.name);
         }
     }
 
-    public void load(EntityHuman entityhuman) {
+    public NBTTagCompound load(EntityHuman entityhuman) {
         NBTTagCompound nbttagcompound = this.getPlayerData(entityhuman.name);
 
         if (nbttagcompound != null) {
-            entityhuman.e(nbttagcompound);
+            entityhuman.f(nbttagcompound);
         }
+
+        return nbttagcompound;
     }
 
     public NBTTagCompound getPlayerData(String s) {
@@ -198,13 +198,13 @@ public class WorldNBTStorage implements IDataManager, PlayerFileData {
                 return NBTCompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
             }
         } catch (Exception exception) {
-            log.warning("Failed to load player data for " + s);
+            MinecraftServer.getServer().getLogger().warning("Failed to load player data for " + s);
         }
 
         return null;
     }
 
-    public PlayerFileData getPlayerFileData() {
+    public IPlayerFileData getPlayerFileData() {
         return this;
     }
 
@@ -227,6 +227,6 @@ public class WorldNBTStorage implements IDataManager, PlayerFileData {
     }
 
     public String g() {
-        return this.f;
+        return this.e;
     }
 }

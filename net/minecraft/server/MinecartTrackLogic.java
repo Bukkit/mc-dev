@@ -3,7 +3,7 @@ package net.minecraft.server;
 import java.util.ArrayList;
 import java.util.List;
 
-class MinecartTrackLogic {
+public class MinecartTrackLogic {
 
     private World b;
     private int c;
@@ -12,10 +12,10 @@ class MinecartTrackLogic {
     private final boolean f;
     private List g;
 
-    final BlockMinecartTrack a;
+    final BlockMinecartTrackAbstract a;
 
-    public MinecartTrackLogic(BlockMinecartTrack blockminecarttrack, World world, int i, int j, int k) {
-        this.a = blockminecarttrack;
+    public MinecartTrackLogic(BlockMinecartTrackAbstract blockminecarttrackabstract, World world, int i, int j, int k) {
+        this.a = blockminecarttrackabstract;
         this.g = new ArrayList();
         this.b = world;
         this.c = i;
@@ -24,7 +24,7 @@ class MinecartTrackLogic {
         int l = world.getTypeId(i, j, k);
         int i1 = world.getData(i, j, k);
 
-        if (BlockMinecartTrack.a((BlockMinecartTrack) Block.byId[l])) {
+        if (((BlockMinecartTrackAbstract) Block.byId[l]).a) {
             this.f = true;
             i1 &= -9;
         } else {
@@ -69,11 +69,11 @@ class MinecartTrackLogic {
         }
     }
 
-    private void a() {
+    private void b() {
         for (int i = 0; i < this.g.size(); ++i) {
             MinecartTrackLogic minecarttracklogic = this.a((ChunkPosition) this.g.get(i));
 
-            if (minecarttracklogic != null && minecarttracklogic.b(this)) {
+            if (minecarttracklogic != null && minecarttracklogic.a(this)) {
                 this.g.set(i, new ChunkPosition(minecarttracklogic.c, minecarttracklogic.d, minecarttracklogic.e));
             } else {
                 this.g.remove(i--);
@@ -82,14 +82,14 @@ class MinecartTrackLogic {
     }
 
     private boolean a(int i, int j, int k) {
-        return BlockMinecartTrack.e_(this.b, i, j, k) ? true : (BlockMinecartTrack.e_(this.b, i, j + 1, k) ? true : BlockMinecartTrack.e_(this.b, i, j - 1, k));
+        return BlockMinecartTrackAbstract.d_(this.b, i, j, k) ? true : (BlockMinecartTrackAbstract.d_(this.b, i, j + 1, k) ? true : BlockMinecartTrackAbstract.d_(this.b, i, j - 1, k));
     }
 
     private MinecartTrackLogic a(ChunkPosition chunkposition) {
-        return BlockMinecartTrack.e_(this.b, chunkposition.x, chunkposition.y, chunkposition.z) ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y, chunkposition.z) : (BlockMinecartTrack.e_(this.b, chunkposition.x, chunkposition.y + 1, chunkposition.z) ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y + 1, chunkposition.z) : (BlockMinecartTrack.e_(this.b, chunkposition.x, chunkposition.y - 1, chunkposition.z) ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y - 1, chunkposition.z) : null));
+        return BlockMinecartTrackAbstract.d_(this.b, chunkposition.x, chunkposition.y, chunkposition.z) ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y, chunkposition.z) : (BlockMinecartTrackAbstract.d_(this.b, chunkposition.x, chunkposition.y + 1, chunkposition.z) ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y + 1, chunkposition.z) : (BlockMinecartTrackAbstract.d_(this.b, chunkposition.x, chunkposition.y - 1, chunkposition.z) ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y - 1, chunkposition.z) : null));
     }
 
-    private boolean b(MinecartTrackLogic minecarttracklogic) {
+    private boolean a(MinecartTrackLogic minecarttracklogic) {
         for (int i = 0; i < this.g.size(); ++i) {
             ChunkPosition chunkposition = (ChunkPosition) this.g.get(i);
 
@@ -113,7 +113,7 @@ class MinecartTrackLogic {
         return false;
     }
 
-    private int b() {
+    protected int a() {
         int i = 0;
 
         if (this.a(this.c, this.d, this.e - 1)) {
@@ -135,21 +135,11 @@ class MinecartTrackLogic {
         return i;
     }
 
-    private boolean c(MinecartTrackLogic minecarttracklogic) {
-        if (this.b(minecarttracklogic)) {
-            return true;
-        } else if (this.g.size() == 2) {
-            return false;
-        } else if (this.g.isEmpty()) {
-            return true;
-        } else {
-            ChunkPosition chunkposition = (ChunkPosition) this.g.get(0);
-
-            return true;
-        }
+    private boolean b(MinecartTrackLogic minecarttracklogic) {
+        return this.a(minecarttracklogic) ? true : (this.g.size() == 2 ? false : (this.g.isEmpty() ? true : true));
     }
 
-    private void d(MinecartTrackLogic minecarttracklogic) {
+    private void c(MinecartTrackLogic minecarttracklogic) {
         this.g.add(new ChunkPosition(minecarttracklogic.c, minecarttracklogic.d, minecarttracklogic.e));
         boolean flag = this.b(this.c, this.d, this.e - 1);
         boolean flag1 = this.b(this.c, this.d, this.e + 1);
@@ -184,21 +174,21 @@ class MinecartTrackLogic {
         }
 
         if (b0 == 0) {
-            if (BlockMinecartTrack.e_(this.b, this.c, this.d + 1, this.e - 1)) {
+            if (BlockMinecartTrackAbstract.d_(this.b, this.c, this.d + 1, this.e - 1)) {
                 b0 = 4;
             }
 
-            if (BlockMinecartTrack.e_(this.b, this.c, this.d + 1, this.e + 1)) {
+            if (BlockMinecartTrackAbstract.d_(this.b, this.c, this.d + 1, this.e + 1)) {
                 b0 = 5;
             }
         }
 
         if (b0 == 1) {
-            if (BlockMinecartTrack.e_(this.b, this.c + 1, this.d + 1, this.e)) {
+            if (BlockMinecartTrackAbstract.d_(this.b, this.c + 1, this.d + 1, this.e)) {
                 b0 = 2;
             }
 
-            if (BlockMinecartTrack.e_(this.b, this.c - 1, this.d + 1, this.e)) {
+            if (BlockMinecartTrackAbstract.d_(this.b, this.c - 1, this.d + 1, this.e)) {
                 b0 = 3;
             }
         }
@@ -213,7 +203,7 @@ class MinecartTrackLogic {
             i = this.b.getData(this.c, this.d, this.e) & 8 | b0;
         }
 
-        this.b.setData(this.c, this.d, this.e, i);
+        this.b.setData(this.c, this.d, this.e, i, 3);
     }
 
     private boolean c(int i, int j, int k) {
@@ -222,8 +212,8 @@ class MinecartTrackLogic {
         if (minecarttracklogic == null) {
             return false;
         } else {
-            minecarttracklogic.a();
-            return minecarttracklogic.c(this);
+            minecarttracklogic.b();
+            return minecarttracklogic.b(this);
         }
     }
 
@@ -307,21 +297,21 @@ class MinecartTrackLogic {
         }
 
         if (b0 == 0) {
-            if (BlockMinecartTrack.e_(this.b, this.c, this.d + 1, this.e - 1)) {
+            if (BlockMinecartTrackAbstract.d_(this.b, this.c, this.d + 1, this.e - 1)) {
                 b0 = 4;
             }
 
-            if (BlockMinecartTrack.e_(this.b, this.c, this.d + 1, this.e + 1)) {
+            if (BlockMinecartTrackAbstract.d_(this.b, this.c, this.d + 1, this.e + 1)) {
                 b0 = 5;
             }
         }
 
         if (b0 == 1) {
-            if (BlockMinecartTrack.e_(this.b, this.c + 1, this.d + 1, this.e)) {
+            if (BlockMinecartTrackAbstract.d_(this.b, this.c + 1, this.d + 1, this.e)) {
                 b0 = 2;
             }
 
-            if (BlockMinecartTrack.e_(this.b, this.c - 1, this.d + 1, this.e)) {
+            if (BlockMinecartTrackAbstract.d_(this.b, this.c - 1, this.d + 1, this.e)) {
                 b0 = 3;
             }
         }
@@ -338,22 +328,18 @@ class MinecartTrackLogic {
         }
 
         if (flag1 || this.b.getData(this.c, this.d, this.e) != i) {
-            this.b.setData(this.c, this.d, this.e, i);
+            this.b.setData(this.c, this.d, this.e, i, 3);
 
             for (int j = 0; j < this.g.size(); ++j) {
                 MinecartTrackLogic minecarttracklogic = this.a((ChunkPosition) this.g.get(j));
 
                 if (minecarttracklogic != null) {
-                    minecarttracklogic.a();
-                    if (minecarttracklogic.c(this)) {
-                        minecarttracklogic.d(this);
+                    minecarttracklogic.b();
+                    if (minecarttracklogic.b(this)) {
+                        minecarttracklogic.c(this);
                     }
                 }
             }
         }
-    }
-
-    static int a(MinecartTrackLogic minecarttracklogic) {
-        return minecarttracklogic.b();
     }
 }

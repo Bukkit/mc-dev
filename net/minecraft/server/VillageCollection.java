@@ -203,13 +203,13 @@ public class VillageCollection extends WorldMapBase {
             i1 = 0;
 
             for (j1 = -5; j1 < 0; ++j1) {
-                if (this.world.k(i, j, k + j1)) {
+                if (this.world.l(i, j, k + j1)) {
                     --i1;
                 }
             }
 
             for (j1 = 1; j1 <= 5; ++j1) {
-                if (this.world.k(i, j, k + j1)) {
+                if (this.world.l(i, j, k + j1)) {
                     ++i1;
                 }
             }
@@ -221,13 +221,13 @@ public class VillageCollection extends WorldMapBase {
             i1 = 0;
 
             for (j1 = -5; j1 < 0; ++j1) {
-                if (this.world.k(i + j1, j, k)) {
+                if (this.world.l(i + j1, j, k)) {
                     --i1;
                 }
             }
 
             for (j1 = 1; j1 <= 5; ++j1) {
-                if (this.world.k(i + j1, j, k)) {
+                if (this.world.l(i + j1, j, k)) {
                     ++i1;
                 }
             }

@@ -5,15 +5,11 @@ public class BlockCobbleWall extends Block {
     public static final String[] a = new String[] { "normal", "mossy"};
 
     public BlockCobbleWall(int i, Block block) {
-        super(i, block.textureId, block.material);
+        super(i, block.material);
         this.c(block.strength);
         this.b(block.durability / 3.0F);
         this.a(block.stepSound);
         this.a(CreativeModeTab.b);
-    }
-
-    public int a(int i, int j) {
-        return j == 1 ? Block.MOSSY_COBBLESTONE.textureId : super.a(i);
     }
 
     public int d() {
@@ -24,7 +20,7 @@ public class BlockCobbleWall extends Block {
         return false;
     }
 
-    public boolean c(IBlockAccess iblockaccess, int i, int j, int k) {
+    public boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
         return false;
     }
 
@@ -72,10 +68,10 @@ public class BlockCobbleWall extends Block {
         this.a(f, 0.0F, f2, f1, f4, f3);
     }
 
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public AxisAlignedBB b(World world, int i, int j, int k) {
         this.updateShape(world, i, j, k);
         this.maxY = 1.5D;
-        return super.e(world, i, j, k);
+        return super.b(world, i, j, k);
     }
 
     public boolean d(IBlockAccess iblockaccess, int i, int j, int k) {

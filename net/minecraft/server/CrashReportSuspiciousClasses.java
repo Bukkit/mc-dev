@@ -36,7 +36,7 @@ class CrashReportSuspiciousClasses implements Callable {
             if (oclass != null) {
                 String s1 = oclass.getCanonicalName();
 
-                if (s1 != null && !s1.startsWith("org.lwjgl.") && !s1.startsWith("paulscode.") && !s1.startsWith("org.bouncycastle.") && !s1.startsWith("argo.") && !s1.startsWith("com.jcraft.") && !s1.equals("util.GLX")) {
+                if (s1 != null && !s1.startsWith("org.lwjgl.") && !s1.startsWith("paulscode.") && !s1.startsWith("org.bouncycastle.") && !s1.startsWith("argo.") && !s1.startsWith("com.jcraft.") && !s1.startsWith("com.fasterxml.") && !s1.equals("util.GLX")) {
                     if (flag1) {
                         if (s1.length() <= 3 || s1.equals("net.minecraft.client.MinecraftApplet") || s1.equals("net.minecraft.client.Minecraft") || s1.equals("net.minecraft.client.ClientBrandRetriever") || s1.equals("net.minecraft.server.MinecraftServer")) {
                             continue;

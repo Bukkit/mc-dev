@@ -15,7 +15,7 @@ public class PathfinderGoalPanic extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (this.a.aC() == null && !this.a.isBurning()) {
+        if (this.a.aF() == null && !this.a.isBurning()) {
             return false;
         } else {
             Vec3D vec3d = RandomPositionGenerator.a(this.a, 5, 4);

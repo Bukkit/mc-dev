@@ -95,7 +95,7 @@ public class WorldGenVillageRoad extends WorldGenVillageRoadPiece {
                 if (structureboundingbox.b(j, 64, k)) {
                     int l = world.i(j, k) - 1;
 
-                    world.setRawTypeId(j, l, k, i);
+                    world.setTypeIdAndData(j, l, k, i, 0, 2);
                 }
             }
         }

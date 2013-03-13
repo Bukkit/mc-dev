@@ -51,4 +51,8 @@ public class NoteBlockData {
             return this.a == noteblockdata.a && this.b == noteblockdata.b && this.c == noteblockdata.c && this.e == noteblockdata.e && this.f == noteblockdata.f && this.d == noteblockdata.d;
         }
     }
+
+    public String toString() {
+        return "TE(" + this.a + "," + this.b + "," + this.c + ")," + this.e + "," + this.f + "," + this.d;
+    }
 }

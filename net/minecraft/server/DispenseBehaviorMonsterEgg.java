@@ -1,20 +1,20 @@
 package net.minecraft.server;
 
-public class DispenseBehaviorMonsterEgg extends DispenseBehaviorItem {
+final class DispenseBehaviorMonsterEgg extends DispenseBehaviorItem {
 
-    final MinecraftServer b;
-
-    public DispenseBehaviorMonsterEgg(MinecraftServer minecraftserver) {
-        this.b = minecraftserver;
-    }
+    DispenseBehaviorMonsterEgg() {}
 
     public ItemStack b(ISourceBlock isourceblock, ItemStack itemstack) {
-        EnumFacing enumfacing = EnumFacing.a(isourceblock.h());
+        EnumFacing enumfacing = BlockDispenser.j_(isourceblock.h());
         double d0 = isourceblock.getX() + (double) enumfacing.c();
         double d1 = (double) ((float) isourceblock.getBlockY() + 0.2F);
         double d2 = isourceblock.getZ() + (double) enumfacing.e();
+        Entity entity = ItemMonsterEgg.a(isourceblock.k(), itemstack.getData(), d0, d1, d2);
 
-        ItemMonsterEgg.a(isourceblock.k(), itemstack.getData(), d0, d1, d2);
+        if (entity instanceof EntityLiving && itemstack.hasName()) {
+            ((EntityLiving) entity).setCustomName(itemstack.getName());
+        }
+
         itemstack.a(1);
         return itemstack;
     }

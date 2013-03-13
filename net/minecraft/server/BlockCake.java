@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class BlockCake extends Block {
 
-    protected BlockCake(int i, int j) {
-        super(i, j, Material.CAKE);
+    protected BlockCake(int i) {
+        super(i, Material.CAKE);
         this.b(true);
     }
 
@@ -18,28 +18,20 @@ public class BlockCake extends Block {
         this.a(f1, 0.0F, f, 1.0F - f, f2, 1.0F - f);
     }
 
-    public void f() {
+    public void g() {
         float f = 0.0625F;
         float f1 = 0.5F;
 
         this.a(f, 0.0F, f, 1.0F - f, f1, 1.0F - f);
     }
 
-    public AxisAlignedBB e(World world, int i, int j, int k) {
+    public AxisAlignedBB b(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
         float f = 0.0625F;
         float f1 = (float) (1 + l * 2) / 16.0F;
         float f2 = 0.5F;
 
         return AxisAlignedBB.a().a((double) ((float) i + f1), (double) j, (double) ((float) k + f), (double) ((float) (i + 1) - f), (double) ((float) j + f2 - f), (double) ((float) (k + 1) - f));
-    }
-
-    public int a(int i, int j) {
-        return i == 1 ? this.textureId : (i == 0 ? this.textureId + 3 : (j > 0 && i == 4 ? this.textureId + 2 : this.textureId + 1));
-    }
-
-    public int a(int i) {
-        return i == 1 ? this.textureId : (i == 0 ? this.textureId + 3 : this.textureId + 1);
     }
 
     public boolean b() {
@@ -60,31 +52,29 @@ public class BlockCake extends Block {
     }
 
     private void b(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (entityhuman.g(false)) {
+        if (entityhuman.i(false)) {
             entityhuman.getFoodData().eat(2, 0.1F);
             int l = world.getData(i, j, k) + 1;
 
             if (l >= 6) {
-                world.setTypeId(i, j, k, 0);
+                world.setAir(i, j, k);
             } else {
-                world.setData(i, j, k, l);
-                world.j(i, j, k);
+                world.setData(i, j, k, l, 2);
             }
         }
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return !super.canPlace(world, i, j, k) ? false : this.d(world, i, j, k);
+        return !super.canPlace(world, i, j, k) ? false : this.f(world, i, j, k);
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        if (!this.d(world, i, j, k)) {
-            this.c(world, i, j, k, world.getData(i, j, k), 0);
-            world.setTypeId(i, j, k, 0);
+        if (!this.f(world, i, j, k)) {
+            world.setAir(i, j, k);
         }
     }
 
-    public boolean d(World world, int i, int j, int k) {
+    public boolean f(World world, int i, int j, int k) {
         return world.getMaterial(i, j - 1, k).isBuildable();
     }
 

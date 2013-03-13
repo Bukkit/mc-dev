@@ -6,12 +6,10 @@ public class BlockFlowerPot extends Block {
 
     public BlockFlowerPot(int i) {
         super(i, Material.ORIENTABLE);
-        this.textureId = 186;
-        this.f();
-        this.r();
+        this.g();
     }
 
-    public void f() {
+    public void g() {
         float f = 0.375F;
         float f1 = f / 2.0F;
 
@@ -41,7 +39,7 @@ public class BlockFlowerPot extends Block {
             int i1 = a(itemstack);
 
             if (i1 > 0) {
-                world.setData(i, j, k, i1);
+                world.setData(i, j, k, i1, 2);
                 if (!entityhuman.abilities.canInstantlyBuild && --itemstack.count <= 0) {
                     entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
                 }
@@ -54,26 +52,26 @@ public class BlockFlowerPot extends Block {
     }
 
     public int getDropData(World world, int i, int j, int k) {
-        ItemStack itemstack = c(world.getData(i, j, k));
+        ItemStack itemstack = n_(world.getData(i, j, k));
 
         return itemstack == null ? Item.FLOWER_POT.id : itemstack.getData();
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return super.canPlace(world, i, j, k) && world.v(i, j - 1, k);
+        return super.canPlace(world, i, j, k) && world.w(i, j - 1, k);
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        if (!world.v(i, j - 1, k)) {
+        if (!world.w(i, j - 1, k)) {
             this.c(world, i, j, k, world.getData(i, j, k), 0);
-            world.setTypeId(i, j, k, 0);
+            world.setAir(i, j, k);
         }
     }
 
     public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
         super.dropNaturally(world, i, j, k, l, f, i1);
         if (l > 0) {
-            ItemStack itemstack = c(l);
+            ItemStack itemstack = n_(l);
 
             if (itemstack != null) {
                 this.b(world, i, j, k, itemstack);
@@ -85,7 +83,7 @@ public class BlockFlowerPot extends Block {
         return Item.FLOWER_POT.id;
     }
 
-    public static ItemStack c(int i) {
+    public static ItemStack n_(int i) {
         switch (i) {
         case 1:
             return new ItemStack(Block.RED_ROSE);
