@@ -86,13 +86,13 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     }
 
     public boolean aD() {
-        if (TileEntityHopper.a((IHopper) this)) {
+        if (TileEntityHopper.suckInItems(this)) {
             return true;
         } else {
             List list = this.world.a(EntityItem.class, this.boundingBox.grow(0.25D, 0.0D, 0.25D), IEntitySelector.a);
 
             if (list.size() > 0) {
-                TileEntityHopper.a((IInventory) this, (EntityItem) list.get(0));
+                TileEntityHopper.addEntityItem(this, (EntityItem) list.get(0));
             }
 
             return false;

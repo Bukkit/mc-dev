@@ -8,25 +8,34 @@ public class ChunkCache implements IBlockAccess {
     private boolean d;
     private World e;
 
-    public ChunkCache(World world, int i, int j, int k, int l, int i1, int j1) {
+    public ChunkCache(World world, int i, int j, int k, int l, int i1, int j1, int k1) {
         this.e = world;
-        this.a = i >> 4;
-        this.b = k >> 4;
-        int k1 = l >> 4;
-        int l1 = j1 >> 4;
+        this.a = i - k1 >> 4;
+        this.b = k - k1 >> 4;
+        int l1 = l + k1 >> 4;
+        int i2 = j1 + k1 >> 4;
 
-        this.c = new Chunk[k1 - this.a + 1][l1 - this.b + 1];
+        this.c = new Chunk[l1 - this.a + 1][i2 - this.b + 1];
         this.d = true;
 
-        for (int i2 = this.a; i2 <= k1; ++i2) {
-            for (int j2 = this.b; j2 <= l1; ++j2) {
-                Chunk chunk = world.getChunkAt(i2, j2);
+        int j2;
+        int k2;
+        Chunk chunk;
 
+        for (j2 = this.a; j2 <= l1; ++j2) {
+            for (k2 = this.b; k2 <= i2; ++k2) {
+                chunk = world.getChunkAt(j2, k2);
                 if (chunk != null) {
-                    this.c[i2 - this.a][j2 - this.b] = chunk;
-                    if (!chunk.c(j, i1)) {
-                        this.d = false;
-                    }
+                    this.c[j2 - this.a][k2 - this.b] = chunk;
+                }
+            }
+        }
+
+        for (j2 = i >> 4; j2 <= l >> 4; ++j2) {
+            for (k2 = k >> 4; k2 <= j1 >> 4; ++k2) {
+                chunk = this.c[j2 - this.a][k2 - this.b];
+                if (chunk != null && !chunk.c(j, i1)) {
+                    this.d = false;
                 }
             }
         }

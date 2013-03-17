@@ -12,8 +12,8 @@ public class Packet206SetScoreboardObjective extends Packet {
     public Packet206SetScoreboardObjective() {}
 
     public Packet206SetScoreboardObjective(ScoreboardObjective scoreboardobjective, int i) {
-        this.a = scoreboardobjective.b();
-        this.b = scoreboardobjective.d();
+        this.a = scoreboardobjective.getName();
+        this.b = scoreboardobjective.getDisplayName();
         this.c = i;
     }
 

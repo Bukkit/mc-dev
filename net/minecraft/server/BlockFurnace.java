@@ -147,6 +147,8 @@ public class BlockFurnace extends BlockContainer {
                         }
                     }
                 }
+
+                world.m(i, j, k, l);
             }
         }
 

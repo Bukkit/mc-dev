@@ -19,17 +19,17 @@ public class Packet209SetScoreboardTeam extends Packet {
     public Packet209SetScoreboardTeam() {}
 
     public Packet209SetScoreboardTeam(ScoreboardTeam scoreboardteam, int i) {
-        this.a = scoreboardteam.b();
+        this.a = scoreboardteam.getName();
         this.f = i;
         if (i == 0 || i == 2) {
-            this.b = scoreboardteam.c();
-            this.c = scoreboardteam.e();
-            this.d = scoreboardteam.f();
-            this.g = scoreboardteam.i();
+            this.b = scoreboardteam.getDisplayName();
+            this.c = scoreboardteam.getPrefix();
+            this.d = scoreboardteam.getSuffix();
+            this.g = scoreboardteam.packOptionData();
         }
 
         if (i == 0) {
-            this.e.addAll(scoreboardteam.d());
+            this.e.addAll(scoreboardteam.getPlayerNameSet());
         }
     }
 
@@ -38,7 +38,7 @@ public class Packet209SetScoreboardTeam extends Packet {
             throw new IllegalArgumentException("Method must be join or leave for player constructor");
         } else if (collection != null && !collection.isEmpty()) {
             this.f = i;
-            this.a = scoreboardteam.b();
+            this.a = scoreboardteam.getName();
             this.e.addAll(collection);
         } else {
             throw new IllegalArgumentException("Players cannot be null/empty");

@@ -114,17 +114,19 @@ public class EntityTrackerEntry {
                 boolean flag = Math.abs(j1) >= 4 || Math.abs(k1) >= 4 || Math.abs(l1) >= 4 || this.m % 60 == 0;
                 boolean flag1 = Math.abs(l - this.yRot) >= 4 || Math.abs(i1 - this.xRot) >= 4;
 
-                if (j1 >= -128 && j1 < 128 && k1 >= -128 && k1 < 128 && l1 >= -128 && l1 < 128 && this.u <= 400 && !this.w) {
-                    if (flag && flag1) {
-                        object = new Packet33RelEntityMoveLook(this.tracker.id, (byte) j1, (byte) k1, (byte) l1, (byte) l, (byte) i1);
-                    } else if (flag) {
-                        object = new Packet31RelEntityMove(this.tracker.id, (byte) j1, (byte) k1, (byte) l1);
-                    } else if (flag1) {
-                        object = new Packet32EntityLook(this.tracker.id, (byte) l, (byte) i1);
+                if (this.m > 0) {
+                    if (j1 >= -128 && j1 < 128 && k1 >= -128 && k1 < 128 && l1 >= -128 && l1 < 128 && this.u <= 400 && !this.w) {
+                        if (flag && flag1) {
+                            object = new Packet33RelEntityMoveLook(this.tracker.id, (byte) j1, (byte) k1, (byte) l1, (byte) l, (byte) i1);
+                        } else if (flag) {
+                            object = new Packet31RelEntityMove(this.tracker.id, (byte) j1, (byte) k1, (byte) l1);
+                        } else if (flag1) {
+                            object = new Packet32EntityLook(this.tracker.id, (byte) l, (byte) i1);
+                        }
+                    } else {
+                        this.u = 0;
+                        object = new Packet34EntityTeleport(this.tracker.id, i, j, k, (byte) l, (byte) i1);
                     }
-                } else {
-                    this.u = 0;
-                    object = new Packet34EntityTeleport(this.tracker.id, i, j, k, (byte) l, (byte) i1);
                 }
 
                 if (this.isMoving) {

@@ -42,17 +42,17 @@ public class ScoreboardSaveData extends WorldMapBase {
     protected void a(NBTTagList nbttaglist) {
         for (int i = 0; i < nbttaglist.size(); ++i) {
             NBTTagCompound nbttagcompound = (NBTTagCompound) nbttaglist.get(i);
-            ScoreboardTeam scoreboardteam = this.a.f(nbttagcompound.getString("Name"));
+            ScoreboardTeam scoreboardteam = this.a.createTeam(nbttagcompound.getString("Name"));
 
-            scoreboardteam.a(nbttagcompound.getString("DisplayName"));
-            scoreboardteam.b(nbttagcompound.getString("Prefix"));
-            scoreboardteam.c(nbttagcompound.getString("Suffix"));
+            scoreboardteam.setDisplayName(nbttagcompound.getString("DisplayName"));
+            scoreboardteam.setPrefix(nbttagcompound.getString("Prefix"));
+            scoreboardteam.setSuffix(nbttagcompound.getString("Suffix"));
             if (nbttagcompound.hasKey("AllowFriendlyFire")) {
-                scoreboardteam.a(nbttagcompound.getBoolean("AllowFriendlyFire"));
+                scoreboardteam.setAllowFriendlyFire(nbttagcompound.getBoolean("AllowFriendlyFire"));
             }
 
             if (nbttagcompound.hasKey("SeeFriendlyInvisibles")) {
-                scoreboardteam.b(nbttagcompound.getBoolean("SeeFriendlyInvisibles"));
+                scoreboardteam.setCanSeeFriendlyInvisibles(nbttagcompound.getBoolean("SeeFriendlyInvisibles"));
             }
 
             this.a(scoreboardteam, nbttagcompound.getList("Players"));
@@ -61,7 +61,7 @@ public class ScoreboardSaveData extends WorldMapBase {
 
     protected void a(ScoreboardTeam scoreboardteam, NBTTagList nbttaglist) {
         for (int i = 0; i < nbttaglist.size(); ++i) {
-            this.a.a(((NBTTagString) nbttaglist.get(i)).data, scoreboardteam);
+            this.a.addPlayerToTeam(((NBTTagString) nbttaglist.get(i)).data, scoreboardteam);
         }
     }
 
@@ -69,9 +69,9 @@ public class ScoreboardSaveData extends WorldMapBase {
         for (int i = 0; i < 3; ++i) {
             if (nbttagcompound.hasKey("slot_" + i)) {
                 String s = nbttagcompound.getString("slot_" + i);
-                ScoreboardObjective scoreboardobjective = this.a.b(s);
+                ScoreboardObjective scoreboardobjective = this.a.getObjective(s);
 
-                this.a.a(i, scoreboardobjective);
+                this.a.setDisplaySlot(i, scoreboardobjective);
             }
         }
     }
@@ -79,20 +79,20 @@ public class ScoreboardSaveData extends WorldMapBase {
     protected void b(NBTTagList nbttaglist) {
         for (int i = 0; i < nbttaglist.size(); ++i) {
             NBTTagCompound nbttagcompound = (NBTTagCompound) nbttaglist.get(i);
-            IObjective iobjective = (IObjective) IObjective.a.get(nbttagcompound.getString("CriteriaName"));
-            ScoreboardObjective scoreboardobjective = this.a.a(nbttagcompound.getString("Name"), iobjective);
+            IScoreboardCriteria iscoreboardcriteria = (IScoreboardCriteria) IScoreboardCriteria.a.get(nbttagcompound.getString("CriteriaName"));
+            ScoreboardObjective scoreboardobjective = this.a.registerObjective(nbttagcompound.getString("Name"), iscoreboardcriteria);
 
-            scoreboardobjective.a(nbttagcompound.getString("DisplayName"));
+            scoreboardobjective.setDisplayName(nbttagcompound.getString("DisplayName"));
         }
     }
 
     protected void c(NBTTagList nbttaglist) {
         for (int i = 0; i < nbttaglist.size(); ++i) {
             NBTTagCompound nbttagcompound = (NBTTagCompound) nbttaglist.get(i);
-            ScoreboardObjective scoreboardobjective = this.a.b(nbttagcompound.getString("Objective"));
-            ScoreboardScore scoreboardscore = this.a.a(nbttagcompound.getString("Name"), scoreboardobjective);
+            ScoreboardObjective scoreboardobjective = this.a.getObjective(nbttagcompound.getString("Objective"));
+            ScoreboardScore scoreboardscore = this.a.getPlayerScoreForObjective(nbttagcompound.getString("Name"), scoreboardobjective);
 
-            scoreboardscore.c(nbttagcompound.getInt("Score"));
+            scoreboardscore.setScore(nbttagcompound.getInt("Score"));
         }
     }
 
@@ -109,21 +109,21 @@ public class ScoreboardSaveData extends WorldMapBase {
 
     protected NBTTagList a() {
         NBTTagList nbttaglist = new NBTTagList();
-        Collection collection = this.a.g();
+        Collection collection = this.a.getTeams();
         Iterator iterator = collection.iterator();
 
         while (iterator.hasNext()) {
             ScoreboardTeam scoreboardteam = (ScoreboardTeam) iterator.next();
             NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-            nbttagcompound.setString("Name", scoreboardteam.b());
-            nbttagcompound.setString("DisplayName", scoreboardteam.c());
-            nbttagcompound.setString("Prefix", scoreboardteam.e());
-            nbttagcompound.setString("Suffix", scoreboardteam.f());
-            nbttagcompound.setBoolean("AllowFriendlyFire", scoreboardteam.g());
-            nbttagcompound.setBoolean("SeeFriendlyInvisibles", scoreboardteam.h());
+            nbttagcompound.setString("Name", scoreboardteam.getName());
+            nbttagcompound.setString("DisplayName", scoreboardteam.getDisplayName());
+            nbttagcompound.setString("Prefix", scoreboardteam.getPrefix());
+            nbttagcompound.setString("Suffix", scoreboardteam.getSuffix());
+            nbttagcompound.setBoolean("AllowFriendlyFire", scoreboardteam.allowFriendlyFire());
+            nbttagcompound.setBoolean("SeeFriendlyInvisibles", scoreboardteam.canSeeFriendlyInvisibles());
             NBTTagList nbttaglist1 = new NBTTagList();
-            Iterator iterator1 = scoreboardteam.d().iterator();
+            Iterator iterator1 = scoreboardteam.getPlayerNameSet().iterator();
 
             while (iterator1.hasNext()) {
                 String s = (String) iterator1.next();
@@ -143,10 +143,10 @@ public class ScoreboardSaveData extends WorldMapBase {
         boolean flag = false;
 
         for (int i = 0; i < 3; ++i) {
-            ScoreboardObjective scoreboardobjective = this.a.a(i);
+            ScoreboardObjective scoreboardobjective = this.a.getObjectiveForSlot(i);
 
             if (scoreboardobjective != null) {
-                nbttagcompound1.setString("slot_" + i, scoreboardobjective.b());
+                nbttagcompound1.setString("slot_" + i, scoreboardobjective.getName());
                 flag = true;
             }
         }
@@ -158,16 +158,16 @@ public class ScoreboardSaveData extends WorldMapBase {
 
     protected NBTTagList b() {
         NBTTagList nbttaglist = new NBTTagList();
-        Collection collection = this.a.c();
+        Collection collection = this.a.getObjectives();
         Iterator iterator = collection.iterator();
 
         while (iterator.hasNext()) {
             ScoreboardObjective scoreboardobjective = (ScoreboardObjective) iterator.next();
             NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-            nbttagcompound.setString("Name", scoreboardobjective.b());
-            nbttagcompound.setString("CriteriaName", scoreboardobjective.c().a());
-            nbttagcompound.setString("DisplayName", scoreboardobjective.d());
+            nbttagcompound.setString("Name", scoreboardobjective.getName());
+            nbttagcompound.setString("CriteriaName", scoreboardobjective.getCriteria().getName());
+            nbttagcompound.setString("DisplayName", scoreboardobjective.getDisplayName());
             nbttaglist.add(nbttagcompound);
         }
 
@@ -176,16 +176,16 @@ public class ScoreboardSaveData extends WorldMapBase {
 
     protected NBTTagList e() {
         NBTTagList nbttaglist = new NBTTagList();
-        Collection collection = this.a.e();
+        Collection collection = this.a.getScores();
         Iterator iterator = collection.iterator();
 
         while (iterator.hasNext()) {
             ScoreboardScore scoreboardscore = (ScoreboardScore) iterator.next();
             NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-            nbttagcompound.setString("Name", scoreboardscore.e());
-            nbttagcompound.setString("Objective", scoreboardscore.d().b());
-            nbttagcompound.setInt("Score", scoreboardscore.c());
+            nbttagcompound.setString("Name", scoreboardscore.getPlayerName());
+            nbttagcompound.setString("Objective", scoreboardscore.getObjective().getName());
+            nbttagcompound.setInt("Score", scoreboardscore.getScore());
             nbttaglist.add(nbttagcompound);
         }
 

@@ -28,11 +28,11 @@ public class BlockDropper extends BlockDispenser {
             } else {
                 ItemStack itemstack = tileentitydispenser.getItem(l);
                 int i1 = world.getData(i, j, k) & 7;
-                IInventory iinventory = TileEntityHopper.b(world, (double) (i + Facing.b[i1]), (double) (j + Facing.c[i1]), (double) (k + Facing.d[i1]));
+                IInventory iinventory = TileEntityHopper.getInventoryAt(world, (double) (i + Facing.b[i1]), (double) (j + Facing.c[i1]), (double) (k + Facing.d[i1]));
                 ItemStack itemstack1;
 
                 if (iinventory != null) {
-                    itemstack1 = TileEntityHopper.a(iinventory, itemstack.cloneItemStack().a(1), Facing.OPPOSITE_FACING[i1]);
+                    itemstack1 = TileEntityHopper.addItem(iinventory, itemstack.cloneItemStack().a(1), Facing.OPPOSITE_FACING[i1]);
                     if (itemstack1 == null) {
                         itemstack1 = itemstack.cloneItemStack();
                         if (--itemstack1.count == 0) {

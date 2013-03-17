@@ -2,7 +2,9 @@ package net.minecraft.server;
 
 public interface IWorldInventory extends IInventory {
 
-    int c(int i);
+    int[] getSlotsForFace(int i);
 
-    int d(int i);
+    boolean canPlaceItemThroughFace(int i, ItemStack itemstack, int j);
+
+    boolean canTakeItemThroughFace(int i, ItemStack itemstack, int j);
 }

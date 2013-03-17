@@ -56,6 +56,10 @@ public class MobEffect {
         return this.amplification;
     }
 
+    public boolean isSplash() {
+        return this.splash;
+    }
+
     public void setSplash(boolean flag) {
         this.splash = flag;
     }

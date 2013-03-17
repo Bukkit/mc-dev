@@ -148,13 +148,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void setHealth(int i) {
         super.setHealth(i);
-        Collection collection = this.getScoreboard().a(IObjective.f);
+        Collection collection = this.getScoreboard().getObjectivesForCriteria(IScoreboardCriteria.f);
         Iterator iterator = collection.iterator();
 
         while (iterator.hasNext()) {
             ScoreboardObjective scoreboardobjective = (ScoreboardObjective) iterator.next();
 
-            this.getScoreboard().a(this.getLocalizedName(), scoreboardobjective).a(Arrays.asList(new EntityHuman[] { this}));
+            this.getScoreboard().getPlayerScoreForObjective(this.getLocalizedName(), scoreboardobjective).updateForList(Arrays.asList(new EntityHuman[] { this}));
         }
     }
 
@@ -200,14 +200,14 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             this.inventory.m();
         }
 
-        Collection collection = this.world.getScoreboard().a(IObjective.c);
+        Collection collection = this.world.getScoreboard().getObjectivesForCriteria(IScoreboardCriteria.c);
         Iterator iterator = collection.iterator();
 
         while (iterator.hasNext()) {
             ScoreboardObjective scoreboardobjective = (ScoreboardObjective) iterator.next();
-            ScoreboardScore scoreboardscore = this.getScoreboard().a(this.getLocalizedName(), scoreboardobjective);
+            ScoreboardScore scoreboardscore = this.getScoreboard().getPlayerScoreForObjective(this.getLocalizedName(), scoreboardobjective);
 
-            scoreboardscore.a();
+            scoreboardscore.incrementScore();
         }
 
         EntityLiving entityliving = this.bN();

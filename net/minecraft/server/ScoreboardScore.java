@@ -8,65 +8,65 @@ public class ScoreboardScore {
     public static final Comparator a = new ScoreboardComparator();
     private final Scoreboard b;
     private final ScoreboardObjective c;
-    private final String d;
-    private int e;
+    private final String playerName;
+    private int score;
 
     public ScoreboardScore(Scoreboard scoreboard, ScoreboardObjective scoreboardobjective, String s) {
         this.b = scoreboard;
         this.c = scoreboardobjective;
-        this.d = s;
+        this.playerName = s;
     }
 
-    public void a(int i) {
-        if (this.c.c().b()) {
+    public void addScore(int i) {
+        if (this.c.getCriteria().isReadOnly()) {
             throw new IllegalStateException("Cannot modify read-only score");
         } else {
-            this.c(this.c() + i);
+            this.setScore(this.getScore() + i);
         }
     }
 
-    public void b(int i) {
-        if (this.c.c().b()) {
+    public void removeScore(int i) {
+        if (this.c.getCriteria().isReadOnly()) {
             throw new IllegalStateException("Cannot modify read-only score");
         } else {
-            this.c(this.c() - i);
+            this.setScore(this.getScore() - i);
         }
     }
 
-    public void a() {
-        if (this.c.c().b()) {
+    public void incrementScore() {
+        if (this.c.getCriteria().isReadOnly()) {
             throw new IllegalStateException("Cannot modify read-only score");
         } else {
-            this.a(1);
+            this.addScore(1);
         }
     }
 
-    public int c() {
-        return this.e;
+    public int getScore() {
+        return this.score;
     }
 
-    public void c(int i) {
-        int j = this.e;
+    public void setScore(int i) {
+        int j = this.score;
 
-        this.e = i;
+        this.score = i;
         if (j != i) {
-            this.f().a(this);
+            this.f().handleScoreChanged(this);
         }
     }
 
-    public ScoreboardObjective d() {
+    public ScoreboardObjective getObjective() {
         return this.c;
     }
 
-    public String e() {
-        return this.d;
+    public String getPlayerName() {
+        return this.playerName;
     }
 
     public Scoreboard f() {
         return this.b;
     }
 
-    public void a(List list) {
-        this.c(this.c.c().a(list));
+    public void updateForList(List list) {
+        this.setScore(this.c.getCriteria().getScoreModifier(list));
     }
 }

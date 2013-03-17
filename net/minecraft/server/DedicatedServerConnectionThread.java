@@ -55,20 +55,6 @@ public class DedicatedServerConnectionThread extends Thread {
         while (this.e.a) {
             try {
                 Socket socket = this.d.accept();
-                InetAddress inetaddress = socket.getInetAddress();
-                long i = System.currentTimeMillis();
-                HashMap hashmap = this.b;
-
-                synchronized (this.b) {
-                    if (this.b.containsKey(inetaddress) && !b(inetaddress) && i - ((Long) this.b.get(inetaddress)).longValue() < 4000L) {
-                        this.b.put(inetaddress, Long.valueOf(i));
-                        socket.close();
-                        continue;
-                    }
-
-                    this.b.put(inetaddress, Long.valueOf(i));
-                }
-
                 PendingConnection pendingconnection = new PendingConnection(this.e.d(), socket, "Connection #" + this.c++);
 
                 this.a(pendingconnection);
@@ -90,10 +76,6 @@ public class DedicatedServerConnectionThread extends Thread {
                 this.a.add(pendingconnection);
             }
         }
-    }
-
-    private static boolean b(InetAddress inetaddress) {
-        return "127.0.0.1".equals(inetaddress.getHostAddress());
     }
 
     public void a(InetAddress inetaddress) {

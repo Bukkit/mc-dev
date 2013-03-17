@@ -2,11 +2,14 @@ package net.minecraft.server;
 
 public class TileEntityFurnace extends TileEntity implements IWorldInventory {
 
+    private static final int[] d = new int[] { 0};
+    private static final int[] e = new int[] { 2, 1};
+    private static final int[] f = new int[] { 1};
     private ItemStack[] items = new ItemStack[3];
     public int burnTime = 0;
     public int ticksForCurrentFuel = 0;
     public int cookTime = 0;
-    private String e;
+    private String h;
 
     public TileEntityFurnace() {}
 
@@ -58,15 +61,15 @@ public class TileEntityFurnace extends TileEntity implements IWorldInventory {
     }
 
     public String getName() {
-        return this.c() ? this.e : "container.furnace";
+        return this.c() ? this.h : "container.furnace";
     }
 
     public boolean c() {
-        return this.e != null && this.e.length() > 0;
+        return this.h != null && this.h.length() > 0;
     }
 
     public void a(String s) {
-        this.e = s;
+        this.h = s;
     }
 
     public void a(NBTTagCompound nbttagcompound) {
@@ -88,7 +91,7 @@ public class TileEntityFurnace extends TileEntity implements IWorldInventory {
         this.cookTime = nbttagcompound.getShort("CookTime");
         this.ticksForCurrentFuel = fuelTime(this.items[1]);
         if (nbttagcompound.hasKey("CustomName")) {
-            this.e = nbttagcompound.getString("CustomName");
+            this.h = nbttagcompound.getString("CustomName");
         }
     }
 
@@ -110,7 +113,7 @@ public class TileEntityFurnace extends TileEntity implements IWorldInventory {
 
         nbttagcompound.set("Items", nbttaglist);
         if (this.c()) {
-            nbttagcompound.setString("CustomName", this.e);
+            nbttagcompound.setString("CustomName", this.h);
         }
     }
 
@@ -234,11 +237,15 @@ public class TileEntityFurnace extends TileEntity implements IWorldInventory {
         return i == 2 ? false : (i == 1 ? isFuel(itemstack) : true);
     }
 
-    public int c(int i) {
-        return i == 0 ? 2 : (i == 1 ? 0 : 1);
+    public int[] getSlotsForFace(int i) {
+        return i == 0 ? e : (i == 1 ? d : f);
     }
 
-    public int d(int i) {
-        return 1;
+    public boolean canPlaceItemThroughFace(int i, ItemStack itemstack, int j) {
+        return this.b(i, itemstack);
+    }
+
+    public boolean canTakeItemThroughFace(int i, ItemStack itemstack, int j) {
+        return j != 0 || i != 1 || itemstack.id == Item.BUCKET.id;
     }
 }

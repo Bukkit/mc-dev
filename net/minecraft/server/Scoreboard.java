@@ -10,52 +10,52 @@ import java.util.Map;
 
 public class Scoreboard {
 
-    private final Map a = new HashMap();
-    private final Map b = new HashMap();
-    private final Map c = new HashMap();
-    private final ScoreboardObjective[] d = new ScoreboardObjective[3];
-    private final Map e = new HashMap();
-    private final Map f = new HashMap();
+    private final Map objectivesByName = new HashMap();
+    private final Map objectivesByCriteria = new HashMap();
+    private final Map playerScores = new HashMap();
+    private final ScoreboardObjective[] displaySlots = new ScoreboardObjective[3];
+    private final Map teamsByName = new HashMap();
+    private final Map teamsByPlayer = new HashMap();
 
     public Scoreboard() {}
 
-    public ScoreboardObjective b(String s) {
-        return (ScoreboardObjective) this.a.get(s);
+    public ScoreboardObjective getObjective(String s) {
+        return (ScoreboardObjective) this.objectivesByName.get(s);
     }
 
-    public ScoreboardObjective a(String s, IObjective iobjective) {
-        ScoreboardObjective scoreboardobjective = this.b(s);
+    public ScoreboardObjective registerObjective(String s, IScoreboardCriteria iscoreboardcriteria) {
+        ScoreboardObjective scoreboardobjective = this.getObjective(s);
 
         if (scoreboardobjective != null) {
             throw new IllegalArgumentException("An objective with the name \'" + s + "\' already exists!");
         } else {
-            scoreboardobjective = new ScoreboardObjective(this, s, iobjective);
-            Object object = (List) this.b.get(iobjective);
+            scoreboardobjective = new ScoreboardObjective(this, s, iscoreboardcriteria);
+            Object object = (List) this.objectivesByCriteria.get(iscoreboardcriteria);
 
             if (object == null) {
                 object = new ArrayList();
-                this.b.put(iobjective, object);
+                this.objectivesByCriteria.put(iscoreboardcriteria, object);
             }
 
             ((List) object).add(scoreboardobjective);
-            this.a.put(s, scoreboardobjective);
-            this.a(scoreboardobjective);
+            this.objectivesByName.put(s, scoreboardobjective);
+            this.handleObjectiveAdded(scoreboardobjective);
             return scoreboardobjective;
         }
     }
 
-    public Collection a(IObjective iobjective) {
-        Collection collection = (Collection) this.b.get(iobjective);
+    public Collection getObjectivesForCriteria(IScoreboardCriteria iscoreboardcriteria) {
+        Collection collection = (Collection) this.objectivesByCriteria.get(iscoreboardcriteria);
 
         return collection == null ? new ArrayList() : new ArrayList(collection);
     }
 
-    public ScoreboardScore a(String s, ScoreboardObjective scoreboardobjective) {
-        Object object = (Map) this.c.get(s);
+    public ScoreboardScore getPlayerScoreForObjective(String s, ScoreboardObjective scoreboardobjective) {
+        Object object = (Map) this.playerScores.get(s);
 
         if (object == null) {
             object = new HashMap();
-            this.c.put(s, object);
+            this.playerScores.put(s, object);
         }
 
         ScoreboardScore scoreboardscore = (ScoreboardScore) ((Map) object).get(scoreboardobjective);
@@ -68,9 +68,9 @@ public class Scoreboard {
         return scoreboardscore;
     }
 
-    public Collection i(ScoreboardObjective scoreboardobjective) {
+    public Collection getScoresForObjective(ScoreboardObjective scoreboardobjective) {
         ArrayList arraylist = new ArrayList();
-        Iterator iterator = this.c.values().iterator();
+        Iterator iterator = this.playerScores.values().iterator();
 
         while (iterator.hasNext()) {
             Map map = (Map) iterator.next();
@@ -85,24 +85,24 @@ public class Scoreboard {
         return arraylist;
     }
 
-    public Collection c() {
-        return this.a.values();
+    public Collection getObjectives() {
+        return this.objectivesByName.values();
     }
 
-    public Collection d() {
-        return this.c.keySet();
+    public Collection getPlayers() {
+        return this.playerScores.keySet();
     }
 
-    public void c(String s) {
-        Map map = (Map) this.c.remove(s);
+    public void resetPlayerScores(String s) {
+        Map map = (Map) this.playerScores.remove(s);
 
         if (map != null) {
-            this.a(s);
+            this.handlePlayerRemoved(s);
         }
     }
 
-    public Collection e() {
-        Collection collection = this.c.values();
+    public Collection getScores() {
+        Collection collection = this.playerScores.values();
         ArrayList arraylist = new ArrayList();
 
         if (collection != null) {
@@ -118,8 +118,8 @@ public class Scoreboard {
         return arraylist;
     }
 
-    public Map d(String s) {
-        Object object = (Map) this.c.get(s);
+    public Map getPlayerObjectives(String s) {
+        Object object = (Map) this.playerScores.get(s);
 
         if (object == null) {
             object = new HashMap();
@@ -128,22 +128,22 @@ public class Scoreboard {
         return (Map) object;
     }
 
-    public void k(ScoreboardObjective scoreboardobjective) {
-        this.a.remove(scoreboardobjective.b());
+    public void unregisterObjective(ScoreboardObjective scoreboardobjective) {
+        this.objectivesByName.remove(scoreboardobjective.getName());
 
         for (int i = 0; i < 3; ++i) {
-            if (this.a(i) == scoreboardobjective) {
-                this.a(i, (ScoreboardObjective) null);
+            if (this.getObjectiveForSlot(i) == scoreboardobjective) {
+                this.setDisplaySlot(i, (ScoreboardObjective) null);
             }
         }
 
-        List list = (List) this.b.get(scoreboardobjective.c());
+        List list = (List) this.objectivesByCriteria.get(scoreboardobjective.getCriteria());
 
         if (list != null) {
             list.remove(scoreboardobjective);
         }
 
-        Iterator iterator = this.c.values().iterator();
+        Iterator iterator = this.playerScores.values().iterator();
 
         while (iterator.hasNext()) {
             Map map = (Map) iterator.next();
@@ -151,105 +151,105 @@ public class Scoreboard {
             map.remove(scoreboardobjective);
         }
 
-        this.c(scoreboardobjective);
+        this.handleObjectiveRemoved(scoreboardobjective);
     }
 
-    public void a(int i, ScoreboardObjective scoreboardobjective) {
-        this.d[i] = scoreboardobjective;
+    public void setDisplaySlot(int i, ScoreboardObjective scoreboardobjective) {
+        this.displaySlots[i] = scoreboardobjective;
     }
 
-    public ScoreboardObjective a(int i) {
-        return this.d[i];
+    public ScoreboardObjective getObjectiveForSlot(int i) {
+        return this.displaySlots[i];
     }
 
-    public ScoreboardTeam e(String s) {
-        return (ScoreboardTeam) this.e.get(s);
+    public ScoreboardTeam getTeam(String s) {
+        return (ScoreboardTeam) this.teamsByName.get(s);
     }
 
-    public ScoreboardTeam f(String s) {
-        ScoreboardTeam scoreboardteam = this.e(s);
+    public ScoreboardTeam createTeam(String s) {
+        ScoreboardTeam scoreboardteam = this.getTeam(s);
 
         if (scoreboardteam != null) {
             throw new IllegalArgumentException("An objective with the name \'" + s + "\' already exists!");
         } else {
             scoreboardteam = new ScoreboardTeam(this, s);
-            this.e.put(s, scoreboardteam);
-            this.a(scoreboardteam);
+            this.teamsByName.put(s, scoreboardteam);
+            this.handleTeamAdded(scoreboardteam);
             return scoreboardteam;
         }
     }
 
-    public void d(ScoreboardTeam scoreboardteam) {
-        this.e.remove(scoreboardteam.b());
-        Iterator iterator = scoreboardteam.d().iterator();
+    public void removeTeam(ScoreboardTeam scoreboardteam) {
+        this.teamsByName.remove(scoreboardteam.getName());
+        Iterator iterator = scoreboardteam.getPlayerNameSet().iterator();
 
         while (iterator.hasNext()) {
             String s = (String) iterator.next();
 
-            this.f.remove(s);
+            this.teamsByPlayer.remove(s);
         }
 
-        this.c(scoreboardteam);
+        this.handleTeamRemoved(scoreboardteam);
     }
 
-    public void a(String s, ScoreboardTeam scoreboardteam) {
-        if (this.i(s) != null) {
-            this.g(s);
+    public void addPlayerToTeam(String s, ScoreboardTeam scoreboardteam) {
+        if (this.getPlayerTeam(s) != null) {
+            this.removePlayerFromTeam(s);
         }
 
-        this.f.put(s, scoreboardteam);
-        scoreboardteam.d().add(s);
+        this.teamsByPlayer.put(s, scoreboardteam);
+        scoreboardteam.getPlayerNameSet().add(s);
     }
 
-    public boolean g(String s) {
-        ScoreboardTeam scoreboardteam = this.i(s);
+    public boolean removePlayerFromTeam(String s) {
+        ScoreboardTeam scoreboardteam = this.getPlayerTeam(s);
 
         if (scoreboardteam != null) {
-            this.b(s, scoreboardteam);
+            this.removePlayerFromTeam(s, scoreboardteam);
             return true;
         } else {
             return false;
         }
     }
 
-    public void b(String s, ScoreboardTeam scoreboardteam) {
-        if (this.i(s) != scoreboardteam) {
-            throw new IllegalStateException("Player is either on another team or not on any team. Cannot remove from team \'" + scoreboardteam.b() + "\'.");
+    public void removePlayerFromTeam(String s, ScoreboardTeam scoreboardteam) {
+        if (this.getPlayerTeam(s) != scoreboardteam) {
+            throw new IllegalStateException("Player is either on another team or not on any team. Cannot remove from team \'" + scoreboardteam.getName() + "\'.");
         } else {
-            this.f.remove(s);
-            scoreboardteam.d().remove(s);
+            this.teamsByPlayer.remove(s);
+            scoreboardteam.getPlayerNameSet().remove(s);
         }
     }
 
-    public Collection f() {
-        return this.e.keySet();
+    public Collection getTeamNames() {
+        return this.teamsByName.keySet();
     }
 
-    public Collection g() {
-        return this.e.values();
+    public Collection getTeams() {
+        return this.teamsByName.values();
     }
 
-    public ScoreboardTeam i(String s) {
-        return (ScoreboardTeam) this.f.get(s);
+    public ScoreboardTeam getPlayerTeam(String s) {
+        return (ScoreboardTeam) this.teamsByPlayer.get(s);
     }
 
-    public void a(ScoreboardObjective scoreboardobjective) {}
+    public void handleObjectiveAdded(ScoreboardObjective scoreboardobjective) {}
 
-    public void b(ScoreboardObjective scoreboardobjective) {}
+    public void handleObjectiveChanged(ScoreboardObjective scoreboardobjective) {}
 
-    public void c(ScoreboardObjective scoreboardobjective) {}
+    public void handleObjectiveRemoved(ScoreboardObjective scoreboardobjective) {}
 
-    public void a(ScoreboardScore scoreboardscore) {}
+    public void handleScoreChanged(ScoreboardScore scoreboardscore) {}
 
-    public void a(String s) {}
+    public void handlePlayerRemoved(String s) {}
 
-    public void a(ScoreboardTeam scoreboardteam) {}
+    public void handleTeamAdded(ScoreboardTeam scoreboardteam) {}
 
-    public void b(ScoreboardTeam scoreboardteam) {}
+    public void handleTeamChanged(ScoreboardTeam scoreboardteam) {}
 
-    public void c(ScoreboardTeam scoreboardteam) {}
+    public void handleTeamRemoved(ScoreboardTeam scoreboardteam) {}
 
-    public static String b(int i) {
+    public static String getSlotName(int i) {
         switch (i) {
         case 0:
             return "list";
@@ -265,7 +265,7 @@ public class Scoreboard {
         }
     }
 
-    public static int j(String s) {
+    public static int getSlotForName(String s) {
         return s.equalsIgnoreCase("list") ? 0 : (s.equalsIgnoreCase("sidebar") ? 1 : (s.equalsIgnoreCase("belowName") ? 2 : -1));
     }
 }

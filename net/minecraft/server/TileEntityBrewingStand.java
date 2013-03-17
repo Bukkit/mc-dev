@@ -4,24 +4,26 @@ import java.util.List;
 
 public class TileEntityBrewingStand extends TileEntity implements IWorldInventory {
 
+    private static final int[] a = new int[] { 3};
+    private static final int[] b = new int[] { 0, 1, 2};
     private ItemStack[] items = new ItemStack[4];
     private int brewTime;
-    private int c;
-    private int d;
-    private String e;
+    private int e;
+    private int f;
+    private String g;
 
     public TileEntityBrewingStand() {}
 
     public String getName() {
-        return this.c() ? this.e : "container.brewing";
+        return this.c() ? this.g : "container.brewing";
     }
 
     public boolean c() {
-        return this.e != null && this.e.length() > 0;
+        return this.g != null && this.g.length() > 0;
     }
 
     public void a(String s) {
-        this.e = s;
+        this.g = s;
     }
 
     public int getSize() {
@@ -37,19 +39,19 @@ public class TileEntityBrewingStand extends TileEntity implements IWorldInventor
             } else if (!this.l()) {
                 this.brewTime = 0;
                 this.update();
-            } else if (this.d != this.items[3].id) {
+            } else if (this.f != this.items[3].id) {
                 this.brewTime = 0;
                 this.update();
             }
         } else if (this.l()) {
             this.brewTime = 400;
-            this.d = this.items[3].id;
+            this.f = this.items[3].id;
         }
 
         int i = this.j();
 
-        if (i != this.c) {
-            this.c = i;
+        if (i != this.e) {
+            this.e = i;
             this.world.setData(this.x, this.y, this.z, i, 2);
         }
 
@@ -149,7 +151,7 @@ public class TileEntityBrewingStand extends TileEntity implements IWorldInventor
 
         this.brewTime = nbttagcompound.getShort("BrewTime");
         if (nbttagcompound.hasKey("CustomName")) {
-            this.e = nbttagcompound.getString("CustomName");
+            this.g = nbttagcompound.getString("CustomName");
         }
     }
 
@@ -170,7 +172,7 @@ public class TileEntityBrewingStand extends TileEntity implements IWorldInventor
 
         nbttagcompound.set("Items", nbttaglist);
         if (this.c()) {
-            nbttagcompound.setString("CustomName", this.e);
+            nbttagcompound.setString("CustomName", this.g);
         }
     }
 
@@ -234,11 +236,15 @@ public class TileEntityBrewingStand extends TileEntity implements IWorldInventor
         return i;
     }
 
-    public int c(int i) {
-        return i == 1 ? 3 : 0;
+    public int[] getSlotsForFace(int i) {
+        return i == 1 ? a : b;
     }
 
-    public int d(int i) {
-        return i == 1 ? 1 : 3;
+    public boolean canPlaceItemThroughFace(int i, ItemStack itemstack, int j) {
+        return this.b(i, itemstack);
+    }
+
+    public boolean canTakeItemThroughFace(int i, ItemStack itemstack, int j) {
+        return true;
     }
 }

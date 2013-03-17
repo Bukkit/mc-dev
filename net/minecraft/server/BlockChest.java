@@ -269,6 +269,8 @@ public class BlockChest extends BlockContainer {
                     }
                 }
             }
+
+            world.m(i, j, k, l);
         }
 
         super.remove(world, i, j, k, l, i1);

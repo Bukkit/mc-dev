@@ -3,13 +3,13 @@ package net.minecraft.server;
 import java.util.Iterator;
 import java.util.List;
 
-public class ScoreboardHealthObjective extends ScoreboardBaseObjective {
+public class ScoreboardHealthCriteria extends ScoreboardBaseCriteria {
 
-    public ScoreboardHealthObjective(String s) {
+    public ScoreboardHealthCriteria(String s) {
         super(s);
     }
 
-    public int a(List list) {
+    public int getScoreModifier(List list) {
         float f = 0.0F;
 
         int i;
@@ -36,7 +36,7 @@ public class ScoreboardHealthObjective extends ScoreboardBaseObjective {
         return MathHelper.d(f * 19.0F) + (f > 0.0F ? 1 : 0);
     }
 
-    public boolean b() {
+    public boolean isReadOnly() {
         return true;
     }
 }

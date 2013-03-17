@@ -13,9 +13,9 @@ public class Packet207SetScoreboardScore extends Packet {
     public Packet207SetScoreboardScore() {}
 
     public Packet207SetScoreboardScore(ScoreboardScore scoreboardscore, int i) {
-        this.a = scoreboardscore.e();
-        this.b = scoreboardscore.d().b();
-        this.c = scoreboardscore.c();
+        this.a = scoreboardscore.getPlayerName();
+        this.b = scoreboardscore.getObjective().getName();
+        this.c = scoreboardscore.getScore();
         this.d = i;
     }
 

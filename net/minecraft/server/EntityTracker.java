@@ -96,13 +96,13 @@ public class EntityTracker {
         try {
             if (this.trackedEntities.b(entity.id)) {
                 throw new IllegalStateException("Entity is already tracked!");
-            } else {
-                EntityTrackerEntry entitytrackerentry = new EntityTrackerEntry(entity, i, j, flag);
-
-                this.b.add(entitytrackerentry);
-                this.trackedEntities.a(entity.id, entitytrackerentry);
-                entitytrackerentry.scanPlayers(this.world.players);
             }
+
+            EntityTrackerEntry entitytrackerentry = new EntityTrackerEntry(entity, i, j, flag);
+
+            this.b.add(entitytrackerentry);
+            this.trackedEntities.a(entity.id, entitytrackerentry);
+            entitytrackerentry.scanPlayers(this.world.players);
         } catch (Throwable throwable) {
             CrashReport crashreport = CrashReport.a(throwable, "Adding entity to track");
             CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Entity To Track");
@@ -110,7 +110,16 @@ public class EntityTracker {
             crashreportsystemdetails.a("Tracking range", (i + " blocks"));
             crashreportsystemdetails.a("Update interval", (Callable) (new CrashReportEntityTrackerUpdateInterval(this, j)));
             entity.a(crashreportsystemdetails);
-            throw new ReportedException(crashreport);
+            CrashReportSystemDetails crashreportsystemdetails1 = crashreport.a("Entity That Is Already Tracked");
+
+            ((EntityTrackerEntry) this.trackedEntities.get(entity.id)).tracker.a(crashreportsystemdetails1);
+
+            try {
+                throw new ReportedException(crashreport);
+            } catch (ReportedException reportedexception) {
+                System.err.println("\"Silently\" catching entity tracking error.");
+                reportedexception.printStackTrace();
+            }
         }
     }
 

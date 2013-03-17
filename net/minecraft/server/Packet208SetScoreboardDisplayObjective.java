@@ -15,7 +15,7 @@ public class Packet208SetScoreboardDisplayObjective extends Packet {
         if (scoreboardobjective == null) {
             this.b = "";
         } else {
-            this.b = scoreboardobjective.b();
+            this.b = scoreboardobjective.getName();
         }
     }
 

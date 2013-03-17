@@ -21,84 +21,84 @@ public class ScoreboardTeam {
         this.d = s;
     }
 
-    public String b() {
+    public String getName() {
         return this.b;
     }
 
-    public String c() {
+    public String getDisplayName() {
         return this.d;
     }
 
-    public void a(String s) {
+    public void setDisplayName(String s) {
         if (s == null) {
             throw new IllegalArgumentException("Name cannot be null");
         } else {
             this.d = s;
-            this.a.b(this);
+            this.a.handleTeamChanged(this);
         }
     }
 
-    public Collection d() {
+    public Collection getPlayerNameSet() {
         return this.c;
     }
 
-    public String e() {
+    public String getPrefix() {
         return this.e;
     }
 
-    public void b(String s) {
+    public void setPrefix(String s) {
         if (s == null) {
             throw new IllegalArgumentException("Prefix cannot be null");
         } else {
             this.e = s;
-            this.a.b(this);
+            this.a.handleTeamChanged(this);
         }
     }
 
-    public String f() {
+    public String getSuffix() {
         return this.f;
     }
 
-    public void c(String s) {
+    public void setSuffix(String s) {
         if (s == null) {
             throw new IllegalArgumentException("Suffix cannot be null");
         } else {
             this.f = s;
-            this.a.b(this);
+            this.a.handleTeamChanged(this);
         }
     }
 
-    public static String a(ScoreboardTeam scoreboardteam, String s) {
-        return scoreboardteam == null ? s : scoreboardteam.e() + s + scoreboardteam.f();
+    public static String getPlayerDisplayName(ScoreboardTeam scoreboardteam, String s) {
+        return scoreboardteam == null ? s : scoreboardteam.getPrefix() + s + scoreboardteam.getSuffix();
     }
 
-    public boolean g() {
+    public boolean allowFriendlyFire() {
         return this.g;
     }
 
-    public void a(boolean flag) {
+    public void setAllowFriendlyFire(boolean flag) {
         this.g = flag;
-        this.a.b(this);
+        this.a.handleTeamChanged(this);
     }
 
-    public boolean h() {
+    public boolean canSeeFriendlyInvisibles() {
         return this.h;
     }
 
-    public void b(boolean flag) {
+    public void setCanSeeFriendlyInvisibles(boolean flag) {
         this.h = flag;
-        this.a.b(this);
+        this.a.handleTeamChanged(this);
     }
 
-    public int i() {
+    public int packOptionData() {
         int i = 0;
         int j = 0;
 
-        if (this.g()) {
+        if (this.allowFriendlyFire()) {
             i |= 1 << j++;
         }
 
-        if (this.h()) {
+        if (this.canSeeFriendlyInvisibles()) {
             i |= 1 << j++;
         }
 

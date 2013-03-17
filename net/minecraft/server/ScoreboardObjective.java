@@ -4,30 +4,30 @@ public class ScoreboardObjective {
 
     private final Scoreboard a;
     private final String b;
-    private final IObjective c;
+    private final IScoreboardCriteria c;
     private String d;
 
-    public ScoreboardObjective(Scoreboard scoreboard, String s, IObjective iobjective) {
+    public ScoreboardObjective(Scoreboard scoreboard, String s, IScoreboardCriteria iscoreboardcriteria) {
         this.a = scoreboard;
         this.b = s;
-        this.c = iobjective;
+        this.c = iscoreboardcriteria;
         this.d = s;
     }
 
-    public String b() {
+    public String getName() {
         return this.b;
     }
 
-    public IObjective c() {
+    public IScoreboardCriteria getCriteria() {
         return this.c;
     }
 
-    public String d() {
+    public String getDisplayName() {
         return this.d;
     }
 
-    public void a(String s) {
+    public void setDisplayName(String s) {
         this.d = s;
-        this.a.b(this);
+        this.a.handleObjectiveChanged(this);
     }
 }
