@@ -237,7 +237,7 @@ public class Item {
         return this;
     }
 
-    public boolean o() {
+    public boolean usesDurability() {
         return this.durability > 0 && !this.cs;
     }
 
@@ -350,7 +350,7 @@ public class Item {
     }
 
     public boolean d_(ItemStack itemstack) {
-        return this.getMaxStackSize() == 1 && this.o();
+        return this.getMaxStackSize() == 1 && this.usesDurability();
     }
 
     protected MovingObjectPosition a(World world, EntityHuman entityhuman, boolean flag) {

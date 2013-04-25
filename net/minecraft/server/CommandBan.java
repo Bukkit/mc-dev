@@ -24,7 +24,7 @@ public class CommandBan extends CommandAbstract {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 1 && astring[0].length() > 0) {
-            EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().f(astring[0]);
+            EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().getPlayer(astring[0]);
             BanEntry banentry = new BanEntry(astring[0]);
 
             banentry.setSource(icommandlistener.getName());

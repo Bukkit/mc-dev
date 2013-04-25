@@ -140,7 +140,7 @@ public class StatisticList {
         }
 
         for (int l = j; l < k; ++l) {
-            if (Item.byId[l] != null && Item.byId[l].o()) {
+            if (Item.byId[l] != null && Item.byId[l].usesDurability()) {
                 String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].u()});
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).g();

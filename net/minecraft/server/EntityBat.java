@@ -165,7 +165,7 @@ public class EntityBat extends EntityAmbient {
             int k = MathHelper.floor(this.locZ);
             int l = this.world.getLightLevel(j, i, k);
             byte b0 = 4;
-            Calendar calendar = this.world.U();
+            Calendar calendar = this.world.V();
 
             if ((calendar.get(2) + 1 != 10 || calendar.get(5) < 20) && (calendar.get(2) + 1 != 11 || calendar.get(5) > 3)) {
                 if (this.random.nextBoolean()) {

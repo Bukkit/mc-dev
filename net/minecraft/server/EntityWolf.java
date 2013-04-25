@@ -76,7 +76,7 @@ public class EntityWolf extends EntityTameableAnimal {
     }
 
     protected boolean isTypeNotPersistent() {
-        return this.isAngry();
+        return this.isAngry() && !this.isTamed();
     }
 
     protected String bb() {
@@ -112,13 +112,13 @@ public class EntityWolf extends EntityTameableAnimal {
     public void l_() {
         super.l_();
         this.f = this.e;
-        if (this.bW()) {
+        if (this.bY()) {
             this.e += (1.0F - this.e) * 0.4F;
         } else {
             this.e += (0.0F - this.e) * 0.4F;
         }
 
-        if (this.bW()) {
+        if (this.bY()) {
             this.bJ = 10;
         }
 
@@ -320,7 +320,7 @@ public class EntityWolf extends EntityTameableAnimal {
         }
     }
 
-    public boolean bW() {
+    public boolean bY() {
         return this.datawatcher.getByte(19) == 1;
     }
 

@@ -16,7 +16,7 @@ public class EntitySelectorEquipable implements IEntitySelector {
         } else {
             EntityLiving entityliving = (EntityLiving) entity;
 
-            return entityliving.getEquipment(EntityLiving.b(this.c)) != null ? false : entityliving.bS() || entityliving instanceof EntityHuman;
+            return entityliving.getEquipment(EntityLiving.b(this.c)) != null ? false : entityliving.bT() || entityliving instanceof EntityHuman;
         }
     }
 }

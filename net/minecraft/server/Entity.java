@@ -1145,7 +1145,7 @@ public abstract class Entity {
 
     public void U() {
         if (this.passenger != null) {
-            if (!(this.passenger instanceof EntityHuman) || !((EntityHuman) this.passenger).ce()) {
+            if (!(this.passenger instanceof EntityHuman) || !((EntityHuman) this.passenger).cg()) {
                 this.passenger.U = this.U;
                 this.passenger.V = this.V + this.W() + this.passenger.V();
                 this.passenger.W = this.W;
@@ -1420,7 +1420,7 @@ public abstract class Entity {
         return this == entity;
     }
 
-    public float ao() {
+    public float getHeadRotation() {
         return 0.0F;
     }
 

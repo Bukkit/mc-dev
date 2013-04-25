@@ -65,7 +65,11 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
         if (nbttagcompound.hasKey("playerGameType")) {
-            this.playerInteractManager.setGameMode(EnumGamemode.a(nbttagcompound.getInt("playerGameType")));
+            if (MinecraftServer.getServer().getForceGamemode()) {
+                this.playerInteractManager.setGameMode(MinecraftServer.getServer().getGamemode());
+            } else {
+                this.playerInteractManager.setGameMode(EnumGamemode.a(nbttagcompound.getInt("playerGameType")));
+            }
         }
     }
 

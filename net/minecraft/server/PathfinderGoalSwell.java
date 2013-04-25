@@ -30,7 +30,7 @@ public class PathfinderGoalSwell extends PathfinderGoal {
             this.a.a(-1);
         } else if (this.a.e(this.b) > 49.0D) {
             this.a.a(-1);
-        } else if (!this.a.aD().canSee(this.b)) {
+        } else if (!this.a.getEntitySenses().canSee(this.b)) {
             this.a.a(-1);
         } else {
             this.a.a(1);

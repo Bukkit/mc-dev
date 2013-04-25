@@ -281,6 +281,8 @@ public class ChunkProviderTheEnd implements IChunkProvider {
         return true;
     }
 
+    public void b() {}
+
     public boolean unloadChunks() {
         return false;
     }

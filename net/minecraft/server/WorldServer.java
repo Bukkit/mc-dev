@@ -106,11 +106,11 @@ public class WorldServer extends World {
         this.methodProfiler.c("portalForcer");
         this.P.a(this.getTime());
         this.methodProfiler.b();
-        this.Y();
+        this.Z();
     }
 
     public BiomeMeta a(EnumCreatureType enumcreaturetype, int i, int j, int k) {
-        List list = this.J().getMobsFor(enumcreaturetype, i, j, k);
+        List list = this.K().getMobsFor(enumcreaturetype, i, j, k);
 
         return list != null && !list.isEmpty() ? (BiomeMeta) WeightedRandom.a(this.random, (Collection) list) : null;
     }
@@ -141,10 +141,10 @@ public class WorldServer extends World {
             }
         }
 
-        this.X();
+        this.Y();
     }
 
-    private void X() {
+    private void Y() {
         this.worldData.setWeatherDuration(0);
         this.worldData.setStorm(false);
         this.worldData.setThunderDuration(0);
@@ -194,7 +194,7 @@ public class WorldServer extends World {
             int k1;
             int l1;
 
-            if (this.random.nextInt(100000) == 0 && this.O() && this.N()) {
+            if (this.random.nextInt(100000) == 0 && this.P() && this.O()) {
                 this.k = this.k * 3 + 1013904223;
                 i1 = this.k >> 2;
                 j1 = k + (i1 & 15);
@@ -218,11 +218,11 @@ public class WorldServer extends World {
                     this.setTypeIdUpdate(j1 + k, l1 - 1, k1 + l, Block.ICE.id);
                 }
 
-                if (this.O() && this.z(j1 + k, l1, k1 + l)) {
+                if (this.P() && this.z(j1 + k, l1, k1 + l)) {
                     this.setTypeIdUpdate(j1 + k, l1, k1 + l, Block.SNOW.id);
                 }
 
-                if (this.O()) {
+                if (this.P()) {
                     BiomeBase biomebase = this.getBiome(j1 + k, k1 + l);
 
                     if (biomebase.d()) {
@@ -242,21 +242,21 @@ public class WorldServer extends World {
             for (k1 = 0; k1 < j1; ++k1) {
                 ChunkSection chunksection = achunksection[k1];
 
-                if (chunksection != null && chunksection.b()) {
+                if (chunksection != null && chunksection.shouldTick()) {
                     for (int j2 = 0; j2 < 3; ++j2) {
                         this.k = this.k * 3 + 1013904223;
                         i2 = this.k >> 2;
                         int k2 = i2 & 15;
                         int l2 = i2 >> 8 & 15;
                         int i3 = i2 >> 16 & 15;
-                        int j3 = chunksection.a(k2, i3, l2);
+                        int j3 = chunksection.getTypeId(k2, i3, l2);
 
                         ++j;
                         Block block = Block.byId[j3];
 
                         if (block != null && block.isTicking()) {
                             ++i;
-                            block.a(this, k2 + k, i3 + chunksection.d(), l2 + l, this.random);
+                            block.a(this, k2 + k, i3 + chunksection.getYPosition(), l2 + l, this.random);
                         }
                     }
                 }
@@ -579,8 +579,14 @@ public class WorldServer extends World {
         }
     }
 
+    public void flushSave() {
+        if (this.chunkProvider.canSave()) {
+            this.chunkProvider.b();
+        }
+    }
+
     protected void a() {
-        this.E();
+        this.F();
         this.dataManager.saveWorldData(this.worldData, this.server.getPlayerList().q());
         this.worldMaps.a();
     }
@@ -669,7 +675,7 @@ public class WorldServer extends World {
 
     }
 
-    private void Y() {
+    private void Z() {
         while (!this.Q[this.R].isEmpty()) {
             int i = this.R;
 
@@ -698,11 +704,11 @@ public class WorldServer extends World {
         this.dataManager.a();
     }
 
-    protected void n() {
-        boolean flag = this.O();
+    protected void o() {
+        boolean flag = this.P();
 
-        super.n();
-        if (flag != this.O()) {
+        super.o();
+        if (flag != this.P()) {
             if (flag) {
                 this.server.getPlayerList().sendAll(new Packet70Bed(2, 0));
             } else {
@@ -723,7 +729,7 @@ public class WorldServer extends World {
         return this.manager;
     }
 
-    public PortalTravelAgent s() {
+    public PortalTravelAgent t() {
         return this.P;
     }
 }

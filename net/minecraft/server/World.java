@@ -123,7 +123,7 @@ public abstract class World implements IBlockAccess {
             this.villages.a(this);
         }
 
-        this.y();
+        this.z();
         this.a();
     }
 
@@ -604,7 +604,7 @@ public abstract class World implements IBlockAccess {
         return this.worldProvider.g[this.getLightLevel(i, j, k)];
     }
 
-    public boolean u() {
+    public boolean v() {
         return this.j < 4;
     }
 
@@ -985,7 +985,7 @@ public abstract class World implements IBlockAccess {
         return this.worldProvider.a(this.worldData.getDayTime(), f);
     }
 
-    public int v() {
+    public int w() {
         return this.worldProvider.a(this.worldData.getDayTime());
     }
 
@@ -1689,7 +1689,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public void y() {
+    public void z() {
         int i = this.a(1.0F);
 
         if (i != this.j) {
@@ -1703,7 +1703,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public void doTick() {
-        this.n();
+        this.o();
     }
 
     private void a() {
@@ -1715,7 +1715,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    protected void n() {
+    protected void o() {
         if (!this.worldProvider.f) {
             int i = this.worldData.getThunderDuration();
 
@@ -1781,11 +1781,11 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public void z() {
+    public void A() {
         this.worldData.setWeatherDuration(1);
     }
 
-    protected void A() {
+    protected void B() {
         this.chunkTickList.clear();
         this.methodProfiler.a("buildList");
 
@@ -1853,7 +1853,7 @@ public abstract class World implements IBlockAccess {
     }
 
     protected void g() {
-        this.A();
+        this.B();
     }
 
     public boolean x(int i, int j, int k) {
@@ -2170,7 +2170,7 @@ public abstract class World implements IBlockAccess {
         for (int j = 0; j < this.entityList.size(); ++j) {
             Entity entity = (Entity) this.entityList.get(j);
 
-            if (oclass.isAssignableFrom(entity.getClass())) {
+            if ((!(entity instanceof EntityLiving) || !((EntityLiving) entity).bU()) && oclass.isAssignableFrom(entity.getClass())) {
                 ++i;
             }
         }
@@ -2364,7 +2364,7 @@ public abstract class World implements IBlockAccess {
                 }
 
                 if (entityhuman1.isInvisible()) {
-                    float f = entityhuman1.ca();
+                    float f = entityhuman1.cc();
 
                     if (f < 0.1F) {
                         f = 0.1F;
@@ -2393,7 +2393,7 @@ public abstract class World implements IBlockAccess {
         return null;
     }
 
-    public void E() {
+    public void F() {
         this.dataManager.checkSession();
     }
 
@@ -2423,7 +2423,7 @@ public abstract class World implements IBlockAccess {
 
     public void broadcastEntityEffect(Entity entity, byte b0) {}
 
-    public IChunkProvider J() {
+    public IChunkProvider K() {
         return this.chunkProvider;
     }
 
@@ -2455,16 +2455,16 @@ public abstract class World implements IBlockAccess {
         return this.m + (this.n - this.m) * f;
     }
 
-    public boolean N() {
+    public boolean O() {
         return (double) this.h(1.0F) > 0.9D;
     }
 
-    public boolean O() {
+    public boolean P() {
         return (double) this.i(1.0F) > 0.2D;
     }
 
     public boolean F(int i, int j, int k) {
-        if (!this.O()) {
+        if (!this.P()) {
             return false;
         } else if (!this.l(i, j, k)) {
             return false;
@@ -2526,7 +2526,7 @@ public abstract class World implements IBlockAccess {
         return 256;
     }
 
-    public int Q() {
+    public int R() {
         return this.worldProvider.f ? 128 : 256;
     }
 
@@ -2542,7 +2542,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public ChunkPosition b(String s, int i, int j, int k) {
-        return this.J().findNearestMapFeature(this, s, i, j, k);
+        return this.K().findNearestMapFeature(this, s, i, j, k);
     }
 
     public CrashReportSystemDetails a(CrashReport crashreport) {
@@ -2573,7 +2573,7 @@ public abstract class World implements IBlockAccess {
         return this.J;
     }
 
-    public Calendar U() {
+    public Calendar V() {
         if (this.getTime() % 600L == 0L) {
             this.K.setTimeInMillis(System.currentTimeMillis());
         }

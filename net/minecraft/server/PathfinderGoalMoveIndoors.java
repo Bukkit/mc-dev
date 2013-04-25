@@ -13,7 +13,7 @@ public class PathfinderGoalMoveIndoors extends PathfinderGoal {
     }
 
     public boolean a() {
-        if ((!this.a.world.u() || this.a.world.O()) && !this.a.world.worldProvider.f) {
+        if ((!this.a.world.v() || this.a.world.P()) && !this.a.world.worldProvider.f) {
             if (this.a.aE().nextInt(50) != 0) {
                 return false;
             } else if (this.c != -1 && this.a.e((double) this.c, this.a.locY, (double) this.d) < 4.0D) {

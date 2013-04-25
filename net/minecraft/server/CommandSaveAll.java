@@ -21,15 +21,34 @@ public class CommandSaveAll extends CommandAbstract {
         }
 
         try {
-            for (int i = 0; i < minecraftserver.worldServer.length; ++i) {
-                if (minecraftserver.worldServer[i] != null) {
-                    WorldServer worldserver = minecraftserver.worldServer[i];
-                    boolean flag = worldserver.savingDisabled;
+            int i;
+            WorldServer worldserver;
+            boolean flag;
 
+            for (i = 0; i < minecraftserver.worldServer.length; ++i) {
+                if (minecraftserver.worldServer[i] != null) {
+                    worldserver = minecraftserver.worldServer[i];
+                    flag = worldserver.savingDisabled;
                     worldserver.savingDisabled = false;
                     worldserver.save(true, (IProgressUpdate) null);
                     worldserver.savingDisabled = flag;
                 }
+            }
+
+            if (astring.length > 0 && "flush".equals(astring[0])) {
+                icommandlistener.sendMessage(icommandlistener.a("commands.save.flushStart", new Object[0]));
+
+                for (i = 0; i < minecraftserver.worldServer.length; ++i) {
+                    if (minecraftserver.worldServer[i] != null) {
+                        worldserver = minecraftserver.worldServer[i];
+                        flag = worldserver.savingDisabled;
+                        worldserver.savingDisabled = false;
+                        worldserver.flushSave();
+                        worldserver.savingDisabled = flag;
+                    }
+                }
+
+                icommandlistener.sendMessage(icommandlistener.a("commands.save.flushEnd", new Object[0]));
             }
         } catch (ExceptionWorldConflict exceptionworldconflict) {
             a(icommandlistener, "commands.save.failed", new Object[] { exceptionworldconflict.getMessage()});

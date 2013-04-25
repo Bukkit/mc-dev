@@ -18,7 +18,7 @@ public class PathfinderGoalTakeFlower extends PathfinderGoal {
     public boolean a() {
         if (this.a.getAge() >= 0) {
             return false;
-        } else if (!this.a.world.u()) {
+        } else if (!this.a.world.v()) {
             return false;
         } else {
             List list = this.a.world.a(EntityIronGolem.class, this.a.boundingBox.grow(6.0D, 2.0D, 6.0D));

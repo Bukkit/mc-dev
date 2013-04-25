@@ -9,6 +9,6 @@ class EntitySelectorViewable implements IEntitySelector {
     }
 
     public boolean a(Entity entity) {
-        return entity.isAlive() && PathfinderGoalAvoidPlayer.a(this.c).aD().canSee(entity);
+        return entity.isAlive() && PathfinderGoalAvoidPlayer.a(this.c).getEntitySenses().canSee(entity);
     }
 }

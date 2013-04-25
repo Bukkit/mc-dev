@@ -53,7 +53,7 @@ public class EntityItemFrame extends EntityHanging {
         return this.getDataWatcher().getByte(3);
     }
 
-    public void b(int i) {
+    public void setRotation(int i) {
         this.getDataWatcher().watch(3, Byte.valueOf((byte) (i % 4)));
     }
 
@@ -72,7 +72,7 @@ public class EntityItemFrame extends EntityHanging {
 
         if (nbttagcompound1 != null && !nbttagcompound1.isEmpty()) {
             this.a(ItemStack.createStack(nbttagcompound1));
-            this.b(nbttagcompound.getByte("ItemRotation"));
+            this.setRotation(nbttagcompound.getByte("ItemRotation"));
             if (nbttagcompound.hasKey("ItemDropChance")) {
                 this.e = nbttagcompound.getFloat("ItemDropChance");
             }
@@ -92,7 +92,7 @@ public class EntityItemFrame extends EntityHanging {
                 }
             }
         } else if (!this.world.isStatic) {
-            this.b(this.j() + 1);
+            this.setRotation(this.j() + 1);
         }
 
         return true;

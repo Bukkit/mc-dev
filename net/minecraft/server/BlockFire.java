@@ -71,7 +71,7 @@ public class BlockFire extends Block {
                 world.setAir(i, j, k);
             }
 
-            if (!flag && world.O() && (world.F(i, j, k) || world.F(i - 1, j, k) || world.F(i + 1, j, k) || world.F(i, j, k - 1) || world.F(i, j, k + 1))) {
+            if (!flag && world.P() && (world.F(i, j, k) || world.F(i - 1, j, k) || world.F(i + 1, j, k) || world.F(i, j, k - 1) || world.F(i, j, k + 1))) {
                 world.setAir(i, j, k);
             } else {
                 int l = world.getData(i, j, k);
@@ -121,7 +121,7 @@ public class BlockFire extends Block {
                                             j2 /= 2;
                                         }
 
-                                        if (j2 > 0 && random.nextInt(l1) <= j2 && (!world.O() || !world.F(i1, k1, j1)) && !world.F(i1 - 1, k1, k) && !world.F(i1 + 1, k1, j1) && !world.F(i1, k1, j1 - 1) && !world.F(i1, k1, j1 + 1)) {
+                                        if (j2 > 0 && random.nextInt(l1) <= j2 && (!world.P() || !world.F(i1, k1, j1)) && !world.F(i1 - 1, k1, k) && !world.F(i1 + 1, k1, j1) && !world.F(i1, k1, j1 - 1) && !world.F(i1, k1, j1 + 1)) {
                                             int k2 = l + random.nextInt(5) / 4;
 
                                             if (k2 > 15) {

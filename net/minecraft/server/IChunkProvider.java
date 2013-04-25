@@ -27,4 +27,6 @@ public interface IChunkProvider {
     int getLoadedChunks();
 
     void recreateStructures(int i, int j);
+
+    void b();
 }

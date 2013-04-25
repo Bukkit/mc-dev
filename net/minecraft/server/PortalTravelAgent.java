@@ -77,7 +77,7 @@ public class PortalTravelAgent {
                 for (int l1 = i1 - short1; l1 <= i1 + short1; ++l1) {
                     double d6 = (double) l1 + 0.5D - entity.locZ;
 
-                    for (int i2 = this.a.Q() - 1; i2 >= 0; --i2) {
+                    for (int i2 = this.a.R() - 1; i2 >= 0; --i2) {
                         if (this.a.getTypeId(k1, i2, l1) == Block.PORTAL.id) {
                             while (this.a.getTypeId(k1, i2 - 1, l1) == Block.PORTAL.id) {
                                 --i2;
@@ -237,7 +237,7 @@ public class PortalTravelAgent {
                 d2 = (double) j2 + 0.5D - entity.locZ;
 
                 label274:
-                for (k2 = this.a.Q() - 1; k2 >= 0; --k2) {
+                for (k2 = this.a.R() - 1; k2 >= 0; --k2) {
                     if (this.a.isEmpty(i2, k2, j2)) {
                         while (k2 > 0 && this.a.isEmpty(i2, k2 - 1, j2)) {
                             --k2;
@@ -288,7 +288,7 @@ public class PortalTravelAgent {
                     d2 = (double) j2 + 0.5D - entity.locZ;
 
                     label222:
-                    for (k2 = this.a.Q() - 1; k2 >= 0; --k2) {
+                    for (k2 = this.a.R() - 1; k2 >= 0; --k2) {
                         if (this.a.isEmpty(i2, k2, j2)) {
                             while (k2 > 0 && this.a.isEmpty(i2, k2 - 1, j2)) {
                                 --k2;
@@ -344,8 +344,8 @@ public class PortalTravelAgent {
                 i1 = 70;
             }
 
-            if (i1 > this.a.Q() - 10) {
-                i1 = this.a.Q() - 10;
+            if (i1 > this.a.R() - 10) {
+                i1 = this.a.R() - 10;
             }
 
             j5 = i1;

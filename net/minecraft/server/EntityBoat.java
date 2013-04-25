@@ -217,7 +217,7 @@ public class EntityBoat extends Entity {
 
             this.move(this.motX, this.motY, this.motZ);
             if (this.positionChanged && d3 > 0.2D) {
-                if (!this.world.isStatic) {
+                if (!this.world.isStatic && !this.dead) {
                     this.die();
 
                     int k;

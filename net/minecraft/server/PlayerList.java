@@ -386,7 +386,7 @@ public abstract class PlayerList {
                 worldserver1.addEntity(entity);
                 entity.setPositionRotation(d0, entity.locY, d1, entity.yaw, entity.pitch);
                 worldserver1.entityJoinedWorld(entity, false);
-                worldserver1.s().a(entity, d3, d4, d5, f);
+                worldserver1.t().a(entity, d3, d4, d5, f);
             }
 
             worldserver.methodProfiler.b();
@@ -472,7 +472,7 @@ public abstract class PlayerList {
         return this.operators.contains(s.trim().toLowerCase()) || this.server.I() && this.server.worldServer[0].getWorldData().allowCommands() && this.server.H().equalsIgnoreCase(s) || this.m;
     }
 
-    public EntityPlayer f(String s) {
+    public EntityPlayer getPlayer(String s) {
         Iterator iterator = this.players.iterator();
 
         EntityPlayer entityplayer;
@@ -646,7 +646,7 @@ public abstract class PlayerList {
 
     public void b(EntityPlayer entityplayer, WorldServer worldserver) {
         entityplayer.playerConnection.sendPacket(new Packet4UpdateTime(worldserver.getTime(), worldserver.getDayTime()));
-        if (worldserver.O()) {
+        if (worldserver.P()) {
             entityplayer.playerConnection.sendPacket(new Packet70Bed(1, 0));
         }
     }

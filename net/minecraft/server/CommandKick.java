@@ -20,7 +20,7 @@ public class CommandKick extends CommandAbstract {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0 && astring[0].length() > 1) {
-            EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().f(astring[0]);
+            EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().getPlayer(astring[0]);
             String s = "Kicked by an operator.";
             boolean flag = false;
 

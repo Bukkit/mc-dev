@@ -89,8 +89,8 @@ public class ChunkProviderFlat implements IChunkProvider {
 
             for (int i1 = 0; i1 < 16; ++i1) {
                 for (int j1 = 0; j1 < 16; ++j1) {
-                    chunksection.a(i1, k & 15, j1, this.c[k] & 255);
-                    chunksection.b(i1, k & 15, j1, this.d[k]);
+                    chunksection.setTypeId(i1, k & 15, j1, this.c[k] & 255);
+                    chunksection.setData(i1, k & 15, j1, this.d[k]);
                 }
             }
         }
@@ -179,6 +179,8 @@ public class ChunkProviderFlat implements IChunkProvider {
     public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
         return true;
     }
+
+    public void b() {}
 
     public boolean unloadChunks() {
         return false;

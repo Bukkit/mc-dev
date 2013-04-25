@@ -39,7 +39,7 @@ public class CommandBanIp extends CommandAbstract {
             if (matcher.matches()) {
                 this.a(icommandlistener, astring[0], s);
             } else {
-                EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().f(astring[0]);
+                EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().getPlayer(astring[0]);
 
                 if (entityplayer == null) {
                     throw new ExceptionPlayerNotFound("commands.banip.invalid", new Object[0]);

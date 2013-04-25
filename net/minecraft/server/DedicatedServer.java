@@ -32,7 +32,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
 
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
-        this.getLogger().info("Starting minecraft server version 1.5.1");
+        this.getLogger().info("Starting minecraft server version 1.5.2");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             this.getLogger().warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
         }
@@ -52,6 +52,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         this.setAllowFlight(this.propertyManager.getBoolean("allow-flight", false));
         this.setTexturePack(this.propertyManager.getString("texture-pack", ""));
         this.setMotd(this.propertyManager.getString("motd", "A Minecraft Server"));
+        this.setForceGamemode(this.propertyManager.getBoolean("force-gamemode", false));
         if (this.propertyManager.getInt("difficulty", 1) < 0) {
             this.propertyManager.a("difficulty", Integer.valueOf(0));
         } else if (this.propertyManager.getInt("difficulty", 1) > 3) {
@@ -166,7 +167,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
 
     protected void a(CrashReport crashreport) {
         while (this.isRunning()) {
-            this.am();
+            this.an();
 
             try {
                 Thread.sleep(10L);
@@ -189,7 +190,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
 
     protected void r() {
         super.r();
-        this.am();
+        this.an();
     }
 
     public boolean getAllowNether() {
@@ -201,8 +202,8 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
     }
 
     public void a(MojangStatisticsGenerator mojangstatisticsgenerator) {
-        mojangstatisticsgenerator.a("whitelist_enabled", Boolean.valueOf(this.an().getHasWhitelist()));
-        mojangstatisticsgenerator.a("whitelist_count", Integer.valueOf(this.an().getWhitelisted().size()));
+        mojangstatisticsgenerator.a("whitelist_enabled", Boolean.valueOf(this.ao().getHasWhitelist()));
+        mojangstatisticsgenerator.a("whitelist_count", Integer.valueOf(this.ao().getWhitelisted().size()));
         super.a(mojangstatisticsgenerator);
     }
 
@@ -214,7 +215,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         this.k.add(new ServerCommand(s, icommandlistener));
     }
 
-    public void am() {
+    public void an() {
         while (!this.k.isEmpty()) {
             ServerCommand servercommand = (ServerCommand) this.k.remove(0);
 
@@ -226,7 +227,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         return true;
     }
 
-    public DedicatedPlayerList an() {
+    public DedicatedPlayerList ao() {
         return (DedicatedPlayerList) super.getPlayerList();
     }
 
@@ -260,7 +261,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         return file1 != null ? file1.getAbsolutePath() : "No settings file";
     }
 
-    public void ao() {
+    public void ap() {
         ServerGUI.a(this);
         this.s = true;
     }
@@ -284,9 +285,9 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
         if (world.worldProvider.dimension != 0) {
             return false;
-        } else if (this.an().getOPs().isEmpty()) {
+        } else if (this.ao().getOPs().isEmpty()) {
             return false;
-        } else if (this.an().isOp(entityhuman.name)) {
+        } else if (this.ao().isOp(entityhuman.name)) {
             return false;
         } else if (this.getSpawnProtection() <= 0) {
             return false;
@@ -305,6 +306,6 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
     }
 
     public PlayerList getPlayerList() {
-        return this.an();
+        return this.ao();
     }
 }

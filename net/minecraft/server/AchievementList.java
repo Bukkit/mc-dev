@@ -14,7 +14,7 @@ public class AchievementList {
     public static Achievement g = (new Achievement(1, "mineWood", 2, 1, Block.LOG, f)).c();
     public static Achievement h = (new Achievement(2, "buildWorkBench", 4, -1, Block.WORKBENCH, g)).c();
     public static Achievement i = (new Achievement(3, "buildPickaxe", 4, 2, Item.WOOD_PICKAXE, h)).c();
-    public static Achievement j = (new Achievement(4, "buildFurnace", 3, 4, Block.BURNING_FURNACE, i)).c();
+    public static Achievement j = (new Achievement(4, "buildFurnace", 3, 4, Block.FURNACE, i)).c();
     public static Achievement k = (new Achievement(5, "acquireIron", 1, 4, Item.IRON_INGOT, j)).c();
     public static Achievement l = (new Achievement(6, "buildHoe", 2, -3, Item.WOOD_HOE, h)).c();
     public static Achievement m = (new Achievement(7, "makeBread", -1, -3, Item.BREAD, l)).c();
