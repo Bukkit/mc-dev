@@ -1,32 +1,32 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet8UpdateHealth extends Packet {
 
-    public int a;
+    public float a;
     public int b;
     public float c;
 
     public Packet8UpdateHealth() {}
 
-    public Packet8UpdateHealth(int i, int j, float f) {
-        this.a = i;
-        this.b = j;
-        this.c = f;
+    public Packet8UpdateHealth(float f, int i, float f1) {
+        this.a = f;
+        this.b = i;
+        this.c = f1;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readShort();
-        this.b = datainputstream.readShort();
-        this.c = datainputstream.readFloat();
+    public void a(DataInput datainput) {
+        this.a = datainput.readFloat();
+        this.b = datainput.readShort();
+        this.c = datainput.readFloat();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeShort(this.a);
-        dataoutputstream.writeShort(this.b);
-        dataoutputstream.writeFloat(this.c);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeFloat(this.a);
+        dataoutput.writeShort(this.b);
+        dataoutput.writeFloat(this.c);
     }
 
     public void handle(Connection connection) {

@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet103SetSlot extends Packet {
 
@@ -21,16 +21,16 @@ public class Packet103SetSlot extends Packet {
         connection.a(this);
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readByte();
-        this.b = datainputstream.readShort();
-        this.c = c(datainputstream);
+    public void a(DataInput datainput) {
+        this.a = datainput.readByte();
+        this.b = datainput.readShort();
+        this.c = c(datainput);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeByte(this.a);
-        dataoutputstream.writeShort(this.b);
-        a(this.c, dataoutputstream);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeByte(this.a);
+        dataoutput.writeShort(this.b);
+        a(this.c, dataoutput);
     }
 
     public int a() {

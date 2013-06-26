@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class WorldGenVillagePieces {
 
-    public static ArrayList a(Random random, int i) {
+    public static List a(Random random, int i) {
         ArrayList arraylist = new ArrayList();
 
         arraylist.add(new WorldGenVillagePieceWeight(WorldGenVillageHouse.class, 4, MathHelper.nextInt(random, 2 + i, 4 + i * 2)));
@@ -74,7 +74,7 @@ public class WorldGenVillagePieces {
     }
 
     private static WorldGenVillagePiece c(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
-        int j1 = a(worldgenvillagestartpiece.h);
+        int j1 = a(worldgenvillagestartpiece.e);
 
         if (j1 <= 0) {
             return null;
@@ -84,14 +84,14 @@ public class WorldGenVillagePieces {
             while (k1 < 5) {
                 ++k1;
                 int l1 = random.nextInt(j1);
-                Iterator iterator = worldgenvillagestartpiece.h.iterator();
+                Iterator iterator = worldgenvillagestartpiece.e.iterator();
 
                 while (iterator.hasNext()) {
                     WorldGenVillagePieceWeight worldgenvillagepieceweight = (WorldGenVillagePieceWeight) iterator.next();
 
                     l1 -= worldgenvillagepieceweight.b;
                     if (l1 < 0) {
-                        if (!worldgenvillagepieceweight.a(i1) || worldgenvillagepieceweight == worldgenvillagestartpiece.d && worldgenvillagestartpiece.h.size() > 1) {
+                        if (!worldgenvillagepieceweight.a(i1) || worldgenvillagepieceweight == worldgenvillagestartpiece.d && worldgenvillagestartpiece.e.size() > 1) {
                             break;
                         }
 
@@ -101,7 +101,7 @@ public class WorldGenVillagePieces {
                             ++worldgenvillagepieceweight.c;
                             worldgenvillagestartpiece.d = worldgenvillagepieceweight;
                             if (!worldgenvillagepieceweight.a()) {
-                                worldgenvillagestartpiece.h.remove(worldgenvillagepieceweight);
+                                worldgenvillagestartpiece.e.remove(worldgenvillagepieceweight);
                             }
 
                             return worldgenvillagepiece;
@@ -127,10 +127,10 @@ public class WorldGenVillagePieces {
             WorldGenVillagePiece worldgenvillagepiece = c(worldgenvillagestartpiece, list, random, i, j, k, l, i1 + 1);
 
             if (worldgenvillagepiece != null) {
-                int j1 = (worldgenvillagepiece.e.a + worldgenvillagepiece.e.d) / 2;
-                int k1 = (worldgenvillagepiece.e.c + worldgenvillagepiece.e.f) / 2;
-                int l1 = worldgenvillagepiece.e.d - worldgenvillagepiece.e.a;
-                int i2 = worldgenvillagepiece.e.f - worldgenvillagepiece.e.c;
+                int j1 = (worldgenvillagepiece.f.a + worldgenvillagepiece.f.d) / 2;
+                int k1 = (worldgenvillagepiece.f.c + worldgenvillagepiece.f.f) / 2;
+                int l1 = worldgenvillagepiece.f.d - worldgenvillagepiece.f.a;
+                int i2 = worldgenvillagepiece.f.f - worldgenvillagepiece.f.c;
                 int j2 = l1 > i2 ? l1 : i2;
 
                 if (worldgenvillagestartpiece.d().a(j1, k1, j2 / 2 + 4, WorldGenVillage.e)) {
@@ -154,10 +154,10 @@ public class WorldGenVillagePieces {
 
             if (structureboundingbox != null && structureboundingbox.b > 10) {
                 WorldGenVillageRoad worldgenvillageroad = new WorldGenVillageRoad(worldgenvillagestartpiece, i1, random, structureboundingbox, l);
-                int j1 = (worldgenvillageroad.e.a + worldgenvillageroad.e.d) / 2;
-                int k1 = (worldgenvillageroad.e.c + worldgenvillageroad.e.f) / 2;
-                int l1 = worldgenvillageroad.e.d - worldgenvillageroad.e.a;
-                int i2 = worldgenvillageroad.e.f - worldgenvillageroad.e.c;
+                int j1 = (worldgenvillageroad.f.a + worldgenvillageroad.f.d) / 2;
+                int k1 = (worldgenvillageroad.f.c + worldgenvillageroad.f.f) / 2;
+                int l1 = worldgenvillageroad.f.d - worldgenvillageroad.f.a;
+                int i2 = worldgenvillageroad.f.f - worldgenvillageroad.f.c;
                 int j2 = l1 > i2 ? l1 : i2;
 
                 if (worldgenvillagestartpiece.d().a(j1, k1, j2 / 2 + 4, WorldGenVillage.e)) {

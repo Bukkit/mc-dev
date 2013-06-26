@@ -14,8 +14,8 @@ public class CommandXp extends CommandAbstract {
         return 2;
     }
 
-    public String a(ICommandListener icommandlistener) {
-        return icommandlistener.a("commands.xp.usage", new Object[0]);
+    public String c(ICommandListener icommandlistener) {
+        return "commands.xp.usage";
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {
@@ -39,9 +39,9 @@ public class CommandXp extends CommandAbstract {
             EntityPlayer entityplayer;
 
             if (astring.length > 1) {
-                entityplayer = c(icommandlistener, astring[1]);
+                entityplayer = d(icommandlistener, astring[1]);
             } else {
-                entityplayer = c(icommandlistener);
+                entityplayer = b(icommandlistener);
             }
 
             if (flag) {

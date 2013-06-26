@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet0KeepAlive extends Packet {
 
@@ -17,12 +17,12 @@ public class Packet0KeepAlive extends Packet {
         connection.a(this);
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
     }
 
     public int a() {

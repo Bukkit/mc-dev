@@ -3,8 +3,8 @@ package net.minecraft.server;
 public class EntityAIBodyControl {
 
     private EntityLiving entity;
-    private int b = 0;
-    private float c = 0.0F;
+    private int b;
+    private float c;
 
     public EntityAIBodyControl(EntityLiving entityliving) {
         this.entity = entityliving;
@@ -15,24 +15,26 @@ public class EntityAIBodyControl {
         double d1 = this.entity.locZ - this.entity.lastZ;
 
         if (d0 * d0 + d1 * d1 > 2.500000277905201E-7D) {
-            this.entity.ay = this.entity.yaw;
-            this.entity.aA = this.a(this.entity.ay, this.entity.aA, 75.0F);
-            this.c = this.entity.aA;
+            this.entity.aN = this.entity.yaw;
+            this.entity.aP = this.a(this.entity.aN, this.entity.aP, 75.0F);
+            this.c = this.entity.aP;
             this.b = 0;
         } else {
             float f = 75.0F;
 
-            if (Math.abs(this.entity.aA - this.c) > 15.0F) {
+            if (Math.abs(this.entity.aP - this.c) > 15.0F) {
                 this.b = 0;
-                this.c = this.entity.aA;
+                this.c = this.entity.aP;
             } else {
                 ++this.b;
+                boolean flag = true;
+
                 if (this.b > 10) {
                     f = Math.max(1.0F - (float) (this.b - 10) / 10.0F, 0.0F) * 75.0F;
                 }
             }
 
-            this.entity.ay = this.a(this.entity.aA, this.entity.ay, f);
+            this.entity.aN = this.a(this.entity.aP, this.entity.aN, f);
         }
     }
 

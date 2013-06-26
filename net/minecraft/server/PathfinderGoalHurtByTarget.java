@@ -6,44 +6,33 @@ import java.util.List;
 public class PathfinderGoalHurtByTarget extends PathfinderGoalTarget {
 
     boolean a;
-    EntityLiving b;
 
-    public PathfinderGoalHurtByTarget(EntityLiving entityliving, boolean flag) {
-        super(entityliving, 16.0F, false);
+    public PathfinderGoalHurtByTarget(EntityCreature entitycreature, boolean flag) {
+        super(entitycreature, false);
         this.a = flag;
         this.a(1);
     }
 
     public boolean a() {
-        return this.a(this.d.aF(), true);
-    }
-
-    public boolean b() {
-        return this.d.aF() != null && this.d.aF() != this.b;
+        return this.a(this.c.getLastDamager(), false);
     }
 
     public void c() {
-        this.d.setGoalTarget(this.d.aF());
-        this.b = this.d.aF();
+        this.c.setGoalTarget(this.c.getLastDamager());
         if (this.a) {
-            List list = this.d.world.a(this.d.getClass(), AxisAlignedBB.a().a(this.d.locX, this.d.locY, this.d.locZ, this.d.locX + 1.0D, this.d.locY + 1.0D, this.d.locZ + 1.0D).grow((double) this.e, 10.0D, (double) this.e));
+            double d0 = this.f();
+            List list = this.c.world.a(this.c.getClass(), AxisAlignedBB.a().a(this.c.locX, this.c.locY, this.c.locZ, this.c.locX + 1.0D, this.c.locY + 1.0D, this.c.locZ + 1.0D).grow(d0, 10.0D, d0));
             Iterator iterator = list.iterator();
 
             while (iterator.hasNext()) {
-                EntityLiving entityliving = (EntityLiving) iterator.next();
+                EntityCreature entitycreature = (EntityCreature) iterator.next();
 
-                if (this.d != entityliving && entityliving.getGoalTarget() == null) {
-                    entityliving.setGoalTarget(this.d.aF());
+                if (this.c != entitycreature && entitycreature.getGoalTarget() == null) {
+                    entitycreature.setGoalTarget(this.c.getLastDamager());
                 }
             }
         }
 
         super.c();
-    }
-
-    public void d() {
-        if (this.d.getGoalTarget() != null && this.d.getGoalTarget() instanceof EntityHuman && ((EntityHuman) this.d.getGoalTarget()).abilities.isInvulnerable) {
-            super.d();
-        }
     }
 }

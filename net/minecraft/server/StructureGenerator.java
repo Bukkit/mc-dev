@@ -106,7 +106,7 @@ public abstract class StructureGenerator extends WorldGenBase {
                 i2 = chunkposition1.x - i;
                 l1 = chunkposition1.y - j;
                 j2 = chunkposition1.z - k;
-                d1 = (double) (i2 + i2 * l1 * l1 + j2 * j2);
+                d1 = (double) (i2 * i2 + l1 * l1 + j2 * j2);
                 if (d1 < d0) {
                     d0 = d1;
                     chunkposition = chunkposition1;
@@ -128,7 +128,7 @@ public abstract class StructureGenerator extends WorldGenBase {
                     i2 = chunkposition1.x - i;
                     l1 = chunkposition1.y - j;
                     j2 = chunkposition1.z - k;
-                    d1 = (double) (i2 + i2 * l1 * l1 + j2 * j2);
+                    d1 = (double) (i2 * i2 + l1 * l1 + j2 * j2);
                     if (d1 < d0) {
                         d0 = d1;
                         chunkposition2 = chunkposition1;

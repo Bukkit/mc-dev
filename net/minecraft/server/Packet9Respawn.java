@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet9Respawn extends Packet {
 
@@ -25,12 +25,12 @@ public class Packet9Respawn extends Packet {
         connection.a(this);
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.readByte();
-        this.d = EnumGamemode.a(datainputstream.readByte());
-        this.c = datainputstream.readShort();
-        String s = a(datainputstream, 16);
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readByte();
+        this.d = EnumGamemode.a(datainput.readByte());
+        this.c = datainput.readShort();
+        String s = a(datainput, 16);
 
         this.e = WorldType.getType(s);
         if (this.e == null) {
@@ -38,12 +38,12 @@ public class Packet9Respawn extends Packet {
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeByte(this.b);
-        dataoutputstream.writeByte(this.d.a());
-        dataoutputstream.writeShort(this.c);
-        a(this.e.name(), dataoutputstream);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeByte(this.b);
+        dataoutput.writeByte(this.d.a());
+        dataoutput.writeShort(this.c);
+        a(this.e.name(), dataoutput);
     }
 
     public int a() {

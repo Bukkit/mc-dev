@@ -6,7 +6,7 @@ public class EntityComplexPart extends Entity {
     public final String b;
 
     public EntityComplexPart(IComplex icomplex, String s, float f, float f1) {
-        super(icomplex.d());
+        super(icomplex.b());
         this.a(f, f1);
         this.owner = icomplex;
         this.b = s;
@@ -22,11 +22,11 @@ public class EntityComplexPart extends Entity {
         return true;
     }
 
-    public boolean damageEntity(DamageSource damagesource, int i) {
-        return this.isInvulnerable() ? false : this.owner.a(this, damagesource, i);
+    public boolean damageEntity(DamageSource damagesource, float f) {
+        return this.isInvulnerable() ? false : this.owner.a(this, damagesource, f);
     }
 
-    public boolean i(Entity entity) {
+    public boolean h(Entity entity) {
         return this == entity || this.owner == entity;
     }
 }

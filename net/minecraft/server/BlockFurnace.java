@@ -6,7 +6,7 @@ public class BlockFurnace extends BlockContainer {
 
     private final Random a = new Random();
     private final boolean b;
-    private static boolean c = false;
+    private static boolean c;
 
     protected BlockFurnace(int i, boolean flag) {
         super(i, Material.STONE);
@@ -30,19 +30,19 @@ public class BlockFurnace extends BlockContainer {
             int k1 = world.getTypeId(i + 1, j, k);
             byte b0 = 3;
 
-            if (Block.s[l] && !Block.s[i1]) {
+            if (Block.t[l] && !Block.t[i1]) {
                 b0 = 3;
             }
 
-            if (Block.s[i1] && !Block.s[l]) {
+            if (Block.t[i1] && !Block.t[l]) {
                 b0 = 2;
             }
 
-            if (Block.s[j1] && !Block.s[k1]) {
+            if (Block.t[j1] && !Block.t[k1]) {
                 b0 = 5;
             }
 
-            if (Block.s[k1] && !Block.s[j1]) {
+            if (Block.t[k1] && !Block.t[j1]) {
                 b0 = 4;
             }
 

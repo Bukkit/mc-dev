@@ -14,18 +14,18 @@ abstract class WorldGenVillagePiece extends StructurePiece {
     }
 
     protected StructurePiece a(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j) {
-        switch (this.f) {
+        switch (this.g) {
         case 0:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.e.a - 1, this.e.b + i, this.e.c + j, 1, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a - 1, this.f.b + i, this.f.c + j, 1, this.c());
 
         case 1:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.e.a + j, this.e.b + i, this.e.c - 1, 2, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a + j, this.f.b + i, this.f.c - 1, 2, this.c());
 
         case 2:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.e.a - 1, this.e.b + i, this.e.c + j, 1, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a - 1, this.f.b + i, this.f.c + j, 1, this.c());
 
         case 3:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.e.a + j, this.e.b + i, this.e.c - 1, 2, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a + j, this.f.b + i, this.f.c - 1, 2, this.c());
 
         default:
             return null;
@@ -33,18 +33,18 @@ abstract class WorldGenVillagePiece extends StructurePiece {
     }
 
     protected StructurePiece b(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j) {
-        switch (this.f) {
+        switch (this.g) {
         case 0:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.e.d + 1, this.e.b + i, this.e.c + j, 3, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.d + 1, this.f.b + i, this.f.c + j, 3, this.c());
 
         case 1:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.e.a + j, this.e.b + i, this.e.f + 1, 0, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a + j, this.f.b + i, this.f.f + 1, 0, this.c());
 
         case 2:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.e.d + 1, this.e.b + i, this.e.c + j, 3, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.d + 1, this.f.b + i, this.f.c + j, 3, this.c());
 
         case 3:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.e.a + j, this.e.b + i, this.e.f + 1, 0, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a + j, this.f.b + i, this.f.f + 1, 0, this.c());
 
         default:
             return null;
@@ -55,8 +55,8 @@ abstract class WorldGenVillagePiece extends StructurePiece {
         int i = 0;
         int j = 0;
 
-        for (int k = this.e.c; k <= this.e.f; ++k) {
-            for (int l = this.e.a; l <= this.e.d; ++l) {
+        for (int k = this.f.c; k <= this.f.f; ++k) {
+            for (int l = this.f.a; l <= this.f.d; ++l) {
                 if (structureboundingbox.b(l, 64, k)) {
                     i += Math.max(world.i(l, k), world.worldProvider.getSeaLevel());
                     ++j;

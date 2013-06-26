@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet62NamedSoundEffect extends Packet {
 
@@ -30,22 +30,22 @@ public class Packet62NamedSoundEffect extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = a(datainputstream, 32);
-        this.b = datainputstream.readInt();
-        this.c = datainputstream.readInt();
-        this.d = datainputstream.readInt();
-        this.e = datainputstream.readFloat();
-        this.f = datainputstream.readUnsignedByte();
+    public void a(DataInput datainput) {
+        this.a = a(datainput, 256);
+        this.b = datainput.readInt();
+        this.c = datainput.readInt();
+        this.d = datainput.readInt();
+        this.e = datainput.readFloat();
+        this.f = datainput.readUnsignedByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        a(this.a, dataoutputstream);
-        dataoutputstream.writeInt(this.b);
-        dataoutputstream.writeInt(this.c);
-        dataoutputstream.writeInt(this.d);
-        dataoutputstream.writeFloat(this.e);
-        dataoutputstream.writeByte(this.f);
+    public void a(DataOutput dataoutput) {
+        a(this.a, dataoutput);
+        dataoutput.writeInt(this.b);
+        dataoutput.writeInt(this.c);
+        dataoutput.writeInt(this.d);
+        dataoutput.writeFloat(this.e);
+        dataoutput.writeByte(this.f);
     }
 
     public void handle(Connection connection) {

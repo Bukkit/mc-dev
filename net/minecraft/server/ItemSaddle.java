@@ -8,7 +8,7 @@ public class ItemSaddle extends Item {
         this.a(CreativeModeTab.e);
     }
 
-    public boolean a(ItemStack itemstack, EntityLiving entityliving) {
+    public boolean a(ItemStack itemstack, EntityHuman entityhuman, EntityLiving entityliving) {
         if (entityliving instanceof EntityPig) {
             EntityPig entitypig = (EntityPig) entityliving;
 
@@ -24,7 +24,7 @@ public class ItemSaddle extends Item {
     }
 
     public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
-        this.a(itemstack, entityliving);
+        this.a(itemstack, (EntityHuman) null, entityliving);
         return true;
     }
 }

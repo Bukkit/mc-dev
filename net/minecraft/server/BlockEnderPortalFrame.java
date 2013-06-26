@@ -47,4 +47,14 @@ public class BlockEnderPortalFrame extends Block {
 
         world.setData(i, j, k, l, 2);
     }
+
+    public boolean q_() {
+        return true;
+    }
+
+    public int b_(World world, int i, int j, int k, int l) {
+        int i1 = world.getData(i, j, k);
+
+        return d(i1) ? 15 : 0;
+    }
 }

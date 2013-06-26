@@ -12,17 +12,29 @@ public class CommandSaveOn extends CommandAbstract {
         return 4;
     }
 
+    public String c(ICommandListener icommandlistener) {
+        return "commands.save-on.usage";
+    }
+
     public void b(ICommandListener icommandlistener, String[] astring) {
         MinecraftServer minecraftserver = MinecraftServer.getServer();
+        boolean flag = false;
 
         for (int i = 0; i < minecraftserver.worldServer.length; ++i) {
             if (minecraftserver.worldServer[i] != null) {
                 WorldServer worldserver = minecraftserver.worldServer[i];
 
-                worldserver.savingDisabled = false;
+                if (worldserver.savingDisabled) {
+                    worldserver.savingDisabled = false;
+                    flag = true;
+                }
             }
         }
 
-        a(icommandlistener, "commands.save.enabled", new Object[0]);
+        if (flag) {
+            a(icommandlistener, "commands.save.enabled", new Object[0]);
+        } else {
+            throw new CommandException("commands.save-on.alreadyOn", new Object[0]);
+        }
     }
 }

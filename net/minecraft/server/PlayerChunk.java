@@ -10,6 +10,7 @@ class PlayerChunk {
     private short[] dirtyBlocks;
     private int dirtyCount;
     private int f;
+    private long g;
 
     final PlayerChunkMap playerChunkMap;
 
@@ -17,7 +18,6 @@ class PlayerChunk {
         this.playerChunkMap = playerchunkmap;
         this.b = new ArrayList();
         this.dirtyBlocks = new short[64];
-        this.dirtyCount = 0;
         this.location = new ChunkCoordIntPair(i, j);
         playerchunkmap.a().chunkProviderServer.getChunkAt(i, j);
     }
@@ -26,6 +26,10 @@ class PlayerChunk {
         if (this.b.contains(entityplayer)) {
             throw new IllegalStateException("Failed to add player. " + entityplayer + " already is in chunk " + this.location.x + ", " + this.location.z);
         } else {
+            if (this.b.isEmpty()) {
+                this.g = PlayerChunkMap.a(this.playerChunkMap).getTime();
+            }
+
             this.b.add(entityplayer);
             entityplayer.chunkCoordIntPairQueue.add(this.location);
         }
@@ -33,15 +37,19 @@ class PlayerChunk {
 
     public void b(EntityPlayer entityplayer) {
         if (this.b.contains(entityplayer)) {
-            entityplayer.playerConnection.sendPacket(new Packet51MapChunk(PlayerChunkMap.a(this.playerChunkMap).getChunkAt(this.location.x, this.location.z), true, 0));
+            Chunk chunk = PlayerChunkMap.a(this.playerChunkMap).getChunkAt(this.location.x, this.location.z);
+
+            entityplayer.playerConnection.sendPacket(new Packet51MapChunk(chunk, true, 0));
             this.b.remove(entityplayer);
             entityplayer.chunkCoordIntPairQueue.remove(this.location);
             if (this.b.isEmpty()) {
                 long i = (long) this.location.x + 2147483647L | (long) this.location.z + 2147483647L << 32;
 
+                this.a(chunk);
                 PlayerChunkMap.b(this.playerChunkMap).remove(i);
+                PlayerChunkMap.c(this.playerChunkMap).remove(this);
                 if (this.dirtyCount > 0) {
-                    PlayerChunkMap.c(this.playerChunkMap).remove(this);
+                    PlayerChunkMap.d(this.playerChunkMap).remove(this);
                 }
 
                 this.playerChunkMap.a().chunkProviderServer.queueUnload(this.location.x, this.location.z);
@@ -49,9 +57,18 @@ class PlayerChunk {
         }
     }
 
+    public void a() {
+        this.a(PlayerChunkMap.a(this.playerChunkMap).getChunkAt(this.location.x, this.location.z));
+    }
+
+    private void a(Chunk chunk) {
+        chunk.q += PlayerChunkMap.a(this.playerChunkMap).getTime() - this.g;
+        this.g = PlayerChunkMap.a(this.playerChunkMap).getTime();
+    }
+
     public void a(int i, int j, int k) {
         if (this.dirtyCount == 0) {
-            PlayerChunkMap.c(this.playerChunkMap).add(this);
+            PlayerChunkMap.d(this.playerChunkMap).add(this);
         }
 
         this.f |= 1 << (j >> 4);
@@ -78,7 +95,7 @@ class PlayerChunk {
         }
     }
 
-    public void a() {
+    public void b() {
         if (this.dirtyCount != 0) {
             int i;
             int j;

@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.util.List;
 
 public class Packet104WindowItems extends Packet {
@@ -22,23 +22,23 @@ public class Packet104WindowItems extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readByte();
-        short short1 = datainputstream.readShort();
+    public void a(DataInput datainput) {
+        this.a = datainput.readByte();
+        short short1 = datainput.readShort();
 
         this.b = new ItemStack[short1];
 
         for (int i = 0; i < short1; ++i) {
-            this.b[i] = c(datainputstream);
+            this.b[i] = c(datainput);
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeByte(this.a);
-        dataoutputstream.writeShort(this.b.length);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeByte(this.a);
+        dataoutput.writeShort(this.b.length);
 
         for (int i = 0; i < this.b.length; ++i) {
-            a(this.b[i], dataoutputstream);
+            a(this.b[i], dataoutput);
         }
     }
 

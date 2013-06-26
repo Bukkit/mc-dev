@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class WorldGenPyramidPiece extends WorldGenScatteredPiece {
 
-    private boolean[] h = new boolean[4];
-    private static final StructurePieceTreasure[] i = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.DIAMOND.id, 0, 1, 3, 3), new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 5, 10), new StructurePieceTreasure(Item.GOLD_INGOT.id, 0, 2, 7, 15), new StructurePieceTreasure(Item.EMERALD.id, 0, 1, 3, 2), new StructurePieceTreasure(Item.BONE.id, 0, 4, 6, 20), new StructurePieceTreasure(Item.ROTTEN_FLESH.id, 0, 3, 7, 16)};
+    private boolean[] e = new boolean[4];
+    private static final StructurePieceTreasure[] i = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.DIAMOND.id, 0, 1, 3, 3), new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 5, 10), new StructurePieceTreasure(Item.GOLD_INGOT.id, 0, 2, 7, 15), new StructurePieceTreasure(Item.EMERALD.id, 0, 1, 3, 2), new StructurePieceTreasure(Item.BONE.id, 0, 4, 6, 20), new StructurePieceTreasure(Item.ROTTEN_FLESH.id, 0, 3, 7, 16), new StructurePieceTreasure(Item.SADDLE.id, 0, 1, 1, 3), new StructurePieceTreasure(Item.HORSE_ARMOR_IRON.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.HORSE_ARMOR_GOLD.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.HORSE_ARMOR_DIAMOND.id, 0, 1, 1, 1)};
 
     public WorldGenPyramidPiece(Random random, int i, int j) {
         super(random, i, 64, j, 21, 15, 21);
@@ -200,11 +200,11 @@ public class WorldGenPyramidPiece extends WorldGenScatteredPiece {
         this.a(world, Block.SANDSTONE.id, 2, 10, -11, 13, structureboundingbox);
 
         for (i1 = 0; i1 < 4; ++i1) {
-            if (!this.h[i1]) {
+            if (!this.e[i1]) {
                 int j1 = Direction.a[i1] * 2;
                 int k1 = Direction.b[i1] * 2;
 
-                this.h[i1] = this.a(world, structureboundingbox, random, 10 + j1, -11, 10 + k1, StructurePieceTreasure.a(i, new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 2 + random.nextInt(5));
+                this.e[i1] = this.a(world, structureboundingbox, random, 10 + j1, -11, 10 + k1, StructurePieceTreasure.a(i, new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 2 + random.nextInt(5));
             }
         }
 

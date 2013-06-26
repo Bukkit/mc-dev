@@ -7,14 +7,14 @@ public class EntityArrow extends Entity implements IProjectile {
     private int d = -1;
     private int e = -1;
     private int f = -1;
-    private int g = 0;
-    private int h = 0;
-    private boolean inGround = false;
-    public int fromPlayer = 0;
-    public int shake = 0;
+    private int g;
+    private int h;
+    private boolean inGround;
+    public int fromPlayer;
+    public int shake;
     public Entity shooter;
     private int j;
-    private int au = 0;
+    private int au;
     private double damage = 2.0D;
     private int aw;
 
@@ -222,12 +222,12 @@ public class EntityArrow extends Entity implements IProjectile {
                         movingobjectposition.entity.setOnFire(5);
                     }
 
-                    if (movingobjectposition.entity.damageEntity(damagesource, i1)) {
+                    if (movingobjectposition.entity.damageEntity(damagesource, (float) i1)) {
                         if (movingobjectposition.entity instanceof EntityLiving) {
                             EntityLiving entityliving = (EntityLiving) movingobjectposition.entity;
 
                             if (!this.world.isStatic) {
-                                entityliving.r(entityliving.bM() + 1);
+                                entityliving.m(entityliving.aQ() + 1);
                             }
 
                             if (this.aw > 0) {
@@ -379,7 +379,7 @@ public class EntityArrow extends Entity implements IProjectile {
         }
     }
 
-    protected boolean f_() {
+    protected boolean e_() {
         return false;
     }
 
@@ -395,7 +395,7 @@ public class EntityArrow extends Entity implements IProjectile {
         this.aw = i;
     }
 
-    public boolean ap() {
+    public boolean ao() {
         return false;
     }
 

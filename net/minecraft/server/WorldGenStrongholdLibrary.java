@@ -11,9 +11,9 @@ public class WorldGenStrongholdLibrary extends WorldGenStrongholdPiece {
 
     public WorldGenStrongholdLibrary(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.f = j;
+        this.g = j;
         this.a = this.a(random);
-        this.e = structureboundingbox;
+        this.f = structureboundingbox;
         this.c = structureboundingbox.c() > 6;
     }
 
@@ -43,6 +43,8 @@ public class WorldGenStrongholdLibrary extends WorldGenStrongholdPiece {
             this.a(world, structureboundingbox, 0, 0, 0, 13, b0 - 1, 14, true, random, WorldGenStrongholdPieces.b());
             this.a(world, random, structureboundingbox, this.a, 4, 1, 0);
             this.a(world, structureboundingbox, random, 0.07F, 2, 1, 1, 11, 4, 13, Block.WEB.id, Block.WEB.id, false);
+            boolean flag = true;
+            boolean flag1 = true;
 
             int i;
 

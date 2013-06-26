@@ -20,7 +20,7 @@ public class NBTTagDouble extends NBTBase {
         dataoutput.writeDouble(this.data);
     }
 
-    void load(DataInput datainput) {
+    void load(DataInput datainput, int i) {
         this.data = datainput.readDouble();
     }
 

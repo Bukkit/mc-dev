@@ -9,12 +9,13 @@ public class WorldGenStrongholdCorridor extends WorldGenStrongholdPiece {
 
     public WorldGenStrongholdCorridor(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
         this.a = j != 2 && j != 0 ? structureboundingbox.b() : structureboundingbox.d();
     }
 
     public static StructureBoundingBox a(List list, Random random, int i, int j, int k, int l) {
+        boolean flag = true;
         StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, -1, -1, 0, 5, 5, 4, l);
         StructurePiece structurepiece = StructurePiece.a(list, structureboundingbox);
 

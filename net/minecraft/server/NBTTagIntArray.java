@@ -25,13 +25,13 @@ public class NBTTagIntArray extends NBTBase {
         }
     }
 
-    void load(DataInput datainput) {
-        int i = datainput.readInt();
+    void load(DataInput datainput, int i) {
+        int j = datainput.readInt();
 
-        this.data = new int[i];
+        this.data = new int[j];
 
-        for (int j = 0; j < i; ++j) {
-            this.data[j] = datainput.readInt();
+        for (int k = 0; k < j; ++k) {
+            this.data[k] = datainput.readInt();
         }
     }
 

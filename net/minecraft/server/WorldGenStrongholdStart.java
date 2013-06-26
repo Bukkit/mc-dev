@@ -1,13 +1,14 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class WorldGenStrongholdStart extends WorldGenStrongholdStairs2 {
 
     public WorldGenStrongholdPieceWeight a;
     public WorldGenStrongholdPortalRoom b;
-    public ArrayList c = new ArrayList();
+    public List c = new ArrayList();
 
     public WorldGenStrongholdStart(int i, Random random, int j, int k) {
         super(0, random, j, k);

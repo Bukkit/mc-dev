@@ -2,23 +2,23 @@ package net.minecraft.server;
 
 public class PathfinderGoalLookAtPlayer extends PathfinderGoal {
 
-    private EntityLiving b;
+    private EntityInsentient b;
     protected Entity a;
     private float c;
     private int d;
     private float e;
     private Class f;
 
-    public PathfinderGoalLookAtPlayer(EntityLiving entityliving, Class oclass, float f) {
-        this.b = entityliving;
+    public PathfinderGoalLookAtPlayer(EntityInsentient entityinsentient, Class oclass, float f) {
+        this.b = entityinsentient;
         this.f = oclass;
         this.c = f;
         this.e = 0.02F;
         this.a(2);
     }
 
-    public PathfinderGoalLookAtPlayer(EntityLiving entityliving, Class oclass, float f, float f1) {
-        this.b = entityliving;
+    public PathfinderGoalLookAtPlayer(EntityInsentient entityinsentient, Class oclass, float f, float f1) {
+        this.b = entityinsentient;
         this.f = oclass;
         this.c = f;
         this.e = f1;
@@ -26,9 +26,13 @@ public class PathfinderGoalLookAtPlayer extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (this.b.aE().nextFloat() >= this.e) {
+        if (this.b.aB().nextFloat() >= this.e) {
             return false;
         } else {
+            if (this.b.getGoalTarget() != null) {
+                this.a = this.b.getGoalTarget();
+            }
+
             if (this.f == EntityHuman.class) {
                 this.a = this.b.world.findNearbyPlayer(this.b, (double) this.c);
             } else {
@@ -44,7 +48,7 @@ public class PathfinderGoalLookAtPlayer extends PathfinderGoal {
     }
 
     public void c() {
-        this.d = 40 + this.b.aE().nextInt(40);
+        this.d = 40 + this.b.aB().nextInt(40);
     }
 
     public void d() {
@@ -52,7 +56,7 @@ public class PathfinderGoalLookAtPlayer extends PathfinderGoal {
     }
 
     public void e() {
-        this.b.getControllerLook().a(this.a.locX, this.a.locY + (double) this.a.getHeadHeight(), this.a.locZ, 10.0F, (float) this.b.bs());
+        this.b.getControllerLook().a(this.a.locX, this.a.locY + (double) this.a.getHeadHeight(), this.a.locZ, 10.0F, (float) this.b.bl());
         --this.d;
     }
 }

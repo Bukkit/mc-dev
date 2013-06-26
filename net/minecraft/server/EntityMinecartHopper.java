@@ -31,7 +31,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         return 5;
     }
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean c(EntityHuman entityhuman) {
         if (!this.world.isStatic) {
             entityhuman.openMinecartHopper(this);
         }
@@ -42,12 +42,12 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     public void a(int i, int j, int k, boolean flag) {
         boolean flag1 = !flag;
 
-        if (flag1 != this.ay()) {
+        if (flag1 != this.ax()) {
             this.f(flag1);
         }
     }
 
-    public boolean ay() {
+    public boolean ax() {
         return this.a;
     }
 
@@ -59,33 +59,33 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         return this.world;
     }
 
-    public double aA() {
+    public double az() {
         return this.locX;
     }
 
-    public double aB() {
+    public double aA() {
         return this.locY;
     }
 
-    public double aC() {
+    public double aB() {
         return this.locZ;
     }
 
     public void l_() {
         super.l_();
-        if (!this.world.isStatic && this.isAlive() && this.ay()) {
+        if (!this.world.isStatic && this.isAlive() && this.ax()) {
             --this.b;
-            if (!this.aE()) {
-                this.n(0);
-                if (this.aD()) {
-                    this.n(4);
+            if (!this.aD()) {
+                this.l(0);
+                if (this.aC()) {
+                    this.l(4);
                     this.update();
                 }
             }
         }
     }
 
-    public boolean aD() {
+    public boolean aC() {
         if (TileEntityHopper.suckInItems(this)) {
             return true;
         } else {
@@ -114,11 +114,11 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         this.b = nbttagcompound.getInt("TransferCooldown");
     }
 
-    public void n(int i) {
+    public void l(int i) {
         this.b = i;
     }
 
-    public boolean aE() {
+    public boolean aD() {
         return this.b > 0;
     }
 }

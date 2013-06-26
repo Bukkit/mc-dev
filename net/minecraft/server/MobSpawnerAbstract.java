@@ -9,10 +9,10 @@ public abstract class MobSpawnerAbstract {
 
     public int spawnDelay = 20;
     private String mobName = "Pig";
-    private List mobs = null;
-    private TileEntityMobSpawnerData spawnData = null;
+    private List mobs;
+    private TileEntityMobSpawnerData spawnData;
     public double c;
-    public double d = 0.0D;
+    public double d;
     private int minSpawnDelay = 200;
     private int maxSpawnDelay = 800;
     private int spawnCount = 4;
@@ -89,14 +89,14 @@ public abstract class MobSpawnerAbstract {
                     d0 = (double) this.b() + (this.a().random.nextDouble() - this.a().random.nextDouble()) * (double) this.spawnRange;
                     double d3 = (double) (this.c() + this.a().random.nextInt(3) - 1);
                     double d4 = (double) this.d() + (this.a().random.nextDouble() - this.a().random.nextDouble()) * (double) this.spawnRange;
-                    EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving) entity : null;
+                    EntityInsentient entityinsentient = entity instanceof EntityInsentient ? (EntityInsentient) entity : null;
 
                     entity.setPositionRotation(d0, d3, d4, this.a().random.nextFloat() * 360.0F, 0.0F);
-                    if (entityliving == null || entityliving.canSpawn()) {
+                    if (entityinsentient == null || entityinsentient.canSpawn()) {
                         this.a(entity);
                         this.a().triggerEffect(2004, this.b(), this.c(), this.d(), 0);
-                        if (entityliving != null) {
-                            entityliving.aU();
+                        if (entityinsentient != null) {
+                            entityinsentient.q();
                         }
 
                         flag = true;
@@ -132,7 +132,7 @@ public abstract class MobSpawnerAbstract {
 
             for (Entity entity1 = entity; nbttagcompound.hasKey("Riding"); nbttagcompound = nbttagcompound1) {
                 nbttagcompound1 = nbttagcompound.getCompound("Riding");
-                Entity entity2 = EntityTypes.createEntityByName(nbttagcompound1.getString("id"), this.a());
+                Entity entity2 = EntityTypes.createEntityByName(nbttagcompound1.getString("id"), entity.world);
 
                 if (entity2 != null) {
                     NBTTagCompound nbttagcompound2 = new NBTTagCompound();
@@ -148,14 +148,17 @@ public abstract class MobSpawnerAbstract {
 
                     entity2.f(nbttagcompound2);
                     entity2.setPositionRotation(entity1.locX, entity1.locY, entity1.locZ, entity1.yaw, entity1.pitch);
-                    this.a().addEntity(entity2);
+                    if (entity.world != null) {
+                        entity.world.addEntity(entity2);
+                    }
+
                     entity1.mount(entity2);
                 }
 
                 entity1 = entity2;
             }
         } else if (entity instanceof EntityLiving && entity.world != null) {
-            ((EntityLiving) entity).bJ();
+            ((EntityInsentient) entity).a((GroupDataEntity) null);
             this.a().addEntity(entity);
         }
 

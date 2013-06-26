@@ -5,8 +5,11 @@ public class RecipesDyes {
     public RecipesDyes() {}
 
     public void a(CraftingManager craftingmanager) {
-        for (int i = 0; i < 16; ++i) {
+        int i;
+
+        for (i = 0; i < 16; ++i) {
             craftingmanager.registerShapelessRecipe(new ItemStack(Block.WOOL, 1, BlockCloth.c(i)), new Object[] { new ItemStack(Item.INK_SACK, 1, i), new ItemStack(Item.byId[Block.WOOL.id], 1, 0)});
+            craftingmanager.registerShapedRecipe(new ItemStack(Block.STAINED_HARDENED_CLAY, 8, BlockCloth.c(i)), new Object[] { "###", "#X#", "###", Character.valueOf('#'), new ItemStack(Block.HARDENED_CLAY), Character.valueOf('X'), new ItemStack(Item.INK_SACK, 1, i)});
         }
 
         craftingmanager.registerShapelessRecipe(new ItemStack(Item.INK_SACK, 2, 11), new Object[] { Block.YELLOW_FLOWER});
@@ -24,5 +27,9 @@ public class RecipesDyes {
         craftingmanager.registerShapelessRecipe(new ItemStack(Item.INK_SACK, 2, 13), new Object[] { new ItemStack(Item.INK_SACK, 1, 5), new ItemStack(Item.INK_SACK, 1, 9)});
         craftingmanager.registerShapelessRecipe(new ItemStack(Item.INK_SACK, 3, 13), new Object[] { new ItemStack(Item.INK_SACK, 1, 4), new ItemStack(Item.INK_SACK, 1, 1), new ItemStack(Item.INK_SACK, 1, 9)});
         craftingmanager.registerShapelessRecipe(new ItemStack(Item.INK_SACK, 4, 13), new Object[] { new ItemStack(Item.INK_SACK, 1, 4), new ItemStack(Item.INK_SACK, 1, 1), new ItemStack(Item.INK_SACK, 1, 1), new ItemStack(Item.INK_SACK, 1, 15)});
+
+        for (i = 0; i < 16; ++i) {
+            craftingmanager.registerShapedRecipe(new ItemStack(Block.WOOL_CARPET, 3, i), new Object[] { "##", Character.valueOf('#'), new ItemStack(Block.WOOL, 1, i)});
+        }
     }
 }

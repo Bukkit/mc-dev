@@ -15,10 +15,12 @@ public class CommandWeather extends CommandAbstract {
         return 2;
     }
 
+    public String c(ICommandListener icommandlistener) {
+        return "commands.weather.usage";
+    }
+
     public void b(ICommandListener icommandlistener, String[] astring) {
-        if (astring.length < 1) {
-            throw new ExceptionUsage("commands.weather.usage", new Object[0]);
-        } else {
+        if (astring.length >= 1 && astring.length <= 2) {
             int i = (300 + (new Random()).nextInt(600)) * 20;
 
             if (astring.length >= 2) {
@@ -38,11 +40,17 @@ public class CommandWeather extends CommandAbstract {
                 worlddata.setStorm(true);
                 worlddata.setThundering(false);
                 a(icommandlistener, "commands.weather.rain", new Object[0]);
-            } else if ("thunder".equalsIgnoreCase(astring[0])) {
+            } else {
+                if (!"thunder".equalsIgnoreCase(astring[0])) {
+                    throw new ExceptionUsage("commands.weather.usage", new Object[0]);
+                }
+
                 worlddata.setStorm(true);
                 worlddata.setThundering(true);
                 a(icommandlistener, "commands.weather.thunder", new Object[0]);
             }
+        } else {
+            throw new ExceptionUsage("commands.weather.usage", new Object[0]);
         }
     }
 

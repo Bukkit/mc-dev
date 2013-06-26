@@ -9,8 +9,10 @@ public class PlayerChunkMap {
     private final List managedPlayers = new ArrayList();
     private final LongHashMap c = new LongHashMap();
     private final List d = new ArrayList();
-    private final int e;
-    private final int[][] f = new int[][] { { 1, 0}, { 0, 1}, { -1, 0}, { 0, -1}};
+    private final List e = new ArrayList();
+    private final int f;
+    private long g;
+    private final int[][] h = new int[][] { { 1, 0}, { 0, 1}, { -1, 0}, { 0, -1}};
 
     public PlayerChunkMap(WorldServer worldserver, int i) {
         if (i > 15) {
@@ -18,7 +20,7 @@ public class PlayerChunkMap {
         } else if (i < 3) {
             throw new IllegalArgumentException("Too small view radius!");
         } else {
-            this.e = i;
+            this.f = i;
             this.world = worldserver;
         }
     }
@@ -28,8 +30,23 @@ public class PlayerChunkMap {
     }
 
     public void flush() {
-        for (int i = 0; i < this.d.size(); ++i) {
-            ((PlayerChunk) this.d.get(i)).a();
+        long i = this.world.getTime();
+        int j;
+        PlayerChunk playerchunk;
+
+        if (i - this.g > 8000L) {
+            this.g = i;
+
+            for (j = 0; j < this.e.size(); ++j) {
+                playerchunk = (PlayerChunk) this.e.get(j);
+                playerchunk.b();
+                playerchunk.a();
+            }
+        } else {
+            for (j = 0; j < this.d.size(); ++j) {
+                playerchunk = (PlayerChunk) this.d.get(j);
+                playerchunk.b();
+            }
         }
 
         this.d.clear();
@@ -49,6 +66,7 @@ public class PlayerChunkMap {
         if (playerchunk == null && flag) {
             playerchunk = new PlayerChunk(this, i, j);
             this.c.put(k, playerchunk);
+            this.e.add(playerchunk);
         }
 
         return playerchunk;
@@ -71,8 +89,8 @@ public class PlayerChunkMap {
         entityplayer.d = entityplayer.locX;
         entityplayer.e = entityplayer.locZ;
 
-        for (int k = i - this.e; k <= i + this.e; ++k) {
-            for (int l = j - this.e; l <= j + this.e; ++l) {
+        for (int k = i - this.f; k <= i + this.f; ++k) {
+            for (int l = j - this.f; l <= j + this.f; ++l) {
                 this.a(k, l, true).a(entityplayer);
             }
         }
@@ -84,7 +102,7 @@ public class PlayerChunkMap {
     public void b(EntityPlayer entityplayer) {
         ArrayList arraylist = new ArrayList(entityplayer.chunkCoordIntPairQueue);
         int i = 0;
-        int j = this.e;
+        int j = this.f;
         int k = (int) entityplayer.locX >> 4;
         int l = (int) entityplayer.locZ >> 4;
         int i1 = 0;
@@ -100,7 +118,7 @@ public class PlayerChunkMap {
 
         for (k1 = 1; k1 <= j * 2; ++k1) {
             for (int l1 = 0; l1 < 2; ++l1) {
-                int[] aint = this.f[i++ % 4];
+                int[] aint = this.h[i++ % 4];
 
                 for (int i2 = 0; i2 < k1; ++i2) {
                     i1 += aint[0];
@@ -116,8 +134,8 @@ public class PlayerChunkMap {
         i %= 4;
 
         for (k1 = 0; k1 < j * 2; ++k1) {
-            i1 += this.f[i][0];
-            j1 += this.f[i][1];
+            i1 += this.h[i][0];
+            j1 += this.h[i][1];
             chunkcoordintpair = PlayerChunk.a(this.a(k + i1, l + j1, true));
             if (arraylist.contains(chunkcoordintpair)) {
                 entityplayer.chunkCoordIntPairQueue.add(chunkcoordintpair);
@@ -129,8 +147,8 @@ public class PlayerChunkMap {
         int i = (int) entityplayer.d >> 4;
         int j = (int) entityplayer.e >> 4;
 
-        for (int k = i - this.e; k <= i + this.e; ++k) {
-            for (int l = j - this.e; l <= j + this.e; ++l) {
+        for (int k = i - this.f; k <= i + this.f; ++k) {
+            for (int l = j - this.f; l <= j + this.f; ++l) {
                 PlayerChunk playerchunk = this.a(k, l, false);
 
                 if (playerchunk != null) {
@@ -159,7 +177,7 @@ public class PlayerChunkMap {
         if (d2 >= 64.0D) {
             int k = (int) entityplayer.d >> 4;
             int l = (int) entityplayer.e >> 4;
-            int i1 = this.e;
+            int i1 = this.f;
             int j1 = i - k;
             int k1 = j - l;
 
@@ -206,6 +224,10 @@ public class PlayerChunkMap {
     }
 
     static List c(PlayerChunkMap playerchunkmap) {
+        return playerchunkmap.e;
+    }
+
+    static List d(PlayerChunkMap playerchunkmap) {
         return playerchunkmap.d;
     }
 }

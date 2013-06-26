@@ -16,9 +16,9 @@ public class Statistic {
     private static DecimalFormat d = new DecimalFormat("########0.00");
     public static Counter i = new TimeCounter();
     public static Counter j = new DistancesCounter();
+    public static Counter k = new DamageCounter();
 
     public Statistic(int i, String s, Counter counter) {
-        this.f = false;
         this.e = i;
         this.a = s;
         this.b = counter;

@@ -20,7 +20,7 @@ public class NBTTagShort extends NBTBase {
         dataoutput.writeShort(this.data);
     }
 
-    void load(DataInput datainput) {
+    void load(DataInput datainput, int i) {
         this.data = datainput.readShort();
     }
 

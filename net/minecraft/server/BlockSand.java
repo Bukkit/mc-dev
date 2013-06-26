@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockSand extends Block {
 
-    public static boolean instaFall = false;
+    public static boolean instaFall;
 
     public BlockSand(int i) {
         super(i, Material.SAND);

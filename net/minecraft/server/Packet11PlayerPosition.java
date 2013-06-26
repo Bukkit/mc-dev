@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet11PlayerPosition extends Packet10Flying {
 
@@ -9,20 +9,20 @@ public class Packet11PlayerPosition extends Packet10Flying {
         this.hasPos = true;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.x = datainputstream.readDouble();
-        this.y = datainputstream.readDouble();
-        this.stance = datainputstream.readDouble();
-        this.z = datainputstream.readDouble();
-        super.a(datainputstream);
+    public void a(DataInput datainput) {
+        this.x = datainput.readDouble();
+        this.y = datainput.readDouble();
+        this.stance = datainput.readDouble();
+        this.z = datainput.readDouble();
+        super.a(datainput);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeDouble(this.x);
-        dataoutputstream.writeDouble(this.y);
-        dataoutputstream.writeDouble(this.stance);
-        dataoutputstream.writeDouble(this.z);
-        super.a(dataoutputstream);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeDouble(this.x);
+        dataoutput.writeDouble(this.y);
+        dataoutput.writeDouble(this.stance);
+        dataoutput.writeDouble(this.z);
+        super.a(dataoutput);
     }
 
     public int a() {

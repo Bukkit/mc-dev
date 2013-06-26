@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Explosion {
 
-    public boolean a = false;
+    public boolean a;
     public boolean b = true;
     private int i = 16;
     private Random j = new Random();
@@ -115,7 +115,7 @@ public class Explosion {
                     double d9 = (double) this.world.a(vec3d, entity.boundingBox);
                     double d10 = (1.0D - d7) * d9;
 
-                    entity.damageEntity(DamageSource.explosion(this), (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.size + 1.0D));
+                    entity.damageEntity(DamageSource.explosion(this), (float) ((int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.size + 1.0D)));
                     double d11 = EnchantmentProtection.a(entity, d10);
 
                     entity.motX += d0 * d11;
@@ -201,7 +201,7 @@ public class Explosion {
                 l = this.world.getTypeId(i, j, k);
                 int i1 = this.world.getTypeId(i, j - 1, k);
 
-                if (l == 0 && Block.s[i1] && this.j.nextInt(3) == 0) {
+                if (l == 0 && Block.t[i1] && this.j.nextInt(3) == 0) {
                     this.world.setTypeIdUpdate(i, j, k, Block.FIRE.id);
                 }
             }

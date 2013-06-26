@@ -7,15 +7,15 @@ import java.util.List;
 public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
 
     private EntityCreature a;
-    private float b;
+    private double b;
     private PathEntity c;
     private VillageDoor d;
     private boolean e;
     private List f = new ArrayList();
 
-    public PathfinderGoalMoveThroughVillage(EntityCreature entitycreature, float f, boolean flag) {
+    public PathfinderGoalMoveThroughVillage(EntityCreature entitycreature, double d0, boolean flag) {
         this.a = entitycreature;
-        this.b = f;
+        this.b = d0;
         this.e = flag;
         this.a(1);
     }
@@ -59,7 +59,7 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
     }
 
     public boolean b() {
-        if (this.a.getNavigation().f()) {
+        if (this.a.getNavigation().g()) {
             return false;
         } else {
             float f = this.a.width + 4.0F;
@@ -73,7 +73,7 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
     }
 
     public void d() {
-        if (this.a.getNavigation().f() || this.a.e((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ) < 16.0D) {
+        if (this.a.getNavigation().g() || this.a.e((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ) < 16.0D) {
             this.f.add(this.d);
         }
     }

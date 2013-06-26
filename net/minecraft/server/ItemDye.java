@@ -3,7 +3,7 @@ package net.minecraft.server;
 public class ItemDye extends Item {
 
     public static final String[] a = new String[] { "black", "red", "green", "brown", "blue", "purple", "cyan", "silver", "gray", "pink", "lime", "yellow", "lightBlue", "magenta", "orange", "white"};
-    public static final String[] b = new String[] { "dyePowder_black", "dyePowder_red", "dyePowder_green", "dyePowder_brown", "dyePowder_blue", "dyePowder_purple", "dyePowder_cyan", "dyePowder_silver", "dyePowder_gray", "dyePowder_pink", "dyePowder_lime", "dyePowder_yellow", "dyePowder_lightBlue", "dyePowder_magenta", "dyePowder_orange", "dyePowder_white"};
+    public static final String[] b = new String[] { "black", "red", "green", "brown", "blue", "purple", "cyan", "silver", "gray", "pink", "lime", "yellow", "light_blue", "magenta", "orange", "white"};
     public static final int[] c = new int[] { 1973019, 11743532, 3887386, 5320730, 2437522, 8073150, 2651799, 11250603, 4408131, 14188952, 4312372, 14602026, 6719955, 12801229, 15435844, 15790320};
 
     public ItemDye(int i) {
@@ -35,7 +35,7 @@ public class ItemDye extends Item {
                 int i1 = world.getTypeId(i, j, k);
                 int j1 = world.getData(i, j, k);
 
-                if (i1 == Block.LOG.id && BlockLog.d(j1) == 3) {
+                if (i1 == Block.LOG.id && BlockLog.f(j1) == 3) {
                     if (l == 0) {
                         return false;
                     }
@@ -136,20 +136,20 @@ public class ItemDye extends Item {
                                 int l1 = k;
 
                                 for (int i2 = 0; i2 < i1 / 16; ++i2) {
-                                    j1 += e.nextInt(3) - 1;
-                                    k1 += (e.nextInt(3) - 1) * e.nextInt(3) / 2;
-                                    l1 += e.nextInt(3) - 1;
+                                    j1 += f.nextInt(3) - 1;
+                                    k1 += (f.nextInt(3) - 1) * f.nextInt(3) / 2;
+                                    l1 += f.nextInt(3) - 1;
                                     if (world.getTypeId(j1, k1 - 1, l1) != Block.GRASS.id || world.u(j1, k1, l1)) {
                                         continue label102;
                                     }
                                 }
 
                                 if (world.getTypeId(j1, k1, l1) == 0) {
-                                    if (e.nextInt(10) != 0) {
+                                    if (f.nextInt(10) != 0) {
                                         if (Block.LONG_GRASS.f(world, j1, k1, l1)) {
                                             world.setTypeIdAndData(j1, k1, l1, Block.LONG_GRASS.id, 1, 3);
                                         }
-                                    } else if (e.nextInt(3) != 0) {
+                                    } else if (f.nextInt(3) != 0) {
                                         if (Block.YELLOW_FLOWER.f(world, j1, k1, l1)) {
                                             world.setTypeIdUpdate(j1, k1, l1, Block.YELLOW_FLOWER.id);
                                         }
@@ -186,10 +186,10 @@ public class ItemDye extends Item {
         }
     }
 
-    public boolean a(ItemStack itemstack, EntityLiving entityliving) {
+    public boolean a(ItemStack itemstack, EntityHuman entityhuman, EntityLiving entityliving) {
         if (entityliving instanceof EntitySheep) {
             EntitySheep entitysheep = (EntitySheep) entityliving;
-            int i = BlockCloth.g_(itemstack.getData());
+            int i = BlockCloth.j_(itemstack.getData());
 
             if (!entitysheep.isSheared() && entitysheep.getColor() != i) {
                 entitysheep.setColor(i);

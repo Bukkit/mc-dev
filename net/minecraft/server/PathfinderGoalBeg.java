@@ -25,17 +25,17 @@ public class PathfinderGoalBeg extends PathfinderGoal {
     }
 
     public void c() {
-        this.a.m(true);
-        this.e = 40 + this.a.aE().nextInt(40);
+        this.a.n(true);
+        this.e = 40 + this.a.aB().nextInt(40);
     }
 
     public void d() {
-        this.a.m(false);
+        this.a.n(false);
         this.b = null;
     }
 
     public void e() {
-        this.a.getControllerLook().a(this.b.locX, this.b.locY + (double) this.b.getHeadHeight(), this.b.locZ, 10.0F, (float) this.a.bs());
+        this.a.getControllerLook().a(this.b.locX, this.b.locY + (double) this.b.getHeadHeight(), this.b.locZ, 10.0F, (float) this.a.bl());
         --this.e;
     }
 

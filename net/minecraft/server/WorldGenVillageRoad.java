@@ -9,8 +9,8 @@ public class WorldGenVillageRoad extends WorldGenVillageRoadPiece {
 
     public WorldGenVillageRoad(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(worldgenvillagestartpiece, i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
         this.a = Math.max(structureboundingbox.b(), structureboundingbox.d());
     }
 
@@ -23,7 +23,7 @@ public class WorldGenVillageRoad extends WorldGenVillageRoadPiece {
         for (i = random.nextInt(5); i < this.a - 8; i += 2 + random.nextInt(5)) {
             structurepiece1 = this.a((WorldGenVillageStartPiece) structurepiece, list, random, 0, i);
             if (structurepiece1 != null) {
-                i += Math.max(structurepiece1.e.b(), structurepiece1.e.d());
+                i += Math.max(structurepiece1.f.b(), structurepiece1.f.d());
                 flag = true;
             }
         }
@@ -31,46 +31,46 @@ public class WorldGenVillageRoad extends WorldGenVillageRoadPiece {
         for (i = random.nextInt(5); i < this.a - 8; i += 2 + random.nextInt(5)) {
             structurepiece1 = this.b((WorldGenVillageStartPiece) structurepiece, list, random, 0, i);
             if (structurepiece1 != null) {
-                i += Math.max(structurepiece1.e.b(), structurepiece1.e.d());
+                i += Math.max(structurepiece1.f.b(), structurepiece1.f.d());
                 flag = true;
             }
         }
 
         if (flag && random.nextInt(3) > 0) {
-            switch (this.f) {
+            switch (this.g) {
             case 0:
-                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.e.a - 1, this.e.b, this.e.f - 2, 1, this.c());
+                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a - 1, this.f.b, this.f.f - 2, 1, this.c());
                 break;
 
             case 1:
-                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.e.a, this.e.b, this.e.c - 1, 2, this.c());
+                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a, this.f.b, this.f.c - 1, 2, this.c());
                 break;
 
             case 2:
-                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.e.a - 1, this.e.b, this.e.c, 1, this.c());
+                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a - 1, this.f.b, this.f.c, 1, this.c());
                 break;
 
             case 3:
-                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.e.d - 2, this.e.b, this.e.c - 1, 2, this.c());
+                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.d - 2, this.f.b, this.f.c - 1, 2, this.c());
             }
         }
 
         if (flag && random.nextInt(3) > 0) {
-            switch (this.f) {
+            switch (this.g) {
             case 0:
-                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.e.d + 1, this.e.b, this.e.f - 2, 3, this.c());
+                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.d + 1, this.f.b, this.f.f - 2, 3, this.c());
                 break;
 
             case 1:
-                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.e.a, this.e.b, this.e.f + 1, 0, this.c());
+                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a, this.f.b, this.f.f + 1, 0, this.c());
                 break;
 
             case 2:
-                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.e.d + 1, this.e.b, this.e.c, 3, this.c());
+                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.d + 1, this.f.b, this.f.c, 3, this.c());
                 break;
 
             case 3:
-                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.e.d - 2, this.e.b, this.e.f + 1, 0, this.c());
+                WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.d - 2, this.f.b, this.f.f + 1, 0, this.c());
             }
         }
     }
@@ -90,8 +90,8 @@ public class WorldGenVillageRoad extends WorldGenVillageRoadPiece {
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
         int i = this.d(Block.GRAVEL.id, 0);
 
-        for (int j = this.e.a; j <= this.e.d; ++j) {
-            for (int k = this.e.c; k <= this.e.f; ++k) {
+        for (int j = this.f.a; j <= this.f.d; ++j) {
+            for (int k = this.f.c; k <= this.f.f; ++k) {
                 if (structureboundingbox.b(j, 64, k)) {
                     int l = world.i(j, k) - 1;
 

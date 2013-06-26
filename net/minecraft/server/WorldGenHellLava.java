@@ -5,7 +5,7 @@ import java.util.Random;
 public class WorldGenHellLava extends WorldGenerator {
 
     private int a;
-    private boolean b = false;
+    private boolean b;
 
     public WorldGenHellLava(int i, boolean flag) {
         this.a = i;

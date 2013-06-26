@@ -22,22 +22,43 @@ public class EntityItemFrame extends EntityHanging {
         return 9;
     }
 
-    public int g() {
+    public int e() {
         return 9;
     }
 
-    public void h() {
-        this.a(new ItemStack(Item.ITEM_FRAME), 0.0F);
-        ItemStack itemstack = this.i();
+    public void b(Entity entity) {
+        ItemStack itemstack = this.h();
 
+        if (entity instanceof EntityHuman) {
+            EntityHuman entityhuman = (EntityHuman) entity;
+
+            if (entityhuman.abilities.canInstantlyBuild) {
+                this.b(itemstack);
+                return;
+            }
+        }
+
+        this.a(new ItemStack(Item.ITEM_FRAME), 0.0F);
         if (itemstack != null && this.random.nextFloat() < this.e) {
             itemstack = itemstack.cloneItemStack();
-            itemstack.a((EntityItemFrame) null);
+            this.b(itemstack);
             this.a(itemstack, 0.0F);
         }
     }
 
-    public ItemStack i() {
+    private void b(ItemStack itemstack) {
+        if (itemstack != null) {
+            if (itemstack.id == Item.MAP.id) {
+                WorldMap worldmap = ((ItemWorldMap) itemstack.getItem()).getSavedMap(itemstack, this.world);
+
+                worldmap.g.remove("frame-" + this.id);
+            }
+
+            itemstack.a((EntityItemFrame) null);
+        }
+    }
+
+    public ItemStack h() {
         return this.getDataWatcher().getItemStack(2);
     }
 
@@ -49,7 +70,7 @@ public class EntityItemFrame extends EntityHanging {
         this.getDataWatcher().h(2);
     }
 
-    public int j() {
+    public int i() {
         return this.getDataWatcher().getByte(3);
     }
 
@@ -58,9 +79,9 @@ public class EntityItemFrame extends EntityHanging {
     }
 
     public void b(NBTTagCompound nbttagcompound) {
-        if (this.i() != null) {
-            nbttagcompound.setCompound("Item", this.i().save(new NBTTagCompound()));
-            nbttagcompound.setByte("ItemRotation", (byte) this.j());
+        if (this.h() != null) {
+            nbttagcompound.setCompound("Item", this.h().save(new NBTTagCompound()));
+            nbttagcompound.setByte("ItemRotation", (byte) this.i());
             nbttagcompound.setFloat("ItemDropChance", this.e);
         }
 
@@ -81,9 +102,9 @@ public class EntityItemFrame extends EntityHanging {
         super.a(nbttagcompound);
     }
 
-    public boolean a_(EntityHuman entityhuman) {
-        if (this.i() == null) {
-            ItemStack itemstack = entityhuman.bG();
+    public boolean c(EntityHuman entityhuman) {
+        if (this.h() == null) {
+            ItemStack itemstack = entityhuman.aV();
 
             if (itemstack != null && !this.world.isStatic) {
                 this.a(itemstack);
@@ -92,7 +113,7 @@ public class EntityItemFrame extends EntityHanging {
                 }
             }
         } else if (!this.world.isStatic) {
-            this.setRotation(this.j() + 1);
+            this.setRotation(this.i() + 1);
         }
 
         return true;

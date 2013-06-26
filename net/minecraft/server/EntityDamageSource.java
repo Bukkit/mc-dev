@@ -13,12 +13,12 @@ public class EntityDamageSource extends DamageSource {
         return this.p;
     }
 
-    public String getLocalizedDeathMessage(EntityLiving entityliving) {
-        ItemStack itemstack = this.p instanceof EntityLiving ? ((EntityLiving) this.p).bG() : null;
+    public ChatMessage getLocalizedDeathMessage(EntityLiving entityliving) {
+        ItemStack itemstack = this.p instanceof EntityLiving ? ((EntityLiving) this.p).aV() : null;
         String s = "death.attack." + this.translationIndex;
         String s1 = s + ".item";
 
-        return itemstack != null && itemstack.hasName() && LocaleI18n.b(s1) ? LocaleI18n.get(s1, new Object[] { entityliving.getScoreboardDisplayName(), this.p.getScoreboardDisplayName(), itemstack.getName()}) : LocaleI18n.get(s, new Object[] { entityliving.getScoreboardDisplayName(), this.p.getScoreboardDisplayName()});
+        return itemstack != null && itemstack.hasName() && LocaleI18n.b(s1) ? ChatMessage.b(s1, new Object[] { entityliving.getScoreboardDisplayName(), this.p.getScoreboardDisplayName(), itemstack.getName()}) : ChatMessage.b(s, new Object[] { entityliving.getScoreboardDisplayName(), this.p.getScoreboardDisplayName()});
     }
 
     public boolean p() {

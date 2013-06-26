@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet33RelEntityMoveLook extends Packet30Entity {
 
@@ -19,22 +19,22 @@ public class Packet33RelEntityMoveLook extends Packet30Entity {
         this.g = true;
     }
 
-    public void a(DataInputStream datainputstream) {
-        super.a(datainputstream);
-        this.b = datainputstream.readByte();
-        this.c = datainputstream.readByte();
-        this.d = datainputstream.readByte();
-        this.e = datainputstream.readByte();
-        this.f = datainputstream.readByte();
+    public void a(DataInput datainput) {
+        super.a(datainput);
+        this.b = datainput.readByte();
+        this.c = datainput.readByte();
+        this.d = datainput.readByte();
+        this.e = datainput.readByte();
+        this.f = datainput.readByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        super.a(dataoutputstream);
-        dataoutputstream.writeByte(this.b);
-        dataoutputstream.writeByte(this.c);
-        dataoutputstream.writeByte(this.d);
-        dataoutputstream.writeByte(this.e);
-        dataoutputstream.writeByte(this.f);
+    public void a(DataOutput dataoutput) {
+        super.a(dataoutput);
+        dataoutput.writeByte(this.b);
+        dataoutput.writeByte(this.c);
+        dataoutput.writeByte(this.d);
+        dataoutput.writeByte(this.e);
+        dataoutput.writeByte(this.f);
     }
 
     public int a() {

@@ -8,8 +8,8 @@ public class VillageDoor {
     public final int d;
     public final int e;
     public int addedTime;
-    public boolean removed = false;
-    private int bookings = 0;
+    public boolean removed;
+    private int bookings;
 
     public VillageDoor(int i, int j, int k, int l, int i1, int j1) {
         this.locX = i;

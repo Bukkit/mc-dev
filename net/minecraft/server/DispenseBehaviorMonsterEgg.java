@@ -5,14 +5,14 @@ final class DispenseBehaviorMonsterEgg extends DispenseBehaviorItem {
     DispenseBehaviorMonsterEgg() {}
 
     public ItemStack b(ISourceBlock isourceblock, ItemStack itemstack) {
-        EnumFacing enumfacing = BlockDispenser.j_(isourceblock.h());
+        EnumFacing enumfacing = BlockDispenser.l_(isourceblock.h());
         double d0 = isourceblock.getX() + (double) enumfacing.c();
         double d1 = (double) ((float) isourceblock.getBlockY() + 0.2F);
         double d2 = isourceblock.getZ() + (double) enumfacing.e();
         Entity entity = ItemMonsterEgg.a(isourceblock.k(), itemstack.getData(), d0, d1, d2);
 
         if (entity instanceof EntityLiving && itemstack.hasName()) {
-            ((EntityLiving) entity).setCustomName(itemstack.getName());
+            ((EntityInsentient) entity).setCustomName(itemstack.getName());
         }
 
         itemstack.a(1);

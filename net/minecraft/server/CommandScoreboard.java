@@ -20,6 +20,10 @@ public class CommandScoreboard extends CommandAbstract {
         return 2;
     }
 
+    public String c(ICommandListener icommandlistener) {
+        return "commands.scoreboard.usage";
+    }
+
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 1) {
             if (astring[0].equalsIgnoreCase("objectives")) {
@@ -40,7 +44,7 @@ public class CommandScoreboard extends CommandAbstract {
                         throw new ExceptionUsage("commands.scoreboard.objectives.remove.usage", new Object[0]);
                     }
 
-                    this.e(icommandlistener, astring[2]);
+                    this.f(icommandlistener, astring[2]);
                 } else {
                     if (!astring[1].equalsIgnoreCase("setdisplay")) {
                         throw new ExceptionUsage("commands.scoreboard.objectives.usage", new Object[0]);
@@ -202,9 +206,9 @@ public class CommandScoreboard extends CommandAbstract {
             throw new CommandException("commands.scoreboard.objectives.add.alreadyExists", new Object[] { s});
         } else if (s.length() > 16) {
             throw new ExceptionInvalidSyntax("commands.scoreboard.objectives.add.tooLong", new Object[] { s, Integer.valueOf(16)});
+        } else if (s.length() == 0) {
+            throw new ExceptionUsage("commands.scoreboard.objectives.add.usage", new Object[0]);
         } else {
-            ScoreboardObjective scoreboardobjective = scoreboard.registerObjective(s, iscoreboardcriteria);
-
             if (astring.length > i) {
                 String s2 = a(icommandlistener, astring, i);
 
@@ -213,8 +217,12 @@ public class CommandScoreboard extends CommandAbstract {
                 }
 
                 if (s2.length() > 0) {
-                    scoreboardobjective.setDisplayName(s2);
+                    scoreboard.registerObjective(s, iscoreboardcriteria).setDisplayName(s2);
+                } else {
+                    scoreboard.registerObjective(s, iscoreboardcriteria);
                 }
+            } else {
+                scoreboard.registerObjective(s, iscoreboardcriteria);
             }
 
             a(icommandlistener, "commands.scoreboard.objectives.add.success", new Object[] { s});
@@ -229,9 +237,9 @@ public class CommandScoreboard extends CommandAbstract {
             throw new CommandException("commands.scoreboard.teams.add.alreadyExists", new Object[] { s});
         } else if (s.length() > 16) {
             throw new ExceptionInvalidSyntax("commands.scoreboard.teams.add.tooLong", new Object[] { s, Integer.valueOf(16)});
+        } else if (s.length() == 0) {
+            throw new ExceptionUsage("commands.scoreboard.teams.add.usage", new Object[0]);
         } else {
-            ScoreboardTeam scoreboardteam = scoreboard.createTeam(s);
-
             if (astring.length > i) {
                 String s1 = a(icommandlistener, astring, i);
 
@@ -240,8 +248,12 @@ public class CommandScoreboard extends CommandAbstract {
                 }
 
                 if (s1.length() > 0) {
-                    scoreboardteam.setDisplayName(s1);
+                    scoreboard.createTeam(s).setDisplayName(s1);
+                } else {
+                    scoreboard.createTeam(s);
                 }
+            } else {
+                scoreboard.createTeam(s);
             }
 
             a(icommandlistener, "commands.scoreboard.teams.add.success", new Object[] { s});
@@ -311,8 +323,8 @@ public class CommandScoreboard extends CommandAbstract {
                 throw new CommandException("commands.scoreboard.teams.list.player.empty", new Object[] { scoreboardteam.getName()});
             }
 
-            icommandlistener.sendMessage(EnumChatFormat.DARK_GREEN + icommandlistener.a("commands.scoreboard.teams.list.player.count", new Object[] { Integer.valueOf(collection.size()), scoreboardteam.getName()}));
-            icommandlistener.sendMessage(a(collection.toArray()));
+            icommandlistener.sendMessage(ChatMessage.b("commands.scoreboard.teams.list.player.count", new Object[] { Integer.valueOf(collection.size()), scoreboardteam.getName()}).a(EnumChatFormat.DARK_GREEN));
+            icommandlistener.sendMessage(ChatMessage.d(a(collection.toArray())));
         } else {
             Collection collection1 = scoreboard.getTeams();
 
@@ -320,13 +332,13 @@ public class CommandScoreboard extends CommandAbstract {
                 throw new CommandException("commands.scoreboard.teams.list.empty", new Object[0]);
             }
 
-            icommandlistener.sendMessage(EnumChatFormat.DARK_GREEN + icommandlistener.a("commands.scoreboard.teams.list.count", new Object[] { Integer.valueOf(collection1.size())}));
+            icommandlistener.sendMessage(ChatMessage.b("commands.scoreboard.teams.list.count", new Object[] { Integer.valueOf(collection1.size())}).a(EnumChatFormat.DARK_GREEN));
             Iterator iterator = collection1.iterator();
 
             while (iterator.hasNext()) {
                 ScoreboardTeam scoreboardteam1 = (ScoreboardTeam) iterator.next();
 
-                icommandlistener.sendMessage(icommandlistener.a("commands.scoreboard.teams.list.entry", new Object[] { scoreboardteam1.getName(), scoreboardteam1.getDisplayName(), Integer.valueOf(scoreboardteam1.getPlayerNameSet().size())}));
+                icommandlistener.sendMessage(ChatMessage.b("commands.scoreboard.teams.list.entry", new Object[] { scoreboardteam1.getName(), scoreboardteam1.getDisplayName(), Integer.valueOf(scoreboardteam1.getPlayerNameSet().size())}));
             }
         }
     }
@@ -338,12 +350,12 @@ public class CommandScoreboard extends CommandAbstract {
         String s;
 
         if (icommandlistener instanceof EntityHuman && i == astring.length) {
-            s = c(icommandlistener).getLocalizedName();
+            s = b(icommandlistener).getLocalizedName();
             scoreboard.addPlayerToTeam(s, scoreboardteam);
             hashset.add(s);
         } else {
             while (i < astring.length) {
-                s = d(icommandlistener, astring[i++]);
+                s = e(icommandlistener, astring[i++]);
                 scoreboard.addPlayerToTeam(s, scoreboardteam);
                 hashset.add(s);
             }
@@ -361,7 +373,7 @@ public class CommandScoreboard extends CommandAbstract {
         String s;
 
         if (icommandlistener instanceof EntityHuman && i == astring.length) {
-            s = c(icommandlistener).getLocalizedName();
+            s = b(icommandlistener).getLocalizedName();
             if (scoreboard.removePlayerFromTeam(s)) {
                 hashset.add(s);
             } else {
@@ -369,7 +381,7 @@ public class CommandScoreboard extends CommandAbstract {
             }
         } else {
             while (i < astring.length) {
-                s = d(icommandlistener, astring[i++]);
+                s = e(icommandlistener, astring[i++]);
                 if (scoreboard.removePlayerFromTeam(s)) {
                     hashset.add(s);
                 } else {
@@ -407,7 +419,7 @@ public class CommandScoreboard extends CommandAbstract {
         }
     }
 
-    protected void e(ICommandListener icommandlistener, String s) {
+    protected void f(ICommandListener icommandlistener, String s) {
         Scoreboard scoreboard = this.d();
         ScoreboardObjective scoreboardobjective = this.a(s, false);
 
@@ -422,13 +434,13 @@ public class CommandScoreboard extends CommandAbstract {
         if (collection.size() <= 0) {
             throw new CommandException("commands.scoreboard.objectives.list.empty", new Object[0]);
         } else {
-            icommandlistener.sendMessage(EnumChatFormat.DARK_GREEN + icommandlistener.a("commands.scoreboard.objectives.list.count", new Object[] { Integer.valueOf(collection.size())}));
+            icommandlistener.sendMessage(ChatMessage.b("commands.scoreboard.objectives.list.count", new Object[] { Integer.valueOf(collection.size())}).a(EnumChatFormat.DARK_GREEN));
             Iterator iterator = collection.iterator();
 
             while (iterator.hasNext()) {
                 ScoreboardObjective scoreboardobjective = (ScoreboardObjective) iterator.next();
 
-                icommandlistener.sendMessage(icommandlistener.a("commands.scoreboard.objectives.list.entry", new Object[] { scoreboardobjective.getName(), scoreboardobjective.getDisplayName(), scoreboardobjective.getCriteria().getName()}));
+                icommandlistener.sendMessage(ChatMessage.b("commands.scoreboard.objectives.list.entry", new Object[] { scoreboardobjective.getName(), scoreboardobjective.getDisplayName(), scoreboardobjective.getCriteria().getName()}));
             }
         }
     }
@@ -459,20 +471,20 @@ public class CommandScoreboard extends CommandAbstract {
         Scoreboard scoreboard = this.d();
 
         if (astring.length > i) {
-            String s = d(icommandlistener, astring[i++]);
+            String s = e(icommandlistener, astring[i++]);
             Map map = scoreboard.getPlayerObjectives(s);
 
             if (map.size() <= 0) {
                 throw new CommandException("commands.scoreboard.players.list.player.empty", new Object[] { s});
             }
 
-            icommandlistener.sendMessage(EnumChatFormat.DARK_GREEN + icommandlistener.a("commands.scoreboard.players.list.player.count", new Object[] { Integer.valueOf(map.size()), s}));
+            icommandlistener.sendMessage(ChatMessage.b("commands.scoreboard.players.list.player.count", new Object[] { Integer.valueOf(map.size()), s}).a(EnumChatFormat.DARK_GREEN));
             Iterator iterator = map.values().iterator();
 
             while (iterator.hasNext()) {
                 ScoreboardScore scoreboardscore = (ScoreboardScore) iterator.next();
 
-                icommandlistener.sendMessage(icommandlistener.a("commands.scoreboard.players.list.player.entry", new Object[] { Integer.valueOf(scoreboardscore.getScore()), scoreboardscore.getObjective().getDisplayName(), scoreboardscore.getObjective().getName()}));
+                icommandlistener.sendMessage(ChatMessage.b("commands.scoreboard.players.list.player.entry", new Object[] { Integer.valueOf(scoreboardscore.getScore()), scoreboardscore.getObjective().getDisplayName(), scoreboardscore.getObjective().getName()}));
             }
         } else {
             Collection collection = scoreboard.getPlayers();
@@ -481,14 +493,14 @@ public class CommandScoreboard extends CommandAbstract {
                 throw new CommandException("commands.scoreboard.players.list.empty", new Object[0]);
             }
 
-            icommandlistener.sendMessage(EnumChatFormat.DARK_GREEN + icommandlistener.a("commands.scoreboard.players.list.count", new Object[] { Integer.valueOf(collection.size())}));
-            icommandlistener.sendMessage(a(collection.toArray()));
+            icommandlistener.sendMessage(ChatMessage.b("commands.scoreboard.players.list.count", new Object[] { Integer.valueOf(collection.size())}).a(EnumChatFormat.DARK_GREEN));
+            icommandlistener.sendMessage(ChatMessage.d(a(collection.toArray())));
         }
     }
 
     protected void l(ICommandListener icommandlistener, String[] astring, int i) {
         String s = astring[i - 1];
-        String s1 = d(icommandlistener, astring[i++]);
+        String s1 = e(icommandlistener, astring[i++]);
         ScoreboardObjective scoreboardobjective = this.a(astring[i++], true);
         int j = s.equalsIgnoreCase("set") ? a(icommandlistener, astring[i++]) : a(icommandlistener, astring[i++], 1);
         Scoreboard scoreboard = this.d();
@@ -507,7 +519,7 @@ public class CommandScoreboard extends CommandAbstract {
 
     protected void m(ICommandListener icommandlistener, String[] astring, int i) {
         Scoreboard scoreboard = this.d();
-        String s = d(icommandlistener, astring[i++]);
+        String s = e(icommandlistener, astring[i++]);
 
         scoreboard.resetPlayerScores(s);
         a(icommandlistener, "commands.scoreboard.players.reset.success", new Object[] { s});

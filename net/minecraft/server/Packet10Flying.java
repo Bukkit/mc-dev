@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet10Flying extends Packet {
 
@@ -21,12 +21,12 @@ public class Packet10Flying extends Packet {
         connection.a(this);
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.g = datainputstream.read() != 0;
+    public void a(DataInput datainput) {
+        this.g = datainput.readUnsignedByte() != 0;
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.write(this.g ? 1 : 0);
+    public void a(DataOutput dataoutput) {
+        dataoutput.write(this.g ? 1 : 0);
     }
 
     public int a() {

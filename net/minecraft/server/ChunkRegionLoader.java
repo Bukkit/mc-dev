@@ -73,7 +73,7 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
     }
 
     public void a(World world, Chunk chunk) {
-        world.F();
+        world.G();
 
         try {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -153,9 +153,10 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
         nbttagcompound.setLong("LastUpdate", world.getTime());
         nbttagcompound.setIntArray("HeightMap", chunk.heightMap);
         nbttagcompound.setBoolean("TerrainPopulated", chunk.done);
+        nbttagcompound.setLong("InhabitedTime", chunk.q);
         ChunkSection[] achunksection = chunk.i();
         NBTTagList nbttaglist = new NBTTagList("Sections");
-        boolean flag = !world.worldProvider.f;
+        boolean flag = !world.worldProvider.g;
         ChunkSection[] achunksection1 = achunksection;
         int i = achunksection.length;
 
@@ -250,10 +251,11 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
 
         chunk.heightMap = nbttagcompound.getIntArray("HeightMap");
         chunk.done = nbttagcompound.getBoolean("TerrainPopulated");
+        chunk.q = nbttagcompound.getLong("InhabitedTime");
         NBTTagList nbttaglist = nbttagcompound.getList("Sections");
         byte b0 = 16;
         ChunkSection[] achunksection = new ChunkSection[b0];
-        boolean flag = !world.worldProvider.f;
+        boolean flag = !world.worldProvider.g;
 
         for (int k = 0; k < nbttaglist.size(); ++k) {
             NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.get(k);

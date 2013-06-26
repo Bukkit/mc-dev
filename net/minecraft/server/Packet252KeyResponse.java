@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.security.PrivateKey;
 import javax.crypto.SecretKey;
 
@@ -13,14 +13,14 @@ public class Packet252KeyResponse extends Packet {
 
     public Packet252KeyResponse() {}
 
-    public void a(DataInputStream datainputstream) {
-        this.a = b(datainputstream);
-        this.b = b(datainputstream);
+    public void a(DataInput datainput) {
+        this.a = b(datainput);
+        this.b = b(datainput);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        a(dataoutputstream, this.a);
-        a(dataoutputstream, this.b);
+    public void a(DataOutput dataoutput) {
+        a(dataoutput, this.a);
+        a(dataoutput, this.b);
     }
 
     public void handle(Connection connection) {

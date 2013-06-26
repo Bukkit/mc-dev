@@ -8,9 +8,9 @@ public class Vec3DPool {
     private final int a;
     private final int b;
     private final List pool = new ArrayList();
-    private int position = 0;
-    private int largestSize = 0;
-    private int resizeTime = 0;
+    private int position;
+    private int largestSize;
+    private int resizeTime;
 
     public Vec3DPool(int i, int j) {
         this.a = i;

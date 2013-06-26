@@ -11,7 +11,7 @@ class WorldGenNetherStart extends StructureStart {
 
         this.a.add(worldgennetherpiece15);
         worldgennetherpiece15.a(worldgennetherpiece15, this.a, random);
-        ArrayList arraylist = worldgennetherpiece15.d;
+        ArrayList arraylist = worldgennetherpiece15.e;
 
         while (!arraylist.isEmpty()) {
             int k = random.nextInt(arraylist.size());

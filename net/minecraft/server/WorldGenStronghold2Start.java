@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -12,11 +11,11 @@ class WorldGenStronghold2Start extends StructureStart {
 
         this.a.add(worldgenstrongholdstart);
         worldgenstrongholdstart.a(worldgenstrongholdstart, this.a, random);
-        ArrayList arraylist = worldgenstrongholdstart.c;
+        List list = worldgenstrongholdstart.c;
 
-        while (!arraylist.isEmpty()) {
-            int k = random.nextInt(arraylist.size());
-            StructurePiece structurepiece = (StructurePiece) arraylist.remove(k);
+        while (!list.isEmpty()) {
+            int k = random.nextInt(list.size());
+            StructurePiece structurepiece = (StructurePiece) list.remove(k);
 
             structurepiece.a((StructurePiece) worldgenstrongholdstart, (List) this.a, random);
         }

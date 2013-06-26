@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import com.google.common.primitives.Doubles;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -7,7 +8,7 @@ import java.util.List;
 
 public abstract class CommandAbstract implements ICommand {
 
-    private static ICommandDispatcher a = null;
+    private static ICommandDispatcher a;
 
     public CommandAbstract() {}
 
@@ -15,15 +16,11 @@ public abstract class CommandAbstract implements ICommand {
         return 4;
     }
 
-    public String a(ICommandListener icommandlistener) {
-        return "/" + this.c();
-    }
-
     public List b() {
         return null;
     }
 
-    public boolean b(ICommandListener icommandlistener) {
+    public boolean a(ICommandListener icommandlistener) {
         return icommandlistener.a(this.a(), this.c());
     }
 
@@ -57,13 +54,47 @@ public abstract class CommandAbstract implements ICommand {
 
     public static double b(ICommandListener icommandlistener, String s) {
         try {
-            return Double.parseDouble(s);
+            double d0 = Double.parseDouble(s);
+
+            if (!Doubles.isFinite(d0)) {
+                throw new ExceptionInvalidNumber("commands.generic.double.invalid", new Object[] { s});
+            } else {
+                return d0;
+            }
         } catch (NumberFormatException numberformatexception) {
             throw new ExceptionInvalidNumber("commands.generic.double.invalid", new Object[] { s});
         }
     }
 
-    public static EntityPlayer c(ICommandListener icommandlistener) {
+    public static double a(ICommandListener icommandlistener, String s, double d0) {
+        return a(icommandlistener, s, d0, Double.MAX_VALUE);
+    }
+
+    public static double a(ICommandListener icommandlistener, String s, double d0, double d1) {
+        double d2 = b(icommandlistener, s);
+
+        if (d2 < d0) {
+            throw new ExceptionInvalidNumber("commands.generic.double.tooSmall", new Object[] { Double.valueOf(d2), Double.valueOf(d0)});
+        } else if (d2 > d1) {
+            throw new ExceptionInvalidNumber("commands.generic.double.tooBig", new Object[] { Double.valueOf(d2), Double.valueOf(d1)});
+        } else {
+            return d2;
+        }
+    }
+
+    public static boolean c(ICommandListener icommandlistener, String s) {
+        if (!s.equals("true") && !s.equals("1")) {
+            if (!s.equals("false") && !s.equals("0")) {
+                throw new CommandException("commands.generic.boolean.invalid", new Object[] { s});
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    public static EntityPlayer b(ICommandListener icommandlistener) {
         if (icommandlistener instanceof EntityPlayer) {
             return (EntityPlayer) icommandlistener;
         } else {
@@ -71,7 +102,7 @@ public abstract class CommandAbstract implements ICommand {
         }
     }
 
-    public static EntityPlayer c(ICommandListener icommandlistener, String s) {
+    public static EntityPlayer d(ICommandListener icommandlistener, String s) {
         EntityPlayer entityplayer = PlayerSelector.getPlayer(icommandlistener, s);
 
         if (entityplayer != null) {
@@ -86,7 +117,7 @@ public abstract class CommandAbstract implements ICommand {
         }
     }
 
-    public static String d(ICommandListener icommandlistener, String s) {
+    public static String e(ICommandListener icommandlistener, String s) {
         EntityPlayer entityplayer = PlayerSelector.getPlayer(icommandlistener, s);
 
         if (entityplayer != null) {
@@ -128,6 +159,45 @@ public abstract class CommandAbstract implements ICommand {
         return stringbuilder.toString();
     }
 
+    public static double a(ICommandListener icommandlistener, double d0, String s) {
+        return a(icommandlistener, d0, s, -30000000, 30000000);
+    }
+
+    public static double a(ICommandListener icommandlistener, double d0, String s, int i, int j) {
+        boolean flag = s.startsWith("~");
+
+        if (flag && Double.isNaN(d0)) {
+            throw new ExceptionInvalidNumber("commands.generic.num.invalid", new Object[] { Double.valueOf(d0)});
+        } else {
+            double d1 = flag ? d0 : 0.0D;
+
+            if (!flag || s.length() > 1) {
+                boolean flag1 = s.contains(".");
+
+                if (flag) {
+                    s = s.substring(1);
+                }
+
+                d1 += b(icommandlistener, s);
+                if (!flag1 && !flag) {
+                    d1 += 0.5D;
+                }
+            }
+
+            if (i != 0 || j != 0) {
+                if (d1 < (double) i) {
+                    throw new ExceptionInvalidNumber("commands.generic.double.tooSmall", new Object[] { Double.valueOf(d1), Integer.valueOf(i)});
+                }
+
+                if (d1 > (double) j) {
+                    throw new ExceptionInvalidNumber("commands.generic.double.tooBig", new Object[] { Double.valueOf(d1), Integer.valueOf(j)});
+                }
+            }
+
+            return d1;
+        }
+    }
+
     public static String a(Object[] aobject) {
         StringBuilder stringbuilder = new StringBuilder();
 
@@ -149,7 +219,20 @@ public abstract class CommandAbstract implements ICommand {
     }
 
     public static String a(Collection collection) {
-        return a(collection.toArray(new String[0]));
+        return a(collection.toArray(new String[collection.size()]));
+    }
+
+    public static String b(Collection collection) {
+        String[] astring = new String[collection.size()];
+        int i = 0;
+
+        EntityLiving entityliving;
+
+        for (Iterator iterator = collection.iterator(); iterator.hasNext(); astring[i++] = entityliving.getScoreboardDisplayName()) {
+            entityliving = (EntityLiving) iterator.next();
+        }
+
+        return a((Object[]) astring);
     }
 
     public static boolean a(String s, String s1) {

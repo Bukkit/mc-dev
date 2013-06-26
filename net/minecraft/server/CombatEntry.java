@@ -4,25 +4,25 @@ public class CombatEntry {
 
     private final DamageSource a;
     private final int b;
-    private final int c;
-    private final int d;
+    private final float c;
+    private final float d;
     private final String e;
     private final float f;
 
-    public CombatEntry(DamageSource damagesource, int i, int j, int k, String s, float f) {
+    public CombatEntry(DamageSource damagesource, int i, float f, float f1, String s, float f2) {
         this.a = damagesource;
         this.b = i;
-        this.c = k;
-        this.d = j;
+        this.c = f1;
+        this.d = f;
         this.e = s;
-        this.f = f;
+        this.f = f2;
     }
 
     public DamageSource a() {
         return this.a;
     }
 
-    public int c() {
+    public float c() {
         return this.c;
     }
 

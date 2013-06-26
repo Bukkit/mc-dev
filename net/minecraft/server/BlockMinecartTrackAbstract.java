@@ -7,10 +7,10 @@ public abstract class BlockMinecartTrackAbstract extends Block {
     protected final boolean a;
 
     public static final boolean d_(World world, int i, int j, int k) {
-        return d_(world.getTypeId(i, j, k));
+        return e_(world.getTypeId(i, j, k));
     }
 
-    public static final boolean d_(int i) {
+    public static final boolean e_(int i) {
         return i == Block.RAILS.id || i == Block.GOLDEN_RAIL.id || i == Block.DETECTOR_RAIL.id || i == Block.ACTIVATOR_RAIL.id;
     }
 

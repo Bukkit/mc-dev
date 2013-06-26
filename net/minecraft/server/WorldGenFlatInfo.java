@@ -11,7 +11,7 @@ public class WorldGenFlatInfo {
 
     private final List layers = new ArrayList();
     private final Map structures = new HashMap();
-    private int c = 0;
+    private int c;
 
     public WorldGenFlatInfo() {}
 

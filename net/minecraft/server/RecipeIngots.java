@@ -5,7 +5,7 @@ public class RecipeIngots {
     private Object[][] a;
 
     public RecipeIngots() {
-        this.a = new Object[][] { { Block.GOLD_BLOCK, new ItemStack(Item.GOLD_INGOT, 9)}, { Block.IRON_BLOCK, new ItemStack(Item.IRON_INGOT, 9)}, { Block.DIAMOND_BLOCK, new ItemStack(Item.DIAMOND, 9)}, { Block.EMERALD_BLOCK, new ItemStack(Item.EMERALD, 9)}, { Block.LAPIS_BLOCK, new ItemStack(Item.INK_SACK, 9, 4)}, { Block.REDSTONE_BLOCK, new ItemStack(Item.REDSTONE, 9)}};
+        this.a = new Object[][] { { Block.GOLD_BLOCK, new ItemStack(Item.GOLD_INGOT, 9)}, { Block.IRON_BLOCK, new ItemStack(Item.IRON_INGOT, 9)}, { Block.DIAMOND_BLOCK, new ItemStack(Item.DIAMOND, 9)}, { Block.EMERALD_BLOCK, new ItemStack(Item.EMERALD, 9)}, { Block.LAPIS_BLOCK, new ItemStack(Item.INK_SACK, 9, 4)}, { Block.REDSTONE_BLOCK, new ItemStack(Item.REDSTONE, 9)}, { Block.COAL_BLOCK, new ItemStack(Item.COAL, 9, 0)}};
     }
 
     public void a(CraftingManager craftingmanager) {

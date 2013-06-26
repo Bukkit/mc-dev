@@ -5,7 +5,7 @@ public class PathfinderGoalMakeLove extends PathfinderGoal {
     private EntityVillager b;
     private EntityVillager c;
     private World d;
-    private int e = 0;
+    private int e;
     Village a;
 
     public PathfinderGoalMakeLove(EntityVillager entityvillager) {
@@ -17,7 +17,7 @@ public class PathfinderGoalMakeLove extends PathfinderGoal {
     public boolean a() {
         if (this.b.getAge() != 0) {
             return false;
-        } else if (this.b.aE().nextInt(500) != 0) {
+        } else if (this.b.aB().nextInt(500) != 0) {
             return false;
         } else {
             this.a = this.d.villages.getClosestVillage(MathHelper.floor(this.b.locX), MathHelper.floor(this.b.locY), MathHelper.floor(this.b.locZ), 0);
@@ -40,13 +40,13 @@ public class PathfinderGoalMakeLove extends PathfinderGoal {
 
     public void c() {
         this.e = 300;
-        this.b.i(true);
+        this.b.j(true);
     }
 
     public void d() {
         this.a = null;
         this.c = null;
-        this.b.i(false);
+        this.b.j(false);
     }
 
     public boolean b() {
@@ -57,12 +57,12 @@ public class PathfinderGoalMakeLove extends PathfinderGoal {
         --this.e;
         this.b.getControllerLook().a(this.c, 10.0F, 30.0F);
         if (this.b.e(this.c) > 2.25D) {
-            this.b.getNavigation().a((EntityLiving) this.c, 0.25F);
-        } else if (this.e == 0 && this.c.n()) {
+            this.b.getNavigation().a((Entity) this.c, 0.25D);
+        } else if (this.e == 0 && this.c.bQ()) {
             this.g();
         }
 
-        if (this.b.aE().nextInt(35) == 0) {
+        if (this.b.aB().nextInt(35) == 0) {
             this.d.broadcastEntityEffect(this.b, (byte) 12);
         }
     }

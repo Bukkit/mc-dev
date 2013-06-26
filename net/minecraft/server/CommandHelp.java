@@ -17,8 +17,8 @@ public class CommandHelp extends CommandAbstract {
         return 0;
     }
 
-    public String a(ICommandListener icommandlistener) {
-        return icommandlistener.a("commands.help.usage", new Object[0]);
+    public String c(ICommandListener icommandlistener) {
+        return "commands.help.usage";
     }
 
     public List b() {
@@ -41,7 +41,7 @@ public class CommandHelp extends CommandAbstract {
 
             icommand = (ICommand) map.get(astring[0]);
             if (icommand != null) {
-                throw new ExceptionUsage(icommand.a(icommandlistener), new Object[0]);
+                throw new ExceptionUsage(icommand.c(icommandlistener), new Object[0]);
             }
 
             throw new ExceptionUnknownCommand();
@@ -49,15 +49,15 @@ public class CommandHelp extends CommandAbstract {
 
         int k = Math.min((j + 1) * b0, list.size());
 
-        icommandlistener.sendMessage(EnumChatFormat.DARK_GREEN + icommandlistener.a("commands.help.header", new Object[] { Integer.valueOf(j + 1), Integer.valueOf(i + 1)}));
+        icommandlistener.sendMessage(ChatMessage.b("commands.help.header", new Object[] { Integer.valueOf(j + 1), Integer.valueOf(i + 1)}).a(EnumChatFormat.DARK_GREEN));
 
         for (int l = j * b0; l < k; ++l) {
             icommand = (ICommand) list.get(l);
-            icommandlistener.sendMessage(icommand.a(icommandlistener));
+            icommandlistener.sendMessage(ChatMessage.e(icommand.c(icommandlistener)));
         }
 
         if (j == 0 && icommandlistener instanceof EntityHuman) {
-            icommandlistener.sendMessage(EnumChatFormat.GREEN + icommandlistener.a("commands.help.footer", new Object[0]));
+            icommandlistener.sendMessage(ChatMessage.e("commands.help.footer").a(EnumChatFormat.GREEN));
         }
     }
 

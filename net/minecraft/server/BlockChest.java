@@ -135,19 +135,19 @@ public class BlockChest extends BlockContainer {
             if (l != this.id && i1 != this.id) {
                 if (j1 != this.id && k1 != this.id) {
                     b0 = 3;
-                    if (Block.s[l] && !Block.s[i1]) {
+                    if (Block.t[l] && !Block.t[i1]) {
                         b0 = 3;
                     }
 
-                    if (Block.s[i1] && !Block.s[l]) {
+                    if (Block.t[i1] && !Block.t[l]) {
                         b0 = 2;
                     }
 
-                    if (Block.s[j1] && !Block.s[k1]) {
+                    if (Block.t[j1] && !Block.t[k1]) {
                         b0 = 5;
                     }
 
-                    if (Block.s[k1] && !Block.s[j1]) {
+                    if (Block.t[k1] && !Block.t[j1]) {
                         b0 = 4;
                     }
                 } else {
@@ -165,11 +165,11 @@ public class BlockChest extends BlockContainer {
                         b0 = 2;
                     }
 
-                    if ((Block.s[l] || Block.s[l1]) && !Block.s[i1] && !Block.s[i2]) {
+                    if ((Block.t[l] || Block.t[l1]) && !Block.t[i1] && !Block.t[i2]) {
                         b0 = 3;
                     }
 
-                    if ((Block.s[i1] || Block.s[i2]) && !Block.s[l] && !Block.s[l1]) {
+                    if ((Block.t[i1] || Block.t[i2]) && !Block.t[l] && !Block.t[l1]) {
                         b0 = 2;
                     }
                 }
@@ -188,11 +188,11 @@ public class BlockChest extends BlockContainer {
                     b0 = 4;
                 }
 
-                if ((Block.s[j1] || Block.s[l1]) && !Block.s[k1] && !Block.s[i2]) {
+                if ((Block.t[j1] || Block.t[l1]) && !Block.t[k1] && !Block.t[i2]) {
                     b0 = 5;
                 }
 
-                if ((Block.s[k1] || Block.s[i2]) && !Block.s[j1] && !Block.s[l1]) {
+                if ((Block.t[k1] || Block.t[i2]) && !Block.t[j1] && !Block.t[l1]) {
                     b0 = 4;
                 }
             }

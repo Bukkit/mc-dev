@@ -1,14 +1,14 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet202Abilities extends Packet {
 
-    private boolean a = false;
-    private boolean b = false;
-    private boolean c = false;
-    private boolean d = false;
+    private boolean a;
+    private boolean b;
+    private boolean c;
+    private boolean d;
     private float e;
     private float f;
 
@@ -23,18 +23,18 @@ public class Packet202Abilities extends Packet {
         this.b(playerabilities.b());
     }
 
-    public void a(DataInputStream datainputstream) {
-        byte b0 = datainputstream.readByte();
+    public void a(DataInput datainput) {
+        byte b0 = datainput.readByte();
 
         this.a((b0 & 1) > 0);
         this.b((b0 & 2) > 0);
         this.c((b0 & 4) > 0);
         this.d((b0 & 8) > 0);
-        this.a((float) datainputstream.readByte() / 255.0F);
-        this.b((float) datainputstream.readByte() / 255.0F);
+        this.a(datainput.readFloat());
+        this.b(datainput.readFloat());
     }
 
-    public void a(DataOutputStream dataoutputstream) {
+    public void a(DataOutput dataoutput) {
         byte b0 = 0;
 
         if (this.d()) {
@@ -53,9 +53,9 @@ public class Packet202Abilities extends Packet {
             b0 = (byte) (b0 | 8);
         }
 
-        dataoutputstream.writeByte(b0);
-        dataoutputstream.writeByte((int) (this.e * 255.0F));
-        dataoutputstream.writeByte((int) (this.f * 255.0F));
+        dataoutput.writeByte(b0);
+        dataoutput.writeFloat(this.e);
+        dataoutput.writeFloat(this.f);
     }
 
     public void handle(Connection connection) {

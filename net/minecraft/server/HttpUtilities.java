@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Iterator;
@@ -50,9 +51,15 @@ public class HttpUtilities {
         return a(iconsolelogmanager, url, a(map), flag);
     }
 
-    public static String a(IConsoleLogManager iconsolelogmanager, URL url, String s, boolean flag) {
+    private static String a(IConsoleLogManager iconsolelogmanager, URL url, String s, boolean flag) {
         try {
-            HttpURLConnection httpurlconnection = (HttpURLConnection) url.openConnection();
+            Proxy proxy = MinecraftServer.getServer() == null ? null : MinecraftServer.getServer().ap();
+
+            if (proxy == null) {
+                proxy = Proxy.NO_PROXY;
+            }
+
+            HttpURLConnection httpurlconnection = (HttpURLConnection) url.openConnection(proxy);
 
             httpurlconnection.setRequestMethod("POST");
             httpurlconnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

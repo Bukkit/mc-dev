@@ -7,7 +7,7 @@ import java.util.concurrent.Callable;
 
 public abstract class Entity {
 
-    private static int entityCount = 0;
+    private static int entityCount;
     public int id;
     public double l;
     public boolean m;
@@ -81,37 +81,15 @@ public abstract class Entity {
     public Entity(World world) {
         this.id = entityCount++;
         this.l = 1.0D;
-        this.m = false;
         this.boundingBox = AxisAlignedBB.a(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
-        this.onGround = false;
-        this.I = false;
-        this.velocityChanged = false;
         this.L = true;
-        this.dead = false;
-        this.height = 0.0F;
         this.width = 0.6F;
         this.length = 1.8F;
-        this.Q = 0.0F;
-        this.R = 0.0F;
-        this.S = 0.0F;
-        this.fallDistance = 0.0F;
         this.c = 1;
-        this.X = 0.0F;
-        this.Y = 0.0F;
-        this.Z = false;
-        this.aa = 0.0F;
         this.random = new Random();
-        this.ticksLived = 0;
         this.maxFireTicks = 1;
-        this.fireTicks = 0;
-        this.inWater = false;
-        this.noDamageTicks = 0;
         this.justCreated = true;
-        this.fireProof = false;
         this.datawatcher = new DataWatcher();
-        this.ai = false;
-        this.as = 0;
-        this.invulnerable = false;
         this.uniqueID = UUID.randomUUID();
         this.at = EnumEntitySize.SIZE_2;
         this.world = world;
@@ -220,7 +198,7 @@ public abstract class Entity {
                             b0 = -1;
                         }
 
-                        this.c(b0);
+                        this.b(b0);
                     }
 
                     this.ap = false;
@@ -265,7 +243,7 @@ public abstract class Entity {
                 }
             } else {
                 if (this.fireTicks % 20 == 0) {
-                    this.damageEntity(DamageSource.BURN, 1);
+                    this.damageEntity(DamageSource.BURN, 1.0F);
                 }
 
                 --this.fireTicks;
@@ -283,7 +261,6 @@ public abstract class Entity {
 
         if (!this.world.isStatic) {
             this.a(0, this.fireTicks > 0);
-            this.a(2, this.vehicle != null);
         }
 
         this.justCreated = false;
@@ -296,7 +273,7 @@ public abstract class Entity {
 
     protected void z() {
         if (!this.fireProof) {
-            this.damageEntity(DamageSource.LAVA, 4);
+            this.damageEntity(DamageSource.LAVA, 4.0F);
             this.setOnFire(15);
         }
     }
@@ -452,7 +429,7 @@ public abstract class Entity {
                 d2 = d8;
                 AxisAlignedBB axisalignedbb1 = this.boundingBox.clone();
 
-                this.boundingBox.c(axisalignedbb);
+                this.boundingBox.d(axisalignedbb);
                 list = this.world.getCubes(this, this.boundingBox.a(d6, d1, d8));
 
                 for (k = 0; k < list.size(); ++k) {
@@ -506,7 +483,7 @@ public abstract class Entity {
                     d0 = d10;
                     d1 = d11;
                     d2 = d12;
-                    this.boundingBox.c(axisalignedbb1);
+                    this.boundingBox.d(axisalignedbb1);
                 }
             }
 
@@ -535,7 +512,7 @@ public abstract class Entity {
             d10 = this.locX - d3;
             d11 = this.locY - d4;
             d12 = this.locZ - d5;
-            if (this.f_() && !flag && this.vehicle == null) {
+            if (this.e_() && !flag && this.vehicle == null) {
                 int l = MathHelper.floor(this.locX);
 
                 k = MathHelper.floor(this.locY - 0.20000000298023224D - (double) this.height);
@@ -573,7 +550,16 @@ public abstract class Entity {
                 }
             }
 
-            this.C();
+            try {
+                this.C();
+            } catch (Throwable throwable) {
+                CrashReport crashreport = CrashReport.a(throwable, "Checking entity tile collision");
+                CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Entity being checked for collision");
+
+                this.a(crashreportsystemdetails);
+                throw new ReportedException(crashreport);
+            }
+
             boolean flag2 = this.F();
 
             if (this.world.e(this.boundingBox.shrink(0.001D, 0.001D, 0.001D))) {
@@ -612,7 +598,15 @@ public abstract class Entity {
                         int j2 = this.world.getTypeId(k1, l1, i2);
 
                         if (j2 > 0) {
-                            Block.byId[j2].a(this.world, k1, l1, i2, this);
+                            try {
+                                Block.byId[j2].a(this.world, k1, l1, i2, this);
+                            } catch (Throwable throwable) {
+                                CrashReport crashreport = CrashReport.a(throwable, "Colliding entity with tile");
+                                CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Tile being collided with");
+
+                                CrashReportSystemDetails.a(crashreportsystemdetails, k1, l1, i2, j2, this.world.getData(k1, l1, i2));
+                                throw new ReportedException(crashreport);
+                            }
                         }
                     }
                 }
@@ -635,14 +629,14 @@ public abstract class Entity {
         this.world.makeSound(this, s, f, f1);
     }
 
-    protected boolean f_() {
+    protected boolean e_() {
         return true;
     }
 
     protected void a(double d0, boolean flag) {
         if (flag) {
             if (this.fallDistance > 0.0F) {
-                this.a(this.fallDistance);
+                this.b(this.fallDistance);
                 this.fallDistance = 0.0F;
             }
         } else if (d0 < 0.0D) {
@@ -656,7 +650,7 @@ public abstract class Entity {
 
     protected void burn(int i) {
         if (!this.fireProof) {
-            this.damageEntity(DamageSource.FIRE, i);
+            this.damageEntity(DamageSource.FIRE, (float) i);
         }
     }
 
@@ -664,9 +658,9 @@ public abstract class Entity {
         return this.fireProof;
     }
 
-    protected void a(float f) {
+    protected void b(float f) {
         if (this.passenger != null) {
-            this.passenger.a(f);
+            this.passenger.b(f);
         }
     }
 
@@ -762,7 +756,7 @@ public abstract class Entity {
         }
     }
 
-    public float c(float f) {
+    public float d(float f) {
         int i = MathHelper.floor(this.locX);
         int j = MathHelper.floor(this.locZ);
 
@@ -883,7 +877,7 @@ public abstract class Entity {
         this.velocityChanged = true;
     }
 
-    public boolean damageEntity(DamageSource damagesource, int i) {
+    public boolean damageEntity(DamageSource damagesource, float f) {
         if (this.isInvulnerable()) {
             return false;
         } else {
@@ -900,10 +894,10 @@ public abstract class Entity {
         return false;
     }
 
-    public void c(Entity entity, int i) {}
+    public void b(Entity entity, int i) {}
 
     public boolean c(NBTTagCompound nbttagcompound) {
-        String s = this.P();
+        String s = this.O();
 
         if (!this.dead && s != null) {
             nbttagcompound.setString("id", s);
@@ -915,7 +909,7 @@ public abstract class Entity {
     }
 
     public boolean d(NBTTagCompound nbttagcompound) {
-        String s = this.P();
+        String s = this.O();
 
         if (!this.dead && s != null && this.passenger == null) {
             nbttagcompound.setString("id", s);
@@ -1006,13 +1000,15 @@ public abstract class Entity {
         }
     }
 
-    protected final String P() {
+    protected final String O() {
         return EntityTypes.b(this);
     }
 
     protected abstract void a(NBTTagCompound nbttagcompound);
 
     protected abstract void b(NBTTagCompound nbttagcompound);
+
+    public void P() {}
 
     protected NBTTagList a(double... adouble) {
         NBTTagList nbttaglist = new NBTTagList();
@@ -1051,11 +1047,15 @@ public abstract class Entity {
     }
 
     public EntityItem a(ItemStack itemstack, float f) {
-        EntityItem entityitem = new EntityItem(this.world, this.locX, this.locY + (double) f, this.locZ, itemstack);
+        if (itemstack.count == 0) {
+            return null;
+        } else {
+            EntityItem entityitem = new EntityItem(this.world, this.locX, this.locY + (double) f, this.locZ, itemstack);
 
-        entityitem.pickupDelay = 10;
-        this.world.addEntity(entityitem);
-        return entityitem;
+            entityitem.pickupDelay = 10;
+            this.world.addEntity(entityitem);
+            return entityitem;
+        }
     }
 
     public boolean isAlive() {
@@ -1079,7 +1079,7 @@ public abstract class Entity {
         return false;
     }
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean c(EntityHuman entityhuman) {
         return false;
     }
 
@@ -1145,12 +1145,6 @@ public abstract class Entity {
 
     public void U() {
         if (this.passenger != null) {
-            if (!(this.passenger instanceof EntityHuman) || !((EntityHuman) this.passenger).cg()) {
-                this.passenger.U = this.U;
-                this.passenger.V = this.V + this.W() + this.passenger.V();
-                this.passenger.W = this.W;
-            }
-
             this.passenger.setPosition(this.locX, this.locY + this.W() + this.passenger.V(), this.locZ);
         }
     }
@@ -1181,43 +1175,6 @@ public abstract class Entity {
             this.vehicle = entity;
             entity.passenger = this;
         }
-    }
-
-    public void h(Entity entity) {
-        double d0 = this.locX;
-        double d1 = this.locY;
-        double d2 = this.locZ;
-
-        if (entity != null) {
-            d0 = entity.locX;
-            d1 = entity.boundingBox.b + (double) entity.length;
-            d2 = entity.locZ;
-        }
-
-        for (double d3 = -1.5D; d3 < 2.0D; ++d3) {
-            for (double d4 = -1.5D; d4 < 2.0D; ++d4) {
-                if (d3 != 0.0D || d4 != 0.0D) {
-                    int i = (int) (this.locX + d3);
-                    int j = (int) (this.locZ + d4);
-                    AxisAlignedBB axisalignedbb = this.boundingBox.c(d3, 1.0D, d4);
-
-                    if (this.world.a(axisalignedbb).isEmpty()) {
-                        if (this.world.w(i, (int) this.locY, j)) {
-                            this.setPositionRotation(this.locX + d3, this.locY + 1.0D, this.locZ + d4, this.yaw, this.pitch);
-                            return;
-                        }
-
-                        if (this.world.w(i, (int) this.locY - 1, j) || this.world.getMaterial(i, (int) this.locY - 1, j) == Material.WATER) {
-                            d0 = this.locX + d3;
-                            d1 = this.locY + 1.0D;
-                            d2 = this.locZ + d4;
-                        }
-                    }
-                }
-            }
-        }
-
-        this.setPositionRotation(d0, d1, d2, this.yaw, this.pitch);
     }
 
     public float X() {
@@ -1254,11 +1211,11 @@ public abstract class Entity {
     public void setEquipment(int i, ItemStack itemstack) {}
 
     public boolean isBurning() {
-        return this.fireTicks > 0 || this.f(0);
+        return !this.fireProof && (this.fireTicks > 0 || this.f(0));
     }
 
-    public boolean af() {
-        return this.vehicle != null || this.f(2);
+    public boolean ae() {
+        return this.vehicle != null;
     }
 
     public boolean isSneaking() {
@@ -1397,7 +1354,7 @@ public abstract class Entity {
         }
     }
 
-    public void al() {
+    public void ak() {
         this.K = true;
         this.fallDistance = 0.0F;
     }
@@ -1412,11 +1369,11 @@ public abstract class Entity {
         return LocaleI18n.get("entity." + s + ".name");
     }
 
-    public Entity[] an() {
+    public Entity[] am() {
         return null;
     }
 
-    public boolean i(Entity entity) {
+    public boolean h(Entity entity) {
         return this == entity;
     }
 
@@ -1424,11 +1381,11 @@ public abstract class Entity {
         return 0.0F;
     }
 
-    public boolean ap() {
+    public boolean ao() {
         return true;
     }
 
-    public boolean j(Entity entity) {
+    public boolean i(Entity entity) {
         return false;
     }
 
@@ -1440,7 +1397,7 @@ public abstract class Entity {
         return this.invulnerable;
     }
 
-    public void k(Entity entity) {
+    public void j(Entity entity) {
         this.setPositionRotation(entity.locX, entity.locY, entity.locZ, entity.yaw, entity.pitch);
     }
 
@@ -1453,7 +1410,7 @@ public abstract class Entity {
         this.as = entity.as;
     }
 
-    public void c(int i) {
+    public void b(int i) {
         if (!this.world.isStatic && !this.dead) {
             this.world.methodProfiler.a("changeDimension");
             MinecraftServer minecraftserver = MinecraftServer.getServer();
@@ -1462,6 +1419,11 @@ public abstract class Entity {
             WorldServer worldserver1 = minecraftserver.getWorldServer(i);
 
             this.dimension = i;
+            if (j == 1 && i == 1) {
+                worldserver1 = minecraftserver.getWorldServer(0);
+                this.dimension = 0;
+            }
+
             this.world.kill(this);
             this.dead = false;
             this.world.methodProfiler.a("reposition");
@@ -1471,6 +1433,13 @@ public abstract class Entity {
 
             if (entity != null) {
                 entity.a(this, true);
+                if (j == 1 && i == 1) {
+                    ChunkCoordinates chunkcoordinates = worldserver1.getSpawn();
+
+                    chunkcoordinates.y = this.world.i(chunkcoordinates.x, chunkcoordinates.z);
+                    entity.setPositionRotation((double) chunkcoordinates.x, (double) chunkcoordinates.y, (double) chunkcoordinates.z, entity.yaw, entity.pitch);
+                }
+
                 worldserver1.addEntity(entity);
             }
 
@@ -1490,15 +1459,15 @@ public abstract class Entity {
         return true;
     }
 
-    public int ar() {
+    public int aq() {
         return 3;
     }
 
-    public int as() {
+    public int ar() {
         return this.as;
     }
 
-    public boolean at() {
+    public boolean as() {
         return false;
     }
 
@@ -1511,7 +1480,11 @@ public abstract class Entity {
         crashreportsystemdetails.a("Entity\'s Momentum", String.format("%.2f, %.2f, %.2f", new Object[] { Double.valueOf(this.motX), Double.valueOf(this.motY), Double.valueOf(this.motZ)}));
     }
 
-    public boolean aw() {
+    public UUID getUniqueID() {
+        return this.uniqueID;
+    }
+
+    public boolean av() {
         return true;
     }
 

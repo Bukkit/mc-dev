@@ -6,7 +6,7 @@ import java.util.List;
 public class BiomeCache {
 
     private final WorldChunkManager a;
-    private long b = 0L;
+    private long b;
     private LongHashMap c = new LongHashMap();
     private List d = new ArrayList();
 
@@ -26,7 +26,7 @@ public class BiomeCache {
             this.d.add(biomecacheblock);
         }
 
-        biomecacheblock.f = System.currentTimeMillis();
+        biomecacheblock.f = MinecraftServer.aq();
         return biomecacheblock;
     }
 
@@ -35,7 +35,7 @@ public class BiomeCache {
     }
 
     public void a() {
-        long i = System.currentTimeMillis();
+        long i = MinecraftServer.aq();
         long j = i - this.b;
 
         if (j > 7500L || j < 0L) {

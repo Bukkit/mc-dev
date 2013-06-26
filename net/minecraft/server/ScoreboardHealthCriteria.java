@@ -12,28 +12,17 @@ public class ScoreboardHealthCriteria extends ScoreboardBaseCriteria {
     public int getScoreModifier(List list) {
         float f = 0.0F;
 
-        int i;
-        float f1;
+        EntityHuman entityhuman;
 
-        for (Iterator iterator = list.iterator(); iterator.hasNext(); f += (float) i / f1) {
-            EntityHuman entityhuman = (EntityHuman) iterator.next();
-
-            i = entityhuman.getHealth();
-            f1 = (float) entityhuman.getMaxHealth();
-            if (i < 0) {
-                i = 0;
-            }
-
-            if ((float) i > f1) {
-                i = entityhuman.getMaxHealth();
-            }
+        for (Iterator iterator = list.iterator(); iterator.hasNext(); f += entityhuman.getHealth() + entityhuman.bj()) {
+            entityhuman = (EntityHuman) iterator.next();
         }
 
         if (list.size() > 0) {
             f /= (float) list.size();
         }
 
-        return MathHelper.d(f * 19.0F) + (f > 0.0F ? 1 : 0);
+        return MathHelper.f(f);
     }
 
     public boolean isReadOnly() {

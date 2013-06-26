@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet132TileEntityData extends Packet {
 
@@ -24,20 +24,20 @@ public class Packet132TileEntityData extends Packet {
         this.e = nbttagcompound;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.readShort();
-        this.c = datainputstream.readInt();
-        this.d = datainputstream.readByte();
-        this.e = d(datainputstream);
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readShort();
+        this.c = datainput.readInt();
+        this.d = datainput.readByte();
+        this.e = d(datainput);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeShort(this.b);
-        dataoutputstream.writeInt(this.c);
-        dataoutputstream.writeByte((byte) this.d);
-        a(this.e, dataoutputstream);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeShort(this.b);
+        dataoutput.writeInt(this.c);
+        dataoutput.writeByte((byte) this.d);
+        a(this.e, dataoutput);
     }
 
     public void handle(Connection connection) {

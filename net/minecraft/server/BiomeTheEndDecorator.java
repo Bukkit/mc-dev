@@ -16,10 +16,6 @@ public class BiomeTheEndDecorator extends BiomeDecorator {
             int j = this.d + this.b.nextInt(16) + 8;
             int k = this.a.i(i, j);
 
-            if (k > 0) {
-                ;
-            }
-
             this.L.a(this.a, this.b, i, k, j);
         }
 

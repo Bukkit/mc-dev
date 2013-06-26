@@ -23,7 +23,7 @@ public class NBTTagString extends NBTBase {
         dataoutput.writeUTF(this.data);
     }
 
-    void load(DataInput datainput) {
+    void load(DataInput datainput, int i) {
         this.data = datainput.readUTF();
     }
 

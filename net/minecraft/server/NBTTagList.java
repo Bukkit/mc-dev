@@ -34,17 +34,21 @@ public class NBTTagList extends NBTBase {
         }
     }
 
-    void load(DataInput datainput) {
-        this.type = datainput.readByte();
-        int i = datainput.readInt();
+    void load(DataInput datainput, int i) {
+        if (i > 512) {
+            throw new RuntimeException("Tried to read NBT tag with too high complexity, depth > 512");
+        } else {
+            this.type = datainput.readByte();
+            int j = datainput.readInt();
 
-        this.list = new ArrayList();
+            this.list = new ArrayList();
 
-        for (int j = 0; j < i; ++j) {
-            NBTBase nbtbase = NBTBase.createTag(this.type, (String) null);
+            for (int k = 0; k < j; ++k) {
+                NBTBase nbtbase = NBTBase.createTag(this.type, (String) null);
 
-            nbtbase.load(datainput);
-            this.list.add(nbtbase);
+                nbtbase.load(datainput, i + 1);
+                this.list.add(nbtbase);
+            }
         }
     }
 

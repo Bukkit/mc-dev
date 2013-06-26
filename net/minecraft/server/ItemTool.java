@@ -1,20 +1,22 @@
 package net.minecraft.server;
 
+import com.google.common.collect.Multimap;
+
 public class ItemTool extends Item {
 
     private Block[] c;
     protected float a = 4.0F;
-    private int d;
+    private float d;
     protected EnumToolMaterial b;
 
-    protected ItemTool(int i, int j, EnumToolMaterial enumtoolmaterial, Block[] ablock) {
+    protected ItemTool(int i, float f, EnumToolMaterial enumtoolmaterial, Block[] ablock) {
         super(i);
         this.b = enumtoolmaterial;
         this.c = ablock;
         this.maxStackSize = 1;
         this.setMaxDurability(enumtoolmaterial.a());
         this.a = enumtoolmaterial.b();
-        this.d = j + enumtoolmaterial.c();
+        this.d = f + enumtoolmaterial.c();
         this.a(CreativeModeTab.i);
     }
 
@@ -41,10 +43,6 @@ public class ItemTool extends Item {
         return true;
     }
 
-    public int a(Entity entity) {
-        return this.d;
-    }
-
     public int c() {
         return this.b.e();
     }
@@ -55,5 +53,12 @@ public class ItemTool extends Item {
 
     public boolean a(ItemStack itemstack, ItemStack itemstack1) {
         return this.b.f() == itemstack1.id ? true : super.a(itemstack, itemstack1);
+    }
+
+    public Multimap h() {
+        Multimap multimap = super.h();
+
+        multimap.put(GenericAttributes.e.a(), new AttributeModifier(e, "Tool modifier", (double) this.d, 0));
+        return multimap;
     }
 }

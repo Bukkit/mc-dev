@@ -9,8 +9,8 @@ public class WorldGenVillageTemple extends WorldGenVillagePiece {
 
     public WorldGenVillageTemple(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(worldgenvillagestartpiece, i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
     }
 
     public static WorldGenVillageTemple a(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
@@ -26,7 +26,7 @@ public class WorldGenVillageTemple extends WorldGenVillagePiece {
                 return true;
             }
 
-            this.e.a(0, this.a - this.e.e + 12 - 1, 0);
+            this.f.a(0, this.a - this.f.e + 12 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 1, 1, 1, 3, 3, 7, 0, 0, false);

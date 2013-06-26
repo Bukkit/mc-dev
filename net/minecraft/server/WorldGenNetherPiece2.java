@@ -5,13 +5,13 @@ import java.util.Random;
 
 public class WorldGenNetherPiece2 extends WorldGenNetherPiece {
 
-    private int a;
+    private int b;
 
     public WorldGenNetherPiece2(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.f = j;
-        this.e = structureboundingbox;
-        this.a = random.nextInt();
+        this.g = j;
+        this.f = structureboundingbox;
+        this.b = random.nextInt();
     }
 
     public static WorldGenNetherPiece2 a(List list, Random random, int i, int j, int k, int l, int i1) {
@@ -21,7 +21,7 @@ public class WorldGenNetherPiece2 extends WorldGenNetherPiece {
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
-        Random random1 = new Random((long) this.a);
+        Random random1 = new Random((long) this.b);
 
         int i;
         int j;

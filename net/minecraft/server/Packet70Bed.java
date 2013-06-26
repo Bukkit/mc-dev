@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet70Bed extends Packet {
 
@@ -16,14 +16,14 @@ public class Packet70Bed extends Packet {
         this.c = j;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.b = datainputstream.readByte();
-        this.c = datainputstream.readByte();
+    public void a(DataInput datainput) {
+        this.b = datainput.readByte();
+        this.c = datainput.readByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeByte(this.b);
-        dataoutputstream.writeByte(this.c);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeByte(this.b);
+        dataoutput.writeByte(this.c);
     }
 
     public void handle(Connection connection) {

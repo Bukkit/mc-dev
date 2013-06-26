@@ -14,12 +14,12 @@ public class CommandPardon extends CommandAbstract {
         return 3;
     }
 
-    public String a(ICommandListener icommandlistener) {
-        return icommandlistener.a("commands.unban.usage", new Object[0]);
+    public String c(ICommandListener icommandlistener) {
+        return "commands.unban.usage";
     }
 
-    public boolean b(ICommandListener icommandlistener) {
-        return MinecraftServer.getServer().getPlayerList().getNameBans().isEnabled() && super.b(icommandlistener);
+    public boolean a(ICommandListener icommandlistener) {
+        return MinecraftServer.getServer().getPlayerList().getNameBans().isEnabled() && super.a(icommandlistener);
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {

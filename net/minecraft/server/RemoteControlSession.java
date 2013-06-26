@@ -9,7 +9,7 @@ import java.net.SocketTimeoutException;
 
 public class RemoteControlSession extends RemoteConnectionThread {
 
-    private boolean g = false;
+    private boolean g;
     private Socket h;
     private byte[] i = new byte[1460];
     private String j;
@@ -38,14 +38,14 @@ public class RemoteControlSession extends RemoteConnectionThread {
                 BufferedInputStream bufferedinputstream = new BufferedInputStream(this.h.getInputStream());
                 int i = bufferedinputstream.read(this.i, 0, 1460);
 
-                if (10 > i) {
-                    return;
-                }
+                if (10 <= i) {
+                    byte b0 = 0;
+                    int j = StatusChallengeUtils.b(this.i, 0, i);
 
-                byte b0 = 0;
-                int j = StatusChallengeUtils.b(this.i, 0, i);
+                    if (j != i - 4) {
+                        return;
+                    }
 
-                if (j == i - 4) {
                     int k = b0 + 4;
                     int l = StatusChallengeUtils.b(this.i, k, i);
 
@@ -59,7 +59,7 @@ public class RemoteControlSession extends RemoteConnectionThread {
                             String s = StatusChallengeUtils.a(this.i, k, i);
 
                             try {
-                                this.a(l, this.server.h(s));
+                                this.a(l, this.server.g(s));
                             } catch (Exception exception) {
                                 this.a(l, "Error executing: " + s + " (" + exception.getMessage() + ")");
                             }
@@ -106,11 +106,12 @@ public class RemoteControlSession extends RemoteConnectionThread {
     private void a(int i, int j, String s) {
         ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream(1248);
         DataOutputStream dataoutputstream = new DataOutputStream(bytearrayoutputstream);
+        byte[] abyte = s.getBytes("UTF-8");
 
-        dataoutputstream.writeInt(Integer.reverseBytes(s.length() + 10));
+        dataoutputstream.writeInt(Integer.reverseBytes(abyte.length + 10));
         dataoutputstream.writeInt(Integer.reverseBytes(i));
         dataoutputstream.writeInt(Integer.reverseBytes(j));
-        dataoutputstream.writeBytes(s);
+        dataoutputstream.write(abyte);
         dataoutputstream.write(0);
         dataoutputstream.write(0);
         this.h.getOutputStream().write(bytearrayoutputstream.toByteArray());

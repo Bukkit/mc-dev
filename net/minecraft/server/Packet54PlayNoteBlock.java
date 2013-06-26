@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet54PlayNoteBlock extends Packet {
 
@@ -23,22 +23,22 @@ public class Packet54PlayNoteBlock extends Packet {
         this.f = l;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.readShort();
-        this.c = datainputstream.readInt();
-        this.d = datainputstream.read();
-        this.e = datainputstream.read();
-        this.f = datainputstream.readShort() & 4095;
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readShort();
+        this.c = datainput.readInt();
+        this.d = datainput.readUnsignedByte();
+        this.e = datainput.readUnsignedByte();
+        this.f = datainput.readShort() & 4095;
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeShort(this.b);
-        dataoutputstream.writeInt(this.c);
-        dataoutputstream.write(this.d);
-        dataoutputstream.write(this.e);
-        dataoutputstream.writeShort(this.f & 4095);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeShort(this.b);
+        dataoutput.writeInt(this.c);
+        dataoutput.write(this.d);
+        dataoutput.write(this.e);
+        dataoutput.writeShort(this.f & 4095);
     }
 
     public void handle(Connection connection) {

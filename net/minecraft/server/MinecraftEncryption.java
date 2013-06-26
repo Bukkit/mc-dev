@@ -3,7 +3,6 @@ package net.minecraft.server;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.KeyFactory;
@@ -32,8 +31,6 @@ import org.bouncycastle.crypto.params.ParametersWithIV;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 public class MinecraftEncryption {
-
-    public static final Charset a = Charset.forName("ISO_8859_1");
 
     public static KeyPair b() {
         try {
@@ -134,7 +131,7 @@ public class MinecraftEncryption {
     private static BufferedBlockCipher a(boolean flag, Key key) {
         BufferedBlockCipher bufferedblockcipher = new BufferedBlockCipher(new CFBBlockCipher(new AESFastEngine(), 8));
 
-        bufferedblockcipher.a(flag, new ParametersWithIV(new KeyParameter(key.getEncoded()), key.getEncoded(), 0, 16));
+        bufferedblockcipher.init(flag, new ParametersWithIV(new KeyParameter(key.getEncoded()), key.getEncoded(), 0, 16));
         return bufferedblockcipher;
     }
 

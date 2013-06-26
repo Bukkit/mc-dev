@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class CommandWhitelist extends CommandAbstract {
 
@@ -15,8 +16,8 @@ public class CommandWhitelist extends CommandAbstract {
         return 3;
     }
 
-    public String a(ICommandListener icommandlistener) {
-        return icommandlistener.a("commands.whitelist.usage", new Object[0]);
+    public String c(ICommandListener icommandlistener) {
+        return "commands.whitelist.usage";
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {
@@ -34,8 +35,10 @@ public class CommandWhitelist extends CommandAbstract {
             }
 
             if (astring[0].equals("list")) {
-                icommandlistener.sendMessage(icommandlistener.a("commands.whitelist.list", new Object[] { Integer.valueOf(MinecraftServer.getServer().getPlayerList().getWhitelisted().size()), Integer.valueOf(MinecraftServer.getServer().getPlayerList().getSeenPlayers().length)}));
-                icommandlistener.sendMessage(a(MinecraftServer.getServer().getPlayerList().getWhitelisted().toArray(new String[0])));
+                icommandlistener.sendMessage(ChatMessage.b("commands.whitelist.list", new Object[] { Integer.valueOf(MinecraftServer.getServer().getPlayerList().getWhitelisted().size()), Integer.valueOf(MinecraftServer.getServer().getPlayerList().getSeenPlayers().length)}));
+                Set set = MinecraftServer.getServer().getPlayerList().getWhitelisted();
+
+                icommandlistener.sendMessage(ChatMessage.d(a(set.toArray(new String[set.size()]))));
                 return;
             }
 

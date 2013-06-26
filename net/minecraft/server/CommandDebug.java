@@ -8,8 +8,8 @@ import java.util.List;
 
 public class CommandDebug extends CommandAbstract {
 
-    private long a = 0L;
-    private int b = 0;
+    private long a;
+    private int b;
 
     public CommandDebug() {}
 
@@ -21,13 +21,17 @@ public class CommandDebug extends CommandAbstract {
         return 3;
     }
 
+    public String c(ICommandListener icommandlistener) {
+        return "commands.debug.usage";
+    }
+
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length == 1) {
             if (astring[0].equals("start")) {
                 a(icommandlistener, "commands.debug.start", new Object[0]);
-                MinecraftServer.getServer().ai();
-                this.a = System.currentTimeMillis();
-                this.b = MinecraftServer.getServer().ah();
+                MinecraftServer.getServer().ak();
+                this.a = MinecraftServer.aq();
+                this.b = MinecraftServer.getServer().aj();
                 return;
             }
 
@@ -36,8 +40,8 @@ public class CommandDebug extends CommandAbstract {
                     throw new CommandException("commands.debug.notStarted", new Object[0]);
                 }
 
-                long i = System.currentTimeMillis();
-                int j = MinecraftServer.getServer().ah();
+                long i = MinecraftServer.aq();
+                int j = MinecraftServer.getServer().aj();
                 long k = i - this.a;
                 int l = j - this.b;
 
@@ -52,7 +56,7 @@ public class CommandDebug extends CommandAbstract {
     }
 
     private void a(long i, int j) {
-        File file1 = new File(MinecraftServer.getServer().e("debug"), "profile-results-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + ".txt");
+        File file1 = new File(MinecraftServer.getServer().d("debug"), "profile-results-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + ".txt");
 
         file1.getParentFile().mkdirs();
 

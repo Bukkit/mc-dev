@@ -6,7 +6,7 @@ import java.util.List;
 public class TileEntityChest extends TileEntity implements IInventory {
 
     private ItemStack[] items = new ItemStack[36];
-    public boolean a = false;
+    public boolean a;
     public TileEntityChest b;
     public TileEntityChest c;
     public TileEntityChest d;

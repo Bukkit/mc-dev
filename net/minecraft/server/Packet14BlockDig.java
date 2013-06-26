@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet14BlockDig extends Packet {
 
@@ -13,20 +13,20 @@ public class Packet14BlockDig extends Packet {
 
     public Packet14BlockDig() {}
 
-    public void a(DataInputStream datainputstream) {
-        this.e = datainputstream.read();
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.read();
-        this.c = datainputstream.readInt();
-        this.face = datainputstream.read();
+    public void a(DataInput datainput) {
+        this.e = datainput.readUnsignedByte();
+        this.a = datainput.readInt();
+        this.b = datainput.readUnsignedByte();
+        this.c = datainput.readInt();
+        this.face = datainput.readUnsignedByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.write(this.e);
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.write(this.b);
-        dataoutputstream.writeInt(this.c);
-        dataoutputstream.write(this.face);
+    public void a(DataOutput dataoutput) {
+        dataoutput.write(this.e);
+        dataoutput.writeInt(this.a);
+        dataoutput.write(this.b);
+        dataoutput.writeInt(this.c);
+        dataoutput.write(this.face);
     }
 
     public void handle(Connection connection) {

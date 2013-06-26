@@ -23,9 +23,9 @@ public class RemoteStatusListener extends RemoteConnectionThread {
     private int maxPlayers;
     private String localAddress;
     private String worldName;
-    private DatagramSocket socket = null;
+    private DatagramSocket socket;
     private byte[] n = new byte[1460];
-    private DatagramPacket o = null;
+    private DatagramPacket o;
     private Map p;
     private String hostname;
     private String motd;
@@ -37,11 +37,11 @@ public class RemoteStatusListener extends RemoteConnectionThread {
     public RemoteStatusListener(IMinecraftServer iminecraftserver) {
         super(iminecraftserver);
         this.bindPort = iminecraftserver.a("query.port", 0);
-        this.motd = iminecraftserver.u();
-        this.serverPort = iminecraftserver.v();
-        this.localAddress = iminecraftserver.w();
-        this.maxPlayers = iminecraftserver.z();
-        this.worldName = iminecraftserver.J();
+        this.motd = iminecraftserver.w();
+        this.serverPort = iminecraftserver.x();
+        this.localAddress = iminecraftserver.y();
+        this.maxPlayers = iminecraftserver.B();
+        this.worldName = iminecraftserver.L();
         this.cacheTime = 0L;
         this.hostname = "0.0.0.0";
         if (0 != this.motd.length() && !this.hostname.equals(this.motd)) {
@@ -123,7 +123,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
     }
 
     private byte[] getFullReply(DatagramPacket datagrampacket) {
-        long i = System.currentTimeMillis();
+        long i = MinecraftServer.aq();
 
         if (i < this.cacheTime + 5000L) {
             byte[] abyte = this.cachedReply.getBytes();
@@ -203,7 +203,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
 
     private void cleanChallenges() {
         if (this.running) {
-            long i = System.currentTimeMillis();
+            long i = MinecraftServer.aq();
 
             if (i >= this.clearedTime + 30000L) {
                 this.clearedTime = i;
@@ -222,7 +222,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
 
     public void run() {
         this.info("Query running on " + this.motd + ":" + this.bindPort);
-        this.clearedTime = System.currentTimeMillis();
+        this.clearedTime = MinecraftServer.aq();
         this.o = new DatagramPacket(this.n, this.n.length);
 
         try {

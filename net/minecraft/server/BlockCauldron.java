@@ -51,20 +51,22 @@ public class BlockCauldron extends Block {
                 return true;
             } else {
                 int i1 = world.getData(i, j, k);
+                int j1 = h_(i1);
 
                 if (itemstack.id == Item.WATER_BUCKET.id) {
-                    if (i1 < 3) {
+                    if (j1 < 3) {
                         if (!entityhuman.abilities.canInstantlyBuild) {
                             entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, new ItemStack(Item.BUCKET));
                         }
 
                         world.setData(i, j, k, 3, 2);
+                        world.m(i, j, k, this.id);
                     }
 
                     return true;
                 } else {
                     if (itemstack.id == Item.GLASS_BOTTLE.id) {
-                        if (i1 > 0) {
+                        if (j1 > 0) {
                             ItemStack itemstack1 = new ItemStack(Item.POTION, 1, 0);
 
                             if (!entityhuman.inventory.pickup(itemstack1)) {
@@ -78,13 +80,15 @@ public class BlockCauldron extends Block {
                                 entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
                             }
 
-                            world.setData(i, j, k, i1 - 1, 2);
+                            world.setData(i, j, k, j1 - 1, 2);
+                            world.m(i, j, k, this.id);
                         }
-                    } else if (i1 > 0 && itemstack.getItem() instanceof ItemArmor && ((ItemArmor) itemstack.getItem()).d() == EnumArmorMaterial.CLOTH) {
+                    } else if (j1 > 0 && itemstack.getItem() instanceof ItemArmor && ((ItemArmor) itemstack.getItem()).d() == EnumArmorMaterial.CLOTH) {
                         ItemArmor itemarmor = (ItemArmor) itemstack.getItem();
 
                         itemarmor.c(itemstack);
-                        world.setData(i, j, k, i1 - 1, 2);
+                        world.setData(i, j, k, j1 - 1, 2);
+                        world.m(i, j, k, this.id);
                         return true;
                     }
 
@@ -106,5 +110,19 @@ public class BlockCauldron extends Block {
 
     public int getDropType(int i, Random random, int j) {
         return Item.CAULDRON.id;
+    }
+
+    public boolean q_() {
+        return true;
+    }
+
+    public int b_(World world, int i, int j, int k, int l) {
+        int i1 = world.getData(i, j, k);
+
+        return h_(i1);
+    }
+
+    public static int h_(int i) {
+        return i;
     }
 }

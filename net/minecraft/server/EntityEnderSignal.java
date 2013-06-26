@@ -2,12 +2,11 @@ package net.minecraft.server;
 
 public class EntityEnderSignal extends Entity {
 
-    public int a = 0;
+    private double a;
     private double b;
     private double c;
-    private double d;
-    private int e;
-    private boolean f;
+    private int d;
+    private boolean e;
 
     public EntityEnderSignal(World world) {
         super(world);
@@ -18,7 +17,7 @@ public class EntityEnderSignal extends Entity {
 
     public EntityEnderSignal(World world, double d0, double d1, double d2) {
         super(world);
-        this.e = 0;
+        this.d = 0;
         this.a(0.25F, 0.25F);
         this.setPosition(d0, d1, d2);
         this.height = 0.0F;
@@ -30,17 +29,17 @@ public class EntityEnderSignal extends Entity {
         float f = MathHelper.sqrt(d2 * d2 + d3 * d3);
 
         if (f > 12.0F) {
-            this.b = this.locX + d2 / (double) f * 12.0D;
-            this.d = this.locZ + d3 / (double) f * 12.0D;
-            this.c = this.locY + 8.0D;
+            this.a = this.locX + d2 / (double) f * 12.0D;
+            this.c = this.locZ + d3 / (double) f * 12.0D;
+            this.b = this.locY + 8.0D;
         } else {
-            this.b = d0;
-            this.c = (double) i;
-            this.d = d1;
+            this.a = d0;
+            this.b = (double) i;
+            this.c = d1;
         }
 
-        this.e = 0;
-        this.f = this.random.nextInt(5) > 0;
+        this.d = 0;
+        this.e = this.random.nextInt(5) > 0;
     }
 
     public void l_() {
@@ -74,8 +73,8 @@ public class EntityEnderSignal extends Entity {
         this.pitch = this.lastPitch + (this.pitch - this.lastPitch) * 0.2F;
         this.yaw = this.lastYaw + (this.yaw - this.lastYaw) * 0.2F;
         if (!this.world.isStatic) {
-            double d0 = this.b - this.locX;
-            double d1 = this.d - this.locZ;
+            double d0 = this.a - this.locX;
+            double d1 = this.c - this.locZ;
             float f1 = (float) Math.sqrt(d0 * d0 + d1 * d1);
             float f2 = (float) Math.atan2(d1, d0);
             double d2 = (double) f + (double) (f1 - f) * 0.0025D;
@@ -87,7 +86,7 @@ public class EntityEnderSignal extends Entity {
 
             this.motX = Math.cos((double) f2) * d2;
             this.motZ = Math.sin((double) f2) * d2;
-            if (this.locY < this.c) {
+            if (this.locY < this.b) {
                 this.motY += (1.0D - this.motY) * 0.014999999664723873D;
             } else {
                 this.motY += (-1.0D - this.motY) * 0.014999999664723873D;
@@ -106,10 +105,10 @@ public class EntityEnderSignal extends Entity {
 
         if (!this.world.isStatic) {
             this.setPosition(this.locX, this.locY, this.locZ);
-            ++this.e;
-            if (this.e > 80 && !this.world.isStatic) {
+            ++this.d;
+            if (this.d > 80 && !this.world.isStatic) {
                 this.die();
-                if (this.f) {
+                if (this.e) {
                     this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.EYE_OF_ENDER)));
                 } else {
                     this.world.triggerEffect(2003, (int) Math.round(this.locX), (int) Math.round(this.locY), (int) Math.round(this.locZ), 0);
@@ -122,11 +121,11 @@ public class EntityEnderSignal extends Entity {
 
     public void a(NBTTagCompound nbttagcompound) {}
 
-    public float c(float f) {
+    public float d(float f) {
         return 1.0F;
     }
 
-    public boolean ap() {
+    public boolean ao() {
         return false;
     }
 }

@@ -17,13 +17,9 @@ public class EntityFallingBlock extends Entity {
 
     public EntityFallingBlock(World world) {
         super(world);
-        this.c = 0;
         this.dropItem = true;
-        this.f = false;
-        this.hurtEntities = false;
         this.fallHurtMax = 40;
         this.fallHurtAmount = 2.0F;
-        this.tileEntityData = null;
     }
 
     public EntityFallingBlock(World world, double d0, double d1, double d2, int i) {
@@ -32,13 +28,9 @@ public class EntityFallingBlock extends Entity {
 
     public EntityFallingBlock(World world, double d0, double d1, double d2, int i, int j) {
         super(world);
-        this.c = 0;
         this.dropItem = true;
-        this.f = false;
-        this.hurtEntities = false;
         this.fallHurtMax = 40;
         this.fallHurtAmount = 2.0F;
-        this.tileEntityData = null;
         this.id = i;
         this.data = j;
         this.m = true;
@@ -53,7 +45,7 @@ public class EntityFallingBlock extends Entity {
         this.lastZ = d2;
     }
 
-    protected boolean f_() {
+    protected boolean e_() {
         return false;
     }
 
@@ -137,7 +129,7 @@ public class EntityFallingBlock extends Entity {
         }
     }
 
-    protected void a(float f) {
+    protected void b(float f) {
         if (this.hurtEntities) {
             int i = MathHelper.f(f - 1.0F);
 
@@ -149,7 +141,7 @@ public class EntityFallingBlock extends Entity {
                 while (iterator.hasNext()) {
                     Entity entity = (Entity) iterator.next();
 
-                    entity.damageEntity(damagesource, Math.min(MathHelper.d((float) i * this.fallHurtAmount), this.fallHurtMax));
+                    entity.damageEntity(damagesource, (float) Math.min(MathHelper.d((float) i * this.fallHurtAmount), this.fallHurtMax));
                 }
 
                 if (this.id == Block.ANVIL.id && (double) this.random.nextFloat() < 0.05000000074505806D + (double) i * 0.05D) {

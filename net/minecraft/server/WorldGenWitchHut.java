@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class WorldGenWitchHut extends WorldGenScatteredPiece {
 
-    private boolean h;
+    private boolean e;
 
     public WorldGenWitchHut(Random random, int i, int j) {
         super(random, i, 64, j, 7, 5, 9);
@@ -54,17 +54,17 @@ public class WorldGenWitchHut extends WorldGenScatteredPiece {
                 }
             }
 
-            if (!this.h) {
+            if (!this.e) {
                 i1 = this.a(2, 5);
                 j1 = this.a(2);
                 int k1 = this.b(2, 5);
 
                 if (structureboundingbox.b(i1, j1, k1)) {
-                    this.h = true;
+                    this.e = true;
                     EntityWitch entitywitch = new EntityWitch(world);
 
                     entitywitch.setPositionRotation((double) i1 + 0.5D, (double) j1, (double) k1 + 0.5D, 0.0F, 0.0F);
-                    entitywitch.bJ();
+                    entitywitch.a((GroupDataEntity) null);
                     world.addEntity(entitywitch);
                 }
             }

@@ -2,13 +2,13 @@ package net.minecraft.server;
 
 public class TileEntityCommand extends TileEntity implements ICommandListener {
 
-    private int a = 0;
+    private int a;
     private String b = "";
     private String c = "@";
 
     public TileEntityCommand() {}
 
-    public void b(String s) {
+    public void a(String s) {
         this.b = s;
         this.update();
     }
@@ -33,18 +33,14 @@ public class TileEntityCommand extends TileEntity implements ICommandListener {
         return this.c;
     }
 
-    public void c(String s) {
+    public void b(String s) {
         this.c = s;
     }
 
-    public void sendMessage(String s) {}
+    public void sendMessage(ChatMessage chatmessage) {}
 
     public boolean a(int i, String s) {
         return i <= 2;
-    }
-
-    public String a(String s, Object... aobject) {
-        return s;
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -67,6 +63,10 @@ public class TileEntityCommand extends TileEntity implements ICommandListener {
         return new ChunkCoordinates(this.x, this.y, this.z);
     }
 
+    public World f_() {
+        return this.getWorld();
+    }
+
     public Packet getUpdatePacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 
@@ -74,7 +74,7 @@ public class TileEntityCommand extends TileEntity implements ICommandListener {
         return new Packet132TileEntityData(this.x, this.y, this.z, 2, nbttagcompound);
     }
 
-    public int d() {
+    public int f() {
         return this.a;
     }
 

@@ -104,15 +104,12 @@ public class Scoreboard {
     public Collection getScores() {
         Collection collection = this.playerScores.values();
         ArrayList arraylist = new ArrayList();
+        Iterator iterator = collection.iterator();
 
-        if (collection != null) {
-            Iterator iterator = collection.iterator();
+        while (iterator.hasNext()) {
+            Map map = (Map) iterator.next();
 
-            while (iterator.hasNext()) {
-                Map map = (Map) iterator.next();
-
-                arraylist.addAll(map.values());
-            }
+            arraylist.addAll(map.values());
         }
 
         return arraylist;

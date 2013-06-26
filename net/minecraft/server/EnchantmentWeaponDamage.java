@@ -25,8 +25,8 @@ public class EnchantmentWeaponDamage extends Enchantment {
         return 5;
     }
 
-    public int a(int i, EntityLiving entityliving) {
-        return this.a == 0 ? MathHelper.d((float) i * 2.75F) : (this.a == 1 && entityliving.getMonsterType() == EnumMonsterType.UNDEAD ? MathHelper.d((float) i * 4.5F) : (this.a == 2 && entityliving.getMonsterType() == EnumMonsterType.ARTHROPOD ? MathHelper.d((float) i * 4.5F) : 0));
+    public float a(int i, EntityLiving entityliving) {
+        return this.a == 0 ? (float) i * 1.25F : (this.a == 1 && entityliving.getMonsterType() == EnumMonsterType.UNDEAD ? (float) i * 2.5F : (this.a == 2 && entityliving.getMonsterType() == EnumMonsterType.ARTHROPOD ? (float) i * 2.5F : 0.0F));
     }
 
     public String a() {

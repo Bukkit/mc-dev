@@ -20,7 +20,7 @@ public class NBTTagByte extends NBTBase {
         dataoutput.writeByte(this.data);
     }
 
-    void load(DataInput datainput) {
+    void load(DataInput datainput, int i) {
         this.data = datainput.readByte();
     }
 

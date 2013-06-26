@@ -9,16 +9,16 @@ public class WorldGenVillageFarm2 extends WorldGenVillagePiece {
     private int b;
     private int c;
     private int d;
-    private int h;
+    private int e;
 
     public WorldGenVillageFarm2(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(worldgenvillagestartpiece, i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
         this.b = this.a(random);
         this.c = this.a(random);
         this.d = this.a(random);
-        this.h = this.a(random);
+        this.e = this.a(random);
     }
 
     private int a(Random random) {
@@ -47,7 +47,7 @@ public class WorldGenVillageFarm2 extends WorldGenVillagePiece {
                 return true;
             }
 
-            this.e.a(0, this.a - this.e.e + 4 - 1, 0);
+            this.f.a(0, this.a - this.f.e + 4 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 0, 1, 0, 12, 4, 8, 0, 0, false);
@@ -72,8 +72,8 @@ public class WorldGenVillageFarm2 extends WorldGenVillagePiece {
             this.a(world, this.c, MathHelper.nextInt(random, 2, 7), 5, 1, i, structureboundingbox);
             this.a(world, this.d, MathHelper.nextInt(random, 2, 7), 7, 1, i, structureboundingbox);
             this.a(world, this.d, MathHelper.nextInt(random, 2, 7), 8, 1, i, structureboundingbox);
-            this.a(world, this.h, MathHelper.nextInt(random, 2, 7), 10, 1, i, structureboundingbox);
-            this.a(world, this.h, MathHelper.nextInt(random, 2, 7), 11, 1, i, structureboundingbox);
+            this.a(world, this.e, MathHelper.nextInt(random, 2, 7), 10, 1, i, structureboundingbox);
+            this.a(world, this.e, MathHelper.nextInt(random, 2, 7), 11, 1, i, structureboundingbox);
         }
 
         for (i = 0; i < 9; ++i) {

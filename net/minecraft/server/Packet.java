@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
@@ -17,12 +17,12 @@ public abstract class Packet {
     private static Set b = new HashSet();
     private static Set c = new HashSet();
     protected IConsoleLogManager m;
-    public final long timestamp = System.currentTimeMillis();
+    public final long timestamp = MinecraftServer.aq();
     public static long o;
     public static long p;
     public static long q;
     public static long r;
-    public boolean lowPriority = false;
+    public boolean lowPriority;
 
     public Packet() {}
 
@@ -56,20 +56,20 @@ public abstract class Packet {
         }
     }
 
-    public static void a(DataOutputStream dataoutputstream, byte[] abyte) {
-        dataoutputstream.writeShort(abyte.length);
-        dataoutputstream.write(abyte);
+    public static void a(DataOutput dataoutput, byte[] abyte) {
+        dataoutput.writeShort(abyte.length);
+        dataoutput.write(abyte);
     }
 
-    public static byte[] b(DataInputStream datainputstream) {
-        short short1 = datainputstream.readShort();
+    public static byte[] b(DataInput datainput) {
+        short short1 = datainput.readShort();
 
         if (short1 < 0) {
             throw new IOException("Key was smaller than nothing!  Weird key!");
         } else {
             byte[] abyte = new byte[short1];
 
-            datainputstream.readFully(abyte);
+            datainput.readFully(abyte);
             return abyte;
         }
     }
@@ -78,7 +78,7 @@ public abstract class Packet {
         return ((Integer) a.get(this.getClass())).intValue();
     }
 
-    public static Packet a(IConsoleLogManager iconsolelogmanager, DataInputStream datainputstream, boolean flag, Socket socket) {
+    public static Packet a(IConsoleLogManager iconsolelogmanager, DataInput datainput, boolean flag, Socket socket) {
         boolean flag1 = false;
         Packet packet = null;
         int i = socket.getSoTimeout();
@@ -86,11 +86,7 @@ public abstract class Packet {
         int j;
 
         try {
-            j = datainputstream.read();
-            if (j == -1) {
-                return null;
-            }
-
+            j = datainput.readUnsignedByte();
             if (flag && !c.contains(Integer.valueOf(j)) || !flag && !b.contains(Integer.valueOf(j))) {
                 throw new IOException("Bad packet id " + j);
             }
@@ -105,11 +101,11 @@ public abstract class Packet {
                 socket.setSoTimeout(1500);
             }
 
-            packet.a(datainputstream);
+            packet.a(datainput);
             ++o;
             p += (long) packet.a();
         } catch (EOFException eofexception) {
-            iconsolelogmanager.severe("Reached end of stream");
+            iconsolelogmanager.severe("Reached end of stream for " + socket.getInetAddress());
             return null;
         }
 
@@ -120,24 +116,24 @@ public abstract class Packet {
         return packet;
     }
 
-    public static void a(Packet packet, DataOutputStream dataoutputstream) {
-        dataoutputstream.write(packet.n());
-        packet.a(dataoutputstream);
+    public static void a(Packet packet, DataOutput dataoutput) {
+        dataoutput.write(packet.n());
+        packet.a(dataoutput);
         ++q;
         r += (long) packet.a();
     }
 
-    public static void a(String s, DataOutputStream dataoutputstream) {
+    public static void a(String s, DataOutput dataoutput) {
         if (s.length() > 32767) {
             throw new IOException("String too big");
         } else {
-            dataoutputstream.writeShort(s.length());
-            dataoutputstream.writeChars(s);
+            dataoutput.writeShort(s.length());
+            dataoutput.writeChars(s);
         }
     }
 
-    public static String a(DataInputStream datainputstream, int i) {
-        short short1 = datainputstream.readShort();
+    public static String a(DataInput datainput, int i) {
+        short short1 = datainput.readShort();
 
         if (short1 > i) {
             throw new IOException("Received string length longer than maximum allowed (" + short1 + " > " + i + ")");
@@ -147,16 +143,16 @@ public abstract class Packet {
             StringBuilder stringbuilder = new StringBuilder();
 
             for (int j = 0; j < short1; ++j) {
-                stringbuilder.append(datainputstream.readChar());
+                stringbuilder.append(datainput.readChar());
             }
 
             return stringbuilder.toString();
         }
     }
 
-    public abstract void a(DataInputStream datainputstream);
+    public abstract void a(DataInput datainput);
 
-    public abstract void a(DataOutputStream dataoutputstream);
+    public abstract void a(DataOutput dataoutput);
 
     public abstract void handle(Connection connection);
 
@@ -180,59 +176,59 @@ public abstract class Packet {
         return s;
     }
 
-    public static ItemStack c(DataInputStream datainputstream) {
+    public static ItemStack c(DataInput datainput) {
         ItemStack itemstack = null;
-        short short1 = datainputstream.readShort();
+        short short1 = datainput.readShort();
 
         if (short1 >= 0) {
-            byte b0 = datainputstream.readByte();
-            short short2 = datainputstream.readShort();
+            byte b0 = datainput.readByte();
+            short short2 = datainput.readShort();
 
             itemstack = new ItemStack(short1, b0, short2);
-            itemstack.tag = d(datainputstream);
+            itemstack.tag = d(datainput);
         }
 
         return itemstack;
     }
 
-    public static void a(ItemStack itemstack, DataOutputStream dataoutputstream) {
+    public static void a(ItemStack itemstack, DataOutput dataoutput) {
         if (itemstack == null) {
-            dataoutputstream.writeShort(-1);
+            dataoutput.writeShort(-1);
         } else {
-            dataoutputstream.writeShort(itemstack.id);
-            dataoutputstream.writeByte(itemstack.count);
-            dataoutputstream.writeShort(itemstack.getData());
+            dataoutput.writeShort(itemstack.id);
+            dataoutput.writeByte(itemstack.count);
+            dataoutput.writeShort(itemstack.getData());
             NBTTagCompound nbttagcompound = null;
 
-            if (itemstack.getItem().usesDurability() || itemstack.getItem().r()) {
+            if (itemstack.getItem().usesDurability() || itemstack.getItem().s()) {
                 nbttagcompound = itemstack.tag;
             }
 
-            a(nbttagcompound, dataoutputstream);
+            a(nbttagcompound, dataoutput);
         }
     }
 
-    public static NBTTagCompound d(DataInputStream datainputstream) {
-        short short1 = datainputstream.readShort();
+    public static NBTTagCompound d(DataInput datainput) {
+        short short1 = datainput.readShort();
 
         if (short1 < 0) {
             return null;
         } else {
             byte[] abyte = new byte[short1];
 
-            datainputstream.readFully(abyte);
+            datainput.readFully(abyte);
             return NBTCompressedStreamTools.a(abyte);
         }
     }
 
-    protected static void a(NBTTagCompound nbttagcompound, DataOutputStream dataoutputstream) {
+    protected static void a(NBTTagCompound nbttagcompound, DataOutput dataoutput) {
         if (nbttagcompound == null) {
-            dataoutputstream.writeShort(-1);
+            dataoutput.writeShort(-1);
         } else {
             byte[] abyte = NBTCompressedStreamTools.a(nbttagcompound);
 
-            dataoutputstream.writeShort((short) abyte.length);
-            dataoutputstream.write(abyte);
+            dataoutput.writeShort((short) abyte.length);
+            dataoutput.write(abyte);
         }
     }
 
@@ -263,6 +259,7 @@ public abstract class Packet {
         a(24, true, false, Packet24MobSpawn.class);
         a(25, true, false, Packet25EntityPainting.class);
         a(26, true, false, Packet26AddExpOrb.class);
+        a(27, false, true, Packet27PlayerInput.class);
         a(28, true, false, Packet28EntityVelocity.class);
         a(29, true, false, Packet29DestroyEntity.class);
         a(30, true, false, Packet30Entity.class);
@@ -277,6 +274,7 @@ public abstract class Packet {
         a(41, true, false, Packet41MobEffect.class);
         a(42, true, false, Packet42RemoveMobEffect.class);
         a(43, true, false, Packet43SetExperience.class);
+        a(44, true, false, Packet44UpdateAttributes.class);
         a(51, true, false, Packet51MapChunk.class);
         a(52, true, false, Packet52MultiBlockChange.class);
         a(53, true, false, Packet53BlockChange.class);

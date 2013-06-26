@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet250CustomPayload extends Packet {
 
@@ -22,20 +22,20 @@ public class Packet250CustomPayload extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.tag = a(datainputstream, 20);
-        this.length = datainputstream.readShort();
+    public void a(DataInput datainput) {
+        this.tag = a(datainput, 20);
+        this.length = datainput.readShort();
         if (this.length > 0 && this.length < 32767) {
             this.data = new byte[this.length];
-            datainputstream.readFully(this.data);
+            datainput.readFully(this.data);
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        a(this.tag, dataoutputstream);
-        dataoutputstream.writeShort((short) this.length);
+    public void a(DataOutput dataoutput) {
+        a(this.tag, dataoutput);
+        dataoutput.writeShort((short) this.length);
         if (this.data != null) {
-            dataoutputstream.write(this.data);
+            dataoutput.write(this.data);
         }
     }
 

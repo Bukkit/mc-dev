@@ -4,11 +4,10 @@ public class EntityMushroomCow extends EntityCow {
 
     public EntityMushroomCow(World world) {
         super(world);
-        this.texture = "/mob/redcow.png";
         this.a(0.9F, 1.3F);
     }
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
         if (itemstack != null && itemstack.id == Item.BOWL.id && this.getAge() >= 0) {
@@ -31,7 +30,7 @@ public class EntityMushroomCow extends EntityCow {
 
                 entitycow.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
                 entitycow.setHealth(this.getHealth());
-                entitycow.ay = this.ay;
+                entitycow.aN = this.aN;
                 this.world.addEntity(entitycow);
 
                 for (int i = 0; i < 5; ++i) {
@@ -41,7 +40,7 @@ public class EntityMushroomCow extends EntityCow {
 
             return true;
         } else {
-            return super.a_(entityhuman);
+            return super.a(entityhuman);
         }
     }
 

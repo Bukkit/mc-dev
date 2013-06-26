@@ -2,10 +2,10 @@ package net.minecraft.server;
 
 public class DemoPlayerInteractManager extends PlayerInteractManager {
 
-    private boolean c = false;
-    private boolean d = false;
-    private int e = 0;
-    private int f = 0;
+    private boolean c;
+    private boolean d;
+    private int e;
+    private int f;
 
     public DemoPlayerInteractManager(World world) {
         super(world);
@@ -29,7 +29,7 @@ public class DemoPlayerInteractManager extends PlayerInteractManager {
 
         if (i % 24000L == 500L) {
             if (j <= 6L) {
-                this.player.sendMessage(this.player.a("demo.day." + j, new Object[0]));
+                this.player.sendMessage(ChatMessage.e("demo.day." + j));
             }
         } else if (j == 1L) {
             if (i == 100L) {
@@ -40,13 +40,13 @@ public class DemoPlayerInteractManager extends PlayerInteractManager {
                 this.player.playerConnection.sendPacket(new Packet70Bed(5, 103));
             }
         } else if (j == 5L && i % 24000L == 22000L) {
-            this.player.sendMessage(this.player.a("demo.day.warning", new Object[0]));
+            this.player.sendMessage(ChatMessage.e("demo.day.warning"));
         }
     }
 
     private void e() {
         if (this.e > 100) {
-            this.player.sendMessage(this.player.a("demo.reminder", new Object[0]));
+            this.player.sendMessage(ChatMessage.e("demo.reminder"));
             this.e = 0;
         }
     }

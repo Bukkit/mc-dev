@@ -2,24 +2,24 @@ package net.minecraft.server;
 
 public class Navigation {
 
-    private EntityLiving a;
+    private EntityInsentient a;
     private World b;
     private PathEntity c;
-    private float d;
-    private float e;
-    private boolean f = false;
+    private double d;
+    private AttributeInstance e;
+    private boolean f;
     private int g;
     private int h;
     private Vec3D i = Vec3D.a(0.0D, 0.0D, 0.0D);
     private boolean j = true;
-    private boolean k = false;
-    private boolean l = false;
-    private boolean m = false;
+    private boolean k;
+    private boolean l;
+    private boolean m;
 
-    public Navigation(EntityLiving entityliving, World world, float f) {
-        this.a = entityliving;
+    public Navigation(EntityInsentient entityinsentient, World world) {
+        this.a = entityinsentient;
         this.b = world;
-        this.e = f;
+        this.e = entityinsentient.a(GenericAttributes.b);
     }
 
     public void a(boolean flag) {
@@ -46,35 +46,39 @@ public class Navigation {
         this.f = flag;
     }
 
-    public void a(float f) {
-        this.d = f;
+    public void a(double d0) {
+        this.d = d0;
     }
 
     public void e(boolean flag) {
         this.m = flag;
     }
 
-    public PathEntity a(double d0, double d1, double d2) {
-        return !this.k() ? null : this.b.a(this.a, MathHelper.floor(d0), (int) d1, MathHelper.floor(d2), this.e, this.j, this.k, this.l, this.m);
+    public float d() {
+        return (float) this.e.e();
     }
 
-    public boolean a(double d0, double d1, double d2, float f) {
+    public PathEntity a(double d0, double d1, double d2) {
+        return !this.l() ? null : this.b.a(this.a, MathHelper.floor(d0), (int) d1, MathHelper.floor(d2), this.d(), this.j, this.k, this.l, this.m);
+    }
+
+    public boolean a(double d0, double d1, double d2, double d3) {
         PathEntity pathentity = this.a((double) MathHelper.floor(d0), (double) ((int) d1), (double) MathHelper.floor(d2));
 
-        return this.a(pathentity, f);
+        return this.a(pathentity, d3);
     }
 
-    public PathEntity a(EntityLiving entityliving) {
-        return !this.k() ? null : this.b.findPath(this.a, entityliving, this.e, this.j, this.k, this.l, this.m);
+    public PathEntity a(Entity entity) {
+        return !this.l() ? null : this.b.findPath(this.a, entity, this.d(), this.j, this.k, this.l, this.m);
     }
 
-    public boolean a(EntityLiving entityliving, float f) {
-        PathEntity pathentity = this.a(entityliving);
+    public boolean a(Entity entity, double d0) {
+        PathEntity pathentity = this.a(entity);
 
-        return pathentity != null ? this.a(pathentity, f) : false;
+        return pathentity != null ? this.a(pathentity, d0) : false;
     }
 
-    public boolean a(PathEntity pathentity, float f) {
+    public boolean a(PathEntity pathentity, double d0) {
         if (pathentity == null) {
             this.c = null;
             return false;
@@ -84,14 +88,14 @@ public class Navigation {
             }
 
             if (this.f) {
-                this.m();
+                this.n();
             }
 
             if (this.c.d() == 0) {
                 return false;
             } else {
-                this.d = f;
-                Vec3D vec3d = this.i();
+                this.d = d0;
+                Vec3D vec3d = this.j();
 
                 this.h = this.g;
                 this.i.c = vec3d.c;
@@ -102,18 +106,18 @@ public class Navigation {
         }
     }
 
-    public PathEntity d() {
+    public PathEntity e() {
         return this.c;
     }
 
-    public void e() {
+    public void f() {
         ++this.g;
-        if (!this.f()) {
-            if (this.k()) {
-                this.h();
+        if (!this.g()) {
+            if (this.l()) {
+                this.i();
             }
 
-            if (!this.f()) {
+            if (!this.g()) {
                 Vec3D vec3d = this.c.a((Entity) this.a);
 
                 if (vec3d != null) {
@@ -123,8 +127,8 @@ public class Navigation {
         }
     }
 
-    private void h() {
-        Vec3D vec3d = this.i();
+    private void i() {
+        Vec3D vec3d = this.j();
         int i = this.c.d();
 
         for (int j = this.c.e(); j < this.c.d(); ++j) {
@@ -157,7 +161,7 @@ public class Navigation {
 
         if (this.g - this.h > 100) {
             if (vec3d.distanceSquared(this.i) < 2.25D) {
-                this.g();
+                this.h();
             }
 
             this.h = this.g;
@@ -167,19 +171,19 @@ public class Navigation {
         }
     }
 
-    public boolean f() {
+    public boolean g() {
         return this.c == null || this.c.b();
     }
 
-    public void g() {
+    public void h() {
         this.c = null;
     }
 
-    private Vec3D i() {
-        return this.b.getVec3DPool().create(this.a.locX, (double) this.j(), this.a.locZ);
+    private Vec3D j() {
+        return this.b.getVec3DPool().create(this.a.locX, (double) this.k(), this.a.locZ);
     }
 
-    private int j() {
+    private int k() {
         if (this.a.G() && this.m) {
             int i = (int) this.a.boundingBox.b;
             int j = this.b.getTypeId(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
@@ -201,15 +205,15 @@ public class Navigation {
         }
     }
 
-    private boolean k() {
-        return this.a.onGround || this.m && this.l();
+    private boolean l() {
+        return this.a.onGround || this.m && this.m();
     }
 
-    private boolean l() {
+    private boolean m() {
         return this.a.G() || this.a.I();
     }
 
-    private void m() {
+    private void n() {
         if (!this.b.l(MathHelper.floor(this.a.locX), (int) (this.a.boundingBox.b + 0.5D), MathHelper.floor(this.a.locZ))) {
             for (int i = 0; i < this.c.d(); ++i) {
                 PathPoint pathpoint = this.c.a(i);

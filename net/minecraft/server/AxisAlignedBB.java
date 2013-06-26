@@ -83,6 +83,17 @@ public class AxisAlignedBB {
         return a().a(d3, d4, d5, d6, d7, d8);
     }
 
+    public AxisAlignedBB a(AxisAlignedBB axisalignedbb) {
+        double d0 = Math.min(this.a, axisalignedbb.a);
+        double d1 = Math.min(this.b, axisalignedbb.b);
+        double d2 = Math.min(this.c, axisalignedbb.c);
+        double d3 = Math.max(this.d, axisalignedbb.d);
+        double d4 = Math.max(this.e, axisalignedbb.e);
+        double d5 = Math.max(this.f, axisalignedbb.f);
+
+        return a().a(d0, d1, d2, d3, d4, d5);
+    }
+
     public AxisAlignedBB c(double d0, double d1, double d2) {
         return a().a(this.a + d0, this.b + d1, this.c + d2, this.d + d0, this.e + d1, this.f + d2);
     }
@@ -171,7 +182,7 @@ public class AxisAlignedBB {
         }
     }
 
-    public boolean a(AxisAlignedBB axisalignedbb) {
+    public boolean b(AxisAlignedBB axisalignedbb) {
         return axisalignedbb.d > this.a && axisalignedbb.a < this.d ? (axisalignedbb.e > this.b && axisalignedbb.b < this.e ? axisalignedbb.f > this.c && axisalignedbb.c < this.f : false) : false;
     }
 
@@ -315,7 +326,7 @@ public class AxisAlignedBB {
         return vec3d == null ? false : vec3d.c >= this.a && vec3d.c <= this.d && vec3d.d >= this.b && vec3d.d <= this.e;
     }
 
-    public void c(AxisAlignedBB axisalignedbb) {
+    public void d(AxisAlignedBB axisalignedbb) {
         this.a = axisalignedbb.a;
         this.b = axisalignedbb.b;
         this.c = axisalignedbb.c;

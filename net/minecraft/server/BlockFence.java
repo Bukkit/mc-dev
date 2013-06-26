@@ -118,7 +118,11 @@ public class BlockFence extends Block {
         }
     }
 
-    public static boolean l_(int i) {
+    public static boolean n_(int i) {
         return i == Block.FENCE.id || i == Block.NETHER_FENCE.id;
+    }
+
+    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
+        return world.isStatic ? true : ItemLeash.a(entityhuman, world, i, j, k);
     }
 }

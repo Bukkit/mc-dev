@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
@@ -45,18 +45,18 @@ public class Packet51MapChunk extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.readInt();
-        this.e = datainputstream.readBoolean();
-        this.c = datainputstream.readShort();
-        this.d = datainputstream.readShort();
-        this.size = datainputstream.readInt();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readInt();
+        this.e = datainput.readBoolean();
+        this.c = datainput.readShort();
+        this.d = datainput.readShort();
+        this.size = datainput.readInt();
         if (buildBuffer.length < this.size) {
             buildBuffer = new byte[this.size];
         }
 
-        datainputstream.readFully(buildBuffer, 0, this.size);
+        datainput.readFully(buildBuffer, 0, this.size);
         int i = 0;
 
         int j;
@@ -84,14 +84,14 @@ public class Packet51MapChunk extends Packet {
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeInt(this.b);
-        dataoutputstream.writeBoolean(this.e);
-        dataoutputstream.writeShort((short) (this.c & '\uffff'));
-        dataoutputstream.writeShort((short) (this.d & '\uffff'));
-        dataoutputstream.writeInt(this.size);
-        dataoutputstream.write(this.buffer, 0, this.size);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeInt(this.b);
+        dataoutput.writeBoolean(this.e);
+        dataoutput.writeShort((short) (this.c & '\uffff'));
+        dataoutput.writeShort((short) (this.d & '\uffff'));
+        dataoutput.writeInt(this.size);
+        dataoutput.write(this.buffer, 0, this.size);
     }
 
     public void handle(Connection connection) {
@@ -152,7 +152,7 @@ public class Packet51MapChunk extends Packet {
             }
         }
 
-        if (!chunk.world.worldProvider.f) {
+        if (!chunk.world.worldProvider.g) {
             for (l = 0; l < achunksection.length; ++l) {
                 if (achunksection[l] != null && (!flag || !achunksection[l].isEmpty()) && (i & 1 << l) != 0) {
                     nibblearray = achunksection[l].getSkyLightArray();

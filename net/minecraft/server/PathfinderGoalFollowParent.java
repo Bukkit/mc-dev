@@ -7,12 +7,12 @@ public class PathfinderGoalFollowParent extends PathfinderGoal {
 
     EntityAnimal a;
     EntityAnimal b;
-    float c;
+    double c;
     private int d;
 
-    public PathfinderGoalFollowParent(EntityAnimal entityanimal, float f) {
+    public PathfinderGoalFollowParent(EntityAnimal entityanimal, double d0) {
         this.a = entityanimal;
-        this.c = f;
+        this.c = d0;
     }
 
     public boolean a() {
@@ -69,7 +69,7 @@ public class PathfinderGoalFollowParent extends PathfinderGoal {
     public void e() {
         if (--this.d <= 0) {
             this.d = 10;
-            this.a.getNavigation().a((EntityLiving) this.b, this.c);
+            this.a.getNavigation().a((Entity) this.b, this.c);
         }
     }
 }

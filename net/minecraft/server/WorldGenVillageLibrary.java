@@ -9,8 +9,8 @@ public class WorldGenVillageLibrary extends WorldGenVillagePiece {
 
     public WorldGenVillageLibrary(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(worldgenvillagestartpiece, i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
     }
 
     public static WorldGenVillageLibrary a(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
@@ -26,7 +26,7 @@ public class WorldGenVillageLibrary extends WorldGenVillagePiece {
                 return true;
             }
 
-            this.e.a(0, this.a - this.e.e + 9 - 1, 0);
+            this.f.a(0, this.a - this.f.e + 9 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 1, 1, 1, 7, 5, 4, 0, 0, false);

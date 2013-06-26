@@ -14,15 +14,15 @@ public class CommandSay extends CommandAbstract {
         return 1;
     }
 
-    public String a(ICommandListener icommandlistener) {
-        return icommandlistener.a("commands.say.usage", new Object[0]);
+    public String c(ICommandListener icommandlistener) {
+        return "commands.say.usage";
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0 && astring[0].length() > 0) {
             String s = a(icommandlistener, astring, 0, true);
 
-            MinecraftServer.getServer().getPlayerList().k(String.format("[%s] %s", new Object[] { icommandlistener.getName(), s}));
+            MinecraftServer.getServer().getPlayerList().sendMessage(ChatMessage.b("chat.type.announcement", new Object[] { icommandlistener.getName(), s}));
         } else {
             throw new ExceptionUsage("commands.say.usage", new Object[0]);
         }

@@ -52,7 +52,7 @@ public class BlockCake extends Block {
     }
 
     private void b(World world, int i, int j, int k, EntityHuman entityhuman) {
-        if (entityhuman.i(false)) {
+        if (entityhuman.g(false)) {
             entityhuman.getFoodData().eat(2, 0.1F);
             int l = world.getData(i, j, k) + 1;
 

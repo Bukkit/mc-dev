@@ -64,14 +64,14 @@ public class EntityMinecartTNT extends EntityMinecartAbstract {
         }
     }
 
-    protected void a(float f) {
+    protected void b(float f) {
         if (f >= 3.0F) {
             float f1 = f / 10.0F;
 
             this.c((double) (f1 * f1));
         }
 
-        super.a(f);
+        super.b(f);
     }
 
     public void a(int i, int j, int k, boolean flag) {
@@ -88,16 +88,16 @@ public class EntityMinecartTNT extends EntityMinecartAbstract {
         }
     }
 
-    public boolean ay() {
+    public boolean ax() {
         return this.fuse > -1;
     }
 
     public float a(Explosion explosion, World world, int i, int j, int k, Block block) {
-        return this.ay() && (BlockMinecartTrackAbstract.d_(block.id) || BlockMinecartTrackAbstract.d_(world, i, j + 1, k)) ? 0.0F : super.a(explosion, world, i, j, k, block);
+        return this.ax() && (BlockMinecartTrackAbstract.e_(block.id) || BlockMinecartTrackAbstract.d_(world, i, j + 1, k)) ? 0.0F : super.a(explosion, world, i, j, k, block);
     }
 
     public boolean a(Explosion explosion, World world, int i, int j, int k, int l, float f) {
-        return this.ay() && (BlockMinecartTrackAbstract.d_(l) || BlockMinecartTrackAbstract.d_(world, i, j + 1, k)) ? false : super.a(explosion, world, i, j, k, l, f);
+        return this.ax() && (BlockMinecartTrackAbstract.e_(l) || BlockMinecartTrackAbstract.d_(world, i, j + 1, k)) ? false : super.a(explosion, world, i, j, k, l, f);
     }
 
     protected void a(NBTTagCompound nbttagcompound) {

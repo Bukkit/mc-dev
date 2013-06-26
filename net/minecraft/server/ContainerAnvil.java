@@ -3,6 +3,8 @@ package net.minecraft.server;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class ContainerAnvil extends Container {
 
     private IInventory f = new InventoryCraftResult();
@@ -11,8 +13,8 @@ public class ContainerAnvil extends Container {
     private int i;
     private int j;
     private int k;
-    public int a = 0;
-    private int l = 0;
+    public int a;
+    private int l;
     private String m;
     private final EntityHuman n;
 
@@ -195,7 +197,13 @@ public class ContainerAnvil extends Container {
                 }
             }
 
-            if (this.m != null && this.m.length() > 0 && !this.m.equalsIgnoreCase(this.n.getLocale().c(itemstack.a())) && !this.m.equals(itemstack.getName())) {
+            if (StringUtils.isBlank(this.m)) {
+                if (itemstack.hasName()) {
+                    j = itemstack.g() ? 7 : itemstack.count * 5;
+                    i += j;
+                    itemstack1.t();
+                }
+            } else if (!this.m.equals(itemstack.getName())) {
                 j = itemstack.g() ? 7 : itemstack.count * 5;
                 i += j;
                 if (itemstack.hasName()) {
@@ -253,7 +261,6 @@ public class ContainerAnvil extends Container {
             }
 
             if (j == i && j > 0 && this.a >= 40) {
-                this.h.getLogger().info("Naming an item only, cost too high; giving discount to cap cost to 39 levels");
                 this.a = 39;
             }
 
@@ -311,7 +318,7 @@ public class ContainerAnvil extends Container {
         ItemStack itemstack = null;
         Slot slot = (Slot) this.c.get(i);
 
-        if (slot != null && slot.d()) {
+        if (slot != null && slot.e()) {
             ItemStack itemstack1 = slot.getItem();
 
             itemstack = itemstack1.cloneItemStack();
@@ -332,7 +339,7 @@ public class ContainerAnvil extends Container {
             if (itemstack1.count == 0) {
                 slot.set((ItemStack) null);
             } else {
-                slot.e();
+                slot.f();
             }
 
             if (itemstack1.count == itemstack.count) {
@@ -347,8 +354,14 @@ public class ContainerAnvil extends Container {
 
     public void a(String s) {
         this.m = s;
-        if (this.getSlot(2).d()) {
-            this.getSlot(2).getItem().c(this.m);
+        if (this.getSlot(2).e()) {
+            ItemStack itemstack = this.getSlot(2).getItem();
+
+            if (StringUtils.isBlank(s)) {
+                itemstack.t();
+            } else {
+                itemstack.c(this.m);
+            }
         }
 
         this.e();

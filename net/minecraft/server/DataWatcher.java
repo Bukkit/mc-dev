@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -60,6 +60,10 @@ public class DataWatcher {
         return ((Integer) this.i(i).b()).intValue();
     }
 
+    public float getFloat(int i) {
+        return ((Float) this.i(i).b()).floatValue();
+    }
+
     public String getString(int i) {
         return (String) this.i(i).b();
     }
@@ -106,18 +110,18 @@ public class DataWatcher {
         return this.d;
     }
 
-    public static void a(List list, DataOutputStream dataoutputstream) {
+    public static void a(List list, DataOutput dataoutput) {
         if (list != null) {
             Iterator iterator = list.iterator();
 
             while (iterator.hasNext()) {
                 WatchableObject watchableobject = (WatchableObject) iterator.next();
 
-                a(dataoutputstream, watchableobject);
+                a(dataoutput, watchableobject);
             }
         }
 
-        dataoutputstream.writeByte(127);
+        dataoutput.writeByte(127);
     }
 
     public List b() {
@@ -147,18 +151,18 @@ public class DataWatcher {
         return arraylist;
     }
 
-    public void a(DataOutputStream dataoutputstream) {
+    public void a(DataOutput dataoutput) {
         this.e.readLock().lock();
         Iterator iterator = this.c.values().iterator();
 
         while (iterator.hasNext()) {
             WatchableObject watchableobject = (WatchableObject) iterator.next();
 
-            a(dataoutputstream, watchableobject);
+            a(dataoutput, watchableobject);
         }
 
         this.e.readLock().unlock();
-        dataoutputstream.writeByte(127);
+        dataoutput.writeByte(127);
     }
 
     public List c() {
@@ -179,50 +183,50 @@ public class DataWatcher {
         return arraylist;
     }
 
-    private static void a(DataOutputStream dataoutputstream, WatchableObject watchableobject) {
+    private static void a(DataOutput dataoutput, WatchableObject watchableobject) {
         int i = (watchableobject.c() << 5 | watchableobject.a() & 31) & 255;
 
-        dataoutputstream.writeByte(i);
+        dataoutput.writeByte(i);
         switch (watchableobject.c()) {
         case 0:
-            dataoutputstream.writeByte(((Byte) watchableobject.b()).byteValue());
+            dataoutput.writeByte(((Byte) watchableobject.b()).byteValue());
             break;
 
         case 1:
-            dataoutputstream.writeShort(((Short) watchableobject.b()).shortValue());
+            dataoutput.writeShort(((Short) watchableobject.b()).shortValue());
             break;
 
         case 2:
-            dataoutputstream.writeInt(((Integer) watchableobject.b()).intValue());
+            dataoutput.writeInt(((Integer) watchableobject.b()).intValue());
             break;
 
         case 3:
-            dataoutputstream.writeFloat(((Float) watchableobject.b()).floatValue());
+            dataoutput.writeFloat(((Float) watchableobject.b()).floatValue());
             break;
 
         case 4:
-            Packet.a((String) watchableobject.b(), dataoutputstream);
+            Packet.a((String) watchableobject.b(), dataoutput);
             break;
 
         case 5:
             ItemStack itemstack = (ItemStack) watchableobject.b();
 
-            Packet.a(itemstack, dataoutputstream);
+            Packet.a(itemstack, dataoutput);
             break;
 
         case 6:
             ChunkCoordinates chunkcoordinates = (ChunkCoordinates) watchableobject.b();
 
-            dataoutputstream.writeInt(chunkcoordinates.x);
-            dataoutputstream.writeInt(chunkcoordinates.y);
-            dataoutputstream.writeInt(chunkcoordinates.z);
+            dataoutput.writeInt(chunkcoordinates.x);
+            dataoutput.writeInt(chunkcoordinates.y);
+            dataoutput.writeInt(chunkcoordinates.z);
         }
     }
 
-    public static List a(DataInputStream datainputstream) {
+    public static List a(DataInput datainput) {
         ArrayList arraylist = null;
 
-        for (byte b0 = datainputstream.readByte(); b0 != 127; b0 = datainputstream.readByte()) {
+        for (byte b0 = datainput.readByte(); b0 != 127; b0 = datainput.readByte()) {
             if (arraylist == null) {
                 arraylist = new ArrayList();
             }
@@ -233,33 +237,33 @@ public class DataWatcher {
 
             switch (i) {
             case 0:
-                watchableobject = new WatchableObject(i, j, Byte.valueOf(datainputstream.readByte()));
+                watchableobject = new WatchableObject(i, j, Byte.valueOf(datainput.readByte()));
                 break;
 
             case 1:
-                watchableobject = new WatchableObject(i, j, Short.valueOf(datainputstream.readShort()));
+                watchableobject = new WatchableObject(i, j, Short.valueOf(datainput.readShort()));
                 break;
 
             case 2:
-                watchableobject = new WatchableObject(i, j, Integer.valueOf(datainputstream.readInt()));
+                watchableobject = new WatchableObject(i, j, Integer.valueOf(datainput.readInt()));
                 break;
 
             case 3:
-                watchableobject = new WatchableObject(i, j, Float.valueOf(datainputstream.readFloat()));
+                watchableobject = new WatchableObject(i, j, Float.valueOf(datainput.readFloat()));
                 break;
 
             case 4:
-                watchableobject = new WatchableObject(i, j, Packet.a(datainputstream, 64));
+                watchableobject = new WatchableObject(i, j, Packet.a(datainput, 64));
                 break;
 
             case 5:
-                watchableobject = new WatchableObject(i, j, Packet.c(datainputstream));
+                watchableobject = new WatchableObject(i, j, Packet.c(datainput));
                 break;
 
             case 6:
-                int k = datainputstream.readInt();
-                int l = datainputstream.readInt();
-                int i1 = datainputstream.readInt();
+                int k = datainput.readInt();
+                int l = datainput.readInt();
+                int i1 = datainput.readInt();
 
                 watchableobject = new WatchableObject(i, j, new ChunkCoordinates(k, l, i1));
             }
@@ -272,6 +276,10 @@ public class DataWatcher {
 
     public boolean d() {
         return this.a;
+    }
+
+    public void e() {
+        this.d = false;
     }
 
     static {

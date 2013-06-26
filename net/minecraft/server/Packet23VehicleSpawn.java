@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet23VehicleSpawn extends Packet {
 
@@ -68,35 +68,35 @@ public class Packet23VehicleSpawn extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.j = datainputstream.readByte();
-        this.b = datainputstream.readInt();
-        this.c = datainputstream.readInt();
-        this.d = datainputstream.readInt();
-        this.h = datainputstream.readByte();
-        this.i = datainputstream.readByte();
-        this.k = datainputstream.readInt();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.j = datainput.readByte();
+        this.b = datainput.readInt();
+        this.c = datainput.readInt();
+        this.d = datainput.readInt();
+        this.h = datainput.readByte();
+        this.i = datainput.readByte();
+        this.k = datainput.readInt();
         if (this.k > 0) {
-            this.e = datainputstream.readShort();
-            this.f = datainputstream.readShort();
-            this.g = datainputstream.readShort();
+            this.e = datainput.readShort();
+            this.f = datainput.readShort();
+            this.g = datainput.readShort();
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeByte(this.j);
-        dataoutputstream.writeInt(this.b);
-        dataoutputstream.writeInt(this.c);
-        dataoutputstream.writeInt(this.d);
-        dataoutputstream.writeByte(this.h);
-        dataoutputstream.writeByte(this.i);
-        dataoutputstream.writeInt(this.k);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeByte(this.j);
+        dataoutput.writeInt(this.b);
+        dataoutput.writeInt(this.c);
+        dataoutput.writeInt(this.d);
+        dataoutput.writeByte(this.h);
+        dataoutput.writeByte(this.i);
+        dataoutput.writeInt(this.k);
         if (this.k > 0) {
-            dataoutputstream.writeShort(this.e);
-            dataoutputstream.writeShort(this.f);
-            dataoutputstream.writeShort(this.g);
+            dataoutput.writeShort(this.e);
+            dataoutput.writeShort(this.f);
+            dataoutput.writeShort(this.g);
         }
     }
 

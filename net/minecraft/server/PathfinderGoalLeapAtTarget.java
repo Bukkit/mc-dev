@@ -2,12 +2,12 @@ package net.minecraft.server;
 
 public class PathfinderGoalLeapAtTarget extends PathfinderGoal {
 
-    EntityLiving a;
+    EntityInsentient a;
     EntityLiving b;
     float c;
 
-    public PathfinderGoalLeapAtTarget(EntityLiving entityliving, float f) {
-        this.a = entityliving;
+    public PathfinderGoalLeapAtTarget(EntityInsentient entityinsentient, float f) {
+        this.a = entityinsentient;
         this.c = f;
         this.a(5);
     }
@@ -19,7 +19,7 @@ public class PathfinderGoalLeapAtTarget extends PathfinderGoal {
         } else {
             double d0 = this.a.e(this.b);
 
-            return d0 >= 4.0D && d0 <= 16.0D ? (!this.a.onGround ? false : this.a.aE().nextInt(5) == 0) : false;
+            return d0 >= 4.0D && d0 <= 16.0D ? (!this.a.onGround ? false : this.a.aB().nextInt(5) == 0) : false;
         }
     }
 

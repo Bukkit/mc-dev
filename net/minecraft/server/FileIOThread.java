@@ -8,9 +8,9 @@ public class FileIOThread implements Runnable {
 
     public static final FileIOThread a = new FileIOThread();
     private List b = Collections.synchronizedList(new ArrayList());
-    private volatile long c = 0L;
-    private volatile long d = 0L;
-    private volatile boolean e = false;
+    private volatile long c;
+    private volatile long d;
+    private volatile boolean e;
 
     private FileIOThread() {
         Thread thread = new Thread(this, "File IO Thread");

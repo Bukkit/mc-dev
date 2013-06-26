@@ -11,7 +11,7 @@ public abstract class NBTBase {
 
     abstract void write(DataOutput dataoutput);
 
-    abstract void load(DataInput datainput);
+    abstract void load(DataInput datainput, int i);
 
     public abstract byte getTypeId();
 
@@ -37,7 +37,11 @@ public abstract class NBTBase {
         return this.name == null ? "" : this.name;
     }
 
-    public static NBTBase b(DataInput datainput) {
+    public static NBTBase a(DataInput datainput) {
+        return b(datainput, 0);
+    }
+
+    public static NBTBase b(DataInput datainput, int i) {
         byte b0 = datainput.readByte();
 
         if (b0 == 0) {
@@ -47,7 +51,7 @@ public abstract class NBTBase {
             NBTBase nbtbase = createTag(b0, s);
 
             try {
-                nbtbase.load(datainput);
+                nbtbase.load(datainput, i);
                 return nbtbase;
             } catch (IOException ioexception) {
                 CrashReport crashreport = CrashReport.a((Throwable) ioexception, "Loading NBT data");

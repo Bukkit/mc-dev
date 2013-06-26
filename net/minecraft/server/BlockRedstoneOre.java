@@ -107,7 +107,7 @@ public class BlockRedstoneOre extends Block {
         }
     }
 
-    protected ItemStack c_(int i) {
+    protected ItemStack d_(int i) {
         return new ItemStack(Block.REDSTONE_ORE);
     }
 }

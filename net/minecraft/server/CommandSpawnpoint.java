@@ -14,12 +14,12 @@ public class CommandSpawnpoint extends CommandAbstract {
         return 2;
     }
 
-    public String a(ICommandListener icommandlistener) {
-        return icommandlistener.a("commands.spawnpoint.usage", new Object[0]);
+    public String c(ICommandListener icommandlistener) {
+        return "commands.spawnpoint.usage";
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {
-        EntityPlayer entityplayer = astring.length == 0 ? c(icommandlistener) : c(icommandlistener, astring[0]);
+        EntityPlayer entityplayer = astring.length == 0 ? b(icommandlistener) : d(icommandlistener, astring[0]);
 
         if (astring.length == 4) {
             if (entityplayer.world != null) {

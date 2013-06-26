@@ -19,7 +19,7 @@ public class SlotMerchantResult extends Slot {
     }
 
     public ItemStack a(int i) {
-        if (this.d()) {
+        if (this.e()) {
             this.c += Math.min(i, this.getItem().count);
         }
 
@@ -45,6 +45,7 @@ public class SlotMerchantResult extends Slot {
             ItemStack itemstack2 = this.a.getItem(1);
 
             if (this.a(merchantrecipe, itemstack1, itemstack2) || this.a(merchantrecipe, itemstack2, itemstack1)) {
+                this.d.a(merchantrecipe);
                 if (itemstack1 != null && itemstack1.count <= 0) {
                     itemstack1 = null;
                 }
@@ -55,7 +56,6 @@ public class SlotMerchantResult extends Slot {
 
                 this.a.setItem(0, itemstack1);
                 this.a.setItem(1, itemstack2);
-                this.d.a(merchantrecipe);
             }
         }
     }

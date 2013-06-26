@@ -3,9 +3,9 @@ package net.minecraft.server;
 public class ContainerFurnace extends Container {
 
     private TileEntityFurnace furnace;
-    private int f = 0;
-    private int g = 0;
-    private int h = 0;
+    private int f;
+    private int g;
+    private int h;
 
     public ContainerFurnace(PlayerInventory playerinventory, TileEntityFurnace tileentityfurnace) {
         this.furnace = tileentityfurnace;
@@ -65,7 +65,7 @@ public class ContainerFurnace extends Container {
         ItemStack itemstack = null;
         Slot slot = (Slot) this.c.get(i);
 
-        if (slot != null && slot.d()) {
+        if (slot != null && slot.e()) {
             ItemStack itemstack1 = slot.getItem();
 
             itemstack = itemstack1.cloneItemStack();
@@ -98,7 +98,7 @@ public class ContainerFurnace extends Container {
             if (itemstack1.count == 0) {
                 slot.set((ItemStack) null);
             } else {
-                slot.e();
+                slot.f();
             }
 
             if (itemstack1.count == itemstack.count) {

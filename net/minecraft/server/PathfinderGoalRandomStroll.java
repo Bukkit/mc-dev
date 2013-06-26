@@ -6,18 +6,18 @@ public class PathfinderGoalRandomStroll extends PathfinderGoal {
     private double b;
     private double c;
     private double d;
-    private float e;
+    private double e;
 
-    public PathfinderGoalRandomStroll(EntityCreature entitycreature, float f) {
+    public PathfinderGoalRandomStroll(EntityCreature entitycreature, double d0) {
         this.a = entitycreature;
-        this.e = f;
+        this.e = d0;
         this.a(1);
     }
 
     public boolean a() {
-        if (this.a.aH() >= 100) {
+        if (this.a.aE() >= 100) {
             return false;
-        } else if (this.a.aE().nextInt(120) != 0) {
+        } else if (this.a.aB().nextInt(120) != 0) {
             return false;
         } else {
             Vec3D vec3d = RandomPositionGenerator.a(this.a, 10, 7);
@@ -34,7 +34,7 @@ public class PathfinderGoalRandomStroll extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.a.getNavigation().f();
+        return !this.a.getNavigation().g();
     }
 
     public void c() {

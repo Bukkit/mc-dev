@@ -19,11 +19,15 @@ public class CommandTell extends CommandAbstract {
         return 0;
     }
 
+    public String c(ICommandListener icommandlistener) {
+        return "commands.message.usage";
+    }
+
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length < 2) {
             throw new ExceptionUsage("commands.message.usage", new Object[0]);
         } else {
-            EntityPlayer entityplayer = c(icommandlistener, astring[0]);
+            EntityPlayer entityplayer = d(icommandlistener, astring[0]);
 
             if (entityplayer == null) {
                 throw new ExceptionPlayerNotFound();
@@ -32,8 +36,8 @@ public class CommandTell extends CommandAbstract {
             } else {
                 String s = a(icommandlistener, astring, 1, !(icommandlistener instanceof EntityHuman));
 
-                entityplayer.sendMessage(EnumChatFormat.GRAY + "" + EnumChatFormat.ITALIC + entityplayer.a("commands.message.display.incoming", new Object[] { icommandlistener.getName(), s}));
-                icommandlistener.sendMessage(EnumChatFormat.GRAY + "" + EnumChatFormat.ITALIC + icommandlistener.a("commands.message.display.outgoing", new Object[] { entityplayer.getName(), s}));
+                entityplayer.sendMessage(ChatMessage.b("commands.message.display.incoming", new Object[] { icommandlistener.getName(), s}).a(EnumChatFormat.GRAY).b(Boolean.valueOf(true)));
+                icommandlistener.sendMessage(ChatMessage.b("commands.message.display.outgoing", new Object[] { entityplayer.getName(), s}).a(EnumChatFormat.GRAY).b(Boolean.valueOf(true)));
             }
         }
     }

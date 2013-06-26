@@ -5,7 +5,7 @@ public class FoodMetaData {
     private int foodLevel = 20;
     private float saturationLevel = 5.0F;
     private float exhaustionLevel;
-    private int foodTickTimer = 0;
+    private int foodTickTimer;
     private int e = 20;
 
     public FoodMetaData() {}
@@ -32,17 +32,18 @@ public class FoodMetaData {
             }
         }
 
-        if (this.foodLevel >= 18 && entityhuman.co()) {
+        if (entityhuman.world.getGameRules().getBoolean("naturalRegeneration") && this.foodLevel >= 18 && entityhuman.bE()) {
             ++this.foodTickTimer;
             if (this.foodTickTimer >= 80) {
-                entityhuman.heal(1);
+                entityhuman.heal(1.0F);
+                this.a(3.0F);
                 this.foodTickTimer = 0;
             }
         } else if (this.foodLevel <= 0) {
             ++this.foodTickTimer;
             if (this.foodTickTimer >= 80) {
-                if (entityhuman.getHealth() > 10 || i >= 3 || entityhuman.getHealth() > 1 && i >= 2) {
-                    entityhuman.damageEntity(DamageSource.STARVE, 1);
+                if (entityhuman.getHealth() > 10.0F || i >= 3 || entityhuman.getHealth() > 1.0F && i >= 2) {
+                    entityhuman.damageEntity(DamageSource.STARVE, 1.0F);
                 }
 
                 this.foodTickTimer = 0;

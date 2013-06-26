@@ -16,6 +16,8 @@ public class GameRules {
         this.a("doMobLoot", "true");
         this.a("doTileDrops", "true");
         this.a("commandBlockOutput", "true");
+        this.a("naturalRegeneration", "true");
+        this.a("doDaylightCycle", "true");
     }
 
     public void a(String s, String s1) {

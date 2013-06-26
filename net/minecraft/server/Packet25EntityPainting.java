@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet25EntityPainting extends Packet {
 
@@ -23,22 +23,22 @@ public class Packet25EntityPainting extends Packet {
         this.f = entitypainting.art.B;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.f = a(datainputstream, EnumArt.A);
-        this.b = datainputstream.readInt();
-        this.c = datainputstream.readInt();
-        this.d = datainputstream.readInt();
-        this.e = datainputstream.readInt();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.f = a(datainput, EnumArt.A);
+        this.b = datainput.readInt();
+        this.c = datainput.readInt();
+        this.d = datainput.readInt();
+        this.e = datainput.readInt();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        a(this.f, dataoutputstream);
-        dataoutputstream.writeInt(this.b);
-        dataoutputstream.writeInt(this.c);
-        dataoutputstream.writeInt(this.d);
-        dataoutputstream.writeInt(this.e);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        a(this.f, dataoutput);
+        dataoutput.writeInt(this.b);
+        dataoutput.writeInt(this.c);
+        dataoutput.writeInt(this.d);
+        dataoutput.writeInt(this.e);
     }
 
     public void handle(Connection connection) {

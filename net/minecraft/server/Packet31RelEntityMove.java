@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet31RelEntityMove extends Packet30Entity {
 
@@ -14,18 +14,18 @@ public class Packet31RelEntityMove extends Packet30Entity {
         this.d = b2;
     }
 
-    public void a(DataInputStream datainputstream) {
-        super.a(datainputstream);
-        this.b = datainputstream.readByte();
-        this.c = datainputstream.readByte();
-        this.d = datainputstream.readByte();
+    public void a(DataInput datainput) {
+        super.a(datainput);
+        this.b = datainput.readByte();
+        this.c = datainput.readByte();
+        this.d = datainput.readByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        super.a(dataoutputstream);
-        dataoutputstream.writeByte(this.b);
-        dataoutputstream.writeByte(this.c);
-        dataoutputstream.writeByte(this.d);
+    public void a(DataOutput dataoutput) {
+        super.a(dataoutput);
+        dataoutput.writeByte(this.b);
+        dataoutput.writeByte(this.c);
+        dataoutput.writeByte(this.d);
     }
 
     public int a() {

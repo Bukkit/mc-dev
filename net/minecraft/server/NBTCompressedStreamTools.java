@@ -67,7 +67,7 @@ public class NBTCompressedStreamTools {
     }
 
     public static NBTTagCompound a(DataInput datainput) {
-        NBTBase nbtbase = NBTBase.b(datainput);
+        NBTBase nbtbase = NBTBase.a(datainput);
 
         if (nbtbase instanceof NBTTagCompound) {
             return (NBTTagCompound) nbtbase;

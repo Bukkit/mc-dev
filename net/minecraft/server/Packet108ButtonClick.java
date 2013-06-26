@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet108ButtonClick extends Packet {
 
@@ -14,14 +14,14 @@ public class Packet108ButtonClick extends Packet {
         connection.a(this);
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readByte();
-        this.b = datainputstream.readByte();
+    public void a(DataInput datainput) {
+        this.a = datainput.readByte();
+        this.b = datainput.readByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeByte(this.a);
-        dataoutputstream.writeByte(this.b);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeByte(this.a);
+        dataoutput.writeByte(this.b);
     }
 
     public int a() {

@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class WorldGenDungeons extends WorldGenerator {
 
+    private static final StructurePieceTreasure[] a = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.SADDLE.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 4, 10), new StructurePieceTreasure(Item.BREAD.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.WHEAT.id, 0, 1, 4, 10), new StructurePieceTreasure(Item.SULPHUR.id, 0, 1, 4, 10), new StructurePieceTreasure(Item.STRING.id, 0, 1, 4, 10), new StructurePieceTreasure(Item.BUCKET.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.GOLDEN_APPLE.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.REDSTONE.id, 0, 1, 4, 10), new StructurePieceTreasure(Item.RECORD_1.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.RECORD_2.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.NAME_TAG.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.HORSE_ARMOR_GOLD.id, 0, 1, 1, 2), new StructurePieceTreasure(Item.HORSE_ARMOR_IRON.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.HORSE_ARMOR_DIAMOND.id, 0, 1, 1, 1)};
+
     public WorldGenDungeons() {}
 
     public boolean a(World world, Random random, int i, int j, int k) {
@@ -62,7 +64,7 @@ public class WorldGenDungeons extends WorldGenerator {
 
                 while (true) {
                     if (l1 < 3) {
-                        label210: {
+                        label101: {
                             i2 = i + random.nextInt(l * 2 + 1) - l;
                             int j2 = k + random.nextInt(i1 * 2 + 1) - i1;
 
@@ -87,18 +89,13 @@ public class WorldGenDungeons extends WorldGenerator {
 
                                 if (k2 == 1) {
                                     world.setTypeIdAndData(i2, j, j2, Block.CHEST.id, 0, 2);
+                                    StructurePieceTreasure[] astructurepiecetreasure = StructurePieceTreasure.a(a, new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)});
                                     TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i2, j, j2);
 
                                     if (tileentitychest != null) {
-                                        for (int l2 = 0; l2 < 8; ++l2) {
-                                            ItemStack itemstack = this.a(random);
-
-                                            if (itemstack != null) {
-                                                tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
-                                            }
-                                        }
+                                        StructurePieceTreasure.a(random, astructurepiecetreasure, (IInventory) tileentitychest, 8);
                                     }
-                                    break label210;
+                                    break label101;
                                 }
                             }
 
@@ -116,7 +113,7 @@ public class WorldGenDungeons extends WorldGenerator {
             TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(i, j, k);
 
             if (tileentitymobspawner != null) {
-                tileentitymobspawner.a().a(this.b(random));
+                tileentitymobspawner.a().a(this.a(random));
             } else {
                 System.err.println("Failed to fetch mob spawner entity at (" + i + ", " + j + ", " + k + ")");
             }
@@ -127,13 +124,7 @@ public class WorldGenDungeons extends WorldGenerator {
         }
     }
 
-    private ItemStack a(Random random) {
-        int i = random.nextInt(12);
-
-        return i == 0 ? new ItemStack(Item.SADDLE) : (i == 1 ? new ItemStack(Item.IRON_INGOT, random.nextInt(4) + 1) : (i == 2 ? new ItemStack(Item.BREAD) : (i == 3 ? new ItemStack(Item.WHEAT, random.nextInt(4) + 1) : (i == 4 ? new ItemStack(Item.SULPHUR, random.nextInt(4) + 1) : (i == 5 ? new ItemStack(Item.STRING, random.nextInt(4) + 1) : (i == 6 ? new ItemStack(Item.BUCKET) : (i == 7 && random.nextInt(100) == 0 ? new ItemStack(Item.GOLDEN_APPLE) : (i == 8 && random.nextInt(2) == 0 ? new ItemStack(Item.REDSTONE, random.nextInt(4) + 1) : (i == 9 && random.nextInt(10) == 0 ? new ItemStack(Item.byId[Item.RECORD_1.id + random.nextInt(2)]) : (i == 10 ? new ItemStack(Item.INK_SACK, 1, 3) : (i == 11 ? Item.ENCHANTED_BOOK.a(random) : null)))))))))));
-    }
-
-    private String b(Random random) {
+    private String a(Random random) {
         int i = random.nextInt(4);
 
         return i == 0 ? "Skeleton" : (i == 1 ? "Zombie" : (i == 2 ? "Zombie" : (i == 3 ? "Spider" : "")));

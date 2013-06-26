@@ -6,19 +6,19 @@ public class PathfinderGoalMoveTowardsRestriction extends PathfinderGoal {
     private double b;
     private double c;
     private double d;
-    private float e;
+    private double e;
 
-    public PathfinderGoalMoveTowardsRestriction(EntityCreature entitycreature, float f) {
+    public PathfinderGoalMoveTowardsRestriction(EntityCreature entitycreature, double d0) {
         this.a = entitycreature;
-        this.e = f;
+        this.e = d0;
         this.a(1);
     }
 
     public boolean a() {
-        if (this.a.aL()) {
+        if (this.a.bK()) {
             return false;
         } else {
-            ChunkCoordinates chunkcoordinates = this.a.aM();
+            ChunkCoordinates chunkcoordinates = this.a.bL();
             Vec3D vec3d = RandomPositionGenerator.a(this.a, 16, 7, this.a.world.getVec3DPool().create((double) chunkcoordinates.x, (double) chunkcoordinates.y, (double) chunkcoordinates.z));
 
             if (vec3d == null) {
@@ -33,7 +33,7 @@ public class PathfinderGoalMoveTowardsRestriction extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.a.getNavigation().f();
+        return !this.a.getNavigation().g();
     }
 
     public void c() {

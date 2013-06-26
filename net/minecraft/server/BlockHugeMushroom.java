@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockHugeMushroom extends Block {
 
-    private static final String[] a = new String[] { "mushroom_skin_brown", "mushroom_skin_red"};
+    private static final String[] a = new String[] { "skin_brown", "skin_red"};
     private final int b;
 
     public BlockHugeMushroom(int i, Material material, int j) {

@@ -11,19 +11,19 @@ import java.util.concurrent.Callable;
 
 public class DedicatedServer extends MinecraftServer implements IMinecraftServer {
 
-    private final List k = Collections.synchronizedList(new ArrayList());
-    private final IConsoleLogManager l;
-    private RemoteStatusListener m;
-    private RemoteControlListener n;
+    private final List l = Collections.synchronizedList(new ArrayList());
+    private final IConsoleLogManager m;
+    private RemoteStatusListener n;
+    private RemoteControlListener o;
     private PropertyManager propertyManager;
     private boolean generateStructures;
-    private EnumGamemode q;
-    private ServerConnection r;
-    private boolean s = false;
+    private EnumGamemode r;
+    private ServerConnection s;
+    private boolean t;
 
     public DedicatedServer(File file1) {
         super(file1);
-        this.l = new ConsoleLogManager("Minecraft-Server", (String) null, (new File(file1, "server.log")).getAbsolutePath());
+        this.m = new ConsoleLogManager("Minecraft-Server", (String) null, (new File(file1, "server.log")).getAbsolutePath());
         new ThreadSleepForever(this);
     }
 
@@ -32,18 +32,18 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
 
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
-        this.getLogger().info("Starting minecraft server version 1.5.2");
+        this.getLogger().info("Starting minecraft server version 1.6.1");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             this.getLogger().warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
         }
 
         this.getLogger().info("Loading properties");
         this.propertyManager = new PropertyManager(new File("server.properties"), this.getLogger());
-        if (this.I()) {
-            this.d("127.0.0.1");
+        if (this.K()) {
+            this.c("127.0.0.1");
         } else {
             this.setOnlineMode(this.propertyManager.getBoolean("online-mode", true));
-            this.d(this.propertyManager.getString("server-ip", ""));
+            this.c(this.propertyManager.getString("server-ip", ""));
         }
 
         this.setSpawnAnimals(this.propertyManager.getBoolean("spawn-animals", true));
@@ -62,24 +62,24 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         this.generateStructures = this.propertyManager.getBoolean("generate-structures", true);
         int i = this.propertyManager.getInt("gamemode", EnumGamemode.SURVIVAL.a());
 
-        this.q = WorldSettings.a(i);
-        this.getLogger().info("Default game type: " + this.q);
+        this.r = WorldSettings.a(i);
+        this.getLogger().info("Default game type: " + this.r);
         InetAddress inetaddress = null;
 
         if (this.getServerIp().length() > 0) {
             inetaddress = InetAddress.getByName(this.getServerIp());
         }
 
-        if (this.G() < 0) {
+        if (this.I() < 0) {
             this.setPort(this.propertyManager.getInt("server-port", 25565));
         }
 
         this.getLogger().info("Generating keypair");
         this.a(MinecraftEncryption.b());
-        this.getLogger().info("Starting Minecraft server on " + (this.getServerIp().length() == 0 ? "*" : this.getServerIp()) + ":" + this.G());
+        this.getLogger().info("Starting Minecraft server on " + (this.getServerIp().length() == 0 ? "*" : this.getServerIp()) + ":" + this.I());
 
         try {
-            this.r = new DedicatedServerConnection(this, inetaddress, this.G());
+            this.s = new DedicatedServerConnection(this, inetaddress, this.I());
         } catch (IOException ioexception) {
             this.getLogger().warning("**** FAILED TO BIND TO PORT!");
             this.getLogger().warning("The exception was: {0}", new Object[] { ioexception.toString()});
@@ -97,8 +97,8 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         this.a((PlayerList) (new DedicatedPlayerList(this)));
         long j = System.nanoTime();
 
-        if (this.J() == null) {
-            this.l(this.propertyManager.getString("level-name", "world"));
+        if (this.L() == null) {
+            this.k(this.propertyManager.getString("level-name", "world"));
         }
 
         String s = this.propertyManager.getString("level-seed", "");
@@ -128,22 +128,22 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         this.d((this.getMaxBuildHeight() + 8) / 16 * 16);
         this.d(MathHelper.a(this.getMaxBuildHeight(), 64, 256));
         this.propertyManager.a("max-build-height", Integer.valueOf(this.getMaxBuildHeight()));
-        this.getLogger().info("Preparing level \"" + this.J() + "\"");
-        this.a(this.J(), this.J(), k, worldtype, s2);
+        this.getLogger().info("Preparing level \"" + this.L() + "\"");
+        this.a(this.L(), this.L(), k, worldtype, s2);
         long i1 = System.nanoTime() - j;
         String s3 = String.format("%.3fs", new Object[] { Double.valueOf((double) i1 / 1.0E9D)});
 
         this.getLogger().info("Done (" + s3 + ")! For help, type \"help\" or \"?\"");
         if (this.propertyManager.getBoolean("enable-query", false)) {
             this.getLogger().info("Starting GS4 status listener");
-            this.m = new RemoteStatusListener(this);
-            this.m.a();
+            this.n = new RemoteStatusListener(this);
+            this.n.a();
         }
 
         if (this.propertyManager.getBoolean("enable-rcon", false)) {
             this.getLogger().info("Starting remote control listener");
-            this.n = new RemoteControlListener(this);
-            this.n.a();
+            this.o = new RemoteControlListener(this);
+            this.o.a();
         }
 
         return true;
@@ -154,7 +154,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
     }
 
     public EnumGamemode getGamemode() {
-        return this.q;
+        return this.r;
     }
 
     public int getDifficulty() {
@@ -167,7 +167,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
 
     protected void a(CrashReport crashreport) {
         while (this.isRunning()) {
-            this.an();
+            this.ar();
 
             try {
                 Thread.sleep(10L);
@@ -184,13 +184,13 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         return crashreport;
     }
 
-    protected void p() {
+    protected void r() {
         System.exit(0);
     }
 
-    protected void r() {
-        super.r();
-        this.an();
+    protected void t() {
+        super.t();
+        this.ar();
     }
 
     public boolean getAllowNether() {
@@ -202,8 +202,8 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
     }
 
     public void a(MojangStatisticsGenerator mojangstatisticsgenerator) {
-        mojangstatisticsgenerator.a("whitelist_enabled", Boolean.valueOf(this.ao().getHasWhitelist()));
-        mojangstatisticsgenerator.a("whitelist_count", Integer.valueOf(this.ao().getWhitelisted().size()));
+        mojangstatisticsgenerator.a("whitelist_enabled", Boolean.valueOf(this.as().getHasWhitelist()));
+        mojangstatisticsgenerator.a("whitelist_count", Integer.valueOf(this.as().getWhitelisted().size()));
         super.a(mojangstatisticsgenerator);
     }
 
@@ -212,27 +212,27 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
     }
 
     public void issueCommand(String s, ICommandListener icommandlistener) {
-        this.k.add(new ServerCommand(s, icommandlistener));
+        this.l.add(new ServerCommand(s, icommandlistener));
     }
 
-    public void an() {
-        while (!this.k.isEmpty()) {
-            ServerCommand servercommand = (ServerCommand) this.k.remove(0);
+    public void ar() {
+        while (!this.l.isEmpty()) {
+            ServerCommand servercommand = (ServerCommand) this.l.remove(0);
 
             this.getCommandHandler().a(servercommand.source, servercommand.command);
         }
     }
 
-    public boolean T() {
+    public boolean V() {
         return true;
     }
 
-    public DedicatedPlayerList ao() {
+    public DedicatedPlayerList as() {
         return (DedicatedPlayerList) super.getPlayerList();
     }
 
-    public ServerConnection ae() {
-        return this.r;
+    public ServerConnection ag() {
+        return this.s;
     }
 
     public int a(String s, int i) {
@@ -261,13 +261,13 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         return file1 != null ? file1.getAbsolutePath() : "No settings file";
     }
 
-    public void ap() {
+    public void at() {
         ServerGUI.a(this);
-        this.s = true;
+        this.t = true;
     }
 
-    public boolean ag() {
-        return this.s;
+    public boolean ai() {
+        return this.t;
     }
 
     public String a(EnumGamemode enumgamemode, boolean flag) {
@@ -285,9 +285,9 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
         if (world.worldProvider.dimension != 0) {
             return false;
-        } else if (this.ao().getOPs().isEmpty()) {
+        } else if (this.as().getOPs().isEmpty()) {
             return false;
-        } else if (this.ao().isOp(entityhuman.name)) {
+        } else if (this.as().isOp(entityhuman.getName())) {
             return false;
         } else if (this.getSpawnProtection() <= 0) {
             return false;
@@ -302,10 +302,14 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
     }
 
     public IConsoleLogManager getLogger() {
-        return this.l;
+        return this.m;
+    }
+
+    public int k() {
+        return this.propertyManager.getInt("op-permission-level", 4);
     }
 
     public PlayerList getPlayerList() {
-        return this.ao();
+        return this.as();
     }
 }

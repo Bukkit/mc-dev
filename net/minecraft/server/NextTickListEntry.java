@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public class NextTickListEntry implements Comparable {
 
-    private static long g = 0L;
+    private static long g;
     public int a;
     public int b;
     public int c;

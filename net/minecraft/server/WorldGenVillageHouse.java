@@ -10,8 +10,8 @@ public class WorldGenVillageHouse extends WorldGenVillagePiece {
 
     public WorldGenVillageHouse(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(worldgenvillagestartpiece, i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
         this.b = random.nextBoolean();
     }
 
@@ -28,7 +28,7 @@ public class WorldGenVillageHouse extends WorldGenVillagePiece {
                 return true;
             }
 
-            this.e.a(0, this.a - this.e.e + 6 - 1, 0);
+            this.f.a(0, this.a - this.f.e + 6 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 0, 0, 0, 4, 0, 4, Block.COBBLESTONE.id, Block.COBBLESTONE.id, false);

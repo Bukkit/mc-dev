@@ -39,8 +39,4 @@ public class AchievementList {
     public static Achievement F = (new Achievement(26, "bookcase", -3, 6, Block.BOOKSHELF, D)).c();
 
     public static void a() {}
-
-    static {
-        System.out.println(e.size() + " achievements");
-    }
 }

@@ -7,13 +7,13 @@ public class PathfinderGoalMoveTowardsTarget extends PathfinderGoal {
     private double c;
     private double d;
     private double e;
-    private float f;
+    private double f;
     private float g;
 
-    public PathfinderGoalMoveTowardsTarget(EntityCreature entitycreature, float f, float f1) {
+    public PathfinderGoalMoveTowardsTarget(EntityCreature entitycreature, double d0, float f) {
         this.a = entitycreature;
-        this.f = f;
-        this.g = f1;
+        this.f = d0;
+        this.g = f;
         this.a(1);
     }
 
@@ -38,7 +38,7 @@ public class PathfinderGoalMoveTowardsTarget extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.a.getNavigation().f() && this.b.isAlive() && this.b.e(this.a) < (double) (this.g * this.g);
+        return !this.a.getNavigation().g() && this.b.isAlive() && this.b.e(this.a) < (double) (this.g * this.g);
     }
 
     public void d() {

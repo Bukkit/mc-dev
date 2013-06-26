@@ -5,9 +5,9 @@ public class PathfinderGoalOpenDoor extends PathfinderGoalDoorInteract {
     boolean i;
     int j;
 
-    public PathfinderGoalOpenDoor(EntityLiving entityliving, boolean flag) {
-        super(entityliving);
-        this.a = entityliving;
+    public PathfinderGoalOpenDoor(EntityInsentient entityinsentient, boolean flag) {
+        super(entityinsentient);
+        this.a = entityinsentient;
         this.i = flag;
     }
 

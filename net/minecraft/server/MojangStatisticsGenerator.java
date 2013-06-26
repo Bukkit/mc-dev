@@ -19,11 +19,11 @@ public class MojangStatisticsGenerator {
     private final IMojangStatistics d;
     private final Timer e = new Timer("Snooper Timer", true);
     private final Object f = new Object();
-    private final long g = System.currentTimeMillis();
-    private boolean h = false;
-    private int i = 0;
+    private final long g;
+    private boolean h;
+    private int i;
 
-    public MojangStatisticsGenerator(String s, IMojangStatistics imojangstatistics) {
+    public MojangStatisticsGenerator(String s, IMojangStatistics imojangstatistics, long i) {
         try {
             this.c = new URL("http://snoop.minecraft.net/" + s + "?version=" + 1);
         } catch (MalformedURLException malformedurlexception) {
@@ -31,28 +31,29 @@ public class MojangStatisticsGenerator {
         }
 
         this.d = imojangstatistics;
+        this.g = i;
     }
 
     public void a() {
         if (!this.h) {
             this.h = true;
-            this.g();
+            this.h();
             this.e.schedule(new MojangStatisticsTask(this), 0L, 900000L);
         }
     }
 
-    private void g() {
-        this.h();
+    private void h() {
+        this.i();
         this.a("snooper_token", this.b);
         this.a("os_name", System.getProperty("os.name"));
         this.a("os_version", System.getProperty("os.version"));
         this.a("os_architecture", System.getProperty("os.arch"));
         this.a("java_version", System.getProperty("java.version"));
-        this.a("version", "1.5.2");
+        this.a("version", "1.6.1");
         this.d.b(this);
     }
 
-    private void h() {
+    private void i() {
         RuntimeMXBean runtimemxbean = ManagementFactory.getRuntimeMXBean();
         List list = runtimemxbean.getInputArguments();
         int i = 0;
@@ -74,7 +75,6 @@ public class MojangStatisticsGenerator {
         this.a("memory_max", Long.valueOf(Runtime.getRuntime().maxMemory()));
         this.a("memory_free", Long.valueOf(Runtime.getRuntime().freeMemory()));
         this.a("cpu_cores", Integer.valueOf(Runtime.getRuntime().availableProcessors()));
-        this.a("run_time", Long.valueOf((System.currentTimeMillis() - this.g) / 60L * 1000L));
         this.d.a(this);
     }
 
@@ -92,6 +92,10 @@ public class MojangStatisticsGenerator {
 
     public void e() {
         this.e.cancel();
+    }
+
+    public long g() {
+        return this.g;
     }
 
     static IMojangStatistics a(MojangStatisticsGenerator mojangstatisticsgenerator) {

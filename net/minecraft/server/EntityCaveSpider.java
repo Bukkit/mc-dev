@@ -4,12 +4,12 @@ public class EntityCaveSpider extends EntitySpider {
 
     public EntityCaveSpider(World world) {
         super(world);
-        this.texture = "/mob/cavespider.png";
         this.a(0.7F, 0.5F);
     }
 
-    public int getMaxHealth() {
-        return 12;
+    protected void ax() {
+        super.ax();
+        this.a(GenericAttributes.a).a(12.0D);
     }
 
     public boolean m(Entity entity) {
@@ -36,5 +36,7 @@ public class EntityCaveSpider extends EntitySpider {
         }
     }
 
-    public void bJ() {}
+    public GroupDataEntity a(GroupDataEntity groupdataentity) {
+        return groupdataentity;
+    }
 }

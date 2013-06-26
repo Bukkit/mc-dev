@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet38EntityStatus extends Packet {
 
@@ -15,14 +15,14 @@ public class Packet38EntityStatus extends Packet {
         this.b = b0;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.readByte();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeByte(this.b);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeByte(this.b);
     }
 
     public void handle(Connection connection) {

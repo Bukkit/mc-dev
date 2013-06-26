@@ -64,6 +64,10 @@ public class MathHelper {
         return i < j ? j : (i > k ? k : i);
     }
 
+    public static float a(float f, float f1, float f2) {
+        return f < f1 ? f1 : (f > f2 ? f2 : f);
+    }
+
     public static double a(double d0, double d1) {
         if (d0 < 0.0D) {
             d0 = -d0;

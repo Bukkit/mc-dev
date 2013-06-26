@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.util.ArrayList;
 
@@ -51,13 +52,13 @@ public class MerchantRecipeList extends ArrayList {
         for (int i = 0; i < this.size(); ++i) {
             MerchantRecipe merchantrecipe = (MerchantRecipe) this.get(i);
 
-            Packet.a(merchantrecipe.getBuyItem1(), dataoutputstream);
-            Packet.a(merchantrecipe.getBuyItem3(), dataoutputstream);
+            Packet.a(merchantrecipe.getBuyItem1(), (DataOutput) dataoutputstream);
+            Packet.a(merchantrecipe.getBuyItem3(), (DataOutput) dataoutputstream);
             ItemStack itemstack = merchantrecipe.getBuyItem2();
 
             dataoutputstream.writeBoolean(itemstack != null);
             if (itemstack != null) {
-                Packet.a(itemstack, dataoutputstream);
+                Packet.a(itemstack, (DataOutput) dataoutputstream);
             }
 
             dataoutputstream.writeBoolean(merchantrecipe.g());

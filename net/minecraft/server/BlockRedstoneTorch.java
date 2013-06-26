@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class BlockRedstoneTorch extends BlockTorch {
 
-    private boolean isOn = false;
+    private boolean isOn;
     private static Map b = new HashMap();
 
     private boolean a(World world, int i, int j, int k, boolean flag) {

@@ -14,12 +14,12 @@ public class DedicatedPlayerList extends PlayerList {
 
     public DedicatedPlayerList(DedicatedServer dedicatedserver) {
         super(dedicatedserver);
-        this.d = dedicatedserver.e("ops.txt");
-        this.e = dedicatedserver.e("white-list.txt");
+        this.d = dedicatedserver.d("ops.txt");
+        this.e = dedicatedserver.d("white-list.txt");
         this.c = dedicatedserver.a("view-distance", 10);
         this.maxPlayers = dedicatedserver.a("max-players", 20);
         this.setHasWhitelist(dedicatedserver.a("white-list", false));
-        if (!dedicatedserver.I()) {
+        if (!dedicatedserver.K()) {
             this.getNameBans().setEnabled(true);
             this.getIPBans().setEnabled(true);
         }

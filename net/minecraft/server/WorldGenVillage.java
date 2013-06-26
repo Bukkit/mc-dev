@@ -15,7 +15,6 @@ public class WorldGenVillage extends StructureGenerator {
     private int h;
 
     public WorldGenVillage() {
-        this.f = 0;
         this.g = 32;
         this.h = 8;
     }

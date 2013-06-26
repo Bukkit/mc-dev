@@ -13,6 +13,6 @@ public class ItemCloth extends ItemBlock {
     }
 
     public String d(ItemStack itemstack) {
-        return super.getName() + "." + ItemDye.a[BlockCloth.g_(itemstack.getData())];
+        return super.getName() + "." + ItemDye.a[BlockCloth.j_(itemstack.getData())];
     }
 }

@@ -5,10 +5,13 @@ import java.util.Random;
 
 public class WorldGenNetherPiece10 extends WorldGenNetherPiece {
 
+    private boolean b;
+
     public WorldGenNetherPiece10(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
+        this.b = random.nextInt(3) == 0;
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
@@ -31,10 +34,24 @@ public class WorldGenNetherPiece10 extends WorldGenNetherPiece {
         this.a(world, structureboundingbox, 1, 2, 4, 4, 5, 4, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
         this.a(world, structureboundingbox, 1, 3, 4, 1, 4, 4, Block.NETHER_FENCE.id, Block.NETHER_BRICK.id, false);
         this.a(world, structureboundingbox, 3, 3, 4, 3, 4, 4, Block.NETHER_FENCE.id, Block.NETHER_BRICK.id, false);
+        int i;
+        int j;
+
+        if (this.b) {
+            i = this.a(2);
+            j = this.a(1, 3);
+            int k = this.b(1, 3);
+
+            if (structureboundingbox.b(j, i, k)) {
+                this.b = false;
+                this.a(world, structureboundingbox, random, 1, 2, 3, a, 2 + random.nextInt(4));
+            }
+        }
+
         this.a(world, structureboundingbox, 0, 6, 0, 4, 6, 4, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
 
-        for (int i = 0; i <= 4; ++i) {
-            for (int j = 0; j <= 4; ++j) {
+        for (i = 0; i <= 4; ++i) {
+            for (j = 0; j <= 4; ++j) {
                 this.b(world, Block.NETHER_BRICK.id, 0, i, -1, j, structureboundingbox);
             }
         }

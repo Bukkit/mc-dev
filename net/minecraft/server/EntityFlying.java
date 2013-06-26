@@ -1,12 +1,12 @@
 package net.minecraft.server;
 
-public abstract class EntityFlying extends EntityLiving {
+public abstract class EntityFlying extends EntityInsentient {
 
     public EntityFlying(World world) {
         super(world);
     }
 
-    protected void a(float f) {}
+    protected void b(float f) {}
 
     protected void a(double d0, boolean flag) {}
 
@@ -54,7 +54,7 @@ public abstract class EntityFlying extends EntityLiving {
             this.motZ *= (double) f2;
         }
 
-        this.bh = this.bi;
+        this.aF = this.aG;
         double d0 = this.locX - this.lastX;
         double d1 = this.locZ - this.lastZ;
         float f4 = MathHelper.sqrt(d0 * d0 + d1 * d1) * 4.0F;
@@ -63,11 +63,11 @@ public abstract class EntityFlying extends EntityLiving {
             f4 = 1.0F;
         }
 
-        this.bi += (f4 - this.bi) * 0.4F;
-        this.bj += this.bi;
+        this.aG += (f4 - this.aG) * 0.4F;
+        this.aH += this.aG;
     }
 
-    public boolean g_() {
+    public boolean e() {
         return false;
     }
 }

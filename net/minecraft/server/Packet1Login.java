@@ -1,11 +1,11 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet1Login extends Packet {
 
-    public int a = 0;
+    public int a;
     public WorldType b;
     public boolean c;
     public EnumGamemode d;
@@ -27,41 +27,41 @@ public class Packet1Login extends Packet {
         this.c = flag;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        String s = a(datainputstream, 16);
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        String s = a(datainput, 16);
 
         this.b = WorldType.getType(s);
         if (this.b == null) {
             this.b = WorldType.NORMAL;
         }
 
-        byte b0 = datainputstream.readByte();
+        byte b0 = datainput.readByte();
 
         this.c = (b0 & 8) == 8;
         int i = b0 & -9;
 
         this.d = EnumGamemode.a(i);
-        this.e = datainputstream.readByte();
-        this.f = datainputstream.readByte();
-        this.g = datainputstream.readByte();
-        this.h = datainputstream.readByte();
+        this.e = datainput.readByte();
+        this.f = datainput.readByte();
+        this.g = datainput.readByte();
+        this.h = datainput.readByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        a(this.b == null ? "" : this.b.name(), dataoutputstream);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        a(this.b == null ? "" : this.b.name(), dataoutput);
         int i = this.d.a();
 
         if (this.c) {
             i |= 8;
         }
 
-        dataoutputstream.writeByte(i);
-        dataoutputstream.writeByte(this.e);
-        dataoutputstream.writeByte(this.f);
-        dataoutputstream.writeByte(this.g);
-        dataoutputstream.writeByte(this.h);
+        dataoutput.writeByte(i);
+        dataoutput.writeByte(this.e);
+        dataoutput.writeByte(this.f);
+        dataoutput.writeByte(this.g);
+        dataoutput.writeByte(this.h);
     }
 
     public void handle(Connection connection) {

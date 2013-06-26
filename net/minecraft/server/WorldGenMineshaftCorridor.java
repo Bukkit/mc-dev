@@ -12,11 +12,11 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
 
     public WorldGenMineshaftCorridor(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
         this.a = random.nextInt(3) == 0;
         this.b = !this.a && random.nextInt(23) == 0;
-        if (this.f != 2 && this.f != 0) {
+        if (this.g != 2 && this.g != 0) {
             this.d = structureboundingbox.b() / 5;
         } else {
             this.d = structureboundingbox.d() / 5;
@@ -64,44 +64,44 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
         int i = this.c();
         int j = random.nextInt(4);
 
-        switch (this.f) {
+        switch (this.g) {
         case 0:
             if (j <= 1) {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a, this.e.b - 1 + random.nextInt(3), this.e.f + 1, this.f, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.a, this.f.b - 1 + random.nextInt(3), this.f.f + 1, this.g, i);
             } else if (j == 2) {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a - 1, this.e.b - 1 + random.nextInt(3), this.e.f - 3, 1, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.a - 1, this.f.b - 1 + random.nextInt(3), this.f.f - 3, 1, i);
             } else {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.d + 1, this.e.b - 1 + random.nextInt(3), this.e.f - 3, 3, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.d + 1, this.f.b - 1 + random.nextInt(3), this.f.f - 3, 3, i);
             }
             break;
 
         case 1:
             if (j <= 1) {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a - 1, this.e.b - 1 + random.nextInt(3), this.e.c, this.f, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.a - 1, this.f.b - 1 + random.nextInt(3), this.f.c, this.g, i);
             } else if (j == 2) {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a, this.e.b - 1 + random.nextInt(3), this.e.c - 1, 2, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.a, this.f.b - 1 + random.nextInt(3), this.f.c - 1, 2, i);
             } else {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a, this.e.b - 1 + random.nextInt(3), this.e.f + 1, 0, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.a, this.f.b - 1 + random.nextInt(3), this.f.f + 1, 0, i);
             }
             break;
 
         case 2:
             if (j <= 1) {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a, this.e.b - 1 + random.nextInt(3), this.e.c - 1, this.f, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.a, this.f.b - 1 + random.nextInt(3), this.f.c - 1, this.g, i);
             } else if (j == 2) {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a - 1, this.e.b - 1 + random.nextInt(3), this.e.c, 1, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.a - 1, this.f.b - 1 + random.nextInt(3), this.f.c, 1, i);
             } else {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.d + 1, this.e.b - 1 + random.nextInt(3), this.e.c, 3, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.d + 1, this.f.b - 1 + random.nextInt(3), this.f.c, 3, i);
             }
             break;
 
         case 3:
             if (j <= 1) {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.d + 1, this.e.b - 1 + random.nextInt(3), this.e.c, this.f, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.d + 1, this.f.b - 1 + random.nextInt(3), this.f.c, this.g, i);
             } else if (j == 2) {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.d - 3, this.e.b - 1 + random.nextInt(3), this.e.c - 1, 2, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.d - 3, this.f.b - 1 + random.nextInt(3), this.f.c - 1, 2, i);
             } else {
-                WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.d - 3, this.e.b - 1 + random.nextInt(3), this.e.f + 1, 0, i);
+                WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.d - 3, this.f.b - 1 + random.nextInt(3), this.f.f + 1, 0, i);
             }
         }
 
@@ -109,22 +109,22 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
             int k;
             int l;
 
-            if (this.f != 2 && this.f != 0) {
-                for (k = this.e.a + 3; k + 3 <= this.e.d; k += 5) {
+            if (this.g != 2 && this.g != 0) {
+                for (k = this.f.a + 3; k + 3 <= this.f.d; k += 5) {
                     l = random.nextInt(5);
                     if (l == 0) {
-                        WorldGenMineshaftPieces.a(structurepiece, list, random, k, this.e.b, this.e.c - 1, 2, i + 1);
+                        WorldGenMineshaftPieces.a(structurepiece, list, random, k, this.f.b, this.f.c - 1, 2, i + 1);
                     } else if (l == 1) {
-                        WorldGenMineshaftPieces.a(structurepiece, list, random, k, this.e.b, this.e.f + 1, 0, i + 1);
+                        WorldGenMineshaftPieces.a(structurepiece, list, random, k, this.f.b, this.f.f + 1, 0, i + 1);
                     }
                 }
             } else {
-                for (k = this.e.c + 3; k + 3 <= this.e.f; k += 5) {
+                for (k = this.f.c + 3; k + 3 <= this.f.f; k += 5) {
                     l = random.nextInt(5);
                     if (l == 0) {
-                        WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.a - 1, this.e.b, k, 1, i + 1);
+                        WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.a - 1, this.f.b, k, 1, i + 1);
                     } else if (l == 1) {
-                        WorldGenMineshaftPieces.a(structurepiece, list, random, this.e.d + 1, this.e.b, k, 3, i + 1);
+                        WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.d + 1, this.f.b, k, 3, i + 1);
                     }
                 }
             }
@@ -152,6 +152,10 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
         if (this.a(world, structureboundingbox)) {
             return false;
         } else {
+            boolean flag = false;
+            boolean flag1 = true;
+            boolean flag2 = false;
+            boolean flag3 = true;
             int i = this.d * 5 - 1;
 
             this.a(world, structureboundingbox, 0, 0, 0, 2, 1, i, 0, 0, false);
@@ -223,7 +227,7 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
             if (this.a) {
                 for (j = 0; j <= i; ++j) {
                     k = this.a(world, 1, -1, j, structureboundingbox);
-                    if (k > 0 && Block.s[k]) {
+                    if (k > 0 && Block.t[k]) {
                         this.a(world, structureboundingbox, random, 0.7F, 1, 0, j, Block.RAILS.id, this.c(Block.RAILS.id, 0));
                     }
                 }

@@ -12,6 +12,10 @@ public class CommandStop extends CommandAbstract {
         return 4;
     }
 
+    public String c(ICommandListener icommandlistener) {
+        return "commands.stop.usage";
+    }
+
     public void b(ICommandListener icommandlistener, String[] astring) {
         a(icommandlistener, "commands.stop.start", new Object[0]);
         MinecraftServer.getServer().safeShutdown();

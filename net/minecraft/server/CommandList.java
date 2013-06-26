@@ -12,8 +12,12 @@ public class CommandList extends CommandAbstract {
         return 0;
     }
 
+    public String c(ICommandListener icommandlistener) {
+        return "commands.players.usage";
+    }
+
     public void b(ICommandListener icommandlistener, String[] astring) {
-        icommandlistener.sendMessage(icommandlistener.a("commands.players.list", new Object[] { Integer.valueOf(MinecraftServer.getServer().y()), Integer.valueOf(MinecraftServer.getServer().z())}));
-        icommandlistener.sendMessage(MinecraftServer.getServer().getPlayerList().c());
+        icommandlistener.sendMessage(ChatMessage.b("commands.players.list", new Object[] { Integer.valueOf(MinecraftServer.getServer().A()), Integer.valueOf(MinecraftServer.getServer().B())}));
+        icommandlistener.sendMessage(ChatMessage.d(MinecraftServer.getServer().getPlayerList().c()));
     }
 }

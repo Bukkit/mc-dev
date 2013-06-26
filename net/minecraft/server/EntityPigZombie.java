@@ -1,27 +1,45 @@
 package net.minecraft.server;
 
 import java.util.List;
+import java.util.UUID;
 
 public class EntityPigZombie extends EntityZombie {
 
-    private int angerLevel = 0;
-    private int soundDelay = 0;
+    private static final UUID bq = UUID.fromString("49455A49-7EC5-45BA-B886-3B90B23A1718");
+    private static final AttributeModifier br = (new AttributeModifier(bq, "Attacking speed boost", 0.45D, 0)).a(false);
+    private int angerLevel;
+    private int soundDelay;
+    private Entity bu;
 
     public EntityPigZombie(World world) {
         super(world);
-        this.texture = "/mob/pigzombie.png";
-        this.bI = 0.5F;
         this.fireProof = true;
     }
 
-    protected boolean bh() {
+    protected void ax() {
+        super.ax();
+        this.a(bp).a(0.0D);
+        this.a(GenericAttributes.d).a(0.5D);
+        this.a(GenericAttributes.e).a(5.0D);
+    }
+
+    protected boolean bb() {
         return false;
     }
 
     public void l_() {
-        this.bI = this.target != null ? 0.95F : 0.5F;
+        if (this.bu != this.target && !this.world.isStatic) {
+            AttributeInstance attributeinstance = this.a(GenericAttributes.d);
+
+            attributeinstance.b(br);
+            if (this.target != null) {
+                attributeinstance.a(br);
+            }
+        }
+
+        this.bu = this.target;
         if (this.soundDelay > 0 && --this.soundDelay == 0) {
-            this.makeSound("mob.zombiepig.zpigangry", this.ba() * 2.0F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+            this.makeSound("mob.zombiepig.zpigangry", this.aW() * 2.0F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
         super.l_();
@@ -45,7 +63,7 @@ public class EntityPigZombie extends EntityZombie {
         return this.angerLevel == 0 ? null : super.findTarget();
     }
 
-    public boolean damageEntity(DamageSource damagesource, int i) {
+    public boolean damageEntity(DamageSource damagesource, float f) {
         if (this.isInvulnerable()) {
             return false;
         } else {
@@ -54,38 +72,38 @@ public class EntityPigZombie extends EntityZombie {
             if (entity instanceof EntityHuman) {
                 List list = this.world.getEntities(this, this.boundingBox.grow(32.0D, 32.0D, 32.0D));
 
-                for (int j = 0; j < list.size(); ++j) {
-                    Entity entity1 = (Entity) list.get(j);
+                for (int i = 0; i < list.size(); ++i) {
+                    Entity entity1 = (Entity) list.get(i);
 
                     if (entity1 instanceof EntityPigZombie) {
                         EntityPigZombie entitypigzombie = (EntityPigZombie) entity1;
 
-                        entitypigzombie.p(entity);
+                        entitypigzombie.c(entity);
                     }
                 }
 
-                this.p(entity);
+                this.c(entity);
             }
 
-            return super.damageEntity(damagesource, i);
+            return super.damageEntity(damagesource, f);
         }
     }
 
-    private void p(Entity entity) {
+    private void c(Entity entity) {
         this.target = entity;
         this.angerLevel = 400 + this.random.nextInt(400);
         this.soundDelay = this.random.nextInt(40);
     }
 
-    protected String bb() {
+    protected String r() {
         return "mob.zombiepig.zpig";
     }
 
-    protected String bc() {
+    protected String aK() {
         return "mob.zombiepig.zpighurt";
     }
 
-    protected String bd() {
+    protected String aL() {
         return "mob.zombiepig.zpigdeath";
     }
 
@@ -105,7 +123,7 @@ public class EntityPigZombie extends EntityZombie {
         }
     }
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         return false;
     }
 
@@ -117,23 +135,13 @@ public class EntityPigZombie extends EntityZombie {
         return Item.ROTTEN_FLESH.id;
     }
 
-    protected void bH() {
+    protected void bs() {
         this.setEquipment(0, new ItemStack(Item.GOLD_SWORD));
     }
 
-    public void bJ() {
-        super.bJ();
+    public GroupDataEntity a(GroupDataEntity groupdataentity) {
+        super.a(groupdataentity);
         this.setVillager(false);
-    }
-
-    public int c(Entity entity) {
-        ItemStack itemstack = this.bG();
-        int i = 5;
-
-        if (itemstack != null) {
-            i += itemstack.a((Entity) this);
-        }
-
-        return i;
+        return groupdataentity;
     }
 }

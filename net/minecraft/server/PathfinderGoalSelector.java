@@ -9,7 +9,7 @@ public class PathfinderGoalSelector {
     private List a = new ArrayList();
     private List b = new ArrayList();
     private final MethodProfiler c;
-    private int d = 0;
+    private int d;
     private int e = 3;
 
     public PathfinderGoalSelector(MethodProfiler methodprofiler) {

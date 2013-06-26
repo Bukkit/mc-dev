@@ -14,13 +14,13 @@ public class CommandGive extends CommandAbstract {
         return 2;
     }
 
-    public String a(ICommandListener icommandlistener) {
-        return icommandlistener.a("commands.give.usage", new Object[0]);
+    public String c(ICommandListener icommandlistener) {
+        return "commands.give.usage";
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 2) {
-            EntityPlayer entityplayer = c(icommandlistener, astring[0]);
+            EntityPlayer entityplayer = d(icommandlistener, astring[0]);
             int i = a(icommandlistener, astring[1], 1);
             int j = 1;
             int k = 0;

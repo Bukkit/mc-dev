@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet17EntityLocationAction extends Packet {
 
@@ -21,20 +21,20 @@ public class Packet17EntityLocationAction extends Packet {
         this.a = entity.id;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.e = datainputstream.readByte();
-        this.b = datainputstream.readInt();
-        this.c = datainputstream.readByte();
-        this.d = datainputstream.readInt();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.e = datainput.readByte();
+        this.b = datainput.readInt();
+        this.c = datainput.readByte();
+        this.d = datainput.readInt();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeByte(this.e);
-        dataoutputstream.writeInt(this.b);
-        dataoutputstream.writeByte(this.c);
-        dataoutputstream.writeInt(this.d);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeByte(this.e);
+        dataoutput.writeInt(this.b);
+        dataoutput.writeByte(this.c);
+        dataoutput.writeInt(this.d);
     }
 
     public void handle(Connection connection) {

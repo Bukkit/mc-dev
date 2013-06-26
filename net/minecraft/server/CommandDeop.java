@@ -14,8 +14,8 @@ public class CommandDeop extends CommandAbstract {
         return 3;
     }
 
-    public String a(ICommandListener icommandlistener) {
-        return icommandlistener.a("commands.deop.usage", new Object[0]);
+    public String c(ICommandListener icommandlistener) {
+        return "commands.deop.usage";
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {

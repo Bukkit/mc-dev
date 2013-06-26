@@ -5,7 +5,6 @@ import java.util.Random;
 public class BlockSapling extends BlockFlower {
 
     public static final String[] a = new String[] { "oak", "spruce", "birch", "jungle"};
-    private static final String[] b = new String[] { "sapling", "sapling_spruce", "sapling_birch", "sapling_jungle"};
 
     protected BlockSapling(int i) {
         super(i);

@@ -16,14 +16,15 @@ public class ItemEnderEye extends Item {
                 return true;
             } else {
                 world.setData(i, j, k, j1 + 4, 2);
+                world.m(i, j, k, Block.ENDER_PORTAL_FRAME.id);
                 --itemstack.count;
 
                 int k1;
 
                 for (k1 = 0; k1 < 16; ++k1) {
-                    double d0 = (double) ((float) i + (5.0F + e.nextFloat() * 6.0F) / 16.0F);
+                    double d0 = (double) ((float) i + (5.0F + f.nextFloat() * 6.0F) / 16.0F);
                     double d1 = (double) ((float) j + 0.8125F);
-                    double d2 = (double) ((float) k + (5.0F + e.nextFloat() * 6.0F) / 16.0F);
+                    double d2 = (double) ((float) k + (5.0F + f.nextFloat() * 6.0F) / 16.0F);
                     double d3 = 0.0D;
                     double d4 = 0.0D;
                     double d5 = 0.0D;
@@ -132,7 +133,7 @@ public class ItemEnderEye extends Item {
 
                 entityendersignal.a((double) chunkposition.x, chunkposition.y, (double) chunkposition.z);
                 world.addEntity(entityendersignal);
-                world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (e.nextFloat() * 0.4F + 0.8F));
+                world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (f.nextFloat() * 0.4F + 0.8F));
                 world.a((EntityHuman) null, 1002, (int) entityhuman.locX, (int) entityhuman.locY, (int) entityhuman.locZ, 0);
                 if (!entityhuman.abilities.canInstantlyBuild) {
                     --itemstack.count;

@@ -8,12 +8,12 @@ public class PathfinderGoalFleeSun extends PathfinderGoal {
     private double b;
     private double c;
     private double d;
-    private float e;
+    private double e;
     private World f;
 
-    public PathfinderGoalFleeSun(EntityCreature entitycreature, float f) {
+    public PathfinderGoalFleeSun(EntityCreature entitycreature, double d0) {
         this.a = entitycreature;
-        this.e = f;
+        this.e = d0;
         this.f = entitycreature.world;
         this.a(1);
     }
@@ -40,7 +40,7 @@ public class PathfinderGoalFleeSun extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.a.getNavigation().f();
+        return !this.a.getNavigation().g();
     }
 
     public void c() {
@@ -48,7 +48,7 @@ public class PathfinderGoalFleeSun extends PathfinderGoal {
     }
 
     private Vec3D f() {
-        Random random = this.a.aE();
+        Random random = this.a.aB();
 
         for (int i = 0; i < 10; ++i) {
             int j = MathHelper.floor(this.a.locX + (double) random.nextInt(20) - 10.0D);

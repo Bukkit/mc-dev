@@ -31,8 +31,8 @@ public class StatisticList {
     public static Statistic t = (new CounterStatistic(2008, "stat.pigOneCm", Statistic.j)).h().g();
     public static Statistic u = (new CounterStatistic(2010, "stat.jump")).h().g();
     public static Statistic v = (new CounterStatistic(2011, "stat.drop")).h().g();
-    public static Statistic w = (new CounterStatistic(2020, "stat.damageDealt")).g();
-    public static Statistic x = (new CounterStatistic(2021, "stat.damageTaken")).g();
+    public static Statistic w = (new CounterStatistic(2020, "stat.damageDealt", Statistic.k)).g();
+    public static Statistic x = (new CounterStatistic(2021, "stat.damageTaken", Statistic.k)).g();
     public static Statistic y = (new CounterStatistic(2022, "stat.deaths")).g();
     public static Statistic z = (new CounterStatistic(2023, "stat.mobKills")).g();
     public static Statistic A = (new CounterStatistic(2024, "stat.playerKills")).g();
@@ -88,7 +88,7 @@ public class StatisticList {
                 Integer integer = (Integer) iterator.next();
 
                 if (Item.byId[integer.intValue()] != null) {
-                    String s = LocaleI18n.get("stat.craftItem", new Object[] { Item.byId[integer.intValue()].u()});
+                    String s = LocaleI18n.get("stat.craftItem", new Object[] { Item.byId[integer.intValue()].v()});
 
                     D[integer.intValue()] = (new CraftingStatistic(16842752 + integer.intValue(), s, integer.intValue())).g();
                 }
@@ -102,7 +102,7 @@ public class StatisticList {
         Statistic[] astatistic = new Statistic[256];
 
         for (int j = 0; j < 256; ++j) {
-            if (Block.byId[j] != null && Block.byId[j].C()) {
+            if (Block.byId[j] != null && Block.byId[j].B()) {
                 String s1 = LocaleI18n.get(s, new Object[] { Block.byId[j].getName()});
 
                 astatistic[j] = (new CraftingStatistic(i + j, s1, j)).g();
@@ -121,7 +121,7 @@ public class StatisticList {
 
         for (int l = j; l < k; ++l) {
             if (Item.byId[l] != null) {
-                String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].u()});
+                String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].v()});
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).g();
                 if (l >= 256) {
@@ -141,7 +141,7 @@ public class StatisticList {
 
         for (int l = j; l < k; ++l) {
             if (Item.byId[l] != null && Item.byId[l].usesDurability()) {
-                String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].u()});
+                String s1 = LocaleI18n.get(s, new Object[] { Item.byId[l].v()});
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).g();
             }
@@ -179,7 +179,5 @@ public class StatisticList {
 
     static {
         AchievementList.a();
-        G = false;
-        H = false;
     }
 }

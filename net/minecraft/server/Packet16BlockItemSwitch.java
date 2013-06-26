@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet16BlockItemSwitch extends Packet {
 
@@ -13,12 +13,12 @@ public class Packet16BlockItemSwitch extends Packet {
         this.itemInHandIndex = i;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.itemInHandIndex = datainputstream.readShort();
+    public void a(DataInput datainput) {
+        this.itemInHandIndex = datainput.readShort();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeShort(this.itemInHandIndex);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeShort(this.itemInHandIndex);
     }
 
     public void handle(Connection connection) {

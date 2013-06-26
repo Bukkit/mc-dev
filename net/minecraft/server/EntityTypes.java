@@ -124,6 +124,7 @@ public class EntityTypes {
     static {
         a(EntityItem.class, "Item", 1);
         a(EntityExperienceOrb.class, "XPOrb", 2);
+        a(EntityLeash.class, "LeashKnot", 8);
         a(EntityPainting.class, "Painting", 9);
         a(EntityArrow.class, "Arrow", 10);
         a(EntitySnowball.class, "Snowball", 11);
@@ -145,7 +146,7 @@ public class EntityTypes {
         a(EntityMinecartTNT.class, "MinecartTNT", 45);
         a(EntityMinecartHopper.class, "MinecartHopper", 46);
         a(EntityMinecartMobSpawner.class, "MinecartSpawner", 47);
-        a(EntityLiving.class, "Mob", 48);
+        a(EntityInsentient.class, "Mob", 48);
         a(EntityMonster.class, "Monster", 49);
         a(EntityCreeper.class, "Creeper", 50, 894731, 0);
         a(EntitySkeleton.class, "Skeleton", 51, 12698049, 4802889);
@@ -174,6 +175,7 @@ public class EntityTypes {
         a(EntitySnowman.class, "SnowMan", 97);
         a(EntityOcelot.class, "Ozelot", 98, 15720061, 5653556);
         a(EntityIronGolem.class, "VillagerGolem", 99);
+        a(EntityHorse.class, "EntityHorse", 100, 12623485, 15656192);
         a(EntityVillager.class, "Villager", 120, 5651507, 12422002);
         a(EntityEnderCrystal.class, "EnderCrystal", 200);
     }

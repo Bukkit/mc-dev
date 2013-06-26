@@ -18,10 +18,10 @@ public class BlockFlower extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return super.canPlace(world, i, j, k) && this.f_(world.getTypeId(i, j - 1, k));
+        return super.canPlace(world, i, j, k) && this.g_(world.getTypeId(i, j - 1, k));
     }
 
-    protected boolean f_(int i) {
+    protected boolean g_(int i) {
         return i == Block.GRASS.id || i == Block.DIRT.id || i == Block.SOIL.id;
     }
 
@@ -37,12 +37,12 @@ public class BlockFlower extends Block {
     protected final void e(World world, int i, int j, int k) {
         if (!this.f(world, i, j, k)) {
             this.c(world, i, j, k, world.getData(i, j, k), 0);
-            world.setAir(i, j, k);
+            world.setTypeIdAndData(i, j, k, 0, 0, 2);
         }
     }
 
     public boolean f(World world, int i, int j, int k) {
-        return (world.m(i, j, k) >= 8 || world.l(i, j, k)) && this.f_(world.getTypeId(i, j - 1, k));
+        return (world.m(i, j, k) >= 8 || world.l(i, j, k)) && this.g_(world.getTypeId(i, j - 1, k));
     }
 
     public AxisAlignedBB b(World world, int i, int j, int k) {

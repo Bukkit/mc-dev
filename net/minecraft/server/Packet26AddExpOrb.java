@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet26AddExpOrb extends Packet {
 
@@ -21,20 +21,20 @@ public class Packet26AddExpOrb extends Packet {
         this.e = entityexperienceorb.c();
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.readInt();
-        this.c = datainputstream.readInt();
-        this.d = datainputstream.readInt();
-        this.e = datainputstream.readShort();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readInt();
+        this.c = datainput.readInt();
+        this.d = datainput.readInt();
+        this.e = datainput.readShort();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeInt(this.b);
-        dataoutputstream.writeInt(this.c);
-        dataoutputstream.writeInt(this.d);
-        dataoutputstream.writeShort(this.e);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeInt(this.b);
+        dataoutput.writeInt(this.c);
+        dataoutput.writeInt(this.d);
+        dataoutput.writeShort(this.e);
     }
 
     public void handle(Connection connection) {

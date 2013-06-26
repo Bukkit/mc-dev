@@ -3,7 +3,7 @@ package net.minecraft.server;
 public class Path {
 
     private PathPoint[] a = new PathPoint[1024];
-    private int b = 0;
+    private int b;
 
     public Path() {}
 

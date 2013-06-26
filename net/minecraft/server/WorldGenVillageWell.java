@@ -10,23 +10,23 @@ public class WorldGenVillageWell extends WorldGenVillagePiece {
 
     public WorldGenVillageWell(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, int j, int k) {
         super(worldgenvillagestartpiece, i);
-        this.f = random.nextInt(4);
-        switch (this.f) {
+        this.g = random.nextInt(4);
+        switch (this.g) {
         case 0:
         case 2:
-            this.e = new StructureBoundingBox(j, 64, k, j + 6 - 1, 78, k + 6 - 1);
+            this.f = new StructureBoundingBox(j, 64, k, j + 6 - 1, 78, k + 6 - 1);
             break;
 
         default:
-            this.e = new StructureBoundingBox(j, 64, k, j + 6 - 1, 78, k + 6 - 1);
+            this.f = new StructureBoundingBox(j, 64, k, j + 6 - 1, 78, k + 6 - 1);
         }
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
-        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.e.a - 1, this.e.e - 4, this.e.c + 1, 1, this.c());
-        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.e.d + 1, this.e.e - 4, this.e.c + 1, 3, this.c());
-        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.e.a + 1, this.e.e - 4, this.e.c - 1, 2, this.c());
-        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.e.a + 1, this.e.e - 4, this.e.f + 1, 0, this.c());
+        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a - 1, this.f.e - 4, this.f.c + 1, 1, this.c());
+        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.d + 1, this.f.e - 4, this.f.c + 1, 3, this.c());
+        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a + 1, this.f.e - 4, this.f.c - 1, 2, this.c());
+        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a + 1, this.f.e - 4, this.f.f + 1, 0, this.c());
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
@@ -36,7 +36,7 @@ public class WorldGenVillageWell extends WorldGenVillagePiece {
                 return true;
             }
 
-            this.e.a(0, this.b - this.e.e + 3, 0);
+            this.f.a(0, this.b - this.f.e + 3, 0);
         }
 
         this.a(world, structureboundingbox, 1, 0, 1, 4, 12, 4, Block.COBBLESTONE.id, Block.WATER.id, false);

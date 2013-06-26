@@ -3,22 +3,22 @@ package net.minecraft.server;
 public class PathfinderGoalTempt extends PathfinderGoal {
 
     private EntityCreature a;
-    private float b;
+    private double b;
     private double c;
     private double d;
     private double e;
     private double f;
     private double g;
     private EntityHuman h;
-    private int i = 0;
+    private int i;
     private boolean j;
     private int k;
     private boolean l;
     private boolean m;
 
-    public PathfinderGoalTempt(EntityCreature entitycreature, float f, int i, boolean flag) {
+    public PathfinderGoalTempt(EntityCreature entitycreature, double d0, int i, boolean flag) {
         this.a = entitycreature;
-        this.b = f;
+        this.b = d0;
         this.k = i;
         this.l = flag;
         this.a(3);
@@ -33,7 +33,7 @@ public class PathfinderGoalTempt extends PathfinderGoal {
             if (this.h == null) {
                 return false;
             } else {
-                ItemStack itemstack = this.h.cd();
+                ItemStack itemstack = this.h.bt();
 
                 return itemstack == null ? false : itemstack.id == this.k;
             }
@@ -74,18 +74,18 @@ public class PathfinderGoalTempt extends PathfinderGoal {
 
     public void d() {
         this.h = null;
-        this.a.getNavigation().g();
+        this.a.getNavigation().h();
         this.i = 100;
         this.j = false;
         this.a.getNavigation().a(this.m);
     }
 
     public void e() {
-        this.a.getControllerLook().a(this.h, 30.0F, (float) this.a.bs());
+        this.a.getControllerLook().a(this.h, 30.0F, (float) this.a.bl());
         if (this.a.e(this.h) < 6.25D) {
-            this.a.getNavigation().g();
+            this.a.getNavigation().h();
         } else {
-            this.a.getNavigation().a((EntityLiving) this.h, this.b);
+            this.a.getNavigation().a((Entity) this.h, this.b);
         }
     }
 

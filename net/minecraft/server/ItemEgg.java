@@ -13,7 +13,7 @@ public class ItemEgg extends Item {
             --itemstack.count;
         }
 
-        world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (e.nextFloat() * 0.4F + 0.8F));
+        world.makeSound(entityhuman, "random.bow", 0.5F, 0.4F / (f.nextFloat() * 0.4F + 0.8F));
         if (!world.isStatic) {
             world.addEntity(new EntityEgg(world, entityhuman));
         }

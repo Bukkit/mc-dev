@@ -3,8 +3,7 @@ package net.minecraft.server;
 public class BlockAnvil extends BlockSand {
 
     public static final String[] a = new String[] { "intact", "slightlyDamaged", "veryDamaged"};
-    private static final String[] d = new String[] { "anvil_top", "anvil_top_damaged_1", "anvil_top_damaged_2"};
-    public int b = 0;
+    private static final String[] d = new String[] { "anvil_top_damaged_0", "anvil_top_damaged_1", "anvil_top_damaged_2"};
 
     protected BlockAnvil(int i) {
         super(i, Material.HEAVY);

@@ -6,13 +6,13 @@ import java.util.Random;
 
 public abstract class StructurePiece {
 
-    protected StructureBoundingBox e;
-    protected int f;
+    protected StructureBoundingBox f;
     protected int g;
+    protected int h;
 
     protected StructurePiece(int i) {
-        this.g = i;
-        this.f = -1;
+        this.h = i;
+        this.g = -1;
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {}
@@ -20,11 +20,11 @@ public abstract class StructurePiece {
     public abstract boolean a(World world, Random random, StructureBoundingBox structureboundingbox);
 
     public StructureBoundingBox b() {
-        return this.e;
+        return this.f;
     }
 
     public int c() {
-        return this.g;
+        return this.h;
     }
 
     public static StructurePiece a(List list, StructureBoundingBox structureboundingbox) {
@@ -44,16 +44,16 @@ public abstract class StructurePiece {
     }
 
     public ChunkPosition a() {
-        return new ChunkPosition(this.e.e(), this.e.f(), this.e.g());
+        return new ChunkPosition(this.f.e(), this.f.f(), this.f.g());
     }
 
     protected boolean a(World world, StructureBoundingBox structureboundingbox) {
-        int i = Math.max(this.e.a - 1, structureboundingbox.a);
-        int j = Math.max(this.e.b - 1, structureboundingbox.b);
-        int k = Math.max(this.e.c - 1, structureboundingbox.c);
-        int l = Math.min(this.e.d + 1, structureboundingbox.d);
-        int i1 = Math.min(this.e.e + 1, structureboundingbox.e);
-        int j1 = Math.min(this.e.f + 1, structureboundingbox.f);
+        int i = Math.max(this.f.a - 1, structureboundingbox.a);
+        int j = Math.max(this.f.b - 1, structureboundingbox.b);
+        int k = Math.max(this.f.c - 1, structureboundingbox.c);
+        int l = Math.min(this.f.d + 1, structureboundingbox.d);
+        int i1 = Math.min(this.f.e + 1, structureboundingbox.e);
+        int j1 = Math.min(this.f.f + 1, structureboundingbox.f);
 
         int k1;
         int l1;
@@ -105,16 +105,16 @@ public abstract class StructurePiece {
     }
 
     protected int a(int i, int j) {
-        switch (this.f) {
+        switch (this.g) {
         case 0:
         case 2:
-            return this.e.a + i;
+            return this.f.a + i;
 
         case 1:
-            return this.e.d - j;
+            return this.f.d - j;
 
         case 3:
-            return this.e.a + j;
+            return this.f.a + j;
 
         default:
             return i;
@@ -122,20 +122,20 @@ public abstract class StructurePiece {
     }
 
     protected int a(int i) {
-        return this.f == -1 ? i : i + this.e.b;
+        return this.g == -1 ? i : i + this.f.b;
     }
 
     protected int b(int i, int j) {
-        switch (this.f) {
+        switch (this.g) {
         case 0:
-            return this.e.c + j;
+            return this.f.c + j;
 
         case 1:
         case 3:
-            return this.e.c + i;
+            return this.f.c + i;
 
         case 2:
-            return this.e.f - j;
+            return this.f.f - j;
 
         default:
             return j;
@@ -144,7 +144,7 @@ public abstract class StructurePiece {
 
     protected int c(int i, int j) {
         if (i == Block.RAILS.id) {
-            if (this.f == 1 || this.f == 3) {
+            if (this.g == 1 || this.g == 3) {
                 if (j == 1) {
                     return 0;
                 }
@@ -154,7 +154,7 @@ public abstract class StructurePiece {
         } else if (i != Block.WOODEN_DOOR.id && i != Block.IRON_DOOR_BLOCK.id) {
             if (i != Block.COBBLESTONE_STAIRS.id && i != Block.WOOD_STAIRS.id && i != Block.NETHER_BRICK_STAIRS.id && i != Block.STONE_STAIRS.id && i != Block.SANDSTONE_STAIRS.id) {
                 if (i == Block.LADDER.id) {
-                    if (this.f == 0) {
+                    if (this.g == 0) {
                         if (j == 2) {
                             return 3;
                         }
@@ -162,7 +162,7 @@ public abstract class StructurePiece {
                         if (j == 3) {
                             return 2;
                         }
-                    } else if (this.f == 1) {
+                    } else if (this.g == 1) {
                         if (j == 2) {
                             return 4;
                         }
@@ -178,7 +178,7 @@ public abstract class StructurePiece {
                         if (j == 5) {
                             return 3;
                         }
-                    } else if (this.f == 3) {
+                    } else if (this.g == 3) {
                         if (j == 2) {
                             return 5;
                         }
@@ -196,7 +196,7 @@ public abstract class StructurePiece {
                         }
                     }
                 } else if (i == Block.STONE_BUTTON.id) {
-                    if (this.f == 0) {
+                    if (this.g == 0) {
                         if (j == 3) {
                             return 4;
                         }
@@ -204,7 +204,7 @@ public abstract class StructurePiece {
                         if (j == 4) {
                             return 3;
                         }
-                    } else if (this.f == 1) {
+                    } else if (this.g == 1) {
                         if (j == 3) {
                             return 1;
                         }
@@ -220,7 +220,7 @@ public abstract class StructurePiece {
                         if (j == 1) {
                             return 4;
                         }
-                    } else if (this.f == 3) {
+                    } else if (this.g == 3) {
                         if (j == 3) {
                             return 2;
                         }
@@ -239,11 +239,11 @@ public abstract class StructurePiece {
                     }
                 } else if (i != Block.TRIPWIRE_SOURCE.id && (Block.byId[i] == null || !(Block.byId[i] instanceof BlockDirectional))) {
                     if (i == Block.PISTON.id || i == Block.PISTON_STICKY.id || i == Block.LEVER.id || i == Block.DISPENSER.id) {
-                        if (this.f == 0) {
+                        if (this.g == 0) {
                             if (j == 2 || j == 3) {
                                 return Facing.OPPOSITE_FACING[j];
                             }
-                        } else if (this.f == 1) {
+                        } else if (this.g == 1) {
                             if (j == 2) {
                                 return 4;
                             }
@@ -259,7 +259,7 @@ public abstract class StructurePiece {
                             if (j == 5) {
                                 return 3;
                             }
-                        } else if (this.f == 3) {
+                        } else if (this.g == 3) {
                             if (j == 2) {
                                 return 5;
                             }
@@ -277,11 +277,11 @@ public abstract class StructurePiece {
                             }
                         }
                     }
-                } else if (this.f == 0) {
+                } else if (this.g == 0) {
                     if (j == 0 || j == 2) {
                         return Direction.f[j];
                     }
-                } else if (this.f == 1) {
+                } else if (this.g == 1) {
                     if (j == 2) {
                         return 1;
                     }
@@ -297,7 +297,7 @@ public abstract class StructurePiece {
                     if (j == 3) {
                         return 0;
                     }
-                } else if (this.f == 3) {
+                } else if (this.g == 3) {
                     if (j == 2) {
                         return 3;
                     }
@@ -314,7 +314,7 @@ public abstract class StructurePiece {
                         return 0;
                     }
                 }
-            } else if (this.f == 0) {
+            } else if (this.g == 0) {
                 if (j == 2) {
                     return 3;
                 }
@@ -322,7 +322,7 @@ public abstract class StructurePiece {
                 if (j == 3) {
                     return 2;
                 }
-            } else if (this.f == 1) {
+            } else if (this.g == 1) {
                 if (j == 0) {
                     return 2;
                 }
@@ -338,7 +338,7 @@ public abstract class StructurePiece {
                 if (j == 3) {
                     return 1;
                 }
-            } else if (this.f == 3) {
+            } else if (this.g == 3) {
                 if (j == 0) {
                     return 2;
                 }
@@ -355,7 +355,7 @@ public abstract class StructurePiece {
                     return 0;
                 }
             }
-        } else if (this.f == 0) {
+        } else if (this.g == 0) {
             if (j == 0) {
                 return 2;
             }
@@ -364,11 +364,11 @@ public abstract class StructurePiece {
                 return 0;
             }
         } else {
-            if (this.f == 1) {
+            if (this.g == 1) {
                 return j + 1 & 3;
             }
 
-            if (this.f == 3) {
+            if (this.g == 3) {
                 return j + 3 & 3;
             }
         }

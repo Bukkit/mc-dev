@@ -11,9 +11,9 @@ public class WorldGenStrongholdRoomCrossing extends WorldGenStrongholdPiece {
 
     public WorldGenStrongholdRoomCrossing(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.f = j;
+        this.g = j;
         this.a = this.a(random);
-        this.e = structureboundingbox;
+        this.f = structureboundingbox;
         this.b = random.nextInt(5);
     }
 

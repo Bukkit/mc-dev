@@ -7,7 +7,7 @@ final class DispenseBehaviorMinecart extends DispenseBehaviorItem {
     DispenseBehaviorMinecart() {}
 
     public ItemStack b(ISourceBlock isourceblock, ItemStack itemstack) {
-        EnumFacing enumfacing = BlockDispenser.j_(isourceblock.h());
+        EnumFacing enumfacing = BlockDispenser.l_(isourceblock.h());
         World world = isourceblock.k();
         double d0 = isourceblock.getX() + (double) ((float) enumfacing.c() * 1.125F);
         double d1 = isourceblock.getY() + (double) ((float) enumfacing.d() * 1.125F);
@@ -18,10 +18,10 @@ final class DispenseBehaviorMinecart extends DispenseBehaviorItem {
         int l = world.getTypeId(i, j, k);
         double d3;
 
-        if (BlockMinecartTrackAbstract.d_(l)) {
+        if (BlockMinecartTrackAbstract.e_(l)) {
             d3 = 0.0D;
         } else {
-            if (l != 0 || !BlockMinecartTrackAbstract.d_(world.getTypeId(i, j - 1, k))) {
+            if (l != 0 || !BlockMinecartTrackAbstract.e_(world.getTypeId(i, j - 1, k))) {
                 return this.b.a(isourceblock, itemstack);
             }
 
@@ -29,6 +29,10 @@ final class DispenseBehaviorMinecart extends DispenseBehaviorItem {
         }
 
         EntityMinecartAbstract entityminecartabstract = EntityMinecartAbstract.a(world, d0, d1 + d3, d2, ((ItemMinecart) itemstack.getItem()).a);
+
+        if (itemstack.hasName()) {
+            entityminecartabstract.a(itemstack.getName());
+        }
 
         world.addEntity(entityminecartabstract);
         itemstack.a(1);

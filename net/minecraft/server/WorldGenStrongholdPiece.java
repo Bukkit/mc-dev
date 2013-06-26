@@ -76,18 +76,18 @@ abstract class WorldGenStrongholdPiece extends StructurePiece {
     }
 
     protected StructurePiece a(WorldGenStrongholdStart worldgenstrongholdstart, List list, Random random, int i, int j) {
-        switch (this.f) {
+        switch (this.g) {
         case 0:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a + i, this.e.b + j, this.e.f + 1, this.f, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.f.a + i, this.f.b + j, this.f.f + 1, this.g, this.c());
 
         case 1:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a - 1, this.e.b + j, this.e.c + i, this.f, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.f.a - 1, this.f.b + j, this.f.c + i, this.g, this.c());
 
         case 2:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a + i, this.e.b + j, this.e.c - 1, this.f, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.f.a + i, this.f.b + j, this.f.c - 1, this.g, this.c());
 
         case 3:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.d + 1, this.e.b + j, this.e.c + i, this.f, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.f.d + 1, this.f.b + j, this.f.c + i, this.g, this.c());
 
         default:
             return null;
@@ -95,18 +95,18 @@ abstract class WorldGenStrongholdPiece extends StructurePiece {
     }
 
     protected StructurePiece b(WorldGenStrongholdStart worldgenstrongholdstart, List list, Random random, int i, int j) {
-        switch (this.f) {
+        switch (this.g) {
         case 0:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a - 1, this.e.b + i, this.e.c + j, 1, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.f.a - 1, this.f.b + i, this.f.c + j, 1, this.c());
 
         case 1:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a + j, this.e.b + i, this.e.c - 1, 2, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.f.a + j, this.f.b + i, this.f.c - 1, 2, this.c());
 
         case 2:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a - 1, this.e.b + i, this.e.c + j, 1, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.f.a - 1, this.f.b + i, this.f.c + j, 1, this.c());
 
         case 3:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a + j, this.e.b + i, this.e.c - 1, 2, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.f.a + j, this.f.b + i, this.f.c - 1, 2, this.c());
 
         default:
             return null;
@@ -114,18 +114,18 @@ abstract class WorldGenStrongholdPiece extends StructurePiece {
     }
 
     protected StructurePiece c(WorldGenStrongholdStart worldgenstrongholdstart, List list, Random random, int i, int j) {
-        switch (this.f) {
+        switch (this.g) {
         case 0:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.d + 1, this.e.b + i, this.e.c + j, 3, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.f.d + 1, this.f.b + i, this.f.c + j, 3, this.c());
 
         case 1:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a + j, this.e.b + i, this.e.f + 1, 0, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.f.a + j, this.f.b + i, this.f.f + 1, 0, this.c());
 
         case 2:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.d + 1, this.e.b + i, this.e.c + j, 3, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.f.d + 1, this.f.b + i, this.f.c + j, 3, this.c());
 
         case 3:
-            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.e.a + j, this.e.b + i, this.e.f + 1, 0, this.c());
+            return WorldGenStrongholdPieces.a(worldgenstrongholdstart, list, random, this.f.a + j, this.f.b + i, this.f.f + 1, 0, this.c());
 
         default:
             return null;

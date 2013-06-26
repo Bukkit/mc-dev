@@ -7,8 +7,8 @@ public class WorldGenNetherPiece9 extends WorldGenNetherPiece {
 
     public WorldGenNetherPiece9(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {

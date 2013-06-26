@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet7UseEntity extends Packet {
 
@@ -11,16 +11,16 @@ public class Packet7UseEntity extends Packet {
 
     public Packet7UseEntity() {}
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.target = datainputstream.readInt();
-        this.action = datainputstream.readByte();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.target = datainput.readInt();
+        this.action = datainput.readByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeInt(this.target);
-        dataoutputstream.writeByte(this.action);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeInt(this.target);
+        dataoutput.writeByte(this.action);
     }
 
     public void handle(Connection connection) {

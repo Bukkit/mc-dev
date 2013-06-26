@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet100OpenWindow extends Packet {
 
@@ -10,6 +10,7 @@ public class Packet100OpenWindow extends Packet {
     public String c;
     public int d;
     public boolean e;
+    public int f;
 
     public Packet100OpenWindow() {}
 
@@ -21,27 +22,38 @@ public class Packet100OpenWindow extends Packet {
         this.e = flag;
     }
 
+    public Packet100OpenWindow(int i, int j, String s, int k, boolean flag, int l) {
+        this(i, j, s, k, flag);
+        this.f = l;
+    }
+
     public void handle(Connection connection) {
         connection.a(this);
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readByte() & 255;
-        this.b = datainputstream.readByte() & 255;
-        this.c = a(datainputstream, 32);
-        this.d = datainputstream.readByte() & 255;
-        this.e = datainputstream.readBoolean();
+    public void a(DataInput datainput) {
+        this.a = datainput.readByte() & 255;
+        this.b = datainput.readByte() & 255;
+        this.c = a(datainput, 32);
+        this.d = datainput.readByte() & 255;
+        this.e = datainput.readBoolean();
+        if (this.b == 11) {
+            this.f = datainput.readInt();
+        }
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeByte(this.a & 255);
-        dataoutputstream.writeByte(this.b & 255);
-        a(this.c, dataoutputstream);
-        dataoutputstream.writeByte(this.d & 255);
-        dataoutputstream.writeBoolean(this.e);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeByte(this.a & 255);
+        dataoutput.writeByte(this.b & 255);
+        a(this.c, dataoutput);
+        dataoutput.writeByte(this.d & 255);
+        dataoutput.writeBoolean(this.e);
+        if (this.b == 11) {
+            dataoutput.writeInt(this.f);
+        }
     }
 
     public int a() {
-        return 4 + this.c.length();
+        return this.b == 11 ? 8 + this.c.length() : 4 + this.c.length();
     }
 }

@@ -8,7 +8,7 @@ public class PathfinderGoalTakeFlower extends PathfinderGoal {
     private EntityVillager a;
     private EntityIronGolem b;
     private int c;
-    private boolean d = false;
+    private boolean d;
 
     public PathfinderGoalTakeFlower(EntityVillager entityvillager) {
         this.a = entityvillager;
@@ -31,7 +31,7 @@ public class PathfinderGoalTakeFlower extends PathfinderGoal {
                 while (iterator.hasNext()) {
                     EntityIronGolem entityirongolem = (EntityIronGolem) iterator.next();
 
-                    if (entityirongolem.o() > 0) {
+                    if (entityirongolem.bR() > 0) {
                         this.b = entityirongolem;
                         break;
                     }
@@ -43,30 +43,30 @@ public class PathfinderGoalTakeFlower extends PathfinderGoal {
     }
 
     public boolean b() {
-        return this.b.o() > 0;
+        return this.b.bR() > 0;
     }
 
     public void c() {
-        this.c = this.a.aE().nextInt(320);
+        this.c = this.a.aB().nextInt(320);
         this.d = false;
-        this.b.getNavigation().g();
+        this.b.getNavigation().h();
     }
 
     public void d() {
         this.b = null;
-        this.a.getNavigation().g();
+        this.a.getNavigation().h();
     }
 
     public void e() {
         this.a.getControllerLook().a(this.b, 30.0F, 30.0F);
-        if (this.b.o() == this.c) {
-            this.a.getNavigation().a((EntityLiving) this.b, 0.15F);
+        if (this.b.bR() == this.c) {
+            this.a.getNavigation().a((Entity) this.b, 0.5D);
             this.d = true;
         }
 
         if (this.d && this.a.e(this.b) < 4.0D) {
             this.b.a(false);
-            this.a.getNavigation().g();
+            this.a.getNavigation().h();
         }
     }
 }

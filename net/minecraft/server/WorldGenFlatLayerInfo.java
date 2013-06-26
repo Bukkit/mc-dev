@@ -9,9 +9,6 @@ public class WorldGenFlatLayerInfo {
 
     public WorldGenFlatLayerInfo(int i, int j) {
         this.a = 1;
-        this.b = 0;
-        this.c = 0;
-        this.d = 0;
         this.a = i;
         this.b = j;
     }

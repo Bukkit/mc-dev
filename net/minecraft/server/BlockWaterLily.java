@@ -27,7 +27,7 @@ public class BlockWaterLily extends BlockFlower {
         return AxisAlignedBB.a().a((double) i + this.minX, (double) j + this.minY, (double) k + this.minZ, (double) i + this.maxX, (double) j + this.maxY, (double) k + this.maxZ);
     }
 
-    protected boolean f_(int i) {
+    protected boolean g_(int i) {
         return i == Block.STATIONARY_WATER.id;
     }
 

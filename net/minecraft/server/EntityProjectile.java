@@ -7,13 +7,13 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
     private int blockX = -1;
     private int blockY = -1;
     private int blockZ = -1;
-    private int inBlockId = 0;
-    protected boolean inGround = false;
-    public int shake = 0;
+    private int inBlockId;
+    protected boolean inGround;
+    public int shake;
     private EntityLiving shooter;
-    private String shooterName = null;
+    private String shooterName;
     private int i;
-    private int j = 0;
+    private int j;
 
     public EntityProjectile(World world) {
         super(world);
@@ -183,7 +183,7 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
         this.pitch = this.lastPitch + (this.pitch - this.lastPitch) * 0.2F;
         this.yaw = this.lastYaw + (this.yaw - this.lastYaw) * 0.2F;
         float f2 = 0.99F;
-        float f3 = this.g();
+        float f3 = this.e();
 
         if (this.G()) {
             for (int k = 0; k < 4; ++k) {
@@ -202,7 +202,7 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
         this.setPosition(this.locX, this.locY, this.locZ);
     }
 
-    protected float g() {
+    protected float e() {
         return 0.03F;
     }
 

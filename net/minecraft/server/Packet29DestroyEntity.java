@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet29DestroyEntity extends Packet {
 
@@ -13,19 +13,19 @@ public class Packet29DestroyEntity extends Packet {
         this.a = aint;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = new int[datainputstream.readByte()];
+    public void a(DataInput datainput) {
+        this.a = new int[datainput.readByte()];
 
         for (int i = 0; i < this.a.length; ++i) {
-            this.a[i] = datainputstream.readInt();
+            this.a[i] = datainput.readInt();
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeByte(this.a.length);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeByte(this.a.length);
 
         for (int i = 0; i < this.a.length; ++i) {
-            dataoutputstream.writeInt(this.a[i]);
+            dataoutput.writeInt(this.a[i]);
         }
     }
 

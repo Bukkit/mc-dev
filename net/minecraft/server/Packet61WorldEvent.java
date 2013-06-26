@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet61WorldEvent extends Packet {
 
@@ -23,22 +23,22 @@ public class Packet61WorldEvent extends Packet {
         this.f = flag;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.c = datainputstream.readInt();
-        this.d = datainputstream.readByte() & 255;
-        this.e = datainputstream.readInt();
-        this.b = datainputstream.readInt();
-        this.f = datainputstream.readBoolean();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.c = datainput.readInt();
+        this.d = datainput.readByte() & 255;
+        this.e = datainput.readInt();
+        this.b = datainput.readInt();
+        this.f = datainput.readBoolean();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeInt(this.c);
-        dataoutputstream.writeByte(this.d & 255);
-        dataoutputstream.writeInt(this.e);
-        dataoutputstream.writeInt(this.b);
-        dataoutputstream.writeBoolean(this.f);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeInt(this.c);
+        dataoutput.writeByte(this.d & 255);
+        dataoutput.writeInt(this.e);
+        dataoutput.writeInt(this.b);
+        dataoutput.writeBoolean(this.f);
     }
 
     public void handle(Connection connection) {

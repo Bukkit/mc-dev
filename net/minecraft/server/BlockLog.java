@@ -2,18 +2,13 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-public class BlockLog extends Block {
+public class BlockLog extends BlockRotatable {
 
-    public static final String[] a = new String[] { "oak", "spruce", "birch", "jungle"};
-    public static final String[] b = new String[] { "tree_side", "tree_spruce", "tree_birch", "tree_jungle"};
+    public static final String[] b = new String[] { "oak", "spruce", "birch", "jungle"};
 
     protected BlockLog(int i) {
         super(i, Material.WOOD);
         this.a(CreativeModeTab.b);
-    }
-
-    public int d() {
-        return 31;
     }
 
     public int a(Random random) {
@@ -47,38 +42,7 @@ public class BlockLog extends Block {
         }
     }
 
-    public int getPlacedData(World world, int i, int j, int k, int l, float f, float f1, float f2, int i1) {
-        int j1 = i1 & 3;
-        byte b0 = 0;
-
-        switch (l) {
-        case 0:
-        case 1:
-            b0 = 0;
-            break;
-
-        case 2:
-        case 3:
-            b0 = 8;
-            break;
-
-        case 4:
-        case 5:
-            b0 = 4;
-        }
-
-        return j1 | b0;
-    }
-
-    public int getDropData(int i) {
+    public static int f(int i) {
         return i & 3;
-    }
-
-    public static int d(int i) {
-        return i & 3;
-    }
-
-    protected ItemStack c_(int i) {
-        return new ItemStack(this.id, 1, d(i));
     }
 }

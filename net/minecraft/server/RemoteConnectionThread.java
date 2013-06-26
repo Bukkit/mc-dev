@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class RemoteConnectionThread implements Runnable {
 
-    protected boolean running = false;
+    protected boolean running;
     protected IMinecraftServer server;
     protected Thread thread;
     protected int d = 5;
@@ -34,7 +34,7 @@ public abstract class RemoteConnectionThread implements Runnable {
     }
 
     protected void debug(String s) {
-        this.server.j(s);
+        this.server.i(s);
     }
 
     protected void info(String s) {
@@ -46,11 +46,11 @@ public abstract class RemoteConnectionThread implements Runnable {
     }
 
     protected void error(String s) {
-        this.server.i(s);
+        this.server.h(s);
     }
 
     protected int d() {
-        return this.server.y();
+        return this.server.A();
     }
 
     protected void a(DatagramSocket datagramsocket) {

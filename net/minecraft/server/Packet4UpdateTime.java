@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet4UpdateTime extends Packet {
 
@@ -10,19 +10,25 @@ public class Packet4UpdateTime extends Packet {
 
     public Packet4UpdateTime() {}
 
-    public Packet4UpdateTime(long i, long j) {
+    public Packet4UpdateTime(long i, long j, boolean flag) {
         this.a = i;
         this.b = j;
+        if (!flag) {
+            this.b = -this.b;
+            if (this.b == 0L) {
+                this.b = -1L;
+            }
+        }
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readLong();
-        this.b = datainputstream.readLong();
+    public void a(DataInput datainput) {
+        this.a = datainput.readLong();
+        this.b = datainput.readLong();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeLong(this.a);
-        dataoutputstream.writeLong(this.b);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeLong(this.a);
+        dataoutput.writeLong(this.b);
     }
 
     public void handle(Connection connection) {

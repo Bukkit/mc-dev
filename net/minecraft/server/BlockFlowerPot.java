@@ -52,7 +52,7 @@ public class BlockFlowerPot extends Block {
     }
 
     public int getDropData(World world, int i, int j, int k) {
-        ItemStack itemstack = n_(world.getData(i, j, k));
+        ItemStack itemstack = p_(world.getData(i, j, k));
 
         return itemstack == null ? Item.FLOWER_POT.id : itemstack.getData();
     }
@@ -71,7 +71,7 @@ public class BlockFlowerPot extends Block {
     public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
         super.dropNaturally(world, i, j, k, l, f, i1);
         if (l > 0) {
-            ItemStack itemstack = n_(l);
+            ItemStack itemstack = p_(l);
 
             if (itemstack != null) {
                 this.b(world, i, j, k, itemstack);
@@ -83,7 +83,7 @@ public class BlockFlowerPot extends Block {
         return Item.FLOWER_POT.id;
     }
 
-    public static ItemStack n_(int i) {
+    public static ItemStack p_(int i) {
         switch (i) {
         case 1:
             return new ItemStack(Block.RED_ROSE);

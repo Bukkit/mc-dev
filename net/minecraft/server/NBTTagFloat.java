@@ -20,7 +20,7 @@ public class NBTTagFloat extends NBTBase {
         dataoutput.writeFloat(this.data);
     }
 
-    void load(DataInput datainput) {
+    void load(DataInput datainput, int i) {
         this.data = datainput.readFloat();
     }
 

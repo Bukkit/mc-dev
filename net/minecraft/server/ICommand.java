@@ -6,13 +6,13 @@ public interface ICommand extends Comparable {
 
     String c();
 
-    String a(ICommandListener icommandlistener);
+    String c(ICommandListener icommandlistener);
 
     List b();
 
     void b(ICommandListener icommandlistener, String[] astring);
 
-    boolean b(ICommandListener icommandlistener);
+    boolean a(ICommandListener icommandlistener);
 
     List a(ICommandListener icommandlistener, String[] astring);
 

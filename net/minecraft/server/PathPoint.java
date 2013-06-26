@@ -11,7 +11,7 @@ public class PathPoint {
     float f;
     float g;
     PathPoint h;
-    public boolean i = false;
+    public boolean i;
 
     public PathPoint(int i, int j, int k) {
         this.a = i;

@@ -2,41 +2,41 @@ package net.minecraft.server;
 
 public class ItemArmor extends Item {
 
-    private static final int[] cu = new int[] { 11, 16, 15, 13};
-    private static final String[] cv = new String[] { "helmetCloth_overlay", "chestplateCloth_overlay", "leggingsCloth_overlay", "bootsCloth_overlay"};
-    public static final String[] a = new String[] { "slot_empty_helmet", "slot_empty_chestplate", "slot_empty_leggings", "slot_empty_boots"};
-    private static final IDispenseBehavior cw = new DispenseBehaviorArmor();
+    private static final int[] cB = new int[] { 11, 16, 15, 13};
+    private static final String[] cC = new String[] { "leather_helmet_overlay", "leather_chestplate_overlay", "leather_leggings_overlay", "leather_boots_overlay"};
+    public static final String[] a = new String[] { "empty_armor_slot_helmet", "empty_armor_slot_chestplate", "empty_armor_slot_leggings", "empty_armor_slot_boots"};
+    private static final IDispenseBehavior cD = new DispenseBehaviorArmor();
     public final int b;
     public final int c;
     public final int d;
-    private final EnumArmorMaterial cx;
+    private final EnumArmorMaterial cE;
 
     public ItemArmor(int i, EnumArmorMaterial enumarmormaterial, int j, int k) {
         super(i);
-        this.cx = enumarmormaterial;
+        this.cE = enumarmormaterial;
         this.b = k;
         this.d = j;
         this.c = enumarmormaterial.b(k);
         this.setMaxDurability(enumarmormaterial.a(k));
         this.maxStackSize = 1;
         this.a(CreativeModeTab.j);
-        BlockDispenser.a.a(this, cw);
+        BlockDispenser.a.a(this, cD);
     }
 
     public int c() {
-        return this.cx.a();
+        return this.cE.a();
     }
 
     public EnumArmorMaterial d() {
-        return this.cx;
+        return this.cE;
     }
 
     public boolean a(ItemStack itemstack) {
-        return this.cx != EnumArmorMaterial.CLOTH ? false : (!itemstack.hasTag() ? false : (!itemstack.getTag().hasKey("display") ? false : itemstack.getTag().getCompound("display").hasKey("color")));
+        return this.cE != EnumArmorMaterial.CLOTH ? false : (!itemstack.hasTag() ? false : (!itemstack.getTag().hasKey("display") ? false : itemstack.getTag().getCompound("display").hasKey("color")));
     }
 
     public int b(ItemStack itemstack) {
-        if (this.cx != EnumArmorMaterial.CLOTH) {
+        if (this.cE != EnumArmorMaterial.CLOTH) {
             return -1;
         } else {
             NBTTagCompound nbttagcompound = itemstack.getTag();
@@ -52,7 +52,7 @@ public class ItemArmor extends Item {
     }
 
     public void c(ItemStack itemstack) {
-        if (this.cx == EnumArmorMaterial.CLOTH) {
+        if (this.cE == EnumArmorMaterial.CLOTH) {
             NBTTagCompound nbttagcompound = itemstack.getTag();
 
             if (nbttagcompound != null) {
@@ -66,7 +66,7 @@ public class ItemArmor extends Item {
     }
 
     public void b(ItemStack itemstack, int i) {
-        if (this.cx != EnumArmorMaterial.CLOTH) {
+        if (this.cE != EnumArmorMaterial.CLOTH) {
             throw new UnsupportedOperationException("Can\'t dye non-leather!");
         } else {
             NBTTagCompound nbttagcompound = itemstack.getTag();
@@ -87,12 +87,12 @@ public class ItemArmor extends Item {
     }
 
     public boolean a(ItemStack itemstack, ItemStack itemstack1) {
-        return this.cx.b() == itemstack1.id ? true : super.a(itemstack, itemstack1);
+        return this.cE.b() == itemstack1.id ? true : super.a(itemstack, itemstack1);
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        int i = EntityLiving.b(itemstack) - 1;
-        ItemStack itemstack1 = entityhuman.q(i);
+        int i = EntityInsentient.b(itemstack) - 1;
+        ItemStack itemstack1 = entityhuman.o(i);
 
         if (itemstack1 == null) {
             entityhuman.setEquipment(i, itemstack.cloneItemStack());
@@ -103,6 +103,6 @@ public class ItemArmor extends Item {
     }
 
     static int[] e() {
-        return cu;
+        return cB;
     }
 }

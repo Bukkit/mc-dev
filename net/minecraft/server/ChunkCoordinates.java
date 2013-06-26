@@ -45,11 +45,11 @@ public class ChunkCoordinates implements Comparable {
     }
 
     public float e(int i, int j, int k) {
-        int l = this.x - i;
-        int i1 = this.y - j;
-        int j1 = this.z - k;
+        float f = (float) (this.x - i);
+        float f1 = (float) (this.y - j);
+        float f2 = (float) (this.z - k);
 
-        return (float) (l * l + i1 * i1 + j1 * j1);
+        return f * f + f1 * f1 + f2 * f2;
     }
 
     public float e(ChunkCoordinates chunkcoordinates) {

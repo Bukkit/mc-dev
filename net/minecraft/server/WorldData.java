@@ -181,7 +181,7 @@ public class WorldData {
         nbttagcompound.setLong("Time", this.time);
         nbttagcompound.setLong("DayTime", this.dayTime);
         nbttagcompound.setLong("SizeOnDisk", this.sizeOnDisk);
-        nbttagcompound.setLong("LastPlayed", System.currentTimeMillis());
+        nbttagcompound.setLong("LastPlayed", MinecraftServer.aq());
         nbttagcompound.setString("LevelName", this.name);
         nbttagcompound.setInt("version", this.version);
         nbttagcompound.setInt("rainTime", this.rainTicks);

@@ -92,14 +92,13 @@ public class ScoreboardTeam {
 
     public int packOptionData() {
         int i = 0;
-        int j = 0;
 
         if (this.allowFriendlyFire()) {
-            i |= 1 << j++;
+            i |= 1;
         }
 
         if (this.canSeeFriendlyInvisibles()) {
-            i |= 1 << j++;
+            i |= 2;
         }
 
         return i;

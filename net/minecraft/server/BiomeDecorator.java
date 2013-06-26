@@ -61,18 +61,11 @@ public class BiomeDecorator {
         this.v = new WorldGenReed();
         this.w = new WorldGenCactus();
         this.x = new WorldGenWaterLily();
-        this.y = 0;
-        this.z = 0;
         this.A = 2;
         this.B = 1;
-        this.C = 0;
-        this.D = 0;
-        this.E = 0;
-        this.F = 0;
         this.G = 1;
         this.H = 3;
         this.I = 1;
-        this.J = 0;
         this.K = true;
         this.e = biomebase;
     }

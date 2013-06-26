@@ -32,13 +32,17 @@ public class NBTTagCompound extends NBTBase {
         dataoutput.writeByte(0);
     }
 
-    void load(DataInput datainput) {
-        this.map.clear();
+    void load(DataInput datainput, int i) {
+        if (i > 512) {
+            throw new RuntimeException("Tried to read NBT tag with too high complexity, depth > 512");
+        } else {
+            this.map.clear();
 
-        NBTBase nbtbase;
+            NBTBase nbtbase;
 
-        while ((nbtbase = NBTBase.b(datainput)).getTypeId() != 0) {
-            this.map.put(nbtbase.getName(), nbtbase);
+            while ((nbtbase = NBTBase.b(datainput, i + 1)).getTypeId() != 0) {
+                this.map.put(nbtbase.getName(), nbtbase);
+            }
         }
     }
 

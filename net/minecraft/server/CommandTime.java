@@ -14,8 +14,8 @@ public class CommandTime extends CommandAbstract {
         return 2;
     }
 
-    public String a(ICommandListener icommandlistener) {
-        return icommandlistener.a("commands.time.usage", new Object[0]);
+    public String c(ICommandListener icommandlistener) {
+        return "commands.time.usage";
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {

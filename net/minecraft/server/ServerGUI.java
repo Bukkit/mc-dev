@@ -15,7 +15,7 @@ import javax.swing.border.TitledBorder;
 
 public class ServerGUI extends JComponent {
 
-    private static boolean a = false;
+    private static boolean a;
     private DedicatedServer b;
 
     public static void a(DedicatedServer dedicatedserver) {

@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public interface IComplex {
 
-    World d();
+    World b();
 
-    boolean a(EntityComplexPart entitycomplexpart, DamageSource damagesource, int i);
+    boolean a(EntityComplexPart entitycomplexpart, DamageSource damagesource, float f);
 }

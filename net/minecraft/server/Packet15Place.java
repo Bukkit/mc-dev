@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet15Place extends Packet {
 
@@ -16,26 +16,26 @@ public class Packet15Place extends Packet {
 
     public Packet15Place() {}
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.read();
-        this.c = datainputstream.readInt();
-        this.d = datainputstream.read();
-        this.e = c(datainputstream);
-        this.f = (float) datainputstream.read() / 16.0F;
-        this.g = (float) datainputstream.read() / 16.0F;
-        this.h = (float) datainputstream.read() / 16.0F;
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readUnsignedByte();
+        this.c = datainput.readInt();
+        this.d = datainput.readUnsignedByte();
+        this.e = c(datainput);
+        this.f = (float) datainput.readUnsignedByte() / 16.0F;
+        this.g = (float) datainput.readUnsignedByte() / 16.0F;
+        this.h = (float) datainput.readUnsignedByte() / 16.0F;
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.write(this.b);
-        dataoutputstream.writeInt(this.c);
-        dataoutputstream.write(this.d);
-        a(this.e, dataoutputstream);
-        dataoutputstream.write((int) (this.f * 16.0F));
-        dataoutputstream.write((int) (this.g * 16.0F));
-        dataoutputstream.write((int) (this.h * 16.0F));
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.write(this.b);
+        dataoutput.writeInt(this.c);
+        dataoutput.write(this.d);
+        a(this.e, dataoutput);
+        dataoutput.write((int) (this.f * 16.0F));
+        dataoutput.write((int) (this.g * 16.0F));
+        dataoutput.write((int) (this.h * 16.0F));
     }
 
     public void handle(Connection connection) {

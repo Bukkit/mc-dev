@@ -3,7 +3,7 @@ package net.minecraft.server;
 public class BlockSmoothBrick extends Block {
 
     public static final String[] a = new String[] { "default", "mossy", "cracked", "chiseled"};
-    public static final String[] b = new String[] { "stonebricksmooth", "stonebricksmooth_mossy", "stonebricksmooth_cracked", "stonebricksmooth_carved"};
+    public static final String[] b = new String[] { null, "mossy", "cracked", "carved"};
 
     public BlockSmoothBrick(int i) {
         super(i, Material.STONE);

@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet131ItemData extends Packet {
 
@@ -20,18 +20,18 @@ public class Packet131ItemData extends Packet {
         this.c = abyte;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readShort();
-        this.b = datainputstream.readShort();
-        this.c = new byte[datainputstream.readUnsignedShort()];
-        datainputstream.readFully(this.c);
+    public void a(DataInput datainput) {
+        this.a = datainput.readShort();
+        this.b = datainput.readShort();
+        this.c = new byte[datainput.readUnsignedShort()];
+        datainput.readFully(this.c);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeShort(this.a);
-        dataoutputstream.writeShort(this.b);
-        dataoutputstream.writeShort(this.c.length);
-        dataoutputstream.write(this.c);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeShort(this.a);
+        dataoutput.writeShort(this.b);
+        dataoutput.writeShort(this.c.length);
+        dataoutput.write(this.c);
     }
 
     public void handle(Connection connection) {

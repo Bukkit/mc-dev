@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet13PlayerLookMove extends Packet10Flying {
 
@@ -22,24 +22,24 @@ public class Packet13PlayerLookMove extends Packet10Flying {
         this.hasPos = true;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.x = datainputstream.readDouble();
-        this.y = datainputstream.readDouble();
-        this.stance = datainputstream.readDouble();
-        this.z = datainputstream.readDouble();
-        this.yaw = datainputstream.readFloat();
-        this.pitch = datainputstream.readFloat();
-        super.a(datainputstream);
+    public void a(DataInput datainput) {
+        this.x = datainput.readDouble();
+        this.y = datainput.readDouble();
+        this.stance = datainput.readDouble();
+        this.z = datainput.readDouble();
+        this.yaw = datainput.readFloat();
+        this.pitch = datainput.readFloat();
+        super.a(datainput);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeDouble(this.x);
-        dataoutputstream.writeDouble(this.y);
-        dataoutputstream.writeDouble(this.stance);
-        dataoutputstream.writeDouble(this.z);
-        dataoutputstream.writeFloat(this.yaw);
-        dataoutputstream.writeFloat(this.pitch);
-        super.a(dataoutputstream);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeDouble(this.x);
+        dataoutput.writeDouble(this.y);
+        dataoutput.writeDouble(this.stance);
+        dataoutput.writeDouble(this.z);
+        dataoutput.writeFloat(this.yaw);
+        dataoutput.writeFloat(this.pitch);
+        super.a(dataoutput);
     }
 
     public int a() {

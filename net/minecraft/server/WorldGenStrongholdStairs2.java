@@ -11,25 +11,25 @@ public class WorldGenStrongholdStairs2 extends WorldGenStrongholdPiece {
     public WorldGenStrongholdStairs2(int i, Random random, int j, int k) {
         super(i);
         this.a = true;
-        this.f = random.nextInt(4);
+        this.g = random.nextInt(4);
         this.b = WorldGenStrongholdDoorType.a;
-        switch (this.f) {
+        switch (this.g) {
         case 0:
         case 2:
-            this.e = new StructureBoundingBox(j, 64, k, j + 5 - 1, 74, k + 5 - 1);
+            this.f = new StructureBoundingBox(j, 64, k, j + 5 - 1, 74, k + 5 - 1);
             break;
 
         default:
-            this.e = new StructureBoundingBox(j, 64, k, j + 5 - 1, 74, k + 5 - 1);
+            this.f = new StructureBoundingBox(j, 64, k, j + 5 - 1, 74, k + 5 - 1);
         }
     }
 
     public WorldGenStrongholdStairs2(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
         this.a = false;
-        this.f = j;
+        this.g = j;
         this.b = this.a(random);
-        this.e = structureboundingbox;
+        this.f = structureboundingbox;
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {

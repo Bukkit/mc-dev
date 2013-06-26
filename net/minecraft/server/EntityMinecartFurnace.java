@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public class EntityMinecartFurnace extends EntityMinecartAbstract {
 
-    private int c = 0;
+    private int c;
     public double a;
     public double b;
 
@@ -87,11 +87,11 @@ public class EntityMinecartFurnace extends EntityMinecartAbstract {
         super.h();
     }
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean c(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
         if (itemstack != null && itemstack.id == Item.COAL.id) {
-            if (--itemstack.count == 0) {
+            if (!entityhuman.abilities.canInstantlyBuild && --itemstack.count == 0) {
                 entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
             }
 

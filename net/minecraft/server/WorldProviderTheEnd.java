@@ -5,13 +5,13 @@ public class WorldProviderTheEnd extends WorldProvider {
     public WorldProviderTheEnd() {}
 
     public void b() {
-        this.d = new WorldChunkManagerHell(BiomeBase.SKY, 0.5F, 0.0F);
+        this.e = new WorldChunkManagerHell(BiomeBase.SKY, 0.5F, 0.0F);
         this.dimension = 1;
-        this.f = true;
+        this.g = true;
     }
 
     public IChunkProvider getChunkProvider() {
-        return new ChunkProviderTheEnd(this.a, this.a.getSeed());
+        return new ChunkProviderTheEnd(this.b, this.b.getSeed());
     }
 
     public float a(long i, float f) {
@@ -27,7 +27,7 @@ public class WorldProviderTheEnd extends WorldProvider {
     }
 
     public boolean canSpawn(int i, int j) {
-        int k = this.a.b(i, j);
+        int k = this.b.b(i, j);
 
         return k == 0 ? false : Block.byId[k].material.isSolid();
     }

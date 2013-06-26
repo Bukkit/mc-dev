@@ -1,69 +1,52 @@
 package net.minecraft.server;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public class PathfinderGoalNearestAttackableTarget extends PathfinderGoalTarget {
 
-    EntityLiving a;
-    Class b;
-    int c;
-    private final IEntitySelector g;
-    private DistanceComparator h;
+    private final Class a;
+    private final int b;
+    private final DistanceComparator e;
+    private final IEntitySelector f;
+    private EntityLiving g;
 
-    public PathfinderGoalNearestAttackableTarget(EntityLiving entityliving, Class oclass, float f, int i, boolean flag) {
-        this(entityliving, oclass, f, i, flag, false);
+    public PathfinderGoalNearestAttackableTarget(EntityCreature entitycreature, Class oclass, int i, boolean flag) {
+        this(entitycreature, oclass, i, flag, false);
     }
 
-    public PathfinderGoalNearestAttackableTarget(EntityLiving entityliving, Class oclass, float f, int i, boolean flag, boolean flag1) {
-        this(entityliving, oclass, f, i, flag, flag1, (IEntitySelector) null);
+    public PathfinderGoalNearestAttackableTarget(EntityCreature entitycreature, Class oclass, int i, boolean flag, boolean flag1) {
+        this(entitycreature, oclass, i, flag, flag1, (IEntitySelector) null);
     }
 
-    public PathfinderGoalNearestAttackableTarget(EntityLiving entityliving, Class oclass, float f, int i, boolean flag, boolean flag1, IEntitySelector ientityselector) {
-        super(entityliving, f, flag, flag1);
-        this.b = oclass;
-        this.e = f;
-        this.c = i;
-        this.h = new DistanceComparator(this, entityliving);
-        this.g = ientityselector;
+    public PathfinderGoalNearestAttackableTarget(EntityCreature entitycreature, Class oclass, int i, boolean flag, boolean flag1, IEntitySelector ientityselector) {
+        super(entitycreature, flag, flag1);
+        this.a = oclass;
+        this.b = i;
+        this.e = new DistanceComparator(entitycreature);
         this.a(1);
+        this.f = new EntitySelectorNearestAttackableTarget(this, ientityselector);
     }
 
     public boolean a() {
-        if (this.c > 0 && this.d.aE().nextInt(this.c) != 0) {
+        if (this.b > 0 && this.c.aB().nextInt(this.b) != 0) {
             return false;
         } else {
-            if (this.b == EntityHuman.class) {
-                EntityHuman entityhuman = this.d.world.findNearbyVulnerablePlayer(this.d, (double) this.e);
+            double d0 = this.f();
+            List list = this.c.world.a(this.a, this.c.boundingBox.grow(d0, 4.0D, d0), this.f);
 
-                if (this.a(entityhuman, false)) {
-                    this.a = entityhuman;
-                    return true;
-                }
+            Collections.sort(list, this.e);
+            if (list.isEmpty()) {
+                return false;
             } else {
-                List list = this.d.world.a(this.b, this.d.boundingBox.grow((double) this.e, 4.0D, (double) this.e), this.g);
-
-                Collections.sort(list, this.h);
-                Iterator iterator = list.iterator();
-
-                while (iterator.hasNext()) {
-                    Entity entity = (Entity) iterator.next();
-                    EntityLiving entityliving = (EntityLiving) entity;
-
-                    if (this.a(entityliving, false)) {
-                        this.a = entityliving;
-                        return true;
-                    }
-                }
+                this.g = (EntityLiving) list.get(0);
+                return true;
             }
-
-            return false;
         }
     }
 
     public void c() {
-        this.d.setGoalTarget(this.a);
+        this.c.setGoalTarget(this.g);
         super.c();
     }
 }

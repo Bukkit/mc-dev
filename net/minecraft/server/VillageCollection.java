@@ -10,7 +10,7 @@ public class VillageCollection extends WorldMapBase {
     private final List b = new ArrayList();
     private final List c = new ArrayList();
     private final List villages = new ArrayList();
-    private int time = 0;
+    private int time;
 
     public VillageCollection(String s) {
         super(s);
@@ -86,9 +86,9 @@ public class VillageCollection extends WorldMapBase {
             float f1 = village1.getCenter().e(i, j, k);
 
             if (f1 < f) {
-                int i1 = l + village1.getSize();
+                float f2 = (float) (l + village1.getSize());
 
-                if (f1 <= (float) (i1 * i1)) {
+                if (f1 <= f2 * f2) {
                     village = village1;
                     f = f1;
                 }

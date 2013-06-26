@@ -356,7 +356,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         int l1;
         int i2;
 
-        if (!flag && this.k.nextInt(4) == 0) {
+        if (biomebase != BiomeBase.DESERT && biomebase != BiomeBase.DESERT_HILLS && !flag && this.k.nextInt(4) == 0) {
             k1 = k + this.k.nextInt(16) + 8;
             l1 = this.k.nextInt(128);
             i2 = l + this.k.nextInt(16) + 8;
@@ -377,9 +377,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
             i2 = this.k.nextInt(128);
             int j2 = l + this.k.nextInt(16) + 8;
 
-            if ((new WorldGenDungeons()).a(this.p, this.k, l1, i2, j2)) {
-                ;
-            }
+            (new WorldGenDungeons()).a(this.p, this.k, l1, i2, j2);
         }
 
         biomebase.a(this.p, this.k, k, l);

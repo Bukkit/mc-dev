@@ -12,10 +12,14 @@ public class CommandKill extends CommandAbstract {
         return 0;
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
-        EntityPlayer entityplayer = c(icommandlistener);
+    public String c(ICommandListener icommandlistener) {
+        return "commands.kill.usage";
+    }
 
-        entityplayer.damageEntity(DamageSource.OUT_OF_WORLD, 1000);
-        icommandlistener.sendMessage("Ouch. That looks like it hurt.");
+    public void b(ICommandListener icommandlistener, String[] astring) {
+        EntityPlayer entityplayer = b(icommandlistener);
+
+        entityplayer.damageEntity(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
+        icommandlistener.sendMessage(ChatMessage.e("commands.kill.success"));
     }
 }

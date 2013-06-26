@@ -2,16 +2,16 @@ package net.minecraft.server;
 
 public class ControllerLook {
 
-    private EntityLiving a;
+    private EntityInsentient a;
     private float b;
     private float c;
-    private boolean d = false;
+    private boolean d;
     private double e;
     private double f;
     private double g;
 
-    public ControllerLook(EntityLiving entityliving) {
-        this.a = entityliving;
+    public ControllerLook(EntityInsentient entityinsentient) {
+        this.a = entityinsentient;
     }
 
     public void a(Entity entity, float f, float f1) {
@@ -49,20 +49,20 @@ public class ControllerLook {
             float f1 = (float) (-(Math.atan2(d1, d3) * 180.0D / 3.1415927410125732D));
 
             this.a.pitch = this.a(this.a.pitch, f1, this.c);
-            this.a.aA = this.a(this.a.aA, f, this.b);
+            this.a.aP = this.a(this.a.aP, f, this.b);
         } else {
-            this.a.aA = this.a(this.a.aA, this.a.ay, 10.0F);
+            this.a.aP = this.a(this.a.aP, this.a.aN, 10.0F);
         }
 
-        float f2 = MathHelper.g(this.a.aA - this.a.ay);
+        float f2 = MathHelper.g(this.a.aP - this.a.aN);
 
-        if (!this.a.getNavigation().f()) {
+        if (!this.a.getNavigation().g()) {
             if (f2 < -75.0F) {
-                this.a.aA = this.a.ay - 75.0F;
+                this.a.aP = this.a.aN - 75.0F;
             }
 
             if (f2 > 75.0F) {
-                this.a.aA = this.a.ay + 75.0F;
+                this.a.aP = this.a.aN + 75.0F;
             }
         }
     }

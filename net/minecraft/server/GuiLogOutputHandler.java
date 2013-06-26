@@ -8,7 +8,7 @@ import javax.swing.JTextArea;
 public class GuiLogOutputHandler extends Handler {
 
     private int[] b = new int[1024];
-    private int c = 0;
+    private int c;
     Formatter a = new GuiLogFormatter(this);
     private JTextArea d;
 

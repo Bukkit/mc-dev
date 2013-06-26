@@ -15,12 +15,12 @@ public class CommandPardonIP extends CommandAbstract {
         return 3;
     }
 
-    public boolean b(ICommandListener icommandlistener) {
-        return MinecraftServer.getServer().getPlayerList().getIPBans().isEnabled() && super.b(icommandlistener);
+    public boolean a(ICommandListener icommandlistener) {
+        return MinecraftServer.getServer().getPlayerList().getIPBans().isEnabled() && super.a(icommandlistener);
     }
 
-    public String a(ICommandListener icommandlistener) {
-        return icommandlistener.a("commands.unbanip.usage", new Object[0]);
+    public String c(ICommandListener icommandlistener) {
+        return "commands.unbanip.usage";
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {

@@ -15,7 +15,7 @@ public class BlockStep extends BlockStepAbstract {
         return Block.STEP.id;
     }
 
-    protected ItemStack c_(int i) {
+    protected ItemStack d_(int i) {
         return new ItemStack(Block.STEP.id, 2, i & 7);
     }
 

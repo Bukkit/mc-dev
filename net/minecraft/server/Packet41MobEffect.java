@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet41MobEffect extends Packet {
 
@@ -23,18 +23,18 @@ public class Packet41MobEffect extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.readByte();
-        this.c = datainputstream.readByte();
-        this.d = datainputstream.readShort();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readByte();
+        this.c = datainput.readByte();
+        this.d = datainput.readShort();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeByte(this.b);
-        dataoutputstream.writeByte(this.c);
-        dataoutputstream.writeShort(this.d);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeByte(this.b);
+        dataoutput.writeByte(this.c);
+        dataoutput.writeShort(this.d);
     }
 
     public void handle(Connection connection) {

@@ -8,23 +8,24 @@ import java.util.Random;
 
 public final class SpawnerCreature {
 
-    private static HashMap b = new HashMap();
-    protected static final Class[] a = new Class[] { EntitySpider.class, EntityZombie.class, EntitySkeleton.class};
+    private HashMap a = new HashMap();
+
+    public SpawnerCreature() {}
 
     protected static ChunkPosition getRandomPosition(World world, int i, int j) {
         Chunk chunk = world.getChunkAt(i, j);
         int k = i * 16 + world.random.nextInt(16);
         int l = j * 16 + world.random.nextInt(16);
-        int i1 = world.random.nextInt(chunk == null ? world.R() : chunk.h() + 16 - 1);
+        int i1 = world.random.nextInt(chunk == null ? world.S() : chunk.h() + 16 - 1);
 
         return new ChunkPosition(k, i1, l);
     }
 
-    public static final int spawnEntities(WorldServer worldserver, boolean flag, boolean flag1, boolean flag2) {
+    public int spawnEntities(WorldServer worldserver, boolean flag, boolean flag1, boolean flag2) {
         if (!flag && !flag1) {
             return 0;
         } else {
-            b.clear();
+            this.a.clear();
 
             int i;
             int j;
@@ -42,9 +43,9 @@ public final class SpawnerCreature {
                         ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(l + k, i1 + j);
 
                         if (!flag3) {
-                            b.put(chunkcoordintpair, Boolean.valueOf(false));
-                        } else if (!b.containsKey(chunkcoordintpair)) {
-                            b.put(chunkcoordintpair, Boolean.valueOf(true));
+                            this.a.put(chunkcoordintpair, Boolean.valueOf(false));
+                        } else if (!this.a.containsKey(chunkcoordintpair)) {
+                            this.a.put(chunkcoordintpair, Boolean.valueOf(true));
                         }
                     }
                 }
@@ -59,14 +60,14 @@ public final class SpawnerCreature {
             for (int j1 = 0; j1 < j; ++j1) {
                 EnumCreatureType enumcreaturetype = aenumcreaturetype[j1];
 
-                if ((!enumcreaturetype.d() || flag1) && (enumcreaturetype.d() || flag) && (!enumcreaturetype.e() || flag2) && worldserver.a(enumcreaturetype.a()) <= enumcreaturetype.b() * b.size() / 256) {
-                    Iterator iterator = b.keySet().iterator();
+                if ((!enumcreaturetype.d() || flag1) && (enumcreaturetype.d() || flag) && (!enumcreaturetype.e() || flag2) && worldserver.a(enumcreaturetype.a()) <= enumcreaturetype.b() * this.a.size() / 256) {
+                    Iterator iterator = this.a.keySet().iterator();
 
                     label110:
                     while (iterator.hasNext()) {
                         ChunkCoordIntPair chunkcoordintpair1 = (ChunkCoordIntPair) iterator.next();
 
-                        if (!((Boolean) b.get(chunkcoordintpair1)).booleanValue()) {
+                        if (!((Boolean) this.a.get(chunkcoordintpair1)).booleanValue()) {
                             ChunkPosition chunkposition = getRandomPosition(worldserver, chunkcoordintpair1.x, chunkcoordintpair1.z);
                             int k1 = chunkposition.x;
                             int l1 = chunkposition.y;
@@ -82,6 +83,7 @@ public final class SpawnerCreature {
                                     int j3 = i2;
                                     byte b1 = 6;
                                     BiomeMeta biomemeta = null;
+                                    GroupDataEntity groupdataentity = null;
                                     int k3 = 0;
 
                                     while (true) {
@@ -109,21 +111,21 @@ public final class SpawnerCreature {
                                                                 }
                                                             }
 
-                                                            EntityLiving entityliving;
+                                                            EntityInsentient entityinsentient;
 
                                                             try {
-                                                                entityliving = (EntityLiving) biomemeta.b.getConstructor(new Class[] { World.class}).newInstance(new Object[] { worldserver});
+                                                                entityinsentient = (EntityInsentient) biomemeta.b.getConstructor(new Class[] { World.class}).newInstance(new Object[] { worldserver});
                                                             } catch (Exception exception) {
                                                                 exception.printStackTrace();
                                                                 return i;
                                                             }
 
-                                                            entityliving.setPositionRotation((double) f, (double) f1, (double) f2, worldserver.random.nextFloat() * 360.0F, 0.0F);
-                                                            if (entityliving.canSpawn()) {
+                                                            entityinsentient.setPositionRotation((double) f, (double) f1, (double) f2, worldserver.random.nextFloat() * 360.0F, 0.0F);
+                                                            if (entityinsentient.canSpawn()) {
                                                                 ++j2;
-                                                                worldserver.addEntity(entityliving);
-                                                                a(entityliving, worldserver, f, f1, f2);
-                                                                if (j2 >= entityliving.by()) {
+                                                                worldserver.addEntity(entityinsentient);
+                                                                groupdataentity = entityinsentient.a(groupdataentity);
+                                                                if (j2 >= entityinsentient.br()) {
                                                                     continue label110;
                                                                 }
                                                             }
@@ -164,16 +166,13 @@ public final class SpawnerCreature {
         }
     }
 
-    private static void a(EntityLiving entityliving, World world, float f, float f1, float f2) {
-        entityliving.bJ();
-    }
-
     public static void a(World world, BiomeBase biomebase, int i, int j, int k, int l, Random random) {
         List list = biomebase.getMobs(EnumCreatureType.CREATURE);
 
         if (!list.isEmpty()) {
             while (random.nextFloat() < biomebase.f()) {
                 BiomeMeta biomemeta = (BiomeMeta) WeightedRandom.a(world.random, (Collection) list);
+                GroupDataEntity groupdataentity = null;
                 int i1 = biomemeta.c + random.nextInt(1 + biomemeta.d - biomemeta.c);
                 int j1 = i + random.nextInt(k);
                 int k1 = j + random.nextInt(l);
@@ -191,18 +190,18 @@ public final class SpawnerCreature {
                             float f1 = (float) l2;
                             float f2 = (float) k1 + 0.5F;
 
-                            EntityLiving entityliving;
+                            EntityInsentient entityinsentient;
 
                             try {
-                                entityliving = (EntityLiving) biomemeta.b.getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
+                                entityinsentient = (EntityInsentient) biomemeta.b.getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
                             } catch (Exception exception) {
                                 exception.printStackTrace();
                                 continue;
                             }
 
-                            entityliving.setPositionRotation((double) f, (double) f1, (double) f2, random.nextFloat() * 360.0F, 0.0F);
-                            world.addEntity(entityliving);
-                            a(entityliving, world, f, f1, f2);
+                            entityinsentient.setPositionRotation((double) f, (double) f1, (double) f2, random.nextFloat() * 360.0F, 0.0F);
+                            world.addEntity(entityinsentient);
+                            groupdataentity = entityinsentient.a(groupdataentity);
                             flag = true;
                         }
 

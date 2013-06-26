@@ -11,7 +11,7 @@ public abstract class BlockStepAbstract extends Block {
         super(i, material);
         this.a = flag;
         if (flag) {
-            s[i] = true;
+            t[i] = true;
         } else {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
         }

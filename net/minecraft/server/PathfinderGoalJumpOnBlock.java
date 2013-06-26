@@ -3,22 +3,22 @@ package net.minecraft.server;
 public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
 
     private final EntityOcelot a;
-    private final float b;
-    private int c = 0;
-    private int d = 0;
-    private int e = 0;
-    private int f = 0;
-    private int g = 0;
-    private int h = 0;
+    private final double b;
+    private int c;
+    private int d;
+    private int e;
+    private int f;
+    private int g;
+    private int h;
 
-    public PathfinderGoalJumpOnBlock(EntityOcelot entityocelot, float f) {
+    public PathfinderGoalJumpOnBlock(EntityOcelot entityocelot, double d0) {
         this.a = entityocelot;
-        this.b = f;
+        this.b = d0;
         this.a(5);
     }
 
     public boolean a() {
-        return this.a.isTamed() && !this.a.isSitting() && this.a.aE().nextDouble() <= 0.006500000134110451D && this.f();
+        return this.a.isTamed() && !this.a.isSitting() && this.a.aB().nextDouble() <= 0.006500000134110451D && this.f();
     }
 
     public boolean b() {
@@ -29,7 +29,7 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
         this.a.getNavigation().a((double) ((float) this.f) + 0.5D, (double) (this.g + 1), (double) ((float) this.h) + 0.5D, this.b);
         this.c = 0;
         this.d = 0;
-        this.e = this.a.aE().nextInt(this.a.aE().nextInt(1200) + 1200) + 1200;
+        this.e = this.a.aB().nextInt(this.a.aB().nextInt(1200) + 1200) + 1200;
         this.a.getGoalSit().setSitting(false);
     }
 
@@ -88,7 +88,7 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
                 return true;
             }
 
-            if (l == Block.BED.id && !BlockBed.e_(i1)) {
+            if (l == Block.BED.id && !BlockBed.f_(i1)) {
                 return true;
             }
         }

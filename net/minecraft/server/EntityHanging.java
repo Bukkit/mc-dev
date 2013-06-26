@@ -13,8 +13,6 @@ public abstract class EntityHanging extends Entity {
 
     public EntityHanging(World world) {
         super(world);
-        this.e = 0;
-        this.direction = 0;
         this.height = 0.0F;
         this.a(0.5F, 0.5F);
     }
@@ -32,7 +30,7 @@ public abstract class EntityHanging extends Entity {
         this.direction = i;
         this.lastYaw = this.yaw = (float) (i * 90);
         float f = (float) this.d();
-        float f1 = (float) this.g();
+        float f1 = (float) this.e();
         float f2 = (float) this.d();
 
         if (i != 2 && i != 0) {
@@ -67,38 +65,41 @@ public abstract class EntityHanging extends Entity {
         }
 
         if (i == 2) {
-            f3 -= this.b(this.d());
+            f3 -= this.c(this.d());
         }
 
         if (i == 1) {
-            f5 += this.b(this.d());
+            f5 += this.c(this.d());
         }
 
         if (i == 0) {
-            f3 += this.b(this.d());
+            f3 += this.c(this.d());
         }
 
         if (i == 3) {
-            f5 -= this.b(this.d());
+            f5 -= this.c(this.d());
         }
 
-        f4 += this.b(this.g());
+        f4 += this.c(this.e());
         this.setPosition((double) f3, (double) f4, (double) f5);
         float f7 = -0.03125F;
 
         this.boundingBox.b((double) (f3 - f - f7), (double) (f4 - f1 - f7), (double) (f5 - f2 - f7), (double) (f3 + f + f7), (double) (f4 + f1 + f7), (double) (f5 + f2 + f7));
     }
 
-    private float b(int i) {
+    private float c(int i) {
         return i == 32 ? 0.5F : (i == 64 ? 0.5F : 0.0F);
     }
 
     public void l_() {
+        this.lastX = this.locX;
+        this.lastY = this.locY;
+        this.lastZ = this.locZ;
         if (this.e++ == 100 && !this.world.isStatic) {
             this.e = 0;
             if (!this.dead && !this.survives()) {
                 this.die();
-                this.h();
+                this.b((Entity) null);
             }
         }
     }
@@ -108,7 +109,7 @@ public abstract class EntityHanging extends Entity {
             return false;
         } else {
             int i = Math.max(1, this.d() / 16);
-            int j = Math.max(1, this.g() / 16);
+            int j = Math.max(1, this.e() / 16);
             int k = this.x;
             int l = this.y;
             int i1 = this.z;
@@ -129,7 +130,7 @@ public abstract class EntityHanging extends Entity {
                 i1 = MathHelper.floor(this.locZ - (double) ((float) this.d() / 32.0F));
             }
 
-            l = MathHelper.floor(this.locY - (double) ((float) this.g() / 32.0F));
+            l = MathHelper.floor(this.locY - (double) ((float) this.e() / 32.0F));
 
             for (int j1 = 0; j1 < i; ++j1) {
                 for (int k1 = 0; k1 < j; ++k1) {
@@ -168,28 +169,18 @@ public abstract class EntityHanging extends Entity {
         return true;
     }
 
-    public boolean j(Entity entity) {
-        return entity instanceof EntityHuman ? this.damageEntity(DamageSource.playerAttack((EntityHuman) entity), 0) : false;
+    public boolean i(Entity entity) {
+        return entity instanceof EntityHuman ? this.damageEntity(DamageSource.playerAttack((EntityHuman) entity), 0.0F) : false;
     }
 
-    public boolean damageEntity(DamageSource damagesource, int i) {
+    public boolean damageEntity(DamageSource damagesource, float f) {
         if (this.isInvulnerable()) {
             return false;
         } else {
             if (!this.dead && !this.world.isStatic) {
                 this.die();
                 this.J();
-                EntityHuman entityhuman = null;
-
-                if (damagesource.getEntity() instanceof EntityHuman) {
-                    entityhuman = (EntityHuman) damagesource.getEntity();
-                }
-
-                if (entityhuman != null && entityhuman.abilities.canInstantlyBuild) {
-                    return true;
-                }
-
-                this.h();
+                this.b(damagesource.getEntity());
             }
 
             return true;
@@ -199,14 +190,14 @@ public abstract class EntityHanging extends Entity {
     public void move(double d0, double d1, double d2) {
         if (!this.world.isStatic && !this.dead && d0 * d0 + d1 * d1 + d2 * d2 > 0.0D) {
             this.die();
-            this.h();
+            this.b((Entity) null);
         }
     }
 
     public void g(double d0, double d1, double d2) {
         if (!this.world.isStatic && !this.dead && d0 * d0 + d1 * d1 + d2 * d2 > 0.0D) {
             this.die();
-            this.h();
+            this.b((Entity) null);
         }
     }
 
@@ -263,7 +254,7 @@ public abstract class EntityHanging extends Entity {
 
     public abstract int d();
 
-    public abstract int g();
+    public abstract int e();
 
-    public abstract void h();
+    public abstract void b(Entity entity);
 }

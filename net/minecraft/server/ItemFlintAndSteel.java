@@ -40,7 +40,7 @@ public class ItemFlintAndSteel extends Item {
             int i1 = world.getTypeId(i, j, k);
 
             if (i1 == 0) {
-                world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, e.nextFloat() * 0.4F + 0.8F);
+                world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, f.nextFloat() * 0.4F + 0.8F);
                 world.setTypeIdUpdate(i, j, k, Block.FIRE.id);
             }
 

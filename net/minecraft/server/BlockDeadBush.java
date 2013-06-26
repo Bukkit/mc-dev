@@ -11,7 +11,7 @@ public class BlockDeadBush extends BlockFlower {
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
     }
 
-    protected boolean f_(int i) {
+    protected boolean g_(int i) {
         return i == Block.SAND.id;
     }
 
@@ -20,7 +20,7 @@ public class BlockDeadBush extends BlockFlower {
     }
 
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
-        if (!world.isStatic && entityhuman.cd() != null && entityhuman.cd().id == Item.SHEARS.id) {
+        if (!world.isStatic && entityhuman.bt() != null && entityhuman.bt().id == Item.SHEARS.id) {
             entityhuman.a(StatisticList.C[this.id], 1);
             this.b(world, i, j, k, new ItemStack(Block.DEAD_BUSH, 1, l));
         } else {

@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet204LocaleAndViewDistance extends Packet {
 
@@ -14,23 +14,23 @@ public class Packet204LocaleAndViewDistance extends Packet {
 
     public Packet204LocaleAndViewDistance() {}
 
-    public void a(DataInputStream datainputstream) {
-        this.a = a(datainputstream, 7);
-        this.b = datainputstream.readByte();
-        byte b0 = datainputstream.readByte();
+    public void a(DataInput datainput) {
+        this.a = a(datainput, 7);
+        this.b = datainput.readByte();
+        byte b0 = datainput.readByte();
 
         this.c = b0 & 7;
         this.d = (b0 & 8) == 8;
-        this.e = datainputstream.readByte();
-        this.f = datainputstream.readBoolean();
+        this.e = datainput.readByte();
+        this.f = datainput.readBoolean();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        a(this.a, dataoutputstream);
-        dataoutputstream.writeByte(this.b);
-        dataoutputstream.writeByte(this.c | (this.d ? 1 : 0) << 3);
-        dataoutputstream.writeByte(this.e);
-        dataoutputstream.writeBoolean(this.f);
+    public void a(DataOutput dataoutput) {
+        a(this.a, dataoutput);
+        dataoutput.writeByte(this.b);
+        dataoutput.writeByte(this.c | (this.d ? 1 : 0) << 3);
+        dataoutput.writeByte(this.e);
+        dataoutput.writeBoolean(this.f);
     }
 
     public void handle(Connection connection) {

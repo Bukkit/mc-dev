@@ -2,8 +2,8 @@ package net.minecraft.server;
 
 public class BlockCloth extends Block {
 
-    public BlockCloth() {
-        super(35, Material.CLOTH);
+    public BlockCloth(int i, Material material) {
+        super(i, material);
         this.a(CreativeModeTab.b);
     }
 
@@ -11,7 +11,7 @@ public class BlockCloth extends Block {
         return i;
     }
 
-    public static int g_(int i) {
+    public static int j_(int i) {
         return ~i & 15;
     }
 

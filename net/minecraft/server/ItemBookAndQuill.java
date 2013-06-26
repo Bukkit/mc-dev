@@ -8,11 +8,11 @@ public class ItemBookAndQuill extends Item {
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        entityhuman.d(itemstack);
+        entityhuman.c(itemstack);
         return itemstack;
     }
 
-    public boolean r() {
+    public boolean s() {
         return true;
     }
 

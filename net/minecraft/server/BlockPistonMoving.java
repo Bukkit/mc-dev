@@ -69,8 +69,8 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        if (!world.isStatic && world.getTileEntity(i, j, k) == null) {
-            ;
+        if (!world.isStatic) {
+            world.getTileEntity(i, j, k);
         }
     }
 

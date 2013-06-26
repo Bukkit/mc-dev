@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public abstract class PathfinderGoalDoorInteract extends PathfinderGoal {
 
-    protected EntityLiving a;
+    protected EntityInsentient a;
     protected int b;
     protected int c;
     protected int d;
@@ -11,8 +11,8 @@ public abstract class PathfinderGoalDoorInteract extends PathfinderGoal {
     float g;
     float h;
 
-    public PathfinderGoalDoorInteract(EntityLiving entityliving) {
-        this.a = entityliving;
+    public PathfinderGoalDoorInteract(EntityInsentient entityinsentient) {
+        this.a = entityinsentient;
     }
 
     public boolean a() {
@@ -20,7 +20,7 @@ public abstract class PathfinderGoalDoorInteract extends PathfinderGoal {
             return false;
         } else {
             Navigation navigation = this.a.getNavigation();
-            PathEntity pathentity = navigation.d();
+            PathEntity pathentity = navigation.e();
 
             if (pathentity != null && !pathentity.b() && navigation.c()) {
                 for (int i = 0; i < Math.min(pathentity.e() + 2, pathentity.d()); ++i) {

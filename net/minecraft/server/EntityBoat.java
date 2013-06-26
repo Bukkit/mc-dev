@@ -22,14 +22,14 @@ public class EntityBoat extends Entity {
         this.height = this.length / 2.0F;
     }
 
-    protected boolean f_() {
+    protected boolean e_() {
         return false;
     }
 
     protected void a() {
         this.datawatcher.a(17, new Integer(0));
         this.datawatcher.a(18, new Integer(1));
-        this.datawatcher.a(19, new Integer(0));
+        this.datawatcher.a(19, new Float(0.0F));
     }
 
     public AxisAlignedBB g(Entity entity) {
@@ -59,17 +59,17 @@ public class EntityBoat extends Entity {
         return (double) this.length * 0.0D - 0.30000001192092896D;
     }
 
-    public boolean damageEntity(DamageSource damagesource, int i) {
+    public boolean damageEntity(DamageSource damagesource, float f) {
         if (this.isInvulnerable()) {
             return false;
         } else if (!this.world.isStatic && !this.dead) {
-            this.h(-this.h());
-            this.b(10);
-            this.setDamage(this.getDamage() + i * 10);
+            this.c(-this.h());
+            this.a(10);
+            this.setDamage(this.getDamage() + f * 10.0F);
             this.J();
             boolean flag = damagesource.getEntity() instanceof EntityHuman && ((EntityHuman) damagesource.getEntity()).abilities.canInstantlyBuild;
 
-            if (flag || this.getDamage() > 40) {
+            if (flag || this.getDamage() > 40.0F) {
                 if (this.passenger != null) {
                     this.passenger.mount(this);
                 }
@@ -93,12 +93,12 @@ public class EntityBoat extends Entity {
 
     public void l_() {
         super.l_();
-        if (this.g() > 0) {
-            this.b(this.g() - 1);
+        if (this.e() > 0) {
+            this.a(this.e() - 1);
         }
 
-        if (this.getDamage() > 0) {
-            this.setDamage(this.getDamage() - 1);
+        if (this.getDamage() > 0.0F) {
+            this.setDamage(this.getDamage() - 1.0F);
         }
 
         this.lastX = this.locX;
@@ -184,9 +184,14 @@ public class EntityBoat extends Entity {
                 this.motY += 0.007000000216066837D;
             }
 
-            if (this.passenger != null) {
-                this.motX += this.passenger.motX * this.b;
-                this.motZ += this.passenger.motZ * this.b;
+            if (this.passenger != null && this.passenger instanceof EntityLiving) {
+                d4 = (double) ((EntityLiving) this.passenger).bf;
+                if (d4 > 0.0D) {
+                    d5 = -Math.sin((double) (this.passenger.yaw * 3.1415927F / 180.0F));
+                    d10 = Math.cos((double) (this.passenger.yaw * 3.1415927F / 180.0F));
+                    this.motX += d5 * this.b * 0.05000000074505806D;
+                    this.motZ += d10 * this.b * 0.05000000074505806D;
+                }
             }
 
             d4 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ);
@@ -306,7 +311,7 @@ public class EntityBoat extends Entity {
 
     protected void a(NBTTagCompound nbttagcompound) {}
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean c(EntityHuman entityhuman) {
         if (this.passenger != null && this.passenger instanceof EntityHuman && this.passenger != entityhuman) {
             return true;
         } else {
@@ -318,23 +323,23 @@ public class EntityBoat extends Entity {
         }
     }
 
-    public void setDamage(int i) {
-        this.datawatcher.watch(19, Integer.valueOf(i));
+    public void setDamage(float f) {
+        this.datawatcher.watch(19, Float.valueOf(f));
     }
 
-    public int getDamage() {
-        return this.datawatcher.getInt(19);
+    public float getDamage() {
+        return this.datawatcher.getFloat(19);
     }
 
-    public void b(int i) {
+    public void a(int i) {
         this.datawatcher.watch(17, Integer.valueOf(i));
     }
 
-    public int g() {
+    public int e() {
         return this.datawatcher.getInt(17);
     }
 
-    public void h(int i) {
+    public void c(int i) {
         this.datawatcher.watch(18, Integer.valueOf(i));
     }
 

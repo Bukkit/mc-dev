@@ -20,7 +20,7 @@ public class BlockRepeater extends BlockDiodeAbstract {
         return true;
     }
 
-    protected int i_(int i) {
+    protected int k_(int i) {
         return c[(i & 12) >> 2] * 2;
     }
 

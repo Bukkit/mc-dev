@@ -25,7 +25,7 @@ public abstract class BlockFluids extends Block {
         return (float) (i + 1) / 9.0F;
     }
 
-    protected int k_(World world, int i, int j, int k) {
+    protected int l_(World world, int i, int j, int k) {
         return world.getMaterial(i, j, k) == this.material ? world.getData(i, j, k) : -1;
     }
 
@@ -171,7 +171,7 @@ public abstract class BlockFluids extends Block {
     }
 
     public int a(World world) {
-        return this.material == Material.WATER ? 5 : (this.material == Material.LAVA ? (world.worldProvider.f ? 10 : 30) : 0);
+        return this.material == Material.WATER ? 5 : (this.material == Material.LAVA ? (world.worldProvider.g ? 10 : 30) : 0);
     }
 
     public void onPlace(World world, int i, int j, int k) {

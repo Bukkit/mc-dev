@@ -11,7 +11,7 @@ public class MethodProfiler {
 
     private final List b = new ArrayList();
     private final List c = new ArrayList();
-    public boolean a = false;
+    public boolean a;
     private String d = "";
     private final Map e = new HashMap();
 

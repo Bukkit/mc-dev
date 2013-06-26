@@ -27,8 +27,10 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
         this.a(new CommandGamerule());
         this.a(new CommandClear());
         this.a(new CommandTestFor());
+        this.a(new CommandSpreadPlayers());
+        this.a(new CommandPlaySound());
         this.a(new CommandScoreboard());
-        if (MinecraftServer.getServer().T()) {
+        if (MinecraftServer.getServer().V()) {
             this.a(new CommandOp());
             this.a(new CommandDeop());
             this.a(new CommandStop());
@@ -57,24 +59,28 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
             flag = false;
         }
 
+        ChatMessage chatmessage = ChatMessage.b("chat.type.admin", new Object[] { icommandlistener.getName(), ChatMessage.b(s, aobject)});
+
+        chatmessage.a(EnumChatFormat.GRAY);
+        chatmessage.b(Boolean.valueOf(true));
         if (flag) {
             Iterator iterator = MinecraftServer.getServer().getPlayerList().players.iterator();
 
             while (iterator.hasNext()) {
                 EntityPlayer entityplayer = (EntityPlayer) iterator.next();
 
-                if (entityplayer != icommandlistener && MinecraftServer.getServer().getPlayerList().isOp(entityplayer.name)) {
-                    entityplayer.sendMessage("" + EnumChatFormat.GRAY + "" + EnumChatFormat.ITALIC + "[" + icommandlistener.getName() + ": " + entityplayer.a(s, aobject) + "]");
+                if (entityplayer != icommandlistener && MinecraftServer.getServer().getPlayerList().isOp(entityplayer.getName())) {
+                    entityplayer.sendMessage(chatmessage);
                 }
             }
         }
 
         if (icommandlistener != MinecraftServer.getServer()) {
-            MinecraftServer.getServer().getLogger().info("[" + icommandlistener.getName() + ": " + MinecraftServer.getServer().a(s, aobject) + "]");
+            MinecraftServer.getServer().sendMessage(chatmessage);
         }
 
         if ((i & 1) != 1) {
-            icommandlistener.sendMessage(icommandlistener.a(s, aobject));
+            icommandlistener.sendMessage(ChatMessage.b(s, aobject));
         }
     }
 }

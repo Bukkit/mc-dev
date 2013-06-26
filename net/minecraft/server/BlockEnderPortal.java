@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class BlockEnderPortal extends BlockContainer {
 
-    public static boolean a = false;
+    public static boolean a;
 
     protected BlockEnderPortal(int i, Material material) {
         super(i, material);
@@ -38,7 +38,7 @@ public class BlockEnderPortal extends BlockContainer {
 
     public void a(World world, int i, int j, int k, Entity entity) {
         if (entity.vehicle == null && entity.passenger == null && !world.isStatic) {
-            entity.c(1);
+            entity.b(1);
         }
     }
 

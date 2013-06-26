@@ -2,18 +2,18 @@ package net.minecraft.server;
 
 public class PathfinderGoalEatTile extends PathfinderGoal {
 
-    private EntityLiving b;
+    private EntityInsentient b;
     private World c;
-    int a = 0;
+    int a;
 
-    public PathfinderGoalEatTile(EntityLiving entityliving) {
-        this.b = entityliving;
-        this.c = entityliving.world;
+    public PathfinderGoalEatTile(EntityInsentient entityinsentient) {
+        this.b = entityinsentient;
+        this.c = entityinsentient.world;
         this.a(7);
     }
 
     public boolean a() {
-        if (this.b.aE().nextInt(this.b.isBaby() ? 50 : 1000) != 0) {
+        if (this.b.aB().nextInt(this.b.isBaby() ? 50 : 1000) != 0) {
             return false;
         } else {
             int i = MathHelper.floor(this.b.locX);
@@ -27,7 +27,7 @@ public class PathfinderGoalEatTile extends PathfinderGoal {
     public void c() {
         this.a = 40;
         this.c.broadcastEntityEffect(this.b, (byte) 10);
-        this.b.getNavigation().g();
+        this.b.getNavigation().h();
     }
 
     public void d() {
@@ -51,11 +51,11 @@ public class PathfinderGoalEatTile extends PathfinderGoal {
 
             if (this.c.getTypeId(i, j, k) == Block.LONG_GRASS.id) {
                 this.c.setAir(i, j, k, false);
-                this.b.aK();
+                this.b.n();
             } else if (this.c.getTypeId(i, j - 1, k) == Block.GRASS.id) {
                 this.c.triggerEffect(2001, i, j - 1, k, Block.GRASS.id);
                 this.c.setTypeIdAndData(i, j - 1, k, Block.DIRT.id, 0, 2);
-                this.b.aK();
+                this.b.n();
             }
         }
     }

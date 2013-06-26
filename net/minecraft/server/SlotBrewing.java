@@ -10,7 +10,7 @@ class SlotBrewing extends Slot {
     }
 
     public boolean isAllowed(ItemStack itemstack) {
-        return itemstack != null ? Item.byId[itemstack.id].w() : false;
+        return itemstack != null ? Item.byId[itemstack.id].x() : false;
     }
 
     public int a() {

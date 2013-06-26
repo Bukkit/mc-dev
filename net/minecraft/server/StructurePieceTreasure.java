@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class StructurePieceTreasure extends WeightedRandomChoice {
 
-    private ItemStack b = null;
+    private ItemStack b;
     private int c;
     private int d;
 

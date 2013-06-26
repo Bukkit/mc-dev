@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet55BlockBreakAnimation extends Packet {
 
@@ -21,20 +21,20 @@ public class Packet55BlockBreakAnimation extends Packet {
         this.e = i1;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.readInt();
-        this.c = datainputstream.readInt();
-        this.d = datainputstream.readInt();
-        this.e = datainputstream.read();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readInt();
+        this.c = datainput.readInt();
+        this.d = datainput.readInt();
+        this.e = datainput.readUnsignedByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeInt(this.b);
-        dataoutputstream.writeInt(this.c);
-        dataoutputstream.writeInt(this.d);
-        dataoutputstream.write(this.e);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeInt(this.b);
+        dataoutput.writeInt(this.c);
+        dataoutput.writeInt(this.d);
+        dataoutput.write(this.e);
     }
 
     public void handle(Connection connection) {

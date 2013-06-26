@@ -16,14 +16,14 @@ public class DamageSource {
     public static DamageSource WITHER = (new DamageSource("wither")).j();
     public static DamageSource ANVIL = new DamageSource("anvil");
     public static DamageSource FALLING_BLOCK = new DamageSource("fallingBlock");
-    private boolean p = false;
-    private boolean q = false;
+    private boolean p;
+    private boolean q;
     private float r = 0.3F;
     private boolean s;
     private boolean t;
     private boolean u;
-    private boolean v = false;
-    private boolean w = false;
+    private boolean v;
+    private boolean w;
     public String translationIndex;
 
     public static DamageSource mobAttack(EntityLiving entityliving) {
@@ -116,12 +116,12 @@ public class DamageSource {
         return this;
     }
 
-    public String getLocalizedDeathMessage(EntityLiving entityliving) {
-        EntityLiving entityliving1 = entityliving.bN();
+    public ChatMessage getLocalizedDeathMessage(EntityLiving entityliving) {
+        EntityLiving entityliving1 = entityliving.aO();
         String s = "death.attack." + this.translationIndex;
         String s1 = s + ".player";
 
-        return entityliving1 != null && LocaleI18n.b(s1) ? LocaleI18n.get(s1, new Object[] { entityliving.getScoreboardDisplayName(), entityliving1.getScoreboardDisplayName()}) : LocaleI18n.get(s, new Object[] { entityliving.getScoreboardDisplayName()});
+        return entityliving1 != null && LocaleI18n.b(s1) ? ChatMessage.b(s1, new Object[] { entityliving.getScoreboardDisplayName(), entityliving1.getScoreboardDisplayName()}) : ChatMessage.b(s, new Object[] { entityliving.getScoreboardDisplayName()});
     }
 
     public boolean m() {

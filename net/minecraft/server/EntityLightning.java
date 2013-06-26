@@ -5,7 +5,7 @@ import java.util.List;
 public class EntityLightning extends EntityWeather {
 
     private int lifeTicks;
-    public long a = 0L;
+    public long a;
     private int c;
 
     public EntityLightning(World world, double d0, double d1, double d2) {
@@ -14,7 +14,7 @@ public class EntityLightning extends EntityWeather {
         this.lifeTicks = 2;
         this.a = this.random.nextLong();
         this.c = this.random.nextInt(3) + 1;
-        if (!world.isStatic && world.difficulty >= 2 && world.areChunksLoaded(MathHelper.floor(d0), MathHelper.floor(d1), MathHelper.floor(d2), 10)) {
+        if (!world.isStatic && world.getGameRules().getBoolean("doFireTick") && world.difficulty >= 2 && world.areChunksLoaded(MathHelper.floor(d0), MathHelper.floor(d1), MathHelper.floor(d2), 10)) {
             int i = MathHelper.floor(d0);
             int j = MathHelper.floor(d1);
             int k = MathHelper.floor(d2);
@@ -50,7 +50,7 @@ public class EntityLightning extends EntityWeather {
                 --this.c;
                 this.lifeTicks = 1;
                 this.a = this.random.nextLong();
-                if (!this.world.isStatic && this.world.areChunksLoaded(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ), 10)) {
+                if (!this.world.isStatic && this.world.getGameRules().getBoolean("doFireTick") && this.world.areChunksLoaded(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ), 10)) {
                     int i = MathHelper.floor(this.locX);
                     int j = MathHelper.floor(this.locY);
                     int k = MathHelper.floor(this.locZ);

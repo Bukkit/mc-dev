@@ -14,7 +14,7 @@ public class BlockFenceGate extends BlockDirectional {
     public AxisAlignedBB b(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
 
-        return k_(l) ? null : (l != 2 && l != 0 ? AxisAlignedBB.a().a((double) ((float) i + 0.375F), (double) j, (double) k, (double) ((float) i + 0.625F), (double) ((float) j + 1.5F), (double) (k + 1)) : AxisAlignedBB.a().a((double) i, (double) j, (double) ((float) k + 0.375F), (double) (i + 1), (double) ((float) j + 1.5F), (double) ((float) k + 0.625F)));
+        return m_(l) ? null : (l != 2 && l != 0 ? AxisAlignedBB.a().a((double) ((float) i + 0.375F), (double) j, (double) k, (double) ((float) i + 0.625F), (double) ((float) j + 1.5F), (double) (k + 1)) : AxisAlignedBB.a().a((double) i, (double) j, (double) ((float) k + 0.375F), (double) (i + 1), (double) ((float) j + 1.5F), (double) ((float) k + 0.625F)));
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
@@ -36,7 +36,7 @@ public class BlockFenceGate extends BlockDirectional {
     }
 
     public boolean b(IBlockAccess iblockaccess, int i, int j, int k) {
-        return k_(iblockaccess.getData(i, j, k));
+        return m_(iblockaccess.getData(i, j, k));
     }
 
     public int d() {
@@ -52,7 +52,7 @@ public class BlockFenceGate extends BlockDirectional {
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
         int i1 = world.getData(i, j, k);
 
-        if (k_(i1)) {
+        if (m_(i1)) {
             world.setData(i, j, k, i1 & -5, 2);
         } else {
             int j1 = (MathHelper.floor((double) (entityhuman.yaw * 4.0F / 360.0F) + 0.5D) & 3) % 4;
@@ -75,10 +75,10 @@ public class BlockFenceGate extends BlockDirectional {
             boolean flag = world.isBlockIndirectlyPowered(i, j, k);
 
             if (flag || l > 0 && Block.byId[l].isPowerSource()) {
-                if (flag && !k_(i1)) {
+                if (flag && !m_(i1)) {
                     world.setData(i, j, k, i1 | 4, 2);
                     world.a((EntityHuman) null, 1003, i, j, k, 0);
-                } else if (!flag && k_(i1)) {
+                } else if (!flag && m_(i1)) {
                     world.setData(i, j, k, i1 & -5, 2);
                     world.a((EntityHuman) null, 1003, i, j, k, 0);
                 }
@@ -86,7 +86,7 @@ public class BlockFenceGate extends BlockDirectional {
         }
     }
 
-    public static boolean k_(int i) {
+    public static boolean m_(int i) {
         return (i & 4) != 0;
     }
 }

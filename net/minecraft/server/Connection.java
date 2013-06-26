@@ -188,6 +188,10 @@ public abstract class Connection {
         this.onUnhandledPacket(packet17entitylocationaction);
     }
 
+    public void a(Packet27PlayerInput packet27playerinput) {
+        this.onUnhandledPacket(packet27playerinput);
+    }
+
     public void a(Packet70Bed packet70bed) {
         this.onUnhandledPacket(packet70bed);
     }
@@ -296,5 +300,9 @@ public abstract class Connection {
 
     public void a(Packet63WorldParticles packet63worldparticles) {
         this.onUnhandledPacket(packet63worldparticles);
+    }
+
+    public void a(Packet44UpdateAttributes packet44updateattributes) {
+        this.onUnhandledPacket(packet44updateattributes);
     }
 }

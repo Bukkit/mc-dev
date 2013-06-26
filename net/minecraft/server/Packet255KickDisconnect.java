@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet255KickDisconnect extends Packet {
 
@@ -13,12 +13,12 @@ public class Packet255KickDisconnect extends Packet {
         this.a = s;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = a(datainputstream, 256);
+    public void a(DataInput datainput) {
+        this.a = a(datainput, 256);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        a(this.a, dataoutputstream);
+    public void a(DataOutput dataoutput) {
+        a(this.a, dataoutput);
     }
 
     public void handle(Connection connection) {

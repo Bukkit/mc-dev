@@ -14,15 +14,15 @@ public class CommandMe extends CommandAbstract {
         return 0;
     }
 
-    public String a(ICommandListener icommandlistener) {
-        return icommandlistener.a("commands.me.usage", new Object[0]);
+    public String c(ICommandListener icommandlistener) {
+        return "commands.me.usage";
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0) {
             String s = a(icommandlistener, astring, 0, icommandlistener.a(1, "me"));
 
-            MinecraftServer.getServer().getPlayerList().sendAll(new Packet3Chat("* " + icommandlistener.getName() + " " + s));
+            MinecraftServer.getServer().getPlayerList().sendMessage(ChatMessage.b("chat.type.emote", new Object[] { icommandlistener.getName(), s}));
         } else {
             throw new ExceptionUsage("commands.me.usage", new Object[0]);
         }

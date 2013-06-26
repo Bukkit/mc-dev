@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.util.List;
 
 public class Packet24MobSpawn extends Packet {
@@ -30,7 +30,7 @@ public class Packet24MobSpawn extends Packet {
         this.e = entityliving.at.a(entityliving.locZ);
         this.i = (byte) ((int) (entityliving.yaw * 256.0F / 360.0F));
         this.j = (byte) ((int) (entityliving.pitch * 256.0F / 360.0F));
-        this.k = (byte) ((int) (entityliving.aA * 256.0F / 360.0F));
+        this.k = (byte) ((int) (entityliving.aP * 256.0F / 360.0F));
         double d0 = 3.9D;
         double d1 = entityliving.motX;
         double d2 = entityliving.motY;
@@ -66,34 +66,34 @@ public class Packet24MobSpawn extends Packet {
         this.t = entityliving.getDataWatcher();
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.readByte() & 255;
-        this.c = datainputstream.readInt();
-        this.d = datainputstream.readInt();
-        this.e = datainputstream.readInt();
-        this.i = datainputstream.readByte();
-        this.j = datainputstream.readByte();
-        this.k = datainputstream.readByte();
-        this.f = datainputstream.readShort();
-        this.g = datainputstream.readShort();
-        this.h = datainputstream.readShort();
-        this.u = DataWatcher.a(datainputstream);
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readByte() & 255;
+        this.c = datainput.readInt();
+        this.d = datainput.readInt();
+        this.e = datainput.readInt();
+        this.i = datainput.readByte();
+        this.j = datainput.readByte();
+        this.k = datainput.readByte();
+        this.f = datainput.readShort();
+        this.g = datainput.readShort();
+        this.h = datainput.readShort();
+        this.u = DataWatcher.a(datainput);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeByte(this.b & 255);
-        dataoutputstream.writeInt(this.c);
-        dataoutputstream.writeInt(this.d);
-        dataoutputstream.writeInt(this.e);
-        dataoutputstream.writeByte(this.i);
-        dataoutputstream.writeByte(this.j);
-        dataoutputstream.writeByte(this.k);
-        dataoutputstream.writeShort(this.f);
-        dataoutputstream.writeShort(this.g);
-        dataoutputstream.writeShort(this.h);
-        this.t.a(dataoutputstream);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeByte(this.b & 255);
+        dataoutput.writeInt(this.c);
+        dataoutput.writeInt(this.d);
+        dataoutput.writeInt(this.e);
+        dataoutput.writeByte(this.i);
+        dataoutput.writeByte(this.j);
+        dataoutput.writeByte(this.k);
+        dataoutput.writeShort(this.f);
+        dataoutput.writeShort(this.g);
+        dataoutput.writeShort(this.h);
+        this.t.a(dataoutput);
     }
 
     public void handle(Connection connection) {

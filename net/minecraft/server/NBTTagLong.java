@@ -20,7 +20,7 @@ public class NBTTagLong extends NBTBase {
         dataoutput.writeLong(this.data);
     }
 
-    void load(DataInput datainput) {
+    void load(DataInput datainput, int i) {
         this.data = datainput.readLong();
     }
 

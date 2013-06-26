@@ -95,7 +95,7 @@ public class PlayerInteractManager {
     }
 
     public void dig(int i, int j, int k, int l) {
-        if (!this.gamemode.isAdventure() || this.player.e(i, j, k)) {
+        if (!this.gamemode.isAdventure() || this.player.d(i, j, k)) {
             if (this.isCreative()) {
                 if (!this.world.douseFire((EntityHuman) null, i, j, k, l)) {
                     this.breakBlock(i, j, k);
@@ -175,7 +175,9 @@ public class PlayerInteractManager {
     }
 
     public boolean breakBlock(int i, int j, int k) {
-        if (this.gamemode.isAdventure() && !this.player.e(i, j, k)) {
+        if (this.gamemode.isAdventure() && !this.player.d(i, j, k)) {
+            return false;
+        } else if (this.gamemode.d() && this.player.aV() != null && this.player.aV().getItem() instanceof ItemSword) {
             return false;
         } else {
             int l = this.world.getTypeId(i, j, k);
@@ -187,13 +189,13 @@ public class PlayerInteractManager {
             if (this.isCreative()) {
                 this.player.playerConnection.sendPacket(new Packet53BlockChange(i, j, k, this.world));
             } else {
-                ItemStack itemstack = this.player.cd();
+                ItemStack itemstack = this.player.bt();
                 boolean flag1 = this.player.a(Block.byId[l]);
 
                 if (itemstack != null) {
                     itemstack.a(this.world, l, i, j, k, this.player);
                     if (itemstack.count == 0) {
-                        this.player.ce();
+                        this.player.bu();
                     }
                 }
 
@@ -226,7 +228,7 @@ public class PlayerInteractManager {
                 entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = null;
             }
 
-            if (!entityhuman.bX()) {
+            if (!entityhuman.bm()) {
                 ((EntityPlayer) entityhuman).updateInventory(entityhuman.defaultContainer);
             }
 
@@ -237,7 +239,7 @@ public class PlayerInteractManager {
     public boolean interact(EntityHuman entityhuman, World world, ItemStack itemstack, int i, int j, int k, int l, float f, float f1, float f2) {
         int i1;
 
-        if (!entityhuman.isSneaking() || entityhuman.bG() == null) {
+        if (!entityhuman.isSneaking() || entityhuman.aV() == null) {
             i1 = world.getTypeId(i, j, k);
             if (i1 > 0 && Block.byId[i1].interact(world, i, j, k, entityhuman, l, f, f1, f2)) {
                 return true;

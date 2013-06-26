@@ -19,6 +19,7 @@ public class Material {
     public static final Material FIRE = (new MaterialGas(MaterialMapColor.b)).n();
     public static final Material SAND = new Material(MaterialMapColor.d);
     public static final Material ORIENTABLE = (new MaterialDecoration(MaterialMapColor.b)).n();
+    public static final Material WOOL = (new MaterialDecoration(MaterialMapColor.e)).g();
     public static final Material SHATTERABLE = (new Material(MaterialMapColor.b)).r().p();
     public static final Material BUILDABLE_GLASS = (new Material(MaterialMapColor.b)).p();
     public static final Material TNT = (new Material(MaterialMapColor.f)).g().r();
@@ -35,15 +36,15 @@ public class Material {
     public static final Material WEB = (new MaterialWeb(MaterialMapColor.e)).f().n();
     public static final Material PISTON = (new Material(MaterialMapColor.m)).o();
     private boolean canBurn;
-    private boolean I;
     private boolean J;
-    public final MaterialMapColor G;
-    private boolean K = true;
-    private int L;
-    private boolean M;
+    private boolean K;
+    public final MaterialMapColor H;
+    private boolean L = true;
+    private int M;
+    private boolean N;
 
     public Material(MaterialMapColor materialmapcolor) {
-        this.G = materialmapcolor;
+        this.H = materialmapcolor;
     }
 
     public boolean isLiquid() {
@@ -63,12 +64,12 @@ public class Material {
     }
 
     private Material r() {
-        this.J = true;
+        this.K = true;
         return this;
     }
 
     protected Material f() {
-        this.K = false;
+        this.L = false;
         return this;
     }
 
@@ -82,42 +83,42 @@ public class Material {
     }
 
     public Material i() {
-        this.I = true;
+        this.J = true;
         return this;
     }
 
     public boolean isReplaceable() {
-        return this.I;
+        return this.J;
     }
 
     public boolean k() {
-        return this.J ? false : this.isSolid();
+        return this.K ? false : this.isSolid();
     }
 
     public boolean isAlwaysDestroyable() {
-        return this.K;
-    }
-
-    public int getPushReaction() {
         return this.L;
     }
 
+    public int getPushReaction() {
+        return this.M;
+    }
+
     protected Material n() {
-        this.L = 1;
+        this.M = 1;
         return this;
     }
 
     protected Material o() {
-        this.L = 2;
+        this.M = 2;
         return this;
     }
 
     protected Material p() {
-        this.M = true;
+        this.N = true;
         return this;
     }
 
     public boolean q() {
-        return this.M;
+        return this.N;
     }
 }

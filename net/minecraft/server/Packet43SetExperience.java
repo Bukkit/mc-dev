@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet43SetExperience extends Packet {
 
@@ -17,16 +17,16 @@ public class Packet43SetExperience extends Packet {
         this.c = j;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readFloat();
-        this.c = datainputstream.readShort();
-        this.b = datainputstream.readShort();
+    public void a(DataInput datainput) {
+        this.a = datainput.readFloat();
+        this.c = datainput.readShort();
+        this.b = datainput.readShort();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeFloat(this.a);
-        dataoutputstream.writeShort(this.c);
-        dataoutputstream.writeShort(this.b);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeFloat(this.a);
+        dataoutput.writeShort(this.c);
+        dataoutput.writeShort(this.b);
     }
 
     public void handle(Connection connection) {

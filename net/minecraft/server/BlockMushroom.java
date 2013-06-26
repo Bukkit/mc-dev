@@ -4,11 +4,8 @@ import java.util.Random;
 
 public class BlockMushroom extends BlockFlower {
 
-    private final String a;
-
-    protected BlockMushroom(int i, String s) {
+    protected BlockMushroom(int i) {
         super(i);
-        this.a = s;
         float f = 0.2F;
 
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
@@ -54,7 +51,7 @@ public class BlockMushroom extends BlockFlower {
             }
 
             if (world.isEmpty(i1, j1, k1) && this.f(world, i1, j1, k1)) {
-                world.setTypeIdUpdate(i1, j1, k1, this.id);
+                world.setTypeIdAndData(i1, j1, k1, this.id, 0, 2);
             }
         }
     }
@@ -63,15 +60,15 @@ public class BlockMushroom extends BlockFlower {
         return super.canPlace(world, i, j, k) && this.f(world, i, j, k);
     }
 
-    protected boolean f_(int i) {
-        return Block.s[i];
+    protected boolean g_(int i) {
+        return Block.t[i];
     }
 
     public boolean f(World world, int i, int j, int k) {
         if (j >= 0 && j < 256) {
             int l = world.getTypeId(i, j - 1, k);
 
-            return l == Block.MYCEL.id || world.m(i, j, k) < 13 && this.f_(l);
+            return l == Block.MYCEL.id || world.m(i, j, k) < 13 && this.g_(l);
         } else {
             return false;
         }

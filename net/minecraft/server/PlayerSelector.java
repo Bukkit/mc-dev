@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 public class PlayerSelector {
 
     private static final Pattern a = Pattern.compile("^@([parf])(?:\\[([\\w=,!-]*)\\])?$");
-    private static final Pattern b = Pattern.compile("\\G([-!]?\\w*)(?:$|,)");
-    private static final Pattern c = Pattern.compile("\\G(\\w+)=([-!]?\\w*)(?:$|,)");
+    private static final Pattern b = Pattern.compile("\\G([-!]?[\\w-]*)(?:$|,)");
+    private static final Pattern c = Pattern.compile("\\G(\\w+)=([-!]?[\\w-]*)(?:$|,)");
 
     public static EntityPlayer getPlayer(ICommandListener icommandlistener, String s) {
         EntityPlayer[] aentityplayer = getPlayers(icommandlistener, s);
@@ -39,7 +39,9 @@ public class PlayerSelector {
     public static EntityPlayer[] getPlayers(ICommandListener icommandlistener, String s) {
         Matcher matcher = a.matcher(s);
 
-        if (matcher.matches()) {
+        if (!matcher.matches()) {
+            return null;
+        } else {
             Map map = h(matcher.group(2));
             String s1 = matcher.group(1);
             int i = c(s1);
@@ -52,13 +54,16 @@ public class PlayerSelector {
             Map map1 = a(map);
             String s2 = null;
             String s3 = null;
+            boolean flag = false;
 
             if (map.containsKey("rm")) {
                 i = MathHelper.a((String) map.get("rm"), i);
+                flag = true;
             }
 
             if (map.containsKey("r")) {
                 j = MathHelper.a((String) map.get("r"), j);
+                flag = true;
             }
 
             if (map.containsKey("lm")) {
@@ -71,14 +76,17 @@ public class PlayerSelector {
 
             if (map.containsKey("x")) {
                 chunkcoordinates.x = MathHelper.a((String) map.get("x"), chunkcoordinates.x);
+                flag = true;
             }
 
             if (map.containsKey("y")) {
                 chunkcoordinates.y = MathHelper.a((String) map.get("y"), chunkcoordinates.y);
+                flag = true;
             }
 
             if (map.containsKey("z")) {
                 chunkcoordinates.z = MathHelper.a((String) map.get("z"), chunkcoordinates.z);
+                flag = true;
             }
 
             if (map.containsKey("m")) {
@@ -97,23 +105,22 @@ public class PlayerSelector {
                 s2 = (String) map.get("name");
             }
 
+            World world = flag ? icommandlistener.f_() : null;
             List list;
 
             if (!s1.equals("p") && !s1.equals("a")) {
                 if (!s1.equals("r")) {
                     return null;
                 } else {
-                    list = MinecraftServer.getServer().getPlayerList().a(chunkcoordinates, i, j, 0, j1, k, l, map1, s2, s3);
+                    list = MinecraftServer.getServer().getPlayerList().a(chunkcoordinates, i, j, 0, j1, k, l, map1, s2, s3, world);
                     Collections.shuffle(list);
                     list = list.subList(0, Math.min(i1, list.size()));
                     return list != null && !list.isEmpty() ? (EntityPlayer[]) list.toArray(new EntityPlayer[0]) : new EntityPlayer[0];
                 }
             } else {
-                list = MinecraftServer.getServer().getPlayerList().a(chunkcoordinates, i, j, i1, j1, k, l, map1, s2, s3);
+                list = MinecraftServer.getServer().getPlayerList().a(chunkcoordinates, i, j, i1, j1, k, l, map1, s2, s3, world);
                 return list != null && !list.isEmpty() ? (EntityPlayer[]) list.toArray(new EntityPlayer[0]) : new EntityPlayer[0];
             }
-        } else {
-            return null;
         }
     }
 

@@ -18,7 +18,7 @@ public class CrashReport {
     private final Throwable b;
     private final CrashReportSystemDetails c = new CrashReportSystemDetails(this, "System Details");
     private final List d = new ArrayList();
-    private File e = null;
+    private File e;
     private boolean f = true;
     private StackTraceElement[] g = new StackTraceElement[0];
 

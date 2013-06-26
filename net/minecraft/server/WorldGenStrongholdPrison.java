@@ -9,9 +9,9 @@ public class WorldGenStrongholdPrison extends WorldGenStrongholdPiece {
 
     public WorldGenStrongholdPrison(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.f = j;
+        this.g = j;
         this.a = this.a(random);
-        this.e = structureboundingbox;
+        this.f = structureboundingbox;
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {

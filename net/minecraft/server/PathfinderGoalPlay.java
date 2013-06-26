@@ -7,19 +7,19 @@ public class PathfinderGoalPlay extends PathfinderGoal {
 
     private EntityVillager a;
     private EntityLiving b;
-    private float c;
+    private double c;
     private int d;
 
-    public PathfinderGoalPlay(EntityVillager entityvillager, float f) {
+    public PathfinderGoalPlay(EntityVillager entityvillager, double d0) {
         this.a = entityvillager;
-        this.c = f;
+        this.c = d0;
         this.a(1);
     }
 
     public boolean a() {
         if (this.a.getAge() >= 0) {
             return false;
-        } else if (this.a.aE().nextInt(400) != 0) {
+        } else if (this.a.aB().nextInt(400) != 0) {
             return false;
         } else {
             List list = this.a.world.a(EntityVillager.class, this.a.boundingBox.grow(6.0D, 3.0D, 6.0D));
@@ -29,7 +29,7 @@ public class PathfinderGoalPlay extends PathfinderGoal {
             while (iterator.hasNext()) {
                 EntityVillager entityvillager = (EntityVillager) iterator.next();
 
-                if (entityvillager != this.a && !entityvillager.o() && entityvillager.getAge() < 0) {
+                if (entityvillager != this.a && !entityvillager.bR() && entityvillager.getAge() < 0) {
                     double d1 = entityvillager.e(this.a);
 
                     if (d1 <= d0) {
@@ -57,14 +57,14 @@ public class PathfinderGoalPlay extends PathfinderGoal {
 
     public void c() {
         if (this.b != null) {
-            this.a.j(true);
+            this.a.k(true);
         }
 
         this.d = 1000;
     }
 
     public void d() {
-        this.a.j(false);
+        this.a.k(false);
         this.b = null;
     }
 
@@ -72,9 +72,9 @@ public class PathfinderGoalPlay extends PathfinderGoal {
         --this.d;
         if (this.b != null) {
             if (this.a.e(this.b) > 4.0D) {
-                this.a.getNavigation().a(this.b, this.c);
+                this.a.getNavigation().a((Entity) this.b, this.c);
             }
-        } else if (this.a.getNavigation().f()) {
+        } else if (this.a.getNavigation().g()) {
             Vec3D vec3d = RandomPositionGenerator.a(this.a, 16, 3);
 
             if (vec3d == null) {

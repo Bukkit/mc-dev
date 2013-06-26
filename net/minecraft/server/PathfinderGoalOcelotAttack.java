@@ -3,13 +3,13 @@ package net.minecraft.server;
 public class PathfinderGoalOcelotAttack extends PathfinderGoal {
 
     World a;
-    EntityLiving b;
+    EntityInsentient b;
     EntityLiving c;
-    int d = 0;
+    int d;
 
-    public PathfinderGoalOcelotAttack(EntityLiving entityliving) {
-        this.b = entityliving;
-        this.a = entityliving.world;
+    public PathfinderGoalOcelotAttack(EntityInsentient entityinsentient) {
+        this.b = entityinsentient;
+        this.a = entityinsentient.world;
         this.a(3);
     }
 
@@ -25,27 +25,27 @@ public class PathfinderGoalOcelotAttack extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.c.isAlive() ? false : (this.b.e(this.c) > 225.0D ? false : !this.b.getNavigation().f() || this.a());
+        return !this.c.isAlive() ? false : (this.b.e(this.c) > 225.0D ? false : !this.b.getNavigation().g() || this.a());
     }
 
     public void d() {
         this.c = null;
-        this.b.getNavigation().g();
+        this.b.getNavigation().h();
     }
 
     public void e() {
         this.b.getControllerLook().a(this.c, 30.0F, 30.0F);
         double d0 = (double) (this.b.width * 2.0F * this.b.width * 2.0F);
         double d1 = this.b.e(this.c.locX, this.c.boundingBox.b, this.c.locZ);
-        float f = 0.23F;
+        double d2 = 0.8D;
 
         if (d1 > d0 && d1 < 16.0D) {
-            f = 0.4F;
+            d2 = 1.33D;
         } else if (d1 < 225.0D) {
-            f = 0.18F;
+            d2 = 0.6D;
         }
 
-        this.b.getNavigation().a(this.c, f);
+        this.b.getNavigation().a((Entity) this.c, d2);
         this.d = Math.max(this.d - 1, 0);
         if (d1 <= d0) {
             if (this.d <= 0) {

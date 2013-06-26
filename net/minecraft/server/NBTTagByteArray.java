@@ -22,10 +22,10 @@ public class NBTTagByteArray extends NBTBase {
         dataoutput.write(this.data);
     }
 
-    void load(DataInput datainput) {
-        int i = datainput.readInt();
+    void load(DataInput datainput, int i) {
+        int j = datainput.readInt();
 
-        this.data = new byte[i];
+        this.data = new byte[j];
         datainput.readFully(this.data);
     }
 

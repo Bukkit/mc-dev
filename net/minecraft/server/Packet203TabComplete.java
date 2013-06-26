@@ -1,7 +1,9 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class Packet203TabComplete extends Packet {
 
@@ -13,12 +15,12 @@ public class Packet203TabComplete extends Packet {
         this.a = s;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = a(datainputstream, Packet3Chat.a);
+    public void a(DataInput datainput) {
+        this.a = a(datainput, 32767);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        a(this.a, dataoutputstream);
+    public void a(DataOutput dataoutput) {
+        a(StringUtils.substring(this.a, 0, 32767), dataoutput);
     }
 
     public void handle(Connection connection) {

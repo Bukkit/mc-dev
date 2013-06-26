@@ -6,7 +6,7 @@ import javax.swing.JList;
 public class PlayerListBox extends JList implements IUpdatePlayerListBox {
 
     private MinecraftServer a;
-    private int b = 0;
+    private int b;
 
     public PlayerListBox(MinecraftServer minecraftserver) {
         this.a = minecraftserver;
@@ -18,7 +18,7 @@ public class PlayerListBox extends JList implements IUpdatePlayerListBox {
             Vector vector = new Vector();
 
             for (int i = 0; i < this.a.getPlayerList().players.size(); ++i) {
-                vector.add(((EntityPlayer) this.a.getPlayerList().players.get(i)).name);
+                vector.add(((EntityPlayer) this.a.getPlayerList().players.get(i)).getName());
             }
 
             this.setListData(vector);

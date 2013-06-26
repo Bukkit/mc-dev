@@ -8,9 +8,9 @@ public class CombatTracker {
 
     private final List a = new ArrayList();
     private final EntityLiving b;
-    private int c = 0;
-    private boolean d = false;
-    private boolean e = false;
+    private int c;
+    private boolean d;
+    private boolean e;
     private String f;
 
     public CombatTracker(EntityLiving entityliving) {
@@ -19,7 +19,7 @@ public class CombatTracker {
 
     public void a() {
         this.g();
-        if (this.b.g_()) {
+        if (this.b.e()) {
             int i = this.b.world.getTypeId(MathHelper.floor(this.b.locX), MathHelper.floor(this.b.boundingBox.b), MathHelper.floor(this.b.locZ));
 
             if (i == Block.LADDER.id) {
@@ -32,10 +32,10 @@ public class CombatTracker {
         }
     }
 
-    public void a(DamageSource damagesource, int i, int j) {
+    public void a(DamageSource damagesource, float f, float f1) {
         this.h();
         this.a();
-        CombatEntry combatentry = new CombatEntry(damagesource, this.b.ticksLived, i, j, this.f, this.b.fallDistance);
+        CombatEntry combatentry = new CombatEntry(damagesource, this.b.ticksLived, f, f1, this.f, this.b.fallDistance);
 
         this.a.add(combatentry);
         this.c = this.b.ticksLived;
@@ -43,73 +43,73 @@ public class CombatTracker {
         this.d |= combatentry.f();
     }
 
-    public String b() {
+    public ChatMessage b() {
         if (this.a.size() == 0) {
-            return this.b.getScoreboardDisplayName() + " died";
+            return ChatMessage.b("death.attack.generic", new Object[] { this.b.getScoreboardDisplayName()});
         } else {
             CombatEntry combatentry = this.f();
             CombatEntry combatentry1 = (CombatEntry) this.a.get(this.a.size() - 1);
-            String s = "";
-            String s1 = combatentry1.h();
+            String s = combatentry1.h();
             Entity entity = combatentry1.a().getEntity();
+            ChatMessage chatmessage;
 
             if (combatentry != null && combatentry1.a() == DamageSource.FALL) {
-                String s2 = combatentry.h();
+                String s1 = combatentry.h();
 
                 if (combatentry.a() != DamageSource.FALL && combatentry.a() != DamageSource.OUT_OF_WORLD) {
-                    if (s2 != null && (s1 == null || !s2.equals(s1))) {
+                    if (s1 != null && (s == null || !s1.equals(s))) {
                         Entity entity1 = combatentry.a().getEntity();
-                        ItemStack itemstack = entity1 instanceof EntityLiving ? ((EntityLiving) entity1).bG() : null;
+                        ItemStack itemstack = entity1 instanceof EntityLiving ? ((EntityLiving) entity1).aV() : null;
 
                         if (itemstack != null && itemstack.hasName()) {
-                            s = LocaleI18n.get("death.fell.assist.item", new Object[] { this.b.getScoreboardDisplayName(), s1, itemstack.getName()});
+                            chatmessage = ChatMessage.b("death.fell.assist.item", new Object[] { this.b.getScoreboardDisplayName(), s1, itemstack.getName()});
                         } else {
-                            s = LocaleI18n.get("death.fell.assist", new Object[] { this.b.getScoreboardDisplayName(), s2});
+                            chatmessage = ChatMessage.b("death.fell.assist", new Object[] { this.b.getScoreboardDisplayName(), s1});
                         }
-                    } else if (s1 != null) {
-                        ItemStack itemstack1 = entity instanceof EntityLiving ? ((EntityLiving) entity).bG() : null;
+                    } else if (s != null) {
+                        ItemStack itemstack1 = entity instanceof EntityLiving ? ((EntityLiving) entity).aV() : null;
 
                         if (itemstack1 != null && itemstack1.hasName()) {
-                            s = LocaleI18n.get("death.fell.finish.item", new Object[] { this.b.getScoreboardDisplayName(), s1, itemstack1.getName()});
+                            chatmessage = ChatMessage.b("death.fell.finish.item", new Object[] { this.b.getScoreboardDisplayName(), s, itemstack1.getName()});
                         } else {
-                            s = LocaleI18n.get("death.fell.finish", new Object[] { this.b.getScoreboardDisplayName(), s1});
+                            chatmessage = ChatMessage.b("death.fell.finish", new Object[] { this.b.getScoreboardDisplayName(), s});
                         }
                     } else {
-                        s = LocaleI18n.get("death.fell.killer", new Object[] { this.b.getScoreboardDisplayName()});
+                        chatmessage = ChatMessage.b("death.fell.killer", new Object[] { this.b.getScoreboardDisplayName()});
                     }
                 } else {
-                    s = LocaleI18n.get("death.fell.accident." + this.a(combatentry), new Object[] { this.b.getScoreboardDisplayName()});
+                    chatmessage = ChatMessage.b("death.fell.accident." + this.a(combatentry), new Object[] { this.b.getScoreboardDisplayName()});
                 }
             } else {
-                s = combatentry1.a().getLocalizedDeathMessage(this.b);
+                chatmessage = combatentry1.a().getLocalizedDeathMessage(this.b);
             }
 
-            return s;
+            return chatmessage;
         }
     }
 
     public EntityLiving c() {
         EntityLiving entityliving = null;
         EntityHuman entityhuman = null;
-        int i = 0;
-        int j = 0;
+        float f = 0.0F;
+        float f1 = 0.0F;
         Iterator iterator = this.a.iterator();
 
         while (iterator.hasNext()) {
             CombatEntry combatentry = (CombatEntry) iterator.next();
 
-            if (combatentry.a().getEntity() instanceof EntityHuman && (entityhuman == null || combatentry.c() > j)) {
-                j = combatentry.c();
+            if (combatentry.a().getEntity() instanceof EntityHuman && (entityhuman == null || combatentry.c() > f1)) {
+                f1 = combatentry.c();
                 entityhuman = (EntityHuman) combatentry.a().getEntity();
             }
 
-            if (combatentry.a().getEntity() instanceof EntityLiving && (entityliving == null || combatentry.c() > i)) {
-                i = combatentry.c();
+            if (combatentry.a().getEntity() instanceof EntityLiving && (entityliving == null || combatentry.c() > f)) {
+                f = combatentry.c();
                 entityliving = (EntityLiving) combatentry.a().getEntity();
             }
         }
 
-        if (entityhuman != null && j >= i / 3) {
+        if (entityhuman != null && f1 >= f / 3.0F) {
             return entityhuman;
         } else {
             return entityliving;
@@ -136,7 +136,7 @@ public class CombatTracker {
                 f = combatentry2.i();
             }
 
-            if (combatentry2.g() != null && (combatentry1 == null || combatentry2.c() > b0)) {
+            if (combatentry2.g() != null && (combatentry1 == null || combatentry2.c() > (float) b0)) {
                 combatentry1 = combatentry2;
             }
         }

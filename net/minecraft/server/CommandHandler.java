@@ -35,7 +35,7 @@ public class CommandHandler implements ICommandHandler {
                 throw new ExceptionUnknownCommand();
             }
 
-            if (icommand.b(icommandlistener)) {
+            if (icommand.a(icommandlistener)) {
                 if (i > -1) {
                     EntityPlayer[] aentityplayer = PlayerSelector.getPlayers(icommandlistener, astring[i]);
                     String s2 = astring[i];
@@ -51,7 +51,7 @@ public class CommandHandler implements ICommandHandler {
                             icommand.b(icommandlistener, astring);
                             ++j;
                         } catch (CommandException commandexception) {
-                            icommandlistener.sendMessage(EnumChatFormat.RED + icommandlistener.a(commandexception.getMessage(), commandexception.a()));
+                            icommandlistener.sendMessage(ChatMessage.b(commandexception.getMessage(), commandexception.a()).a(EnumChatFormat.RED));
                         }
                     }
 
@@ -61,14 +61,14 @@ public class CommandHandler implements ICommandHandler {
                     ++j;
                 }
             } else {
-                icommandlistener.sendMessage("" + EnumChatFormat.RED + "You do not have permission to use this command.");
+                icommandlistener.sendMessage(ChatMessage.e("commands.generic.permission").a(EnumChatFormat.RED));
             }
         } catch (ExceptionUsage exceptionusage) {
-            icommandlistener.sendMessage(EnumChatFormat.RED + icommandlistener.a("commands.generic.usage", new Object[] { icommandlistener.a(exceptionusage.getMessage(), exceptionusage.a())}));
+            icommandlistener.sendMessage(ChatMessage.b("commands.generic.usage", new Object[] { ChatMessage.b(exceptionusage.getMessage(), exceptionusage.a())}).a(EnumChatFormat.RED));
         } catch (CommandException commandexception1) {
-            icommandlistener.sendMessage(EnumChatFormat.RED + icommandlistener.a(commandexception1.getMessage(), commandexception1.a()));
+            icommandlistener.sendMessage(ChatMessage.b(commandexception1.getMessage(), commandexception1.a()).a(EnumChatFormat.RED));
         } catch (Throwable throwable) {
-            icommandlistener.sendMessage(EnumChatFormat.RED + icommandlistener.a("commands.generic.exception", new Object[0]));
+            icommandlistener.sendMessage(ChatMessage.e("commands.generic.exception").a(EnumChatFormat.RED));
             throwable.printStackTrace();
         }
 
@@ -117,7 +117,7 @@ public class CommandHandler implements ICommandHandler {
             while (iterator.hasNext()) {
                 Entry entry = (Entry) iterator.next();
 
-                if (CommandAbstract.a(s1, (String) entry.getKey()) && ((ICommand) entry.getValue()).b(icommandlistener)) {
+                if (CommandAbstract.a(s1, (String) entry.getKey()) && ((ICommand) entry.getValue()).a(icommandlistener)) {
                     arraylist.add(entry.getKey());
                 }
             }
@@ -143,7 +143,7 @@ public class CommandHandler implements ICommandHandler {
         while (iterator.hasNext()) {
             ICommand icommand = (ICommand) iterator.next();
 
-            if (icommand.b(icommandlistener)) {
+            if (icommand.a(icommandlistener)) {
                 arraylist.add(icommand);
             }
         }

@@ -3,19 +3,19 @@ package net.minecraft.server;
 public class PathfinderGoalPanic extends PathfinderGoal {
 
     private EntityCreature a;
-    private float b;
+    private double b;
     private double c;
     private double d;
     private double e;
 
-    public PathfinderGoalPanic(EntityCreature entitycreature, float f) {
+    public PathfinderGoalPanic(EntityCreature entitycreature, double d0) {
         this.a = entitycreature;
-        this.b = f;
+        this.b = d0;
         this.a(1);
     }
 
     public boolean a() {
-        if (this.a.aF() == null && !this.a.isBurning()) {
+        if (this.a.getLastDamager() == null && !this.a.isBurning()) {
             return false;
         } else {
             Vec3D vec3d = RandomPositionGenerator.a(this.a, 5, 4);
@@ -36,6 +36,6 @@ public class PathfinderGoalPanic extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.a.getNavigation().f();
+        return !this.a.getNavigation().g();
     }
 }

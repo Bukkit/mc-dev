@@ -7,14 +7,14 @@ public class WorldGenNetherPiece5 extends WorldGenNetherPiece {
 
     public WorldGenNetherPiece5(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
         byte b0 = 1;
 
-        if (this.f == 1 || this.f == 2) {
+        if (this.g == 1 || this.g == 2) {
             b0 = 5;
         }
 

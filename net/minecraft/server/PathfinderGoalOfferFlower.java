@@ -14,7 +14,7 @@ public class PathfinderGoalOfferFlower extends PathfinderGoal {
     public boolean a() {
         if (!this.a.world.v()) {
             return false;
-        } else if (this.a.aE().nextInt(8000) != 0) {
+        } else if (this.a.aB().nextInt(8000) != 0) {
             return false;
         } else {
             this.b = (EntityVillager) this.a.world.a(EntityVillager.class, this.a.boundingBox.grow(6.0D, 2.0D, 6.0D), (Entity) this.a);

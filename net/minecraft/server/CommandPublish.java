@@ -12,6 +12,10 @@ public class CommandPublish extends CommandAbstract {
         return 4;
     }
 
+    public String c(ICommandListener icommandlistener) {
+        return "commands.publish.usage";
+    }
+
     public void b(ICommandListener icommandlistener, String[] astring) {
         String s = MinecraftServer.getServer().a(EnumGamemode.SURVIVAL, false);
 

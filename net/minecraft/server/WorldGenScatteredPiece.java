@@ -14,15 +14,15 @@ abstract class WorldGenScatteredPiece extends StructurePiece {
         this.a = l;
         this.b = i1;
         this.c = j1;
-        this.f = random.nextInt(4);
-        switch (this.f) {
+        this.g = random.nextInt(4);
+        switch (this.g) {
         case 0:
         case 2:
-            this.e = new StructureBoundingBox(i, j, k, i + l - 1, j + i1 - 1, k + j1 - 1);
+            this.f = new StructureBoundingBox(i, j, k, i + l - 1, j + i1 - 1, k + j1 - 1);
             break;
 
         default:
-            this.e = new StructureBoundingBox(i, j, k, i + j1 - 1, j + i1 - 1, k + l - 1);
+            this.f = new StructureBoundingBox(i, j, k, i + j1 - 1, j + i1 - 1, k + l - 1);
         }
     }
 
@@ -33,8 +33,8 @@ abstract class WorldGenScatteredPiece extends StructurePiece {
             int j = 0;
             int k = 0;
 
-            for (int l = this.e.c; l <= this.e.f; ++l) {
-                for (int i1 = this.e.a; i1 <= this.e.d; ++i1) {
+            for (int l = this.f.c; l <= this.f.f; ++l) {
+                for (int i1 = this.f.a; i1 <= this.f.d; ++i1) {
                     if (structureboundingbox.b(i1, 64, l)) {
                         j += Math.max(world.i(i1, l), world.worldProvider.getSeaLevel());
                         ++k;
@@ -46,7 +46,7 @@ abstract class WorldGenScatteredPiece extends StructurePiece {
                 return false;
             } else {
                 this.d = j / k;
-                this.e.a(0, this.d - this.e.b + i, 0);
+                this.f.a(0, this.d - this.f.b + i, 0);
                 return true;
             }
         }

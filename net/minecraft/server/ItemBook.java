@@ -6,7 +6,7 @@ public class ItemBook extends Item {
         super(i);
     }
 
-    public boolean d_(ItemStack itemstack) {
+    public boolean e_(ItemStack itemstack) {
         return itemstack.count == 1;
     }
 

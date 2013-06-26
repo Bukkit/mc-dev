@@ -18,7 +18,7 @@ public class BlockMonsterEggs extends Block {
 
             entitysilverfish.setPositionRotation((double) i + 0.5D, (double) j, (double) k + 0.5D, 0.0F, 0.0F);
             world.addEntity(entitysilverfish);
-            entitysilverfish.aU();
+            entitysilverfish.q();
         }
 
         super.postBreak(world, i, j, k, l);
@@ -36,7 +36,7 @@ public class BlockMonsterEggs extends Block {
         return i == Block.COBBLESTONE.id ? 1 : (i == Block.SMOOTH_BRICK.id ? 2 : 0);
     }
 
-    protected ItemStack c_(int i) {
+    protected ItemStack d_(int i) {
         Block block = Block.STONE;
 
         if (i == 1) {

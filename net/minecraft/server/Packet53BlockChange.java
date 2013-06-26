@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet53BlockChange extends Packet {
 
@@ -24,20 +24,20 @@ public class Packet53BlockChange extends Packet {
         this.data = world.getData(i, j, k);
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.read();
-        this.c = datainputstream.readInt();
-        this.material = datainputstream.readShort();
-        this.data = datainputstream.read();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readUnsignedByte();
+        this.c = datainput.readInt();
+        this.material = datainput.readShort();
+        this.data = datainput.readUnsignedByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.write(this.b);
-        dataoutputstream.writeInt(this.c);
-        dataoutputstream.writeShort(this.material);
-        dataoutputstream.write(this.data);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.write(this.b);
+        dataoutput.writeInt(this.c);
+        dataoutput.writeShort(this.material);
+        dataoutput.write(this.data);
     }
 
     public void handle(Connection connection) {

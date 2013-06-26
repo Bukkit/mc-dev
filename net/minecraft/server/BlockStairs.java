@@ -8,8 +8,8 @@ public class BlockStairs extends Block {
     private static final int[][] a = new int[][] { { 2, 6}, { 3, 7}, { 2, 3}, { 6, 7}, { 0, 4}, { 1, 5}, { 0, 1}, { 4, 5}};
     private final Block b;
     private final int c;
-    private boolean d = false;
-    private int e = 0;
+    private boolean d;
+    private int e;
 
     protected BlockStairs(int i, Block block, int j) {
         super(i, block.material);

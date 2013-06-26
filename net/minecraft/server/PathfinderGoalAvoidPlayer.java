@@ -6,20 +6,20 @@ public class PathfinderGoalAvoidPlayer extends PathfinderGoal {
 
     public final IEntitySelector a = new EntitySelectorViewable(this);
     private EntityCreature b;
-    private float c;
-    private float d;
+    private double c;
+    private double d;
     private Entity e;
     private float f;
     private PathEntity g;
     private Navigation h;
     private Class i;
 
-    public PathfinderGoalAvoidPlayer(EntityCreature entitycreature, Class oclass, float f, float f1, float f2) {
+    public PathfinderGoalAvoidPlayer(EntityCreature entitycreature, Class oclass, float f, double d0, double d1) {
         this.b = entitycreature;
         this.i = oclass;
         this.f = f;
-        this.c = f1;
-        this.d = f2;
+        this.c = d0;
+        this.d = d1;
         this.h = entitycreature.getNavigation();
         this.a(1);
     }
@@ -57,7 +57,7 @@ public class PathfinderGoalAvoidPlayer extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.h.f();
+        return !this.h.g();
     }
 
     public void c() {

@@ -109,9 +109,9 @@ public abstract class EntityMinecartContainer extends EntityMinecartAbstract imp
         return 64;
     }
 
-    public void c(int i) {
+    public void b(int i) {
         this.b = false;
-        super.c(i);
+        super.b(i);
     }
 
     public void die() {
@@ -185,7 +185,7 @@ public abstract class EntityMinecartContainer extends EntityMinecartAbstract imp
         }
     }
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean c(EntityHuman entityhuman) {
         if (!this.world.isStatic) {
             entityhuman.openContainer(this);
         }

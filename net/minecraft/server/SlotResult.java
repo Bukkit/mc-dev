@@ -17,7 +17,7 @@ public class SlotResult extends Slot {
     }
 
     public ItemStack a(int i) {
-        if (this.d()) {
+        if (this.e()) {
             this.c += Math.min(i, this.getItem().count);
         }
 
@@ -63,8 +63,8 @@ public class SlotResult extends Slot {
 
             if (itemstack1 != null) {
                 this.a.splitStack(i, 1);
-                if (itemstack1.getItem().t()) {
-                    ItemStack itemstack2 = new ItemStack(itemstack1.getItem().s());
+                if (itemstack1.getItem().u()) {
+                    ItemStack itemstack2 = new ItemStack(itemstack1.getItem().t());
 
                     if (!itemstack1.getItem().j(itemstack1) || !this.b.inventory.pickup(itemstack2)) {
                         if (this.a.getItem(i) == null) {

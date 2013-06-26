@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet206SetScoreboardObjective extends Packet {
 
@@ -17,16 +17,16 @@ public class Packet206SetScoreboardObjective extends Packet {
         this.c = i;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = a(datainputstream, 16);
-        this.b = a(datainputstream, 32);
-        this.c = datainputstream.readByte();
+    public void a(DataInput datainput) {
+        this.a = a(datainput, 16);
+        this.b = a(datainput, 32);
+        this.c = datainput.readByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        a(this.a, dataoutputstream);
-        a(this.b, dataoutputstream);
-        dataoutputstream.writeByte(this.c);
+    public void a(DataOutput dataoutput) {
+        a(this.a, dataoutput);
+        a(this.b, dataoutput);
+        dataoutput.writeByte(this.c);
     }
 
     public void handle(Connection connection) {

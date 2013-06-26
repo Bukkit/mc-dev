@@ -12,10 +12,14 @@ public class CommandSaveAll extends CommandAbstract {
         return 4;
     }
 
+    public String c(ICommandListener icommandlistener) {
+        return "commands.save.usage";
+    }
+
     public void b(ICommandListener icommandlistener, String[] astring) {
         MinecraftServer minecraftserver = MinecraftServer.getServer();
 
-        icommandlistener.sendMessage(icommandlistener.a("commands.save.start", new Object[0]));
+        icommandlistener.sendMessage(ChatMessage.e("commands.save.start"));
         if (minecraftserver.getPlayerList() != null) {
             minecraftserver.getPlayerList().savePlayers();
         }
@@ -36,7 +40,7 @@ public class CommandSaveAll extends CommandAbstract {
             }
 
             if (astring.length > 0 && "flush".equals(astring[0])) {
-                icommandlistener.sendMessage(icommandlistener.a("commands.save.flushStart", new Object[0]));
+                icommandlistener.sendMessage(ChatMessage.e("commands.save.flushStart"));
 
                 for (i = 0; i < minecraftserver.worldServer.length; ++i) {
                     if (minecraftserver.worldServer[i] != null) {
@@ -48,7 +52,7 @@ public class CommandSaveAll extends CommandAbstract {
                     }
                 }
 
-                icommandlistener.sendMessage(icommandlistener.a("commands.save.flushEnd", new Object[0]));
+                icommandlistener.sendMessage(ChatMessage.e("commands.save.flushEnd"));
             }
         } catch (ExceptionWorldConflict exceptionworldconflict) {
             a(icommandlistener, "commands.save.failed", new Object[] { exceptionworldconflict.getMessage()});

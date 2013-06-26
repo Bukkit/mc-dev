@@ -9,8 +9,8 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
 
     public WorldGenStrongholdPortalRoom(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
@@ -68,7 +68,7 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
         byte b3 = 3;
         byte b4 = 1;
 
-        switch (this.f) {
+        switch (this.g) {
         case 0:
             b1 = 0;
             b2 = 2;

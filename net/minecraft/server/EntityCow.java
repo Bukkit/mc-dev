@@ -4,36 +4,37 @@ public class EntityCow extends EntityAnimal {
 
     public EntityCow(World world) {
         super(world);
-        this.texture = "/mob/cow.png";
         this.a(0.9F, 1.3F);
         this.getNavigation().a(true);
         this.goalSelector.a(0, new PathfinderGoalFloat(this));
-        this.goalSelector.a(1, new PathfinderGoalPanic(this, 0.38F));
-        this.goalSelector.a(2, new PathfinderGoalBreed(this, 0.2F));
-        this.goalSelector.a(3, new PathfinderGoalTempt(this, 0.25F, Item.WHEAT.id, false));
-        this.goalSelector.a(4, new PathfinderGoalFollowParent(this, 0.25F));
-        this.goalSelector.a(5, new PathfinderGoalRandomStroll(this, 0.2F));
+        this.goalSelector.a(1, new PathfinderGoalPanic(this, 2.0D));
+        this.goalSelector.a(2, new PathfinderGoalBreed(this, 1.0D));
+        this.goalSelector.a(3, new PathfinderGoalTempt(this, 1.25D, Item.WHEAT.id, false));
+        this.goalSelector.a(4, new PathfinderGoalFollowParent(this, 1.25D));
+        this.goalSelector.a(5, new PathfinderGoalRandomStroll(this, 1.0D));
         this.goalSelector.a(6, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 6.0F));
         this.goalSelector.a(7, new PathfinderGoalRandomLookaround(this));
     }
 
-    public boolean bh() {
+    public boolean bb() {
         return true;
     }
 
-    public int getMaxHealth() {
-        return 10;
+    protected void ax() {
+        super.ax();
+        this.a(GenericAttributes.a).a(10.0D);
+        this.a(GenericAttributes.d).a(0.20000000298023224D);
     }
 
-    protected String bb() {
+    protected String r() {
         return "mob.cow.say";
     }
 
-    protected String bc() {
+    protected String aK() {
         return "mob.cow.hurt";
     }
 
-    protected String bd() {
+    protected String aL() {
         return "mob.cow.hurt";
     }
 
@@ -41,7 +42,7 @@ public class EntityCow extends EntityAnimal {
         this.makeSound("mob.cow.step", 0.15F, 1.0F);
     }
 
-    protected float ba() {
+    protected float aW() {
         return 0.4F;
     }
 
@@ -69,11 +70,11 @@ public class EntityCow extends EntityAnimal {
         }
     }
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
-        if (itemstack != null && itemstack.id == Item.BUCKET.id) {
-            if (--itemstack.count <= 0) {
+        if (itemstack != null && itemstack.id == Item.BUCKET.id && !entityhuman.abilities.canInstantlyBuild) {
+            if (itemstack.count-- == 1) {
                 entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, new ItemStack(Item.MILK_BUCKET));
             } else if (!entityhuman.inventory.pickup(new ItemStack(Item.MILK_BUCKET))) {
                 entityhuman.drop(new ItemStack(Item.MILK_BUCKET.id, 1, 0));
@@ -81,7 +82,7 @@ public class EntityCow extends EntityAnimal {
 
             return true;
         } else {
-            return super.a_(entityhuman);
+            return super.a(entityhuman);
         }
     }
 

@@ -5,12 +5,12 @@ import java.util.List;
 
 public class EntitySenses {
 
-    EntityLiving entity;
+    EntityInsentient entity;
     List seenEntities = new ArrayList();
     List unseenEntities = new ArrayList();
 
-    public EntitySenses(EntityLiving entityliving) {
-        this.entity = entityliving;
+    public EntitySenses(EntityInsentient entityinsentient) {
+        this.entity = entityinsentient;
     }
 
     public void a() {
@@ -25,7 +25,7 @@ public class EntitySenses {
             return false;
         } else {
             this.entity.world.methodProfiler.a("canSee");
-            boolean flag = this.entity.n(entity);
+            boolean flag = this.entity.o(entity);
 
             this.entity.world.methodProfiler.b();
             if (flag) {

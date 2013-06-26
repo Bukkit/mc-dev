@@ -7,21 +7,21 @@ public class WorldGenNetherPiece1 extends WorldGenNetherPiece {
 
     public WorldGenNetherPiece1(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
     }
 
     protected WorldGenNetherPiece1(Random random, int i, int j) {
         super(0);
-        this.f = random.nextInt(4);
-        switch (this.f) {
+        this.g = random.nextInt(4);
+        switch (this.g) {
         case 0:
         case 2:
-            this.e = new StructureBoundingBox(i, 64, j, i + 19 - 1, 73, j + 19 - 1);
+            this.f = new StructureBoundingBox(i, 64, j, i + 19 - 1, 73, j + 19 - 1);
             break;
 
         default:
-            this.e = new StructureBoundingBox(i, 64, j, i + 19 - 1, 73, j + 19 - 1);
+            this.f = new StructureBoundingBox(i, 64, j, i + 19 - 1, 73, j + 19 - 1);
         }
     }
 

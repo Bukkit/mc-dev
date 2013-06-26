@@ -11,7 +11,7 @@ public class BanEntry {
     private final String b;
     private Date c = new Date();
     private String d = "(Unknown)";
-    private Date e = null;
+    private Date e;
     private String f = "Banned by an operator.";
 
     public BanEntry(String s) {

@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.util.List;
 
 public class Packet40EntityMetadata extends Packet {
@@ -20,14 +20,14 @@ public class Packet40EntityMetadata extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = DataWatcher.a(datainputstream);
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = DataWatcher.a(datainput);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        DataWatcher.a(this.b, dataoutputstream);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        DataWatcher.a(this.b, dataoutput);
     }
 
     public void handle(Connection connection) {

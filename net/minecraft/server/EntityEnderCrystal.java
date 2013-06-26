@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public class EntityEnderCrystal extends Entity {
 
-    public int a = 0;
+    public int a;
     public int b;
 
     public EntityEnderCrystal(World world) {
@@ -14,7 +14,7 @@ public class EntityEnderCrystal extends Entity {
         this.a = this.random.nextInt(100000);
     }
 
-    protected boolean f_() {
+    protected boolean e_() {
         return false;
     }
 
@@ -45,7 +45,7 @@ public class EntityEnderCrystal extends Entity {
         return true;
     }
 
-    public boolean damageEntity(DamageSource damagesource, int i) {
+    public boolean damageEntity(DamageSource damagesource, float f) {
         if (this.isInvulnerable()) {
             return false;
         } else {

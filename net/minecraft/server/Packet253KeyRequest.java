@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.security.PublicKey;
 
 public class Packet253KeyRequest extends Packet {
@@ -18,16 +18,16 @@ public class Packet253KeyRequest extends Packet {
         this.c = abyte;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = a(datainputstream, 20);
-        this.b = MinecraftEncryption.a(b(datainputstream));
-        this.c = b(datainputstream);
+    public void a(DataInput datainput) {
+        this.a = a(datainput, 20);
+        this.b = MinecraftEncryption.a(b(datainput));
+        this.c = b(datainput);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        a(this.a, dataoutputstream);
-        a(dataoutputstream, this.b.getEncoded());
-        a(dataoutputstream, this.c);
+    public void a(DataOutput dataoutput) {
+        a(this.a, dataoutput);
+        a(dataoutput, this.b.getEncoded());
+        a(dataoutput, this.c);
     }
 
     public void handle(Connection connection) {

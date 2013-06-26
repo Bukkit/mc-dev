@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -13,7 +13,7 @@ public class Packet209SetScoreboardTeam extends Packet {
     public String c = "";
     public String d = "";
     public Collection e = new ArrayList();
-    public int f = 0;
+    public int f;
     public int g;
 
     public Packet209SetScoreboardTeam() {}
@@ -45,43 +45,43 @@ public class Packet209SetScoreboardTeam extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = a(datainputstream, 16);
-        this.f = datainputstream.readByte();
+    public void a(DataInput datainput) {
+        this.a = a(datainput, 16);
+        this.f = datainput.readByte();
         if (this.f == 0 || this.f == 2) {
-            this.b = a(datainputstream, 32);
-            this.c = a(datainputstream, 16);
-            this.d = a(datainputstream, 16);
-            this.g = datainputstream.readByte();
+            this.b = a(datainput, 32);
+            this.c = a(datainput, 16);
+            this.d = a(datainput, 16);
+            this.g = datainput.readByte();
         }
 
         if (this.f == 0 || this.f == 3 || this.f == 4) {
-            short short1 = datainputstream.readShort();
+            short short1 = datainput.readShort();
 
             for (int i = 0; i < short1; ++i) {
-                this.e.add(a(datainputstream, 16));
+                this.e.add(a(datainput, 16));
             }
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        a(this.a, dataoutputstream);
-        dataoutputstream.writeByte(this.f);
+    public void a(DataOutput dataoutput) {
+        a(this.a, dataoutput);
+        dataoutput.writeByte(this.f);
         if (this.f == 0 || this.f == 2) {
-            a(this.b, dataoutputstream);
-            a(this.c, dataoutputstream);
-            a(this.d, dataoutputstream);
-            dataoutputstream.writeByte(this.g);
+            a(this.b, dataoutput);
+            a(this.c, dataoutput);
+            a(this.d, dataoutput);
+            dataoutput.writeByte(this.g);
         }
 
         if (this.f == 0 || this.f == 3 || this.f == 4) {
-            dataoutputstream.writeShort(this.e.size());
+            dataoutput.writeShort(this.e.size());
             Iterator iterator = this.e.iterator();
 
             while (iterator.hasNext()) {
                 String s = (String) iterator.next();
 
-                a(s, dataoutputstream);
+                a(s, dataoutput);
             }
         }
     }

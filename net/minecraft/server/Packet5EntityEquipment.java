@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet5EntityEquipment extends Packet {
 
@@ -17,16 +17,16 @@ public class Packet5EntityEquipment extends Packet {
         this.c = itemstack == null ? null : itemstack.cloneItemStack();
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.readShort();
-        this.c = c(datainputstream);
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readShort();
+        this.c = c(datainput);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeShort(this.b);
-        a(this.c, dataoutputstream);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeShort(this.b);
+        a(this.c, dataoutput);
     }
 
     public void handle(Connection connection) {

@@ -5,18 +5,18 @@ import java.util.List;
 public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
     private int love;
-    private int e = 0;
+    private int bq;
 
     public EntityAnimal(World world) {
         super(world);
     }
 
-    protected void bp() {
+    protected void bg() {
         if (this.getAge() != 0) {
             this.love = 0;
         }
 
-        super.bp();
+        super.bg();
     }
 
     public void c() {
@@ -37,7 +37,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 this.world.addParticle(s, this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
             }
         } else {
-            this.e = 0;
+            this.bq = 0;
         }
     }
 
@@ -48,12 +48,12 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 double d1 = entity.locZ - this.locZ;
 
                 this.yaw = (float) (Math.atan2(d1, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
-                this.b = true;
+                this.bn = true;
             }
 
             EntityHuman entityhuman = (EntityHuman) entity;
 
-            if (entityhuman.cd() == null || !this.c(entityhuman.cd())) {
+            if (entityhuman.bt() == null || !this.c(entityhuman.bt())) {
                 this.target = null;
             }
         } else if (entity instanceof EntityAnimal) {
@@ -61,7 +61,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
             if (this.getAge() > 0 && entityanimal.getAge() < 0) {
                 if ((double) f < 2.5D) {
-                    this.b = true;
+                    this.bn = true;
                 }
             } else if (this.love > 0 && entityanimal.love > 0) {
                 if (entityanimal.target == null) {
@@ -71,19 +71,19 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 if (entityanimal.target == this && (double) f < 3.5D) {
                     ++entityanimal.love;
                     ++this.love;
-                    ++this.e;
-                    if (this.e % 4 == 0) {
+                    ++this.bq;
+                    if (this.bq % 4 == 0) {
                         this.world.addParticle("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D, 0.0D);
                     }
 
-                    if (this.e == 60) {
+                    if (this.bq == 60) {
                         this.b((EntityAnimal) entity);
                     }
                 } else {
-                    this.e = 0;
+                    this.bq = 0;
                 }
             } else {
-                this.e = 0;
+                this.bq = 0;
                 this.target = null;
             }
         }
@@ -96,10 +96,10 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
             this.setAge(6000);
             entityanimal.setAge(6000);
             this.love = 0;
-            this.e = 0;
+            this.bq = 0;
             this.target = null;
             entityanimal.target = null;
-            entityanimal.e = 0;
+            entityanimal.bq = 0;
             entityanimal.love = 0;
             entityageable.setAge(-24000);
             entityageable.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
@@ -116,14 +116,22 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         }
     }
 
-    public boolean damageEntity(DamageSource damagesource, int i) {
+    public boolean damageEntity(DamageSource damagesource, float f) {
         if (this.isInvulnerable()) {
             return false;
         } else {
-            this.c = 60;
+            this.bo = 60;
+            if (!this.bb()) {
+                AttributeInstance attributeinstance = this.a(GenericAttributes.d);
+
+                if (attributeinstance.a(h) == null) {
+                    attributeinstance.a(i);
+                }
+            }
+
             this.target = null;
             this.love = 0;
-            return super.damageEntity(damagesource, i);
+            return super.damageEntity(damagesource, f);
         }
     }
 
@@ -142,7 +150,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
     }
 
     protected Entity findTarget() {
-        if (this.c > 0) {
+        if (this.bo > 0) {
             return null;
         } else {
             float f = 8.0F;
@@ -165,7 +173,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 for (i = 0; i < list.size(); ++i) {
                     EntityHuman entityhuman = (EntityHuman) list.get(i);
 
-                    if (entityhuman.cd() != null && this.c(entityhuman.cd())) {
+                    if (entityhuman.bt() != null && this.c(entityhuman.bt())) {
                         return entityhuman;
                     }
                 }
@@ -192,7 +200,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         return this.world.getTypeId(i, j - 1, k) == Block.GRASS.id && this.world.m(i, j, k) > 8 && super.canSpawn();
     }
 
-    public int aQ() {
+    public int o() {
         return 120;
     }
 
@@ -208,7 +216,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         return itemstack.id == Item.WHEAT.id;
     }
 
-    public boolean a_(EntityHuman entityhuman) {
+    public boolean a(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
         if (itemstack != null && this.c(itemstack) && this.getAge() == 0 && this.love <= 0) {
@@ -219,32 +227,28 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 }
             }
 
-            this.love = 600;
-            this.target = null;
-
-            for (int i = 0; i < 7; ++i) {
-                double d0 = this.random.nextGaussian() * 0.02D;
-                double d1 = this.random.nextGaussian() * 0.02D;
-                double d2 = this.random.nextGaussian() * 0.02D;
-
-                this.world.addParticle("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
-            }
-
+            this.bT();
             return true;
         } else {
-            return super.a_(entityhuman);
+            return super.a(entityhuman);
         }
     }
 
-    public boolean r() {
+    public void bT() {
+        this.love = 600;
+        this.target = null;
+        this.world.broadcastEntityEffect(this, (byte) 18);
+    }
+
+    public boolean bU() {
         return this.love > 0;
     }
 
-    public void s() {
+    public void bV() {
         this.love = 0;
     }
 
     public boolean mate(EntityAnimal entityanimal) {
-        return entityanimal == this ? false : (entityanimal.getClass() != this.getClass() ? false : this.r() && entityanimal.r());
+        return entityanimal == this ? false : (entityanimal.getClass() != this.getClass() ? false : this.bU() && entityanimal.bU());
     }
 }

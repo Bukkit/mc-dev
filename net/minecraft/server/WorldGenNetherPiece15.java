@@ -6,10 +6,10 @@ import java.util.Random;
 
 public class WorldGenNetherPiece15 extends WorldGenNetherPiece1 {
 
-    public WorldGenNetherPieceWeight a;
-    public List b = new ArrayList();
-    public List c;
-    public ArrayList d = new ArrayList();
+    public WorldGenNetherPieceWeight b;
+    public List c = new ArrayList();
+    public List d;
+    public ArrayList e = new ArrayList();
 
     public WorldGenNetherPiece15(Random random, int i, int j) {
         super(random, i, j);
@@ -22,17 +22,17 @@ public class WorldGenNetherPiece15 extends WorldGenNetherPiece1 {
         for (l = 0; l < k; ++l) {
             worldgennetherpieceweight = aworldgennetherpieceweight[l];
             worldgennetherpieceweight.c = 0;
-            this.b.add(worldgennetherpieceweight);
+            this.c.add(worldgennetherpieceweight);
         }
 
-        this.c = new ArrayList();
+        this.d = new ArrayList();
         aworldgennetherpieceweight = WorldGenNetherPieces.b();
         k = aworldgennetherpieceweight.length;
 
         for (l = 0; l < k; ++l) {
             worldgennetherpieceweight = aworldgennetherpieceweight[l];
             worldgennetherpieceweight.c = 0;
-            this.c.add(worldgennetherpieceweight);
+            this.d.add(worldgennetherpieceweight);
         }
     }
 }

@@ -1,7 +1,8 @@
 package net.minecraft.server;
 
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -55,27 +56,27 @@ public class Packet52MultiBlockChange extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
-        this.b = datainputstream.readInt();
-        this.d = datainputstream.readShort() & '\uffff';
-        int i = datainputstream.readInt();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
+        this.b = datainput.readInt();
+        this.d = datainput.readShort() & '\uffff';
+        int i = datainput.readInt();
 
         if (i > 0) {
             this.c = new byte[i];
-            datainputstream.readFully(this.c);
+            datainput.readFully(this.c);
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
-        dataoutputstream.writeInt(this.b);
-        dataoutputstream.writeShort((short) this.d);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
+        dataoutput.writeInt(this.b);
+        dataoutput.writeShort((short) this.d);
         if (this.c != null) {
-            dataoutputstream.writeInt(this.c.length);
-            dataoutputstream.write(this.c);
+            dataoutput.writeInt(this.c.length);
+            dataoutput.write(this.c);
         } else {
-            dataoutputstream.writeInt(0);
+            dataoutput.writeInt(0);
         }
     }
 

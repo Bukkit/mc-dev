@@ -5,12 +5,12 @@ import java.util.Random;
 
 public class WorldGenNetherPiece12 extends WorldGenNetherPiece {
 
-    private boolean a;
+    private boolean b;
 
     public WorldGenNetherPiece12(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
-        this.f = j;
-        this.e = structureboundingbox;
+        this.g = j;
+        this.f = structureboundingbox;
     }
 
     public static WorldGenNetherPiece12 a(List list, Random random, int i, int j, int k, int l, int i1) {
@@ -41,13 +41,13 @@ public class WorldGenNetherPiece12 extends WorldGenNetherPiece {
         int i;
         int j;
 
-        if (!this.a) {
+        if (!this.b) {
             i = this.a(5);
             j = this.a(3, 5);
             int k = this.b(3, 5);
 
             if (structureboundingbox.b(j, i, k)) {
-                this.a = true;
+                this.b = true;
                 world.setTypeIdAndData(j, i, k, Block.MOB_SPAWNER.id, 0, 2);
                 TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(j, i, k);
 

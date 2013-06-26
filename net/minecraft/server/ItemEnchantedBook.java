@@ -8,7 +8,7 @@ public class ItemEnchantedBook extends Item {
         super(i);
     }
 
-    public boolean d_(ItemStack itemstack) {
+    public boolean e_(ItemStack itemstack) {
         return false;
     }
 
@@ -52,15 +52,6 @@ public class ItemEnchantedBook extends Item {
         ItemStack itemstack = new ItemStack(this);
 
         this.a(itemstack, enchantmentinstance);
-        return itemstack;
-    }
-
-    public ItemStack a(Random random) {
-        Enchantment enchantment = Enchantment.c[random.nextInt(Enchantment.c.length)];
-        ItemStack itemstack = new ItemStack(this.id, 1, 0);
-        int i = MathHelper.nextInt(random, enchantment.getStartLevel(), enchantment.getMaxLevel());
-
-        this.a(itemstack, new EnchantmentInstance(enchantment, i));
         return itemstack;
     }
 

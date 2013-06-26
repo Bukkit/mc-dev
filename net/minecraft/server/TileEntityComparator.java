@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public class TileEntityComparator extends TileEntity {
 
-    private int a = 0;
+    private int a;
 
     public TileEntityComparator() {}
 

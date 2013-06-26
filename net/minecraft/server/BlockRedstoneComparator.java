@@ -13,7 +13,7 @@ public class BlockRedstoneComparator extends BlockDiodeAbstract implements ICont
         return Item.REDSTONE_COMPARATOR.id;
     }
 
-    protected int i_(int i) {
+    protected int k_(int i) {
         return 2;
     }
 
@@ -107,9 +107,9 @@ public class BlockRedstoneComparator extends BlockDiodeAbstract implements ICont
 
             if (j1 != k1 || this.c(i1) != this.d(world, i, j, k, i1)) {
                 if (this.h(world, i, j, k, i1)) {
-                    world.a(i, j, k, this.id, this.i_(0), -1);
+                    world.a(i, j, k, this.id, this.k_(0), -1);
                 } else {
-                    world.a(i, j, k, this.id, this.i_(0), 0);
+                    world.a(i, j, k, this.id, this.k_(0), 0);
                 }
             }
         }

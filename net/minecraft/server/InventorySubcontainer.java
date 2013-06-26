@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InventorySubcontainer implements IInventory {
@@ -15,6 +16,18 @@ public class InventorySubcontainer implements IInventory {
         this.e = flag;
         this.b = i;
         this.items = new ItemStack[i];
+    }
+
+    public void a(IInventoryListener iinventorylistener) {
+        if (this.d == null) {
+            this.d = new ArrayList();
+        }
+
+        this.d.add(iinventorylistener);
+    }
+
+    public void b(IInventoryListener iinventorylistener) {
+        this.d.remove(iinventorylistener);
     }
 
     public ItemStack getItem(int i) {
@@ -74,6 +87,11 @@ public class InventorySubcontainer implements IInventory {
 
     public boolean c() {
         return this.e;
+    }
+
+    public void a(String s) {
+        this.e = true;
+        this.a = s;
     }
 
     public int getMaxStackSize() {

@@ -12,7 +12,7 @@ public class EntityEnderPearl extends EntityProjectile {
 
     protected void a(MovingObjectPosition movingobjectposition) {
         if (movingobjectposition.entity != null) {
-            movingobjectposition.entity.damageEntity(DamageSource.projectile(this, this.getShooter()), 0);
+            movingobjectposition.entity.damageEntity(DamageSource.projectile(this, this.getShooter()), 0.0F);
         }
 
         for (int i = 0; i < 32; ++i) {
@@ -24,9 +24,13 @@ public class EntityEnderPearl extends EntityProjectile {
                 EntityPlayer entityplayer = (EntityPlayer) this.getShooter();
 
                 if (!entityplayer.playerConnection.disconnected && entityplayer.world == this.world) {
+                    if (this.getShooter().ae()) {
+                        this.getShooter().mount((Entity) null);
+                    }
+
                     this.getShooter().enderTeleportTo(this.locX, this.locY, this.locZ);
                     this.getShooter().fallDistance = 0.0F;
-                    this.getShooter().damageEntity(DamageSource.FALL, 5);
+                    this.getShooter().damageEntity(DamageSource.FALL, 5.0F);
                 }
             }
 

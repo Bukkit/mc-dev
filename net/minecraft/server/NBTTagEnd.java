@@ -9,7 +9,7 @@ public class NBTTagEnd extends NBTBase {
         super((String) null);
     }
 
-    void load(DataInput datainput) {}
+    void load(DataInput datainput, int i) {}
 
     void write(DataOutput dataoutput) {}
 

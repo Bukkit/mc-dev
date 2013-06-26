@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet107SetCreativeSlot extends Packet {
 
@@ -14,14 +14,14 @@ public class Packet107SetCreativeSlot extends Packet {
         connection.a(this);
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.slot = datainputstream.readShort();
-        this.b = c(datainputstream);
+    public void a(DataInput datainput) {
+        this.slot = datainput.readShort();
+        this.b = c(datainput);
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeShort(this.slot);
-        a(this.b, dataoutputstream);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeShort(this.slot);
+        a(this.b, dataoutput);
     }
 
     public int a() {

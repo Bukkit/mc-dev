@@ -1,128 +1,58 @@
 package net.minecraft.server;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Maps;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Enumeration;
+import java.io.InputStream;
 import java.util.IllegalFormatException;
-import java.util.Properties;
-import java.util.TreeMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.regex.Pattern;
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.IOUtils;
 
 public class LocaleLanguage {
 
-    private static LocaleLanguage a = new LocaleLanguage("en_US");
-    private Properties b = new Properties();
-    private TreeMap c;
-    private TreeMap d = new TreeMap();
-    private String e;
-    private boolean f;
+    private static final Pattern a = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
+    private static final Splitter b = Splitter.on('=').limit(2);
+    private static LocaleLanguage c = new LocaleLanguage();
+    private Map d = Maps.newHashMap();
 
-    public LocaleLanguage(String s) {
-        this.e();
-        this.a(s, false);
-    }
-
-    public static LocaleLanguage a() {
-        return a;
-    }
-
-    private void e() {
-        TreeMap treemap = new TreeMap();
-
+    public LocaleLanguage() {
         try {
-            BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(LocaleLanguage.class.getResourceAsStream("/lang/languages.txt"), "UTF-8"));
+            InputStream inputstream = LocaleLanguage.class.getResourceAsStream("/assets/minecraft/lang/en_US.lang");
+            Iterator iterator = IOUtils.readLines(inputstream, Charsets.UTF_8).iterator();
 
-            for (String s = bufferedreader.readLine(); s != null; s = bufferedreader.readLine()) {
-                String[] astring = s.trim().split("=");
+            while (iterator.hasNext()) {
+                String s = (String) iterator.next();
 
-                if (astring != null && astring.length == 2) {
-                    treemap.put(astring[0], astring[1]);
+                if (!s.isEmpty() && s.charAt(0) != 35) {
+                    String[] astring = (String[]) Iterables.toArray(b.split(s), String.class);
+
+                    if (astring != null && astring.length == 2) {
+                        String s1 = astring[0];
+                        String s2 = a.matcher(astring[1]).replaceAll("%$1s");
+
+                        this.d.put(s1, s2);
+                    }
                 }
             }
         } catch (IOException ioexception) {
-            ioexception.printStackTrace();
-            return;
-        }
-
-        this.c = treemap;
-        this.c.put("en_US", "English (US)");
-    }
-
-    public TreeMap b() {
-        return this.c;
-    }
-
-    private void a(Properties properties, String s) {
-        BufferedReader bufferedreader = null;
-
-        if (this.d.containsKey(s)) {
-            bufferedreader = new BufferedReader(new FileReader((File) this.d.get(s)));
-        } else {
-            bufferedreader = new BufferedReader(new InputStreamReader(LocaleLanguage.class.getResourceAsStream("/lang/" + s + ".lang"), "UTF-8"));
-        }
-
-        for (String s1 = bufferedreader.readLine(); s1 != null; s1 = bufferedreader.readLine()) {
-            s1 = s1.trim();
-            if (!s1.startsWith("#")) {
-                String[] astring = s1.split("=");
-
-                if (astring != null && astring.length == 2) {
-                    properties.setProperty(astring[0], astring[1]);
-                }
-            }
+            ;
         }
     }
 
-    public synchronized void a(String s, boolean flag) {
-        if (flag || !s.equals(this.e)) {
-            Properties properties = new Properties();
-
-            try {
-                this.a(properties, "en_US");
-            } catch (IOException ioexception) {
-                ;
-            }
-
-            this.f = false;
-            if (!"en_US".equals(s)) {
-                try {
-                    this.a(properties, s);
-                    Enumeration enumeration = properties.propertyNames();
-
-                    while (enumeration.hasMoreElements() && !this.f) {
-                        Object object = enumeration.nextElement();
-                        Object object1 = properties.get(object);
-
-                        if (object1 != null) {
-                            String s1 = object1.toString();
-
-                            for (int i = 0; i < s1.length(); ++i) {
-                                if (s1.charAt(i) >= 256) {
-                                    this.f = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                } catch (IOException ioexception1) {
-                    ioexception1.printStackTrace();
-                    return;
-                }
-            }
-
-            this.e = s;
-            this.b = properties;
-        }
+    static LocaleLanguage a() {
+        return c;
     }
 
     public synchronized String a(String s) {
-        return this.b.getProperty(s, s);
+        return this.c(s);
     }
 
     public synchronized String a(String s, Object... aobject) {
-        String s1 = this.b.getProperty(s, s);
+        String s1 = this.c(s);
 
         try {
             return String.format(s1, aobject);
@@ -131,11 +61,13 @@ public class LocaleLanguage {
         }
     }
 
-    public synchronized boolean b(String s) {
-        return this.b.containsKey(s);
+    private String c(String s) {
+        String s1 = (String) this.d.get(s);
+
+        return s1 == null ? s : s1;
     }
 
-    public synchronized String c(String s) {
-        return this.b.getProperty(s + ".name", "");
+    public synchronized boolean b(String s) {
+        return this.d.containsKey(s);
     }
 }

@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 
 public class Packet30Entity extends Packet {
 
@@ -11,7 +11,7 @@ public class Packet30Entity extends Packet {
     public byte d;
     public byte e;
     public byte f;
-    public boolean g = false;
+    public boolean g;
 
     public Packet30Entity() {}
 
@@ -19,12 +19,12 @@ public class Packet30Entity extends Packet {
         this.a = i;
     }
 
-    public void a(DataInputStream datainputstream) {
-        this.a = datainputstream.readInt();
+    public void a(DataInput datainput) {
+        this.a = datainput.readInt();
     }
 
-    public void a(DataOutputStream dataoutputstream) {
-        dataoutputstream.writeInt(this.a);
+    public void a(DataOutput dataoutput) {
+        dataoutput.writeInt(this.a);
     }
 
     public void handle(Connection connection) {
