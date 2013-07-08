@@ -59,7 +59,7 @@ public class CombatTracker {
                 if (combatentry.a() != DamageSource.FALL && combatentry.a() != DamageSource.OUT_OF_WORLD) {
                     if (s1 != null && (s == null || !s1.equals(s))) {
                         Entity entity1 = combatentry.a().getEntity();
-                        ItemStack itemstack = entity1 instanceof EntityLiving ? ((EntityLiving) entity1).aV() : null;
+                        ItemStack itemstack = entity1 instanceof EntityLiving ? ((EntityLiving) entity1).aY() : null;
 
                         if (itemstack != null && itemstack.hasName()) {
                             chatmessage = ChatMessage.b("death.fell.assist.item", new Object[] { this.b.getScoreboardDisplayName(), s1, itemstack.getName()});
@@ -67,7 +67,7 @@ public class CombatTracker {
                             chatmessage = ChatMessage.b("death.fell.assist", new Object[] { this.b.getScoreboardDisplayName(), s1});
                         }
                     } else if (s != null) {
-                        ItemStack itemstack1 = entity instanceof EntityLiving ? ((EntityLiving) entity).aV() : null;
+                        ItemStack itemstack1 = entity instanceof EntityLiving ? ((EntityLiving) entity).aY() : null;
 
                         if (itemstack1 != null && itemstack1.hasName()) {
                             chatmessage = ChatMessage.b("death.fell.finish.item", new Object[] { this.b.getScoreboardDisplayName(), s, itemstack1.getName()});

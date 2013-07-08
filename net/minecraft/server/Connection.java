@@ -305,4 +305,10 @@ public abstract class Connection {
     public void a(Packet44UpdateAttributes packet44updateattributes) {
         this.onUnhandledPacket(packet44updateattributes);
     }
+
+    public void a(Packet133OpenTileEntity packet133opentileentity) {}
+
+    public boolean c() {
+        return false;
+    }
 }

@@ -29,7 +29,7 @@ public abstract class ServerConnection {
             PlayerConnection playerconnection = (PlayerConnection) this.c.get(i);
 
             try {
-                playerconnection.d();
+                playerconnection.e();
             } catch (Exception exception) {
                 if (playerconnection.networkManager instanceof MemoryNetworkManager) {
                     CrashReport crashreport = CrashReport.a((Throwable) exception, "Ticking memory connection");

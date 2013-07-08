@@ -26,7 +26,7 @@ public class PathfinderGoalLookAtPlayer extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (this.b.aB().nextFloat() >= this.e) {
+        if (this.b.aC().nextFloat() >= this.e) {
             return false;
         } else {
             if (this.b.getGoalTarget() != null) {
@@ -48,7 +48,7 @@ public class PathfinderGoalLookAtPlayer extends PathfinderGoal {
     }
 
     public void c() {
-        this.d = 40 + this.b.aB().nextInt(40);
+        this.d = 40 + this.b.aC().nextInt(40);
     }
 
     public void d() {
@@ -56,7 +56,7 @@ public class PathfinderGoalLookAtPlayer extends PathfinderGoal {
     }
 
     public void e() {
-        this.b.getControllerLook().a(this.a.locX, this.a.locY + (double) this.a.getHeadHeight(), this.a.locZ, 10.0F, (float) this.b.bl());
+        this.b.getControllerLook().a(this.a.locX, this.a.locY + (double) this.a.getHeadHeight(), this.a.locZ, 10.0F, (float) this.b.bp());
         --this.d;
     }
 }

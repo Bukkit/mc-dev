@@ -125,7 +125,7 @@ public final class SpawnerCreature {
                                                                 ++j2;
                                                                 worldserver.addEntity(entityinsentient);
                                                                 groupdataentity = entityinsentient.a(groupdataentity);
-                                                                if (j2 >= entityinsentient.br()) {
+                                                                if (j2 >= entityinsentient.bv()) {
                                                                     continue label110;
                                                                 }
                                                             }

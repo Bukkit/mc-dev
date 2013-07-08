@@ -206,7 +206,7 @@ public abstract class EntityFireball extends Entity {
         return true;
     }
 
-    public float X() {
+    public float Y() {
         return 1.0F;
     }
 
@@ -216,7 +216,7 @@ public abstract class EntityFireball extends Entity {
         } else {
             this.J();
             if (damagesource.getEntity() != null) {
-                Vec3D vec3d = damagesource.getEntity().Y();
+                Vec3D vec3d = damagesource.getEntity().Z();
 
                 if (vec3d != null) {
                     this.motX = vec3d.c;

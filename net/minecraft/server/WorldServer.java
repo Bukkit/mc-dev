@@ -456,21 +456,7 @@ public class WorldServer extends World {
             entity.die();
         }
 
-        if (!(entity.passenger instanceof EntityHuman)) {
-            super.entityJoinedWorld(entity, flag);
-        }
-    }
-
-    public void vehicleEnteredWorld(Entity entity, boolean flag) {
-        try {
-            super.entityJoinedWorld(entity, flag);
-        } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.a(throwable, "Forcefully ticking entity");
-            CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Entity being force ticked");
-
-            entity.a(crashreportsystemdetails);
-            throw new ReportedException(crashreport);
-        }
+        super.entityJoinedWorld(entity, flag);
     }
 
     protected IChunkProvider j() {
@@ -602,7 +588,7 @@ public class WorldServer extends World {
     protected void a(Entity entity) {
         super.a(entity);
         this.entitiesById.a(entity.id, entity);
-        Entity[] aentity = entity.am();
+        Entity[] aentity = entity.an();
 
         if (aentity != null) {
             for (int i = 0; i < aentity.length; ++i) {
@@ -614,7 +600,7 @@ public class WorldServer extends World {
     protected void b(Entity entity) {
         super.b(entity);
         this.entitiesById.d(entity.id);
-        Entity[] aentity = entity.am();
+        Entity[] aentity = entity.an();
 
         if (aentity != null) {
             for (int i = 0; i < aentity.length; ++i) {

@@ -37,7 +37,7 @@ public class ItemLeash extends Item {
             while (iterator.hasNext()) {
                 EntityInsentient entityinsentient = (EntityInsentient) iterator.next();
 
-                if (entityinsentient.bD() && entityinsentient.bE() == entityhuman) {
+                if (entityinsentient.bH() && entityinsentient.bI() == entityhuman) {
                     if (entityleash == null) {
                         entityleash = EntityLeash.a(world, i, j, k);
                     }

@@ -194,7 +194,7 @@ public class ChatMessage {
                 String[] astring = new String[this.i.size()];
 
                 for (int i = 0; i < this.i.size(); ++i) {
-                    astring[i] = ((ChatMessage) this.i.get(i)).toString();
+                    astring[i] = ((ChatMessage) this.i.get(i)).a(flag, enumchatformat1, flag5, flag6, flag7, flag8);
                 }
 
                 stringbuilder.append(LocaleI18n.get(this.h, astring));
@@ -211,7 +211,7 @@ public class ChatMessage {
             ChatMessage chatmessage;
 
             if (this.i != null) {
-                for (Iterator iterator = this.i.iterator(); iterator.hasNext(); stringbuilder.append(chatmessage.toString())) {
+                for (Iterator iterator = this.i.iterator(); iterator.hasNext(); stringbuilder.append(chatmessage.a(flag, enumchatformat1, flag5, flag6, flag7, flag8))) {
                     chatmessage = (ChatMessage) iterator.next();
                     if (flag) {
                         a(stringbuilder, enumchatformat1, flag5, flag6, flag7, flag8);

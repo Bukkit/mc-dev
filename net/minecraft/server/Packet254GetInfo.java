@@ -14,16 +14,21 @@ public class Packet254GetInfo extends Packet {
 
     public void a(DataInput datainput) {
         try {
-            datainput.readByte();
-            datainput.readByte();
-            a(datainput, 255);
-            datainput.readShort();
             this.a = datainput.readByte();
-            if (this.a >= 73) {
-                this.b = a(datainput, 255);
-                this.c = datainput.readInt();
+
+            try {
+                datainput.readByte();
+                a(datainput, 255);
+                datainput.readShort();
+                this.a = datainput.readByte();
+                if (this.a >= 73) {
+                    this.b = a(datainput, 255);
+                    this.c = datainput.readInt();
+                }
+            } catch (Throwable throwable) {
+                this.b = "";
             }
-        } catch (Throwable throwable) {
+        } catch (Throwable throwable1) {
             this.a = 0;
             this.b = "";
         }

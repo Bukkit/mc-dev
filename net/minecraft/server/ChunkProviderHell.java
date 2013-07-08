@@ -420,13 +420,19 @@ public class ChunkProviderHell implements IChunkProvider {
     }
 
     public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
-        if (enumcreaturetype == EnumCreatureType.MONSTER && this.c.a(i, j, k)) {
-            return this.c.a();
-        } else {
-            BiomeBase biomebase = this.o.getBiome(i, k);
+        if (enumcreaturetype == EnumCreatureType.MONSTER) {
+            if (this.c.a(i, j, k)) {
+                return this.c.a();
+            }
 
-            return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
+            if (this.c.b(i, j, k) && this.o.getTypeId(i, j - 1, k) == Block.NETHER_BRICK.id) {
+                return this.c.a();
+            }
         }
+
+        BiomeBase biomebase = this.o.getBiome(i, k);
+
+        return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
     }
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {

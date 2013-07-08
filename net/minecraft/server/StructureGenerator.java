@@ -76,6 +76,22 @@ public abstract class StructureGenerator extends WorldGenBase {
         return false;
     }
 
+    public boolean b(int i, int j, int k) {
+        Iterator iterator = this.d.values().iterator();
+
+        StructureStart structurestart;
+
+        do {
+            if (!iterator.hasNext()) {
+                return false;
+            }
+
+            structurestart = (StructureStart) iterator.next();
+        } while (!structurestart.d());
+
+        return structurestart.a().a(i, k, i, k);
+    }
+
     public ChunkPosition getNearestGeneratedFeature(World world, int i, int j, int k) {
         this.c = world;
         this.b.setSeed(world.getSeed());

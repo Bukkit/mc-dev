@@ -117,7 +117,7 @@ public class DamageSource {
     }
 
     public ChatMessage getLocalizedDeathMessage(EntityLiving entityliving) {
-        EntityLiving entityliving1 = entityliving.aO();
+        EntityLiving entityliving1 = entityliving.aR();
         String s = "death.attack." + this.translationIndex;
         String s1 = s + ".player";
 

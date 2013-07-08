@@ -31,9 +31,9 @@ public class PendingConnection extends Connection {
         this.networkManager.e = 0;
     }
 
-    public void c() {
+    public void d() {
         if (this.h) {
-            this.d();
+            this.e();
         }
 
         if (this.f++ == 600) {
@@ -61,8 +61,8 @@ public class PendingConnection extends Connection {
         } else {
             PublicKey publickey = this.server.H().getPublic();
 
-            if (packet2handshake.d() != 73) {
-                if (packet2handshake.d() > 73) {
+            if (packet2handshake.d() != 74) {
+                if (packet2handshake.d() > 74) {
                     this.disconnect("Outdated server!");
                 } else {
                     this.disconnect("Outdated client!");
@@ -105,7 +105,7 @@ public class PendingConnection extends Connection {
 
     public void a(Packet1Login packet1login) {}
 
-    public void d() {
+    public void e() {
         String s = this.server.getPlayerList().attemptLogin(this.networkManager.getSocketAddress(), this.g);
 
         if (s != null) {
@@ -134,7 +134,7 @@ public class PendingConnection extends Connection {
             if (packet254getinfo.d()) {
                 s = this.server.getMotd() + "\u00A7" + playerlist.getPlayerCount() + "\u00A7" + playerlist.getMaxPlayers();
             } else {
-                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(73), this.server.getVersion(), this.server.getMotd(), Integer.valueOf(playerlist.getPlayerCount()), Integer.valueOf(playerlist.getMaxPlayers())});
+                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(74), this.server.getVersion(), this.server.getMotd(), Integer.valueOf(playerlist.getPlayerCount()), Integer.valueOf(playerlist.getMaxPlayers())});
 
                 Object object;
 
@@ -176,6 +176,10 @@ public class PendingConnection extends Connection {
 
     public boolean a() {
         return true;
+    }
+
+    public boolean c() {
+        return this.b;
     }
 
     static String a(PendingConnection pendingconnection) {

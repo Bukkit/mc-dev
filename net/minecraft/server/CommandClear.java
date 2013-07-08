@@ -24,7 +24,11 @@ public class CommandClear extends CommandAbstract {
         int j = astring.length >= 3 ? a(icommandlistener, astring[2], 0) : -1;
         int k = entityplayer.inventory.b(i, j);
 
-        entityplayer.updateInventory(entityplayer.defaultContainer);
+        entityplayer.defaultContainer.b();
+        if (!entityplayer.abilities.canInstantlyBuild) {
+            entityplayer.broadcastCarriedItem();
+        }
+
         if (k == 0) {
             throw new CommandException("commands.clear.failure", new Object[] { entityplayer.getLocalizedName()});
         } else {

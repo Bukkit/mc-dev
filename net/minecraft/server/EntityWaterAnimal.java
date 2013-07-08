@@ -6,7 +6,7 @@ public abstract class EntityWaterAnimal extends EntityCreature implements IAnima
         super(world);
     }
 
-    public boolean ay() {
+    public boolean az() {
         return true;
     }
 

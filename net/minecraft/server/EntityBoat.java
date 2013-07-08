@@ -55,7 +55,7 @@ public class EntityBoat extends Entity {
         this.lastZ = d2;
     }
 
-    public double W() {
+    public double X() {
         return (double) this.length * 0.0D - 0.30000001192092896D;
     }
 
@@ -298,12 +298,12 @@ public class EntityBoat extends Entity {
         }
     }
 
-    public void U() {
+    public void V() {
         if (this.passenger != null) {
             double d0 = Math.cos((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
             double d1 = Math.sin((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
 
-            this.passenger.setPosition(this.locX + d0, this.locY + this.W() + this.passenger.V(), this.locZ + d1);
+            this.passenger.setPosition(this.locX + d0, this.locY + this.X() + this.passenger.W(), this.locZ + d1);
         }
     }
 

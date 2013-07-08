@@ -4,6 +4,7 @@ public class PathfinderGoalOwnerHurtByTarget extends PathfinderGoalTarget {
 
     EntityTameableAnimal a;
     EntityLiving b;
+    private int e;
 
     public PathfinderGoalOwnerHurtByTarget(EntityTameableAnimal entitytameableanimal) {
         super(entitytameableanimal, false);
@@ -21,13 +22,21 @@ public class PathfinderGoalOwnerHurtByTarget extends PathfinderGoalTarget {
                 return false;
             } else {
                 this.b = entityliving.getLastDamager();
-                return this.a(this.b, false);
+                int i = entityliving.aE();
+
+                return i != this.e && this.a(this.b, false) && this.a.a(this.b, entityliving);
             }
         }
     }
 
     public void c() {
         this.c.setGoalTarget(this.b);
+        EntityLiving entityliving = this.a.getOwner();
+
+        if (entityliving != null) {
+            this.e = entityliving.aE();
+        }
+
         super.c();
     }
 }

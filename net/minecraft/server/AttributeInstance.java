@@ -9,7 +9,7 @@ public interface AttributeInstance {
 
     double b();
 
-    void a(double d0);
+    void setValue(double d0);
 
     Collection c();
 
@@ -19,5 +19,5 @@ public interface AttributeInstance {
 
     void b(AttributeModifier attributemodifier);
 
-    double e();
+    double getValue();
 }

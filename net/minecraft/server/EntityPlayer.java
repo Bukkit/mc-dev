@@ -177,8 +177,8 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                 this.bR = this.foodData.e() == 0.0F;
             }
 
-            if (this.getHealth() + this.bj() != this.bO) {
-                this.bO = this.getHealth() + this.bj();
+            if (this.getHealth() + this.bm() != this.bO) {
+                this.bO = this.getHealth() + this.bm();
                 Collection collection = this.getScoreboard().getObjectivesForCriteria(IScoreboardCriteria.f);
                 Iterator iterator = collection.iterator();
 
@@ -203,7 +203,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void die(DamageSource damagesource) {
-        this.server.getPlayerList().sendMessage(this.aN().b());
+        this.server.getPlayerList().sendMessage(this.aQ().b());
         if (!this.world.getGameRules().getBoolean("keepInventory")) {
             this.inventory.m();
         }
@@ -218,7 +218,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             scoreboardscore.incrementScore();
         }
 
-        EntityLiving entityliving = this.aO();
+        EntityLiving entityliving = this.aR();
 
         if (entityliving != null) {
             entityliving.b(this, this.bb);
@@ -338,6 +338,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void b(double d0, boolean flag) {
         super.a(d0, flag);
+    }
+
+    public void a(TileEntity tileentity) {
+        if (tileentity instanceof TileEntitySign) {
+            ((TileEntitySign) tileentity).a((EntityHuman) this);
+            this.playerConnection.sendPacket(new Packet133OpenTileEntity(0, tileentity.x, tileentity.y, tileentity.z));
+        }
     }
 
     private void nextContainerCounter() {
@@ -567,13 +574,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.playerConnection.sendPacket(new Packet41MobEffect(this.id, mobeffect));
     }
 
-    protected void b(MobEffect mobeffect) {
-        super.b(mobeffect);
+    protected void a(MobEffect mobeffect, boolean flag) {
+        super.a(mobeffect, flag);
         this.playerConnection.sendPacket(new Packet41MobEffect(this.id, mobeffect));
     }
 
-    protected void c(MobEffect mobeffect) {
-        super.c(mobeffect);
+    protected void b(MobEffect mobeffect) {
+        super.b(mobeffect);
         this.playerConnection.sendPacket(new Packet42RemoveMobEffect(this.id, mobeffect));
     }
 

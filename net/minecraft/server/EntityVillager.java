@@ -50,22 +50,22 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         this.goalSelector.a(10, new PathfinderGoalLookAtPlayer(this, EntityInsentient.class, 8.0F));
     }
 
-    protected void ax() {
-        super.ax();
-        this.a(GenericAttributes.d).a(0.5D);
+    protected void ay() {
+        super.ay();
+        this.getAttributeInstance(GenericAttributes.d).setValue(0.5D);
     }
 
-    public boolean bb() {
+    public boolean be() {
         return true;
     }
 
-    protected void bg() {
+    protected void bj() {
         if (--this.profession <= 0) {
             this.world.villages.a(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ));
             this.profession = 70 + this.random.nextInt(50);
             this.village = this.world.villages.getClosestVillage(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ), 32);
             if (this.village == null) {
-                this.bN();
+                this.bR();
             } else {
                 ChunkCoordinates chunkcoordinates = this.village.getCenter();
 
@@ -77,7 +77,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
             }
         }
 
-        if (!this.bS() && this.bv > 0) {
+        if (!this.bW() && this.bv > 0) {
             --this.bv;
             if (this.bv <= 0) {
                 if (this.bw) {
@@ -105,14 +105,14 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
             }
         }
 
-        super.bg();
+        super.bj();
     }
 
     public boolean a(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
         boolean flag = itemstack != null && itemstack.id == Item.MONSTER_EGG.id;
 
-        if (!flag && this.isAlive() && !this.bS() && !this.isBaby()) {
+        if (!flag && this.isAlive() && !this.bW() && !this.isBaby()) {
             if (!this.world.isStatic) {
                 this.a_(entityhuman);
                 entityhuman.openTrade(this, this.getCustomName());
@@ -154,14 +154,14 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
     }
 
     protected String r() {
-        return this.bS() ? "mob.villager.haggle" : "mob.villager.idle";
+        return this.bW() ? "mob.villager.haggle" : "mob.villager.idle";
     }
 
-    protected String aK() {
+    protected String aN() {
         return "mob.villager.hit";
     }
 
-    protected String aL() {
+    protected String aO() {
         return "mob.villager.death";
     }
 
@@ -173,19 +173,19 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         return this.datawatcher.getInt(16);
     }
 
-    public boolean bQ() {
+    public boolean bU() {
         return this.br;
     }
 
-    public void j(boolean flag) {
+    public void i(boolean flag) {
         this.br = flag;
     }
 
-    public void k(boolean flag) {
+    public void j(boolean flag) {
         this.bs = flag;
     }
 
-    public boolean bR() {
+    public boolean bV() {
         return this.bs;
     }
 
@@ -238,14 +238,14 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         return this.tradingPlayer;
     }
 
-    public boolean bS() {
+    public boolean bW() {
         return this.tradingPlayer != null;
     }
 
     public void a(MerchantRecipe merchantrecipe) {
         merchantrecipe.f();
         this.a_ = -this.o();
-        this.makeSound("mob.villager.yes", this.aW(), this.aX());
+        this.makeSound("mob.villager.yes", this.aZ(), this.ba());
         if (merchantrecipe.a((MerchantRecipe) this.bu.get(this.bu.size() - 1))) {
             this.bv = 40;
             this.bw = true;
@@ -265,9 +265,9 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         if (!this.world.isStatic && this.a_ > -this.o() + 20) {
             this.a_ = -this.o();
             if (itemstack != null) {
-                this.makeSound("mob.villager.yes", this.aW(), this.aX());
+                this.makeSound("mob.villager.yes", this.aZ(), this.ba());
             } else {
-                this.makeSound("mob.villager.no", this.aW(), this.aX());
+                this.makeSound("mob.villager.no", this.aZ(), this.ba());
             }
         }
     }
@@ -280,7 +280,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         return this.bu;
     }
 
-    private float o(float f) {
+    private float p(float f) {
         float f1 = f + this.bA;
 
         return f1 > 0.9F ? 0.9F - (f1 - 0.9F) : f1;
@@ -301,32 +301,32 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         label50:
         switch (this.getProfession()) {
         case 0:
-            a(merchantrecipelist, Item.WHEAT.id, this.random, this.o(0.9F));
-            a(merchantrecipelist, Block.WOOL.id, this.random, this.o(0.5F));
-            a(merchantrecipelist, Item.RAW_CHICKEN.id, this.random, this.o(0.5F));
-            a(merchantrecipelist, Item.COOKED_FISH.id, this.random, this.o(0.4F));
-            b(merchantrecipelist, Item.BREAD.id, this.random, this.o(0.9F));
-            b(merchantrecipelist, Item.MELON.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.APPLE.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.COOKIE.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.SHEARS.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.FLINT_AND_STEEL.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.COOKED_CHICKEN.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.ARROW.id, this.random, this.o(0.5F));
-            if (this.random.nextFloat() < this.o(0.5F)) {
+            a(merchantrecipelist, Item.WHEAT.id, this.random, this.p(0.9F));
+            a(merchantrecipelist, Block.WOOL.id, this.random, this.p(0.5F));
+            a(merchantrecipelist, Item.RAW_CHICKEN.id, this.random, this.p(0.5F));
+            a(merchantrecipelist, Item.COOKED_FISH.id, this.random, this.p(0.4F));
+            b(merchantrecipelist, Item.BREAD.id, this.random, this.p(0.9F));
+            b(merchantrecipelist, Item.MELON.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.APPLE.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.COOKIE.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.SHEARS.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.FLINT_AND_STEEL.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.COOKED_CHICKEN.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.ARROW.id, this.random, this.p(0.5F));
+            if (this.random.nextFloat() < this.p(0.5F)) {
                 merchantrecipelist.add(new MerchantRecipe(new ItemStack(Block.GRAVEL, 10), new ItemStack(Item.EMERALD), new ItemStack(Item.FLINT.id, 4 + this.random.nextInt(2), 0)));
             }
             break;
 
         case 1:
-            a(merchantrecipelist, Item.PAPER.id, this.random, this.o(0.8F));
-            a(merchantrecipelist, Item.BOOK.id, this.random, this.o(0.8F));
-            a(merchantrecipelist, Item.WRITTEN_BOOK.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Block.BOOKSHELF.id, this.random, this.o(0.8F));
-            b(merchantrecipelist, Block.GLASS.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.COMPASS.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.WATCH.id, this.random, this.o(0.2F));
-            if (this.random.nextFloat() < this.o(0.07F)) {
+            a(merchantrecipelist, Item.PAPER.id, this.random, this.p(0.8F));
+            a(merchantrecipelist, Item.BOOK.id, this.random, this.p(0.8F));
+            a(merchantrecipelist, Item.WRITTEN_BOOK.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Block.BOOKSHELF.id, this.random, this.p(0.8F));
+            b(merchantrecipelist, Block.GLASS.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.COMPASS.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.WATCH.id, this.random, this.p(0.2F));
+            if (this.random.nextFloat() < this.p(0.07F)) {
                 Enchantment enchantment = Enchantment.c[this.random.nextInt(Enchantment.c.length)];
                 int k = MathHelper.nextInt(this.random, enchantment.getStartLevel(), enchantment.getMaxLevel());
                 ItemStack itemstack = Item.ENCHANTED_BOOK.a(new EnchantmentInstance(enchantment, k));
@@ -337,10 +337,10 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
             break;
 
         case 2:
-            b(merchantrecipelist, Item.EYE_OF_ENDER.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.EXP_BOTTLE.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.REDSTONE.id, this.random, this.o(0.4F));
-            b(merchantrecipelist, Block.GLOWSTONE.id, this.random, this.o(0.3F));
+            b(merchantrecipelist, Item.EYE_OF_ENDER.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.EXP_BOTTLE.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.REDSTONE.id, this.random, this.p(0.4F));
+            b(merchantrecipelist, Block.GLOWSTONE.id, this.random, this.p(0.3F));
             int[] aint = new int[] { Item.IRON_SWORD.id, Item.DIAMOND_SWORD.id, Item.IRON_CHESTPLATE.id, Item.DIAMOND_CHESTPLATE.id, Item.IRON_AXE.id, Item.DIAMOND_AXE.id, Item.IRON_PICKAXE.id, Item.DIAMOND_PICKAXE.id};
             int[] aint1 = aint;
             int l = aint.length;
@@ -354,7 +354,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
 
                 int i1 = aint1[j];
 
-                if (this.random.nextFloat() < this.o(0.05F)) {
+                if (this.random.nextFloat() < this.p(0.05F)) {
                     merchantrecipelist.add(new MerchantRecipe(new ItemStack(i1, 1, 0), new ItemStack(Item.EMERALD, 2 + this.random.nextInt(3), 0), EnchantmentManager.a(this.random, new ItemStack(i1, 1, 0), 5 + this.random.nextInt(15))));
                 }
 
@@ -362,45 +362,45 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
             }
 
         case 3:
-            a(merchantrecipelist, Item.COAL.id, this.random, this.o(0.7F));
-            a(merchantrecipelist, Item.IRON_INGOT.id, this.random, this.o(0.5F));
-            a(merchantrecipelist, Item.GOLD_INGOT.id, this.random, this.o(0.5F));
-            a(merchantrecipelist, Item.DIAMOND.id, this.random, this.o(0.5F));
-            b(merchantrecipelist, Item.IRON_SWORD.id, this.random, this.o(0.5F));
-            b(merchantrecipelist, Item.DIAMOND_SWORD.id, this.random, this.o(0.5F));
-            b(merchantrecipelist, Item.IRON_AXE.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.DIAMOND_AXE.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.IRON_PICKAXE.id, this.random, this.o(0.5F));
-            b(merchantrecipelist, Item.DIAMOND_PICKAXE.id, this.random, this.o(0.5F));
-            b(merchantrecipelist, Item.IRON_SPADE.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.DIAMOND_SPADE.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.IRON_HOE.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.DIAMOND_HOE.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.IRON_BOOTS.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.DIAMOND_BOOTS.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.IRON_HELMET.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.DIAMOND_HELMET.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.IRON_CHESTPLATE.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.DIAMOND_CHESTPLATE.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.IRON_LEGGINGS.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.DIAMOND_LEGGINGS.id, this.random, this.o(0.2F));
-            b(merchantrecipelist, Item.CHAINMAIL_BOOTS.id, this.random, this.o(0.1F));
-            b(merchantrecipelist, Item.CHAINMAIL_HELMET.id, this.random, this.o(0.1F));
-            b(merchantrecipelist, Item.CHAINMAIL_CHESTPLATE.id, this.random, this.o(0.1F));
-            b(merchantrecipelist, Item.CHAINMAIL_LEGGINGS.id, this.random, this.o(0.1F));
+            a(merchantrecipelist, Item.COAL.id, this.random, this.p(0.7F));
+            a(merchantrecipelist, Item.IRON_INGOT.id, this.random, this.p(0.5F));
+            a(merchantrecipelist, Item.GOLD_INGOT.id, this.random, this.p(0.5F));
+            a(merchantrecipelist, Item.DIAMOND.id, this.random, this.p(0.5F));
+            b(merchantrecipelist, Item.IRON_SWORD.id, this.random, this.p(0.5F));
+            b(merchantrecipelist, Item.DIAMOND_SWORD.id, this.random, this.p(0.5F));
+            b(merchantrecipelist, Item.IRON_AXE.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.DIAMOND_AXE.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.IRON_PICKAXE.id, this.random, this.p(0.5F));
+            b(merchantrecipelist, Item.DIAMOND_PICKAXE.id, this.random, this.p(0.5F));
+            b(merchantrecipelist, Item.IRON_SPADE.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.DIAMOND_SPADE.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.IRON_HOE.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.DIAMOND_HOE.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.IRON_BOOTS.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.DIAMOND_BOOTS.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.IRON_HELMET.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.DIAMOND_HELMET.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.IRON_CHESTPLATE.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.DIAMOND_CHESTPLATE.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.IRON_LEGGINGS.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.DIAMOND_LEGGINGS.id, this.random, this.p(0.2F));
+            b(merchantrecipelist, Item.CHAINMAIL_BOOTS.id, this.random, this.p(0.1F));
+            b(merchantrecipelist, Item.CHAINMAIL_HELMET.id, this.random, this.p(0.1F));
+            b(merchantrecipelist, Item.CHAINMAIL_CHESTPLATE.id, this.random, this.p(0.1F));
+            b(merchantrecipelist, Item.CHAINMAIL_LEGGINGS.id, this.random, this.p(0.1F));
             break;
 
         case 4:
-            a(merchantrecipelist, Item.COAL.id, this.random, this.o(0.7F));
-            a(merchantrecipelist, Item.PORK.id, this.random, this.o(0.5F));
-            a(merchantrecipelist, Item.RAW_BEEF.id, this.random, this.o(0.5F));
-            b(merchantrecipelist, Item.SADDLE.id, this.random, this.o(0.1F));
-            b(merchantrecipelist, Item.LEATHER_CHESTPLATE.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.LEATHER_BOOTS.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.LEATHER_HELMET.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.LEATHER_LEGGINGS.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.GRILLED_PORK.id, this.random, this.o(0.3F));
-            b(merchantrecipelist, Item.COOKED_BEEF.id, this.random, this.o(0.3F));
+            a(merchantrecipelist, Item.COAL.id, this.random, this.p(0.7F));
+            a(merchantrecipelist, Item.PORK.id, this.random, this.p(0.5F));
+            a(merchantrecipelist, Item.RAW_BEEF.id, this.random, this.p(0.5F));
+            b(merchantrecipelist, Item.SADDLE.id, this.random, this.p(0.1F));
+            b(merchantrecipelist, Item.LEATHER_CHESTPLATE.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.LEATHER_BOOTS.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.LEATHER_HELMET.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.LEATHER_LEGGINGS.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.GRILLED_PORK.id, this.random, this.p(0.3F));
+            b(merchantrecipelist, Item.COOKED_BEEF.id, this.random, this.p(0.3F));
         }
 
         if (merchantrecipelist.isEmpty()) {
@@ -463,7 +463,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         return groupdataentity;
     }
 
-    public void bT() {
+    public void bX() {
         this.bz = true;
     }
 
@@ -474,7 +474,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         return entityvillager;
     }
 
-    public boolean bC() {
+    public boolean bG() {
         return false;
     }
 

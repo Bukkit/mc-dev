@@ -164,7 +164,7 @@ public class Pathfinder {
                         break;
                     }
 
-                    if (j1++ >= entity.aq()) {
+                    if (j1++ >= entity.ar()) {
                         return null;
                     }
 

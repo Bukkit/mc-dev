@@ -11,12 +11,12 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         super(world);
     }
 
-    protected void bg() {
+    protected void bj() {
         if (this.getAge() != 0) {
             this.love = 0;
         }
 
-        super.bg();
+        super.bj();
     }
 
     public void c() {
@@ -53,7 +53,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
             EntityHuman entityhuman = (EntityHuman) entity;
 
-            if (entityhuman.bt() == null || !this.c(entityhuman.bt())) {
+            if (entityhuman.bx() == null || !this.c(entityhuman.bx())) {
                 this.target = null;
             }
         } else if (entity instanceof EntityAnimal) {
@@ -121,8 +121,8 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
             return false;
         } else {
             this.bo = 60;
-            if (!this.bb()) {
-                AttributeInstance attributeinstance = this.a(GenericAttributes.d);
+            if (!this.be()) {
+                AttributeInstance attributeinstance = this.getAttributeInstance(GenericAttributes.d);
 
                 if (attributeinstance.a(h) == null) {
                     attributeinstance.a(i);
@@ -173,7 +173,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 for (i = 0; i < list.size(); ++i) {
                     EntityHuman entityhuman = (EntityHuman) list.get(i);
 
-                    if (entityhuman.bt() != null && this.c(entityhuman.bt())) {
+                    if (entityhuman.bx() != null && this.c(entityhuman.bx())) {
                         return entityhuman;
                     }
                 }
@@ -227,28 +227,28 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 }
             }
 
-            this.bT();
+            this.bX();
             return true;
         } else {
             return super.a(entityhuman);
         }
     }
 
-    public void bT() {
+    public void bX() {
         this.love = 600;
         this.target = null;
         this.world.broadcastEntityEffect(this, (byte) 18);
     }
 
-    public boolean bU() {
+    public boolean bY() {
         return this.love > 0;
     }
 
-    public void bV() {
+    public void bZ() {
         this.love = 0;
     }
 
     public boolean mate(EntityAnimal entityanimal) {
-        return entityanimal == this ? false : (entityanimal.getClass() != this.getClass() ? false : this.bU() && entityanimal.bU());
+        return entityanimal == this ? false : (entityanimal.getClass() != this.getClass() ? false : this.bY() && entityanimal.bY());
     }
 }

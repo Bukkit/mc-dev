@@ -39,20 +39,22 @@ public class EntityLeash extends EntityHanging {
     public void a(NBTTagCompound nbttagcompound) {}
 
     public boolean c(EntityHuman entityhuman) {
-        ItemStack itemstack = entityhuman.aV();
+        ItemStack itemstack = entityhuman.aY();
         boolean flag = false;
+        double d0;
+        List list;
+        Iterator iterator;
+        EntityInsentient entityinsentient;
 
         if (itemstack != null && itemstack.id == Item.LEASH.id && !this.world.isStatic) {
-            double d0 = 7.0D;
-            List list = this.world.a(EntityInsentient.class, AxisAlignedBB.a().a(this.locX - d0, this.locY - d0, this.locZ - d0, this.locX + d0, this.locY + d0, this.locZ + d0));
-
+            d0 = 7.0D;
+            list = this.world.a(EntityInsentient.class, AxisAlignedBB.a().a(this.locX - d0, this.locY - d0, this.locZ - d0, this.locX + d0, this.locY + d0, this.locZ + d0));
             if (list != null) {
-                Iterator iterator = list.iterator();
+                iterator = list.iterator();
 
                 while (iterator.hasNext()) {
-                    EntityInsentient entityinsentient = (EntityInsentient) iterator.next();
-
-                    if (entityinsentient.bD() && entityinsentient.bE() == entityhuman) {
+                    entityinsentient = (EntityInsentient) iterator.next();
+                    if (entityinsentient.bH() && entityinsentient.bI() == entityhuman) {
                         entityinsentient.b(this, true);
                         flag = true;
                     }
@@ -62,6 +64,20 @@ public class EntityLeash extends EntityHanging {
 
         if (!this.world.isStatic && !flag) {
             this.die();
+            if (entityhuman.abilities.canInstantlyBuild) {
+                d0 = 7.0D;
+                list = this.world.a(EntityInsentient.class, AxisAlignedBB.a().a(this.locX - d0, this.locY - d0, this.locZ - d0, this.locX + d0, this.locY + d0, this.locZ + d0));
+                if (list != null) {
+                    iterator = list.iterator();
+
+                    while (iterator.hasNext()) {
+                        entityinsentient = (EntityInsentient) iterator.next();
+                        if (entityinsentient.bH() && entityinsentient.bI() == this) {
+                            entityinsentient.a(true, false);
+                        }
+                    }
+                }
+            }
         }
 
         return true;

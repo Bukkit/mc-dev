@@ -1203,10 +1203,10 @@ public abstract class World implements IBlockAccess {
             entity.lastYaw = entity.yaw;
             entity.lastPitch = entity.pitch;
             if (flag && entity.ai) {
+                ++entity.ticksLived;
                 if (entity.vehicle != null) {
-                    entity.T();
+                    entity.U();
                 } else {
-                    ++entity.ticksLived;
                     entity.l_();
                 }
             }
@@ -1405,7 +1405,7 @@ public abstract class World implements IBlockAccess {
                 }
             }
 
-            if (vec3d.b() > 0.0D && entity.av()) {
+            if (vec3d.b() > 0.0D && entity.aw()) {
                 vec3d = vec3d.a();
                 double d1 = 0.014D;
 
@@ -2169,7 +2169,7 @@ public abstract class World implements IBlockAccess {
         for (int j = 0; j < this.entityList.size(); ++j) {
             Entity entity = (Entity) this.entityList.get(j);
 
-            if ((!(entity instanceof EntityInsentient) || !((EntityInsentient) entity).bA()) && oclass.isAssignableFrom(entity.getClass())) {
+            if ((!(entity instanceof EntityInsentient) || !((EntityInsentient) entity).isPersistent()) && oclass.isAssignableFrom(entity.getClass())) {
                 ++i;
             }
         }
@@ -2363,7 +2363,7 @@ public abstract class World implements IBlockAccess {
                 }
 
                 if (entityhuman1.isInvisible()) {
-                    float f = entityhuman1.bs();
+                    float f = entityhuman1.bw();
 
                     if (f < 0.1F) {
                         f = 0.1F;

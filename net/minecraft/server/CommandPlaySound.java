@@ -85,4 +85,8 @@ public class CommandPlaySound extends CommandAbstract {
             a(icommandlistener, "commands.playsound.success", new Object[] { s, entityplayer.getLocalizedName()});
         }
     }
+
+    public boolean a(String[] astring, int i) {
+        return i == 1;
+    }
 }

@@ -37,9 +37,11 @@ public class AttributeModifiable implements AttributeInstance {
         return this.f;
     }
 
-    public void a(double d0) {
-        this.f = d0;
-        this.f();
+    public void setValue(double d0) {
+        if (d0 != this.b()) {
+            this.f = d0;
+            this.f();
+        }
     }
 
     public Collection a(int i) {
@@ -103,7 +105,7 @@ public class AttributeModifiable implements AttributeInstance {
         this.f();
     }
 
-    public double e() {
+    public double getValue() {
         if (this.g) {
             this.h = this.g();
             this.g = false;

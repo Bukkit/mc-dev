@@ -48,7 +48,7 @@ public class PathfinderGoalFleeSun extends PathfinderGoal {
     }
 
     private Vec3D f() {
-        Random random = this.a.aB();
+        Random random = this.a.aC();
 
         for (int i = 0; i < 10; ++i) {
             int j = MathHelper.floor(this.a.locX + (double) random.nextInt(20) - 10.0D);

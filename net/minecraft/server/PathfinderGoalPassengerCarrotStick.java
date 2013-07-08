@@ -25,7 +25,7 @@ public class PathfinderGoalPassengerCarrotStick extends PathfinderGoal {
     }
 
     public boolean a() {
-        return this.a.isAlive() && this.a.passenger != null && this.a.passenger instanceof EntityHuman && (this.d || this.a.bu());
+        return this.a.isAlive() && this.a.passenger != null && this.a.passenger instanceof EntityHuman && (this.d || this.a.by());
     }
 
     public void e() {
@@ -77,7 +77,7 @@ public class PathfinderGoalPassengerCarrotStick extends PathfinderGoal {
         float f3 = 0.16277136F / (f2 * f2 * f2);
         float f4 = MathHelper.sin(entitycreature.yaw * 3.1415927F / 180.0F);
         float f5 = MathHelper.cos(entitycreature.yaw * 3.1415927F / 180.0F);
-        float f6 = entitycreature.bc() * f3;
+        float f6 = entitycreature.bf() * f3;
         float f7 = Math.max(f1, 1.0F);
 
         f7 = f6 / f7;
@@ -120,8 +120,8 @@ public class PathfinderGoalPassengerCarrotStick extends PathfinderGoal {
             }
         }
 
-        if (!entityhuman.abilities.canInstantlyBuild && this.c >= this.b * 0.5F && this.a.aB().nextFloat() < 0.006F && !this.d) {
-            ItemStack itemstack = entityhuman.aV();
+        if (!entityhuman.abilities.canInstantlyBuild && this.c >= this.b * 0.5F && this.a.aC().nextFloat() < 0.006F && !this.d) {
+            ItemStack itemstack = entityhuman.aY();
 
             if (itemstack != null && itemstack.id == Item.CARROT_STICK.id) {
                 itemstack.damage(1, entityhuman);
@@ -148,7 +148,7 @@ public class PathfinderGoalPassengerCarrotStick extends PathfinderGoal {
     public void g() {
         this.d = true;
         this.e = 0;
-        this.f = this.a.aB().nextInt(841) + 140;
+        this.f = this.a.aC().nextInt(841) + 140;
     }
 
     public boolean h() {

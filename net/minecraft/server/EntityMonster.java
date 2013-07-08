@@ -8,7 +8,7 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
     }
 
     public void c() {
-        this.aS();
+        this.aV();
         float f = this.d(1.0F);
 
         if (f > 0.5F) {
@@ -52,7 +52,7 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
     }
 
     public boolean m(Entity entity) {
-        float f = (float) this.a(GenericAttributes.e).e();
+        float f = (float) this.getAttributeInstance(GenericAttributes.e).getValue();
         int i = 0;
 
         if (entity instanceof EntityLiving) {
@@ -120,8 +120,8 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
         return this.world.difficulty > 0 && this.i_() && super.canSpawn();
     }
 
-    protected void ax() {
-        super.ax();
-        this.aT().b(GenericAttributes.e);
+    protected void ay() {
+        super.ay();
+        this.aW().b(GenericAttributes.e);
     }
 }

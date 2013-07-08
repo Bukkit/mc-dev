@@ -76,7 +76,7 @@ public class GenericAttributes {
     }
 
     private static void a(AttributeInstance attributeinstance, NBTTagCompound nbttagcompound) {
-        attributeinstance.a(nbttagcompound.getDouble("Base"));
+        attributeinstance.setValue(nbttagcompound.getDouble("Base"));
         if (nbttagcompound.hasKey("Modifiers")) {
             NBTTagList nbttaglist = nbttagcompound.getList("Modifiers");
 

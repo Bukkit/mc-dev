@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import com.google.common.base.Charsets;
 import java.io.File;
 import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
@@ -55,6 +56,7 @@ public abstract class PlayerList {
         PlayerConnection playerconnection = new PlayerConnection(this.server, inetworkmanager, entityplayer);
 
         playerconnection.sendPacket(new Packet1Login(entityplayer.id, worldserver.getWorldData().getType(), entityplayer.playerInteractManager.getGameMode(), worldserver.getWorldData().isHardcore(), worldserver.worldProvider.dimension, worldserver.difficulty, worldserver.getHeight(), this.getMaxPlayers()));
+        playerconnection.sendPacket(new Packet250CustomPayload("MC|Brand", this.getServer().getServerModName().getBytes(Charsets.UTF_8)));
         playerconnection.sendPacket(new Packet6SpawnPosition(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z));
         playerconnection.sendPacket(new Packet202Abilities(entityplayer.abilities));
         playerconnection.sendPacket(new Packet16BlockItemSwitch(entityplayer.inventory.itemInHandIndex));
@@ -513,8 +515,8 @@ public abstract class PlayerList {
 
                 if ((world == null || entityplayer.world == world) && (s == null || flag1 != s.equalsIgnoreCase(entityplayer.getLocalizedName()))) {
                     if (s1 != null) {
-                        ScoreboardTeam scoreboardteam = entityplayer.getScoreboardTeam();
-                        String s2 = scoreboardteam == null ? "" : scoreboardteam.getName();
+                        ScoreboardTeamBase scoreboardteambase = entityplayer.getScoreboardTeam();
+                        String s2 = scoreboardteambase == null ? "" : scoreboardteambase.getName();
 
                         if (flag2 == s1.equalsIgnoreCase(s2)) {
                             continue;

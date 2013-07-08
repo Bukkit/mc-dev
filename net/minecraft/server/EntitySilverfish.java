@@ -9,11 +9,11 @@ public class EntitySilverfish extends EntityMonster {
         this.a(0.3F, 0.7F);
     }
 
-    protected void ax() {
-        super.ax();
-        this.a(GenericAttributes.a).a(8.0D);
-        this.a(GenericAttributes.d).a(0.6000000238418579D);
-        this.a(GenericAttributes.e).a(1.0D);
+    protected void ay() {
+        super.ay();
+        this.getAttributeInstance(GenericAttributes.a).setValue(8.0D);
+        this.getAttributeInstance(GenericAttributes.d).setValue(0.6000000238418579D);
+        this.getAttributeInstance(GenericAttributes.e).setValue(1.0D);
     }
 
     protected boolean e_() {
@@ -30,11 +30,11 @@ public class EntitySilverfish extends EntityMonster {
         return "mob.silverfish.say";
     }
 
-    protected String aK() {
+    protected String aN() {
         return "mob.silverfish.hit";
     }
 
-    protected String aL() {
+    protected String aO() {
         return "mob.silverfish.kill";
     }
 
@@ -70,8 +70,8 @@ public class EntitySilverfish extends EntityMonster {
         super.l_();
     }
 
-    protected void bh() {
-        super.bh();
+    protected void bk() {
+        super.bk();
         if (!this.world.isStatic) {
             int i;
             int j;
@@ -121,7 +121,7 @@ public class EntitySilverfish extends EntityMonster {
                 }
             }
 
-            if (this.target == null && !this.bI()) {
+            if (this.target == null && !this.bM()) {
                 i = MathHelper.floor(this.locX);
                 j = MathHelper.floor(this.locY + 0.5D);
                 k = MathHelper.floor(this.locZ);
@@ -133,9 +133,9 @@ public class EntitySilverfish extends EntityMonster {
                     this.q();
                     this.die();
                 } else {
-                    this.bG();
+                    this.bK();
                 }
-            } else if (this.target != null && !this.bI()) {
+            } else if (this.target != null && !this.bM()) {
                 this.target = null;
             }
         }

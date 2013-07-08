@@ -17,23 +17,23 @@ public class EntityBat extends EntityAmbient {
         this.datawatcher.a(16, new Byte((byte) 0));
     }
 
-    protected float aW() {
+    protected float aZ() {
         return 0.1F;
     }
 
-    protected float aX() {
-        return super.aX() * 0.95F;
+    protected float ba() {
+        return super.ba() * 0.95F;
     }
 
     protected String r() {
-        return this.bF() && this.random.nextInt(4) != 0 ? null : "mob.bat.idle";
+        return this.bJ() && this.random.nextInt(4) != 0 ? null : "mob.bat.idle";
     }
 
-    protected String aK() {
+    protected String aN() {
         return "mob.bat.hurt";
     }
 
-    protected String aL() {
+    protected String aO() {
         return "mob.bat.death";
     }
 
@@ -43,14 +43,14 @@ public class EntityBat extends EntityAmbient {
 
     protected void n(Entity entity) {}
 
-    protected void bf() {}
+    protected void bi() {}
 
-    protected void ax() {
-        super.ax();
-        this.a(GenericAttributes.a).a(6.0D);
+    protected void ay() {
+        super.ay();
+        this.getAttributeInstance(GenericAttributes.a).setValue(6.0D);
     }
 
-    public boolean bF() {
+    public boolean bJ() {
         return (this.datawatcher.getByte(16) & 1) != 0;
     }
 
@@ -64,13 +64,13 @@ public class EntityBat extends EntityAmbient {
         }
     }
 
-    protected boolean bb() {
+    protected boolean be() {
         return true;
     }
 
     public void l_() {
         super.l_();
-        if (this.bF()) {
+        if (this.bJ()) {
             this.motX = this.motY = this.motZ = 0.0D;
             this.locY = (double) MathHelper.floor(this.locY) + 1.0D - (double) this.length;
         } else {
@@ -78,9 +78,9 @@ public class EntityBat extends EntityAmbient {
         }
     }
 
-    protected void be() {
-        super.be();
-        if (this.bF()) {
+    protected void bh() {
+        super.bh();
+        if (this.bJ()) {
             if (!this.world.u(MathHelper.floor(this.locX), (int) this.locY + 1, MathHelper.floor(this.locZ))) {
                 this.a(false);
                 this.world.a((EntityHuman) null, 1015, (int) this.locX, (int) this.locY, (int) this.locZ, 0);
@@ -129,7 +129,7 @@ public class EntityBat extends EntityAmbient {
 
     protected void a(double d0, boolean flag) {}
 
-    public boolean as() {
+    public boolean at() {
         return true;
     }
 
@@ -137,7 +137,7 @@ public class EntityBat extends EntityAmbient {
         if (this.isInvulnerable()) {
             return false;
         } else {
-            if (!this.world.isStatic && this.bF()) {
+            if (!this.world.isStatic && this.bJ()) {
                 this.a(false);
             }
 

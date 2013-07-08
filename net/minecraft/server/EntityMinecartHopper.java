@@ -42,12 +42,12 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     public void a(int i, int j, int k, boolean flag) {
         boolean flag1 = !flag;
 
-        if (flag1 != this.ax()) {
+        if (flag1 != this.ay()) {
             this.f(flag1);
         }
     }
 
-    public boolean ax() {
+    public boolean ay() {
         return this.a;
     }
 
@@ -59,25 +59,25 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         return this.world;
     }
 
-    public double az() {
+    public double aA() {
         return this.locX;
     }
 
-    public double aA() {
+    public double aB() {
         return this.locY;
     }
 
-    public double aB() {
+    public double aC() {
         return this.locZ;
     }
 
     public void l_() {
         super.l_();
-        if (!this.world.isStatic && this.isAlive() && this.ax()) {
+        if (!this.world.isStatic && this.isAlive() && this.ay()) {
             --this.b;
-            if (!this.aD()) {
+            if (!this.aE()) {
                 this.l(0);
-                if (this.aC()) {
+                if (this.aD()) {
                     this.l(4);
                     this.update();
                 }
@@ -85,7 +85,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         }
     }
 
-    public boolean aC() {
+    public boolean aD() {
         if (TileEntityHopper.suckInItems(this)) {
             return true;
         } else {
@@ -118,7 +118,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         this.b = i;
     }
 
-    public boolean aD() {
+    public boolean aE() {
         return this.b > 0;
     }
 }

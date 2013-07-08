@@ -6,6 +6,7 @@ import java.util.List;
 public class PathfinderGoalHurtByTarget extends PathfinderGoalTarget {
 
     boolean a;
+    private int b;
 
     public PathfinderGoalHurtByTarget(EntityCreature entitycreature, boolean flag) {
         super(entitycreature, false);
@@ -14,11 +15,14 @@ public class PathfinderGoalHurtByTarget extends PathfinderGoalTarget {
     }
 
     public boolean a() {
-        return this.a(this.c.getLastDamager(), false);
+        int i = this.c.aE();
+
+        return i != this.b && this.a(this.c.getLastDamager(), false);
     }
 
     public void c() {
         this.c.setGoalTarget(this.c.getLastDamager());
+        this.b = this.c.aE();
         if (this.a) {
             double d0 = this.f();
             List list = this.c.world.a(this.c.getClass(), AxisAlignedBB.a().a(this.c.locX, this.c.locY, this.c.locZ, this.c.locX + 1.0D, this.c.locY + 1.0D, this.c.locZ + 1.0D).grow(d0, 10.0D, d0));
@@ -27,7 +31,7 @@ public class PathfinderGoalHurtByTarget extends PathfinderGoalTarget {
             while (iterator.hasNext()) {
                 EntityCreature entitycreature = (EntityCreature) iterator.next();
 
-                if (this.c != entitycreature && entitycreature.getGoalTarget() == null) {
+                if (this.c != entitycreature && entitycreature.getGoalTarget() == null && !entitycreature.c(this.c.getLastDamager())) {
                     entitycreature.setGoalTarget(this.c.getLastDamager());
                 }
             }

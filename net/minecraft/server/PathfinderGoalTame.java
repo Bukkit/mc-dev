@@ -2,21 +2,21 @@ package net.minecraft.server;
 
 public class PathfinderGoalTame extends PathfinderGoal {
 
-    private EntityHorse a;
+    private EntityHorse entity;
     private double b;
     private double c;
     private double d;
     private double e;
 
     public PathfinderGoalTame(EntityHorse entityhorse, double d0) {
-        this.a = entityhorse;
+        this.entity = entityhorse;
         this.b = d0;
         this.a(1);
     }
 
     public boolean a() {
-        if (!this.a.bS() && this.a.passenger != null) {
-            Vec3D vec3d = RandomPositionGenerator.a(this.a, 5, 4);
+        if (!this.entity.isTame() && this.entity.passenger != null) {
+            Vec3D vec3d = RandomPositionGenerator.a(this.entity, 5, 4);
 
             if (vec3d == null) {
                 return false;
@@ -32,32 +32,32 @@ public class PathfinderGoalTame extends PathfinderGoal {
     }
 
     public void c() {
-        this.a.getNavigation().a(this.c, this.d, this.e, this.b);
+        this.entity.getNavigation().a(this.c, this.d, this.e, this.b);
     }
 
     public boolean b() {
-        return !this.a.getNavigation().g() && this.a.passenger != null;
+        return !this.entity.getNavigation().g() && this.entity.passenger != null;
     }
 
     public void e() {
-        if (this.a.aB().nextInt(50) == 0) {
-            if (this.a.passenger instanceof EntityHuman) {
-                int i = this.a.cg();
-                int j = this.a.cm();
+        if (this.entity.aC().nextInt(50) == 0) {
+            if (this.entity.passenger instanceof EntityHuman) {
+                int i = this.entity.getTemper();
+                int j = this.entity.cq();
 
-                if (j > 0 && this.a.aB().nextInt(j) < i) {
-                    this.a.g((EntityHuman) this.a.passenger);
-                    this.a.world.broadcastEntityEffect(this.a, (byte) 7);
+                if (j > 0 && this.entity.aC().nextInt(j) < i) {
+                    this.entity.g((EntityHuman) this.entity.passenger);
+                    this.entity.world.broadcastEntityEffect(this.entity, (byte) 7);
                     return;
                 }
 
-                this.a.t(5);
+                this.entity.t(5);
             }
 
-            this.a.passenger.mount((Entity) null);
-            this.a.passenger = null;
-            this.a.cz();
-            this.a.world.broadcastEntityEffect(this.a, (byte) 6);
+            this.entity.passenger.mount((Entity) null);
+            this.entity.passenger = null;
+            this.entity.cD();
+            this.entity.world.broadcastEntityEffect(this.entity, (byte) 6);
         }
     }
 }

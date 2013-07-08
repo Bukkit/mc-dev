@@ -7,9 +7,9 @@ public class EntityCaveSpider extends EntitySpider {
         this.a(0.7F, 0.5F);
     }
 
-    protected void ax() {
-        super.ax();
-        this.a(GenericAttributes.a).a(12.0D);
+    protected void ay() {
+        super.ay();
+        this.getAttributeInstance(GenericAttributes.a).setValue(12.0D);
     }
 
     public boolean m(Entity entity) {

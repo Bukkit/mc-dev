@@ -18,7 +18,7 @@ public class ContainerHorse extends Container {
         int j;
         int k;
 
-        if (entityhorse.ca()) {
+        if (entityhorse.hasChest()) {
             for (j = 0; j < b0; ++j) {
                 for (k = 0; k < 5; ++k) {
                     this.a(new Slot(iinventory1, 2 + k + j * 5, 80 + k * 18, 18 + j * 18));
@@ -38,7 +38,7 @@ public class ContainerHorse extends Container {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.a.a(entityhuman) && this.f.d(entityhuman) < 8.0F;
+        return this.a.a(entityhuman) && this.f.isAlive() && this.f.d(entityhuman) < 8.0F;
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {
@@ -53,7 +53,7 @@ public class ContainerHorse extends Container {
                 if (!this.a(itemstack1, this.a.getSize(), this.c.size(), true)) {
                     return null;
                 }
-            } else if (this.getSlot(1).isAllowed(itemstack1)) {
+            } else if (this.getSlot(1).isAllowed(itemstack1) && !this.getSlot(1).e()) {
                 if (!this.a(itemstack1, 1, 2, false)) {
                     return null;
                 }

@@ -37,9 +37,9 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
         this.am = true;
     }
 
-    protected void ax() {
-        super.ax();
-        this.a(GenericAttributes.a).a(200.0D);
+    protected void ay() {
+        super.ay();
+        this.getAttributeInstance(GenericAttributes.a).setValue(200.0D);
     }
 
     protected void a() {
@@ -87,7 +87,7 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
             f2 = (this.random.nextFloat() - 0.5F) * 8.0F;
             this.world.addParticle("largeexplode", this.locX + (double) f, this.locY + 2.0D + (double) f1, this.locZ + (double) f2, 0.0D, 0.0D, 0.0D);
         } else {
-            this.bF();
+            this.bJ();
             f = 0.2F / (MathHelper.sqrt(this.motX * this.motX + this.motZ * this.motZ) * 10.0F + 1.0F);
             f *= (float) Math.pow(2.0D, this.motY);
             if (this.bA) {
@@ -152,7 +152,7 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
                 }
 
                 if (this.bz || d3 < 100.0D || d3 > 22500.0D || this.positionChanged || this.H) {
-                    this.bG();
+                    this.bK();
                 }
 
                 d1 /= (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
@@ -286,7 +286,7 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
         }
     }
 
-    private void bF() {
+    private void bJ() {
         if (this.bC != null) {
             if (this.bC.dead) {
                 if (!this.world.isStatic) {
@@ -348,7 +348,7 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
         }
     }
 
-    private void bG() {
+    private void bK() {
         this.bz = false;
         if (this.random.nextInt(2) == 0 && !this.world.players.isEmpty()) {
             this.bD = (Entity) this.world.players.get(this.random.nextInt(this.world.players.size()));
@@ -441,7 +441,7 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
         return super.damageEntity(damagesource, f);
     }
 
-    protected void az() {
+    protected void aA() {
         ++this.bB;
         if (this.bB >= 180 && this.bB <= 200) {
             float f = (this.random.nextFloat() - 0.5F) * 8.0F;
@@ -528,9 +528,9 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
         BlockEnderPortal.a = false;
     }
 
-    protected void bk() {}
+    protected void bo() {}
 
-    public Entity[] am() {
+    public Entity[] an() {
         return this.children;
     }
 
@@ -546,11 +546,11 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
         return "mob.enderdragon.growl";
     }
 
-    protected String aK() {
+    protected String aN() {
         return "mob.enderdragon.hit";
     }
 
-    protected float aW() {
+    protected float aZ() {
         return 5.0F;
     }
 }

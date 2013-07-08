@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ScoreboardTeam {
+public class ScoreboardTeam extends ScoreboardTeamBase {
 
     private final Scoreboard a;
     private final String b;
@@ -68,8 +68,12 @@ public class ScoreboardTeam {
         }
     }
 
-    public static String getPlayerDisplayName(ScoreboardTeam scoreboardteam, String s) {
-        return scoreboardteam == null ? s : scoreboardteam.getPrefix() + s + scoreboardteam.getSuffix();
+    public String getFormattedName(String s) {
+        return this.getPrefix() + s + this.getSuffix();
+    }
+
+    public static String getPlayerDisplayName(ScoreboardTeamBase scoreboardteambase, String s) {
+        return scoreboardteambase == null ? s : scoreboardteambase.getFormattedName(s);
     }
 
     public boolean allowFriendlyFire() {

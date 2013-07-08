@@ -191,13 +191,13 @@ public class CommandSpreadPlayers extends CommandAbstract {
             Location2D location2d;
 
             if (flag) {
-                ScoreboardTeam scoreboardteam = entityliving instanceof EntityHuman ? ((EntityHuman) entityliving).getScoreboardTeam() : null;
+                ScoreboardTeamBase scoreboardteambase = entityliving instanceof EntityHuman ? ((EntityHuman) entityliving).getScoreboardTeam() : null;
 
-                if (!hashmap.containsKey(scoreboardteam)) {
-                    hashmap.put(scoreboardteam, alocation2d[i++]);
+                if (!hashmap.containsKey(scoreboardteambase)) {
+                    hashmap.put(scoreboardteambase, alocation2d[i++]);
                 }
 
-                location2d = (Location2D) hashmap.get(scoreboardteam);
+                location2d = (Location2D) hashmap.get(scoreboardteambase);
             } else {
                 location2d = alocation2d[i++];
             }

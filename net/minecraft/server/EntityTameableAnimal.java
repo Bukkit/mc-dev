@@ -38,7 +38,7 @@ public abstract class EntityTameableAnimal extends EntityAnimal implements Entit
         this.setSitting(nbttagcompound.getBoolean("Sitting"));
     }
 
-    protected void j(boolean flag) {
+    protected void i(boolean flag) {
         String s = "heart";
 
         if (!flag) {
@@ -96,6 +96,38 @@ public abstract class EntityTameableAnimal extends EntityAnimal implements Entit
 
     public PathfinderGoalSit getGoalSit() {
         return this.bp;
+    }
+
+    public boolean a(EntityLiving entityliving, EntityLiving entityliving1) {
+        return true;
+    }
+
+    public ScoreboardTeamBase getScoreboardTeam() {
+        if (this.isTamed()) {
+            EntityLiving entityliving = this.getOwner();
+
+            if (entityliving != null) {
+                return entityliving.getScoreboardTeam();
+            }
+        }
+
+        return super.getScoreboardTeam();
+    }
+
+    public boolean c(EntityLiving entityliving) {
+        if (this.isTamed()) {
+            EntityLiving entityliving1 = this.getOwner();
+
+            if (entityliving == entityliving1) {
+                return true;
+            }
+
+            if (entityliving1 != null) {
+                return entityliving1.c(entityliving);
+            }
+        }
+
+        return super.c(entityliving);
     }
 
     public Entity getOwner() {

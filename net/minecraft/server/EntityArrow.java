@@ -227,7 +227,7 @@ public class EntityArrow extends Entity implements IProjectile {
                             EntityLiving entityliving = (EntityLiving) movingobjectposition.entity;
 
                             if (!this.world.isStatic) {
-                                entityliving.m(entityliving.aQ() + 1);
+                                entityliving.m(entityliving.aT() + 1);
                             }
 
                             if (this.aw > 0) {
@@ -395,7 +395,7 @@ public class EntityArrow extends Entity implements IProjectile {
         this.aw = i;
     }
 
-    public boolean ao() {
+    public boolean ap() {
         return false;
     }
 

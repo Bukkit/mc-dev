@@ -2,16 +2,16 @@ package net.minecraft.server;
 
 import java.io.DataInput;
 import java.io.DataOutput;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.List;
+import java.util.UUID;
 
 public class Packet44UpdateAttributes extends Packet {
 
     private int a;
-    private final Map b = new HashMap();
+    private final List b = new ArrayList();
 
     public Packet44UpdateAttributes() {}
 
@@ -22,7 +22,7 @@ public class Packet44UpdateAttributes extends Packet {
         while (iterator.hasNext()) {
             AttributeInstance attributeinstance = (AttributeInstance) iterator.next();
 
-            this.b.put(attributeinstance.a().a(), Double.valueOf(attributeinstance.e()));
+            this.b.add(new AttributeSnapshot(this, attributeinstance.a().a(), attributeinstance.b(), attributeinstance.c()));
         }
     }
 
@@ -31,20 +31,42 @@ public class Packet44UpdateAttributes extends Packet {
         int i = datainput.readInt();
 
         for (int j = 0; j < i; ++j) {
-            this.b.put(a(datainput, 64), Double.valueOf(datainput.readDouble()));
+            String s = a(datainput, 64);
+            double d0 = datainput.readDouble();
+            ArrayList arraylist = new ArrayList();
+            short short1 = datainput.readShort();
+
+            for (int k = 0; k < short1; ++k) {
+                UUID uuid = new UUID(datainput.readLong(), datainput.readLong());
+
+                arraylist.add(new AttributeModifier(uuid, "Unknown synced attribute modifier", datainput.readDouble(), datainput.readByte()));
+            }
+
+            this.b.add(new AttributeSnapshot(this, s, d0, arraylist));
         }
     }
 
     public void a(DataOutput dataoutput) {
         dataoutput.writeInt(this.a);
         dataoutput.writeInt(this.b.size());
-        Iterator iterator = this.b.entrySet().iterator();
+        Iterator iterator = this.b.iterator();
 
         while (iterator.hasNext()) {
-            Entry entry = (Entry) iterator.next();
+            AttributeSnapshot attributesnapshot = (AttributeSnapshot) iterator.next();
 
-            a((String) entry.getKey(), dataoutput);
-            dataoutput.writeDouble(((Double) entry.getValue()).doubleValue());
+            a(attributesnapshot.a(), dataoutput);
+            dataoutput.writeDouble(attributesnapshot.b());
+            dataoutput.writeShort(attributesnapshot.c().size());
+            Iterator iterator1 = attributesnapshot.c().iterator();
+
+            while (iterator1.hasNext()) {
+                AttributeModifier attributemodifier = (AttributeModifier) iterator1.next();
+
+                dataoutput.writeLong(attributemodifier.a().getMostSignificantBits());
+                dataoutput.writeLong(attributemodifier.a().getLeastSignificantBits());
+                dataoutput.writeDouble(attributemodifier.d());
+                dataoutput.writeByte(attributemodifier.c());
+            }
         }
     }
 

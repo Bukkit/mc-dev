@@ -19,7 +19,7 @@ public class Navigation {
     public Navigation(EntityInsentient entityinsentient, World world) {
         this.a = entityinsentient;
         this.b = world;
-        this.e = entityinsentient.a(GenericAttributes.b);
+        this.e = entityinsentient.getAttributeInstance(GenericAttributes.b);
     }
 
     public void a(boolean flag) {
@@ -55,7 +55,7 @@ public class Navigation {
     }
 
     public float d() {
-        return (float) this.e.e();
+        return (float) this.e.getValue();
     }
 
     public PathEntity a(double d0, double d1, double d2) {

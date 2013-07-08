@@ -29,7 +29,7 @@ public class PathfinderGoalNearestAttackableTarget extends PathfinderGoalTarget 
     }
 
     public boolean a() {
-        if (this.b > 0 && this.c.aB().nextInt(this.b) != 0) {
+        if (this.b > 0 && this.c.aC().nextInt(this.b) != 0) {
             return false;
         } else {
             double d0 = this.f();

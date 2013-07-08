@@ -29,7 +29,7 @@ public class CommandEffect extends CommandAbstract {
                     throw new CommandException("commands.effect.failure.notActive.all", new Object[] { entityplayer.getLocalizedName()});
                 }
 
-                entityplayer.aG();
+                entityplayer.aJ();
                 a(icommandlistener, "commands.effect.success.removed.all", new Object[] { entityplayer.getLocalizedName()});
             } else {
                 int i = a(icommandlistener, astring[1], 1);

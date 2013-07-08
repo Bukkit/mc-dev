@@ -122,16 +122,21 @@ public abstract class Entity {
     }
 
     protected void a(float f, float f1) {
+        float f2;
+
         if (f != this.width || f1 != this.length) {
+            f2 = this.width;
             this.width = f;
             this.length = f1;
             this.boundingBox.d = this.boundingBox.a + (double) this.width;
             this.boundingBox.f = this.boundingBox.c + (double) this.width;
             this.boundingBox.e = this.boundingBox.b + (double) this.length;
+            if (this.width > f2 && !this.justCreated && !this.world.isStatic) {
+                this.move((double) (f2 - this.width), 0.0D, (double) (f2 - this.width));
+            }
         }
 
-        float f2 = f % 2.0F;
-
+        f2 = f % 2.0F;
         if ((double) f2 < 0.375D) {
             this.at = EnumEntitySize.SIZE_1;
         } else if ((double) f2 < 0.75D) {
@@ -189,7 +194,7 @@ public abstract class Entity {
                 if (minecraftserver.getAllowNether()) {
                     if (this.vehicle == null && this.aq++ >= i) {
                         this.aq = i;
-                        this.portalCooldown = this.aa();
+                        this.portalCooldown = this.ab();
                         byte b0;
 
                         if (this.world.worldProvider.dimension == -1) {
@@ -897,7 +902,7 @@ public abstract class Entity {
     public void b(Entity entity, int i) {}
 
     public boolean c(NBTTagCompound nbttagcompound) {
-        String s = this.O();
+        String s = this.P();
 
         if (!this.dead && s != null) {
             nbttagcompound.setString("id", s);
@@ -909,7 +914,7 @@ public abstract class Entity {
     }
 
     public boolean d(NBTTagCompound nbttagcompound) {
-        String s = this.O();
+        String s = this.P();
 
         if (!this.dead && s != null && this.passenger == null) {
             nbttagcompound.setString("id", s);
@@ -991,6 +996,9 @@ public abstract class Entity {
             this.setPosition(this.locX, this.locY, this.locZ);
             this.b(this.yaw, this.pitch);
             this.a(nbttagcompound);
+            if (this.O()) {
+                this.setPosition(this.locX, this.locY, this.locZ);
+            }
         } catch (Throwable throwable) {
             CrashReport crashreport = CrashReport.a(throwable, "Loading entity NBT");
             CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Entity being loaded");
@@ -1000,7 +1008,11 @@ public abstract class Entity {
         }
     }
 
-    protected final String O() {
+    protected boolean O() {
+        return true;
+    }
+
+    protected final String P() {
         return EntityTypes.b(this);
     }
 
@@ -1008,7 +1020,7 @@ public abstract class Entity {
 
     protected abstract void b(NBTTagCompound nbttagcompound);
 
-    public void P() {}
+    public void Q() {}
 
     protected NBTTagList a(double... adouble) {
         NBTTagList nbttaglist = new NBTTagList();
@@ -1087,7 +1099,7 @@ public abstract class Entity {
         return null;
     }
 
-    public void T() {
+    public void U() {
         if (this.vehicle.dead) {
             this.vehicle = null;
         } else {
@@ -1096,7 +1108,7 @@ public abstract class Entity {
             this.motZ = 0.0D;
             this.l_();
             if (this.vehicle != null) {
-                this.vehicle.U();
+                this.vehicle.V();
                 this.g += (double) (this.vehicle.yaw - this.vehicle.lastYaw);
 
                 for (this.f += (double) (this.vehicle.pitch - this.vehicle.lastPitch); this.g >= 180.0D; this.g -= 360.0D) {
@@ -1137,23 +1149,21 @@ public abstract class Entity {
 
                 this.g -= d0;
                 this.f -= d1;
-                this.yaw = (float) ((double) this.yaw + d0);
-                this.pitch = (float) ((double) this.pitch + d1);
             }
         }
     }
 
-    public void U() {
+    public void V() {
         if (this.passenger != null) {
-            this.passenger.setPosition(this.locX, this.locY + this.W() + this.passenger.V(), this.locZ);
+            this.passenger.setPosition(this.locX, this.locY + this.X() + this.passenger.W(), this.locZ);
         }
     }
 
-    public double V() {
+    public double W() {
         return (double) this.height;
     }
 
-    public double W() {
+    public double X() {
         return (double) this.length * 0.75D;
     }
 
@@ -1177,17 +1187,17 @@ public abstract class Entity {
         }
     }
 
-    public float X() {
+    public float Y() {
         return 0.1F;
     }
 
-    public Vec3D Y() {
+    public Vec3D Z() {
         return null;
     }
 
-    public void Z() {
+    public void aa() {
         if (this.portalCooldown > 0) {
-            this.portalCooldown = this.aa();
+            this.portalCooldown = this.ab();
         } else {
             double d0 = this.lastX - this.locX;
             double d1 = this.lastZ - this.locZ;
@@ -1200,7 +1210,7 @@ public abstract class Entity {
         }
     }
 
-    public int aa() {
+    public int ab() {
         return 900;
     }
 
@@ -1214,7 +1224,7 @@ public abstract class Entity {
         return !this.fireProof && (this.fireTicks > 0 || this.f(0));
     }
 
-    public boolean ae() {
+    public boolean af() {
         return this.vehicle != null;
     }
 
@@ -1354,7 +1364,7 @@ public abstract class Entity {
         }
     }
 
-    public void ak() {
+    public void al() {
         this.K = true;
         this.fallDistance = 0.0F;
     }
@@ -1369,7 +1379,7 @@ public abstract class Entity {
         return LocaleI18n.get("entity." + s + ".name");
     }
 
-    public Entity[] am() {
+    public Entity[] an() {
         return null;
     }
 
@@ -1381,7 +1391,7 @@ public abstract class Entity {
         return 0.0F;
     }
 
-    public boolean ao() {
+    public boolean ap() {
         return true;
     }
 
@@ -1459,15 +1469,15 @@ public abstract class Entity {
         return true;
     }
 
-    public int aq() {
+    public int ar() {
         return 3;
     }
 
-    public int ar() {
+    public int as() {
         return this.as;
     }
 
-    public boolean as() {
+    public boolean at() {
         return false;
     }
 
@@ -1484,7 +1494,7 @@ public abstract class Entity {
         return this.uniqueID;
     }
 
-    public boolean av() {
+    public boolean aw() {
         return true;
     }
 

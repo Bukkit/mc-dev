@@ -38,13 +38,15 @@ public class ItemSign extends Item {
                 return false;
             } else if (!Block.SIGN_POST.canPlace(world, i, j, k)) {
                 return false;
+            } else if (world.isStatic) {
+                return true;
             } else {
                 if (l == 1) {
                     int i1 = MathHelper.floor((double) ((entityhuman.yaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
 
-                    world.setTypeIdAndData(i, j, k, Block.SIGN_POST.id, i1, 2);
+                    world.setTypeIdAndData(i, j, k, Block.SIGN_POST.id, i1, 3);
                 } else {
-                    world.setTypeIdAndData(i, j, k, Block.WALL_SIGN.id, l, 2);
+                    world.setTypeIdAndData(i, j, k, Block.WALL_SIGN.id, l, 3);
                 }
 
                 --itemstack.count;
