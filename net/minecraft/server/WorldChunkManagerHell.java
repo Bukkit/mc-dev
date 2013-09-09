@@ -29,7 +29,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
         return abiomebase;
     }
 
-    public float[] getWetness(float[] afloat, int i, int j, int k, int l) {
+    public float[] getTemperatures(float[] afloat, int i, int j, int k, int l) {
         if (afloat == null || afloat.length < k * l) {
             afloat = new float[k * l];
         }
@@ -38,7 +38,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
         return afloat;
     }
 
-    public float[] getTemperatures(float[] afloat, int i, int j, int k, int l) {
+    public float[] getWetness(float[] afloat, int i, int j, int k, int l) {
         if (afloat == null || afloat.length < k * l) {
             afloat = new float[k * l];
         }

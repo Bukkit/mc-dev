@@ -28,7 +28,7 @@ public class ChatMessage {
         this.f = chatmessage.f;
         this.g = chatmessage.g;
         this.h = chatmessage.h;
-        this.i = chatmessage.i == null ? null : Lists.newArrayList((Iterable) chatmessage.i);
+        this.i = chatmessage.i == null ? null : Lists.newArrayList(chatmessage.i);
     }
 
     public ChatMessage a(EnumChatFormat enumchatformat) {
@@ -97,10 +97,10 @@ public class ChatMessage {
             if (this.i != null) {
                 this.i.add(chatmessage);
             } else {
-                this.i = Lists.newArrayList((Object[]) (new ChatMessage[] { chatmessage}));
+                this.i = Lists.newArrayList(new ChatMessage[] { chatmessage});
             }
         } else {
-            this.i = Lists.newArrayList((Object[]) (new ChatMessage[] { new ChatMessage(this), chatmessage}));
+            this.i = Lists.newArrayList(new ChatMessage[] { new ChatMessage(this), chatmessage});
             this.g = null;
             this.h = null;
         }
@@ -116,7 +116,7 @@ public class ChatMessage {
                 this.g = s;
             }
         } else {
-            this.i = Lists.newArrayList((Object[]) (new ChatMessage[] { new ChatMessage(this), d(s)}));
+            this.i = Lists.newArrayList(new ChatMessage[] { new ChatMessage(this), d(s)});
             this.g = null;
             this.h = null;
         }
@@ -132,7 +132,7 @@ public class ChatMessage {
                 this.h = s;
             }
         } else {
-            this.i = Lists.newArrayList((Object[]) (new ChatMessage[] { new ChatMessage(this), e(s)}));
+            this.i = Lists.newArrayList(new ChatMessage[] { new ChatMessage(this), e(s)});
             this.g = null;
             this.h = null;
         }
@@ -161,7 +161,7 @@ public class ChatMessage {
                 }
             }
         } else {
-            this.i = Lists.newArrayList((Object[]) (new ChatMessage[] { new ChatMessage(this), b(s, aobject)}));
+            this.i = Lists.newArrayList(new ChatMessage[] { new ChatMessage(this), b(s, aobject)});
             this.g = null;
             this.h = null;
         }
