@@ -27,7 +27,7 @@ public class EntityItemFrame extends EntityHanging {
     }
 
     public void b(Entity entity) {
-        ItemStack itemstack = this.h();
+        ItemStack itemstack = this.getItem();
 
         if (entity instanceof EntityHuman) {
             EntityHuman entityhuman = (EntityHuman) entity;
@@ -58,11 +58,11 @@ public class EntityItemFrame extends EntityHanging {
         }
     }
 
-    public ItemStack h() {
+    public ItemStack getItem() {
         return this.getDataWatcher().getItemStack(2);
     }
 
-    public void a(ItemStack itemstack) {
+    public void setItem(ItemStack itemstack) {
         itemstack = itemstack.cloneItemStack();
         itemstack.count = 1;
         itemstack.a(this);
@@ -70,7 +70,7 @@ public class EntityItemFrame extends EntityHanging {
         this.getDataWatcher().h(2);
     }
 
-    public int i() {
+    public int getRotation() {
         return this.getDataWatcher().getByte(3);
     }
 
@@ -79,9 +79,9 @@ public class EntityItemFrame extends EntityHanging {
     }
 
     public void b(NBTTagCompound nbttagcompound) {
-        if (this.h() != null) {
-            nbttagcompound.setCompound("Item", this.h().save(new NBTTagCompound()));
-            nbttagcompound.setByte("ItemRotation", (byte) this.i());
+        if (this.getItem() != null) {
+            nbttagcompound.setCompound("Item", this.getItem().save(new NBTTagCompound()));
+            nbttagcompound.setByte("ItemRotation", (byte) this.getRotation());
             nbttagcompound.setFloat("ItemDropChance", this.e);
         }
 
@@ -92,7 +92,7 @@ public class EntityItemFrame extends EntityHanging {
         NBTTagCompound nbttagcompound1 = nbttagcompound.getCompound("Item");
 
         if (nbttagcompound1 != null && !nbttagcompound1.isEmpty()) {
-            this.a(ItemStack.createStack(nbttagcompound1));
+            this.setItem(ItemStack.createStack(nbttagcompound1));
             this.setRotation(nbttagcompound.getByte("ItemRotation"));
             if (nbttagcompound.hasKey("ItemDropChance")) {
                 this.e = nbttagcompound.getFloat("ItemDropChance");
@@ -103,17 +103,17 @@ public class EntityItemFrame extends EntityHanging {
     }
 
     public boolean c(EntityHuman entityhuman) {
-        if (this.h() == null) {
-            ItemStack itemstack = entityhuman.aY();
+        if (this.getItem() == null) {
+            ItemStack itemstack = entityhuman.aZ();
 
             if (itemstack != null && !this.world.isStatic) {
-                this.a(itemstack);
+                this.setItem(itemstack);
                 if (!entityhuman.abilities.canInstantlyBuild && --itemstack.count <= 0) {
                     entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
                 }
             }
         } else if (!this.world.isStatic) {
-            this.setRotation(this.i() + 1);
+            this.setRotation(this.getRotation() + 1);
         }
 
         return true;

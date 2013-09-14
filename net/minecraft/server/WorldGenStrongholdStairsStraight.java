@@ -5,12 +5,12 @@ import java.util.Random;
 
 public class WorldGenStrongholdStairsStraight extends WorldGenStrongholdPiece {
 
-    private final WorldGenStrongholdDoorType a;
+    public WorldGenStrongholdStairsStraight() {}
 
     public WorldGenStrongholdStairsStraight(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
         this.g = j;
-        this.a = this.a(random);
+        this.d = this.a(random);
         this.f = structureboundingbox;
     }
 
@@ -28,8 +28,8 @@ public class WorldGenStrongholdStairsStraight extends WorldGenStrongholdPiece {
         if (this.a(world, structureboundingbox)) {
             return false;
         } else {
-            this.a(world, structureboundingbox, 0, 0, 0, 4, 10, 7, true, random, WorldGenStrongholdPieces.b());
-            this.a(world, random, structureboundingbox, this.a, 1, 7, 0);
+            this.a(world, structureboundingbox, 0, 0, 0, 4, 10, 7, true, random, WorldGenStrongholdPieces.c());
+            this.a(world, random, structureboundingbox, this.d, 1, 7, 0);
             this.a(world, random, structureboundingbox, WorldGenStrongholdDoorType.a, 1, 1, 7);
             int i = this.c(Block.COBBLESTONE_STAIRS.id, 2);
 

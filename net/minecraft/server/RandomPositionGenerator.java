@@ -25,7 +25,7 @@ public class RandomPositionGenerator {
     }
 
     private static Vec3D c(EntityCreature entitycreature, int i, int j, Vec3D vec3d) {
-        Random random = entitycreature.aC();
+        Random random = entitycreature.aD();
         boolean flag = false;
         int k = 0;
         int l = 0;

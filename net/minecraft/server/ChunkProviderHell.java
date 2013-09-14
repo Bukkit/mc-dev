@@ -421,12 +421,12 @@ public class ChunkProviderHell implements IChunkProvider {
 
     public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
         if (enumcreaturetype == EnumCreatureType.MONSTER) {
-            if (this.c.a(i, j, k)) {
-                return this.c.a();
+            if (this.c.b(i, j, k)) {
+                return this.c.b();
             }
 
-            if (this.c.b(i, j, k) && this.o.getTypeId(i, j - 1, k) == Block.NETHER_BRICK.id) {
-                return this.c.a();
+            if (this.c.d(i, j, k) && this.o.getTypeId(i, j - 1, k) == Block.NETHER_BRICK.id) {
+                return this.c.b();
             }
         }
 

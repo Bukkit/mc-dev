@@ -43,6 +43,10 @@ public class WorldGenStronghold extends StructureGenerator {
         }
     }
 
+    public String a() {
+        return "Stronghold";
+    }
+
     protected boolean a(int i, int j) {
         if (!this.f) {
             Random random = new Random();

@@ -5,27 +5,44 @@ import java.util.Random;
 
 abstract class WorldGenVillagePiece extends StructurePiece {
 
+    protected int k = -1;
     private int a;
-    protected WorldGenVillageStartPiece k;
+    private boolean b;
+
+    public WorldGenVillagePiece() {}
 
     protected WorldGenVillagePiece(WorldGenVillageStartPiece worldgenvillagestartpiece, int i) {
         super(i);
-        this.k = worldgenvillagestartpiece;
+        if (worldgenvillagestartpiece != null) {
+            this.b = worldgenvillagestartpiece.b;
+        }
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        nbttagcompound.setInt("HPos", this.k);
+        nbttagcompound.setInt("VCount", this.a);
+        nbttagcompound.setBoolean("Desert", this.b);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        this.k = nbttagcompound.getInt("HPos");
+        this.a = nbttagcompound.getInt("VCount");
+        this.b = nbttagcompound.getBoolean("Desert");
     }
 
     protected StructurePiece a(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j) {
         switch (this.g) {
         case 0:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a - 1, this.f.b + i, this.f.c + j, 1, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a - 1, this.f.b + i, this.f.c + j, 1, this.d());
 
         case 1:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a + j, this.f.b + i, this.f.c - 1, 2, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a + j, this.f.b + i, this.f.c - 1, 2, this.d());
 
         case 2:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a - 1, this.f.b + i, this.f.c + j, 1, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a - 1, this.f.b + i, this.f.c + j, 1, this.d());
 
         case 3:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a + j, this.f.b + i, this.f.c - 1, 2, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a + j, this.f.b + i, this.f.c - 1, 2, this.d());
 
         default:
             return null;
@@ -35,16 +52,16 @@ abstract class WorldGenVillagePiece extends StructurePiece {
     protected StructurePiece b(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j) {
         switch (this.g) {
         case 0:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.d + 1, this.f.b + i, this.f.c + j, 3, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.d + 1, this.f.b + i, this.f.c + j, 3, this.d());
 
         case 1:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a + j, this.f.b + i, this.f.f + 1, 0, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a + j, this.f.b + i, this.f.f + 1, 0, this.d());
 
         case 2:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.d + 1, this.f.b + i, this.f.c + j, 3, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.d + 1, this.f.b + i, this.f.c + j, 3, this.d());
 
         case 3:
-            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a + j, this.f.b + i, this.f.f + 1, 0, this.c());
+            return WorldGenVillagePieces.a(worldgenvillagestartpiece, list, random, this.f.a + j, this.f.b + i, this.f.f + 1, 0, this.d());
 
         default:
             return null;
@@ -100,7 +117,7 @@ abstract class WorldGenVillagePiece extends StructurePiece {
     }
 
     protected int d(int i, int j) {
-        if (this.k.b) {
+        if (this.b) {
             if (i == Block.LOG.id) {
                 return Block.SANDSTONE.id;
             }
@@ -130,7 +147,7 @@ abstract class WorldGenVillagePiece extends StructurePiece {
     }
 
     protected int e(int i, int j) {
-        if (this.k.b) {
+        if (this.b) {
             if (i == Block.LOG.id) {
                 return 0;
             }

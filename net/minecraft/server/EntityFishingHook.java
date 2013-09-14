@@ -87,7 +87,7 @@ public class EntityFishingHook extends Entity {
             this.b(this.yaw, this.pitch);
         } else {
             if (!this.world.isStatic) {
-                ItemStack itemstack = this.owner.bx();
+                ItemStack itemstack = this.owner.by();
 
                 if (this.owner.dead || !this.owner.isAlive() || itemstack == null || itemstack.getItem() != Item.FISHING_ROD || this.e(this.owner) > 1024.0D) {
                     this.die();
@@ -152,7 +152,7 @@ public class EntityFishingHook extends Entity {
             for (int j = 0; j < list.size(); ++j) {
                 Entity entity1 = (Entity) list.get(j);
 
-                if (entity1.K() && (entity1 != this.owner || this.j >= 5)) {
+                if (entity1.L() && (entity1 != this.owner || this.j >= 5)) {
                     float f = 0.3F;
                     AxisAlignedBB axisalignedbb = entity1.boundingBox.grow((double) f, (double) f, (double) f);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
@@ -230,7 +230,7 @@ public class EntityFishingHook extends Entity {
                     } else {
                         short short1 = 500;
 
-                        if (this.world.F(MathHelper.floor(this.locX), MathHelper.floor(this.locY) + 1, MathHelper.floor(this.locZ))) {
+                        if (this.world.isRainingAt(MathHelper.floor(this.locX), MathHelper.floor(this.locY) + 1, MathHelper.floor(this.locZ))) {
                             short1 = 300;
                         }
 

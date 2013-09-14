@@ -10,6 +10,8 @@ public class WorldGenStrongholdStart extends WorldGenStrongholdStairs2 {
     public WorldGenStrongholdPortalRoom b;
     public List c = new ArrayList();
 
+    public WorldGenStrongholdStart() {}
+
     public WorldGenStrongholdStart(int i, Random random, int j, int k) {
         super(0, random, j, k);
     }

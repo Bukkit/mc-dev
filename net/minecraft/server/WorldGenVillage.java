@@ -34,6 +34,10 @@ public class WorldGenVillage extends StructureGenerator {
         }
     }
 
+    public String a() {
+        return "Village";
+    }
+
     protected boolean a(int i, int j) {
         int k = i;
         int l = j;

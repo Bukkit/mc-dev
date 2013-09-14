@@ -18,8 +18,8 @@ public class EntityEnderman extends EntityMonster {
         this.Y = 1.0F;
     }
 
-    protected void ay() {
-        super.ay();
+    protected void az() {
+        super.az();
         this.getAttributeInstance(GenericAttributes.a).setValue(40.0D);
         this.getAttributeInstance(GenericAttributes.d).setValue(0.30000001192092896D);
         this.getAttributeInstance(GenericAttributes.e).setValue(7.0D);
@@ -85,7 +85,7 @@ public class EntityEnderman extends EntityMonster {
     }
 
     public void c() {
-        if (this.F()) {
+        if (this.G()) {
             this.damageEntity(DamageSource.DROWN, 1.0F);
         }
 
@@ -147,7 +147,7 @@ public class EntityEnderman extends EntityMonster {
             }
         }
 
-        if (this.F() || this.isBurning()) {
+        if (this.G() || this.isBurning()) {
             this.target = null;
             this.a(false);
             this.bv = false;
@@ -266,11 +266,11 @@ public class EntityEnderman extends EntityMonster {
         return this.bX() ? "mob.endermen.scream" : "mob.endermen.idle";
     }
 
-    protected String aN() {
+    protected String aO() {
         return "mob.endermen.hit";
     }
 
-    protected String aO() {
+    protected String aP() {
         return "mob.endermen.death";
     }
 

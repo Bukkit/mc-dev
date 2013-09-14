@@ -49,7 +49,7 @@ class SlotAnvilResult extends Slot {
         }
 
         this.e.a = 0;
-        if (!entityhuman.abilities.canInstantlyBuild && !this.a.isStatic && this.a.getTypeId(this.b, this.c, this.d) == Block.ANVIL.id && entityhuman.aC().nextFloat() < 0.12F) {
+        if (!entityhuman.abilities.canInstantlyBuild && !this.a.isStatic && this.a.getTypeId(this.b, this.c, this.d) == Block.ANVIL.id && entityhuman.aD().nextFloat() < 0.12F) {
             int i = this.a.getData(this.b, this.c, this.d);
             int j = i & 3;
             int k = i >> 2;

@@ -920,7 +920,7 @@ public abstract class World implements IBlockAccess {
         List list = this.getEntities(entity, axisalignedbb.grow(d0, d0, d0));
 
         for (int j2 = 0; j2 < list.size(); ++j2) {
-            AxisAlignedBB axisalignedbb1 = ((Entity) list.get(j2)).D();
+            AxisAlignedBB axisalignedbb1 = ((Entity) list.get(j2)).E();
 
             if (axisalignedbb1 != null && axisalignedbb1.b(axisalignedbb)) {
                 this.M.add(axisalignedbb1);
@@ -1205,7 +1205,7 @@ public abstract class World implements IBlockAccess {
             if (flag && entity.ai) {
                 ++entity.ticksLived;
                 if (entity.vehicle != null) {
-                    entity.U();
+                    entity.V();
                 } else {
                     entity.l_();
                 }
@@ -1405,7 +1405,7 @@ public abstract class World implements IBlockAccess {
                 }
             }
 
-            if (vec3d.b() > 0.0D && entity.aw()) {
+            if (vec3d.b() > 0.0D && entity.ax()) {
                 vec3d = vec3d.a();
                 double d1 = 0.014D;
 
@@ -2363,7 +2363,7 @@ public abstract class World implements IBlockAccess {
                 }
 
                 if (entityhuman1.isInvisible()) {
-                    float f = entityhuman1.bw();
+                    float f = entityhuman1.bx();
 
                     if (f < 0.1F) {
                         f = 0.1F;
@@ -2462,7 +2462,7 @@ public abstract class World implements IBlockAccess {
         return (double) this.i(1.0F) > 0.2D;
     }
 
-    public boolean F(int i, int j, int k) {
+    public boolean isRainingAt(int i, int j, int k) {
         if (!this.Q()) {
             return false;
         } else if (!this.l(i, j, k)) {

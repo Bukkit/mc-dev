@@ -42,12 +42,12 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     public void a(int i, int j, int k, boolean flag) {
         boolean flag1 = !flag;
 
-        if (flag1 != this.ay()) {
+        if (flag1 != this.u()) {
             this.f(flag1);
         }
     }
 
-    public boolean ay() {
+    public boolean u() {
         return this.a;
     }
 
@@ -73,7 +73,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 
     public void l_() {
         super.l_();
-        if (!this.world.isStatic && this.isAlive() && this.ay()) {
+        if (!this.world.isStatic && this.isAlive() && this.u()) {
             --this.b;
             if (!this.aE()) {
                 this.l(0);

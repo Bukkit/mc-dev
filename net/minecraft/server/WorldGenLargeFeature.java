@@ -35,6 +35,10 @@ public class WorldGenLargeFeature extends StructureGenerator {
         }
     }
 
+    public String a() {
+        return "Temple";
+    }
+
     protected boolean a(int i, int j) {
         int k = i;
         int l = j;
@@ -75,7 +79,19 @@ public class WorldGenLargeFeature extends StructureGenerator {
         return new WorldGenLargeFeatureStart(this.c, this.b, i, j);
     }
 
-    public List a() {
+    public boolean a(int i, int j, int k) {
+        StructureStart structurestart = this.c(i, j, k);
+
+        if (structurestart != null && structurestart instanceof WorldGenLargeFeatureStart && !structurestart.a.isEmpty()) {
+            StructurePiece structurepiece = (StructurePiece) structurestart.a.getFirst();
+
+            return structurepiece instanceof WorldGenWitchHut;
+        } else {
+            return false;
+        }
+    }
+
+    public List b() {
         return this.f;
     }
 }

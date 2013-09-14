@@ -8,8 +8,15 @@ public abstract class StructureStart {
 
     protected LinkedList a = new LinkedList();
     protected StructureBoundingBox b;
+    private int c;
+    private int d;
 
-    protected StructureStart() {}
+    public StructureStart() {}
+
+    public StructureStart(int i, int j) {
+        this.c = i;
+        this.d = j;
+    }
 
     public StructureBoundingBox a() {
         return this.b;
@@ -25,7 +32,7 @@ public abstract class StructureStart {
         while (iterator.hasNext()) {
             StructurePiece structurepiece = (StructurePiece) iterator.next();
 
-            if (structurepiece.b().a(structureboundingbox) && !structurepiece.a(world, random, structureboundingbox)) {
+            if (structurepiece.c().a(structureboundingbox) && !structurepiece.a(world, random, structureboundingbox)) {
                 iterator.remove();
             }
         }
@@ -38,9 +45,50 @@ public abstract class StructureStart {
         while (iterator.hasNext()) {
             StructurePiece structurepiece = (StructurePiece) iterator.next();
 
-            this.b.b(structurepiece.b());
+            this.b.b(structurepiece.c());
         }
     }
+
+    public NBTTagCompound a(int i, int j) {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+
+        nbttagcompound.setString("id", WorldGenFactory.a(this));
+        nbttagcompound.setInt("ChunkX", i);
+        nbttagcompound.setInt("ChunkZ", j);
+        nbttagcompound.set("BB", this.b.a("BB"));
+        NBTTagList nbttaglist = new NBTTagList("Children");
+        Iterator iterator = this.a.iterator();
+
+        while (iterator.hasNext()) {
+            StructurePiece structurepiece = (StructurePiece) iterator.next();
+
+            nbttaglist.add(structurepiece.b());
+        }
+
+        nbttagcompound.set("Children", nbttaglist);
+        this.a(nbttagcompound);
+        return nbttagcompound;
+    }
+
+    public void a(NBTTagCompound nbttagcompound) {}
+
+    public void a(World world, NBTTagCompound nbttagcompound) {
+        this.c = nbttagcompound.getInt("ChunkX");
+        this.d = nbttagcompound.getInt("ChunkZ");
+        if (nbttagcompound.hasKey("BB")) {
+            this.b = new StructureBoundingBox(nbttagcompound.getIntArray("BB"));
+        }
+
+        NBTTagList nbttaglist = nbttagcompound.getList("Children");
+
+        for (int i = 0; i < nbttaglist.size(); ++i) {
+            this.a.add(WorldGenFactory.b((NBTTagCompound) nbttaglist.get(i), world));
+        }
+
+        this.b(nbttagcompound);
+    }
+
+    public void b(NBTTagCompound nbttagcompound) {}
 
     protected void a(World world, Random random, int i) {
         int j = 63 - i;
@@ -58,7 +106,7 @@ public abstract class StructureStart {
         while (iterator.hasNext()) {
             StructurePiece structurepiece = (StructurePiece) iterator.next();
 
-            structurepiece.b().a(0, l, 0);
+            structurepiece.c().a(0, l, 0);
         }
     }
 
@@ -81,11 +129,19 @@ public abstract class StructureStart {
         while (iterator.hasNext()) {
             StructurePiece structurepiece = (StructurePiece) iterator.next();
 
-            structurepiece.b().a(0, i1, 0);
+            structurepiece.c().a(0, i1, 0);
         }
     }
 
     public boolean d() {
         return true;
+    }
+
+    public int e() {
+        return this.c;
+    }
+
+    public int f() {
+        return this.d;
     }
 }

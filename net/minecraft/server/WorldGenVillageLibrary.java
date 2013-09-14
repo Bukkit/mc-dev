@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class WorldGenVillageLibrary extends WorldGenVillagePiece {
 
-    private int a = -1;
+    public WorldGenVillageLibrary() {}
 
     public WorldGenVillageLibrary(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(worldgenvillagestartpiece, i);
@@ -20,13 +20,13 @@ public class WorldGenVillageLibrary extends WorldGenVillagePiece {
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
-        if (this.a < 0) {
-            this.a = this.b(world, structureboundingbox);
-            if (this.a < 0) {
+        if (this.k < 0) {
+            this.k = this.b(world, structureboundingbox);
+            if (this.k < 0) {
                 return true;
             }
 
-            this.f.a(0, this.a - this.f.e + 9 - 1, 0);
+            this.f.a(0, this.k - this.f.e + 9 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 1, 1, 1, 7, 5, 4, 0, 0, false);

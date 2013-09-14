@@ -51,11 +51,11 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
         return "mob.wither.idle";
     }
 
-    protected String aN() {
+    protected String aO() {
         return "mob.wither.hurt";
     }
 
-    protected String aO() {
+    protected String aP() {
         return "mob.wither.death";
     }
 
@@ -150,7 +150,7 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
         }
     }
 
-    protected void bh() {
+    protected void bi() {
         int i;
 
         if (this.bU() > 0) {
@@ -165,7 +165,7 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
                 this.heal(10.0F);
             }
         } else {
-            super.bh();
+            super.bi();
 
             int j;
 
@@ -269,9 +269,9 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
         this.setHealth(this.getMaxHealth() / 3.0F);
     }
 
-    public void al() {}
+    public void am() {}
 
-    public int aP() {
+    public int aQ() {
         return 4;
     }
 
@@ -381,11 +381,11 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
         this.b(Item.NETHER_STAR.id, 1);
     }
 
-    protected void bo() {
+    protected void u() {
         this.aV = 0;
     }
 
-    public boolean K() {
+    public boolean L() {
         return !this.dead;
     }
 
@@ -393,12 +393,12 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
 
     public void addEffect(MobEffect mobeffect) {}
 
-    protected boolean be() {
+    protected boolean bf() {
         return true;
     }
 
-    protected void ay() {
-        super.ay();
+    protected void az() {
+        super.az();
         this.getAttributeInstance(GenericAttributes.a).setValue(300.0D);
         this.getAttributeInstance(GenericAttributes.d).setValue(0.6000000238418579D);
         this.getAttributeInstance(GenericAttributes.b).setValue(40.0D);

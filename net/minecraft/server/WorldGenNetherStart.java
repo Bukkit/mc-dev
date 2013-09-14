@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-class WorldGenNetherStart extends StructureStart {
+public class WorldGenNetherStart extends StructureStart {
+
+    public WorldGenNetherStart() {}
 
     public WorldGenNetherStart(World world, Random random, int i, int j) {
+        super(i, j);
         WorldGenNetherPiece15 worldgennetherpiece15 = new WorldGenNetherPiece15(random, (i << 4) + 2, (j << 4) + 2);
 
         this.a.add(worldgennetherpiece15);

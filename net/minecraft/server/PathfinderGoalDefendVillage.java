@@ -19,7 +19,7 @@ public class PathfinderGoalDefendVillage extends PathfinderGoalTarget {
         } else {
             this.b = village.b((EntityLiving) this.a);
             if (!this.a(this.b, false)) {
-                if (this.c.aC().nextInt(20) == 0) {
+                if (this.c.aD().nextInt(20) == 0) {
                     this.b = village.c(this.a);
                     return this.a(this.b, false);
                 } else {

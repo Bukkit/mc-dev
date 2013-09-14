@@ -5,11 +5,17 @@ import java.util.Random;
 
 public class WorldGenMineshaftStairs extends StructurePiece {
 
+    public WorldGenMineshaftStairs() {}
+
     public WorldGenMineshaftStairs(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
         this.g = j;
         this.f = structureboundingbox;
     }
+
+    protected void a(NBTTagCompound nbttagcompound) {}
+
+    protected void b(NBTTagCompound nbttagcompound) {}
 
     public static StructureBoundingBox a(List list, Random random, int i, int j, int k, int l) {
         StructureBoundingBox structureboundingbox = new StructureBoundingBox(i, j - 5, k, i, j + 2, k);
@@ -39,7 +45,7 @@ public class WorldGenMineshaftStairs extends StructurePiece {
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
-        int i = this.c();
+        int i = this.d();
 
         switch (this.g) {
         case 0:

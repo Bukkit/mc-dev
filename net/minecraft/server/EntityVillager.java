@@ -50,16 +50,16 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         this.goalSelector.a(10, new PathfinderGoalLookAtPlayer(this, EntityInsentient.class, 8.0F));
     }
 
-    protected void ay() {
-        super.ay();
+    protected void az() {
+        super.az();
         this.getAttributeInstance(GenericAttributes.d).setValue(0.5D);
     }
 
-    public boolean be() {
+    public boolean bf() {
         return true;
     }
 
-    protected void bj() {
+    protected void bk() {
         if (--this.profession <= 0) {
             this.world.villages.a(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ));
             this.profession = 70 + this.random.nextInt(50);
@@ -105,7 +105,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
             }
         }
 
-        super.bj();
+        super.bk();
     }
 
     public boolean a(EntityHuman entityhuman) {
@@ -157,11 +157,11 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         return this.bW() ? "mob.villager.haggle" : "mob.villager.idle";
     }
 
-    protected String aN() {
+    protected String aO() {
         return "mob.villager.hit";
     }
 
-    protected String aO() {
+    protected String aP() {
         return "mob.villager.death";
     }
 
@@ -245,7 +245,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
     public void a(MerchantRecipe merchantrecipe) {
         merchantrecipe.f();
         this.a_ = -this.o();
-        this.makeSound("mob.villager.yes", this.aZ(), this.ba());
+        this.makeSound("mob.villager.yes", this.ba(), this.bb());
         if (merchantrecipe.a((MerchantRecipe) this.bu.get(this.bu.size() - 1))) {
             this.bv = 40;
             this.bw = true;
@@ -265,9 +265,9 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         if (!this.world.isStatic && this.a_ > -this.o() + 20) {
             this.a_ = -this.o();
             if (itemstack != null) {
-                this.makeSound("mob.villager.yes", this.aZ(), this.ba());
+                this.makeSound("mob.villager.yes", this.ba(), this.bb());
             } else {
-                this.makeSound("mob.villager.no", this.aZ(), this.ba());
+                this.makeSound("mob.villager.no", this.ba(), this.bb());
             }
         }
     }

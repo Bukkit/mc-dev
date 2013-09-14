@@ -5,8 +5,7 @@ import java.util.Random;
 
 public class WorldGenVillageWell extends WorldGenVillagePiece {
 
-    private final boolean a = true;
-    private int b = -1;
+    public WorldGenVillageWell() {}
 
     public WorldGenVillageWell(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, int j, int k) {
         super(worldgenvillagestartpiece, i);
@@ -23,20 +22,20 @@ public class WorldGenVillageWell extends WorldGenVillagePiece {
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
-        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a - 1, this.f.e - 4, this.f.c + 1, 1, this.c());
-        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.d + 1, this.f.e - 4, this.f.c + 1, 3, this.c());
-        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a + 1, this.f.e - 4, this.f.c - 1, 2, this.c());
-        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a + 1, this.f.e - 4, this.f.f + 1, 0, this.c());
+        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a - 1, this.f.e - 4, this.f.c + 1, 1, this.d());
+        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.d + 1, this.f.e - 4, this.f.c + 1, 3, this.d());
+        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a + 1, this.f.e - 4, this.f.c - 1, 2, this.d());
+        WorldGenVillagePieces.b((WorldGenVillageStartPiece) structurepiece, list, random, this.f.a + 1, this.f.e - 4, this.f.f + 1, 0, this.d());
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
-        if (this.b < 0) {
-            this.b = this.b(world, structureboundingbox);
-            if (this.b < 0) {
+        if (this.k < 0) {
+            this.k = this.b(world, structureboundingbox);
+            if (this.k < 0) {
                 return true;
             }
 
-            this.f.a(0, this.b - this.f.e + 3, 0);
+            this.f.a(0, this.k - this.f.e + 3, 0);
         }
 
         this.a(world, structureboundingbox, 1, 0, 1, 4, 12, 4, Block.COBBLESTONE.id, Block.WATER.id, false);

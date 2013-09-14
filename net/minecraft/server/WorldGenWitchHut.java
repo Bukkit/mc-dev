@@ -6,8 +6,20 @@ public class WorldGenWitchHut extends WorldGenScatteredPiece {
 
     private boolean e;
 
+    public WorldGenWitchHut() {}
+
     public WorldGenWitchHut(Random random, int i, int j) {
         super(random, i, 64, j, 7, 5, 9);
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setBoolean("Witch", this.e);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.e = nbttagcompound.getBoolean("Witch");
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {

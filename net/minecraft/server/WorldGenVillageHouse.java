@@ -5,14 +5,25 @@ import java.util.Random;
 
 public class WorldGenVillageHouse extends WorldGenVillagePiece {
 
-    private int a = -1;
-    private final boolean b;
+    private boolean a;
+
+    public WorldGenVillageHouse() {}
 
     public WorldGenVillageHouse(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(worldgenvillagestartpiece, i);
         this.g = j;
         this.f = structureboundingbox;
-        this.b = random.nextBoolean();
+        this.a = random.nextBoolean();
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setBoolean("Terrace", this.a);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.a = nbttagcompound.getBoolean("Terrace");
     }
 
     public static WorldGenVillageHouse a(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
@@ -22,13 +33,13 @@ public class WorldGenVillageHouse extends WorldGenVillagePiece {
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
-        if (this.a < 0) {
-            this.a = this.b(world, structureboundingbox);
-            if (this.a < 0) {
+        if (this.k < 0) {
+            this.k = this.b(world, structureboundingbox);
+            if (this.k < 0) {
                 return true;
             }
 
-            this.f.a(0, this.a - this.f.e + 6 - 1, 0);
+            this.f.a(0, this.k - this.f.e + 6 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 0, 0, 0, 4, 0, 4, Block.COBBLESTONE.id, Block.COBBLESTONE.id, false);
@@ -64,7 +75,7 @@ public class WorldGenVillageHouse extends WorldGenVillagePiece {
         }
 
         this.a(world, structureboundingbox, 1, 1, 1, 3, 3, 3, 0, 0, false);
-        if (this.b) {
+        if (this.a) {
             this.a(world, Block.FENCE.id, 0, 0, 5, 0, structureboundingbox);
             this.a(world, Block.FENCE.id, 0, 1, 5, 0, structureboundingbox);
             this.a(world, Block.FENCE.id, 0, 2, 5, 0, structureboundingbox);
@@ -85,7 +96,7 @@ public class WorldGenVillageHouse extends WorldGenVillagePiece {
 
         int i;
 
-        if (this.b) {
+        if (this.a) {
             i = this.c(Block.LADDER.id, 3);
             this.a(world, Block.LADDER.id, i, 3, 1, 3, structureboundingbox);
             this.a(world, Block.LADDER.id, i, 3, 2, 3, structureboundingbox);

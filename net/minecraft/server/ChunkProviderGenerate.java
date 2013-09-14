@@ -422,7 +422,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
     public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
         BiomeBase biomebase = this.p.getBiome(i, k);
 
-        return biomebase == null ? null : (biomebase == BiomeBase.SWAMPLAND && enumcreaturetype == EnumCreatureType.MONSTER && this.x.a(i, j, k) ? this.x.a() : biomebase.getMobs(enumcreaturetype));
+        return biomebase == null ? null : (enumcreaturetype == EnumCreatureType.MONSTER && this.x.a(i, j, k) ? this.x.b() : biomebase.getMobs(enumcreaturetype));
     }
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {

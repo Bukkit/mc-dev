@@ -12,4 +12,8 @@ public class BiomeMeta extends WeightedRandomChoice {
         this.c = j;
         this.d = k;
     }
+
+    public String toString() {
+        return this.b.getSimpleName() + "*(" + this.c + "-" + this.d + "):" + this.a;
+    }
 }

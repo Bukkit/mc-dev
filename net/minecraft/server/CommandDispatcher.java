@@ -45,6 +45,7 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
             this.a(new CommandKick());
             this.a(new CommandList());
             this.a(new CommandWhitelist());
+            this.a(new CommandIdleTimeout());
         } else {
             this.a(new CommandPublish());
         }

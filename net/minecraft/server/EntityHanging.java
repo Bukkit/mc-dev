@@ -165,7 +165,7 @@ public abstract class EntityHanging extends Entity {
         }
     }
 
-    public boolean K() {
+    public boolean L() {
         return true;
     }
 
@@ -179,7 +179,7 @@ public abstract class EntityHanging extends Entity {
         } else {
             if (!this.dead && !this.world.isStatic) {
                 this.die();
-                this.J();
+                this.K();
                 this.b(damagesource.getEntity());
             }
 
@@ -258,7 +258,7 @@ public abstract class EntityHanging extends Entity {
 
     public abstract void b(Entity entity);
 
-    protected boolean O() {
+    protected boolean P() {
         return false;
     }
 }

@@ -14,7 +14,7 @@ public class EntityDamageSource extends DamageSource {
     }
 
     public ChatMessage getLocalizedDeathMessage(EntityLiving entityliving) {
-        ItemStack itemstack = this.p instanceof EntityLiving ? ((EntityLiving) this.p).aY() : null;
+        ItemStack itemstack = this.p instanceof EntityLiving ? ((EntityLiving) this.p).aZ() : null;
         String s = "death.attack." + this.translationIndex;
         String s1 = s + ".item";
 

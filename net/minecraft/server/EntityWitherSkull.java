@@ -63,7 +63,7 @@ public class EntityWitherSkull extends EntityFireball {
         }
     }
 
-    public boolean K() {
+    public boolean L() {
         return false;
     }
 

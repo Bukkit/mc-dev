@@ -7,13 +7,16 @@ import java.util.Random;
 public class WorldGenNetherPiece15 extends WorldGenNetherPiece1 {
 
     public WorldGenNetherPieceWeight b;
-    public List c = new ArrayList();
+    public List c;
     public List d;
     public ArrayList e = new ArrayList();
 
+    public WorldGenNetherPiece15() {}
+
     public WorldGenNetherPiece15(Random random, int i, int j) {
         super(random, i, j);
-        WorldGenNetherPieceWeight[] aworldgennetherpieceweight = WorldGenNetherPieces.a();
+        this.c = new ArrayList();
+        WorldGenNetherPieceWeight[] aworldgennetherpieceweight = WorldGenNetherPieces.b();
         int k = aworldgennetherpieceweight.length;
 
         int l;
@@ -26,7 +29,7 @@ public class WorldGenNetherPiece15 extends WorldGenNetherPiece1 {
         }
 
         this.d = new ArrayList();
-        aworldgennetherpieceweight = WorldGenNetherPieces.b();
+        aworldgennetherpieceweight = WorldGenNetherPieces.c();
         k = aworldgennetherpieceweight.length;
 
         for (l = 0; l < k; ++l) {
@@ -34,5 +37,13 @@ public class WorldGenNetherPiece15 extends WorldGenNetherPiece1 {
             worldgennetherpieceweight.c = 0;
             this.d.add(worldgennetherpieceweight);
         }
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
     }
 }

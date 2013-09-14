@@ -14,7 +14,11 @@ public class WorldGenNether extends StructureGenerator {
         this.e.add(new BiomeMeta(EntityMagmaCube.class, 3, 4, 4));
     }
 
-    public List a() {
+    public String a() {
+        return "Fortress";
+    }
+
+    public List b() {
         return this.e;
     }
 

@@ -11,6 +11,17 @@ public class StructureBoundingBox {
 
     public StructureBoundingBox() {}
 
+    public StructureBoundingBox(int[] aint) {
+        if (aint.length == 6) {
+            this.a = aint[0];
+            this.b = aint[1];
+            this.c = aint[2];
+            this.d = aint[3];
+            this.e = aint[4];
+            this.f = aint[5];
+        }
+    }
+
     public static StructureBoundingBox a() {
         return new StructureBoundingBox(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
     }
@@ -117,5 +128,9 @@ public class StructureBoundingBox {
 
     public String toString() {
         return "(" + this.a + ", " + this.b + ", " + this.c + "; " + this.d + ", " + this.e + ", " + this.f + ")";
+    }
+
+    public NBTTagIntArray a(String s) {
+        return new NBTTagIntArray(s, new int[] { this.a, this.b, this.c, this.d, this.e, this.f});
     }
 }

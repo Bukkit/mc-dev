@@ -40,12 +40,12 @@ public class PathfinderGoalTame extends PathfinderGoal {
     }
 
     public void e() {
-        if (this.entity.aC().nextInt(50) == 0) {
+        if (this.entity.aD().nextInt(50) == 0) {
             if (this.entity.passenger instanceof EntityHuman) {
                 int i = this.entity.getTemper();
-                int j = this.entity.cq();
+                int j = this.entity.getMaxDomestication();
 
-                if (j > 0 && this.entity.aC().nextInt(j) < i) {
+                if (j > 0 && this.entity.aD().nextInt(j) < i) {
                     this.entity.g((EntityHuman) this.entity.passenger);
                     this.entity.world.broadcastEntityEffect(this.entity, (byte) 7);
                     return;

@@ -5,10 +5,26 @@ import java.util.Random;
 
 public class WorldGenMineshaftCorridor extends StructurePiece {
 
-    private final boolean a;
-    private final boolean b;
+    private boolean a;
+    private boolean b;
     private boolean c;
     private int d;
+
+    public WorldGenMineshaftCorridor() {}
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        nbttagcompound.setBoolean("hr", this.a);
+        nbttagcompound.setBoolean("sc", this.b);
+        nbttagcompound.setBoolean("hps", this.c);
+        nbttagcompound.setInt("Num", this.d);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        this.a = nbttagcompound.getBoolean("hr");
+        this.b = nbttagcompound.getBoolean("sc");
+        this.c = nbttagcompound.getBoolean("hps");
+        this.d = nbttagcompound.getInt("Num");
+    }
 
     public WorldGenMineshaftCorridor(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
@@ -61,7 +77,7 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
-        int i = this.c();
+        int i = this.d();
         int j = random.nextInt(4);
 
         switch (this.g) {
@@ -190,11 +206,11 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
                 this.a(world, structureboundingbox, random, 0.05F, 1, 2, k - 1, Block.TORCH.id, 0);
                 this.a(world, structureboundingbox, random, 0.05F, 1, 2, k + 1, Block.TORCH.id, 0);
                 if (random.nextInt(100) == 0) {
-                    this.a(world, structureboundingbox, random, 2, 0, k - 1, StructurePieceTreasure.a(WorldGenMineshaftPieces.a(), new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 3 + random.nextInt(4));
+                    this.a(world, structureboundingbox, random, 2, 0, k - 1, StructurePieceTreasure.a(WorldGenMineshaftPieces.b(), new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 3 + random.nextInt(4));
                 }
 
                 if (random.nextInt(100) == 0) {
-                    this.a(world, structureboundingbox, random, 0, 0, k + 1, StructurePieceTreasure.a(WorldGenMineshaftPieces.a(), new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 3 + random.nextInt(4));
+                    this.a(world, structureboundingbox, random, 0, 0, k + 1, StructurePieceTreasure.a(WorldGenMineshaftPieces.b(), new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 3 + random.nextInt(4));
                 }
 
                 if (this.b && !this.c) {

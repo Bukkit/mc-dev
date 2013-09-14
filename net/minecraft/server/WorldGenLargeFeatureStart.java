@@ -4,7 +4,10 @@ import java.util.Random;
 
 public class WorldGenLargeFeatureStart extends StructureStart {
 
+    public WorldGenLargeFeatureStart() {}
+
     public WorldGenLargeFeatureStart(World world, Random random, int i, int j) {
+        super(i, j);
         BiomeBase biomebase = world.getBiome(i * 16 + 8, j * 16 + 8);
 
         if (biomebase != BiomeBase.JUNGLE && biomebase != BiomeBase.JUNGLE_HILLS) {

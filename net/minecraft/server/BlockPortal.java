@@ -22,7 +22,7 @@ public class BlockPortal extends BlockHalfTransparant {
                 Entity entity = ItemMonsterEgg.a(world, 57, (double) i + 0.5D, (double) l + 1.1D, (double) k + 0.5D);
 
                 if (entity != null) {
-                    entity.portalCooldown = entity.ab();
+                    entity.portalCooldown = entity.ac();
                 }
             }
         }
@@ -153,7 +153,7 @@ public class BlockPortal extends BlockHalfTransparant {
 
     public void a(World world, int i, int j, int k, Entity entity) {
         if (entity.vehicle == null && entity.passenger == null) {
-            entity.aa();
+            entity.ab();
         }
     }
 }

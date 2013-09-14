@@ -7,8 +7,26 @@ public class WorldGenPyramidPiece extends WorldGenScatteredPiece {
     private boolean[] e = new boolean[4];
     private static final StructurePieceTreasure[] i = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.DIAMOND.id, 0, 1, 3, 3), new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 5, 10), new StructurePieceTreasure(Item.GOLD_INGOT.id, 0, 2, 7, 15), new StructurePieceTreasure(Item.EMERALD.id, 0, 1, 3, 2), new StructurePieceTreasure(Item.BONE.id, 0, 4, 6, 20), new StructurePieceTreasure(Item.ROTTEN_FLESH.id, 0, 3, 7, 16), new StructurePieceTreasure(Item.SADDLE.id, 0, 1, 1, 3), new StructurePieceTreasure(Item.HORSE_ARMOR_IRON.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.HORSE_ARMOR_GOLD.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.HORSE_ARMOR_DIAMOND.id, 0, 1, 1, 1)};
 
+    public WorldGenPyramidPiece() {}
+
     public WorldGenPyramidPiece(Random random, int i, int j) {
         super(random, i, 64, j, 21, 15, 21);
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setBoolean("hasPlacedChest0", this.e[0]);
+        nbttagcompound.setBoolean("hasPlacedChest1", this.e[1]);
+        nbttagcompound.setBoolean("hasPlacedChest2", this.e[2]);
+        nbttagcompound.setBoolean("hasPlacedChest3", this.e[3]);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.e[0] = nbttagcompound.getBoolean("hasPlacedChest0");
+        this.e[1] = nbttagcompound.getBoolean("hasPlacedChest1");
+        this.e[2] = nbttagcompound.getBoolean("hasPlacedChest2");
+        this.e[3] = nbttagcompound.getBoolean("hasPlacedChest3");
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {

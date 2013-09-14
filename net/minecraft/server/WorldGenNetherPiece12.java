@@ -7,10 +7,22 @@ public class WorldGenNetherPiece12 extends WorldGenNetherPiece {
 
     private boolean b;
 
+    public WorldGenNetherPiece12() {}
+
     public WorldGenNetherPiece12(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
         this.g = j;
         this.f = structureboundingbox;
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.b = nbttagcompound.getBoolean("Mob");
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setBoolean("Mob", this.b);
     }
 
     public static WorldGenNetherPiece12 a(List list, Random random, int i, int j, int k, int l, int i1) {

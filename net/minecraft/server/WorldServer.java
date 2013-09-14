@@ -199,7 +199,7 @@ public class WorldServer extends World {
                 j1 = k + (i1 & 15);
                 k1 = l + (i1 >> 8 & 15);
                 l1 = this.h(j1, k1);
-                if (this.F(j1, l1, k1)) {
+                if (this.isRainingAt(j1, l1, k1)) {
                     this.strikeLightning(new EntityLightning(this, (double) j1, (double) l1, (double) k1));
                 }
             }
@@ -588,7 +588,7 @@ public class WorldServer extends World {
     protected void a(Entity entity) {
         super.a(entity);
         this.entitiesById.a(entity.id, entity);
-        Entity[] aentity = entity.an();
+        Entity[] aentity = entity.ao();
 
         if (aentity != null) {
             for (int i = 0; i < aentity.length; ++i) {
@@ -600,7 +600,7 @@ public class WorldServer extends World {
     protected void b(Entity entity) {
         super.b(entity);
         this.entitiesById.d(entity.id);
-        Entity[] aentity = entity.an();
+        Entity[] aentity = entity.ao();
 
         if (aentity != null) {
             for (int i = 0; i < aentity.length; ++i) {

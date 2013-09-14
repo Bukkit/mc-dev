@@ -9,13 +9,15 @@ public class WorldGenMineshaftRoom extends StructurePiece {
 
     private List a = new LinkedList();
 
+    public WorldGenMineshaftRoom() {}
+
     public WorldGenMineshaftRoom(int i, Random random, int j, int k) {
         super(i);
         this.f = new StructureBoundingBox(j, 50, k, j + 7 + random.nextInt(6), 54 + random.nextInt(6), k + 7 + random.nextInt(6));
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
-        int i = this.c();
+        int i = this.d();
         int j = this.f.c() - 3 - 1;
 
         if (j <= 0) {
@@ -34,7 +36,7 @@ public class WorldGenMineshaftRoom extends StructurePiece {
 
             structurepiece1 = WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.a + k, this.f.b + random.nextInt(j) + 1, this.f.c - 1, 2, i);
             if (structurepiece1 != null) {
-                structureboundingbox = structurepiece1.b();
+                structureboundingbox = structurepiece1.c();
                 this.a.add(new StructureBoundingBox(structureboundingbox.a, structureboundingbox.b, this.f.c, structureboundingbox.d, structureboundingbox.e, this.f.c + 1));
             }
         }
@@ -47,7 +49,7 @@ public class WorldGenMineshaftRoom extends StructurePiece {
 
             structurepiece1 = WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.a + k, this.f.b + random.nextInt(j) + 1, this.f.f + 1, 0, i);
             if (structurepiece1 != null) {
-                structureboundingbox = structurepiece1.b();
+                structureboundingbox = structurepiece1.c();
                 this.a.add(new StructureBoundingBox(structureboundingbox.a, structureboundingbox.b, this.f.f - 1, structureboundingbox.d, structureboundingbox.e, this.f.f));
             }
         }
@@ -60,7 +62,7 @@ public class WorldGenMineshaftRoom extends StructurePiece {
 
             structurepiece1 = WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.a - 1, this.f.b + random.nextInt(j) + 1, this.f.c + k, 1, i);
             if (structurepiece1 != null) {
-                structureboundingbox = structurepiece1.b();
+                structureboundingbox = structurepiece1.c();
                 this.a.add(new StructureBoundingBox(this.f.a, structureboundingbox.b, structureboundingbox.c, this.f.a + 1, structureboundingbox.e, structureboundingbox.f));
             }
         }
@@ -73,7 +75,7 @@ public class WorldGenMineshaftRoom extends StructurePiece {
 
             structurepiece1 = WorldGenMineshaftPieces.a(structurepiece, list, random, this.f.d + 1, this.f.b + random.nextInt(j) + 1, this.f.c + k, 3, i);
             if (structurepiece1 != null) {
-                structureboundingbox = structurepiece1.b();
+                structureboundingbox = structurepiece1.c();
                 this.a.add(new StructureBoundingBox(this.f.d - 1, structureboundingbox.b, structureboundingbox.c, this.f.d, structureboundingbox.e, structureboundingbox.f));
             }
         }
@@ -95,6 +97,27 @@ public class WorldGenMineshaftRoom extends StructurePiece {
 
             this.a(world, structureboundingbox, this.f.a, this.f.b + 4, this.f.c, this.f.d, this.f.e, this.f.f, 0, false);
             return true;
+        }
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        NBTTagList nbttaglist = new NBTTagList("Entrances");
+        Iterator iterator = this.a.iterator();
+
+        while (iterator.hasNext()) {
+            StructureBoundingBox structureboundingbox = (StructureBoundingBox) iterator.next();
+
+            nbttaglist.add(structureboundingbox.a(""));
+        }
+
+        nbttagcompound.set("Entrances", nbttaglist);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        NBTTagList nbttaglist = nbttagcompound.getList("Entrances");
+
+        for (int i = 0; i < nbttaglist.size(); ++i) {
+            this.a.add(new StructureBoundingBox(((NBTTagIntArray) nbttaglist.get(i)).data));
         }
     }
 }

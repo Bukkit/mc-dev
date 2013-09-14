@@ -29,6 +29,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     private int bU;
     private int bV;
     private boolean bW = true;
+    private long bX = 0L;
     private int containerCounter;
     public boolean h;
     public int ping;
@@ -152,6 +153,10 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                 }
             }
         }
+
+        if (this.bX > 0L && this.server.ar() > 0 && MinecraftServer.aq() - this.bX > (long) (this.server.ar() * 1000 * 60)) {
+            this.playerConnection.disconnect("You have been idle for too long!");
+        }
     }
 
     public void h() {
@@ -177,8 +182,8 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                 this.bR = this.foodData.e() == 0.0F;
             }
 
-            if (this.getHealth() + this.bm() != this.bO) {
-                this.bO = this.getHealth() + this.bm();
+            if (this.getHealth() + this.bn() != this.bO) {
+                this.bO = this.getHealth() + this.bn();
                 Collection collection = this.getScoreboard().getObjectivesForCriteria(IScoreboardCriteria.f);
                 Iterator iterator = collection.iterator();
 
@@ -203,7 +208,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void die(DamageSource damagesource) {
-        this.server.getPlayerList().sendMessage(this.aQ().b());
+        this.server.getPlayerList().sendMessage(this.aR().b());
         if (!this.world.getGameRules().getBoolean("keepInventory")) {
             this.inventory.m();
         }
@@ -218,7 +223,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             scoreboardscore.incrementScore();
         }
 
-        EntityLiving entityliving = this.aR();
+        EntityLiving entityliving = this.aS();
 
         if (entityliving != null) {
             entityliving.b(this, this.bb);
@@ -656,5 +661,9 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public ChunkCoordinates b() {
         return new ChunkCoordinates(MathHelper.floor(this.locX), MathHelper.floor(this.locY + 0.5D), MathHelper.floor(this.locZ));
+    }
+
+    public void u() {
+        this.bX = MinecraftServer.aq();
     }
 }

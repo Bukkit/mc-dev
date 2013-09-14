@@ -5,20 +5,37 @@ import java.util.Random;
 
 public class WorldGenVillageFarm2 extends WorldGenVillagePiece {
 
-    private int a = -1;
+    private int a;
     private int b;
     private int c;
     private int d;
-    private int e;
+
+    public WorldGenVillageFarm2() {}
 
     public WorldGenVillageFarm2(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(worldgenvillagestartpiece, i);
         this.g = j;
         this.f = structureboundingbox;
+        this.a = this.a(random);
         this.b = this.a(random);
         this.c = this.a(random);
         this.d = this.a(random);
-        this.e = this.a(random);
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setInt("CA", this.a);
+        nbttagcompound.setInt("CB", this.b);
+        nbttagcompound.setInt("CC", this.c);
+        nbttagcompound.setInt("CD", this.d);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.a = nbttagcompound.getInt("CA");
+        this.b = nbttagcompound.getInt("CB");
+        this.c = nbttagcompound.getInt("CC");
+        this.d = nbttagcompound.getInt("CD");
     }
 
     private int a(Random random) {
@@ -41,13 +58,13 @@ public class WorldGenVillageFarm2 extends WorldGenVillagePiece {
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
-        if (this.a < 0) {
-            this.a = this.b(world, structureboundingbox);
-            if (this.a < 0) {
+        if (this.k < 0) {
+            this.k = this.b(world, structureboundingbox);
+            if (this.k < 0) {
                 return true;
             }
 
-            this.f.a(0, this.a - this.f.e + 4 - 1, 0);
+            this.f.a(0, this.k - this.f.e + 4 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 0, 1, 0, 12, 4, 8, 0, 0, false);
@@ -66,14 +83,14 @@ public class WorldGenVillageFarm2 extends WorldGenVillagePiece {
         int i;
 
         for (i = 1; i <= 7; ++i) {
-            this.a(world, this.b, MathHelper.nextInt(random, 2, 7), 1, 1, i, structureboundingbox);
-            this.a(world, this.b, MathHelper.nextInt(random, 2, 7), 2, 1, i, structureboundingbox);
-            this.a(world, this.c, MathHelper.nextInt(random, 2, 7), 4, 1, i, structureboundingbox);
-            this.a(world, this.c, MathHelper.nextInt(random, 2, 7), 5, 1, i, structureboundingbox);
-            this.a(world, this.d, MathHelper.nextInt(random, 2, 7), 7, 1, i, structureboundingbox);
-            this.a(world, this.d, MathHelper.nextInt(random, 2, 7), 8, 1, i, structureboundingbox);
-            this.a(world, this.e, MathHelper.nextInt(random, 2, 7), 10, 1, i, structureboundingbox);
-            this.a(world, this.e, MathHelper.nextInt(random, 2, 7), 11, 1, i, structureboundingbox);
+            this.a(world, this.a, MathHelper.nextInt(random, 2, 7), 1, 1, i, structureboundingbox);
+            this.a(world, this.a, MathHelper.nextInt(random, 2, 7), 2, 1, i, structureboundingbox);
+            this.a(world, this.b, MathHelper.nextInt(random, 2, 7), 4, 1, i, structureboundingbox);
+            this.a(world, this.b, MathHelper.nextInt(random, 2, 7), 5, 1, i, structureboundingbox);
+            this.a(world, this.c, MathHelper.nextInt(random, 2, 7), 7, 1, i, structureboundingbox);
+            this.a(world, this.c, MathHelper.nextInt(random, 2, 7), 8, 1, i, structureboundingbox);
+            this.a(world, this.d, MathHelper.nextInt(random, 2, 7), 10, 1, i, structureboundingbox);
+            this.a(world, this.d, MathHelper.nextInt(random, 2, 7), 11, 1, i, structureboundingbox);
         }
 
         for (i = 0; i < 9; ++i) {

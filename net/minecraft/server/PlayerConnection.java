@@ -103,7 +103,7 @@ public class PlayerConnection extends Connection {
                     float f = this.player.yaw;
                     float f1 = this.player.pitch;
 
-                    this.player.vehicle.V();
+                    this.player.vehicle.W();
                     d1 = this.player.locX;
                     d2 = this.player.locY;
                     d3 = this.player.locZ;
@@ -117,7 +117,7 @@ public class PlayerConnection extends Connection {
                     this.player.X = 0.0F;
                     this.player.setLocation(d1, d2, d3, f, f1);
                     if (this.player.vehicle != null) {
-                        this.player.vehicle.V();
+                        this.player.vehicle.W();
                     }
 
                     this.minecraftServer.getPlayerList().d(this.player);
@@ -268,12 +268,13 @@ public class PlayerConnection extends Connection {
     public void a(Packet14BlockDig packet14blockdig) {
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
+        this.player.u();
         if (packet14blockdig.e == 4) {
             this.player.a(false);
         } else if (packet14blockdig.e == 3) {
             this.player.a(true);
         } else if (packet14blockdig.e == 5) {
-            this.player.bs();
+            this.player.bt();
         } else {
             boolean flag = false;
 
@@ -337,6 +338,7 @@ public class PlayerConnection extends Connection {
         int k = packet15place.g();
         int l = packet15place.getFace();
 
+        this.player.u();
         if (packet15place.getFace() == 255) {
             if (itemstack == null) {
                 return;
@@ -447,6 +449,7 @@ public class PlayerConnection extends Connection {
     public void a(Packet16BlockItemSwitch packet16blockitemswitch) {
         if (packet16blockitemswitch.itemInHandIndex >= 0 && packet16blockitemswitch.itemInHandIndex < PlayerInventory.getHotbarSize()) {
             this.player.inventory.itemInHandIndex = packet16blockitemswitch.itemInHandIndex;
+            this.player.u();
         } else {
             this.minecraftServer.getLogger().warning(this.player.getName() + " tried to set an invalid carried item");
         }
@@ -456,6 +459,7 @@ public class PlayerConnection extends Connection {
         if (this.player.getChatFlags() == 2) {
             this.sendPacket(new Packet3Chat(ChatMessage.e("chat.cannotSend").a(EnumChatFormat.RED)));
         } else {
+            this.player.u();
             String s = packet3chat.message;
 
             if (s.length() > 100) {
@@ -496,12 +500,14 @@ public class PlayerConnection extends Connection {
     }
 
     public void a(Packet18ArmAnimation packet18armanimation) {
+        this.player.u();
         if (packet18armanimation.b == 1) {
-            this.player.aU();
+            this.player.aV();
         }
     }
 
     public void a(Packet19EntityAction packet19entityaction) {
+        this.player.u();
         if (packet19entityaction.animation == 1) {
             this.player.setSneaking(true);
         } else if (packet19entityaction.animation == 2) {
@@ -534,6 +540,7 @@ public class PlayerConnection extends Connection {
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
         Entity entity = worldserver.getEntity(packet7useentity.target);
 
+        this.player.u();
         if (entity != null) {
             boolean flag = this.player.o(entity);
             double d0 = 36.0D;
@@ -559,6 +566,7 @@ public class PlayerConnection extends Connection {
     }
 
     public void a(Packet205ClientCommand packet205clientcommand) {
+        this.player.u();
         if (packet205clientcommand.a == 1) {
             if (this.player.viewingCredits) {
                 this.player = this.minecraftServer.getPlayerList().moveToWorld(this.player, 0, true);
@@ -594,6 +602,7 @@ public class PlayerConnection extends Connection {
     }
 
     public void a(Packet102WindowClick packet102windowclick) {
+        this.player.u();
         if (this.player.activeContainer.windowId == packet102windowclick.a && this.player.activeContainer.c(this.player)) {
             ItemStack itemstack = this.player.activeContainer.clickItem(packet102windowclick.slot, packet102windowclick.button, packet102windowclick.shift, this.player);
 
@@ -619,6 +628,7 @@ public class PlayerConnection extends Connection {
     }
 
     public void a(Packet108ButtonClick packet108buttonclick) {
+        this.player.u();
         if (this.player.activeContainer.windowId == packet108buttonclick.a && this.player.activeContainer.c(this.player)) {
             this.player.activeContainer.a((EntityHuman) this.player, packet108buttonclick.b);
             this.player.activeContainer.b();
@@ -661,6 +671,7 @@ public class PlayerConnection extends Connection {
     }
 
     public void a(Packet130UpdateSign packet130updatesign) {
+        this.player.u();
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
         if (worldserver.isLoaded(packet130updatesign.x, packet130updatesign.y, packet130updatesign.z)) {

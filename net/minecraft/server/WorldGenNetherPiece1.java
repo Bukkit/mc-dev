@@ -5,6 +5,8 @@ import java.util.Random;
 
 public class WorldGenNetherPiece1 extends WorldGenNetherPiece {
 
+    public WorldGenNetherPiece1() {}
+
     public WorldGenNetherPiece1(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
         this.g = j;

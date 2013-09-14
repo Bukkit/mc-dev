@@ -14,6 +14,22 @@ public class WorldGenStrongholdPieces {
     private static final WorldGenStrongholdStones e = new WorldGenStrongholdStones((WorldGenStrongholdUnknown) null);
 
     public static void a() {
+        WorldGenFactory.a(WorldGenStrongholdChestCorridor.class, "SHCC");
+        WorldGenFactory.a(WorldGenStrongholdCorridor.class, "SHFC");
+        WorldGenFactory.a(WorldGenStrongholdCrossing.class, "SH5C");
+        WorldGenFactory.a(WorldGenStrongholdLeftTurn.class, "SHLT");
+        WorldGenFactory.a(WorldGenStrongholdLibrary.class, "SHLi");
+        WorldGenFactory.a(WorldGenStrongholdPortalRoom.class, "SHPR");
+        WorldGenFactory.a(WorldGenStrongholdPrison.class, "SHPH");
+        WorldGenFactory.a(WorldGenStrongholdRightTurn.class, "SHRT");
+        WorldGenFactory.a(WorldGenStrongholdRoomCrossing.class, "SHRC");
+        WorldGenFactory.a(WorldGenStrongholdStairs2.class, "SHSD");
+        WorldGenFactory.a(WorldGenStrongholdStart.class, "SHStart");
+        WorldGenFactory.a(WorldGenStrongholdStairs.class, "SHS");
+        WorldGenFactory.a(WorldGenStrongholdStairsStraight.class, "SHSSD");
+    }
+
+    public static void b() {
         c = new ArrayList();
         WorldGenStrongholdPieceWeight[] aworldgenstrongholdpieceweight = b;
         int i = aworldgenstrongholdpieceweight.length;
@@ -28,7 +44,7 @@ public class WorldGenStrongholdPieces {
         d = null;
     }
 
-    private static boolean c() {
+    private static boolean d() {
         boolean flag = false;
 
         a = 0;
@@ -76,7 +92,7 @@ public class WorldGenStrongholdPieces {
     }
 
     private static WorldGenStrongholdPiece b(WorldGenStrongholdStart worldgenstrongholdstart, List list, Random random, int i, int j, int k, int l, int i1) {
-        if (!c()) {
+        if (!d()) {
             return null;
         } else {
             if (d != null) {
@@ -132,7 +148,7 @@ public class WorldGenStrongholdPieces {
     private static StructurePiece c(WorldGenStrongholdStart worldgenstrongholdstart, List list, Random random, int i, int j, int k, int l, int i1) {
         if (i1 > 50) {
             return null;
-        } else if (Math.abs(i - worldgenstrongholdstart.b().a) <= 112 && Math.abs(k - worldgenstrongholdstart.b().c) <= 112) {
+        } else if (Math.abs(i - worldgenstrongholdstart.c().a) <= 112 && Math.abs(k - worldgenstrongholdstart.c().c) <= 112) {
             WorldGenStrongholdPiece worldgenstrongholdpiece = b(worldgenstrongholdstart, list, random, i, j, k, l, i1 + 1);
 
             if (worldgenstrongholdpiece != null) {
@@ -155,7 +171,7 @@ public class WorldGenStrongholdPieces {
         return oclass;
     }
 
-    static WorldGenStrongholdStones b() {
+    static WorldGenStrongholdStones c() {
         return e;
     }
 }

@@ -5,14 +5,15 @@ import java.util.Random;
 
 public class WorldGenStrongholdStairs2 extends WorldGenStrongholdPiece {
 
-    private final boolean a;
-    private final WorldGenStrongholdDoorType b;
+    private boolean a;
+
+    public WorldGenStrongholdStairs2() {}
 
     public WorldGenStrongholdStairs2(int i, Random random, int j, int k) {
         super(i);
         this.a = true;
         this.g = random.nextInt(4);
-        this.b = WorldGenStrongholdDoorType.a;
+        this.d = WorldGenStrongholdDoorType.a;
         switch (this.g) {
         case 0:
         case 2:
@@ -28,8 +29,18 @@ public class WorldGenStrongholdStairs2 extends WorldGenStrongholdPiece {
         super(i);
         this.a = false;
         this.g = j;
-        this.b = this.a(random);
+        this.d = this.a(random);
         this.f = structureboundingbox;
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setBoolean("Source", this.a);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.a = nbttagcompound.getBoolean("Source");
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
@@ -50,8 +61,8 @@ public class WorldGenStrongholdStairs2 extends WorldGenStrongholdPiece {
         if (this.a(world, structureboundingbox)) {
             return false;
         } else {
-            this.a(world, structureboundingbox, 0, 0, 0, 4, 10, 4, true, random, WorldGenStrongholdPieces.b());
-            this.a(world, random, structureboundingbox, this.b, 1, 7, 0);
+            this.a(world, structureboundingbox, 0, 0, 0, 4, 10, 4, true, random, WorldGenStrongholdPieces.c());
+            this.a(world, random, structureboundingbox, this.d, 1, 7, 0);
             this.a(world, random, structureboundingbox, WorldGenStrongholdDoorType.a, 1, 1, 4);
             this.a(world, Block.SMOOTH_BRICK.id, 0, 2, 6, 1, structureboundingbox);
             this.a(world, Block.SMOOTH_BRICK.id, 0, 1, 5, 1, structureboundingbox);

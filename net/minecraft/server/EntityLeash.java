@@ -39,7 +39,7 @@ public class EntityLeash extends EntityHanging {
     public void a(NBTTagCompound nbttagcompound) {}
 
     public boolean c(EntityHuman entityhuman) {
-        ItemStack itemstack = entityhuman.aY();
+        ItemStack itemstack = entityhuman.aZ();
         boolean flag = false;
         double d0;
         List list;
@@ -54,8 +54,8 @@ public class EntityLeash extends EntityHanging {
 
                 while (iterator.hasNext()) {
                     entityinsentient = (EntityInsentient) iterator.next();
-                    if (entityinsentient.bH() && entityinsentient.bI() == entityhuman) {
-                        entityinsentient.b(this, true);
+                    if (entityinsentient.bH() && entityinsentient.getLeashHolder() == entityhuman) {
+                        entityinsentient.setLeashHolder(this, true);
                         flag = true;
                     }
                 }
@@ -72,8 +72,8 @@ public class EntityLeash extends EntityHanging {
 
                     while (iterator.hasNext()) {
                         entityinsentient = (EntityInsentient) iterator.next();
-                        if (entityinsentient.bH() && entityinsentient.bI() == this) {
-                            entityinsentient.a(true, false);
+                        if (entityinsentient.bH() && entityinsentient.getLeashHolder() == this) {
+                            entityinsentient.unleash(true, false);
                         }
                     }
                 }

@@ -88,16 +88,16 @@ public class EntityMinecartTNT extends EntityMinecartAbstract {
         }
     }
 
-    public boolean ay() {
+    public boolean u() {
         return this.fuse > -1;
     }
 
     public float a(Explosion explosion, World world, int i, int j, int k, Block block) {
-        return this.ay() && (BlockMinecartTrackAbstract.e_(block.id) || BlockMinecartTrackAbstract.d_(world, i, j + 1, k)) ? 0.0F : super.a(explosion, world, i, j, k, block);
+        return this.u() && (BlockMinecartTrackAbstract.e_(block.id) || BlockMinecartTrackAbstract.d_(world, i, j + 1, k)) ? 0.0F : super.a(explosion, world, i, j, k, block);
     }
 
     public boolean a(Explosion explosion, World world, int i, int j, int k, int l, float f) {
-        return this.ay() && (BlockMinecartTrackAbstract.e_(l) || BlockMinecartTrackAbstract.d_(world, i, j + 1, k)) ? false : super.a(explosion, world, i, j, k, l, f);
+        return this.u() && (BlockMinecartTrackAbstract.e_(l) || BlockMinecartTrackAbstract.d_(world, i, j + 1, k)) ? false : super.a(explosion, world, i, j, k, l, f);
     }
 
     protected void a(NBTTagCompound nbttagcompound) {

@@ -5,12 +5,12 @@ import java.util.Random;
 
 public class WorldGenStrongholdLeftTurn extends WorldGenStrongholdPiece {
 
-    protected final WorldGenStrongholdDoorType a;
+    public WorldGenStrongholdLeftTurn() {}
 
     public WorldGenStrongholdLeftTurn(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
         this.g = j;
-        this.a = this.a(random);
+        this.d = this.a(random);
         this.f = structureboundingbox;
     }
 
@@ -32,8 +32,8 @@ public class WorldGenStrongholdLeftTurn extends WorldGenStrongholdPiece {
         if (this.a(world, structureboundingbox)) {
             return false;
         } else {
-            this.a(world, structureboundingbox, 0, 0, 0, 4, 4, 4, true, random, WorldGenStrongholdPieces.b());
-            this.a(world, random, structureboundingbox, this.a, 1, 1, 0);
+            this.a(world, structureboundingbox, 0, 0, 0, 4, 4, 4, true, random, WorldGenStrongholdPieces.c());
+            this.a(world, random, structureboundingbox, this.d, 1, 1, 0);
             if (this.g != 2 && this.g != 3) {
                 this.a(world, structureboundingbox, 4, 1, 1, 4, 3, 3, 0, 0, false);
             } else {

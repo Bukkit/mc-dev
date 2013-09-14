@@ -4,10 +4,12 @@ import java.util.Random;
 
 abstract class WorldGenScatteredPiece extends StructurePiece {
 
-    protected final int a;
-    protected final int b;
-    protected final int c;
+    protected int a;
+    protected int b;
+    protected int c;
     protected int d = -1;
+
+    public WorldGenScatteredPiece() {}
 
     protected WorldGenScatteredPiece(Random random, int i, int j, int k, int l, int i1, int j1) {
         super(0);
@@ -24,6 +26,20 @@ abstract class WorldGenScatteredPiece extends StructurePiece {
         default:
             this.f = new StructureBoundingBox(i, j, k, i + j1 - 1, j + i1 - 1, k + l - 1);
         }
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        nbttagcompound.setInt("Width", this.a);
+        nbttagcompound.setInt("Height", this.b);
+        nbttagcompound.setInt("Depth", this.c);
+        nbttagcompound.setInt("HPos", this.d);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        this.a = nbttagcompound.getInt("Width");
+        this.b = nbttagcompound.getInt("Height");
+        this.c = nbttagcompound.getInt("Depth");
+        this.d = nbttagcompound.getInt("HPos");
     }
 
     protected boolean a(World world, StructureBoundingBox structureboundingbox, int i) {

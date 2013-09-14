@@ -140,7 +140,7 @@ public class EntityItem extends Entity {
         this.age = 4800;
     }
 
-    public boolean H() {
+    public boolean I() {
         return this.world.a(this.boundingBox, Material.WATER, (Entity) this);
     }
 
@@ -154,7 +154,7 @@ public class EntityItem extends Entity {
         } else if (this.getItemStack() != null && this.getItemStack().id == Item.NETHER_STAR.id && damagesource.c()) {
             return false;
         } else {
-            this.J();
+            this.K();
             this.d = (int) ((float) this.d - f);
             if (this.d <= 0) {
                 this.die();
@@ -218,7 +218,7 @@ public class EntityItem extends Entity {
         return LocaleI18n.get("item." + this.getItemStack().a());
     }
 
-    public boolean ap() {
+    public boolean aq() {
         return false;
     }
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EntityPotion extends EntityProjectile {
 
-    private ItemStack c;
+    private ItemStack item;
 
     public EntityPotion(World world) {
         super(world);
@@ -17,12 +17,12 @@ public class EntityPotion extends EntityProjectile {
 
     public EntityPotion(World world, EntityLiving entityliving, ItemStack itemstack) {
         super(world, entityliving);
-        this.c = itemstack;
+        this.item = itemstack;
     }
 
     public EntityPotion(World world, double d0, double d1, double d2, ItemStack itemstack) {
         super(world, d0, d1, d2);
-        this.c = itemstack;
+        this.item = itemstack;
     }
 
     protected float e() {
@@ -38,24 +38,24 @@ public class EntityPotion extends EntityProjectile {
     }
 
     public void setPotionValue(int i) {
-        if (this.c == null) {
-            this.c = new ItemStack(Item.POTION, 1, 0);
+        if (this.item == null) {
+            this.item = new ItemStack(Item.POTION, 1, 0);
         }
 
-        this.c.setData(i);
+        this.item.setData(i);
     }
 
     public int getPotionValue() {
-        if (this.c == null) {
-            this.c = new ItemStack(Item.POTION, 1, 0);
+        if (this.item == null) {
+            this.item = new ItemStack(Item.POTION, 1, 0);
         }
 
-        return this.c.getData();
+        return this.item.getData();
     }
 
     protected void a(MovingObjectPosition movingobjectposition) {
         if (!this.world.isStatic) {
-            List list = Item.POTION.g(this.c);
+            List list = Item.POTION.g(this.item);
 
             if (list != null && !list.isEmpty()) {
                 AxisAlignedBB axisalignedbb = this.boundingBox.grow(4.0D, 2.0D, 4.0D);
@@ -104,20 +104,20 @@ public class EntityPotion extends EntityProjectile {
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
         if (nbttagcompound.hasKey("Potion")) {
-            this.c = ItemStack.createStack(nbttagcompound.getCompound("Potion"));
+            this.item = ItemStack.createStack(nbttagcompound.getCompound("Potion"));
         } else {
             this.setPotionValue(nbttagcompound.getInt("potionValue"));
         }
 
-        if (this.c == null) {
+        if (this.item == null) {
             this.die();
         }
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        if (this.c != null) {
-            nbttagcompound.setCompound("Potion", this.c.save(new NBTTagCompound()));
+        if (this.item != null) {
+            nbttagcompound.setCompound("Potion", this.item.save(new NBTTagCompound()));
         }
     }
 }

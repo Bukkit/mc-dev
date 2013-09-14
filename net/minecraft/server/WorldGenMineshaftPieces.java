@@ -7,6 +7,13 @@ public class WorldGenMineshaftPieces {
 
     private static final StructurePieceTreasure[] a = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 5, 10), new StructurePieceTreasure(Item.GOLD_INGOT.id, 0, 1, 3, 5), new StructurePieceTreasure(Item.REDSTONE.id, 0, 4, 9, 5), new StructurePieceTreasure(Item.INK_SACK.id, 4, 4, 9, 5), new StructurePieceTreasure(Item.DIAMOND.id, 0, 1, 2, 3), new StructurePieceTreasure(Item.COAL.id, 0, 3, 8, 10), new StructurePieceTreasure(Item.BREAD.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.IRON_PICKAXE.id, 0, 1, 1, 1), new StructurePieceTreasure(Block.RAILS.id, 0, 4, 8, 1), new StructurePieceTreasure(Item.MELON_SEEDS.id, 0, 2, 4, 10), new StructurePieceTreasure(Item.PUMPKIN_SEEDS.id, 0, 2, 4, 10), new StructurePieceTreasure(Item.SADDLE.id, 0, 1, 1, 3), new StructurePieceTreasure(Item.HORSE_ARMOR_IRON.id, 0, 1, 1, 1)};
 
+    public static void a() {
+        WorldGenFactory.a(WorldGenMineshaftCorridor.class, "MSCorridor");
+        WorldGenFactory.a(WorldGenMineshaftCross.class, "MSCrossing");
+        WorldGenFactory.a(WorldGenMineshaftRoom.class, "MSRoom");
+        WorldGenFactory.a(WorldGenMineshaftStairs.class, "MSStairs");
+    }
+
     private static StructurePiece a(List list, Random random, int i, int j, int k, int l, int i1) {
         int j1 = random.nextInt(100);
         StructureBoundingBox structureboundingbox;
@@ -34,7 +41,7 @@ public class WorldGenMineshaftPieces {
     private static StructurePiece b(StructurePiece structurepiece, List list, Random random, int i, int j, int k, int l, int i1) {
         if (i1 > 8) {
             return null;
-        } else if (Math.abs(i - structurepiece.b().a) <= 80 && Math.abs(k - structurepiece.b().c) <= 80) {
+        } else if (Math.abs(i - structurepiece.c().a) <= 80 && Math.abs(k - structurepiece.c().c) <= 80) {
             StructurePiece structurepiece1 = a(list, random, i, j, k, l, i1 + 1);
 
             if (structurepiece1 != null) {
@@ -52,7 +59,7 @@ public class WorldGenMineshaftPieces {
         return b(structurepiece, list, random, i, j, k, l, i1);
     }
 
-    static StructurePieceTreasure[] a() {
+    static StructurePieceTreasure[] b() {
         return a;
     }
 }

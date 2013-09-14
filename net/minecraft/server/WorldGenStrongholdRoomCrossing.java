@@ -5,16 +5,27 @@ import java.util.Random;
 
 public class WorldGenStrongholdRoomCrossing extends WorldGenStrongholdPiece {
 
-    private static final StructurePieceTreasure[] c = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 5, 10), new StructurePieceTreasure(Item.GOLD_INGOT.id, 0, 1, 3, 5), new StructurePieceTreasure(Item.REDSTONE.id, 0, 4, 9, 5), new StructurePieceTreasure(Item.COAL.id, 0, 3, 8, 10), new StructurePieceTreasure(Item.BREAD.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.APPLE.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.IRON_PICKAXE.id, 0, 1, 1, 1)};
-    protected final WorldGenStrongholdDoorType a;
-    protected final int b;
+    private static final StructurePieceTreasure[] b = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 5, 10), new StructurePieceTreasure(Item.GOLD_INGOT.id, 0, 1, 3, 5), new StructurePieceTreasure(Item.REDSTONE.id, 0, 4, 9, 5), new StructurePieceTreasure(Item.COAL.id, 0, 3, 8, 10), new StructurePieceTreasure(Item.BREAD.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.APPLE.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.IRON_PICKAXE.id, 0, 1, 1, 1)};
+    protected int a;
+
+    public WorldGenStrongholdRoomCrossing() {}
 
     public WorldGenStrongholdRoomCrossing(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
         this.g = j;
-        this.a = this.a(random);
+        this.d = this.a(random);
         this.f = structureboundingbox;
-        this.b = random.nextInt(5);
+        this.a = random.nextInt(5);
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setInt("Type", this.a);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.a = nbttagcompound.getInt("Type");
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
@@ -33,14 +44,14 @@ public class WorldGenStrongholdRoomCrossing extends WorldGenStrongholdPiece {
         if (this.a(world, structureboundingbox)) {
             return false;
         } else {
-            this.a(world, structureboundingbox, 0, 0, 0, 10, 6, 10, true, random, WorldGenStrongholdPieces.b());
-            this.a(world, random, structureboundingbox, this.a, 4, 1, 0);
+            this.a(world, structureboundingbox, 0, 0, 0, 10, 6, 10, true, random, WorldGenStrongholdPieces.c());
+            this.a(world, random, structureboundingbox, this.d, 4, 1, 0);
             this.a(world, structureboundingbox, 4, 1, 10, 6, 3, 10, 0, 0, false);
             this.a(world, structureboundingbox, 0, 1, 4, 0, 3, 6, 0, 0, false);
             this.a(world, structureboundingbox, 10, 1, 4, 10, 3, 6, 0, 0, false);
             int i;
 
-            switch (this.b) {
+            switch (this.a) {
             case 0:
                 this.a(world, Block.SMOOTH_BRICK.id, 0, 5, 1, 5, structureboundingbox);
                 this.a(world, Block.SMOOTH_BRICK.id, 0, 5, 2, 5, structureboundingbox);
@@ -118,7 +129,7 @@ public class WorldGenStrongholdRoomCrossing extends WorldGenStrongholdPiece {
                 this.a(world, Block.LADDER.id, this.c(Block.LADDER.id, 4), 9, 1, 3, structureboundingbox);
                 this.a(world, Block.LADDER.id, this.c(Block.LADDER.id, 4), 9, 2, 3, structureboundingbox);
                 this.a(world, Block.LADDER.id, this.c(Block.LADDER.id, 4), 9, 3, 3, structureboundingbox);
-                this.a(world, structureboundingbox, random, 3, 4, 8, StructurePieceTreasure.a(c, new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 1 + random.nextInt(4));
+                this.a(world, structureboundingbox, random, 3, 4, 8, StructurePieceTreasure.a(b, new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 1 + random.nextInt(4));
             }
 
             return true;

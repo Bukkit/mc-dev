@@ -4,11 +4,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-class WorldGenVillageStart extends StructureStart {
+public class WorldGenVillageStart extends StructureStart {
 
     private boolean c;
 
+    public WorldGenVillageStart() {}
+
     public WorldGenVillageStart(World world, Random random, int i, int j, int k) {
+        super(i, j);
         List list = WorldGenVillagePieces.a(random, k);
         WorldGenVillageStartPiece worldgenvillagestartpiece = new WorldGenVillageStartPiece(world.getWorldChunkManager(), 0, random, (i << 4) + 2, (j << 4) + 2, list, k);
 
@@ -50,5 +53,15 @@ class WorldGenVillageStart extends StructureStart {
 
     public boolean d() {
         return this.c;
+    }
+
+    public void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setBoolean("Valid", this.c);
+    }
+
+    public void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.c = nbttagcompound.getBoolean("Valid");
     }
 }

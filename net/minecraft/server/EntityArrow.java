@@ -170,7 +170,7 @@ public class EntityArrow extends Entity implements IProjectile {
             for (l = 0; l < list.size(); ++l) {
                 Entity entity1 = (Entity) list.get(l);
 
-                if (entity1.K() && (entity1 != this.shooter || this.au >= 5)) {
+                if (entity1.L() && (entity1 != this.shooter || this.au >= 5)) {
                     f1 = 0.3F;
                     AxisAlignedBB axisalignedbb1 = entity1.boundingBox.grow((double) f1, (double) f1, (double) f1);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb1.a(vec3d, vec3d1);
@@ -227,7 +227,7 @@ public class EntityArrow extends Entity implements IProjectile {
                             EntityLiving entityliving = (EntityLiving) movingobjectposition.entity;
 
                             if (!this.world.isStatic) {
-                                entityliving.m(entityliving.aT() + 1);
+                                entityliving.m(entityliving.aU() + 1);
                             }
 
                             if (this.aw > 0) {
@@ -314,7 +314,7 @@ public class EntityArrow extends Entity implements IProjectile {
             float f4 = 0.99F;
 
             f1 = 0.05F;
-            if (this.G()) {
+            if (this.H()) {
                 for (int j1 = 0; j1 < 4; ++j1) {
                     f3 = 0.25F;
                     this.world.addParticle("bubble", this.locX - this.motX * (double) f3, this.locY - this.motY * (double) f3, this.locZ - this.motZ * (double) f3, this.motX, this.motY, this.motZ);
@@ -328,7 +328,7 @@ public class EntityArrow extends Entity implements IProjectile {
             this.motZ *= (double) f4;
             this.motY -= (double) f1;
             this.setPosition(this.locX, this.locY, this.locZ);
-            this.C();
+            this.D();
         }
     }
 
@@ -395,7 +395,7 @@ public class EntityArrow extends Entity implements IProjectile {
         this.aw = i;
     }
 
-    public boolean ap() {
+    public boolean aq() {
         return false;
     }
 

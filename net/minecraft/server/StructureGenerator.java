@@ -9,11 +9,15 @@ import java.util.concurrent.Callable;
 
 public abstract class StructureGenerator extends WorldGenBase {
 
+    private WorldGenFeature e;
     protected Map d = new HashMap();
 
     public StructureGenerator() {}
 
-    protected void a(World world, int i, int j, int k, int l, byte[] abyte) {
+    public abstract String a();
+
+    protected final void a(World world, int i, int j, int k, int l, byte[] abyte) {
+        this.a(world);
         if (!this.d.containsKey(Long.valueOf(ChunkCoordIntPair.a(i, j)))) {
             this.b.nextInt();
 
@@ -22,6 +26,7 @@ public abstract class StructureGenerator extends WorldGenBase {
                     StructureStart structurestart = this.b(i, j);
 
                     this.d.put(Long.valueOf(ChunkCoordIntPair.a(i, j)), structurestart);
+                    this.a(i, j, structurestart);
                 }
             } catch (Throwable throwable) {
                 CrashReport crashreport = CrashReport.a(throwable, "Exception preparing structure feature");
@@ -37,6 +42,7 @@ public abstract class StructureGenerator extends WorldGenBase {
     }
 
     public boolean a(World world, Random random, int i, int j) {
+        this.a(world);
         int k = (i << 4) + 8;
         int l = (j << 4) + 8;
         boolean flag = false;
@@ -48,13 +54,19 @@ public abstract class StructureGenerator extends WorldGenBase {
             if (structurestart.d() && structurestart.a().a(k, l, k + 15, l + 15)) {
                 structurestart.a(world, random, new StructureBoundingBox(k, l, k + 15, l + 15));
                 flag = true;
+                this.a(structurestart.e(), structurestart.f(), structurestart);
             }
         }
 
         return flag;
     }
 
-    public boolean a(int i, int j, int k) {
+    public boolean b(int i, int j, int k) {
+        this.a(this.c);
+        return this.c(i, j, k) != null;
+    }
+
+    protected StructureStart c(int i, int j, int k) {
         Iterator iterator = this.d.values().iterator();
 
         while (iterator.hasNext()) {
@@ -66,17 +78,18 @@ public abstract class StructureGenerator extends WorldGenBase {
                 while (iterator1.hasNext()) {
                     StructurePiece structurepiece = (StructurePiece) iterator1.next();
 
-                    if (structurepiece.b().b(i, j, k)) {
-                        return true;
+                    if (structurepiece.c().b(i, j, k)) {
+                        return structurestart;
                     }
                 }
             }
         }
 
-        return false;
+        return null;
     }
 
-    public boolean b(int i, int j, int k) {
+    public boolean d(int i, int j, int k) {
+        this.a(this.c);
         Iterator iterator = this.d.values().iterator();
 
         StructureStart structurestart;
@@ -94,6 +107,7 @@ public abstract class StructureGenerator extends WorldGenBase {
 
     public ChunkPosition getNearestGeneratedFeature(World world, int i, int j, int k) {
         this.c = world;
+        this.a(world);
         this.b.setSeed(world.getSeed());
         long l = this.b.nextLong();
         long i1 = this.b.nextLong();
@@ -160,6 +174,40 @@ public abstract class StructureGenerator extends WorldGenBase {
 
     protected List p_() {
         return null;
+    }
+
+    private void a(World world) {
+        if (this.e == null) {
+            this.e = (WorldGenFeature) world.a(WorldGenFeature.class, this.a());
+            if (this.e == null) {
+                this.e = new WorldGenFeature(this.a());
+                world.a(this.a(), (WorldMapBase) this.e);
+            } else {
+                NBTTagCompound nbttagcompound = this.e.a();
+                Iterator iterator = nbttagcompound.c().iterator();
+
+                while (iterator.hasNext()) {
+                    NBTBase nbtbase = (NBTBase) iterator.next();
+
+                    if (nbtbase.getTypeId() == 10) {
+                        NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbtbase;
+
+                        if (nbttagcompound1.hasKey("ChunkX") && nbttagcompound1.hasKey("ChunkZ")) {
+                            int i = nbttagcompound1.getInt("ChunkX");
+                            int j = nbttagcompound1.getInt("ChunkZ");
+                            StructureStart structurestart = WorldGenFactory.a(nbttagcompound1, world);
+
+                            this.d.put(Long.valueOf(ChunkCoordIntPair.a(i, j)), structurestart);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void a(int i, int j, StructureStart structurestart) {
+        this.e.a(structurestart.a(i, j), i, j);
+        this.e.c();
     }
 
     protected abstract boolean a(int i, int j);

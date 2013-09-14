@@ -26,7 +26,7 @@ public class PathfinderGoalBeg extends PathfinderGoal {
 
     public void c() {
         this.a.m(true);
-        this.e = 40 + this.a.aC().nextInt(40);
+        this.e = 40 + this.a.aD().nextInt(40);
     }
 
     public void d() {

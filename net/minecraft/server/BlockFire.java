@@ -73,7 +73,7 @@ public class BlockFire extends Block {
                 world.setAir(i, j, k);
             }
 
-            if (!flag && world.Q() && (world.F(i, j, k) || world.F(i - 1, j, k) || world.F(i + 1, j, k) || world.F(i, j, k - 1) || world.F(i, j, k + 1))) {
+            if (!flag && world.Q() && (world.isRainingAt(i, j, k) || world.isRainingAt(i - 1, j, k) || world.isRainingAt(i + 1, j, k) || world.isRainingAt(i, j, k - 1) || world.isRainingAt(i, j, k + 1))) {
                 world.setAir(i, j, k);
             } else {
                 int l = world.getData(i, j, k);
@@ -123,7 +123,7 @@ public class BlockFire extends Block {
                                             j2 /= 2;
                                         }
 
-                                        if (j2 > 0 && random.nextInt(l1) <= j2 && (!world.Q() || !world.F(i1, k1, j1)) && !world.F(i1 - 1, k1, k) && !world.F(i1 + 1, k1, j1) && !world.F(i1, k1, j1 - 1) && !world.F(i1, k1, j1 + 1)) {
+                                        if (j2 > 0 && random.nextInt(l1) <= j2 && (!world.Q() || !world.isRainingAt(i1, k1, j1)) && !world.isRainingAt(i1 - 1, k1, k) && !world.isRainingAt(i1 + 1, k1, j1) && !world.isRainingAt(i1, k1, j1 - 1) && !world.isRainingAt(i1, k1, j1 + 1)) {
                                             int k2 = l + random.nextInt(5) / 4;
 
                                             if (k2 > 15) {
@@ -152,7 +152,7 @@ public class BlockFire extends Block {
         if (random.nextInt(l) < j1) {
             boolean flag = world.getTypeId(i, j, k) == Block.TNT.id;
 
-            if (random.nextInt(i1 + 10) < 5 && !world.F(i, j, k)) {
+            if (random.nextInt(i1 + 10) < 5 && !world.isRainingAt(i, j, k)) {
                 int k1 = i1 + random.nextInt(5) / 4;
 
                 if (k1 > 15) {

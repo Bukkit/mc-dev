@@ -53,10 +53,10 @@ public class BlockTNT extends Block {
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
-        if (entityhuman.bx() != null && entityhuman.bx().id == Item.FLINT_AND_STEEL.id) {
+        if (entityhuman.by() != null && entityhuman.by().id == Item.FLINT_AND_STEEL.id) {
             this.a(world, i, j, k, 1, entityhuman);
             world.setAir(i, j, k);
-            entityhuman.bx().damage(1, entityhuman);
+            entityhuman.by().damage(1, entityhuman);
             return true;
         } else {
             return super.interact(world, i, j, k, entityhuman, l, f, f1, f2);

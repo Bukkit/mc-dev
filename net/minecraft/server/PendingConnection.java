@@ -55,23 +55,27 @@ public class PendingConnection extends Connection {
     }
 
     public void a(Packet2Handshake packet2handshake) {
-        this.g = packet2handshake.f();
-        if (!this.g.equals(StripColor.a(this.g))) {
-            this.disconnect("Invalid username!");
+        if (this.g != null) {
+            this.disconnect("Quit repeating yourself!");
         } else {
-            PublicKey publickey = this.server.H().getPublic();
-
-            if (packet2handshake.d() != 74) {
-                if (packet2handshake.d() > 74) {
-                    this.disconnect("Outdated server!");
-                } else {
-                    this.disconnect("Outdated client!");
-                }
+            this.g = packet2handshake.f();
+            if (!this.g.equals(StripColor.a(this.g))) {
+                this.disconnect("Invalid username!");
             } else {
-                this.loginKey = this.server.getOnlineMode() ? Long.toString(random.nextLong(), 16) : "-";
-                this.d = new byte[4];
-                random.nextBytes(this.d);
-                this.networkManager.queue(new Packet253KeyRequest(this.loginKey, publickey, this.d));
+                PublicKey publickey = this.server.H().getPublic();
+
+                if (packet2handshake.d() != 78) {
+                    if (packet2handshake.d() > 78) {
+                        this.disconnect("Outdated server!");
+                    } else {
+                        this.disconnect("Outdated client!");
+                    }
+                } else {
+                    this.loginKey = this.server.getOnlineMode() ? Long.toString(random.nextLong(), 16) : "-";
+                    this.d = new byte[4];
+                    random.nextBytes(this.d);
+                    this.networkManager.queue(new Packet253KeyRequest(this.loginKey, publickey, this.d));
+                }
             }
         }
     }
@@ -134,7 +138,7 @@ public class PendingConnection extends Connection {
             if (packet254getinfo.d()) {
                 s = this.server.getMotd() + "\u00A7" + playerlist.getPlayerCount() + "\u00A7" + playerlist.getMaxPlayers();
             } else {
-                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(74), this.server.getVersion(), this.server.getMotd(), Integer.valueOf(playerlist.getPlayerCount()), Integer.valueOf(playerlist.getMaxPlayers())});
+                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(78), this.server.getVersion(), this.server.getMotd(), Integer.valueOf(playerlist.getPlayerCount()), Integer.valueOf(playerlist.getMaxPlayers())});
 
                 Object object;
 

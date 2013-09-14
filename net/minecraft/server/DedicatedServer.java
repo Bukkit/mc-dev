@@ -32,7 +32,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
 
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
-        this.getLogger().info("Starting minecraft server version 1.6.2");
+        this.getLogger().info("Starting minecraft server version 1.6.4");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
             this.getLogger().warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
         }
@@ -53,6 +53,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         this.setTexturePack(this.propertyManager.getString("texture-pack", ""));
         this.setMotd(this.propertyManager.getString("motd", "A Minecraft Server"));
         this.setForceGamemode(this.propertyManager.getBoolean("force-gamemode", false));
+        this.e(this.propertyManager.getInt("player-idle-timeout", 0));
         if (this.propertyManager.getInt("difficulty", 1) < 0) {
             this.propertyManager.a("difficulty", Integer.valueOf(0));
         } else if (this.propertyManager.getInt("difficulty", 1) > 3) {
@@ -167,7 +168,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
 
     protected void a(CrashReport crashreport) {
         while (this.isRunning()) {
-            this.ar();
+            this.as();
 
             try {
                 Thread.sleep(10L);
@@ -190,7 +191,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
 
     protected void t() {
         super.t();
-        this.ar();
+        this.as();
     }
 
     public boolean getAllowNether() {
@@ -202,8 +203,8 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
     }
 
     public void a(MojangStatisticsGenerator mojangstatisticsgenerator) {
-        mojangstatisticsgenerator.a("whitelist_enabled", Boolean.valueOf(this.as().getHasWhitelist()));
-        mojangstatisticsgenerator.a("whitelist_count", Integer.valueOf(this.as().getWhitelisted().size()));
+        mojangstatisticsgenerator.a("whitelist_enabled", Boolean.valueOf(this.at().getHasWhitelist()));
+        mojangstatisticsgenerator.a("whitelist_count", Integer.valueOf(this.at().getWhitelisted().size()));
         super.a(mojangstatisticsgenerator);
     }
 
@@ -215,7 +216,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         this.l.add(new ServerCommand(s, icommandlistener));
     }
 
-    public void ar() {
+    public void as() {
         while (!this.l.isEmpty()) {
             ServerCommand servercommand = (ServerCommand) this.l.remove(0);
 
@@ -227,7 +228,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         return true;
     }
 
-    public DedicatedPlayerList as() {
+    public DedicatedPlayerList at() {
         return (DedicatedPlayerList) super.getPlayerList();
     }
 
@@ -261,7 +262,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         return file1 != null ? file1.getAbsolutePath() : "No settings file";
     }
 
-    public void at() {
+    public void au() {
         ServerGUI.a(this);
         this.t = true;
     }
@@ -285,9 +286,9 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
     public boolean a(World world, int i, int j, int k, EntityHuman entityhuman) {
         if (world.worldProvider.dimension != 0) {
             return false;
-        } else if (this.as().getOPs().isEmpty()) {
+        } else if (this.at().getOPs().isEmpty()) {
             return false;
-        } else if (this.as().isOp(entityhuman.getName())) {
+        } else if (this.at().isOp(entityhuman.getName())) {
             return false;
         } else if (this.getSpawnProtection() <= 0) {
             return false;
@@ -309,7 +310,13 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         return this.propertyManager.getInt("op-permission-level", 4);
     }
 
+    public void e(int i) {
+        super.e(i);
+        this.propertyManager.a("player-idle-timeout", Integer.valueOf(i));
+        this.a();
+    }
+
     public PlayerList getPlayerList() {
-        return this.as();
+        return this.at();
     }
 }

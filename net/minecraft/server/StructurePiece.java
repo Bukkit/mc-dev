@@ -10,20 +10,47 @@ public abstract class StructurePiece {
     protected int g;
     protected int h;
 
+    public StructurePiece() {}
+
     protected StructurePiece(int i) {
         this.h = i;
         this.g = -1;
     }
 
+    public NBTTagCompound b() {
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+
+        nbttagcompound.setString("id", WorldGenFactory.a(this));
+        nbttagcompound.set("BB", this.f.a("BB"));
+        nbttagcompound.setInt("O", this.g);
+        nbttagcompound.setInt("GD", this.h);
+        this.a(nbttagcompound);
+        return nbttagcompound;
+    }
+
+    protected abstract void a(NBTTagCompound nbttagcompound);
+
+    public void a(World world, NBTTagCompound nbttagcompound) {
+        if (nbttagcompound.hasKey("BB")) {
+            this.f = new StructureBoundingBox(nbttagcompound.getIntArray("BB"));
+        }
+
+        this.g = nbttagcompound.getInt("O");
+        this.h = nbttagcompound.getInt("GD");
+        this.b(nbttagcompound);
+    }
+
+    protected abstract void b(NBTTagCompound nbttagcompound);
+
     public void a(StructurePiece structurepiece, List list, Random random) {}
 
     public abstract boolean a(World world, Random random, StructureBoundingBox structureboundingbox);
 
-    public StructureBoundingBox b() {
+    public StructureBoundingBox c() {
         return this.f;
     }
 
-    public int c() {
+    public int d() {
         return this.h;
     }
 
@@ -38,7 +65,7 @@ public abstract class StructurePiece {
             }
 
             structurepiece = (StructurePiece) iterator.next();
-        } while (structurepiece.b() == null || !structurepiece.b().a(structureboundingbox));
+        } while (structurepiece.c() == null || !structurepiece.c().a(structureboundingbox));
 
         return structurepiece;
     }

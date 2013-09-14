@@ -7,6 +7,8 @@ public class WorldGenNetherPiece2 extends WorldGenNetherPiece {
 
     private int b;
 
+    public WorldGenNetherPiece2() {}
+
     public WorldGenNetherPiece2(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
         this.g = j;
@@ -18,6 +20,16 @@ public class WorldGenNetherPiece2 extends WorldGenNetherPiece {
         StructureBoundingBox structureboundingbox = StructureBoundingBox.a(i, j, k, -1, -3, 0, 5, 10, 8, l);
 
         return a(structureboundingbox) && StructurePiece.a(list, structureboundingbox) == null ? new WorldGenNetherPiece2(i1, random, structureboundingbox, l) : null;
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.b = nbttagcompound.getInt("Seed");
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setInt("Seed", this.b);
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {

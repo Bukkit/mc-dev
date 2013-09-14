@@ -59,14 +59,14 @@ public abstract class EntityMinecartAbstract extends Entity {
     }
 
     public AxisAlignedBB g(Entity entity) {
-        return entity.L() ? entity.boundingBox : null;
+        return entity.M() ? entity.boundingBox : null;
     }
 
-    public AxisAlignedBB D() {
+    public AxisAlignedBB E() {
         return null;
     }
 
-    public boolean L() {
+    public boolean M() {
         return true;
     }
 
@@ -81,7 +81,7 @@ public abstract class EntityMinecartAbstract extends Entity {
         this.lastZ = d2;
     }
 
-    public double X() {
+    public double Y() {
         return (double) this.length * 0.0D - 0.30000001192092896D;
     }
 
@@ -92,7 +92,7 @@ public abstract class EntityMinecartAbstract extends Entity {
             } else {
                 this.h(-this.k());
                 this.c(10);
-                this.J();
+                this.K();
                 this.setDamage(this.getDamage() + f * 10.0F);
                 boolean flag = damagesource.getEntity() instanceof EntityHuman && ((EntityHuman) damagesource.getEntity()).abilities.canInstantlyBuild;
 
@@ -126,7 +126,7 @@ public abstract class EntityMinecartAbstract extends Entity {
         this.a(itemstack, 0.0F);
     }
 
-    public boolean K() {
+    public boolean L() {
         return !this.dead;
     }
 
@@ -151,7 +151,7 @@ public abstract class EntityMinecartAbstract extends Entity {
         }
 
         if (this.locY < -64.0D) {
-            this.B();
+            this.C();
         }
 
         int i;
@@ -160,12 +160,12 @@ public abstract class EntityMinecartAbstract extends Entity {
             this.world.methodProfiler.a("portal");
             MinecraftServer minecraftserver = ((WorldServer) this.world).getMinecraftServer();
 
-            i = this.y();
+            i = this.z();
             if (this.ap) {
                 if (minecraftserver.getAllowNether()) {
                     if (this.vehicle == null && this.aq++ >= i) {
                         this.aq = i;
-                        this.portalCooldown = this.ab();
+                        this.portalCooldown = this.ac();
                         byte b0;
 
                         if (this.world.worldProvider.dimension == -1) {
@@ -241,7 +241,7 @@ public abstract class EntityMinecartAbstract extends Entity {
                 this.b(d4);
             }
 
-            this.C();
+            this.D();
             this.pitch = 0.0F;
             double d6 = this.lastX - this.locX;
             double d7 = this.lastZ - this.locZ;
@@ -267,7 +267,7 @@ public abstract class EntityMinecartAbstract extends Entity {
                 for (int j1 = 0; j1 < list.size(); ++j1) {
                     Entity entity = (Entity) list.get(j1);
 
-                    if (entity != this.passenger && entity.L() && entity instanceof EntityMinecartAbstract) {
+                    if (entity != this.passenger && entity.M() && entity instanceof EntityMinecartAbstract) {
                         entity.collide(this);
                     }
                 }

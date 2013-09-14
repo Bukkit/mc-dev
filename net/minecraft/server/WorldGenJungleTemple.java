@@ -12,8 +12,26 @@ public class WorldGenJungleTemple extends WorldGenScatteredPiece {
     private static final StructurePieceTreasure[] m = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.ARROW.id, 0, 2, 7, 30)};
     private static WorldGenJungleTemplePiece n = new WorldGenJungleTemplePiece((WorldGenJungleTempleUnknown) null);
 
+    public WorldGenJungleTemple() {}
+
     public WorldGenJungleTemple(Random random, int i, int j) {
         super(random, i, 64, j, 12, 10, 15);
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setBoolean("placedMainChest", this.e);
+        nbttagcompound.setBoolean("placedHiddenChest", this.i);
+        nbttagcompound.setBoolean("placedTrap1", this.j);
+        nbttagcompound.setBoolean("placedTrap2", this.k);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.e = nbttagcompound.getBoolean("placedMainChest");
+        this.i = nbttagcompound.getBoolean("placedHiddenChest");
+        this.j = nbttagcompound.getBoolean("placedTrap1");
+        this.k = nbttagcompound.getBoolean("placedTrap2");
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {

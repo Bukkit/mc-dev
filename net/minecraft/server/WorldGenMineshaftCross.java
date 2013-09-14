@@ -5,8 +5,20 @@ import java.util.Random;
 
 public class WorldGenMineshaftCross extends StructurePiece {
 
-    private final int a;
-    private final boolean b;
+    private int a;
+    private boolean b;
+
+    public WorldGenMineshaftCross() {}
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        nbttagcompound.setBoolean("tf", this.b);
+        nbttagcompound.setInt("D", this.a);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        this.b = nbttagcompound.getBoolean("tf");
+        this.a = nbttagcompound.getInt("D");
+    }
 
     public WorldGenMineshaftCross(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
@@ -51,7 +63,7 @@ public class WorldGenMineshaftCross extends StructurePiece {
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
-        int i = this.c();
+        int i = this.d();
 
         switch (this.a) {
         case 0:

@@ -6,8 +6,9 @@ import java.util.Random;
 public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
 
     private static final StructurePieceTreasure[] a = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.DIAMOND.id, 0, 1, 3, 3), new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 5, 10), new StructurePieceTreasure(Item.GOLD_INGOT.id, 0, 1, 3, 5), new StructurePieceTreasure(Item.BREAD.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.APPLE.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.IRON_PICKAXE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_SWORD.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_CHESTPLATE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_HELMET.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_LEGGINGS.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_BOOTS.id, 0, 1, 1, 5), new StructurePieceTreasure(Block.OBSIDIAN.id, 0, 3, 7, 5), new StructurePieceTreasure(Block.SAPLING.id, 0, 3, 7, 5), new StructurePieceTreasure(Item.SADDLE.id, 0, 1, 1, 3), new StructurePieceTreasure(Item.HORSE_ARMOR_IRON.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.HORSE_ARMOR_GOLD.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.HORSE_ARMOR_DIAMOND.id, 0, 1, 1, 1)};
-    private int b = -1;
-    private boolean c;
+    private boolean b;
+
+    public WorldGenVillageBlacksmith() {}
 
     public WorldGenVillageBlacksmith(WorldGenVillageStartPiece worldgenvillagestartpiece, int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(worldgenvillagestartpiece, i);
@@ -21,14 +22,24 @@ public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
         return a(structureboundingbox) && StructurePiece.a(list, structureboundingbox) == null ? new WorldGenVillageBlacksmith(worldgenvillagestartpiece, i1, random, structureboundingbox, l) : null;
     }
 
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setBoolean("Chest", this.b);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.b = nbttagcompound.getBoolean("Chest");
+    }
+
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
-        if (this.b < 0) {
-            this.b = this.b(world, structureboundingbox);
-            if (this.b < 0) {
+        if (this.k < 0) {
+            this.k = this.b(world, structureboundingbox);
+            if (this.k < 0) {
                 return true;
             }
 
-            this.f.a(0, this.b - this.f.e + 6 - 1, 0);
+            this.f.a(0, this.k - this.f.e + 6 - 1, 0);
         }
 
         this.a(world, structureboundingbox, 0, 1, 0, 9, 4, 6, 0, 0, false);
@@ -69,13 +80,13 @@ public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
         int i;
         int j;
 
-        if (!this.c) {
+        if (!this.b) {
             i = this.a(1);
             j = this.a(5, 5);
             int k = this.b(5, 5);
 
             if (structureboundingbox.b(j, i, k)) {
-                this.c = true;
+                this.b = true;
                 this.a(world, structureboundingbox, random, 5, 1, 5, a, 3 + random.nextInt(6));
             }
         }

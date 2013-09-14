@@ -49,7 +49,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         this.goalSelector.a(6, new PathfinderGoalRandomStroll(this, 0.7D));
         this.goalSelector.a(7, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 6.0F));
         this.goalSelector.a(8, new PathfinderGoalRandomLookaround(this));
-        this.cH();
+        this.loadChest();
     }
 
     protected void a() {
@@ -233,7 +233,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
     }
 
     public int t(int i) {
-        int j = MathHelper.a(this.getTemper() + i, 0, this.cq());
+        int j = MathHelper.a(this.getTemper() + i, 0, this.getMaxDomestication());
 
         this.setTemper(j);
         return j;
@@ -245,11 +245,11 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         return this.passenger != null && this.passenger.equals(entity) ? false : super.damageEntity(damagesource, f);
     }
 
-    public int aP() {
+    public int aQ() {
         return by[this.cf()];
     }
 
-    public boolean L() {
+    public boolean M() {
         return this.passenger == null;
     }
 
@@ -302,7 +302,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         return this.hasChest() && (i == 1 || i == 2) ? 17 : 2;
     }
 
-    private void cH() {
+    private void loadChest() {
         InventoryHorseChest inventoryhorsechest = this.inventoryChest;
 
         this.inventoryChest = new InventoryHorseChest("HorseChest", this.cG());
@@ -379,7 +379,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         return this.getAttributeInstance(attributeJumpStrength).getValue();
     }
 
-    protected String aO() {
+    protected String aP() {
         this.cM();
         int i = this.getType();
 
@@ -393,7 +393,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         return i == 4 ? Item.BONE.id : (i == 3 ? (flag ? 0 : Item.ROTTEN_FLESH.id) : Item.LEATHER.id);
     }
 
-    protected String aN() {
+    protected String aO() {
         this.cM();
         if (this.random.nextInt(3) == 0) {
             this.cO();
@@ -410,7 +410,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
 
     protected String r() {
         this.cM();
-        if (this.random.nextInt(10) == 0 && !this.bb()) {
+        if (this.random.nextInt(10) == 0 && !this.bc()) {
             this.cO();
         }
 
@@ -455,9 +455,9 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         }
     }
 
-    protected void ay() {
-        super.ay();
-        this.aW().b(attributeJumpStrength);
+    protected void az() {
+        super.az();
+        this.aX().b(attributeJumpStrength);
         this.getAttributeInstance(GenericAttributes.a).setValue(53.0D);
         this.getAttributeInstance(GenericAttributes.d).setValue(0.22499999403953552D);
     }
@@ -466,11 +466,11 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         return 6;
     }
 
-    public int cq() {
+    public int getMaxDomestication() {
         return 100;
     }
 
-    protected float aZ() {
+    protected float ba() {
         return 0.8F;
     }
 
@@ -579,7 +579,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
                         flag = true;
                     }
 
-                    if (b1 > 0 && (flag || !this.isTame()) && b1 < this.cq()) {
+                    if (b1 > 0 && (flag || !this.isTame()) && b1 < this.getMaxDomestication()) {
                         flag = true;
                         this.t(b1);
                     }
@@ -602,7 +602,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
                     this.setHasChest(true);
                     this.makeSound("mob.chickenplop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     flag = true;
-                    this.cH();
+                    this.loadChest();
                 }
 
                 if (!flag && this.ca() && !this.co() && itemstack.id == Item.SADDLE.id) {
@@ -652,7 +652,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         return i == 2 || i == 1;
     }
 
-    protected boolean bb() {
+    protected boolean bc() {
         return this.passenger != null && this.co() ? true : this.cg() || this.ch();
     }
 
@@ -822,7 +822,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         String s = this.cp();
 
         if (s != null) {
-            this.makeSound(s, this.aZ(), this.ba());
+            this.makeSound(s, this.ba(), this.bb());
         }
     }
 
@@ -888,7 +888,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
             }
 
             this.Y = 1.0F;
-            this.aR = this.bf() * 0.1F;
+            this.aR = this.bg() * 0.1F;
             if (!this.world.isStatic) {
                 this.i((float) this.getAttributeInstance(GenericAttributes.d).getValue());
                 super.e(f, f1);
@@ -969,7 +969,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
             this.setOwnerName(nbttagcompound.getString("OwnerName"));
         }
 
-        AttributeInstance attributeinstance = this.aW().a("Speed");
+        AttributeInstance attributeinstance = this.aX().a("Speed");
 
         if (attributeinstance != null) {
             this.getAttributeInstance(GenericAttributes.d).setValue(attributeinstance.b() * 0.25D);
@@ -978,7 +978,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         if (this.hasChest()) {
             NBTTagList nbttaglist = nbttagcompound.getList("Items");
 
-            this.cH();
+            this.loadChest();
 
             for (int i = 0; i < nbttaglist.size(); ++i) {
                 NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.get(i);
@@ -1132,7 +1132,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         return (GroupDataEntity) object;
     }
 
-    protected boolean be() {
+    protected boolean bf() {
         return true;
     }
 
@@ -1153,15 +1153,15 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         }
     }
 
-    public void V() {
-        super.V();
+    public void W() {
+        super.W();
         if (this.bM > 0.0F) {
             float f = MathHelper.sin(this.aN * 3.1415927F / 180.0F);
             float f1 = MathHelper.cos(this.aN * 3.1415927F / 180.0F);
             float f2 = 0.7F * this.bM;
             float f3 = 0.15F * this.bM;
 
-            this.passenger.setPosition(this.locX + (double) (f2 * f), this.locY + this.X() + this.passenger.W() + (double) f3, this.locZ - (double) (f2 * f1));
+            this.passenger.setPosition(this.locX + (double) (f2 * f), this.locY + this.Y() + this.passenger.X() + (double) f3, this.locZ - (double) (f2 * f1));
             if (this.passenger instanceof EntityLiving) {
                 ((EntityLiving) this.passenger).aN = this.aN;
             }

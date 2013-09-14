@@ -184,7 +184,7 @@ public class Navigation {
     }
 
     private int k() {
-        if (this.a.G() && this.m) {
+        if (this.a.H() && this.m) {
             int i = (int) this.a.boundingBox.b;
             int j = this.b.getTypeId(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
             int k = 0;
@@ -210,7 +210,7 @@ public class Navigation {
     }
 
     private boolean m() {
-        return this.a.G() || this.a.I();
+        return this.a.H() || this.a.J();
     }
 
     private void n() {
@@ -311,7 +311,7 @@ public class Navigation {
 
                         Material material = Block.byId[k2].material;
 
-                        if (material == Material.WATER && !this.a.G()) {
+                        if (material == Material.WATER && !this.a.H()) {
                             return false;
                         }
 

@@ -41,7 +41,7 @@ public class BlockPressurePlateBinary extends BlockPressurePlateAbstract {
             while (iterator.hasNext()) {
                 Entity entity = (Entity) iterator.next();
 
-                if (!entity.at()) {
+                if (!entity.au()) {
                     return 15;
                 }
             }

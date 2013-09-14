@@ -17,36 +17,36 @@ public class EntityBat extends EntityAmbient {
         this.datawatcher.a(16, new Byte((byte) 0));
     }
 
-    protected float aZ() {
+    protected float ba() {
         return 0.1F;
     }
 
-    protected float ba() {
-        return super.ba() * 0.95F;
+    protected float bb() {
+        return super.bb() * 0.95F;
     }
 
     protected String r() {
         return this.bJ() && this.random.nextInt(4) != 0 ? null : "mob.bat.idle";
     }
 
-    protected String aN() {
+    protected String aO() {
         return "mob.bat.hurt";
     }
 
-    protected String aO() {
+    protected String aP() {
         return "mob.bat.death";
     }
 
-    public boolean L() {
+    public boolean M() {
         return false;
     }
 
     protected void n(Entity entity) {}
 
-    protected void bi() {}
+    protected void bj() {}
 
-    protected void ay() {
-        super.ay();
+    protected void az() {
+        super.az();
         this.getAttributeInstance(GenericAttributes.a).setValue(6.0D);
     }
 
@@ -64,7 +64,7 @@ public class EntityBat extends EntityAmbient {
         }
     }
 
-    protected boolean be() {
+    protected boolean bf() {
         return true;
     }
 
@@ -78,8 +78,8 @@ public class EntityBat extends EntityAmbient {
         }
     }
 
-    protected void bh() {
-        super.bh();
+    protected void bi() {
+        super.bi();
         if (this.bJ()) {
             if (!this.world.u(MathHelper.floor(this.locX), (int) this.locY + 1, MathHelper.floor(this.locZ))) {
                 this.a(false);
@@ -129,7 +129,7 @@ public class EntityBat extends EntityAmbient {
 
     protected void a(double d0, boolean flag) {}
 
-    public boolean at() {
+    public boolean au() {
         return true;
     }
 

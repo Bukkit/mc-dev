@@ -5,13 +5,25 @@ import java.util.Random;
 
 public class WorldGenStrongholdCorridor extends WorldGenStrongholdPiece {
 
-    private final int a;
+    private int a;
+
+    public WorldGenStrongholdCorridor() {}
 
     public WorldGenStrongholdCorridor(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
         this.g = j;
         this.f = structureboundingbox;
         this.a = j != 2 && j != 0 ? structureboundingbox.b() : structureboundingbox.d();
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setInt("Steps", this.a);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.a = nbttagcompound.getInt("Steps");
     }
 
     public static StructureBoundingBox a(List list, Random random, int i, int j, int k, int l) {
@@ -22,10 +34,10 @@ public class WorldGenStrongholdCorridor extends WorldGenStrongholdPiece {
         if (structurepiece == null) {
             return null;
         } else {
-            if (structurepiece.b().b == structureboundingbox.b) {
+            if (structurepiece.c().b == structureboundingbox.b) {
                 for (int i1 = 3; i1 >= 1; --i1) {
                     structureboundingbox = StructureBoundingBox.a(i, j, k, -1, -1, 0, 5, 5, i1 - 1, l);
-                    if (!structurepiece.b().a(structureboundingbox)) {
+                    if (!structurepiece.c().a(structureboundingbox)) {
                         return StructureBoundingBox.a(i, j, k, -1, -1, 0, 5, 5, i1, l);
                     }
                 }

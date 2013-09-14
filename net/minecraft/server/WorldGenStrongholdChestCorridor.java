@@ -6,14 +6,25 @@ import java.util.Random;
 public class WorldGenStrongholdChestCorridor extends WorldGenStrongholdPiece {
 
     private static final StructurePieceTreasure[] a = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.ENDER_PEARL.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.DIAMOND.id, 0, 1, 3, 3), new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 5, 10), new StructurePieceTreasure(Item.GOLD_INGOT.id, 0, 1, 3, 5), new StructurePieceTreasure(Item.REDSTONE.id, 0, 4, 9, 5), new StructurePieceTreasure(Item.BREAD.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.APPLE.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.IRON_PICKAXE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_SWORD.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_CHESTPLATE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_HELMET.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_LEGGINGS.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_BOOTS.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.GOLDEN_APPLE.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.SADDLE.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.HORSE_ARMOR_IRON.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.HORSE_ARMOR_GOLD.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.HORSE_ARMOR_DIAMOND.id, 0, 1, 1, 1)};
-    private final WorldGenStrongholdDoorType b;
-    private boolean c;
+    private boolean b;
+
+    public WorldGenStrongholdChestCorridor() {}
 
     public WorldGenStrongholdChestCorridor(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
         this.g = j;
-        this.b = this.a(random);
+        this.d = this.a(random);
         this.f = structureboundingbox;
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setBoolean("Chest", this.b);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.b = nbttagcompound.getBoolean("Chest");
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
@@ -30,8 +41,8 @@ public class WorldGenStrongholdChestCorridor extends WorldGenStrongholdPiece {
         if (this.a(world, structureboundingbox)) {
             return false;
         } else {
-            this.a(world, structureboundingbox, 0, 0, 0, 4, 4, 6, true, random, WorldGenStrongholdPieces.b());
-            this.a(world, random, structureboundingbox, this.b, 1, 1, 0);
+            this.a(world, structureboundingbox, 0, 0, 0, 4, 4, 6, true, random, WorldGenStrongholdPieces.c());
+            this.a(world, random, structureboundingbox, this.d, 1, 1, 0);
             this.a(world, random, structureboundingbox, WorldGenStrongholdDoorType.a, 1, 1, 6);
             this.a(world, structureboundingbox, 3, 1, 2, 3, 1, 4, Block.SMOOTH_BRICK.id, Block.SMOOTH_BRICK.id, false);
             this.a(world, Block.STEP.id, 5, 3, 1, 1, structureboundingbox);
@@ -45,13 +56,13 @@ public class WorldGenStrongholdChestCorridor extends WorldGenStrongholdPiece {
                 this.a(world, Block.STEP.id, 5, 2, 1, i, structureboundingbox);
             }
 
-            if (!this.c) {
+            if (!this.b) {
                 i = this.a(2);
                 int j = this.a(3, 3);
                 int k = this.b(3, 3);
 
                 if (structureboundingbox.b(j, i, k)) {
-                    this.c = true;
+                    this.b = true;
                     this.a(world, structureboundingbox, random, 3, 2, 3, StructurePieceTreasure.a(a, new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 2 + random.nextInt(2));
                 }
             }

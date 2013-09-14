@@ -7,10 +7,22 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
 
     private boolean a;
 
+    public WorldGenStrongholdPortalRoom() {}
+
     public WorldGenStrongholdPortalRoom(int i, Random random, StructureBoundingBox structureboundingbox, int j) {
         super(i);
         this.g = j;
         this.f = structureboundingbox;
+    }
+
+    protected void a(NBTTagCompound nbttagcompound) {
+        super.a(nbttagcompound);
+        nbttagcompound.setBoolean("Mob", this.a);
+    }
+
+    protected void b(NBTTagCompound nbttagcompound) {
+        super.b(nbttagcompound);
+        this.a = nbttagcompound.getBoolean("Mob");
     }
 
     public void a(StructurePiece structurepiece, List list, Random random) {
@@ -26,19 +38,19 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
-        this.a(world, structureboundingbox, 0, 0, 0, 10, 7, 15, false, random, WorldGenStrongholdPieces.b());
+        this.a(world, structureboundingbox, 0, 0, 0, 10, 7, 15, false, random, WorldGenStrongholdPieces.c());
         this.a(world, random, structureboundingbox, WorldGenStrongholdDoorType.c, 4, 1, 0);
         byte b0 = 6;
 
-        this.a(world, structureboundingbox, 1, b0, 1, 1, b0, 14, false, random, WorldGenStrongholdPieces.b());
-        this.a(world, structureboundingbox, 9, b0, 1, 9, b0, 14, false, random, WorldGenStrongholdPieces.b());
-        this.a(world, structureboundingbox, 2, b0, 1, 8, b0, 2, false, random, WorldGenStrongholdPieces.b());
-        this.a(world, structureboundingbox, 2, b0, 14, 8, b0, 14, false, random, WorldGenStrongholdPieces.b());
-        this.a(world, structureboundingbox, 1, 1, 1, 2, 1, 4, false, random, WorldGenStrongholdPieces.b());
-        this.a(world, structureboundingbox, 8, 1, 1, 9, 1, 4, false, random, WorldGenStrongholdPieces.b());
+        this.a(world, structureboundingbox, 1, b0, 1, 1, b0, 14, false, random, WorldGenStrongholdPieces.c());
+        this.a(world, structureboundingbox, 9, b0, 1, 9, b0, 14, false, random, WorldGenStrongholdPieces.c());
+        this.a(world, structureboundingbox, 2, b0, 1, 8, b0, 2, false, random, WorldGenStrongholdPieces.c());
+        this.a(world, structureboundingbox, 2, b0, 14, 8, b0, 14, false, random, WorldGenStrongholdPieces.c());
+        this.a(world, structureboundingbox, 1, 1, 1, 2, 1, 4, false, random, WorldGenStrongholdPieces.c());
+        this.a(world, structureboundingbox, 8, 1, 1, 9, 1, 4, false, random, WorldGenStrongholdPieces.c());
         this.a(world, structureboundingbox, 1, 1, 1, 1, 1, 3, Block.LAVA.id, Block.LAVA.id, false);
         this.a(world, structureboundingbox, 9, 1, 1, 9, 1, 3, Block.LAVA.id, Block.LAVA.id, false);
-        this.a(world, structureboundingbox, 3, 1, 8, 7, 1, 12, false, random, WorldGenStrongholdPieces.b());
+        this.a(world, structureboundingbox, 3, 1, 8, 7, 1, 12, false, random, WorldGenStrongholdPieces.c());
         this.a(world, structureboundingbox, 4, 1, 9, 6, 1, 11, Block.LAVA.id, Block.LAVA.id, false);
 
         int i;
@@ -53,9 +65,9 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
         }
 
         i = this.c(Block.STONE_STAIRS.id, 3);
-        this.a(world, structureboundingbox, 4, 1, 5, 6, 1, 7, false, random, WorldGenStrongholdPieces.b());
-        this.a(world, structureboundingbox, 4, 2, 6, 6, 2, 7, false, random, WorldGenStrongholdPieces.b());
-        this.a(world, structureboundingbox, 4, 3, 7, 6, 3, 7, false, random, WorldGenStrongholdPieces.b());
+        this.a(world, structureboundingbox, 4, 1, 5, 6, 1, 7, false, random, WorldGenStrongholdPieces.c());
+        this.a(world, structureboundingbox, 4, 2, 6, 6, 2, 7, false, random, WorldGenStrongholdPieces.c());
+        this.a(world, structureboundingbox, 4, 3, 7, 6, 3, 7, false, random, WorldGenStrongholdPieces.c());
 
         for (int j = 4; j <= 6; ++j) {
             this.a(world, Block.STONE_STAIRS.id, i, j, 1, 4, structureboundingbox);

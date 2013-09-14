@@ -10,6 +10,10 @@ public class WorldGenMineshaft extends StructureGenerator {
 
     public WorldGenMineshaft() {}
 
+    public String a() {
+        return "Mineshaft";
+    }
+
     public WorldGenMineshaft(Map map) {
         Iterator iterator = map.entrySet().iterator();
 

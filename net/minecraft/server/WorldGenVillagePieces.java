@@ -7,6 +7,22 @@ import java.util.Random;
 
 public class WorldGenVillagePieces {
 
+    public static void a() {
+        WorldGenFactory.a(WorldGenVillageLibrary.class, "ViBH");
+        WorldGenFactory.a(WorldGenVillageFarm2.class, "ViDF");
+        WorldGenFactory.a(WorldGenVillageFarm.class, "ViF");
+        WorldGenFactory.a(WorldGenVillageLight.class, "ViL");
+        WorldGenFactory.a(WorldGenVillageButcher.class, "ViPH");
+        WorldGenFactory.a(WorldGenVillageHouse.class, "ViSH");
+        WorldGenFactory.a(WorldGenVillageHut.class, "ViSmH");
+        WorldGenFactory.a(WorldGenVillageTemple.class, "ViST");
+        WorldGenFactory.a(WorldGenVillageBlacksmith.class, "ViS");
+        WorldGenFactory.a(WorldGenVillageStartPiece.class, "ViStart");
+        WorldGenFactory.a(WorldGenVillageRoad.class, "ViSR");
+        WorldGenFactory.a(WorldGenVillageHouse2.class, "ViTRH");
+        WorldGenFactory.a(WorldGenVillageWell.class, "ViW");
+    }
+
     public static List a(Random random, int i) {
         ArrayList arraylist = new ArrayList();
 
@@ -123,7 +139,7 @@ public class WorldGenVillagePieces {
     private static StructurePiece d(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
         if (i1 > 50) {
             return null;
-        } else if (Math.abs(i - worldgenvillagestartpiece.b().a) <= 112 && Math.abs(k - worldgenvillagestartpiece.b().c) <= 112) {
+        } else if (Math.abs(i - worldgenvillagestartpiece.c().a) <= 112 && Math.abs(k - worldgenvillagestartpiece.c().c) <= 112) {
             WorldGenVillagePiece worldgenvillagepiece = c(worldgenvillagestartpiece, list, random, i, j, k, l, i1 + 1);
 
             if (worldgenvillagepiece != null) {
@@ -133,7 +149,7 @@ public class WorldGenVillagePieces {
                 int i2 = worldgenvillagepiece.f.f - worldgenvillagepiece.f.c;
                 int j2 = l1 > i2 ? l1 : i2;
 
-                if (worldgenvillagestartpiece.d().a(j1, k1, j2 / 2 + 4, WorldGenVillage.e)) {
+                if (worldgenvillagestartpiece.e().a(j1, k1, j2 / 2 + 4, WorldGenVillage.e)) {
                     list.add(worldgenvillagepiece);
                     worldgenvillagestartpiece.i.add(worldgenvillagepiece);
                     return worldgenvillagepiece;
@@ -149,7 +165,7 @@ public class WorldGenVillagePieces {
     private static StructurePiece e(WorldGenVillageStartPiece worldgenvillagestartpiece, List list, Random random, int i, int j, int k, int l, int i1) {
         if (i1 > 3 + worldgenvillagestartpiece.c) {
             return null;
-        } else if (Math.abs(i - worldgenvillagestartpiece.b().a) <= 112 && Math.abs(k - worldgenvillagestartpiece.b().c) <= 112) {
+        } else if (Math.abs(i - worldgenvillagestartpiece.c().a) <= 112 && Math.abs(k - worldgenvillagestartpiece.c().c) <= 112) {
             StructureBoundingBox structureboundingbox = WorldGenVillageRoad.a(worldgenvillagestartpiece, list, random, i, j, k, l);
 
             if (structureboundingbox != null && structureboundingbox.b > 10) {
@@ -160,7 +176,7 @@ public class WorldGenVillagePieces {
                 int i2 = worldgenvillageroad.f.f - worldgenvillageroad.f.c;
                 int j2 = l1 > i2 ? l1 : i2;
 
-                if (worldgenvillagestartpiece.d().a(j1, k1, j2 / 2 + 4, WorldGenVillage.e)) {
+                if (worldgenvillagestartpiece.e().a(j1, k1, j2 / 2 + 4, WorldGenVillage.e)) {
                     list.add(worldgenvillageroad);
                     worldgenvillagestartpiece.j.add(worldgenvillageroad);
                     return worldgenvillageroad;

@@ -11,12 +11,12 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         super(world);
     }
 
-    protected void bj() {
+    protected void bk() {
         if (this.getAge() != 0) {
             this.love = 0;
         }
 
-        super.bj();
+        super.bk();
     }
 
     public void c() {
@@ -53,7 +53,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
             EntityHuman entityhuman = (EntityHuman) entity;
 
-            if (entityhuman.bx() == null || !this.c(entityhuman.bx())) {
+            if (entityhuman.by() == null || !this.c(entityhuman.by())) {
                 this.target = null;
             }
         } else if (entity instanceof EntityAnimal) {
@@ -121,7 +121,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
             return false;
         } else {
             this.bo = 60;
-            if (!this.be()) {
+            if (!this.bf()) {
                 AttributeInstance attributeinstance = this.getAttributeInstance(GenericAttributes.d);
 
                 if (attributeinstance.a(h) == null) {
@@ -173,7 +173,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 for (i = 0; i < list.size(); ++i) {
                     EntityHuman entityhuman = (EntityHuman) list.get(i);
 
-                    if (entityhuman.bx() != null && this.c(entityhuman.bx())) {
+                    if (entityhuman.by() != null && this.c(entityhuman.by())) {
                         return entityhuman;
                     }
                 }
