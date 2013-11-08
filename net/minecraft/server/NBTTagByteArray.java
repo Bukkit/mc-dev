@@ -6,14 +6,11 @@ import java.util.Arrays;
 
 public class NBTTagByteArray extends NBTBase {
 
-    public byte[] data;
+    private byte[] data;
 
-    public NBTTagByteArray(String s) {
-        super(s);
-    }
+    NBTTagByteArray() {}
 
-    public NBTTagByteArray(String s, byte[] abyte) {
-        super(s);
+    public NBTTagByteArray(byte[] abyte) {
         this.data = abyte;
     }
 
@@ -41,7 +38,7 @@ public class NBTTagByteArray extends NBTBase {
         byte[] abyte = new byte[this.data.length];
 
         System.arraycopy(this.data, 0, abyte, 0, this.data.length);
-        return new NBTTagByteArray(this.getName(), abyte);
+        return new NBTTagByteArray(abyte);
     }
 
     public boolean equals(Object object) {
@@ -50,5 +47,9 @@ public class NBTTagByteArray extends NBTBase {
 
     public int hashCode() {
         return super.hashCode() ^ Arrays.hashCode(this.data);
+    }
+
+    public byte[] c() {
+        return this.data;
     }
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 public class EnchantmentDurability extends Enchantment {
 
     protected EnchantmentDurability(int i, int j) {
-        super(i, j, EnchantmentSlotType.DIGGER);
+        super(i, j, EnchantmentSlotType.BREAKABLE);
         this.b("durability");
     }
 

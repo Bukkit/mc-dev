@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class GameRules {
@@ -47,7 +47,7 @@ public class GameRules {
     }
 
     public NBTTagCompound a() {
-        NBTTagCompound nbttagcompound = new NBTTagCompound("GameRules");
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
         Iterator iterator = this.a.keySet().iterator();
 
         while (iterator.hasNext()) {
@@ -61,13 +61,12 @@ public class GameRules {
     }
 
     public void a(NBTTagCompound nbttagcompound) {
-        Collection collection = nbttagcompound.c();
-        Iterator iterator = collection.iterator();
+        Set set = nbttagcompound.c();
+        Iterator iterator = set.iterator();
 
         while (iterator.hasNext()) {
-            NBTBase nbtbase = (NBTBase) iterator.next();
-            String s = nbtbase.getName();
-            String s1 = nbttagcompound.getString(nbtbase.getName());
+            String s = (String) iterator.next();
+            String s1 = nbttagcompound.getString(s);
 
             this.set(s, s1);
         }

@@ -2,38 +2,45 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-public class WorldGenForest extends WorldGenerator {
+public class WorldGenForest extends WorldGenTreeAbstract {
 
-    public WorldGenForest(boolean flag) {
+    private boolean a;
+
+    public WorldGenForest(boolean flag, boolean flag1) {
         super(flag);
+        this.a = flag1;
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
         int l = random.nextInt(3) + 5;
+
+        if (this.a) {
+            l += random.nextInt(7);
+        }
+
         boolean flag = true;
 
         if (j >= 1 && j + l + 1 <= 256) {
             int i1;
             int j1;
-            int k1;
-            int l1;
 
-            for (i1 = j; i1 <= j + 1 + l; ++i1) {
+            for (int k1 = j; k1 <= j + 1 + l; ++k1) {
                 byte b0 = 1;
 
-                if (i1 == j) {
+                if (k1 == j) {
                     b0 = 0;
                 }
 
-                if (i1 >= j + 1 + l - 2) {
+                if (k1 >= j + 1 + l - 2) {
                     b0 = 2;
                 }
 
-                for (j1 = i - b0; j1 <= i + b0 && flag; ++j1) {
-                    for (k1 = k - b0; k1 <= k + b0 && flag; ++k1) {
-                        if (i1 >= 0 && i1 < 256) {
-                            l1 = world.getTypeId(j1, i1, k1);
-                            if (l1 != 0 && l1 != Block.LEAVES.id) {
+                for (i1 = i - b0; i1 <= i + b0 && flag; ++i1) {
+                    for (j1 = k - b0; j1 <= k + b0 && flag; ++j1) {
+                        if (k1 >= 0 && k1 < 256) {
+                            Block block = world.getType(i1, k1, j1);
+
+                            if (!this.a(block)) {
                                 flag = false;
                             }
                         } else {
@@ -46,37 +53,39 @@ public class WorldGenForest extends WorldGenerator {
             if (!flag) {
                 return false;
             } else {
-                i1 = world.getTypeId(i, j - 1, k);
-                if ((i1 == Block.GRASS.id || i1 == Block.DIRT.id) && j < 256 - l - 1) {
-                    this.setType(world, i, j - 1, k, Block.DIRT.id);
+                Block block1 = world.getType(i, j - 1, k);
 
-                    int i2;
+                if ((block1 == Blocks.GRASS || block1 == Blocks.DIRT || block1 == Blocks.SOIL) && j < 256 - l - 1) {
+                    this.setType(world, i, j - 1, k, Blocks.DIRT);
 
-                    for (i2 = j - 3 + l; i2 <= j + l; ++i2) {
-                        j1 = i2 - (j + l);
-                        k1 = 1 - j1 / 2;
+                    int l1;
 
-                        for (l1 = i - k1; l1 <= i + k1; ++l1) {
-                            int j2 = l1 - i;
+                    for (l1 = j - 3 + l; l1 <= j + l; ++l1) {
+                        i1 = l1 - (j + l);
+                        j1 = 1 - i1 / 2;
 
-                            for (int k2 = k - k1; k2 <= k + k1; ++k2) {
+                        for (int i2 = i - j1; i2 <= i + j1; ++i2) {
+                            int j2 = i2 - i;
+
+                            for (int k2 = k - j1; k2 <= k + j1; ++k2) {
                                 int l2 = k2 - k;
 
-                                if (Math.abs(j2) != k1 || Math.abs(l2) != k1 || random.nextInt(2) != 0 && j1 != 0) {
-                                    int i3 = world.getTypeId(l1, i2, k2);
+                                if (Math.abs(j2) != j1 || Math.abs(l2) != j1 || random.nextInt(2) != 0 && i1 != 0) {
+                                    Block block2 = world.getType(i2, l1, k2);
 
-                                    if (i3 == 0 || i3 == Block.LEAVES.id) {
-                                        this.setTypeAndData(world, l1, i2, k2, Block.LEAVES.id, 2);
+                                    if (block2.getMaterial() == Material.AIR || block2.getMaterial() == Material.LEAVES) {
+                                        this.setTypeAndData(world, i2, l1, k2, Blocks.LEAVES, 2);
                                     }
                                 }
                             }
                         }
                     }
 
-                    for (i2 = 0; i2 < l; ++i2) {
-                        j1 = world.getTypeId(i, j + i2, k);
-                        if (j1 == 0 || j1 == Block.LEAVES.id) {
-                            this.setTypeAndData(world, i, j + i2, k, Block.LOG.id, 2);
+                    for (l1 = 0; l1 < l; ++l1) {
+                        Block block3 = world.getType(i, j + l1, k);
+
+                        if (block3.getMaterial() == Material.AIR || block3.getMaterial() == Material.LEAVES) {
+                            this.setTypeAndData(world, i, j + l1, k, Blocks.LOG, 2);
                         }
                     }
 

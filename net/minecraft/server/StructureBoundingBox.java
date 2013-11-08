@@ -130,7 +130,7 @@ public class StructureBoundingBox {
         return "(" + this.a + ", " + this.b + ", " + this.c + "; " + this.d + ", " + this.e + ", " + this.f + ")";
     }
 
-    public NBTTagIntArray a(String s) {
-        return new NBTTagIntArray(s, new int[] { this.a, this.b, this.c, this.d, this.e, this.f});
+    public NBTTagIntArray h() {
+        return new NBTTagIntArray(new int[] { this.a, this.b, this.c, this.d, this.e, this.f});
     }
 }

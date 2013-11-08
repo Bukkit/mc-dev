@@ -17,21 +17,16 @@ public class GenLayerIcePlains extends GenLayer {
 
         for (int i2 = 0; i2 < l; ++i2) {
             for (int j2 = 0; j2 < k; ++j2) {
-                int k2 = aint[j2 + 1 + (i2 + 1) * k1];
+                int k2 = aint[j2 + 1 + (i2 + 1 - 1) * (k + 2)];
+                int l2 = aint[j2 + 1 + 1 + (i2 + 1) * (k + 2)];
+                int i3 = aint[j2 + 1 - 1 + (i2 + 1) * (k + 2)];
+                int j3 = aint[j2 + 1 + (i2 + 1 + 1) * (k + 2)];
+                int k3 = aint[j2 + 1 + (i2 + 1) * k1];
 
+                aint1[j2 + i2 * k] = k3;
                 this.a((long) (j2 + i), (long) (i2 + j));
-                if (k2 == 0) {
-                    aint1[j2 + i2 * k] = 0;
-                } else {
-                    int l2 = this.a(5);
-
-                    if (l2 == 0) {
-                        l2 = BiomeBase.ICE_PLAINS.id;
-                    } else {
-                        l2 = 1;
-                    }
-
-                    aint1[j2 + i2 * k] = l2;
+                if (k3 == 0 && k2 == 0 && l2 == 0 && i3 == 0 && j3 == 0 && this.a(2) == 0) {
+                    aint1[j2 + i2 * k] = 1;
                 }
             }
         }

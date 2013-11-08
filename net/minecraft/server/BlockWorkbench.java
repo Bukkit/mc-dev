@@ -2,8 +2,8 @@ package net.minecraft.server;
 
 public class BlockWorkbench extends Block {
 
-    protected BlockWorkbench(int i) {
-        super(i, Material.WOOD);
+    protected BlockWorkbench() {
+        super(Material.WOOD);
         this.a(CreativeModeTab.c);
     }
 

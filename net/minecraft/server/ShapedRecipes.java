@@ -6,11 +6,9 @@ public class ShapedRecipes implements IRecipe {
     private int height;
     private ItemStack[] items;
     private ItemStack result;
-    public final int a;
-    private boolean f;
+    private boolean e;
 
     public ShapedRecipes(int i, int j, ItemStack[] aitemstack, ItemStack itemstack) {
-        this.a = itemstack.id;
         this.width = i;
         this.height = j;
         this.items = aitemstack;
@@ -59,7 +57,7 @@ public class ShapedRecipes implements IRecipe {
                         return false;
                     }
 
-                    if (itemstack.id != itemstack1.id) {
+                    if (itemstack.getItem() != itemstack1.getItem()) {
                         return false;
                     }
 
@@ -76,7 +74,7 @@ public class ShapedRecipes implements IRecipe {
     public ItemStack a(InventoryCrafting inventorycrafting) {
         ItemStack itemstack = this.b().cloneItemStack();
 
-        if (this.f) {
+        if (this.e) {
             for (int i = 0; i < inventorycrafting.getSize(); ++i) {
                 ItemStack itemstack1 = inventorycrafting.getItem(i);
 
@@ -94,7 +92,7 @@ public class ShapedRecipes implements IRecipe {
     }
 
     public ShapedRecipes c() {
-        this.f = true;
+        this.e = true;
         return this;
     }
 }

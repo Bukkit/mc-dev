@@ -5,7 +5,6 @@ import java.util.concurrent.Callable;
 class CrashReportEntityTrackerUpdateInterval implements Callable {
 
     final int a;
-
     final EntityTracker b;
 
     CrashReportEntityTrackerUpdateInterval(EntityTracker entitytracker, int i) {

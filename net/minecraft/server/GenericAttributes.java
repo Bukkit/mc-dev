@@ -4,8 +4,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.UUID;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class GenericAttributes {
 
+    private static final Logger f = LogManager.getLogger();
     public static final IAttribute a = (new AttributeRanged("generic.maxHealth", 20.0D, 0.0D, Double.MAX_VALUE)).a("Max Health").a(true);
     public static final IAttribute b = (new AttributeRanged("generic.followRange", 32.0D, 0.0D, 2048.0D)).a("Follow Range");
     public static final IAttribute c = (new AttributeRanged("generic.knockbackResistance", 0.0D, 0.0D, 1.0D)).a("Knockback Resistance");
@@ -62,26 +66,26 @@ public class GenericAttributes {
         return nbttagcompound;
     }
 
-    public static void a(AttributeMapBase attributemapbase, NBTTagList nbttaglist, IConsoleLogManager iconsolelogmanager) {
+    public static void a(AttributeMapBase attributemapbase, NBTTagList nbttaglist) {
         for (int i = 0; i < nbttaglist.size(); ++i) {
-            NBTTagCompound nbttagcompound = (NBTTagCompound) nbttaglist.get(i);
+            NBTTagCompound nbttagcompound = nbttaglist.get(i);
             AttributeInstance attributeinstance = attributemapbase.a(nbttagcompound.getString("Name"));
 
             if (attributeinstance != null) {
                 a(attributeinstance, nbttagcompound);
-            } else if (iconsolelogmanager != null) {
-                iconsolelogmanager.warning("Ignoring unknown attribute \'" + nbttagcompound.getString("Name") + "\'");
+            } else {
+                f.warn("Ignoring unknown attribute \'" + nbttagcompound.getString("Name") + "\'");
             }
         }
     }
 
     private static void a(AttributeInstance attributeinstance, NBTTagCompound nbttagcompound) {
         attributeinstance.setValue(nbttagcompound.getDouble("Base"));
-        if (nbttagcompound.hasKey("Modifiers")) {
-            NBTTagList nbttaglist = nbttagcompound.getList("Modifiers");
+        if (nbttagcompound.hasKeyOfType("Modifiers", 9)) {
+            NBTTagList nbttaglist = nbttagcompound.getList("Modifiers", 10);
 
             for (int i = 0; i < nbttaglist.size(); ++i) {
-                AttributeModifier attributemodifier = a((NBTTagCompound) nbttaglist.get(i));
+                AttributeModifier attributemodifier = a(nbttaglist.get(i));
                 AttributeModifier attributemodifier1 = attributeinstance.a(attributemodifier.a());
 
                 if (attributemodifier1 != null) {

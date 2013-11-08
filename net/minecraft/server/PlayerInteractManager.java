@@ -48,24 +48,21 @@ public class PlayerInteractManager {
 
     public void a() {
         ++this.currentTick;
-        int i;
         float f;
-        int j;
+        int i;
 
         if (this.j) {
-            i = this.currentTick - this.n;
-            int k = this.world.getTypeId(this.k, this.l, this.m);
+            int j = this.currentTick - this.n;
+            Block block = this.world.getType(this.k, this.l, this.m);
 
-            if (k == 0) {
+            if (block.getMaterial() == Material.AIR) {
                 this.j = false;
             } else {
-                Block block = Block.byId[k];
-
-                f = block.getDamage(this.player, this.player.world, this.k, this.l, this.m) * (float) (i + 1);
-                j = (int) (f * 10.0F);
-                if (j != this.o) {
-                    this.world.f(this.player.id, this.k, this.l, this.m, j);
-                    this.o = j;
+                f = block.getDamage(this.player, this.player.world, this.k, this.l, this.m) * (float) (j + 1);
+                i = (int) (f * 10.0F);
+                if (i != this.o) {
+                    this.world.d(this.player.getId(), this.k, this.l, this.m, i);
+                    this.o = i;
                 }
 
                 if (f >= 1.0F) {
@@ -74,21 +71,20 @@ public class PlayerInteractManager {
                 }
             }
         } else if (this.d) {
-            i = this.world.getTypeId(this.f, this.g, this.h);
-            Block block1 = Block.byId[i];
+            Block block1 = this.world.getType(this.f, this.g, this.h);
 
-            if (block1 == null) {
-                this.world.f(this.player.id, this.f, this.g, this.h, -1);
+            if (block1.getMaterial() == Material.AIR) {
+                this.world.d(this.player.getId(), this.f, this.g, this.h, -1);
                 this.o = -1;
                 this.d = false;
             } else {
-                int l = this.currentTick - this.lastDigTick;
+                int k = this.currentTick - this.lastDigTick;
 
-                f = block1.getDamage(this.player, this.player.world, this.f, this.g, this.h) * (float) (l + 1);
-                j = (int) (f * 10.0F);
-                if (j != this.o) {
-                    this.world.f(this.player.id, this.f, this.g, this.h, j);
-                    this.o = j;
+                f = block1.getDamage(this.player, this.player.world, this.f, this.g, this.h) * (float) (k + 1);
+                i = (int) (f * 10.0F);
+                if (i != this.o) {
+                    this.world.d(this.player.getId(), this.f, this.g, this.h, i);
+                    this.o = i;
                 }
             }
         }
@@ -104,24 +100,24 @@ public class PlayerInteractManager {
                 this.world.douseFire((EntityHuman) null, i, j, k, l);
                 this.lastDigTick = this.currentTick;
                 float f = 1.0F;
-                int i1 = this.world.getTypeId(i, j, k);
+                Block block = this.world.getType(i, j, k);
 
-                if (i1 > 0) {
-                    Block.byId[i1].attack(this.world, i, j, k, this.player);
-                    f = Block.byId[i1].getDamage(this.player, this.player.world, i, j, k);
+                if (block.getMaterial() != Material.AIR) {
+                    block.attack(this.world, i, j, k, this.player);
+                    f = block.getDamage(this.player, this.player.world, i, j, k);
                 }
 
-                if (i1 > 0 && f >= 1.0F) {
+                if (block.getMaterial() != Material.AIR && f >= 1.0F) {
                     this.breakBlock(i, j, k);
                 } else {
                     this.d = true;
                     this.f = i;
                     this.g = j;
                     this.h = k;
-                    int j1 = (int) (f * 10.0F);
+                    int i1 = (int) (f * 10.0F);
 
-                    this.world.f(this.player.id, i, j, k, j1);
-                    this.o = j1;
+                    this.world.d(this.player.getId(), i, j, k, i1);
+                    this.o = i1;
                 }
             }
         }
@@ -130,15 +126,14 @@ public class PlayerInteractManager {
     public void a(int i, int j, int k) {
         if (i == this.f && j == this.g && k == this.h) {
             int l = this.currentTick - this.lastDigTick;
-            int i1 = this.world.getTypeId(i, j, k);
+            Block block = this.world.getType(i, j, k);
 
-            if (i1 != 0) {
-                Block block = Block.byId[i1];
+            if (block.getMaterial() != Material.AIR) {
                 float f = block.getDamage(this.player, this.player.world, i, j, k) * (float) (l + 1);
 
                 if (f >= 0.7F) {
                     this.d = false;
-                    this.world.f(this.player.id, i, j, k, -1);
+                    this.world.d(this.player.getId(), i, j, k, -1);
                     this.breakBlock(i, j, k);
                 } else if (!this.j) {
                     this.d = false;
@@ -154,20 +149,17 @@ public class PlayerInteractManager {
 
     public void c(int i, int j, int k) {
         this.d = false;
-        this.world.f(this.player.id, this.f, this.g, this.h, -1);
+        this.world.d(this.player.getId(), this.f, this.g, this.h, -1);
     }
 
     private boolean d(int i, int j, int k) {
-        Block block = Block.byId[this.world.getTypeId(i, j, k)];
+        Block block = this.world.getType(i, j, k);
         int l = this.world.getData(i, j, k);
 
-        if (block != null) {
-            block.a(this.world, i, j, k, l, this.player);
-        }
-
+        block.a(this.world, i, j, k, l, this.player);
         boolean flag = this.world.setAir(i, j, k);
 
-        if (block != null && flag) {
+        if (flag) {
             block.postBreak(this.world, i, j, k, l);
         }
 
@@ -177,30 +169,30 @@ public class PlayerInteractManager {
     public boolean breakBlock(int i, int j, int k) {
         if (this.gamemode.isAdventure() && !this.player.d(i, j, k)) {
             return false;
-        } else if (this.gamemode.d() && this.player.aZ() != null && this.player.aZ().getItem() instanceof ItemSword) {
+        } else if (this.gamemode.d() && this.player.be() != null && this.player.be().getItem() instanceof ItemSword) {
             return false;
         } else {
-            int l = this.world.getTypeId(i, j, k);
-            int i1 = this.world.getData(i, j, k);
+            Block block = this.world.getType(i, j, k);
+            int l = this.world.getData(i, j, k);
 
-            this.world.a(this.player, 2001, i, j, k, l + (this.world.getData(i, j, k) << 12));
+            this.world.a(this.player, 2001, i, j, k, Block.b(block) + (this.world.getData(i, j, k) << 12));
             boolean flag = this.d(i, j, k);
 
             if (this.isCreative()) {
-                this.player.playerConnection.sendPacket(new Packet53BlockChange(i, j, k, this.world));
+                this.player.playerConnection.sendPacket(new PacketPlayOutBlockChange(i, j, k, this.world));
             } else {
-                ItemStack itemstack = this.player.by();
-                boolean flag1 = this.player.a(Block.byId[l]);
+                ItemStack itemstack = this.player.bD();
+                boolean flag1 = this.player.a(block);
 
                 if (itemstack != null) {
-                    itemstack.a(this.world, l, i, j, k, this.player);
+                    itemstack.a(this.world, block, i, j, k, this.player);
                     if (itemstack.count == 0) {
-                        this.player.bz();
+                        this.player.bE();
                     }
                 }
 
                 if (flag && flag1) {
-                    Block.byId[l].a(this.world, this.player, i, j, k, i1);
+                    block.a(this.world, this.player, i, j, k, l);
                 }
             }
 
@@ -228,7 +220,7 @@ public class PlayerInteractManager {
                 entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = null;
             }
 
-            if (!entityhuman.br()) {
+            if (!entityhuman.bw()) {
                 ((EntityPlayer) entityhuman).updateInventory(entityhuman.defaultContainer);
             }
 
@@ -237,19 +229,12 @@ public class PlayerInteractManager {
     }
 
     public boolean interact(EntityHuman entityhuman, World world, ItemStack itemstack, int i, int j, int k, int l, float f, float f1, float f2) {
-        int i1;
-
-        if (!entityhuman.isSneaking() || entityhuman.aZ() == null) {
-            i1 = world.getTypeId(i, j, k);
-            if (i1 > 0 && Block.byId[i1].interact(world, i, j, k, entityhuman, l, f, f1, f2)) {
-                return true;
-            }
-        }
-
-        if (itemstack == null) {
+        if ((!entityhuman.isSneaking() || entityhuman.be() == null) && world.getType(i, j, k).interact(world, i, j, k, entityhuman, l, f, f1, f2)) {
+            return true;
+        } else if (itemstack == null) {
             return false;
         } else if (this.isCreative()) {
-            i1 = itemstack.getData();
+            int i1 = itemstack.getData();
             int j1 = itemstack.count;
             boolean flag = itemstack.placeItem(entityhuman, world, i, j, k, l, f, f1, f2);
 

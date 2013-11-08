@@ -5,16 +5,17 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PropertyManager {
 
+    private static final Logger loggingAgent = LogManager.getLogger();
     private final Properties properties = new Properties();
-    private final IConsoleLogManager loggingAgent;
     private final File c;
 
-    public PropertyManager(File file1, IConsoleLogManager iconsolelogmanager) {
+    public PropertyManager(File file1) {
         this.c = file1;
-        this.loggingAgent = iconsolelogmanager;
         if (file1.exists()) {
             FileInputStream fileinputstream = null;
 
@@ -22,7 +23,7 @@ public class PropertyManager {
                 fileinputstream = new FileInputStream(file1);
                 this.properties.load(fileinputstream);
             } catch (Exception exception) {
-                iconsolelogmanager.warning("Failed to load " + file1, (Throwable) exception);
+                loggingAgent.warn("Failed to load " + file1, exception);
                 this.a();
             } finally {
                 if (fileinputstream != null) {
@@ -34,13 +35,13 @@ public class PropertyManager {
                 }
             }
         } else {
-            iconsolelogmanager.warning(file1 + " does not exist");
+            loggingAgent.warn(file1 + " does not exist");
             this.a();
         }
     }
 
     public void a() {
-        this.loggingAgent.info("Generating new properties file");
+        loggingAgent.info("Generating new properties file");
         this.savePropertiesFile();
     }
 
@@ -51,7 +52,7 @@ public class PropertyManager {
             fileoutputstream = new FileOutputStream(this.c);
             this.properties.store(fileoutputstream, "Minecraft server properties");
         } catch (Exception exception) {
-            this.loggingAgent.warning("Failed to save " + this.c, (Throwable) exception);
+            loggingAgent.warn("Failed to save " + this.c, exception);
             this.a();
         } finally {
             if (fileoutputstream != null) {
@@ -72,6 +73,7 @@ public class PropertyManager {
         if (!this.properties.containsKey(s)) {
             this.properties.setProperty(s, s1);
             this.savePropertiesFile();
+            this.savePropertiesFile();
         }
 
         return this.properties.getProperty(s, s1);
@@ -82,6 +84,7 @@ public class PropertyManager {
             return Integer.parseInt(this.getString(s, "" + i));
         } catch (Exception exception) {
             this.properties.setProperty(s, "" + i);
+            this.savePropertiesFile();
             return i;
         }
     }
@@ -91,6 +94,7 @@ public class PropertyManager {
             return Boolean.parseBoolean(this.getString(s, "" + flag));
         } catch (Exception exception) {
             this.properties.setProperty(s, "" + flag);
+            this.savePropertiesFile();
             return flag;
         }
     }

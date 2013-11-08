@@ -69,8 +69,8 @@ public abstract class PathfinderGoalDoorInteract extends PathfinderGoal {
     }
 
     private BlockDoor a(int i, int j, int k) {
-        int l = this.a.world.getTypeId(i, j, k);
+        Block block = this.a.world.getType(i, j, k);
 
-        return l != Block.WOODEN_DOOR.id ? null : (BlockDoor) Block.byId[l];
+        return block != Blocks.WOODEN_DOOR ? null : (BlockDoor) block;
     }
 }

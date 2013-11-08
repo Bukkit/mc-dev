@@ -20,17 +20,17 @@ public class PlayerSelector {
         return aentityplayer != null && aentityplayer.length == 1 ? aentityplayer[0] : null;
     }
 
-    public static String getPlayerNames(ICommandListener icommandlistener, String s) {
+    public static IChatBaseComponent getPlayerNames(ICommandListener icommandlistener, String s) {
         EntityPlayer[] aentityplayer = getPlayers(icommandlistener, s);
 
         if (aentityplayer != null && aentityplayer.length != 0) {
-            String[] astring = new String[aentityplayer.length];
+            IChatBaseComponent[] aichatbasecomponent = new IChatBaseComponent[aentityplayer.length];
 
-            for (int i = 0; i < astring.length; ++i) {
-                astring[i] = aentityplayer[i].getScoreboardDisplayName();
+            for (int i = 0; i < aichatbasecomponent.length; ++i) {
+                aichatbasecomponent[i] = aentityplayer[i].getScoreboardDisplayName();
             }
 
-            return CommandAbstract.a((Object[]) astring);
+            return CommandAbstract.a(aichatbasecomponent);
         } else {
             return null;
         }
@@ -50,7 +50,7 @@ public class PlayerSelector {
             int l = e(s1);
             int i1 = g(s1);
             int j1 = EnumGamemode.NONE.a();
-            ChunkCoordinates chunkcoordinates = icommandlistener.b();
+            ChunkCoordinates chunkcoordinates = icommandlistener.getChunkCoordinates();
             Map map1 = a(map);
             String s2 = null;
             String s3 = null;
@@ -105,7 +105,7 @@ public class PlayerSelector {
                 s2 = (String) map.get("name");
             }
 
-            World world = flag ? icommandlistener.f_() : null;
+            World world = flag ? icommandlistener.getWorld() : null;
             List list;
 
             if (!s1.equals("p") && !s1.equals("a")) {

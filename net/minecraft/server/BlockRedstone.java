@@ -2,8 +2,8 @@ package net.minecraft.server;
 
 public class BlockRedstone extends BlockOreBlock {
 
-    public BlockRedstone(int i) {
-        super(i);
+    public BlockRedstone(MaterialMapColor materialmapcolor) {
+        super(materialmapcolor);
         this.a(CreativeModeTab.d);
     }
 

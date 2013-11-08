@@ -8,10 +8,6 @@ public class CommandSaveOn extends CommandAbstract {
         return "save-on";
     }
 
-    public int a() {
-        return 4;
-    }
-
     public String c(ICommandListener icommandlistener) {
         return "commands.save-on.usage";
     }

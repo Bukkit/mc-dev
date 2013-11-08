@@ -2,11 +2,11 @@ package net.minecraft.server;
 
 public abstract class BlockDirectional extends Block {
 
-    protected BlockDirectional(int i, Material material) {
-        super(i, material);
+    protected BlockDirectional(Material material) {
+        super(material);
     }
 
-    public static int j(int i) {
+    public static int l(int i) {
         return i & 3;
     }
 }

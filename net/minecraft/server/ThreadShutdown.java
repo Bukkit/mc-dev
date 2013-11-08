@@ -4,7 +4,8 @@ public final class ThreadShutdown extends Thread {
 
     final DedicatedServer a;
 
-    public ThreadShutdown(DedicatedServer dedicatedserver) {
+    public ThreadShutdown(String s, DedicatedServer dedicatedserver) {
+        super(s);
         this.a = dedicatedserver;
     }
 

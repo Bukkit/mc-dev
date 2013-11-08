@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-import org.apache.commons.lang3.StringUtils;
+import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 
 public abstract class PathfinderGoalTarget extends PathfinderGoal {
 
@@ -42,7 +42,7 @@ public abstract class PathfinderGoalTarget extends PathfinderGoal {
                     }
                 }
 
-                return true;
+                return !(entityliving instanceof EntityPlayer) || !((EntityPlayer) entityliving).playerInteractManager.isCreative();
             }
         }
     }
@@ -110,7 +110,7 @@ public abstract class PathfinderGoalTarget extends PathfinderGoal {
     }
 
     private boolean a(EntityLiving entityliving) {
-        this.e = 10 + this.c.aD().nextInt(5);
+        this.e = 10 + this.c.aI().nextInt(5);
         PathEntity pathentity = this.c.getNavigation().a(entityliving);
 
         if (pathentity == null) {

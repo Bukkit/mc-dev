@@ -5,15 +5,15 @@ import java.util.Random;
 
 public class BlockEnderPortalFrame extends Block {
 
-    public BlockEnderPortalFrame(int i) {
-        super(i, Material.STONE);
+    public BlockEnderPortalFrame() {
+        super(Material.STONE);
     }
 
     public boolean c() {
         return false;
     }
 
-    public int d() {
+    public int b() {
         return 26;
     }
 
@@ -26,7 +26,7 @@ public class BlockEnderPortalFrame extends Block {
         super.a(world, i, j, k, axisalignedbb, list, entity);
         int l = world.getData(i, j, k);
 
-        if (d(l)) {
+        if (b(l)) {
             this.a(0.3125F, 0.8125F, 0.3125F, 0.6875F, 1.0F, 0.6875F);
             super.a(world, i, j, k, axisalignedbb, list, entity);
         }
@@ -34,12 +34,12 @@ public class BlockEnderPortalFrame extends Block {
         this.g();
     }
 
-    public static boolean d(int i) {
+    public static boolean b(int i) {
         return (i & 4) != 0;
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return 0;
+    public Item getDropType(int i, Random random, int j) {
+        return null;
     }
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
@@ -48,13 +48,13 @@ public class BlockEnderPortalFrame extends Block {
         world.setData(i, j, k, l, 2);
     }
 
-    public boolean q_() {
+    public boolean M() {
         return true;
     }
 
-    public int b_(World world, int i, int j, int k, int l) {
+    public int g(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
 
-        return d(i1) ? 15 : 0;
+        return b(i1) ? 15 : 0;
     }
 }

@@ -1,14 +1,13 @@
 package net.minecraft.server;
 
-import com.google.common.collect.Multimap;
+import net.minecraft.util.com.google.common.collect.Multimap;
 
 public class ItemSword extends Item {
 
     private float damage;
     private final EnumToolMaterial b;
 
-    public ItemSword(int i, EnumToolMaterial enumtoolmaterial) {
-        super(i);
+    public ItemSword(EnumToolMaterial enumtoolmaterial) {
         this.b = enumtoolmaterial;
         this.maxStackSize = 1;
         this.setMaxDurability(enumtoolmaterial.a());
@@ -16,15 +15,15 @@ public class ItemSword extends Item {
         this.damage = 4.0F + enumtoolmaterial.c();
     }
 
-    public float g() {
+    public float i() {
         return this.b.c();
     }
 
     public float getDestroySpeed(ItemStack itemstack, Block block) {
-        if (block.id == Block.WEB.id) {
+        if (block == Blocks.WEB) {
             return 15.0F;
         } else {
-            Material material = block.material;
+            Material material = block.getMaterial();
 
             return material != Material.PLANT && material != Material.REPLACEABLE_PLANT && material != Material.CORAL && material != Material.LEAVES && material != Material.PUMPKIN ? 1.0F : 1.5F;
         }
@@ -35,15 +34,15 @@ public class ItemSword extends Item {
         return true;
     }
 
-    public boolean a(ItemStack itemstack, World world, int i, int j, int k, int l, EntityLiving entityliving) {
-        if ((double) Block.byId[i].l(world, j, k, l) != 0.0D) {
+    public boolean a(ItemStack itemstack, World world, Block block, int i, int j, int k, EntityLiving entityliving) {
+        if ((double) block.f(world, i, j, k) != 0.0D) {
             itemstack.damage(2, entityliving);
         }
 
         return true;
     }
 
-    public EnumAnimation c_(ItemStack itemstack) {
+    public EnumAnimation d(ItemStack itemstack) {
         return EnumAnimation.BLOCK;
     }
 
@@ -57,25 +56,25 @@ public class ItemSword extends Item {
     }
 
     public boolean canDestroySpecialBlock(Block block) {
-        return block.id == Block.WEB.id;
+        return block == Blocks.WEB;
     }
 
     public int c() {
         return this.b.e();
     }
 
-    public String i() {
+    public String j() {
         return this.b.toString();
     }
 
     public boolean a(ItemStack itemstack, ItemStack itemstack1) {
-        return this.b.f() == itemstack1.id ? true : super.a(itemstack, itemstack1);
+        return this.b.f() == itemstack1.getItem() ? true : super.a(itemstack, itemstack1);
     }
 
-    public Multimap h() {
-        Multimap multimap = super.h();
+    public Multimap k() {
+        Multimap multimap = super.k();
 
-        multimap.put(GenericAttributes.e.a(), new AttributeModifier(e, "Weapon modifier", (double) this.damage, 0));
+        multimap.put(GenericAttributes.e.a(), new AttributeModifier(f, "Weapon modifier", (double) this.damage, 0));
         return multimap;
     }
 }

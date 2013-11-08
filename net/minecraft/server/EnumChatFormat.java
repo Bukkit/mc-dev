@@ -15,7 +15,6 @@ public enum EnumChatFormat {
     private final char z;
     private final boolean A;
     private final String B;
-
     private static final EnumChatFormat[] C = new EnumChatFormat[] { BLACK, DARK_BLUE, DARK_GREEN, DARK_AQUA, DARK_RED, DARK_PURPLE, GOLD, GRAY, DARK_GRAY, BLUE, GREEN, AQUA, RED, LIGHT_PURPLE, YELLOW, WHITE, RANDOM, BOLD, STRIKETHROUGH, UNDERLINE, ITALIC, RESET};
 
     private EnumChatFormat(String s, int i, char c0) {
@@ -25,14 +24,14 @@ public enum EnumChatFormat {
     private EnumChatFormat(String s, int i, char c0, boolean flag) {
         this.z = c0;
         this.A = flag;
-        this.B = "\u00A7" + c0;
+        this.B = "�" + c0;
     }
 
-    public char a() {
+    public char getChar() {
         return this.z;
     }
 
-    public boolean b() {
+    public boolean isFormat() {
         return this.A;
     }
 
@@ -60,7 +59,7 @@ public enum EnumChatFormat {
         for (int j = 0; j < i; ++j) {
             EnumChatFormat enumchatformat = aenumchatformat[j];
 
-            if ((!enumchatformat.c() || flag) && (!enumchatformat.b() || flag1)) {
+            if ((!enumchatformat.c() || flag) && (!enumchatformat.isFormat() || flag1)) {
                 arraylist.add(enumchatformat.d());
             }
         }
@@ -75,7 +74,7 @@ public enum EnumChatFormat {
         for (int j = 0; j < i; ++j) {
             EnumChatFormat enumchatformat = aenumchatformat[j];
 
-            w.put(Character.valueOf(enumchatformat.a()), enumchatformat);
+            w.put(Character.valueOf(enumchatformat.getChar()), enumchatformat);
             x.put(enumchatformat.d(), enumchatformat);
         }
     }

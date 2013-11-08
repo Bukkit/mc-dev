@@ -6,14 +6,11 @@ import java.util.Arrays;
 
 public class NBTTagIntArray extends NBTBase {
 
-    public int[] data;
+    private int[] data;
 
-    public NBTTagIntArray(String s) {
-        super(s);
-    }
+    NBTTagIntArray() {}
 
-    public NBTTagIntArray(String s, int[] aint) {
-        super(s);
+    public NBTTagIntArray(int[] aint) {
         this.data = aint;
     }
 
@@ -40,27 +37,35 @@ public class NBTTagIntArray extends NBTBase {
     }
 
     public String toString() {
-        return "[" + this.data.length + " bytes]";
+        String s = "[";
+        int[] aint = this.data;
+        int i = aint.length;
+
+        for (int j = 0; j < i; ++j) {
+            int k = aint[j];
+
+            s = s + k + ",";
+        }
+
+        return s + "]";
     }
 
     public NBTBase clone() {
         int[] aint = new int[this.data.length];
 
         System.arraycopy(this.data, 0, aint, 0, this.data.length);
-        return new NBTTagIntArray(this.getName(), aint);
+        return new NBTTagIntArray(aint);
     }
 
     public boolean equals(Object object) {
-        if (!super.equals(object)) {
-            return false;
-        } else {
-            NBTTagIntArray nbttagintarray = (NBTTagIntArray) object;
-
-            return this.data == null && nbttagintarray.data == null || this.data != null && Arrays.equals(this.data, nbttagintarray.data);
-        }
+        return super.equals(object) ? Arrays.equals(this.data, ((NBTTagIntArray) object).data) : false;
     }
 
     public int hashCode() {
         return super.hashCode() ^ Arrays.hashCode(this.data);
+    }
+
+    public int[] c() {
+        return this.data;
     }
 }

@@ -20,6 +20,6 @@ public class CommandKill extends CommandAbstract {
         EntityPlayer entityplayer = b(icommandlistener);
 
         entityplayer.damageEntity(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
-        icommandlistener.sendMessage(ChatMessage.e("commands.kill.success"));
+        icommandlistener.sendMessage(new ChatMessage("commands.kill.success", new Object[0]));
     }
 }

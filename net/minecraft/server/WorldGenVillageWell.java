@@ -38,25 +38,25 @@ public class WorldGenVillageWell extends WorldGenVillagePiece {
             this.f.a(0, this.k - this.f.e + 3, 0);
         }
 
-        this.a(world, structureboundingbox, 1, 0, 1, 4, 12, 4, Block.COBBLESTONE.id, Block.WATER.id, false);
-        this.a(world, 0, 0, 2, 12, 2, structureboundingbox);
-        this.a(world, 0, 0, 3, 12, 2, structureboundingbox);
-        this.a(world, 0, 0, 2, 12, 3, structureboundingbox);
-        this.a(world, 0, 0, 3, 12, 3, structureboundingbox);
-        this.a(world, Block.FENCE.id, 0, 1, 13, 1, structureboundingbox);
-        this.a(world, Block.FENCE.id, 0, 1, 14, 1, structureboundingbox);
-        this.a(world, Block.FENCE.id, 0, 4, 13, 1, structureboundingbox);
-        this.a(world, Block.FENCE.id, 0, 4, 14, 1, structureboundingbox);
-        this.a(world, Block.FENCE.id, 0, 1, 13, 4, structureboundingbox);
-        this.a(world, Block.FENCE.id, 0, 1, 14, 4, structureboundingbox);
-        this.a(world, Block.FENCE.id, 0, 4, 13, 4, structureboundingbox);
-        this.a(world, Block.FENCE.id, 0, 4, 14, 4, structureboundingbox);
-        this.a(world, structureboundingbox, 1, 15, 1, 4, 15, 4, Block.COBBLESTONE.id, Block.COBBLESTONE.id, false);
+        this.a(world, structureboundingbox, 1, 0, 1, 4, 12, 4, Blocks.COBBLESTONE, Blocks.WATER, false);
+        this.a(world, Blocks.AIR, 0, 2, 12, 2, structureboundingbox);
+        this.a(world, Blocks.AIR, 0, 3, 12, 2, structureboundingbox);
+        this.a(world, Blocks.AIR, 0, 2, 12, 3, structureboundingbox);
+        this.a(world, Blocks.AIR, 0, 3, 12, 3, structureboundingbox);
+        this.a(world, Blocks.FENCE, 0, 1, 13, 1, structureboundingbox);
+        this.a(world, Blocks.FENCE, 0, 1, 14, 1, structureboundingbox);
+        this.a(world, Blocks.FENCE, 0, 4, 13, 1, structureboundingbox);
+        this.a(world, Blocks.FENCE, 0, 4, 14, 1, structureboundingbox);
+        this.a(world, Blocks.FENCE, 0, 1, 13, 4, structureboundingbox);
+        this.a(world, Blocks.FENCE, 0, 1, 14, 4, structureboundingbox);
+        this.a(world, Blocks.FENCE, 0, 4, 13, 4, structureboundingbox);
+        this.a(world, Blocks.FENCE, 0, 4, 14, 4, structureboundingbox);
+        this.a(world, structureboundingbox, 1, 15, 1, 4, 15, 4, Blocks.COBBLESTONE, Blocks.COBBLESTONE, false);
 
         for (int i = 0; i <= 5; ++i) {
             for (int j = 0; j <= 5; ++j) {
                 if (j == 0 || j == 5 || i == 0 || i == 5) {
-                    this.a(world, Block.GRAVEL.id, 0, j, 11, i, structureboundingbox);
+                    this.a(world, Blocks.GRAVEL, 0, j, 11, i, structureboundingbox);
                     this.b(world, j, 12, i, structureboundingbox);
                 }
             }

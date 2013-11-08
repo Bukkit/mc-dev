@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WorldMap extends WorldMapBase {
+public class WorldMap extends PersistentBase {
 
     public int centerX;
     public int centerZ;
@@ -98,7 +98,7 @@ public class WorldMap extends WorldMapBase {
         }
 
         if (itemstack.A()) {
-            this.a(1, entityhuman.world, "frame-" + itemstack.B().id, (double) itemstack.B().x, (double) itemstack.B().z, (double) (itemstack.B().direction * 90));
+            this.a(1, entityhuman.world, "frame-" + itemstack.B().getId(), (double) itemstack.B().x, (double) itemstack.B().z, (double) (itemstack.B().direction * 90));
         }
     }
 

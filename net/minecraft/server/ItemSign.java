@@ -2,8 +2,7 @@ package net.minecraft.server;
 
 public class ItemSign extends Item {
 
-    public ItemSign(int i) {
-        super(i);
+    public ItemSign() {
         this.maxStackSize = 16;
         this.a(CreativeModeTab.c);
     }
@@ -11,7 +10,7 @@ public class ItemSign extends Item {
     public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l, float f, float f1, float f2) {
         if (l == 0) {
             return false;
-        } else if (!world.getMaterial(i, j, k).isBuildable()) {
+        } else if (!world.getType(i, j, k).getMaterial().isBuildable()) {
             return false;
         } else {
             if (l == 1) {
@@ -36,7 +35,7 @@ public class ItemSign extends Item {
 
             if (!entityhuman.a(i, j, k, l, itemstack)) {
                 return false;
-            } else if (!Block.SIGN_POST.canPlace(world, i, j, k)) {
+            } else if (!Blocks.SIGN_POST.canPlace(world, i, j, k)) {
                 return false;
             } else if (world.isStatic) {
                 return true;
@@ -44,9 +43,9 @@ public class ItemSign extends Item {
                 if (l == 1) {
                     int i1 = MathHelper.floor((double) ((entityhuman.yaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
 
-                    world.setTypeIdAndData(i, j, k, Block.SIGN_POST.id, i1, 3);
+                    world.setTypeAndData(i, j, k, Blocks.SIGN_POST, i1, 3);
                 } else {
-                    world.setTypeIdAndData(i, j, k, Block.WALL_SIGN.id, l, 3);
+                    world.setTypeAndData(i, j, k, Blocks.WALL_SIGN, l, 3);
                 }
 
                 --itemstack.count;

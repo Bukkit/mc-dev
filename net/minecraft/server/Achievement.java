@@ -5,38 +5,38 @@ public class Achievement extends Statistic {
     public final int a;
     public final int b;
     public final Achievement c;
-    private final String l;
+    private final String k;
     public final ItemStack d;
-    private boolean n;
+    private boolean m;
 
-    public Achievement(int i, String s, int j, int k, Item item, Achievement achievement) {
-        this(i, s, j, k, new ItemStack(item), achievement);
+    public Achievement(String s, String s1, int i, int j, Item item, Achievement achievement) {
+        this(s, s1, i, j, new ItemStack(item), achievement);
     }
 
-    public Achievement(int i, String s, int j, int k, Block block, Achievement achievement) {
-        this(i, s, j, k, new ItemStack(block), achievement);
+    public Achievement(String s, String s1, int i, int j, Block block, Achievement achievement) {
+        this(s, s1, i, j, new ItemStack(block), achievement);
     }
 
-    public Achievement(int i, String s, int j, int k, ItemStack itemstack, Achievement achievement) {
-        super(5242880 + i, "achievement." + s);
+    public Achievement(String s, String s1, int i, int j, ItemStack itemstack, Achievement achievement) {
+        super(s, new ChatMessage("achievement." + s1, new Object[0]));
         this.d = itemstack;
-        this.l = "achievement." + s + ".desc";
-        this.a = j;
-        this.b = k;
-        if (j < AchievementList.a) {
-            a = j;
+        this.k = "achievement." + s1 + ".desc";
+        this.a = i;
+        this.b = j;
+        if (i < AchievementList.a) {
+            a = i;
         }
 
-        if (k < AchievementList.b) {
-            b = k;
+        if (j < AchievementList.b) {
+            b = j;
         }
 
-        if (j > AchievementList.c) {
-            AchievementList.c = j;
+        if (i > AchievementList.c) {
+            AchievementList.c = i;
         }
 
-        if (k > AchievementList.d) {
-            AchievementList.d = k;
+        if (j > AchievementList.d) {
+            AchievementList.d = j;
         }
 
         this.c = achievement;
@@ -48,21 +48,44 @@ public class Achievement extends Statistic {
     }
 
     public Achievement b() {
-        this.n = true;
+        this.m = true;
         return this;
     }
 
     public Achievement c() {
-        super.g();
+        super.h();
         AchievementList.e.add(this);
         return this;
     }
 
-    public Statistic g() {
-        return this.c();
+    public boolean d() {
+        return true;
+    }
+
+    public IChatBaseComponent e() {
+        IChatBaseComponent ichatbasecomponent = super.e();
+
+        ichatbasecomponent.b().setColor(this.g() ? EnumChatFormat.DARK_PURPLE : EnumChatFormat.GREEN);
+        return ichatbasecomponent;
+    }
+
+    public Achievement a(Class oclass) {
+        return (Achievement) super.b(oclass);
+    }
+
+    public boolean g() {
+        return this.m;
+    }
+
+    public Statistic b(Class oclass) {
+        return this.a(oclass);
     }
 
     public Statistic h() {
+        return this.c();
+    }
+
+    public Statistic i() {
         return this.a();
     }
 }

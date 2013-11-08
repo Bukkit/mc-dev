@@ -2,28 +2,29 @@ package net.minecraft.server;
 
 public class DamageSource {
 
-    public static DamageSource FIRE = (new DamageSource("inFire")).l();
-    public static DamageSource BURN = (new DamageSource("onFire")).j().l();
-    public static DamageSource LAVA = (new DamageSource("lava")).l();
-    public static DamageSource STUCK = (new DamageSource("inWall")).j();
-    public static DamageSource DROWN = (new DamageSource("drown")).j();
-    public static DamageSource STARVE = (new DamageSource("starve")).j();
+    public static DamageSource FIRE = (new DamageSource("inFire")).n();
+    public static DamageSource BURN = (new DamageSource("onFire")).k().n();
+    public static DamageSource LAVA = (new DamageSource("lava")).n();
+    public static DamageSource STUCK = (new DamageSource("inWall")).k();
+    public static DamageSource DROWN = (new DamageSource("drown")).k();
+    public static DamageSource STARVE = (new DamageSource("starve")).k().m();
     public static DamageSource CACTUS = new DamageSource("cactus");
-    public static DamageSource FALL = (new DamageSource("fall")).j();
-    public static DamageSource OUT_OF_WORLD = (new DamageSource("outOfWorld")).j().k();
-    public static DamageSource GENERIC = (new DamageSource("generic")).j();
-    public static DamageSource MAGIC = (new DamageSource("magic")).j().r();
-    public static DamageSource WITHER = (new DamageSource("wither")).j();
+    public static DamageSource FALL = (new DamageSource("fall")).k();
+    public static DamageSource OUT_OF_WORLD = (new DamageSource("outOfWorld")).k().l();
+    public static DamageSource GENERIC = (new DamageSource("generic")).k();
+    public static DamageSource MAGIC = (new DamageSource("magic")).k().t();
+    public static DamageSource WITHER = (new DamageSource("wither")).k();
     public static DamageSource ANVIL = new DamageSource("anvil");
     public static DamageSource FALLING_BLOCK = new DamageSource("fallingBlock");
     private boolean p;
     private boolean q;
-    private float r = 0.3F;
-    private boolean s;
+    private boolean r;
+    private float s = 0.3F;
     private boolean t;
     private boolean u;
     private boolean v;
     private boolean w;
+    private boolean x;
     public String translationIndex;
 
     public static DamageSource mobAttack(EntityLiving entityliving) {
@@ -39,7 +40,7 @@ public class DamageSource {
     }
 
     public static DamageSource fireball(EntityFireball entityfireball, Entity entity) {
-        return entity == null ? (new EntityDamageSourceIndirect("onFire", entityfireball, entityfireball)).l().b() : (new EntityDamageSourceIndirect("fireball", entityfireball, entity)).l().b();
+        return entity == null ? (new EntityDamageSourceIndirect("onFire", entityfireball, entityfireball)).n().b() : (new EntityDamageSourceIndirect("fireball", entityfireball, entity)).n().b();
     }
 
     public static DamageSource projectile(Entity entity, Entity entity1) {
@@ -47,32 +48,32 @@ public class DamageSource {
     }
 
     public static DamageSource b(Entity entity, Entity entity1) {
-        return (new EntityDamageSourceIndirect("indirectMagic", entity, entity1)).j().r();
+        return (new EntityDamageSourceIndirect("indirectMagic", entity, entity1)).k().t();
     }
 
     public static DamageSource a(Entity entity) {
-        return (new EntityDamageSource("thorns", entity)).r();
+        return (new EntityDamageSource("thorns", entity)).t();
     }
 
     public static DamageSource explosion(Explosion explosion) {
-        return explosion != null && explosion.c() != null ? (new EntityDamageSource("explosion.player", explosion.c())).o().d() : (new DamageSource("explosion")).o().d();
+        return explosion != null && explosion.c() != null ? (new EntityDamageSource("explosion.player", explosion.c())).q().d() : (new DamageSource("explosion")).q().d();
     }
 
     public boolean a() {
-        return this.t;
+        return this.u;
     }
 
     public DamageSource b() {
-        this.t = true;
+        this.u = true;
         return this;
     }
 
     public boolean c() {
-        return this.w;
+        return this.x;
     }
 
     public DamageSource d() {
-        this.w = true;
+        this.x = true;
         return this;
     }
 
@@ -81,18 +82,22 @@ public class DamageSource {
     }
 
     public float f() {
-        return this.r;
+        return this.s;
     }
 
     public boolean ignoresInvulnerability() {
         return this.q;
     }
 
+    public boolean h() {
+        return this.r;
+    }
+
     protected DamageSource(String s) {
         this.translationIndex = s;
     }
 
-    public Entity h() {
+    public Entity i() {
         return this.getEntity();
     }
 
@@ -100,53 +105,59 @@ public class DamageSource {
         return null;
     }
 
-    protected DamageSource j() {
-        this.p = true;
-        this.r = 0.0F;
-        return this;
-    }
-
     protected DamageSource k() {
-        this.q = true;
+        this.p = true;
+        this.s = 0.0F;
         return this;
     }
 
     protected DamageSource l() {
-        this.s = true;
+        this.q = true;
         return this;
     }
 
-    public ChatMessage getLocalizedDeathMessage(EntityLiving entityliving) {
-        EntityLiving entityliving1 = entityliving.aS();
+    protected DamageSource m() {
+        this.r = true;
+        this.s = 0.0F;
+        return this;
+    }
+
+    protected DamageSource n() {
+        this.t = true;
+        return this;
+    }
+
+    public IChatBaseComponent getLocalizedDeathMessage(EntityLiving entityliving) {
+        EntityLiving entityliving1 = entityliving.aX();
         String s = "death.attack." + this.translationIndex;
         String s1 = s + ".player";
 
-        return entityliving1 != null && LocaleI18n.b(s1) ? ChatMessage.b(s1, new Object[] { entityliving.getScoreboardDisplayName(), entityliving1.getScoreboardDisplayName()}) : ChatMessage.b(s, new Object[] { entityliving.getScoreboardDisplayName()});
+        return entityliving1 != null && LocaleI18n.c(s1) ? new ChatMessage(s1, new Object[] { entityliving.getScoreboardDisplayName(), entityliving1.getScoreboardDisplayName()}) : new ChatMessage(s, new Object[] { entityliving.getScoreboardDisplayName()});
     }
 
-    public boolean m() {
-        return this.s;
+    public boolean o() {
+        return this.t;
     }
 
-    public String n() {
+    public String p() {
         return this.translationIndex;
     }
 
-    public DamageSource o() {
-        this.u = true;
+    public DamageSource q() {
+        this.v = true;
         return this;
     }
 
-    public boolean p() {
-        return this.u;
-    }
-
-    public boolean q() {
+    public boolean r() {
         return this.v;
     }
 
-    public DamageSource r() {
-        this.v = true;
+    public boolean s() {
+        return this.w;
+    }
+
+    public DamageSource t() {
+        this.w = true;
         return this;
     }
 }

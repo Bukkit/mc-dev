@@ -6,10 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class CommandDebug extends CommandAbstract {
 
-    private long a;
-    private int b;
+    private static final Logger a = LogManager.getLogger();
+    private long b;
+    private int c;
 
     public CommandDebug() {}
 
@@ -30,8 +34,8 @@ public class CommandDebug extends CommandAbstract {
             if (astring[0].equals("start")) {
                 a(icommandlistener, "commands.debug.start", new Object[0]);
                 MinecraftServer.getServer().ak();
-                this.a = MinecraftServer.aq();
-                this.b = MinecraftServer.getServer().aj();
+                this.b = MinecraftServer.ap();
+                this.c = MinecraftServer.getServer().aj();
                 return;
             }
 
@@ -40,10 +44,10 @@ public class CommandDebug extends CommandAbstract {
                     throw new CommandException("commands.debug.notStarted", new Object[0]);
                 }
 
-                long i = MinecraftServer.aq();
+                long i = MinecraftServer.ap();
                 int j = MinecraftServer.getServer().aj();
-                long k = i - this.a;
-                int l = j - this.b;
+                long k = i - this.b;
+                int l = j - this.c;
 
                 this.a(k, l);
                 MinecraftServer.getServer().methodProfiler.a = false;
@@ -66,7 +70,7 @@ public class CommandDebug extends CommandAbstract {
             filewriter.write(this.b(i, j));
             filewriter.close();
         } catch (Throwable throwable) {
-            MinecraftServer.getServer().getLogger().severe("Could not save profiler results to " + file1, throwable);
+            a.error("Could not save profiler results to " + file1, throwable);
         }
     }
 

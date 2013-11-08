@@ -31,7 +31,7 @@ public class ChunkProviderTheEnd implements IChunkProvider {
         this.b = new NoiseGeneratorOctaves(this.i, 16);
     }
 
-    public void a(int i, int j, byte[] abyte, BiomeBase[] abiomebase) {
+    public void a(int i, int j, Block[] ablock, BiomeBase[] abiomebase) {
         byte b0 = 2;
         int k = b0 + 1;
         byte b1 = 33;
@@ -67,13 +67,13 @@ public class ChunkProviderTheEnd implements IChunkProvider {
                             double d16 = (d11 - d10) * d14;
 
                             for (int k2 = 0; k2 < 8; ++k2) {
-                                int l2 = 0;
+                                Block block = null;
 
                                 if (d15 > 0.0D) {
-                                    l2 = Block.WHITESTONE.id;
+                                    block = Blocks.WHITESTONE;
                                 }
 
-                                abyte[j2] = (byte) l2;
+                                ablock[j2] = block;
                                 j2 += short1;
                                 d15 += d16;
                             }
@@ -92,37 +92,39 @@ public class ChunkProviderTheEnd implements IChunkProvider {
         }
     }
 
-    public void b(int i, int j, byte[] abyte, BiomeBase[] abiomebase) {
+    public void b(int i, int j, Block[] ablock, BiomeBase[] abiomebase) {
         for (int k = 0; k < 16; ++k) {
             for (int l = 0; l < 16; ++l) {
                 byte b0 = 1;
                 int i1 = -1;
-                byte b1 = (byte) Block.WHITESTONE.id;
-                byte b2 = (byte) Block.WHITESTONE.id;
+                Block block = Blocks.WHITESTONE;
+                Block block1 = Blocks.WHITESTONE;
 
                 for (int j1 = 127; j1 >= 0; --j1) {
                     int k1 = (l * 16 + k) * 128 + j1;
-                    byte b3 = abyte[k1];
+                    Block block2 = ablock[k1];
 
-                    if (b3 == 0) {
-                        i1 = -1;
-                    } else if (b3 == Block.STONE.id) {
-                        if (i1 == -1) {
-                            if (b0 <= 0) {
-                                b1 = 0;
-                                b2 = (byte) Block.WHITESTONE.id;
-                            }
+                    if (block2 != null && block2.getMaterial() != Material.AIR) {
+                        if (block2 == Blocks.STONE) {
+                            if (i1 == -1) {
+                                if (b0 <= 0) {
+                                    block = null;
+                                    block1 = Blocks.WHITESTONE;
+                                }
 
-                            i1 = b0;
-                            if (j1 >= 0) {
-                                abyte[k1] = b1;
-                            } else {
-                                abyte[k1] = b2;
+                                i1 = b0;
+                                if (j1 >= 0) {
+                                    ablock[k1] = block;
+                                } else {
+                                    ablock[k1] = block1;
+                                }
+                            } else if (i1 > 0) {
+                                --i1;
+                                ablock[k1] = block1;
                             }
-                        } else if (i1 > 0) {
-                            --i1;
-                            abyte[k1] = b2;
                         }
+                    } else {
+                        i1 = -1;
                     }
                 }
             }
@@ -135,16 +137,16 @@ public class ChunkProviderTheEnd implements IChunkProvider {
 
     public Chunk getOrCreateChunk(int i, int j) {
         this.i.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
-        byte[] abyte = new byte['\u8000'];
+        Block[] ablock = new Block['\u8000'];
 
         this.o = this.m.getWorldChunkManager().getBiomeBlock(this.o, i * 16, j * 16, 16, 16);
-        this.a(i, j, abyte, this.o);
-        this.b(i, j, abyte, this.o);
-        Chunk chunk = new Chunk(this.m, abyte, i, j);
-        byte[] abyte1 = chunk.m();
+        this.a(i, j, ablock, this.o);
+        this.b(i, j, ablock, this.o);
+        Chunk chunk = new Chunk(this.m, ablock, i, j);
+        byte[] abyte = chunk.m();
 
-        for (int k = 0; k < abyte1.length; ++k) {
-            abyte1[k] = (byte) this.o[k].id;
+        for (int k = 0; k < abyte.length; ++k) {
+            abyte[k] = (byte) this.o[k].id;
         }
 
         chunk.initLighting();
@@ -268,13 +270,13 @@ public class ChunkProviderTheEnd implements IChunkProvider {
     }
 
     public void getChunkAt(IChunkProvider ichunkprovider, int i, int j) {
-        BlockSand.instaFall = true;
+        BlockFalling.instaFall = true;
         int k = i * 16;
         int l = j * 16;
         BiomeBase biomebase = this.m.getBiome(k + 16, l + 16);
 
         biomebase.a(this.m, this.m.random, k, l);
-        BlockSand.instaFall = false;
+        BlockFalling.instaFall = false;
     }
 
     public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
@@ -298,7 +300,7 @@ public class ChunkProviderTheEnd implements IChunkProvider {
     public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
         BiomeBase biomebase = this.m.getBiome(i, k);
 
-        return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
+        return biomebase.getMobs(enumcreaturetype);
     }
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {

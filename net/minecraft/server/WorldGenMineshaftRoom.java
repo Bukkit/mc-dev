@@ -85,39 +85,39 @@ public class WorldGenMineshaftRoom extends StructurePiece {
         if (this.a(world, structureboundingbox)) {
             return false;
         } else {
-            this.a(world, structureboundingbox, this.f.a, this.f.b, this.f.c, this.f.d, this.f.b, this.f.f, Block.DIRT.id, 0, true);
-            this.a(world, structureboundingbox, this.f.a, this.f.b + 1, this.f.c, this.f.d, Math.min(this.f.b + 3, this.f.e), this.f.f, 0, 0, false);
+            this.a(world, structureboundingbox, this.f.a, this.f.b, this.f.c, this.f.d, this.f.b, this.f.f, Blocks.DIRT, Blocks.AIR, true);
+            this.a(world, structureboundingbox, this.f.a, this.f.b + 1, this.f.c, this.f.d, Math.min(this.f.b + 3, this.f.e), this.f.f, Blocks.AIR, Blocks.AIR, false);
             Iterator iterator = this.a.iterator();
 
             while (iterator.hasNext()) {
                 StructureBoundingBox structureboundingbox1 = (StructureBoundingBox) iterator.next();
 
-                this.a(world, structureboundingbox, structureboundingbox1.a, structureboundingbox1.e - 2, structureboundingbox1.c, structureboundingbox1.d, structureboundingbox1.e, structureboundingbox1.f, 0, 0, false);
+                this.a(world, structureboundingbox, structureboundingbox1.a, structureboundingbox1.e - 2, structureboundingbox1.c, structureboundingbox1.d, structureboundingbox1.e, structureboundingbox1.f, Blocks.AIR, Blocks.AIR, false);
             }
 
-            this.a(world, structureboundingbox, this.f.a, this.f.b + 4, this.f.c, this.f.d, this.f.e, this.f.f, 0, false);
+            this.a(world, structureboundingbox, this.f.a, this.f.b + 4, this.f.c, this.f.d, this.f.e, this.f.f, Blocks.AIR, false);
             return true;
         }
     }
 
     protected void a(NBTTagCompound nbttagcompound) {
-        NBTTagList nbttaglist = new NBTTagList("Entrances");
+        NBTTagList nbttaglist = new NBTTagList();
         Iterator iterator = this.a.iterator();
 
         while (iterator.hasNext()) {
             StructureBoundingBox structureboundingbox = (StructureBoundingBox) iterator.next();
 
-            nbttaglist.add(structureboundingbox.a(""));
+            nbttaglist.add(structureboundingbox.h());
         }
 
         nbttagcompound.set("Entrances", nbttaglist);
     }
 
     protected void b(NBTTagCompound nbttagcompound) {
-        NBTTagList nbttaglist = nbttagcompound.getList("Entrances");
+        NBTTagList nbttaglist = nbttagcompound.getList("Entrances", 11);
 
         for (int i = 0; i < nbttaglist.size(); ++i) {
-            this.a.add(new StructureBoundingBox(((NBTTagIntArray) nbttaglist.get(i)).data));
+            this.a.add(new StructureBoundingBox(nbttaglist.c(i)));
         }
     }
 }

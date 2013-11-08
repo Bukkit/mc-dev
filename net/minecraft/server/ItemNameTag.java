@@ -2,8 +2,7 @@ package net.minecraft.server;
 
 public class ItemNameTag extends Item {
 
-    public ItemNameTag(int i) {
-        super(i);
+    public ItemNameTag() {
         this.a(CreativeModeTab.i);
     }
 
@@ -14,7 +13,7 @@ public class ItemNameTag extends Item {
             EntityInsentient entityinsentient = (EntityInsentient) entityliving;
 
             entityinsentient.setCustomName(itemstack.getName());
-            entityinsentient.bz();
+            entityinsentient.bD();
             --itemstack.count;
             return true;
         } else {

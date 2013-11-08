@@ -7,20 +7,20 @@ public class EntitySpider extends EntityMonster {
         this.a(1.4F, 0.9F);
     }
 
-    protected void a() {
-        super.a();
+    protected void c() {
+        super.c();
         this.datawatcher.a(16, new Byte((byte) 0));
     }
 
-    public void l_() {
-        super.l_();
+    public void h() {
+        super.h();
         if (!this.world.isStatic) {
             this.a(this.positionChanged);
         }
     }
 
-    protected void az() {
-        super.az();
+    protected void aD() {
+        super.aD();
         this.getAttributeInstance(GenericAttributes.a).setValue(16.0D);
         this.getAttributeInstance(GenericAttributes.d).setValue(0.800000011920929D);
     }
@@ -37,19 +37,19 @@ public class EntitySpider extends EntityMonster {
         }
     }
 
-    protected String r() {
+    protected String t() {
         return "mob.spider.say";
     }
 
-    protected String aO() {
+    protected String aT() {
         return "mob.spider.say";
     }
 
-    protected String aP() {
+    protected String aU() {
         return "mob.spider.death";
     }
 
-    protected void a(int i, int j, int k, int l) {
+    protected void a(int i, int j, int k, Block block) {
         this.makeSound("mob.spider.step", 0.15F, 1.0F);
     }
 
@@ -75,22 +75,22 @@ public class EntitySpider extends EntityMonster {
         }
     }
 
-    protected int getLootId() {
-        return Item.STRING.id;
+    protected Item getLoot() {
+        return Items.STRING;
     }
 
     protected void dropDeathLoot(boolean flag, int i) {
         super.dropDeathLoot(flag, i);
         if (flag && (this.random.nextInt(3) == 0 || this.random.nextInt(1 + i) > 0)) {
-            this.b(Item.SPIDER_EYE.id, 1);
+            this.a(Items.SPIDER_EYE, 1);
         }
     }
 
-    public boolean e() {
-        return this.bT();
+    public boolean h_() {
+        return this.bX();
     }
 
-    public void am() {}
+    public void as() {}
 
     public EnumMonsterType getMonsterType() {
         return EnumMonsterType.ARTHROPOD;
@@ -100,7 +100,7 @@ public class EntitySpider extends EntityMonster {
         return mobeffect.getEffectId() == MobEffectList.POISON.id ? false : super.d(mobeffect);
     }
 
-    public boolean bT() {
+    public boolean bX() {
         return (this.datawatcher.getByte(16) & 1) != 0;
     }
 
@@ -130,7 +130,7 @@ public class EntitySpider extends EntityMonster {
 
         if (object == null) {
             object = new GroupDataSpider();
-            if (this.world.difficulty > 2 && this.world.random.nextFloat() < 0.1F * this.world.b(this.locX, this.locY, this.locZ)) {
+            if (this.world.difficulty == EnumDifficulty.HARD && this.world.random.nextFloat() < 0.1F * this.world.b(this.locX, this.locY, this.locZ)) {
                 ((GroupDataSpider) object).a(this.world.random);
             }
         }

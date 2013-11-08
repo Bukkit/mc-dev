@@ -8,7 +8,6 @@ public enum EnumCreatureType {
     private final Material g;
     private final boolean h;
     private final boolean i;
-
     private static final EnumCreatureType[] j = new EnumCreatureType[] { MONSTER, CREATURE, AMBIENT, WATER_CREATURE};
 
     private EnumCreatureType(String s, int i, Class oclass, int j, Material material, boolean flag, boolean flag1) {

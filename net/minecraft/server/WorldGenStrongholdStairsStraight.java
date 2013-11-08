@@ -31,16 +31,16 @@ public class WorldGenStrongholdStairsStraight extends WorldGenStrongholdPiece {
             this.a(world, structureboundingbox, 0, 0, 0, 4, 10, 7, true, random, WorldGenStrongholdPieces.c());
             this.a(world, random, structureboundingbox, this.d, 1, 7, 0);
             this.a(world, random, structureboundingbox, WorldGenStrongholdDoorType.a, 1, 1, 7);
-            int i = this.c(Block.COBBLESTONE_STAIRS.id, 2);
+            int i = this.a(Blocks.COBBLESTONE_STAIRS, 2);
 
             for (int j = 0; j < 6; ++j) {
-                this.a(world, Block.COBBLESTONE_STAIRS.id, i, 1, 6 - j, 1 + j, structureboundingbox);
-                this.a(world, Block.COBBLESTONE_STAIRS.id, i, 2, 6 - j, 1 + j, structureboundingbox);
-                this.a(world, Block.COBBLESTONE_STAIRS.id, i, 3, 6 - j, 1 + j, structureboundingbox);
+                this.a(world, Blocks.COBBLESTONE_STAIRS, i, 1, 6 - j, 1 + j, structureboundingbox);
+                this.a(world, Blocks.COBBLESTONE_STAIRS, i, 2, 6 - j, 1 + j, structureboundingbox);
+                this.a(world, Blocks.COBBLESTONE_STAIRS, i, 3, 6 - j, 1 + j, structureboundingbox);
                 if (j < 5) {
-                    this.a(world, Block.SMOOTH_BRICK.id, 0, 1, 5 - j, 1 + j, structureboundingbox);
-                    this.a(world, Block.SMOOTH_BRICK.id, 0, 2, 5 - j, 1 + j, structureboundingbox);
-                    this.a(world, Block.SMOOTH_BRICK.id, 0, 3, 5 - j, 1 + j, structureboundingbox);
+                    this.a(world, Blocks.SMOOTH_BRICK, 0, 1, 5 - j, 1 + j, structureboundingbox);
+                    this.a(world, Blocks.SMOOTH_BRICK, 0, 2, 5 - j, 1 + j, structureboundingbox);
+                    this.a(world, Blocks.SMOOTH_BRICK, 0, 3, 5 - j, 1 + j, structureboundingbox);
                 }
             }
 

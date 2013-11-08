@@ -13,7 +13,7 @@ public class EntityEnderSignal extends Entity {
         this.a(0.25F, 0.25F);
     }
 
-    protected void a() {}
+    protected void c() {}
 
     public EntityEnderSignal(World world, double d0, double d1, double d2) {
         super(world);
@@ -42,11 +42,11 @@ public class EntityEnderSignal extends Entity {
         this.e = this.random.nextInt(5) > 0;
     }
 
-    public void l_() {
-        this.U = this.locX;
-        this.V = this.locY;
-        this.W = this.locZ;
-        super.l_();
+    public void h() {
+        this.T = this.locX;
+        this.U = this.locY;
+        this.V = this.locZ;
+        super.h();
         this.locX += this.motX;
         this.locY += this.motY;
         this.locZ += this.motZ;
@@ -95,7 +95,7 @@ public class EntityEnderSignal extends Entity {
 
         float f3 = 0.25F;
 
-        if (this.H()) {
+        if (this.M()) {
             for (int i = 0; i < 4; ++i) {
                 this.world.addParticle("bubble", this.locX - this.motX * (double) f3, this.locY - this.motY * (double) f3, this.locZ - this.motZ * (double) f3, this.motX, this.motY, this.motZ);
             }
@@ -109,7 +109,7 @@ public class EntityEnderSignal extends Entity {
             if (this.d > 80 && !this.world.isStatic) {
                 this.die();
                 if (this.e) {
-                    this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Item.EYE_OF_ENDER)));
+                    this.world.addEntity(new EntityItem(this.world, this.locX, this.locY, this.locZ, new ItemStack(Items.EYE_OF_ENDER)));
                 } else {
                     this.world.triggerEffect(2003, (int) Math.round(this.locX), (int) Math.round(this.locY), (int) Math.round(this.locZ), 0);
                 }
@@ -125,7 +125,7 @@ public class EntityEnderSignal extends Entity {
         return 1.0F;
     }
 
-    public boolean aq() {
+    public boolean av() {
         return false;
     }
 }

@@ -53,7 +53,7 @@ public class WorldGenLargeFeature extends StructureGenerator {
 
         int i1 = i / this.g;
         int j1 = j / this.g;
-        Random random = this.c.H(i1, j1, 14357617);
+        Random random = this.c.A(i1, j1, 14357617);
 
         i1 *= this.g;
         j1 *= this.g;

@@ -48,7 +48,7 @@ public class CommandTp extends CommandAbstract {
 
                     entityplayer.mount((Entity) null);
                     entityplayer.playerConnection.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
-                    a(icommandlistener, "commands.tp.success", new Object[] { entityplayer.getLocalizedName(), entityplayer1.getLocalizedName()});
+                    a(icommandlistener, "commands.tp.success", new Object[] { entityplayer.getName(), entityplayer1.getName()});
                 }
             } else if (entityplayer.world != null) {
                 int i = astring.length - 3;
@@ -58,7 +58,7 @@ public class CommandTp extends CommandAbstract {
 
                 entityplayer.mount((Entity) null);
                 entityplayer.enderTeleportTo(d0, d1, d2);
-                a(icommandlistener, "commands.tp.success.coordinates", new Object[] { entityplayer.getLocalizedName(), Double.valueOf(d0), Double.valueOf(d1), Double.valueOf(d2)});
+                a(icommandlistener, "commands.tp.success.coordinates", new Object[] { entityplayer.getName(), Double.valueOf(d0), Double.valueOf(d1), Double.valueOf(d2)});
             }
         }
     }

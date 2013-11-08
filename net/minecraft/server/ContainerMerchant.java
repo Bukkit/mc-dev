@@ -49,7 +49,7 @@ public class ContainerMerchant extends Container {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.merchant.m_() == entityhuman;
+        return this.merchant.b() == entityhuman;
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {
@@ -102,12 +102,12 @@ public class ContainerMerchant extends Container {
             ItemStack itemstack = this.f.splitWithoutUpdate(0);
 
             if (itemstack != null) {
-                entityhuman.drop(itemstack);
+                entityhuman.drop(itemstack, false);
             }
 
             itemstack = this.f.splitWithoutUpdate(1);
             if (itemstack != null) {
-                entityhuman.drop(itemstack);
+                entityhuman.drop(itemstack, false);
             }
         }
     }

@@ -7,8 +7,8 @@ public class BlockSign extends BlockContainer {
     private Class a;
     private boolean b;
 
-    protected BlockSign(int i, Class oclass, boolean flag) {
-        super(i, Material.WOOD);
+    protected BlockSign(Class oclass, boolean flag) {
+        super(Material.WOOD);
         this.b = flag;
         this.a = oclass;
         float f = 0.25F;
@@ -17,7 +17,7 @@ public class BlockSign extends BlockContainer {
         this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f1, 0.5F + f);
     }
 
-    public AxisAlignedBB b(World world, int i, int j, int k) {
+    public AxisAlignedBB a(World world, int i, int j, int k) {
         return null;
     }
 
@@ -49,11 +49,11 @@ public class BlockSign extends BlockContainer {
         }
     }
 
-    public int d() {
+    public int b() {
         return -1;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
@@ -65,7 +65,7 @@ public class BlockSign extends BlockContainer {
         return false;
     }
 
-    public TileEntity b(World world) {
+    public TileEntity a(World world, int i) {
         try {
             return (TileEntity) this.a.newInstance();
         } catch (Exception exception) {
@@ -73,43 +73,43 @@ public class BlockSign extends BlockContainer {
         }
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Item.SIGN.id;
+    public Item getDropType(int i, Random random, int j) {
+        return Items.SIGN;
     }
 
-    public void doPhysics(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, Block block) {
         boolean flag = false;
 
         if (this.b) {
-            if (!world.getMaterial(i, j - 1, k).isBuildable()) {
+            if (!world.getType(i, j - 1, k).getMaterial().isBuildable()) {
                 flag = true;
             }
         } else {
-            int i1 = world.getData(i, j, k);
+            int l = world.getData(i, j, k);
 
             flag = true;
-            if (i1 == 2 && world.getMaterial(i, j, k + 1).isBuildable()) {
+            if (l == 2 && world.getType(i, j, k + 1).getMaterial().isBuildable()) {
                 flag = false;
             }
 
-            if (i1 == 3 && world.getMaterial(i, j, k - 1).isBuildable()) {
+            if (l == 3 && world.getType(i, j, k - 1).getMaterial().isBuildable()) {
                 flag = false;
             }
 
-            if (i1 == 4 && world.getMaterial(i + 1, j, k).isBuildable()) {
+            if (l == 4 && world.getType(i + 1, j, k).getMaterial().isBuildable()) {
                 flag = false;
             }
 
-            if (i1 == 5 && world.getMaterial(i - 1, j, k).isBuildable()) {
+            if (l == 5 && world.getType(i - 1, j, k).getMaterial().isBuildable()) {
                 flag = false;
             }
         }
 
         if (flag) {
-            this.c(world, i, j, k, world.getData(i, j, k), 0);
+            this.b(world, i, j, k, world.getData(i, j, k), 0);
             world.setAir(i, j, k);
         }
 
-        super.doPhysics(world, i, j, k, l);
+        super.doPhysics(world, i, j, k, block);
     }
 }

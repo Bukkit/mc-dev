@@ -63,7 +63,7 @@ public class ContainerChest extends Container {
 
     public void b(EntityHuman entityhuman) {
         super.b(entityhuman);
-        this.container.g();
+        this.container.l_();
     }
 
     public IInventory e() {

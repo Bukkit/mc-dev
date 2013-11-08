@@ -7,7 +7,6 @@ import javax.swing.JTextField;
 class ServerGuiCommandListener implements ActionListener {
 
     final JTextField a;
-
     final ServerGUI b;
 
     ServerGuiCommandListener(ServerGUI servergui, JTextField jtextfield) {

@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class WorldLoader implements Convertable {
 
+    private static final Logger b = LogManager.getLogger();
     protected final File a;
 
     public WorldLoader(File file1) {
@@ -34,7 +38,7 @@ public class WorldLoader implements Convertable {
                     nbttagcompound1 = nbttagcompound.getCompound("Data");
                     return new WorldData(nbttagcompound1);
                 } catch (Exception exception) {
-                    exception.printStackTrace();
+                    b.error("Exception reading " + file2, exception);
                 }
             }
 
@@ -45,7 +49,7 @@ public class WorldLoader implements Convertable {
                     nbttagcompound1 = nbttagcompound.getCompound("Data");
                     return new WorldData(nbttagcompound1);
                 } catch (Exception exception1) {
-                    exception1.printStackTrace();
+                    b.error("Exception reading " + file2, exception1);
                 }
             }
 
@@ -59,15 +63,15 @@ public class WorldLoader implements Convertable {
         if (!file1.exists()) {
             return true;
         } else {
-            System.out.println("Deleting level " + s);
+            b.info("Deleting level " + s);
 
             for (int i = 1; i <= 5; ++i) {
-                System.out.println("Attempt " + i + "...");
+                b.info("Attempt " + i + "...");
                 if (a(file1.listFiles())) {
                     break;
                 }
 
-                System.out.println("Unsuccessful in deleting contents.");
+                b.warn("Unsuccessful in deleting contents.");
                 if (i < 5) {
                     try {
                         Thread.sleep(500L);
@@ -85,14 +89,14 @@ public class WorldLoader implements Convertable {
         for (int i = 0; i < afile.length; ++i) {
             File file1 = afile[i];
 
-            System.out.println("Deleting " + file1);
+            b.debug("Deleting " + file1);
             if (file1.isDirectory() && !a(file1.listFiles())) {
-                System.out.println("Couldn\'t delete directory " + file1);
+                b.warn("Couldn\'t delete directory " + file1);
                 return false;
             }
 
             if (!file1.delete()) {
-                System.out.println("Couldn\'t delete file " + file1);
+                b.warn("Couldn\'t delete file " + file1);
                 return false;
             }
         }

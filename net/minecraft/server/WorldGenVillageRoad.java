@@ -100,14 +100,14 @@ public class WorldGenVillageRoad extends WorldGenVillageRoadPiece {
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
-        int i = this.d(Block.GRAVEL.id, 0);
+        Block block = this.b(Blocks.GRAVEL, 0);
 
-        for (int j = this.f.a; j <= this.f.d; ++j) {
-            for (int k = this.f.c; k <= this.f.f; ++k) {
-                if (structureboundingbox.b(j, 64, k)) {
-                    int l = world.i(j, k) - 1;
+        for (int i = this.f.a; i <= this.f.d; ++i) {
+            for (int j = this.f.c; j <= this.f.f; ++j) {
+                if (structureboundingbox.b(i, 64, j)) {
+                    int k = world.i(i, j) - 1;
 
-                    world.setTypeIdAndData(j, l, k, i, 0, 2);
+                    world.setTypeAndData(i, k, j, block, 0, 2);
                 }
             }
         }

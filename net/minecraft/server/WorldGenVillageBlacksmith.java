@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
 
-    private static final StructurePieceTreasure[] a = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.DIAMOND.id, 0, 1, 3, 3), new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 5, 10), new StructurePieceTreasure(Item.GOLD_INGOT.id, 0, 1, 3, 5), new StructurePieceTreasure(Item.BREAD.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.APPLE.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.IRON_PICKAXE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_SWORD.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_CHESTPLATE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_HELMET.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_LEGGINGS.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.IRON_BOOTS.id, 0, 1, 1, 5), new StructurePieceTreasure(Block.OBSIDIAN.id, 0, 3, 7, 5), new StructurePieceTreasure(Block.SAPLING.id, 0, 3, 7, 5), new StructurePieceTreasure(Item.SADDLE.id, 0, 1, 1, 3), new StructurePieceTreasure(Item.HORSE_ARMOR_IRON.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.HORSE_ARMOR_GOLD.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.HORSE_ARMOR_DIAMOND.id, 0, 1, 1, 1)};
+    private static final StructurePieceTreasure[] a = new StructurePieceTreasure[] { new StructurePieceTreasure(Items.DIAMOND, 0, 1, 3, 3), new StructurePieceTreasure(Items.IRON_INGOT, 0, 1, 5, 10), new StructurePieceTreasure(Items.GOLD_INGOT, 0, 1, 3, 5), new StructurePieceTreasure(Items.BREAD, 0, 1, 3, 15), new StructurePieceTreasure(Items.APPLE, 0, 1, 3, 15), new StructurePieceTreasure(Items.IRON_PICKAXE, 0, 1, 1, 5), new StructurePieceTreasure(Items.IRON_SWORD, 0, 1, 1, 5), new StructurePieceTreasure(Items.IRON_CHESTPLATE, 0, 1, 1, 5), new StructurePieceTreasure(Items.IRON_HELMET, 0, 1, 1, 5), new StructurePieceTreasure(Items.IRON_LEGGINGS, 0, 1, 1, 5), new StructurePieceTreasure(Items.IRON_BOOTS, 0, 1, 1, 5), new StructurePieceTreasure(Item.getItemOf(Blocks.OBSIDIAN), 0, 3, 7, 5), new StructurePieceTreasure(Item.getItemOf(Blocks.SAPLING), 0, 3, 7, 5), new StructurePieceTreasure(Items.SADDLE, 0, 1, 1, 3), new StructurePieceTreasure(Items.HORSE_ARMOR_IRON, 0, 1, 1, 1), new StructurePieceTreasure(Items.HORSE_ARMOR_GOLD, 0, 1, 1, 1), new StructurePieceTreasure(Items.HORSE_ARMOR_DIAMOND, 0, 1, 1, 1)};
     private boolean b;
 
     public WorldGenVillageBlacksmith() {}
@@ -42,41 +42,41 @@ public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
             this.f.a(0, this.k - this.f.e + 6 - 1, 0);
         }
 
-        this.a(world, structureboundingbox, 0, 1, 0, 9, 4, 6, 0, 0, false);
-        this.a(world, structureboundingbox, 0, 0, 0, 9, 0, 6, Block.COBBLESTONE.id, Block.COBBLESTONE.id, false);
-        this.a(world, structureboundingbox, 0, 4, 0, 9, 4, 6, Block.COBBLESTONE.id, Block.COBBLESTONE.id, false);
-        this.a(world, structureboundingbox, 0, 5, 0, 9, 5, 6, Block.STEP.id, Block.STEP.id, false);
-        this.a(world, structureboundingbox, 1, 5, 1, 8, 5, 5, 0, 0, false);
-        this.a(world, structureboundingbox, 1, 1, 0, 2, 3, 0, Block.WOOD.id, Block.WOOD.id, false);
-        this.a(world, structureboundingbox, 0, 1, 0, 0, 4, 0, Block.LOG.id, Block.LOG.id, false);
-        this.a(world, structureboundingbox, 3, 1, 0, 3, 4, 0, Block.LOG.id, Block.LOG.id, false);
-        this.a(world, structureboundingbox, 0, 1, 6, 0, 4, 6, Block.LOG.id, Block.LOG.id, false);
-        this.a(world, Block.WOOD.id, 0, 3, 3, 1, structureboundingbox);
-        this.a(world, structureboundingbox, 3, 1, 2, 3, 3, 2, Block.WOOD.id, Block.WOOD.id, false);
-        this.a(world, structureboundingbox, 4, 1, 3, 5, 3, 3, Block.WOOD.id, Block.WOOD.id, false);
-        this.a(world, structureboundingbox, 0, 1, 1, 0, 3, 5, Block.WOOD.id, Block.WOOD.id, false);
-        this.a(world, structureboundingbox, 1, 1, 6, 5, 3, 6, Block.WOOD.id, Block.WOOD.id, false);
-        this.a(world, structureboundingbox, 5, 1, 0, 5, 3, 0, Block.FENCE.id, Block.FENCE.id, false);
-        this.a(world, structureboundingbox, 9, 1, 0, 9, 3, 0, Block.FENCE.id, Block.FENCE.id, false);
-        this.a(world, structureboundingbox, 6, 1, 4, 9, 4, 6, Block.COBBLESTONE.id, Block.COBBLESTONE.id, false);
-        this.a(world, Block.LAVA.id, 0, 7, 1, 5, structureboundingbox);
-        this.a(world, Block.LAVA.id, 0, 8, 1, 5, structureboundingbox);
-        this.a(world, Block.IRON_FENCE.id, 0, 9, 2, 5, structureboundingbox);
-        this.a(world, Block.IRON_FENCE.id, 0, 9, 2, 4, structureboundingbox);
-        this.a(world, structureboundingbox, 7, 2, 4, 8, 2, 5, 0, 0, false);
-        this.a(world, Block.COBBLESTONE.id, 0, 6, 1, 3, structureboundingbox);
-        this.a(world, Block.FURNACE.id, 0, 6, 2, 3, structureboundingbox);
-        this.a(world, Block.FURNACE.id, 0, 6, 3, 3, structureboundingbox);
-        this.a(world, Block.DOUBLE_STEP.id, 0, 8, 1, 1, structureboundingbox);
-        this.a(world, Block.THIN_GLASS.id, 0, 0, 2, 2, structureboundingbox);
-        this.a(world, Block.THIN_GLASS.id, 0, 0, 2, 4, structureboundingbox);
-        this.a(world, Block.THIN_GLASS.id, 0, 2, 2, 6, structureboundingbox);
-        this.a(world, Block.THIN_GLASS.id, 0, 4, 2, 6, structureboundingbox);
-        this.a(world, Block.FENCE.id, 0, 2, 1, 4, structureboundingbox);
-        this.a(world, Block.WOOD_PLATE.id, 0, 2, 2, 4, structureboundingbox);
-        this.a(world, Block.WOOD.id, 0, 1, 1, 5, structureboundingbox);
-        this.a(world, Block.WOOD_STAIRS.id, this.c(Block.WOOD_STAIRS.id, 3), 2, 1, 5, structureboundingbox);
-        this.a(world, Block.WOOD_STAIRS.id, this.c(Block.WOOD_STAIRS.id, 1), 1, 1, 4, structureboundingbox);
+        this.a(world, structureboundingbox, 0, 1, 0, 9, 4, 6, Blocks.AIR, Blocks.AIR, false);
+        this.a(world, structureboundingbox, 0, 0, 0, 9, 0, 6, Blocks.COBBLESTONE, Blocks.COBBLESTONE, false);
+        this.a(world, structureboundingbox, 0, 4, 0, 9, 4, 6, Blocks.COBBLESTONE, Blocks.COBBLESTONE, false);
+        this.a(world, structureboundingbox, 0, 5, 0, 9, 5, 6, Blocks.STEP, Blocks.STEP, false);
+        this.a(world, structureboundingbox, 1, 5, 1, 8, 5, 5, Blocks.AIR, Blocks.AIR, false);
+        this.a(world, structureboundingbox, 1, 1, 0, 2, 3, 0, Blocks.WOOD, Blocks.WOOD, false);
+        this.a(world, structureboundingbox, 0, 1, 0, 0, 4, 0, Blocks.LOG, Blocks.LOG, false);
+        this.a(world, structureboundingbox, 3, 1, 0, 3, 4, 0, Blocks.LOG, Blocks.LOG, false);
+        this.a(world, structureboundingbox, 0, 1, 6, 0, 4, 6, Blocks.LOG, Blocks.LOG, false);
+        this.a(world, Blocks.WOOD, 0, 3, 3, 1, structureboundingbox);
+        this.a(world, structureboundingbox, 3, 1, 2, 3, 3, 2, Blocks.WOOD, Blocks.WOOD, false);
+        this.a(world, structureboundingbox, 4, 1, 3, 5, 3, 3, Blocks.WOOD, Blocks.WOOD, false);
+        this.a(world, structureboundingbox, 0, 1, 1, 0, 3, 5, Blocks.WOOD, Blocks.WOOD, false);
+        this.a(world, structureboundingbox, 1, 1, 6, 5, 3, 6, Blocks.WOOD, Blocks.WOOD, false);
+        this.a(world, structureboundingbox, 5, 1, 0, 5, 3, 0, Blocks.FENCE, Blocks.FENCE, false);
+        this.a(world, structureboundingbox, 9, 1, 0, 9, 3, 0, Blocks.FENCE, Blocks.FENCE, false);
+        this.a(world, structureboundingbox, 6, 1, 4, 9, 4, 6, Blocks.COBBLESTONE, Blocks.COBBLESTONE, false);
+        this.a(world, Blocks.LAVA, 0, 7, 1, 5, structureboundingbox);
+        this.a(world, Blocks.LAVA, 0, 8, 1, 5, structureboundingbox);
+        this.a(world, Blocks.IRON_FENCE, 0, 9, 2, 5, structureboundingbox);
+        this.a(world, Blocks.IRON_FENCE, 0, 9, 2, 4, structureboundingbox);
+        this.a(world, structureboundingbox, 7, 2, 4, 8, 2, 5, Blocks.AIR, Blocks.AIR, false);
+        this.a(world, Blocks.COBBLESTONE, 0, 6, 1, 3, structureboundingbox);
+        this.a(world, Blocks.FURNACE, 0, 6, 2, 3, structureboundingbox);
+        this.a(world, Blocks.FURNACE, 0, 6, 3, 3, structureboundingbox);
+        this.a(world, Blocks.DOUBLE_STEP, 0, 8, 1, 1, structureboundingbox);
+        this.a(world, Blocks.THIN_GLASS, 0, 0, 2, 2, structureboundingbox);
+        this.a(world, Blocks.THIN_GLASS, 0, 0, 2, 4, structureboundingbox);
+        this.a(world, Blocks.THIN_GLASS, 0, 2, 2, 6, structureboundingbox);
+        this.a(world, Blocks.THIN_GLASS, 0, 4, 2, 6, structureboundingbox);
+        this.a(world, Blocks.FENCE, 0, 2, 1, 4, structureboundingbox);
+        this.a(world, Blocks.WOOD_PLATE, 0, 2, 2, 4, structureboundingbox);
+        this.a(world, Blocks.WOOD, 0, 1, 1, 5, structureboundingbox);
+        this.a(world, Blocks.WOOD_STAIRS, this.a(Blocks.WOOD_STAIRS, 3), 2, 1, 5, structureboundingbox);
+        this.a(world, Blocks.WOOD_STAIRS, this.a(Blocks.WOOD_STAIRS, 1), 1, 1, 4, structureboundingbox);
         int i;
         int j;
 
@@ -92,15 +92,15 @@ public class WorldGenVillageBlacksmith extends WorldGenVillagePiece {
         }
 
         for (i = 6; i <= 8; ++i) {
-            if (this.a(world, i, 0, -1, structureboundingbox) == 0 && this.a(world, i, -1, -1, structureboundingbox) != 0) {
-                this.a(world, Block.COBBLESTONE_STAIRS.id, this.c(Block.COBBLESTONE_STAIRS.id, 3), i, 0, -1, structureboundingbox);
+            if (this.a(world, i, 0, -1, structureboundingbox).getMaterial() == Material.AIR && this.a(world, i, -1, -1, structureboundingbox).getMaterial() != Material.AIR) {
+                this.a(world, Blocks.COBBLESTONE_STAIRS, this.a(Blocks.COBBLESTONE_STAIRS, 3), i, 0, -1, structureboundingbox);
             }
         }
 
         for (i = 0; i < 7; ++i) {
             for (j = 0; j < 10; ++j) {
                 this.b(world, j, 6, i, structureboundingbox);
-                this.b(world, Block.COBBLESTONE.id, 0, j, -1, i, structureboundingbox);
+                this.b(world, Blocks.COBBLESTONE, 0, j, -1, i, structureboundingbox);
             }
         }
 

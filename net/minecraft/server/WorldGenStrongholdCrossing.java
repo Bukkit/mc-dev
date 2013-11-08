@@ -79,36 +79,36 @@ public class WorldGenStrongholdCrossing extends WorldGenStrongholdPiece {
             this.a(world, structureboundingbox, 0, 0, 0, 9, 8, 10, true, random, WorldGenStrongholdPieces.c());
             this.a(world, random, structureboundingbox, this.d, 4, 3, 0);
             if (this.a) {
-                this.a(world, structureboundingbox, 0, 3, 1, 0, 5, 3, 0, 0, false);
+                this.a(world, structureboundingbox, 0, 3, 1, 0, 5, 3, Blocks.AIR, Blocks.AIR, false);
             }
 
             if (this.c) {
-                this.a(world, structureboundingbox, 9, 3, 1, 9, 5, 3, 0, 0, false);
+                this.a(world, structureboundingbox, 9, 3, 1, 9, 5, 3, Blocks.AIR, Blocks.AIR, false);
             }
 
             if (this.b) {
-                this.a(world, structureboundingbox, 0, 5, 7, 0, 7, 9, 0, 0, false);
+                this.a(world, structureboundingbox, 0, 5, 7, 0, 7, 9, Blocks.AIR, Blocks.AIR, false);
             }
 
             if (this.e) {
-                this.a(world, structureboundingbox, 9, 5, 7, 9, 7, 9, 0, 0, false);
+                this.a(world, structureboundingbox, 9, 5, 7, 9, 7, 9, Blocks.AIR, Blocks.AIR, false);
             }
 
-            this.a(world, structureboundingbox, 5, 1, 10, 7, 3, 10, 0, 0, false);
+            this.a(world, structureboundingbox, 5, 1, 10, 7, 3, 10, Blocks.AIR, Blocks.AIR, false);
             this.a(world, structureboundingbox, 1, 2, 1, 8, 2, 6, false, random, WorldGenStrongholdPieces.c());
             this.a(world, structureboundingbox, 4, 1, 5, 4, 4, 9, false, random, WorldGenStrongholdPieces.c());
             this.a(world, structureboundingbox, 8, 1, 5, 8, 4, 9, false, random, WorldGenStrongholdPieces.c());
             this.a(world, structureboundingbox, 1, 4, 7, 3, 4, 9, false, random, WorldGenStrongholdPieces.c());
             this.a(world, structureboundingbox, 1, 3, 5, 3, 3, 6, false, random, WorldGenStrongholdPieces.c());
-            this.a(world, structureboundingbox, 1, 3, 4, 3, 3, 4, Block.STEP.id, Block.STEP.id, false);
-            this.a(world, structureboundingbox, 1, 4, 6, 3, 4, 6, Block.STEP.id, Block.STEP.id, false);
+            this.a(world, structureboundingbox, 1, 3, 4, 3, 3, 4, Blocks.STEP, Blocks.STEP, false);
+            this.a(world, structureboundingbox, 1, 4, 6, 3, 4, 6, Blocks.STEP, Blocks.STEP, false);
             this.a(world, structureboundingbox, 5, 1, 7, 7, 1, 8, false, random, WorldGenStrongholdPieces.c());
-            this.a(world, structureboundingbox, 5, 1, 9, 7, 1, 9, Block.STEP.id, Block.STEP.id, false);
-            this.a(world, structureboundingbox, 5, 2, 7, 7, 2, 7, Block.STEP.id, Block.STEP.id, false);
-            this.a(world, structureboundingbox, 4, 5, 7, 4, 5, 9, Block.STEP.id, Block.STEP.id, false);
-            this.a(world, structureboundingbox, 8, 5, 7, 8, 5, 9, Block.STEP.id, Block.STEP.id, false);
-            this.a(world, structureboundingbox, 5, 5, 7, 7, 5, 9, Block.DOUBLE_STEP.id, Block.DOUBLE_STEP.id, false);
-            this.a(world, Block.TORCH.id, 0, 6, 5, 6, structureboundingbox);
+            this.a(world, structureboundingbox, 5, 1, 9, 7, 1, 9, Blocks.STEP, Blocks.STEP, false);
+            this.a(world, structureboundingbox, 5, 2, 7, 7, 2, 7, Blocks.STEP, Blocks.STEP, false);
+            this.a(world, structureboundingbox, 4, 5, 7, 4, 5, 9, Blocks.STEP, Blocks.STEP, false);
+            this.a(world, structureboundingbox, 8, 5, 7, 8, 5, 9, Blocks.STEP, Blocks.STEP, false);
+            this.a(world, structureboundingbox, 5, 5, 7, 7, 5, 9, Blocks.DOUBLE_STEP, Blocks.DOUBLE_STEP, false);
+            this.a(world, Blocks.TORCH, 0, 6, 5, 6, structureboundingbox);
             return true;
         }
     }

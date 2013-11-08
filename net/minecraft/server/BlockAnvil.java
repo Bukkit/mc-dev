@@ -1,17 +1,17 @@
 package net.minecraft.server;
 
-public class BlockAnvil extends BlockSand {
+public class BlockAnvil extends BlockFalling {
 
     public static final String[] a = new String[] { "intact", "slightlyDamaged", "veryDamaged"};
-    private static final String[] d = new String[] { "anvil_top_damaged_0", "anvil_top_damaged_1", "anvil_top_damaged_2"};
+    private static final String[] N = new String[] { "anvil_top_damaged_0", "anvil_top_damaged_1", "anvil_top_damaged_2"};
 
-    protected BlockAnvil(int i) {
-        super(i, Material.HEAVY);
-        this.k(0);
+    protected BlockAnvil() {
+        super(Material.HEAVY);
+        this.g(0);
         this.a(CreativeModeTab.c);
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
@@ -51,7 +51,7 @@ public class BlockAnvil extends BlockSand {
         }
     }
 
-    public int d() {
+    public int b() {
         return 35;
     }
 
@@ -73,7 +73,7 @@ public class BlockAnvil extends BlockSand {
         entityfallingblock.a(true);
     }
 
-    public void a_(World world, int i, int j, int k, int l) {
+    public void a(World world, int i, int j, int k, int l) {
         world.triggerEffect(1022, i, j, k, 0);
     }
 }

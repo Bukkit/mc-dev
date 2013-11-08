@@ -5,17 +5,17 @@ public class NoteBlockData {
     private int a;
     private int b;
     private int c;
-    private int d;
+    private Block d;
     private int e;
     private int f;
 
-    public NoteBlockData(int i, int j, int k, int l, int i1, int j1) {
+    public NoteBlockData(int i, int j, int k, Block block, int l, int i1) {
         this.a = i;
         this.b = j;
         this.c = k;
-        this.e = i1;
-        this.f = j1;
-        this.d = l;
+        this.e = l;
+        this.f = i1;
+        this.d = block;
     }
 
     public int a() {
@@ -38,7 +38,7 @@ public class NoteBlockData {
         return this.f;
     }
 
-    public int f() {
+    public Block f() {
         return this.d;
     }
 

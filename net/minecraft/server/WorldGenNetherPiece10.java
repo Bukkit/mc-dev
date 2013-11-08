@@ -37,15 +37,15 @@ public class WorldGenNetherPiece10 extends WorldGenNetherPiece {
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
-        this.a(world, structureboundingbox, 0, 0, 0, 4, 1, 4, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 0, 2, 0, 4, 5, 4, 0, 0, false);
-        this.a(world, structureboundingbox, 0, 2, 0, 0, 5, 4, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 0, 3, 1, 0, 4, 1, Block.NETHER_FENCE.id, Block.NETHER_FENCE.id, false);
-        this.a(world, structureboundingbox, 0, 3, 3, 0, 4, 3, Block.NETHER_FENCE.id, Block.NETHER_FENCE.id, false);
-        this.a(world, structureboundingbox, 4, 2, 0, 4, 5, 0, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 1, 2, 4, 4, 5, 4, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 1, 3, 4, 1, 4, 4, Block.NETHER_FENCE.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 3, 3, 4, 3, 4, 4, Block.NETHER_FENCE.id, Block.NETHER_BRICK.id, false);
+        this.a(world, structureboundingbox, 0, 0, 0, 4, 1, 4, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 0, 2, 0, 4, 5, 4, Blocks.AIR, Blocks.AIR, false);
+        this.a(world, structureboundingbox, 0, 2, 0, 0, 5, 4, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 0, 3, 1, 0, 4, 1, Blocks.NETHER_FENCE, Blocks.NETHER_FENCE, false);
+        this.a(world, structureboundingbox, 0, 3, 3, 0, 4, 3, Blocks.NETHER_FENCE, Blocks.NETHER_FENCE, false);
+        this.a(world, structureboundingbox, 4, 2, 0, 4, 5, 0, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 1, 2, 4, 4, 5, 4, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 1, 3, 4, 1, 4, 4, Blocks.NETHER_FENCE, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 3, 3, 4, 3, 4, 4, Blocks.NETHER_FENCE, Blocks.NETHER_BRICK, false);
         int i;
         int j;
 
@@ -60,11 +60,11 @@ public class WorldGenNetherPiece10 extends WorldGenNetherPiece {
             }
         }
 
-        this.a(world, structureboundingbox, 0, 6, 0, 4, 6, 4, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+        this.a(world, structureboundingbox, 0, 6, 0, 4, 6, 4, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
 
         for (i = 0; i <= 4; ++i) {
             for (j = 0; j <= 4; ++j) {
-                this.b(world, Block.NETHER_BRICK.id, 0, i, -1, j, structureboundingbox);
+                this.b(world, Blocks.NETHER_BRICK, 0, i, -1, j, structureboundingbox);
             }
         }
 

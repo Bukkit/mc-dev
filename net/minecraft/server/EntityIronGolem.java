@@ -24,51 +24,51 @@ public class EntityIronGolem extends EntityGolem {
         this.targetSelector.a(3, new PathfinderGoalNearestAttackableTarget(this, EntityInsentient.class, 0, false, true, IMonster.a));
     }
 
-    protected void a() {
-        super.a();
+    protected void c() {
+        super.c();
         this.datawatcher.a(16, Byte.valueOf((byte) 0));
     }
 
-    public boolean bf() {
+    public boolean bk() {
         return true;
     }
 
-    protected void bk() {
+    protected void bp() {
         if (--this.bq <= 0) {
             this.bq = 70 + this.random.nextInt(50);
             this.bp = this.world.villages.getClosestVillage(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ), 32);
             if (this.bp == null) {
-                this.bR();
+                this.bV();
             } else {
                 ChunkCoordinates chunkcoordinates = this.bp.getCenter();
 
-                this.b(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, (int) ((float) this.bp.getSize() * 0.6F));
+                this.a(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, (int) ((float) this.bp.getSize() * 0.6F));
             }
         }
 
-        super.bk();
+        super.bp();
     }
 
-    protected void az() {
-        super.az();
+    protected void aD() {
+        super.aD();
         this.getAttributeInstance(GenericAttributes.a).setValue(100.0D);
         this.getAttributeInstance(GenericAttributes.d).setValue(0.25D);
     }
 
-    protected int h(int i) {
+    protected int j(int i) {
         return i;
     }
 
     protected void n(Entity entity) {
-        if (entity instanceof IMonster && this.aD().nextInt(20) == 0) {
+        if (entity instanceof IMonster && this.aI().nextInt(20) == 0) {
             this.setGoalTarget((EntityLiving) entity);
         }
 
         super.n(entity);
     }
 
-    public void c() {
-        super.c();
+    public void e() {
+        super.e();
         if (this.br > 0) {
             --this.br;
         }
@@ -81,10 +81,10 @@ public class EntityIronGolem extends EntityGolem {
             int i = MathHelper.floor(this.locX);
             int j = MathHelper.floor(this.locY - 0.20000000298023224D - (double) this.height);
             int k = MathHelper.floor(this.locZ);
-            int l = this.world.getTypeId(i, j, k);
+            Block block = this.world.getType(i, j, k);
 
-            if (l > 0) {
-                this.world.addParticle("tilecrack_" + l + "_" + this.world.getData(i, j, k), this.locX + ((double) this.random.nextFloat() - 0.5D) * (double) this.width, this.boundingBox.b + 0.1D, this.locZ + ((double) this.random.nextFloat() - 0.5D) * (double) this.width, 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
+            if (block.getMaterial() != Material.AIR) {
+                this.world.addParticle("blockcrack_" + Block.b(block) + "_" + this.world.getData(i, j, k), this.locX + ((double) this.random.nextFloat() - 0.5D) * (double) this.width, this.boundingBox.b + 0.1D, this.locZ + ((double) this.random.nextFloat() - 0.5D) * (double) this.width, 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
             }
         }
     }
@@ -116,7 +116,7 @@ public class EntityIronGolem extends EntityGolem {
         return flag;
     }
 
-    public Village bT() {
+    public Village bX() {
         return this.bp;
     }
 
@@ -125,19 +125,15 @@ public class EntityIronGolem extends EntityGolem {
         this.world.broadcastEntityEffect(this, (byte) 11);
     }
 
-    protected String r() {
-        return "none";
-    }
-
-    protected String aO() {
+    protected String aT() {
         return "mob.irongolem.hit";
     }
 
-    protected String aP() {
+    protected String aU() {
         return "mob.irongolem.death";
     }
 
-    protected void a(int i, int j, int k, int l) {
+    protected void a(int i, int j, int k, Block block) {
         this.makeSound("mob.irongolem.walk", 1.0F, 1.0F);
     }
 
@@ -147,17 +143,17 @@ public class EntityIronGolem extends EntityGolem {
         int k;
 
         for (k = 0; k < j; ++k) {
-            this.b(Block.RED_ROSE.id, 1);
+            this.a(Item.getItemOf(Blocks.RED_ROSE), 1, 0.0F);
         }
 
         k = 3 + this.random.nextInt(3);
 
         for (int l = 0; l < k; ++l) {
-            this.b(Item.IRON_INGOT.id, 1);
+            this.a(Items.IRON_INGOT, 1);
         }
     }
 
-    public int bV() {
+    public int bZ() {
         return this.bs;
     }
 

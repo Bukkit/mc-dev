@@ -14,13 +14,13 @@ public class EntityLightning extends EntityWeather {
         this.lifeTicks = 2;
         this.a = this.random.nextLong();
         this.c = this.random.nextInt(3) + 1;
-        if (!world.isStatic && world.getGameRules().getBoolean("doFireTick") && world.difficulty >= 2 && world.areChunksLoaded(MathHelper.floor(d0), MathHelper.floor(d1), MathHelper.floor(d2), 10)) {
+        if (!world.isStatic && world.getGameRules().getBoolean("doFireTick") && (world.difficulty == EnumDifficulty.NORMAL || world.difficulty == EnumDifficulty.HARD) && world.areChunksLoaded(MathHelper.floor(d0), MathHelper.floor(d1), MathHelper.floor(d2), 10)) {
             int i = MathHelper.floor(d0);
             int j = MathHelper.floor(d1);
             int k = MathHelper.floor(d2);
 
-            if (world.getTypeId(i, j, k) == 0 && Block.FIRE.canPlace(world, i, j, k)) {
-                world.setTypeIdUpdate(i, j, k, Block.FIRE.id);
+            if (world.getType(i, j, k).getMaterial() == Material.AIR && Blocks.FIRE.canPlace(world, i, j, k)) {
+                world.setTypeUpdate(i, j, k, Blocks.FIRE);
             }
 
             for (i = 0; i < 4; ++i) {
@@ -28,15 +28,15 @@ public class EntityLightning extends EntityWeather {
                 k = MathHelper.floor(d1) + this.random.nextInt(3) - 1;
                 int l = MathHelper.floor(d2) + this.random.nextInt(3) - 1;
 
-                if (world.getTypeId(j, k, l) == 0 && Block.FIRE.canPlace(world, j, k, l)) {
-                    world.setTypeIdUpdate(j, k, l, Block.FIRE.id);
+                if (world.getType(j, k, l).getMaterial() == Material.AIR && Blocks.FIRE.canPlace(world, j, k, l)) {
+                    world.setTypeUpdate(j, k, l, Blocks.FIRE);
                 }
             }
         }
     }
 
-    public void l_() {
-        super.l_();
+    public void h() {
+        super.h();
         if (this.lifeTicks == 2) {
             this.world.makeSound(this.locX, this.locY, this.locZ, "ambient.weather.thunder", 10000.0F, 0.8F + this.random.nextFloat() * 0.2F);
             this.world.makeSound(this.locX, this.locY, this.locZ, "random.explode", 2.0F, 0.5F + this.random.nextFloat() * 0.2F);
@@ -55,8 +55,8 @@ public class EntityLightning extends EntityWeather {
                     int j = MathHelper.floor(this.locY);
                     int k = MathHelper.floor(this.locZ);
 
-                    if (this.world.getTypeId(i, j, k) == 0 && Block.FIRE.canPlace(this.world, i, j, k)) {
-                        this.world.setTypeIdUpdate(i, j, k, Block.FIRE.id);
+                    if (this.world.getType(i, j, k).getMaterial() == Material.AIR && Blocks.FIRE.canPlace(this.world, i, j, k)) {
+                        this.world.setTypeUpdate(i, j, k, Blocks.FIRE);
                     }
                 }
             }
@@ -78,7 +78,7 @@ public class EntityLightning extends EntityWeather {
         }
     }
 
-    protected void a() {}
+    protected void c() {}
 
     protected void a(NBTTagCompound nbttagcompound) {}
 

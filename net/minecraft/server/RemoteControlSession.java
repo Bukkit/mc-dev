@@ -7,24 +7,28 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class RemoteControlSession extends RemoteConnectionThread {
 
-    private boolean g;
-    private Socket h;
-    private byte[] i = new byte[1460];
-    private String j;
+    private static final Logger h = LogManager.getLogger();
+    private boolean i;
+    private Socket j;
+    private byte[] k = new byte[1460];
+    private String l;
 
     RemoteControlSession(IMinecraftServer iminecraftserver, Socket socket) {
-        super(iminecraftserver);
-        this.h = socket;
+        super(iminecraftserver, "RCON Client");
+        this.j = socket;
 
         try {
-            this.h.setSoTimeout(0);
+            this.j.setSoTimeout(0);
         } catch (Exception exception) {
             this.running = false;
         }
 
-        this.j = iminecraftserver.a("rcon.password", "");
+        this.l = iminecraftserver.a("rcon.password", "");
         this.info("Rcon connection from: " + socket.getInetAddress());
     }
 
@@ -35,28 +39,28 @@ public class RemoteControlSession extends RemoteConnectionThread {
                     break;
                 }
 
-                BufferedInputStream bufferedinputstream = new BufferedInputStream(this.h.getInputStream());
-                int i = bufferedinputstream.read(this.i, 0, 1460);
+                BufferedInputStream bufferedinputstream = new BufferedInputStream(this.j.getInputStream());
+                int i = bufferedinputstream.read(this.k, 0, 1460);
 
                 if (10 > i) {
                     return;
                 }
 
                 byte b0 = 0;
-                int j = StatusChallengeUtils.b(this.i, 0, i);
+                int j = StatusChallengeUtils.b(this.k, 0, i);
 
                 if (j == i - 4) {
                     int k = b0 + 4;
-                    int l = StatusChallengeUtils.b(this.i, k, i);
+                    int l = StatusChallengeUtils.b(this.k, k, i);
 
                     k += 4;
-                    int i1 = StatusChallengeUtils.b(this.i, k);
+                    int i1 = StatusChallengeUtils.b(this.k, k);
 
                     k += 4;
                     switch (i1) {
                     case 2:
-                        if (this.g) {
-                            String s = StatusChallengeUtils.a(this.i, k, i);
+                        if (this.i) {
+                            String s = StatusChallengeUtils.a(this.k, k, i);
 
                             try {
                                 this.a(l, this.server.g(s));
@@ -70,16 +74,16 @@ public class RemoteControlSession extends RemoteConnectionThread {
                         continue;
 
                     case 3:
-                        String s1 = StatusChallengeUtils.a(this.i, k, i);
+                        String s1 = StatusChallengeUtils.a(this.k, k, i);
                         int j1 = k + s1.length();
 
-                        if (0 != s1.length() && s1.equals(this.j)) {
-                            this.g = true;
+                        if (0 != s1.length() && s1.equals(this.l)) {
+                            this.i = true;
                             this.a(l, 2, "");
                             continue;
                         }
 
-                        this.g = false;
+                        this.i = false;
                         this.f();
                         continue;
 
@@ -93,7 +97,7 @@ public class RemoteControlSession extends RemoteConnectionThread {
             } catch (IOException ioexception) {
                 break;
             } catch (Exception exception1) {
-                System.out.println(exception1);
+                h.error("Exception whilst parsing RCON input", exception1);
                 break;
             } finally {
                 this.g();
@@ -114,7 +118,7 @@ public class RemoteControlSession extends RemoteConnectionThread {
         dataoutputstream.write(abyte);
         dataoutputstream.write(0);
         dataoutputstream.write(0);
-        this.h.getOutputStream().write(bytearrayoutputstream.toByteArray());
+        this.j.getOutputStream().write(bytearrayoutputstream.toByteArray());
     }
 
     private void f() {
@@ -135,14 +139,14 @@ public class RemoteControlSession extends RemoteConnectionThread {
     }
 
     private void g() {
-        if (null != this.h) {
+        if (null != this.j) {
             try {
-                this.h.close();
+                this.j.close();
             } catch (IOException ioexception) {
                 this.warning("IO: " + ioexception.getMessage());
             }
 
-            this.h = null;
+            this.j = null;
         }
     }
 }

@@ -5,7 +5,6 @@ public enum EnumGamemode {
     NONE("NOT_SET", 0, -1, ""), SURVIVAL("SURVIVAL", 1, 0, "survival"), CREATIVE("CREATIVE", 2, 1, "creative"), ADVENTURE("ADVENTURE", 3, 2, "adventure");
     int e;
     String f;
-
     private static final EnumGamemode[] g = new EnumGamemode[] { NONE, SURVIVAL, CREATIVE, ADVENTURE};
 
     private EnumGamemode(String s, int i, int j, String s1) {

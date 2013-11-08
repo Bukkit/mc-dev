@@ -19,7 +19,7 @@ public class CommandTestFor extends CommandAbstract {
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length != 1) {
             throw new ExceptionUsage("commands.testfor.usage", new Object[0]);
-        } else if (!(icommandlistener instanceof TileEntityCommand)) {
+        } else if (!(icommandlistener instanceof CommandBlockListenerAbstract)) {
             throw new CommandException("commands.testfor.failed", new Object[0]);
         } else {
             d(icommandlistener, astring[0]);

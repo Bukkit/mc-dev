@@ -17,8 +17,4 @@ class ContainerEnchantTableInventory extends InventorySubcontainer {
         super.update();
         this.enchantTable.a((IInventory) this);
     }
-
-    public boolean b(int i, ItemStack itemstack) {
-        return true;
-    }
 }

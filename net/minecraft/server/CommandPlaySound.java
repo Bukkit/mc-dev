@@ -24,9 +24,9 @@ public class CommandPlaySound extends CommandAbstract {
             int i = b0 + 1;
             String s = astring[b0];
             EntityPlayer entityplayer = d(icommandlistener, astring[i++]);
-            double d0 = (double) entityplayer.b().x;
-            double d1 = (double) entityplayer.b().y;
-            double d2 = (double) entityplayer.b().z;
+            double d0 = (double) entityplayer.getChunkCoordinates().x;
+            double d1 = (double) entityplayer.getChunkCoordinates().y;
+            double d2 = (double) entityplayer.getChunkCoordinates().z;
             double d3 = 1.0D;
             double d4 = 1.0D;
             double d5 = 0.0D;
@@ -60,7 +60,7 @@ public class CommandPlaySound extends CommandAbstract {
 
             if (d7 > d6) {
                 if (d5 <= 0.0D) {
-                    throw new CommandException("commands.playsound.playerTooFar", new Object[] { entityplayer.getLocalizedName()});
+                    throw new CommandException("commands.playsound.playerTooFar", new Object[] { entityplayer.getName()});
                 }
 
                 double d8 = d0 - entityplayer.locX;
@@ -77,12 +77,12 @@ public class CommandPlaySound extends CommandAbstract {
                     d14 += d10 / d11 * 2.0D;
                 }
 
-                entityplayer.playerConnection.sendPacket(new Packet62NamedSoundEffect(s, d12, d13, d14, (float) d5, (float) d4));
+                entityplayer.playerConnection.sendPacket(new PacketPlayOutNamedSoundEffect(s, d12, d13, d14, (float) d5, (float) d4));
             } else {
-                entityplayer.playerConnection.sendPacket(new Packet62NamedSoundEffect(s, d0, d1, d2, (float) d3, (float) d4));
+                entityplayer.playerConnection.sendPacket(new PacketPlayOutNamedSoundEffect(s, d0, d1, d2, (float) d3, (float) d4));
             }
 
-            a(icommandlistener, "commands.playsound.success", new Object[] { s, entityplayer.getLocalizedName()});
+            a(icommandlistener, "commands.playsound.success", new Object[] { s, entityplayer.getName()});
         }
     }
 

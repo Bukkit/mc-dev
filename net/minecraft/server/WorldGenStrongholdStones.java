@@ -8,7 +8,7 @@ class WorldGenStrongholdStones extends StructurePieceBlockSelector {
 
     public void a(Random random, int i, int j, int k, boolean flag) {
         if (flag) {
-            this.a = Block.SMOOTH_BRICK.id;
+            this.a = Blocks.SMOOTH_BRICK;
             float f = random.nextFloat();
 
             if (f < 0.2F) {
@@ -16,13 +16,13 @@ class WorldGenStrongholdStones extends StructurePieceBlockSelector {
             } else if (f < 0.5F) {
                 this.b = 1;
             } else if (f < 0.55F) {
-                this.a = Block.MONSTER_EGGS.id;
+                this.a = Blocks.MONSTER_EGGS;
                 this.b = 2;
             } else {
                 this.b = 0;
             }
         } else {
-            this.a = 0;
+            this.a = Blocks.AIR;
             this.b = 0;
         }
     }

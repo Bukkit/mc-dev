@@ -6,19 +6,19 @@ public class EntityComplexPart extends Entity {
     public final String b;
 
     public EntityComplexPart(IComplex icomplex, String s, float f, float f1) {
-        super(icomplex.b());
+        super(icomplex.a());
         this.a(f, f1);
         this.owner = icomplex;
         this.b = s;
     }
 
-    protected void a() {}
+    protected void c() {}
 
     protected void a(NBTTagCompound nbttagcompound) {}
 
     protected void b(NBTTagCompound nbttagcompound) {}
 
-    public boolean L() {
+    public boolean R() {
         return true;
     }
 

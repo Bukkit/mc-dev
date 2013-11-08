@@ -8,9 +8,9 @@ public class BlockChest extends BlockContainer {
     private final Random b = new Random();
     public final int a;
 
-    protected BlockChest(int i, int j) {
-        super(i, Material.WOOD);
-        this.a = j;
+    protected BlockChest(int i) {
+        super(Material.WOOD);
+        this.a = i;
         this.a(CreativeModeTab.c);
         this.a(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
     }
@@ -19,22 +19,22 @@ public class BlockChest extends BlockContainer {
         return false;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
-    public int d() {
+    public int b() {
         return 22;
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        if (iblockaccess.getTypeId(i, j, k - 1) == this.id) {
+        if (iblockaccess.getType(i, j, k - 1) == this) {
             this.a(0.0625F, 0.0F, 0.0F, 0.9375F, 0.875F, 0.9375F);
-        } else if (iblockaccess.getTypeId(i, j, k + 1) == this.id) {
+        } else if (iblockaccess.getType(i, j, k + 1) == this) {
             this.a(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 1.0F);
-        } else if (iblockaccess.getTypeId(i - 1, j, k) == this.id) {
+        } else if (iblockaccess.getType(i - 1, j, k) == this) {
             this.a(0.0F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
-        } else if (iblockaccess.getTypeId(i + 1, j, k) == this.id) {
+        } else if (iblockaccess.getType(i + 1, j, k) == this) {
             this.a(0.0625F, 0.0F, 0.0625F, 1.0F, 0.875F, 0.9375F);
         } else {
             this.a(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
@@ -43,58 +43,58 @@ public class BlockChest extends BlockContainer {
 
     public void onPlace(World world, int i, int j, int k) {
         super.onPlace(world, i, j, k);
-        this.f_(world, i, j, k);
-        int l = world.getTypeId(i, j, k - 1);
-        int i1 = world.getTypeId(i, j, k + 1);
-        int j1 = world.getTypeId(i - 1, j, k);
-        int k1 = world.getTypeId(i + 1, j, k);
+        this.e(world, i, j, k);
+        Block block = world.getType(i, j, k - 1);
+        Block block1 = world.getType(i, j, k + 1);
+        Block block2 = world.getType(i - 1, j, k);
+        Block block3 = world.getType(i + 1, j, k);
 
-        if (l == this.id) {
-            this.f_(world, i, j, k - 1);
+        if (block == this) {
+            this.e(world, i, j, k - 1);
         }
 
-        if (i1 == this.id) {
-            this.f_(world, i, j, k + 1);
+        if (block1 == this) {
+            this.e(world, i, j, k + 1);
         }
 
-        if (j1 == this.id) {
-            this.f_(world, i - 1, j, k);
+        if (block2 == this) {
+            this.e(world, i - 1, j, k);
         }
 
-        if (k1 == this.id) {
-            this.f_(world, i + 1, j, k);
+        if (block3 == this) {
+            this.e(world, i + 1, j, k);
         }
     }
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
-        int l = world.getTypeId(i, j, k - 1);
-        int i1 = world.getTypeId(i, j, k + 1);
-        int j1 = world.getTypeId(i - 1, j, k);
-        int k1 = world.getTypeId(i + 1, j, k);
+        Block block = world.getType(i, j, k - 1);
+        Block block1 = world.getType(i, j, k + 1);
+        Block block2 = world.getType(i - 1, j, k);
+        Block block3 = world.getType(i + 1, j, k);
         byte b0 = 0;
-        int l1 = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
+        int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;
 
-        if (l1 == 0) {
+        if (l == 0) {
             b0 = 2;
         }
 
-        if (l1 == 1) {
+        if (l == 1) {
             b0 = 5;
         }
 
-        if (l1 == 2) {
+        if (l == 2) {
             b0 = 3;
         }
 
-        if (l1 == 3) {
+        if (l == 3) {
             b0 = 4;
         }
 
-        if (l != this.id && i1 != this.id && j1 != this.id && k1 != this.id) {
+        if (block != this && block1 != this && block2 != this && block3 != this) {
             world.setData(i, j, k, b0, 3);
         } else {
-            if ((l == this.id || i1 == this.id) && (b0 == 4 || b0 == 5)) {
-                if (l == this.id) {
+            if ((block == this || block1 == this) && (b0 == 4 || b0 == 5)) {
+                if (block == this) {
                     world.setData(i, j, k - 1, b0, 3);
                 } else {
                     world.setData(i, j, k + 1, b0, 3);
@@ -103,8 +103,8 @@ public class BlockChest extends BlockContainer {
                 world.setData(i, j, k, b0, 3);
             }
 
-            if ((j1 == this.id || k1 == this.id) && (b0 == 2 || b0 == 3)) {
-                if (j1 == this.id) {
+            if ((block2 == this || block3 == this) && (b0 == 2 || b0 == 3)) {
+                if (block2 == this) {
                     world.setData(i - 1, j, k, b0, 3);
                 } else {
                     world.setData(i + 1, j, k, b0, 3);
@@ -119,80 +119,86 @@ public class BlockChest extends BlockContainer {
         }
     }
 
-    public void f_(World world, int i, int j, int k) {
+    public void e(World world, int i, int j, int k) {
         if (!world.isStatic) {
-            int l = world.getTypeId(i, j, k - 1);
-            int i1 = world.getTypeId(i, j, k + 1);
-            int j1 = world.getTypeId(i - 1, j, k);
-            int k1 = world.getTypeId(i + 1, j, k);
+            Block block = world.getType(i, j, k - 1);
+            Block block1 = world.getType(i, j, k + 1);
+            Block block2 = world.getType(i - 1, j, k);
+            Block block3 = world.getType(i + 1, j, k);
             boolean flag = true;
-            int l1;
-            int i2;
+            int l;
+            Block block4;
+            int i1;
+            Block block5;
             boolean flag1;
             byte b0;
-            int j2;
+            int j1;
 
-            if (l != this.id && i1 != this.id) {
-                if (j1 != this.id && k1 != this.id) {
+            if (block != this && block1 != this) {
+                if (block2 != this && block3 != this) {
                     b0 = 3;
-                    if (Block.t[l] && !Block.t[i1]) {
+                    if (block.j() && !block1.j()) {
                         b0 = 3;
                     }
 
-                    if (Block.t[i1] && !Block.t[l]) {
+                    if (block1.j() && !block.j()) {
                         b0 = 2;
                     }
 
-                    if (Block.t[j1] && !Block.t[k1]) {
+                    if (block2.j() && !block3.j()) {
                         b0 = 5;
                     }
 
-                    if (Block.t[k1] && !Block.t[j1]) {
+                    if (block3.j() && !block2.j()) {
                         b0 = 4;
                     }
                 } else {
-                    l1 = world.getTypeId(j1 == this.id ? i - 1 : i + 1, j, k - 1);
-                    i2 = world.getTypeId(j1 == this.id ? i - 1 : i + 1, j, k + 1);
+                    l = block2 == this ? i - 1 : i + 1;
+                    block4 = world.getType(l, j, k - 1);
+                    i1 = block2 == this ? i - 1 : i + 1;
+                    block5 = world.getType(i1, j, k + 1);
                     b0 = 3;
                     flag1 = true;
-                    if (j1 == this.id) {
-                        j2 = world.getData(i - 1, j, k);
+                    if (block2 == this) {
+                        j1 = world.getData(i - 1, j, k);
                     } else {
-                        j2 = world.getData(i + 1, j, k);
+                        j1 = world.getData(i + 1, j, k);
                     }
 
-                    if (j2 == 2) {
+                    if (j1 == 2) {
                         b0 = 2;
                     }
 
-                    if ((Block.t[l] || Block.t[l1]) && !Block.t[i1] && !Block.t[i2]) {
+                    if ((block.j() || block4.j()) && !block1.j() && !block5.j()) {
                         b0 = 3;
                     }
 
-                    if ((Block.t[i1] || Block.t[i2]) && !Block.t[l] && !Block.t[l1]) {
+                    if ((block1.j() || block5.j()) && !block.j() && !block4.j()) {
                         b0 = 2;
                     }
                 }
             } else {
-                l1 = world.getTypeId(i - 1, j, l == this.id ? k - 1 : k + 1);
-                i2 = world.getTypeId(i + 1, j, l == this.id ? k - 1 : k + 1);
+                l = block == this ? k - 1 : k + 1;
+                block4 = world.getType(i - 1, j, l);
+                i1 = block == this ? k - 1 : k + 1;
+                block5 = world.getType(i + 1, j, i1);
                 b0 = 5;
                 flag1 = true;
-                if (l == this.id) {
-                    j2 = world.getData(i, j, k - 1);
+                if (block == this) {
+                    j1 = world.getData(i, j, k - 1);
                 } else {
-                    j2 = world.getData(i, j, k + 1);
+                    j1 = world.getData(i, j, k + 1);
                 }
 
-                if (j2 == 4) {
+                if (j1 == 4) {
                     b0 = 4;
                 }
 
-                if ((Block.t[j1] || Block.t[l1]) && !Block.t[k1] && !Block.t[i2]) {
+                if ((block2.j() || block4.j()) && !block3.j() && !block5.j()) {
                     b0 = 5;
                 }
 
-                if ((Block.t[k1] || Block.t[i2]) && !Block.t[j1] && !Block.t[l1]) {
+                if ((block3.j() || block5.j()) && !block2.j() && !block4.j()) {
                     b0 = 4;
                 }
             }
@@ -204,44 +210,44 @@ public class BlockChest extends BlockContainer {
     public boolean canPlace(World world, int i, int j, int k) {
         int l = 0;
 
-        if (world.getTypeId(i - 1, j, k) == this.id) {
+        if (world.getType(i - 1, j, k) == this) {
             ++l;
         }
 
-        if (world.getTypeId(i + 1, j, k) == this.id) {
+        if (world.getType(i + 1, j, k) == this) {
             ++l;
         }
 
-        if (world.getTypeId(i, j, k - 1) == this.id) {
+        if (world.getType(i, j, k - 1) == this) {
             ++l;
         }
 
-        if (world.getTypeId(i, j, k + 1) == this.id) {
+        if (world.getType(i, j, k + 1) == this) {
             ++l;
         }
 
-        return l > 1 ? false : (this.k(world, i - 1, j, k) ? false : (this.k(world, i + 1, j, k) ? false : (this.k(world, i, j, k - 1) ? false : !this.k(world, i, j, k + 1))));
+        return l > 1 ? false : (this.n(world, i - 1, j, k) ? false : (this.n(world, i + 1, j, k) ? false : (this.n(world, i, j, k - 1) ? false : !this.n(world, i, j, k + 1))));
     }
 
-    private boolean k(World world, int i, int j, int k) {
-        return world.getTypeId(i, j, k) != this.id ? false : (world.getTypeId(i - 1, j, k) == this.id ? true : (world.getTypeId(i + 1, j, k) == this.id ? true : (world.getTypeId(i, j, k - 1) == this.id ? true : world.getTypeId(i, j, k + 1) == this.id)));
+    private boolean n(World world, int i, int j, int k) {
+        return world.getType(i, j, k) != this ? false : (world.getType(i - 1, j, k) == this ? true : (world.getType(i + 1, j, k) == this ? true : (world.getType(i, j, k - 1) == this ? true : world.getType(i, j, k + 1) == this)));
     }
 
-    public void doPhysics(World world, int i, int j, int k, int l) {
-        super.doPhysics(world, i, j, k, l);
+    public void doPhysics(World world, int i, int j, int k, Block block) {
+        super.doPhysics(world, i, j, k, block);
         TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i, j, k);
 
         if (tileentitychest != null) {
-            tileentitychest.i();
+            tileentitychest.u();
         }
     }
 
-    public void remove(World world, int i, int j, int k, int l, int i1) {
+    public void remove(World world, int i, int j, int k, Block block, int l) {
         TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i, j, k);
 
         if (tileentitychest != null) {
-            for (int j1 = 0; j1 < tileentitychest.getSize(); ++j1) {
-                ItemStack itemstack = tileentitychest.getItem(j1);
+            for (int i1 = 0; i1 < tileentitychest.getSize(); ++i1) {
+                ItemStack itemstack = tileentitychest.getItem(i1);
 
                 if (itemstack != null) {
                     float f = this.b.nextFloat() * 0.8F + 0.1F;
@@ -250,14 +256,14 @@ public class BlockChest extends BlockContainer {
                     EntityItem entityitem;
 
                     for (float f2 = this.b.nextFloat() * 0.8F + 0.1F; itemstack.count > 0; world.addEntity(entityitem)) {
-                        int k1 = this.b.nextInt(21) + 10;
+                        int j1 = this.b.nextInt(21) + 10;
 
-                        if (k1 > itemstack.count) {
-                            k1 = itemstack.count;
+                        if (j1 > itemstack.count) {
+                            j1 = itemstack.count;
                         }
 
-                        itemstack.count -= k1;
-                        entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, k1, itemstack.getData()));
+                        itemstack.count -= j1;
+                        entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getData()));
                         float f3 = 0.05F;
 
                         entityitem.motX = (double) ((float) this.b.nextGaussian() * f3);
@@ -270,17 +276,17 @@ public class BlockChest extends BlockContainer {
                 }
             }
 
-            world.m(i, j, k, l);
+            world.f(i, j, k, block);
         }
 
-        super.remove(world, i, j, k, l, i1);
+        super.remove(world, i, j, k, block, l);
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
         if (world.isStatic) {
             return true;
         } else {
-            IInventory iinventory = this.g_(world, i, j, k);
+            IInventory iinventory = this.m(world, i, j, k);
 
             if (iinventory != null) {
                 entityhuman.openContainer(iinventory);
@@ -290,37 +296,37 @@ public class BlockChest extends BlockContainer {
         }
     }
 
-    public IInventory g_(World world, int i, int j, int k) {
+    public IInventory m(World world, int i, int j, int k) {
         Object object = (TileEntityChest) world.getTileEntity(i, j, k);
 
         if (object == null) {
             return null;
-        } else if (world.u(i, j + 1, k)) {
+        } else if (world.getType(i, j + 1, k).r()) {
             return null;
-        } else if (m(world, i, j, k)) {
+        } else if (o(world, i, j, k)) {
             return null;
-        } else if (world.getTypeId(i - 1, j, k) == this.id && (world.u(i - 1, j + 1, k) || m(world, i - 1, j, k))) {
+        } else if (world.getType(i - 1, j, k) == this && (world.getType(i - 1, j + 1, k).r() || o(world, i - 1, j, k))) {
             return null;
-        } else if (world.getTypeId(i + 1, j, k) == this.id && (world.u(i + 1, j + 1, k) || m(world, i + 1, j, k))) {
+        } else if (world.getType(i + 1, j, k) == this && (world.getType(i + 1, j + 1, k).r() || o(world, i + 1, j, k))) {
             return null;
-        } else if (world.getTypeId(i, j, k - 1) == this.id && (world.u(i, j + 1, k - 1) || m(world, i, j, k - 1))) {
+        } else if (world.getType(i, j, k - 1) == this && (world.getType(i, j + 1, k - 1).r() || o(world, i, j, k - 1))) {
             return null;
-        } else if (world.getTypeId(i, j, k + 1) == this.id && (world.u(i, j + 1, k + 1) || m(world, i, j, k + 1))) {
+        } else if (world.getType(i, j, k + 1) == this && (world.getType(i, j + 1, k + 1).r() || o(world, i, j, k + 1))) {
             return null;
         } else {
-            if (world.getTypeId(i - 1, j, k) == this.id) {
+            if (world.getType(i - 1, j, k) == this) {
                 object = new InventoryLargeChest("container.chestDouble", (TileEntityChest) world.getTileEntity(i - 1, j, k), (IInventory) object);
             }
 
-            if (world.getTypeId(i + 1, j, k) == this.id) {
+            if (world.getType(i + 1, j, k) == this) {
                 object = new InventoryLargeChest("container.chestDouble", (IInventory) object, (TileEntityChest) world.getTileEntity(i + 1, j, k));
             }
 
-            if (world.getTypeId(i, j, k - 1) == this.id) {
+            if (world.getType(i, j, k - 1) == this) {
                 object = new InventoryLargeChest("container.chestDouble", (TileEntityChest) world.getTileEntity(i, j, k - 1), (IInventory) object);
             }
 
-            if (world.getTypeId(i, j, k + 1) == this.id) {
+            if (world.getType(i, j, k + 1) == this) {
                 object = new InventoryLargeChest("container.chestDouble", (IInventory) object, (TileEntityChest) world.getTileEntity(i, j, k + 1));
             }
 
@@ -328,7 +334,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
-    public TileEntity b(World world) {
+    public TileEntity a(World world, int i) {
         TileEntityChest tileentitychest = new TileEntityChest();
 
         return tileentitychest;
@@ -342,7 +348,7 @@ public class BlockChest extends BlockContainer {
         if (!this.isPowerSource()) {
             return 0;
         } else {
-            int i1 = ((TileEntityChest) iblockaccess.getTileEntity(i, j, k)).h;
+            int i1 = ((TileEntityChest) iblockaccess.getTileEntity(i, j, k)).o;
 
             return MathHelper.a(i1, 0, 15);
         }
@@ -352,7 +358,7 @@ public class BlockChest extends BlockContainer {
         return l == 1 ? this.b(iblockaccess, i, j, k, l) : 0;
     }
 
-    private static boolean m(World world, int i, int j, int k) {
+    private static boolean o(World world, int i, int j, int k) {
         Iterator iterator = world.a(EntityOcelot.class, AxisAlignedBB.a().a((double) i, (double) (j + 1), (double) k, (double) (i + 1), (double) (j + 2), (double) (k + 1))).iterator();
 
         EntityOcelot entityocelot;
@@ -370,11 +376,11 @@ public class BlockChest extends BlockContainer {
         return true;
     }
 
-    public boolean q_() {
+    public boolean M() {
         return true;
     }
 
-    public int b_(World world, int i, int j, int k, int l) {
-        return Container.b(this.g_(world, i, j, k));
+    public int g(World world, int i, int j, int k, int l) {
+        return Container.b(this.m(world, i, j, k));
     }
 }

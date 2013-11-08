@@ -7,12 +7,12 @@ public class MobEffectAbsorption extends MobEffectList {
     }
 
     public void a(EntityLiving entityliving, AttributeMapBase attributemapbase, int i) {
-        entityliving.m(entityliving.bn() - (float) (4 * (i + 1)));
+        entityliving.m(entityliving.bs() - (float) (4 * (i + 1)));
         super.a(entityliving, attributemapbase, i);
     }
 
     public void b(EntityLiving entityliving, AttributeMapBase attributemapbase, int i) {
-        entityliving.m(entityliving.bn() + (float) (4 * (i + 1)));
+        entityliving.m(entityliving.bs() + (float) (4 * (i + 1)));
         super.b(entityliving, attributemapbase, i);
     }
 }

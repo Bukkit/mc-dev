@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class BlockLightStone extends Block {
 
-    public BlockLightStone(int i, Material material) {
-        super(i, material);
+    public BlockLightStone(Material material) {
+        super(material);
         this.a(CreativeModeTab.b);
     }
 
@@ -17,7 +17,11 @@ public class BlockLightStone extends Block {
         return 2 + random.nextInt(3);
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Item.GLOWSTONE_DUST.id;
+    public Item getDropType(int i, Random random, int j) {
+        return Items.GLOWSTONE_DUST;
+    }
+
+    public MaterialMapColor f(int i) {
+        return MaterialMapColor.d;
     }
 }

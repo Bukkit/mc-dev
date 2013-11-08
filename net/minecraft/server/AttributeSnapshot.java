@@ -7,11 +7,10 @@ public class AttributeSnapshot {
     private final String b;
     private final double c;
     private final Collection d;
+    final PacketPlayOutUpdateAttributes a;
 
-    final Packet44UpdateAttributes a;
-
-    public AttributeSnapshot(Packet44UpdateAttributes packet44updateattributes, String s, double d0, Collection collection) {
-        this.a = packet44updateattributes;
+    public AttributeSnapshot(PacketPlayOutUpdateAttributes packetplayoutupdateattributes, String s, double d0, Collection collection) {
+        this.a = packetplayoutupdateattributes;
         this.b = s;
         this.c = d0;
         this.d = collection;

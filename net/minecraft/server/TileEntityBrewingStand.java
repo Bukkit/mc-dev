@@ -5,25 +5,25 @@ import java.util.List;
 public class TileEntityBrewingStand extends TileEntity implements IWorldInventory {
 
     private static final int[] a = new int[] { 3};
-    private static final int[] b = new int[] { 0, 1, 2};
+    private static final int[] i = new int[] { 0, 1, 2};
     private ItemStack[] items = new ItemStack[4];
     private int brewTime;
-    private int e;
-    private int f;
-    private String g;
+    private int l;
+    private Item m;
+    private String n;
 
     public TileEntityBrewingStand() {}
 
-    public String getName() {
-        return this.c() ? this.g : "container.brewing";
+    public String getInventoryName() {
+        return this.k_() ? this.n : "container.brewing";
     }
 
-    public boolean c() {
-        return this.g != null && this.g.length() > 0;
+    public boolean k_() {
+        return this.n != null && this.n.length() > 0;
     }
 
     public void a(String s) {
-        this.g = s;
+        this.n = s;
     }
 
     public int getSize() {
@@ -34,55 +34,55 @@ public class TileEntityBrewingStand extends TileEntity implements IWorldInventor
         if (this.brewTime > 0) {
             --this.brewTime;
             if (this.brewTime == 0) {
-                this.u();
+                this.l();
                 this.update();
-            } else if (!this.l()) {
+            } else if (!this.k()) {
                 this.brewTime = 0;
                 this.update();
-            } else if (this.f != this.items[3].id) {
+            } else if (this.m != this.items[3].getItem()) {
                 this.brewTime = 0;
                 this.update();
             }
-        } else if (this.l()) {
+        } else if (this.k()) {
             this.brewTime = 400;
-            this.f = this.items[3].id;
+            this.m = this.items[3].getItem();
         }
 
         int i = this.j();
 
-        if (i != this.e) {
-            this.e = i;
+        if (i != this.l) {
+            this.l = i;
             this.world.setData(this.x, this.y, this.z, i, 2);
         }
 
         super.h();
     }
 
-    public int x_() {
+    public int i() {
         return this.brewTime;
     }
 
-    private boolean l() {
+    private boolean k() {
         if (this.items[3] != null && this.items[3].count > 0) {
             ItemStack itemstack = this.items[3];
 
-            if (!Item.byId[itemstack.id].x()) {
+            if (!itemstack.getItem().m(itemstack)) {
                 return false;
             } else {
                 boolean flag = false;
 
                 for (int i = 0; i < 3; ++i) {
-                    if (this.items[i] != null && this.items[i].id == Item.POTION.id) {
+                    if (this.items[i] != null && this.items[i].getItem() == Items.POTION) {
                         int j = this.items[i].getData();
                         int k = this.c(j, itemstack);
 
-                        if (!ItemPotion.f(j) && ItemPotion.f(k)) {
+                        if (!ItemPotion.g(j) && ItemPotion.g(k)) {
                             flag = true;
                             break;
                         }
 
-                        List list = Item.POTION.c(j);
-                        List list1 = Item.POTION.c(k);
+                        List list = Items.POTION.c(j);
+                        List list1 = Items.POTION.c(k);
 
                         if ((j <= 0 || list != list1) && (list == null || !list.equals(list1) && list1 != null) && j != k) {
                             flag = true;
@@ -98,29 +98,29 @@ public class TileEntityBrewingStand extends TileEntity implements IWorldInventor
         }
     }
 
-    private void u() {
-        if (this.l()) {
+    private void l() {
+        if (this.k()) {
             ItemStack itemstack = this.items[3];
 
             for (int i = 0; i < 3; ++i) {
-                if (this.items[i] != null && this.items[i].id == Item.POTION.id) {
+                if (this.items[i] != null && this.items[i].getItem() == Items.POTION) {
                     int j = this.items[i].getData();
                     int k = this.c(j, itemstack);
-                    List list = Item.POTION.c(j);
-                    List list1 = Item.POTION.c(k);
+                    List list = Items.POTION.c(j);
+                    List list1 = Items.POTION.c(k);
 
                     if ((j <= 0 || list != list1) && (list == null || !list.equals(list1) && list1 != null)) {
                         if (j != k) {
                             this.items[i].setData(k);
                         }
-                    } else if (!ItemPotion.f(j) && ItemPotion.f(k)) {
+                    } else if (!ItemPotion.g(j) && ItemPotion.g(k)) {
                         this.items[i].setData(k);
                     }
                 }
             }
 
-            if (Item.byId[itemstack.id].u()) {
-                this.items[3] = new ItemStack(Item.byId[itemstack.id].t());
+            if (itemstack.getItem().u()) {
+                this.items[3] = new ItemStack(itemstack.getItem().t());
             } else {
                 --this.items[3].count;
                 if (this.items[3].count <= 0) {
@@ -131,17 +131,17 @@ public class TileEntityBrewingStand extends TileEntity implements IWorldInventor
     }
 
     private int c(int i, ItemStack itemstack) {
-        return itemstack == null ? i : (Item.byId[itemstack.id].x() ? PotionBrewer.a(i, Item.byId[itemstack.id].w()) : i);
+        return itemstack == null ? i : (itemstack.getItem().m(itemstack) ? PotionBrewer.a(i, itemstack.getItem().i(itemstack)) : i);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        NBTTagList nbttaglist = nbttagcompound.getList("Items");
+        NBTTagList nbttaglist = nbttagcompound.getList("Items", 10);
 
         this.items = new ItemStack[this.getSize()];
 
         for (int i = 0; i < nbttaglist.size(); ++i) {
-            NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.get(i);
+            NBTTagCompound nbttagcompound1 = nbttaglist.get(i);
             byte b0 = nbttagcompound1.getByte("Slot");
 
             if (b0 >= 0 && b0 < this.items.length) {
@@ -150,8 +150,8 @@ public class TileEntityBrewingStand extends TileEntity implements IWorldInventor
         }
 
         this.brewTime = nbttagcompound.getShort("BrewTime");
-        if (nbttagcompound.hasKey("CustomName")) {
-            this.g = nbttagcompound.getString("CustomName");
+        if (nbttagcompound.hasKeyOfType("CustomName", 8)) {
+            this.n = nbttagcompound.getString("CustomName");
         }
     }
 
@@ -171,8 +171,8 @@ public class TileEntityBrewingStand extends TileEntity implements IWorldInventor
         }
 
         nbttagcompound.set("Items", nbttaglist);
-        if (this.c()) {
-            nbttagcompound.setString("CustomName", this.g);
+        if (this.k_()) {
+            nbttagcompound.setString("CustomName", this.n);
         }
     }
 
@@ -218,10 +218,10 @@ public class TileEntityBrewingStand extends TileEntity implements IWorldInventor
 
     public void startOpen() {}
 
-    public void g() {}
+    public void l_() {}
 
     public boolean b(int i, ItemStack itemstack) {
-        return i == 3 ? Item.byId[itemstack.id].x() : itemstack.id == Item.POTION.id || itemstack.id == Item.GLASS_BOTTLE.id;
+        return i == 3 ? itemstack.getItem().m(itemstack) : itemstack.getItem() == Items.POTION || itemstack.getItem() == Items.GLASS_BOTTLE;
     }
 
     public int j() {
@@ -237,7 +237,7 @@ public class TileEntityBrewingStand extends TileEntity implements IWorldInventor
     }
 
     public int[] getSlotsForFace(int i) {
-        return i == 1 ? a : b;
+        return i == 1 ? a : i;
     }
 
     public boolean canPlaceItemThroughFace(int i, ItemStack itemstack, int j) {

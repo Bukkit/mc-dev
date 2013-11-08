@@ -28,45 +28,45 @@ abstract class WorldGenStrongholdPiece extends StructurePiece {
         switch (WorldGenStrongholdPieceWeight3.a[worldgenstrongholddoortype.ordinal()]) {
         case 1:
         default:
-            this.a(world, structureboundingbox, i, j, k, i + 3 - 1, j + 3 - 1, k, 0, 0, false);
+            this.a(world, structureboundingbox, i, j, k, i + 3 - 1, j + 3 - 1, k, Blocks.AIR, Blocks.AIR, false);
             break;
 
         case 2:
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i, j, k, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i, j + 1, k, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i, j + 2, k, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i + 1, j + 2, k, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i + 2, j + 2, k, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i + 2, j + 1, k, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i + 2, j, k, structureboundingbox);
-            this.a(world, Block.WOODEN_DOOR.id, 0, i + 1, j, k, structureboundingbox);
-            this.a(world, Block.WOODEN_DOOR.id, 8, i + 1, j + 1, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i, j, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i, j + 1, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i, j + 2, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i + 1, j + 2, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i + 2, j + 2, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i + 2, j + 1, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i + 2, j, k, structureboundingbox);
+            this.a(world, Blocks.WOODEN_DOOR, 0, i + 1, j, k, structureboundingbox);
+            this.a(world, Blocks.WOODEN_DOOR, 8, i + 1, j + 1, k, structureboundingbox);
             break;
 
         case 3:
-            this.a(world, 0, 0, i + 1, j, k, structureboundingbox);
-            this.a(world, 0, 0, i + 1, j + 1, k, structureboundingbox);
-            this.a(world, Block.IRON_FENCE.id, 0, i, j, k, structureboundingbox);
-            this.a(world, Block.IRON_FENCE.id, 0, i, j + 1, k, structureboundingbox);
-            this.a(world, Block.IRON_FENCE.id, 0, i, j + 2, k, structureboundingbox);
-            this.a(world, Block.IRON_FENCE.id, 0, i + 1, j + 2, k, structureboundingbox);
-            this.a(world, Block.IRON_FENCE.id, 0, i + 2, j + 2, k, structureboundingbox);
-            this.a(world, Block.IRON_FENCE.id, 0, i + 2, j + 1, k, structureboundingbox);
-            this.a(world, Block.IRON_FENCE.id, 0, i + 2, j, k, structureboundingbox);
+            this.a(world, Blocks.AIR, 0, i + 1, j, k, structureboundingbox);
+            this.a(world, Blocks.AIR, 0, i + 1, j + 1, k, structureboundingbox);
+            this.a(world, Blocks.IRON_FENCE, 0, i, j, k, structureboundingbox);
+            this.a(world, Blocks.IRON_FENCE, 0, i, j + 1, k, structureboundingbox);
+            this.a(world, Blocks.IRON_FENCE, 0, i, j + 2, k, structureboundingbox);
+            this.a(world, Blocks.IRON_FENCE, 0, i + 1, j + 2, k, structureboundingbox);
+            this.a(world, Blocks.IRON_FENCE, 0, i + 2, j + 2, k, structureboundingbox);
+            this.a(world, Blocks.IRON_FENCE, 0, i + 2, j + 1, k, structureboundingbox);
+            this.a(world, Blocks.IRON_FENCE, 0, i + 2, j, k, structureboundingbox);
             break;
 
         case 4:
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i, j, k, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i, j + 1, k, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i, j + 2, k, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i + 1, j + 2, k, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i + 2, j + 2, k, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i + 2, j + 1, k, structureboundingbox);
-            this.a(world, Block.SMOOTH_BRICK.id, 0, i + 2, j, k, structureboundingbox);
-            this.a(world, Block.IRON_DOOR_BLOCK.id, 0, i + 1, j, k, structureboundingbox);
-            this.a(world, Block.IRON_DOOR_BLOCK.id, 8, i + 1, j + 1, k, structureboundingbox);
-            this.a(world, Block.STONE_BUTTON.id, this.c(Block.STONE_BUTTON.id, 4), i + 2, j + 1, k + 1, structureboundingbox);
-            this.a(world, Block.STONE_BUTTON.id, this.c(Block.STONE_BUTTON.id, 3), i + 2, j + 1, k - 1, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i, j, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i, j + 1, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i, j + 2, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i + 1, j + 2, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i + 2, j + 2, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i + 2, j + 1, k, structureboundingbox);
+            this.a(world, Blocks.SMOOTH_BRICK, 0, i + 2, j, k, structureboundingbox);
+            this.a(world, Blocks.IRON_DOOR_BLOCK, 0, i + 1, j, k, structureboundingbox);
+            this.a(world, Blocks.IRON_DOOR_BLOCK, 8, i + 1, j + 1, k, structureboundingbox);
+            this.a(world, Blocks.STONE_BUTTON, this.a(Blocks.STONE_BUTTON, 4), i + 2, j + 1, k + 1, structureboundingbox);
+            this.a(world, Blocks.STONE_BUTTON, this.a(Blocks.STONE_BUTTON, 3), i + 2, j + 1, k - 1, structureboundingbox);
         }
     }
 

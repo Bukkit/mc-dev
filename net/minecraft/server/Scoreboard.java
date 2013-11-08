@@ -167,7 +167,7 @@ public class Scoreboard {
         ScoreboardTeam scoreboardteam = this.getTeam(s);
 
         if (scoreboardteam != null) {
-            throw new IllegalArgumentException("An objective with the name \'" + s + "\' already exists!");
+            throw new IllegalArgumentException("A team with the name \'" + s + "\' already exists!");
         } else {
             scoreboardteam = new ScoreboardTeam(this, s);
             this.teamsByName.put(s, scoreboardteam);
@@ -189,13 +189,20 @@ public class Scoreboard {
         this.handleTeamRemoved(scoreboardteam);
     }
 
-    public void addPlayerToTeam(String s, ScoreboardTeam scoreboardteam) {
-        if (this.getPlayerTeam(s) != null) {
-            this.removePlayerFromTeam(s);
-        }
+    public boolean addPlayerToTeam(String s, String s1) {
+        if (!this.teamsByName.containsKey(s1)) {
+            return false;
+        } else {
+            ScoreboardTeam scoreboardteam = this.getTeam(s1);
 
-        this.teamsByPlayer.put(s, scoreboardteam);
-        scoreboardteam.getPlayerNameSet().add(s);
+            if (this.getPlayerTeam(s) != null) {
+                this.removePlayerFromTeam(s);
+            }
+
+            this.teamsByPlayer.put(s, scoreboardteam);
+            scoreboardteam.getPlayerNameSet().add(s);
+            return true;
+        }
     }
 
     public boolean removePlayerFromTeam(String s) {

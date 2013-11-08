@@ -24,24 +24,24 @@ public class RemoteStatusListener extends RemoteConnectionThread {
     private String localAddress;
     private String worldName;
     private DatagramSocket socket;
-    private byte[] n = new byte[1460];
-    private DatagramPacket o;
-    private Map p;
+    private byte[] o = new byte[1460];
+    private DatagramPacket p;
+    private Map q;
     private String hostname;
     private String motd;
     private Map challenges;
-    private long t;
+    private long u;
     private RemoteStatusReply cachedReply;
     private long cacheTime;
 
     public RemoteStatusListener(IMinecraftServer iminecraftserver) {
-        super(iminecraftserver);
+        super(iminecraftserver, "Query Listener");
         this.bindPort = iminecraftserver.a("query.port", 0);
-        this.motd = iminecraftserver.w();
-        this.serverPort = iminecraftserver.x();
-        this.localAddress = iminecraftserver.y();
-        this.maxPlayers = iminecraftserver.B();
-        this.worldName = iminecraftserver.L();
+        this.motd = iminecraftserver.x();
+        this.serverPort = iminecraftserver.y();
+        this.localAddress = iminecraftserver.z();
+        this.maxPlayers = iminecraftserver.C();
+        this.worldName = iminecraftserver.M();
         this.cacheTime = 0L;
         this.hostname = "0.0.0.0";
         if (0 != this.motd.length() && !this.hostname.equals(this.motd)) {
@@ -54,7 +54,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
 
                 this.hostname = inetaddress.getHostAddress();
             } catch (UnknownHostException unknownhostexception) {
-                this.warning("Unable to determine local host IP, please set server-ip in \'" + iminecraftserver.b_() + "\' : " + unknownhostexception.getMessage());
+                this.warning("Unable to determine local host IP, please set server-ip in \'" + iminecraftserver.b() + "\' : " + unknownhostexception.getMessage());
             }
         }
 
@@ -66,10 +66,10 @@ public class RemoteStatusListener extends RemoteConnectionThread {
             iminecraftserver.a();
         }
 
-        this.p = new HashMap();
+        this.q = new HashMap();
         this.cachedReply = new RemoteStatusReply(1460);
         this.challenges = new HashMap();
-        this.t = (new Date()).getTime();
+        this.u = (new Date()).getTime();
     }
 
     private void send(byte[] abyte, DatagramPacket datagrampacket) {
@@ -123,7 +123,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
     }
 
     private byte[] getFullReply(DatagramPacket datagrampacket) {
-        long i = MinecraftServer.aq();
+        long i = MinecraftServer.ap();
 
         if (i < this.cacheTime + 5000L) {
             byte[] abyte = this.cachedReply.getBytes();
@@ -167,10 +167,13 @@ public class RemoteStatusListener extends RemoteConnectionThread {
             this.cachedReply.write("player_");
             this.cachedReply.write((int) 0);
             String[] astring = this.server.getPlayers();
-            byte b0 = (byte) astring.length;
+            String[] astring1 = astring;
+            int j = astring.length;
 
-            for (byte b1 = (byte) (b0 - 1); b1 >= 0; --b1) {
-                this.cachedReply.write(astring[b1]);
+            for (int k = 0; k < j; ++k) {
+                String s = astring1[k];
+
+                this.cachedReply.write(s);
             }
 
             this.cachedReply.write((int) 0);
@@ -203,7 +206,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
 
     private void cleanChallenges() {
         if (this.running) {
-            long i = MinecraftServer.aq();
+            long i = MinecraftServer.ap();
 
             if (i >= this.clearedTime + 30000L) {
                 this.clearedTime = i;
@@ -222,15 +225,15 @@ public class RemoteStatusListener extends RemoteConnectionThread {
 
     public void run() {
         this.info("Query running on " + this.motd + ":" + this.bindPort);
-        this.clearedTime = MinecraftServer.aq();
-        this.o = new DatagramPacket(this.n, this.n.length);
+        this.clearedTime = MinecraftServer.ap();
+        this.p = new DatagramPacket(this.o, this.o.length);
 
         try {
             while (this.running) {
                 try {
-                    this.socket.receive(this.o);
+                    this.socket.receive(this.p);
                     this.cleanChallenges();
-                    this.parsePacket(this.o);
+                    this.parsePacket(this.p);
                 } catch (SocketTimeoutException sockettimeoutexception) {
                     this.cleanChallenges();
                 } catch (PortUnreachableException portunreachableexception) {
@@ -251,7 +254,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
                     super.a();
                 }
             } else {
-                this.warning("Invalid query port " + this.bindPort + " found in \'" + this.server.b_() + "\' (queries disabled)");
+                this.warning("Invalid query port " + this.bindPort + " found in \'" + this.server.b() + "\' (queries disabled)");
             }
         }
     }

@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-public class CreativeModeTab {
+public abstract class CreativeModeTab {
 
     public static final CreativeModeTab[] a = new CreativeModeTab[12];
     public static final CreativeModeTab b = new CreativeModeTab1(0, "buildingBlocks");
@@ -10,11 +10,11 @@ public class CreativeModeTab {
     public static final CreativeModeTab f = (new CreativeModeTab5(4, "misc")).a(new EnchantmentSlotType[] { EnchantmentSlotType.ALL});
     public static final CreativeModeTab g = (new CreativeModeTab6(5, "search")).a("item_search.png");
     public static final CreativeModeTab h = new CreativeModeTab7(6, "food");
-    public static final CreativeModeTab i = (new CreativeModeTab8(7, "tools")).a(new EnchantmentSlotType[] { EnchantmentSlotType.DIGGER});
+    public static final CreativeModeTab i = (new CreativeModeTab8(7, "tools")).a(new EnchantmentSlotType[] { EnchantmentSlotType.DIGGER, EnchantmentSlotType.FISHING_ROD, EnchantmentSlotType.BREAKABLE});
     public static final CreativeModeTab j = (new CreativeModeTab9(8, "combat")).a(new EnchantmentSlotType[] { EnchantmentSlotType.ARMOR, EnchantmentSlotType.ARMOR_FEET, EnchantmentSlotType.ARMOR_HEAD, EnchantmentSlotType.ARMOR_LEGS, EnchantmentSlotType.ARMOR_TORSO, EnchantmentSlotType.BOW, EnchantmentSlotType.WEAPON});
     public static final CreativeModeTab k = new CreativeModeTab10(9, "brewing");
     public static final CreativeModeTab l = new CreativeModeTab11(10, "materials");
-    public static final CreativeModeTab m = (new CreativeModeTab12(11, "inventory")).a("inventory.png").j().h();
+    public static final CreativeModeTab m = (new CreativeModeTab12(11, "inventory")).a("inventory.png").k().i();
     private final int n;
     private final String o;
     private String p = "items.png";
@@ -33,12 +33,12 @@ public class CreativeModeTab {
         return this;
     }
 
-    public CreativeModeTab h() {
+    public CreativeModeTab i() {
         this.r = false;
         return this;
     }
 
-    public CreativeModeTab j() {
+    public CreativeModeTab k() {
         this.q = false;
         return this;
     }

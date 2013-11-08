@@ -2,8 +2,8 @@ package net.minecraft.server;
 
 public abstract class BlockContainer extends Block implements IContainer {
 
-    protected BlockContainer(int i, Material material) {
-        super(i, material);
+    protected BlockContainer(Material material) {
+        super(material);
         this.isTileEntity = true;
     }
 
@@ -11,15 +11,15 @@ public abstract class BlockContainer extends Block implements IContainer {
         super.onPlace(world, i, j, k);
     }
 
-    public void remove(World world, int i, int j, int k, int l, int i1) {
-        super.remove(world, i, j, k, l, i1);
-        world.s(i, j, k);
+    public void remove(World world, int i, int j, int k, Block block, int l) {
+        super.remove(world, i, j, k, block, l);
+        world.p(i, j, k);
     }
 
-    public boolean b(World world, int i, int j, int k, int l, int i1) {
-        super.b(world, i, j, k, l, i1);
+    public boolean a(World world, int i, int j, int k, int l, int i1) {
+        super.a(world, i, j, k, l, i1);
         TileEntity tileentity = world.getTileEntity(i, j, k);
 
-        return tileentity != null ? tileentity.b(l, i1) : false;
+        return tileentity != null ? tileentity.c(l, i1) : false;
     }
 }

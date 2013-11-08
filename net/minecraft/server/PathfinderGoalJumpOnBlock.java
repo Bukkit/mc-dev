@@ -18,7 +18,7 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
     }
 
     public boolean a() {
-        return this.a.isTamed() && !this.a.isSitting() && this.a.aD().nextDouble() <= 0.006500000134110451D && this.f();
+        return this.a.isTamed() && !this.a.isSitting() && this.a.aI().nextDouble() <= 0.006500000134110451D && this.f();
     }
 
     public boolean b() {
@@ -29,7 +29,7 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
         this.a.getNavigation().a((double) ((float) this.f) + 0.5D, (double) (this.g + 1), (double) ((float) this.h) + 0.5D, this.b);
         this.c = 0;
         this.d = 0;
-        this.e = this.a.aD().nextInt(this.a.aD().nextInt(1200) + 1200) + 1200;
+        this.e = this.a.aI().nextInt(this.a.aI().nextInt(1200) + 1200) + 1200;
         this.a.getGoalSit().setSitting(false);
     }
 
@@ -74,21 +74,21 @@ public class PathfinderGoalJumpOnBlock extends PathfinderGoal {
     }
 
     private boolean a(World world, int i, int j, int k) {
-        int l = world.getTypeId(i, j, k);
-        int i1 = world.getData(i, j, k);
+        Block block = world.getType(i, j, k);
+        int l = world.getData(i, j, k);
 
-        if (l == Block.CHEST.id) {
+        if (block == Blocks.CHEST) {
             TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i, j, k);
 
-            if (tileentitychest.h < 1) {
+            if (tileentitychest.o < 1) {
                 return true;
             }
         } else {
-            if (l == Block.BURNING_FURNACE.id) {
+            if (block == Blocks.BURNING_FURNACE) {
                 return true;
             }
 
-            if (l == Block.BED.id && !BlockBed.f_(i1)) {
+            if (block == Blocks.BED && !BlockBed.b(l)) {
                 return true;
             }
         }

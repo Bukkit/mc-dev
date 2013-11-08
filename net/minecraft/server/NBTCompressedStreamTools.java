@@ -67,7 +67,7 @@ public class NBTCompressedStreamTools {
     }
 
     public static NBTTagCompound a(DataInput datainput) {
-        NBTBase nbtbase = NBTBase.a(datainput);
+        NBTBase nbtbase = a(datainput, 0);
 
         if (nbtbase instanceof NBTTagCompound) {
             return (NBTTagCompound) nbtbase;
@@ -77,6 +77,37 @@ public class NBTCompressedStreamTools {
     }
 
     public static void a(NBTTagCompound nbttagcompound, DataOutput dataoutput) {
-        NBTBase.a(nbttagcompound, dataoutput);
+        a((NBTBase) nbttagcompound, dataoutput);
+    }
+
+    private static void a(NBTBase nbtbase, DataOutput dataoutput) {
+        dataoutput.writeByte(nbtbase.getTypeId());
+        if (nbtbase.getTypeId() != 0) {
+            dataoutput.writeUTF("");
+            nbtbase.write(dataoutput);
+        }
+    }
+
+    private static NBTBase a(DataInput datainput, int i) {
+        byte b0 = datainput.readByte();
+
+        if (b0 == 0) {
+            return new NBTTagEnd();
+        } else {
+            datainput.readUTF();
+            NBTBase nbtbase = NBTBase.createTag(b0);
+
+            try {
+                nbtbase.load(datainput, i);
+                return nbtbase;
+            } catch (IOException ioexception) {
+                CrashReport crashreport = CrashReport.a(ioexception, "Loading NBT data");
+                CrashReportSystemDetails crashreportsystemdetails = crashreport.a("NBT Tag");
+
+                crashreportsystemdetails.a("Tag name", "[UNNAMED TAG]");
+                crashreportsystemdetails.a("Tag type", Byte.valueOf(b0));
+                throw new ReportedException(crashreport);
+            }
+        }
     }
 }

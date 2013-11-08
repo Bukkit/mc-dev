@@ -17,16 +17,16 @@ public class EntityBoat extends Entity {
         super(world);
         this.a = true;
         this.b = 0.07D;
-        this.m = true;
+        this.l = true;
         this.a(1.5F, 0.6F);
         this.height = this.length / 2.0F;
     }
 
-    protected boolean e_() {
+    protected boolean g_() {
         return false;
     }
 
-    protected void a() {
+    protected void c() {
         this.datawatcher.a(17, new Integer(0));
         this.datawatcher.a(18, new Integer(1));
         this.datawatcher.a(19, new Float(0.0F));
@@ -36,11 +36,11 @@ public class EntityBoat extends Entity {
         return entity.boundingBox;
     }
 
-    public AxisAlignedBB E() {
+    public AxisAlignedBB J() {
         return this.boundingBox;
     }
 
-    public boolean M() {
+    public boolean S() {
         return true;
     }
 
@@ -55,7 +55,7 @@ public class EntityBoat extends Entity {
         this.lastZ = d2;
     }
 
-    public double Y() {
+    public double ae() {
         return (double) this.length * 0.0D - 0.30000001192092896D;
     }
 
@@ -63,10 +63,10 @@ public class EntityBoat extends Entity {
         if (this.isInvulnerable()) {
             return false;
         } else if (!this.world.isStatic && !this.dead) {
-            this.c(-this.h());
+            this.c(-this.i());
             this.a(10);
             this.setDamage(this.getDamage() + f * 10.0F);
-            this.K();
+            this.Q();
             boolean flag = damagesource.getEntity() instanceof EntityHuman && ((EntityHuman) damagesource.getEntity()).abilities.canInstantlyBuild;
 
             if (flag || this.getDamage() > 40.0F) {
@@ -75,7 +75,7 @@ public class EntityBoat extends Entity {
                 }
 
                 if (!flag) {
-                    this.a(Item.BOAT.id, 1, 0.0F);
+                    this.a(Items.BOAT, 1, 0.0F);
                 }
 
                 this.die();
@@ -87,14 +87,14 @@ public class EntityBoat extends Entity {
         }
     }
 
-    public boolean L() {
+    public boolean R() {
         return !this.dead;
     }
 
-    public void l_() {
-        super.l_();
-        if (this.e() > 0) {
-            this.a(this.e() - 1);
+    public void h() {
+        super.h();
+        if (this.f() > 0) {
+            this.a(this.f() - 1);
         }
 
         if (this.getDamage() > 0.0F) {
@@ -120,12 +120,13 @@ public class EntityBoat extends Entity {
         double d3 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ);
         double d4;
         double d5;
+        int j;
 
         if (d3 > 0.26249999999999996D) {
             d4 = Math.cos((double) this.yaw * 3.141592653589793D / 180.0D);
             d5 = Math.sin((double) this.yaw * 3.141592653589793D / 180.0D);
 
-            for (int j = 0; (double) j < 1.0D + d3 * 60.0D; ++j) {
+            for (j = 0; (double) j < 1.0D + d3 * 60.0D; ++j) {
                 double d6 = (double) (this.random.nextFloat() * 2.0F - 1.0F);
                 double d7 = (double) (this.random.nextInt(2) * 2 - 1) * 0.7D;
                 double d8;
@@ -185,13 +186,11 @@ public class EntityBoat extends Entity {
             }
 
             if (this.passenger != null && this.passenger instanceof EntityLiving) {
-                d4 = (double) ((EntityLiving) this.passenger).bf;
-                if (d4 > 0.0D) {
-                    d5 = -Math.sin((double) (this.passenger.yaw * 3.1415927F / 180.0F));
-                    d10 = Math.cos((double) (this.passenger.yaw * 3.1415927F / 180.0F));
-                    this.motX += d5 * this.b * 0.05000000074505806D;
-                    this.motZ += d10 * this.b * 0.05000000074505806D;
-                }
+                EntityLiving entityliving = (EntityLiving) this.passenger;
+                float f = this.passenger.yaw + -entityliving.be * 90.0F;
+
+                this.motX += -Math.sin((double) (f * 3.1415927F / 180.0F)) * this.b * (double) entityliving.bf * 0.05000000074505806D;
+                this.motZ += Math.cos((double) (f * 3.1415927F / 180.0F)) * this.b * (double) entityliving.bf * 0.05000000074505806D;
             }
 
             d4 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ);
@@ -214,6 +213,27 @@ public class EntityBoat extends Entity {
                 }
             }
 
+            int k;
+
+            for (k = 0; k < 4; ++k) {
+                int l = MathHelper.floor(this.locX + ((double) (k % 2) - 0.5D) * 0.8D);
+
+                j = MathHelper.floor(this.locZ + ((double) (k / 2) - 0.5D) * 0.8D);
+
+                for (int i1 = 0; i1 < 2; ++i1) {
+                    int j1 = MathHelper.floor(this.locY) + i1;
+                    Block block = this.world.getType(l, j1, j);
+
+                    if (block == Blocks.SNOW) {
+                        this.world.setAir(l, j1, j);
+                        this.positionChanged = false;
+                    } else if (block == Blocks.WATER_LILY) {
+                        this.world.setAir(l, j1, j, true);
+                        this.positionChanged = false;
+                    }
+                }
+            }
+
             if (this.onGround) {
                 this.motX *= 0.5D;
                 this.motY *= 0.5D;
@@ -225,14 +245,12 @@ public class EntityBoat extends Entity {
                 if (!this.world.isStatic && !this.dead) {
                     this.die();
 
-                    int k;
-
                     for (k = 0; k < 3; ++k) {
-                        this.a(Block.WOOD.id, 1, 0.0F);
+                        this.a(Item.getItemOf(Blocks.WOOD), 1, 0.0F);
                     }
 
                     for (k = 0; k < 2; ++k) {
-                        this.a(Item.STICK.id, 1, 0.0F);
+                        this.a(Items.STICK, 1, 0.0F);
                     }
                 }
             } else {
@@ -263,30 +281,13 @@ public class EntityBoat extends Entity {
             this.b(this.yaw, this.pitch);
             if (!this.world.isStatic) {
                 List list = this.world.getEntities(this, this.boundingBox.grow(0.20000000298023224D, 0.0D, 0.20000000298023224D));
-                int l;
 
                 if (list != null && !list.isEmpty()) {
-                    for (l = 0; l < list.size(); ++l) {
-                        Entity entity = (Entity) list.get(l);
+                    for (int k1 = 0; k1 < list.size(); ++k1) {
+                        Entity entity = (Entity) list.get(k1);
 
-                        if (entity != this.passenger && entity.M() && entity instanceof EntityBoat) {
+                        if (entity != this.passenger && entity.S() && entity instanceof EntityBoat) {
                             entity.collide(this);
-                        }
-                    }
-                }
-
-                for (l = 0; l < 4; ++l) {
-                    int i1 = MathHelper.floor(this.locX + ((double) (l % 2) - 0.5D) * 0.8D);
-                    int j1 = MathHelper.floor(this.locZ + ((double) (l / 2) - 0.5D) * 0.8D);
-
-                    for (int k1 = 0; k1 < 2; ++k1) {
-                        int l1 = MathHelper.floor(this.locY) + k1;
-                        int i2 = this.world.getTypeId(i1, l1, j1);
-
-                        if (i2 == Block.SNOW.id) {
-                            this.world.setAir(i1, l1, j1);
-                        } else if (i2 == Block.WATER_LILY.id) {
-                            this.world.setAir(i1, l1, j1, true);
                         }
                     }
                 }
@@ -298,12 +299,12 @@ public class EntityBoat extends Entity {
         }
     }
 
-    public void W() {
+    public void ac() {
         if (this.passenger != null) {
             double d0 = Math.cos((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
             double d1 = Math.sin((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
 
-            this.passenger.setPosition(this.locX + d0, this.locY + this.Y() + this.passenger.X(), this.locZ + d1);
+            this.passenger.setPosition(this.locX + d0, this.locY + this.ae() + this.passenger.ad(), this.locZ + d1);
         }
     }
 
@@ -323,6 +324,35 @@ public class EntityBoat extends Entity {
         }
     }
 
+    protected void a(double d0, boolean flag) {
+        int i = MathHelper.floor(this.locX);
+        int j = MathHelper.floor(this.locY);
+        int k = MathHelper.floor(this.locZ);
+
+        if (flag) {
+            if (this.fallDistance > 3.0F) {
+                this.b(this.fallDistance);
+                if (!this.world.isStatic && !this.dead) {
+                    this.die();
+
+                    int l;
+
+                    for (l = 0; l < 3; ++l) {
+                        this.a(Item.getItemOf(Blocks.WOOD), 1, 0.0F);
+                    }
+
+                    for (l = 0; l < 2; ++l) {
+                        this.a(Items.STICK, 1, 0.0F);
+                    }
+                }
+
+                this.fallDistance = 0.0F;
+            }
+        } else if (this.world.getType(i, j - 1, k).getMaterial() != Material.WATER && d0 < 0.0D) {
+            this.fallDistance = (float) ((double) this.fallDistance - d0);
+        }
+    }
+
     public void setDamage(float f) {
         this.datawatcher.watch(19, Float.valueOf(f));
     }
@@ -335,7 +365,7 @@ public class EntityBoat extends Entity {
         this.datawatcher.watch(17, Integer.valueOf(i));
     }
 
-    public int e() {
+    public int f() {
         return this.datawatcher.getInt(17);
     }
 
@@ -343,7 +373,7 @@ public class EntityBoat extends Entity {
         this.datawatcher.watch(18, Integer.valueOf(i));
     }
 
-    public int h() {
+    public int i() {
         return this.datawatcher.getInt(18);
     }
 }

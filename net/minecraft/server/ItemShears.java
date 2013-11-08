@@ -2,16 +2,15 @@ package net.minecraft.server;
 
 public class ItemShears extends Item {
 
-    public ItemShears(int i) {
-        super(i);
-        this.d(1);
+    public ItemShears() {
+        this.e(1);
         this.setMaxDurability(238);
         this.a(CreativeModeTab.i);
     }
 
-    public boolean a(ItemStack itemstack, World world, int i, int j, int k, int l, EntityLiving entityliving) {
-        if (i != Block.LEAVES.id && i != Block.WEB.id && i != Block.LONG_GRASS.id && i != Block.VINE.id && i != Block.TRIPWIRE.id) {
-            return super.a(itemstack, world, i, j, k, l, entityliving);
+    public boolean a(ItemStack itemstack, World world, Block block, int i, int j, int k, EntityLiving entityliving) {
+        if (block.getMaterial() != Material.LEAVES && block != Blocks.WEB && block != Blocks.LONG_GRASS && block != Blocks.VINE && block != Blocks.TRIPWIRE) {
+            return super.a(itemstack, world, block, i, j, k, entityliving);
         } else {
             itemstack.damage(1, entityliving);
             return true;
@@ -19,10 +18,10 @@ public class ItemShears extends Item {
     }
 
     public boolean canDestroySpecialBlock(Block block) {
-        return block.id == Block.WEB.id || block.id == Block.REDSTONE_WIRE.id || block.id == Block.TRIPWIRE.id;
+        return block == Blocks.WEB || block == Blocks.REDSTONE_WIRE || block == Blocks.TRIPWIRE;
     }
 
     public float getDestroySpeed(ItemStack itemstack, Block block) {
-        return block.id != Block.WEB.id && block.id != Block.LEAVES.id ? (block.id == Block.WOOL.id ? 5.0F : super.getDestroySpeed(itemstack, block)) : 15.0F;
+        return block != Blocks.WEB && block.getMaterial() != Material.LEAVES ? (block == Blocks.WOOL ? 5.0F : super.getDestroySpeed(itemstack, block)) : 15.0F;
     }
 }

@@ -5,9 +5,7 @@ import java.util.concurrent.Callable;
 class CrashReportChunkPosHash implements Callable {
 
     final int a;
-
     final int b;
-
     final StructureGenerator c;
 
     CrashReportChunkPosHash(StructureGenerator structuregenerator, int i, int j) {

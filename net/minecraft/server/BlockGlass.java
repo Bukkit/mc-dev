@@ -2,10 +2,10 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-public class BlockGlass extends BlockHalfTransparant {
+public class BlockGlass extends BlockHalfTransparent {
 
-    public BlockGlass(int i, Material material, boolean flag) {
-        super(i, "glass", material, flag);
+    public BlockGlass(Material material, boolean flag) {
+        super("glass", material, flag);
         this.a(CreativeModeTab.b);
     }
 
@@ -13,15 +13,11 @@ public class BlockGlass extends BlockHalfTransparant {
         return 0;
     }
 
-    public boolean c() {
+    public boolean d() {
         return false;
     }
 
-    public boolean b() {
-        return false;
-    }
-
-    protected boolean r_() {
+    protected boolean E() {
         return true;
     }
 }

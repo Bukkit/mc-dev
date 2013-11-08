@@ -184,20 +184,20 @@ public class Navigation {
     }
 
     private int k() {
-        if (this.a.H() && this.m) {
+        if (this.a.M() && this.m) {
             int i = (int) this.a.boundingBox.b;
-            int j = this.b.getTypeId(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
-            int k = 0;
+            Block block = this.b.getType(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
+            int j = 0;
 
             do {
-                if (j != Block.WATER.id && j != Block.STATIONARY_WATER.id) {
+                if (block != Blocks.WATER && block != Blocks.STATIONARY_WATER) {
                     return i;
                 }
 
                 ++i;
-                j = this.b.getTypeId(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
-                ++k;
-            } while (k <= 16);
+                block = this.b.getType(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
+                ++j;
+            } while (j <= 16);
 
             return (int) this.a.boundingBox.b;
         } else {
@@ -210,15 +210,15 @@ public class Navigation {
     }
 
     private boolean m() {
-        return this.a.H() || this.a.J();
+        return this.a.M() || this.a.P();
     }
 
     private void n() {
-        if (!this.b.l(MathHelper.floor(this.a.locX), (int) (this.a.boundingBox.b + 0.5D), MathHelper.floor(this.a.locZ))) {
+        if (!this.b.i(MathHelper.floor(this.a.locX), (int) (this.a.boundingBox.b + 0.5D), MathHelper.floor(this.a.locZ))) {
             for (int i = 0; i < this.c.d(); ++i) {
                 PathPoint pathpoint = this.c.a(i);
 
-                if (this.b.l(pathpoint.a, pathpoint.b, pathpoint.c)) {
+                if (this.b.i(pathpoint.a, pathpoint.b, pathpoint.c)) {
                     this.c.b(i - 1);
                     return;
                 }
@@ -303,15 +303,14 @@ public class Navigation {
                     double d3 = (double) j2 + 0.5D - vec3d.e;
 
                     if (d2 * d0 + d3 * d1 >= 0.0D) {
-                        int k2 = this.b.getTypeId(i2, j - 1, j2);
+                        Block block = this.b.getType(i2, j - 1, j2);
+                        Material material = block.getMaterial();
 
-                        if (k2 <= 0) {
+                        if (material == Material.AIR) {
                             return false;
                         }
 
-                        Material material = Block.byId[k2].material;
-
-                        if (material == Material.WATER && !this.a.H()) {
+                        if (material == Material.WATER && !this.a.M()) {
                             return false;
                         }
 
@@ -334,9 +333,9 @@ public class Navigation {
                     double d3 = (double) i2 + 0.5D - vec3d.e;
 
                     if (d2 * d0 + d3 * d1 >= 0.0D) {
-                        int j2 = this.b.getTypeId(k1, l1, i2);
+                        Block block = this.b.getType(k1, l1, i2);
 
-                        if (j2 > 0 && !Block.byId[j2].b((IBlockAccess) this.b, k1, l1, i2)) {
+                        if (!block.b(this.b, k1, l1, i2)) {
                             return false;
                         }
                     }

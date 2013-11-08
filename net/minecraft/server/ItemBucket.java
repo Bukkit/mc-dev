@@ -2,23 +2,22 @@ package net.minecraft.server;
 
 public class ItemBucket extends Item {
 
-    private int a;
+    private Block a;
 
-    public ItemBucket(int i, int j) {
-        super(i);
+    public ItemBucket(Block block) {
         this.maxStackSize = 1;
-        this.a = j;
+        this.a = block;
         this.a(CreativeModeTab.f);
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        boolean flag = this.a == 0;
+        boolean flag = this.a == Blocks.AIR;
         MovingObjectPosition movingobjectposition = this.a(world, entityhuman, flag);
 
         if (movingobjectposition == null) {
             return itemstack;
         } else {
-            if (movingobjectposition.type == EnumMovingObjectType.TILE) {
+            if (movingobjectposition.type == EnumMovingObjectType.BLOCK) {
                 int i = movingobjectposition.b;
                 int j = movingobjectposition.c;
                 int k = movingobjectposition.d;
@@ -27,47 +26,26 @@ public class ItemBucket extends Item {
                     return itemstack;
                 }
 
-                if (this.a == 0) {
+                if (flag) {
                     if (!entityhuman.a(i, j, k, movingobjectposition.face, itemstack)) {
                         return itemstack;
                     }
 
-                    if (world.getMaterial(i, j, k) == Material.WATER && world.getData(i, j, k) == 0) {
+                    Material material = world.getType(i, j, k).getMaterial();
+                    int l = world.getData(i, j, k);
+
+                    if (material == Material.WATER && l == 0) {
                         world.setAir(i, j, k);
-                        if (entityhuman.abilities.canInstantlyBuild) {
-                            return itemstack;
-                        }
-
-                        if (--itemstack.count <= 0) {
-                            return new ItemStack(Item.WATER_BUCKET);
-                        }
-
-                        if (!entityhuman.inventory.pickup(new ItemStack(Item.WATER_BUCKET))) {
-                            entityhuman.drop(new ItemStack(Item.WATER_BUCKET.id, 1, 0));
-                        }
-
-                        return itemstack;
+                        return this.a(itemstack, entityhuman, Items.WATER_BUCKET);
                     }
 
-                    if (world.getMaterial(i, j, k) == Material.LAVA && world.getData(i, j, k) == 0) {
+                    if (material == Material.LAVA && l == 0) {
                         world.setAir(i, j, k);
-                        if (entityhuman.abilities.canInstantlyBuild) {
-                            return itemstack;
-                        }
-
-                        if (--itemstack.count <= 0) {
-                            return new ItemStack(Item.LAVA_BUCKET);
-                        }
-
-                        if (!entityhuman.inventory.pickup(new ItemStack(Item.LAVA_BUCKET))) {
-                            entityhuman.drop(new ItemStack(Item.LAVA_BUCKET.id, 1, 0));
-                        }
-
-                        return itemstack;
+                        return this.a(itemstack, entityhuman, Items.LAVA_BUCKET);
                     }
                 } else {
-                    if (this.a < 0) {
-                        return new ItemStack(Item.BUCKET);
+                    if (this.a == Blocks.AIR) {
+                        return new ItemStack(Items.BUCKET);
                     }
 
                     if (movingobjectposition.face == 0) {
@@ -99,7 +77,7 @@ public class ItemBucket extends Item {
                     }
 
                     if (this.a(world, i, j, k) && !entityhuman.abilities.canInstantlyBuild) {
-                        return new ItemStack(Item.BUCKET);
+                        return new ItemStack(Items.BUCKET);
                     }
                 }
             }
@@ -108,17 +86,31 @@ public class ItemBucket extends Item {
         }
     }
 
+    private ItemStack a(ItemStack itemstack, EntityHuman entityhuman, Item item) {
+        if (entityhuman.abilities.canInstantlyBuild) {
+            return itemstack;
+        } else if (--itemstack.count <= 0) {
+            return new ItemStack(item);
+        } else {
+            if (!entityhuman.inventory.pickup(new ItemStack(item))) {
+                entityhuman.drop(new ItemStack(item, 1, 0), false);
+            }
+
+            return itemstack;
+        }
+    }
+
     public boolean a(World world, int i, int j, int k) {
-        if (this.a <= 0) {
+        if (this.a == Blocks.AIR) {
             return false;
         } else {
-            Material material = world.getMaterial(i, j, k);
+            Material material = world.getType(i, j, k).getMaterial();
             boolean flag = !material.isBuildable();
 
             if (!world.isEmpty(i, j, k) && !flag) {
                 return false;
             } else {
-                if (world.worldProvider.f && this.a == Block.WATER.id) {
+                if (world.worldProvider.f && this.a == Blocks.WATER) {
                     world.makeSound((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
 
                     for (int l = 0; l < 8; ++l) {
@@ -129,7 +121,7 @@ public class ItemBucket extends Item {
                         world.setAir(i, j, k, true);
                     }
 
-                    world.setTypeIdAndData(i, j, k, this.a, 0, 3);
+                    world.setTypeAndData(i, j, k, this.a, 0, 3);
                 }
 
                 return true;

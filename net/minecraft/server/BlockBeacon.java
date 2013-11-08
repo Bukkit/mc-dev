@@ -2,13 +2,13 @@ package net.minecraft.server;
 
 public class BlockBeacon extends BlockContainer {
 
-    public BlockBeacon(int i) {
-        super(i, Material.SHATTERABLE);
+    public BlockBeacon() {
+        super(Material.SHATTERABLE);
         this.c(3.0F);
         this.a(CreativeModeTab.f);
     }
 
-    public TileEntity b(World world) {
+    public TileEntity a(World world, int i) {
         return new TileEntityBeacon();
     }
 
@@ -30,11 +30,11 @@ public class BlockBeacon extends BlockContainer {
         return false;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
-    public int d() {
+    public int b() {
         return 34;
     }
 

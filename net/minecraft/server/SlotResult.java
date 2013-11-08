@@ -32,26 +32,44 @@ public class SlotResult extends Slot {
     protected void b(ItemStack itemstack) {
         itemstack.a(this.b.world, this.b, this.c);
         this.c = 0;
-        if (itemstack.id == Block.WORKBENCH.id) {
+        if (itemstack.getItem() == Item.getItemOf(Blocks.WORKBENCH)) {
             this.b.a((Statistic) AchievementList.h, 1);
-        } else if (itemstack.id == Item.WOOD_PICKAXE.id) {
+        }
+
+        if (itemstack.getItem() instanceof ItemPickaxe) {
             this.b.a((Statistic) AchievementList.i, 1);
-        } else if (itemstack.id == Block.FURNACE.id) {
+        }
+
+        if (itemstack.getItem() == Item.getItemOf(Blocks.FURNACE)) {
             this.b.a((Statistic) AchievementList.j, 1);
-        } else if (itemstack.id == Item.WOOD_HOE.id) {
+        }
+
+        if (itemstack.getItem() instanceof ItemHoe) {
             this.b.a((Statistic) AchievementList.l, 1);
-        } else if (itemstack.id == Item.BREAD.id) {
+        }
+
+        if (itemstack.getItem() == Items.BREAD) {
             this.b.a((Statistic) AchievementList.m, 1);
-        } else if (itemstack.id == Item.CAKE.id) {
+        }
+
+        if (itemstack.getItem() == Items.CAKE) {
             this.b.a((Statistic) AchievementList.n, 1);
-        } else if (itemstack.id == Item.STONE_PICKAXE.id) {
+        }
+
+        if (itemstack.getItem() instanceof ItemPickaxe && ((ItemPickaxe) itemstack.getItem()).i() != EnumToolMaterial.WOOD) {
             this.b.a((Statistic) AchievementList.o, 1);
-        } else if (itemstack.id == Item.WOOD_SWORD.id) {
+        }
+
+        if (itemstack.getItem() instanceof ItemSword) {
             this.b.a((Statistic) AchievementList.r, 1);
-        } else if (itemstack.id == Block.ENCHANTMENT_TABLE.id) {
-            this.b.a((Statistic) AchievementList.D, 1);
-        } else if (itemstack.id == Block.BOOKSHELF.id) {
-            this.b.a((Statistic) AchievementList.F, 1);
+        }
+
+        if (itemstack.getItem() == Item.getItemOf(Blocks.ENCHANTMENT_TABLE)) {
+            this.b.a((Statistic) AchievementList.E, 1);
+        }
+
+        if (itemstack.getItem() == Item.getItemOf(Blocks.BOOKSHELF)) {
+            this.b.a((Statistic) AchievementList.G, 1);
         }
     }
 
@@ -66,11 +84,11 @@ public class SlotResult extends Slot {
                 if (itemstack1.getItem().u()) {
                     ItemStack itemstack2 = new ItemStack(itemstack1.getItem().t());
 
-                    if (!itemstack1.getItem().j(itemstack1) || !this.b.inventory.pickup(itemstack2)) {
+                    if (!itemstack1.getItem().l(itemstack1) || !this.b.inventory.pickup(itemstack2)) {
                         if (this.a.getItem(i) == null) {
                             this.a.setItem(i, itemstack2);
                         } else {
-                            this.b.drop(itemstack2);
+                            this.b.drop(itemstack2, false);
                         }
                     }
                 }

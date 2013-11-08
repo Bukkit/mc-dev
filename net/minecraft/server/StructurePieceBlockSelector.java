@@ -4,14 +4,16 @@ import java.util.Random;
 
 public abstract class StructurePieceBlockSelector {
 
-    protected int a;
+    protected Block a;
     protected int b;
 
-    protected StructurePieceBlockSelector() {}
+    protected StructurePieceBlockSelector() {
+        this.a = Blocks.AIR;
+    }
 
     public abstract void a(Random random, int i, int j, int k, boolean flag);
 
-    public int a() {
+    public Block a() {
         return this.a;
     }
 

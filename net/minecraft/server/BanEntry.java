@@ -4,58 +4,61 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BanEntry {
 
+    private static final Logger b = LogManager.getLogger();
     public static final SimpleDateFormat a = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
-    private final String b;
-    private Date c = new Date();
-    private String d = "(Unknown)";
-    private Date e;
-    private String f = "Banned by an operator.";
+    private final String c;
+    private Date d = new Date();
+    private String e = "(Unknown)";
+    private Date f;
+    private String g = "Banned by an operator.";
 
     public BanEntry(String s) {
-        this.b = s;
+        this.c = s;
     }
 
     public String getName() {
-        return this.b;
-    }
-
-    public Date getCreated() {
         return this.c;
     }
 
-    public void setCreated(Date date) {
-        this.c = date != null ? date : new Date();
-    }
-
-    public String getSource() {
+    public Date getCreated() {
         return this.d;
     }
 
-    public void setSource(String s) {
-        this.d = s;
+    public void setCreated(Date date) {
+        this.d = date != null ? date : new Date();
     }
 
-    public Date getExpires() {
+    public String getSource() {
         return this.e;
     }
 
-    public void setExpires(Date date) {
-        this.e = date;
+    public void setSource(String s) {
+        this.e = s;
     }
 
-    public boolean hasExpired() {
-        return this.e == null ? false : this.e.before(new Date());
-    }
-
-    public String getReason() {
+    public Date getExpires() {
         return this.f;
     }
 
+    public void setExpires(Date date) {
+        this.f = date;
+    }
+
+    public boolean hasExpired() {
+        return this.f == null ? false : this.f.before(new Date());
+    }
+
+    public String getReason() {
+        return this.g;
+    }
+
     public void setReason(String s) {
-        this.f = s;
+        this.g = s;
     }
 
     public String g() {
@@ -89,7 +92,7 @@ public class BanEntry {
                 try {
                     banentry.setCreated(a.parse(astring[j].trim()));
                 } catch (ParseException parseexception) {
-                    MinecraftServer.getServer().getLogger().warning("Could not read creation date format for ban entry \'" + banentry.getName() + "\' (was: \'" + astring[j] + "\')", (Throwable) parseexception);
+                    b.warn("Could not read creation date format for ban entry \'" + banentry.getName() + "\' (was: \'" + astring[j] + "\')", parseexception);
                 }
 
                 i = astring.length;
@@ -110,7 +113,7 @@ public class BanEntry {
                                 banentry.setExpires(a.parse(s1));
                             }
                         } catch (ParseException parseexception1) {
-                            MinecraftServer.getServer().getLogger().warning("Could not read expiry date format for ban entry \'" + banentry.getName() + "\' (was: \'" + astring[j] + "\')", (Throwable) parseexception1);
+                            b.warn("Could not read expiry date format for ban entry \'" + banentry.getName() + "\' (was: \'" + astring[j] + "\')", parseexception1);
                         }
 
                         i = astring.length;

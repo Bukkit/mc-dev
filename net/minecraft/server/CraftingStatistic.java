@@ -2,10 +2,10 @@ package net.minecraft.server;
 
 public class CraftingStatistic extends Statistic {
 
-    private final int a;
+    private final Item a;
 
-    public CraftingStatistic(int i, String s, int j) {
-        super(i, s);
-        this.a = j;
+    public CraftingStatistic(String s, IChatBaseComponent ichatbasecomponent, Item item) {
+        super(s, ichatbasecomponent);
+        this.a = item;
     }
 }

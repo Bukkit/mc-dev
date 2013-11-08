@@ -2,23 +2,23 @@ package net.minecraft.server;
 
 public class ItemBlock extends Item {
 
-    private int id;
+    protected final Block block;
 
-    public ItemBlock(int i) {
-        super(i);
-        this.id = i + 256;
+    public ItemBlock(Block block) {
+        this.block = block;
     }
 
-    public int g() {
-        return this.id;
+    public ItemBlock b(String s) {
+        super.c(s);
+        return this;
     }
 
     public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l, float f, float f1, float f2) {
-        int i1 = world.getTypeId(i, j, k);
+        Block block = world.getType(i, j, k);
 
-        if (i1 == Block.SNOW.id && (world.getData(i, j, k) & 7) < 1) {
+        if (block == Blocks.SNOW && (world.getData(i, j, k) & 7) < 1) {
             l = 1;
-        } else if (i1 != Block.VINE.id && i1 != Block.LONG_GRASS.id && i1 != Block.DEAD_BUSH.id) {
+        } else if (block != Blocks.VINE && block != Blocks.LONG_GRASS && block != Blocks.DEAD_BUSH) {
             if (l == 0) {
                 --j;
             }
@@ -48,20 +48,19 @@ public class ItemBlock extends Item {
             return false;
         } else if (!entityhuman.a(i, j, k, l, itemstack)) {
             return false;
-        } else if (j == 255 && Block.byId[this.id].material.isBuildable()) {
+        } else if (j == 255 && this.block.getMaterial().isBuildable()) {
             return false;
-        } else if (world.mayPlace(this.id, i, j, k, false, l, entityhuman, itemstack)) {
-            Block block = Block.byId[this.id];
-            int j1 = this.filterData(itemstack.getData());
-            int k1 = Block.byId[this.id].getPlacedData(world, i, j, k, l, f, f1, f2, j1);
+        } else if (world.mayPlace(this.block, i, j, k, false, l, entityhuman, itemstack)) {
+            int i1 = this.filterData(itemstack.getData());
+            int j1 = this.block.getPlacedData(world, i, j, k, l, f, f1, f2, i1);
 
-            if (world.setTypeIdAndData(i, j, k, this.id, k1, 3)) {
-                if (world.getTypeId(i, j, k) == this.id) {
-                    Block.byId[this.id].postPlace(world, i, j, k, entityhuman, itemstack);
-                    Block.byId[this.id].postPlace(world, i, j, k, k1);
+            if (world.setTypeAndData(i, j, k, this.block, j1, 3)) {
+                if (world.getType(i, j, k) == this.block) {
+                    this.block.postPlace(world, i, j, k, entityhuman, itemstack);
+                    this.block.postPlace(world, i, j, k, j1);
                 }
 
-                world.makeSound((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), block.stepSound.getPlaceSound(), (block.stepSound.getVolume1() + 1.0F) / 2.0F, block.stepSound.getVolume2() * 0.8F);
+                world.makeSound((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.block.stepSound.getPlaceSound(), (this.block.stepSound.getVolume1() + 1.0F) / 2.0F, this.block.stepSound.getVolume2() * 0.8F);
                 --itemstack.count;
             }
 
@@ -71,11 +70,15 @@ public class ItemBlock extends Item {
         }
     }
 
-    public String d(ItemStack itemstack) {
-        return Block.byId[this.id].a();
+    public String a(ItemStack itemstack) {
+        return this.block.a();
     }
 
     public String getName() {
-        return Block.byId[this.id].a();
+        return this.block.a();
+    }
+
+    public Item c(String s) {
+        return this.b(s);
     }
 }

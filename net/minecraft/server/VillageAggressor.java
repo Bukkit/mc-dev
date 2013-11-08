@@ -4,7 +4,6 @@ class VillageAggressor {
 
     public EntityLiving a;
     public int b;
-
     final Village c;
 
     VillageAggressor(Village village, EntityLiving entityliving, int i) {

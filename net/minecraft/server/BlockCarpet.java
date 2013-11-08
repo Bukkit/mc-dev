@@ -2,15 +2,15 @@ package net.minecraft.server;
 
 public class BlockCarpet extends Block {
 
-    protected BlockCarpet(int i) {
-        super(i, Material.WOOL);
+    protected BlockCarpet() {
+        super(Material.WOOL);
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
-        this.b(true);
+        this.a(true);
         this.a(CreativeModeTab.c);
-        this.d(0);
+        this.b(0);
     }
 
-    public AxisAlignedBB b(World world, int i, int j, int k) {
+    public AxisAlignedBB a(World world, int i, int j, int k) {
         byte b0 = 0;
         float f = 0.0625F;
 
@@ -21,19 +21,19 @@ public class BlockCarpet extends Block {
         return false;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
     public void g() {
-        this.d(0);
+        this.b(0);
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        this.d(iblockaccess.getData(i, j, k));
+        this.b(iblockaccess.getData(i, j, k));
     }
 
-    protected void d(int i) {
+    protected void b(int i) {
         byte b0 = 0;
         float f = (float) (1 * (1 + b0)) / 16.0F;
 
@@ -41,16 +41,16 @@ public class BlockCarpet extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return super.canPlace(world, i, j, k) && this.f(world, i, j, k);
+        return super.canPlace(world, i, j, k) && this.j(world, i, j, k);
     }
 
-    public void doPhysics(World world, int i, int j, int k, int l) {
-        this.k(world, i, j, k);
+    public void doPhysics(World world, int i, int j, int k, Block block) {
+        this.e(world, i, j, k);
     }
 
-    private boolean k(World world, int i, int j, int k) {
-        if (!this.f(world, i, j, k)) {
-            this.c(world, i, j, k, world.getData(i, j, k), 0);
+    private boolean e(World world, int i, int j, int k) {
+        if (!this.j(world, i, j, k)) {
+            this.b(world, i, j, k, world.getData(i, j, k), 0);
             world.setAir(i, j, k);
             return false;
         } else {
@@ -58,7 +58,7 @@ public class BlockCarpet extends Block {
         }
     }
 
-    public boolean f(World world, int i, int j, int k) {
+    public boolean j(World world, int i, int j, int k) {
         return !world.isEmpty(i, j - 1, k);
     }
 

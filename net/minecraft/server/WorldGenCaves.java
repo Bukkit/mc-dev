@@ -6,11 +6,11 @@ public class WorldGenCaves extends WorldGenBase {
 
     public WorldGenCaves() {}
 
-    protected void a(long i, int j, int k, byte[] abyte, double d0, double d1, double d2) {
-        this.a(i, j, k, abyte, d0, d1, d2, 1.0F + this.b.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
+    protected void a(long i, int j, int k, Block[] ablock, double d0, double d1, double d2) {
+        this.a(i, j, k, ablock, d0, d1, d2, 1.0F + this.b.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
     }
 
-    protected void a(long i, int j, int k, byte[] abyte, double d0, double d1, double d2, float f, float f1, float f2, int l, int i1, double d3) {
+    protected void a(long i, int j, int k, Block[] ablock, double d0, double d1, double d2, float f, float f1, float f2, int l, int i1, double d3) {
         double d4 = (double) (j * 16 + 8);
         double d5 = (double) (k * 16 + 8);
         float f3 = 0.0F;
@@ -54,8 +54,8 @@ public class WorldGenCaves extends WorldGenBase {
             f4 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0F;
             f3 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
             if (!flag && l == k1 && f > 1.0F && i1 > 0) {
-                this.a(random.nextLong(), j, k, abyte, d0, d1, d2, random.nextFloat() * 0.5F + 0.5F, f1 - 1.5707964F, f2 / 3.0F, l, i1, 1.0D);
-                this.a(random.nextLong(), j, k, abyte, d0, d1, d2, random.nextFloat() * 0.5F + 0.5F, f1 + 1.5707964F, f2 / 3.0F, l, i1, 1.0D);
+                this.a(random.nextLong(), j, k, ablock, d0, d1, d2, random.nextFloat() * 0.5F + 0.5F, f1 - 1.5707964F, f2 / 3.0F, l, i1, 1.0D);
+                this.a(random.nextLong(), j, k, ablock, d0, d1, d2, random.nextFloat() * 0.5F + 0.5F, f1 + 1.5707964F, f2 / 3.0F, l, i1, 1.0D);
                 return;
             }
 
@@ -89,8 +89,8 @@ public class WorldGenCaves extends WorldGenBase {
                         j2 = 1;
                     }
 
-                    if (k2 > 120) {
-                        k2 = 120;
+                    if (k2 > 248) {
+                        k2 = 248;
                     }
 
                     if (l2 < 0) {
@@ -109,9 +109,11 @@ public class WorldGenCaves extends WorldGenBase {
                     for (j3 = l1; !flag2 && j3 < i2; ++j3) {
                         for (int l3 = l2; !flag2 && l3 < i3; ++l3) {
                             for (int i4 = k2 + 1; !flag2 && i4 >= j2 - 1; --i4) {
-                                k3 = (j3 * 16 + l3) * 128 + i4;
-                                if (i4 >= 0 && i4 < 128) {
-                                    if (abyte[k3] == Block.WATER.id || abyte[k3] == Block.STATIONARY_WATER.id) {
+                                k3 = (j3 * 16 + l3) * 256 + i4;
+                                if (i4 >= 0 && i4 < 256) {
+                                    Block block = ablock[k3];
+
+                                    if (block == Blocks.WATER || block == Blocks.STATIONARY_WATER) {
                                         flag2 = true;
                                     }
 
@@ -129,7 +131,7 @@ public class WorldGenCaves extends WorldGenBase {
 
                             for (k3 = l2; k3 < i3; ++k3) {
                                 double d13 = ((double) (k3 + k * 16) + 0.5D - d2) / d6;
-                                int j4 = (j3 * 16 + k3) * 128 + k2;
+                                int j4 = (j3 * 16 + k3) * 256 + k2;
                                 boolean flag3 = false;
 
                                 if (d12 * d12 + d13 * d13 < 1.0D) {
@@ -137,19 +139,19 @@ public class WorldGenCaves extends WorldGenBase {
                                         double d14 = ((double) k4 + 0.5D - d1) / d7;
 
                                         if (d14 > -0.7D && d12 * d12 + d14 * d14 + d13 * d13 < 1.0D) {
-                                            byte b0 = abyte[j4];
+                                            Block block1 = ablock[j4];
 
-                                            if (b0 == Block.GRASS.id) {
+                                            if (block1 == Blocks.GRASS) {
                                                 flag3 = true;
                                             }
 
-                                            if (b0 == Block.STONE.id || b0 == Block.DIRT.id || b0 == Block.GRASS.id) {
+                                            if (block1 == Blocks.STONE || block1 == Blocks.DIRT || block1 == Blocks.GRASS) {
                                                 if (k4 < 10) {
-                                                    abyte[j4] = (byte) Block.LAVA.id;
+                                                    ablock[j4] = Blocks.STATIONARY_LAVA;
                                                 } else {
-                                                    abyte[j4] = 0;
-                                                    if (flag3 && abyte[j4 - 1] == Block.DIRT.id) {
-                                                        abyte[j4 - 1] = this.c.getBiome(j3 + j * 16, k3 + k * 16).A;
+                                                    ablock[j4] = null;
+                                                    if (flag3 && ablock[j4 - 1] == Blocks.DIRT) {
+                                                        ablock[j4 - 1] = this.c.getBiome(j3 + j * 16, k3 + k * 16).ai;
                                                     }
                                                 }
                                             }
@@ -170,10 +172,10 @@ public class WorldGenCaves extends WorldGenBase {
         }
     }
 
-    protected void a(World world, int i, int j, int k, int l, byte[] abyte) {
-        int i1 = this.b.nextInt(this.b.nextInt(this.b.nextInt(40) + 1) + 1);
+    protected void a(World world, int i, int j, int k, int l, Block[] ablock) {
+        int i1 = this.b.nextInt(this.b.nextInt(this.b.nextInt(15) + 1) + 1);
 
-        if (this.b.nextInt(15) != 0) {
+        if (this.b.nextInt(7) != 0) {
             i1 = 0;
         }
 
@@ -184,7 +186,7 @@ public class WorldGenCaves extends WorldGenBase {
             int k1 = 1;
 
             if (this.b.nextInt(4) == 0) {
-                this.a(this.b.nextLong(), k, l, abyte, d0, d1, d2);
+                this.a(this.b.nextLong(), k, l, ablock, d0, d1, d2);
                 k1 += this.b.nextInt(4);
             }
 
@@ -197,7 +199,7 @@ public class WorldGenCaves extends WorldGenBase {
                     f2 *= this.b.nextFloat() * this.b.nextFloat() * 3.0F + 1.0F;
                 }
 
-                this.a(this.b.nextLong(), k, l, abyte, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
+                this.a(this.b.nextLong(), k, l, ablock, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
             }
         }
     }

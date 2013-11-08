@@ -49,14 +49,14 @@ public class ContainerWorkbench extends Container {
                 ItemStack itemstack = this.craftInventory.splitWithoutUpdate(i);
 
                 if (itemstack != null) {
-                    entityhuman.drop(itemstack);
+                    entityhuman.drop(itemstack, false);
                 }
             }
         }
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.g.getTypeId(this.h, this.i, this.j) != Block.WORKBENCH.id ? false : entityhuman.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
+        return this.g.getType(this.h, this.i, this.j) != Blocks.WORKBENCH ? false : entityhuman.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {

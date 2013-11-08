@@ -24,9 +24,9 @@ public class CommandTime extends CommandAbstract {
 
             if (astring[0].equals("set")) {
                 if (astring[1].equals("day")) {
-                    i = 0;
+                    i = 1000;
                 } else if (astring[1].equals("night")) {
-                    i = 12500;
+                    i = 13000;
                 } else {
                     i = a(icommandlistener, astring[1], 0);
                 }

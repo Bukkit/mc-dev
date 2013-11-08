@@ -3,7 +3,6 @@ package net.minecraft.server;
 public enum EnumEntitySize {
 
     SIZE_1("SIZE_1", 0), SIZE_2("SIZE_2", 1), SIZE_3("SIZE_3", 2), SIZE_4("SIZE_4", 3), SIZE_5("SIZE_5", 4), SIZE_6("SIZE_6", 5);
-
     private static final EnumEntitySize[] g = new EnumEntitySize[] { SIZE_1, SIZE_2, SIZE_3, SIZE_4, SIZE_5, SIZE_6};
 
     private EnumEntitySize(String s, int i) {}

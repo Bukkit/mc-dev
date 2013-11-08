@@ -20,7 +20,7 @@ public class CommandIdleTimeout extends CommandAbstract {
         if (astring.length == 1) {
             int i = a(icommandlistener, astring[0], 0);
 
-            MinecraftServer.getServer().e(i);
+            MinecraftServer.getServer().d(i);
             a(icommandlistener, "commands.setidletimeout.success", new Object[] { Integer.valueOf(i)});
         } else {
             throw new ExceptionUsage("commands.setidletimeout.usage", new Object[0]);

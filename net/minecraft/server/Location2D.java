@@ -64,9 +64,7 @@ class Location2D {
         int j = MathHelper.floor(this.b);
 
         for (int k = 256; k > 0; --k) {
-            int l = world.getTypeId(i, k, j);
-
-            if (l != 0) {
+            if (world.getType(i, k, j).getMaterial() != Material.AIR) {
                 return k + 1;
             }
         }
@@ -77,18 +75,15 @@ class Location2D {
     public boolean b(World world) {
         int i = MathHelper.floor(this.a);
         int j = MathHelper.floor(this.b);
+        short short1 = 256;
 
-        for (int k = 256; k > 0; --k) {
-            int l = world.getTypeId(i, k, j);
+        if (short1 <= 0) {
+            return false;
+        } else {
+            Material material = world.getType(i, short1, j).getMaterial();
 
-            if (l != 0) {
-                Material material = Block.byId[l].material;
-
-                return !material.isLiquid() && material != Material.FIRE;
-            }
+            return !material.isLiquid() && material != Material.FIRE;
         }
-
-        return false;
     }
 
     public void a(Random random, double d0, double d1, double d2, double d3) {

@@ -46,15 +46,15 @@ public class GenLayerIsland extends GenLayer {
 
                     if (this.a(3) == 0) {
                         aint1[j2 + i2 * k] = i4;
-                    } else if (i4 == BiomeBase.ICE_PLAINS.id) {
-                        aint1[j2 + i2 * k] = BiomeBase.FROZEN_OCEAN.id;
+                    } else if (i4 == 4) {
+                        aint1[j2 + i2 * k] = 4;
                     } else {
                         aint1[j2 + i2 * k] = 0;
                     }
                 } else if (k3 > 0 && (k2 == 0 || l2 == 0 || i3 == 0 || j3 == 0)) {
                     if (this.a(5) == 0) {
-                        if (k3 == BiomeBase.ICE_PLAINS.id) {
-                            aint1[j2 + i2 * k] = BiomeBase.FROZEN_OCEAN.id;
+                        if (k3 == 4) {
+                            aint1[j2 + i2 * k] = 4;
                         } else {
                             aint1[j2 + i2 * k] = 0;
                         }

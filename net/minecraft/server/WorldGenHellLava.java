@@ -4,39 +4,39 @@ import java.util.Random;
 
 public class WorldGenHellLava extends WorldGenerator {
 
-    private int a;
+    private Block a;
     private boolean b;
 
-    public WorldGenHellLava(int i, boolean flag) {
-        this.a = i;
+    public WorldGenHellLava(Block block, boolean flag) {
+        this.a = block;
         this.b = flag;
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
-        if (world.getTypeId(i, j + 1, k) != Block.NETHERRACK.id) {
+        if (world.getType(i, j + 1, k) != Blocks.NETHERRACK) {
             return false;
-        } else if (world.getTypeId(i, j, k) != 0 && world.getTypeId(i, j, k) != Block.NETHERRACK.id) {
+        } else if (world.getType(i, j, k).getMaterial() != Material.AIR && world.getType(i, j, k) != Blocks.NETHERRACK) {
             return false;
         } else {
             int l = 0;
 
-            if (world.getTypeId(i - 1, j, k) == Block.NETHERRACK.id) {
+            if (world.getType(i - 1, j, k) == Blocks.NETHERRACK) {
                 ++l;
             }
 
-            if (world.getTypeId(i + 1, j, k) == Block.NETHERRACK.id) {
+            if (world.getType(i + 1, j, k) == Blocks.NETHERRACK) {
                 ++l;
             }
 
-            if (world.getTypeId(i, j, k - 1) == Block.NETHERRACK.id) {
+            if (world.getType(i, j, k - 1) == Blocks.NETHERRACK) {
                 ++l;
             }
 
-            if (world.getTypeId(i, j, k + 1) == Block.NETHERRACK.id) {
+            if (world.getType(i, j, k + 1) == Blocks.NETHERRACK) {
                 ++l;
             }
 
-            if (world.getTypeId(i, j - 1, k) == Block.NETHERRACK.id) {
+            if (world.getType(i, j - 1, k) == Blocks.NETHERRACK) {
                 ++l;
             }
 
@@ -63,9 +63,9 @@ public class WorldGenHellLava extends WorldGenerator {
             }
 
             if (!this.b && l == 4 && i1 == 1 || l == 5) {
-                world.setTypeIdAndData(i, j, k, this.a, 0, 2);
+                world.setTypeAndData(i, j, k, this.a, 0, 2);
                 world.d = true;
-                Block.byId[this.a].a(world, i, j, k, random);
+                this.a.a(world, i, j, k, random);
                 world.d = false;
             }
 

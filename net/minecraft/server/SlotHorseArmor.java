@@ -3,7 +3,6 @@ package net.minecraft.server;
 class SlotHorseArmor extends Slot {
 
     final EntityHorse a;
-
     final ContainerHorse b;
 
     SlotHorseArmor(ContainerHorse containerhorse, IInventory iinventory, int i, int j, int k, EntityHorse entityhorse) {
@@ -13,6 +12,6 @@ class SlotHorseArmor extends Slot {
     }
 
     public boolean isAllowed(ItemStack itemstack) {
-        return super.isAllowed(itemstack) && this.a.cv() && EntityHorse.v(itemstack.id);
+        return super.isAllowed(itemstack) && this.a.cz() && EntityHorse.a(itemstack.getItem());
     }
 }

@@ -116,74 +116,74 @@ abstract class WorldGenVillagePiece extends StructurePiece {
         return 0;
     }
 
-    protected int d(int i, int j) {
+    protected Block b(Block block, int i) {
         if (this.b) {
-            if (i == Block.LOG.id) {
-                return Block.SANDSTONE.id;
+            if (block == Blocks.LOG || block == Blocks.LOG2) {
+                return Blocks.SANDSTONE;
             }
 
-            if (i == Block.COBBLESTONE.id) {
-                return Block.SANDSTONE.id;
+            if (block == Blocks.COBBLESTONE) {
+                return Blocks.SANDSTONE;
             }
 
-            if (i == Block.WOOD.id) {
-                return Block.SANDSTONE.id;
+            if (block == Blocks.WOOD) {
+                return Blocks.SANDSTONE;
             }
 
-            if (i == Block.WOOD_STAIRS.id) {
-                return Block.SANDSTONE_STAIRS.id;
+            if (block == Blocks.WOOD_STAIRS) {
+                return Blocks.SANDSTONE_STAIRS;
             }
 
-            if (i == Block.COBBLESTONE_STAIRS.id) {
-                return Block.SANDSTONE_STAIRS.id;
+            if (block == Blocks.COBBLESTONE_STAIRS) {
+                return Blocks.SANDSTONE_STAIRS;
             }
 
-            if (i == Block.GRAVEL.id) {
-                return Block.SANDSTONE.id;
+            if (block == Blocks.GRAVEL) {
+                return Blocks.SANDSTONE;
+            }
+        }
+
+        return block;
+    }
+
+    protected int c(Block block, int i) {
+        if (this.b) {
+            if (block == Blocks.LOG || block == Blocks.LOG2) {
+                return 0;
+            }
+
+            if (block == Blocks.COBBLESTONE) {
+                return 0;
+            }
+
+            if (block == Blocks.WOOD) {
+                return 2;
             }
         }
 
         return i;
     }
 
-    protected int e(int i, int j) {
-        if (this.b) {
-            if (i == Block.LOG.id) {
-                return 0;
-            }
+    protected void a(World world, Block block, int i, int j, int k, int l, StructureBoundingBox structureboundingbox) {
+        Block block1 = this.b(block, i);
+        int i1 = this.c(block, i);
 
-            if (i == Block.COBBLESTONE.id) {
-                return 0;
-            }
-
-            if (i == Block.WOOD.id) {
-                return 2;
-            }
-        }
-
-        return j;
+        super.a(world, block1, i1, j, k, l, structureboundingbox);
     }
 
-    protected void a(World world, int i, int j, int k, int l, int i1, StructureBoundingBox structureboundingbox) {
-        int j1 = this.d(i, j);
-        int k1 = this.e(i, j);
+    protected void a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, int j1, Block block, Block block1, boolean flag) {
+        Block block2 = this.b(block, 0);
+        int k1 = this.c(block, 0);
+        Block block3 = this.b(block1, 0);
+        int l1 = this.c(block1, 0);
 
-        super.a(world, j1, k1, k, l, i1, structureboundingbox);
+        super.a(world, structureboundingbox, i, j, k, l, i1, j1, block2, k1, block3, l1, flag);
     }
 
-    protected void a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, int j1, int k1, int l1, boolean flag) {
-        int i2 = this.d(k1, 0);
-        int j2 = this.e(k1, 0);
-        int k2 = this.d(l1, 0);
-        int l2 = this.e(l1, 0);
+    protected void b(World world, Block block, int i, int j, int k, int l, StructureBoundingBox structureboundingbox) {
+        Block block1 = this.b(block, i);
+        int i1 = this.c(block, i);
 
-        super.a(world, structureboundingbox, i, j, k, l, i1, j1, i2, j2, k2, l2, flag);
-    }
-
-    protected void b(World world, int i, int j, int k, int l, int i1, StructureBoundingBox structureboundingbox) {
-        int j1 = this.d(i, j);
-        int k1 = this.e(i, j);
-
-        super.b(world, j1, k1, k, l, i1, structureboundingbox);
+        super.b(world, block1, i1, j, k, l, structureboundingbox);
     }
 }

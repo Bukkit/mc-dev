@@ -5,7 +5,6 @@ import java.util.concurrent.Callable;
 class CrashReportItemName implements Callable {
 
     final ItemStack a;
-
     final PlayerInventory b;
 
     CrashReportItemName(PlayerInventory playerinventory, ItemStack itemstack) {

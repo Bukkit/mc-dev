@@ -10,7 +10,7 @@ class SlotBeacon extends Slot {
     }
 
     public boolean isAllowed(ItemStack itemstack) {
-        return itemstack == null ? false : itemstack.id == Item.EMERALD.id || itemstack.id == Item.DIAMOND.id || itemstack.id == Item.GOLD_INGOT.id || itemstack.id == Item.IRON_INGOT.id;
+        return itemstack == null ? false : itemstack.getItem() == Items.EMERALD || itemstack.getItem() == Items.DIAMOND || itemstack.getItem() == Items.GOLD_INGOT || itemstack.getItem() == Items.IRON_INGOT;
     }
 
     public int a() {

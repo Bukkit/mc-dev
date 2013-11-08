@@ -5,14 +5,14 @@ public class RecipesFood {
     public RecipesFood() {}
 
     public void a(CraftingManager craftingmanager) {
-        craftingmanager.registerShapelessRecipe(new ItemStack(Item.MUSHROOM_SOUP), new Object[] { Block.BROWN_MUSHROOM, Block.RED_MUSHROOM, Item.BOWL});
-        craftingmanager.registerShapedRecipe(new ItemStack(Item.COOKIE, 8), new Object[] { "#X#", Character.valueOf('X'), new ItemStack(Item.INK_SACK, 1, 3), Character.valueOf('#'), Item.WHEAT});
-        craftingmanager.registerShapedRecipe(new ItemStack(Block.MELON), new Object[] { "MMM", "MMM", "MMM", Character.valueOf('M'), Item.MELON});
-        craftingmanager.registerShapedRecipe(new ItemStack(Item.MELON_SEEDS), new Object[] { "M", Character.valueOf('M'), Item.MELON});
-        craftingmanager.registerShapedRecipe(new ItemStack(Item.PUMPKIN_SEEDS, 4), new Object[] { "M", Character.valueOf('M'), Block.PUMPKIN});
-        craftingmanager.registerShapelessRecipe(new ItemStack(Item.PUMPKIN_PIE), new Object[] { Block.PUMPKIN, Item.SUGAR, Item.EGG});
-        craftingmanager.registerShapelessRecipe(new ItemStack(Item.FERMENTED_SPIDER_EYE), new Object[] { Item.SPIDER_EYE, Block.BROWN_MUSHROOM, Item.SUGAR});
-        craftingmanager.registerShapelessRecipe(new ItemStack(Item.BLAZE_POWDER, 2), new Object[] { Item.BLAZE_ROD});
-        craftingmanager.registerShapelessRecipe(new ItemStack(Item.MAGMA_CREAM), new Object[] { Item.BLAZE_POWDER, Item.SLIME_BALL});
+        craftingmanager.registerShapelessRecipe(new ItemStack(Items.MUSHROOM_SOUP), new Object[] { Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, Items.BOWL});
+        craftingmanager.registerShapedRecipe(new ItemStack(Items.COOKIE, 8), new Object[] { "#X#", Character.valueOf('X'), new ItemStack(Items.INK_SACK, 1, 3), Character.valueOf('#'), Items.WHEAT});
+        craftingmanager.registerShapedRecipe(new ItemStack(Blocks.MELON), new Object[] { "MMM", "MMM", "MMM", Character.valueOf('M'), Items.MELON});
+        craftingmanager.registerShapedRecipe(new ItemStack(Items.MELON_SEEDS), new Object[] { "M", Character.valueOf('M'), Items.MELON});
+        craftingmanager.registerShapedRecipe(new ItemStack(Items.PUMPKIN_SEEDS, 4), new Object[] { "M", Character.valueOf('M'), Blocks.PUMPKIN});
+        craftingmanager.registerShapelessRecipe(new ItemStack(Items.PUMPKIN_PIE), new Object[] { Blocks.PUMPKIN, Items.SUGAR, Items.EGG});
+        craftingmanager.registerShapelessRecipe(new ItemStack(Items.FERMENTED_SPIDER_EYE), new Object[] { Items.SPIDER_EYE, Blocks.BROWN_MUSHROOM, Items.SUGAR});
+        craftingmanager.registerShapelessRecipe(new ItemStack(Items.BLAZE_POWDER, 2), new Object[] { Items.BLAZE_ROD});
+        craftingmanager.registerShapelessRecipe(new ItemStack(Items.MAGMA_CREAM), new Object[] { Items.BLAZE_POWDER, Items.SLIME_BALL});
     }
 }

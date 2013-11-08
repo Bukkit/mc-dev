@@ -4,9 +4,12 @@ public class EnchantmentLootBonus extends Enchantment {
 
     protected EnchantmentLootBonus(int i, int j, EnchantmentSlotType enchantmentslottype) {
         super(i, j, enchantmentslottype);
-        this.b("lootBonus");
         if (enchantmentslottype == EnchantmentSlotType.DIGGER) {
             this.b("lootBonusDigger");
+        } else if (enchantmentslottype == EnchantmentSlotType.FISHING_ROD) {
+            this.b("lootBonusFishing");
+        } else {
+            this.b("lootBonus");
         }
     }
 

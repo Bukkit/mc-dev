@@ -24,7 +24,7 @@ public class EntityMinecartRideable extends EntityMinecartAbstract {
         }
     }
 
-    public int getType() {
+    public int m() {
         return 0;
     }
 }

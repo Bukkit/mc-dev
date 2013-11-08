@@ -9,14 +9,14 @@ import java.util.concurrent.Callable;
 
 public abstract class StructureGenerator extends WorldGenBase {
 
-    private WorldGenFeature e;
+    private PersistentStructure e;
     protected Map d = new HashMap();
 
     public StructureGenerator() {}
 
     public abstract String a();
 
-    protected final void a(World world, int i, int j, int k, int l, byte[] abyte) {
+    protected final void a(World world, int i, int j, int k, int l, Block[] ablock) {
         this.a(world);
         if (!this.d.containsKey(Long.valueOf(ChunkCoordIntPair.a(i, j)))) {
             this.b.nextInt();
@@ -115,7 +115,7 @@ public abstract class StructureGenerator extends WorldGenBase {
         long k1 = (long) (k >> 4) * i1;
 
         this.b.setSeed(j1 ^ k1 ^ world.getSeed());
-        this.a(world, i >> 4, k >> 4, 0, 0, (byte[]) null);
+        this.a(world, i >> 4, k >> 4, 0, 0, (Block[]) null);
         double d0 = Double.MAX_VALUE;
         ChunkPosition chunkposition = null;
         Iterator iterator = this.d.values().iterator();
@@ -147,7 +147,7 @@ public abstract class StructureGenerator extends WorldGenBase {
         if (chunkposition != null) {
             return chunkposition;
         } else {
-            List list = this.p_();
+            List list = this.o_();
 
             if (list != null) {
                 ChunkPosition chunkposition2 = null;
@@ -172,22 +172,23 @@ public abstract class StructureGenerator extends WorldGenBase {
         }
     }
 
-    protected List p_() {
+    protected List o_() {
         return null;
     }
 
     private void a(World world) {
         if (this.e == null) {
-            this.e = (WorldGenFeature) world.a(WorldGenFeature.class, this.a());
+            this.e = (PersistentStructure) world.a(PersistentStructure.class, this.a());
             if (this.e == null) {
-                this.e = new WorldGenFeature(this.a());
-                world.a(this.a(), (WorldMapBase) this.e);
+                this.e = new PersistentStructure(this.a());
+                world.a(this.a(), (PersistentBase) this.e);
             } else {
                 NBTTagCompound nbttagcompound = this.e.a();
                 Iterator iterator = nbttagcompound.c().iterator();
 
                 while (iterator.hasNext()) {
-                    NBTBase nbtbase = (NBTBase) iterator.next();
+                    String s = (String) iterator.next();
+                    NBTBase nbtbase = nbttagcompound.get(s);
 
                     if (nbtbase.getTypeId() == 10) {
                         NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbtbase;

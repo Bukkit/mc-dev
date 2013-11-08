@@ -2,21 +2,21 @@ package net.minecraft.server;
 
 public class NextTickListEntry implements Comparable {
 
-    private static long g;
+    private static long f;
+    private final Block g;
     public int a;
     public int b;
     public int c;
-    public int d;
-    public long e;
-    public int f;
+    public long d;
+    public int e;
     private long h;
 
-    public NextTickListEntry(int i, int j, int k, int l) {
-        this.h = (long) (g++);
+    public NextTickListEntry(int i, int j, int k, Block block) {
+        this.h = (long) (f++);
         this.a = i;
         this.b = j;
         this.c = k;
-        this.d = l;
+        this.g = block;
     }
 
     public boolean equals(Object object) {
@@ -25,7 +25,7 @@ public class NextTickListEntry implements Comparable {
         } else {
             NextTickListEntry nextticklistentry = (NextTickListEntry) object;
 
-            return this.a == nextticklistentry.a && this.b == nextticklistentry.b && this.c == nextticklistentry.c && Block.b(this.d, nextticklistentry.d);
+            return this.a == nextticklistentry.a && this.b == nextticklistentry.b && this.c == nextticklistentry.c && Block.a(this.g, nextticklistentry.g);
         }
     }
 
@@ -34,20 +34,24 @@ public class NextTickListEntry implements Comparable {
     }
 
     public NextTickListEntry a(long i) {
-        this.e = i;
+        this.d = i;
         return this;
     }
 
     public void a(int i) {
-        this.f = i;
+        this.e = i;
     }
 
     public int compareTo(NextTickListEntry nextticklistentry) {
-        return this.e < nextticklistentry.e ? -1 : (this.e > nextticklistentry.e ? 1 : (this.f != nextticklistentry.f ? this.f - nextticklistentry.f : (this.h < nextticklistentry.h ? -1 : (this.h > nextticklistentry.h ? 1 : 0))));
+        return this.d < nextticklistentry.d ? -1 : (this.d > nextticklistentry.d ? 1 : (this.e != nextticklistentry.e ? this.e - nextticklistentry.e : (this.h < nextticklistentry.h ? -1 : (this.h > nextticklistentry.h ? 1 : 0))));
     }
 
     public String toString() {
-        return this.d + ": (" + this.a + ", " + this.b + ", " + this.c + "), " + this.e + ", " + this.f + ", " + this.h;
+        return Block.b(this.g) + ": (" + this.a + ", " + this.b + ", " + this.c + "), " + this.d + ", " + this.e + ", " + this.h;
+    }
+
+    public Block a() {
+        return this.g;
     }
 
     public int compareTo(Object object) {

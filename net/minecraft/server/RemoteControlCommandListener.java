@@ -7,11 +7,11 @@ public class RemoteControlCommandListener implements ICommandListener {
 
     public RemoteControlCommandListener() {}
 
-    public void d() {
+    public void e() {
         this.b.setLength(0);
     }
 
-    public String e() {
+    public String f() {
         return this.b.toString();
     }
 
@@ -19,19 +19,23 @@ public class RemoteControlCommandListener implements ICommandListener {
         return "Rcon";
     }
 
-    public void sendMessage(ChatMessage chatmessage) {
-        this.b.append(chatmessage.toString());
+    public IChatBaseComponent getScoreboardDisplayName() {
+        return new ChatComponentText(this.getName());
+    }
+
+    public void sendMessage(IChatBaseComponent ichatbasecomponent) {
+        this.b.append(ichatbasecomponent.c());
     }
 
     public boolean a(int i, String s) {
         return true;
     }
 
-    public ChunkCoordinates b() {
+    public ChunkCoordinates getChunkCoordinates() {
         return new ChunkCoordinates(0, 0, 0);
     }
 
-    public World f_() {
-        return MinecraftServer.getServer().f_();
+    public World getWorld() {
+        return MinecraftServer.getServer().getWorld();
     }
 }

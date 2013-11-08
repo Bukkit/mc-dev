@@ -68,28 +68,28 @@ public class ContainerEnchantTable extends Container {
                     for (j = -1; j <= 1; ++j) {
                         for (int k = -1; k <= 1; ++k) {
                             if ((j != 0 || k != 0) && this.world.isEmpty(this.x + k, this.y, this.z + j) && this.world.isEmpty(this.x + k, this.y + 1, this.z + j)) {
-                                if (this.world.getTypeId(this.x + k * 2, this.y, this.z + j * 2) == Block.BOOKSHELF.id) {
+                                if (this.world.getType(this.x + k * 2, this.y, this.z + j * 2) == Blocks.BOOKSHELF) {
                                     ++i;
                                 }
 
-                                if (this.world.getTypeId(this.x + k * 2, this.y + 1, this.z + j * 2) == Block.BOOKSHELF.id) {
+                                if (this.world.getType(this.x + k * 2, this.y + 1, this.z + j * 2) == Blocks.BOOKSHELF) {
                                     ++i;
                                 }
 
                                 if (k != 0 && j != 0) {
-                                    if (this.world.getTypeId(this.x + k * 2, this.y, this.z + j) == Block.BOOKSHELF.id) {
+                                    if (this.world.getType(this.x + k * 2, this.y, this.z + j) == Blocks.BOOKSHELF) {
                                         ++i;
                                     }
 
-                                    if (this.world.getTypeId(this.x + k * 2, this.y + 1, this.z + j) == Block.BOOKSHELF.id) {
+                                    if (this.world.getType(this.x + k * 2, this.y + 1, this.z + j) == Blocks.BOOKSHELF) {
                                         ++i;
                                     }
 
-                                    if (this.world.getTypeId(this.x + k, this.y, this.z + j * 2) == Block.BOOKSHELF.id) {
+                                    if (this.world.getType(this.x + k, this.y, this.z + j * 2) == Blocks.BOOKSHELF) {
                                         ++i;
                                     }
 
-                                    if (this.world.getTypeId(this.x + k, this.y + 1, this.z + j * 2) == Block.BOOKSHELF.id) {
+                                    if (this.world.getType(this.x + k, this.y + 1, this.z + j * 2) == Blocks.BOOKSHELF) {
                                         ++i;
                                     }
                                 }
@@ -117,22 +117,22 @@ public class ContainerEnchantTable extends Container {
         if (this.costs[i] > 0 && itemstack != null && (entityhuman.expLevel >= this.costs[i] || entityhuman.abilities.canInstantlyBuild)) {
             if (!this.world.isStatic) {
                 List list = EnchantmentManager.b(this.l, itemstack, this.costs[i]);
-                boolean flag = itemstack.id == Item.BOOK.id;
+                boolean flag = itemstack.getItem() == Items.BOOK;
 
                 if (list != null) {
                     entityhuman.levelDown(-this.costs[i]);
                     if (flag) {
-                        itemstack.id = Item.ENCHANTED_BOOK.id;
+                        itemstack.setItem(Items.ENCHANTED_BOOK);
                     }
 
-                    int j = flag ? this.l.nextInt(list.size()) : -1;
+                    int j = flag && list.size() > 1 ? this.l.nextInt(list.size()) : -1;
 
                     for (int k = 0; k < list.size(); ++k) {
                         EnchantmentInstance enchantmentinstance = (EnchantmentInstance) list.get(k);
 
-                        if (!flag || k == j) {
+                        if (!flag || k != j) {
                             if (flag) {
-                                Item.ENCHANTED_BOOK.a(itemstack, enchantmentinstance);
+                                Items.ENCHANTED_BOOK.a(itemstack, enchantmentinstance);
                             } else {
                                 itemstack.addEnchantment(enchantmentinstance.enchantment, enchantmentinstance.level);
                             }
@@ -155,13 +155,13 @@ public class ContainerEnchantTable extends Container {
             ItemStack itemstack = this.enchantSlots.splitWithoutUpdate(0);
 
             if (itemstack != null) {
-                entityhuman.drop(itemstack);
+                entityhuman.drop(itemstack, false);
             }
         }
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.world.getTypeId(this.x, this.y, this.z) != Block.ENCHANTMENT_TABLE.id ? false : entityhuman.e((double) this.x + 0.5D, (double) this.y + 0.5D, (double) this.z + 0.5D) <= 64.0D;
+        return this.world.getType(this.x, this.y, this.z) != Blocks.ENCHANTMENT_TABLE ? false : entityhuman.e((double) this.x + 0.5D, (double) this.y + 0.5D, (double) this.z + 0.5D) <= 64.0D;
     }
 
     public ItemStack b(EntityHuman entityhuman, int i) {
@@ -185,7 +185,7 @@ public class ContainerEnchantTable extends Container {
                     ((Slot) this.c.get(0)).set(itemstack1.cloneItemStack());
                     itemstack1.count = 0;
                 } else if (itemstack1.count >= 1) {
-                    ((Slot) this.c.get(0)).set(new ItemStack(itemstack1.id, 1, itemstack1.getData()));
+                    ((Slot) this.c.get(0)).set(new ItemStack(itemstack1.getItem(), 1, itemstack1.getData()));
                     --itemstack1.count;
                 }
             }

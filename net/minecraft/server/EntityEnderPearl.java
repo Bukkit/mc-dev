@@ -23,8 +23,8 @@ public class EntityEnderPearl extends EntityProjectile {
             if (this.getShooter() != null && this.getShooter() instanceof EntityPlayer) {
                 EntityPlayer entityplayer = (EntityPlayer) this.getShooter();
 
-                if (!entityplayer.playerConnection.disconnected && entityplayer.world == this.world) {
-                    if (this.getShooter().ag()) {
+                if (entityplayer.playerConnection.b().d() && entityplayer.world == this.world) {
+                    if (this.getShooter().am()) {
                         this.getShooter().mount((Entity) null);
                     }
 

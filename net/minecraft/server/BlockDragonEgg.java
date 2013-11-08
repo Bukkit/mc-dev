@@ -4,40 +4,40 @@ import java.util.Random;
 
 public class BlockDragonEgg extends Block {
 
-    public BlockDragonEgg(int i) {
-        super(i, Material.DRAGON_EGG);
+    public BlockDragonEgg() {
+        super(Material.DRAGON_EGG);
         this.a(0.0625F, 0.0F, 0.0625F, 0.9375F, 1.0F, 0.9375F);
     }
 
     public void onPlace(World world, int i, int j, int k) {
-        world.a(i, j, k, this.id, this.a(world));
+        world.a(i, j, k, this, this.a(world));
     }
 
-    public void doPhysics(World world, int i, int j, int k, int l) {
-        world.a(i, j, k, this.id, this.a(world));
+    public void doPhysics(World world, int i, int j, int k, Block block) {
+        world.a(i, j, k, this, this.a(world));
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        this.k(world, i, j, k);
+        this.e(world, i, j, k);
     }
 
-    private void k(World world, int i, int j, int k) {
-        if (BlockSand.canFall(world, i, j - 1, k) && j >= 0) {
+    private void e(World world, int i, int j, int k) {
+        if (BlockFalling.canFall(world, i, j - 1, k) && j >= 0) {
             byte b0 = 32;
 
-            if (!BlockSand.instaFall && world.e(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
-                EntityFallingBlock entityfallingblock = new EntityFallingBlock(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.id);
+            if (!BlockFalling.instaFall && world.b(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
+                EntityFallingBlock entityfallingblock = new EntityFallingBlock(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this);
 
                 world.addEntity(entityfallingblock);
             } else {
                 world.setAir(i, j, k);
 
-                while (BlockSand.canFall(world, i, j - 1, k) && j > 0) {
+                while (BlockFalling.canFall(world, i, j - 1, k) && j > 0) {
                     --j;
                 }
 
                 if (j > 0) {
-                    world.setTypeIdAndData(i, j, k, this.id, 0, 2);
+                    world.setTypeAndData(i, j, k, this, 0, 2);
                 }
             }
         }
@@ -53,15 +53,15 @@ public class BlockDragonEgg extends Block {
     }
 
     private void m(World world, int i, int j, int k) {
-        if (world.getTypeId(i, j, k) == this.id) {
+        if (world.getType(i, j, k) == this) {
             for (int l = 0; l < 1000; ++l) {
                 int i1 = i + world.random.nextInt(16) - world.random.nextInt(16);
                 int j1 = j + world.random.nextInt(8) - world.random.nextInt(8);
                 int k1 = k + world.random.nextInt(16) - world.random.nextInt(16);
 
-                if (world.getTypeId(i1, j1, k1) == 0) {
+                if (world.getType(i1, j1, k1).material == Material.AIR) {
                     if (!world.isStatic) {
-                        world.setTypeIdAndData(i1, j1, k1, this.id, world.getData(i, j, k), 2);
+                        world.setTypeAndData(i1, j1, k1, this, world.getData(i, j, k), 2);
                         world.setAir(i, j, k);
                     } else {
                         short short1 = 128;
@@ -93,11 +93,11 @@ public class BlockDragonEgg extends Block {
         return false;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
-    public int d() {
+    public int b() {
         return 27;
     }
 }

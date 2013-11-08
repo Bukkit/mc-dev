@@ -7,8 +7,8 @@ public class EntityCaveSpider extends EntitySpider {
         this.a(0.7F, 0.5F);
     }
 
-    protected void az() {
-        super.az();
+    protected void aD() {
+        super.aD();
         this.getAttributeInstance(GenericAttributes.a).setValue(12.0D);
     }
 
@@ -17,12 +17,10 @@ public class EntityCaveSpider extends EntitySpider {
             if (entity instanceof EntityLiving) {
                 byte b0 = 0;
 
-                if (this.world.difficulty > 1) {
-                    if (this.world.difficulty == 2) {
-                        b0 = 7;
-                    } else if (this.world.difficulty == 3) {
-                        b0 = 15;
-                    }
+                if (this.world.difficulty == EnumDifficulty.NORMAL) {
+                    b0 = 7;
+                } else if (this.world.difficulty == EnumDifficulty.HARD) {
+                    b0 = 15;
                 }
 
                 if (b0 > 0) {

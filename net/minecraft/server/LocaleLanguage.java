@@ -1,23 +1,24 @@
 package net.minecraft.server;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.IllegalFormatException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Pattern;
-import org.apache.commons.io.Charsets;
-import org.apache.commons.io.IOUtils;
+import net.minecraft.util.com.google.common.base.Splitter;
+import net.minecraft.util.com.google.common.collect.Iterables;
+import net.minecraft.util.com.google.common.collect.Maps;
+import net.minecraft.util.org.apache.commons.io.Charsets;
+import net.minecraft.util.org.apache.commons.io.IOUtils;
 
 public class LocaleLanguage {
 
     private static final Pattern a = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
     private static final Splitter b = Splitter.on('=').limit(2);
     private static LocaleLanguage c = new LocaleLanguage();
-    private Map d = Maps.newHashMap();
+    private final Map d = Maps.newHashMap();
+    private long e;
 
     public LocaleLanguage() {
         try {
@@ -38,6 +39,8 @@ public class LocaleLanguage {
                     }
                 }
             }
+
+            this.e = System.currentTimeMillis();
         } catch (IOException ioexception) {
             ;
         }
@@ -69,5 +72,9 @@ public class LocaleLanguage {
 
     public synchronized boolean b(String s) {
         return this.d.containsKey(s);
+    }
+
+    public long c() {
+        return this.e;
     }
 }

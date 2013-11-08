@@ -4,12 +4,12 @@ import java.util.Random;
 
 public class BlockStone extends Block {
 
-    public BlockStone(int i) {
-        super(i, Material.STONE);
+    public BlockStone() {
+        super(Material.STONE);
         this.a(CreativeModeTab.b);
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Block.COBBLESTONE.id;
+    public Item getDropType(int i, Random random, int j) {
+        return Item.getItemOf(Blocks.COBBLESTONE);
     }
 }

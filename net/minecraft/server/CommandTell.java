@@ -34,10 +34,14 @@ public class CommandTell extends CommandAbstract {
             } else if (entityplayer == icommandlistener) {
                 throw new ExceptionPlayerNotFound("commands.message.sameTarget", new Object[0]);
             } else {
-                String s = a(icommandlistener, astring, 1, !(icommandlistener instanceof EntityHuman));
+                IChatBaseComponent ichatbasecomponent = a(icommandlistener, astring, 1, !(icommandlistener instanceof EntityHuman));
+                ChatMessage chatmessage = new ChatMessage("commands.message.display.incoming", new Object[] { icommandlistener.getScoreboardDisplayName(), ichatbasecomponent.f()});
+                ChatMessage chatmessage1 = new ChatMessage("commands.message.display.outgoing", new Object[] { entityplayer.getScoreboardDisplayName(), ichatbasecomponent.f()});
 
-                entityplayer.sendMessage(ChatMessage.b("commands.message.display.incoming", new Object[] { icommandlistener.getName(), s}).a(EnumChatFormat.GRAY).b(Boolean.valueOf(true)));
-                icommandlistener.sendMessage(ChatMessage.b("commands.message.display.outgoing", new Object[] { entityplayer.getName(), s}).a(EnumChatFormat.GRAY).b(Boolean.valueOf(true)));
+                chatmessage.b().setColor(EnumChatFormat.GRAY).setItalic(Boolean.valueOf(true));
+                chatmessage1.b().setColor(EnumChatFormat.GRAY).setItalic(Boolean.valueOf(true));
+                entityplayer.sendMessage(chatmessage);
+                icommandlistener.sendMessage(chatmessage1);
             }
         }
     }

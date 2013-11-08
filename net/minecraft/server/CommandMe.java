@@ -20,9 +20,9 @@ public class CommandMe extends CommandAbstract {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0) {
-            String s = a(icommandlistener, astring, 0, icommandlistener.a(1, "me"));
+            IChatBaseComponent ichatbasecomponent = a(icommandlistener, astring, 0, icommandlistener.a(1, "me"));
 
-            MinecraftServer.getServer().getPlayerList().sendMessage(ChatMessage.b("chat.type.emote", new Object[] { icommandlistener.getName(), s}));
+            MinecraftServer.getServer().getPlayerList().sendMessage(new ChatMessage("chat.type.emote", new Object[] { icommandlistener.getScoreboardDisplayName(), ichatbasecomponent}));
         } else {
             throw new ExceptionUsage("commands.me.usage", new Object[0]);
         }

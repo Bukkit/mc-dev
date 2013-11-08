@@ -2,121 +2,66 @@ package net.minecraft.server;
 
 import java.io.DataInput;
 import java.io.DataOutput;
-import java.io.IOException;
 
 public abstract class NBTBase {
 
-    public static final String[] b = new String[] { "END", "BYTE", "SHORT", "INT", "LONG", "FLOAT", "DOUBLE", "BYTE[]", "STRING", "LIST", "COMPOUND", "INT[]"};
-    private String name;
+    public static final String[] a = new String[] { "END", "BYTE", "SHORT", "INT", "LONG", "FLOAT", "DOUBLE", "BYTE[]", "STRING", "LIST", "COMPOUND", "INT[]"};
 
     abstract void write(DataOutput dataoutput);
 
     abstract void load(DataInput datainput, int i);
 
+    public abstract String toString();
+
     public abstract byte getTypeId();
 
-    protected NBTBase(String s) {
-        if (s == null) {
-            this.name = "";
-        } else {
-            this.name = s;
-        }
-    }
+    protected NBTBase() {}
 
-    public NBTBase setName(String s) {
-        if (s == null) {
-            this.name = "";
-        } else {
-            this.name = s;
-        }
-
-        return this;
-    }
-
-    public String getName() {
-        return this.name == null ? "" : this.name;
-    }
-
-    public static NBTBase a(DataInput datainput) {
-        return b(datainput, 0);
-    }
-
-    public static NBTBase b(DataInput datainput, int i) {
-        byte b0 = datainput.readByte();
-
-        if (b0 == 0) {
-            return new NBTTagEnd();
-        } else {
-            String s = datainput.readUTF();
-            NBTBase nbtbase = createTag(b0, s);
-
-            try {
-                nbtbase.load(datainput, i);
-                return nbtbase;
-            } catch (IOException ioexception) {
-                CrashReport crashreport = CrashReport.a((Throwable) ioexception, "Loading NBT data");
-                CrashReportSystemDetails crashreportsystemdetails = crashreport.a("NBT Tag");
-
-                crashreportsystemdetails.a("Tag name", s);
-                crashreportsystemdetails.a("Tag type", Byte.valueOf(b0));
-                throw new ReportedException(crashreport);
-            }
-        }
-    }
-
-    public static void a(NBTBase nbtbase, DataOutput dataoutput) {
-        dataoutput.writeByte(nbtbase.getTypeId());
-        if (nbtbase.getTypeId() != 0) {
-            dataoutput.writeUTF(nbtbase.getName());
-            nbtbase.write(dataoutput);
-        }
-    }
-
-    public static NBTBase createTag(byte b0, String s) {
+    protected static NBTBase createTag(byte b0) {
         switch (b0) {
         case 0:
             return new NBTTagEnd();
 
         case 1:
-            return new NBTTagByte(s);
+            return new NBTTagByte();
 
         case 2:
-            return new NBTTagShort(s);
+            return new NBTTagShort();
 
         case 3:
-            return new NBTTagInt(s);
+            return new NBTTagInt();
 
         case 4:
-            return new NBTTagLong(s);
+            return new NBTTagLong();
 
         case 5:
-            return new NBTTagFloat(s);
+            return new NBTTagFloat();
 
         case 6:
-            return new NBTTagDouble(s);
+            return new NBTTagDouble();
 
         case 7:
-            return new NBTTagByteArray(s);
+            return new NBTTagByteArray();
 
         case 8:
-            return new NBTTagString(s);
+            return new NBTTagString();
 
         case 9:
-            return new NBTTagList(s);
+            return new NBTTagList();
 
         case 10:
-            return new NBTTagCompound(s);
+            return new NBTTagCompound();
 
         case 11:
-            return new NBTTagIntArray(s);
+            return new NBTTagIntArray();
 
         default:
             return null;
         }
     }
 
-    public static String getTagName(byte b0) {
-        switch (b0) {
+    public static String getTagName(int i) {
+        switch (i) {
         case 0:
             return "TAG_End";
 
@@ -153,6 +98,9 @@ public abstract class NBTBase {
         case 11:
             return "TAG_Int_Array";
 
+        case 99:
+            return "Any Numeric Tag";
+
         default:
             return "UNKNOWN";
         }
@@ -166,11 +114,15 @@ public abstract class NBTBase {
         } else {
             NBTBase nbtbase = (NBTBase) object;
 
-            return this.getTypeId() != nbtbase.getTypeId() ? false : ((this.name != null || nbtbase.name == null) && (this.name == null || nbtbase.name != null) ? this.name == null || this.name.equals(nbtbase.name) : false);
+            return this.getTypeId() == nbtbase.getTypeId();
         }
     }
 
     public int hashCode() {
-        return this.name.hashCode() ^ this.getTypeId();
+        return this.getTypeId();
+    }
+
+    protected String a_() {
+        return this.toString();
     }
 }

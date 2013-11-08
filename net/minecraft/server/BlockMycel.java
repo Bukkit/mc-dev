@@ -4,32 +4,32 @@ import java.util.Random;
 
 public class BlockMycel extends Block {
 
-    protected BlockMycel(int i) {
-        super(i, Material.GRASS);
-        this.b(true);
+    protected BlockMycel() {
+        super(Material.GRASS);
+        this.a(true);
         this.a(CreativeModeTab.b);
     }
 
     public void a(World world, int i, int j, int k, Random random) {
         if (!world.isStatic) {
-            if (world.getLightLevel(i, j + 1, k) < 4 && Block.lightBlock[world.getTypeId(i, j + 1, k)] > 2) {
-                world.setTypeIdUpdate(i, j, k, Block.DIRT.id);
+            if (world.getLightLevel(i, j + 1, k) < 4 && world.getType(i, j + 1, k).k() > 2) {
+                world.setTypeUpdate(i, j, k, Blocks.DIRT);
             } else if (world.getLightLevel(i, j + 1, k) >= 9) {
                 for (int l = 0; l < 4; ++l) {
                     int i1 = i + random.nextInt(3) - 1;
                     int j1 = j + random.nextInt(5) - 3;
                     int k1 = k + random.nextInt(3) - 1;
-                    int l1 = world.getTypeId(i1, j1 + 1, k1);
+                    Block block = world.getType(i1, j1 + 1, k1);
 
-                    if (world.getTypeId(i1, j1, k1) == Block.DIRT.id && world.getLightLevel(i1, j1 + 1, k1) >= 4 && Block.lightBlock[l1] <= 2) {
-                        world.setTypeIdUpdate(i1, j1, k1, this.id);
+                    if (world.getType(i1, j1, k1) == Blocks.DIRT && world.getData(i1, j1, k1) == 0 && world.getLightLevel(i1, j1 + 1, k1) >= 4 && block.k() <= 2) {
+                        world.setTypeUpdate(i1, j1, k1, this);
                     }
                 }
             }
         }
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Block.DIRT.getDropType(0, random, j);
+    public Item getDropType(int i, Random random, int j) {
+        return Blocks.DIRT.getDropType(0, random, j);
     }
 }

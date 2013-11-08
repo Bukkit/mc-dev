@@ -2,8 +2,11 @@ package net.minecraft.server;
 
 public class ItemLeaves extends ItemBlock {
 
-    public ItemLeaves(int i) {
-        super(i);
+    private final BlockLeaves b;
+
+    public ItemLeaves(BlockLeaves blockleaves) {
+        super(blockleaves);
+        this.b = blockleaves;
         this.setMaxDurability(0);
         this.a(true);
     }
@@ -12,13 +15,13 @@ public class ItemLeaves extends ItemBlock {
         return i | 4;
     }
 
-    public String d(ItemStack itemstack) {
+    public String a(ItemStack itemstack) {
         int i = itemstack.getData();
 
-        if (i < 0 || i >= BlockLeaves.a.length) {
+        if (i < 0 || i >= this.b.e().length) {
             i = 0;
         }
 
-        return super.getName() + "." + BlockLeaves.a[i];
+        return super.getName() + "." + this.b.e()[i];
     }
 }

@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class BlockTNT extends Block {
 
-    public BlockTNT(int i) {
-        super(i, Material.TNT);
+    public BlockTNT() {
+        super(Material.TNT);
         this.a(CreativeModeTab.d);
     }
 
@@ -17,7 +17,7 @@ public class BlockTNT extends Block {
         }
     }
 
-    public void doPhysics(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, Block block) {
         if (world.isBlockIndirectlyPowered(i, j, k)) {
             this.postBreak(world, i, j, k, 1);
             world.setAir(i, j, k);
@@ -47,16 +47,16 @@ public class BlockTNT extends Block {
                 EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), entityliving);
 
                 world.addEntity(entitytntprimed);
-                world.makeSound(entitytntprimed, "random.fuse", 1.0F, 1.0F);
+                world.makeSound(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
             }
         }
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
-        if (entityhuman.by() != null && entityhuman.by().id == Item.FLINT_AND_STEEL.id) {
+        if (entityhuman.bD() != null && entityhuman.bD().getItem() == Items.FLINT_AND_STEEL) {
             this.a(world, i, j, k, 1, entityhuman);
             world.setAir(i, j, k);
-            entityhuman.by().damage(1, entityhuman);
+            entityhuman.bD().damage(1, entityhuman);
             return true;
         } else {
             return super.interact(world, i, j, k, entityhuman, l, f, f1, f2);

@@ -2,13 +2,13 @@ package net.minecraft.server;
 
 public class ItemMultiTexture extends ItemBlock {
 
-    private final Block a;
-    private final String[] b;
+    protected final Block b;
+    protected final String[] c;
 
-    public ItemMultiTexture(int i, Block block, String[] astring) {
-        super(i);
-        this.a = block;
-        this.b = astring;
+    public ItemMultiTexture(Block block, Block block1, String[] astring) {
+        super(block);
+        this.b = block1;
+        this.c = astring;
         this.setMaxDurability(0);
         this.a(true);
     }
@@ -17,13 +17,13 @@ public class ItemMultiTexture extends ItemBlock {
         return i;
     }
 
-    public String d(ItemStack itemstack) {
+    public String a(ItemStack itemstack) {
         int i = itemstack.getData();
 
-        if (i < 0 || i >= this.b.length) {
+        if (i < 0 || i >= this.c.length) {
             i = 0;
         }
 
-        return super.getName() + "." + this.b[i];
+        return super.getName() + "." + this.c[i];
     }
 }

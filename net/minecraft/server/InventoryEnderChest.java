@@ -20,7 +20,7 @@ public class InventoryEnderChest extends InventorySubcontainer {
         }
 
         for (i = 0; i < nbttaglist.size(); ++i) {
-            NBTTagCompound nbttagcompound = (NBTTagCompound) nbttaglist.get(i);
+            NBTTagCompound nbttagcompound = nbttaglist.get(i);
             int j = nbttagcompound.getByte("Slot") & 255;
 
             if (j >= 0 && j < this.getSize()) {
@@ -30,7 +30,7 @@ public class InventoryEnderChest extends InventorySubcontainer {
     }
 
     public NBTTagList h() {
-        NBTTagList nbttaglist = new NBTTagList("EnderItems");
+        NBTTagList nbttaglist = new NBTTagList();
 
         for (int i = 0; i < this.getSize(); ++i) {
             ItemStack itemstack = this.getItem(i);
@@ -59,16 +59,12 @@ public class InventoryEnderChest extends InventorySubcontainer {
         super.startOpen();
     }
 
-    public void g() {
+    public void l_() {
         if (this.a != null) {
             this.a.b();
         }
 
-        super.g();
+        super.l_();
         this.a = null;
-    }
-
-    public boolean b(int i, ItemStack itemstack) {
-        return true;
     }
 }

@@ -15,24 +15,24 @@ public class FoodMetaData {
         this.saturationLevel = Math.min(this.saturationLevel + (float) i * f * 2.0F, (float) this.foodLevel);
     }
 
-    public void a(ItemFood itemfood) {
-        this.eat(itemfood.getNutrition(), itemfood.getSaturationModifier());
+    public void a(ItemFood itemfood, ItemStack itemstack) {
+        this.eat(itemfood.getNutrition(itemstack), itemfood.getSaturationModifier(itemstack));
     }
 
     public void a(EntityHuman entityhuman) {
-        int i = entityhuman.world.difficulty;
+        EnumDifficulty enumdifficulty = entityhuman.world.difficulty;
 
         this.e = this.foodLevel;
         if (this.exhaustionLevel > 4.0F) {
             this.exhaustionLevel -= 4.0F;
             if (this.saturationLevel > 0.0F) {
                 this.saturationLevel = Math.max(this.saturationLevel - 1.0F, 0.0F);
-            } else if (i > 0) {
+            } else if (enumdifficulty != EnumDifficulty.PEACEFUL) {
                 this.foodLevel = Math.max(this.foodLevel - 1, 0);
             }
         }
 
-        if (entityhuman.world.getGameRules().getBoolean("naturalRegeneration") && this.foodLevel >= 18 && entityhuman.bJ()) {
+        if (entityhuman.world.getGameRules().getBoolean("naturalRegeneration") && this.foodLevel >= 18 && entityhuman.bP()) {
             ++this.foodTickTimer;
             if (this.foodTickTimer >= 80) {
                 entityhuman.heal(1.0F);
@@ -42,7 +42,7 @@ public class FoodMetaData {
         } else if (this.foodLevel <= 0) {
             ++this.foodTickTimer;
             if (this.foodTickTimer >= 80) {
-                if (entityhuman.getHealth() > 10.0F || i >= 3 || entityhuman.getHealth() > 1.0F && i >= 2) {
+                if (entityhuman.getHealth() > 10.0F || enumdifficulty == EnumDifficulty.HARD || entityhuman.getHealth() > 1.0F && enumdifficulty == EnumDifficulty.NORMAL) {
                     entityhuman.damageEntity(DamageSource.STARVE, 1.0F);
                 }
 
@@ -54,7 +54,7 @@ public class FoodMetaData {
     }
 
     public void a(NBTTagCompound nbttagcompound) {
-        if (nbttagcompound.hasKey("foodLevel")) {
+        if (nbttagcompound.hasKeyOfType("foodLevel", 99)) {
             this.foodLevel = nbttagcompound.getInt("foodLevel");
             this.foodTickTimer = nbttagcompound.getInt("foodTickTimer");
             this.saturationLevel = nbttagcompound.getFloat("foodSaturationLevel");

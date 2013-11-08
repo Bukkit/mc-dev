@@ -11,7 +11,7 @@ class CrashReportEntityName implements Callable {
     }
 
     public String a() {
-        return this.a.getLocalizedName();
+        return this.a.getName();
     }
 
     public Object call() {

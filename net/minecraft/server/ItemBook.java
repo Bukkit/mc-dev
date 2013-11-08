@@ -2,9 +2,7 @@ package net.minecraft.server;
 
 public class ItemBook extends Item {
 
-    public ItemBook(int i) {
-        super(i);
-    }
+    public ItemBook() {}
 
     public boolean e_(ItemStack itemstack) {
         return itemstack.count == 1;

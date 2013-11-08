@@ -31,7 +31,7 @@ public class PathfinderGoalTakeFlower extends PathfinderGoal {
                 while (iterator.hasNext()) {
                     EntityIronGolem entityirongolem = (EntityIronGolem) iterator.next();
 
-                    if (entityirongolem.bV() > 0) {
+                    if (entityirongolem.bZ() > 0) {
                         this.b = entityirongolem;
                         break;
                     }
@@ -43,11 +43,11 @@ public class PathfinderGoalTakeFlower extends PathfinderGoal {
     }
 
     public boolean b() {
-        return this.b.bV() > 0;
+        return this.b.bZ() > 0;
     }
 
     public void c() {
-        this.c = this.a.aD().nextInt(320);
+        this.c = this.a.aI().nextInt(320);
         this.d = false;
         this.b.getNavigation().h();
     }
@@ -59,7 +59,7 @@ public class PathfinderGoalTakeFlower extends PathfinderGoal {
 
     public void e() {
         this.a.getControllerLook().a(this.b, 30.0F, 30.0F);
-        if (this.b.bV() == this.c) {
+        if (this.b.bZ() == this.c) {
             this.a.getNavigation().a((Entity) this.b, 0.5D);
             this.d = true;
         }

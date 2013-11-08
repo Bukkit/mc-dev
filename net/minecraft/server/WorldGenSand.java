@@ -4,16 +4,16 @@ import java.util.Random;
 
 public class WorldGenSand extends WorldGenerator {
 
-    private int a;
+    private Block a;
     private int b;
 
-    public WorldGenSand(int i, int j) {
-        this.a = j;
+    public WorldGenSand(Block block, int i) {
+        this.a = block;
         this.b = i;
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
-        if (world.getMaterial(i, j, k) != Material.WATER) {
+        if (world.getType(i, j, k).getMaterial() != Material.WATER) {
             return false;
         } else {
             int l = random.nextInt(this.b - 2) + 2;
@@ -26,10 +26,10 @@ public class WorldGenSand extends WorldGenerator {
 
                     if (k1 * k1 + l1 * l1 <= l * l) {
                         for (int i2 = j - b0; i2 <= j + b0; ++i2) {
-                            int j2 = world.getTypeId(i1, i2, j1);
+                            Block block = world.getType(i1, i2, j1);
 
-                            if (j2 == Block.DIRT.id || j2 == Block.GRASS.id) {
-                                world.setTypeIdAndData(i1, i2, j1, this.a, 0, 2);
+                            if (block == Blocks.DIRT || block == Blocks.GRASS) {
+                                world.setTypeAndData(i1, i2, j1, this.a, 0, 2);
                             }
                         }
                     }

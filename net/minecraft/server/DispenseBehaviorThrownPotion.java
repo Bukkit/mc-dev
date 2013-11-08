@@ -3,7 +3,6 @@ package net.minecraft.server;
 class DispenseBehaviorThrownPotion extends DispenseBehaviorProjectile {
 
     final ItemStack b;
-
     final DispenseBehaviorPotion c;
 
     DispenseBehaviorThrownPotion(DispenseBehaviorPotion dispensebehaviorpotion, ItemStack itemstack) {

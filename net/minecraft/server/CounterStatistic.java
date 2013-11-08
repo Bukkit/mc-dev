@@ -2,16 +2,16 @@ package net.minecraft.server;
 
 public class CounterStatistic extends Statistic {
 
-    public CounterStatistic(int i, String s, Counter counter) {
-        super(i, s, counter);
+    public CounterStatistic(String s, IChatBaseComponent ichatbasecomponent, Counter counter) {
+        super(s, ichatbasecomponent, counter);
     }
 
-    public CounterStatistic(int i, String s) {
-        super(i, s);
+    public CounterStatistic(String s, IChatBaseComponent ichatbasecomponent) {
+        super(s, ichatbasecomponent);
     }
 
-    public Statistic g() {
-        super.g();
+    public Statistic h() {
+        super.h();
         StatisticList.c.add(this);
         return this;
     }

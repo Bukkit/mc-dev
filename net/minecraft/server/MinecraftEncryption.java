@@ -1,8 +1,7 @@
 package net.minecraft.server;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.KeyFactory;
@@ -12,7 +11,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import javax.crypto.BadPaddingException;
@@ -20,15 +18,8 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import org.bouncycastle.crypto.BufferedBlockCipher;
-import org.bouncycastle.crypto.engines.AESFastEngine;
-import org.bouncycastle.crypto.io.CipherInputStream;
-import org.bouncycastle.crypto.io.CipherOutputStream;
-import org.bouncycastle.crypto.modes.CFBBlockCipher;
-import org.bouncycastle.crypto.params.KeyParameter;
-import org.bouncycastle.crypto.params.ParametersWithIV;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 public class MinecraftEncryption {
 
@@ -80,9 +71,9 @@ public class MinecraftEncryption {
 
             return keyfactory.generatePublic(x509encodedkeyspec);
         } catch (NoSuchAlgorithmException nosuchalgorithmexception) {
-            nosuchalgorithmexception.printStackTrace();
+            ;
         } catch (InvalidKeySpecException invalidkeyspecexception) {
-            invalidkeyspecexception.printStackTrace();
+            ;
         }
 
         System.err.println("Public key reconstitute failed!");
@@ -128,22 +119,14 @@ public class MinecraftEncryption {
         return null;
     }
 
-    private static BufferedBlockCipher a(boolean flag, Key key) {
-        BufferedBlockCipher bufferedblockcipher = new BufferedBlockCipher(new CFBBlockCipher(new AESFastEngine(), 8));
+    public static Cipher a(int i, Key key) {
+        try {
+            Cipher cipher = Cipher.getInstance("AES/CFB8/NoPadding");
 
-        bufferedblockcipher.init(flag, new ParametersWithIV(new KeyParameter(key.getEncoded()), key.getEncoded(), 0, 16));
-        return bufferedblockcipher;
-    }
-
-    public static OutputStream a(SecretKey secretkey, OutputStream outputstream) {
-        return new CipherOutputStream(outputstream, a(true, secretkey));
-    }
-
-    public static InputStream a(SecretKey secretkey, InputStream inputstream) {
-        return new CipherInputStream(inputstream, a(false, secretkey));
-    }
-
-    static {
-        Security.addProvider(new BouncyCastleProvider());
+            cipher.init(i, key, new IvParameterSpec(key.getEncoded()));
+            return cipher;
+        } catch (GeneralSecurityException generalsecurityexception) {
+            throw new RuntimeException(generalsecurityexception);
+        }
     }
 }

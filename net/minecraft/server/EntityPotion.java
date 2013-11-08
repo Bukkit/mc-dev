@@ -12,7 +12,7 @@ public class EntityPotion extends EntityProjectile {
     }
 
     public EntityPotion(World world, EntityLiving entityliving, int i) {
-        this(world, entityliving, new ItemStack(Item.POTION, 1, i));
+        this(world, entityliving, new ItemStack(Items.POTION, 1, i));
     }
 
     public EntityPotion(World world, EntityLiving entityliving, ItemStack itemstack) {
@@ -25,21 +25,21 @@ public class EntityPotion extends EntityProjectile {
         this.item = itemstack;
     }
 
-    protected float e() {
+    protected float i() {
         return 0.05F;
     }
 
-    protected float c() {
+    protected float e() {
         return 0.5F;
     }
 
-    protected float d() {
+    protected float f() {
         return -20.0F;
     }
 
     public void setPotionValue(int i) {
         if (this.item == null) {
-            this.item = new ItemStack(Item.POTION, 1, 0);
+            this.item = new ItemStack(Items.POTION, 1, 0);
         }
 
         this.item.setData(i);
@@ -47,7 +47,7 @@ public class EntityPotion extends EntityProjectile {
 
     public int getPotionValue() {
         if (this.item == null) {
-            this.item = new ItemStack(Item.POTION, 1, 0);
+            this.item = new ItemStack(Items.POTION, 1, 0);
         }
 
         return this.item.getData();
@@ -55,7 +55,7 @@ public class EntityPotion extends EntityProjectile {
 
     protected void a(MovingObjectPosition movingobjectposition) {
         if (!this.world.isStatic) {
-            List list = Item.POTION.g(this.item);
+            List list = Items.POTION.g(this.item);
 
             if (list != null && !list.isEmpty()) {
                 AxisAlignedBB axisalignedbb = this.boundingBox.grow(4.0D, 2.0D, 4.0D);
@@ -103,7 +103,7 @@ public class EntityPotion extends EntityProjectile {
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        if (nbttagcompound.hasKey("Potion")) {
+        if (nbttagcompound.hasKeyOfType("Potion", 10)) {
             this.item = ItemStack.createStack(nbttagcompound.getCompound("Potion"));
         } else {
             this.setPotionValue(nbttagcompound.getInt("potionValue"));
@@ -117,7 +117,7 @@ public class EntityPotion extends EntityProjectile {
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
         if (this.item != null) {
-            nbttagcompound.setCompound("Potion", this.item.save(new NBTTagCompound()));
+            nbttagcompound.set("Potion", this.item.save(new NBTTagCompound()));
         }
     }
 }

@@ -5,7 +5,6 @@ import java.util.concurrent.Callable;
 class CrashReportConnectionPacketClass implements Callable {
 
     final Packet a;
-
     final PlayerConnection b;
 
     CrashReportConnectionPacketClass(PlayerConnection playerconnection, Packet packet) {

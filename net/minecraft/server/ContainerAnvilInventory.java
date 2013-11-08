@@ -13,8 +13,4 @@ class ContainerAnvilInventory extends InventorySubcontainer {
         super.update();
         this.a.a((IInventory) this);
     }
-
-    public boolean b(int i, ItemStack itemstack) {
-        return true;
-    }
 }

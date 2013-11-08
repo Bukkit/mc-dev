@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class BlockEnderChest extends BlockContainer {
 
-    protected BlockEnderChest(int i) {
-        super(i, Material.STONE);
+    protected BlockEnderChest() {
+        super(Material.STONE);
         this.a(CreativeModeTab.c);
         this.a(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
     }
@@ -14,23 +14,23 @@ public class BlockEnderChest extends BlockContainer {
         return false;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
-    public int d() {
+    public int b() {
         return 22;
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Block.OBSIDIAN.id;
+    public Item getDropType(int i, Random random, int j) {
+        return Item.getItemOf(Blocks.OBSIDIAN);
     }
 
     public int a(Random random) {
         return 8;
     }
 
-    protected boolean r_() {
+    protected boolean E() {
         return true;
     }
 
@@ -62,7 +62,7 @@ public class BlockEnderChest extends BlockContainer {
         TileEntityEnderChest tileentityenderchest = (TileEntityEnderChest) world.getTileEntity(i, j, k);
 
         if (inventoryenderchest != null && tileentityenderchest != null) {
-            if (world.u(i, j + 1, k)) {
+            if (world.getType(i, j + 1, k).r()) {
                 return true;
             } else if (world.isStatic) {
                 return true;
@@ -76,7 +76,7 @@ public class BlockEnderChest extends BlockContainer {
         }
     }
 
-    public TileEntity b(World world) {
+    public TileEntity a(World world, int i) {
         return new TileEntityEnderChest();
     }
 }

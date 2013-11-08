@@ -18,14 +18,14 @@ class SlotPotionBottle extends Slot {
     }
 
     public void a(EntityHuman entityhuman, ItemStack itemstack) {
-        if (itemstack.id == Item.POTION.id && itemstack.getData() > 0) {
-            this.a.a((Statistic) AchievementList.A, 1);
+        if (itemstack.getItem() == Items.POTION && itemstack.getData() > 0) {
+            this.a.a((Statistic) AchievementList.B, 1);
         }
 
         super.a(entityhuman, itemstack);
     }
 
     public static boolean b_(ItemStack itemstack) {
-        return itemstack != null && (itemstack.id == Item.POTION.id || itemstack.id == Item.GLASS_BOTTLE.id);
+        return itemstack != null && (itemstack.getItem() == Items.POTION || itemstack.getItem() == Items.GLASS_BOTTLE);
     }
 }

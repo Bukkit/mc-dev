@@ -2,13 +2,12 @@ package net.minecraft.server;
 
 public class ItemBookAndQuill extends Item {
 
-    public ItemBookAndQuill(int i) {
-        super(i);
-        this.d(1);
+    public ItemBookAndQuill() {
+        this.e(1);
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        entityhuman.c(itemstack);
+        entityhuman.b(itemstack);
         return itemstack;
     }
 
@@ -19,19 +18,19 @@ public class ItemBookAndQuill extends Item {
     public static boolean a(NBTTagCompound nbttagcompound) {
         if (nbttagcompound == null) {
             return false;
-        } else if (!nbttagcompound.hasKey("pages")) {
+        } else if (!nbttagcompound.hasKeyOfType("pages", 9)) {
             return false;
         } else {
-            NBTTagList nbttaglist = (NBTTagList) nbttagcompound.get("pages");
+            NBTTagList nbttaglist = nbttagcompound.getList("pages", 8);
 
             for (int i = 0; i < nbttaglist.size(); ++i) {
-                NBTTagString nbttagstring = (NBTTagString) nbttaglist.get(i);
+                String s = nbttaglist.f(i);
 
-                if (nbttagstring.data == null) {
+                if (s == null) {
                     return false;
                 }
 
-                if (nbttagstring.data.length() > 256) {
+                if (s.length() > 256) {
                     return false;
                 }
             }

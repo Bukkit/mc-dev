@@ -2,21 +2,21 @@ package net.minecraft.server;
 
 public class BlockNote extends BlockContainer {
 
-    public BlockNote(int i) {
-        super(i, Material.WOOD);
+    public BlockNote() {
+        super(Material.WOOD);
         this.a(CreativeModeTab.d);
     }
 
-    public void doPhysics(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, Block block) {
         boolean flag = world.isBlockIndirectlyPowered(i, j, k);
         TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
 
-        if (tileentitynote != null && tileentitynote.b != flag) {
+        if (tileentitynote != null && tileentitynote.i != flag) {
             if (flag) {
                 tileentitynote.play(world, i, j, k);
             }
 
-            tileentitynote.b = flag;
+            tileentitynote.i = flag;
         }
     }
 
@@ -45,11 +45,11 @@ public class BlockNote extends BlockContainer {
         }
     }
 
-    public TileEntity b(World world) {
+    public TileEntity a(World world, int i) {
         return new TileEntityNote();
     }
 
-    public boolean b(World world, int i, int j, int k, int l, int i1) {
+    public boolean a(World world, int i, int j, int k, int l, int i1) {
         float f = (float) Math.pow(2.0D, (double) (i1 - 12) / 12.0D);
         String s = "harp";
 

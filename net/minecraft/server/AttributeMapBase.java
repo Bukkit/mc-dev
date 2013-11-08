@@ -1,11 +1,12 @@
 package net.minecraft.server;
 
-import com.google.common.collect.Multimap;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import net.minecraft.util.com.google.common.collect.Multimap;
 
 public abstract class AttributeMapBase {
 

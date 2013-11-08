@@ -7,19 +7,19 @@ final class DispenseBehaviorFlintAndSteel extends DispenseBehaviorItem {
     DispenseBehaviorFlintAndSteel() {}
 
     protected ItemStack b(ISourceBlock isourceblock, ItemStack itemstack) {
-        EnumFacing enumfacing = BlockDispenser.l_(isourceblock.h());
+        EnumFacing enumfacing = BlockDispenser.b(isourceblock.h());
         World world = isourceblock.k();
         int i = isourceblock.getBlockX() + enumfacing.c();
         int j = isourceblock.getBlockY() + enumfacing.d();
         int k = isourceblock.getBlockZ() + enumfacing.e();
 
         if (world.isEmpty(i, j, k)) {
-            world.setTypeIdUpdate(i, j, k, Block.FIRE.id);
+            world.setTypeUpdate(i, j, k, Blocks.FIRE);
             if (itemstack.isDamaged(1, world.random)) {
                 itemstack.count = 0;
             }
-        } else if (world.getTypeId(i, j, k) == Block.TNT.id) {
-            Block.TNT.postBreak(world, i, j, k, 1);
+        } else if (world.getType(i, j, k) == Blocks.TNT) {
+            Blocks.TNT.postBreak(world, i, j, k, 1);
             world.setAir(i, j, k);
         } else {
             this.b = false;

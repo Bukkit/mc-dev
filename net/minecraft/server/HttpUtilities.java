@@ -11,10 +11,15 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class HttpUtilities {
+
+    private static final AtomicInteger a = new AtomicInteger(0);
+    private static final Logger b = LogManager.getLogger();
 
     public static String a(Map map) {
         StringBuilder stringbuilder = new StringBuilder();
@@ -47,13 +52,13 @@ public class HttpUtilities {
         return stringbuilder.toString();
     }
 
-    public static String a(IConsoleLogManager iconsolelogmanager, URL url, Map map, boolean flag) {
-        return a(iconsolelogmanager, url, a(map), flag);
+    public static String a(URL url, Map map, boolean flag) {
+        return a(url, a(map), flag);
     }
 
-    private static String a(IConsoleLogManager iconsolelogmanager, URL url, String s, boolean flag) {
+    private static String a(URL url, String s, boolean flag) {
         try {
-            Proxy proxy = MinecraftServer.getServer() == null ? null : MinecraftServer.getServer().ap();
+            Proxy proxy = MinecraftServer.getServer() == null ? null : MinecraftServer.getServer().ao();
 
             if (proxy == null) {
                 proxy = Proxy.NO_PROXY;
@@ -87,11 +92,7 @@ public class HttpUtilities {
             return stringbuffer.toString();
         } catch (Exception exception) {
             if (!flag) {
-                if (iconsolelogmanager != null) {
-                    iconsolelogmanager.severe("Could not post to " + url, exception);
-                } else {
-                    Logger.getAnonymousLogger().log(Level.SEVERE, "Could not post to " + url, exception);
-                }
+                b.error("Could not post to " + url, exception);
             }
 
             return "";

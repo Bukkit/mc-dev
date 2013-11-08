@@ -4,12 +4,12 @@ public class BiomeBeach extends BiomeBase {
 
     public BiomeBeach(int i) {
         super(i);
-        this.K.clear();
-        this.A = (byte) Block.SAND.id;
-        this.B = (byte) Block.SAND.id;
-        this.I.z = -999;
-        this.I.C = 0;
-        this.I.E = 0;
-        this.I.F = 0;
+        this.at.clear();
+        this.ai = Blocks.SAND;
+        this.ak = Blocks.SAND;
+        this.ar.x = -999;
+        this.ar.A = 0;
+        this.ar.C = 0;
+        this.ar.D = 0;
     }
 }

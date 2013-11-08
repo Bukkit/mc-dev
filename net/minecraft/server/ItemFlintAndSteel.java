@@ -2,8 +2,7 @@ package net.minecraft.server;
 
 public class ItemFlintAndSteel extends Item {
 
-    public ItemFlintAndSteel(int i) {
-        super(i);
+    public ItemFlintAndSteel() {
         this.maxStackSize = 1;
         this.setMaxDurability(64);
         this.a(CreativeModeTab.i);
@@ -37,11 +36,9 @@ public class ItemFlintAndSteel extends Item {
         if (!entityhuman.a(i, j, k, l, itemstack)) {
             return false;
         } else {
-            int i1 = world.getTypeId(i, j, k);
-
-            if (i1 == 0) {
-                world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, f.nextFloat() * 0.4F + 0.8F);
-                world.setTypeIdUpdate(i, j, k, Block.FIRE.id);
+            if (world.getType(i, j, k).getMaterial() == Material.AIR) {
+                world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, g.nextFloat() * 0.4F + 0.8F);
+                world.setTypeUpdate(i, j, k, Blocks.FIRE);
             }
 
             itemstack.damage(1, entityhuman);

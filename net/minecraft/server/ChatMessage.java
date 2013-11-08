@@ -1,274 +1,238 @@
 package net.minecraft.server;
 
-import com.google.common.collect.Lists;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import java.util.Arrays;
+import java.util.IllegalFormatException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class ChatMessage {
+import net.minecraft.util.com.google.common.collect.Iterators;
+import net.minecraft.util.com.google.common.collect.Lists;
 
-    private static final Gson a = (new GsonBuilder()).registerTypeAdapter(ChatMessage.class, new ChatSerializer()).create();
-    private EnumChatFormat b;
-    private Boolean c;
-    private Boolean d;
-    private Boolean e;
-    private Boolean f;
-    private String g;
-    private String h;
-    private List i;
+public class ChatMessage extends ChatBaseComponent {
 
-    public ChatMessage() {}
+    private final String d;
+    private final Object[] e;
+    private final Object f = new Object();
+    private long g = -1L;
+    List b = Lists.newArrayList();
+    public static final Pattern c = Pattern.compile("%(?:(\\d+)\\$)?([A-Za-z%]|$)");
 
-    public ChatMessage(ChatMessage chatmessage) {
-        this.b = chatmessage.b;
-        this.c = chatmessage.c;
-        this.d = chatmessage.d;
-        this.e = chatmessage.e;
-        this.f = chatmessage.f;
-        this.g = chatmessage.g;
-        this.h = chatmessage.h;
-        this.i = chatmessage.i == null ? null : Lists.newArrayList(chatmessage.i);
-    }
+    public ChatMessage(String s, Object... aobject) {
+        this.d = s;
+        this.e = aobject;
+        Object[] aobject1 = aobject;
+        int i = aobject.length;
 
-    public ChatMessage a(EnumChatFormat enumchatformat) {
-        if (enumchatformat != null && !enumchatformat.c()) {
-            throw new IllegalArgumentException("Argument is not a valid color!");
-        } else {
-            this.b = enumchatformat;
-            return this;
-        }
-    }
+        for (int j = 0; j < i; ++j) {
+            Object object = aobject1[j];
 
-    public EnumChatFormat a() {
-        return this.b;
-    }
-
-    public ChatMessage a(Boolean obool) {
-        this.c = obool;
-        return this;
-    }
-
-    public Boolean b() {
-        return this.c;
-    }
-
-    public ChatMessage b(Boolean obool) {
-        this.d = obool;
-        return this;
-    }
-
-    public Boolean c() {
-        return this.d;
-    }
-
-    public ChatMessage c(Boolean obool) {
-        this.e = obool;
-        return this;
-    }
-
-    public Boolean d() {
-        return this.e;
-    }
-
-    public ChatMessage d(Boolean obool) {
-        this.f = obool;
-        return this;
-    }
-
-    public Boolean e() {
-        return this.f;
-    }
-
-    protected String f() {
-        return this.g;
-    }
-
-    protected String g() {
-        return this.h;
-    }
-
-    protected List h() {
-        return this.i;
-    }
-
-    public ChatMessage a(ChatMessage chatmessage) {
-        if (this.g == null && this.h == null) {
-            if (this.i != null) {
-                this.i.add(chatmessage);
-            } else {
-                this.i = Lists.newArrayList(new ChatMessage[] { chatmessage});
+            if (object instanceof IChatBaseComponent) {
+                ((IChatBaseComponent) object).b().a(this.b());
             }
-        } else {
-            this.i = Lists.newArrayList(new ChatMessage[] { new ChatMessage(this), chatmessage});
-            this.g = null;
-            this.h = null;
         }
-
-        return this;
     }
 
-    public ChatMessage a(String s) {
-        if (this.g == null && this.h == null) {
-            if (this.i != null) {
-                this.i.add(d(s));
-            } else {
-                this.g = s;
+    synchronized void g() {
+        Object object = this.f;
+
+        synchronized (this.f) {
+            long i = LocaleI18n.a();
+
+            if (i == this.g) {
+                return;
             }
-        } else {
-            this.i = Lists.newArrayList(new ChatMessage[] { new ChatMessage(this), d(s)});
-            this.g = null;
-            this.h = null;
+
+            this.g = i;
+            this.b.clear();
         }
 
-        return this;
-    }
+        try {
+            this.b(LocaleI18n.get(this.d));
+        } catch (ChatMessageException throw) {
+            this.b.clear();
 
-    public ChatMessage b(String s) {
-        if (this.g == null && this.h == null) {
-            if (this.i != null) {
-                this.i.add(e(s));
-            } else {
-                this.h = s;
+            try {
+                this.b(LocaleI18n.b(this.d));
+            } catch (ChatMessageException chatmessageexception1) {
+                throw throw;
             }
-        } else {
-            this.i = Lists.newArrayList(new ChatMessage[] { new ChatMessage(this), e(s)});
-            this.g = null;
-            this.h = null;
         }
-
-        return this;
     }
 
-    public ChatMessage a(String s, Object... aobject) {
-        if (this.g == null && this.h == null) {
-            if (this.i != null) {
-                this.i.add(b(s, aobject));
-            } else {
-                this.h = s;
-                this.i = Lists.newArrayList();
-                Object[] aobject1 = aobject;
-                int i = aobject.length;
+    protected void b(String s) {
+        boolean flag = false;
+        Matcher matcher = c.matcher(s);
+        int i = 0;
+        int j = 0;
 
-                for (int j = 0; j < i; ++j) {
-                    Object object = aobject1[j];
+        try {
+            int k;
 
-                    if (object instanceof ChatMessage) {
-                        this.i.add((ChatMessage) object);
-                    } else {
-                        this.i.add(d(object.toString()));
+            for (; matcher.find(j); j = k) {
+                int l = matcher.start();
+
+                k = matcher.end();
+                if (l > j) {
+                    ChatComponentText chatcomponenttext = new ChatComponentText(String.format(s.substring(j, l), new Object[0]));
+
+                    chatcomponenttext.b().a(this.b());
+                    this.b.add(chatcomponenttext);
+                }
+
+                String s1 = matcher.group(2);
+                String s2 = s.substring(l, k);
+
+                if ("%".equals(s1) && "%%".equals(s2)) {
+                    ChatComponentText chatcomponenttext1 = new ChatComponentText("%");
+
+                    chatcomponenttext1.b().a(this.b());
+                    this.b.add(chatcomponenttext1);
+                } else {
+                    if (!"s".equals(s1)) {
+                        throw new ChatMessageException(this, "Unsupported format: \'" + s2 + "\'");
                     }
+
+                    String s3 = matcher.group(1);
+                    int i1 = s3 != null ? Integer.parseInt(s3) - 1 : i++;
+
+                    this.b.add(this.a(i1));
                 }
             }
+
+            if (j < s.length()) {
+                ChatComponentText chatcomponenttext2 = new ChatComponentText(String.format(s.substring(j), new Object[0]));
+
+                chatcomponenttext2.b().a(this.b());
+                this.b.add(chatcomponenttext2);
+            }
+        } catch (IllegalFormatException illegalformatexception) {
+            throw new ChatMessageException(this, illegalformatexception);
+        }
+    }
+
+    private IChatBaseComponent a(int i) {
+        if (i >= this.e.length) {
+            throw new ChatMessageException(this, i);
         } else {
-            this.i = Lists.newArrayList(new ChatMessage[] { new ChatMessage(this), b(s, aobject)});
-            this.g = null;
-            this.h = null;
+            Object object = this.e[i];
+            Object object1;
+
+            if (object instanceof IChatBaseComponent) {
+                object1 = (IChatBaseComponent) object;
+            } else {
+                object1 = new ChatComponentText(object.toString());
+                ((IChatBaseComponent) object1).b().a(this.b());
+            }
+
+            return (IChatBaseComponent) object1;
+        }
+    }
+
+    public IChatBaseComponent setChatModifier(ChatModifier chatmodifier) {
+        super.setChatModifier(chatmodifier);
+        Object[] aobject = this.e;
+        int i = aobject.length;
+
+        for (int j = 0; j < i; ++j) {
+            Object object = aobject[j];
+
+            if (object instanceof IChatBaseComponent) {
+                ((IChatBaseComponent) object).b().a(this.b());
+            }
+        }
+
+        if (this.g > -1L) {
+            Iterator iterator = this.b.iterator();
+
+            while (iterator.hasNext()) {
+                IChatBaseComponent ichatbasecomponent = (IChatBaseComponent) iterator.next();
+
+                ichatbasecomponent.b().a(chatmodifier);
+            }
         }
 
         return this;
     }
 
-    public String toString() {
-        return this.a(false);
+    public Iterator iterator() {
+        this.g();
+        return Iterators.concat(a(this.b), a(this.a));
     }
 
-    public String a(boolean flag) {
-        return this.a(flag, (EnumChatFormat) null, false, false, false, false);
-    }
-
-    public String a(boolean flag, EnumChatFormat enumchatformat, boolean flag1, boolean flag2, boolean flag3, boolean flag4) {
+    public String e() {
+        this.g();
         StringBuilder stringbuilder = new StringBuilder();
-        EnumChatFormat enumchatformat1 = this.b == null ? enumchatformat : this.b;
-        boolean flag5 = this.c == null ? flag1 : this.c.booleanValue();
-        boolean flag6 = this.d == null ? flag2 : this.d.booleanValue();
-        boolean flag7 = this.e == null ? flag3 : this.e.booleanValue();
-        boolean flag8 = this.f == null ? flag4 : this.f.booleanValue();
+        Iterator iterator = this.b.iterator();
 
-        if (this.h != null) {
-            if (flag) {
-                a(stringbuilder, enumchatformat1, flag5, flag6, flag7, flag8);
-            }
+        while (iterator.hasNext()) {
+            IChatBaseComponent ichatbasecomponent = (IChatBaseComponent) iterator.next();
 
-            if (this.i != null) {
-                String[] astring = new String[this.i.size()];
-
-                for (int i = 0; i < this.i.size(); ++i) {
-                    astring[i] = ((ChatMessage) this.i.get(i)).a(flag, enumchatformat1, flag5, flag6, flag7, flag8);
-                }
-
-                stringbuilder.append(LocaleI18n.get(this.h, astring));
-            } else {
-                stringbuilder.append(LocaleI18n.get(this.h));
-            }
-        } else if (this.g != null) {
-            if (flag) {
-                a(stringbuilder, enumchatformat1, flag5, flag6, flag7, flag8);
-            }
-
-            stringbuilder.append(this.g);
-        } else {
-            ChatMessage chatmessage;
-
-            if (this.i != null) {
-                for (Iterator iterator = this.i.iterator(); iterator.hasNext(); stringbuilder.append(chatmessage.a(flag, enumchatformat1, flag5, flag6, flag7, flag8))) {
-                    chatmessage = (ChatMessage) iterator.next();
-                    if (flag) {
-                        a(stringbuilder, enumchatformat1, flag5, flag6, flag7, flag8);
-                    }
-                }
-            }
+            stringbuilder.append(ichatbasecomponent.e());
         }
 
         return stringbuilder.toString();
     }
 
-    private static void a(StringBuilder stringbuilder, EnumChatFormat enumchatformat, boolean flag, boolean flag1, boolean flag2, boolean flag3) {
-        if (enumchatformat != null) {
-            stringbuilder.append(enumchatformat);
-        } else if (flag || flag1 || flag2 || flag3) {
-            stringbuilder.append(EnumChatFormat.RESET);
+    public ChatMessage h() {
+        Object[] aobject = new Object[this.e.length];
+
+        for (int i = 0; i < this.e.length; ++i) {
+            if (this.e[i] instanceof IChatBaseComponent) {
+                aobject[i] = ((IChatBaseComponent) this.e[i]).f();
+            } else {
+                aobject[i] = this.e[i];
+            }
         }
 
-        if (flag) {
-            stringbuilder.append(EnumChatFormat.BOLD);
+        ChatMessage chatmessage = new ChatMessage(this.d, aobject);
+
+        chatmessage.setChatModifier(this.b().clone());
+        Iterator iterator = this.a().iterator();
+
+        while (iterator.hasNext()) {
+            IChatBaseComponent ichatbasecomponent = (IChatBaseComponent) iterator.next();
+
+            chatmessage.a(ichatbasecomponent.f());
         }
 
-        if (flag1) {
-            stringbuilder.append(EnumChatFormat.ITALIC);
-        }
-
-        if (flag2) {
-            stringbuilder.append(EnumChatFormat.UNDERLINE);
-        }
-
-        if (flag3) {
-            stringbuilder.append(EnumChatFormat.RANDOM);
-        }
-    }
-
-    public static ChatMessage d(String s) {
-        ChatMessage chatmessage = new ChatMessage();
-
-        chatmessage.a(s);
         return chatmessage;
     }
 
-    public static ChatMessage e(String s) {
-        ChatMessage chatmessage = new ChatMessage();
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        } else if (!(object instanceof ChatMessage)) {
+            return false;
+        } else {
+            ChatMessage chatmessage = (ChatMessage) object;
 
-        chatmessage.b(s);
-        return chatmessage;
+            return Arrays.equals(this.e, chatmessage.e) && this.d.equals(chatmessage.d) && super.equals(object);
+        }
     }
 
-    public static ChatMessage b(String s, Object... aobject) {
-        ChatMessage chatmessage = new ChatMessage();
+    public int hashCode() {
+        int i = super.hashCode();
 
-        chatmessage.a(s, aobject);
-        return chatmessage;
+        i = 31 * i + this.d.hashCode();
+        i = 31 * i + Arrays.hashCode(this.e);
+        return i;
+    }
+
+    public String toString() {
+        return "TranslatableComponent{key=\'" + this.d + '\'' + ", args=" + Arrays.toString(this.e) + ", siblings=" + this.a + ", style=" + this.b() + '}';
     }
 
     public String i() {
-        return a.toJson(this);
+        return this.d;
+    }
+
+    public Object[] j() {
+        return this.e;
+    }
+
+    public IChatBaseComponent f() {
+        return this.h();
     }
 }

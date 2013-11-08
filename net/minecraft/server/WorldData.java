@@ -40,29 +40,29 @@ public class WorldData {
         this.generatorOptions = "";
         this.gameRules = new GameRules();
         this.seed = nbttagcompound.getLong("RandomSeed");
-        if (nbttagcompound.hasKey("generatorName")) {
+        if (nbttagcompound.hasKeyOfType("generatorName", 8)) {
             String s = nbttagcompound.getString("generatorName");
 
             this.type = WorldType.getType(s);
             if (this.type == null) {
                 this.type = WorldType.NORMAL;
-            } else if (this.type.e()) {
+            } else if (this.type.f()) {
                 int i = 0;
 
-                if (nbttagcompound.hasKey("generatorVersion")) {
+                if (nbttagcompound.hasKeyOfType("generatorVersion", 99)) {
                     i = nbttagcompound.getInt("generatorVersion");
                 }
 
                 this.type = this.type.a(i);
             }
 
-            if (nbttagcompound.hasKey("generatorOptions")) {
+            if (nbttagcompound.hasKeyOfType("generatorOptions", 8)) {
                 this.generatorOptions = nbttagcompound.getString("generatorOptions");
             }
         }
 
         this.gameType = EnumGamemode.a(nbttagcompound.getInt("GameType"));
-        if (nbttagcompound.hasKey("MapFeatures")) {
+        if (nbttagcompound.hasKeyOfType("MapFeatures", 99)) {
             this.useMapFeatures = nbttagcompound.getBoolean("MapFeatures");
         } else {
             this.useMapFeatures = true;
@@ -72,7 +72,7 @@ public class WorldData {
         this.spawnY = nbttagcompound.getInt("SpawnY");
         this.spawnZ = nbttagcompound.getInt("SpawnZ");
         this.time = nbttagcompound.getLong("Time");
-        if (nbttagcompound.hasKey("DayTime")) {
+        if (nbttagcompound.hasKeyOfType("DayTime", 99)) {
             this.dayTime = nbttagcompound.getLong("DayTime");
         } else {
             this.dayTime = this.time;
@@ -87,24 +87,24 @@ public class WorldData {
         this.thunderTicks = nbttagcompound.getInt("thunderTime");
         this.isThundering = nbttagcompound.getBoolean("thundering");
         this.hardcore = nbttagcompound.getBoolean("hardcore");
-        if (nbttagcompound.hasKey("initialized")) {
+        if (nbttagcompound.hasKeyOfType("initialized", 99)) {
             this.initialized = nbttagcompound.getBoolean("initialized");
         } else {
             this.initialized = true;
         }
 
-        if (nbttagcompound.hasKey("allowCommands")) {
+        if (nbttagcompound.hasKeyOfType("allowCommands", 99)) {
             this.allowCommands = nbttagcompound.getBoolean("allowCommands");
         } else {
             this.allowCommands = this.gameType == EnumGamemode.CREATIVE;
         }
 
-        if (nbttagcompound.hasKey("Player")) {
+        if (nbttagcompound.hasKeyOfType("Player", 10)) {
             this.playerData = nbttagcompound.getCompound("Player");
             this.dimension = this.playerData.getInt("Dimension");
         }
 
-        if (nbttagcompound.hasKey("GameRules")) {
+        if (nbttagcompound.hasKeyOfType("GameRules", 10)) {
             this.gameRules.a(nbttagcompound.getCompound("GameRules"));
         }
     }
@@ -181,7 +181,7 @@ public class WorldData {
         nbttagcompound.setLong("Time", this.time);
         nbttagcompound.setLong("DayTime", this.dayTime);
         nbttagcompound.setLong("SizeOnDisk", this.sizeOnDisk);
-        nbttagcompound.setLong("LastPlayed", MinecraftServer.aq());
+        nbttagcompound.setLong("LastPlayed", MinecraftServer.ap());
         nbttagcompound.setString("LevelName", this.name);
         nbttagcompound.setInt("version", this.version);
         nbttagcompound.setInt("rainTime", this.rainTicks);
@@ -191,9 +191,9 @@ public class WorldData {
         nbttagcompound.setBoolean("hardcore", this.hardcore);
         nbttagcompound.setBoolean("allowCommands", this.allowCommands);
         nbttagcompound.setBoolean("initialized", this.initialized);
-        nbttagcompound.setCompound("GameRules", this.gameRules.a());
+        nbttagcompound.set("GameRules", this.gameRules.a());
         if (nbttagcompound1 != null) {
-            nbttagcompound.setCompound("Player", nbttagcompound1);
+            nbttagcompound.set("Player", nbttagcompound1);
         }
     }
 

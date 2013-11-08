@@ -114,27 +114,25 @@ public class WorldGenMineshaftCross extends StructurePiece {
             return false;
         } else {
             if (this.b) {
-                this.a(world, structureboundingbox, this.f.a + 1, this.f.b, this.f.c, this.f.d - 1, this.f.b + 3 - 1, this.f.f, 0, 0, false);
-                this.a(world, structureboundingbox, this.f.a, this.f.b, this.f.c + 1, this.f.d, this.f.b + 3 - 1, this.f.f - 1, 0, 0, false);
-                this.a(world, structureboundingbox, this.f.a + 1, this.f.e - 2, this.f.c, this.f.d - 1, this.f.e, this.f.f, 0, 0, false);
-                this.a(world, structureboundingbox, this.f.a, this.f.e - 2, this.f.c + 1, this.f.d, this.f.e, this.f.f - 1, 0, 0, false);
-                this.a(world, structureboundingbox, this.f.a + 1, this.f.b + 3, this.f.c + 1, this.f.d - 1, this.f.b + 3, this.f.f - 1, 0, 0, false);
+                this.a(world, structureboundingbox, this.f.a + 1, this.f.b, this.f.c, this.f.d - 1, this.f.b + 3 - 1, this.f.f, Blocks.AIR, Blocks.AIR, false);
+                this.a(world, structureboundingbox, this.f.a, this.f.b, this.f.c + 1, this.f.d, this.f.b + 3 - 1, this.f.f - 1, Blocks.AIR, Blocks.AIR, false);
+                this.a(world, structureboundingbox, this.f.a + 1, this.f.e - 2, this.f.c, this.f.d - 1, this.f.e, this.f.f, Blocks.AIR, Blocks.AIR, false);
+                this.a(world, structureboundingbox, this.f.a, this.f.e - 2, this.f.c + 1, this.f.d, this.f.e, this.f.f - 1, Blocks.AIR, Blocks.AIR, false);
+                this.a(world, structureboundingbox, this.f.a + 1, this.f.b + 3, this.f.c + 1, this.f.d - 1, this.f.b + 3, this.f.f - 1, Blocks.AIR, Blocks.AIR, false);
             } else {
-                this.a(world, structureboundingbox, this.f.a + 1, this.f.b, this.f.c, this.f.d - 1, this.f.e, this.f.f, 0, 0, false);
-                this.a(world, structureboundingbox, this.f.a, this.f.b, this.f.c + 1, this.f.d, this.f.e, this.f.f - 1, 0, 0, false);
+                this.a(world, structureboundingbox, this.f.a + 1, this.f.b, this.f.c, this.f.d - 1, this.f.e, this.f.f, Blocks.AIR, Blocks.AIR, false);
+                this.a(world, structureboundingbox, this.f.a, this.f.b, this.f.c + 1, this.f.d, this.f.e, this.f.f - 1, Blocks.AIR, Blocks.AIR, false);
             }
 
-            this.a(world, structureboundingbox, this.f.a + 1, this.f.b, this.f.c + 1, this.f.a + 1, this.f.e, this.f.c + 1, Block.WOOD.id, 0, false);
-            this.a(world, structureboundingbox, this.f.a + 1, this.f.b, this.f.f - 1, this.f.a + 1, this.f.e, this.f.f - 1, Block.WOOD.id, 0, false);
-            this.a(world, structureboundingbox, this.f.d - 1, this.f.b, this.f.c + 1, this.f.d - 1, this.f.e, this.f.c + 1, Block.WOOD.id, 0, false);
-            this.a(world, structureboundingbox, this.f.d - 1, this.f.b, this.f.f - 1, this.f.d - 1, this.f.e, this.f.f - 1, Block.WOOD.id, 0, false);
+            this.a(world, structureboundingbox, this.f.a + 1, this.f.b, this.f.c + 1, this.f.a + 1, this.f.e, this.f.c + 1, Blocks.WOOD, Blocks.AIR, false);
+            this.a(world, structureboundingbox, this.f.a + 1, this.f.b, this.f.f - 1, this.f.a + 1, this.f.e, this.f.f - 1, Blocks.WOOD, Blocks.AIR, false);
+            this.a(world, structureboundingbox, this.f.d - 1, this.f.b, this.f.c + 1, this.f.d - 1, this.f.e, this.f.c + 1, Blocks.WOOD, Blocks.AIR, false);
+            this.a(world, structureboundingbox, this.f.d - 1, this.f.b, this.f.f - 1, this.f.d - 1, this.f.e, this.f.f - 1, Blocks.WOOD, Blocks.AIR, false);
 
             for (int i = this.f.a; i <= this.f.d; ++i) {
                 for (int j = this.f.c; j <= this.f.f; ++j) {
-                    int k = this.a(world, i, this.f.b - 1, j, structureboundingbox);
-
-                    if (k == 0) {
-                        this.a(world, Block.WOOD.id, 0, i, this.f.b - 1, j, structureboundingbox);
+                    if (this.a(world, i, this.f.b - 1, j, structureboundingbox).getMaterial() == Material.AIR) {
+                        this.a(world, Blocks.WOOD, 0, i, this.f.b - 1, j, structureboundingbox);
                     }
                 }
             }

@@ -36,7 +36,7 @@ public class SlotFurnaceResult extends Slot {
         itemstack.a(this.a.world, this.a, this.b);
         if (!this.a.world.isStatic) {
             int i = this.b;
-            float f = RecipesFurnace.getInstance().c(itemstack.id);
+            float f = RecipesFurnace.getInstance().b(itemstack);
             int j;
 
             if (f == 0.0F) {
@@ -58,11 +58,11 @@ public class SlotFurnaceResult extends Slot {
         }
 
         this.b = 0;
-        if (itemstack.id == Item.IRON_INGOT.id) {
+        if (itemstack.getItem() == Items.IRON_INGOT) {
             this.a.a((Statistic) AchievementList.k, 1);
         }
 
-        if (itemstack.id == Item.COOKED_FISH.id) {
+        if (itemstack.getItem() == Items.COOKED_FISH) {
             this.a.a((Statistic) AchievementList.p, 1);
         }
     }

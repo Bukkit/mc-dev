@@ -18,15 +18,15 @@ public abstract class WorldGenerator {
 
     public void a(double d0, double d1, double d2) {}
 
-    protected void setType(World world, int i, int j, int k, int l) {
-        this.setTypeAndData(world, i, j, k, l, 0);
+    protected void setType(World world, int i, int j, int k, Block block) {
+        this.setTypeAndData(world, i, j, k, block, 0);
     }
 
-    protected void setTypeAndData(World world, int i, int j, int k, int l, int i1) {
+    protected void setTypeAndData(World world, int i, int j, int k, Block block, int l) {
         if (this.a) {
-            world.setTypeIdAndData(i, j, k, l, i1, 3);
+            world.setTypeAndData(i, j, k, block, l, 3);
         } else {
-            world.setTypeIdAndData(i, j, k, l, i1, 2);
+            world.setTypeAndData(i, j, k, block, l, 2);
         }
     }
 }

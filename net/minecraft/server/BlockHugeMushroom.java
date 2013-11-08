@@ -7,9 +7,9 @@ public class BlockHugeMushroom extends Block {
     private static final String[] a = new String[] { "skin_brown", "skin_red"};
     private final int b;
 
-    public BlockHugeMushroom(int i, Material material, int j) {
-        super(i, material);
-        this.b = j;
+    public BlockHugeMushroom(Material material, int i) {
+        super(material);
+        this.b = i;
     }
 
     public int a(Random random) {
@@ -22,7 +22,7 @@ public class BlockHugeMushroom extends Block {
         return i;
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Block.BROWN_MUSHROOM.id + this.b;
+    public Item getDropType(int i, Random random, int j) {
+        return Item.d(Block.b((Block) Blocks.BROWN_MUSHROOM) + this.b);
     }
 }

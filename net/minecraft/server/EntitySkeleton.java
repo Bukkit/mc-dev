@@ -18,37 +18,37 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         this.targetSelector.a(1, new PathfinderGoalHurtByTarget(this, false));
         this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityHuman.class, 0, true));
         if (world != null && !world.isStatic) {
-            this.bT();
+            this.bX();
         }
     }
 
-    protected void az() {
-        super.az();
+    protected void aD() {
+        super.aD();
         this.getAttributeInstance(GenericAttributes.d).setValue(0.25D);
     }
 
-    protected void a() {
-        super.a();
+    protected void c() {
+        super.c();
         this.datawatcher.a(13, new Byte((byte) 0));
     }
 
-    public boolean bf() {
+    public boolean bk() {
         return true;
     }
 
-    protected String r() {
+    protected String t() {
         return "mob.skeleton.say";
     }
 
-    protected String aO() {
+    protected String aT() {
         return "mob.skeleton.hurt";
     }
 
-    protected String aP() {
+    protected String aU() {
         return "mob.skeleton.death";
     }
 
-    protected void a(int i, int j, int k, int l) {
+    protected void a(int i, int j, int k, Block block) {
         this.makeSound("mob.skeleton.step", 0.15F, 1.0F);
     }
 
@@ -68,11 +68,11 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         return EnumMonsterType.UNDEAD;
     }
 
-    public void c() {
+    public void e() {
         if (this.world.v() && !this.world.isStatic) {
             float f = this.d(1.0F);
 
-            if (f > 0.5F && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.l(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ))) {
+            if (f > 0.5F && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.i(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ))) {
                 boolean flag = true;
                 ItemStack itemstack = this.getEquipment(4);
 
@@ -98,11 +98,11 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
             this.a(0.72F, 2.34F);
         }
 
-        super.c();
+        super.e();
     }
 
-    public void V() {
-        super.V();
+    public void ab() {
+        super.ab();
         if (this.vehicle instanceof EntityCreature) {
             EntityCreature entitycreature = (EntityCreature) this.vehicle;
 
@@ -112,7 +112,7 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
 
     public void die(DamageSource damagesource) {
         super.die(damagesource);
-        if (damagesource.h() instanceof EntityArrow && damagesource.getEntity() instanceof EntityHuman) {
+        if (damagesource.i() instanceof EntityArrow && damagesource.getEntity() instanceof EntityHuman) {
             EntityHuman entityhuman = (EntityHuman) damagesource.getEntity();
             double d0 = entityhuman.locX - this.locX;
             double d1 = entityhuman.locZ - this.locZ;
@@ -123,8 +123,8 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         }
     }
 
-    protected int getLootId() {
-        return Item.ARROW.id;
+    protected Item getLoot() {
+        return Items.ARROW;
     }
 
     protected void dropDeathLoot(boolean flag, int i) {
@@ -135,53 +135,53 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
             j = this.random.nextInt(3 + i) - 1;
 
             for (k = 0; k < j; ++k) {
-                this.b(Item.COAL.id, 1);
+                this.a(Items.COAL, 1);
             }
         } else {
             j = this.random.nextInt(3 + i);
 
             for (k = 0; k < j; ++k) {
-                this.b(Item.ARROW.id, 1);
+                this.a(Items.ARROW, 1);
             }
         }
 
         j = this.random.nextInt(3 + i);
 
         for (k = 0; k < j; ++k) {
-            this.b(Item.BONE.id, 1);
+            this.a(Items.BONE, 1);
         }
     }
 
-    protected void l(int i) {
+    protected void getRareDrop(int i) {
         if (this.getSkeletonType() == 1) {
-            this.a(new ItemStack(Item.SKULL.id, 1, 1), 0.0F);
+            this.a(new ItemStack(Items.SKULL, 1, 1), 0.0F);
         }
     }
 
-    protected void bw() {
-        super.bw();
-        this.setEquipment(0, new ItemStack(Item.BOW));
+    protected void bA() {
+        super.bA();
+        this.setEquipment(0, new ItemStack(Items.BOW));
     }
 
     public GroupDataEntity a(GroupDataEntity groupdataentity) {
         groupdataentity = super.a(groupdataentity);
-        if (this.world.worldProvider instanceof WorldProviderHell && this.aD().nextInt(5) > 0) {
+        if (this.world.worldProvider instanceof WorldProviderHell && this.aI().nextInt(5) > 0) {
             this.goalSelector.a(4, this.bq);
             this.setSkeletonType(1);
-            this.setEquipment(0, new ItemStack(Item.STONE_SWORD));
+            this.setEquipment(0, new ItemStack(Items.STONE_SWORD));
             this.getAttributeInstance(GenericAttributes.e).setValue(4.0D);
         } else {
             this.goalSelector.a(4, this.bp);
-            this.bw();
-            this.bx();
+            this.bA();
+            this.bB();
         }
 
         this.h(this.random.nextFloat() < 0.55F * this.world.b(this.locX, this.locY, this.locZ));
         if (this.getEquipment(4) == null) {
-            Calendar calendar = this.world.W();
+            Calendar calendar = this.world.V();
 
             if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && this.random.nextFloat() < 0.25F) {
-                this.setEquipment(4, new ItemStack(this.random.nextFloat() < 0.1F ? Block.JACK_O_LANTERN : Block.PUMPKIN));
+                this.setEquipment(4, new ItemStack(this.random.nextFloat() < 0.1F ? Blocks.JACK_O_LANTERN : Blocks.PUMPKIN));
                 this.dropChances[4] = 0.0F;
             }
         }
@@ -189,12 +189,12 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         return groupdataentity;
     }
 
-    public void bT() {
+    public void bX() {
         this.goalSelector.a((PathfinderGoal) this.bq);
         this.goalSelector.a((PathfinderGoal) this.bp);
-        ItemStack itemstack = this.aZ();
+        ItemStack itemstack = this.be();
 
-        if (itemstack != null && itemstack.id == Item.BOW.id) {
+        if (itemstack != null && itemstack.getItem() == Items.BOW) {
             this.goalSelector.a(4, this.bp);
         } else {
             this.goalSelector.a(4, this.bq);
@@ -202,24 +202,24 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
     }
 
     public void a(EntityLiving entityliving, float f) {
-        EntityArrow entityarrow = new EntityArrow(this.world, this, entityliving, 1.6F, (float) (14 - this.world.difficulty * 4));
-        int i = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.aZ());
-        int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.aZ());
+        EntityArrow entityarrow = new EntityArrow(this.world, this, entityliving, 1.6F, (float) (14 - this.world.difficulty.a() * 4));
+        int i = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.be());
+        int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.be());
 
-        entityarrow.b((double) (f * 2.0F) + this.random.nextGaussian() * 0.25D + (double) ((float) this.world.difficulty * 0.11F));
+        entityarrow.b((double) (f * 2.0F) + this.random.nextGaussian() * 0.25D + (double) ((float) this.world.difficulty.a() * 0.11F));
         if (i > 0) {
-            entityarrow.b(entityarrow.c() + (double) i * 0.5D + 0.5D);
+            entityarrow.b(entityarrow.e() + (double) i * 0.5D + 0.5D);
         }
 
         if (j > 0) {
             entityarrow.a(j);
         }
 
-        if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.aZ()) > 0 || this.getSkeletonType() == 1) {
+        if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.be()) > 0 || this.getSkeletonType() == 1) {
             entityarrow.setOnFire(100);
         }
 
-        this.makeSound("random.bow", 1.0F, 1.0F / (this.aD().nextFloat() * 0.4F + 0.8F));
+        this.makeSound("random.bow", 1.0F, 1.0F / (this.aI().nextFloat() * 0.4F + 0.8F));
         this.world.addEntity(entityarrow);
     }
 
@@ -239,13 +239,13 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        if (nbttagcompound.hasKey("SkeletonType")) {
+        if (nbttagcompound.hasKeyOfType("SkeletonType", 99)) {
             byte b0 = nbttagcompound.getByte("SkeletonType");
 
             this.setSkeletonType(b0);
         }
 
-        this.bT();
+        this.bX();
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -256,11 +256,11 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
     public void setEquipment(int i, ItemStack itemstack) {
         super.setEquipment(i, itemstack);
         if (!this.world.isStatic && i == 0) {
-            this.bT();
+            this.bX();
         }
     }
 
-    public double X() {
-        return super.X() - 0.5D;
+    public double ad() {
+        return super.ad() - 0.5D;
     }
 }

@@ -55,16 +55,16 @@ public class WorldGenStrongholdStairs extends WorldGenStrongholdPiece {
             this.a(world, structureboundingbox, 0, 0, 0, 4, 4, 6, true, random, WorldGenStrongholdPieces.c());
             this.a(world, random, structureboundingbox, this.d, 1, 1, 0);
             this.a(world, random, structureboundingbox, WorldGenStrongholdDoorType.a, 1, 1, 6);
-            this.a(world, structureboundingbox, random, 0.1F, 1, 2, 1, Block.TORCH.id, 0);
-            this.a(world, structureboundingbox, random, 0.1F, 3, 2, 1, Block.TORCH.id, 0);
-            this.a(world, structureboundingbox, random, 0.1F, 1, 2, 5, Block.TORCH.id, 0);
-            this.a(world, structureboundingbox, random, 0.1F, 3, 2, 5, Block.TORCH.id, 0);
+            this.a(world, structureboundingbox, random, 0.1F, 1, 2, 1, Blocks.TORCH, 0);
+            this.a(world, structureboundingbox, random, 0.1F, 3, 2, 1, Blocks.TORCH, 0);
+            this.a(world, structureboundingbox, random, 0.1F, 1, 2, 5, Blocks.TORCH, 0);
+            this.a(world, structureboundingbox, random, 0.1F, 3, 2, 5, Blocks.TORCH, 0);
             if (this.a) {
-                this.a(world, structureboundingbox, 0, 1, 2, 0, 3, 4, 0, 0, false);
+                this.a(world, structureboundingbox, 0, 1, 2, 0, 3, 4, Blocks.AIR, Blocks.AIR, false);
             }
 
             if (this.b) {
-                this.a(world, structureboundingbox, 4, 1, 2, 4, 3, 4, 0, 0, false);
+                this.a(world, structureboundingbox, 4, 1, 2, 4, 3, 4, Blocks.AIR, Blocks.AIR, false);
             }
 
             return true;

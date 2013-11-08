@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 
 public class WorldGenVillage extends StructureGenerator {
 
-    public static final List e = Arrays.asList(new BiomeBase[] { BiomeBase.PLAINS, BiomeBase.DESERT});
+    public static final List e = Arrays.asList(new BiomeBase[] { BiomeBase.PLAINS, BiomeBase.DESERT, BiomeBase.SAVANNA});
     private int f;
     private int g;
     private int h;
@@ -52,7 +52,7 @@ public class WorldGenVillage extends StructureGenerator {
 
         int i1 = i / this.g;
         int j1 = j / this.g;
-        Random random = this.c.H(i1, j1, 10387312);
+        Random random = this.c.A(i1, j1, 10387312);
 
         i1 *= this.g;
         j1 *= this.g;

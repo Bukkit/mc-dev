@@ -7,23 +7,23 @@ public class BlockBrewingStand extends BlockContainer {
 
     private Random a = new Random();
 
-    public BlockBrewingStand(int i) {
-        super(i, Material.ORE);
+    public BlockBrewingStand() {
+        super(Material.ORE);
     }
 
     public boolean c() {
         return false;
     }
 
-    public int d() {
+    public int b() {
         return 25;
     }
 
-    public TileEntity b(World world) {
+    public TileEntity a(World world, int i) {
         return new TileEntityBrewingStand();
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
@@ -58,14 +58,14 @@ public class BlockBrewingStand extends BlockContainer {
         }
     }
 
-    public void remove(World world, int i, int j, int k, int l, int i1) {
+    public void remove(World world, int i, int j, int k, Block block, int l) {
         TileEntity tileentity = world.getTileEntity(i, j, k);
 
         if (tileentity instanceof TileEntityBrewingStand) {
             TileEntityBrewingStand tileentitybrewingstand = (TileEntityBrewingStand) tileentity;
 
-            for (int j1 = 0; j1 < tileentitybrewingstand.getSize(); ++j1) {
-                ItemStack itemstack = tileentitybrewingstand.getItem(j1);
+            for (int i1 = 0; i1 < tileentitybrewingstand.getSize(); ++i1) {
+                ItemStack itemstack = tileentitybrewingstand.getItem(i1);
 
                 if (itemstack != null) {
                     float f = this.a.nextFloat() * 0.8F + 0.1F;
@@ -73,14 +73,14 @@ public class BlockBrewingStand extends BlockContainer {
                     float f2 = this.a.nextFloat() * 0.8F + 0.1F;
 
                     while (itemstack.count > 0) {
-                        int k1 = this.a.nextInt(21) + 10;
+                        int j1 = this.a.nextInt(21) + 10;
 
-                        if (k1 > itemstack.count) {
-                            k1 = itemstack.count;
+                        if (j1 > itemstack.count) {
+                            j1 = itemstack.count;
                         }
 
-                        itemstack.count -= k1;
-                        EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.id, k1, itemstack.getData()));
+                        itemstack.count -= j1;
+                        EntityItem entityitem = new EntityItem(world, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getData()));
                         float f3 = 0.05F;
 
                         entityitem.motX = (double) ((float) this.a.nextGaussian() * f3);
@@ -92,18 +92,18 @@ public class BlockBrewingStand extends BlockContainer {
             }
         }
 
-        super.remove(world, i, j, k, l, i1);
+        super.remove(world, i, j, k, block, l);
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Item.BREWING_STAND.id;
+    public Item getDropType(int i, Random random, int j) {
+        return Items.BREWING_STAND;
     }
 
-    public boolean q_() {
+    public boolean M() {
         return true;
     }
 
-    public int b_(World world, int i, int j, int k, int l) {
+    public int g(World world, int i, int j, int k, int l) {
         return Container.b((IInventory) world.getTileEntity(i, j, k));
     }
 }

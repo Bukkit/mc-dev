@@ -56,6 +56,10 @@ public class ChunkCoordinates implements Comparable {
         return this.e(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z);
     }
 
+    public String toString() {
+        return "Pos{x=" + this.x + ", y=" + this.y + ", z=" + this.z + '}';
+    }
+
     public int compareTo(Object object) {
         return this.compareTo((ChunkCoordinates) object);
     }

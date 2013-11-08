@@ -1,24 +1,36 @@
 package net.minecraft.server;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class EntityTypes {
 
-    private static Map b = new HashMap();
+    private static final Logger b = LogManager.getLogger();
     private static Map c = new HashMap();
     private static Map d = new HashMap();
     private static Map e = new HashMap();
     private static Map f = new HashMap();
+    private static Map g = new HashMap();
     public static HashMap a = new LinkedHashMap();
 
     private static void a(Class oclass, String s, int i) {
-        b.put(s, oclass);
-        c.put(oclass, s);
-        d.put(Integer.valueOf(i), oclass);
-        e.put(oclass, Integer.valueOf(i));
-        f.put(s, Integer.valueOf(i));
+        if (c.containsKey(s)) {
+            throw new IllegalArgumentException("ID is already registered: " + s);
+        } else if (e.containsKey(Integer.valueOf(i))) {
+            throw new IllegalArgumentException("ID is already registered: " + i);
+        } else {
+            c.put(s, oclass);
+            d.put(oclass, s);
+            e.put(Integer.valueOf(i), oclass);
+            f.put(oclass, Integer.valueOf(i));
+            g.put(s, Integer.valueOf(i));
+        }
     }
 
     private static void a(Class oclass, String s, int i, int j, int k) {
@@ -30,7 +42,7 @@ public class EntityTypes {
         Entity entity = null;
 
         try {
-            Class oclass = (Class) b.get(s);
+            Class oclass = (Class) c.get(s);
 
             if (oclass != null) {
                 entity = (Entity) oclass.getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
@@ -63,7 +75,7 @@ public class EntityTypes {
         }
 
         try {
-            Class oclass = (Class) b.get(nbttagcompound.getString("id"));
+            Class oclass = (Class) c.get(nbttagcompound.getString("id"));
 
             if (oclass != null) {
                 entity = (Entity) oclass.getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
@@ -75,7 +87,7 @@ public class EntityTypes {
         if (entity != null) {
             entity.f(nbttagcompound);
         } else {
-            world.getLogger().warning("Skipping Entity with id " + nbttagcompound.getString("id"));
+            b.warn("Skipping Entity with id " + nbttagcompound.getString("id"));
         }
 
         return entity;
@@ -95,7 +107,7 @@ public class EntityTypes {
         }
 
         if (entity == null) {
-            world.getLogger().warning("Skipping Entity with id " + i);
+            b.warn("Skipping Entity with id " + i);
         }
 
         return entity;
@@ -104,21 +116,27 @@ public class EntityTypes {
     public static int a(Entity entity) {
         Class oclass = entity.getClass();
 
-        return e.containsKey(oclass) ? ((Integer) e.get(oclass)).intValue() : 0;
+        return f.containsKey(oclass) ? ((Integer) f.get(oclass)).intValue() : 0;
     }
 
     public static Class a(int i) {
-        return (Class) d.get(Integer.valueOf(i));
+        return (Class) e.get(Integer.valueOf(i));
     }
 
     public static String b(Entity entity) {
-        return (String) c.get(entity.getClass());
+        return (String) d.get(entity.getClass());
     }
 
     public static String b(int i) {
         Class oclass = a(i);
 
-        return oclass != null ? (String) c.get(oclass) : null;
+        return oclass != null ? (String) d.get(oclass) : null;
+    }
+
+    public static void a() {}
+
+    public static Set b() {
+        return Collections.unmodifiableSet(g.keySet());
     }
 
     static {
@@ -146,6 +164,7 @@ public class EntityTypes {
         a(EntityMinecartTNT.class, "MinecartTNT", 45);
         a(EntityMinecartHopper.class, "MinecartHopper", 46);
         a(EntityMinecartMobSpawner.class, "MinecartSpawner", 47);
+        a(EntityMinecartCommandBlock.class, "MinecartCommandBlock", 40);
         a(EntityInsentient.class, "Mob", 48);
         a(EntityMonster.class, "Monster", 49);
         a(EntityCreeper.class, "Creeper", 50, 894731, 0);

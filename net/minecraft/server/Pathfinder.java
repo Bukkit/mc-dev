@@ -33,10 +33,10 @@ public class Pathfinder {
         boolean flag = this.g;
         int i = MathHelper.floor(entity.boundingBox.b + 0.5D);
 
-        if (this.h && entity.H()) {
+        if (this.h && entity.M()) {
             i = (int) entity.boundingBox.b;
 
-            for (int j = this.a.getTypeId(MathHelper.floor(entity.locX), i, MathHelper.floor(entity.locZ)); j == Block.WATER.id || j == Block.STATIONARY_WATER.id; j = this.a.getTypeId(MathHelper.floor(entity.locX), i, MathHelper.floor(entity.locZ))) {
+            for (Block block = this.a.getType(MathHelper.floor(entity.locX), i, MathHelper.floor(entity.locZ)); block == Blocks.WATER || block == Blocks.STATIONARY_WATER; block = this.a.getType(MathHelper.floor(entity.locX), i, MathHelper.floor(entity.locZ))) {
                 ++i;
             }
 
@@ -164,7 +164,7 @@ public class Pathfinder {
                         break;
                     }
 
-                    if (j1++ >= entity.as()) {
+                    if (j1++ >= entity.ax()) {
                         return null;
                     }
 
@@ -205,13 +205,13 @@ public class Pathfinder {
         for (int l = i; l < i + pathpoint.a; ++l) {
             for (int i1 = j; i1 < j + pathpoint.b; ++i1) {
                 for (int j1 = k; j1 < k + pathpoint.c; ++j1) {
-                    int k1 = entity.world.getTypeId(l, i1, j1);
+                    Block block = entity.world.getType(l, i1, j1);
 
-                    if (k1 > 0) {
-                        if (k1 == Block.TRAP_DOOR.id) {
+                    if (block.getMaterial() != Material.AIR) {
+                        if (block == Blocks.TRAP_DOOR) {
                             flag3 = true;
-                        } else if (k1 != Block.WATER.id && k1 != Block.STATIONARY_WATER.id) {
-                            if (!flag2 && k1 == Block.WOODEN_DOOR.id) {
+                        } else if (block != Blocks.WATER && block != Blocks.STATIONARY_WATER) {
+                            if (!flag2 && block == Blocks.WOODEN_DOOR) {
                                 return 0;
                             }
                         } else {
@@ -222,33 +222,32 @@ public class Pathfinder {
                             flag3 = true;
                         }
 
-                        Block block = Block.byId[k1];
-                        int l1 = block.d();
+                        int k1 = block.b();
 
-                        if (entity.world.e(l, i1, j1) == 9) {
-                            int i2 = MathHelper.floor(entity.locX);
-                            int j2 = MathHelper.floor(entity.locY);
-                            int k2 = MathHelper.floor(entity.locZ);
+                        if (entity.world.getType(l, i1, j1).b() == 9) {
+                            int l1 = MathHelper.floor(entity.locX);
+                            int i2 = MathHelper.floor(entity.locY);
+                            int j2 = MathHelper.floor(entity.locZ);
 
-                            if (entity.world.e(i2, j2, k2) != 9 && entity.world.e(i2, j2 - 1, k2) != 9) {
+                            if (entity.world.getType(l1, i2, j2).b() != 9 && entity.world.getType(l1, i2 - 1, j2).b() != 9) {
                                 return -3;
                             }
-                        } else if (!block.b((IBlockAccess) entity.world, l, i1, j1) && (!flag1 || k1 != Block.WOODEN_DOOR.id)) {
-                            if (l1 == 11 || k1 == Block.FENCE_GATE.id || l1 == 32) {
+                        } else if (!block.b(entity.world, l, i1, j1) && (!flag1 || block != Blocks.WOODEN_DOOR)) {
+                            if (k1 == 11 || block == Blocks.FENCE_GATE || k1 == 32) {
                                 return -3;
                             }
 
-                            if (k1 == Block.TRAP_DOOR.id) {
+                            if (block == Blocks.TRAP_DOOR) {
                                 return -4;
                             }
 
-                            Material material = block.material;
+                            Material material = block.getMaterial();
 
                             if (material != Material.LAVA) {
                                 return 0;
                             }
 
-                            if (!entity.J()) {
+                            if (!entity.P()) {
                                 return -2;
                             }
                         }

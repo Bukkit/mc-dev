@@ -152,8 +152,10 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
         int j1 = this.a(j);
         int k1 = this.b(i, k);
 
-        if (structureboundingbox.b(i1, j1, k1) && world.getTypeId(i1, j1, k1) == 0) {
-            world.setTypeIdAndData(i1, j1, k1, Block.RAILS.id, this.c(Block.RAILS.id, random.nextBoolean() ? 1 : 0), 2);
+        if (structureboundingbox.b(i1, j1, k1) && world.getType(i1, j1, k1).getMaterial() == Material.AIR) {
+            int l1 = random.nextBoolean() ? 1 : 0;
+
+            world.setTypeAndData(i1, j1, k1, Blocks.RAILS, this.a(Blocks.RAILS, l1), 2);
             EntityMinecartChest entityminecartchest = new EntityMinecartChest(world, (double) ((float) i1 + 0.5F), (double) ((float) j1 + 0.5F), (double) ((float) k1 + 0.5F));
 
             StructurePieceTreasure.a(random, astructurepiecetreasure, (IInventory) entityminecartchest, l);
@@ -174,54 +176,53 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
             boolean flag3 = true;
             int i = this.d * 5 - 1;
 
-            this.a(world, structureboundingbox, 0, 0, 0, 2, 1, i, 0, 0, false);
-            this.a(world, structureboundingbox, random, 0.8F, 0, 2, 0, 2, 2, i, 0, 0, false);
+            this.a(world, structureboundingbox, 0, 0, 0, 2, 1, i, Blocks.AIR, Blocks.AIR, false);
+            this.a(world, structureboundingbox, random, 0.8F, 0, 2, 0, 2, 2, i, Blocks.AIR, Blocks.AIR, false);
             if (this.b) {
-                this.a(world, structureboundingbox, random, 0.6F, 0, 0, 0, 2, 1, i, Block.WEB.id, 0, false);
+                this.a(world, structureboundingbox, random, 0.6F, 0, 0, 0, 2, 1, i, Blocks.WEB, Blocks.AIR, false);
             }
 
             int j;
             int k;
-            int l;
 
             for (j = 0; j < this.d; ++j) {
                 k = 2 + j * 5;
-                this.a(world, structureboundingbox, 0, 0, k, 0, 1, k, Block.FENCE.id, 0, false);
-                this.a(world, structureboundingbox, 2, 0, k, 2, 1, k, Block.FENCE.id, 0, false);
+                this.a(world, structureboundingbox, 0, 0, k, 0, 1, k, Blocks.FENCE, Blocks.AIR, false);
+                this.a(world, structureboundingbox, 2, 0, k, 2, 1, k, Blocks.FENCE, Blocks.AIR, false);
                 if (random.nextInt(4) == 0) {
-                    this.a(world, structureboundingbox, 0, 2, k, 0, 2, k, Block.WOOD.id, 0, false);
-                    this.a(world, structureboundingbox, 2, 2, k, 2, 2, k, Block.WOOD.id, 0, false);
+                    this.a(world, structureboundingbox, 0, 2, k, 0, 2, k, Blocks.WOOD, Blocks.AIR, false);
+                    this.a(world, structureboundingbox, 2, 2, k, 2, 2, k, Blocks.WOOD, Blocks.AIR, false);
                 } else {
-                    this.a(world, structureboundingbox, 0, 2, k, 2, 2, k, Block.WOOD.id, 0, false);
+                    this.a(world, structureboundingbox, 0, 2, k, 2, 2, k, Blocks.WOOD, Blocks.AIR, false);
                 }
 
-                this.a(world, structureboundingbox, random, 0.1F, 0, 2, k - 1, Block.WEB.id, 0);
-                this.a(world, structureboundingbox, random, 0.1F, 2, 2, k - 1, Block.WEB.id, 0);
-                this.a(world, structureboundingbox, random, 0.1F, 0, 2, k + 1, Block.WEB.id, 0);
-                this.a(world, structureboundingbox, random, 0.1F, 2, 2, k + 1, Block.WEB.id, 0);
-                this.a(world, structureboundingbox, random, 0.05F, 0, 2, k - 2, Block.WEB.id, 0);
-                this.a(world, structureboundingbox, random, 0.05F, 2, 2, k - 2, Block.WEB.id, 0);
-                this.a(world, structureboundingbox, random, 0.05F, 0, 2, k + 2, Block.WEB.id, 0);
-                this.a(world, structureboundingbox, random, 0.05F, 2, 2, k + 2, Block.WEB.id, 0);
-                this.a(world, structureboundingbox, random, 0.05F, 1, 2, k - 1, Block.TORCH.id, 0);
-                this.a(world, structureboundingbox, random, 0.05F, 1, 2, k + 1, Block.TORCH.id, 0);
+                this.a(world, structureboundingbox, random, 0.1F, 0, 2, k - 1, Blocks.WEB, 0);
+                this.a(world, structureboundingbox, random, 0.1F, 2, 2, k - 1, Blocks.WEB, 0);
+                this.a(world, structureboundingbox, random, 0.1F, 0, 2, k + 1, Blocks.WEB, 0);
+                this.a(world, structureboundingbox, random, 0.1F, 2, 2, k + 1, Blocks.WEB, 0);
+                this.a(world, structureboundingbox, random, 0.05F, 0, 2, k - 2, Blocks.WEB, 0);
+                this.a(world, structureboundingbox, random, 0.05F, 2, 2, k - 2, Blocks.WEB, 0);
+                this.a(world, structureboundingbox, random, 0.05F, 0, 2, k + 2, Blocks.WEB, 0);
+                this.a(world, structureboundingbox, random, 0.05F, 2, 2, k + 2, Blocks.WEB, 0);
+                this.a(world, structureboundingbox, random, 0.05F, 1, 2, k - 1, Blocks.TORCH, 0);
+                this.a(world, structureboundingbox, random, 0.05F, 1, 2, k + 1, Blocks.TORCH, 0);
                 if (random.nextInt(100) == 0) {
-                    this.a(world, structureboundingbox, random, 2, 0, k - 1, StructurePieceTreasure.a(WorldGenMineshaftPieces.b(), new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 3 + random.nextInt(4));
+                    this.a(world, structureboundingbox, random, 2, 0, k - 1, StructurePieceTreasure.a(WorldGenMineshaftPieces.b(), new StructurePieceTreasure[] { Items.ENCHANTED_BOOK.b(random)}), 3 + random.nextInt(4));
                 }
 
                 if (random.nextInt(100) == 0) {
-                    this.a(world, structureboundingbox, random, 0, 0, k + 1, StructurePieceTreasure.a(WorldGenMineshaftPieces.b(), new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)}), 3 + random.nextInt(4));
+                    this.a(world, structureboundingbox, random, 0, 0, k + 1, StructurePieceTreasure.a(WorldGenMineshaftPieces.b(), new StructurePieceTreasure[] { Items.ENCHANTED_BOOK.b(random)}), 3 + random.nextInt(4));
                 }
 
                 if (this.b && !this.c) {
-                    l = this.a(0);
+                    int l = this.a(0);
                     int i1 = k - 1 + random.nextInt(3);
                     int j1 = this.a(1, i1);
 
                     i1 = this.b(1, i1);
                     if (structureboundingbox.b(j1, l, i1)) {
                         this.c = true;
-                        world.setTypeIdAndData(j1, l, i1, Block.MOB_SPAWNER.id, 0, 2);
+                        world.setTypeAndData(j1, l, i1, Blocks.MOB_SPAWNER, 0, 2);
                         TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(j1, l, i1);
 
                         if (tileentitymobspawner != null) {
@@ -233,18 +234,23 @@ public class WorldGenMineshaftCorridor extends StructurePiece {
 
             for (j = 0; j <= 2; ++j) {
                 for (k = 0; k <= i; ++k) {
-                    l = this.a(world, j, -1, k, structureboundingbox);
-                    if (l == 0) {
-                        this.a(world, Block.WOOD.id, 0, j, -1, k, structureboundingbox);
+                    byte b0 = -1;
+                    Block block = this.a(world, j, b0, k, structureboundingbox);
+
+                    if (block.getMaterial() == Material.AIR) {
+                        byte b1 = -1;
+
+                        this.a(world, Blocks.WOOD, 0, j, b1, k, structureboundingbox);
                     }
                 }
             }
 
             if (this.a) {
                 for (j = 0; j <= i; ++j) {
-                    k = this.a(world, 1, -1, j, structureboundingbox);
-                    if (k > 0 && Block.t[k]) {
-                        this.a(world, structureboundingbox, random, 0.7F, 1, 0, j, Block.RAILS.id, this.c(Block.RAILS.id, 0));
+                    Block block1 = this.a(world, 1, -1, j, structureboundingbox);
+
+                    if (block1.getMaterial() != Material.AIR && block1.j()) {
+                        this.a(world, structureboundingbox, random, 0.7F, 1, 0, j, Blocks.RAILS, this.a(Blocks.RAILS, 0));
                     }
                 }
             }

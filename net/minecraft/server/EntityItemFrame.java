@@ -13,20 +13,39 @@ public class EntityItemFrame extends EntityHanging {
         this.setDirection(l);
     }
 
-    protected void a() {
+    protected void c() {
         this.getDataWatcher().a(2, 5);
         this.getDataWatcher().a(3, Byte.valueOf((byte) 0));
     }
 
-    public int d() {
+    public boolean damageEntity(DamageSource damagesource, float f) {
+        if (this.isInvulnerable()) {
+            return false;
+        } else if (this.getItem() != null) {
+            if (!this.world.isStatic) {
+                this.b(damagesource.getEntity(), false);
+                this.setItem((ItemStack) null);
+            }
+
+            return true;
+        } else {
+            return super.damageEntity(damagesource, f);
+        }
+    }
+
+    public int f() {
         return 9;
     }
 
-    public int e() {
+    public int i() {
         return 9;
     }
 
     public void b(Entity entity) {
+        this.b(entity, true);
+    }
+
+    public void b(Entity entity, boolean flag) {
         ItemStack itemstack = this.getItem();
 
         if (entity instanceof EntityHuman) {
@@ -38,7 +57,10 @@ public class EntityItemFrame extends EntityHanging {
             }
         }
 
-        this.a(new ItemStack(Item.ITEM_FRAME), 0.0F);
+        if (flag) {
+            this.a(new ItemStack(Items.ITEM_FRAME), 0.0F);
+        }
+
         if (itemstack != null && this.random.nextFloat() < this.e) {
             itemstack = itemstack.cloneItemStack();
             this.b(itemstack);
@@ -48,10 +70,10 @@ public class EntityItemFrame extends EntityHanging {
 
     private void b(ItemStack itemstack) {
         if (itemstack != null) {
-            if (itemstack.id == Item.MAP.id) {
+            if (itemstack.getItem() == Items.MAP) {
                 WorldMap worldmap = ((ItemWorldMap) itemstack.getItem()).getSavedMap(itemstack, this.world);
 
-                worldmap.g.remove("frame-" + this.id);
+                worldmap.g.remove("frame-" + this.getId());
             }
 
             itemstack.a((EntityItemFrame) null);
@@ -63,9 +85,12 @@ public class EntityItemFrame extends EntityHanging {
     }
 
     public void setItem(ItemStack itemstack) {
-        itemstack = itemstack.cloneItemStack();
-        itemstack.count = 1;
-        itemstack.a(this);
+        if (itemstack != null) {
+            itemstack = itemstack.cloneItemStack();
+            itemstack.count = 1;
+            itemstack.a(this);
+        }
+
         this.getDataWatcher().watch(2, itemstack);
         this.getDataWatcher().h(2);
     }
@@ -80,7 +105,7 @@ public class EntityItemFrame extends EntityHanging {
 
     public void b(NBTTagCompound nbttagcompound) {
         if (this.getItem() != null) {
-            nbttagcompound.setCompound("Item", this.getItem().save(new NBTTagCompound()));
+            nbttagcompound.set("Item", this.getItem().save(new NBTTagCompound()));
             nbttagcompound.setByte("ItemRotation", (byte) this.getRotation());
             nbttagcompound.setFloat("ItemDropChance", this.e);
         }
@@ -94,7 +119,7 @@ public class EntityItemFrame extends EntityHanging {
         if (nbttagcompound1 != null && !nbttagcompound1.isEmpty()) {
             this.setItem(ItemStack.createStack(nbttagcompound1));
             this.setRotation(nbttagcompound.getByte("ItemRotation"));
-            if (nbttagcompound.hasKey("ItemDropChance")) {
+            if (nbttagcompound.hasKeyOfType("ItemDropChance", 99)) {
                 this.e = nbttagcompound.getFloat("ItemDropChance");
             }
         }
@@ -104,7 +129,7 @@ public class EntityItemFrame extends EntityHanging {
 
     public boolean c(EntityHuman entityhuman) {
         if (this.getItem() == null) {
-            ItemStack itemstack = entityhuman.aZ();
+            ItemStack itemstack = entityhuman.be();
 
             if (itemstack != null && !this.world.isStatic) {
                 this.setItem(itemstack);

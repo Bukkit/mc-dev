@@ -13,18 +13,22 @@ public class PathfinderGoalMoveIndoors extends PathfinderGoal {
     }
 
     public boolean a() {
-        if ((!this.a.world.v() || this.a.world.Q()) && !this.a.world.worldProvider.g) {
-            if (this.a.aD().nextInt(50) != 0) {
+        int i = MathHelper.floor(this.a.locX);
+        int j = MathHelper.floor(this.a.locY);
+        int k = MathHelper.floor(this.a.locZ);
+
+        if ((!this.a.world.v() || this.a.world.P() || !this.a.world.getBiome(i, k).e()) && !this.a.world.worldProvider.g) {
+            if (this.a.aI().nextInt(50) != 0) {
                 return false;
             } else if (this.c != -1 && this.a.e((double) this.c, this.a.locY, (double) this.d) < 4.0D) {
                 return false;
             } else {
-                Village village = this.a.world.villages.getClosestVillage(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locY), MathHelper.floor(this.a.locZ), 14);
+                Village village = this.a.world.villages.getClosestVillage(i, j, k, 14);
 
                 if (village == null) {
                     return false;
                 } else {
-                    this.b = village.c(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locY), MathHelper.floor(this.a.locZ));
+                    this.b = village.c(i, j, k);
                     return this.b != null;
                 }
             }

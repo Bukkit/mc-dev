@@ -64,8 +64,8 @@ public class SlotMerchantResult extends Slot {
         ItemStack itemstack2 = merchantrecipe.getBuyItem1();
         ItemStack itemstack3 = merchantrecipe.getBuyItem2();
 
-        if (itemstack != null && itemstack.id == itemstack2.id) {
-            if (itemstack3 != null && itemstack1 != null && itemstack3.id == itemstack1.id) {
+        if (itemstack != null && itemstack.getItem() == itemstack2.getItem()) {
+            if (itemstack3 != null && itemstack1 != null && itemstack3.getItem() == itemstack1.getItem()) {
                 itemstack.count -= itemstack2.count;
                 itemstack1.count -= itemstack3.count;
                 return true;

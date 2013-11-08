@@ -30,14 +30,14 @@ public class CommandBanIp extends CommandAbstract {
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 1 && astring[0].length() > 1) {
             Matcher matcher = a.matcher(astring[0]);
-            String s = null;
+            IChatBaseComponent ichatbasecomponent = null;
 
             if (astring.length >= 2) {
-                s = a(icommandlistener, astring, 1);
+                ichatbasecomponent = a(icommandlistener, astring, 1);
             }
 
             if (matcher.matches()) {
-                this.a(icommandlistener, astring[0], s);
+                this.a(icommandlistener, astring[0], ichatbasecomponent == null ? null : ichatbasecomponent.c());
             } else {
                 EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().getPlayer(astring[0]);
 
@@ -45,7 +45,7 @@ public class CommandBanIp extends CommandAbstract {
                     throw new ExceptionPlayerNotFound("commands.banip.invalid", new Object[0]);
                 }
 
-                this.a(icommandlistener, entityplayer.q(), s);
+                this.a(icommandlistener, entityplayer.s(), ichatbasecomponent == null ? null : ichatbasecomponent.c());
             }
         } else {
             throw new ExceptionUsage("commands.banip.usage", new Object[0]);
@@ -65,13 +65,13 @@ public class CommandBanIp extends CommandAbstract {
         }
 
         MinecraftServer.getServer().getPlayerList().getIPBans().add(banentry);
-        List list = MinecraftServer.getServer().getPlayerList().i(s);
+        List list = MinecraftServer.getServer().getPlayerList().h(s);
         String[] astring = new String[list.size()];
         int i = 0;
 
         EntityPlayer entityplayer;
 
-        for (Iterator iterator = list.iterator(); iterator.hasNext(); astring[i++] = entityplayer.getLocalizedName()) {
+        for (Iterator iterator = list.iterator(); iterator.hasNext(); astring[i++] = entityplayer.getName()) {
             entityplayer = (EntityPlayer) iterator.next();
             entityplayer.playerConnection.disconnect("You have been IP banned.");
         }

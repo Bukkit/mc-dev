@@ -12,9 +12,9 @@ public interface IInventory {
 
     void setItem(int i, ItemStack itemstack);
 
-    String getName();
+    String getInventoryName();
 
-    boolean c();
+    boolean k_();
 
     int getMaxStackSize();
 
@@ -24,7 +24,7 @@ public interface IInventory {
 
     void startOpen();
 
-    void g();
+    void l_();
 
     boolean b(int i, ItemStack itemstack);
 }

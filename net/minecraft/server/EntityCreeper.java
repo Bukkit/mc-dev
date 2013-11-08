@@ -20,16 +20,16 @@ public class EntityCreeper extends EntityMonster {
         this.targetSelector.a(2, new PathfinderGoalHurtByTarget(this, false));
     }
 
-    protected void az() {
-        super.az();
+    protected void aD() {
+        super.aD();
         this.getAttributeInstance(GenericAttributes.d).setValue(0.25D);
     }
 
-    public boolean bf() {
+    public boolean bk() {
         return true;
     }
 
-    public int as() {
+    public int ax() {
         return this.getGoalTarget() == null ? 3 : 3 + (int) (this.getHealth() - 1.0F);
     }
 
@@ -41,10 +41,11 @@ public class EntityCreeper extends EntityMonster {
         }
     }
 
-    protected void a() {
-        super.a();
+    protected void c() {
+        super.c();
         this.datawatcher.a(16, Byte.valueOf((byte) -1));
         this.datawatcher.a(17, Byte.valueOf((byte) 0));
+        this.datawatcher.a(18, Byte.valueOf((byte) 0));
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -55,27 +56,36 @@ public class EntityCreeper extends EntityMonster {
 
         nbttagcompound.setShort("Fuse", (short) this.maxFuseTicks);
         nbttagcompound.setByte("ExplosionRadius", (byte) this.explosionRadius);
+        nbttagcompound.setBoolean("ignited", this.ca());
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
         this.datawatcher.watch(17, Byte.valueOf((byte) (nbttagcompound.getBoolean("powered") ? 1 : 0)));
-        if (nbttagcompound.hasKey("Fuse")) {
+        if (nbttagcompound.hasKeyOfType("Fuse", 99)) {
             this.maxFuseTicks = nbttagcompound.getShort("Fuse");
         }
 
-        if (nbttagcompound.hasKey("ExplosionRadius")) {
+        if (nbttagcompound.hasKeyOfType("ExplosionRadius", 99)) {
             this.explosionRadius = nbttagcompound.getByte("ExplosionRadius");
+        }
+
+        if (nbttagcompound.getBoolean("ignited")) {
+            this.cb();
         }
     }
 
-    public void l_() {
+    public void h() {
         if (this.isAlive()) {
             this.bp = this.fuseTicks;
-            int i = this.bV();
+            if (this.ca()) {
+                this.a(1);
+            }
+
+            int i = this.bZ();
 
             if (i > 0 && this.fuseTicks == 0) {
-                this.makeSound("random.fuse", 1.0F, 0.5F);
+                this.makeSound("creeper.primed", 1.0F, 0.5F);
             }
 
             this.fuseTicks += i;
@@ -85,37 +95,29 @@ public class EntityCreeper extends EntityMonster {
 
             if (this.fuseTicks >= this.maxFuseTicks) {
                 this.fuseTicks = this.maxFuseTicks;
-                if (!this.world.isStatic) {
-                    boolean flag = this.world.getGameRules().getBoolean("mobGriefing");
-
-                    if (this.isPowered()) {
-                        this.world.explode(this, this.locX, this.locY, this.locZ, (float) (this.explosionRadius * 2), flag);
-                    } else {
-                        this.world.explode(this, this.locX, this.locY, this.locZ, (float) this.explosionRadius, flag);
-                    }
-
-                    this.die();
-                }
+                this.cc();
             }
         }
 
-        super.l_();
+        super.h();
     }
 
-    protected String aO() {
+    protected String aT() {
         return "mob.creeper.say";
     }
 
-    protected String aP() {
+    protected String aU() {
         return "mob.creeper.death";
     }
 
     public void die(DamageSource damagesource) {
         super.die(damagesource);
         if (damagesource.getEntity() instanceof EntitySkeleton) {
-            int i = Item.RECORD_1.id + this.random.nextInt(Item.RECORD_12.id - Item.RECORD_1.id + 1);
+            int i = Item.b(Items.RECORD_1);
+            int j = Item.b(Items.RECORD_12);
+            int k = i + this.random.nextInt(j - i + 1);
 
-            this.b(i, 1);
+            this.a(Item.d(k), 1);
         }
     }
 
@@ -127,11 +129,11 @@ public class EntityCreeper extends EntityMonster {
         return this.datawatcher.getByte(17) == 1;
     }
 
-    protected int getLootId() {
-        return Item.SULPHUR.id;
+    protected Item getLoot() {
+        return Items.SULPHUR;
     }
 
-    public int bV() {
+    public int bZ() {
         return this.datawatcher.getByte(16);
     }
 
@@ -142,5 +144,43 @@ public class EntityCreeper extends EntityMonster {
     public void a(EntityLightning entitylightning) {
         super.a(entitylightning);
         this.datawatcher.watch(17, Byte.valueOf((byte) 1));
+    }
+
+    protected boolean a(EntityHuman entityhuman) {
+        ItemStack itemstack = entityhuman.inventory.getItemInHand();
+
+        if (itemstack != null && itemstack.getItem() == Items.FLINT_AND_STEEL) {
+            this.world.makeSound(this.locX + 0.5D, this.locY + 0.5D, this.locZ + 0.5D, "fire.ignite", 1.0F, this.random.nextFloat() * 0.4F + 0.8F);
+            entityhuman.ba();
+            if (!this.world.isStatic) {
+                this.cb();
+                itemstack.damage(1, entityhuman);
+                return true;
+            }
+        }
+
+        return super.a(entityhuman);
+    }
+
+    private void cc() {
+        if (!this.world.isStatic) {
+            boolean flag = this.world.getGameRules().getBoolean("mobGriefing");
+
+            if (this.isPowered()) {
+                this.world.explode(this, this.locX, this.locY, this.locZ, (float) (this.explosionRadius * 2), flag);
+            } else {
+                this.world.explode(this, this.locX, this.locY, this.locZ, (float) this.explosionRadius, flag);
+            }
+
+            this.die();
+        }
+    }
+
+    public boolean ca() {
+        return this.datawatcher.getByte(18) != 0;
+    }
+
+    public void cb() {
+        this.datawatcher.watch(18, Byte.valueOf((byte) 1));
     }
 }

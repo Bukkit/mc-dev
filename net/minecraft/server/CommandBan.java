@@ -29,7 +29,7 @@ public class CommandBan extends CommandAbstract {
 
             banentry.setSource(icommandlistener.getName());
             if (astring.length >= 2) {
-                banentry.setReason(a(icommandlistener, astring, 1));
+                banentry.setReason(a(icommandlistener, astring, 1).c());
             }
 
             MinecraftServer.getServer().getPlayerList().getNameBans().add(banentry);

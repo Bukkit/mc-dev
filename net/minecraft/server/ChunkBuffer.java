@@ -6,7 +6,6 @@ class ChunkBuffer extends ByteArrayOutputStream {
 
     private int b;
     private int c;
-
     final RegionFile a;
 
     public ChunkBuffer(RegionFile regionfile, int i, int j) {

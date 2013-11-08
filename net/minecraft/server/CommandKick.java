@@ -28,15 +28,15 @@ public class CommandKick extends CommandAbstract {
                 throw new ExceptionPlayerNotFound();
             } else {
                 if (astring.length >= 2) {
-                    s = a(icommandlistener, astring, 1);
+                    s = a(icommandlistener, astring, 1).c();
                     flag = true;
                 }
 
                 entityplayer.playerConnection.disconnect(s);
                 if (flag) {
-                    a(icommandlistener, "commands.kick.success.reason", new Object[] { entityplayer.getLocalizedName(), s});
+                    a(icommandlistener, "commands.kick.success.reason", new Object[] { entityplayer.getName(), s});
                 } else {
-                    a(icommandlistener, "commands.kick.success", new Object[] { entityplayer.getLocalizedName()});
+                    a(icommandlistener, "commands.kick.success", new Object[] { entityplayer.getName()});
                 }
             }
         } else {

@@ -94,9 +94,13 @@ public class CrashReportSystemDetails {
     public int a(int i) {
         StackTraceElement[] astacktraceelement = Thread.currentThread().getStackTrace();
 
-        this.d = new StackTraceElement[astacktraceelement.length - 3 - i];
-        System.arraycopy(astacktraceelement, 3 + i, this.d, 0, this.d.length);
-        return this.d.length;
+        if (astacktraceelement.length <= 0) {
+            return 0;
+        } else {
+            this.d = new StackTraceElement[astacktraceelement.length - 3 - i];
+            System.arraycopy(astacktraceelement, 3 + i, this.d, 0, this.d.length);
+            return this.d.length;
+        }
     }
 
     public boolean a(StackTraceElement stacktraceelement, StackTraceElement stacktraceelement1) {
@@ -155,9 +159,15 @@ public class CrashReportSystemDetails {
         }
     }
 
-    public static void a(CrashReportSystemDetails crashreportsystemdetails, int i, int j, int k, int l, int i1) {
-        crashreportsystemdetails.a("Block type", (Callable) (new CrashReportBlockType(l)));
-        crashreportsystemdetails.a("Block data value", (Callable) (new CrashReportBlockDataValue(i1)));
+    public StackTraceElement[] a() {
+        return this.d;
+    }
+
+    public static void a(CrashReportSystemDetails crashreportsystemdetails, int i, int j, int k, Block block, int l) {
+        int i1 = Block.b(block);
+
+        crashreportsystemdetails.a("Block type", (Callable) (new CrashReportBlockType(i1, block)));
+        crashreportsystemdetails.a("Block data value", (Callable) (new CrashReportBlockDataValue(l)));
         crashreportsystemdetails.a("Block location", (Callable) (new CrashReportBlockLocation(i, j, k)));
     }
 }

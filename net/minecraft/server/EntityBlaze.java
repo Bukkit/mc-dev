@@ -12,25 +12,25 @@ public class EntityBlaze extends EntityMonster {
         this.b = 10;
     }
 
-    protected void az() {
-        super.az();
+    protected void aD() {
+        super.aD();
         this.getAttributeInstance(GenericAttributes.e).setValue(6.0D);
     }
 
-    protected void a() {
-        super.a();
+    protected void c() {
+        super.c();
         this.datawatcher.a(16, new Byte((byte) 0));
     }
 
-    protected String r() {
+    protected String t() {
         return "mob.blaze.breathe";
     }
 
-    protected String aO() {
+    protected String aT() {
         return "mob.blaze.hit";
     }
 
-    protected String aP() {
+    protected String aU() {
         return "mob.blaze.death";
     }
 
@@ -38,9 +38,9 @@ public class EntityBlaze extends EntityMonster {
         return 1.0F;
     }
 
-    public void c() {
+    public void e() {
         if (!this.world.isStatic) {
-            if (this.G()) {
+            if (this.L()) {
                 this.damageEntity(DamageSource.DROWN, 1.0F);
             }
 
@@ -50,7 +50,7 @@ public class EntityBlaze extends EntityMonster {
                 this.bp = 0.5F + (float) this.random.nextGaussian() * 3.0F;
             }
 
-            if (this.bN() != null && this.bN().locY + (double) this.bN().getHeadHeight() > this.locY + (double) this.getHeadHeight() + (double) this.bp) {
+            if (this.bR() != null && this.bR().locY + (double) this.bR().getHeadHeight() > this.locY + (double) this.getHeadHeight() + (double) this.bp) {
                 this.motY += (0.30000001192092896D - this.motY) * 0.30000001192092896D;
             }
         }
@@ -67,7 +67,7 @@ public class EntityBlaze extends EntityMonster {
             this.world.addParticle("largesmoke", this.locX + (this.random.nextDouble() - 0.5D) * (double) this.width, this.locY + this.random.nextDouble() * (double) this.length, this.locZ + (this.random.nextDouble() - 0.5D) * (double) this.width, 0.0D, 0.0D, 0.0D);
         }
 
-        super.c();
+        super.e();
     }
 
     protected void a(Entity entity, float f) {
@@ -113,12 +113,12 @@ public class EntityBlaze extends EntityMonster {
 
     protected void b(float f) {}
 
-    protected int getLootId() {
-        return Item.BLAZE_ROD.id;
+    protected Item getLoot() {
+        return Items.BLAZE_ROD;
     }
 
     public boolean isBurning() {
-        return this.bT();
+        return this.bX();
     }
 
     protected void dropDeathLoot(boolean flag, int i) {
@@ -126,12 +126,12 @@ public class EntityBlaze extends EntityMonster {
             int j = this.random.nextInt(2 + i);
 
             for (int k = 0; k < j; ++k) {
-                this.b(Item.BLAZE_ROD.id, 1);
+                this.a(Items.BLAZE_ROD, 1);
             }
         }
     }
 
-    public boolean bT() {
+    public boolean bX() {
         return (this.datawatcher.getByte(16) & 1) != 0;
     }
 
@@ -147,7 +147,7 @@ public class EntityBlaze extends EntityMonster {
         this.datawatcher.watch(16, Byte.valueOf(b0));
     }
 
-    protected boolean i_() {
+    protected boolean j_() {
         return true;
     }
 }

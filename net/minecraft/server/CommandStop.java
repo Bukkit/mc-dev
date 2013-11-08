@@ -8,10 +8,6 @@ public class CommandStop extends CommandAbstract {
         return "stop";
     }
 
-    public int a() {
-        return 4;
-    }
-
     public String c(ICommandListener icommandlistener) {
         return "commands.stop.usage";
     }

@@ -3,7 +3,6 @@ package net.minecraft.server;
 class EntitySelectorNearestAttackableTarget implements IEntitySelector {
 
     final IEntitySelector c;
-
     final PathfinderGoalNearestAttackableTarget d;
 
     EntitySelectorNearestAttackableTarget(PathfinderGoalNearestAttackableTarget pathfindergoalnearestattackabletarget, IEntitySelector ientityselector) {

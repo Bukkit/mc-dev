@@ -26,7 +26,7 @@ public class PathfinderGoalBeg extends PathfinderGoal {
 
     public void c() {
         this.a.m(true);
-        this.e = 40 + this.a.aD().nextInt(40);
+        this.e = 40 + this.a.aI().nextInt(40);
     }
 
     public void d() {
@@ -35,13 +35,13 @@ public class PathfinderGoalBeg extends PathfinderGoal {
     }
 
     public void e() {
-        this.a.getControllerLook().a(this.b.locX, this.b.locY + (double) this.b.getHeadHeight(), this.b.locZ, 10.0F, (float) this.a.bp());
+        this.a.getControllerLook().a(this.b.locX, this.b.locY + (double) this.b.getHeadHeight(), this.b.locZ, 10.0F, (float) this.a.x());
         --this.e;
     }
 
     private boolean a(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
-        return itemstack == null ? false : (!this.a.isTamed() && itemstack.id == Item.BONE.id ? true : this.a.c(itemstack));
+        return itemstack == null ? false : (!this.a.isTamed() && itemstack.getItem() == Items.BONE ? true : this.a.c(itemstack));
     }
 }

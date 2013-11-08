@@ -2,14 +2,14 @@ package net.minecraft.server;
 
 public class BlockEnchantmentTable extends BlockContainer {
 
-    protected BlockEnchantmentTable(int i) {
-        super(i, Material.STONE);
+    protected BlockEnchantmentTable() {
+        super(Material.STONE);
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
-        this.k(0);
+        this.g(0);
         this.a(CreativeModeTab.c);
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
@@ -17,7 +17,7 @@ public class BlockEnchantmentTable extends BlockContainer {
         return false;
     }
 
-    public TileEntity b(World world) {
+    public TileEntity a(World world, int i) {
         return new TileEntityEnchantTable();
     }
 

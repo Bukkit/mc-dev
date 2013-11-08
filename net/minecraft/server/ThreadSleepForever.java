@@ -4,7 +4,8 @@ class ThreadSleepForever extends Thread {
 
     final DedicatedServer a;
 
-    ThreadSleepForever(DedicatedServer dedicatedserver) {
+    ThreadSleepForever(DedicatedServer dedicatedserver, String s) {
+        super(s);
         this.a = dedicatedserver;
         this.setDaemon(true);
         this.start();

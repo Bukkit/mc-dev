@@ -10,7 +10,7 @@ public class EmptyChunk extends Chunk {
     }
 
     public boolean a(int i, int j) {
-        return i == this.x && j == this.z;
+        return i == this.locX && j == this.locZ;
     }
 
     public int b(int i, int j) {
@@ -19,15 +19,15 @@ public class EmptyChunk extends Chunk {
 
     public void initLighting() {}
 
-    public int getTypeId(int i, int j, int k) {
-        return 0;
+    public Block getType(int i, int j, int k) {
+        return Blocks.AIR;
     }
 
     public int b(int i, int j, int k) {
         return 255;
     }
 
-    public boolean a(int i, int j, int k, int l, int i1) {
+    public boolean a(int i, int j, int k, Block block, int l) {
         return true;
     }
 
@@ -35,7 +35,7 @@ public class EmptyChunk extends Chunk {
         return 0;
     }
 
-    public boolean b(int i, int j, int k, int l) {
+    public boolean a(int i, int j, int k, int l) {
         return false;
     }
 
@@ -45,7 +45,7 @@ public class EmptyChunk extends Chunk {
 
     public void a(EnumSkyBlock enumskyblock, int i, int j, int k, int l) {}
 
-    public int c(int i, int j, int k, int l) {
+    public int b(int i, int j, int k, int l) {
         return 0;
     }
 
@@ -84,7 +84,7 @@ public class EmptyChunk extends Chunk {
     }
 
     public Random a(long i) {
-        return new Random(this.world.getSeed() + (long) (this.x * this.x * 4987142) + (long) (this.x * 5947611) + (long) (this.z * this.z) * 4392871L + (long) (this.z * 389711) ^ i);
+        return new Random(this.world.getSeed() + (long) (this.locX * this.locX * 4987142) + (long) (this.locX * 5947611) + (long) (this.locZ * this.locZ) * 4392871L + (long) (this.locZ * 389711) ^ i);
     }
 
     public boolean isEmpty() {

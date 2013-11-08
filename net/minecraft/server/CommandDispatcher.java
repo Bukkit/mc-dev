@@ -24,12 +24,18 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
         this.a(new CommandTell());
         this.a(new CommandSay());
         this.a(new CommandSpawnpoint());
+        this.a(new CommandSetWorldSpawn());
         this.a(new CommandGamerule());
         this.a(new CommandClear());
         this.a(new CommandTestFor());
         this.a(new CommandSpreadPlayers());
         this.a(new CommandPlaySound());
         this.a(new CommandScoreboard());
+        this.a(new CommandAchievement());
+        this.a(new CommandSummon());
+        this.a(new CommandSetBlock());
+        this.a(new CommandTestForBlock());
+        this.a(new CommandTellRaw());
         if (MinecraftServer.getServer().V()) {
             this.a(new CommandOp());
             this.a(new CommandDeop());
@@ -56,14 +62,14 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
     public void a(ICommandListener icommandlistener, int i, String s, Object... aobject) {
         boolean flag = true;
 
-        if (icommandlistener instanceof TileEntityCommand && !MinecraftServer.getServer().worldServer[0].getGameRules().getBoolean("commandBlockOutput")) {
+        if (icommandlistener instanceof CommandBlockListenerAbstract && !MinecraftServer.getServer().worldServer[0].getGameRules().getBoolean("commandBlockOutput")) {
             flag = false;
         }
 
-        ChatMessage chatmessage = ChatMessage.b("chat.type.admin", new Object[] { icommandlistener.getName(), ChatMessage.b(s, aobject)});
+        ChatMessage chatmessage = new ChatMessage("chat.type.admin", new Object[] { icommandlistener.getName(), new ChatMessage(s, aobject)});
 
-        chatmessage.a(EnumChatFormat.GRAY);
-        chatmessage.b(Boolean.valueOf(true));
+        chatmessage.b().setColor(EnumChatFormat.GRAY);
+        chatmessage.b().setItalic(Boolean.valueOf(true));
         if (flag) {
             Iterator iterator = MinecraftServer.getServer().getPlayerList().players.iterator();
 
@@ -81,7 +87,7 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
         }
 
         if ((i & 1) != 1) {
-            icommandlistener.sendMessage(ChatMessage.b(s, aobject));
+            icommandlistener.sendMessage(new ChatMessage(s, aobject));
         }
     }
 }

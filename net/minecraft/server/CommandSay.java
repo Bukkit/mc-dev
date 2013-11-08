@@ -20,9 +20,9 @@ public class CommandSay extends CommandAbstract {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0 && astring[0].length() > 0) {
-            String s = a(icommandlistener, astring, 0, true);
+            IChatBaseComponent ichatbasecomponent = a(icommandlistener, astring, 0, true);
 
-            MinecraftServer.getServer().getPlayerList().sendMessage(ChatMessage.b("chat.type.announcement", new Object[] { icommandlistener.getName(), s}));
+            MinecraftServer.getServer().getPlayerList().sendMessage(new ChatMessage("chat.type.announcement", new Object[] { icommandlistener.getName(), ichatbasecomponent}));
         } else {
             throw new ExceptionUsage("commands.say.usage", new Object[0]);
         }

@@ -2,11 +2,9 @@ package net.minecraft.server;
 
 public class ItemWorldMapBase extends Item {
 
-    protected ItemWorldMapBase(int i) {
-        super(i);
-    }
+    protected ItemWorldMapBase() {}
 
-    public boolean f() {
+    public boolean h() {
         return true;
     }
 

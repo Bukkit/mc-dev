@@ -80,11 +80,11 @@ public class InventoryMerchant implements IInventory {
         }
     }
 
-    public String getName() {
+    public String getInventoryName() {
         return "mob.villager";
     }
 
-    public boolean c() {
+    public boolean k_() {
         return false;
     }
 
@@ -93,12 +93,12 @@ public class InventoryMerchant implements IInventory {
     }
 
     public boolean a(EntityHuman entityhuman) {
-        return this.merchant.m_() == entityhuman;
+        return this.merchant.b() == entityhuman;
     }
 
     public void startOpen() {}
 
-    public void g() {}
+    public void l_() {}
 
     public boolean b(int i, ItemStack itemstack) {
         return true;

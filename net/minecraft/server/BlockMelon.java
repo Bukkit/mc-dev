@@ -4,13 +4,13 @@ import java.util.Random;
 
 public class BlockMelon extends Block {
 
-    protected BlockMelon(int i) {
-        super(i, Material.PUMPKIN);
+    protected BlockMelon() {
+        super(Material.PUMPKIN);
         this.a(CreativeModeTab.b);
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Item.MELON.id;
+    public Item getDropType(int i, Random random, int j) {
+        return Items.MELON;
     }
 
     public int a(Random random) {

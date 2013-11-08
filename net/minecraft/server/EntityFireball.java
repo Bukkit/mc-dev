@@ -7,7 +7,7 @@ public abstract class EntityFireball extends Entity {
     private int e = -1;
     private int f = -1;
     private int g = -1;
-    private int h;
+    private Block h;
     private boolean i;
     public EntityLiving shooter;
     private int j;
@@ -21,7 +21,7 @@ public abstract class EntityFireball extends Entity {
         this.a(1.0F, 1.0F);
     }
 
-    protected void a() {}
+    protected void c() {}
 
     public EntityFireball(World world, double d0, double d1, double d2, double d3, double d4, double d5) {
         super(world);
@@ -53,16 +53,14 @@ public abstract class EntityFireball extends Entity {
         this.dirZ = d2 / d3 * 0.1D;
     }
 
-    public void l_() {
+    public void h() {
         if (!this.world.isStatic && (this.shooter != null && this.shooter.dead || !this.world.isLoaded((int) this.locX, (int) this.locY, (int) this.locZ))) {
             this.die();
         } else {
-            super.l_();
+            super.h();
             this.setOnFire(1);
             if (this.i) {
-                int i = this.world.getTypeId(this.e, this.f, this.g);
-
-                if (i == this.h) {
+                if (this.world.getType(this.e, this.f, this.g) == this.h) {
                     ++this.j;
                     if (this.j == 600) {
                         this.die();
@@ -95,10 +93,10 @@ public abstract class EntityFireball extends Entity {
             List list = this.world.getEntities(this, this.boundingBox.a(this.motX, this.motY, this.motZ).grow(1.0D, 1.0D, 1.0D));
             double d0 = 0.0D;
 
-            for (int j = 0; j < list.size(); ++j) {
-                Entity entity1 = (Entity) list.get(j);
+            for (int i = 0; i < list.size(); ++i) {
+                Entity entity1 = (Entity) list.get(i);
 
-                if (entity1.L() && (!entity1.h(this.shooter) || this.au >= 25)) {
+                if (entity1.R() && (!entity1.h(this.shooter) || this.au >= 25)) {
                     float f = 0.3F;
                     AxisAlignedBB axisalignedbb = entity1.boundingBox.grow((double) f, (double) f, (double) f);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
@@ -147,10 +145,10 @@ public abstract class EntityFireball extends Entity {
 
             this.pitch = this.lastPitch + (this.pitch - this.lastPitch) * 0.2F;
             this.yaw = this.lastYaw + (this.yaw - this.lastYaw) * 0.2F;
-            float f2 = this.c();
+            float f2 = this.e();
 
-            if (this.H()) {
-                for (int k = 0; k < 4; ++k) {
+            if (this.M()) {
+                for (int j = 0; j < 4; ++j) {
                     float f3 = 0.25F;
 
                     this.world.addParticle("bubble", this.locX - this.motX * (double) f3, this.locY - this.motY * (double) f3, this.locZ - this.motZ * (double) f3, this.motX, this.motY, this.motZ);
@@ -170,7 +168,7 @@ public abstract class EntityFireball extends Entity {
         }
     }
 
-    protected float c() {
+    protected float e() {
         return 0.95F;
     }
 
@@ -180,7 +178,7 @@ public abstract class EntityFireball extends Entity {
         nbttagcompound.setShort("xTile", (short) this.e);
         nbttagcompound.setShort("yTile", (short) this.f);
         nbttagcompound.setShort("zTile", (short) this.g);
-        nbttagcompound.setByte("inTile", (byte) this.h);
+        nbttagcompound.setByte("inTile", (byte) Block.b(this.h));
         nbttagcompound.setByte("inGround", (byte) (this.i ? 1 : 0));
         nbttagcompound.set("direction", this.a(new double[] { this.motX, this.motY, this.motZ}));
     }
@@ -189,24 +187,24 @@ public abstract class EntityFireball extends Entity {
         this.e = nbttagcompound.getShort("xTile");
         this.f = nbttagcompound.getShort("yTile");
         this.g = nbttagcompound.getShort("zTile");
-        this.h = nbttagcompound.getByte("inTile") & 255;
+        this.h = Block.e(nbttagcompound.getByte("inTile") & 255);
         this.i = nbttagcompound.getByte("inGround") == 1;
-        if (nbttagcompound.hasKey("direction")) {
-            NBTTagList nbttaglist = nbttagcompound.getList("direction");
+        if (nbttagcompound.hasKeyOfType("direction", 9)) {
+            NBTTagList nbttaglist = nbttagcompound.getList("direction", 6);
 
-            this.motX = ((NBTTagDouble) nbttaglist.get(0)).data;
-            this.motY = ((NBTTagDouble) nbttaglist.get(1)).data;
-            this.motZ = ((NBTTagDouble) nbttaglist.get(2)).data;
+            this.motX = nbttaglist.d(0);
+            this.motY = nbttaglist.d(1);
+            this.motZ = nbttaglist.d(2);
         } else {
             this.die();
         }
     }
 
-    public boolean L() {
+    public boolean R() {
         return true;
     }
 
-    public float Z() {
+    public float af() {
         return 1.0F;
     }
 
@@ -214,9 +212,9 @@ public abstract class EntityFireball extends Entity {
         if (this.isInvulnerable()) {
             return false;
         } else {
-            this.K();
+            this.Q();
             if (damagesource.getEntity() != null) {
-                Vec3D vec3d = damagesource.getEntity().aa();
+                Vec3D vec3d = damagesource.getEntity().ag();
 
                 if (vec3d != null) {
                     this.motX = vec3d.c;

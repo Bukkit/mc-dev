@@ -9,7 +9,7 @@ class MobSpawner extends MobSpawnerAbstract {
     }
 
     public void a(int i) {
-        this.a.world.playNote(this.a.x, this.a.y, this.a.z, Block.MOB_SPAWNER.id, i, 0);
+        this.a.world.playNote(this.a.x, this.a.y, this.a.z, Blocks.MOB_SPAWNER, i, 0);
     }
 
     public World a() {

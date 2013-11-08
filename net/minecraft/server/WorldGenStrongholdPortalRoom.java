@@ -48,31 +48,31 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
         this.a(world, structureboundingbox, 2, b0, 14, 8, b0, 14, false, random, WorldGenStrongholdPieces.c());
         this.a(world, structureboundingbox, 1, 1, 1, 2, 1, 4, false, random, WorldGenStrongholdPieces.c());
         this.a(world, structureboundingbox, 8, 1, 1, 9, 1, 4, false, random, WorldGenStrongholdPieces.c());
-        this.a(world, structureboundingbox, 1, 1, 1, 1, 1, 3, Block.LAVA.id, Block.LAVA.id, false);
-        this.a(world, structureboundingbox, 9, 1, 1, 9, 1, 3, Block.LAVA.id, Block.LAVA.id, false);
+        this.a(world, structureboundingbox, 1, 1, 1, 1, 1, 3, Blocks.LAVA, Blocks.LAVA, false);
+        this.a(world, structureboundingbox, 9, 1, 1, 9, 1, 3, Blocks.LAVA, Blocks.LAVA, false);
         this.a(world, structureboundingbox, 3, 1, 8, 7, 1, 12, false, random, WorldGenStrongholdPieces.c());
-        this.a(world, structureboundingbox, 4, 1, 9, 6, 1, 11, Block.LAVA.id, Block.LAVA.id, false);
+        this.a(world, structureboundingbox, 4, 1, 9, 6, 1, 11, Blocks.LAVA, Blocks.LAVA, false);
 
         int i;
 
         for (i = 3; i < 14; i += 2) {
-            this.a(world, structureboundingbox, 0, 3, i, 0, 4, i, Block.IRON_FENCE.id, Block.IRON_FENCE.id, false);
-            this.a(world, structureboundingbox, 10, 3, i, 10, 4, i, Block.IRON_FENCE.id, Block.IRON_FENCE.id, false);
+            this.a(world, structureboundingbox, 0, 3, i, 0, 4, i, Blocks.IRON_FENCE, Blocks.IRON_FENCE, false);
+            this.a(world, structureboundingbox, 10, 3, i, 10, 4, i, Blocks.IRON_FENCE, Blocks.IRON_FENCE, false);
         }
 
         for (i = 2; i < 9; i += 2) {
-            this.a(world, structureboundingbox, i, 3, 15, i, 4, 15, Block.IRON_FENCE.id, Block.IRON_FENCE.id, false);
+            this.a(world, structureboundingbox, i, 3, 15, i, 4, 15, Blocks.IRON_FENCE, Blocks.IRON_FENCE, false);
         }
 
-        i = this.c(Block.STONE_STAIRS.id, 3);
+        i = this.a(Blocks.STONE_STAIRS, 3);
         this.a(world, structureboundingbox, 4, 1, 5, 6, 1, 7, false, random, WorldGenStrongholdPieces.c());
         this.a(world, structureboundingbox, 4, 2, 6, 6, 2, 7, false, random, WorldGenStrongholdPieces.c());
         this.a(world, structureboundingbox, 4, 3, 7, 6, 3, 7, false, random, WorldGenStrongholdPieces.c());
 
         for (int j = 4; j <= 6; ++j) {
-            this.a(world, Block.STONE_STAIRS.id, i, j, 1, 4, structureboundingbox);
-            this.a(world, Block.STONE_STAIRS.id, i, j, 2, 5, structureboundingbox);
-            this.a(world, Block.STONE_STAIRS.id, i, j, 3, 6, structureboundingbox);
+            this.a(world, Blocks.STONE_STAIRS, i, j, 1, 4, structureboundingbox);
+            this.a(world, Blocks.STONE_STAIRS, i, j, 2, 5, structureboundingbox);
+            this.a(world, Blocks.STONE_STAIRS, i, j, 3, 6, structureboundingbox);
         }
 
         byte b1 = 2;
@@ -103,18 +103,18 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
             b4 = 2;
         }
 
-        this.a(world, Block.ENDER_PORTAL_FRAME.id, b1 + (random.nextFloat() > 0.9F ? 4 : 0), 4, 3, 8, structureboundingbox);
-        this.a(world, Block.ENDER_PORTAL_FRAME.id, b1 + (random.nextFloat() > 0.9F ? 4 : 0), 5, 3, 8, structureboundingbox);
-        this.a(world, Block.ENDER_PORTAL_FRAME.id, b1 + (random.nextFloat() > 0.9F ? 4 : 0), 6, 3, 8, structureboundingbox);
-        this.a(world, Block.ENDER_PORTAL_FRAME.id, b2 + (random.nextFloat() > 0.9F ? 4 : 0), 4, 3, 12, structureboundingbox);
-        this.a(world, Block.ENDER_PORTAL_FRAME.id, b2 + (random.nextFloat() > 0.9F ? 4 : 0), 5, 3, 12, structureboundingbox);
-        this.a(world, Block.ENDER_PORTAL_FRAME.id, b2 + (random.nextFloat() > 0.9F ? 4 : 0), 6, 3, 12, structureboundingbox);
-        this.a(world, Block.ENDER_PORTAL_FRAME.id, b3 + (random.nextFloat() > 0.9F ? 4 : 0), 3, 3, 9, structureboundingbox);
-        this.a(world, Block.ENDER_PORTAL_FRAME.id, b3 + (random.nextFloat() > 0.9F ? 4 : 0), 3, 3, 10, structureboundingbox);
-        this.a(world, Block.ENDER_PORTAL_FRAME.id, b3 + (random.nextFloat() > 0.9F ? 4 : 0), 3, 3, 11, structureboundingbox);
-        this.a(world, Block.ENDER_PORTAL_FRAME.id, b4 + (random.nextFloat() > 0.9F ? 4 : 0), 7, 3, 9, structureboundingbox);
-        this.a(world, Block.ENDER_PORTAL_FRAME.id, b4 + (random.nextFloat() > 0.9F ? 4 : 0), 7, 3, 10, structureboundingbox);
-        this.a(world, Block.ENDER_PORTAL_FRAME.id, b4 + (random.nextFloat() > 0.9F ? 4 : 0), 7, 3, 11, structureboundingbox);
+        this.a(world, Blocks.ENDER_PORTAL_FRAME, b1 + (random.nextFloat() > 0.9F ? 4 : 0), 4, 3, 8, structureboundingbox);
+        this.a(world, Blocks.ENDER_PORTAL_FRAME, b1 + (random.nextFloat() > 0.9F ? 4 : 0), 5, 3, 8, structureboundingbox);
+        this.a(world, Blocks.ENDER_PORTAL_FRAME, b1 + (random.nextFloat() > 0.9F ? 4 : 0), 6, 3, 8, structureboundingbox);
+        this.a(world, Blocks.ENDER_PORTAL_FRAME, b2 + (random.nextFloat() > 0.9F ? 4 : 0), 4, 3, 12, structureboundingbox);
+        this.a(world, Blocks.ENDER_PORTAL_FRAME, b2 + (random.nextFloat() > 0.9F ? 4 : 0), 5, 3, 12, structureboundingbox);
+        this.a(world, Blocks.ENDER_PORTAL_FRAME, b2 + (random.nextFloat() > 0.9F ? 4 : 0), 6, 3, 12, structureboundingbox);
+        this.a(world, Blocks.ENDER_PORTAL_FRAME, b3 + (random.nextFloat() > 0.9F ? 4 : 0), 3, 3, 9, structureboundingbox);
+        this.a(world, Blocks.ENDER_PORTAL_FRAME, b3 + (random.nextFloat() > 0.9F ? 4 : 0), 3, 3, 10, structureboundingbox);
+        this.a(world, Blocks.ENDER_PORTAL_FRAME, b3 + (random.nextFloat() > 0.9F ? 4 : 0), 3, 3, 11, structureboundingbox);
+        this.a(world, Blocks.ENDER_PORTAL_FRAME, b4 + (random.nextFloat() > 0.9F ? 4 : 0), 7, 3, 9, structureboundingbox);
+        this.a(world, Blocks.ENDER_PORTAL_FRAME, b4 + (random.nextFloat() > 0.9F ? 4 : 0), 7, 3, 10, structureboundingbox);
+        this.a(world, Blocks.ENDER_PORTAL_FRAME, b4 + (random.nextFloat() > 0.9F ? 4 : 0), 7, 3, 11, structureboundingbox);
         if (!this.a) {
             int k = this.a(3);
             int l = this.a(5, 6);
@@ -122,7 +122,7 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
 
             if (structureboundingbox.b(l, k, i1)) {
                 this.a = true;
-                world.setTypeIdAndData(l, k, i1, Block.MOB_SPAWNER.id, 0, 2);
+                world.setTypeAndData(l, k, i1, Blocks.MOB_SPAWNER, 0, 2);
                 TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(l, k, i1);
 
                 if (tileentitymobspawner != null) {

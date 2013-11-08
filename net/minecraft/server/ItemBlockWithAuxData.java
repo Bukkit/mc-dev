@@ -2,11 +2,11 @@ package net.minecraft.server;
 
 public class ItemBlockWithAuxData extends ItemBlock {
 
-    private Block a;
+    private Block b;
 
-    public ItemBlockWithAuxData(int i, Block block) {
-        super(i);
-        this.a = block;
+    public ItemBlockWithAuxData(Block block, Block block1) {
+        super(block);
+        this.b = block1;
         this.setMaxDurability(0);
         this.a(true);
     }

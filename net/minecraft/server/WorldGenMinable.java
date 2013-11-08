@@ -4,18 +4,18 @@ import java.util.Random;
 
 public class WorldGenMinable extends WorldGenerator {
 
-    private int a;
+    private Block a;
     private int b;
-    private int c;
+    private Block c;
 
-    public WorldGenMinable(int i, int j) {
-        this(i, j, Block.STONE.id);
+    public WorldGenMinable(Block block, int i) {
+        this(block, i, Blocks.STONE);
     }
 
-    public WorldGenMinable(int i, int j, int k) {
-        this.a = i;
-        this.b = j;
-        this.c = k;
+    public WorldGenMinable(Block block, int i, Block block1) {
+        this.a = block;
+        this.b = i;
+        this.c = block1;
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
@@ -52,8 +52,8 @@ public class WorldGenMinable extends WorldGenerator {
                             for (int i3 = k1; i3 <= j2; ++i3) {
                                 double d14 = ((double) i3 + 0.5D - d8) / (d10 / 2.0D);
 
-                                if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && world.getTypeId(k2, l2, i3) == this.c) {
-                                    world.setTypeIdAndData(k2, l2, i3, this.a, 0, 2);
+                                if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && world.getType(k2, l2, i3) == this.c) {
+                                    world.setTypeAndData(k2, l2, i3, this.a, 0, 2);
                                 }
                             }
                         }

@@ -17,7 +17,7 @@ public class CommandList extends CommandAbstract {
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {
-        icommandlistener.sendMessage(ChatMessage.b("commands.players.list", new Object[] { Integer.valueOf(MinecraftServer.getServer().A()), Integer.valueOf(MinecraftServer.getServer().B())}));
-        icommandlistener.sendMessage(ChatMessage.d(MinecraftServer.getServer().getPlayerList().c()));
+        icommandlistener.sendMessage(new ChatMessage("commands.players.list", new Object[] { Integer.valueOf(MinecraftServer.getServer().B()), Integer.valueOf(MinecraftServer.getServer().C())}));
+        icommandlistener.sendMessage(new ChatComponentText(MinecraftServer.getServer().getPlayerList().c()));
     }
 }

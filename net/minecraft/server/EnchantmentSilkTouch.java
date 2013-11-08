@@ -24,6 +24,6 @@ public class EnchantmentSilkTouch extends Enchantment {
     }
 
     public boolean canEnchant(ItemStack itemstack) {
-        return itemstack.getItem().id == Item.SHEARS.id ? true : super.canEnchant(itemstack);
+        return itemstack.getItem() == Items.SHEARS ? true : super.canEnchant(itemstack);
     }
 }

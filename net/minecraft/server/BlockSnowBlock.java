@@ -4,14 +4,14 @@ import java.util.Random;
 
 public class BlockSnowBlock extends Block {
 
-    protected BlockSnowBlock(int i) {
-        super(i, Material.SNOW_BLOCK);
-        this.b(true);
+    protected BlockSnowBlock() {
+        super(Material.SNOW_BLOCK);
+        this.a(true);
         this.a(CreativeModeTab.b);
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Item.SNOW_BALL.id;
+    public Item getDropType(int i, Random random, int j) {
+        return Items.SNOW_BALL;
     }
 
     public int a(Random random) {
@@ -20,7 +20,7 @@ public class BlockSnowBlock extends Block {
 
     public void a(World world, int i, int j, int k, Random random) {
         if (world.b(EnumSkyBlock.BLOCK, i, j, k) > 11) {
-            this.c(world, i, j, k, world.getData(i, j, k), 0);
+            this.b(world, i, j, k, world.getData(i, j, k), 0);
             world.setAir(i, j, k);
         }
     }

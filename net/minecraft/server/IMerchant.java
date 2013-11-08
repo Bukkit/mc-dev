@@ -4,7 +4,7 @@ public interface IMerchant {
 
     void a_(EntityHuman entityhuman);
 
-    EntityHuman m_();
+    EntityHuman b();
 
     MerchantRecipeList getOffers(EntityHuman entityhuman);
 

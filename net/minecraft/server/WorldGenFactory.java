@@ -3,49 +3,53 @@ package net.minecraft.server;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class WorldGenFactory {
 
-    private static Map a = new HashMap();
+    private static final Logger a = LogManager.getLogger();
     private static Map b = new HashMap();
     private static Map c = new HashMap();
     private static Map d = new HashMap();
+    private static Map e = new HashMap();
 
     private static void b(Class oclass, String s) {
-        a.put(s, oclass);
-        b.put(oclass, s);
+        b.put(s, oclass);
+        c.put(oclass, s);
     }
 
     static void a(Class oclass, String s) {
-        c.put(s, oclass);
-        d.put(oclass, s);
+        d.put(s, oclass);
+        e.put(oclass, s);
     }
 
     public static String a(StructureStart structurestart) {
-        return (String) b.get(structurestart.getClass());
+        return (String) c.get(structurestart.getClass());
     }
 
     public static String a(StructurePiece structurepiece) {
-        return (String) d.get(structurepiece.getClass());
+        return (String) e.get(structurepiece.getClass());
     }
 
     public static StructureStart a(NBTTagCompound nbttagcompound, World world) {
         StructureStart structurestart = null;
 
         try {
-            Class oclass = (Class) a.get(nbttagcompound.getString("id"));
+            Class oclass = (Class) b.get(nbttagcompound.getString("id"));
 
             if (oclass != null) {
                 structurestart = (StructureStart) oclass.newInstance();
             }
         } catch (Exception exception) {
-            world.getLogger().warning("Failed Start with id " + nbttagcompound.getString("id"));
+            a.warn("Failed Start with id " + nbttagcompound.getString("id"));
             exception.printStackTrace();
         }
 
         if (structurestart != null) {
             structurestart.a(world, nbttagcompound);
         } else {
-            world.getLogger().warning("Skipping Structure with id " + nbttagcompound.getString("id"));
+            a.warn("Skipping Structure with id " + nbttagcompound.getString("id"));
         }
 
         return structurestart;
@@ -55,20 +59,20 @@ public class WorldGenFactory {
         StructurePiece structurepiece = null;
 
         try {
-            Class oclass = (Class) c.get(nbttagcompound.getString("id"));
+            Class oclass = (Class) d.get(nbttagcompound.getString("id"));
 
             if (oclass != null) {
                 structurepiece = (StructurePiece) oclass.newInstance();
             }
         } catch (Exception exception) {
-            world.getLogger().warning("Failed Piece with id " + nbttagcompound.getString("id"));
+            a.warn("Failed Piece with id " + nbttagcompound.getString("id"));
             exception.printStackTrace();
         }
 
         if (structurepiece != null) {
             structurepiece.a(world, nbttagcompound);
         } else {
-            world.getLogger().warning("Skipping Piece with id " + nbttagcompound.getString("id"));
+            a.warn("Skipping Piece with id " + nbttagcompound.getString("id"));
         }
 
         return structurepiece;

@@ -38,7 +38,7 @@ public class ChunkProviderHell implements IChunkProvider {
         this.b = new NoiseGeneratorOctaves(this.i, 16);
     }
 
-    public void a(int i, int j, byte[] abyte) {
+    public void a(int i, int j, Block[] ablock) {
         byte b0 = 4;
         byte b1 = 32;
         int k = b0 + 1;
@@ -75,17 +75,17 @@ public class ChunkProviderHell implements IChunkProvider {
                             double d16 = (d11 - d10) * d14;
 
                             for (int k2 = 0; k2 < 4; ++k2) {
-                                int l2 = 0;
+                                Block block = null;
 
                                 if (k1 * 8 + l1 < b1) {
-                                    l2 = Block.STATIONARY_LAVA.id;
+                                    block = Blocks.STATIONARY_LAVA;
                                 }
 
                                 if (d15 > 0.0D) {
-                                    l2 = Block.NETHERRACK.id;
+                                    block = Blocks.NETHERRACK;
                                 }
 
-                                abyte[j2] = (byte) l2;
+                                ablock[j2] = block;
                                 j2 += short1;
                                 d15 += d16;
                             }
@@ -104,7 +104,7 @@ public class ChunkProviderHell implements IChunkProvider {
         }
     }
 
-    public void b(int i, int j, byte[] abyte) {
+    public void b(int i, int j, Block[] ablock) {
         byte b0 = 64;
         double d0 = 0.03125D;
 
@@ -118,59 +118,55 @@ public class ChunkProviderHell implements IChunkProvider {
                 boolean flag1 = this.r[k + l * 16] + this.i.nextDouble() * 0.2D > 0.0D;
                 int i1 = (int) (this.s[k + l * 16] / 3.0D + 3.0D + this.i.nextDouble() * 0.25D);
                 int j1 = -1;
-                byte b1 = (byte) Block.NETHERRACK.id;
-                byte b2 = (byte) Block.NETHERRACK.id;
+                Block block = Blocks.NETHERRACK;
+                Block block1 = Blocks.NETHERRACK;
 
                 for (int k1 = 127; k1 >= 0; --k1) {
                     int l1 = (l * 16 + k) * 128 + k1;
 
                     if (k1 < 127 - this.i.nextInt(5) && k1 > 0 + this.i.nextInt(5)) {
-                        byte b3 = abyte[l1];
+                        Block block2 = ablock[l1];
 
-                        if (b3 == 0) {
-                            j1 = -1;
-                        } else if (b3 == Block.NETHERRACK.id) {
-                            if (j1 == -1) {
-                                if (i1 <= 0) {
-                                    b1 = 0;
-                                    b2 = (byte) Block.NETHERRACK.id;
-                                } else if (k1 >= b0 - 4 && k1 <= b0 + 1) {
-                                    b1 = (byte) Block.NETHERRACK.id;
-                                    b2 = (byte) Block.NETHERRACK.id;
-                                    if (flag1) {
-                                        b1 = (byte) Block.GRAVEL.id;
+                        if (block2 != null && block2.getMaterial() != Material.AIR) {
+                            if (block2 == Blocks.NETHERRACK) {
+                                if (j1 == -1) {
+                                    if (i1 <= 0) {
+                                        block = null;
+                                        block1 = Blocks.NETHERRACK;
+                                    } else if (k1 >= b0 - 4 && k1 <= b0 + 1) {
+                                        block = Blocks.NETHERRACK;
+                                        block1 = Blocks.NETHERRACK;
+                                        if (flag1) {
+                                            block = Blocks.GRAVEL;
+                                            block1 = Blocks.NETHERRACK;
+                                        }
+
+                                        if (flag) {
+                                            block = Blocks.SOUL_SAND;
+                                            block1 = Blocks.SOUL_SAND;
+                                        }
                                     }
 
-                                    if (flag1) {
-                                        b2 = (byte) Block.NETHERRACK.id;
+                                    if (k1 < b0 && (block == null || block.getMaterial() == Material.AIR)) {
+                                        block = Blocks.STATIONARY_LAVA;
                                     }
 
-                                    if (flag) {
-                                        b1 = (byte) Block.SOUL_SAND.id;
+                                    j1 = i1;
+                                    if (k1 >= b0 - 1) {
+                                        ablock[l1] = block;
+                                    } else {
+                                        ablock[l1] = block1;
                                     }
-
-                                    if (flag) {
-                                        b2 = (byte) Block.SOUL_SAND.id;
-                                    }
+                                } else if (j1 > 0) {
+                                    --j1;
+                                    ablock[l1] = block1;
                                 }
-
-                                if (k1 < b0 && b1 == 0) {
-                                    b1 = (byte) Block.STATIONARY_LAVA.id;
-                                }
-
-                                j1 = i1;
-                                if (k1 >= b0 - 1) {
-                                    abyte[l1] = b1;
-                                } else {
-                                    abyte[l1] = b2;
-                                }
-                            } else if (j1 > 0) {
-                                --j1;
-                                abyte[l1] = b2;
                             }
+                        } else {
+                            j1 = -1;
                         }
                     } else {
-                        abyte[l1] = (byte) Block.BEDROCK.id;
+                        ablock[l1] = Blocks.BEDROCK;
                     }
                 }
             }
@@ -183,18 +179,18 @@ public class ChunkProviderHell implements IChunkProvider {
 
     public Chunk getOrCreateChunk(int i, int j) {
         this.i.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
-        byte[] abyte = new byte['\u8000'];
+        Block[] ablock = new Block['\u8000'];
 
-        this.a(i, j, abyte);
-        this.b(i, j, abyte);
-        this.t.a(this, this.o, i, j, abyte);
-        this.c.a(this, this.o, i, j, abyte);
-        Chunk chunk = new Chunk(this.o, abyte, i, j);
+        this.a(i, j, ablock);
+        this.b(i, j, ablock);
+        this.t.a(this, this.o, i, j, ablock);
+        this.c.a(this, this.o, i, j, ablock);
+        Chunk chunk = new Chunk(this.o, ablock, i, j);
         BiomeBase[] abiomebase = this.o.getWorldChunkManager().getBiomeBlock((BiomeBase[]) null, i * 16, j * 16, 16, 16);
-        byte[] abyte1 = chunk.m();
+        byte[] abyte = chunk.m();
 
-        for (int k = 0; k < abyte1.length; ++k) {
-            abyte1[k] = (byte) abiomebase[k].id;
+        for (int k = 0; k < abyte.length; ++k) {
+            abyte[k] = (byte) abiomebase[k].id;
         }
 
         chunk.n();
@@ -321,7 +317,7 @@ public class ChunkProviderHell implements IChunkProvider {
     }
 
     public void getChunkAt(IChunkProvider ichunkprovider, int i, int j) {
-        BlockSand.instaFall = true;
+        BlockFalling.instaFall = true;
         int k = i * 16;
         int l = j * 16;
 
@@ -336,7 +332,7 @@ public class ChunkProviderHell implements IChunkProvider {
             j1 = k + this.i.nextInt(16) + 8;
             k1 = this.i.nextInt(120) + 4;
             l1 = l + this.i.nextInt(16) + 8;
-            (new WorldGenHellLava(Block.LAVA.id, false)).a(this.o, this.i, j1, k1, l1);
+            (new WorldGenHellLava(Blocks.LAVA, false)).a(this.o, this.i, j1, k1, l1);
         }
 
         i1 = this.i.nextInt(this.i.nextInt(10) + 1) + 1;
@@ -370,17 +366,17 @@ public class ChunkProviderHell implements IChunkProvider {
             j1 = k + this.i.nextInt(16) + 8;
             k1 = this.i.nextInt(128);
             l1 = l + this.i.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.BROWN_MUSHROOM.id)).a(this.o, this.i, j1, k1, l1);
+            (new WorldGenFlowers(Blocks.BROWN_MUSHROOM)).a(this.o, this.i, j1, k1, l1);
         }
 
         if (this.i.nextInt(1) == 0) {
             j1 = k + this.i.nextInt(16) + 8;
             k1 = this.i.nextInt(128);
             l1 = l + this.i.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.RED_MUSHROOM.id)).a(this.o, this.i, j1, k1, l1);
+            (new WorldGenFlowers(Blocks.RED_MUSHROOM)).a(this.o, this.i, j1, k1, l1);
         }
 
-        WorldGenMinable worldgenminable = new WorldGenMinable(Block.QUARTZ_ORE.id, 13, Block.NETHERRACK.id);
+        WorldGenMinable worldgenminable = new WorldGenMinable(Blocks.QUARTZ_ORE, 13, Blocks.NETHERRACK);
 
         int j2;
 
@@ -395,10 +391,10 @@ public class ChunkProviderHell implements IChunkProvider {
             l1 = k + this.i.nextInt(16);
             i2 = this.i.nextInt(108) + 10;
             j2 = l + this.i.nextInt(16);
-            (new WorldGenHellLava(Block.LAVA.id, true)).a(this.o, this.i, l1, i2, j2);
+            (new WorldGenHellLava(Blocks.LAVA, true)).a(this.o, this.i, l1, i2, j2);
         }
 
-        BlockSand.instaFall = false;
+        BlockFalling.instaFall = false;
     }
 
     public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
@@ -425,14 +421,14 @@ public class ChunkProviderHell implements IChunkProvider {
                 return this.c.b();
             }
 
-            if (this.c.d(i, j, k) && this.o.getTypeId(i, j - 1, k) == Block.NETHER_BRICK.id) {
+            if (this.c.d(i, j, k) && this.o.getType(i, j - 1, k) == Blocks.NETHER_BRICK) {
                 return this.c.b();
             }
         }
 
         BiomeBase biomebase = this.o.getBiome(i, k);
 
-        return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
+        return biomebase.getMobs(enumcreaturetype);
     }
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {
@@ -444,6 +440,6 @@ public class ChunkProviderHell implements IChunkProvider {
     }
 
     public void recreateStructures(int i, int j) {
-        this.c.a(this, this.o, i, j, (byte[]) null);
+        this.c.a(this, this.o, i, j, (Block[]) null);
     }
 }

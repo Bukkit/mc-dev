@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-import java.io.UnsupportedEncodingException;
+import net.minecraft.util.com.google.common.base.Charsets;
 
 public class StatusChallengeUtils {
 
@@ -15,12 +15,7 @@ public class StatusChallengeUtils {
             ;
         }
 
-        try {
-            return new String(abyte, i, l - i, "UTF-8");
-        } catch (UnsupportedEncodingException unsupportedencodingexception) {
-            unsupportedencodingexception.printStackTrace();
-            return null;
-        }
+        return new String(abyte, i, l - i, Charsets.UTF_8);
     }
 
     public static int b(byte[] abyte, int i) {

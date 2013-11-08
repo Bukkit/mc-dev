@@ -26,11 +26,11 @@ public class CommandEffect extends CommandAbstract {
 
             if (astring[1].equals("clear")) {
                 if (entityplayer.getEffects().isEmpty()) {
-                    throw new CommandException("commands.effect.failure.notActive.all", new Object[] { entityplayer.getLocalizedName()});
+                    throw new CommandException("commands.effect.failure.notActive.all", new Object[] { entityplayer.getName()});
                 }
 
-                entityplayer.aK();
-                a(icommandlistener, "commands.effect.success.removed.all", new Object[] { entityplayer.getLocalizedName()});
+                entityplayer.aP();
+                a(icommandlistener, "commands.effect.success.removed.all", new Object[] { entityplayer.getName()});
             } else {
                 int i = a(icommandlistener, astring[1], 1);
                 int j = 600;
@@ -58,16 +58,16 @@ public class CommandEffect extends CommandAbstract {
 
                 if (k == 0) {
                     if (!entityplayer.hasEffect(i)) {
-                        throw new CommandException("commands.effect.failure.notActive", new Object[] { ChatMessage.e(MobEffectList.byId[i].a()), entityplayer.getLocalizedName()});
+                        throw new CommandException("commands.effect.failure.notActive", new Object[] { new ChatMessage(MobEffectList.byId[i].a(), new Object[0]), entityplayer.getName()});
                     }
 
-                    entityplayer.k(i);
-                    a(icommandlistener, "commands.effect.success.removed", new Object[] { ChatMessage.e(MobEffectList.byId[i].a()), entityplayer.getLocalizedName()});
+                    entityplayer.m(i);
+                    a(icommandlistener, "commands.effect.success.removed", new Object[] { new ChatMessage(MobEffectList.byId[i].a(), new Object[0]), entityplayer.getName()});
                 } else {
                     MobEffect mobeffect = new MobEffect(i, j, l);
 
                     entityplayer.addEffect(mobeffect);
-                    a(icommandlistener, "commands.effect.success", new Object[] { ChatMessage.e(mobeffect.f()), Integer.valueOf(i), Integer.valueOf(l), entityplayer.getLocalizedName(), Integer.valueOf(k)});
+                    a(icommandlistener, "commands.effect.success", new Object[] { new ChatMessage(mobeffect.f(), new Object[0]), Integer.valueOf(i), Integer.valueOf(l), entityplayer.getName(), Integer.valueOf(k)});
                 }
             }
         }

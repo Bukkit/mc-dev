@@ -8,7 +8,8 @@ class ThreadCommandReader extends Thread {
 
     final DedicatedServer server;
 
-    ThreadCommandReader(DedicatedServer dedicatedserver) {
+    ThreadCommandReader(DedicatedServer dedicatedserver, String s) {
+        super(s);
         this.server = dedicatedserver;
     }
 
@@ -22,7 +23,7 @@ class ThreadCommandReader extends Thread {
                 this.server.issueCommand(s, this.server);
             }
         } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+            DedicatedServer.az().error("Exception handling console input", ioexception);
         }
     }
 }

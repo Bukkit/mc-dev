@@ -13,9 +13,9 @@ public class OldChunkLoader {
         oldchunk.d = new OldNibbleArray(nbttagcompound.getByteArray("BlockLight"), 7);
         oldchunk.c = nbttagcompound.getByteArray("HeightMap");
         oldchunk.b = nbttagcompound.getBoolean("TerrainPopulated");
-        oldchunk.h = nbttagcompound.getList("Entities");
-        oldchunk.i = nbttagcompound.getList("TileEntities");
-        oldchunk.j = nbttagcompound.getList("TileTicks");
+        oldchunk.h = nbttagcompound.getList("Entities", 10);
+        oldchunk.i = nbttagcompound.getList("TileEntities", 10);
+        oldchunk.j = nbttagcompound.getList("TileTicks", 10);
 
         try {
             oldchunk.a = nbttagcompound.getLong("LastUpdate");
@@ -38,7 +38,7 @@ public class OldChunkLoader {
 
         nbttagcompound.setIntArray("HeightMap", aint);
         nbttagcompound.setBoolean("TerrainPopulated", oldchunk.b);
-        NBTTagList nbttaglist = new NBTTagList("Sections");
+        NBTTagList nbttaglist = new NBTTagList();
 
         int j;
 

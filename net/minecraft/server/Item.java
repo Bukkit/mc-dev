@@ -1,206 +1,302 @@
 package net.minecraft.server;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.UUID;
 
+import net.minecraft.util.com.google.common.collect.HashMultimap;
+import net.minecraft.util.com.google.common.collect.Multimap;
+import net.minecraft.util.com.google.common.collect.Sets;
+
 public class Item {
 
-    protected static final UUID e = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
+    public static final RegistryMaterials REGISTRY = new RegistryMaterials();
+    protected static final UUID f = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
     private CreativeModeTab a;
-    protected static Random f = new Random();
-    public static Item[] byId = new Item[32000];
-    public static Item IRON_SPADE = (new ItemSpade(0, EnumToolMaterial.IRON)).b("shovelIron").d("iron_shovel");
-    public static Item IRON_PICKAXE = (new ItemPickaxe(1, EnumToolMaterial.IRON)).b("pickaxeIron").d("iron_pickaxe");
-    public static Item IRON_AXE = (new ItemAxe(2, EnumToolMaterial.IRON)).b("hatchetIron").d("iron_axe");
-    public static Item FLINT_AND_STEEL = (new ItemFlintAndSteel(3)).b("flintAndSteel").d("flint_and_steel");
-    public static Item APPLE = (new ItemFood(4, 4, 0.3F, false)).b("apple").d("apple");
-    public static ItemBow BOW = (ItemBow) (new ItemBow(5)).b("bow").d("bow");
-    public static Item ARROW = (new Item(6)).b("arrow").a(CreativeModeTab.j).d("arrow");
-    public static Item COAL = (new ItemCoal(7)).b("coal").d("coal");
-    public static Item DIAMOND = (new Item(8)).b("diamond").a(CreativeModeTab.l).d("diamond");
-    public static Item IRON_INGOT = (new Item(9)).b("ingotIron").a(CreativeModeTab.l).d("iron_ingot");
-    public static Item GOLD_INGOT = (new Item(10)).b("ingotGold").a(CreativeModeTab.l).d("gold_ingot");
-    public static Item IRON_SWORD = (new ItemSword(11, EnumToolMaterial.IRON)).b("swordIron").d("iron_sword");
-    public static Item WOOD_SWORD = (new ItemSword(12, EnumToolMaterial.WOOD)).b("swordWood").d("wood_sword");
-    public static Item WOOD_SPADE = (new ItemSpade(13, EnumToolMaterial.WOOD)).b("shovelWood").d("wood_shovel");
-    public static Item WOOD_PICKAXE = (new ItemPickaxe(14, EnumToolMaterial.WOOD)).b("pickaxeWood").d("wood_pickaxe");
-    public static Item WOOD_AXE = (new ItemAxe(15, EnumToolMaterial.WOOD)).b("hatchetWood").d("wood_axe");
-    public static Item STONE_SWORD = (new ItemSword(16, EnumToolMaterial.STONE)).b("swordStone").d("stone_sword");
-    public static Item STONE_SPADE = (new ItemSpade(17, EnumToolMaterial.STONE)).b("shovelStone").d("stone_shovel");
-    public static Item STONE_PICKAXE = (new ItemPickaxe(18, EnumToolMaterial.STONE)).b("pickaxeStone").d("stone_pickaxe");
-    public static Item STONE_AXE = (new ItemAxe(19, EnumToolMaterial.STONE)).b("hatchetStone").d("stone_axe");
-    public static Item DIAMOND_SWORD = (new ItemSword(20, EnumToolMaterial.DIAMOND)).b("swordDiamond").d("diamond_sword");
-    public static Item DIAMOND_SPADE = (new ItemSpade(21, EnumToolMaterial.DIAMOND)).b("shovelDiamond").d("diamond_shovel");
-    public static Item DIAMOND_PICKAXE = (new ItemPickaxe(22, EnumToolMaterial.DIAMOND)).b("pickaxeDiamond").d("diamond_pickaxe");
-    public static Item DIAMOND_AXE = (new ItemAxe(23, EnumToolMaterial.DIAMOND)).b("hatchetDiamond").d("diamond_axe");
-    public static Item STICK = (new Item(24)).q().b("stick").a(CreativeModeTab.l).d("stick");
-    public static Item BOWL = (new Item(25)).b("bowl").a(CreativeModeTab.l).d("bowl");
-    public static Item MUSHROOM_SOUP = (new ItemSoup(26, 6)).b("mushroomStew").d("mushroom_stew");
-    public static Item GOLD_SWORD = (new ItemSword(27, EnumToolMaterial.GOLD)).b("swordGold").d("gold_sword");
-    public static Item GOLD_SPADE = (new ItemSpade(28, EnumToolMaterial.GOLD)).b("shovelGold").d("gold_shovel");
-    public static Item GOLD_PICKAXE = (new ItemPickaxe(29, EnumToolMaterial.GOLD)).b("pickaxeGold").d("gold_pickaxe");
-    public static Item GOLD_AXE = (new ItemAxe(30, EnumToolMaterial.GOLD)).b("hatchetGold").d("gold_axe");
-    public static Item STRING = (new ItemReed(31, Block.TRIPWIRE)).b("string").a(CreativeModeTab.l).d("string");
-    public static Item FEATHER = (new Item(32)).b("feather").a(CreativeModeTab.l).d("feather");
-    public static Item SULPHUR = (new Item(33)).b("sulphur").c(PotionBrewer.k).a(CreativeModeTab.l).d("gunpowder");
-    public static Item WOOD_HOE = (new ItemHoe(34, EnumToolMaterial.WOOD)).b("hoeWood").d("wood_hoe");
-    public static Item STONE_HOE = (new ItemHoe(35, EnumToolMaterial.STONE)).b("hoeStone").d("stone_hoe");
-    public static Item IRON_HOE = (new ItemHoe(36, EnumToolMaterial.IRON)).b("hoeIron").d("iron_hoe");
-    public static Item DIAMOND_HOE = (new ItemHoe(37, EnumToolMaterial.DIAMOND)).b("hoeDiamond").d("diamond_hoe");
-    public static Item GOLD_HOE = (new ItemHoe(38, EnumToolMaterial.GOLD)).b("hoeGold").d("gold_hoe");
-    public static Item SEEDS = (new ItemSeeds(39, Block.CROPS.id, Block.SOIL.id)).b("seeds").d("seeds_wheat");
-    public static Item WHEAT = (new Item(40)).b("wheat").a(CreativeModeTab.l).d("wheat");
-    public static Item BREAD = (new ItemFood(41, 5, 0.6F, false)).b("bread").d("bread");
-    public static ItemArmor LEATHER_HELMET = (ItemArmor) (new ItemArmor(42, EnumArmorMaterial.CLOTH, 0, 0)).b("helmetCloth").d("leather_helmet");
-    public static ItemArmor LEATHER_CHESTPLATE = (ItemArmor) (new ItemArmor(43, EnumArmorMaterial.CLOTH, 0, 1)).b("chestplateCloth").d("leather_chestplate");
-    public static ItemArmor LEATHER_LEGGINGS = (ItemArmor) (new ItemArmor(44, EnumArmorMaterial.CLOTH, 0, 2)).b("leggingsCloth").d("leather_leggings");
-    public static ItemArmor LEATHER_BOOTS = (ItemArmor) (new ItemArmor(45, EnumArmorMaterial.CLOTH, 0, 3)).b("bootsCloth").d("leather_boots");
-    public static ItemArmor CHAINMAIL_HELMET = (ItemArmor) (new ItemArmor(46, EnumArmorMaterial.CHAIN, 1, 0)).b("helmetChain").d("chainmail_helmet");
-    public static ItemArmor CHAINMAIL_CHESTPLATE = (ItemArmor) (new ItemArmor(47, EnumArmorMaterial.CHAIN, 1, 1)).b("chestplateChain").d("chainmail_chestplate");
-    public static ItemArmor CHAINMAIL_LEGGINGS = (ItemArmor) (new ItemArmor(48, EnumArmorMaterial.CHAIN, 1, 2)).b("leggingsChain").d("chainmail_leggings");
-    public static ItemArmor CHAINMAIL_BOOTS = (ItemArmor) (new ItemArmor(49, EnumArmorMaterial.CHAIN, 1, 3)).b("bootsChain").d("chainmail_boots");
-    public static ItemArmor IRON_HELMET = (ItemArmor) (new ItemArmor(50, EnumArmorMaterial.IRON, 2, 0)).b("helmetIron").d("iron_helmet");
-    public static ItemArmor IRON_CHESTPLATE = (ItemArmor) (new ItemArmor(51, EnumArmorMaterial.IRON, 2, 1)).b("chestplateIron").d("iron_chestplate");
-    public static ItemArmor IRON_LEGGINGS = (ItemArmor) (new ItemArmor(52, EnumArmorMaterial.IRON, 2, 2)).b("leggingsIron").d("iron_leggings");
-    public static ItemArmor IRON_BOOTS = (ItemArmor) (new ItemArmor(53, EnumArmorMaterial.IRON, 2, 3)).b("bootsIron").d("iron_boots");
-    public static ItemArmor DIAMOND_HELMET = (ItemArmor) (new ItemArmor(54, EnumArmorMaterial.DIAMOND, 3, 0)).b("helmetDiamond").d("diamond_helmet");
-    public static ItemArmor DIAMOND_CHESTPLATE = (ItemArmor) (new ItemArmor(55, EnumArmorMaterial.DIAMOND, 3, 1)).b("chestplateDiamond").d("diamond_chestplate");
-    public static ItemArmor DIAMOND_LEGGINGS = (ItemArmor) (new ItemArmor(56, EnumArmorMaterial.DIAMOND, 3, 2)).b("leggingsDiamond").d("diamond_leggings");
-    public static ItemArmor DIAMOND_BOOTS = (ItemArmor) (new ItemArmor(57, EnumArmorMaterial.DIAMOND, 3, 3)).b("bootsDiamond").d("diamond_boots");
-    public static ItemArmor GOLD_HELMET = (ItemArmor) (new ItemArmor(58, EnumArmorMaterial.GOLD, 4, 0)).b("helmetGold").d("gold_helmet");
-    public static ItemArmor GOLD_CHESTPLATE = (ItemArmor) (new ItemArmor(59, EnumArmorMaterial.GOLD, 4, 1)).b("chestplateGold").d("gold_chestplate");
-    public static ItemArmor GOLD_LEGGINGS = (ItemArmor) (new ItemArmor(60, EnumArmorMaterial.GOLD, 4, 2)).b("leggingsGold").d("gold_leggings");
-    public static ItemArmor GOLD_BOOTS = (ItemArmor) (new ItemArmor(61, EnumArmorMaterial.GOLD, 4, 3)).b("bootsGold").d("gold_boots");
-    public static Item FLINT = (new Item(62)).b("flint").a(CreativeModeTab.l).d("flint");
-    public static Item PORK = (new ItemFood(63, 3, 0.3F, true)).b("porkchopRaw").d("porkchop_raw");
-    public static Item GRILLED_PORK = (new ItemFood(64, 8, 0.8F, true)).b("porkchopCooked").d("porkchop_cooked");
-    public static Item PAINTING = (new ItemHanging(65, EntityPainting.class)).b("painting").d("painting");
-    public static Item GOLDEN_APPLE = (new ItemGoldenApple(66, 4, 1.2F, false)).k().a(MobEffectList.REGENERATION.id, 5, 1, 1.0F).b("appleGold").d("apple_golden");
-    public static Item SIGN = (new ItemSign(67)).b("sign").d("sign");
-    public static Item WOOD_DOOR = (new ItemDoor(68, Material.WOOD)).b("doorWood").d("door_wood");
-    public static Item BUCKET = (new ItemBucket(69, 0)).b("bucket").d(16).d("bucket_empty");
-    public static Item WATER_BUCKET = (new ItemBucket(70, Block.WATER.id)).b("bucketWater").a(BUCKET).d("bucket_water");
-    public static Item LAVA_BUCKET = (new ItemBucket(71, Block.LAVA.id)).b("bucketLava").a(BUCKET).d("bucket_lava");
-    public static Item MINECART = (new ItemMinecart(72, 0)).b("minecart").d("minecart_normal");
-    public static Item SADDLE = (new ItemSaddle(73)).b("saddle").d("saddle");
-    public static Item IRON_DOOR = (new ItemDoor(74, Material.ORE)).b("doorIron").d("door_iron");
-    public static Item REDSTONE = (new ItemRedstone(75)).b("redstone").c(PotionBrewer.i).d("redstone_dust");
-    public static Item SNOW_BALL = (new ItemSnowball(76)).b("snowball").d("snowball");
-    public static Item BOAT = (new ItemBoat(77)).b("boat").d("boat");
-    public static Item LEATHER = (new Item(78)).b("leather").a(CreativeModeTab.l).d("leather");
-    public static Item MILK_BUCKET = (new ItemMilkBucket(79)).b("milk").a(BUCKET).d("bucket_milk");
-    public static Item CLAY_BRICK = (new Item(80)).b("brick").a(CreativeModeTab.l).d("brick");
-    public static Item CLAY_BALL = (new Item(81)).b("clay").a(CreativeModeTab.l).d("clay_ball");
-    public static Item SUGAR_CANE = (new ItemReed(82, Block.SUGAR_CANE_BLOCK)).b("reeds").a(CreativeModeTab.l).d("reeds");
-    public static Item PAPER = (new Item(83)).b("paper").a(CreativeModeTab.f).d("paper");
-    public static Item BOOK = (new ItemBook(84)).b("book").a(CreativeModeTab.f).d("book_normal");
-    public static Item SLIME_BALL = (new Item(85)).b("slimeball").a(CreativeModeTab.f).d("slimeball");
-    public static Item STORAGE_MINECART = (new ItemMinecart(86, 1)).b("minecartChest").d("minecart_chest");
-    public static Item POWERED_MINECART = (new ItemMinecart(87, 2)).b("minecartFurnace").d("minecart_furnace");
-    public static Item EGG = (new ItemEgg(88)).b("egg").d("egg");
-    public static Item COMPASS = (new Item(89)).b("compass").a(CreativeModeTab.i).d("compass");
-    public static ItemFishingRod FISHING_ROD = (ItemFishingRod) (new ItemFishingRod(90)).b("fishingRod").d("fishing_rod");
-    public static Item WATCH = (new Item(91)).b("clock").a(CreativeModeTab.i).d("clock");
-    public static Item GLOWSTONE_DUST = (new Item(92)).b("yellowDust").c(PotionBrewer.j).a(CreativeModeTab.l).d("glowstone_dust");
-    public static Item RAW_FISH = (new ItemFood(93, 2, 0.3F, false)).b("fishRaw").d("fish_raw");
-    public static Item COOKED_FISH = (new ItemFood(94, 5, 0.6F, false)).b("fishCooked").d("fish_cooked");
-    public static Item INK_SACK = (new ItemDye(95)).b("dyePowder").d("dye_powder");
-    public static Item BONE = (new Item(96)).b("bone").q().a(CreativeModeTab.f).d("bone");
-    public static Item SUGAR = (new Item(97)).b("sugar").c(PotionBrewer.b).a(CreativeModeTab.l).d("sugar");
-    public static Item CAKE = (new ItemReed(98, Block.CAKE_BLOCK)).d(1).b("cake").a(CreativeModeTab.h).d("cake");
-    public static Item BED = (new ItemBed(99)).d(1).b("bed").d("bed");
-    public static Item DIODE = (new ItemReed(100, Block.DIODE_OFF)).b("diode").a(CreativeModeTab.d).d("repeater");
-    public static Item COOKIE = (new ItemFood(101, 2, 0.1F, false)).b("cookie").d("cookie");
-    public static ItemWorldMap MAP = (ItemWorldMap) (new ItemWorldMap(102)).b("map").d("map_filled");
-    public static ItemShears SHEARS = (ItemShears) (new ItemShears(103)).b("shears").d("shears");
-    public static Item MELON = (new ItemFood(104, 2, 0.3F, false)).b("melon").d("melon");
-    public static Item PUMPKIN_SEEDS = (new ItemSeeds(105, Block.PUMPKIN_STEM.id, Block.SOIL.id)).b("seeds_pumpkin").d("seeds_pumpkin");
-    public static Item MELON_SEEDS = (new ItemSeeds(106, Block.MELON_STEM.id, Block.SOIL.id)).b("seeds_melon").d("seeds_melon");
-    public static Item RAW_BEEF = (new ItemFood(107, 3, 0.3F, true)).b("beefRaw").d("beef_raw");
-    public static Item COOKED_BEEF = (new ItemFood(108, 8, 0.8F, true)).b("beefCooked").d("beef_cooked");
-    public static Item RAW_CHICKEN = (new ItemFood(109, 2, 0.3F, true)).a(MobEffectList.HUNGER.id, 30, 0, 0.3F).b("chickenRaw").d("chicken_raw");
-    public static Item COOKED_CHICKEN = (new ItemFood(110, 6, 0.6F, true)).b("chickenCooked").d("chicken_cooked");
-    public static Item ROTTEN_FLESH = (new ItemFood(111, 4, 0.1F, true)).a(MobEffectList.HUNGER.id, 30, 0, 0.8F).b("rottenFlesh").d("rotten_flesh");
-    public static Item ENDER_PEARL = (new ItemEnderPearl(112)).b("enderPearl").d("ender_pearl");
-    public static Item BLAZE_ROD = (new Item(113)).b("blazeRod").a(CreativeModeTab.l).d("blaze_rod");
-    public static Item GHAST_TEAR = (new Item(114)).b("ghastTear").c(PotionBrewer.c).a(CreativeModeTab.k).d("ghast_tear");
-    public static Item GOLD_NUGGET = (new Item(115)).b("goldNugget").a(CreativeModeTab.l).d("gold_nugget");
-    public static Item NETHER_STALK = (new ItemSeeds(116, Block.NETHER_WART.id, Block.SOUL_SAND.id)).b("netherStalkSeeds").c("+4").d("nether_wart");
-    public static ItemPotion POTION = (ItemPotion) (new ItemPotion(117)).b("potion").d("potion");
-    public static Item GLASS_BOTTLE = (new ItemGlassBottle(118)).b("glassBottle").d("potion_bottle_empty");
-    public static Item SPIDER_EYE = (new ItemFood(119, 2, 0.8F, false)).a(MobEffectList.POISON.id, 5, 0, 1.0F).b("spiderEye").c(PotionBrewer.d).d("spider_eye");
-    public static Item FERMENTED_SPIDER_EYE = (new Item(120)).b("fermentedSpiderEye").c(PotionBrewer.e).a(CreativeModeTab.k).d("spider_eye_fermented");
-    public static Item BLAZE_POWDER = (new Item(121)).b("blazePowder").c(PotionBrewer.g).a(CreativeModeTab.k).d("blaze_powder");
-    public static Item MAGMA_CREAM = (new Item(122)).b("magmaCream").c(PotionBrewer.h).a(CreativeModeTab.k).d("magma_cream");
-    public static Item BREWING_STAND = (new ItemReed(123, Block.BREWING_STAND)).b("brewingStand").a(CreativeModeTab.k).d("brewing_stand");
-    public static Item CAULDRON = (new ItemReed(124, Block.CAULDRON)).b("cauldron").a(CreativeModeTab.k).d("cauldron");
-    public static Item EYE_OF_ENDER = (new ItemEnderEye(125)).b("eyeOfEnder").d("ender_eye");
-    public static Item SPECKLED_MELON = (new Item(126)).b("speckledMelon").c(PotionBrewer.f).a(CreativeModeTab.k).d("melon_speckled");
-    public static Item MONSTER_EGG = (new ItemMonsterEgg(127)).b("monsterPlacer").d("spawn_egg");
-    public static Item EXP_BOTTLE = (new ItemExpBottle(128)).b("expBottle").d("experience_bottle");
-    public static Item FIREBALL = (new ItemFireball(129)).b("fireball").d("fireball");
-    public static Item BOOK_AND_QUILL = (new ItemBookAndQuill(130)).b("writingBook").a(CreativeModeTab.f).d("book_writable");
-    public static Item WRITTEN_BOOK = (new ItemWrittenBook(131)).b("writtenBook").d("book_written");
-    public static Item EMERALD = (new Item(132)).b("emerald").a(CreativeModeTab.l).d("emerald");
-    public static Item ITEM_FRAME = (new ItemHanging(133, EntityItemFrame.class)).b("frame").d("item_frame");
-    public static Item FLOWER_POT = (new ItemReed(134, Block.FLOWER_POT)).b("flowerPot").a(CreativeModeTab.c).d("flower_pot");
-    public static Item CARROT = (new ItemSeedFood(135, 4, 0.6F, Block.CARROTS.id, Block.SOIL.id)).b("carrots").d("carrot");
-    public static Item POTATO = (new ItemSeedFood(136, 1, 0.3F, Block.POTATOES.id, Block.SOIL.id)).b("potato").d("potato");
-    public static Item POTATO_BAKED = (new ItemFood(137, 6, 0.6F, false)).b("potatoBaked").d("potato_baked");
-    public static Item POTATO_POISON = (new ItemFood(138, 2, 0.3F, false)).a(MobEffectList.POISON.id, 5, 0, 0.6F).b("potatoPoisonous").d("potato_poisonous");
-    public static ItemMapEmpty MAP_EMPTY = (ItemMapEmpty) (new ItemMapEmpty(139)).b("emptyMap").d("map_empty");
-    public static Item CARROT_GOLDEN = (new ItemFood(140, 6, 1.2F, false)).b("carrotGolden").c(PotionBrewer.l).d("carrot_golden");
-    public static Item SKULL = (new ItemSkull(141)).b("skull").d("skull");
-    public static Item CARROT_STICK = (new ItemCarrotStick(142)).b("carrotOnAStick").d("carrot_on_a_stick");
-    public static Item NETHER_STAR = (new ItemNetherStar(143)).b("netherStar").a(CreativeModeTab.l).d("nether_star");
-    public static Item PUMPKIN_PIE = (new ItemFood(144, 8, 0.3F, false)).b("pumpkinPie").a(CreativeModeTab.h).d("pumpkin_pie");
-    public static Item FIREWORKS = (new ItemFireworks(145)).b("fireworks").d("fireworks");
-    public static Item FIREWORKS_CHARGE = (new ItemFireworksCharge(146)).b("fireworksCharge").a(CreativeModeTab.f).d("fireworks_charge");
-    public static ItemEnchantedBook ENCHANTED_BOOK = (ItemEnchantedBook) (new ItemEnchantedBook(147)).d(1).b("enchantedBook").d("book_enchanted");
-    public static Item REDSTONE_COMPARATOR = (new ItemReed(148, Block.REDSTONE_COMPARATOR_OFF)).b("comparator").a(CreativeModeTab.d).d("comparator");
-    public static Item NETHER_BRICK = (new Item(149)).b("netherbrick").a(CreativeModeTab.l).d("netherbrick");
-    public static Item QUARTZ = (new Item(150)).b("netherquartz").a(CreativeModeTab.l).d("quartz");
-    public static Item MINECART_TNT = (new ItemMinecart(151, 3)).b("minecartTnt").d("minecart_tnt");
-    public static Item MINECART_HOPPER = (new ItemMinecart(152, 5)).b("minecartHopper").d("minecart_hopper");
-    public static Item HORSE_ARMOR_IRON = (new Item(161)).b("horsearmormetal").d(1).a(CreativeModeTab.f).d("iron_horse_armor");
-    public static Item HORSE_ARMOR_GOLD = (new Item(162)).b("horsearmorgold").d(1).a(CreativeModeTab.f).d("gold_horse_armor");
-    public static Item HORSE_ARMOR_DIAMOND = (new Item(163)).b("horsearmordiamond").d(1).a(CreativeModeTab.f).d("diamond_horse_armor");
-    public static Item LEASH = (new ItemLeash(164)).b("leash").d("lead");
-    public static Item NAME_TAG = (new ItemNameTag(165)).b("nameTag").d("name_tag");
-    public static Item RECORD_1 = (new ItemRecord(2000, "13")).b("record").d("record_13");
-    public static Item RECORD_2 = (new ItemRecord(2001, "cat")).b("record").d("record_cat");
-    public static Item RECORD_3 = (new ItemRecord(2002, "blocks")).b("record").d("record_blocks");
-    public static Item RECORD_4 = (new ItemRecord(2003, "chirp")).b("record").d("record_chirp");
-    public static Item RECORD_5 = (new ItemRecord(2004, "far")).b("record").d("record_far");
-    public static Item RECORD_6 = (new ItemRecord(2005, "mall")).b("record").d("record_mall");
-    public static Item RECORD_7 = (new ItemRecord(2006, "mellohi")).b("record").d("record_mellohi");
-    public static Item RECORD_8 = (new ItemRecord(2007, "stal")).b("record").d("record_stal");
-    public static Item RECORD_9 = (new ItemRecord(2008, "strad")).b("record").d("record_strad");
-    public static Item RECORD_10 = (new ItemRecord(2009, "ward")).b("record").d("record_ward");
-    public static Item RECORD_11 = (new ItemRecord(2010, "11")).b("record").d("record_11");
-    public static Item RECORD_12 = (new ItemRecord(2011, "wait")).b("record").d("record_wait");
-    public final int id;
+    protected static Random g = new Random();
     protected int maxStackSize = 64;
     private int durability;
-    protected boolean cx;
-    protected boolean cy;
+    protected boolean i;
+    protected boolean j;
     private Item craftingResult;
     private String d;
     private String name;
-    protected String cA;
+    protected String l;
 
-    protected Item(int i) {
-        this.id = 256 + i;
-        if (byId[256 + i] != null) {
-            System.out.println("CONFLICT @ " + i);
-        }
+    public Item() {}
 
-        byId[256 + i] = this;
+    public static int b(Item item) {
+        return item == null ? 0 : REGISTRY.b(item);
     }
 
-    public Item d(int i) {
+    public static Item d(int i) {
+        return (Item) REGISTRY.a(i);
+    }
+
+    public static Item getItemOf(Block block) {
+        return d(Block.b(block));
+    }
+
+    public static void l() {
+        REGISTRY.a(256, "iron_shovel", (new ItemSpade(EnumToolMaterial.IRON)).c("shovelIron").f("iron_shovel"));
+        REGISTRY.a(257, "iron_pickaxe", (new ItemPickaxe(EnumToolMaterial.IRON)).c("pickaxeIron").f("iron_pickaxe"));
+        REGISTRY.a(258, "iron_axe", (new ItemAxe(EnumToolMaterial.IRON)).c("hatchetIron").f("iron_axe"));
+        REGISTRY.a(259, "flint_and_steel", (new ItemFlintAndSteel()).c("flintAndSteel").f("flint_and_steel"));
+        REGISTRY.a(260, "apple", (new ItemFood(4, 0.3F, false)).c("apple").f("apple"));
+        REGISTRY.a(261, "bow", (new ItemBow()).c("bow").f("bow"));
+        REGISTRY.a(262, "arrow", (new Item()).c("arrow").a(CreativeModeTab.j).f("arrow"));
+        REGISTRY.a(263, "coal", (new ItemCoal()).c("coal").f("coal"));
+        REGISTRY.a(264, "diamond", (new Item()).c("diamond").a(CreativeModeTab.l).f("diamond"));
+        REGISTRY.a(265, "iron_ingot", (new Item()).c("ingotIron").a(CreativeModeTab.l).f("iron_ingot"));
+        REGISTRY.a(266, "gold_ingot", (new Item()).c("ingotGold").a(CreativeModeTab.l).f("gold_ingot"));
+        REGISTRY.a(267, "iron_sword", (new ItemSword(EnumToolMaterial.IRON)).c("swordIron").f("iron_sword"));
+        REGISTRY.a(268, "wooden_sword", (new ItemSword(EnumToolMaterial.WOOD)).c("swordWood").f("wood_sword"));
+        REGISTRY.a(269, "wooden_shovel", (new ItemSpade(EnumToolMaterial.WOOD)).c("shovelWood").f("wood_shovel"));
+        REGISTRY.a(270, "wooden_pickaxe", (new ItemPickaxe(EnumToolMaterial.WOOD)).c("pickaxeWood").f("wood_pickaxe"));
+        REGISTRY.a(271, "wooden_axe", (new ItemAxe(EnumToolMaterial.WOOD)).c("hatchetWood").f("wood_axe"));
+        REGISTRY.a(272, "stone_sword", (new ItemSword(EnumToolMaterial.STONE)).c("swordStone").f("stone_sword"));
+        REGISTRY.a(273, "stone_shovel", (new ItemSpade(EnumToolMaterial.STONE)).c("shovelStone").f("stone_shovel"));
+        REGISTRY.a(274, "stone_pickaxe", (new ItemPickaxe(EnumToolMaterial.STONE)).c("pickaxeStone").f("stone_pickaxe"));
+        REGISTRY.a(275, "stone_axe", (new ItemAxe(EnumToolMaterial.STONE)).c("hatchetStone").f("stone_axe"));
+        REGISTRY.a(276, "diamond_sword", (new ItemSword(EnumToolMaterial.DIAMOND)).c("swordDiamond").f("diamond_sword"));
+        REGISTRY.a(277, "diamond_shovel", (new ItemSpade(EnumToolMaterial.DIAMOND)).c("shovelDiamond").f("diamond_shovel"));
+        REGISTRY.a(278, "diamond_pickaxe", (new ItemPickaxe(EnumToolMaterial.DIAMOND)).c("pickaxeDiamond").f("diamond_pickaxe"));
+        REGISTRY.a(279, "diamond_axe", (new ItemAxe(EnumToolMaterial.DIAMOND)).c("hatchetDiamond").f("diamond_axe"));
+        REGISTRY.a(280, "stick", (new Item()).q().c("stick").a(CreativeModeTab.l).f("stick"));
+        REGISTRY.a(281, "bowl", (new Item()).c("bowl").a(CreativeModeTab.l).f("bowl"));
+        REGISTRY.a(282, "mushroom_stew", (new ItemSoup(6)).c("mushroomStew").f("mushroom_stew"));
+        REGISTRY.a(283, "golden_sword", (new ItemSword(EnumToolMaterial.GOLD)).c("swordGold").f("gold_sword"));
+        REGISTRY.a(284, "golden_shovel", (new ItemSpade(EnumToolMaterial.GOLD)).c("shovelGold").f("gold_shovel"));
+        REGISTRY.a(285, "golden_pickaxe", (new ItemPickaxe(EnumToolMaterial.GOLD)).c("pickaxeGold").f("gold_pickaxe"));
+        REGISTRY.a(286, "golden_axe", (new ItemAxe(EnumToolMaterial.GOLD)).c("hatchetGold").f("gold_axe"));
+        REGISTRY.a(287, "string", (new ItemReed(Blocks.TRIPWIRE)).c("string").a(CreativeModeTab.l).f("string"));
+        REGISTRY.a(288, "feather", (new Item()).c("feather").a(CreativeModeTab.l).f("feather"));
+        REGISTRY.a(289, "gunpowder", (new Item()).c("sulphur").e(PotionBrewer.k).a(CreativeModeTab.l).f("gunpowder"));
+        REGISTRY.a(290, "wooden_hoe", (new ItemHoe(EnumToolMaterial.WOOD)).c("hoeWood").f("wood_hoe"));
+        REGISTRY.a(291, "stone_hoe", (new ItemHoe(EnumToolMaterial.STONE)).c("hoeStone").f("stone_hoe"));
+        REGISTRY.a(292, "iron_hoe", (new ItemHoe(EnumToolMaterial.IRON)).c("hoeIron").f("iron_hoe"));
+        REGISTRY.a(293, "diamond_hoe", (new ItemHoe(EnumToolMaterial.DIAMOND)).c("hoeDiamond").f("diamond_hoe"));
+        REGISTRY.a(294, "golden_hoe", (new ItemHoe(EnumToolMaterial.GOLD)).c("hoeGold").f("gold_hoe"));
+        REGISTRY.a(295, "wheat_seeds", (new ItemSeeds(Blocks.CROPS, Blocks.SOIL)).c("seeds").f("seeds_wheat"));
+        REGISTRY.a(296, "wheat", (new Item()).c("wheat").a(CreativeModeTab.l).f("wheat"));
+        REGISTRY.a(297, "bread", (new ItemFood(5, 0.6F, false)).c("bread").f("bread"));
+        REGISTRY.a(298, "leather_helmet", (new ItemArmor(EnumArmorMaterial.CLOTH, 0, 0)).c("helmetCloth").f("leather_helmet"));
+        REGISTRY.a(299, "leather_chestplate", (new ItemArmor(EnumArmorMaterial.CLOTH, 0, 1)).c("chestplateCloth").f("leather_chestplate"));
+        REGISTRY.a(300, "leather_leggings", (new ItemArmor(EnumArmorMaterial.CLOTH, 0, 2)).c("leggingsCloth").f("leather_leggings"));
+        REGISTRY.a(301, "leather_boots", (new ItemArmor(EnumArmorMaterial.CLOTH, 0, 3)).c("bootsCloth").f("leather_boots"));
+        REGISTRY.a(302, "chainmail_helmet", (new ItemArmor(EnumArmorMaterial.CHAIN, 1, 0)).c("helmetChain").f("chainmail_helmet"));
+        REGISTRY.a(303, "chainmail_chestplate", (new ItemArmor(EnumArmorMaterial.CHAIN, 1, 1)).c("chestplateChain").f("chainmail_chestplate"));
+        REGISTRY.a(304, "chainmail_leggings", (new ItemArmor(EnumArmorMaterial.CHAIN, 1, 2)).c("leggingsChain").f("chainmail_leggings"));
+        REGISTRY.a(305, "chainmail_boots", (new ItemArmor(EnumArmorMaterial.CHAIN, 1, 3)).c("bootsChain").f("chainmail_boots"));
+        REGISTRY.a(306, "iron_helmet", (new ItemArmor(EnumArmorMaterial.IRON, 2, 0)).c("helmetIron").f("iron_helmet"));
+        REGISTRY.a(307, "iron_chestplate", (new ItemArmor(EnumArmorMaterial.IRON, 2, 1)).c("chestplateIron").f("iron_chestplate"));
+        REGISTRY.a(308, "iron_leggings", (new ItemArmor(EnumArmorMaterial.IRON, 2, 2)).c("leggingsIron").f("iron_leggings"));
+        REGISTRY.a(309, "iron_boots", (new ItemArmor(EnumArmorMaterial.IRON, 2, 3)).c("bootsIron").f("iron_boots"));
+        REGISTRY.a(310, "diamond_helmet", (new ItemArmor(EnumArmorMaterial.DIAMOND, 3, 0)).c("helmetDiamond").f("diamond_helmet"));
+        REGISTRY.a(311, "diamond_chestplate", (new ItemArmor(EnumArmorMaterial.DIAMOND, 3, 1)).c("chestplateDiamond").f("diamond_chestplate"));
+        REGISTRY.a(312, "diamond_leggings", (new ItemArmor(EnumArmorMaterial.DIAMOND, 3, 2)).c("leggingsDiamond").f("diamond_leggings"));
+        REGISTRY.a(313, "diamond_boots", (new ItemArmor(EnumArmorMaterial.DIAMOND, 3, 3)).c("bootsDiamond").f("diamond_boots"));
+        REGISTRY.a(314, "golden_helmet", (new ItemArmor(EnumArmorMaterial.GOLD, 4, 0)).c("helmetGold").f("gold_helmet"));
+        REGISTRY.a(315, "golden_chestplate", (new ItemArmor(EnumArmorMaterial.GOLD, 4, 1)).c("chestplateGold").f("gold_chestplate"));
+        REGISTRY.a(316, "golden_leggings", (new ItemArmor(EnumArmorMaterial.GOLD, 4, 2)).c("leggingsGold").f("gold_leggings"));
+        REGISTRY.a(317, "golden_boots", (new ItemArmor(EnumArmorMaterial.GOLD, 4, 3)).c("bootsGold").f("gold_boots"));
+        REGISTRY.a(318, "flint", (new Item()).c("flint").a(CreativeModeTab.l).f("flint"));
+        REGISTRY.a(319, "porkchop", (new ItemFood(3, 0.3F, true)).c("porkchopRaw").f("porkchop_raw"));
+        REGISTRY.a(320, "cooked_porkchop", (new ItemFood(8, 0.8F, true)).c("porkchopCooked").f("porkchop_cooked"));
+        REGISTRY.a(321, "painting", (new ItemHanging(EntityPainting.class)).c("painting").f("painting"));
+        REGISTRY.a(322, "golden_apple", (new ItemGoldenApple(4, 1.2F, false)).j().a(MobEffectList.REGENERATION.id, 5, 1, 1.0F).c("appleGold").f("apple_golden"));
+        REGISTRY.a(323, "sign", (new ItemSign()).c("sign").f("sign"));
+        REGISTRY.a(324, "wooden_door", (new ItemDoor(Material.WOOD)).c("doorWood").f("door_wood"));
+        Item item = (new ItemBucket(Blocks.AIR)).c("bucket").e(16).f("bucket_empty");
+
+        REGISTRY.a(325, "bucket", item);
+        REGISTRY.a(326, "water_bucket", (new ItemBucket(Blocks.WATER)).c("bucketWater").c(item).f("bucket_water"));
+        REGISTRY.a(327, "lava_bucket", (new ItemBucket(Blocks.LAVA)).c("bucketLava").c(item).f("bucket_lava"));
+        REGISTRY.a(328, "minecart", (new ItemMinecart(0)).c("minecart").f("minecart_normal"));
+        REGISTRY.a(329, "saddle", (new ItemSaddle()).c("saddle").f("saddle"));
+        REGISTRY.a(330, "iron_door", (new ItemDoor(Material.ORE)).c("doorIron").f("door_iron"));
+        REGISTRY.a(331, "redstone", (new ItemRedstone()).c("redstone").e(PotionBrewer.i).f("redstone_dust"));
+        REGISTRY.a(332, "snowball", (new ItemSnowball()).c("snowball").f("snowball"));
+        REGISTRY.a(333, "boat", (new ItemBoat()).c("boat").f("boat"));
+        REGISTRY.a(334, "leather", (new Item()).c("leather").a(CreativeModeTab.l).f("leather"));
+        REGISTRY.a(335, "milk_bucket", (new ItemMilkBucket()).c("milk").c(item).f("bucket_milk"));
+        REGISTRY.a(336, "brick", (new Item()).c("brick").a(CreativeModeTab.l).f("brick"));
+        REGISTRY.a(337, "clay_ball", (new Item()).c("clay").a(CreativeModeTab.l).f("clay_ball"));
+        REGISTRY.a(338, "reeds", (new ItemReed(Blocks.SUGAR_CANE_BLOCK)).c("reeds").a(CreativeModeTab.l).f("reeds"));
+        REGISTRY.a(339, "paper", (new Item()).c("paper").a(CreativeModeTab.f).f("paper"));
+        REGISTRY.a(340, "book", (new ItemBook()).c("book").a(CreativeModeTab.f).f("book_normal"));
+        REGISTRY.a(341, "slime_ball", (new Item()).c("slimeball").a(CreativeModeTab.f).f("slimeball"));
+        REGISTRY.a(342, "chest_minecart", (new ItemMinecart(1)).c("minecartChest").f("minecart_chest"));
+        REGISTRY.a(343, "furnace_minecart", (new ItemMinecart(2)).c("minecartFurnace").f("minecart_furnace"));
+        REGISTRY.a(344, "egg", (new ItemEgg()).c("egg").f("egg"));
+        REGISTRY.a(345, "compass", (new Item()).c("compass").a(CreativeModeTab.i).f("compass"));
+        REGISTRY.a(346, "fishing_rod", (new ItemFishingRod()).c("fishingRod").f("fishing_rod"));
+        REGISTRY.a(347, "clock", (new Item()).c("clock").a(CreativeModeTab.i).f("clock"));
+        REGISTRY.a(348, "glowstone_dust", (new Item()).c("yellowDust").e(PotionBrewer.j).a(CreativeModeTab.l).f("glowstone_dust"));
+        REGISTRY.a(349, "fish", (new ItemFish(false)).c("fish").f("fish_raw").a(true));
+        REGISTRY.a(350, "cooked_fished", (new ItemFish(true)).c("fish").f("fish_cooked").a(true));
+        REGISTRY.a(351, "dye", (new ItemDye()).c("dyePowder").f("dye_powder"));
+        REGISTRY.a(352, "bone", (new Item()).c("bone").q().a(CreativeModeTab.f).f("bone"));
+        REGISTRY.a(353, "sugar", (new Item()).c("sugar").e(PotionBrewer.b).a(CreativeModeTab.l).f("sugar"));
+        REGISTRY.a(354, "cake", (new ItemReed(Blocks.CAKE_BLOCK)).e(1).c("cake").a(CreativeModeTab.h).f("cake"));
+        REGISTRY.a(355, "bed", (new ItemBed()).e(1).c("bed").f("bed"));
+        REGISTRY.a(356, "repeater", (new ItemReed(Blocks.DIODE_OFF)).c("diode").a(CreativeModeTab.d).f("repeater"));
+        REGISTRY.a(357, "cookie", (new ItemFood(2, 0.1F, false)).c("cookie").f("cookie"));
+        REGISTRY.a(358, "filled_map", (new ItemWorldMap()).c("map").f("map_filled"));
+        REGISTRY.a(359, "shears", (new ItemShears()).c("shears").f("shears"));
+        REGISTRY.a(360, "melon", (new ItemFood(2, 0.3F, false)).c("melon").f("melon"));
+        REGISTRY.a(361, "pumpkin_seeds", (new ItemSeeds(Blocks.PUMPKIN_STEM, Blocks.SOIL)).c("seeds_pumpkin").f("seeds_pumpkin"));
+        REGISTRY.a(362, "melon_seeds", (new ItemSeeds(Blocks.MELON_STEM, Blocks.SOIL)).c("seeds_melon").f("seeds_melon"));
+        REGISTRY.a(363, "beef", (new ItemFood(3, 0.3F, true)).c("beefRaw").f("beef_raw"));
+        REGISTRY.a(364, "cooked_beef", (new ItemFood(8, 0.8F, true)).c("beefCooked").f("beef_cooked"));
+        REGISTRY.a(365, "chicken", (new ItemFood(2, 0.3F, true)).a(MobEffectList.HUNGER.id, 30, 0, 0.3F).c("chickenRaw").f("chicken_raw"));
+        REGISTRY.a(366, "cooked_chicken", (new ItemFood(6, 0.6F, true)).c("chickenCooked").f("chicken_cooked"));
+        REGISTRY.a(367, "rotten_flesh", (new ItemFood(4, 0.1F, true)).a(MobEffectList.HUNGER.id, 30, 0, 0.8F).c("rottenFlesh").f("rotten_flesh"));
+        REGISTRY.a(368, "ender_pearl", (new ItemEnderPearl()).c("enderPearl").f("ender_pearl"));
+        REGISTRY.a(369, "blaze_rod", (new Item()).c("blazeRod").a(CreativeModeTab.l).f("blaze_rod"));
+        REGISTRY.a(370, "ghast_tear", (new Item()).c("ghastTear").e(PotionBrewer.c).a(CreativeModeTab.k).f("ghast_tear"));
+        REGISTRY.a(371, "gold_nugget", (new Item()).c("goldNugget").a(CreativeModeTab.l).f("gold_nugget"));
+        REGISTRY.a(372, "nether_wart", (new ItemSeeds(Blocks.NETHER_WART, Blocks.SOUL_SAND)).c("netherStalkSeeds").e("+4").f("nether_wart"));
+        REGISTRY.a(373, "potion", (new ItemPotion()).c("potion").f("potion"));
+        REGISTRY.a(374, "glass_bottle", (new ItemGlassBottle()).c("glassBottle").f("potion_bottle_empty"));
+        REGISTRY.a(375, "spider_eye", (new ItemFood(2, 0.8F, false)).a(MobEffectList.POISON.id, 5, 0, 1.0F).c("spiderEye").e(PotionBrewer.d).f("spider_eye"));
+        REGISTRY.a(376, "fermented_spider_eye", (new Item()).c("fermentedSpiderEye").e(PotionBrewer.e).a(CreativeModeTab.k).f("spider_eye_fermented"));
+        REGISTRY.a(377, "blaze_powder", (new Item()).c("blazePowder").e(PotionBrewer.g).a(CreativeModeTab.k).f("blaze_powder"));
+        REGISTRY.a(378, "magma_cream", (new Item()).c("magmaCream").e(PotionBrewer.h).a(CreativeModeTab.k).f("magma_cream"));
+        REGISTRY.a(379, "brewing_stand", (new ItemReed(Blocks.BREWING_STAND)).c("brewingStand").a(CreativeModeTab.k).f("brewing_stand"));
+        REGISTRY.a(380, "cauldron", (new ItemReed(Blocks.CAULDRON)).c("cauldron").a(CreativeModeTab.k).f("cauldron"));
+        REGISTRY.a(381, "ender_eye", (new ItemEnderEye()).c("eyeOfEnder").f("ender_eye"));
+        REGISTRY.a(382, "speckled_melon", (new Item()).c("speckledMelon").e(PotionBrewer.f).a(CreativeModeTab.k).f("melon_speckled"));
+        REGISTRY.a(383, "spawn_egg", (new ItemMonsterEgg()).c("monsterPlacer").f("spawn_egg"));
+        REGISTRY.a(384, "experience_bottle", (new ItemExpBottle()).c("expBottle").f("experience_bottle"));
+        REGISTRY.a(385, "fire_charge", (new ItemFireball()).c("fireball").f("fireball"));
+        REGISTRY.a(386, "writable_book", (new ItemBookAndQuill()).c("writingBook").a(CreativeModeTab.f).f("book_writable"));
+        REGISTRY.a(387, "written_book", (new ItemWrittenBook()).c("writtenBook").f("book_written").e(16));
+        REGISTRY.a(388, "emerald", (new Item()).c("emerald").a(CreativeModeTab.l).f("emerald"));
+        REGISTRY.a(389, "item_frame", (new ItemHanging(EntityItemFrame.class)).c("frame").f("item_frame"));
+        REGISTRY.a(390, "flower_pot", (new ItemReed(Blocks.FLOWER_POT)).c("flowerPot").a(CreativeModeTab.c).f("flower_pot"));
+        REGISTRY.a(391, "carrot", (new ItemSeedFood(4, 0.6F, Blocks.CARROTS, Blocks.SOIL)).c("carrots").f("carrot"));
+        REGISTRY.a(392, "potato", (new ItemSeedFood(1, 0.3F, Blocks.POTATOES, Blocks.SOIL)).c("potato").f("potato"));
+        REGISTRY.a(393, "baked_potato", (new ItemFood(6, 0.6F, false)).c("potatoBaked").f("potato_baked"));
+        REGISTRY.a(394, "poisonous_potato", (new ItemFood(2, 0.3F, false)).a(MobEffectList.POISON.id, 5, 0, 0.6F).c("potatoPoisonous").f("potato_poisonous"));
+        REGISTRY.a(395, "map", (new ItemMapEmpty()).c("emptyMap").f("map_empty"));
+        REGISTRY.a(396, "golden_carrot", (new ItemFood(6, 1.2F, false)).c("carrotGolden").e(PotionBrewer.l).f("carrot_golden"));
+        REGISTRY.a(397, "skull", (new ItemSkull()).c("skull").f("skull"));
+        REGISTRY.a(398, "carrot_on_a_stick", (new ItemCarrotStick()).c("carrotOnAStick").f("carrot_on_a_stick"));
+        REGISTRY.a(399, "nether_star", (new ItemNetherStar()).c("netherStar").a(CreativeModeTab.l).f("nether_star"));
+        REGISTRY.a(400, "pumpkin_pie", (new ItemFood(8, 0.3F, false)).c("pumpkinPie").a(CreativeModeTab.h).f("pumpkin_pie"));
+        REGISTRY.a(401, "fireworks", (new ItemFireworks()).c("fireworks").f("fireworks"));
+        REGISTRY.a(402, "firework_charge", (new ItemFireworksCharge()).c("fireworksCharge").a(CreativeModeTab.f).f("fireworks_charge"));
+        REGISTRY.a(403, "enchanted_book", (new ItemEnchantedBook()).e(1).c("enchantedBook").f("book_enchanted"));
+        REGISTRY.a(404, "comparator", (new ItemReed(Blocks.REDSTONE_COMPARATOR_OFF)).c("comparator").a(CreativeModeTab.d).f("comparator"));
+        REGISTRY.a(405, "netherbrick", (new Item()).c("netherbrick").a(CreativeModeTab.l).f("netherbrick"));
+        REGISTRY.a(406, "quartz", (new Item()).c("netherquartz").a(CreativeModeTab.l).f("quartz"));
+        REGISTRY.a(407, "tnt_minecart", (new ItemMinecart(3)).c("minecartTnt").f("minecart_tnt"));
+        REGISTRY.a(408, "hopper_minecart", (new ItemMinecart(5)).c("minecartHopper").f("minecart_hopper"));
+        REGISTRY.a(417, "iron_horse_armor", (new Item()).c("horsearmormetal").e(1).a(CreativeModeTab.f).f("iron_horse_armor"));
+        REGISTRY.a(418, "golden_horse_armor", (new Item()).c("horsearmorgold").e(1).a(CreativeModeTab.f).f("gold_horse_armor"));
+        REGISTRY.a(419, "diamond_horse_armor", (new Item()).c("horsearmordiamond").e(1).a(CreativeModeTab.f).f("diamond_horse_armor"));
+        REGISTRY.a(420, "lead", (new ItemLeash()).c("leash").f("lead"));
+        REGISTRY.a(421, "name_tag", (new ItemNameTag()).c("nameTag").f("name_tag"));
+        REGISTRY.a(422, "command_block_minecart", (new ItemMinecart(6)).c("minecartCommandBlock").f("minecart_command_block").a((CreativeModeTab) null));
+        REGISTRY.a(2256, "record_13", (new ItemRecord("13")).c("record").f("record_13"));
+        REGISTRY.a(2257, "record_cat", (new ItemRecord("cat")).c("record").f("record_cat"));
+        REGISTRY.a(2258, "record_blocks", (new ItemRecord("blocks")).c("record").f("record_blocks"));
+        REGISTRY.a(2259, "record_chirp", (new ItemRecord("chirp")).c("record").f("record_chirp"));
+        REGISTRY.a(2260, "record_far", (new ItemRecord("far")).c("record").f("record_far"));
+        REGISTRY.a(2261, "record_mall", (new ItemRecord("mall")).c("record").f("record_mall"));
+        REGISTRY.a(2262, "record_mellohi", (new ItemRecord("mellohi")).c("record").f("record_mellohi"));
+        REGISTRY.a(2263, "record_stal", (new ItemRecord("stal")).c("record").f("record_stal"));
+        REGISTRY.a(2264, "record_strad", (new ItemRecord("strad")).c("record").f("record_strad"));
+        REGISTRY.a(2265, "record_ward", (new ItemRecord("ward")).c("record").f("record_ward"));
+        REGISTRY.a(2266, "record_11", (new ItemRecord("11")).c("record").f("record_11"));
+        REGISTRY.a(2267, "record_wait", (new ItemRecord("wait")).c("record").f("record_wait"));
+        HashSet hashset = Sets.newHashSet(new Block[] { Blocks.AIR, Blocks.BREWING_STAND, Blocks.BED, Blocks.NETHER_WART, Blocks.CAULDRON, Blocks.FLOWER_POT, Blocks.CROPS, Blocks.SUGAR_CANE_BLOCK, Blocks.CAKE_BLOCK, Blocks.SKULL, Blocks.PISTON_EXTENSION, Blocks.PISTON_MOVING, Blocks.GLOWING_REDSTONE_ORE, Blocks.DIODE_ON, Blocks.PUMPKIN_STEM, Blocks.SIGN_POST, Blocks.REDSTONE_COMPARATOR_ON, Blocks.TRIPWIRE, Blocks.REDSTONE_LAMP_ON, Blocks.MELON_STEM, Blocks.REDSTONE_TORCH_OFF, Blocks.REDSTONE_COMPARATOR_OFF, Blocks.REDSTONE_WIRE, Blocks.WALL_SIGN, Blocks.DIODE_OFF, Blocks.IRON_DOOR_BLOCK, Blocks.WOODEN_DOOR});
+        Iterator iterator = Block.REGISTRY.b().iterator();
+
+        while (iterator.hasNext()) {
+            String s = (String) iterator.next();
+            Block block = (Block) Block.REGISTRY.a(s);
+            Object object;
+
+            if (block == Blocks.WOOL) {
+                object = (new ItemCloth(Blocks.WOOL)).b("cloth");
+            } else if (block == Blocks.STAINED_HARDENED_CLAY) {
+                object = (new ItemCloth(Blocks.STAINED_HARDENED_CLAY)).b("clayHardenedStained");
+            } else if (block == Blocks.STAINED_GLASS) {
+                object = (new ItemCloth(Blocks.STAINED_GLASS)).b("stainedGlass");
+            } else if (block == Blocks.STAINED_GLASS_PANE) {
+                object = (new ItemCloth(Blocks.STAINED_GLASS_PANE)).b("stainedGlassPane");
+            } else if (block == Blocks.WOOL_CARPET) {
+                object = (new ItemCloth(Blocks.WOOL_CARPET)).b("woolCarpet");
+            } else if (block == Blocks.DIRT) {
+                object = (new ItemMultiTexture(Blocks.DIRT, Blocks.DIRT, BlockDirt.a)).b("dirt");
+            } else if (block == Blocks.SAND) {
+                object = (new ItemMultiTexture(Blocks.SAND, Blocks.SAND, BlockSand.a)).b("sand");
+            } else if (block == Blocks.LOG) {
+                object = (new ItemMultiTexture(Blocks.LOG, Blocks.LOG, BlockLog1.M)).b("log");
+            } else if (block == Blocks.LOG2) {
+                object = (new ItemMultiTexture(Blocks.LOG2, Blocks.LOG2, BlockLog2.M)).b("log");
+            } else if (block == Blocks.WOOD) {
+                object = (new ItemMultiTexture(Blocks.WOOD, Blocks.WOOD, BlockWood.a)).b("wood");
+            } else if (block == Blocks.MONSTER_EGGS) {
+                object = (new ItemMultiTexture(Blocks.MONSTER_EGGS, Blocks.MONSTER_EGGS, BlockMonsterEggs.a)).b("monsterStoneEgg");
+            } else if (block == Blocks.SMOOTH_BRICK) {
+                object = (new ItemMultiTexture(Blocks.SMOOTH_BRICK, Blocks.SMOOTH_BRICK, BlockSmoothBrick.a)).b("stonebricksmooth");
+            } else if (block == Blocks.SANDSTONE) {
+                object = (new ItemMultiTexture(Blocks.SANDSTONE, Blocks.SANDSTONE, BlockSandStone.a)).b("sandStone");
+            } else if (block == Blocks.QUARTZ_BLOCK) {
+                object = (new ItemMultiTexture(Blocks.QUARTZ_BLOCK, Blocks.QUARTZ_BLOCK, BlockQuartz.a)).b("quartzBlock");
+            } else if (block == Blocks.STEP) {
+                object = (new ItemStep(Blocks.STEP, Blocks.STEP, Blocks.DOUBLE_STEP, false)).b("stoneSlab");
+            } else if (block == Blocks.DOUBLE_STEP) {
+                object = (new ItemStep(Blocks.DOUBLE_STEP, Blocks.STEP, Blocks.DOUBLE_STEP, true)).b("stoneSlab");
+            } else if (block == Blocks.WOOD_STEP) {
+                object = (new ItemStep(Blocks.WOOD_STEP, Blocks.WOOD_STEP, Blocks.WOOD_DOUBLE_STEP, false)).b("woodSlab");
+            } else if (block == Blocks.WOOD_DOUBLE_STEP) {
+                object = (new ItemStep(Blocks.WOOD_DOUBLE_STEP, Blocks.WOOD_STEP, Blocks.WOOD_DOUBLE_STEP, true)).b("woodSlab");
+            } else if (block == Blocks.SAPLING) {
+                object = (new ItemMultiTexture(Blocks.SAPLING, Blocks.SAPLING, BlockSapling.a)).b("sapling");
+            } else if (block == Blocks.LEAVES) {
+                object = (new ItemLeaves(Blocks.LEAVES)).b("leaves");
+            } else if (block == Blocks.LEAVES2) {
+                object = (new ItemLeaves(Blocks.LEAVES2)).b("leaves");
+            } else if (block == Blocks.VINE) {
+                object = new ItemWithAuxData(Blocks.VINE, false);
+            } else if (block == Blocks.LONG_GRASS) {
+                object = (new ItemWithAuxData(Blocks.LONG_GRASS, true)).a(new String[] { "shrub", "grass", "fern"});
+            } else if (block == Blocks.YELLOW_FLOWER) {
+                object = (new ItemMultiTexture(Blocks.YELLOW_FLOWER, Blocks.YELLOW_FLOWER, BlockFlowers.b)).b("flower");
+            } else if (block == Blocks.RED_ROSE) {
+                object = (new ItemMultiTexture(Blocks.RED_ROSE, Blocks.RED_ROSE, BlockFlowers.a)).b("rose");
+            } else if (block == Blocks.SNOW) {
+                object = new ItemSnow(Blocks.SNOW, Blocks.SNOW);
+            } else if (block == Blocks.WATER_LILY) {
+                object = new ItemWaterLily(Blocks.WATER_LILY);
+            } else if (block == Blocks.PISTON) {
+                object = new ItemPiston(Blocks.PISTON);
+            } else if (block == Blocks.PISTON_STICKY) {
+                object = new ItemPiston(Blocks.PISTON_STICKY);
+            } else if (block == Blocks.COBBLE_WALL) {
+                object = (new ItemMultiTexture(Blocks.COBBLE_WALL, Blocks.COBBLE_WALL, BlockCobbleWall.a)).b("cobbleWall");
+            } else if (block == Blocks.ANVIL) {
+                object = (new ItemAnvil(Blocks.ANVIL)).b("anvil");
+            } else if (block == Blocks.DOUBLE_PLANT) {
+                object = (new ItemTallPlant(Blocks.DOUBLE_PLANT, Blocks.DOUBLE_PLANT, BlockTallPlant.a)).b("doublePlant");
+            } else {
+                if (hashset.contains(block)) {
+                    continue;
+                }
+
+                object = new ItemBlock(block);
+            }
+
+            REGISTRY.a(Block.b(block), s, object);
+        }
+    }
+
+    public Item e(int i) {
         this.maxStackSize = i;
         return this;
     }
@@ -230,11 +326,11 @@ public class Item {
     }
 
     public boolean n() {
-        return this.cy;
+        return this.j;
     }
 
     protected Item a(boolean flag) {
-        this.cy = flag;
+        this.j = flag;
         return this;
     }
 
@@ -248,14 +344,14 @@ public class Item {
     }
 
     public boolean usesDurability() {
-        return this.durability > 0 && !this.cy;
+        return this.durability > 0 && !this.j;
     }
 
     public boolean a(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {
         return false;
     }
 
-    public boolean a(ItemStack itemstack, World world, int i, int j, int k, int l, EntityLiving entityliving) {
+    public boolean a(ItemStack itemstack, World world, Block block, int i, int j, int k, EntityLiving entityliving) {
         return false;
     }
 
@@ -268,17 +364,17 @@ public class Item {
     }
 
     public Item q() {
-        this.cx = true;
+        this.i = true;
         return this;
     }
 
-    public Item b(String s) {
+    public Item c(String s) {
         this.name = s;
         return this;
     }
 
-    public String i(ItemStack itemstack) {
-        String s = this.d(itemstack);
+    public String k(ItemStack itemstack) {
+        String s = this.a(itemstack);
 
         return s == null ? "" : LocaleI18n.get(s);
     }
@@ -287,16 +383,16 @@ public class Item {
         return "item." + this.name;
     }
 
-    public String d(ItemStack itemstack) {
+    public String a(ItemStack itemstack) {
         return "item." + this.name;
     }
 
-    public Item a(Item item) {
+    public Item c(Item item) {
         this.craftingResult = item;
         return this;
     }
 
-    public boolean j(ItemStack itemstack) {
+    public boolean l(ItemStack itemstack) {
         return true;
     }
 
@@ -312,23 +408,15 @@ public class Item {
         return this.craftingResult != null;
     }
 
-    public String v() {
-        return LocaleI18n.get(this.getName() + ".name");
-    }
-
-    public String k(ItemStack itemstack) {
-        return LocaleI18n.get(this.d(itemstack) + ".name");
-    }
-
     public void a(ItemStack itemstack, World world, Entity entity, int i, boolean flag) {}
 
     public void d(ItemStack itemstack, World world, EntityHuman entityhuman) {}
 
-    public boolean f() {
+    public boolean h() {
         return false;
     }
 
-    public EnumAnimation c_(ItemStack itemstack) {
+    public EnumAnimation d(ItemStack itemstack) {
         return EnumAnimation.NONE;
     }
 
@@ -338,21 +426,25 @@ public class Item {
 
     public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {}
 
-    protected Item c(String s) {
+    protected Item e(String s) {
         this.d = s;
         return this;
     }
 
-    public String w() {
+    public String i(ItemStack itemstack) {
         return this.d;
     }
 
-    public boolean x() {
-        return this.d != null;
+    public boolean m(ItemStack itemstack) {
+        return this.i(itemstack) != null;
     }
 
-    public String l(ItemStack itemstack) {
-        return ("" + LocaleI18n.get(this.i(itemstack) + ".name")).trim();
+    public String n(ItemStack itemstack) {
+        return ("" + LocaleI18n.get(this.k(itemstack) + ".name")).trim();
+    }
+
+    public EnumItemRarity f(ItemStack itemstack) {
+        return itemstack.hasEnchantments() ? EnumItemRarity.RARE : EnumItemRarity.COMMON;
     }
 
     public boolean e_(ItemStack itemstack) {
@@ -376,7 +468,7 @@ public class Item {
         double d3 = 5.0D;
         Vec3D vec3d1 = vec3d.add((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
 
-        return world.rayTrace(vec3d, vec3d1, flag, !flag);
+        return world.rayTrace(vec3d, vec3d1, flag, !flag, false);
     }
 
     public int c() {
@@ -388,7 +480,7 @@ public class Item {
         return this;
     }
 
-    public boolean z() {
+    public boolean v() {
         return true;
     }
 
@@ -396,16 +488,12 @@ public class Item {
         return false;
     }
 
-    public Multimap h() {
+    public Multimap k() {
         return HashMultimap.create();
     }
 
-    protected Item d(String s) {
-        this.cA = s;
+    protected Item f(String s) {
+        this.l = s;
         return this;
-    }
-
-    static {
-        StatisticList.c();
     }
 }

@@ -2,38 +2,37 @@ package net.minecraft.server;
 
 public class ItemWrittenBook extends Item {
 
-    public ItemWrittenBook(int i) {
-        super(i);
-        this.d(1);
+    public ItemWrittenBook() {
+        this.e(1);
     }
 
     public static boolean a(NBTTagCompound nbttagcompound) {
         if (!ItemBookAndQuill.a(nbttagcompound)) {
             return false;
-        } else if (!nbttagcompound.hasKey("title")) {
+        } else if (!nbttagcompound.hasKeyOfType("title", 8)) {
             return false;
         } else {
             String s = nbttagcompound.getString("title");
 
-            return s != null && s.length() <= 16 ? nbttagcompound.hasKey("author") : false;
+            return s != null && s.length() <= 16 ? nbttagcompound.hasKeyOfType("author", 8) : false;
         }
     }
 
-    public String l(ItemStack itemstack) {
+    public String n(ItemStack itemstack) {
         if (itemstack.hasTag()) {
             NBTTagCompound nbttagcompound = itemstack.getTag();
-            NBTTagString nbttagstring = (NBTTagString) nbttagcompound.get("title");
+            String s = nbttagcompound.getString("title");
 
-            if (nbttagstring != null) {
-                return nbttagstring.toString();
+            if (!UtilColor.b(s)) {
+                return s;
             }
         }
 
-        return super.l(itemstack);
+        return super.n(itemstack);
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        entityhuman.c(itemstack);
+        entityhuman.b(itemstack);
         return itemstack;
     }
 

@@ -2,9 +2,8 @@ package net.minecraft.server;
 
 public class ItemMilkBucket extends Item {
 
-    public ItemMilkBucket(int i) {
-        super(i);
-        this.d(1);
+    public ItemMilkBucket() {
+        this.e(1);
         this.a(CreativeModeTab.f);
     }
 
@@ -14,17 +13,17 @@ public class ItemMilkBucket extends Item {
         }
 
         if (!world.isStatic) {
-            entityhuman.aK();
+            entityhuman.aP();
         }
 
-        return itemstack.count <= 0 ? new ItemStack(Item.BUCKET) : itemstack;
+        return itemstack.count <= 0 ? new ItemStack(Items.BUCKET) : itemstack;
     }
 
     public int d_(ItemStack itemstack) {
         return 32;
     }
 
-    public EnumAnimation c_(ItemStack itemstack) {
+    public EnumAnimation d(ItemStack itemstack) {
         return EnumAnimation.DRINK;
     }
 

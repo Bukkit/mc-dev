@@ -5,10 +5,10 @@ import java.util.Random;
 
 public class WorldGenVillageFarm2 extends WorldGenVillagePiece {
 
-    private int a;
-    private int b;
-    private int c;
-    private int d;
+    private Block a;
+    private Block b;
+    private Block c;
+    private Block d;
 
     public WorldGenVillageFarm2() {}
 
@@ -24,30 +24,30 @@ public class WorldGenVillageFarm2 extends WorldGenVillagePiece {
 
     protected void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        nbttagcompound.setInt("CA", this.a);
-        nbttagcompound.setInt("CB", this.b);
-        nbttagcompound.setInt("CC", this.c);
-        nbttagcompound.setInt("CD", this.d);
+        nbttagcompound.setInt("CA", Block.REGISTRY.b(this.a));
+        nbttagcompound.setInt("CB", Block.REGISTRY.b(this.b));
+        nbttagcompound.setInt("CC", Block.REGISTRY.b(this.c));
+        nbttagcompound.setInt("CD", Block.REGISTRY.b(this.d));
     }
 
     protected void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        this.a = nbttagcompound.getInt("CA");
-        this.b = nbttagcompound.getInt("CB");
-        this.c = nbttagcompound.getInt("CC");
-        this.d = nbttagcompound.getInt("CD");
+        this.a = Block.e(nbttagcompound.getInt("CA"));
+        this.b = Block.e(nbttagcompound.getInt("CB"));
+        this.c = Block.e(nbttagcompound.getInt("CC"));
+        this.d = Block.e(nbttagcompound.getInt("CD"));
     }
 
-    private int a(Random random) {
+    private Block a(Random random) {
         switch (random.nextInt(5)) {
         case 0:
-            return Block.CARROTS.id;
+            return Blocks.CARROTS;
 
         case 1:
-            return Block.POTATOES.id;
+            return Blocks.POTATOES;
 
         default:
-            return Block.CROPS.id;
+            return Blocks.CROPS;
         }
     }
 
@@ -67,18 +67,18 @@ public class WorldGenVillageFarm2 extends WorldGenVillagePiece {
             this.f.a(0, this.k - this.f.e + 4 - 1, 0);
         }
 
-        this.a(world, structureboundingbox, 0, 1, 0, 12, 4, 8, 0, 0, false);
-        this.a(world, structureboundingbox, 1, 0, 1, 2, 0, 7, Block.SOIL.id, Block.SOIL.id, false);
-        this.a(world, structureboundingbox, 4, 0, 1, 5, 0, 7, Block.SOIL.id, Block.SOIL.id, false);
-        this.a(world, structureboundingbox, 7, 0, 1, 8, 0, 7, Block.SOIL.id, Block.SOIL.id, false);
-        this.a(world, structureboundingbox, 10, 0, 1, 11, 0, 7, Block.SOIL.id, Block.SOIL.id, false);
-        this.a(world, structureboundingbox, 0, 0, 0, 0, 0, 8, Block.LOG.id, Block.LOG.id, false);
-        this.a(world, structureboundingbox, 6, 0, 0, 6, 0, 8, Block.LOG.id, Block.LOG.id, false);
-        this.a(world, structureboundingbox, 12, 0, 0, 12, 0, 8, Block.LOG.id, Block.LOG.id, false);
-        this.a(world, structureboundingbox, 1, 0, 0, 11, 0, 0, Block.LOG.id, Block.LOG.id, false);
-        this.a(world, structureboundingbox, 1, 0, 8, 11, 0, 8, Block.LOG.id, Block.LOG.id, false);
-        this.a(world, structureboundingbox, 3, 0, 1, 3, 0, 7, Block.WATER.id, Block.WATER.id, false);
-        this.a(world, structureboundingbox, 9, 0, 1, 9, 0, 7, Block.WATER.id, Block.WATER.id, false);
+        this.a(world, structureboundingbox, 0, 1, 0, 12, 4, 8, Blocks.AIR, Blocks.AIR, false);
+        this.a(world, structureboundingbox, 1, 0, 1, 2, 0, 7, Blocks.SOIL, Blocks.SOIL, false);
+        this.a(world, structureboundingbox, 4, 0, 1, 5, 0, 7, Blocks.SOIL, Blocks.SOIL, false);
+        this.a(world, structureboundingbox, 7, 0, 1, 8, 0, 7, Blocks.SOIL, Blocks.SOIL, false);
+        this.a(world, structureboundingbox, 10, 0, 1, 11, 0, 7, Blocks.SOIL, Blocks.SOIL, false);
+        this.a(world, structureboundingbox, 0, 0, 0, 0, 0, 8, Blocks.LOG, Blocks.LOG, false);
+        this.a(world, structureboundingbox, 6, 0, 0, 6, 0, 8, Blocks.LOG, Blocks.LOG, false);
+        this.a(world, structureboundingbox, 12, 0, 0, 12, 0, 8, Blocks.LOG, Blocks.LOG, false);
+        this.a(world, structureboundingbox, 1, 0, 0, 11, 0, 0, Blocks.LOG, Blocks.LOG, false);
+        this.a(world, structureboundingbox, 1, 0, 8, 11, 0, 8, Blocks.LOG, Blocks.LOG, false);
+        this.a(world, structureboundingbox, 3, 0, 1, 3, 0, 7, Blocks.STATIONARY_WATER, Blocks.STATIONARY_WATER, false);
+        this.a(world, structureboundingbox, 9, 0, 1, 9, 0, 7, Blocks.STATIONARY_WATER, Blocks.STATIONARY_WATER, false);
 
         int i;
 
@@ -96,7 +96,7 @@ public class WorldGenVillageFarm2 extends WorldGenVillagePiece {
         for (i = 0; i < 9; ++i) {
             for (int j = 0; j < 13; ++j) {
                 this.b(world, j, 4, i, structureboundingbox);
-                this.b(world, Block.DIRT.id, 0, j, -1, i, structureboundingbox);
+                this.b(world, Blocks.DIRT, 0, j, -1, i, structureboundingbox);
             }
         }
 

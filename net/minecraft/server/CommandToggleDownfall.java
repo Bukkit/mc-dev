@@ -22,7 +22,8 @@ public class CommandToggleDownfall extends CommandAbstract {
     }
 
     protected void d() {
-        MinecraftServer.getServer().worldServer[0].B();
-        MinecraftServer.getServer().worldServer[0].getWorldData().setThundering(true);
+        WorldData worlddata = MinecraftServer.getServer().worldServer[0].getWorldData();
+
+        worlddata.setStorm(!worlddata.hasStorm());
     }
 }

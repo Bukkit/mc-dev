@@ -2,10 +2,10 @@ package net.minecraft.server;
 
 import java.util.Random;
 
-public class BlockFlowerPot extends Block {
+public class BlockFlowerPot extends BlockContainer {
 
-    public BlockFlowerPot(int i) {
-        super(i, Material.ORIENTABLE);
+    public BlockFlowerPot() {
+        super(Material.ORIENTABLE);
         this.g();
     }
 
@@ -20,149 +20,176 @@ public class BlockFlowerPot extends Block {
         return false;
     }
 
-    public int d() {
+    public int b() {
         return 33;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
-        if (itemstack == null) {
-            return false;
-        } else if (world.getData(i, j, k) != 0) {
-            return false;
-        } else {
-            int i1 = a(itemstack);
-
-            if (i1 > 0) {
-                world.setData(i, j, k, i1, 2);
-                if (!entityhuman.abilities.canInstantlyBuild && --itemstack.count <= 0) {
-                    entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
-                }
-
-                return true;
-            } else {
+        if (itemstack != null && itemstack.getItem() instanceof ItemBlock) {
+            if (world.getData(i, j, k) != 0) {
                 return false;
+            } else {
+                TileEntityFlowerPot tileentityflowerpot = this.e(world, i, j, k);
+
+                if (tileentityflowerpot != null) {
+                    Block block = Block.a(itemstack.getItem());
+
+                    if (!this.a(block, itemstack.getData())) {
+                        return false;
+                    } else {
+                        tileentityflowerpot.a(itemstack.getItem(), itemstack.getData());
+                        tileentityflowerpot.update();
+                        if (!world.setData(i, j, k, itemstack.getData(), 2)) {
+                            world.notify(i, j, k);
+                        }
+
+                        if (!entityhuman.abilities.canInstantlyBuild && --itemstack.count <= 0) {
+                            entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
+                        }
+
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
             }
+        } else {
+            return false;
         }
     }
 
-    public int getDropData(World world, int i, int j, int k) {
-        ItemStack itemstack = p_(world.getData(i, j, k));
+    private boolean a(Block block, int i) {
+        return block != Blocks.YELLOW_FLOWER && block != Blocks.RED_ROSE && block != Blocks.CACTUS && block != Blocks.BROWN_MUSHROOM && block != Blocks.RED_MUSHROOM && block != Blocks.SAPLING && block != Blocks.DEAD_BUSH ? block == Blocks.LONG_GRASS && i == 2 : true;
+    }
 
-        return itemstack == null ? Item.FLOWER_POT.id : itemstack.getData();
+    public int getDropData(World world, int i, int j, int k) {
+        TileEntityFlowerPot tileentityflowerpot = this.e(world, i, j, k);
+
+        return tileentityflowerpot != null && tileentityflowerpot.a() != null ? tileentityflowerpot.b() : 0;
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return super.canPlace(world, i, j, k) && world.w(i, j - 1, k);
+        return super.canPlace(world, i, j, k) && World.a((IBlockAccess) world, i, j - 1, k);
     }
 
-    public void doPhysics(World world, int i, int j, int k, int l) {
-        if (!world.w(i, j - 1, k)) {
-            this.c(world, i, j, k, world.getData(i, j, k), 0);
+    public void doPhysics(World world, int i, int j, int k, Block block) {
+        if (!World.a((IBlockAccess) world, i, j - 1, k)) {
+            this.b(world, i, j, k, world.getData(i, j, k), 0);
             world.setAir(i, j, k);
         }
     }
 
     public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
         super.dropNaturally(world, i, j, k, l, f, i1);
-        if (l > 0) {
-            ItemStack itemstack = p_(l);
+        TileEntityFlowerPot tileentityflowerpot = this.e(world, i, j, k);
 
-            if (itemstack != null) {
-                this.b(world, i, j, k, itemstack);
+        if (tileentityflowerpot != null && tileentityflowerpot.a() != null) {
+            this.a(world, i, j, k, new ItemStack(tileentityflowerpot.a(), 1, tileentityflowerpot.b()));
+        }
+    }
+
+    public void remove(World world, int i, int j, int k, Block block, int l) {
+        TileEntityFlowerPot tileentityflowerpot = this.e(world, i, j, k);
+
+        if (tileentityflowerpot != null && tileentityflowerpot.a() != null) {
+            this.a(world, i, j, k, new ItemStack(tileentityflowerpot.a(), 1, tileentityflowerpot.b()));
+        }
+
+        super.remove(world, i, j, k, block, l);
+    }
+
+    public void a(World world, int i, int j, int k, int l, EntityHuman entityhuman) {
+        super.a(world, i, j, k, l, entityhuman);
+        if (entityhuman.abilities.canInstantlyBuild) {
+            TileEntityFlowerPot tileentityflowerpot = this.e(world, i, j, k);
+
+            if (tileentityflowerpot != null) {
+                tileentityflowerpot.a(Item.d(0), 0);
             }
         }
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Item.FLOWER_POT.id;
+    public Item getDropType(int i, Random random, int j) {
+        return Items.FLOWER_POT;
     }
 
-    public static ItemStack p_(int i) {
+    private TileEntityFlowerPot e(World world, int i, int j, int k) {
+        TileEntity tileentity = world.getTileEntity(i, j, k);
+
+        return tileentity != null && tileentity instanceof TileEntityFlowerPot ? (TileEntityFlowerPot) tileentity : null;
+    }
+
+    public TileEntity a(World world, int i) {
+        Object object = null;
+        byte b0 = 0;
+
         switch (i) {
         case 1:
-            return new ItemStack(Block.RED_ROSE);
+            object = Blocks.RED_ROSE;
+            b0 = 0;
+            break;
 
         case 2:
-            return new ItemStack(Block.YELLOW_FLOWER);
+            object = Blocks.YELLOW_FLOWER;
+            break;
 
         case 3:
-            return new ItemStack(Block.SAPLING, 1, 0);
+            object = Blocks.SAPLING;
+            b0 = 0;
+            break;
 
         case 4:
-            return new ItemStack(Block.SAPLING, 1, 1);
+            object = Blocks.SAPLING;
+            b0 = 1;
+            break;
 
         case 5:
-            return new ItemStack(Block.SAPLING, 1, 2);
+            object = Blocks.SAPLING;
+            b0 = 2;
+            break;
 
         case 6:
-            return new ItemStack(Block.SAPLING, 1, 3);
+            object = Blocks.SAPLING;
+            b0 = 3;
+            break;
 
         case 7:
-            return new ItemStack(Block.RED_MUSHROOM);
+            object = Blocks.RED_MUSHROOM;
+            break;
 
         case 8:
-            return new ItemStack(Block.BROWN_MUSHROOM);
+            object = Blocks.BROWN_MUSHROOM;
+            break;
 
         case 9:
-            return new ItemStack(Block.CACTUS);
+            object = Blocks.CACTUS;
+            break;
 
         case 10:
-            return new ItemStack(Block.DEAD_BUSH);
+            object = Blocks.DEAD_BUSH;
+            break;
 
         case 11:
-            return new ItemStack(Block.LONG_GRASS, 1, 2);
+            object = Blocks.LONG_GRASS;
+            b0 = 2;
+            break;
 
-        default:
-            return null;
+        case 12:
+            object = Blocks.SAPLING;
+            b0 = 4;
+            break;
+
+        case 13:
+            object = Blocks.SAPLING;
+            b0 = 5;
         }
-    }
 
-    public static int a(ItemStack itemstack) {
-        int i = itemstack.getItem().id;
-
-        if (i == Block.RED_ROSE.id) {
-            return 1;
-        } else if (i == Block.YELLOW_FLOWER.id) {
-            return 2;
-        } else if (i == Block.CACTUS.id) {
-            return 9;
-        } else if (i == Block.BROWN_MUSHROOM.id) {
-            return 8;
-        } else if (i == Block.RED_MUSHROOM.id) {
-            return 7;
-        } else if (i == Block.DEAD_BUSH.id) {
-            return 10;
-        } else {
-            if (i == Block.SAPLING.id) {
-                switch (itemstack.getData()) {
-                case 0:
-                    return 3;
-
-                case 1:
-                    return 4;
-
-                case 2:
-                    return 5;
-
-                case 3:
-                    return 6;
-                }
-            }
-
-            if (i == Block.LONG_GRASS.id) {
-                switch (itemstack.getData()) {
-                case 2:
-                    return 11;
-                }
-            }
-
-            return 0;
-        }
+        return new TileEntityFlowerPot(Item.getItemOf((Block) object), b0);
     }
 }

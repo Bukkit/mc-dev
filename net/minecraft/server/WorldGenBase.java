@@ -10,7 +10,7 @@ public class WorldGenBase {
 
     public WorldGenBase() {}
 
-    public void a(IChunkProvider ichunkprovider, World world, int i, int j, byte[] abyte) {
+    public void a(IChunkProvider ichunkprovider, World world, int i, int j, Block[] ablock) {
         int k = this.a;
 
         this.c = world;
@@ -24,10 +24,10 @@ public class WorldGenBase {
                 long i2 = (long) k1 * i1;
 
                 this.b.setSeed(l1 ^ i2 ^ world.getSeed());
-                this.a(world, j1, k1, i, j, abyte);
+                this.a(world, j1, k1, i, j, ablock);
             }
         }
     }
 
-    protected void a(World world, int i, int j, int k, int l, byte[] abyte) {}
+    protected void a(World world, int i, int j, int k, int l, Block[] ablock) {}
 }

@@ -2,17 +2,15 @@ package net.minecraft.server;
 
 public class BlockDropper extends BlockDispenser {
 
-    private final IDispenseBehavior cX = new DispenseBehaviorItem();
+    private final IDispenseBehavior P = new DispenseBehaviorItem();
 
-    protected BlockDropper(int i) {
-        super(i);
-    }
+    public BlockDropper() {}
 
     protected IDispenseBehavior a(ItemStack itemstack) {
-        return this.cX;
+        return this.P;
     }
 
-    public TileEntity b(World world) {
+    public TileEntity a(World world, int i) {
         return new TileEntityDropper();
     }
 
@@ -21,7 +19,7 @@ public class BlockDropper extends BlockDispenser {
         TileEntityDispenser tileentitydispenser = (TileEntityDispenser) sourceblock.getTileEntity();
 
         if (tileentitydispenser != null) {
-            int l = tileentitydispenser.j();
+            int l = tileentitydispenser.i();
 
             if (l < 0) {
                 world.triggerEffect(1001, i, j, k, 0);
@@ -42,7 +40,7 @@ public class BlockDropper extends BlockDispenser {
                         itemstack1 = itemstack.cloneItemStack();
                     }
                 } else {
-                    itemstack1 = this.cX.a(sourceblock, itemstack);
+                    itemstack1 = this.P.a(sourceblock, itemstack);
                     if (itemstack1 != null && itemstack1.count == 0) {
                         itemstack1 = null;
                     }

@@ -4,24 +4,24 @@ import java.util.Random;
 
 public class BlockPistonMoving extends BlockContainer {
 
-    public BlockPistonMoving(int i) {
-        super(i, Material.PISTON);
+    public BlockPistonMoving() {
+        super(Material.PISTON);
         this.c(-1.0F);
     }
 
-    public TileEntity b(World world) {
+    public TileEntity a(World world, int i) {
         return null;
     }
 
     public void onPlace(World world, int i, int j, int k) {}
 
-    public void remove(World world, int i, int j, int k, int l, int i1) {
+    public void remove(World world, int i, int j, int k, Block block, int l) {
         TileEntity tileentity = world.getTileEntity(i, j, k);
 
         if (tileentity instanceof TileEntityPiston) {
             ((TileEntityPiston) tileentity).f();
         } else {
-            super.remove(world, i, j, k, l, i1);
+            super.remove(world, i, j, k, block, l);
         }
     }
 
@@ -33,7 +33,7 @@ public class BlockPistonMoving extends BlockContainer {
         return false;
     }
 
-    public int d() {
+    public int b() {
         return -1;
     }
 
@@ -41,7 +41,7 @@ public class BlockPistonMoving extends BlockContainer {
         return false;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
@@ -54,32 +54,32 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return 0;
+    public Item getDropType(int i, Random random, int j) {
+        return null;
     }
 
     public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
         if (!world.isStatic) {
-            TileEntityPiston tileentitypiston = this.d(world, i, j, k);
+            TileEntityPiston tileentitypiston = this.e(world, i, j, k);
 
             if (tileentitypiston != null) {
-                Block.byId[tileentitypiston.a()].c(world, i, j, k, tileentitypiston.p(), 0);
+                tileentitypiston.a().b(world, i, j, k, tileentitypiston.p(), 0);
             }
         }
     }
 
-    public void doPhysics(World world, int i, int j, int k, int l) {
+    public void doPhysics(World world, int i, int j, int k, Block block) {
         if (!world.isStatic) {
             world.getTileEntity(i, j, k);
         }
     }
 
-    public static TileEntity a(int i, int j, int k, boolean flag, boolean flag1) {
-        return new TileEntityPiston(i, j, k, flag, flag1);
+    public static TileEntity a(Block block, int i, int j, boolean flag, boolean flag1) {
+        return new TileEntityPiston(block, i, j, flag, flag1);
     }
 
-    public AxisAlignedBB b(World world, int i, int j, int k) {
-        TileEntityPiston tileentitypiston = this.d(world, i, j, k);
+    public AxisAlignedBB a(World world, int i, int j, int k) {
+        TileEntityPiston tileentitypiston = this.e(world, i, j, k);
 
         if (tileentitypiston == null) {
             return null;
@@ -90,17 +90,17 @@ public class BlockPistonMoving extends BlockContainer {
                 f = 1.0F - f;
             }
 
-            return this.b(world, i, j, k, tileentitypiston.a(), f, tileentitypiston.c());
+            return this.a(world, i, j, k, tileentitypiston.a(), f, tileentitypiston.c());
         }
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        TileEntityPiston tileentitypiston = this.d(iblockaccess, i, j, k);
+        TileEntityPiston tileentitypiston = this.e(iblockaccess, i, j, k);
 
         if (tileentitypiston != null) {
-            Block block = Block.byId[tileentitypiston.a()];
+            Block block = tileentitypiston.a();
 
-            if (block == null || block == this) {
+            if (block == this || block.getMaterial() == Material.AIR) {
                 return;
             }
 
@@ -113,38 +113,38 @@ public class BlockPistonMoving extends BlockContainer {
 
             int l = tileentitypiston.c();
 
-            this.minX = block.u() - (double) ((float) Facing.b[l] * f);
-            this.minY = block.w() - (double) ((float) Facing.c[l] * f);
-            this.minZ = block.y() - (double) ((float) Facing.d[l] * f);
-            this.maxX = block.v() - (double) ((float) Facing.b[l] * f);
-            this.maxY = block.x() - (double) ((float) Facing.c[l] * f);
-            this.maxZ = block.z() - (double) ((float) Facing.d[l] * f);
+            this.minX = block.x() - (double) ((float) Facing.b[l] * f);
+            this.minY = block.z() - (double) ((float) Facing.c[l] * f);
+            this.minZ = block.B() - (double) ((float) Facing.d[l] * f);
+            this.maxX = block.y() - (double) ((float) Facing.b[l] * f);
+            this.maxY = block.A() - (double) ((float) Facing.c[l] * f);
+            this.maxZ = block.C() - (double) ((float) Facing.d[l] * f);
         }
     }
 
-    public AxisAlignedBB b(World world, int i, int j, int k, int l, float f, int i1) {
-        if (l != 0 && l != this.id) {
-            AxisAlignedBB axisalignedbb = Block.byId[l].b(world, i, j, k);
+    public AxisAlignedBB a(World world, int i, int j, int k, Block block, float f, int l) {
+        if (block != this && block.getMaterial() != Material.AIR) {
+            AxisAlignedBB axisalignedbb = block.a(world, i, j, k);
 
             if (axisalignedbb == null) {
                 return null;
             } else {
-                if (Facing.b[i1] < 0) {
-                    axisalignedbb.a -= (double) ((float) Facing.b[i1] * f);
+                if (Facing.b[l] < 0) {
+                    axisalignedbb.a -= (double) ((float) Facing.b[l] * f);
                 } else {
-                    axisalignedbb.d -= (double) ((float) Facing.b[i1] * f);
+                    axisalignedbb.d -= (double) ((float) Facing.b[l] * f);
                 }
 
-                if (Facing.c[i1] < 0) {
-                    axisalignedbb.b -= (double) ((float) Facing.c[i1] * f);
+                if (Facing.c[l] < 0) {
+                    axisalignedbb.b -= (double) ((float) Facing.c[l] * f);
                 } else {
-                    axisalignedbb.e -= (double) ((float) Facing.c[i1] * f);
+                    axisalignedbb.e -= (double) ((float) Facing.c[l] * f);
                 }
 
-                if (Facing.d[i1] < 0) {
-                    axisalignedbb.c -= (double) ((float) Facing.d[i1] * f);
+                if (Facing.d[l] < 0) {
+                    axisalignedbb.c -= (double) ((float) Facing.d[l] * f);
                 } else {
-                    axisalignedbb.f -= (double) ((float) Facing.d[i1] * f);
+                    axisalignedbb.f -= (double) ((float) Facing.d[l] * f);
                 }
 
                 return axisalignedbb;
@@ -154,7 +154,7 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
-    private TileEntityPiston d(IBlockAccess iblockaccess, int i, int j, int k) {
+    private TileEntityPiston e(IBlockAccess iblockaccess, int i, int j, int k) {
         TileEntity tileentity = iblockaccess.getTileEntity(i, j, k);
 
         return tileentity instanceof TileEntityPiston ? (TileEntityPiston) tileentity : null;

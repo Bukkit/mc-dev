@@ -6,36 +6,35 @@ public class ItemFood extends Item {
     private final int b;
     private final float c;
     private final boolean d;
-    private boolean cB;
-    private int cC;
-    private int cD;
-    private int cE;
-    private float cF;
+    private boolean m;
+    private int n;
+    private int o;
+    private int p;
+    private float q;
 
-    public ItemFood(int i, int j, float f, boolean flag) {
-        super(i);
+    public ItemFood(int i, float f, boolean flag) {
         this.a = 32;
-        this.b = j;
+        this.b = i;
         this.d = flag;
         this.c = f;
         this.a(CreativeModeTab.h);
     }
 
-    public ItemFood(int i, int j, boolean flag) {
-        this(i, j, 0.6F, flag);
+    public ItemFood(int i, boolean flag) {
+        this(i, 0.6F, flag);
     }
 
     public ItemStack b(ItemStack itemstack, World world, EntityHuman entityhuman) {
         --itemstack.count;
-        entityhuman.getFoodData().a(this);
+        entityhuman.getFoodData().a(this, itemstack);
         world.makeSound(entityhuman, "random.burp", 0.5F, world.random.nextFloat() * 0.1F + 0.9F);
         this.c(itemstack, world, entityhuman);
         return itemstack;
     }
 
     protected void c(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        if (!world.isStatic && this.cC > 0 && world.random.nextFloat() < this.cF) {
-            entityhuman.addEffect(new MobEffect(this.cC, this.cD * 20, this.cE));
+        if (!world.isStatic && this.n > 0 && world.random.nextFloat() < this.q) {
+            entityhuman.addEffect(new MobEffect(this.n, this.o * 20, this.p));
         }
     }
 
@@ -43,40 +42,40 @@ public class ItemFood extends Item {
         return 32;
     }
 
-    public EnumAnimation c_(ItemStack itemstack) {
+    public EnumAnimation d(ItemStack itemstack) {
         return EnumAnimation.EAT;
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        if (entityhuman.g(this.cB)) {
+        if (entityhuman.g(this.m)) {
             entityhuman.a(itemstack, this.d_(itemstack));
         }
 
         return itemstack;
     }
 
-    public int getNutrition() {
+    public int getNutrition(ItemStack itemstack) {
         return this.b;
     }
 
-    public float getSaturationModifier() {
+    public float getSaturationModifier(ItemStack itemstack) {
         return this.c;
     }
 
-    public boolean j() {
+    public boolean i() {
         return this.d;
     }
 
     public ItemFood a(int i, int j, int k, float f) {
-        this.cC = i;
-        this.cD = j;
-        this.cE = k;
-        this.cF = f;
+        this.n = i;
+        this.o = j;
+        this.p = k;
+        this.q = f;
         return this;
     }
 
-    public ItemFood k() {
-        this.cB = true;
+    public ItemFood j() {
+        this.m = true;
         return this;
     }
 }

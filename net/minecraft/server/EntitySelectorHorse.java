@@ -5,6 +5,6 @@ final class EntitySelectorHorse implements IEntitySelector {
     EntitySelectorHorse() {}
 
     public boolean a(Entity entity) {
-        return entity instanceof EntityHorse && ((EntityHorse) entity).ci();
+        return entity instanceof EntityHorse && ((EntityHorse) entity).cm();
     }
 }

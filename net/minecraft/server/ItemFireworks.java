@@ -2,9 +2,7 @@ package net.minecraft.server;
 
 public class ItemFireworks extends Item {
 
-    public ItemFireworks(int i) {
-        super(i);
-    }
+    public ItemFireworks() {}
 
     public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l, float f, float f1, float f2) {
         if (!world.isStatic) {

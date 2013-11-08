@@ -42,24 +42,24 @@ public class WorldGenNetherPiece2 extends WorldGenNetherPiece {
         for (i = 0; i <= 4; ++i) {
             for (j = 3; j <= 4; ++j) {
                 k = random1.nextInt(8);
-                this.a(world, structureboundingbox, i, j, 0, i, j, k, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+                this.a(world, structureboundingbox, i, j, 0, i, j, k, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
             }
         }
 
         i = random1.nextInt(8);
-        this.a(world, structureboundingbox, 0, 5, 0, 0, 5, i, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+        this.a(world, structureboundingbox, 0, 5, 0, 0, 5, i, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
         i = random1.nextInt(8);
-        this.a(world, structureboundingbox, 4, 5, 0, 4, 5, i, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+        this.a(world, structureboundingbox, 4, 5, 0, 4, 5, i, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
 
         for (i = 0; i <= 4; ++i) {
             j = random1.nextInt(5);
-            this.a(world, structureboundingbox, i, 2, 0, i, 2, j, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+            this.a(world, structureboundingbox, i, 2, 0, i, 2, j, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
         }
 
         for (i = 0; i <= 4; ++i) {
             for (j = 0; j <= 1; ++j) {
                 k = random1.nextInt(3);
-                this.a(world, structureboundingbox, i, j, 0, i, j, k, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
+                this.a(world, structureboundingbox, i, j, 0, i, j, k, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
             }
         }
 

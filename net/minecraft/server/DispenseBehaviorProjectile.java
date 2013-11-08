@@ -7,7 +7,7 @@ public abstract class DispenseBehaviorProjectile extends DispenseBehaviorItem {
     public ItemStack b(ISourceBlock isourceblock, ItemStack itemstack) {
         World world = isourceblock.k();
         IPosition iposition = BlockDispenser.a(isourceblock);
-        EnumFacing enumfacing = BlockDispenser.l_(isourceblock.h());
+        EnumFacing enumfacing = BlockDispenser.b(isourceblock.h());
         IProjectile iprojectile = this.a(world, iposition);
 
         iprojectile.shoot((double) enumfacing.c(), (double) ((float) enumfacing.d() + 0.1F), (double) enumfacing.e(), this.b(), this.a());

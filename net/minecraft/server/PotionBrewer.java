@@ -20,9 +20,10 @@ public class PotionBrewer {
     public static final String j;
     public static final String k;
     public static final String l;
+    public static final String m;
     private static final HashMap effectDurations = new HashMap();
     private static final HashMap effectAmplifiers = new HashMap();
-    private static final HashMap o;
+    private static final HashMap p;
     private static final String[] appearances;
 
     public static boolean a(int i, int j) {
@@ -423,6 +424,8 @@ public class PotionBrewer {
         l = "-0+1+2-3+13&4-4";
         effectDurations.put(Integer.valueOf(MobEffectList.NIGHT_VISION.getId()), "!0 & 1 & 2 & !3 & 2+6");
         effectDurations.put(Integer.valueOf(MobEffectList.INVISIBILITY.getId()), "!0 & 1 & 2 & 3 & 2+6");
+        m = "+0-1+2+3+13&4-4";
+        effectDurations.put(Integer.valueOf(MobEffectList.WATER_BREATHING.getId()), "0 & !1 & 2 & 3 & 2+6");
         j = "+5-6-7";
         effectAmplifiers.put(Integer.valueOf(MobEffectList.FASTER_MOVEMENT.getId()), "5");
         effectAmplifiers.put(Integer.valueOf(MobEffectList.FASTER_DIG.getId()), "5");
@@ -434,7 +437,7 @@ public class PotionBrewer {
         effectAmplifiers.put(Integer.valueOf(MobEffectList.POISON.getId()), "5");
         i = "-5+6-7";
         k = "+14&13-13";
-        o = new HashMap();
+        p = new HashMap();
         appearances = new String[] { "potion.prefix.mundane", "potion.prefix.uninteresting", "potion.prefix.bland", "potion.prefix.clear", "potion.prefix.milky", "potion.prefix.diffuse", "potion.prefix.artless", "potion.prefix.thin", "potion.prefix.awkward", "potion.prefix.flat", "potion.prefix.bulky", "potion.prefix.bungling", "potion.prefix.buttered", "potion.prefix.smooth", "potion.prefix.suave", "potion.prefix.debonair", "potion.prefix.thick", "potion.prefix.elegant", "potion.prefix.fancy", "potion.prefix.charming", "potion.prefix.dashing", "potion.prefix.refined", "potion.prefix.cordial", "potion.prefix.sparkling", "potion.prefix.potent", "potion.prefix.foul", "potion.prefix.odorless", "potion.prefix.rank", "potion.prefix.harsh", "potion.prefix.acrid", "potion.prefix.gross", "potion.prefix.stinky"};
     }
 }

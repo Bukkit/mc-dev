@@ -4,35 +4,35 @@ import java.util.Random;
 
 public class WorldGenLiquids extends WorldGenerator {
 
-    private int a;
+    private Block a;
 
-    public WorldGenLiquids(int i) {
-        this.a = i;
+    public WorldGenLiquids(Block block) {
+        this.a = block;
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
-        if (world.getTypeId(i, j + 1, k) != Block.STONE.id) {
+        if (world.getType(i, j + 1, k) != Blocks.STONE) {
             return false;
-        } else if (world.getTypeId(i, j - 1, k) != Block.STONE.id) {
+        } else if (world.getType(i, j - 1, k) != Blocks.STONE) {
             return false;
-        } else if (world.getTypeId(i, j, k) != 0 && world.getTypeId(i, j, k) != Block.STONE.id) {
+        } else if (world.getType(i, j, k).getMaterial() != Material.AIR && world.getType(i, j, k) != Blocks.STONE) {
             return false;
         } else {
             int l = 0;
 
-            if (world.getTypeId(i - 1, j, k) == Block.STONE.id) {
+            if (world.getType(i - 1, j, k) == Blocks.STONE) {
                 ++l;
             }
 
-            if (world.getTypeId(i + 1, j, k) == Block.STONE.id) {
+            if (world.getType(i + 1, j, k) == Blocks.STONE) {
                 ++l;
             }
 
-            if (world.getTypeId(i, j, k - 1) == Block.STONE.id) {
+            if (world.getType(i, j, k - 1) == Blocks.STONE) {
                 ++l;
             }
 
-            if (world.getTypeId(i, j, k + 1) == Block.STONE.id) {
+            if (world.getType(i, j, k + 1) == Blocks.STONE) {
                 ++l;
             }
 
@@ -55,9 +55,9 @@ public class WorldGenLiquids extends WorldGenerator {
             }
 
             if (l == 3 && i1 == 1) {
-                world.setTypeIdAndData(i, j, k, this.a, 0, 2);
+                world.setTypeAndData(i, j, k, this.a, 0, 2);
                 world.d = true;
-                Block.byId[this.a].a(world, i, j, k, random);
+                this.a.a(world, i, j, k, random);
                 world.d = false;
             }
 

@@ -47,10 +47,10 @@ public class CommandXp extends CommandAbstract {
             if (flag) {
                 if (flag1) {
                     entityplayer.levelDown(-i);
-                    a(icommandlistener, "commands.xp.success.negative.levels", new Object[] { Integer.valueOf(i), entityplayer.getLocalizedName()});
+                    a(icommandlistener, "commands.xp.success.negative.levels", new Object[] { Integer.valueOf(i), entityplayer.getName()});
                 } else {
                     entityplayer.levelDown(i);
-                    a(icommandlistener, "commands.xp.success.levels", new Object[] { Integer.valueOf(i), entityplayer.getLocalizedName()});
+                    a(icommandlistener, "commands.xp.success.levels", new Object[] { Integer.valueOf(i), entityplayer.getName()});
                 }
             } else {
                 if (flag1) {
@@ -58,7 +58,7 @@ public class CommandXp extends CommandAbstract {
                 }
 
                 entityplayer.giveExp(i);
-                a(icommandlistener, "commands.xp.success", new Object[] { Integer.valueOf(i), entityplayer.getLocalizedName()});
+                a(icommandlistener, "commands.xp.success", new Object[] { Integer.valueOf(i), entityplayer.getName()});
             }
         }
     }

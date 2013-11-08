@@ -1,7 +1,6 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -10,24 +9,31 @@ import java.util.Map.Entry;
 
 public class WorldGenStronghold extends StructureGenerator {
 
-    private BiomeBase[] e;
+    private List e;
     private boolean f;
     private ChunkCoordIntPair[] g;
     private double h;
     private int i;
 
     public WorldGenStronghold() {
-        this.e = new BiomeBase[] { BiomeBase.DESERT, BiomeBase.FOREST, BiomeBase.EXTREME_HILLS, BiomeBase.SWAMPLAND, BiomeBase.TAIGA, BiomeBase.ICE_PLAINS, BiomeBase.ICE_MOUNTAINS, BiomeBase.DESERT_HILLS, BiomeBase.FOREST_HILLS, BiomeBase.SMALL_MOUNTAINS, BiomeBase.JUNGLE, BiomeBase.JUNGLE_HILLS};
         this.g = new ChunkCoordIntPair[3];
         this.h = 32.0D;
         this.i = 3;
+        this.e = new ArrayList();
+        BiomeBase[] abiomebase = BiomeBase.n();
+        int i = abiomebase.length;
+
+        for (int j = 0; j < i; ++j) {
+            BiomeBase biomebase = abiomebase[j];
+
+            if (biomebase != null && biomebase.am > 0.0F) {
+                this.e.add(biomebase);
+            }
+        }
     }
 
     public WorldGenStronghold(Map map) {
-        this.e = new BiomeBase[] { BiomeBase.DESERT, BiomeBase.FOREST, BiomeBase.EXTREME_HILLS, BiomeBase.SWAMPLAND, BiomeBase.TAIGA, BiomeBase.ICE_PLAINS, BiomeBase.ICE_MOUNTAINS, BiomeBase.DESERT_HILLS, BiomeBase.FOREST_HILLS, BiomeBase.SMALL_MOUNTAINS, BiomeBase.JUNGLE, BiomeBase.JUNGLE_HILLS};
-        this.g = new ChunkCoordIntPair[3];
-        this.h = 32.0D;
-        this.i = 3;
+        this();
         Iterator iterator = map.entrySet().iterator();
 
         while (iterator.hasNext()) {
@@ -59,10 +65,7 @@ public class WorldGenStronghold extends StructureGenerator {
                 double d1 = (1.25D * (double) k + random.nextDouble()) * this.h * (double) k;
                 int i1 = (int) Math.round(Math.cos(d0) * d1);
                 int j1 = (int) Math.round(Math.sin(d0) * d1);
-                ArrayList arraylist = new ArrayList();
-
-                Collections.addAll(arraylist, this.e);
-                ChunkPosition chunkposition = this.c.getWorldChunkManager().a((i1 << 4) + 8, (j1 << 4) + 8, 112, arraylist, random);
+                ChunkPosition chunkposition = this.c.getWorldChunkManager().a((i1 << 4) + 8, (j1 << 4) + 8, 112, this.e, random);
 
                 if (chunkposition != null) {
                     i1 = chunkposition.x >> 4;
@@ -94,7 +97,7 @@ public class WorldGenStronghold extends StructureGenerator {
         return false;
     }
 
-    protected List p_() {
+    protected List o_() {
         ArrayList arraylist = new ArrayList();
         ChunkCoordIntPair[] achunkcoordintpair = this.g;
         int i = achunkcoordintpair.length;

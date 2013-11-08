@@ -25,7 +25,7 @@ public class CommandEnchant extends CommandAbstract {
             EntityPlayer entityplayer = d(icommandlistener, astring[0]);
             int i = a(icommandlistener, astring[1], 0, Enchantment.byId.length - 1);
             int j = 1;
-            ItemStack itemstack = entityplayer.by();
+            ItemStack itemstack = entityplayer.bD();
 
             if (itemstack == null) {
                 throw new CommandException("commands.enchant.noItem", new Object[0]);
@@ -46,13 +46,13 @@ public class CommandEnchant extends CommandAbstract {
 
                         if (nbttaglist != null) {
                             for (int k = 0; k < nbttaglist.size(); ++k) {
-                                short short1 = ((NBTTagCompound) nbttaglist.get(k)).getShort("id");
+                                short short1 = nbttaglist.get(k).getShort("id");
 
                                 if (Enchantment.byId[short1] != null) {
                                     Enchantment enchantment1 = Enchantment.byId[short1];
 
                                     if (!enchantment1.a(enchantment)) {
-                                        throw new CommandException("commands.enchant.cantCombine", new Object[] { enchantment.c(j), enchantment1.c(((NBTTagCompound) nbttaglist.get(k)).getShort("lvl"))});
+                                        throw new CommandException("commands.enchant.cantCombine", new Object[] { enchantment.c(j), enchantment1.c(nbttaglist.get(k).getShort("lvl"))});
                                     }
                                 }
                             }

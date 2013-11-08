@@ -11,27 +11,31 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
 
-    private List a = new ArrayList();
-    private Set b = new HashSet();
-    private Object c = new Object();
-    private final File d;
+    private static final Logger a = LogManager.getLogger();
+    private List b = new ArrayList();
+    private Set c = new HashSet();
+    private Object d = new Object();
+    private final File e;
 
     public ChunkRegionLoader(File file1) {
-        this.d = file1;
+        this.e = file1;
     }
 
     public Chunk a(World world, int i, int j) {
         NBTTagCompound nbttagcompound = null;
         ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(i, j);
-        Object object = this.c;
+        Object object = this.d;
 
-        synchronized (this.c) {
-            if (this.b.contains(chunkcoordintpair)) {
-                for (int k = 0; k < this.a.size(); ++k) {
-                    if (((PendingChunkToSave) this.a.get(k)).a.equals(chunkcoordintpair)) {
-                        nbttagcompound = ((PendingChunkToSave) this.a.get(k)).b;
+        synchronized (this.d) {
+            if (this.c.contains(chunkcoordintpair)) {
+                for (int k = 0; k < this.b.size(); ++k) {
+                    if (((PendingChunkToSave) this.b.get(k)).a.equals(chunkcoordintpair)) {
+                        nbttagcompound = ((PendingChunkToSave) this.b.get(k)).b;
                         break;
                     }
                 }
@@ -39,7 +43,7 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
         }
 
         if (nbttagcompound == null) {
-            DataInputStream datainputstream = RegionFileCache.c(this.d, i, j);
+            DataInputStream datainputstream = RegionFileCache.c(this.e, i, j);
 
             if (datainputstream == null) {
                 return null;
@@ -52,17 +56,17 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
     }
 
     protected Chunk a(World world, int i, int j, NBTTagCompound nbttagcompound) {
-        if (!nbttagcompound.hasKey("Level")) {
-            world.getLogger().severe("Chunk file at " + i + "," + j + " is missing level data, skipping");
+        if (!nbttagcompound.hasKeyOfType("Level", 10)) {
+            a.error("Chunk file at " + i + "," + j + " is missing level data, skipping");
             return null;
-        } else if (!nbttagcompound.getCompound("Level").hasKey("Sections")) {
-            world.getLogger().severe("Chunk file at " + i + "," + j + " is missing block data, skipping");
+        } else if (!nbttagcompound.getCompound("Level").hasKeyOfType("Sections", 9)) {
+            a.error("Chunk file at " + i + "," + j + " is missing block data, skipping");
             return null;
         } else {
             Chunk chunk = this.a(world, nbttagcompound.getCompound("Level"));
 
             if (!chunk.a(i, j)) {
-                world.getLogger().severe("Chunk file at " + i + "," + j + " is in the wrong location; relocating. (Expected " + i + ", " + j + ", got " + chunk.x + ", " + chunk.z + ")");
+                a.error("Chunk file at " + i + "," + j + " is in the wrong location; relocating. (Expected " + i + ", " + j + ", got " + chunk.locX + ", " + chunk.locZ + ")");
                 nbttagcompound.setInt("xPos", i);
                 nbttagcompound.setInt("zPos", j);
                 chunk = this.a(world, nbttagcompound.getCompound("Level"));
@@ -73,7 +77,7 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
     }
 
     public void a(World world, Chunk chunk) {
-        world.G();
+        world.F();
 
         try {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -88,35 +92,35 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
     }
 
     protected void a(ChunkCoordIntPair chunkcoordintpair, NBTTagCompound nbttagcompound) {
-        Object object = this.c;
+        Object object = this.d;
 
-        synchronized (this.c) {
-            if (this.b.contains(chunkcoordintpair)) {
-                for (int i = 0; i < this.a.size(); ++i) {
-                    if (((PendingChunkToSave) this.a.get(i)).a.equals(chunkcoordintpair)) {
-                        this.a.set(i, new PendingChunkToSave(chunkcoordintpair, nbttagcompound));
+        synchronized (this.d) {
+            if (this.c.contains(chunkcoordintpair)) {
+                for (int i = 0; i < this.b.size(); ++i) {
+                    if (((PendingChunkToSave) this.b.get(i)).a.equals(chunkcoordintpair)) {
+                        this.b.set(i, new PendingChunkToSave(chunkcoordintpair, nbttagcompound));
                         return;
                     }
                 }
             }
 
-            this.a.add(new PendingChunkToSave(chunkcoordintpair, nbttagcompound));
-            this.b.add(chunkcoordintpair);
+            this.b.add(new PendingChunkToSave(chunkcoordintpair, nbttagcompound));
+            this.c.add(chunkcoordintpair);
             FileIOThread.a.a(this);
         }
     }
 
     public boolean c() {
         PendingChunkToSave pendingchunktosave = null;
-        Object object = this.c;
+        Object object = this.d;
 
-        synchronized (this.c) {
-            if (this.a.isEmpty()) {
+        synchronized (this.d) {
+            if (this.b.isEmpty()) {
                 return false;
             }
 
-            pendingchunktosave = (PendingChunkToSave) this.a.remove(0);
-            this.b.remove(pendingchunktosave.a);
+            pendingchunktosave = (PendingChunkToSave) this.b.remove(0);
+            this.c.remove(pendingchunktosave.a);
         }
 
         if (pendingchunktosave != null) {
@@ -131,7 +135,7 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
     }
 
     private void a(PendingChunkToSave pendingchunktosave) {
-        DataOutputStream dataoutputstream = RegionFileCache.d(this.d, pendingchunktosave.a.x, pendingchunktosave.a.z);
+        DataOutputStream dataoutputstream = RegionFileCache.d(this.e, pendingchunktosave.a.x, pendingchunktosave.a.z);
 
         NBTCompressedStreamTools.a(pendingchunktosave.b, (DataOutput) dataoutputstream);
         dataoutputstream.close();
@@ -148,14 +152,16 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
     }
 
     private void a(Chunk chunk, World world, NBTTagCompound nbttagcompound) {
-        nbttagcompound.setInt("xPos", chunk.x);
-        nbttagcompound.setInt("zPos", chunk.z);
+        nbttagcompound.setByte("V", (byte) 1);
+        nbttagcompound.setInt("xPos", chunk.locX);
+        nbttagcompound.setInt("zPos", chunk.locZ);
         nbttagcompound.setLong("LastUpdate", world.getTime());
         nbttagcompound.setIntArray("HeightMap", chunk.heightMap);
         nbttagcompound.setBoolean("TerrainPopulated", chunk.done);
-        nbttagcompound.setLong("InhabitedTime", chunk.q);
+        nbttagcompound.setBoolean("LightPopulated", chunk.lit);
+        nbttagcompound.setLong("InhabitedTime", chunk.s);
         ChunkSection[] achunksection = chunk.i();
-        NBTTagList nbttaglist = new NBTTagList("Sections");
+        NBTTagList nbttaglist = new NBTTagList();
         boolean flag = !world.worldProvider.g;
         ChunkSection[] achunksection1 = achunksection;
         int i = achunksection.length;
@@ -187,7 +193,7 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
 
         nbttagcompound.set("Sections", nbttaglist);
         nbttagcompound.setByteArray("Biomes", chunk.m());
-        chunk.m = false;
+        chunk.o = false;
         NBTTagList nbttaglist1 = new NBTTagList();
 
         Iterator iterator;
@@ -200,7 +206,7 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
 
                 nbttagcompound1 = new NBTTagCompound();
                 if (entity.d(nbttagcompound1)) {
-                    chunk.m = true;
+                    chunk.o = true;
                     nbttaglist1.add(nbttagcompound1);
                 }
             }
@@ -231,12 +237,12 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
                 NextTickListEntry nextticklistentry = (NextTickListEntry) iterator1.next();
                 NBTTagCompound nbttagcompound2 = new NBTTagCompound();
 
-                nbttagcompound2.setInt("i", nextticklistentry.d);
+                nbttagcompound2.setInt("i", Block.b(nextticklistentry.a()));
                 nbttagcompound2.setInt("x", nextticklistentry.a);
                 nbttagcompound2.setInt("y", nextticklistentry.b);
                 nbttagcompound2.setInt("z", nextticklistentry.c);
-                nbttagcompound2.setInt("t", (int) (nextticklistentry.e - k));
-                nbttagcompound2.setInt("p", nextticklistentry.f);
+                nbttagcompound2.setInt("t", (int) (nextticklistentry.d - k));
+                nbttagcompound2.setInt("p", nextticklistentry.e);
                 nbttaglist3.add(nbttagcompound2);
             }
 
@@ -251,19 +257,20 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
 
         chunk.heightMap = nbttagcompound.getIntArray("HeightMap");
         chunk.done = nbttagcompound.getBoolean("TerrainPopulated");
-        chunk.q = nbttagcompound.getLong("InhabitedTime");
-        NBTTagList nbttaglist = nbttagcompound.getList("Sections");
+        chunk.lit = nbttagcompound.getBoolean("LightPopulated");
+        chunk.s = nbttagcompound.getLong("InhabitedTime");
+        NBTTagList nbttaglist = nbttagcompound.getList("Sections", 10);
         byte b0 = 16;
         ChunkSection[] achunksection = new ChunkSection[b0];
         boolean flag = !world.worldProvider.g;
 
         for (int k = 0; k < nbttaglist.size(); ++k) {
-            NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.get(k);
+            NBTTagCompound nbttagcompound1 = nbttaglist.get(k);
             byte b1 = nbttagcompound1.getByte("Y");
             ChunkSection chunksection = new ChunkSection(b1 << 4, flag);
 
             chunksection.setIdArray(nbttagcompound1.getByteArray("Blocks"));
-            if (nbttagcompound1.hasKey("Add")) {
+            if (nbttagcompound1.hasKeyOfType("Add", 7)) {
                 chunksection.setExtendedIdArray(new NibbleArray(nbttagcompound1.getByteArray("Add"), 4));
             }
 
@@ -278,23 +285,23 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
         }
 
         chunk.a(achunksection);
-        if (nbttagcompound.hasKey("Biomes")) {
+        if (nbttagcompound.hasKeyOfType("Biomes", 7)) {
             chunk.a(nbttagcompound.getByteArray("Biomes"));
         }
 
-        NBTTagList nbttaglist1 = nbttagcompound.getList("Entities");
+        NBTTagList nbttaglist1 = nbttagcompound.getList("Entities", 10);
 
         if (nbttaglist1 != null) {
             for (int l = 0; l < nbttaglist1.size(); ++l) {
-                NBTTagCompound nbttagcompound2 = (NBTTagCompound) nbttaglist1.get(l);
+                NBTTagCompound nbttagcompound2 = nbttaglist1.get(l);
                 Entity entity = EntityTypes.a(nbttagcompound2, world);
 
-                chunk.m = true;
+                chunk.o = true;
                 if (entity != null) {
                     chunk.a(entity);
                     Entity entity1 = entity;
 
-                    for (NBTTagCompound nbttagcompound3 = nbttagcompound2; nbttagcompound3.hasKey("Riding"); nbttagcompound3 = nbttagcompound3.getCompound("Riding")) {
+                    for (NBTTagCompound nbttagcompound3 = nbttagcompound2; nbttagcompound3.hasKeyOfType("Riding", 10); nbttagcompound3 = nbttagcompound3.getCompound("Riding")) {
                         Entity entity2 = EntityTypes.a(nbttagcompound3.getCompound("Riding"), world);
 
                         if (entity2 != null) {
@@ -308,11 +315,11 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
             }
         }
 
-        NBTTagList nbttaglist2 = nbttagcompound.getList("TileEntities");
+        NBTTagList nbttaglist2 = nbttagcompound.getList("TileEntities", 10);
 
         if (nbttaglist2 != null) {
             for (int i1 = 0; i1 < nbttaglist2.size(); ++i1) {
-                NBTTagCompound nbttagcompound4 = (NBTTagCompound) nbttaglist2.get(i1);
+                NBTTagCompound nbttagcompound4 = nbttaglist2.get(i1);
                 TileEntity tileentity = TileEntity.c(nbttagcompound4);
 
                 if (tileentity != null) {
@@ -321,14 +328,14 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
             }
         }
 
-        if (nbttagcompound.hasKey("TileTicks")) {
-            NBTTagList nbttaglist3 = nbttagcompound.getList("TileTicks");
+        if (nbttagcompound.hasKeyOfType("TileTicks", 9)) {
+            NBTTagList nbttaglist3 = nbttagcompound.getList("TileTicks", 10);
 
             if (nbttaglist3 != null) {
                 for (int j1 = 0; j1 < nbttaglist3.size(); ++j1) {
-                    NBTTagCompound nbttagcompound5 = (NBTTagCompound) nbttaglist3.get(j1);
+                    NBTTagCompound nbttagcompound5 = nbttaglist3.get(j1);
 
-                    world.b(nbttagcompound5.getInt("x"), nbttagcompound5.getInt("y"), nbttagcompound5.getInt("z"), nbttagcompound5.getInt("i"), nbttagcompound5.getInt("t"), nbttagcompound5.getInt("p"));
+                    world.b(nbttagcompound5.getInt("x"), nbttagcompound5.getInt("y"), nbttagcompound5.getInt("z"), Block.e(nbttagcompound5.getInt("i")), nbttagcompound5.getInt("t"), nbttagcompound5.getInt("p"));
                 }
             }
         }

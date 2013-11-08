@@ -8,10 +8,6 @@ public class CommandPublish extends CommandAbstract {
         return "publish";
     }
 
-    public int a() {
-        return 4;
-    }
-
     public String c(ICommandListener icommandlistener) {
         return "commands.publish.usage";
     }

@@ -19,36 +19,52 @@ public class CommandGive extends CommandAbstract {
     }
 
     public void b(ICommandListener icommandlistener, String[] astring) {
-        if (astring.length >= 2) {
-            EntityPlayer entityplayer = d(icommandlistener, astring[0]);
-            int i = a(icommandlistener, astring[1], 1);
-            int j = 1;
-            int k = 0;
-
-            if (Item.byId[i] == null) {
-                throw new ExceptionInvalidNumber("commands.give.notFound", new Object[] { Integer.valueOf(i)});
-            } else {
-                if (astring.length >= 3) {
-                    j = a(icommandlistener, astring[2], 1, 64);
-                }
-
-                if (astring.length >= 4) {
-                    k = a(icommandlistener, astring[3]);
-                }
-
-                ItemStack itemstack = new ItemStack(i, j, k);
-                EntityItem entityitem = entityplayer.drop(itemstack);
-
-                entityitem.pickupDelay = 0;
-                a(icommandlistener, "commands.give.success", new Object[] { Item.byId[i].k(itemstack), Integer.valueOf(i), Integer.valueOf(j), entityplayer.getLocalizedName()});
-            }
-        } else {
+        if (astring.length < 2) {
             throw new ExceptionUsage("commands.give.usage", new Object[0]);
+        } else {
+            EntityPlayer entityplayer = d(icommandlistener, astring[0]);
+            Item item = f(icommandlistener, astring[1]);
+            int i = 1;
+            int j = 0;
+
+            if (astring.length >= 3) {
+                i = a(icommandlistener, astring[2], 1, 64);
+            }
+
+            if (astring.length >= 4) {
+                j = a(icommandlistener, astring[3]);
+            }
+
+            ItemStack itemstack = new ItemStack(item, i, j);
+
+            if (astring.length >= 5) {
+                String s = a(icommandlistener, astring, 4).c();
+
+                try {
+                    NBTBase nbtbase = MojangsonParser.a(s);
+
+                    if (!(nbtbase instanceof NBTTagCompound)) {
+                        a(icommandlistener, "commands.give.tagError", new Object[] { "Not a valid tag"});
+                        return;
+                    }
+
+                    itemstack.setTag((NBTTagCompound) nbtbase);
+                } catch (MojangsonParseException mojangsonparseexception) {
+                    a(icommandlistener, "commands.give.tagError", new Object[] { mojangsonparseexception.getMessage()});
+                    return;
+                }
+            }
+
+            EntityItem entityitem = entityplayer.drop(itemstack, false);
+
+            entityitem.pickupDelay = 0;
+            entityitem.a(entityplayer.getName());
+            a(icommandlistener, "commands.give.success", new Object[] { itemstack.E(), Integer.valueOf(i), entityplayer.getName()});
         }
     }
 
     public List a(ICommandListener icommandlistener, String[] astring) {
-        return astring.length == 1 ? a(astring, this.d()) : null;
+        return astring.length == 1 ? a(astring, this.d()) : (astring.length == 2 ? a(astring, Item.REGISTRY.b()) : null);
     }
 
     protected String[] d() {

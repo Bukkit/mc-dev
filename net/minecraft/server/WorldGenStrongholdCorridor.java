@@ -52,25 +52,25 @@ public class WorldGenStrongholdCorridor extends WorldGenStrongholdPiece {
             return false;
         } else {
             for (int i = 0; i < this.a; ++i) {
-                this.a(world, Block.SMOOTH_BRICK.id, 0, 0, 0, i, structureboundingbox);
-                this.a(world, Block.SMOOTH_BRICK.id, 0, 1, 0, i, structureboundingbox);
-                this.a(world, Block.SMOOTH_BRICK.id, 0, 2, 0, i, structureboundingbox);
-                this.a(world, Block.SMOOTH_BRICK.id, 0, 3, 0, i, structureboundingbox);
-                this.a(world, Block.SMOOTH_BRICK.id, 0, 4, 0, i, structureboundingbox);
+                this.a(world, Blocks.SMOOTH_BRICK, 0, 0, 0, i, structureboundingbox);
+                this.a(world, Blocks.SMOOTH_BRICK, 0, 1, 0, i, structureboundingbox);
+                this.a(world, Blocks.SMOOTH_BRICK, 0, 2, 0, i, structureboundingbox);
+                this.a(world, Blocks.SMOOTH_BRICK, 0, 3, 0, i, structureboundingbox);
+                this.a(world, Blocks.SMOOTH_BRICK, 0, 4, 0, i, structureboundingbox);
 
                 for (int j = 1; j <= 3; ++j) {
-                    this.a(world, Block.SMOOTH_BRICK.id, 0, 0, j, i, structureboundingbox);
-                    this.a(world, 0, 0, 1, j, i, structureboundingbox);
-                    this.a(world, 0, 0, 2, j, i, structureboundingbox);
-                    this.a(world, 0, 0, 3, j, i, structureboundingbox);
-                    this.a(world, Block.SMOOTH_BRICK.id, 0, 4, j, i, structureboundingbox);
+                    this.a(world, Blocks.SMOOTH_BRICK, 0, 0, j, i, structureboundingbox);
+                    this.a(world, Blocks.AIR, 0, 1, j, i, structureboundingbox);
+                    this.a(world, Blocks.AIR, 0, 2, j, i, structureboundingbox);
+                    this.a(world, Blocks.AIR, 0, 3, j, i, structureboundingbox);
+                    this.a(world, Blocks.SMOOTH_BRICK, 0, 4, j, i, structureboundingbox);
                 }
 
-                this.a(world, Block.SMOOTH_BRICK.id, 0, 0, 4, i, structureboundingbox);
-                this.a(world, Block.SMOOTH_BRICK.id, 0, 1, 4, i, structureboundingbox);
-                this.a(world, Block.SMOOTH_BRICK.id, 0, 2, 4, i, structureboundingbox);
-                this.a(world, Block.SMOOTH_BRICK.id, 0, 3, 4, i, structureboundingbox);
-                this.a(world, Block.SMOOTH_BRICK.id, 0, 4, 4, i, structureboundingbox);
+                this.a(world, Blocks.SMOOTH_BRICK, 0, 0, 4, i, structureboundingbox);
+                this.a(world, Blocks.SMOOTH_BRICK, 0, 1, 4, i, structureboundingbox);
+                this.a(world, Blocks.SMOOTH_BRICK, 0, 2, 4, i, structureboundingbox);
+                this.a(world, Blocks.SMOOTH_BRICK, 0, 3, 4, i, structureboundingbox);
+                this.a(world, Blocks.SMOOTH_BRICK, 0, 4, 4, i, structureboundingbox);
             }
 
             return true;

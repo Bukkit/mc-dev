@@ -6,25 +6,29 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class RemoteConnectionThread implements Runnable {
 
+    private static final AtomicInteger h = new AtomicInteger(0);
     protected boolean running;
     protected IMinecraftServer server;
+    protected final String c;
     protected Thread thread;
-    protected int d = 5;
-    protected List e = new ArrayList();
+    protected int e = 5;
     protected List f = new ArrayList();
+    protected List g = new ArrayList();
 
-    RemoteConnectionThread(IMinecraftServer iminecraftserver) {
+    protected RemoteConnectionThread(IMinecraftServer iminecraftserver, String s) {
         this.server = iminecraftserver;
+        this.c = s;
         if (this.server.isDebugging()) {
             this.warning("Debugging is enabled, performance maybe reduced!");
         }
     }
 
     public synchronized void a() {
-        this.thread = new Thread(this);
+        this.thread = new Thread(this, this.c + " #" + h.incrementAndGet());
         this.thread.start();
         this.running = true;
     }
@@ -50,12 +54,12 @@ public abstract class RemoteConnectionThread implements Runnable {
     }
 
     protected int d() {
-        return this.server.A();
+        return this.server.B();
     }
 
     protected void a(DatagramSocket datagramsocket) {
         this.debug("registerSocket: " + datagramsocket);
-        this.e.add(datagramsocket);
+        this.f.add(datagramsocket);
     }
 
     protected boolean a(DatagramSocket datagramsocket, boolean flag) {
@@ -71,7 +75,7 @@ public abstract class RemoteConnectionThread implements Runnable {
             }
 
             if (flag) {
-                this.e.remove(datagramsocket);
+                this.f.remove(datagramsocket);
             }
 
             return flag1;
@@ -99,7 +103,7 @@ public abstract class RemoteConnectionThread implements Runnable {
             }
 
             if (flag) {
-                this.f.remove(serversocket);
+                this.g.remove(serversocket);
             }
 
             return flag1;
@@ -112,7 +116,7 @@ public abstract class RemoteConnectionThread implements Runnable {
 
     protected void a(boolean flag) {
         int i = 0;
-        Iterator iterator = this.e.iterator();
+        Iterator iterator = this.f.iterator();
 
         while (iterator.hasNext()) {
             DatagramSocket datagramsocket = (DatagramSocket) iterator.next();
@@ -122,8 +126,8 @@ public abstract class RemoteConnectionThread implements Runnable {
             }
         }
 
-        this.e.clear();
-        iterator = this.f.iterator();
+        this.f.clear();
+        iterator = this.g.iterator();
 
         while (iterator.hasNext()) {
             ServerSocket serversocket = (ServerSocket) iterator.next();
@@ -133,7 +137,7 @@ public abstract class RemoteConnectionThread implements Runnable {
             }
         }
 
-        this.f.clear();
+        this.g.clear();
         if (flag && 0 < i) {
             this.warning("Force closed " + i + " sockets");
         }

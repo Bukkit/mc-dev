@@ -12,22 +12,22 @@ public class EntityMinecartChest extends EntityMinecartContainer {
 
     public void a(DamageSource damagesource) {
         super.a(damagesource);
-        this.a(Block.CHEST.id, 1, 0.0F);
+        this.a(Item.getItemOf(Blocks.CHEST), 1, 0.0F);
     }
 
     public int getSize() {
         return 27;
     }
 
-    public int getType() {
+    public int m() {
         return 1;
     }
 
-    public Block n() {
-        return Block.CHEST;
+    public Block o() {
+        return Blocks.CHEST;
     }
 
-    public int r() {
+    public int s() {
         return 8;
     }
 }

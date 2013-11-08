@@ -2,21 +2,20 @@ package net.minecraft.server;
 
 public class BiomeTheEndDecorator extends BiomeDecorator {
 
-    protected WorldGenerator L;
+    protected WorldGenerator J;
 
-    public BiomeTheEndDecorator(BiomeBase biomebase) {
-        super(biomebase);
-        this.L = new WorldGenEnder(Block.WHITESTONE.id);
+    public BiomeTheEndDecorator() {
+        this.J = new WorldGenEnder(Blocks.WHITESTONE);
     }
 
-    protected void a() {
-        this.b();
+    protected void a(BiomeBase biomebase) {
+        this.a();
         if (this.b.nextInt(5) == 0) {
             int i = this.c + this.b.nextInt(16) + 8;
             int j = this.d + this.b.nextInt(16) + 8;
             int k = this.a.i(i, j);
 
-            this.L.a(this.a, this.b, i, k, j);
+            this.J.a(this.a, this.b, i, k, j);
         }
 
         if (this.c == 0 && this.d == 0) {

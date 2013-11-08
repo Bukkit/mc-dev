@@ -3,16 +3,13 @@ package net.minecraft.server;
 import java.io.DataInput;
 import java.io.DataOutput;
 
-public class NBTTagDouble extends NBTBase {
+public class NBTTagDouble extends NBTNumber {
 
-    public double data;
+    private double data;
 
-    public NBTTagDouble(String s) {
-        super(s);
-    }
+    NBTTagDouble() {}
 
-    public NBTTagDouble(String s, double d0) {
-        super(s);
+    public NBTTagDouble(double d0) {
         this.data = d0;
     }
 
@@ -29,11 +26,11 @@ public class NBTTagDouble extends NBTBase {
     }
 
     public String toString() {
-        return "" + this.data;
+        return "" + this.data + "d";
     }
 
     public NBTBase clone() {
-        return new NBTTagDouble(this.getName(), this.data);
+        return new NBTTagDouble(this.data);
     }
 
     public boolean equals(Object object) {
@@ -50,5 +47,29 @@ public class NBTTagDouble extends NBTBase {
         long i = Double.doubleToLongBits(this.data);
 
         return super.hashCode() ^ (int) (i ^ i >>> 32);
+    }
+
+    public long c() {
+        return (long) Math.floor(this.data);
+    }
+
+    public int d() {
+        return MathHelper.floor(this.data);
+    }
+
+    public short e() {
+        return (short) (MathHelper.floor(this.data) & '\uffff');
+    }
+
+    public byte f() {
+        return (byte) (MathHelper.floor(this.data) & 255);
+    }
+
+    public double g() {
+        return this.data;
+    }
+
+    public float h() {
+        return (float) this.data;
     }
 }

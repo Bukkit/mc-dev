@@ -11,7 +11,7 @@ class CrashReportTileEntityName implements Callable {
     }
 
     public String a() {
-        return (String) TileEntity.t().get(this.a.getClass()) + " // " + this.a.getClass().getCanonicalName();
+        return (String) TileEntity.v().get(this.a.getClass()) + " // " + this.a.getClass().getCanonicalName();
     }
 
     public Object call() {

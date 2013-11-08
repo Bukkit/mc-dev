@@ -49,7 +49,7 @@ public class ContainerPlayer extends Container {
             ItemStack itemstack = this.craftInventory.splitWithoutUpdate(i);
 
             if (itemstack != null) {
-                entityhuman.drop(itemstack);
+                entityhuman.drop(itemstack, false);
             }
         }
 

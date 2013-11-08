@@ -5,10 +5,10 @@ import java.util.Random;
 public class BlockRepeater extends BlockDiodeAbstract {
 
     public static final double[] b = new double[] { -0.0625D, 0.0625D, 0.1875D, 0.3125D};
-    private static final int[] c = new int[] { 1, 2, 3, 4};
+    private static final int[] M = new int[] { 1, 2, 3, 4};
 
-    protected BlockRepeater(int i, boolean flag) {
-        super(i, flag);
+    protected BlockRepeater(boolean flag) {
+        super(flag);
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
@@ -20,36 +20,36 @@ public class BlockRepeater extends BlockDiodeAbstract {
         return true;
     }
 
-    protected int k_(int i) {
-        return c[(i & 12) >> 2] * 2;
+    protected int b(int i) {
+        return M[(i & 12) >> 2] * 2;
+    }
+
+    protected BlockDiodeAbstract e() {
+        return Blocks.DIODE_ON;
     }
 
     protected BlockDiodeAbstract i() {
-        return Block.DIODE_ON;
+        return Blocks.DIODE_OFF;
     }
 
-    protected BlockDiodeAbstract j() {
-        return Block.DIODE_OFF;
+    public Item getDropType(int i, Random random, int j) {
+        return Items.DIODE;
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Item.DIODE.id;
-    }
-
-    public int d() {
+    public int b() {
         return 15;
     }
 
-    public boolean e(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        return this.f(iblockaccess, i, j, k, l) > 0;
+    public boolean g(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+        return this.h(iblockaccess, i, j, k, l) > 0;
     }
 
-    protected boolean e(int i) {
-        return f(i);
+    protected boolean a(Block block) {
+        return d(block);
     }
 
-    public void remove(World world, int i, int j, int k, int l, int i1) {
-        super.remove(world, i, j, k, l, i1);
-        this.h_(world, i, j, k);
+    public void remove(World world, int i, int j, int k, Block block, int l) {
+        super.remove(world, i, j, k, block, l);
+        this.e(world, i, j, k);
     }
 }

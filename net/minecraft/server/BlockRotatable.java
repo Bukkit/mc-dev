@@ -2,11 +2,11 @@ package net.minecraft.server;
 
 public abstract class BlockRotatable extends Block {
 
-    protected BlockRotatable(int i, Material material) {
-        super(i, material);
+    protected BlockRotatable(Material material) {
+        super(material);
     }
 
-    public int d() {
+    public int b() {
         return 31;
     }
 
@@ -37,11 +37,11 @@ public abstract class BlockRotatable extends Block {
         return i & 3;
     }
 
-    public int e(int i) {
+    public int k(int i) {
         return i & 3;
     }
 
-    protected ItemStack d_(int i) {
-        return new ItemStack(this.id, 1, this.e(i));
+    protected ItemStack j(int i) {
+        return new ItemStack(Item.getItemOf(this), 1, this.k(i));
     }
 }

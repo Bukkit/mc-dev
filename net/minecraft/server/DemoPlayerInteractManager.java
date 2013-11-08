@@ -19,7 +19,7 @@ public class DemoPlayerInteractManager extends PlayerInteractManager {
 
         if (!this.c && this.f > 20) {
             this.c = true;
-            this.player.playerConnection.sendPacket(new Packet70Bed(5, 0));
+            this.player.playerConnection.sendPacket(new PacketPlayOutGameStateChange(5, 0.0F));
         }
 
         this.d = i > 120500L;
@@ -29,24 +29,24 @@ public class DemoPlayerInteractManager extends PlayerInteractManager {
 
         if (i % 24000L == 500L) {
             if (j <= 6L) {
-                this.player.sendMessage(ChatMessage.e("demo.day." + j));
+                this.player.sendMessage(new ChatMessage("demo.day." + j, new Object[0]));
             }
         } else if (j == 1L) {
             if (i == 100L) {
-                this.player.playerConnection.sendPacket(new Packet70Bed(5, 101));
+                this.player.playerConnection.sendPacket(new PacketPlayOutGameStateChange(5, 101.0F));
             } else if (i == 175L) {
-                this.player.playerConnection.sendPacket(new Packet70Bed(5, 102));
+                this.player.playerConnection.sendPacket(new PacketPlayOutGameStateChange(5, 102.0F));
             } else if (i == 250L) {
-                this.player.playerConnection.sendPacket(new Packet70Bed(5, 103));
+                this.player.playerConnection.sendPacket(new PacketPlayOutGameStateChange(5, 103.0F));
             }
         } else if (j == 5L && i % 24000L == 22000L) {
-            this.player.sendMessage(ChatMessage.e("demo.day.warning"));
+            this.player.sendMessage(new ChatMessage("demo.day.warning", new Object[0]));
         }
     }
 
     private void e() {
         if (this.e > 100) {
-            this.player.sendMessage(ChatMessage.e("demo.reminder"));
+            this.player.sendMessage(new ChatMessage("demo.reminder", new Object[0]));
             this.e = 0;
         }
     }

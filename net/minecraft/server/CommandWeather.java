@@ -30,13 +30,14 @@ public class CommandWeather extends CommandAbstract {
             WorldServer worldserver = MinecraftServer.getServer().worldServer[0];
             WorldData worlddata = worldserver.getWorldData();
 
-            worlddata.setWeatherDuration(i);
-            worlddata.setThunderDuration(i);
             if ("clear".equalsIgnoreCase(astring[0])) {
+                worlddata.setWeatherDuration(0);
+                worlddata.setThunderDuration(0);
                 worlddata.setStorm(false);
                 worlddata.setThundering(false);
                 a(icommandlistener, "commands.weather.clear", new Object[0]);
             } else if ("rain".equalsIgnoreCase(astring[0])) {
+                worlddata.setWeatherDuration(i);
                 worlddata.setStorm(true);
                 worlddata.setThundering(false);
                 a(icommandlistener, "commands.weather.rain", new Object[0]);
@@ -45,6 +46,8 @@ public class CommandWeather extends CommandAbstract {
                     throw new ExceptionUsage("commands.weather.usage", new Object[0]);
                 }
 
+                worlddata.setWeatherDuration(i);
+                worlddata.setThunderDuration(i);
                 worlddata.setStorm(true);
                 worlddata.setThundering(true);
                 a(icommandlistener, "commands.weather.thunder", new Object[0]);

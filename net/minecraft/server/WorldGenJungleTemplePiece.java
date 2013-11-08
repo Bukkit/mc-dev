@@ -8,9 +8,9 @@ class WorldGenJungleTemplePiece extends StructurePieceBlockSelector {
 
     public void a(Random random, int i, int j, int k, boolean flag) {
         if (random.nextFloat() < 0.4F) {
-            this.a = Block.COBBLESTONE.id;
+            this.a = Blocks.COBBLESTONE;
         } else {
-            this.a = Block.MOSSY_COBBLESTONE.id;
+            this.a = Blocks.MOSSY_COBBLESTONE;
         }
     }
 

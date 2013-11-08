@@ -26,28 +26,28 @@ public class WorldGenNetherPiece13 extends WorldGenNetherPiece {
     }
 
     public boolean a(World world, Random random, StructureBoundingBox structureboundingbox) {
-        this.a(world, structureboundingbox, 0, 0, 0, 6, 1, 6, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 0, 2, 0, 6, 7, 6, 0, 0, false);
-        this.a(world, structureboundingbox, 0, 2, 0, 1, 6, 0, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 0, 2, 6, 1, 6, 6, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 5, 2, 0, 6, 6, 0, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 5, 2, 6, 6, 6, 6, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 0, 2, 0, 0, 6, 1, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 0, 2, 5, 0, 6, 6, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 6, 2, 0, 6, 6, 1, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 6, 2, 5, 6, 6, 6, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 2, 6, 0, 4, 6, 0, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 2, 5, 0, 4, 5, 0, Block.NETHER_FENCE.id, Block.NETHER_FENCE.id, false);
-        this.a(world, structureboundingbox, 2, 6, 6, 4, 6, 6, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 2, 5, 6, 4, 5, 6, Block.NETHER_FENCE.id, Block.NETHER_FENCE.id, false);
-        this.a(world, structureboundingbox, 0, 6, 2, 0, 6, 4, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 0, 5, 2, 0, 5, 4, Block.NETHER_FENCE.id, Block.NETHER_FENCE.id, false);
-        this.a(world, structureboundingbox, 6, 6, 2, 6, 6, 4, Block.NETHER_BRICK.id, Block.NETHER_BRICK.id, false);
-        this.a(world, structureboundingbox, 6, 5, 2, 6, 5, 4, Block.NETHER_FENCE.id, Block.NETHER_FENCE.id, false);
+        this.a(world, structureboundingbox, 0, 0, 0, 6, 1, 6, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 0, 2, 0, 6, 7, 6, Blocks.AIR, Blocks.AIR, false);
+        this.a(world, structureboundingbox, 0, 2, 0, 1, 6, 0, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 0, 2, 6, 1, 6, 6, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 5, 2, 0, 6, 6, 0, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 5, 2, 6, 6, 6, 6, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 0, 2, 0, 0, 6, 1, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 0, 2, 5, 0, 6, 6, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 6, 2, 0, 6, 6, 1, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 6, 2, 5, 6, 6, 6, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 2, 6, 0, 4, 6, 0, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 2, 5, 0, 4, 5, 0, Blocks.NETHER_FENCE, Blocks.NETHER_FENCE, false);
+        this.a(world, structureboundingbox, 2, 6, 6, 4, 6, 6, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 2, 5, 6, 4, 5, 6, Blocks.NETHER_FENCE, Blocks.NETHER_FENCE, false);
+        this.a(world, structureboundingbox, 0, 6, 2, 0, 6, 4, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 0, 5, 2, 0, 5, 4, Blocks.NETHER_FENCE, Blocks.NETHER_FENCE, false);
+        this.a(world, structureboundingbox, 6, 6, 2, 6, 6, 4, Blocks.NETHER_BRICK, Blocks.NETHER_BRICK, false);
+        this.a(world, structureboundingbox, 6, 5, 2, 6, 5, 4, Blocks.NETHER_FENCE, Blocks.NETHER_FENCE, false);
 
         for (int i = 0; i <= 6; ++i) {
             for (int j = 0; j <= 6; ++j) {
-                this.b(world, Block.NETHER_BRICK.id, 0, i, -1, j, structureboundingbox);
+                this.b(world, Blocks.NETHER_BRICK, 0, i, -1, j, structureboundingbox);
             }
         }
 

@@ -7,16 +7,16 @@ public abstract class BlockStepAbstract extends Block {
 
     protected final boolean a;
 
-    public BlockStepAbstract(int i, boolean flag, Material material) {
-        super(i, material);
+    public BlockStepAbstract(boolean flag, Material material) {
+        super(material);
         this.a = flag;
         if (flag) {
-            t[i] = true;
+            this.q = true;
         } else {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
         }
 
-        this.k(255);
+        this.g(255);
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
@@ -62,11 +62,11 @@ public abstract class BlockStepAbstract extends Block {
         return i & 7;
     }
 
-    public boolean b() {
+    public boolean d() {
         return this.a;
     }
 
-    public abstract String c(int i);
+    public abstract String b(int i);
 
     public int getDropData(World world, int i, int j, int k) {
         return super.getDropData(world, i, j, k) & 7;

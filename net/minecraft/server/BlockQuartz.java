@@ -5,8 +5,8 @@ public class BlockQuartz extends Block {
     public static final String[] a = new String[] { "default", "chiseled", "lines"};
     private static final String[] b = new String[] { "side", "chiseled", "lines", null, null};
 
-    public BlockQuartz(int i) {
-        super(i, Material.STONE);
+    public BlockQuartz() {
+        super(Material.STONE);
         this.a(CreativeModeTab.b);
     }
 
@@ -36,11 +36,15 @@ public class BlockQuartz extends Block {
         return i != 3 && i != 4 ? i : 2;
     }
 
-    protected ItemStack d_(int i) {
-        return i != 3 && i != 4 ? super.d_(i) : new ItemStack(this.id, 1, 2);
+    protected ItemStack j(int i) {
+        return i != 3 && i != 4 ? super.j(i) : new ItemStack(Item.getItemOf(this), 1, 2);
     }
 
-    public int d() {
+    public int b() {
         return 39;
+    }
+
+    public MaterialMapColor f(int i) {
+        return MaterialMapColor.p;
     }
 }

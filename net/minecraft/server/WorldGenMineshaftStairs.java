@@ -69,11 +69,11 @@ public class WorldGenMineshaftStairs extends StructurePiece {
         if (this.a(world, structureboundingbox)) {
             return false;
         } else {
-            this.a(world, structureboundingbox, 0, 5, 0, 2, 7, 1, 0, 0, false);
-            this.a(world, structureboundingbox, 0, 0, 7, 2, 2, 8, 0, 0, false);
+            this.a(world, structureboundingbox, 0, 5, 0, 2, 7, 1, Blocks.AIR, Blocks.AIR, false);
+            this.a(world, structureboundingbox, 0, 0, 7, 2, 2, 8, Blocks.AIR, Blocks.AIR, false);
 
             for (int i = 0; i < 5; ++i) {
-                this.a(world, structureboundingbox, 0, 5 - i - (i < 4 ? 1 : 0), 2 + i, 2, 7 - i, 2 + i, 0, 0, false);
+                this.a(world, structureboundingbox, 0, 5 - i - (i < 4 ? 1 : 0), 2 + i, 2, 7 - i, 2 + i, Blocks.AIR, Blocks.AIR, false);
             }
 
             return true;

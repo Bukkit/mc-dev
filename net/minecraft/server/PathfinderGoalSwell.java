@@ -13,7 +13,7 @@ public class PathfinderGoalSwell extends PathfinderGoal {
     public boolean a() {
         EntityLiving entityliving = this.a.getGoalTarget();
 
-        return this.a.bV() > 0 || entityliving != null && this.a.e(entityliving) < 9.0D;
+        return this.a.bZ() > 0 || entityliving != null && this.a.e(entityliving) < 9.0D;
     }
 
     public void c() {

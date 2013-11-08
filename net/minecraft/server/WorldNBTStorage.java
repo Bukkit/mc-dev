@@ -9,13 +9,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class WorldNBTStorage implements IDataManager, IPlayerFileData {
 
+    private static final Logger a = LogManager.getLogger();
     private final File baseDir;
     private final File playerDir;
     private final File dataDir;
-    private final long sessionId = MinecraftServer.aq();
-    private final String e;
+    private final long sessionId = MinecraftServer.ap();
+    private final String f;
 
     public WorldNBTStorage(File file1, String s, boolean flag) {
         this.baseDir = new File(file1, s);
@@ -23,7 +27,7 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
         this.playerDir = new File(this.baseDir, "players");
         this.dataDir = new File(this.baseDir, "data");
         this.dataDir.mkdirs();
-        this.e = s;
+        this.f = s;
         if (flag) {
             this.playerDir.mkdirs();
         }
@@ -47,7 +51,7 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
         }
     }
 
-    protected File getDirectory() {
+    public File getDirectory() {
         return this.baseDir;
     }
 
@@ -176,7 +180,7 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
 
             file1.renameTo(file2);
         } catch (Exception exception) {
-            MinecraftServer.getServer().getLogger().warning("Failed to save player data for " + entityhuman.getName());
+            a.warn("Failed to save player data for " + entityhuman.getName());
         }
     }
 
@@ -198,7 +202,7 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
                 return NBTCompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
             }
         } catch (Exception exception) {
-            MinecraftServer.getServer().getLogger().warning("Failed to load player data for " + s);
+            a.warn("Failed to load player data for " + s);
         }
 
         return null;
@@ -227,6 +231,6 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
     }
 
     public String g() {
-        return this.e;
+        return this.f;
     }
 }

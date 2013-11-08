@@ -8,8 +8,8 @@ public abstract class EntityTameableAnimal extends EntityAnimal implements Entit
         super(world);
     }
 
-    protected void a() {
-        super.a();
+    protected void c() {
+        super.c();
         this.datawatcher.a(16, Byte.valueOf((byte) 0));
         this.datawatcher.a(17, "");
     }

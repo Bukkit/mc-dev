@@ -29,15 +29,15 @@ public class WorldGenVillageLight extends WorldGenVillagePiece {
             this.f.a(0, this.k - this.f.e + 4 - 1, 0);
         }
 
-        this.a(world, structureboundingbox, 0, 0, 0, 2, 3, 1, 0, 0, false);
-        this.a(world, Block.FENCE.id, 0, 1, 0, 0, structureboundingbox);
-        this.a(world, Block.FENCE.id, 0, 1, 1, 0, structureboundingbox);
-        this.a(world, Block.FENCE.id, 0, 1, 2, 0, structureboundingbox);
-        this.a(world, Block.WOOL.id, 15, 1, 3, 0, structureboundingbox);
-        this.a(world, Block.TORCH.id, 0, 0, 3, 0, structureboundingbox);
-        this.a(world, Block.TORCH.id, 0, 1, 3, 1, structureboundingbox);
-        this.a(world, Block.TORCH.id, 0, 2, 3, 0, structureboundingbox);
-        this.a(world, Block.TORCH.id, 0, 1, 3, -1, structureboundingbox);
+        this.a(world, structureboundingbox, 0, 0, 0, 2, 3, 1, Blocks.AIR, Blocks.AIR, false);
+        this.a(world, Blocks.FENCE, 0, 1, 0, 0, structureboundingbox);
+        this.a(world, Blocks.FENCE, 0, 1, 1, 0, structureboundingbox);
+        this.a(world, Blocks.FENCE, 0, 1, 2, 0, structureboundingbox);
+        this.a(world, Blocks.WOOL, 15, 1, 3, 0, structureboundingbox);
+        this.a(world, Blocks.TORCH, 0, 0, 3, 0, structureboundingbox);
+        this.a(world, Blocks.TORCH, 0, 1, 3, 1, structureboundingbox);
+        this.a(world, Blocks.TORCH, 0, 2, 3, 0, structureboundingbox);
+        this.a(world, Blocks.TORCH, 0, 1, 3, -1, structureboundingbox);
         return true;
     }
 }

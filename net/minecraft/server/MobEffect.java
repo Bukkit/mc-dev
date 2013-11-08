@@ -130,10 +130,15 @@ public class MobEffect {
 
     public static MobEffect b(NBTTagCompound nbttagcompound) {
         byte b0 = nbttagcompound.getByte("Id");
-        byte b1 = nbttagcompound.getByte("Amplifier");
-        int i = nbttagcompound.getInt("Duration");
-        boolean flag = nbttagcompound.getBoolean("Ambient");
 
-        return new MobEffect(b0, i, b1, flag);
+        if (b0 >= 0 && b0 < MobEffectList.byId.length && MobEffectList.byId[b0] != null) {
+            byte b1 = nbttagcompound.getByte("Amplifier");
+            int i = nbttagcompound.getInt("Duration");
+            boolean flag = nbttagcompound.getBoolean("Ambient");
+
+            return new MobEffect(b0, i, b1, flag);
+        } else {
+            return null;
+        }
     }
 }

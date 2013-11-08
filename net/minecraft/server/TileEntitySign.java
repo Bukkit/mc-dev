@@ -3,9 +3,9 @@ package net.minecraft.server;
 public class TileEntitySign extends TileEntity {
 
     public String[] lines = new String[] { "", "", "", ""};
-    public int b = -1;
+    public int i = -1;
     private boolean isEditable = true;
-    private EntityHuman d;
+    private EntityHuman k;
 
     public TileEntitySign() {}
 
@@ -33,7 +33,7 @@ public class TileEntitySign extends TileEntity {
         String[] astring = new String[4];
 
         System.arraycopy(this.lines, 0, astring, 0, 4);
-        return new Packet130UpdateSign(this.x, this.y, this.z, astring);
+        return new PacketPlayOutUpdateSign(this.x, this.y, this.z, astring);
     }
 
     public boolean a() {
@@ -41,10 +41,10 @@ public class TileEntitySign extends TileEntity {
     }
 
     public void a(EntityHuman entityhuman) {
-        this.d = entityhuman;
+        this.k = entityhuman;
     }
 
     public EntityHuman b() {
-        return this.d;
+        return this.k;
     }
 }

@@ -4,36 +4,36 @@ import java.util.Random;
 
 public class BlockWeb extends Block {
 
-    public BlockWeb(int i) {
-        super(i, Material.WEB);
+    public BlockWeb() {
+        super(Material.WEB);
         this.a(CreativeModeTab.c);
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        entity.am();
+        entity.as();
     }
 
     public boolean c() {
         return false;
     }
 
-    public AxisAlignedBB b(World world, int i, int j, int k) {
+    public AxisAlignedBB a(World world, int i, int j, int k) {
         return null;
     }
 
-    public int d() {
+    public int b() {
         return 1;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Item.STRING.id;
+    public Item getDropType(int i, Random random, int j) {
+        return Items.STRING;
     }
 
-    protected boolean r_() {
+    protected boolean E() {
         return true;
     }
 }

@@ -55,8 +55,8 @@ public abstract class StructureStart {
         nbttagcompound.setString("id", WorldGenFactory.a(this));
         nbttagcompound.setInt("ChunkX", i);
         nbttagcompound.setInt("ChunkZ", j);
-        nbttagcompound.set("BB", this.b.a("BB"));
-        NBTTagList nbttaglist = new NBTTagList("Children");
+        nbttagcompound.set("BB", this.b.h());
+        NBTTagList nbttaglist = new NBTTagList();
         Iterator iterator = this.a.iterator();
 
         while (iterator.hasNext()) {
@@ -79,10 +79,10 @@ public abstract class StructureStart {
             this.b = new StructureBoundingBox(nbttagcompound.getIntArray("BB"));
         }
 
-        NBTTagList nbttaglist = nbttagcompound.getList("Children");
+        NBTTagList nbttaglist = nbttagcompound.getList("Children", 10);
 
         for (int i = 0; i < nbttaglist.size(); ++i) {
-            this.a.add(WorldGenFactory.b((NBTTagCompound) nbttaglist.get(i), world));
+            this.a.add(WorldGenFactory.b(nbttaglist.get(i), world));
         }
 
         this.b(nbttagcompound);

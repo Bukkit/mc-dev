@@ -5,6 +5,7 @@ import java.util.Random;
 public class MathHelper {
 
     private static float[] a = new float[65536];
+    private static final int[] b;
 
     public static final float sin(float f) {
         return a[(int) (f * 10430.378F) & '\uffff'];
@@ -68,6 +69,14 @@ public class MathHelper {
         return f < f1 ? f1 : (f > f2 ? f2 : f);
     }
 
+    public static double a(double d0, double d1, double d2) {
+        return d0 < d1 ? d1 : (d0 > d2 ? d2 : d0);
+    }
+
+    public static double b(double d0, double d1, double d2) {
+        return d2 < 0.0D ? d0 : (d2 > 1.0D ? d1 : d0 + (d1 - d0) * d2);
+    }
+
     public static double a(double d0, double d1) {
         if (d0 < 0.0D) {
             d0 = -d0;
@@ -82,6 +91,10 @@ public class MathHelper {
 
     public static int nextInt(Random random, int i, int j) {
         return i >= j ? i : random.nextInt(j - i + 1) + i;
+    }
+
+    public static float a(Random random, float f, float f1) {
+        return f >= f1 ? f : random.nextFloat() * (f1 - f) + f;
     }
 
     public static double a(Random random, double d0, double d1) {
@@ -188,5 +201,7 @@ public class MathHelper {
         for (int i = 0; i < 65536; ++i) {
             a[i] = (float) Math.sin((double) i * 3.141592653589793D * 2.0D / 65536.0D);
         }
+
+        b = new int[] { 0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8, 31, 27, 13, 23, 21, 19, 16, 7, 26, 12, 18, 6, 11, 5, 10, 9};
     }
 }

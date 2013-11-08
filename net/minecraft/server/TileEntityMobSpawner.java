@@ -26,11 +26,11 @@ public class TileEntityMobSpawner extends TileEntity {
 
         this.b(nbttagcompound);
         nbttagcompound.remove("SpawnPotentials");
-        return new Packet132TileEntityData(this.x, this.y, this.z, 1, nbttagcompound);
+        return new PacketPlayOutTileEntityData(this.x, this.y, this.z, 1, nbttagcompound);
     }
 
-    public boolean b(int i, int j) {
-        return this.a.b(i) ? true : super.b(i, j);
+    public boolean c(int i, int j) {
+        return this.a.b(i) ? true : super.c(i, j);
     }
 
     public MobSpawnerAbstract a() {

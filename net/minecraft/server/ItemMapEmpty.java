@@ -2,17 +2,16 @@ package net.minecraft.server;
 
 public class ItemMapEmpty extends ItemWorldMapBase {
 
-    protected ItemMapEmpty(int i) {
-        super(i);
+    protected ItemMapEmpty() {
         this.a(CreativeModeTab.f);
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        ItemStack itemstack1 = new ItemStack(Item.MAP, 1, world.b("map"));
+        ItemStack itemstack1 = new ItemStack(Items.MAP, 1, world.b("map"));
         String s = "map_" + itemstack1.getData();
         WorldMap worldmap = new WorldMap(s);
 
-        world.a(s, (WorldMapBase) worldmap);
+        world.a(s, (PersistentBase) worldmap);
         worldmap.scale = 0;
         int i = 128 * (1 << worldmap.scale);
 
@@ -25,7 +24,7 @@ public class ItemMapEmpty extends ItemWorldMapBase {
             return itemstack1;
         } else {
             if (!entityhuman.inventory.pickup(itemstack1.cloneItemStack())) {
-                entityhuman.drop(itemstack1);
+                entityhuman.drop(itemstack1, false);
             }
 
             return itemstack;

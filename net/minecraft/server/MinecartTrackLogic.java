@@ -11,7 +11,6 @@ public class MinecartTrackLogic {
     private int e;
     private final boolean f;
     private List g;
-
     final BlockMinecartTrackAbstract a;
 
     public MinecartTrackLogic(BlockMinecartTrackAbstract blockminecarttrackabstract, World world, int i, int j, int k) {
@@ -21,17 +20,17 @@ public class MinecartTrackLogic {
         this.c = i;
         this.d = j;
         this.e = k;
-        int l = world.getTypeId(i, j, k);
-        int i1 = world.getData(i, j, k);
+        Block block = world.getType(i, j, k);
+        int l = world.getData(i, j, k);
 
-        if (((BlockMinecartTrackAbstract) Block.byId[l]).a) {
+        if (((BlockMinecartTrackAbstract) block).a) {
             this.f = true;
-            i1 &= -9;
+            l &= -9;
         } else {
             this.f = false;
         }
 
-        this.a(i1);
+        this.a(l);
     }
 
     private void a(int i) {
@@ -82,11 +81,11 @@ public class MinecartTrackLogic {
     }
 
     private boolean a(int i, int j, int k) {
-        return BlockMinecartTrackAbstract.d_(this.b, i, j, k) ? true : (BlockMinecartTrackAbstract.d_(this.b, i, j + 1, k) ? true : BlockMinecartTrackAbstract.d_(this.b, i, j - 1, k));
+        return BlockMinecartTrackAbstract.b_(this.b, i, j, k) ? true : (BlockMinecartTrackAbstract.b_(this.b, i, j + 1, k) ? true : BlockMinecartTrackAbstract.b_(this.b, i, j - 1, k));
     }
 
     private MinecartTrackLogic a(ChunkPosition chunkposition) {
-        return BlockMinecartTrackAbstract.d_(this.b, chunkposition.x, chunkposition.y, chunkposition.z) ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y, chunkposition.z) : (BlockMinecartTrackAbstract.d_(this.b, chunkposition.x, chunkposition.y + 1, chunkposition.z) ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y + 1, chunkposition.z) : (BlockMinecartTrackAbstract.d_(this.b, chunkposition.x, chunkposition.y - 1, chunkposition.z) ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y - 1, chunkposition.z) : null));
+        return BlockMinecartTrackAbstract.b_(this.b, chunkposition.x, chunkposition.y, chunkposition.z) ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y, chunkposition.z) : (BlockMinecartTrackAbstract.b_(this.b, chunkposition.x, chunkposition.y + 1, chunkposition.z) ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y + 1, chunkposition.z) : (BlockMinecartTrackAbstract.b_(this.b, chunkposition.x, chunkposition.y - 1, chunkposition.z) ? new MinecartTrackLogic(this.a, this.b, chunkposition.x, chunkposition.y - 1, chunkposition.z) : null));
     }
 
     private boolean a(MinecartTrackLogic minecarttracklogic) {
@@ -174,21 +173,21 @@ public class MinecartTrackLogic {
         }
 
         if (b0 == 0) {
-            if (BlockMinecartTrackAbstract.d_(this.b, this.c, this.d + 1, this.e - 1)) {
+            if (BlockMinecartTrackAbstract.b_(this.b, this.c, this.d + 1, this.e - 1)) {
                 b0 = 4;
             }
 
-            if (BlockMinecartTrackAbstract.d_(this.b, this.c, this.d + 1, this.e + 1)) {
+            if (BlockMinecartTrackAbstract.b_(this.b, this.c, this.d + 1, this.e + 1)) {
                 b0 = 5;
             }
         }
 
         if (b0 == 1) {
-            if (BlockMinecartTrackAbstract.d_(this.b, this.c + 1, this.d + 1, this.e)) {
+            if (BlockMinecartTrackAbstract.b_(this.b, this.c + 1, this.d + 1, this.e)) {
                 b0 = 2;
             }
 
-            if (BlockMinecartTrackAbstract.d_(this.b, this.c - 1, this.d + 1, this.e)) {
+            if (BlockMinecartTrackAbstract.b_(this.b, this.c - 1, this.d + 1, this.e)) {
                 b0 = 3;
             }
         }
@@ -297,21 +296,21 @@ public class MinecartTrackLogic {
         }
 
         if (b0 == 0) {
-            if (BlockMinecartTrackAbstract.d_(this.b, this.c, this.d + 1, this.e - 1)) {
+            if (BlockMinecartTrackAbstract.b_(this.b, this.c, this.d + 1, this.e - 1)) {
                 b0 = 4;
             }
 
-            if (BlockMinecartTrackAbstract.d_(this.b, this.c, this.d + 1, this.e + 1)) {
+            if (BlockMinecartTrackAbstract.b_(this.b, this.c, this.d + 1, this.e + 1)) {
                 b0 = 5;
             }
         }
 
         if (b0 == 1) {
-            if (BlockMinecartTrackAbstract.d_(this.b, this.c + 1, this.d + 1, this.e)) {
+            if (BlockMinecartTrackAbstract.b_(this.b, this.c + 1, this.d + 1, this.e)) {
                 b0 = 2;
             }
 
-            if (BlockMinecartTrackAbstract.d_(this.b, this.c - 1, this.d + 1, this.e)) {
+            if (BlockMinecartTrackAbstract.b_(this.b, this.c - 1, this.d + 1, this.e)) {
                 b0 = 3;
             }
         }

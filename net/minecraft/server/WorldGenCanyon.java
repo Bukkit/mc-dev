@@ -8,7 +8,7 @@ public class WorldGenCanyon extends WorldGenBase {
 
     public WorldGenCanyon() {}
 
-    protected void a(long i, int j, int k, byte[] abyte, double d0, double d1, double d2, float f, float f1, float f2, int l, int i1, double d3) {
+    protected void a(long i, int j, int k, Block[] ablock, double d0, double d1, double d2, float f, float f1, float f2, int l, int i1, double d3) {
         Random random = new Random(i);
         double d4 = (double) (j * 16 + 8);
         double d5 = (double) (k * 16 + 8);
@@ -30,7 +30,7 @@ public class WorldGenCanyon extends WorldGenBase {
 
         float f5 = 1.0F;
 
-        for (int k1 = 0; k1 < 128; ++k1) {
+        for (int k1 = 0; k1 < 256; ++k1) {
             if (k1 == 0 || random.nextInt(3) == 0) {
                 f5 = 1.0F + random.nextFloat() * random.nextFloat() * 1.0F;
             }
@@ -87,8 +87,8 @@ public class WorldGenCanyon extends WorldGenBase {
                         j2 = 1;
                     }
 
-                    if (k2 > 120) {
-                        k2 = 120;
+                    if (k2 > 248) {
+                        k2 = 248;
                     }
 
                     if (l2 < 0) {
@@ -107,9 +107,11 @@ public class WorldGenCanyon extends WorldGenBase {
                     for (j3 = l1; !flag1 && j3 < i2; ++j3) {
                         for (int l3 = l2; !flag1 && l3 < i3; ++l3) {
                             for (int i4 = k2 + 1; !flag1 && i4 >= j2 - 1; --i4) {
-                                k3 = (j3 * 16 + l3) * 128 + i4;
-                                if (i4 >= 0 && i4 < 128) {
-                                    if (abyte[k3] == Block.WATER.id || abyte[k3] == Block.STATIONARY_WATER.id) {
+                                k3 = (j3 * 16 + l3) * 256 + i4;
+                                if (i4 >= 0 && i4 < 256) {
+                                    Block block = ablock[k3];
+
+                                    if (block == Blocks.WATER || block == Blocks.STATIONARY_WATER) {
                                         flag1 = true;
                                     }
 
@@ -127,7 +129,7 @@ public class WorldGenCanyon extends WorldGenBase {
 
                             for (k3 = l2; k3 < i3; ++k3) {
                                 double d13 = ((double) (k3 + k * 16) + 0.5D - d2) / d6;
-                                int j4 = (j3 * 16 + k3) * 128 + k2;
+                                int j4 = (j3 * 16 + k3) * 256 + k2;
                                 boolean flag2 = false;
 
                                 if (d12 * d12 + d13 * d13 < 1.0D) {
@@ -135,19 +137,19 @@ public class WorldGenCanyon extends WorldGenBase {
                                         double d14 = ((double) k4 + 0.5D - d1) / d7;
 
                                         if ((d12 * d12 + d13 * d13) * (double) this.d[k4] + d14 * d14 / 6.0D < 1.0D) {
-                                            byte b0 = abyte[j4];
+                                            Block block1 = ablock[j4];
 
-                                            if (b0 == Block.GRASS.id) {
+                                            if (block1 == Blocks.GRASS) {
                                                 flag2 = true;
                                             }
 
-                                            if (b0 == Block.STONE.id || b0 == Block.DIRT.id || b0 == Block.GRASS.id) {
+                                            if (block1 == Blocks.STONE || block1 == Blocks.DIRT || block1 == Blocks.GRASS) {
                                                 if (k4 < 10) {
-                                                    abyte[j4] = (byte) Block.LAVA.id;
+                                                    ablock[j4] = Blocks.LAVA;
                                                 } else {
-                                                    abyte[j4] = 0;
-                                                    if (flag2 && abyte[j4 - 1] == Block.DIRT.id) {
-                                                        abyte[j4 - 1] = this.c.getBiome(j3 + j * 16, k3 + k * 16).A;
+                                                    ablock[j4] = null;
+                                                    if (flag2 && ablock[j4 - 1] == Blocks.DIRT) {
+                                                        ablock[j4 - 1] = this.c.getBiome(j3 + j * 16, k3 + k * 16).ai;
                                                     }
                                                 }
                                             }
@@ -168,7 +170,7 @@ public class WorldGenCanyon extends WorldGenBase {
         }
     }
 
-    protected void a(World world, int i, int j, int k, int l, byte[] abyte) {
+    protected void a(World world, int i, int j, int k, int l, Block[] ablock) {
         if (this.b.nextInt(50) == 0) {
             double d0 = (double) (i * 16 + this.b.nextInt(16));
             double d1 = (double) (this.b.nextInt(this.b.nextInt(40) + 8) + 20);
@@ -180,7 +182,7 @@ public class WorldGenCanyon extends WorldGenBase {
                 float f1 = (this.b.nextFloat() - 0.5F) * 2.0F / 8.0F;
                 float f2 = (this.b.nextFloat() * 2.0F + this.b.nextFloat()) * 2.0F;
 
-                this.a(this.b.nextLong(), k, l, abyte, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
+                this.a(this.b.nextLong(), k, l, ablock, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
             }
         }
     }

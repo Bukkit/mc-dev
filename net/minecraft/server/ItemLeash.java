@@ -5,15 +5,14 @@ import java.util.List;
 
 public class ItemLeash extends Item {
 
-    public ItemLeash(int i) {
-        super(i);
+    public ItemLeash() {
         this.a(CreativeModeTab.i);
     }
 
     public boolean interactWith(ItemStack itemstack, EntityHuman entityhuman, World world, int i, int j, int k, int l, float f, float f1, float f2) {
-        int i1 = world.getTypeId(i, j, k);
+        Block block = world.getType(i, j, k);
 
-        if (Block.byId[i1] != null && Block.byId[i1].d() == 11) {
+        if (block.b() == 11) {
             if (world.isStatic) {
                 return true;
             } else {
@@ -37,7 +36,7 @@ public class ItemLeash extends Item {
             while (iterator.hasNext()) {
                 EntityInsentient entityinsentient = (EntityInsentient) iterator.next();
 
-                if (entityinsentient.bH() && entityinsentient.getLeashHolder() == entityhuman) {
+                if (entityinsentient.bL() && entityinsentient.getLeashHolder() == entityhuman) {
                     if (entityleash == null) {
                         entityleash = EntityLeash.a(world, i, j, k);
                     }

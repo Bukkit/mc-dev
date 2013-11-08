@@ -1,28 +1,16 @@
 package net.minecraft.server;
 
-import java.util.Iterator;
-
 public class BlockPressurePlateWeighted extends BlockPressurePlateAbstract {
 
     private final int a;
 
-    protected BlockPressurePlateWeighted(int i, String s, Material material, int j) {
-        super(i, s, material);
-        this.a = j;
+    protected BlockPressurePlateWeighted(String s, Material material, int i) {
+        super(s, material);
+        this.a = i;
     }
 
     protected int e(World world, int i, int j, int k) {
-        int l = 0;
-        Iterator iterator = world.a(EntityItem.class, this.a(i, j, k)).iterator();
-
-        while (iterator.hasNext()) {
-            EntityItem entityitem = (EntityItem) iterator.next();
-
-            l += entityitem.getItemStack().count;
-            if (l >= this.a) {
-                break;
-            }
-        }
+        int l = Math.min(world.a(Entity.class, this.a(i, j, k)).size(), this.a);
 
         if (l <= 0) {
             return 0;

@@ -4,19 +4,19 @@ public class BlockCobbleWall extends Block {
 
     public static final String[] a = new String[] { "normal", "mossy"};
 
-    public BlockCobbleWall(int i, Block block) {
-        super(i, block.material);
+    public BlockCobbleWall(Block block) {
+        super(block.material);
         this.c(block.strength);
         this.b(block.durability / 3.0F);
         this.a(block.stepSound);
         this.a(CreativeModeTab.b);
     }
 
-    public int d() {
+    public int b() {
         return 32;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
@@ -29,10 +29,10 @@ public class BlockCobbleWall extends Block {
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        boolean flag = this.d(iblockaccess, i, j, k - 1);
-        boolean flag1 = this.d(iblockaccess, i, j, k + 1);
-        boolean flag2 = this.d(iblockaccess, i - 1, j, k);
-        boolean flag3 = this.d(iblockaccess, i + 1, j, k);
+        boolean flag = this.e(iblockaccess, i, j, k - 1);
+        boolean flag1 = this.e(iblockaccess, i, j, k + 1);
+        boolean flag2 = this.e(iblockaccess, i - 1, j, k);
+        boolean flag3 = this.e(iblockaccess, i + 1, j, k);
         float f = 0.25F;
         float f1 = 0.75F;
         float f2 = 0.25F;
@@ -68,22 +68,16 @@ public class BlockCobbleWall extends Block {
         this.a(f, 0.0F, f2, f1, f4, f3);
     }
 
-    public AxisAlignedBB b(World world, int i, int j, int k) {
+    public AxisAlignedBB a(World world, int i, int j, int k) {
         this.updateShape(world, i, j, k);
         this.maxY = 1.5D;
-        return super.b(world, i, j, k);
+        return super.a(world, i, j, k);
     }
 
-    public boolean d(IBlockAccess iblockaccess, int i, int j, int k) {
-        int l = iblockaccess.getTypeId(i, j, k);
+    public boolean e(IBlockAccess iblockaccess, int i, int j, int k) {
+        Block block = iblockaccess.getType(i, j, k);
 
-        if (l != this.id && l != Block.FENCE_GATE.id) {
-            Block block = Block.byId[l];
-
-            return block != null && block.material.k() && block.b() ? block.material != Material.PUMPKIN : false;
-        } else {
-            return true;
-        }
+        return block != this && block != Blocks.FENCE_GATE ? (block.material.k() && block.d() ? block.material != Material.PUMPKIN : false) : true;
     }
 
     public int getDropData(int i) {

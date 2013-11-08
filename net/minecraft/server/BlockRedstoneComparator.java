@@ -4,28 +4,28 @@ import java.util.Random;
 
 public class BlockRedstoneComparator extends BlockDiodeAbstract implements IContainer {
 
-    public BlockRedstoneComparator(int i, boolean flag) {
-        super(i, flag);
+    public BlockRedstoneComparator(boolean flag) {
+        super(flag);
         this.isTileEntity = true;
     }
 
-    public int getDropType(int i, Random random, int j) {
-        return Item.REDSTONE_COMPARATOR.id;
+    public Item getDropType(int i, Random random, int j) {
+        return Items.REDSTONE_COMPARATOR;
     }
 
-    protected int k_(int i) {
+    protected int b(int i) {
         return 2;
     }
 
+    protected BlockDiodeAbstract e() {
+        return Blocks.REDSTONE_COMPARATOR_ON;
+    }
+
     protected BlockDiodeAbstract i() {
-        return Block.REDSTONE_COMPARATOR_ON;
+        return Blocks.REDSTONE_COMPARATOR_OFF;
     }
 
-    protected BlockDiodeAbstract j() {
-        return Block.REDSTONE_COMPARATOR_OFF;
-    }
-
-    public int d() {
+    public int b() {
         return 37;
     }
 
@@ -33,56 +33,54 @@ public class BlockRedstoneComparator extends BlockDiodeAbstract implements ICont
         return this.a || (i & 8) != 0;
     }
 
-    protected int d(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        return this.a_(iblockaccess, i, j, k).a();
+    protected int f(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+        return this.e(iblockaccess, i, j, k).a();
     }
 
-    private int m(World world, int i, int j, int k, int l) {
-        return !this.d(l) ? this.e(world, i, j, k, l) : Math.max(this.e(world, i, j, k, l) - this.f(world, i, j, k, l), 0);
+    private int j(World world, int i, int j, int k, int l) {
+        return !this.d(l) ? this.h(world, i, j, k, l) : Math.max(this.h(world, i, j, k, l) - this.h(world, i, j, k, l), 0);
     }
 
     public boolean d(int i) {
         return (i & 4) == 4;
     }
 
-    protected boolean d(World world, int i, int j, int k, int l) {
-        int i1 = this.e(world, i, j, k, l);
+    protected boolean a(World world, int i, int j, int k, int l) {
+        int i1 = this.h(world, i, j, k, l);
 
         if (i1 >= 15) {
             return true;
         } else if (i1 == 0) {
             return false;
         } else {
-            int j1 = this.f(world, i, j, k, l);
+            int j1 = this.h(world, i, j, k, l);
 
             return j1 == 0 ? true : i1 >= j1;
         }
     }
 
-    protected int e(World world, int i, int j, int k, int l) {
-        int i1 = super.e(world, i, j, k, l);
-        int j1 = j(l);
+    protected int h(World world, int i, int j, int k, int l) {
+        int i1 = super.h(world, i, j, k, l);
+        int j1 = l(l);
         int k1 = i + Direction.a[j1];
         int l1 = k + Direction.b[j1];
-        int i2 = world.getTypeId(k1, j, l1);
+        Block block = world.getType(k1, j, l1);
 
-        if (i2 > 0) {
-            if (Block.byId[i2].q_()) {
-                i1 = Block.byId[i2].b_(world, k1, j, l1, Direction.f[j1]);
-            } else if (i1 < 15 && Block.l(i2)) {
-                k1 += Direction.a[j1];
-                l1 += Direction.b[j1];
-                i2 = world.getTypeId(k1, j, l1);
-                if (i2 > 0 && Block.byId[i2].q_()) {
-                    i1 = Block.byId[i2].b_(world, k1, j, l1, Direction.f[j1]);
-                }
+        if (block.M()) {
+            i1 = block.g(world, k1, j, l1, Direction.f[j1]);
+        } else if (i1 < 15 && block.r()) {
+            k1 += Direction.a[j1];
+            l1 += Direction.b[j1];
+            block = world.getType(k1, j, l1);
+            if (block.M()) {
+                i1 = block.g(world, k1, j, l1, Direction.f[j1]);
             }
         }
 
         return i1;
     }
 
-    public TileEntityComparator a_(IBlockAccess iblockaccess, int i, int j, int k) {
+    public TileEntityComparator e(IBlockAccess iblockaccess, int i, int j, int k) {
         return (TileEntityComparator) iblockaccess.getTileEntity(i, j, k);
     }
 
@@ -99,17 +97,17 @@ public class BlockRedstoneComparator extends BlockDiodeAbstract implements ICont
         return true;
     }
 
-    protected void f(World world, int i, int j, int k, int l) {
-        if (!world.a(i, j, k, this.id)) {
-            int i1 = world.getData(i, j, k);
-            int j1 = this.m(world, i, j, k, i1);
-            int k1 = this.a_(world, i, j, k).a();
+    protected void b(World world, int i, int j, int k, Block block) {
+        if (!world.a(i, j, k, (Block) this)) {
+            int l = world.getData(i, j, k);
+            int i1 = this.j(world, i, j, k, l);
+            int j1 = this.e(world, i, j, k).a();
 
-            if (j1 != k1 || this.c(i1) != this.d(world, i, j, k, i1)) {
-                if (this.h(world, i, j, k, i1)) {
-                    world.a(i, j, k, this.id, this.k_(0), -1);
+            if (i1 != j1 || this.c(l) != this.a(world, i, j, k, l)) {
+                if (this.i(world, i, j, k, l)) {
+                    world.a(i, j, k, this, this.b(0), -1);
                 } else {
-                    world.a(i, j, k, this.id, this.k_(0), 0);
+                    world.a(i, j, k, this, this.b(0), 0);
                 }
             }
         }
@@ -117,12 +115,12 @@ public class BlockRedstoneComparator extends BlockDiodeAbstract implements ICont
 
     private void c(World world, int i, int j, int k, Random random) {
         int l = world.getData(i, j, k);
-        int i1 = this.m(world, i, j, k, l);
-        int j1 = this.a_(world, i, j, k).a();
+        int i1 = this.j(world, i, j, k, l);
+        int j1 = this.e(world, i, j, k).a();
 
-        this.a_(world, i, j, k).a(i1);
+        this.e(world, i, j, k).a(i1);
         if (j1 != i1 || !this.d(l)) {
-            boolean flag = this.d(world, i, j, k, l);
+            boolean flag = this.a(world, i, j, k, l);
             boolean flag1 = this.a || (l & 8) != 0;
 
             if (flag1 && !flag) {
@@ -131,7 +129,7 @@ public class BlockRedstoneComparator extends BlockDiodeAbstract implements ICont
                 world.setData(i, j, k, l | 8, 2);
             }
 
-            this.h_(world, i, j, k);
+            this.e(world, i, j, k);
         }
     }
 
@@ -139,7 +137,7 @@ public class BlockRedstoneComparator extends BlockDiodeAbstract implements ICont
         if (this.a) {
             int l = world.getData(i, j, k);
 
-            world.setTypeIdAndData(i, j, k, this.j().id, l | 8, 4);
+            world.setTypeAndData(i, j, k, this.i(), l | 8, 4);
         }
 
         this.c(world, i, j, k, random);
@@ -147,23 +145,23 @@ public class BlockRedstoneComparator extends BlockDiodeAbstract implements ICont
 
     public void onPlace(World world, int i, int j, int k) {
         super.onPlace(world, i, j, k);
-        world.setTileEntity(i, j, k, this.b(world));
+        world.setTileEntity(i, j, k, this.a(world, 0));
     }
 
-    public void remove(World world, int i, int j, int k, int l, int i1) {
-        super.remove(world, i, j, k, l, i1);
-        world.s(i, j, k);
-        this.h_(world, i, j, k);
+    public void remove(World world, int i, int j, int k, Block block, int l) {
+        super.remove(world, i, j, k, block, l);
+        world.p(i, j, k);
+        this.e(world, i, j, k);
     }
 
-    public boolean b(World world, int i, int j, int k, int l, int i1) {
-        super.b(world, i, j, k, l, i1);
+    public boolean a(World world, int i, int j, int k, int l, int i1) {
+        super.a(world, i, j, k, l, i1);
         TileEntity tileentity = world.getTileEntity(i, j, k);
 
-        return tileentity != null ? tileentity.b(l, i1) : false;
+        return tileentity != null ? tileentity.c(l, i1) : false;
     }
 
-    public TileEntity b(World world) {
+    public TileEntity a(World world, int i) {
         return new TileEntityComparator();
     }
 }

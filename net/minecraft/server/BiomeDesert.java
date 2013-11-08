@@ -6,13 +6,14 @@ public class BiomeDesert extends BiomeBase {
 
     public BiomeDesert(int i) {
         super(i);
-        this.K.clear();
-        this.A = (byte) Block.SAND.id;
-        this.B = (byte) Block.SAND.id;
-        this.I.z = -999;
-        this.I.C = 2;
-        this.I.E = 50;
-        this.I.F = 10;
+        this.at.clear();
+        this.ai = Blocks.SAND;
+        this.ak = Blocks.SAND;
+        this.ar.x = -999;
+        this.ar.A = 2;
+        this.ar.C = 50;
+        this.ar.D = 10;
+        this.at.clear();
     }
 
     public void a(World world, Random random, int i, int j) {

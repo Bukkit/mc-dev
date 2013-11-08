@@ -2,8 +2,7 @@ package net.minecraft.server;
 
 public class ItemGlassBottle extends Item {
 
-    public ItemGlassBottle(int i) {
-        super(i);
+    public ItemGlassBottle() {
         this.a(CreativeModeTab.k);
     }
 
@@ -13,7 +12,7 @@ public class ItemGlassBottle extends Item {
         if (movingobjectposition == null) {
             return itemstack;
         } else {
-            if (movingobjectposition.type == EnumMovingObjectType.TILE) {
+            if (movingobjectposition.type == EnumMovingObjectType.BLOCK) {
                 int i = movingobjectposition.b;
                 int j = movingobjectposition.c;
                 int k = movingobjectposition.d;
@@ -26,14 +25,14 @@ public class ItemGlassBottle extends Item {
                     return itemstack;
                 }
 
-                if (world.getMaterial(i, j, k) == Material.WATER) {
+                if (world.getType(i, j, k).getMaterial() == Material.WATER) {
                     --itemstack.count;
                     if (itemstack.count <= 0) {
-                        return new ItemStack(Item.POTION);
+                        return new ItemStack(Items.POTION);
                     }
 
-                    if (!entityhuman.inventory.pickup(new ItemStack(Item.POTION))) {
-                        entityhuman.drop(new ItemStack(Item.POTION.id, 1, 0));
+                    if (!entityhuman.inventory.pickup(new ItemStack(Items.POTION))) {
+                        entityhuman.drop(new ItemStack(Items.POTION, 1, 0), false);
                     }
                 }
             }

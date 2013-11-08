@@ -16,10 +16,10 @@ public class CommandGamemodeDefault extends CommandGamemode {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0) {
-            EnumGamemode enumgamemode = this.f(icommandlistener, astring[0]);
+            EnumGamemode enumgamemode = this.h(icommandlistener, astring[0]);
 
             this.a(enumgamemode);
-            a(icommandlistener, "commands.defaultgamemode.success", new Object[] { ChatMessage.e("gameMode." + enumgamemode.b())});
+            a(icommandlistener, "commands.defaultgamemode.success", new Object[] { new ChatMessage("gameMode." + enumgamemode.b(), new Object[0])});
         } else {
             throw new ExceptionUsage("commands.defaultgamemode.usage", new Object[0]);
         }

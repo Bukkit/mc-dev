@@ -35,10 +35,10 @@ public class CommandWhitelist extends CommandAbstract {
             }
 
             if (astring[0].equals("list")) {
-                icommandlistener.sendMessage(ChatMessage.b("commands.whitelist.list", new Object[] { Integer.valueOf(MinecraftServer.getServer().getPlayerList().getWhitelisted().size()), Integer.valueOf(MinecraftServer.getServer().getPlayerList().getSeenPlayers().length)}));
+                icommandlistener.sendMessage(new ChatMessage("commands.whitelist.list", new Object[] { Integer.valueOf(MinecraftServer.getServer().getPlayerList().getWhitelisted().size()), Integer.valueOf(MinecraftServer.getServer().getPlayerList().getSeenPlayers().length)}));
                 Set set = MinecraftServer.getServer().getPlayerList().getWhitelisted();
 
-                icommandlistener.sendMessage(ChatMessage.d(a(set.toArray(new String[set.size()]))));
+                icommandlistener.sendMessage(new ChatComponentText(a(set.toArray(new String[set.size()]))));
                 return;
             }
 

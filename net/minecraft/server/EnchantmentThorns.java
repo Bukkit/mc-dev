@@ -25,16 +25,8 @@ public class EnchantmentThorns extends Enchantment {
         return itemstack.getItem() instanceof ItemArmor ? true : super.canEnchant(itemstack);
     }
 
-    public static boolean a(int i, Random random) {
-        return i <= 0 ? false : random.nextFloat() < 0.15F * (float) i;
-    }
-
-    public static int b(int i, Random random) {
-        return i > 10 ? i - 10 : 1 + random.nextInt(4);
-    }
-
-    public static void a(Entity entity, EntityLiving entityliving, Random random) {
-        int i = EnchantmentManager.getThornsEnchantmentLevel(entityliving);
+    public void b(EntityLiving entityliving, Entity entity, int i) {
+        Random random = entityliving.aI();
         ItemStack itemstack = EnchantmentManager.a(Enchantment.THORNS, entityliving);
 
         if (a(i, random)) {
@@ -46,5 +38,13 @@ public class EnchantmentThorns extends Enchantment {
         } else if (itemstack != null) {
             itemstack.damage(1, entityliving);
         }
+    }
+
+    public static boolean a(int i, Random random) {
+        return i <= 0 ? false : random.nextFloat() < 0.15F * (float) i;
+    }
+
+    public static int b(int i, Random random) {
+        return i > 10 ? i - 10 : 1 + random.nextInt(4);
     }
 }

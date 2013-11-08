@@ -35,9 +35,9 @@ public class WorldGenStrongholdLeftTurn extends WorldGenStrongholdPiece {
             this.a(world, structureboundingbox, 0, 0, 0, 4, 4, 4, true, random, WorldGenStrongholdPieces.c());
             this.a(world, random, structureboundingbox, this.d, 1, 1, 0);
             if (this.g != 2 && this.g != 3) {
-                this.a(world, structureboundingbox, 4, 1, 1, 4, 3, 3, 0, 0, false);
+                this.a(world, structureboundingbox, 4, 1, 1, 4, 3, 3, Blocks.AIR, Blocks.AIR, false);
             } else {
-                this.a(world, structureboundingbox, 0, 1, 1, 0, 3, 3, 0, 0, false);
+                this.a(world, structureboundingbox, 0, 1, 1, 0, 3, 3, Blocks.AIR, Blocks.AIR, false);
             }
 
             return true;

@@ -4,20 +4,19 @@ import java.util.concurrent.Callable;
 
 class CrashReportSourceBlockType implements Callable {
 
-    final int a;
-
+    final Block a;
     final World b;
 
-    CrashReportSourceBlockType(World world, int i) {
+    CrashReportSourceBlockType(World world, Block block) {
         this.b = world;
-        this.a = i;
+        this.a = block;
     }
 
     public String a() {
         try {
-            return String.format("ID #%d (%s // %s)", new Object[] { Integer.valueOf(this.a), Block.byId[this.a].a(), Block.byId[this.a].getClass().getCanonicalName()});
+            return String.format("ID #%d (%s // %s)", new Object[] { Integer.valueOf(Block.b(this.a)), this.a.a(), this.a.getClass().getCanonicalName()});
         } catch (Throwable throwable) {
-            return "ID #" + this.a;
+            return "ID #" + Block.b(this.a);
         }
     }
 

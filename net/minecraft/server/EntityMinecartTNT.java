@@ -12,16 +12,16 @@ public class EntityMinecartTNT extends EntityMinecartAbstract {
         super(world, d0, d1, d2);
     }
 
-    public int getType() {
+    public int m() {
         return 3;
     }
 
-    public Block n() {
-        return Block.TNT;
+    public Block o() {
+        return Blocks.TNT;
     }
 
-    public void l_() {
-        super.l_();
+    public void h() {
+        super.h();
         if (this.fuse > 0) {
             --this.fuse;
             this.world.addParticle("smoke", this.locX, this.locY + 0.5D, this.locZ, 0.0D, 0.0D, 0.0D);
@@ -43,10 +43,10 @@ public class EntityMinecartTNT extends EntityMinecartAbstract {
         double d0 = this.motX * this.motX + this.motZ * this.motZ;
 
         if (!damagesource.c()) {
-            this.a(new ItemStack(Block.TNT, 1), 0.0F);
+            this.a(new ItemStack(Blocks.TNT, 1), 0.0F);
         }
 
-        if (damagesource.m() || damagesource.c() || d0 >= 0.009999999776482582D) {
+        if (damagesource.o() || damagesource.c() || d0 >= 0.009999999776482582D) {
             this.c(d0);
         }
     }
@@ -76,33 +76,33 @@ public class EntityMinecartTNT extends EntityMinecartAbstract {
 
     public void a(int i, int j, int k, boolean flag) {
         if (flag && this.fuse < 0) {
-            this.d();
+            this.e();
         }
     }
 
-    public void d() {
+    public void e() {
         this.fuse = 80;
         if (!this.world.isStatic) {
             this.world.broadcastEntityEffect(this, (byte) 10);
-            this.world.makeSound(this, "random.fuse", 1.0F, 1.0F);
+            this.world.makeSound(this, "game.tnt.primed", 1.0F, 1.0F);
         }
     }
 
-    public boolean u() {
+    public boolean v() {
         return this.fuse > -1;
     }
 
     public float a(Explosion explosion, World world, int i, int j, int k, Block block) {
-        return this.u() && (BlockMinecartTrackAbstract.e_(block.id) || BlockMinecartTrackAbstract.d_(world, i, j + 1, k)) ? 0.0F : super.a(explosion, world, i, j, k, block);
+        return this.v() && (BlockMinecartTrackAbstract.a(block) || BlockMinecartTrackAbstract.b_(world, i, j + 1, k)) ? 0.0F : super.a(explosion, world, i, j, k, block);
     }
 
-    public boolean a(Explosion explosion, World world, int i, int j, int k, int l, float f) {
-        return this.u() && (BlockMinecartTrackAbstract.e_(l) || BlockMinecartTrackAbstract.d_(world, i, j + 1, k)) ? false : super.a(explosion, world, i, j, k, l, f);
+    public boolean a(Explosion explosion, World world, int i, int j, int k, Block block, float f) {
+        return this.v() && (BlockMinecartTrackAbstract.a(block) || BlockMinecartTrackAbstract.b_(world, i, j + 1, k)) ? false : super.a(explosion, world, i, j, k, block, f);
     }
 
     protected void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        if (nbttagcompound.hasKey("TNTFuse")) {
+        if (nbttagcompound.hasKeyOfType("TNTFuse", 99)) {
             this.fuse = nbttagcompound.getInt("TNTFuse");
         }
     }

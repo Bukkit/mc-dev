@@ -2,8 +2,8 @@ package net.minecraft.server;
 
 public class BlockJukeBox extends BlockContainer {
 
-    protected BlockJukeBox(int i) {
-        super(i, Material.WOOD);
+    protected BlockJukeBox() {
+        super(Material.WOOD);
         this.a(CreativeModeTab.c);
     }
 
@@ -16,7 +16,7 @@ public class BlockJukeBox extends BlockContainer {
         }
     }
 
-    public void a(World world, int i, int j, int k, ItemStack itemstack) {
+    public void b(World world, int i, int j, int k, ItemStack itemstack) {
         if (!world.isStatic) {
             TileEntityRecordPlayer tileentityrecordplayer = (TileEntityRecordPlayer) world.getTileEntity(i, j, k);
 
@@ -53,9 +53,9 @@ public class BlockJukeBox extends BlockContainer {
         }
     }
 
-    public void remove(World world, int i, int j, int k, int l, int i1) {
+    public void remove(World world, int i, int j, int k, Block block, int l) {
         this.dropRecord(world, i, j, k);
-        super.remove(world, i, j, k, l, i1);
+        super.remove(world, i, j, k, block, l);
     }
 
     public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
@@ -64,17 +64,17 @@ public class BlockJukeBox extends BlockContainer {
         }
     }
 
-    public TileEntity b(World world) {
+    public TileEntity a(World world, int i) {
         return new TileEntityRecordPlayer();
     }
 
-    public boolean q_() {
+    public boolean M() {
         return true;
     }
 
-    public int b_(World world, int i, int j, int k, int l) {
+    public int g(World world, int i, int j, int k, int l) {
         ItemStack itemstack = ((TileEntityRecordPlayer) world.getTileEntity(i, j, k)).getRecord();
 
-        return itemstack == null ? 0 : itemstack.id + 1 - Item.RECORD_1.id;
+        return itemstack == null ? 0 : Item.b(itemstack.getItem()) + 1 - Item.b(Items.RECORD_1);
     }
 }

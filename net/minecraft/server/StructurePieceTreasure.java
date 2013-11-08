@@ -8,11 +8,11 @@ public class StructurePieceTreasure extends WeightedRandomChoice {
     private int c;
     private int d;
 
-    public StructurePieceTreasure(int i, int j, int k, int l, int i1) {
-        super(i1);
-        this.b = new ItemStack(i, 1, j);
-        this.c = k;
-        this.d = l;
+    public StructurePieceTreasure(Item item, int i, int j, int k, int l) {
+        super(l);
+        this.b = new ItemStack(item, 1, i);
+        this.c = j;
+        this.d = k;
     }
 
     public StructurePieceTreasure(ItemStack itemstack, int i, int j, int k) {

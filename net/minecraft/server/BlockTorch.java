@@ -4,13 +4,13 @@ import java.util.Random;
 
 public class BlockTorch extends Block {
 
-    protected BlockTorch(int i) {
-        super(i, Material.ORIENTABLE);
-        this.b(true);
+    protected BlockTorch() {
+        super(Material.ORIENTABLE);
+        this.a(true);
         this.a(CreativeModeTab.c);
     }
 
-    public AxisAlignedBB b(World world, int i, int j, int k) {
+    public AxisAlignedBB a(World world, int i, int j, int k) {
         return null;
     }
 
@@ -18,21 +18,21 @@ public class BlockTorch extends Block {
         return false;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
-    public int d() {
+    public int b() {
         return 2;
     }
 
     private boolean m(World world, int i, int j, int k) {
-        if (world.w(i, j, k)) {
+        if (World.a((IBlockAccess) world, i, j, k)) {
             return true;
         } else {
-            int l = world.getTypeId(i, j, k);
+            Block block = world.getType(i, j, k);
 
-            return l == Block.FENCE.id || l == Block.NETHER_FENCE.id || l == Block.GLASS.id || l == Block.COBBLE_WALL.id;
+            return block == Blocks.FENCE || block == Blocks.NETHER_FENCE || block == Blocks.GLASS || block == Blocks.COBBLE_WALL;
         }
     }
 
@@ -88,40 +88,40 @@ public class BlockTorch extends Block {
             }
         }
 
-        this.k(world, i, j, k);
+        this.e(world, i, j, k);
     }
 
-    public void doPhysics(World world, int i, int j, int k, int l) {
-        this.d(world, i, j, k, l);
+    public void doPhysics(World world, int i, int j, int k, Block block) {
+        this.b(world, i, j, k, block);
     }
 
-    protected boolean d(World world, int i, int j, int k, int l) {
-        if (this.k(world, i, j, k)) {
-            int i1 = world.getData(i, j, k);
+    protected boolean b(World world, int i, int j, int k, Block block) {
+        if (this.e(world, i, j, k)) {
+            int l = world.getData(i, j, k);
             boolean flag = false;
 
-            if (!world.c(i - 1, j, k, true) && i1 == 1) {
+            if (!world.c(i - 1, j, k, true) && l == 1) {
                 flag = true;
             }
 
-            if (!world.c(i + 1, j, k, true) && i1 == 2) {
+            if (!world.c(i + 1, j, k, true) && l == 2) {
                 flag = true;
             }
 
-            if (!world.c(i, j, k - 1, true) && i1 == 3) {
+            if (!world.c(i, j, k - 1, true) && l == 3) {
                 flag = true;
             }
 
-            if (!world.c(i, j, k + 1, true) && i1 == 4) {
+            if (!world.c(i, j, k + 1, true) && l == 4) {
                 flag = true;
             }
 
-            if (!this.m(world, i, j - 1, k) && i1 == 5) {
+            if (!this.m(world, i, j - 1, k) && l == 5) {
                 flag = true;
             }
 
             if (flag) {
-                this.c(world, i, j, k, world.getData(i, j, k), 0);
+                this.b(world, i, j, k, world.getData(i, j, k), 0);
                 world.setAir(i, j, k);
                 return true;
             } else {
@@ -132,10 +132,10 @@ public class BlockTorch extends Block {
         }
     }
 
-    protected boolean k(World world, int i, int j, int k) {
+    protected boolean e(World world, int i, int j, int k) {
         if (!this.canPlace(world, i, j, k)) {
-            if (world.getTypeId(i, j, k) == this.id) {
-                this.c(world, i, j, k, world.getData(i, j, k), 0);
+            if (world.getType(i, j, k) == this) {
+                this.b(world, i, j, k, world.getData(i, j, k), 0);
                 world.setAir(i, j, k);
             }
 

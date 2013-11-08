@@ -34,7 +34,7 @@ public class CombatEntry {
         return this.e;
     }
 
-    public String h() {
+    public IChatBaseComponent h() {
         return this.a().getEntity() == null ? null : this.a().getEntity().getScoreboardDisplayName();
     }
 

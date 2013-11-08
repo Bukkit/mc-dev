@@ -6,7 +6,7 @@ import java.util.Random;
 
 abstract class WorldGenNetherPiece extends StructurePiece {
 
-    protected static final StructurePieceTreasure[] a = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.DIAMOND.id, 0, 1, 3, 5), new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 5, 5), new StructurePieceTreasure(Item.GOLD_INGOT.id, 0, 1, 3, 15), new StructurePieceTreasure(Item.GOLD_SWORD.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.GOLD_CHESTPLATE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.FLINT_AND_STEEL.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.NETHER_STALK.id, 0, 3, 7, 5), new StructurePieceTreasure(Item.SADDLE.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.HORSE_ARMOR_GOLD.id, 0, 1, 1, 8), new StructurePieceTreasure(Item.HORSE_ARMOR_IRON.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.HORSE_ARMOR_DIAMOND.id, 0, 1, 1, 3)};
+    protected static final StructurePieceTreasure[] a = new StructurePieceTreasure[] { new StructurePieceTreasure(Items.DIAMOND, 0, 1, 3, 5), new StructurePieceTreasure(Items.IRON_INGOT, 0, 1, 5, 5), new StructurePieceTreasure(Items.GOLD_INGOT, 0, 1, 3, 15), new StructurePieceTreasure(Items.GOLD_SWORD, 0, 1, 1, 5), new StructurePieceTreasure(Items.GOLD_CHESTPLATE, 0, 1, 1, 5), new StructurePieceTreasure(Items.FLINT_AND_STEEL, 0, 1, 1, 5), new StructurePieceTreasure(Items.NETHER_STALK, 0, 3, 7, 5), new StructurePieceTreasure(Items.SADDLE, 0, 1, 1, 10), new StructurePieceTreasure(Items.HORSE_ARMOR_GOLD, 0, 1, 1, 8), new StructurePieceTreasure(Items.HORSE_ARMOR_IRON, 0, 1, 1, 5), new StructurePieceTreasure(Items.HORSE_ARMOR_DIAMOND, 0, 1, 1, 3)};
 
     public WorldGenNetherPiece() {}
 

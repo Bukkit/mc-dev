@@ -37,7 +37,7 @@ public abstract class WorldProvider {
         if (this.b.getWorldData().getType() == WorldType.FLAT) {
             WorldGenFlatInfo worldgenflatinfo = WorldGenFlatInfo.a(this.b.getWorldData().getGeneratorOptions());
 
-            this.e = new WorldChunkManagerHell(BiomeBase.biomes[worldgenflatinfo.a()], 0.5F, 0.5F);
+            this.e = new WorldChunkManagerHell(BiomeBase.getBiome(worldgenflatinfo.a()), 0.5F);
         } else {
             this.e = new WorldChunkManager(this.b);
         }
@@ -48,9 +48,7 @@ public abstract class WorldProvider {
     }
 
     public boolean canSpawn(int i, int j) {
-        int k = this.b.b(i, j);
-
-        return k == Block.GRASS.id;
+        return this.b.b(i, j) == Blocks.GRASS;
     }
 
     public float a(long i, float f) {
@@ -73,7 +71,7 @@ public abstract class WorldProvider {
     }
 
     public int a(long i) {
-        return (int) (i / 24000L) % 8;
+        return (int) (i / 24000L % 8L + 8L) % 8;
     }
 
     public boolean d() {

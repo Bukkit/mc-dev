@@ -14,17 +14,17 @@ public class EntityMinecartFurnace extends EntityMinecartAbstract {
         super(world, d0, d1, d2);
     }
 
-    public int getType() {
+    public int m() {
         return 2;
     }
 
-    protected void a() {
-        super.a();
+    protected void c() {
+        super.c();
         this.datawatcher.a(16, new Byte((byte) 0));
     }
 
-    public void l_() {
-        super.l_();
+    public void h() {
+        super.h();
         if (this.c > 0) {
             --this.c;
         }
@@ -34,7 +34,7 @@ public class EntityMinecartFurnace extends EntityMinecartAbstract {
         }
 
         this.f(this.c > 0);
-        if (this.d() && this.random.nextInt(4) == 0) {
+        if (this.e() && this.random.nextInt(4) == 0) {
             this.world.addParticle("largesmoke", this.locX, this.locY + 0.8D, this.locZ, 0.0D, 0.0D, 0.0D);
         }
     }
@@ -42,12 +42,12 @@ public class EntityMinecartFurnace extends EntityMinecartAbstract {
     public void a(DamageSource damagesource) {
         super.a(damagesource);
         if (!damagesource.c()) {
-            this.a(new ItemStack(Block.FURNACE, 1), 0.0F);
+            this.a(new ItemStack(Blocks.FURNACE, 1), 0.0F);
         }
     }
 
-    protected void a(int i, int j, int k, double d0, double d1, int l, int i1) {
-        super.a(i, j, k, d0, d1, l, i1);
+    protected void a(int i, int j, int k, double d0, double d1, Block block, int l) {
+        super.a(i, j, k, d0, d1, block, l);
         double d2 = this.a * this.a + this.b * this.b;
 
         if (d2 > 1.0E-4D && this.motX * this.motX + this.motZ * this.motZ > 0.001D) {
@@ -64,7 +64,7 @@ public class EntityMinecartFurnace extends EntityMinecartAbstract {
         }
     }
 
-    protected void h() {
+    protected void i() {
         double d0 = this.a * this.a + this.b * this.b;
 
         if (d0 > 1.0E-4D) {
@@ -84,13 +84,13 @@ public class EntityMinecartFurnace extends EntityMinecartAbstract {
             this.motZ *= 0.9800000190734863D;
         }
 
-        super.h();
+        super.i();
     }
 
     public boolean c(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
-        if (itemstack != null && itemstack.id == Item.COAL.id) {
+        if (itemstack != null && itemstack.getItem() == Items.COAL) {
             if (!entityhuman.abilities.canInstantlyBuild && --itemstack.count == 0) {
                 entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
             }
@@ -117,7 +117,7 @@ public class EntityMinecartFurnace extends EntityMinecartAbstract {
         this.c = nbttagcompound.getShort("Fuel");
     }
 
-    protected boolean d() {
+    protected boolean e() {
         return (this.datawatcher.getByte(16) & 1) != 0;
     }
 
@@ -129,11 +129,11 @@ public class EntityMinecartFurnace extends EntityMinecartAbstract {
         }
     }
 
-    public Block n() {
-        return Block.BURNING_FURNACE;
+    public Block o() {
+        return Blocks.BURNING_FURNACE;
     }
 
-    public int p() {
+    public int q() {
         return 2;
     }
 }

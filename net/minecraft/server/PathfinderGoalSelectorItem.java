@@ -4,7 +4,6 @@ class PathfinderGoalSelectorItem {
 
     public PathfinderGoal a;
     public int b;
-
     final PathfinderGoalSelector c;
 
     public PathfinderGoalSelectorItem(PathfinderGoalSelector pathfindergoalselector, int i, PathfinderGoal pathfindergoal) {

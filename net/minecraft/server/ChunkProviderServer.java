@@ -7,12 +7,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class ChunkProviderServer implements IChunkProvider {
 
+    private static final Logger b = LogManager.getLogger();
     private Set unloadQueue = new HashSet();
     private Chunk emptyChunk;
     private IChunkProvider chunkProvider;
-    private IChunkLoader e;
+    private IChunkLoader f;
     public boolean forceChunkLoad = true;
     private LongHashMap chunks = new LongHashMap();
     private List chunkList = new ArrayList();
@@ -21,7 +25,7 @@ public class ChunkProviderServer implements IChunkProvider {
     public ChunkProviderServer(WorldServer worldserver, IChunkLoader ichunkloader, IChunkProvider ichunkprovider) {
         this.emptyChunk = new EmptyChunk(worldserver, 0, 0);
         this.world = worldserver;
-        this.e = ichunkloader;
+        this.f = ichunkloader;
         this.chunkProvider = ichunkprovider;
     }
 
@@ -50,7 +54,7 @@ public class ChunkProviderServer implements IChunkProvider {
         while (iterator.hasNext()) {
             Chunk chunk = (Chunk) iterator.next();
 
-            this.queueUnload(chunk.x, chunk.z);
+            this.queueUnload(chunk.locX, chunk.locZ);
         }
     }
 
@@ -82,10 +86,7 @@ public class ChunkProviderServer implements IChunkProvider {
 
             this.chunks.put(k, chunk);
             this.chunkList.add(chunk);
-            if (chunk != null) {
-                chunk.addEntities();
-            }
-
+            chunk.addEntities();
             chunk.a(this, this, i, j);
         }
 
@@ -99,14 +100,14 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     private Chunk loadChunk(int i, int j) {
-        if (this.e == null) {
+        if (this.f == null) {
             return null;
         } else {
             try {
-                Chunk chunk = this.e.a(this.world, i, j);
+                Chunk chunk = this.f.a(this.world, i, j);
 
                 if (chunk != null) {
-                    chunk.n = this.world.getTime();
+                    chunk.p = this.world.getTime();
                     if (this.chunkProvider != null) {
                         this.chunkProvider.recreateStructures(i, j);
                     }
@@ -114,31 +115,31 @@ public class ChunkProviderServer implements IChunkProvider {
 
                 return chunk;
             } catch (Exception exception) {
-                exception.printStackTrace();
+                b.error("Couldn\'t load chunk", exception);
                 return null;
             }
         }
     }
 
     private void saveChunkNOP(Chunk chunk) {
-        if (this.e != null) {
+        if (this.f != null) {
             try {
-                this.e.b(this.world, chunk);
+                this.f.b(this.world, chunk);
             } catch (Exception exception) {
-                exception.printStackTrace();
+                b.error("Couldn\'t save entities", exception);
             }
         }
     }
 
     private void saveChunk(Chunk chunk) {
-        if (this.e != null) {
+        if (this.f != null) {
             try {
-                chunk.n = this.world.getTime();
-                this.e.a(this.world, chunk);
+                chunk.p = this.world.getTime();
+                this.f.a(this.world, chunk);
             } catch (IOException ioexception) {
-                ioexception.printStackTrace();
+                b.error("Couldn\'t save chunk", ioexception);
             } catch (ExceptionWorldConflict exceptionworldconflict) {
-                exceptionworldconflict.printStackTrace();
+                b.error("Couldn\'t save chunk; already in use by another instance of Minecraft?", exceptionworldconflict);
             }
         }
     }
@@ -147,7 +148,7 @@ public class ChunkProviderServer implements IChunkProvider {
         Chunk chunk = this.getOrCreateChunk(i, j);
 
         if (!chunk.done) {
-            chunk.done = true;
+            chunk.p();
             if (this.chunkProvider != null) {
                 this.chunkProvider.getChunkAt(ichunkprovider, i, j);
                 chunk.e();
@@ -167,7 +168,7 @@ public class ChunkProviderServer implements IChunkProvider {
 
             if (chunk.a(flag)) {
                 this.saveChunk(chunk);
-                chunk.l = false;
+                chunk.n = false;
                 ++i;
                 if (i == 24 && !flag) {
                     return false;
@@ -179,8 +180,8 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     public void b() {
-        if (this.e != null) {
-            this.e.b();
+        if (this.f != null) {
+            this.f.b();
         }
     }
 
@@ -200,8 +201,8 @@ public class ChunkProviderServer implements IChunkProvider {
                 }
             }
 
-            if (this.e != null) {
-                this.e.a();
+            if (this.f != null) {
+                this.f.a();
             }
         }
 

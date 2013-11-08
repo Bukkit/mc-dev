@@ -4,7 +4,6 @@ class GroupDataZombie implements GroupDataEntity {
 
     public boolean a;
     public boolean b;
-
     final EntityZombie c;
 
     private GroupDataZombie(EntityZombie entityzombie, boolean flag, boolean flag1) {
@@ -15,7 +14,7 @@ class GroupDataZombie implements GroupDataEntity {
         this.b = flag1;
     }
 
-    GroupDataZombie(EntityZombie entityzombie, boolean flag, boolean flag1, EmptyClass4 emptyclass4) {
+    GroupDataZombie(EntityZombie entityzombie, boolean flag, boolean flag1, EmptyClassZombie emptyclasszombie) {
         this(entityzombie, flag, flag1);
     }
 }

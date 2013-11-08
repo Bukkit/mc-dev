@@ -2,10 +2,9 @@ package net.minecraft.server;
 
 import java.util.List;
 
-public class BlockWaterLily extends BlockFlower {
+public class BlockWaterLily extends BlockPlant {
 
-    protected BlockWaterLily(int i) {
-        super(i);
+    protected BlockWaterLily() {
         float f = 0.5F;
         float f1 = 0.015625F;
 
@@ -13,7 +12,7 @@ public class BlockWaterLily extends BlockFlower {
         this.a(CreativeModeTab.c);
     }
 
-    public int d() {
+    public int b() {
         return 23;
     }
 
@@ -23,15 +22,15 @@ public class BlockWaterLily extends BlockFlower {
         }
     }
 
-    public AxisAlignedBB b(World world, int i, int j, int k) {
+    public AxisAlignedBB a(World world, int i, int j, int k) {
         return AxisAlignedBB.a().a((double) i + this.minX, (double) j + this.minY, (double) k + this.minZ, (double) i + this.maxX, (double) j + this.maxY, (double) k + this.maxZ);
     }
 
-    protected boolean g_(int i) {
-        return i == Block.STATIONARY_WATER.id;
+    protected boolean a(Block block) {
+        return block == Blocks.STATIONARY_WATER;
     }
 
-    public boolean f(World world, int i, int j, int k) {
-        return j >= 0 && j < 256 ? world.getMaterial(i, j - 1, k) == Material.WATER && world.getData(i, j - 1, k) == 0 : false;
+    public boolean j(World world, int i, int j, int k) {
+        return j >= 0 && j < 256 ? world.getType(i, j - 1, k).getMaterial() == Material.WATER && world.getData(i, j - 1, k) == 0 : false;
     }
 }

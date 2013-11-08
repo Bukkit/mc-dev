@@ -1,10 +1,11 @@
 package net.minecraft.server;
 
-import com.google.common.primitives.Doubles;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
+import net.minecraft.util.com.google.common.primitives.Doubles;
 
 public abstract class CommandAbstract implements ICommand {
 
@@ -57,12 +58,12 @@ public abstract class CommandAbstract implements ICommand {
             double d0 = Double.parseDouble(s);
 
             if (!Doubles.isFinite(d0)) {
-                throw new ExceptionInvalidNumber("commands.generic.double.invalid", new Object[] { s});
+                throw new ExceptionInvalidNumber("commands.generic.num.invalid", new Object[] { s});
             } else {
                 return d0;
             }
         } catch (NumberFormatException numberformatexception) {
-            throw new ExceptionInvalidNumber("commands.generic.double.invalid", new Object[] { s});
+            throw new ExceptionInvalidNumber("commands.generic.num.invalid", new Object[] { s});
         }
     }
 
@@ -121,7 +122,7 @@ public abstract class CommandAbstract implements ICommand {
         EntityPlayer entityplayer = PlayerSelector.getPlayer(icommandlistener, s);
 
         if (entityplayer != null) {
-            return entityplayer.getLocalizedName();
+            return entityplayer.getName();
         } else if (PlayerSelector.isPattern(s)) {
             throw new ExceptionPlayerNotFound();
         } else {
@@ -129,11 +130,37 @@ public abstract class CommandAbstract implements ICommand {
         }
     }
 
-    public static String a(ICommandListener icommandlistener, String[] astring, int i) {
+    public static IChatBaseComponent a(ICommandListener icommandlistener, String[] astring, int i) {
         return a(icommandlistener, astring, i, false);
     }
 
-    public static String a(ICommandListener icommandlistener, String[] astring, int i, boolean flag) {
+    public static IChatBaseComponent a(ICommandListener icommandlistener, String[] astring, int i, boolean flag) {
+        ChatComponentText chatcomponenttext = new ChatComponentText("");
+
+        for (int j = i; j < astring.length; ++j) {
+            if (j > i) {
+                chatcomponenttext.a(" ");
+            }
+
+            Object object = new ChatComponentText(astring[j]);
+
+            if (flag) {
+                IChatBaseComponent ichatbasecomponent = PlayerSelector.getPlayerNames(icommandlistener, astring[j]);
+
+                if (ichatbasecomponent != null) {
+                    object = ichatbasecomponent;
+                } else if (PlayerSelector.isPattern(astring[j])) {
+                    throw new ExceptionPlayerNotFound();
+                }
+            }
+
+            chatcomponenttext.a((IChatBaseComponent) object);
+        }
+
+        return chatcomponenttext;
+    }
+
+    public static String b(ICommandListener icommandlistener, String[] astring, int i) {
         StringBuilder stringbuilder = new StringBuilder();
 
         for (int j = i; j < astring.length; ++j) {
@@ -142,16 +169,6 @@ public abstract class CommandAbstract implements ICommand {
             }
 
             String s = astring[j];
-
-            if (flag) {
-                String s1 = PlayerSelector.getPlayerNames(icommandlistener, s);
-
-                if (s1 != null) {
-                    s = s1;
-                } else if (PlayerSelector.isPattern(s)) {
-                    throw new ExceptionPlayerNotFound();
-                }
-            }
 
             stringbuilder.append(s);
         }
@@ -198,6 +215,56 @@ public abstract class CommandAbstract implements ICommand {
         }
     }
 
+    public static Item f(ICommandListener icommandlistener, String s) {
+        Item item = (Item) Item.REGISTRY.a(s);
+
+        if (item == null) {
+            try {
+                Item item1 = Item.d(Integer.parseInt(s));
+
+                if (item1 != null) {
+                    ChatMessage chatmessage = new ChatMessage("commands.generic.deprecatedId", new Object[] { Item.REGISTRY.c(item1)});
+
+                    chatmessage.b().setColor(EnumChatFormat.GRAY);
+                    icommandlistener.sendMessage(chatmessage);
+                }
+
+                item = item1;
+            } catch (NumberFormatException numberformatexception) {
+                ;
+            }
+        }
+
+        if (item == null) {
+            throw new ExceptionInvalidNumber("commands.give.notFound", new Object[] { s});
+        } else {
+            return item;
+        }
+    }
+
+    public static Block g(ICommandListener icommandlistener, String s) {
+        if (Block.REGISTRY.b(s)) {
+            return (Block) Block.REGISTRY.a(s);
+        } else {
+            try {
+                int i = Integer.parseInt(s);
+
+                if (Block.REGISTRY.b(i)) {
+                    Block block = Block.e(i);
+                    ChatMessage chatmessage = new ChatMessage("commands.generic.deprecatedId", new Object[] { Block.REGISTRY.c(block)});
+
+                    chatmessage.b().setColor(EnumChatFormat.GRAY);
+                    icommandlistener.sendMessage(chatmessage);
+                    return block;
+                }
+            } catch (NumberFormatException numberformatexception) {
+                ;
+            }
+
+            throw new ExceptionInvalidNumber("commands.give.notFound", new Object[] { s});
+        }
+    }
+
     public static String a(Object[] aobject) {
         StringBuilder stringbuilder = new StringBuilder();
 
@@ -218,21 +285,26 @@ public abstract class CommandAbstract implements ICommand {
         return stringbuilder.toString();
     }
 
-    public static String a(Collection collection) {
-        return a(collection.toArray(new String[collection.size()]));
-    }
+    public static IChatBaseComponent a(IChatBaseComponent[] aichatbasecomponent) {
+        ChatComponentText chatcomponenttext = new ChatComponentText("");
 
-    public static String b(Collection collection) {
-        String[] astring = new String[collection.size()];
-        int i = 0;
+        for (int i = 0; i < aichatbasecomponent.length; ++i) {
+            if (i > 0) {
+                if (i == aichatbasecomponent.length - 1) {
+                    chatcomponenttext.a(" and ");
+                } else if (i > 0) {
+                    chatcomponenttext.a(", ");
+                }
+            }
 
-        EntityLiving entityliving;
-
-        for (Iterator iterator = collection.iterator(); iterator.hasNext(); astring[i++] = entityliving.getScoreboardDisplayName()) {
-            entityliving = (EntityLiving) iterator.next();
+            chatcomponenttext.a(aichatbasecomponent[i]);
         }
 
-        return a((Object[]) astring);
+        return chatcomponenttext;
+    }
+
+    public static String a(Collection collection) {
+        return a(collection.toArray(new String[collection.size()]));
     }
 
     public static boolean a(String s, String s1) {

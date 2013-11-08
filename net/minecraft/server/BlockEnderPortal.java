@@ -7,12 +7,12 @@ public class BlockEnderPortal extends BlockContainer {
 
     public static boolean a;
 
-    protected BlockEnderPortal(int i, Material material) {
-        super(i, material);
+    protected BlockEnderPortal(Material material) {
+        super(material);
         this.a(1.0F);
     }
 
-    public TileEntity b(World world) {
+    public TileEntity a(World world, int i) {
         return new TileEntityEnderPortal();
     }
 
@@ -28,7 +28,7 @@ public class BlockEnderPortal extends BlockContainer {
         return false;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
@@ -42,7 +42,7 @@ public class BlockEnderPortal extends BlockContainer {
         }
     }
 
-    public int d() {
+    public int b() {
         return -1;
     }
 
@@ -52,5 +52,9 @@ public class BlockEnderPortal extends BlockContainer {
                 world.setAir(i, j, k);
             }
         }
+    }
+
+    public MaterialMapColor f(int i) {
+        return MaterialMapColor.J;
     }
 }

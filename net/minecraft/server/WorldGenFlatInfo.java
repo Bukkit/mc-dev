@@ -38,7 +38,7 @@ public class WorldGenFlatInfo {
 
         for (Iterator iterator = this.layers.iterator(); iterator.hasNext(); i += worldgenflatlayerinfo.a()) {
             worldgenflatlayerinfo = (WorldGenFlatLayerInfo) iterator.next();
-            worldgenflatlayerinfo.d(i);
+            worldgenflatlayerinfo.c(i);
         }
     }
 
@@ -133,7 +133,7 @@ public class WorldGenFlatInfo {
                 k = Integer.parseInt(astring[1]);
             }
 
-            if (Block.byId[l] == null) {
+            if (Block.e(l) == Blocks.AIR) {
                 l = 0;
                 k = 0;
             }
@@ -145,9 +145,9 @@ public class WorldGenFlatInfo {
             return null;
         }
 
-        WorldGenFlatLayerInfo worldgenflatlayerinfo = new WorldGenFlatLayerInfo(j, l, k);
+        WorldGenFlatLayerInfo worldgenflatlayerinfo = new WorldGenFlatLayerInfo(j, Block.e(l), k);
 
-        worldgenflatlayerinfo.d(i);
+        worldgenflatlayerinfo.c(i);
         return worldgenflatlayerinfo;
     }
 
@@ -242,9 +242,9 @@ public class WorldGenFlatInfo {
         WorldGenFlatInfo worldgenflatinfo = new WorldGenFlatInfo();
 
         worldgenflatinfo.a(BiomeBase.PLAINS.id);
-        worldgenflatinfo.c().add(new WorldGenFlatLayerInfo(1, Block.BEDROCK.id));
-        worldgenflatinfo.c().add(new WorldGenFlatLayerInfo(2, Block.DIRT.id));
-        worldgenflatinfo.c().add(new WorldGenFlatLayerInfo(1, Block.GRASS.id));
+        worldgenflatinfo.c().add(new WorldGenFlatLayerInfo(1, Blocks.BEDROCK));
+        worldgenflatinfo.c().add(new WorldGenFlatLayerInfo(2, Blocks.DIRT));
+        worldgenflatinfo.c().add(new WorldGenFlatLayerInfo(1, Blocks.GRASS));
         worldgenflatinfo.d();
         worldgenflatinfo.b().put("village", new HashMap());
         return worldgenflatinfo;

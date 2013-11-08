@@ -6,17 +6,17 @@ public class BlockFence extends Block {
 
     private final String a;
 
-    public BlockFence(int i, String s, Material material) {
-        super(i, material);
+    public BlockFence(String s, Material material) {
+        super(material);
         this.a = s;
         this.a(CreativeModeTab.c);
     }
 
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List list, Entity entity) {
-        boolean flag = this.d(world, i, j, k - 1);
-        boolean flag1 = this.d(world, i, j, k + 1);
-        boolean flag2 = this.d(world, i - 1, j, k);
-        boolean flag3 = this.d(world, i + 1, j, k);
+        boolean flag = this.e(world, i, j, k - 1);
+        boolean flag1 = this.e(world, i, j, k + 1);
+        boolean flag2 = this.e(world, i - 1, j, k);
+        boolean flag3 = this.e(world, i + 1, j, k);
         float f = 0.375F;
         float f1 = 0.625F;
         float f2 = 0.375F;
@@ -62,10 +62,10 @@ public class BlockFence extends Block {
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        boolean flag = this.d(iblockaccess, i, j, k - 1);
-        boolean flag1 = this.d(iblockaccess, i, j, k + 1);
-        boolean flag2 = this.d(iblockaccess, i - 1, j, k);
-        boolean flag3 = this.d(iblockaccess, i + 1, j, k);
+        boolean flag = this.e(iblockaccess, i, j, k - 1);
+        boolean flag1 = this.e(iblockaccess, i, j, k + 1);
+        boolean flag2 = this.e(iblockaccess, i - 1, j, k);
+        boolean flag3 = this.e(iblockaccess, i + 1, j, k);
         float f = 0.375F;
         float f1 = 0.625F;
         float f2 = 0.375F;
@@ -94,7 +94,7 @@ public class BlockFence extends Block {
         return false;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
@@ -102,24 +102,18 @@ public class BlockFence extends Block {
         return false;
     }
 
-    public int d() {
+    public int b() {
         return 11;
     }
 
-    public boolean d(IBlockAccess iblockaccess, int i, int j, int k) {
-        int l = iblockaccess.getTypeId(i, j, k);
+    public boolean e(IBlockAccess iblockaccess, int i, int j, int k) {
+        Block block = iblockaccess.getType(i, j, k);
 
-        if (l != this.id && l != Block.FENCE_GATE.id) {
-            Block block = Block.byId[l];
-
-            return block != null && block.material.k() && block.b() ? block.material != Material.PUMPKIN : false;
-        } else {
-            return true;
-        }
+        return block != this && block != Blocks.FENCE_GATE ? (block.material.k() && block.d() ? block.material != Material.PUMPKIN : false) : true;
     }
 
-    public static boolean n_(int i) {
-        return i == Block.FENCE.id || i == Block.NETHER_FENCE.id;
+    public static boolean a(Block block) {
+        return block == Blocks.FENCE || block == Blocks.NETHER_FENCE;
     }
 
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {

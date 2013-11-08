@@ -2,8 +2,7 @@ package net.minecraft.server;
 
 public class ItemSaddle extends Item {
 
-    public ItemSaddle(int i) {
-        super(i);
+    public ItemSaddle() {
         this.maxStackSize = 1;
         this.a(CreativeModeTab.e);
     }
@@ -14,6 +13,7 @@ public class ItemSaddle extends Item {
 
             if (!entitypig.hasSaddle() && !entitypig.isBaby()) {
                 entitypig.setSaddle(true);
+                entitypig.world.makeSound(entitypig, "mob.horse.leather", 0.5F, 1.0F);
                 --itemstack.count;
             }
 

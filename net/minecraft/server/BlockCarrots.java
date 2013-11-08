@@ -2,15 +2,13 @@ package net.minecraft.server;
 
 public class BlockCarrots extends BlockCrops {
 
-    public BlockCarrots(int i) {
-        super(i);
+    public BlockCarrots() {}
+
+    protected Item i() {
+        return Items.CARROT;
     }
 
-    protected int j() {
-        return Item.CARROT.id;
-    }
-
-    protected int k() {
-        return Item.CARROT.id;
+    protected Item P() {
+        return Items.CARROT;
     }
 }

@@ -4,26 +4,26 @@ import java.util.Random;
 
 public class WorldGenDeadBush extends WorldGenerator {
 
-    private int a;
+    private Block a;
 
-    public WorldGenDeadBush(int i) {
-        this.a = i;
+    public WorldGenDeadBush(Block block) {
+        this.a = block;
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
-        int l;
+        Block block;
 
-        for (boolean flag = false; ((l = world.getTypeId(i, j, k)) == 0 || l == Block.LEAVES.id) && j > 0; --j) {
-            ;
+        while (((block = world.getType(i, j, k)).getMaterial() == Material.AIR || block.getMaterial() == Material.LEAVES) && j > 0) {
+            --j;
         }
 
-        for (int i1 = 0; i1 < 4; ++i1) {
-            int j1 = i + random.nextInt(8) - random.nextInt(8);
-            int k1 = j + random.nextInt(4) - random.nextInt(4);
-            int l1 = k + random.nextInt(8) - random.nextInt(8);
+        for (int l = 0; l < 4; ++l) {
+            int i1 = i + random.nextInt(8) - random.nextInt(8);
+            int j1 = j + random.nextInt(4) - random.nextInt(4);
+            int k1 = k + random.nextInt(8) - random.nextInt(8);
 
-            if (world.isEmpty(j1, k1, l1) && Block.byId[this.a].f(world, j1, k1, l1)) {
-                world.setTypeIdAndData(j1, k1, l1, this.a, 0, 2);
+            if (world.isEmpty(i1, j1, k1) && this.a.j(world, i1, j1, k1)) {
+                world.setTypeAndData(i1, j1, k1, this.a, 0, 2);
             }
         }
 

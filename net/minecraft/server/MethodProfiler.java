@@ -7,53 +7,57 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class MethodProfiler {
 
-    private final List b = new ArrayList();
+    private static final Logger b = LogManager.getLogger();
     private final List c = new ArrayList();
+    private final List d = new ArrayList();
     public boolean a;
-    private String d = "";
-    private final Map e = new HashMap();
+    private String e = "";
+    private final Map f = new HashMap();
 
     public MethodProfiler() {}
 
     public void a() {
-        this.e.clear();
-        this.d = "";
-        this.b.clear();
+        this.f.clear();
+        this.e = "";
+        this.c.clear();
     }
 
     public void a(String s) {
         if (this.a) {
-            if (this.d.length() > 0) {
-                this.d = this.d + ".";
+            if (this.e.length() > 0) {
+                this.e = this.e + ".";
             }
 
-            this.d = this.d + s;
-            this.b.add(this.d);
-            this.c.add(Long.valueOf(System.nanoTime()));
+            this.e = this.e + s;
+            this.c.add(this.e);
+            this.d.add(Long.valueOf(System.nanoTime()));
         }
     }
 
     public void b() {
         if (this.a) {
             long i = System.nanoTime();
-            long j = ((Long) this.c.remove(this.c.size() - 1)).longValue();
+            long j = ((Long) this.d.remove(this.d.size() - 1)).longValue();
 
-            this.b.remove(this.b.size() - 1);
+            this.c.remove(this.c.size() - 1);
             long k = i - j;
 
-            if (this.e.containsKey(this.d)) {
-                this.e.put(this.d, Long.valueOf(((Long) this.e.get(this.d)).longValue() + k));
+            if (this.f.containsKey(this.e)) {
+                this.f.put(this.e, Long.valueOf(((Long) this.f.get(this.e)).longValue() + k));
             } else {
-                this.e.put(this.d, Long.valueOf(k));
+                this.f.put(this.e, Long.valueOf(k));
             }
 
             if (k > 100000000L) {
-                System.out.println("Something\'s taking too long! \'" + this.d + "\' took aprox " + (double) k / 1000000.0D + " ms");
+                b.warn("Something\'s taking too long! \'" + this.e + "\' took aprox " + (double) k / 1000000.0D + " ms");
             }
 
-            this.d = !this.b.isEmpty() ? (String) this.b.get(this.b.size() - 1) : "";
+            this.e = !this.c.isEmpty() ? (String) this.c.get(this.c.size() - 1) : "";
         }
     }
 
@@ -61,8 +65,8 @@ public class MethodProfiler {
         if (!this.a) {
             return null;
         } else {
-            long i = this.e.containsKey("root") ? ((Long) this.e.get("root")).longValue() : 0L;
-            long j = this.e.containsKey(s) ? ((Long) this.e.get(s)).longValue() : -1L;
+            long i = this.f.containsKey("root") ? ((Long) this.f.get("root")).longValue() : 0L;
+            long j = this.f.containsKey(s) ? ((Long) this.f.get(s)).longValue() : -1L;
             ArrayList arraylist = new ArrayList();
 
             if (s.length() > 0) {
@@ -70,13 +74,13 @@ public class MethodProfiler {
             }
 
             long k = 0L;
-            Iterator iterator = this.e.keySet().iterator();
+            Iterator iterator = this.f.keySet().iterator();
 
             while (iterator.hasNext()) {
                 String s1 = (String) iterator.next();
 
                 if (s1.length() > s.length() && s1.startsWith(s) && s1.indexOf(".", s.length() + 1) < 0) {
-                    k += ((Long) this.e.get(s1)).longValue();
+                    k += ((Long) this.f.get(s1)).longValue();
                 }
             }
 
@@ -90,14 +94,14 @@ public class MethodProfiler {
                 i = k;
             }
 
-            Iterator iterator1 = this.e.keySet().iterator();
+            Iterator iterator1 = this.f.keySet().iterator();
 
             String s2;
 
             while (iterator1.hasNext()) {
                 s2 = (String) iterator1.next();
                 if (s2.length() > s.length() && s2.startsWith(s) && s2.indexOf(".", s.length() + 1) < 0) {
-                    long l = ((Long) this.e.get(s2)).longValue();
+                    long l = ((Long) this.f.get(s2)).longValue();
                     double d0 = (double) l * 100.0D / (double) k;
                     double d1 = (double) l * 100.0D / (double) i;
                     String s3 = s2.substring(s.length());
@@ -106,11 +110,11 @@ public class MethodProfiler {
                 }
             }
 
-            iterator1 = this.e.keySet().iterator();
+            iterator1 = this.f.keySet().iterator();
 
             while (iterator1.hasNext()) {
                 s2 = (String) iterator1.next();
-                this.e.put(s2, Long.valueOf(((Long) this.e.get(s2)).longValue() * 999L / 1000L));
+                this.f.put(s2, Long.valueOf(((Long) this.f.get(s2)).longValue() * 999L / 1000L));
             }
 
             if ((float) k > f) {
@@ -129,6 +133,6 @@ public class MethodProfiler {
     }
 
     public String c() {
-        return this.b.size() == 0 ? "[UNKNOWN]" : (String) this.b.get(this.b.size() - 1);
+        return this.c.size() == 0 ? "[UNKNOWN]" : (String) this.c.get(this.c.size() - 1);
     }
 }

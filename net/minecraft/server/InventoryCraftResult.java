@@ -14,11 +14,11 @@ public class InventoryCraftResult implements IInventory {
         return this.items[0];
     }
 
-    public String getName() {
+    public String getInventoryName() {
         return "Result";
     }
 
-    public boolean c() {
+    public boolean k_() {
         return false;
     }
 
@@ -60,7 +60,7 @@ public class InventoryCraftResult implements IInventory {
 
     public void startOpen() {}
 
-    public void g() {}
+    public void l_() {}
 
     public boolean b(int i, ItemStack itemstack) {
         return true;

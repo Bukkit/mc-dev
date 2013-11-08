@@ -21,7 +21,7 @@ public abstract class StructurePiece {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 
         nbttagcompound.setString("id", WorldGenFactory.a(this));
-        nbttagcompound.set("BB", this.f.a("BB"));
+        nbttagcompound.set("BB", this.f.h());
         nbttagcompound.setInt("O", this.g);
         nbttagcompound.setInt("GD", this.h);
         this.a(nbttagcompound);
@@ -84,17 +84,14 @@ public abstract class StructurePiece {
 
         int k1;
         int l1;
-        int i2;
 
         for (k1 = i; k1 <= l; ++k1) {
             for (l1 = k; l1 <= j1; ++l1) {
-                i2 = world.getTypeId(k1, j, l1);
-                if (i2 > 0 && Block.byId[i2].material.isLiquid()) {
+                if (world.getType(k1, j, l1).getMaterial().isLiquid()) {
                     return true;
                 }
 
-                i2 = world.getTypeId(k1, i1, l1);
-                if (i2 > 0 && Block.byId[i2].material.isLiquid()) {
+                if (world.getType(k1, i1, l1).getMaterial().isLiquid()) {
                     return true;
                 }
             }
@@ -102,13 +99,11 @@ public abstract class StructurePiece {
 
         for (k1 = i; k1 <= l; ++k1) {
             for (l1 = j; l1 <= i1; ++l1) {
-                i2 = world.getTypeId(k1, l1, k);
-                if (i2 > 0 && Block.byId[i2].material.isLiquid()) {
+                if (world.getType(k1, l1, k).getMaterial().isLiquid()) {
                     return true;
                 }
 
-                i2 = world.getTypeId(k1, l1, j1);
-                if (i2 > 0 && Block.byId[i2].material.isLiquid()) {
+                if (world.getType(k1, l1, j1).getMaterial().isLiquid()) {
                     return true;
                 }
             }
@@ -116,13 +111,11 @@ public abstract class StructurePiece {
 
         for (k1 = k; k1 <= j1; ++k1) {
             for (l1 = j; l1 <= i1; ++l1) {
-                i2 = world.getTypeId(i, l1, k1);
-                if (i2 > 0 && Block.byId[i2].material.isLiquid()) {
+                if (world.getType(i, l1, k1).getMaterial().isLiquid()) {
                     return true;
                 }
 
-                i2 = world.getTypeId(l, l1, k1);
-                if (i2 > 0 && Block.byId[i2].material.isLiquid()) {
+                if (world.getType(l, l1, k1).getMaterial().isLiquid()) {
                     return true;
                 }
             }
@@ -169,277 +162,277 @@ public abstract class StructurePiece {
         }
     }
 
-    protected int c(int i, int j) {
-        if (i == Block.RAILS.id) {
+    protected int a(Block block, int i) {
+        if (block == Blocks.RAILS) {
             if (this.g == 1 || this.g == 3) {
-                if (j == 1) {
+                if (i == 1) {
                     return 0;
                 }
 
                 return 1;
             }
-        } else if (i != Block.WOODEN_DOOR.id && i != Block.IRON_DOOR_BLOCK.id) {
-            if (i != Block.COBBLESTONE_STAIRS.id && i != Block.WOOD_STAIRS.id && i != Block.NETHER_BRICK_STAIRS.id && i != Block.STONE_STAIRS.id && i != Block.SANDSTONE_STAIRS.id) {
-                if (i == Block.LADDER.id) {
+        } else if (block != Blocks.WOODEN_DOOR && block != Blocks.IRON_DOOR_BLOCK) {
+            if (block != Blocks.COBBLESTONE_STAIRS && block != Blocks.WOOD_STAIRS && block != Blocks.NETHER_BRICK_STAIRS && block != Blocks.STONE_STAIRS && block != Blocks.SANDSTONE_STAIRS) {
+                if (block == Blocks.LADDER) {
                     if (this.g == 0) {
-                        if (j == 2) {
+                        if (i == 2) {
                             return 3;
                         }
 
-                        if (j == 3) {
+                        if (i == 3) {
                             return 2;
                         }
                     } else if (this.g == 1) {
-                        if (j == 2) {
+                        if (i == 2) {
                             return 4;
                         }
 
-                        if (j == 3) {
+                        if (i == 3) {
                             return 5;
                         }
 
-                        if (j == 4) {
+                        if (i == 4) {
                             return 2;
                         }
 
-                        if (j == 5) {
+                        if (i == 5) {
                             return 3;
                         }
                     } else if (this.g == 3) {
-                        if (j == 2) {
+                        if (i == 2) {
                             return 5;
                         }
 
-                        if (j == 3) {
+                        if (i == 3) {
                             return 4;
                         }
 
-                        if (j == 4) {
+                        if (i == 4) {
                             return 2;
                         }
 
-                        if (j == 5) {
+                        if (i == 5) {
                             return 3;
                         }
                     }
-                } else if (i == Block.STONE_BUTTON.id) {
+                } else if (block == Blocks.STONE_BUTTON) {
                     if (this.g == 0) {
-                        if (j == 3) {
+                        if (i == 3) {
                             return 4;
                         }
 
-                        if (j == 4) {
+                        if (i == 4) {
                             return 3;
                         }
                     } else if (this.g == 1) {
-                        if (j == 3) {
+                        if (i == 3) {
                             return 1;
                         }
 
-                        if (j == 4) {
+                        if (i == 4) {
                             return 2;
                         }
 
-                        if (j == 2) {
+                        if (i == 2) {
                             return 3;
                         }
 
-                        if (j == 1) {
+                        if (i == 1) {
                             return 4;
                         }
                     } else if (this.g == 3) {
-                        if (j == 3) {
+                        if (i == 3) {
                             return 2;
                         }
 
-                        if (j == 4) {
+                        if (i == 4) {
                             return 1;
                         }
 
-                        if (j == 2) {
+                        if (i == 2) {
                             return 3;
                         }
 
-                        if (j == 1) {
+                        if (i == 1) {
                             return 4;
                         }
                     }
-                } else if (i != Block.TRIPWIRE_SOURCE.id && (Block.byId[i] == null || !(Block.byId[i] instanceof BlockDirectional))) {
-                    if (i == Block.PISTON.id || i == Block.PISTON_STICKY.id || i == Block.LEVER.id || i == Block.DISPENSER.id) {
+                } else if (block != Blocks.TRIPWIRE_SOURCE && !(block instanceof BlockDirectional)) {
+                    if (block == Blocks.PISTON || block == Blocks.PISTON_STICKY || block == Blocks.LEVER || block == Blocks.DISPENSER) {
                         if (this.g == 0) {
-                            if (j == 2 || j == 3) {
-                                return Facing.OPPOSITE_FACING[j];
+                            if (i == 2 || i == 3) {
+                                return Facing.OPPOSITE_FACING[i];
                             }
                         } else if (this.g == 1) {
-                            if (j == 2) {
+                            if (i == 2) {
                                 return 4;
                             }
 
-                            if (j == 3) {
+                            if (i == 3) {
                                 return 5;
                             }
 
-                            if (j == 4) {
+                            if (i == 4) {
                                 return 2;
                             }
 
-                            if (j == 5) {
+                            if (i == 5) {
                                 return 3;
                             }
                         } else if (this.g == 3) {
-                            if (j == 2) {
+                            if (i == 2) {
                                 return 5;
                             }
 
-                            if (j == 3) {
+                            if (i == 3) {
                                 return 4;
                             }
 
-                            if (j == 4) {
+                            if (i == 4) {
                                 return 2;
                             }
 
-                            if (j == 5) {
+                            if (i == 5) {
                                 return 3;
                             }
                         }
                     }
                 } else if (this.g == 0) {
-                    if (j == 0 || j == 2) {
-                        return Direction.f[j];
+                    if (i == 0 || i == 2) {
+                        return Direction.f[i];
                     }
                 } else if (this.g == 1) {
-                    if (j == 2) {
+                    if (i == 2) {
                         return 1;
                     }
 
-                    if (j == 0) {
+                    if (i == 0) {
                         return 3;
                     }
 
-                    if (j == 1) {
+                    if (i == 1) {
                         return 2;
                     }
 
-                    if (j == 3) {
+                    if (i == 3) {
                         return 0;
                     }
                 } else if (this.g == 3) {
-                    if (j == 2) {
+                    if (i == 2) {
                         return 3;
                     }
 
-                    if (j == 0) {
+                    if (i == 0) {
                         return 1;
                     }
 
-                    if (j == 1) {
+                    if (i == 1) {
                         return 2;
                     }
 
-                    if (j == 3) {
+                    if (i == 3) {
                         return 0;
                     }
                 }
             } else if (this.g == 0) {
-                if (j == 2) {
+                if (i == 2) {
                     return 3;
                 }
 
-                if (j == 3) {
+                if (i == 3) {
                     return 2;
                 }
             } else if (this.g == 1) {
-                if (j == 0) {
+                if (i == 0) {
                     return 2;
                 }
 
-                if (j == 1) {
+                if (i == 1) {
                     return 3;
                 }
 
-                if (j == 2) {
+                if (i == 2) {
                     return 0;
                 }
 
-                if (j == 3) {
+                if (i == 3) {
                     return 1;
                 }
             } else if (this.g == 3) {
-                if (j == 0) {
+                if (i == 0) {
                     return 2;
                 }
 
-                if (j == 1) {
+                if (i == 1) {
                     return 3;
                 }
 
-                if (j == 2) {
+                if (i == 2) {
                     return 1;
                 }
 
-                if (j == 3) {
+                if (i == 3) {
                     return 0;
                 }
             }
         } else if (this.g == 0) {
-            if (j == 0) {
+            if (i == 0) {
                 return 2;
             }
 
-            if (j == 2) {
+            if (i == 2) {
                 return 0;
             }
         } else {
             if (this.g == 1) {
-                return j + 1 & 3;
+                return i + 1 & 3;
             }
 
             if (this.g == 3) {
-                return j + 3 & 3;
+                return i + 3 & 3;
             }
         }
 
-        return j;
+        return i;
     }
 
-    protected void a(World world, int i, int j, int k, int l, int i1, StructureBoundingBox structureboundingbox) {
-        int j1 = this.a(k, i1);
-        int k1 = this.a(l);
-        int l1 = this.b(k, i1);
+    protected void a(World world, Block block, int i, int j, int k, int l, StructureBoundingBox structureboundingbox) {
+        int i1 = this.a(j, l);
+        int j1 = this.a(k);
+        int k1 = this.b(j, l);
 
-        if (structureboundingbox.b(j1, k1, l1)) {
-            world.setTypeIdAndData(j1, k1, l1, i, j, 2);
+        if (structureboundingbox.b(i1, j1, k1)) {
+            world.setTypeAndData(i1, j1, k1, block, i, 2);
         }
     }
 
-    protected int a(World world, int i, int j, int k, StructureBoundingBox structureboundingbox) {
+    protected Block a(World world, int i, int j, int k, StructureBoundingBox structureboundingbox) {
         int l = this.a(i, k);
         int i1 = this.a(j);
         int j1 = this.b(i, k);
 
-        return !structureboundingbox.b(l, i1, j1) ? 0 : world.getTypeId(l, i1, j1);
+        return !structureboundingbox.b(l, i1, j1) ? Blocks.AIR : world.getType(l, i1, j1);
     }
 
     protected void a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, int j1) {
         for (int k1 = j; k1 <= i1; ++k1) {
             for (int l1 = i; l1 <= l; ++l1) {
                 for (int i2 = k; i2 <= j1; ++i2) {
-                    this.a(world, 0, 0, l1, k1, i2, structureboundingbox);
+                    this.a(world, Blocks.AIR, 0, l1, k1, i2, structureboundingbox);
                 }
             }
         }
     }
 
-    protected void a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, int j1, int k1, int l1, boolean flag) {
-        for (int i2 = j; i2 <= i1; ++i2) {
-            for (int j2 = i; j2 <= l; ++j2) {
-                for (int k2 = k; k2 <= j1; ++k2) {
-                    if (!flag || this.a(world, j2, i2, k2, structureboundingbox) != 0) {
-                        if (i2 != j && i2 != i1 && j2 != i && j2 != l && k2 != k && k2 != j1) {
-                            this.a(world, l1, 0, j2, i2, k2, structureboundingbox);
+    protected void a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, int j1, Block block, Block block1, boolean flag) {
+        for (int k1 = j; k1 <= i1; ++k1) {
+            for (int l1 = i; l1 <= l; ++l1) {
+                for (int i2 = k; i2 <= j1; ++i2) {
+                    if (!flag || this.a(world, l1, k1, i2, structureboundingbox).getMaterial() != Material.AIR) {
+                        if (k1 != j && k1 != i1 && l1 != i && l1 != l && i2 != k && i2 != j1) {
+                            this.a(world, block1, 0, l1, k1, i2, structureboundingbox);
                         } else {
-                            this.a(world, k1, 0, j2, i2, k2, structureboundingbox);
+                            this.a(world, block, 0, l1, k1, i2, structureboundingbox);
                         }
                     }
                 }
@@ -447,15 +440,15 @@ public abstract class StructurePiece {
         }
     }
 
-    protected void a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, int j1, int k1, int l1, int i2, int j2, boolean flag) {
-        for (int k2 = j; k2 <= i1; ++k2) {
-            for (int l2 = i; l2 <= l; ++l2) {
-                for (int i3 = k; i3 <= j1; ++i3) {
-                    if (!flag || this.a(world, l2, k2, i3, structureboundingbox) != 0) {
-                        if (k2 != j && k2 != i1 && l2 != i && l2 != l && i3 != k && i3 != j1) {
-                            this.a(world, i2, j2, l2, k2, i3, structureboundingbox);
+    protected void a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, int j1, Block block, int k1, Block block1, int l1, boolean flag) {
+        for (int i2 = j; i2 <= i1; ++i2) {
+            for (int j2 = i; j2 <= l; ++j2) {
+                for (int k2 = k; k2 <= j1; ++k2) {
+                    if (!flag || this.a(world, j2, i2, k2, structureboundingbox).getMaterial() != Material.AIR) {
+                        if (i2 != j && i2 != i1 && j2 != i && j2 != l && k2 != k && k2 != j1) {
+                            this.a(world, block1, l1, j2, i2, k2, structureboundingbox);
                         } else {
-                            this.a(world, k1, l1, l2, k2, i3, structureboundingbox);
+                            this.a(world, block, k1, j2, i2, k2, structureboundingbox);
                         }
                     }
                 }
@@ -467,7 +460,7 @@ public abstract class StructurePiece {
         for (int k1 = j; k1 <= i1; ++k1) {
             for (int l1 = i; l1 <= l; ++l1) {
                 for (int i2 = k; i2 <= j1; ++i2) {
-                    if (!flag || this.a(world, l1, k1, i2, structureboundingbox) != 0) {
+                    if (!flag || this.a(world, l1, k1, i2, structureboundingbox).getMaterial() != Material.AIR) {
                         structurepieceblockselector.a(random, l1, k1, i2, k1 == j || k1 == i1 || l1 == i || l1 == l || i2 == k || i2 == j1);
                         this.a(world, structurepieceblockselector.a(), structurepieceblockselector.b(), l1, k1, i2, structureboundingbox);
                     }
@@ -476,15 +469,15 @@ public abstract class StructurePiece {
         }
     }
 
-    protected void a(World world, StructureBoundingBox structureboundingbox, Random random, float f, int i, int j, int k, int l, int i1, int j1, int k1, int l1, boolean flag) {
-        for (int i2 = j; i2 <= i1; ++i2) {
-            for (int j2 = i; j2 <= l; ++j2) {
-                for (int k2 = k; k2 <= j1; ++k2) {
-                    if (random.nextFloat() <= f && (!flag || this.a(world, j2, i2, k2, structureboundingbox) != 0)) {
-                        if (i2 != j && i2 != i1 && j2 != i && j2 != l && k2 != k && k2 != j1) {
-                            this.a(world, l1, 0, j2, i2, k2, structureboundingbox);
+    protected void a(World world, StructureBoundingBox structureboundingbox, Random random, float f, int i, int j, int k, int l, int i1, int j1, Block block, Block block1, boolean flag) {
+        for (int k1 = j; k1 <= i1; ++k1) {
+            for (int l1 = i; l1 <= l; ++l1) {
+                for (int i2 = k; i2 <= j1; ++i2) {
+                    if (random.nextFloat() <= f && (!flag || this.a(world, l1, k1, i2, structureboundingbox).getMaterial() != Material.AIR)) {
+                        if (k1 != j && k1 != i1 && l1 != i && l1 != l && i2 != k && i2 != j1) {
+                            this.a(world, block1, 0, l1, k1, i2, structureboundingbox);
                         } else {
-                            this.a(world, k1, 0, j2, i2, k2, structureboundingbox);
+                            this.a(world, block, 0, l1, k1, i2, structureboundingbox);
                         }
                     }
                 }
@@ -492,33 +485,33 @@ public abstract class StructurePiece {
         }
     }
 
-    protected void a(World world, StructureBoundingBox structureboundingbox, Random random, float f, int i, int j, int k, int l, int i1) {
+    protected void a(World world, StructureBoundingBox structureboundingbox, Random random, float f, int i, int j, int k, Block block, int l) {
         if (random.nextFloat() < f) {
-            this.a(world, l, i1, i, j, k, structureboundingbox);
+            this.a(world, block, l, i, j, k, structureboundingbox);
         }
     }
 
-    protected void a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, int j1, int k1, boolean flag) {
+    protected void a(World world, StructureBoundingBox structureboundingbox, int i, int j, int k, int l, int i1, int j1, Block block, boolean flag) {
         float f = (float) (l - i + 1);
         float f1 = (float) (i1 - j + 1);
         float f2 = (float) (j1 - k + 1);
         float f3 = (float) i + f / 2.0F;
         float f4 = (float) k + f2 / 2.0F;
 
-        for (int l1 = j; l1 <= i1; ++l1) {
-            float f5 = (float) (l1 - j) / f1;
+        for (int k1 = j; k1 <= i1; ++k1) {
+            float f5 = (float) (k1 - j) / f1;
 
-            for (int i2 = i; i2 <= l; ++i2) {
-                float f6 = ((float) i2 - f3) / (f * 0.5F);
+            for (int l1 = i; l1 <= l; ++l1) {
+                float f6 = ((float) l1 - f3) / (f * 0.5F);
 
-                for (int j2 = k; j2 <= j1; ++j2) {
-                    float f7 = ((float) j2 - f4) / (f2 * 0.5F);
+                for (int i2 = k; i2 <= j1; ++i2) {
+                    float f7 = ((float) i2 - f4) / (f2 * 0.5F);
 
-                    if (!flag || this.a(world, i2, l1, j2, structureboundingbox) != 0) {
+                    if (!flag || this.a(world, l1, k1, i2, structureboundingbox).getMaterial() != Material.AIR) {
                         float f8 = f6 * f6 + f5 * f5 + f7 * f7;
 
                         if (f8 <= 1.05F) {
-                            this.a(world, k1, 0, i2, l1, j2, structureboundingbox);
+                            this.a(world, block, 0, l1, k1, i2, structureboundingbox);
                         }
                     }
                 }
@@ -533,21 +526,21 @@ public abstract class StructurePiece {
 
         if (structureboundingbox.b(l, i1, j1)) {
             while (!world.isEmpty(l, i1, j1) && i1 < 255) {
-                world.setTypeIdAndData(l, i1, j1, 0, 0, 2);
+                world.setTypeAndData(l, i1, j1, Blocks.AIR, 0, 2);
                 ++i1;
             }
         }
     }
 
-    protected void b(World world, int i, int j, int k, int l, int i1, StructureBoundingBox structureboundingbox) {
-        int j1 = this.a(k, i1);
-        int k1 = this.a(l);
-        int l1 = this.b(k, i1);
+    protected void b(World world, Block block, int i, int j, int k, int l, StructureBoundingBox structureboundingbox) {
+        int i1 = this.a(j, l);
+        int j1 = this.a(k);
+        int k1 = this.b(j, l);
 
-        if (structureboundingbox.b(j1, k1, l1)) {
-            while ((world.isEmpty(j1, k1, l1) || world.getMaterial(j1, k1, l1).isLiquid()) && k1 > 1) {
-                world.setTypeIdAndData(j1, k1, l1, i, j, 2);
-                --k1;
+        if (structureboundingbox.b(i1, j1, k1)) {
+            while ((world.isEmpty(i1, j1, k1) || world.getType(i1, j1, k1).getMaterial().isLiquid()) && j1 > 1) {
+                world.setTypeAndData(i1, j1, k1, block, i, 2);
+                --j1;
             }
         }
     }
@@ -557,8 +550,8 @@ public abstract class StructurePiece {
         int j1 = this.a(j);
         int k1 = this.b(i, k);
 
-        if (structureboundingbox.b(i1, j1, k1) && world.getTypeId(i1, j1, k1) != Block.CHEST.id) {
-            world.setTypeIdAndData(i1, j1, k1, Block.CHEST.id, 0, 2);
+        if (structureboundingbox.b(i1, j1, k1) && world.getType(i1, j1, k1) != Blocks.CHEST) {
+            world.setTypeAndData(i1, j1, k1, Blocks.CHEST, 0, 2);
             TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i1, j1, k1);
 
             if (tileentitychest != null) {
@@ -576,8 +569,8 @@ public abstract class StructurePiece {
         int k1 = this.a(j);
         int l1 = this.b(i, k);
 
-        if (structureboundingbox.b(j1, k1, l1) && world.getTypeId(j1, k1, l1) != Block.DISPENSER.id) {
-            world.setTypeIdAndData(j1, k1, l1, Block.DISPENSER.id, this.c(Block.DISPENSER.id, l), 2);
+        if (structureboundingbox.b(j1, k1, l1) && world.getType(j1, k1, l1) != Blocks.DISPENSER) {
+            world.setTypeAndData(j1, k1, l1, Blocks.DISPENSER, this.a(Blocks.DISPENSER, l), 2);
             TileEntityDispenser tileentitydispenser = (TileEntityDispenser) world.getTileEntity(j1, k1, l1);
 
             if (tileentitydispenser != null) {
@@ -596,7 +589,7 @@ public abstract class StructurePiece {
         int k1 = this.b(i, k);
 
         if (structureboundingbox.b(i1, j1, k1)) {
-            ItemDoor.place(world, i1, j1, k1, l, Block.WOODEN_DOOR);
+            ItemDoor.place(world, i1, j1, k1, l, Blocks.WOODEN_DOOR);
         }
     }
 }

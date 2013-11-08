@@ -12,8 +12,8 @@ public class WorldGenWaterLily extends WorldGenerator {
             int j1 = j + random.nextInt(4) - random.nextInt(4);
             int k1 = k + random.nextInt(8) - random.nextInt(8);
 
-            if (world.isEmpty(i1, j1, k1) && Block.WATER_LILY.canPlace(world, i1, j1, k1)) {
-                world.setTypeIdAndData(i1, j1, k1, Block.WATER_LILY.id, 0, 2);
+            if (world.isEmpty(i1, j1, k1) && Blocks.WATER_LILY.canPlace(world, i1, j1, k1)) {
+                world.setTypeAndData(i1, j1, k1, Blocks.WATER_LILY, 0, 2);
             }
         }
 

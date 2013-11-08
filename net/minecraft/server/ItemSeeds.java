@@ -2,13 +2,12 @@ package net.minecraft.server;
 
 public class ItemSeeds extends Item {
 
-    private int id;
-    private int b;
+    private Block block;
+    private Block b;
 
-    public ItemSeeds(int i, int j, int k) {
-        super(i);
-        this.id = j;
-        this.b = k;
+    public ItemSeeds(Block block, Block block1) {
+        this.block = block;
+        this.b = block1;
         this.a(CreativeModeTab.l);
     }
 
@@ -16,10 +15,8 @@ public class ItemSeeds extends Item {
         if (l != 1) {
             return false;
         } else if (entityhuman.a(i, j, k, l, itemstack) && entityhuman.a(i, j + 1, k, l, itemstack)) {
-            int i1 = world.getTypeId(i, j, k);
-
-            if (i1 == this.b && world.isEmpty(i, j + 1, k)) {
-                world.setTypeIdUpdate(i, j + 1, k, this.id);
+            if (world.getType(i, j, k) == this.b && world.isEmpty(i, j + 1, k)) {
+                world.setTypeUpdate(i, j + 1, k, this.block);
                 --itemstack.count;
                 return true;
             } else {

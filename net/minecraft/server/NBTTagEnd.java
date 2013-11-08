@@ -5,9 +5,7 @@ import java.io.DataOutput;
 
 public class NBTTagEnd extends NBTBase {
 
-    public NBTTagEnd() {
-        super((String) null);
-    }
+    NBTTagEnd() {}
 
     void load(DataInput datainput, int i) {}
 

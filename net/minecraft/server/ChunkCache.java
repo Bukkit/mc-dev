@@ -41,23 +41,23 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
-    public int getTypeId(int i, int j, int k) {
-        if (j < 0) {
-            return 0;
-        } else if (j >= 256) {
-            return 0;
-        } else {
+    public Block getType(int i, int j, int k) {
+        Block block = Blocks.AIR;
+
+        if (j >= 0 && j < 256) {
             int l = (i >> 4) - this.a;
             int i1 = (k >> 4) - this.b;
 
             if (l >= 0 && l < this.c.length && i1 >= 0 && i1 < this.c[l].length) {
                 Chunk chunk = this.c[l][i1];
 
-                return chunk == null ? 0 : chunk.getTypeId(i & 15, j, k & 15);
-            } else {
-                return 0;
+                if (chunk != null) {
+                    block = chunk.getType(i & 15, j, k & 15);
+                }
             }
         }
+
+        return block;
     }
 
     public TileEntity getTileEntity(int i, int j, int k) {
@@ -80,25 +80,11 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
-    public Material getMaterial(int i, int j, int k) {
-        int l = this.getTypeId(i, j, k);
-
-        return l == 0 ? Material.AIR : Block.byId[l].material;
-    }
-
-    public boolean u(int i, int j, int k) {
-        Block block = Block.byId[this.getTypeId(i, j, k)];
-
-        return block == null ? false : block.material.isSolid() && block.b();
-    }
-
     public Vec3DPool getVec3DPool() {
         return this.e.getVec3DPool();
     }
 
     public int getBlockPower(int i, int j, int k, int l) {
-        int i1 = this.getTypeId(i, j, k);
-
-        return i1 == 0 ? 0 : Block.byId[i1].c(this, i, j, k, l);
+        return this.getType(i, j, k).c(this, i, j, k, l);
     }
 }

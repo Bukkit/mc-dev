@@ -4,16 +4,18 @@ import java.util.Random;
 
 public class ItemEnchantedBook extends Item {
 
-    public ItemEnchantedBook(int i) {
-        super(i);
-    }
+    public ItemEnchantedBook() {}
 
     public boolean e_(ItemStack itemstack) {
         return false;
     }
 
+    public EnumItemRarity f(ItemStack itemstack) {
+        return this.g(itemstack).size() > 0 ? EnumItemRarity.UNCOMMON : super.f(itemstack);
+    }
+
     public NBTTagList g(ItemStack itemstack) {
-        return itemstack.tag != null && itemstack.tag.hasKey("StoredEnchantments") ? (NBTTagList) itemstack.tag.get("StoredEnchantments") : new NBTTagList();
+        return itemstack.tag != null && itemstack.tag.hasKeyOfType("StoredEnchantments", 9) ? (NBTTagList) itemstack.tag.get("StoredEnchantments") : new NBTTagList();
     }
 
     public void a(ItemStack itemstack, EnchantmentInstance enchantmentinstance) {
@@ -21,7 +23,7 @@ public class ItemEnchantedBook extends Item {
         boolean flag = true;
 
         for (int i = 0; i < nbttaglist.size(); ++i) {
-            NBTTagCompound nbttagcompound = (NBTTagCompound) nbttaglist.get(i);
+            NBTTagCompound nbttagcompound = nbttaglist.get(i);
 
             if (nbttagcompound.getShort("id") == enchantmentinstance.enchantment.id) {
                 if (nbttagcompound.getShort("lvl") < enchantmentinstance.level) {
@@ -60,11 +62,9 @@ public class ItemEnchantedBook extends Item {
     }
 
     public StructurePieceTreasure a(Random random, int i, int j, int k) {
-        Enchantment enchantment = Enchantment.c[random.nextInt(Enchantment.c.length)];
-        ItemStack itemstack = new ItemStack(this.id, 1, 0);
-        int l = MathHelper.nextInt(random, enchantment.getStartLevel(), enchantment.getMaxLevel());
+        ItemStack itemstack = new ItemStack(Items.BOOK, 1, 0);
 
-        this.a(itemstack, new EnchantmentInstance(enchantment, l));
+        EnchantmentManager.a(random, itemstack, 30);
         return new StructurePieceTreasure(itemstack, i, j, k);
     }
 }

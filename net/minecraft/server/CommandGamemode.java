@@ -20,15 +20,15 @@ public class CommandGamemode extends CommandAbstract {
 
     public void b(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0) {
-            EnumGamemode enumgamemode = this.f(icommandlistener, astring[0]);
+            EnumGamemode enumgamemode = this.h(icommandlistener, astring[0]);
             EntityPlayer entityplayer = astring.length >= 2 ? d(icommandlistener, astring[1]) : b(icommandlistener);
 
             entityplayer.a(enumgamemode);
             entityplayer.fallDistance = 0.0F;
-            ChatMessage chatmessage = ChatMessage.e("gameMode." + enumgamemode.b());
+            ChatMessage chatmessage = new ChatMessage("gameMode." + enumgamemode.b(), new Object[0]);
 
             if (entityplayer != icommandlistener) {
-                a(icommandlistener, 1, "commands.gamemode.success.other", new Object[] { entityplayer.getLocalizedName(), chatmessage});
+                a(icommandlistener, 1, "commands.gamemode.success.other", new Object[] { entityplayer.getName(), chatmessage});
             } else {
                 a(icommandlistener, 1, "commands.gamemode.success.self", new Object[] { chatmessage});
             }
@@ -37,7 +37,7 @@ public class CommandGamemode extends CommandAbstract {
         }
     }
 
-    protected EnumGamemode f(ICommandListener icommandlistener, String s) {
+    protected EnumGamemode h(ICommandListener icommandlistener, String s) {
         return !s.equalsIgnoreCase(EnumGamemode.SURVIVAL.b()) && !s.equalsIgnoreCase("s") ? (!s.equalsIgnoreCase(EnumGamemode.CREATIVE.b()) && !s.equalsIgnoreCase("c") ? (!s.equalsIgnoreCase(EnumGamemode.ADVENTURE.b()) && !s.equalsIgnoreCase("a") ? WorldSettings.a(a(icommandlistener, s, 0, EnumGamemode.values().length - 2)) : EnumGamemode.ADVENTURE) : EnumGamemode.CREATIVE) : EnumGamemode.SURVIVAL;
     }
 

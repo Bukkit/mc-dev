@@ -31,17 +31,17 @@ public class CommandSpawnpoint extends CommandAbstract {
                 int i1 = a(icommandlistener, astring[j++], -i, i);
 
                 entityplayer.setRespawnPosition(new ChunkCoordinates(k, l, i1), true);
-                a(icommandlistener, "commands.spawnpoint.success", new Object[] { entityplayer.getLocalizedName(), Integer.valueOf(k), Integer.valueOf(l), Integer.valueOf(i1)});
+                a(icommandlistener, "commands.spawnpoint.success", new Object[] { entityplayer.getName(), Integer.valueOf(k), Integer.valueOf(l), Integer.valueOf(i1)});
             }
         } else {
             if (astring.length > 1) {
                 throw new ExceptionUsage("commands.spawnpoint.usage", new Object[0]);
             }
 
-            ChunkCoordinates chunkcoordinates = entityplayer.b();
+            ChunkCoordinates chunkcoordinates = entityplayer.getChunkCoordinates();
 
             entityplayer.setRespawnPosition(chunkcoordinates, true);
-            a(icommandlistener, "commands.spawnpoint.success", new Object[] { entityplayer.getLocalizedName(), Integer.valueOf(chunkcoordinates.x), Integer.valueOf(chunkcoordinates.y), Integer.valueOf(chunkcoordinates.z)});
+            a(icommandlistener, "commands.spawnpoint.success", new Object[] { entityplayer.getName(), Integer.valueOf(chunkcoordinates.x), Integer.valueOf(chunkcoordinates.y), Integer.valueOf(chunkcoordinates.z)});
         }
     }
 

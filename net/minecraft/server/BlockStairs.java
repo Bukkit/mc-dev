@@ -7,24 +7,24 @@ public class BlockStairs extends Block {
 
     private static final int[][] a = new int[][] { { 2, 6}, { 3, 7}, { 2, 3}, { 6, 7}, { 0, 4}, { 1, 5}, { 0, 1}, { 4, 5}};
     private final Block b;
-    private final int c;
-    private boolean d;
-    private int e;
+    private final int M;
+    private boolean N;
+    private int O;
 
-    protected BlockStairs(int i, Block block, int j) {
-        super(i, block.material);
+    protected BlockStairs(Block block, int i) {
+        super(block.material);
         this.b = block;
-        this.c = j;
+        this.M = i;
         this.c(block.strength);
         this.b(block.durability / 3.0F);
         this.a(block.stepSound);
-        this.k(255);
+        this.g(255);
         this.a(CreativeModeTab.b);
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {
-        if (this.d) {
-            this.a(0.5F * (float) (this.e % 2), 0.5F * (float) (this.e / 2 % 2), 0.5F * (float) (this.e / 4 % 2), 0.5F + 0.5F * (float) (this.e % 2), 0.5F + 0.5F * (float) (this.e / 2 % 2), 0.5F + 0.5F * (float) (this.e / 4 % 2));
+        if (this.N) {
+            this.a(0.5F * (float) (this.O % 2), 0.5F * (float) (this.O / 2 % 2), 0.5F * (float) (this.O / 4 % 2), 0.5F + 0.5F * (float) (this.O % 2), 0.5F + 0.5F * (float) (this.O / 2 % 2), 0.5F + 0.5F * (float) (this.O / 4 % 2));
         } else {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         }
@@ -34,15 +34,15 @@ public class BlockStairs extends Block {
         return false;
     }
 
-    public boolean b() {
+    public boolean d() {
         return false;
     }
 
-    public int d() {
+    public int b() {
         return 10;
     }
 
-    public void d(IBlockAccess iblockaccess, int i, int j, int k) {
+    public void e(IBlockAccess iblockaccess, int i, int j, int k) {
         int l = iblockaccess.getData(i, j, k);
 
         if ((l & 4) != 0) {
@@ -52,17 +52,17 @@ public class BlockStairs extends Block {
         }
     }
 
-    public static boolean d(int i) {
-        return i > 0 && Block.byId[i] instanceof BlockStairs;
+    public static boolean a(Block block) {
+        return block instanceof BlockStairs;
     }
 
     private boolean f(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        int i1 = iblockaccess.getTypeId(i, j, k);
+        Block block = iblockaccess.getType(i, j, k);
 
-        return d(i1) && iblockaccess.getData(i, j, k) == l;
+        return a(block) && iblockaccess.getData(i, j, k) == l;
     }
 
-    public boolean g(IBlockAccess iblockaccess, int i, int j, int k) {
+    public boolean f(IBlockAccess iblockaccess, int i, int j, int k) {
         int l = iblockaccess.getData(i, j, k);
         int i1 = l & 3;
         float f = 0.5F;
@@ -78,21 +78,21 @@ public class BlockStairs extends Block {
         float f4 = 0.0F;
         float f5 = 0.5F;
         boolean flag = true;
+        Block block;
         int j1;
         int k1;
-        int l1;
 
         if (i1 == 0) {
             f2 = 0.5F;
             f5 = 1.0F;
-            j1 = iblockaccess.getTypeId(i + 1, j, k);
-            k1 = iblockaccess.getData(i + 1, j, k);
-            if (d(j1) && (l & 4) == (k1 & 4)) {
-                l1 = k1 & 3;
-                if (l1 == 3 && !this.f(iblockaccess, i, j, k + 1, l)) {
+            block = iblockaccess.getType(i + 1, j, k);
+            j1 = iblockaccess.getData(i + 1, j, k);
+            if (a(block) && (l & 4) == (j1 & 4)) {
+                k1 = j1 & 3;
+                if (k1 == 3 && !this.f(iblockaccess, i, j, k + 1, l)) {
                     f5 = 0.5F;
                     flag = false;
-                } else if (l1 == 2 && !this.f(iblockaccess, i, j, k - 1, l)) {
+                } else if (k1 == 2 && !this.f(iblockaccess, i, j, k - 1, l)) {
                     f4 = 0.5F;
                     flag = false;
                 }
@@ -100,14 +100,14 @@ public class BlockStairs extends Block {
         } else if (i1 == 1) {
             f3 = 0.5F;
             f5 = 1.0F;
-            j1 = iblockaccess.getTypeId(i - 1, j, k);
-            k1 = iblockaccess.getData(i - 1, j, k);
-            if (d(j1) && (l & 4) == (k1 & 4)) {
-                l1 = k1 & 3;
-                if (l1 == 3 && !this.f(iblockaccess, i, j, k + 1, l)) {
+            block = iblockaccess.getType(i - 1, j, k);
+            j1 = iblockaccess.getData(i - 1, j, k);
+            if (a(block) && (l & 4) == (j1 & 4)) {
+                k1 = j1 & 3;
+                if (k1 == 3 && !this.f(iblockaccess, i, j, k + 1, l)) {
                     f5 = 0.5F;
                     flag = false;
-                } else if (l1 == 2 && !this.f(iblockaccess, i, j, k - 1, l)) {
+                } else if (k1 == 2 && !this.f(iblockaccess, i, j, k - 1, l)) {
                     f4 = 0.5F;
                     flag = false;
                 }
@@ -115,27 +115,27 @@ public class BlockStairs extends Block {
         } else if (i1 == 2) {
             f4 = 0.5F;
             f5 = 1.0F;
-            j1 = iblockaccess.getTypeId(i, j, k + 1);
-            k1 = iblockaccess.getData(i, j, k + 1);
-            if (d(j1) && (l & 4) == (k1 & 4)) {
-                l1 = k1 & 3;
-                if (l1 == 1 && !this.f(iblockaccess, i + 1, j, k, l)) {
+            block = iblockaccess.getType(i, j, k + 1);
+            j1 = iblockaccess.getData(i, j, k + 1);
+            if (a(block) && (l & 4) == (j1 & 4)) {
+                k1 = j1 & 3;
+                if (k1 == 1 && !this.f(iblockaccess, i + 1, j, k, l)) {
                     f3 = 0.5F;
                     flag = false;
-                } else if (l1 == 0 && !this.f(iblockaccess, i - 1, j, k, l)) {
+                } else if (k1 == 0 && !this.f(iblockaccess, i - 1, j, k, l)) {
                     f2 = 0.5F;
                     flag = false;
                 }
             }
         } else if (i1 == 3) {
-            j1 = iblockaccess.getTypeId(i, j, k - 1);
-            k1 = iblockaccess.getData(i, j, k - 1);
-            if (d(j1) && (l & 4) == (k1 & 4)) {
-                l1 = k1 & 3;
-                if (l1 == 1 && !this.f(iblockaccess, i + 1, j, k, l)) {
+            block = iblockaccess.getType(i, j, k - 1);
+            j1 = iblockaccess.getData(i, j, k - 1);
+            if (a(block) && (l & 4) == (j1 & 4)) {
+                k1 = j1 & 3;
+                if (k1 == 1 && !this.f(iblockaccess, i + 1, j, k, l)) {
                     f3 = 0.5F;
                     flag = false;
-                } else if (l1 == 0 && !this.f(iblockaccess, i - 1, j, k, l)) {
+                } else if (k1 == 0 && !this.f(iblockaccess, i - 1, j, k, l)) {
                     f2 = 0.5F;
                     flag = false;
                 }
@@ -146,7 +146,7 @@ public class BlockStairs extends Block {
         return flag;
     }
 
-    public boolean h(IBlockAccess iblockaccess, int i, int j, int k) {
+    public boolean g(IBlockAccess iblockaccess, int i, int j, int k) {
         int l = iblockaccess.getData(i, j, k);
         int i1 = l & 3;
         float f = 0.5F;
@@ -162,65 +162,65 @@ public class BlockStairs extends Block {
         float f4 = 0.5F;
         float f5 = 1.0F;
         boolean flag = false;
+        Block block;
         int j1;
         int k1;
-        int l1;
 
         if (i1 == 0) {
-            j1 = iblockaccess.getTypeId(i - 1, j, k);
-            k1 = iblockaccess.getData(i - 1, j, k);
-            if (d(j1) && (l & 4) == (k1 & 4)) {
-                l1 = k1 & 3;
-                if (l1 == 3 && !this.f(iblockaccess, i, j, k - 1, l)) {
+            block = iblockaccess.getType(i - 1, j, k);
+            j1 = iblockaccess.getData(i - 1, j, k);
+            if (a(block) && (l & 4) == (j1 & 4)) {
+                k1 = j1 & 3;
+                if (k1 == 3 && !this.f(iblockaccess, i, j, k - 1, l)) {
                     f4 = 0.0F;
                     f5 = 0.5F;
                     flag = true;
-                } else if (l1 == 2 && !this.f(iblockaccess, i, j, k + 1, l)) {
+                } else if (k1 == 2 && !this.f(iblockaccess, i, j, k + 1, l)) {
                     f4 = 0.5F;
                     f5 = 1.0F;
                     flag = true;
                 }
             }
         } else if (i1 == 1) {
-            j1 = iblockaccess.getTypeId(i + 1, j, k);
-            k1 = iblockaccess.getData(i + 1, j, k);
-            if (d(j1) && (l & 4) == (k1 & 4)) {
+            block = iblockaccess.getType(i + 1, j, k);
+            j1 = iblockaccess.getData(i + 1, j, k);
+            if (a(block) && (l & 4) == (j1 & 4)) {
                 f2 = 0.5F;
                 f3 = 1.0F;
-                l1 = k1 & 3;
-                if (l1 == 3 && !this.f(iblockaccess, i, j, k - 1, l)) {
+                k1 = j1 & 3;
+                if (k1 == 3 && !this.f(iblockaccess, i, j, k - 1, l)) {
                     f4 = 0.0F;
                     f5 = 0.5F;
                     flag = true;
-                } else if (l1 == 2 && !this.f(iblockaccess, i, j, k + 1, l)) {
+                } else if (k1 == 2 && !this.f(iblockaccess, i, j, k + 1, l)) {
                     f4 = 0.5F;
                     f5 = 1.0F;
                     flag = true;
                 }
             }
         } else if (i1 == 2) {
-            j1 = iblockaccess.getTypeId(i, j, k - 1);
-            k1 = iblockaccess.getData(i, j, k - 1);
-            if (d(j1) && (l & 4) == (k1 & 4)) {
+            block = iblockaccess.getType(i, j, k - 1);
+            j1 = iblockaccess.getData(i, j, k - 1);
+            if (a(block) && (l & 4) == (j1 & 4)) {
                 f4 = 0.0F;
                 f5 = 0.5F;
-                l1 = k1 & 3;
-                if (l1 == 1 && !this.f(iblockaccess, i - 1, j, k, l)) {
+                k1 = j1 & 3;
+                if (k1 == 1 && !this.f(iblockaccess, i - 1, j, k, l)) {
                     flag = true;
-                } else if (l1 == 0 && !this.f(iblockaccess, i + 1, j, k, l)) {
+                } else if (k1 == 0 && !this.f(iblockaccess, i + 1, j, k, l)) {
                     f2 = 0.5F;
                     f3 = 1.0F;
                     flag = true;
                 }
             }
         } else if (i1 == 3) {
-            j1 = iblockaccess.getTypeId(i, j, k + 1);
-            k1 = iblockaccess.getData(i, j, k + 1);
-            if (d(j1) && (l & 4) == (k1 & 4)) {
-                l1 = k1 & 3;
-                if (l1 == 1 && !this.f(iblockaccess, i - 1, j, k, l)) {
+            block = iblockaccess.getType(i, j, k + 1);
+            j1 = iblockaccess.getData(i, j, k + 1);
+            if (a(block) && (l & 4) == (j1 & 4)) {
+                k1 = j1 & 3;
+                if (k1 == 1 && !this.f(iblockaccess, i - 1, j, k, l)) {
                     flag = true;
-                } else if (l1 == 0 && !this.f(iblockaccess, i + 1, j, k, l)) {
+                } else if (k1 == 0 && !this.f(iblockaccess, i + 1, j, k, l)) {
                     f2 = 0.5F;
                     f3 = 1.0F;
                     flag = true;
@@ -236,12 +236,12 @@ public class BlockStairs extends Block {
     }
 
     public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List list, Entity entity) {
-        this.d(world, i, j, k);
+        this.e(world, i, j, k);
         super.a(world, i, j, k, axisalignedbb, list, entity);
-        boolean flag = this.g(world, i, j, k);
+        boolean flag = this.f(world, i, j, k);
 
         super.a(world, i, j, k, axisalignedbb, list, entity);
-        if (flag && this.h(world, i, j, k)) {
+        if (flag && this.g(world, i, j, k)) {
             super.a(world, i, j, k, axisalignedbb, list, entity);
         }
 
@@ -268,8 +268,8 @@ public class BlockStairs extends Block {
         this.b.a(world, i, j, k, entity, vec3d);
     }
 
-    public boolean m() {
-        return this.b.m();
+    public boolean v() {
+        return this.b.v();
     }
 
     public boolean a(int i, boolean flag) {
@@ -281,12 +281,12 @@ public class BlockStairs extends Block {
     }
 
     public void onPlace(World world, int i, int j, int k) {
-        this.doPhysics(world, i, j, k, 0);
+        this.doPhysics(world, i, j, k, Blocks.AIR);
         this.b.onPlace(world, i, j, k);
     }
 
-    public void remove(World world, int i, int j, int k, int l, int i1) {
-        this.b.remove(world, i, j, k, l, i1);
+    public void remove(World world, int i, int j, int k, Block block, int l) {
+        this.b.remove(world, i, j, k, block, l);
     }
 
     public void b(World world, int i, int j, int k, Entity entity) {
@@ -303,6 +303,10 @@ public class BlockStairs extends Block {
 
     public void wasExploded(World world, int i, int j, int k, Explosion explosion) {
         this.b.wasExploded(world, i, j, k, explosion);
+    }
+
+    public MaterialMapColor f(int i) {
+        return this.b.f(this.M);
     }
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving, ItemStack itemstack) {
@@ -337,14 +341,14 @@ public class BlockStairs extends Block {
         boolean flag = (l & 4) == 4;
         int[] aint = a[i1 + (flag ? 4 : 0)];
 
-        this.d = true;
+        this.N = true;
 
         int j1;
         int k1;
         int l1;
 
         for (int i2 = 0; i2 < 8; ++i2) {
-            this.e = i2;
+            this.O = i2;
             int[] aint1 = aint;
 
             j1 = aint.length;

@@ -10,7 +10,7 @@ public class ChunkProviderFlat implements IChunkProvider {
 
     private World a;
     private Random b;
-    private final byte[] c = new byte[256];
+    private final Block[] c = new Block[256];
     private final byte[] d = new byte[256];
     private final WorldGenFlatInfo e;
     private final List f = new ArrayList();
@@ -51,11 +51,11 @@ public class ChunkProviderFlat implements IChunkProvider {
 
         this.g = this.e.b().containsKey("decoration");
         if (this.e.b().containsKey("lake")) {
-            this.i = new WorldGenLakes(Block.STATIONARY_WATER.id);
+            this.i = new WorldGenLakes(Blocks.STATIONARY_WATER);
         }
 
         if (this.e.b().containsKey("lava_lake")) {
-            this.j = new WorldGenLakes(Block.STATIONARY_LAVA.id);
+            this.j = new WorldGenLakes(Blocks.STATIONARY_LAVA);
         }
 
         this.h = this.e.b().containsKey("dungeon");
@@ -65,7 +65,7 @@ public class ChunkProviderFlat implements IChunkProvider {
             WorldGenFlatLayerInfo worldgenflatlayerinfo = (WorldGenFlatLayerInfo) iterator.next();
 
             for (int j = worldgenflatlayerinfo.d(); j < worldgenflatlayerinfo.d() + worldgenflatlayerinfo.a(); ++j) {
-                this.c[j] = (byte) (worldgenflatlayerinfo.b() & 255);
+                this.c[j] = worldgenflatlayerinfo.b();
                 this.d[j] = (byte) worldgenflatlayerinfo.c();
             }
         }
@@ -78,19 +78,25 @@ public class ChunkProviderFlat implements IChunkProvider {
     public Chunk getOrCreateChunk(int i, int j) {
         Chunk chunk = new Chunk(this.a, i, j);
 
-        for (int k = 0; k < this.c.length; ++k) {
-            int l = k >> 4;
-            ChunkSection chunksection = chunk.i()[l];
+        int k;
 
-            if (chunksection == null) {
-                chunksection = new ChunkSection(k, !this.a.worldProvider.g);
-                chunk.i()[l] = chunksection;
-            }
+        for (int l = 0; l < this.c.length; ++l) {
+            Block block = this.c[l];
 
-            for (int i1 = 0; i1 < 16; ++i1) {
-                for (int j1 = 0; j1 < 16; ++j1) {
-                    chunksection.setTypeId(i1, k & 15, j1, this.c[k] & 255);
-                    chunksection.setData(i1, k & 15, j1, this.d[k]);
+            if (block != null) {
+                k = l >> 4;
+                ChunkSection chunksection = chunk.i()[k];
+
+                if (chunksection == null) {
+                    chunksection = new ChunkSection(l, !this.a.worldProvider.g);
+                    chunk.i()[k] = chunksection;
+                }
+
+                for (int i1 = 0; i1 < 16; ++i1) {
+                    for (int j1 = 0; j1 < 16; ++j1) {
+                        chunksection.setTypeId(i1, l & 15, j1, block);
+                        chunksection.setData(i1, l & 15, j1, this.d[l]);
+                    }
                 }
             }
         }
@@ -99,8 +105,8 @@ public class ChunkProviderFlat implements IChunkProvider {
         BiomeBase[] abiomebase = this.a.getWorldChunkManager().getBiomeBlock((BiomeBase[]) null, i * 16, j * 16, 16, 16);
         byte[] abyte = chunk.m();
 
-        for (int k1 = 0; k1 < abyte.length; ++k1) {
-            abyte[k1] = (byte) abiomebase[k1].id;
+        for (k = 0; k < abyte.length; ++k) {
+            abyte[k] = (byte) abiomebase[k].id;
         }
 
         Iterator iterator = this.f.iterator();
@@ -108,7 +114,7 @@ public class ChunkProviderFlat implements IChunkProvider {
         while (iterator.hasNext()) {
             StructureGenerator structuregenerator = (StructureGenerator) iterator.next();
 
-            structuregenerator.a(this, this.a, i, j, (byte[]) null);
+            structuregenerator.a(this, this.a, i, j, (Block[]) null);
         }
 
         chunk.initLighting();
@@ -147,14 +153,14 @@ public class ChunkProviderFlat implements IChunkProvider {
 
         if (this.i != null && !flag && this.b.nextInt(4) == 0) {
             l1 = k + this.b.nextInt(16) + 8;
-            k1 = this.b.nextInt(128);
+            k1 = this.b.nextInt(256);
             i2 = l + this.b.nextInt(16) + 8;
             this.i.a(this.a, this.b, l1, k1, i2);
         }
 
         if (this.j != null && !flag && this.b.nextInt(8) == 0) {
             l1 = k + this.b.nextInt(16) + 8;
-            k1 = this.b.nextInt(this.b.nextInt(120) + 8);
+            k1 = this.b.nextInt(this.b.nextInt(248) + 8);
             i2 = l + this.b.nextInt(16) + 8;
             if (k1 < 63 || this.b.nextInt(10) == 0) {
                 this.j.a(this.a, this.b, l1, k1, i2);
@@ -164,7 +170,7 @@ public class ChunkProviderFlat implements IChunkProvider {
         if (this.h) {
             for (l1 = 0; l1 < 8; ++l1) {
                 k1 = k + this.b.nextInt(16) + 8;
-                i2 = this.b.nextInt(128);
+                i2 = this.b.nextInt(256);
                 int j2 = l + this.b.nextInt(16) + 8;
 
                 (new WorldGenDungeons()).a(this.a, this.b, k1, i2, j2);
@@ -197,7 +203,7 @@ public class ChunkProviderFlat implements IChunkProvider {
     public List getMobsFor(EnumCreatureType enumcreaturetype, int i, int j, int k) {
         BiomeBase biomebase = this.a.getBiome(i, k);
 
-        return biomebase == null ? null : biomebase.getMobs(enumcreaturetype);
+        return biomebase.getMobs(enumcreaturetype);
     }
 
     public ChunkPosition findNearestMapFeature(World world, String s, int i, int j, int k) {
@@ -226,7 +232,7 @@ public class ChunkProviderFlat implements IChunkProvider {
         while (iterator.hasNext()) {
             StructureGenerator structuregenerator = (StructureGenerator) iterator.next();
 
-            structuregenerator.a(this, this.a, i, j, (byte[]) null);
+            structuregenerator.a(this, this.a, i, j, (Block[]) null);
         }
     }
 }

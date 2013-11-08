@@ -5,16 +5,15 @@ import java.io.DataOutput;
 
 public class NBTTagString extends NBTBase {
 
-    public String data;
+    private String data;
 
-    public NBTTagString(String s) {
-        super(s);
+    public NBTTagString() {
+        this.data = "";
     }
 
-    public NBTTagString(String s, String s1) {
-        super(s);
-        this.data = s1;
-        if (s1 == null) {
+    public NBTTagString(String s) {
+        this.data = s;
+        if (s == null) {
             throw new IllegalArgumentException("Empty string not allowed");
         }
     }
@@ -32,11 +31,11 @@ public class NBTTagString extends NBTBase {
     }
 
     public String toString() {
-        return "" + this.data;
+        return "\"" + this.data + "\"";
     }
 
     public NBTBase clone() {
-        return new NBTTagString(this.getName(), this.data);
+        return new NBTTagString(this.data);
     }
 
     public boolean equals(Object object) {
@@ -51,5 +50,9 @@ public class NBTTagString extends NBTBase {
 
     public int hashCode() {
         return super.hashCode() ^ this.data.hashCode();
+    }
+
+    public String a_() {
+        return this.data;
     }
 }

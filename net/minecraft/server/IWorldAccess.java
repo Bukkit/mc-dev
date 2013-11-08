@@ -25,4 +25,6 @@ public interface IWorldAccess {
     void a(EntityHuman entityhuman, int i, int j, int k, int l, int i1);
 
     void b(int i, int j, int k, int l, int i1);
+
+    void b();
 }

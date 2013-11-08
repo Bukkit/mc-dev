@@ -4,8 +4,7 @@ public class ItemDoor extends Item {
 
     private Material a;
 
-    public ItemDoor(int i, Material material) {
-        super(i);
+    public ItemDoor(Material material) {
         this.a = material;
         this.maxStackSize = 1;
         this.a(CreativeModeTab.d);
@@ -19,9 +18,9 @@ public class ItemDoor extends Item {
             Block block;
 
             if (this.a == Material.WOOD) {
-                block = Block.WOODEN_DOOR;
+                block = Blocks.WOODEN_DOOR;
             } else {
-                block = Block.IRON_DOOR_BLOCK;
+                block = Blocks.IRON_DOOR_BLOCK;
             }
 
             if (entityhuman.a(i, j, k, l, itemstack) && entityhuman.a(i, j + 1, k, l, itemstack)) {
@@ -60,10 +59,10 @@ public class ItemDoor extends Item {
             b0 = 1;
         }
 
-        int i1 = (world.u(i - b0, j, k - b1) ? 1 : 0) + (world.u(i - b0, j + 1, k - b1) ? 1 : 0);
-        int j1 = (world.u(i + b0, j, k + b1) ? 1 : 0) + (world.u(i + b0, j + 1, k + b1) ? 1 : 0);
-        boolean flag = world.getTypeId(i - b0, j, k - b1) == block.id || world.getTypeId(i - b0, j + 1, k - b1) == block.id;
-        boolean flag1 = world.getTypeId(i + b0, j, k + b1) == block.id || world.getTypeId(i + b0, j + 1, k + b1) == block.id;
+        int i1 = (world.getType(i - b0, j, k - b1).r() ? 1 : 0) + (world.getType(i - b0, j + 1, k - b1).r() ? 1 : 0);
+        int j1 = (world.getType(i + b0, j, k + b1).r() ? 1 : 0) + (world.getType(i + b0, j + 1, k + b1).r() ? 1 : 0);
+        boolean flag = world.getType(i - b0, j, k - b1) == block || world.getType(i - b0, j + 1, k - b1) == block;
+        boolean flag1 = world.getType(i + b0, j, k + b1) == block || world.getType(i + b0, j + 1, k + b1) == block;
         boolean flag2 = false;
 
         if (flag && !flag1) {
@@ -72,9 +71,9 @@ public class ItemDoor extends Item {
             flag2 = true;
         }
 
-        world.setTypeIdAndData(i, j, k, block.id, l, 2);
-        world.setTypeIdAndData(i, j + 1, k, block.id, 8 | (flag2 ? 1 : 0), 2);
-        world.applyPhysics(i, j, k, block.id);
-        world.applyPhysics(i, j + 1, k, block.id);
+        world.setTypeAndData(i, j, k, block, l, 2);
+        world.setTypeAndData(i, j + 1, k, block, 8 | (flag2 ? 1 : 0), 2);
+        world.applyPhysics(i, j, k, block);
+        world.applyPhysics(i, j + 1, k, block);
     }
 }

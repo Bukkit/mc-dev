@@ -6,7 +6,6 @@ public class WorldMapDecoration {
     public byte locX;
     public byte locY;
     public byte rotation;
-
     final WorldMap e;
 
     public WorldMapDecoration(WorldMap worldmap, byte b0, byte b1, byte b2, byte b3) {

@@ -4,10 +4,16 @@ import java.util.Random;
 
 public class WorldGenFlowers extends WorldGenerator {
 
-    private int a;
+    private Block a;
+    private int b;
 
-    public WorldGenFlowers(int i) {
-        this.a = i;
+    public WorldGenFlowers(Block block) {
+        this.a = block;
+    }
+
+    public void a(Block block, int i) {
+        this.a = block;
+        this.b = i;
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
@@ -16,8 +22,8 @@ public class WorldGenFlowers extends WorldGenerator {
             int j1 = j + random.nextInt(4) - random.nextInt(4);
             int k1 = k + random.nextInt(8) - random.nextInt(8);
 
-            if (world.isEmpty(i1, j1, k1) && (!world.worldProvider.g || j1 < 127) && Block.byId[this.a].f(world, i1, j1, k1)) {
-                world.setTypeIdAndData(i1, j1, k1, this.a, 0, 2);
+            if (world.isEmpty(i1, j1, k1) && (!world.worldProvider.g || j1 < 255) && this.a.j(world, i1, j1, k1)) {
+                world.setTypeAndData(i1, j1, k1, this.a, this.b, 2);
             }
         }
 

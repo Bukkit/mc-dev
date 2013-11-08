@@ -16,18 +16,18 @@ public class EntityPigZombie extends EntityZombie {
         this.fireProof = true;
     }
 
-    protected void az() {
-        super.az();
+    protected void aD() {
+        super.aD();
         this.getAttributeInstance(bp).setValue(0.0D);
         this.getAttributeInstance(GenericAttributes.d).setValue(0.5D);
         this.getAttributeInstance(GenericAttributes.e).setValue(5.0D);
     }
 
-    protected boolean bf() {
+    protected boolean bk() {
         return false;
     }
 
-    public void l_() {
+    public void h() {
         if (this.bu != this.target && !this.world.isStatic) {
             AttributeInstance attributeinstance = this.getAttributeInstance(GenericAttributes.d);
 
@@ -39,14 +39,14 @@ public class EntityPigZombie extends EntityZombie {
 
         this.bu = this.target;
         if (this.soundDelay > 0 && --this.soundDelay == 0) {
-            this.makeSound("mob.zombiepig.zpigangry", this.ba() * 2.0F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+            this.makeSound("mob.zombiepig.zpigangry", this.bf() * 2.0F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
-        super.l_();
+        super.h();
     }
 
     public boolean canSpawn() {
-        return this.world.difficulty > 0 && this.world.b(this.boundingBox) && this.world.getCubes(this, this.boundingBox).isEmpty() && !this.world.containsLiquid(this.boundingBox);
+        return this.world.difficulty != EnumDifficulty.PEACEFUL && this.world.b(this.boundingBox) && this.world.getCubes(this, this.boundingBox).isEmpty() && !this.world.containsLiquid(this.boundingBox);
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -95,15 +95,15 @@ public class EntityPigZombie extends EntityZombie {
         this.soundDelay = this.random.nextInt(40);
     }
 
-    protected String r() {
+    protected String t() {
         return "mob.zombiepig.zpig";
     }
 
-    protected String aO() {
+    protected String aT() {
         return "mob.zombiepig.zpighurt";
     }
 
-    protected String aP() {
+    protected String aU() {
         return "mob.zombiepig.zpigdeath";
     }
 
@@ -113,13 +113,13 @@ public class EntityPigZombie extends EntityZombie {
         int k;
 
         for (k = 0; k < j; ++k) {
-            this.b(Item.ROTTEN_FLESH.id, 1);
+            this.a(Items.ROTTEN_FLESH, 1);
         }
 
         j = this.random.nextInt(2 + i);
 
         for (k = 0; k < j; ++k) {
-            this.b(Item.GOLD_NUGGET.id, 1);
+            this.a(Items.GOLD_NUGGET, 1);
         }
     }
 
@@ -127,16 +127,12 @@ public class EntityPigZombie extends EntityZombie {
         return false;
     }
 
-    protected void l(int i) {
-        this.b(Item.GOLD_INGOT.id, 1);
+    protected void getRareDrop(int i) {
+        this.a(Items.GOLD_INGOT, 1);
     }
 
-    protected int getLootId() {
-        return Item.ROTTEN_FLESH.id;
-    }
-
-    protected void bw() {
-        this.setEquipment(0, new ItemStack(Item.GOLD_SWORD));
+    protected void bA() {
+        this.setEquipment(0, new ItemStack(Items.GOLD_SWORD));
     }
 
     public GroupDataEntity a(GroupDataEntity groupdataentity) {

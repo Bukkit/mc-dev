@@ -9,27 +9,31 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class WorldServer extends World {
 
+    private static final Logger a = LogManager.getLogger();
     private final MinecraftServer server;
     private final EntityTracker tracker;
     private final PlayerChunkMap manager;
-    private Set L;
-    private TreeSet M;
+    private Set M;
+    private TreeSet N;
     public ChunkProviderServer chunkProviderServer;
     public boolean savingDisabled;
-    private boolean N;
+    private boolean O;
     private int emptyTime;
-    private final PortalTravelAgent P;
-    private final SpawnerCreature Q = new SpawnerCreature();
-    private NoteDataList[] R = new NoteDataList[] { new NoteDataList((EmptyClass2) null), new NoteDataList((EmptyClass2) null)};
-    private int S;
-    private static final StructurePieceTreasure[] T = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.STICK.id, 0, 1, 3, 10), new StructurePieceTreasure(Block.WOOD.id, 0, 1, 3, 10), new StructurePieceTreasure(Block.LOG.id, 0, 1, 3, 10), new StructurePieceTreasure(Item.STONE_AXE.id, 0, 1, 1, 3), new StructurePieceTreasure(Item.WOOD_AXE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.STONE_PICKAXE.id, 0, 1, 1, 3), new StructurePieceTreasure(Item.WOOD_PICKAXE.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.APPLE.id, 0, 2, 3, 5), new StructurePieceTreasure(Item.BREAD.id, 0, 2, 3, 3)};
-    private List U = new ArrayList();
+    private final PortalTravelAgent Q;
+    private final SpawnerCreature R = new SpawnerCreature();
+    private NoteDataList[] S = new NoteDataList[] { new NoteDataList((EmptyClass2) null), new NoteDataList((EmptyClass2) null)};
+    private int T;
+    private static final StructurePieceTreasure[] U = new StructurePieceTreasure[] { new StructurePieceTreasure(Items.STICK, 0, 1, 3, 10), new StructurePieceTreasure(Item.getItemOf(Blocks.WOOD), 0, 1, 3, 10), new StructurePieceTreasure(Item.getItemOf(Blocks.LOG), 0, 1, 3, 10), new StructurePieceTreasure(Items.STONE_AXE, 0, 1, 1, 3), new StructurePieceTreasure(Items.WOOD_AXE, 0, 1, 1, 5), new StructurePieceTreasure(Items.STONE_PICKAXE, 0, 1, 1, 3), new StructurePieceTreasure(Items.WOOD_PICKAXE, 0, 1, 1, 5), new StructurePieceTreasure(Items.APPLE, 0, 2, 3, 5), new StructurePieceTreasure(Items.BREAD, 0, 2, 3, 3), new StructurePieceTreasure(Item.getItemOf(Blocks.LOG2), 0, 1, 3, 10)};
+    private List V = new ArrayList();
     private IntHashMap entitiesById;
 
-    public WorldServer(MinecraftServer minecraftserver, IDataManager idatamanager, String s, int i, WorldSettings worldsettings, MethodProfiler methodprofiler, IConsoleLogManager iconsolelogmanager) {
-        super(idatamanager, s, worldsettings, WorldProvider.byDimension(i), methodprofiler, iconsolelogmanager);
+    public WorldServer(MinecraftServer minecraftserver, IDataManager idatamanager, String s, int i, WorldSettings worldsettings, MethodProfiler methodprofiler) {
+        super(idatamanager, s, worldsettings, WorldProvider.byDimension(i), methodprofiler);
         this.server = minecraftserver;
         this.tracker = new EntityTracker(this);
         this.manager = new PlayerChunkMap(this, minecraftserver.getPlayerList().o());
@@ -37,31 +41,31 @@ public class WorldServer extends World {
             this.entitiesById = new IntHashMap();
         }
 
-        if (this.L == null) {
-            this.L = new HashSet();
-        }
-
         if (this.M == null) {
-            this.M = new TreeSet();
+            this.M = new HashSet();
         }
 
-        this.P = new PortalTravelAgent(this);
+        if (this.N == null) {
+            this.N = new TreeSet();
+        }
+
+        this.Q = new PortalTravelAgent(this);
         this.scoreboard = new ScoreboardServer(minecraftserver);
-        ScoreboardSaveData scoreboardsavedata = (ScoreboardSaveData) this.worldMaps.get(ScoreboardSaveData.class, "scoreboard");
+        PersistentScoreboard persistentscoreboard = (PersistentScoreboard) this.worldMaps.get(PersistentScoreboard.class, "scoreboard");
 
-        if (scoreboardsavedata == null) {
-            scoreboardsavedata = new ScoreboardSaveData();
-            this.worldMaps.a("scoreboard", scoreboardsavedata);
+        if (persistentscoreboard == null) {
+            persistentscoreboard = new PersistentScoreboard();
+            this.worldMaps.a("scoreboard", persistentscoreboard);
         }
 
-        scoreboardsavedata.a(this.scoreboard);
-        ((ScoreboardServer) this.scoreboard).a(scoreboardsavedata);
+        persistentscoreboard.a(this.scoreboard);
+        ((ScoreboardServer) this.scoreboard).a(persistentscoreboard);
     }
 
     public void doTick() {
         super.doTick();
-        if (this.getWorldData().isHardcore() && this.difficulty < 3) {
-            this.difficulty = 3;
+        if (this.getWorldData().isHardcore() && this.difficulty != EnumDifficulty.HARD) {
+            this.difficulty = EnumDifficulty.HARD;
         }
 
         this.worldProvider.e.b();
@@ -77,7 +81,7 @@ public class WorldServer extends World {
 
         this.methodProfiler.a("mobSpawner");
         if (this.getGameRules().getBoolean("doMobSpawning")) {
-            this.Q.spawnEntities(this, this.allowMonsters, this.allowAnimals, this.worldData.getTime() % 400L == 0L);
+            this.R.spawnEntities(this, this.allowMonsters, this.allowAnimals, this.worldData.getTime() % 400L == 0L);
         }
 
         this.methodProfiler.c("chunkSource");
@@ -95,7 +99,7 @@ public class WorldServer extends World {
 
         this.methodProfiler.c("tickPending");
         this.a(false);
-        this.methodProfiler.c("tickTiles");
+        this.methodProfiler.c("tickBlocks");
         this.g();
         this.methodProfiler.c("chunkMap");
         this.manager.flush();
@@ -103,33 +107,33 @@ public class WorldServer extends World {
         this.villages.tick();
         this.siegeManager.a();
         this.methodProfiler.c("portalForcer");
-        this.P.a(this.getTime());
+        this.Q.a(this.getTime());
         this.methodProfiler.b();
-        this.aa();
+        this.Z();
     }
 
     public BiomeMeta a(EnumCreatureType enumcreaturetype, int i, int j, int k) {
-        List list = this.L().getMobsFor(enumcreaturetype, i, j, k);
+        List list = this.K().getMobsFor(enumcreaturetype, i, j, k);
 
         return list != null && !list.isEmpty() ? (BiomeMeta) WeightedRandom.a(this.random, (Collection) list) : null;
     }
 
     public void everyoneSleeping() {
-        this.N = !this.players.isEmpty();
+        this.O = !this.players.isEmpty();
         Iterator iterator = this.players.iterator();
 
         while (iterator.hasNext()) {
             EntityHuman entityhuman = (EntityHuman) iterator.next();
 
             if (!entityhuman.isSleeping()) {
-                this.N = false;
+                this.O = false;
                 break;
             }
         }
     }
 
     protected void d() {
-        this.N = false;
+        this.O = false;
         Iterator iterator = this.players.iterator();
 
         while (iterator.hasNext()) {
@@ -140,10 +144,10 @@ public class WorldServer extends World {
             }
         }
 
-        this.Z();
+        this.Y();
     }
 
-    private void Z() {
+    private void Y() {
         this.worldData.setWeatherDuration(0);
         this.worldData.setStorm(false);
         this.worldData.setThunderDuration(0);
@@ -151,7 +155,7 @@ public class WorldServer extends World {
     }
 
     public boolean everyoneDeeplySleeping() {
-        if (this.N && !this.isStatic) {
+        if (this.O && !this.isStatic) {
             Iterator iterator = this.players.iterator();
 
             EntityHuman entityhuman;
@@ -186,14 +190,14 @@ public class WorldServer extends World {
 
             this.a(k, l, chunk);
             this.methodProfiler.c("tickChunk");
-            chunk.k();
+            chunk.b(false);
             this.methodProfiler.c("thunder");
             int i1;
             int j1;
             int k1;
             int l1;
 
-            if (this.random.nextInt(100000) == 0 && this.Q() && this.P()) {
+            if (this.random.nextInt(100000) == 0 && this.P() && this.O()) {
                 this.k = this.k * 3 + 1013904223;
                 i1 = this.k >> 2;
                 j1 = k + (i1 & 15);
@@ -205,35 +209,30 @@ public class WorldServer extends World {
             }
 
             this.methodProfiler.c("iceandsnow");
-            int i2;
-
             if (this.random.nextInt(16) == 0) {
                 this.k = this.k * 3 + 1013904223;
                 i1 = this.k >> 2;
                 j1 = i1 & 15;
                 k1 = i1 >> 8 & 15;
                 l1 = this.h(j1 + k, k1 + l);
-                if (this.y(j1 + k, l1 - 1, k1 + l)) {
-                    this.setTypeIdUpdate(j1 + k, l1 - 1, k1 + l, Block.ICE.id);
+                if (this.s(j1 + k, l1 - 1, k1 + l)) {
+                    this.setTypeUpdate(j1 + k, l1 - 1, k1 + l, Blocks.ICE);
                 }
 
-                if (this.Q() && this.z(j1 + k, l1, k1 + l)) {
-                    this.setTypeIdUpdate(j1 + k, l1, k1 + l, Block.SNOW.id);
+                if (this.P() && this.e(j1 + k, l1, k1 + l, true)) {
+                    this.setTypeUpdate(j1 + k, l1, k1 + l, Blocks.SNOW);
                 }
 
-                if (this.Q()) {
+                if (this.P()) {
                     BiomeBase biomebase = this.getBiome(j1 + k, k1 + l);
 
-                    if (biomebase.d()) {
-                        i2 = this.getTypeId(j1 + k, l1 - 1, k1 + l);
-                        if (i2 != 0) {
-                            Block.byId[i2].g(this, j1 + k, l1 - 1, k1 + l);
-                        }
+                    if (biomebase.e()) {
+                        this.getType(j1 + k, l1 - 1, k1 + l).l(this, j1 + k, l1 - 1, k1 + l);
                     }
                 }
             }
 
-            this.methodProfiler.c("tickTiles");
+            this.methodProfiler.c("tickBlocks");
             ChunkSection[] achunksection = chunk.i();
 
             j1 = achunksection.length;
@@ -242,18 +241,17 @@ public class WorldServer extends World {
                 ChunkSection chunksection = achunksection[k1];
 
                 if (chunksection != null && chunksection.shouldTick()) {
-                    for (int j2 = 0; j2 < 3; ++j2) {
+                    for (int i2 = 0; i2 < 3; ++i2) {
                         this.k = this.k * 3 + 1013904223;
-                        i2 = this.k >> 2;
-                        int k2 = i2 & 15;
-                        int l2 = i2 >> 8 & 15;
-                        int i3 = i2 >> 16 & 15;
-                        int j3 = chunksection.getTypeId(k2, i3, l2);
+                        int j2 = this.k >> 2;
+                        int k2 = j2 & 15;
+                        int l2 = j2 >> 8 & 15;
+                        int i3 = j2 >> 16 & 15;
 
                         ++j;
-                        Block block = Block.byId[j3];
+                        Block block = chunksection.getTypeId(k2, i3, l2);
 
-                        if (block != null && block.isTicking()) {
+                        if (block.isTicking()) {
                             ++i;
                             block.a(this, k2 + k, i3 + chunksection.getYPosition(), l2 + l, this.random);
                         }
@@ -265,61 +263,61 @@ public class WorldServer extends World {
         }
     }
 
-    public boolean a(int i, int j, int k, int l) {
-        NextTickListEntry nextticklistentry = new NextTickListEntry(i, j, k, l);
+    public boolean a(int i, int j, int k, Block block) {
+        NextTickListEntry nextticklistentry = new NextTickListEntry(i, j, k, block);
 
-        return this.U.contains(nextticklistentry);
+        return this.V.contains(nextticklistentry);
     }
 
-    public void a(int i, int j, int k, int l, int i1) {
-        this.a(i, j, k, l, i1, 0);
+    public void a(int i, int j, int k, Block block, int l) {
+        this.a(i, j, k, block, l, 0);
     }
 
-    public void a(int i, int j, int k, int l, int i1, int j1) {
-        NextTickListEntry nextticklistentry = new NextTickListEntry(i, j, k, l);
+    public void a(int i, int j, int k, Block block, int l, int i1) {
+        NextTickListEntry nextticklistentry = new NextTickListEntry(i, j, k, block);
         byte b0 = 0;
 
-        if (this.d && l > 0) {
-            if (Block.byId[l].l()) {
+        if (this.d && block.getMaterial() != Material.AIR) {
+            if (block.L()) {
                 b0 = 8;
-                if (this.e(nextticklistentry.a - b0, nextticklistentry.b - b0, nextticklistentry.c - b0, nextticklistentry.a + b0, nextticklistentry.b + b0, nextticklistentry.c + b0)) {
-                    int k1 = this.getTypeId(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
+                if (this.b(nextticklistentry.a - b0, nextticklistentry.b - b0, nextticklistentry.c - b0, nextticklistentry.a + b0, nextticklistentry.b + b0, nextticklistentry.c + b0)) {
+                    Block block1 = this.getType(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
 
-                    if (k1 == nextticklistentry.d && k1 > 0) {
-                        Block.byId[k1].a(this, nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, this.random);
+                    if (block1.getMaterial() != Material.AIR && block1 == nextticklistentry.a()) {
+                        block1.a(this, nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, this.random);
                     }
                 }
 
                 return;
             }
 
-            i1 = 1;
+            l = 1;
         }
 
-        if (this.e(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
-            if (l > 0) {
-                nextticklistentry.a((long) i1 + this.worldData.getTime());
-                nextticklistentry.a(j1);
+        if (this.b(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
+            if (block.getMaterial() != Material.AIR) {
+                nextticklistentry.a((long) l + this.worldData.getTime());
+                nextticklistentry.a(i1);
             }
 
-            if (!this.L.contains(nextticklistentry)) {
-                this.L.add(nextticklistentry);
+            if (!this.M.contains(nextticklistentry)) {
                 this.M.add(nextticklistentry);
+                this.N.add(nextticklistentry);
             }
         }
     }
 
-    public void b(int i, int j, int k, int l, int i1, int j1) {
-        NextTickListEntry nextticklistentry = new NextTickListEntry(i, j, k, l);
+    public void b(int i, int j, int k, Block block, int l, int i1) {
+        NextTickListEntry nextticklistentry = new NextTickListEntry(i, j, k, block);
 
-        nextticklistentry.a(j1);
-        if (l > 0) {
-            nextticklistentry.a((long) i1 + this.worldData.getTime());
+        nextticklistentry.a(i1);
+        if (block.getMaterial() != Material.AIR) {
+            nextticklistentry.a((long) l + this.worldData.getTime());
         }
 
-        if (!this.L.contains(nextticklistentry)) {
-            this.L.add(nextticklistentry);
+        if (!this.M.contains(nextticklistentry)) {
             this.M.add(nextticklistentry);
+            this.N.add(nextticklistentry);
         }
     }
 
@@ -340,9 +338,9 @@ public class WorldServer extends World {
     }
 
     public boolean a(boolean flag) {
-        int i = this.M.size();
+        int i = this.N.size();
 
-        if (i != this.L.size()) {
+        if (i != this.M.size()) {
             throw new IllegalStateException("TickNextTick list out of synch");
         } else {
             if (i > 1000) {
@@ -354,55 +352,55 @@ public class WorldServer extends World {
             NextTickListEntry nextticklistentry;
 
             for (int j = 0; j < i; ++j) {
-                nextticklistentry = (NextTickListEntry) this.M.first();
-                if (!flag && nextticklistentry.e > this.worldData.getTime()) {
+                nextticklistentry = (NextTickListEntry) this.N.first();
+                if (!flag && nextticklistentry.d > this.worldData.getTime()) {
                     break;
                 }
 
+                this.N.remove(nextticklistentry);
                 this.M.remove(nextticklistentry);
-                this.L.remove(nextticklistentry);
-                this.U.add(nextticklistentry);
+                this.V.add(nextticklistentry);
             }
 
             this.methodProfiler.b();
             this.methodProfiler.a("ticking");
-            Iterator iterator = this.U.iterator();
+            Iterator iterator = this.V.iterator();
 
             while (iterator.hasNext()) {
                 nextticklistentry = (NextTickListEntry) iterator.next();
                 iterator.remove();
                 byte b0 = 0;
 
-                if (this.e(nextticklistentry.a - b0, nextticklistentry.b - b0, nextticklistentry.c - b0, nextticklistentry.a + b0, nextticklistentry.b + b0, nextticklistentry.c + b0)) {
-                    int k = this.getTypeId(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
+                if (this.b(nextticklistentry.a - b0, nextticklistentry.b - b0, nextticklistentry.c - b0, nextticklistentry.a + b0, nextticklistentry.b + b0, nextticklistentry.c + b0)) {
+                    Block block = this.getType(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
 
-                    if (k > 0 && Block.b(k, nextticklistentry.d)) {
+                    if (block.getMaterial() != Material.AIR && Block.a(block, nextticklistentry.a())) {
                         try {
-                            Block.byId[k].a(this, nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, this.random);
+                            block.a(this, nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, this.random);
                         } catch (Throwable throwable) {
                             CrashReport crashreport = CrashReport.a(throwable, "Exception while ticking a block");
                             CrashReportSystemDetails crashreportsystemdetails = crashreport.a("Block being ticked");
 
-                            int l;
+                            int k;
 
                             try {
-                                l = this.getData(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
+                                k = this.getData(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
                             } catch (Throwable throwable1) {
-                                l = -1;
+                                k = -1;
                             }
 
-                            CrashReportSystemDetails.a(crashreportsystemdetails, nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, k, l);
+                            CrashReportSystemDetails.a(crashreportsystemdetails, nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, block, k);
                             throw new ReportedException(crashreport);
                         }
                     }
                 } else {
-                    this.a(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, nextticklistentry.d, 0);
+                    this.a(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, nextticklistentry.a(), 0);
                 }
             }
 
             this.methodProfiler.b();
-            this.U.clear();
-            return !this.M.isEmpty();
+            this.V.clear();
+            return !this.N.isEmpty();
         }
     }
 
@@ -418,11 +416,11 @@ public class WorldServer extends World {
             Iterator iterator;
 
             if (i1 == 0) {
-                iterator = this.M.iterator();
+                iterator = this.N.iterator();
             } else {
-                iterator = this.U.iterator();
-                if (!this.U.isEmpty()) {
-                    System.out.println(this.U.size());
+                iterator = this.V.iterator();
+                if (!this.V.isEmpty()) {
+                    a.debug("toBeTicked = " + this.V.size());
                 }
             }
 
@@ -431,7 +429,7 @@ public class WorldServer extends World {
 
                 if (nextticklistentry.a >= i && nextticklistentry.a < j && nextticklistentry.c >= k && nextticklistentry.c < l) {
                     if (flag) {
-                        this.L.remove(nextticklistentry);
+                        this.M.remove(nextticklistentry);
                         iterator.remove();
                     }
 
@@ -489,12 +487,12 @@ public class WorldServer extends World {
             this.entitiesById = new IntHashMap();
         }
 
-        if (this.L == null) {
-            this.L = new HashSet();
+        if (this.M == null) {
+            this.M = new HashSet();
         }
 
-        if (this.M == null) {
-            this.M = new TreeSet();
+        if (this.N == null) {
+            this.N = new TreeSet();
         }
 
         this.b(worldsettings);
@@ -518,7 +516,7 @@ public class WorldServer extends World {
                 i = chunkposition.x;
                 k = chunkposition.z;
             } else {
-                this.getLogger().warning("Unable to find spawn biome");
+                a.warn("Unable to find spawn biome");
             }
 
             int l = 0;
@@ -541,7 +539,7 @@ public class WorldServer extends World {
     }
 
     protected void k() {
-        WorldGenBonusChest worldgenbonuschest = new WorldGenBonusChest(T, 10);
+        WorldGenBonusChest worldgenbonuschest = new WorldGenBonusChest(U, 10);
 
         for (int i = 0; i < 10; ++i) {
             int j = this.worldData.c() + this.random.nextInt(6) - this.random.nextInt(6);
@@ -580,31 +578,31 @@ public class WorldServer extends World {
     }
 
     protected void a() {
-        this.G();
+        this.F();
         this.dataManager.saveWorldData(this.worldData, this.server.getPlayerList().q());
         this.worldMaps.a();
     }
 
     protected void a(Entity entity) {
         super.a(entity);
-        this.entitiesById.a(entity.id, entity);
-        Entity[] aentity = entity.ao();
+        this.entitiesById.a(entity.getId(), entity);
+        Entity[] aentity = entity.at();
 
         if (aentity != null) {
             for (int i = 0; i < aentity.length; ++i) {
-                this.entitiesById.a(aentity[i].id, aentity[i]);
+                this.entitiesById.a(aentity[i].getId(), aentity[i]);
             }
         }
     }
 
     protected void b(Entity entity) {
         super.b(entity);
-        this.entitiesById.d(entity.id);
-        Entity[] aentity = entity.ao();
+        this.entitiesById.d(entity.getId());
+        Entity[] aentity = entity.at();
 
         if (aentity != null) {
             for (int i = 0; i < aentity.length; ++i) {
-                this.entitiesById.d(aentity[i].id);
+                this.entitiesById.d(aentity[i].getId());
             }
         }
     }
@@ -615,7 +613,7 @@ public class WorldServer extends World {
 
     public boolean strikeLightning(Entity entity) {
         if (super.strikeLightning(entity)) {
-            this.server.getPlayerList().sendPacketNearby(entity.locX, entity.locY, entity.locZ, 512.0D, this.worldProvider.dimension, new Packet71Weather(entity));
+            this.server.getPlayerList().sendPacketNearby(entity.locX, entity.locY, entity.locZ, 512.0D, this.worldProvider.dimension, new PacketPlayOutSpawnEntityWeather(entity));
             return true;
         } else {
             return false;
@@ -623,9 +621,7 @@ public class WorldServer extends World {
     }
 
     public void broadcastEntityEffect(Entity entity, byte b0) {
-        Packet38EntityStatus packet38entitystatus = new Packet38EntityStatus(entity.id, b0);
-
-        this.getTracker().sendPacketToEntity(entity, packet38entitystatus);
+        this.getTracker().sendPacketToEntity(entity, new PacketPlayOutEntityStatus(entity, b0));
     }
 
     public Explosion createExplosion(Entity entity, double d0, double d1, double d2, float f, boolean flag, boolean flag1) {
@@ -645,22 +641,22 @@ public class WorldServer extends World {
             EntityHuman entityhuman = (EntityHuman) iterator.next();
 
             if (entityhuman.e(d0, d1, d2) < 4096.0D) {
-                ((EntityPlayer) entityhuman).playerConnection.sendPacket(new Packet60Explosion(d0, d1, d2, f, explosion.blocks, (Vec3D) explosion.b().get(entityhuman)));
+                ((EntityPlayer) entityhuman).playerConnection.sendPacket(new PacketPlayOutExplosion(d0, d1, d2, f, explosion.blocks, (Vec3D) explosion.b().get(entityhuman)));
             }
         }
 
         return explosion;
     }
 
-    public void playNote(int i, int j, int k, int l, int i1, int j1) {
-        NoteBlockData noteblockdata = new NoteBlockData(i, j, k, l, i1, j1);
-        Iterator iterator = this.R[this.S].iterator();
+    public void playNote(int i, int j, int k, Block block, int l, int i1) {
+        NoteBlockData noteblockdata = new NoteBlockData(i, j, k, block, l, i1);
+        Iterator iterator = this.S[this.T].iterator();
 
         NoteBlockData noteblockdata1;
 
         do {
             if (!iterator.hasNext()) {
-                this.R[this.S].add(noteblockdata);
+                this.S[this.T].add(noteblockdata);
                 return;
             }
 
@@ -669,29 +665,29 @@ public class WorldServer extends World {
 
     }
 
-    private void aa() {
-        while (!this.R[this.S].isEmpty()) {
-            int i = this.S;
+    private void Z() {
+        while (!this.S[this.T].isEmpty()) {
+            int i = this.T;
 
-            this.S ^= 1;
-            Iterator iterator = this.R[i].iterator();
+            this.T ^= 1;
+            Iterator iterator = this.S[i].iterator();
 
             while (iterator.hasNext()) {
                 NoteBlockData noteblockdata = (NoteBlockData) iterator.next();
 
                 if (this.a(noteblockdata)) {
-                    this.server.getPlayerList().sendPacketNearby((double) noteblockdata.a(), (double) noteblockdata.b(), (double) noteblockdata.c(), 64.0D, this.worldProvider.dimension, new Packet54PlayNoteBlock(noteblockdata.a(), noteblockdata.b(), noteblockdata.c(), noteblockdata.f(), noteblockdata.d(), noteblockdata.e()));
+                    this.server.getPlayerList().sendPacketNearby((double) noteblockdata.a(), (double) noteblockdata.b(), (double) noteblockdata.c(), 64.0D, this.worldProvider.dimension, new PacketPlayOutBlockAction(noteblockdata.a(), noteblockdata.b(), noteblockdata.c(), noteblockdata.f(), noteblockdata.d(), noteblockdata.e()));
                 }
             }
 
-            this.R[i].clear();
+            this.S[i].clear();
         }
     }
 
     private boolean a(NoteBlockData noteblockdata) {
-        int i = this.getTypeId(noteblockdata.a(), noteblockdata.b(), noteblockdata.c());
+        Block block = this.getType(noteblockdata.a(), noteblockdata.b(), noteblockdata.c());
 
-        return i == noteblockdata.f() ? Block.byId[i].b(this, noteblockdata.a(), noteblockdata.b(), noteblockdata.c(), noteblockdata.d(), noteblockdata.e()) : false;
+        return block == noteblockdata.f() ? block.a(this, noteblockdata.a(), noteblockdata.b(), noteblockdata.c(), noteblockdata.d(), noteblockdata.e()) : false;
     }
 
     public void saveLevel() {
@@ -699,15 +695,26 @@ public class WorldServer extends World {
     }
 
     protected void o() {
-        boolean flag = this.Q();
+        boolean flag = this.P();
 
         super.o();
-        if (flag != this.Q()) {
+        if (this.m != this.n) {
+            this.server.getPlayerList().a(new PacketPlayOutGameStateChange(7, this.n), this.worldProvider.dimension);
+        }
+
+        if (this.o != this.p) {
+            this.server.getPlayerList().a(new PacketPlayOutGameStateChange(8, this.p), this.worldProvider.dimension);
+        }
+
+        if (flag != this.P()) {
             if (flag) {
-                this.server.getPlayerList().sendAll(new Packet70Bed(2, 0));
+                this.server.getPlayerList().sendAll(new PacketPlayOutGameStateChange(2, 0.0F));
             } else {
-                this.server.getPlayerList().sendAll(new Packet70Bed(1, 0));
+                this.server.getPlayerList().sendAll(new PacketPlayOutGameStateChange(1, 0.0F));
             }
+
+            this.server.getPlayerList().sendAll(new PacketPlayOutGameStateChange(7, this.n));
+            this.server.getPlayerList().sendAll(new PacketPlayOutGameStateChange(8, this.p));
         }
     }
 
@@ -724,6 +731,23 @@ public class WorldServer extends World {
     }
 
     public PortalTravelAgent t() {
-        return this.P;
+        return this.Q;
+    }
+
+    public void a(String s, double d0, double d1, double d2, int i, double d3, double d4, double d5, double d6) {
+        PacketPlayOutWorldParticles packetplayoutworldparticles = new PacketPlayOutWorldParticles(s, (float) d0, (float) d1, (float) d2, (float) d3, (float) d4, (float) d5, (float) d6, i);
+
+        for (int j = 0; j < this.players.size(); ++j) {
+            EntityPlayer entityplayer = (EntityPlayer) this.players.get(j);
+            ChunkCoordinates chunkcoordinates = entityplayer.getChunkCoordinates();
+            double d7 = d0 - (double) chunkcoordinates.x;
+            double d8 = d1 - (double) chunkcoordinates.y;
+            double d9 = d2 - (double) chunkcoordinates.z;
+            double d10 = d7 * d7 + d8 * d8 + d9 * d9;
+
+            if (d10 <= 256.0D) {
+                entityplayer.playerConnection.sendPacket(packetplayoutworldparticles);
+            }
+        }
     }
 }

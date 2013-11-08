@@ -2,8 +2,8 @@ package net.minecraft.server;
 
 public class BlockPoweredRail extends BlockMinecartTrackAbstract {
 
-    protected BlockPoweredRail(int i) {
-        super(i, true);
+    protected BlockPoweredRail() {
+        super(true);
     }
 
     protected boolean a(World world, int i, int j, int k, int l, boolean flag, int i1) {
@@ -83,33 +83,33 @@ public class BlockPoweredRail extends BlockMinecartTrackAbstract {
     }
 
     protected boolean a(World world, int i, int j, int k, boolean flag, int l, int i1) {
-        int j1 = world.getTypeId(i, j, k);
+        Block block = world.getType(i, j, k);
 
-        if (j1 == this.id) {
-            int k1 = world.getData(i, j, k);
-            int l1 = k1 & 7;
+        if (block == this) {
+            int j1 = world.getData(i, j, k);
+            int k1 = j1 & 7;
 
-            if (i1 == 1 && (l1 == 0 || l1 == 4 || l1 == 5)) {
+            if (i1 == 1 && (k1 == 0 || k1 == 4 || k1 == 5)) {
                 return false;
             }
 
-            if (i1 == 0 && (l1 == 1 || l1 == 2 || l1 == 3)) {
+            if (i1 == 0 && (k1 == 1 || k1 == 2 || k1 == 3)) {
                 return false;
             }
 
-            if ((k1 & 8) != 0) {
+            if ((j1 & 8) != 0) {
                 if (world.isBlockIndirectlyPowered(i, j, k)) {
                     return true;
                 }
 
-                return this.a(world, i, j, k, k1, flag, l + 1);
+                return this.a(world, i, j, k, j1, flag, l + 1);
             }
         }
 
         return false;
     }
 
-    protected void a(World world, int i, int j, int k, int l, int i1, int j1) {
+    protected void a(World world, int i, int j, int k, int l, int i1, Block block) {
         boolean flag = world.isBlockIndirectlyPowered(i, j, k);
 
         flag = flag || this.a(world, i, j, k, l, true, 0) || this.a(world, i, j, k, l, false, 0);
@@ -124,9 +124,9 @@ public class BlockPoweredRail extends BlockMinecartTrackAbstract {
         }
 
         if (flag1) {
-            world.applyPhysics(i, j - 1, k, this.id);
+            world.applyPhysics(i, j - 1, k, this);
             if (i1 == 2 || i1 == 3 || i1 == 4 || i1 == 5) {
-                world.applyPhysics(i, j + 1, k, this.id);
+                world.applyPhysics(i, j + 1, k, this);
             }
         }
     }

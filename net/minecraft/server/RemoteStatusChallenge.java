@@ -11,7 +11,6 @@ class RemoteStatusChallenge {
     private byte[] identity;
     private byte[] response;
     private String f;
-
     final RemoteStatusListener a;
 
     public RemoteStatusChallenge(RemoteStatusListener remotestatuslistener, DatagramPacket datagrampacket) {

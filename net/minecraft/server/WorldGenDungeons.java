@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class WorldGenDungeons extends WorldGenerator {
 
-    private static final StructurePieceTreasure[] a = new StructurePieceTreasure[] { new StructurePieceTreasure(Item.SADDLE.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.IRON_INGOT.id, 0, 1, 4, 10), new StructurePieceTreasure(Item.BREAD.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.WHEAT.id, 0, 1, 4, 10), new StructurePieceTreasure(Item.SULPHUR.id, 0, 1, 4, 10), new StructurePieceTreasure(Item.STRING.id, 0, 1, 4, 10), new StructurePieceTreasure(Item.BUCKET.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.GOLDEN_APPLE.id, 0, 1, 1, 1), new StructurePieceTreasure(Item.REDSTONE.id, 0, 1, 4, 10), new StructurePieceTreasure(Item.RECORD_1.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.RECORD_2.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.NAME_TAG.id, 0, 1, 1, 10), new StructurePieceTreasure(Item.HORSE_ARMOR_GOLD.id, 0, 1, 1, 2), new StructurePieceTreasure(Item.HORSE_ARMOR_IRON.id, 0, 1, 1, 5), new StructurePieceTreasure(Item.HORSE_ARMOR_DIAMOND.id, 0, 1, 1, 1)};
+    private static final StructurePieceTreasure[] a = new StructurePieceTreasure[] { new StructurePieceTreasure(Items.SADDLE, 0, 1, 1, 10), new StructurePieceTreasure(Items.IRON_INGOT, 0, 1, 4, 10), new StructurePieceTreasure(Items.BREAD, 0, 1, 1, 10), new StructurePieceTreasure(Items.WHEAT, 0, 1, 4, 10), new StructurePieceTreasure(Items.SULPHUR, 0, 1, 4, 10), new StructurePieceTreasure(Items.STRING, 0, 1, 4, 10), new StructurePieceTreasure(Items.BUCKET, 0, 1, 1, 10), new StructurePieceTreasure(Items.GOLDEN_APPLE, 0, 1, 1, 1), new StructurePieceTreasure(Items.REDSTONE, 0, 1, 4, 10), new StructurePieceTreasure(Items.RECORD_1, 0, 1, 1, 10), new StructurePieceTreasure(Items.RECORD_2, 0, 1, 1, 10), new StructurePieceTreasure(Items.NAME_TAG, 0, 1, 1, 10), new StructurePieceTreasure(Items.HORSE_ARMOR_GOLD, 0, 1, 1, 2), new StructurePieceTreasure(Items.HORSE_ARMOR_IRON, 0, 1, 1, 5), new StructurePieceTreasure(Items.HORSE_ARMOR_DIAMOND, 0, 1, 1, 1)};
 
     public WorldGenDungeons() {}
 
@@ -21,7 +21,7 @@ public class WorldGenDungeons extends WorldGenerator {
         for (k1 = i - l - 1; k1 <= i + l + 1; ++k1) {
             for (l1 = j - 1; l1 <= j + b0 + 1; ++l1) {
                 for (i2 = k - i1 - 1; i2 <= k + i1 + 1; ++i2) {
-                    Material material = world.getMaterial(k1, l1, i2);
+                    Material material = world.getType(k1, l1, i2).getMaterial();
 
                     if (l1 == j - 1 && !material.isBuildable()) {
                         return false;
@@ -44,13 +44,13 @@ public class WorldGenDungeons extends WorldGenerator {
                     for (i2 = k - i1 - 1; i2 <= k + i1 + 1; ++i2) {
                         if (k1 != i - l - 1 && l1 != j - 1 && i2 != k - i1 - 1 && k1 != i + l + 1 && l1 != j + b0 + 1 && i2 != k + i1 + 1) {
                             world.setAir(k1, l1, i2);
-                        } else if (l1 >= 0 && !world.getMaterial(k1, l1 - 1, i2).isBuildable()) {
+                        } else if (l1 >= 0 && !world.getType(k1, l1 - 1, i2).getMaterial().isBuildable()) {
                             world.setAir(k1, l1, i2);
-                        } else if (world.getMaterial(k1, l1, i2).isBuildable()) {
+                        } else if (world.getType(k1, l1, i2).getMaterial().isBuildable()) {
                             if (l1 == j - 1 && random.nextInt(4) != 0) {
-                                world.setTypeIdAndData(k1, l1, i2, Block.MOSSY_COBBLESTONE.id, 0, 2);
+                                world.setTypeAndData(k1, l1, i2, Blocks.MOSSY_COBBLESTONE, 0, 2);
                             } else {
-                                world.setTypeIdAndData(k1, l1, i2, Block.COBBLESTONE.id, 0, 2);
+                                world.setTypeAndData(k1, l1, i2, Blocks.COBBLESTONE, 0, 2);
                             }
                         }
                     }
@@ -71,25 +71,25 @@ public class WorldGenDungeons extends WorldGenerator {
                             if (world.isEmpty(i2, j, j2)) {
                                 int k2 = 0;
 
-                                if (world.getMaterial(i2 - 1, j, j2).isBuildable()) {
+                                if (world.getType(i2 - 1, j, j2).getMaterial().isBuildable()) {
                                     ++k2;
                                 }
 
-                                if (world.getMaterial(i2 + 1, j, j2).isBuildable()) {
+                                if (world.getType(i2 + 1, j, j2).getMaterial().isBuildable()) {
                                     ++k2;
                                 }
 
-                                if (world.getMaterial(i2, j, j2 - 1).isBuildable()) {
+                                if (world.getType(i2, j, j2 - 1).getMaterial().isBuildable()) {
                                     ++k2;
                                 }
 
-                                if (world.getMaterial(i2, j, j2 + 1).isBuildable()) {
+                                if (world.getType(i2, j, j2 + 1).getMaterial().isBuildable()) {
                                     ++k2;
                                 }
 
                                 if (k2 == 1) {
-                                    world.setTypeIdAndData(i2, j, j2, Block.CHEST.id, 0, 2);
-                                    StructurePieceTreasure[] astructurepiecetreasure = StructurePieceTreasure.a(a, new StructurePieceTreasure[] { Item.ENCHANTED_BOOK.b(random)});
+                                    world.setTypeAndData(i2, j, j2, Blocks.CHEST, 0, 2);
+                                    StructurePieceTreasure[] astructurepiecetreasure = StructurePieceTreasure.a(a, new StructurePieceTreasure[] { Items.ENCHANTED_BOOK.b(random)});
                                     TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i2, j, j2);
 
                                     if (tileentitychest != null) {
@@ -109,7 +109,7 @@ public class WorldGenDungeons extends WorldGenerator {
                 }
             }
 
-            world.setTypeIdAndData(i, j, k, Block.MOB_SPAWNER.id, 0, 2);
+            world.setTypeAndData(i, j, k, Blocks.MOB_SPAWNER, 0, 2);
             TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(i, j, k);
 
             if (tileentitymobspawner != null) {

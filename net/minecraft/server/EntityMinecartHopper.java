@@ -15,15 +15,15 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         super(world, d0, d1, d2);
     }
 
-    public int getType() {
+    public int m() {
         return 5;
     }
 
-    public Block n() {
-        return Block.HOPPER;
+    public Block o() {
+        return Blocks.HOPPER;
     }
 
-    public int r() {
+    public int s() {
         return 1;
     }
 
@@ -42,12 +42,12 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     public void a(int i, int j, int k, boolean flag) {
         boolean flag1 = !flag;
 
-        if (flag1 != this.u()) {
+        if (flag1 != this.v()) {
             this.f(flag1);
         }
     }
 
-    public boolean u() {
+    public boolean v() {
         return this.a;
     }
 
@@ -59,33 +59,33 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         return this.world;
     }
 
-    public double aA() {
+    public double x() {
         return this.locX;
     }
 
-    public double aB() {
+    public double aD() {
         return this.locY;
     }
 
-    public double aC() {
+    public double aE() {
         return this.locZ;
     }
 
-    public void l_() {
-        super.l_();
-        if (!this.world.isStatic && this.isAlive() && this.u()) {
+    public void h() {
+        super.h();
+        if (!this.world.isStatic && this.isAlive() && this.v()) {
             --this.b;
-            if (!this.aE()) {
-                this.l(0);
-                if (this.aD()) {
-                    this.l(4);
+            if (!this.aG()) {
+                this.n(0);
+                if (this.aF()) {
+                    this.n(4);
                     this.update();
                 }
             }
         }
     }
 
-    public boolean aD() {
+    public boolean aF() {
         if (TileEntityHopper.suckInItems(this)) {
             return true;
         } else {
@@ -101,7 +101,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 
     public void a(DamageSource damagesource) {
         super.a(damagesource);
-        this.a(Block.HOPPER.id, 1, 0.0F);
+        this.a(Item.getItemOf(Blocks.HOPPER), 1, 0.0F);
     }
 
     protected void b(NBTTagCompound nbttagcompound) {
@@ -114,11 +114,11 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         this.b = nbttagcompound.getInt("TransferCooldown");
     }
 
-    public void l(int i) {
+    public void n(int i) {
         this.b = i;
     }
 
-    public boolean aE() {
+    public boolean aG() {
         return this.b > 0;
     }
 }

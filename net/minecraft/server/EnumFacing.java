@@ -9,7 +9,6 @@ public enum EnumFacing {
     private final int j;
     private final int k;
     private static final EnumFacing[] l = new EnumFacing[6];
-
     private static final EnumFacing[] m = new EnumFacing[] { DOWN, UP, NORTH, SOUTH, EAST, WEST};
 
     private EnumFacing(String s, int i, int j, int k, int l, int i1, int j1) {
