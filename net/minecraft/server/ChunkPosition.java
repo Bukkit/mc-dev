@@ -13,7 +13,7 @@ public class ChunkPosition {
     }
 
     public ChunkPosition(Vec3D vec3d) {
-        this(MathHelper.floor(vec3d.c), MathHelper.floor(vec3d.d), MathHelper.floor(vec3d.e));
+        this(MathHelper.floor(vec3d.a), MathHelper.floor(vec3d.b), MathHelper.floor(vec3d.c));
     }
 
     public boolean equals(Object object) {

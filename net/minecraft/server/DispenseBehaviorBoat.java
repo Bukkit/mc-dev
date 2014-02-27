@@ -9,12 +9,12 @@ final class DispenseBehaviorBoat extends DispenseBehaviorItem {
     public ItemStack b(ISourceBlock isourceblock, ItemStack itemstack) {
         EnumFacing enumfacing = BlockDispenser.b(isourceblock.h());
         World world = isourceblock.k();
-        double d0 = isourceblock.getX() + (double) ((float) enumfacing.c() * 1.125F);
-        double d1 = isourceblock.getY() + (double) ((float) enumfacing.d() * 1.125F);
-        double d2 = isourceblock.getZ() + (double) ((float) enumfacing.e() * 1.125F);
-        int i = isourceblock.getBlockX() + enumfacing.c();
-        int j = isourceblock.getBlockY() + enumfacing.d();
-        int k = isourceblock.getBlockZ() + enumfacing.e();
+        double d0 = isourceblock.getX() + (double) ((float) enumfacing.getAdjacentX() * 1.125F);
+        double d1 = isourceblock.getY() + (double) ((float) enumfacing.getAdjacentY() * 1.125F);
+        double d2 = isourceblock.getZ() + (double) ((float) enumfacing.getAdjacentZ() * 1.125F);
+        int i = isourceblock.getBlockX() + enumfacing.getAdjacentX();
+        int j = isourceblock.getBlockY() + enumfacing.getAdjacentY();
+        int k = isourceblock.getBlockZ() + enumfacing.getAdjacentZ();
         Material material = world.getType(i, j, k).getMaterial();
         double d3;
 

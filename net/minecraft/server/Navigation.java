@@ -98,9 +98,9 @@ public class Navigation {
                 Vec3D vec3d = this.j();
 
                 this.h = this.g;
+                this.i.a = vec3d.a;
+                this.i.b = vec3d.b;
                 this.i.c = vec3d.c;
-                this.i.d = vec3d.d;
-                this.i.e = vec3d.e;
                 return true;
             }
         }
@@ -121,7 +121,7 @@ public class Navigation {
                 Vec3D vec3d = this.c.a((Entity) this.a);
 
                 if (vec3d != null) {
-                    this.a.getControllerMove().a(vec3d.c, vec3d.d, vec3d.e, this.d);
+                    this.a.getControllerMove().a(vec3d.a, vec3d.b, vec3d.c, this.d);
                 }
             }
         }
@@ -132,7 +132,7 @@ public class Navigation {
         int i = this.c.d();
 
         for (int j = this.c.e(); j < this.c.d(); ++j) {
-            if (this.c.a(j).b != (int) vec3d.d) {
+            if (this.c.a(j).b != (int) vec3d.b) {
                 i = j;
                 break;
             }
@@ -165,9 +165,9 @@ public class Navigation {
             }
 
             this.h = this.g;
+            this.i.a = vec3d.a;
+            this.i.b = vec3d.b;
             this.i.c = vec3d.c;
-            this.i.d = vec3d.d;
-            this.i.e = vec3d.e;
         }
     }
 
@@ -180,11 +180,11 @@ public class Navigation {
     }
 
     private Vec3D j() {
-        return this.b.getVec3DPool().create(this.a.locX, (double) this.k(), this.a.locZ);
+        return Vec3D.a(this.a.locX, (double) this.k(), this.a.locZ);
     }
 
     private int k() {
-        if (this.a.M() && this.m) {
+        if (this.a.L() && this.m) {
             int i = (int) this.a.boundingBox.b;
             Block block = this.b.getType(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
             int j = 0;
@@ -206,11 +206,11 @@ public class Navigation {
     }
 
     private boolean l() {
-        return this.a.onGround || this.m && this.m();
+        return this.a.onGround || this.m && this.m() || this.a.al() && this.a instanceof EntityZombie && this.a.vehicle instanceof EntityChicken;
     }
 
     private boolean m() {
-        return this.a.M() || this.a.P();
+        return this.a.L() || this.a.O();
     }
 
     private void n() {
@@ -227,10 +227,10 @@ public class Navigation {
     }
 
     private boolean a(Vec3D vec3d, Vec3D vec3d1, int i, int j, int k) {
-        int l = MathHelper.floor(vec3d.c);
-        int i1 = MathHelper.floor(vec3d.e);
-        double d0 = vec3d1.c - vec3d.c;
-        double d1 = vec3d1.e - vec3d.e;
+        int l = MathHelper.floor(vec3d.a);
+        int i1 = MathHelper.floor(vec3d.c);
+        double d0 = vec3d1.a - vec3d.a;
+        double d1 = vec3d1.c - vec3d.c;
         double d2 = d0 * d0 + d1 * d1;
 
         if (d2 < 1.0E-8D) {
@@ -242,15 +242,15 @@ public class Navigation {
             d1 *= d3;
             i += 2;
             k += 2;
-            if (!this.a(l, (int) vec3d.d, i1, i, j, k, vec3d, d0, d1)) {
+            if (!this.a(l, (int) vec3d.b, i1, i, j, k, vec3d, d0, d1)) {
                 return false;
             } else {
                 i -= 2;
                 k -= 2;
                 double d4 = 1.0D / Math.abs(d0);
                 double d5 = 1.0D / Math.abs(d1);
-                double d6 = (double) (l * 1) - vec3d.c;
-                double d7 = (double) (i1 * 1) - vec3d.e;
+                double d6 = (double) (l * 1) - vec3d.a;
+                double d7 = (double) (i1 * 1) - vec3d.c;
 
                 if (d0 >= 0.0D) {
                     ++d6;
@@ -264,8 +264,8 @@ public class Navigation {
                 d7 /= d1;
                 int j1 = d0 < 0.0D ? -1 : 1;
                 int k1 = d1 < 0.0D ? -1 : 1;
-                int l1 = MathHelper.floor(vec3d1.c);
-                int i2 = MathHelper.floor(vec3d1.e);
+                int l1 = MathHelper.floor(vec3d1.a);
+                int i2 = MathHelper.floor(vec3d1.c);
                 int j2 = l1 - l;
                 int k2 = i2 - i1;
 
@@ -283,7 +283,7 @@ public class Navigation {
                         i1 += k1;
                         k2 = i2 - i1;
                     }
-                } while (this.a(l, (int) vec3d.d, i1, i, j, k, vec3d, d0, d1));
+                } while (this.a(l, (int) vec3d.b, i1, i, j, k, vec3d, d0, d1));
 
                 return false;
             }
@@ -299,8 +299,8 @@ public class Navigation {
         } else {
             for (int i2 = k1; i2 < k1 + l; ++i2) {
                 for (int j2 = l1; j2 < l1 + j1; ++j2) {
-                    double d2 = (double) i2 + 0.5D - vec3d.c;
-                    double d3 = (double) j2 + 0.5D - vec3d.e;
+                    double d2 = (double) i2 + 0.5D - vec3d.a;
+                    double d3 = (double) j2 + 0.5D - vec3d.c;
 
                     if (d2 * d0 + d3 * d1 >= 0.0D) {
                         Block block = this.b.getType(i2, j - 1, j2);
@@ -310,7 +310,7 @@ public class Navigation {
                             return false;
                         }
 
-                        if (material == Material.WATER && !this.a.M()) {
+                        if (material == Material.WATER && !this.a.L()) {
                             return false;
                         }
 
@@ -329,8 +329,8 @@ public class Navigation {
         for (int k1 = i; k1 < i + l; ++k1) {
             for (int l1 = j; l1 < j + i1; ++l1) {
                 for (int i2 = k; i2 < k + j1; ++i2) {
-                    double d2 = (double) k1 + 0.5D - vec3d.c;
-                    double d3 = (double) i2 + 0.5D - vec3d.e;
+                    double d2 = (double) k1 + 0.5D - vec3d.a;
+                    double d3 = (double) i2 + 0.5D - vec3d.c;
 
                     if (d2 * d0 + d3 * d1 >= 0.0D) {
                         Block block = this.b.getType(k1, l1, i2);

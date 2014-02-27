@@ -60,7 +60,7 @@ final class ChatStyleRoot extends ChatModifier {
         throw new UnsupportedOperationException();
     }
 
-    public ChatModifier a(ChatClickable chatclickable) {
+    public ChatModifier setChatClickable(ChatClickable chatclickable) {
         throw new UnsupportedOperationException();
     }
 

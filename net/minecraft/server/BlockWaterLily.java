@@ -23,7 +23,7 @@ public class BlockWaterLily extends BlockPlant {
     }
 
     public AxisAlignedBB a(World world, int i, int j, int k) {
-        return AxisAlignedBB.a().a((double) i + this.minX, (double) j + this.minY, (double) k + this.minZ, (double) i + this.maxX, (double) j + this.maxY, (double) k + this.maxZ);
+        return AxisAlignedBB.a((double) i + this.minX, (double) j + this.minY, (double) k + this.minZ, (double) i + this.maxX, (double) j + this.maxY, (double) k + this.maxZ);
     }
 
     protected boolean a(Block block) {

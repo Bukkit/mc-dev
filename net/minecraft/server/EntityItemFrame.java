@@ -129,7 +129,7 @@ public class EntityItemFrame extends EntityHanging {
 
     public boolean c(EntityHuman entityhuman) {
         if (this.getItem() == null) {
-            ItemStack itemstack = entityhuman.be();
+            ItemStack itemstack = entityhuman.bd();
 
             if (itemstack != null && !this.world.isStatic) {
                 this.setItem(itemstack);

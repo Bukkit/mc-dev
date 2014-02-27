@@ -4,7 +4,7 @@ public class CommandPlaySound extends CommandAbstract {
 
     public CommandPlaySound() {}
 
-    public String c() {
+    public String getCommand() {
         return "playsound";
     }
 
@@ -16,7 +16,7 @@ public class CommandPlaySound extends CommandAbstract {
         return "commands.playsound.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length < 2) {
             throw new ExceptionUsage(this.c(icommandlistener), new Object[0]);
         } else {
@@ -82,11 +82,11 @@ public class CommandPlaySound extends CommandAbstract {
                 entityplayer.playerConnection.sendPacket(new PacketPlayOutNamedSoundEffect(s, d0, d1, d2, (float) d3, (float) d4));
             }
 
-            a(icommandlistener, "commands.playsound.success", new Object[] { s, entityplayer.getName()});
+            a(icommandlistener, this, "commands.playsound.success", new Object[] { s, entityplayer.getName()});
         }
     }
 
-    public boolean a(String[] astring, int i) {
+    public boolean isListStart(String[] astring, int i) {
         return i == 1;
     }
 }

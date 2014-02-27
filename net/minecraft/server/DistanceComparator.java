@@ -11,8 +11,8 @@ public class DistanceComparator implements Comparator {
     }
 
     public int a(Entity entity, Entity entity1) {
-        double d0 = this.a.e(entity);
-        double d1 = this.a.e(entity1);
+        double d0 = this.a.f(entity);
+        double d1 = this.a.f(entity1);
 
         return d0 < d1 ? -1 : (d0 > d1 ? 1 : 0);
     }

@@ -165,11 +165,11 @@ public abstract class EntityHanging extends Entity {
         }
     }
 
-    public boolean R() {
+    public boolean Q() {
         return true;
     }
 
-    public boolean i(Entity entity) {
+    public boolean j(Entity entity) {
         return entity instanceof EntityHuman ? this.damageEntity(DamageSource.playerAttack((EntityHuman) entity), 0.0F) : false;
     }
 
@@ -183,7 +183,7 @@ public abstract class EntityHanging extends Entity {
         } else {
             if (!this.dead && !this.world.isStatic) {
                 this.die();
-                this.Q();
+                this.P();
                 this.b(damagesource.getEntity());
             }
 
@@ -262,7 +262,7 @@ public abstract class EntityHanging extends Entity {
 
     public abstract void b(Entity entity);
 
-    protected boolean V() {
+    protected boolean U() {
         return false;
     }
 }

@@ -14,7 +14,7 @@ public class BlockFenceGate extends BlockDirectional {
     public AxisAlignedBB a(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
 
-        return b(l) ? null : (l != 2 && l != 0 ? AxisAlignedBB.a().a((double) ((float) i + 0.375F), (double) j, (double) k, (double) ((float) i + 0.625F), (double) ((float) j + 1.5F), (double) (k + 1)) : AxisAlignedBB.a().a((double) i, (double) j, (double) ((float) k + 0.375F), (double) (i + 1), (double) ((float) j + 1.5F), (double) ((float) k + 0.625F)));
+        return b(l) ? null : (l != 2 && l != 0 ? AxisAlignedBB.a((double) ((float) i + 0.375F), (double) j, (double) k, (double) ((float) i + 0.625F), (double) ((float) j + 1.5F), (double) (k + 1)) : AxisAlignedBB.a((double) i, (double) j, (double) ((float) k + 0.375F), (double) (i + 1), (double) ((float) j + 1.5F), (double) ((float) k + 0.625F)));
     }
 
     public void updateShape(IBlockAccess iblockaccess, int i, int j, int k) {

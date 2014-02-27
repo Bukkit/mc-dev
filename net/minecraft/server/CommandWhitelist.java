@@ -8,7 +8,7 @@ public class CommandWhitelist extends CommandAbstract {
 
     public CommandWhitelist() {}
 
-    public String c() {
+    public String getCommand() {
         return "whitelist";
     }
 
@@ -20,17 +20,17 @@ public class CommandWhitelist extends CommandAbstract {
         return "commands.whitelist.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 1) {
             if (astring[0].equals("on")) {
                 MinecraftServer.getServer().getPlayerList().setHasWhitelist(true);
-                a(icommandlistener, "commands.whitelist.enabled", new Object[0]);
+                a(icommandlistener, this, "commands.whitelist.enabled", new Object[0]);
                 return;
             }
 
             if (astring[0].equals("off")) {
                 MinecraftServer.getServer().getPlayerList().setHasWhitelist(false);
-                a(icommandlistener, "commands.whitelist.disabled", new Object[0]);
+                a(icommandlistener, this, "commands.whitelist.disabled", new Object[0]);
                 return;
             }
 
@@ -48,7 +48,7 @@ public class CommandWhitelist extends CommandAbstract {
                 }
 
                 MinecraftServer.getServer().getPlayerList().addWhitelist(astring[1]);
-                a(icommandlistener, "commands.whitelist.add.success", new Object[] { astring[1]});
+                a(icommandlistener, this, "commands.whitelist.add.success", new Object[] { astring[1]});
                 return;
             }
 
@@ -58,13 +58,13 @@ public class CommandWhitelist extends CommandAbstract {
                 }
 
                 MinecraftServer.getServer().getPlayerList().removeWhitelist(astring[1]);
-                a(icommandlistener, "commands.whitelist.remove.success", new Object[] { astring[1]});
+                a(icommandlistener, this, "commands.whitelist.remove.success", new Object[] { astring[1]});
                 return;
             }
 
             if (astring[0].equals("reload")) {
                 MinecraftServer.getServer().getPlayerList().reloadWhitelist();
-                a(icommandlistener, "commands.whitelist.reloaded", new Object[0]);
+                a(icommandlistener, this, "commands.whitelist.reloaded", new Object[0]);
                 return;
             }
         }
@@ -72,7 +72,7 @@ public class CommandWhitelist extends CommandAbstract {
         throw new ExceptionUsage("commands.whitelist.usage", new Object[0]);
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         if (astring.length == 1) {
             return a(astring, new String[] { "on", "off", "list", "add", "remove", "reload"});
         } else {

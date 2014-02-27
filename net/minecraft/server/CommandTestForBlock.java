@@ -7,7 +7,7 @@ public class CommandTestForBlock extends CommandAbstract {
 
     public CommandTestForBlock() {}
 
-    public String c() {
+    public String getCommand() {
         return "testforblock";
     }
 
@@ -19,7 +19,7 @@ public class CommandTestForBlock extends CommandAbstract {
         return "commands.testforblock.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 4) {
             int i = icommandlistener.getChunkCoordinates().x;
             int j = icommandlistener.getChunkCoordinates().y;
@@ -51,7 +51,7 @@ public class CommandTestForBlock extends CommandAbstract {
                         String s = a(icommandlistener, astring, 5).c();
 
                         try {
-                            NBTBase nbtbase = MojangsonParser.a(s);
+                            NBTBase nbtbase = MojangsonParser.parse(s);
 
                             if (!(nbtbase instanceof NBTTagCompound)) {
                                 throw new CommandException("commands.setblock.tagError", new Object[] { "Not a valid tag"});
@@ -87,7 +87,7 @@ public class CommandTestForBlock extends CommandAbstract {
                             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
                             tileentity.b(nbttagcompound1);
-                            if (!this.a((NBTBase) nbttagcompound, (NBTBase) nbttagcompound1)) {
+                            if (!this.a(nbttagcompound, nbttagcompound1)) {
                                 throw new CommandException("commands.testforblock.failed.nbt", new Object[] { Integer.valueOf(i), Integer.valueOf(j), Integer.valueOf(k)});
                             }
                         }
@@ -133,7 +133,7 @@ public class CommandTestForBlock extends CommandAbstract {
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
-        return astring.length == 4 ? a(astring, (Iterable) Block.REGISTRY.b()) : null;
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
+        return astring.length == 4 ? a(astring, Block.REGISTRY.keySet()) : null;
     }
 }

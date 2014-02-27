@@ -109,7 +109,7 @@ public class BanList {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.c, false));
 
             if (flag) {
-                printwriter.println("# Updated " + (new SimpleDateFormat()).format(new Date()) + " by Minecraft " + "1.7.2");
+                printwriter.println("# Updated " + (new SimpleDateFormat()).format(new Date()) + " by Minecraft " + "1.7.5");
                 printwriter.println("# victim name | ban date | banned by | banned until | reason");
                 printwriter.println();
             }

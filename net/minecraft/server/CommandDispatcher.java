@@ -36,7 +36,7 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
         this.a(new CommandSetBlock());
         this.a(new CommandTestForBlock());
         this.a(new CommandTellRaw());
-        if (MinecraftServer.getServer().V()) {
+        if (MinecraftServer.getServer().W()) {
             this.a(new CommandOp());
             this.a(new CommandDeop());
             this.a(new CommandStop());
@@ -52,6 +52,7 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
             this.a(new CommandList());
             this.a(new CommandWhitelist());
             this.a(new CommandIdleTimeout());
+            this.a(new CommandNetstat());
         } else {
             this.a(new CommandPublish());
         }
@@ -59,7 +60,7 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
         CommandAbstract.a((ICommandDispatcher) this);
     }
 
-    public void a(ICommandListener icommandlistener, int i, String s, Object... aobject) {
+    public void a(ICommandListener icommandlistener, ICommand icommand, int i, String s, Object... aobject) {
         boolean flag = true;
 
         if (icommandlistener instanceof CommandBlockListenerAbstract && !MinecraftServer.getServer().worldServer[0].getGameRules().getBoolean("commandBlockOutput")) {
@@ -68,15 +69,15 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
 
         ChatMessage chatmessage = new ChatMessage("chat.type.admin", new Object[] { icommandlistener.getName(), new ChatMessage(s, aobject)});
 
-        chatmessage.b().setColor(EnumChatFormat.GRAY);
-        chatmessage.b().setItalic(Boolean.valueOf(true));
+        chatmessage.getChatModifier().setColor(EnumChatFormat.GRAY);
+        chatmessage.getChatModifier().setItalic(Boolean.valueOf(true));
         if (flag) {
             Iterator iterator = MinecraftServer.getServer().getPlayerList().players.iterator();
 
             while (iterator.hasNext()) {
                 EntityPlayer entityplayer = (EntityPlayer) iterator.next();
 
-                if (entityplayer != icommandlistener && MinecraftServer.getServer().getPlayerList().isOp(entityplayer.getName())) {
+                if (entityplayer != icommandlistener && MinecraftServer.getServer().getPlayerList().isOp(entityplayer.getName()) && icommand.canUse(entityplayer) && (!(icommandlistener instanceof RemoteControlCommandListener) || MinecraftServer.getServer().m())) {
                     entityplayer.sendMessage(chatmessage);
                 }
             }

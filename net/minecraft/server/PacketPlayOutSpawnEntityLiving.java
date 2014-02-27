@@ -23,12 +23,12 @@ public class PacketPlayOutSpawnEntityLiving extends Packet {
     public PacketPlayOutSpawnEntityLiving(EntityLiving entityliving) {
         this.a = entityliving.getId();
         this.b = (byte) EntityTypes.a(entityliving);
-        this.c = entityliving.at.a(entityliving.locX);
+        this.c = entityliving.as.a(entityliving.locX);
         this.d = MathHelper.floor(entityliving.locY * 32.0D);
-        this.e = entityliving.at.a(entityliving.locZ);
+        this.e = entityliving.as.a(entityliving.locZ);
         this.i = (byte) ((int) (entityliving.yaw * 256.0F / 360.0F));
         this.j = (byte) ((int) (entityliving.pitch * 256.0F / 360.0F));
-        this.k = (byte) ((int) (entityliving.aP * 256.0F / 360.0F));
+        this.k = (byte) ((int) (entityliving.aO * 256.0F / 360.0F));
         double d0 = 3.9D;
         double d1 = entityliving.motX;
         double d2 = entityliving.motY;

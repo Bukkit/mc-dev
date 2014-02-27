@@ -31,7 +31,7 @@ public class InventorySubcontainer implements IInventory {
     }
 
     public ItemStack getItem(int i) {
-        return this.items[i];
+        return i >= 0 && i < this.items.length ? this.items[i] : null;
     }
 
     public ItemStack splitStack(int i, int j) {

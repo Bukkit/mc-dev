@@ -13,7 +13,7 @@ class SlotPotionBottle extends Slot {
         return b_(itemstack);
     }
 
-    public int a() {
+    public int getMaxStackSize() {
         return 1;
     }
 

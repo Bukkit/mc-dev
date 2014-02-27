@@ -58,7 +58,7 @@ public class ServerConnection {
             while (iterator.hasNext()) {
                 NetworkManager networkmanager = (NetworkManager) iterator.next();
 
-                if (!networkmanager.d()) {
+                if (!networkmanager.isConnected()) {
                     iterator.remove();
                     if (networkmanager.f() != null) {
                         networkmanager.getPacketListener().a(networkmanager.f());

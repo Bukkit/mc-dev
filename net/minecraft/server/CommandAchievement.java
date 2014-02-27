@@ -10,7 +10,7 @@ public class CommandAchievement extends CommandAbstract {
 
     public CommandAchievement() {}
 
-    public String c() {
+    public String getCommand() {
         return "achievement";
     }
 
@@ -22,9 +22,9 @@ public class CommandAchievement extends CommandAbstract {
         return "commands.achievement.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 2) {
-            Statistic statistic = StatisticList.a(astring[1]);
+            Statistic statistic = StatisticList.getStatistic(astring[1]);
 
             if (statistic == null && !astring[1].equals("*")) {
                 throw new CommandException("commands.achievement.unknownAchievement", new Object[] { astring[1]});
@@ -48,14 +48,14 @@ public class CommandAchievement extends CommandAbstract {
                         entityplayer.a((Statistic) achievement);
                     }
 
-                    a(icommandlistener, "commands.achievement.give.success.all", new Object[] { entityplayer.getName()});
+                    a(icommandlistener, this, "commands.achievement.give.success.all", new Object[] { entityplayer.getName()});
                 } else {
                     if (statistic instanceof Achievement) {
                         Achievement achievement1 = (Achievement) statistic;
 
                         ArrayList arraylist;
 
-                        for (arraylist = Lists.newArrayList(); achievement1.c != null && !entityplayer.x().a(achievement1.c); achievement1 = achievement1.c) {
+                        for (arraylist = Lists.newArrayList(); achievement1.c != null && !entityplayer.getStatisticManager().a(achievement1.c); achievement1 = achievement1.c) {
                             arraylist.add(achievement1.c);
                         }
 
@@ -69,7 +69,7 @@ public class CommandAchievement extends CommandAbstract {
                     }
 
                     entityplayer.a(statistic);
-                    a(icommandlistener, "commands.achievement.give.success.one", new Object[] { entityplayer.getName(), statistic.j()});
+                    a(icommandlistener, this, "commands.achievement.give.success.one", new Object[] { entityplayer.getName(), statistic.j()});
                 }
 
                 return;
@@ -79,7 +79,7 @@ public class CommandAchievement extends CommandAbstract {
         throw new ExceptionUsage("commands.achievement.usage", new Object[0]);
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         if (astring.length == 1) {
             return a(astring, new String[] { "give"});
         } else if (astring.length != 2) {
@@ -91,14 +91,14 @@ public class CommandAchievement extends CommandAbstract {
             while (iterator.hasNext()) {
                 Statistic statistic = (Statistic) iterator.next();
 
-                arraylist.add(statistic.e);
+                arraylist.add(statistic.name);
             }
 
             return a(astring, arraylist);
         }
     }
 
-    public boolean a(String[] astring, int i) {
+    public boolean isListStart(String[] astring, int i) {
         return i == 2;
     }
 }

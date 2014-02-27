@@ -560,7 +560,7 @@ public class Chunk {
         int j = MathHelper.floor(entity.locZ / 16.0D);
 
         if (i != this.locX || j != this.locZ) {
-            t.error("Wrong location! " + entity);
+            t.warn("Wrong location! " + entity + " (at " + i + ", " + j + " instead of " + this.locX + ", " + this.locZ + ")");
             Thread.dumpStack();
         }
 
@@ -574,15 +574,15 @@ public class Chunk {
             k = this.entitySlices.length - 1;
         }
 
-        entity.ah = true;
-        entity.ai = this.locX;
-        entity.aj = k;
-        entity.ak = this.locZ;
+        entity.ag = true;
+        entity.ah = this.locX;
+        entity.ai = k;
+        entity.aj = this.locZ;
         this.entitySlices[k].add(entity);
     }
 
     public void b(Entity entity) {
-        this.a(entity, entity.aj);
+        this.a(entity, entity.ai);
     }
 
     public void a(Entity entity, int i) {
@@ -674,7 +674,7 @@ public class Chunk {
             while (iterator.hasNext()) {
                 Entity entity = (Entity) iterator.next();
 
-                entity.X();
+                entity.W();
             }
 
             this.world.a(this.entitySlices[i]);
@@ -715,7 +715,7 @@ public class Chunk {
 
                 if (entity1 != entity && entity1.boundingBox.b(axisalignedbb) && (ientityselector == null || ientityselector.a(entity1))) {
                     list.add(entity1);
-                    Entity[] aentity = entity1.at();
+                    Entity[] aentity = entity1.as();
 
                     if (aentity != null) {
                         for (int i1 = 0; i1 < aentity.length; ++i1) {

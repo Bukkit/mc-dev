@@ -13,7 +13,7 @@ final class DispenseBehaviorFilledBucket extends DispenseBehaviorItem {
         int k = isourceblock.getBlockZ();
         EnumFacing enumfacing = BlockDispenser.b(isourceblock.h());
 
-        if (itembucket.a(isourceblock.k(), i + enumfacing.c(), j + enumfacing.d(), k + enumfacing.e())) {
+        if (itembucket.a(isourceblock.k(), i + enumfacing.getAdjacentX(), j + enumfacing.getAdjacentY(), k + enumfacing.getAdjacentZ())) {
             itemstack.setItem(Items.BUCKET);
             itemstack.count = 1;
             return itemstack;

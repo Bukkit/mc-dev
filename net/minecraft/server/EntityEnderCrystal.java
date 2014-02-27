@@ -7,7 +7,7 @@ public class EntityEnderCrystal extends Entity {
 
     public EntityEnderCrystal(World world) {
         super(world);
-        this.l = true;
+        this.k = true;
         this.a(2.0F, 2.0F);
         this.height = this.length / 2.0F;
         this.b = 5;
@@ -41,7 +41,7 @@ public class EntityEnderCrystal extends Entity {
 
     protected void a(NBTTagCompound nbttagcompound) {}
 
-    public boolean R() {
+    public boolean Q() {
         return true;
     }
 

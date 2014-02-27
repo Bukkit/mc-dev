@@ -14,7 +14,7 @@ public abstract class ChatBaseComponent implements IChatBaseComponent {
     public ChatBaseComponent() {}
 
     public IChatBaseComponent a(IChatBaseComponent ichatbasecomponent) {
-        ichatbasecomponent.b().a(this.b());
+        ichatbasecomponent.getChatModifier().a(this.getChatModifier());
         this.a.add(ichatbasecomponent);
         return this;
     }
@@ -34,13 +34,13 @@ public abstract class ChatBaseComponent implements IChatBaseComponent {
         while (iterator.hasNext()) {
             IChatBaseComponent ichatbasecomponent = (IChatBaseComponent) iterator.next();
 
-            ichatbasecomponent.b().a(this.b());
+            ichatbasecomponent.getChatModifier().a(this.getChatModifier());
         }
 
         return this;
     }
 
-    public ChatModifier b() {
+    public ChatModifier getChatModifier() {
         if (this.b == null) {
             this.b = new ChatModifier();
             Iterator iterator = this.a.iterator();
@@ -48,7 +48,7 @@ public abstract class ChatBaseComponent implements IChatBaseComponent {
             while (iterator.hasNext()) {
                 IChatBaseComponent ichatbasecomponent = (IChatBaseComponent) iterator.next();
 
-                ichatbasecomponent.b().a(this.b);
+                ichatbasecomponent.getChatModifier().a(this.b);
             }
         }
 
@@ -87,7 +87,7 @@ public abstract class ChatBaseComponent implements IChatBaseComponent {
         } else {
             ChatBaseComponent chatbasecomponent = (ChatBaseComponent) object;
 
-            return this.a.equals(chatbasecomponent.a) && this.b().equals(chatbasecomponent.b());
+            return this.a.equals(chatbasecomponent.a) && this.getChatModifier().equals(chatbasecomponent.getChatModifier());
         }
     }
 

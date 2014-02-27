@@ -48,7 +48,7 @@ public class PathEntity {
         double d1 = (double) this.a[i].b;
         double d2 = (double) this.a[i].c + (double) ((int) (entity.width + 1.0F)) * 0.5D;
 
-        return entity.world.getVec3DPool().create(d0, d1, d2);
+        return Vec3D.a(d0, d1, d2);
     }
 
     public Vec3D a(Entity entity) {
@@ -74,6 +74,6 @@ public class PathEntity {
     public boolean b(Vec3D vec3d) {
         PathPoint pathpoint = this.c();
 
-        return pathpoint == null ? false : pathpoint.a == (int) vec3d.c && pathpoint.c == (int) vec3d.e;
+        return pathpoint == null ? false : pathpoint.a == (int) vec3d.a && pathpoint.c == (int) vec3d.c;
     }
 }

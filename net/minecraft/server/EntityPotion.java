@@ -66,7 +66,7 @@ public class EntityPotion extends EntityProjectile {
 
                     while (iterator.hasNext()) {
                         EntityLiving entityliving = (EntityLiving) iterator.next();
-                        double d0 = this.e(entityliving);
+                        double d0 = this.f(entityliving);
 
                         if (d0 < 16.0D) {
                             double d1 = 1.0D - Math.sqrt(d0) / 4.0D;

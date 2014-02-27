@@ -37,11 +37,11 @@ public class RemoteStatusListener extends RemoteConnectionThread {
     public RemoteStatusListener(IMinecraftServer iminecraftserver) {
         super(iminecraftserver, "Query Listener");
         this.bindPort = iminecraftserver.a("query.port", 0);
-        this.motd = iminecraftserver.x();
-        this.serverPort = iminecraftserver.y();
-        this.localAddress = iminecraftserver.z();
-        this.maxPlayers = iminecraftserver.C();
-        this.worldName = iminecraftserver.M();
+        this.motd = iminecraftserver.y();
+        this.serverPort = iminecraftserver.z();
+        this.localAddress = iminecraftserver.A();
+        this.maxPlayers = iminecraftserver.D();
+        this.worldName = iminecraftserver.N();
         this.cacheTime = 0L;
         this.hostname = "0.0.0.0";
         if (0 != this.motd.length() && !this.hostname.equals(this.motd)) {
@@ -123,7 +123,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
     }
 
     private byte[] getFullReply(DatagramPacket datagrampacket) {
-        long i = MinecraftServer.ap();
+        long i = MinecraftServer.aq();
 
         if (i < this.cacheTime + 5000L) {
             byte[] abyte = this.cachedReply.getBytes();
@@ -206,7 +206,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
 
     private void cleanChallenges() {
         if (this.running) {
-            long i = MinecraftServer.ap();
+            long i = MinecraftServer.aq();
 
             if (i >= this.clearedTime + 30000L) {
                 this.clearedTime = i;
@@ -225,7 +225,7 @@ public class RemoteStatusListener extends RemoteConnectionThread {
 
     public void run() {
         this.info("Query running on " + this.motd + ":" + this.bindPort);
-        this.clearedTime = MinecraftServer.ap();
+        this.clearedTime = MinecraftServer.aq();
         this.p = new DatagramPacket(this.o, this.o.length);
 
         try {

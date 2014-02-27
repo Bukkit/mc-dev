@@ -38,7 +38,7 @@ public class PacketPlayInAbilities extends Packet {
             b0 = (byte) (b0 | 1);
         }
 
-        if (this.d()) {
+        if (this.isFlying()) {
             b0 = (byte) (b0 | 2);
         }
 
@@ -60,7 +60,7 @@ public class PacketPlayInAbilities extends Packet {
     }
 
     public String b() {
-        return String.format("invuln=%b, flying=%b, canfly=%b, instabuild=%b, flyspeed=%.4f, walkspped=%.4f", new Object[] { Boolean.valueOf(this.c()), Boolean.valueOf(this.d()), Boolean.valueOf(this.e()), Boolean.valueOf(this.f()), Float.valueOf(this.g()), Float.valueOf(this.h())});
+        return String.format("invuln=%b, flying=%b, canfly=%b, instabuild=%b, flyspeed=%.4f, walkspped=%.4f", new Object[] { Boolean.valueOf(this.c()), Boolean.valueOf(this.isFlying()), Boolean.valueOf(this.e()), Boolean.valueOf(this.f()), Float.valueOf(this.g()), Float.valueOf(this.h())});
     }
 
     public boolean c() {
@@ -71,7 +71,7 @@ public class PacketPlayInAbilities extends Packet {
         this.a = flag;
     }
 
-    public boolean d() {
+    public boolean isFlying() {
         return this.b;
     }
 

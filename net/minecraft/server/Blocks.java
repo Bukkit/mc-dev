@@ -14,7 +14,7 @@ public class Blocks {
     public static final Block STATIONARY_WATER = (Block) Block.REGISTRY.a("water");
     public static final BlockFluids LAVA = (BlockFluids) Block.REGISTRY.a("flowing_lava");
     public static final Block STATIONARY_LAVA = (Block) Block.REGISTRY.a("lava");
-    public static final Block SAND = (Block) Block.REGISTRY.a("sand");
+    public static final BlockSand SAND = (BlockSand) Block.REGISTRY.a("sand");
     public static final Block GRAVEL = (Block) Block.REGISTRY.a("gravel");
     public static final Block GOLD_ORE = (Block) Block.REGISTRY.a("gold_ore");
     public static final Block IRON_ORE = (Block) Block.REGISTRY.a("iron_ore");

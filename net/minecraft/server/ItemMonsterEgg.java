@@ -92,7 +92,7 @@ public class ItemMonsterEgg extends Item {
     }
 
     public static Entity a(World world, int i, double d0, double d1, double d2) {
-        if (!EntityTypes.a.containsKey(Integer.valueOf(i))) {
+        if (!EntityTypes.eggInfo.containsKey(Integer.valueOf(i))) {
             return null;
         } else {
             Entity entity = null;
@@ -103,8 +103,8 @@ public class ItemMonsterEgg extends Item {
                     EntityInsentient entityinsentient = (EntityInsentient) entity;
 
                     entity.setPositionRotation(d0, d1, d2, MathHelper.g(world.random.nextFloat() * 360.0F), 0.0F);
-                    entityinsentient.aP = entityinsentient.yaw;
-                    entityinsentient.aN = entityinsentient.yaw;
+                    entityinsentient.aO = entityinsentient.yaw;
+                    entityinsentient.aM = entityinsentient.yaw;
                     entityinsentient.a((GroupDataEntity) null);
                     world.addEntity(entity);
                     entityinsentient.r();

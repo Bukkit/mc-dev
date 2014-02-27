@@ -6,7 +6,7 @@ public class CommandClear extends CommandAbstract {
 
     public CommandClear() {}
 
-    public String c() {
+    public String getCommand() {
         return "clear";
     }
 
@@ -18,7 +18,7 @@ public class CommandClear extends CommandAbstract {
         return 2;
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         EntityPlayer entityplayer = astring.length == 0 ? b(icommandlistener) : d(icommandlistener, astring[0]);
         Item item = astring.length >= 2 ? f(icommandlistener, astring[1]) : null;
         int i = astring.length >= 3 ? a(icommandlistener, astring[2], 0) : -1;
@@ -36,20 +36,20 @@ public class CommandClear extends CommandAbstract {
             if (j == 0) {
                 throw new CommandException("commands.clear.failure", new Object[] { entityplayer.getName()});
             } else {
-                a(icommandlistener, "commands.clear.success", new Object[] { entityplayer.getName(), Integer.valueOf(j)});
+                a(icommandlistener, this, "commands.clear.success", new Object[] { entityplayer.getName(), Integer.valueOf(j)});
             }
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
-        return astring.length == 1 ? a(astring, this.d()) : (astring.length == 2 ? a(astring, Item.REGISTRY.b()) : null);
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
+        return astring.length == 1 ? a(astring, this.d()) : (astring.length == 2 ? a(astring, Item.REGISTRY.keySet()) : null);
     }
 
     protected String[] d() {
         return MinecraftServer.getServer().getPlayers();
     }
 
-    public boolean a(String[] astring, int i) {
+    public boolean isListStart(String[] astring, int i) {
         return i == 0;
     }
 }

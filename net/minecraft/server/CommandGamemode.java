@@ -6,7 +6,7 @@ public class CommandGamemode extends CommandAbstract {
 
     public CommandGamemode() {}
 
-    public String c() {
+    public String getCommand() {
         return "gamemode";
     }
 
@@ -18,7 +18,7 @@ public class CommandGamemode extends CommandAbstract {
         return "commands.gamemode.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0) {
             EnumGamemode enumgamemode = this.h(icommandlistener, astring[0]);
             EntityPlayer entityplayer = astring.length >= 2 ? d(icommandlistener, astring[1]) : b(icommandlistener);
@@ -28,9 +28,9 @@ public class CommandGamemode extends CommandAbstract {
             ChatMessage chatmessage = new ChatMessage("gameMode." + enumgamemode.b(), new Object[0]);
 
             if (entityplayer != icommandlistener) {
-                a(icommandlistener, 1, "commands.gamemode.success.other", new Object[] { entityplayer.getName(), chatmessage});
+                a(icommandlistener, this, 1, "commands.gamemode.success.other", new Object[] { entityplayer.getName(), chatmessage});
             } else {
-                a(icommandlistener, 1, "commands.gamemode.success.self", new Object[] { chatmessage});
+                a(icommandlistener, this, 1, "commands.gamemode.success.self", new Object[] { chatmessage});
             }
         } else {
             throw new ExceptionUsage("commands.gamemode.usage", new Object[0]);
@@ -41,7 +41,7 @@ public class CommandGamemode extends CommandAbstract {
         return !s.equalsIgnoreCase(EnumGamemode.SURVIVAL.b()) && !s.equalsIgnoreCase("s") ? (!s.equalsIgnoreCase(EnumGamemode.CREATIVE.b()) && !s.equalsIgnoreCase("c") ? (!s.equalsIgnoreCase(EnumGamemode.ADVENTURE.b()) && !s.equalsIgnoreCase("a") ? WorldSettings.a(a(icommandlistener, s, 0, EnumGamemode.values().length - 2)) : EnumGamemode.ADVENTURE) : EnumGamemode.CREATIVE) : EnumGamemode.SURVIVAL;
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length == 1 ? a(astring, new String[] { "survival", "creative", "adventure"}) : (astring.length == 2 ? a(astring, this.d()) : null);
     }
 
@@ -49,7 +49,7 @@ public class CommandGamemode extends CommandAbstract {
         return MinecraftServer.getServer().getPlayers();
     }
 
-    public boolean a(String[] astring, int i) {
+    public boolean isListStart(String[] astring, int i) {
         return i == 1;
     }
 }

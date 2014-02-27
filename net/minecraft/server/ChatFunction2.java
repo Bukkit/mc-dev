@@ -9,7 +9,7 @@ final class ChatFunction2 implements Function {
     public IChatBaseComponent a(IChatBaseComponent ichatbasecomponent) {
         IChatBaseComponent ichatbasecomponent1 = ichatbasecomponent.f();
 
-        ichatbasecomponent1.setChatModifier(ichatbasecomponent1.b().m());
+        ichatbasecomponent1.setChatModifier(ichatbasecomponent1.getChatModifier().m());
         return ichatbasecomponent1;
     }
 

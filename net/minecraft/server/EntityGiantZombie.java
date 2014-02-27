@@ -8,8 +8,8 @@ public class EntityGiantZombie extends EntityMonster {
         this.a(this.width * 6.0F, this.length * 6.0F);
     }
 
-    protected void aD() {
-        super.aD();
+    protected void aC() {
+        super.aC();
         this.getAttributeInstance(GenericAttributes.a).setValue(100.0D);
         this.getAttributeInstance(GenericAttributes.d).setValue(0.5D);
         this.getAttributeInstance(GenericAttributes.e).setValue(50.0D);

@@ -401,7 +401,7 @@ public class ChunkProviderHell implements IChunkProvider {
         return true;
     }
 
-    public void b() {}
+    public void c() {}
 
     public boolean unloadChunks() {
         return false;

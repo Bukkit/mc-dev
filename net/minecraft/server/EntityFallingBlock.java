@@ -33,7 +33,7 @@ public class EntityFallingBlock extends Entity {
         this.fallHurtAmount = 2.0F;
         this.id = block;
         this.data = i;
-        this.l = true;
+        this.k = true;
         this.a(0.98F, 0.98F);
         this.height = this.length / 2.0F;
         this.setPosition(d0, d1, d2);
@@ -51,7 +51,7 @@ public class EntityFallingBlock extends Entity {
 
     protected void c() {}
 
-    public boolean R() {
+    public boolean Q() {
         return !this.dead;
     }
 

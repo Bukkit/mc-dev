@@ -42,11 +42,11 @@ public class EntityMinecartTNT extends EntityMinecartAbstract {
         super.a(damagesource);
         double d0 = this.motX * this.motX + this.motZ * this.motZ;
 
-        if (!damagesource.c()) {
+        if (!damagesource.isExplosion()) {
             this.a(new ItemStack(Blocks.TNT, 1), 0.0F);
         }
 
-        if (damagesource.o() || damagesource.c() || d0 >= 0.009999999776482582D) {
+        if (damagesource.o() || damagesource.isExplosion() || d0 >= 0.009999999776482582D) {
             this.c(d0);
         }
     }

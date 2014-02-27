@@ -52,7 +52,7 @@ public class LoginListener implements PacketLoginInListener {
             ChatComponentText chatcomponenttext = new ChatComponentText(s);
 
             this.networkManager.handle(new PacketLoginOutDisconnect(chatcomponenttext), new GenericFutureListener[0]);
-            this.networkManager.a((IChatBaseComponent) chatcomponenttext);
+            this.networkManager.close(chatcomponenttext);
         } catch (Exception exception) {
             c.error("Error whilst disconnecting player", exception);
         }
@@ -94,7 +94,7 @@ public class LoginListener implements PacketLoginInListener {
         this.i = packetlogininstart.c();
         if (this.server.getOnlineMode() && !this.networkManager.c()) {
             this.g = EnumProtocolState.KEY;
-            this.networkManager.handle(new PacketLoginOutEncryptionBegin(this.j, this.server.I().getPublic(), this.e), new GenericFutureListener[0]);
+            this.networkManager.handle(new PacketLoginOutEncryptionBegin(this.j, this.server.J().getPublic(), this.e), new GenericFutureListener[0]);
         } else {
             this.g = EnumProtocolState.READY_TO_ACCEPT;
         }
@@ -102,7 +102,7 @@ public class LoginListener implements PacketLoginInListener {
 
     public void a(PacketLoginInEncryptionBegin packetlogininencryptionbegin) {
         Validate.validState(this.g == EnumProtocolState.KEY, "Unexpected key packet", new Object[0]);
-        PrivateKey privatekey = this.server.I().getPrivate();
+        PrivateKey privatekey = this.server.J().getPrivate();
 
         if (!Arrays.equals(this.e, packetlogininencryptionbegin.b(privatekey))) {
             throw new IllegalStateException("Invalid nonce!");

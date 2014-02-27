@@ -7,7 +7,7 @@ public class CommandOp extends CommandAbstract {
 
     public CommandOp() {}
 
-    public String c() {
+    public String getCommand() {
         return "op";
     }
 
@@ -19,16 +19,16 @@ public class CommandOp extends CommandAbstract {
         return "commands.op.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length == 1 && astring[0].length() > 0) {
             MinecraftServer.getServer().getPlayerList().addOp(astring[0]);
-            a(icommandlistener, "commands.op.success", new Object[] { astring[0]});
+            a(icommandlistener, this, "commands.op.success", new Object[] { astring[0]});
         } else {
             throw new ExceptionUsage("commands.op.usage", new Object[0]);
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         if (astring.length == 1) {
             String s = astring[astring.length - 1];
             ArrayList arraylist = new ArrayList();

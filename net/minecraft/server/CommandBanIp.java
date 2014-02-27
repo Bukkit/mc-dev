@@ -11,7 +11,7 @@ public class CommandBanIp extends CommandAbstract {
 
     public CommandBanIp() {}
 
-    public String c() {
+    public String getCommand() {
         return "ban-ip";
     }
 
@@ -19,15 +19,15 @@ public class CommandBanIp extends CommandAbstract {
         return 3;
     }
 
-    public boolean a(ICommandListener icommandlistener) {
-        return MinecraftServer.getServer().getPlayerList().getIPBans().isEnabled() && super.a(icommandlistener);
+    public boolean canUse(ICommandListener icommandlistener) {
+        return MinecraftServer.getServer().getPlayerList().getIPBans().isEnabled() && super.canUse(icommandlistener);
     }
 
     public String c(ICommandListener icommandlistener) {
         return "commands.banip.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 1 && astring[0].length() > 1) {
             Matcher matcher = a.matcher(astring[0]);
             IChatBaseComponent ichatbasecomponent = null;
@@ -52,7 +52,7 @@ public class CommandBanIp extends CommandAbstract {
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length == 1 ? a(astring, MinecraftServer.getServer().getPlayers()) : null;
     }
 
@@ -77,9 +77,9 @@ public class CommandBanIp extends CommandAbstract {
         }
 
         if (list.isEmpty()) {
-            a(icommandlistener, "commands.banip.success", new Object[] { s});
+            a(icommandlistener, this, "commands.banip.success", new Object[] { s});
         } else {
-            a(icommandlistener, "commands.banip.success.players", new Object[] { s, a(astring)});
+            a(icommandlistener, this, "commands.banip.success.players", new Object[] { s, a(astring)});
         }
     }
 }

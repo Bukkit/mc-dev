@@ -17,9 +17,9 @@ public class PathfinderGoalLeapAtTarget extends PathfinderGoal {
         if (this.b == null) {
             return false;
         } else {
-            double d0 = this.a.e(this.b);
+            double d0 = this.a.f(this.b);
 
-            return d0 >= 4.0D && d0 <= 16.0D ? (!this.a.onGround ? false : this.a.aI().nextInt(5) == 0) : false;
+            return d0 >= 4.0D && d0 <= 16.0D ? (!this.a.onGround ? false : this.a.aH().nextInt(5) == 0) : false;
         }
     }
 

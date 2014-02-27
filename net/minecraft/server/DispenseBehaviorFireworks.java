@@ -6,9 +6,9 @@ final class DispenseBehaviorFireworks extends DispenseBehaviorItem {
 
     public ItemStack b(ISourceBlock isourceblock, ItemStack itemstack) {
         EnumFacing enumfacing = BlockDispenser.b(isourceblock.h());
-        double d0 = isourceblock.getX() + (double) enumfacing.c();
+        double d0 = isourceblock.getX() + (double) enumfacing.getAdjacentX();
         double d1 = (double) ((float) isourceblock.getBlockY() + 0.2F);
-        double d2 = isourceblock.getZ() + (double) enumfacing.e();
+        double d2 = isourceblock.getZ() + (double) enumfacing.getAdjacentZ();
         EntityFireworks entityfireworks = new EntityFireworks(isourceblock.k(), d0, d1, d2, itemstack);
 
         isourceblock.k().addEntity(entityfireworks);

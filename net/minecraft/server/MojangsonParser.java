@@ -9,7 +9,7 @@ public class MojangsonParser {
 
     private static final Logger a = LogManager.getLogger();
 
-    public static NBTBase a(String s) {
+    public static NBTBase parse(String s) {
         s = s.trim();
         int i = b(s);
 

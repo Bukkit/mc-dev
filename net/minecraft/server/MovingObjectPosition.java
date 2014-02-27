@@ -20,11 +20,11 @@ public class MovingObjectPosition {
         this.c = j;
         this.d = k;
         this.face = l;
-        this.pos = vec3d.b.create(vec3d.c, vec3d.d, vec3d.e);
+        this.pos = Vec3D.a(vec3d.a, vec3d.b, vec3d.c);
     }
 
     public MovingObjectPosition(Entity entity) {
-        this(entity, entity.world.getVec3DPool().create(entity.locX, entity.locY, entity.locZ));
+        this(entity, Vec3D.a(entity.locX, entity.locY, entity.locZ));
     }
 
     public MovingObjectPosition(Entity entity, Vec3D vec3d) {

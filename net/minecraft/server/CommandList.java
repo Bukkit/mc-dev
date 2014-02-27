@@ -4,7 +4,7 @@ public class CommandList extends CommandAbstract {
 
     public CommandList() {}
 
-    public String c() {
+    public String getCommand() {
         return "list";
     }
 
@@ -16,8 +16,8 @@ public class CommandList extends CommandAbstract {
         return "commands.players.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
-        icommandlistener.sendMessage(new ChatMessage("commands.players.list", new Object[] { Integer.valueOf(MinecraftServer.getServer().B()), Integer.valueOf(MinecraftServer.getServer().C())}));
+    public void execute(ICommandListener icommandlistener, String[] astring) {
+        icommandlistener.sendMessage(new ChatMessage("commands.players.list", new Object[] { Integer.valueOf(MinecraftServer.getServer().C()), Integer.valueOf(MinecraftServer.getServer().D())}));
         icommandlistener.sendMessage(new ChatComponentText(MinecraftServer.getServer().getPlayerList().c()));
     }
 }

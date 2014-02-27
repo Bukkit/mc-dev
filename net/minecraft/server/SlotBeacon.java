@@ -13,7 +13,7 @@ class SlotBeacon extends Slot {
         return itemstack == null ? false : itemstack.getItem() == Items.EMERALD || itemstack.getItem() == Items.DIAMOND || itemstack.getItem() == Items.GOLD_INGOT || itemstack.getItem() == Items.IRON_INGOT;
     }
 
-    public int a() {
+    public int getMaxStackSize() {
         return 1;
     }
 }

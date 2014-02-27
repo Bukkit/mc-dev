@@ -9,7 +9,7 @@ public class EntityBat extends EntityAmbient {
     public EntityBat(World world) {
         super(world);
         this.a(0.5F, 0.9F);
-        this.a(true);
+        this.setStartled(true);
     }
 
     protected void c() {
@@ -17,44 +17,44 @@ public class EntityBat extends EntityAmbient {
         this.datawatcher.a(16, new Byte((byte) 0));
     }
 
-    protected float bf() {
+    protected float be() {
         return 0.1F;
     }
 
-    protected float bg() {
-        return super.bg() * 0.95F;
+    protected float bf() {
+        return super.bf() * 0.95F;
     }
 
     protected String t() {
-        return this.bN() && this.random.nextInt(4) != 0 ? null : "mob.bat.idle";
+        return this.isStartled() && this.random.nextInt(4) != 0 ? null : "mob.bat.idle";
     }
 
-    protected String aT() {
+    protected String aS() {
         return "mob.bat.hurt";
     }
 
-    protected String aU() {
+    protected String aT() {
         return "mob.bat.death";
     }
 
-    public boolean S() {
+    public boolean R() {
         return false;
     }
 
-    protected void n(Entity entity) {}
+    protected void o(Entity entity) {}
 
-    protected void bo() {}
+    protected void bn() {}
 
-    protected void aD() {
-        super.aD();
+    protected void aC() {
+        super.aC();
         this.getAttributeInstance(GenericAttributes.a).setValue(6.0D);
     }
 
-    public boolean bN() {
+    public boolean isStartled() {
         return (this.datawatcher.getByte(16) & 1) != 0;
     }
 
-    public void a(boolean flag) {
+    public void setStartled(boolean flag) {
         byte b0 = this.datawatcher.getByte(16);
 
         if (flag) {
@@ -64,13 +64,13 @@ public class EntityBat extends EntityAmbient {
         }
     }
 
-    protected boolean bk() {
+    protected boolean bj() {
         return true;
     }
 
     public void h() {
         super.h();
-        if (this.bN()) {
+        if (this.isStartled()) {
             this.motX = this.motY = this.motZ = 0.0D;
             this.locY = (double) MathHelper.floor(this.locY) + 1.0D - (double) this.length;
         } else {
@@ -78,19 +78,19 @@ public class EntityBat extends EntityAmbient {
         }
     }
 
-    protected void bn() {
-        super.bn();
-        if (this.bN()) {
+    protected void bm() {
+        super.bm();
+        if (this.isStartled()) {
             if (!this.world.getType(MathHelper.floor(this.locX), (int) this.locY + 1, MathHelper.floor(this.locZ)).r()) {
-                this.a(false);
+                this.setStartled(false);
                 this.world.a((EntityHuman) null, 1015, (int) this.locX, (int) this.locY, (int) this.locZ, 0);
             } else {
                 if (this.random.nextInt(200) == 0) {
-                    this.aP = (float) this.random.nextInt(360);
+                    this.aO = (float) this.random.nextInt(360);
                 }
 
                 if (this.world.findNearbyPlayer(this, 4.0D) != null) {
-                    this.a(false);
+                    this.setStartled(false);
                     this.world.a((EntityHuman) null, 1015, (int) this.locX, (int) this.locY, (int) this.locZ, 0);
                 }
             }
@@ -113,10 +113,10 @@ public class EntityBat extends EntityAmbient {
             float f = (float) (Math.atan2(this.motZ, this.motX) * 180.0D / 3.1415927410125732D) - 90.0F;
             float f1 = MathHelper.g(f - this.yaw);
 
-            this.bf = 0.5F;
+            this.be = 0.5F;
             this.yaw += f1;
             if (this.random.nextInt(100) == 0 && this.world.getType(MathHelper.floor(this.locX), (int) this.locY + 1, MathHelper.floor(this.locZ)).r()) {
-                this.a(true);
+                this.setStartled(true);
             }
         }
     }
@@ -129,7 +129,7 @@ public class EntityBat extends EntityAmbient {
 
     protected void a(double d0, boolean flag) {}
 
-    public boolean az() {
+    public boolean ay() {
         return true;
     }
 
@@ -137,8 +137,8 @@ public class EntityBat extends EntityAmbient {
         if (this.isInvulnerable()) {
             return false;
         } else {
-            if (!this.world.isStatic && this.bN()) {
-                this.a(false);
+            if (!this.world.isStatic && this.isStartled()) {
+                this.setStartled(false);
             }
 
             return super.damageEntity(damagesource, f);

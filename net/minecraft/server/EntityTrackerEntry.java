@@ -95,15 +95,15 @@ public class EntityTrackerEntry {
             }
 
             this.b();
-        } else if (this.m % this.c == 0 || this.tracker.am || this.tracker.getDataWatcher().a()) {
+        } else if (this.m % this.c == 0 || this.tracker.al || this.tracker.getDataWatcher().a()) {
             int i;
             int j;
 
             if (this.tracker.vehicle == null) {
                 ++this.v;
-                i = this.tracker.at.a(this.tracker.locX);
+                i = this.tracker.as.a(this.tracker.locX);
                 j = MathHelper.floor(this.tracker.locY * 32.0D);
-                int k = this.tracker.at.a(this.tracker.locZ);
+                int k = this.tracker.as.a(this.tracker.locZ);
                 int l = MathHelper.d(this.tracker.yaw * 256.0F / 360.0F);
                 int i1 = MathHelper.d(this.tracker.pitch * 256.0F / 360.0F);
                 int j1 = i - this.xLoc;
@@ -171,9 +171,9 @@ public class EntityTrackerEntry {
                     this.xRot = j;
                 }
 
-                this.xLoc = this.tracker.at.a(this.tracker.locX);
+                this.xLoc = this.tracker.as.a(this.tracker.locX);
                 this.yLoc = MathHelper.floor(this.tracker.locY * 32.0D);
-                this.zLoc = this.tracker.at.a(this.tracker.locZ);
+                this.zLoc = this.tracker.as.a(this.tracker.locZ);
                 this.b();
                 this.x = true;
             }
@@ -184,7 +184,7 @@ public class EntityTrackerEntry {
                 this.i = i;
             }
 
-            this.tracker.am = false;
+            this.tracker.al = false;
         }
 
         ++this.m;
@@ -202,7 +202,7 @@ public class EntityTrackerEntry {
         }
 
         if (this.tracker instanceof EntityLiving) {
-            AttributeMapServer attributemapserver = (AttributeMapServer) ((EntityLiving) this.tracker).bc();
+            AttributeMapServer attributemapserver = (AttributeMapServer) ((EntityLiving) this.tracker).bb();
             Set set = attributemapserver.b();
 
             if (!set.isEmpty()) {
@@ -236,13 +236,13 @@ public class EntityTrackerEntry {
         while (iterator.hasNext()) {
             EntityPlayer entityplayer = (EntityPlayer) iterator.next();
 
-            entityplayer.removeQueue.add(Integer.valueOf(this.tracker.getId()));
+            entityplayer.d(this.tracker);
         }
     }
 
     public void a(EntityPlayer entityplayer) {
         if (this.trackedPlayers.contains(entityplayer)) {
-            entityplayer.removeQueue.add(Integer.valueOf(this.tracker.getId()));
+            entityplayer.d(this.tracker);
             this.trackedPlayers.remove(entityplayer);
         }
     }
@@ -253,7 +253,7 @@ public class EntityTrackerEntry {
             double d1 = entityplayer.locZ - (double) (this.zLoc / 32);
 
             if (d0 >= (double) (-this.b) && d0 <= (double) this.b && d1 >= (double) (-this.b) && d1 <= (double) this.b) {
-                if (!this.trackedPlayers.contains(entityplayer) && (this.d(entityplayer) || this.tracker.o)) {
+                if (!this.trackedPlayers.contains(entityplayer) && (this.d(entityplayer) || this.tracker.n)) {
                     this.trackedPlayers.add(entityplayer);
                     Packet packet = this.c();
 
@@ -263,7 +263,7 @@ public class EntityTrackerEntry {
                     }
 
                     if (this.tracker instanceof EntityLiving) {
-                        AttributeMapServer attributemapserver = (AttributeMapServer) ((EntityLiving) this.tracker).bc();
+                        AttributeMapServer attributemapserver = (AttributeMapServer) ((EntityLiving) this.tracker).bb();
                         Collection collection = attributemapserver.c();
 
                         if (!collection.isEmpty()) {
@@ -317,13 +317,13 @@ public class EntityTrackerEntry {
                 }
             } else if (this.trackedPlayers.contains(entityplayer)) {
                 this.trackedPlayers.remove(entityplayer);
-                entityplayer.removeQueue.add(Integer.valueOf(this.tracker.getId()));
+                entityplayer.d(this.tracker);
             }
         }
     }
 
     private boolean d(EntityPlayer entityplayer) {
-        return entityplayer.r().getPlayerChunkMap().a(entityplayer, this.tracker.ai, this.tracker.ak);
+        return entityplayer.r().getPlayerChunkMap().a(entityplayer, this.tracker.ah, this.tracker.aj);
     }
 
     public void scanPlayers(List list) {
@@ -436,7 +436,7 @@ public class EntityTrackerEntry {
     public void clear(EntityPlayer entityplayer) {
         if (this.trackedPlayers.contains(entityplayer)) {
             this.trackedPlayers.remove(entityplayer);
-            entityplayer.removeQueue.add(Integer.valueOf(this.tracker.getId()));
+            entityplayer.d(this.tracker);
         }
     }
 }

@@ -23,7 +23,7 @@ class ThreadCommandReader extends Thread {
                 this.server.issueCommand(s, this.server);
             }
         } catch (IOException ioexception) {
-            DedicatedServer.az().error("Exception handling console input", ioexception);
+            DedicatedServer.aA().error("Exception handling console input", ioexception);
         }
     }
 }

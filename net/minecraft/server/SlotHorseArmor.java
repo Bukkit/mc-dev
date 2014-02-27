@@ -12,6 +12,6 @@ class SlotHorseArmor extends Slot {
     }
 
     public boolean isAllowed(ItemStack itemstack) {
-        return super.isAllowed(itemstack) && this.a.cz() && EntityHorse.a(itemstack.getItem());
+        return super.isAllowed(itemstack) && this.a.cB() && EntityHorse.a(itemstack.getItem());
     }
 }

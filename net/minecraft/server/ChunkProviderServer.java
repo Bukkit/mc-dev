@@ -2,10 +2,11 @@ package net.minecraft.server;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 public class ChunkProviderServer implements IChunkProvider {
 
     private static final Logger b = LogManager.getLogger();
-    private Set unloadQueue = new HashSet();
+    private Set unloadQueue = Collections.newSetFromMap(new ConcurrentHashMap());
     private Chunk emptyChunk;
     private IChunkProvider chunkProvider;
     private IChunkLoader f;
@@ -33,6 +34,10 @@ public class ChunkProviderServer implements IChunkProvider {
         return this.chunks.contains(ChunkCoordIntPair.a(i, j));
     }
 
+    public List a() {
+        return this.chunkList;
+    }
+
     public void queueUnload(int i, int j) {
         if (this.world.worldProvider.e()) {
             ChunkCoordinates chunkcoordinates = this.world.getSpawn();
@@ -48,7 +53,7 @@ public class ChunkProviderServer implements IChunkProvider {
         }
     }
 
-    public void a() {
+    public void b() {
         Iterator iterator = this.chunkList.iterator();
 
         while (iterator.hasNext()) {
@@ -179,7 +184,7 @@ public class ChunkProviderServer implements IChunkProvider {
         return true;
     }
 
-    public void b() {
+    public void c() {
         if (this.f != null) {
             this.f.b();
         }

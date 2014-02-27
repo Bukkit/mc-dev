@@ -31,7 +31,7 @@ public abstract class PathfinderGoalTarget extends PathfinderGoal {
         } else {
             double d0 = this.f();
 
-            if (this.c.e(entityliving) > d0 * d0) {
+            if (this.c.f(entityliving) > d0 * d0) {
                 return false;
             } else {
                 if (this.d) {
@@ -110,7 +110,7 @@ public abstract class PathfinderGoalTarget extends PathfinderGoal {
     }
 
     private boolean a(EntityLiving entityliving) {
-        this.e = 10 + this.c.aI().nextInt(5);
+        this.e = 10 + this.c.aH().nextInt(5);
         PathEntity pathentity = this.c.getNavigation().a(entityliving);
 
         if (pathentity == null) {

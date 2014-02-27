@@ -4,7 +4,7 @@ public class CommandKill extends CommandAbstract {
 
     public CommandKill() {}
 
-    public String c() {
+    public String getCommand() {
         return "kill";
     }
 
@@ -16,7 +16,7 @@ public class CommandKill extends CommandAbstract {
         return "commands.kill.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         EntityPlayer entityplayer = b(icommandlistener);
 
         entityplayer.damageEntity(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);

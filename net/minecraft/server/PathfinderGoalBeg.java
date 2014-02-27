@@ -21,12 +21,12 @@ public class PathfinderGoalBeg extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.b.isAlive() ? false : (this.a.e(this.b) > (double) (this.d * this.d) ? false : this.e > 0 && this.a(this.b));
+        return !this.b.isAlive() ? false : (this.a.f(this.b) > (double) (this.d * this.d) ? false : this.e > 0 && this.a(this.b));
     }
 
     public void c() {
         this.a.m(true);
-        this.e = 40 + this.a.aI().nextInt(40);
+        this.e = 40 + this.a.aH().nextInt(40);
     }
 
     public void d() {
@@ -35,7 +35,7 @@ public class PathfinderGoalBeg extends PathfinderGoal {
     }
 
     public void e() {
-        this.a.getControllerLook().a(this.b.locX, this.b.locY + (double) this.b.getHeadHeight(), this.b.locZ, 10.0F, (float) this.a.x());
+        this.a.getControllerLook().a(this.b.locX, this.b.locY + (double) this.b.getHeadHeight(), this.b.locZ, 10.0F, (float) this.a.bv());
         --this.e;
     }
 

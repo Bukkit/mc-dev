@@ -6,7 +6,7 @@ public class CommandSay extends CommandAbstract {
 
     public CommandSay() {}
 
-    public String c() {
+    public String getCommand() {
         return "say";
     }
 
@@ -18,7 +18,7 @@ public class CommandSay extends CommandAbstract {
         return "commands.say.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0 && astring[0].length() > 0) {
             IChatBaseComponent ichatbasecomponent = a(icommandlistener, astring, 0, true);
 
@@ -28,7 +28,7 @@ public class CommandSay extends CommandAbstract {
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length >= 1 ? a(astring, MinecraftServer.getServer().getPlayers()) : null;
     }
 }

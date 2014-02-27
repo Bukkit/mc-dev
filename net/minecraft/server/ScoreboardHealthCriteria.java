@@ -14,7 +14,7 @@ public class ScoreboardHealthCriteria extends ScoreboardBaseCriteria {
 
         EntityHuman entityhuman;
 
-        for (Iterator iterator = list.iterator(); iterator.hasNext(); f += entityhuman.getHealth() + entityhuman.bs()) {
+        for (Iterator iterator = list.iterator(); iterator.hasNext(); f += entityhuman.getHealth() + entityhuman.br()) {
             entityhuman = (EntityHuman) iterator.next();
         }
 

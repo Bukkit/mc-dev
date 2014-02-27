@@ -23,8 +23,8 @@ public class RemoteControlListener extends RemoteConnectionThread {
         super(iminecraftserver, "RCON Listener");
         this.h = iminecraftserver.a("rcon.port", 0);
         this.l = iminecraftserver.a("rcon.password", "");
-        this.j = iminecraftserver.x();
-        this.i = iminecraftserver.y();
+        this.j = iminecraftserver.y();
+        this.i = iminecraftserver.z();
         if (0 == this.h) {
             this.h = this.i + 10;
             this.info("Setting default rcon port to " + this.h);

@@ -19,7 +19,7 @@ public class PacketPlayOutSetSlot extends Packet {
     }
 
     public void a(PacketDataSerializer packetdataserializer) {
-        this.a = packetdataserializer.readUnsignedByte();
+        this.a = packetdataserializer.readByte();
         this.b = packetdataserializer.readShort();
         this.c = packetdataserializer.c();
     }

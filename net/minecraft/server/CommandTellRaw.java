@@ -9,7 +9,7 @@ public class CommandTellRaw extends CommandAbstract {
 
     public CommandTellRaw() {}
 
-    public String c() {
+    public String getCommand() {
         return "tellraw";
     }
 
@@ -21,7 +21,7 @@ public class CommandTellRaw extends CommandAbstract {
         return "commands.tellraw.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length < 2) {
             throw new ExceptionUsage("commands.tellraw.usage", new Object[0]);
         } else {
@@ -33,16 +33,18 @@ public class CommandTellRaw extends CommandAbstract {
 
                 entityplayer.sendMessage(ichatbasecomponent);
             } catch (JsonParseException jsonparseexception) {
-                throw new ExceptionInvalidSyntax("commands.tellraw.jsonException", new Object[] { ExceptionUtils.getRootCause(jsonparseexception).getMessage()});
+                Throwable throwable = ExceptionUtils.getRootCause(jsonparseexception);
+
+                throw new ExceptionInvalidSyntax("commands.tellraw.jsonException", new Object[] { throwable == null ? "" : throwable.getMessage()});
             }
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length == 1 ? a(astring, MinecraftServer.getServer().getPlayers()) : null;
     }
 
-    public boolean a(String[] astring, int i) {
+    public boolean isListStart(String[] astring, int i) {
         return i == 0;
     }
 }

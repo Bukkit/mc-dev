@@ -134,30 +134,32 @@ public class TileEntityFurnace extends TileEntity implements IWorldInventory {
         }
 
         if (!this.world.isStatic) {
-            if (this.burnTime == 0 && this.canBurn()) {
-                this.ticksForCurrentFuel = this.burnTime = fuelTime(this.items[1]);
-                if (this.burnTime > 0) {
-                    flag1 = true;
-                    if (this.items[1] != null) {
-                        --this.items[1].count;
-                        if (this.items[1].count == 0) {
-                            Item item = this.items[1].getItem().t();
+            if (this.burnTime != 0 || this.items[1] != null && this.items[0] != null) {
+                if (this.burnTime == 0 && this.canBurn()) {
+                    this.ticksForCurrentFuel = this.burnTime = fuelTime(this.items[1]);
+                    if (this.burnTime > 0) {
+                        flag1 = true;
+                        if (this.items[1] != null) {
+                            --this.items[1].count;
+                            if (this.items[1].count == 0) {
+                                Item item = this.items[1].getItem().t();
 
-                            this.items[1] = item != null ? new ItemStack(item) : null;
+                                this.items[1] = item != null ? new ItemStack(item) : null;
+                            }
                         }
                     }
                 }
-            }
 
-            if (this.isBurning() && this.canBurn()) {
-                ++this.cookTime;
-                if (this.cookTime == 200) {
+                if (this.isBurning() && this.canBurn()) {
+                    ++this.cookTime;
+                    if (this.cookTime == 200) {
+                        this.cookTime = 0;
+                        this.burn();
+                        flag1 = true;
+                    }
+                } else {
                     this.cookTime = 0;
-                    this.burn();
-                    flag1 = true;
                 }
-            } else {
-                this.cookTime = 0;
             }
 
             if (flag != this.burnTime > 0) {

@@ -68,7 +68,7 @@ public class DamageSource {
         return this;
     }
 
-    public boolean c() {
+    public boolean isExplosion() {
         return this.x;
     }
 
@@ -128,7 +128,7 @@ public class DamageSource {
     }
 
     public IChatBaseComponent getLocalizedDeathMessage(EntityLiving entityliving) {
-        EntityLiving entityliving1 = entityliving.aX();
+        EntityLiving entityliving1 = entityliving.aW();
         String s = "death.attack." + this.translationIndex;
         String s1 = s + ".player";
 

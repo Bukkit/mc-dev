@@ -6,7 +6,7 @@ public class CommandXp extends CommandAbstract {
 
     public CommandXp() {}
 
-    public String c() {
+    public String getCommand() {
         return "xp";
     }
 
@@ -18,7 +18,7 @@ public class CommandXp extends CommandAbstract {
         return "commands.xp.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length <= 0) {
             throw new ExceptionUsage("commands.xp.usage", new Object[0]);
         } else {
@@ -47,10 +47,10 @@ public class CommandXp extends CommandAbstract {
             if (flag) {
                 if (flag1) {
                     entityplayer.levelDown(-i);
-                    a(icommandlistener, "commands.xp.success.negative.levels", new Object[] { Integer.valueOf(i), entityplayer.getName()});
+                    a(icommandlistener, this, "commands.xp.success.negative.levels", new Object[] { Integer.valueOf(i), entityplayer.getName()});
                 } else {
                     entityplayer.levelDown(i);
-                    a(icommandlistener, "commands.xp.success.levels", new Object[] { Integer.valueOf(i), entityplayer.getName()});
+                    a(icommandlistener, this, "commands.xp.success.levels", new Object[] { Integer.valueOf(i), entityplayer.getName()});
                 }
             } else {
                 if (flag1) {
@@ -58,12 +58,12 @@ public class CommandXp extends CommandAbstract {
                 }
 
                 entityplayer.giveExp(i);
-                a(icommandlistener, "commands.xp.success", new Object[] { Integer.valueOf(i), entityplayer.getName()});
+                a(icommandlistener, this, "commands.xp.success", new Object[] { Integer.valueOf(i), entityplayer.getName()});
             }
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length == 2 ? a(astring, this.d()) : null;
     }
 
@@ -71,7 +71,7 @@ public class CommandXp extends CommandAbstract {
         return MinecraftServer.getServer().getPlayers();
     }
 
-    public boolean a(String[] astring, int i) {
+    public boolean isListStart(String[] astring, int i) {
         return i == 1;
     }
 }

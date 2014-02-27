@@ -2,13 +2,13 @@ package net.minecraft.server;
 
 class EntitySelectorViewable implements IEntitySelector {
 
-    final PathfinderGoalAvoidPlayer c;
+    final PathfinderGoalAvoidPlayer d;
 
     EntitySelectorViewable(PathfinderGoalAvoidPlayer pathfindergoalavoidplayer) {
-        this.c = pathfindergoalavoidplayer;
+        this.d = pathfindergoalavoidplayer;
     }
 
     public boolean a(Entity entity) {
-        return entity.isAlive() && PathfinderGoalAvoidPlayer.a(this.c).getEntitySenses().canSee(entity);
+        return entity.isAlive() && PathfinderGoalAvoidPlayer.a(this.d).getEntitySenses().canSee(entity);
     }
 }

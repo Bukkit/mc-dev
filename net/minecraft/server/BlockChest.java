@@ -359,7 +359,7 @@ public class BlockChest extends BlockContainer {
     }
 
     private static boolean o(World world, int i, int j, int k) {
-        Iterator iterator = world.a(EntityOcelot.class, AxisAlignedBB.a().a((double) i, (double) (j + 1), (double) k, (double) (i + 1), (double) (j + 2), (double) (k + 1))).iterator();
+        Iterator iterator = world.a(EntityOcelot.class, AxisAlignedBB.a((double) i, (double) (j + 1), (double) k, (double) (i + 1), (double) (j + 2), (double) (k + 1))).iterator();
 
         EntityOcelot entityocelot;
 

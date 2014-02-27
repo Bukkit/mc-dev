@@ -43,9 +43,9 @@ public class EntityEnderSignal extends Entity {
     }
 
     public void h() {
-        this.T = this.locX;
-        this.U = this.locY;
-        this.V = this.locZ;
+        this.S = this.locX;
+        this.T = this.locY;
+        this.U = this.locZ;
         super.h();
         this.locX += this.motX;
         this.locY += this.motY;
@@ -95,7 +95,7 @@ public class EntityEnderSignal extends Entity {
 
         float f3 = 0.25F;
 
-        if (this.M()) {
+        if (this.L()) {
             for (int i = 0; i < 4; ++i) {
                 this.world.addParticle("bubble", this.locX - this.motX * (double) f3, this.locY - this.motY * (double) f3, this.locZ - this.motZ * (double) f3, this.motX, this.motY, this.motZ);
             }
@@ -125,7 +125,7 @@ public class EntityEnderSignal extends Entity {
         return 1.0F;
     }
 
-    public boolean av() {
+    public boolean au() {
         return false;
     }
 }

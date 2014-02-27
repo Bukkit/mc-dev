@@ -17,7 +17,7 @@ public class EntityTypes {
     private static Map e = new HashMap();
     private static Map f = new HashMap();
     private static Map g = new HashMap();
-    public static HashMap a = new LinkedHashMap();
+    public static HashMap eggInfo = new LinkedHashMap();
 
     private static void a(Class oclass, String s, int i) {
         if (c.containsKey(s)) {
@@ -35,7 +35,7 @@ public class EntityTypes {
 
     private static void a(Class oclass, String s, int i, int j, int k) {
         a(oclass, s, i);
-        a.put(Integer.valueOf(i), new MonsterEggInfo(i, j, k));
+        eggInfo.put(Integer.valueOf(i), new MonsterEggInfo(i, j, k));
     }
 
     public static Entity createEntityByName(String s, World world) {

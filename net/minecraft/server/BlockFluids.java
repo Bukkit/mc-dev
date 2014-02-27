@@ -78,7 +78,7 @@ public abstract class BlockFluids extends Block {
     }
 
     private Vec3D f(IBlockAccess iblockaccess, int i, int j, int k) {
-        Vec3D vec3d = iblockaccess.getVec3DPool().create(0.0D, 0.0D, 0.0D);
+        Vec3D vec3d = Vec3D.a(0.0D, 0.0D, 0.0D);
         int l = this.e(iblockaccess, i, j, k);
 
         for (int i1 = 0; i1 < 4; ++i1) {
@@ -165,9 +165,9 @@ public abstract class BlockFluids extends Block {
     public void a(World world, int i, int j, int k, Entity entity, Vec3D vec3d) {
         Vec3D vec3d1 = this.f(world, i, j, k);
 
+        vec3d.a += vec3d1.a;
+        vec3d.b += vec3d1.b;
         vec3d.c += vec3d1.c;
-        vec3d.d += vec3d1.d;
-        vec3d.e += vec3d1.e;
     }
 
     public int a(World world) {

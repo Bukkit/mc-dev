@@ -19,15 +19,15 @@ public enum EnumFacing {
         this.k = j1;
     }
 
-    public int c() {
+    public int getAdjacentX() {
         return this.i;
     }
 
-    public int d() {
+    public int getAdjacentY() {
         return this.j;
     }
 
-    public int e() {
+    public int getAdjacentZ() {
         return this.k;
     }
 

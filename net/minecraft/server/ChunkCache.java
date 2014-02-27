@@ -80,10 +80,6 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
-    public Vec3DPool getVec3DPool() {
-        return this.e.getVec3DPool();
-    }
-
     public int getBlockPower(int i, int j, int k, int l) {
         return this.getType(i, j, k).c(this, i, j, k, l);
     }

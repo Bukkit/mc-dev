@@ -321,7 +321,7 @@ public class ContainerAnvil extends Container {
         ItemStack itemstack = null;
         Slot slot = (Slot) this.c.get(i);
 
-        if (slot != null && slot.e()) {
+        if (slot != null && slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
 
             itemstack = itemstack1.cloneItemStack();
@@ -357,7 +357,7 @@ public class ContainerAnvil extends Container {
 
     public void a(String s) {
         this.n = s;
-        if (this.getSlot(2).e()) {
+        if (this.getSlot(2).hasItem()) {
             ItemStack itemstack = this.getSlot(2).getItem();
 
             if (StringUtils.isBlank(s)) {

@@ -28,9 +28,9 @@ public class DispenseBehaviorItem implements IDispenseBehavior {
         EntityItem entityitem = new EntityItem(world, d0, d1 - 0.3D, d2, itemstack);
         double d3 = world.random.nextDouble() * 0.1D + 0.2D;
 
-        entityitem.motX = (double) enumfacing.c() * d3;
+        entityitem.motX = (double) enumfacing.getAdjacentX() * d3;
         entityitem.motY = 0.20000000298023224D;
-        entityitem.motZ = (double) enumfacing.e() * d3;
+        entityitem.motZ = (double) enumfacing.getAdjacentZ() * d3;
         entityitem.motX += world.random.nextGaussian() * 0.007499999832361937D * (double) i;
         entityitem.motY += world.random.nextGaussian() * 0.007499999832361937D * (double) i;
         entityitem.motZ += world.random.nextGaussian() * 0.007499999832361937D * (double) i;
@@ -46,6 +46,6 @@ public class DispenseBehaviorItem implements IDispenseBehavior {
     }
 
     private int a(EnumFacing enumfacing) {
-        return enumfacing.c() + 1 + (enumfacing.e() + 1) * 3;
+        return enumfacing.getAdjacentX() + 1 + (enumfacing.getAdjacentZ() + 1) * 3;
     }
 }

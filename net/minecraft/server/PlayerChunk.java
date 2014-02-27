@@ -23,7 +23,7 @@ class PlayerChunk {
 
     public void a(EntityPlayer entityplayer) {
         if (this.b.contains(entityplayer)) {
-            throw new IllegalStateException("Failed to add player. " + entityplayer + " already is in chunk " + this.location.x + ", " + this.location.z);
+            PlayerChunkMap.c().debug("Failed to add player. {} already is in chunk {}, {}", new Object[] { entityplayer, Integer.valueOf(this.location.x), Integer.valueOf(this.location.z)});
         } else {
             if (this.b.isEmpty()) {
                 this.g = PlayerChunkMap.a(this.playerChunkMap).getTime();

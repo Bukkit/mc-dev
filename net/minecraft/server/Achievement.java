@@ -65,7 +65,7 @@ public class Achievement extends Statistic {
     public IChatBaseComponent e() {
         IChatBaseComponent ichatbasecomponent = super.e();
 
-        ichatbasecomponent.b().setColor(this.g() ? EnumChatFormat.DARK_PURPLE : EnumChatFormat.GREEN);
+        ichatbasecomponent.getChatModifier().setColor(this.g() ? EnumChatFormat.DARK_PURPLE : EnumChatFormat.GREEN);
         return ichatbasecomponent;
     }
 

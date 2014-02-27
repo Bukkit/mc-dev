@@ -24,9 +24,9 @@ public class PacketPlayOutExplosion extends Packet {
         this.d = f;
         this.e = new ArrayList(list);
         if (vec3d != null) {
-            this.f = (float) vec3d.c;
-            this.g = (float) vec3d.d;
-            this.h = (float) vec3d.e;
+            this.f = (float) vec3d.a;
+            this.g = (float) vec3d.b;
+            this.h = (float) vec3d.c;
         }
     }
 

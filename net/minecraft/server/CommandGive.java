@@ -6,7 +6,7 @@ public class CommandGive extends CommandAbstract {
 
     public CommandGive() {}
 
-    public String c() {
+    public String getCommand() {
         return "give";
     }
 
@@ -18,7 +18,7 @@ public class CommandGive extends CommandAbstract {
         return "commands.give.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length < 2) {
             throw new ExceptionUsage("commands.give.usage", new Object[0]);
         } else {
@@ -41,16 +41,16 @@ public class CommandGive extends CommandAbstract {
                 String s = a(icommandlistener, astring, 4).c();
 
                 try {
-                    NBTBase nbtbase = MojangsonParser.a(s);
+                    NBTBase nbtbase = MojangsonParser.parse(s);
 
                     if (!(nbtbase instanceof NBTTagCompound)) {
-                        a(icommandlistener, "commands.give.tagError", new Object[] { "Not a valid tag"});
+                        a(icommandlistener, this, "commands.give.tagError", new Object[] { "Not a valid tag"});
                         return;
                     }
 
                     itemstack.setTag((NBTTagCompound) nbtbase);
                 } catch (MojangsonParseException mojangsonparseexception) {
-                    a(icommandlistener, "commands.give.tagError", new Object[] { mojangsonparseexception.getMessage()});
+                    a(icommandlistener, this, "commands.give.tagError", new Object[] { mojangsonparseexception.getMessage()});
                     return;
                 }
             }
@@ -59,19 +59,19 @@ public class CommandGive extends CommandAbstract {
 
             entityitem.pickupDelay = 0;
             entityitem.a(entityplayer.getName());
-            a(icommandlistener, "commands.give.success", new Object[] { itemstack.E(), Integer.valueOf(i), entityplayer.getName()});
+            a(icommandlistener, this, "commands.give.success", new Object[] { itemstack.E(), Integer.valueOf(i), entityplayer.getName()});
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
-        return astring.length == 1 ? a(astring, this.d()) : (astring.length == 2 ? a(astring, Item.REGISTRY.b()) : null);
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
+        return astring.length == 1 ? a(astring, this.d()) : (astring.length == 2 ? a(astring, Item.REGISTRY.keySet()) : null);
     }
 
     protected String[] d() {
         return MinecraftServer.getServer().getPlayers();
     }
 
-    public boolean a(String[] astring, int i) {
+    public boolean isListStart(String[] astring, int i) {
         return i == 0;
     }
 }

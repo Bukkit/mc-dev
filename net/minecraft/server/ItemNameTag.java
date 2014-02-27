@@ -13,7 +13,7 @@ public class ItemNameTag extends Item {
             EntityInsentient entityinsentient = (EntityInsentient) entityliving;
 
             entityinsentient.setCustomName(itemstack.getName());
-            entityinsentient.bD();
+            entityinsentient.bF();
             --itemstack.count;
             return true;
         } else {

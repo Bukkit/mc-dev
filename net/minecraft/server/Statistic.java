@@ -6,7 +6,7 @@ import java.util.Locale;
 
 public class Statistic {
 
-    public final String e;
+    public final String name;
     private final IChatBaseComponent a;
     public boolean f;
     private final Counter b;
@@ -20,7 +20,7 @@ public class Statistic {
     public static Counter j = new DamageCounter();
 
     public Statistic(String s, IChatBaseComponent ichatbasecomponent, Counter counter) {
-        this.e = s;
+        this.name = s;
         this.a = ichatbasecomponent;
         this.b = counter;
         this.c = new ScoreboardStatisticCriteria(this);
@@ -37,11 +37,11 @@ public class Statistic {
     }
 
     public Statistic h() {
-        if (StatisticList.a.containsKey(this.e)) {
-            throw new RuntimeException("Duplicate stat id: \"" + ((Statistic) StatisticList.a.get(this.e)).a + "\" and \"" + this.a + "\" at id " + this.e);
+        if (StatisticList.a.containsKey(this.name)) {
+            throw new RuntimeException("Duplicate stat id: \"" + ((Statistic) StatisticList.a.get(this.name)).a + "\" and \"" + this.a + "\" at id " + this.name);
         } else {
             StatisticList.b.add(this);
-            StatisticList.a.put(this.e, this);
+            StatisticList.a.put(this.name, this);
             return this;
         }
     }
@@ -53,8 +53,8 @@ public class Statistic {
     public IChatBaseComponent e() {
         IChatBaseComponent ichatbasecomponent = this.a.f();
 
-        ichatbasecomponent.b().setColor(EnumChatFormat.GRAY);
-        ichatbasecomponent.b().a(new ChatHoverable(EnumHoverAction.SHOW_ACHIEVEMENT, new ChatComponentText(this.e)));
+        ichatbasecomponent.getChatModifier().setColor(EnumChatFormat.GRAY);
+        ichatbasecomponent.getChatModifier().a(new ChatHoverable(EnumHoverAction.SHOW_ACHIEVEMENT, new ChatComponentText(this.name)));
         return ichatbasecomponent;
     }
 
@@ -62,7 +62,7 @@ public class Statistic {
         IChatBaseComponent ichatbasecomponent = this.e();
         IChatBaseComponent ichatbasecomponent1 = (new ChatComponentText("[")).a(ichatbasecomponent).a("]");
 
-        ichatbasecomponent1.setChatModifier(ichatbasecomponent.b());
+        ichatbasecomponent1.setChatModifier(ichatbasecomponent.getChatModifier());
         return ichatbasecomponent1;
     }
 
@@ -72,18 +72,18 @@ public class Statistic {
         } else if (object != null && this.getClass() == object.getClass()) {
             Statistic statistic = (Statistic) object;
 
-            return this.e.equals(statistic.e);
+            return this.name.equals(statistic.name);
         } else {
             return false;
         }
     }
 
     public int hashCode() {
-        return this.e.hashCode();
+        return this.name.hashCode();
     }
 
     public String toString() {
-        return "Stat{id=" + this.e + ", nameId=" + this.a + ", awardLocallyOnly=" + this.f + ", formatter=" + this.b + ", objectiveCriteria=" + this.c + '}';
+        return "Stat{id=" + this.name + ", nameId=" + this.a + ", awardLocallyOnly=" + this.f + ", formatter=" + this.b + ", objectiveCriteria=" + this.c + '}';
     }
 
     public IScoreboardCriteria k() {

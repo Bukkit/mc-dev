@@ -41,7 +41,7 @@ public class CommandHandler implements ICommandHandler {
                 throw new ExceptionUnknownCommand();
             }
 
-            if (icommand.a(icommandlistener)) {
+            if (icommand.canUse(icommandlistener)) {
                 if (i > -1) {
                     EntityPlayer[] aentityplayer = PlayerSelector.getPlayers(icommandlistener, astring[i]);
                     String s2 = astring[i];
@@ -54,40 +54,46 @@ public class CommandHandler implements ICommandHandler {
                         astring[i] = entityplayer.getName();
 
                         try {
-                            icommand.b(icommandlistener, astring);
+                            icommand.execute(icommandlistener, astring);
                             ++j;
                         } catch (CommandException commandexception) {
                             ChatMessage chatmessage1 = new ChatMessage(commandexception.getMessage(), commandexception.a());
 
-                            chatmessage1.b().setColor(EnumChatFormat.RED);
+                            chatmessage1.getChatModifier().setColor(EnumChatFormat.RED);
                             icommandlistener.sendMessage(chatmessage1);
                         }
                     }
 
                     astring[i] = s2;
                 } else {
-                    icommand.b(icommandlistener, astring);
-                    ++j;
+                    try {
+                        icommand.execute(icommandlistener, astring);
+                        ++j;
+                    } catch (CommandException commandexception1) {
+                        chatmessage = new ChatMessage(commandexception1.getMessage(), commandexception1.a());
+                        chatmessage.getChatModifier().setColor(EnumChatFormat.RED);
+                        icommandlistener.sendMessage(chatmessage);
+                    }
                 }
             } else {
                 ChatMessage chatmessage2 = new ChatMessage("commands.generic.permission", new Object[0]);
 
-                chatmessage2.b().setColor(EnumChatFormat.RED);
+                chatmessage2.getChatModifier().setColor(EnumChatFormat.RED);
                 icommandlistener.sendMessage(chatmessage2);
             }
         } catch (ExceptionUsage exceptionusage) {
             chatmessage = new ChatMessage("commands.generic.usage", new Object[] { new ChatMessage(exceptionusage.getMessage(), exceptionusage.a())});
-            chatmessage.b().setColor(EnumChatFormat.RED);
+            chatmessage.getChatModifier().setColor(EnumChatFormat.RED);
             icommandlistener.sendMessage(chatmessage);
-        } catch (CommandException commandexception1) {
-            chatmessage = new ChatMessage(commandexception1.getMessage(), commandexception1.a());
-            chatmessage.b().setColor(EnumChatFormat.RED);
+        } catch (CommandException commandexception2) {
+            chatmessage = new ChatMessage(commandexception2.getMessage(), commandexception2.a());
+            chatmessage.getChatModifier().setColor(EnumChatFormat.RED);
             icommandlistener.sendMessage(chatmessage);
         } catch (Throwable throwable) {
             chatmessage = new ChatMessage("commands.generic.exception", new Object[0]);
-            chatmessage.b().setColor(EnumChatFormat.RED);
+            chatmessage.getChatModifier().setColor(EnumChatFormat.RED);
             icommandlistener.sendMessage(chatmessage);
-            a.error("Couldn\'t process command", throwable);
+            a.error("Couldn\'t process command: \'" + s + "\'", throwable);
         }
 
         return j;
@@ -96,7 +102,7 @@ public class CommandHandler implements ICommandHandler {
     public ICommand a(ICommand icommand) {
         List list = icommand.b();
 
-        this.b.put(icommand.c(), icommand);
+        this.b.put(icommand.getCommand(), icommand);
         this.c.add(icommand);
         if (list != null) {
             Iterator iterator = list.iterator();
@@ -105,7 +111,7 @@ public class CommandHandler implements ICommandHandler {
                 String s = (String) iterator.next();
                 ICommand icommand1 = (ICommand) this.b.get(s);
 
-                if (icommand1 == null || !icommand1.c().equals(s)) {
+                if (icommand1 == null || !icommand1.getCommand().equals(s)) {
                     this.b.put(s, icommand);
                 }
             }
@@ -135,7 +141,7 @@ public class CommandHandler implements ICommandHandler {
             while (iterator.hasNext()) {
                 Entry entry = (Entry) iterator.next();
 
-                if (CommandAbstract.a(s1, (String) entry.getKey()) && ((ICommand) entry.getValue()).a(icommandlistener)) {
+                if (CommandAbstract.a(s1, (String) entry.getKey()) && ((ICommand) entry.getValue()).canUse(icommandlistener)) {
                     arraylist.add(entry.getKey());
                 }
             }
@@ -146,7 +152,7 @@ public class CommandHandler implements ICommandHandler {
                 ICommand icommand = (ICommand) this.b.get(s1);
 
                 if (icommand != null) {
-                    return icommand.a(icommandlistener, a(astring));
+                    return icommand.tabComplete(icommandlistener, a(astring));
                 }
             }
 
@@ -161,7 +167,7 @@ public class CommandHandler implements ICommandHandler {
         while (iterator.hasNext()) {
             ICommand icommand = (ICommand) iterator.next();
 
-            if (icommand.a(icommandlistener)) {
+            if (icommand.canUse(icommandlistener)) {
                 arraylist.add(icommand);
             }
         }
@@ -178,7 +184,7 @@ public class CommandHandler implements ICommandHandler {
             return -1;
         } else {
             for (int i = 0; i < astring.length; ++i) {
-                if (icommand.a(astring, i) && PlayerSelector.isList(astring[i])) {
+                if (icommand.isListStart(astring, i) && PlayerSelector.isList(astring[i])) {
                     return i;
                 }
             }

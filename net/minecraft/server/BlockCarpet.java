@@ -14,7 +14,7 @@ public class BlockCarpet extends Block {
         byte b0 = 0;
         float f = 0.0625F;
 
-        return AxisAlignedBB.a().a((double) i + this.minX, (double) j + this.minY, (double) k + this.minZ, (double) i + this.maxX, (double) ((float) j + (float) b0 * f), (double) k + this.maxZ);
+        return AxisAlignedBB.a((double) i + this.minX, (double) j + this.minY, (double) k + this.minZ, (double) i + this.maxX, (double) ((float) j + (float) b0 * f), (double) k + this.maxZ);
     }
 
     public boolean c() {

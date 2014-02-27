@@ -16,6 +16,6 @@ class ServerConnectionFuture implements GenericFutureListener {
     }
 
     public void operationComplete(Future future) {
-        this.a.a((IChatBaseComponent) this.b);
+        this.a.close(this.b);
     }
 }

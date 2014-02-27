@@ -6,7 +6,7 @@ public interface IChatBaseComponent extends Iterable {
 
     IChatBaseComponent setChatModifier(ChatModifier chatmodifier);
 
-    ChatModifier b();
+    ChatModifier getChatModifier();
 
     IChatBaseComponent a(String s);
 

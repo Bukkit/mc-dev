@@ -7,15 +7,15 @@ public class ConvertProgressUpdater implements IProgressUpdate {
 
     public ConvertProgressUpdater(MinecraftServer minecraftserver) {
         this.a = minecraftserver;
-        this.b = MinecraftServer.ap();
+        this.b = MinecraftServer.aq();
     }
 
     public void a(String s) {}
 
     public void a(int i) {
-        if (MinecraftServer.ap() - this.b >= 1000L) {
-            this.b = MinecraftServer.ap();
-            MinecraftServer.av().info("Converting... " + i + "%");
+        if (MinecraftServer.aq() - this.b >= 1000L) {
+            this.b = MinecraftServer.aq();
+            MinecraftServer.getLogger().info("Converting... " + i + "%");
         }
     }
 

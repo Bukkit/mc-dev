@@ -32,12 +32,12 @@ public class BlockFlowerPot extends BlockContainer {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
 
         if (itemstack != null && itemstack.getItem() instanceof ItemBlock) {
-            if (world.getData(i, j, k) != 0) {
-                return false;
-            } else {
-                TileEntityFlowerPot tileentityflowerpot = this.e(world, i, j, k);
+            TileEntityFlowerPot tileentityflowerpot = this.e(world, i, j, k);
 
-                if (tileentityflowerpot != null) {
+            if (tileentityflowerpot != null) {
+                if (tileentityflowerpot.a() != null) {
+                    return false;
+                } else {
                     Block block = Block.a(itemstack.getItem());
 
                     if (!this.a(block, itemstack.getData())) {
@@ -55,9 +55,9 @@ public class BlockFlowerPot extends BlockContainer {
 
                         return true;
                     }
-                } else {
-                    return false;
                 }
+            } else {
+                return false;
             }
         } else {
             return false;
@@ -82,15 +82,6 @@ public class BlockFlowerPot extends BlockContainer {
         if (!World.a((IBlockAccess) world, i, j - 1, k)) {
             this.b(world, i, j, k, world.getData(i, j, k), 0);
             world.setAir(i, j, k);
-        }
-    }
-
-    public void dropNaturally(World world, int i, int j, int k, int l, float f, int i1) {
-        super.dropNaturally(world, i, j, k, l, f, i1);
-        TileEntityFlowerPot tileentityflowerpot = this.e(world, i, j, k);
-
-        if (tileentityflowerpot != null && tileentityflowerpot.a() != null) {
-            this.a(world, i, j, k, new ItemStack(tileentityflowerpot.a(), 1, tileentityflowerpot.b()));
         }
     }
 

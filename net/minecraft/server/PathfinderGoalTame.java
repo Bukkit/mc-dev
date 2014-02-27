@@ -21,9 +21,9 @@ public class PathfinderGoalTame extends PathfinderGoal {
             if (vec3d == null) {
                 return false;
             } else {
-                this.c = vec3d.c;
-                this.d = vec3d.d;
-                this.e = vec3d.e;
+                this.c = vec3d.a;
+                this.d = vec3d.b;
+                this.e = vec3d.c;
                 return true;
             }
         } else {
@@ -40,12 +40,12 @@ public class PathfinderGoalTame extends PathfinderGoal {
     }
 
     public void e() {
-        if (this.entity.aI().nextInt(50) == 0) {
+        if (this.entity.aH().nextInt(50) == 0) {
             if (this.entity.passenger instanceof EntityHuman) {
                 int i = this.entity.getTemper();
                 int j = this.entity.getMaxDomestication();
 
-                if (j > 0 && this.entity.aI().nextInt(j) < i) {
+                if (j > 0 && this.entity.aH().nextInt(j) < i) {
                     this.entity.h((EntityHuman) this.entity.passenger);
                     this.entity.world.broadcastEntityEffect(this.entity, (byte) 7);
                     return;
@@ -56,7 +56,7 @@ public class PathfinderGoalTame extends PathfinderGoal {
 
             this.entity.passenger.mount((Entity) null);
             this.entity.passenger = null;
-            this.entity.cH();
+            this.entity.cJ();
             this.entity.world.broadcastEntityEffect(this.entity, (byte) 6);
         }
     }

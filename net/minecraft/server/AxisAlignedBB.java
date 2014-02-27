@@ -2,7 +2,6 @@ package net.minecraft.server;
 
 public class AxisAlignedBB {
 
-    private static final ThreadLocal g = new AABBPoolThreadLocal();
     public double a;
     public double b;
     public double c;
@@ -12,10 +11,6 @@ public class AxisAlignedBB {
 
     public static AxisAlignedBB a(double d0, double d1, double d2, double d3, double d4, double d5) {
         return new AxisAlignedBB(d0, d1, d2, d3, d4, d5);
-    }
-
-    public static AABBPool a() {
-        return (AABBPool) g.get();
     }
 
     protected AxisAlignedBB(double d0, double d1, double d2, double d3, double d4, double d5) {
@@ -69,7 +64,7 @@ public class AxisAlignedBB {
             d8 += d2;
         }
 
-        return a().a(d3, d4, d5, d6, d7, d8);
+        return a(d3, d4, d5, d6, d7, d8);
     }
 
     public AxisAlignedBB grow(double d0, double d1, double d2) {
@@ -80,7 +75,7 @@ public class AxisAlignedBB {
         double d7 = this.e + d1;
         double d8 = this.f + d2;
 
-        return a().a(d3, d4, d5, d6, d7, d8);
+        return a(d3, d4, d5, d6, d7, d8);
     }
 
     public AxisAlignedBB a(AxisAlignedBB axisalignedbb) {
@@ -91,11 +86,11 @@ public class AxisAlignedBB {
         double d4 = Math.max(this.e, axisalignedbb.e);
         double d5 = Math.max(this.f, axisalignedbb.f);
 
-        return a().a(d0, d1, d2, d3, d4, d5);
+        return a(d0, d1, d2, d3, d4, d5);
     }
 
     public AxisAlignedBB c(double d0, double d1, double d2) {
-        return a().a(this.a + d0, this.b + d1, this.c + d2, this.d + d0, this.e + d1, this.f + d2);
+        return a(this.a + d0, this.b + d1, this.c + d2, this.d + d0, this.e + d1, this.f + d2);
     }
 
     public double a(AxisAlignedBB axisalignedbb, double d0) {
@@ -197,10 +192,10 @@ public class AxisAlignedBB {
     }
 
     public boolean a(Vec3D vec3d) {
-        return vec3d.c > this.a && vec3d.c < this.d ? (vec3d.d > this.b && vec3d.d < this.e ? vec3d.e > this.c && vec3d.e < this.f : false) : false;
+        return vec3d.a > this.a && vec3d.a < this.d ? (vec3d.b > this.b && vec3d.b < this.e ? vec3d.c > this.c && vec3d.c < this.f : false) : false;
     }
 
-    public double b() {
+    public double a() {
         double d0 = this.d - this.a;
         double d1 = this.e - this.b;
         double d2 = this.f - this.c;
@@ -216,11 +211,11 @@ public class AxisAlignedBB {
         double d7 = this.e - d1;
         double d8 = this.f - d2;
 
-        return a().a(d3, d4, d5, d6, d7, d8);
+        return a(d3, d4, d5, d6, d7, d8);
     }
 
     public AxisAlignedBB clone() {
-        return a().a(this.a, this.b, this.c, this.d, this.e, this.f);
+        return a(this.a, this.b, this.c, this.d, this.e, this.f);
     }
 
     public MovingObjectPosition a(Vec3D vec3d, Vec3D vec3d1) {
@@ -315,15 +310,15 @@ public class AxisAlignedBB {
     }
 
     private boolean b(Vec3D vec3d) {
-        return vec3d == null ? false : vec3d.d >= this.b && vec3d.d <= this.e && vec3d.e >= this.c && vec3d.e <= this.f;
+        return vec3d == null ? false : vec3d.b >= this.b && vec3d.b <= this.e && vec3d.c >= this.c && vec3d.c <= this.f;
     }
 
     private boolean c(Vec3D vec3d) {
-        return vec3d == null ? false : vec3d.c >= this.a && vec3d.c <= this.d && vec3d.e >= this.c && vec3d.e <= this.f;
+        return vec3d == null ? false : vec3d.a >= this.a && vec3d.a <= this.d && vec3d.c >= this.c && vec3d.c <= this.f;
     }
 
     private boolean d(Vec3D vec3d) {
-        return vec3d == null ? false : vec3d.c >= this.a && vec3d.c <= this.d && vec3d.d >= this.b && vec3d.d <= this.e;
+        return vec3d == null ? false : vec3d.a >= this.a && vec3d.a <= this.d && vec3d.b >= this.b && vec3d.b <= this.e;
     }
 
     public void d(AxisAlignedBB axisalignedbb) {

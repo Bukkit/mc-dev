@@ -37,10 +37,10 @@ public class StatisticList {
     public static Statistic z = (new CounterStatistic("stat.fishCaught", new ChatMessage("stat.fishCaught", new Object[0]))).h();
     public static Statistic A = (new CounterStatistic("stat.junkFished", new ChatMessage("stat.junkFished", new Object[0]))).h();
     public static Statistic B = (new CounterStatistic("stat.treasureFished", new ChatMessage("stat.treasureFished", new Object[0]))).h();
-    public static final Statistic[] C = new Statistic[4096];
-    public static final Statistic[] D = new Statistic[32000];
-    public static final Statistic[] E = new Statistic[32000];
-    public static final Statistic[] F = new Statistic[32000];
+    public static final Statistic[] MINE_BLOCK_COUNT = new Statistic[4096];
+    public static final Statistic[] CRAFT_BLOCK_COUNT = new Statistic[32000];
+    public static final Statistic[] USE_ITEM_COUNT = new Statistic[32000];
+    public static final Statistic[] BREAK_ITEM_COUNT = new Statistic[32000];
 
     public static void a() {
         c();
@@ -79,11 +79,11 @@ public class StatisticList {
             if (item != null) {
                 int i = Item.b(item);
 
-                D[i] = (new CraftingStatistic("stat.craftItem." + i, new ChatMessage("stat.craftItem", new Object[] { (new ItemStack(item)).E()}), item)).h();
+                CRAFT_BLOCK_COUNT[i] = (new CraftingStatistic("stat.craftItem." + i, new ChatMessage("stat.craftItem", new Object[] { (new ItemStack(item)).E()}), item)).h();
             }
         }
 
-        a(D);
+        a(CRAFT_BLOCK_COUNT);
     }
 
     private static void c() {
@@ -96,13 +96,13 @@ public class StatisticList {
                 int i = Block.b(block);
 
                 if (block.G()) {
-                    C[i] = (new CraftingStatistic("stat.mineBlock." + i, new ChatMessage("stat.mineBlock", new Object[] { (new ItemStack(block)).E()}), Item.getItemOf(block))).h();
-                    e.add((CraftingStatistic) C[i]);
+                    MINE_BLOCK_COUNT[i] = (new CraftingStatistic("stat.mineBlock." + i, new ChatMessage("stat.mineBlock", new Object[] { (new ItemStack(block)).E()}), Item.getItemOf(block))).h();
+                    e.add((CraftingStatistic) MINE_BLOCK_COUNT[i]);
                 }
             }
         }
 
-        a(C);
+        a(MINE_BLOCK_COUNT);
     }
 
     private static void d() {
@@ -114,14 +114,14 @@ public class StatisticList {
             if (item != null) {
                 int i = Item.b(item);
 
-                E[i] = (new CraftingStatistic("stat.useItem." + i, new ChatMessage("stat.useItem", new Object[] { (new ItemStack(item)).E()}), item)).h();
+                USE_ITEM_COUNT[i] = (new CraftingStatistic("stat.useItem." + i, new ChatMessage("stat.useItem", new Object[] { (new ItemStack(item)).E()}), item)).h();
                 if (!(item instanceof ItemBlock)) {
-                    d.add((CraftingStatistic) E[i]);
+                    d.add((CraftingStatistic) USE_ITEM_COUNT[i]);
                 }
             }
         }
 
-        a(E);
+        a(USE_ITEM_COUNT);
     }
 
     private static void e() {
@@ -134,12 +134,12 @@ public class StatisticList {
                 int i = Item.b(item);
 
                 if (item.usesDurability()) {
-                    F[i] = (new CraftingStatistic("stat.breakItem." + i, new ChatMessage("stat.breakItem", new Object[] { (new ItemStack(item)).E()}), item)).h();
+                    BREAK_ITEM_COUNT[i] = (new CraftingStatistic("stat.breakItem." + i, new ChatMessage("stat.breakItem", new Object[] { (new ItemStack(item)).E()}), item)).h();
                 }
             }
         }
 
-        a(F);
+        a(BREAK_ITEM_COUNT);
     }
 
     private static void a(Statistic[] astatistic) {
@@ -185,7 +185,7 @@ public class StatisticList {
         return s == null ? null : (new Statistic("stat.entityKilledBy." + s, new ChatMessage("stat.entityKilledBy", new Object[] { new ChatMessage("entity." + s + ".name", new Object[0])}))).h();
     }
 
-    public static Statistic a(String s) {
+    public static Statistic getStatistic(String s) {
         return (Statistic) a.get(s);
     }
 }

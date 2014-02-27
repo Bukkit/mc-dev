@@ -19,7 +19,7 @@ public class SlotMerchantResult extends Slot {
     }
 
     public ItemStack a(int i) {
-        if (this.e()) {
+        if (this.hasItem()) {
             this.c += Math.min(i, this.getItem().count);
         }
 

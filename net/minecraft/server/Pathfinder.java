@@ -33,7 +33,7 @@ public class Pathfinder {
         boolean flag = this.g;
         int i = MathHelper.floor(entity.boundingBox.b + 0.5D);
 
-        if (this.h && entity.M()) {
+        if (this.h && entity.L()) {
             i = (int) entity.boundingBox.b;
 
             for (Block block = this.a.getType(MathHelper.floor(entity.locX), i, MathHelper.floor(entity.locZ)); block == Blocks.WATER || block == Blocks.STATIONARY_WATER; block = this.a.getType(MathHelper.floor(entity.locX), i, MathHelper.floor(entity.locZ))) {
@@ -164,7 +164,7 @@ public class Pathfinder {
                         break;
                     }
 
-                    if (j1++ >= entity.ax()) {
+                    if (j1++ >= entity.aw()) {
                         return null;
                     }
 
@@ -247,7 +247,7 @@ public class Pathfinder {
                                 return 0;
                             }
 
-                            if (!entity.P()) {
+                            if (!entity.O()) {
                                 return -2;
                             }
                         }

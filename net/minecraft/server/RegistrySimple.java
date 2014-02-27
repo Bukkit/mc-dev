@@ -19,7 +19,7 @@ public class RegistrySimple implements IRegistry {
         return Maps.newHashMap();
     }
 
-    public Object a(Object object) {
+    public Object get(Object object) {
         return this.c.get(object);
     }
 
@@ -31,7 +31,7 @@ public class RegistrySimple implements IRegistry {
         this.c.put(object, object1);
     }
 
-    public Set b() {
+    public Set keySet() {
         return Collections.unmodifiableSet(this.c.keySet());
     }
 

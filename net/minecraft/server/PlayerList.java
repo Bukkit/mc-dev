@@ -20,19 +20,19 @@ import org.apache.logging.log4j.Logger;
 
 public abstract class PlayerList {
 
-    private static final Logger d = LogManager.getLogger();
-    private static final SimpleDateFormat e = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss z");
+    private static final Logger c = LogManager.getLogger();
+    private static final SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss z");
     private final MinecraftServer server;
     public final List players = new ArrayList();
     private final BanList banByName = new BanList(new File("banned-players.txt"));
     private final BanList banByIP = new BanList(new File("banned-ips.txt"));
     private final Set operators = new HashSet();
     private final Set whitelist = new HashSet();
-    private final Map k = Maps.newHashMap();
+    private final Map j = Maps.newHashMap();
     private IPlayerFileData playerFileData;
     private boolean hasWhitelist;
     protected int maxPlayers;
-    protected int c;
+    private int m;
     private EnumGamemode n;
     private boolean o;
     private int p;
@@ -55,7 +55,7 @@ public abstract class PlayerList {
             s = networkmanager.getSocketAddress().toString();
         }
 
-        d.info(entityplayer.getName() + "[" + s + "] logged in with entity id " + entityplayer.getId() + " at (" + entityplayer.locX + ", " + entityplayer.locY + ", " + entityplayer.locZ + ")");
+        c.info(entityplayer.getName() + "[" + s + "] logged in with entity id " + entityplayer.getId() + " at (" + entityplayer.locX + ", " + entityplayer.locY + ", " + entityplayer.locZ + ")");
         WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
         ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
 
@@ -67,19 +67,19 @@ public abstract class PlayerList {
         playerconnection.sendPacket(new PacketPlayOutSpawnPosition(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z));
         playerconnection.sendPacket(new PacketPlayOutAbilities(entityplayer.abilities));
         playerconnection.sendPacket(new PacketPlayOutHeldItemSlot(entityplayer.inventory.itemInHandIndex));
-        entityplayer.x().d();
-        entityplayer.x().b(entityplayer);
+        entityplayer.getStatisticManager().d();
+        entityplayer.getStatisticManager().updateStatistics(entityplayer);
         this.a((ScoreboardServer) worldserver.getScoreboard(), entityplayer);
-        this.server.au();
+        this.server.av();
         ChatMessage chatmessage = new ChatMessage("multiplayer.player.joined", new Object[] { entityplayer.getScoreboardDisplayName()});
 
-        chatmessage.b().setColor(EnumChatFormat.YELLOW);
+        chatmessage.getChatModifier().setColor(EnumChatFormat.YELLOW);
         this.sendMessage(chatmessage);
         this.c(entityplayer);
         playerconnection.a(entityplayer.locX, entityplayer.locY, entityplayer.locZ, entityplayer.yaw, entityplayer.pitch);
         this.b(entityplayer, worldserver);
         if (this.server.getResourcePack().length() > 0) {
-            entityplayer.a(this.server.getResourcePack());
+            entityplayer.setResourcePack(this.server.getResourcePack());
         }
 
         Iterator iterator = entityplayer.getEffects().iterator();
@@ -95,10 +95,10 @@ public abstract class PlayerList {
             Entity entity = EntityTypes.a(nbttagcompound.getCompound("Riding"), worldserver);
 
             if (entity != null) {
-                entity.o = true;
+                entity.n = true;
                 worldserver.addEntity(entity);
                 entityplayer.mount(entity);
-                entity.o = false;
+                entity.n = false;
             }
         }
     }
@@ -154,10 +154,10 @@ public abstract class PlayerList {
         NBTTagCompound nbttagcompound = this.server.worldServer[0].getWorldData().i();
         NBTTagCompound nbttagcompound1;
 
-        if (entityplayer.getName().equals(this.server.K()) && nbttagcompound != null) {
+        if (entityplayer.getName().equals(this.server.L()) && nbttagcompound != null) {
             entityplayer.f(nbttagcompound);
             nbttagcompound1 = nbttagcompound;
-            d.debug("loading single player");
+            c.debug("loading single player");
         } else {
             nbttagcompound1 = this.playerFileData.load(entityplayer);
         }
@@ -167,7 +167,7 @@ public abstract class PlayerList {
 
     protected void b(EntityPlayer entityplayer) {
         this.playerFileData.save(entityplayer);
-        ServerStatisticManager serverstatisticmanager = (ServerStatisticManager) this.k.get(entityplayer.getName());
+        ServerStatisticManager serverstatisticmanager = (ServerStatisticManager) this.j.get(entityplayer.getName());
 
         if (serverstatisticmanager != null) {
             serverstatisticmanager.b();
@@ -200,13 +200,13 @@ public abstract class PlayerList {
 
         if (entityplayer.vehicle != null) {
             worldserver.removeEntity(entityplayer.vehicle);
-            d.debug("removing player mount");
+            c.debug("removing player mount");
         }
 
         worldserver.kill(entityplayer);
         worldserver.getPlayerChunkMap().removePlayer(entityplayer);
         this.players.remove(entityplayer);
-        this.k.remove(entityplayer.getName());
+        this.j.remove(entityplayer.getName());
         this.sendAll(new PacketPlayOutPlayerInfo(entityplayer.getName(), false, 9999));
     }
 
@@ -216,7 +216,7 @@ public abstract class PlayerList {
             String s = "You are banned from this server!\nReason: " + banentry.getReason();
 
             if (banentry.getExpires() != null) {
-                s = s + "\nYour ban will be removed on " + e.format(banentry.getExpires());
+                s = s + "\nYour ban will be removed on " + d.format(banentry.getExpires());
             }
 
             return s;
@@ -232,7 +232,7 @@ public abstract class PlayerList {
                 String s2 = "Your IP address is banned from this server!\nReason: " + banentry1.getReason();
 
                 if (banentry1.getExpires() != null) {
-                    s2 = s2 + "\nYour ban will be removed on " + e.format(banentry1.getExpires());
+                    s2 = s2 + "\nYour ban will be removed on " + d.format(banentry1.getExpires());
                 }
 
                 return s2;
@@ -263,7 +263,7 @@ public abstract class PlayerList {
 
         Object object;
 
-        if (this.server.P()) {
+        if (this.server.Q()) {
             object = new DemoPlayerInteractManager(this.server.getWorldServer(0));
         } else {
             object = new PlayerInteractManager(this.server.getWorldServer(0));
@@ -284,7 +284,7 @@ public abstract class PlayerList {
         entityplayer.dimension = i;
         Object object;
 
-        if (this.server.P()) {
+        if (this.server.Q()) {
             object = new DemoPlayerInteractManager(this.server.getWorldServer(entityplayer.dimension));
         } else {
             object = new PlayerInteractManager(this.server.getWorldServer(entityplayer.dimension));
@@ -404,7 +404,7 @@ public abstract class PlayerList {
             d1 = (double) MathHelper.a((int) d1, -29999872, 29999872);
             if (entity.isAlive()) {
                 entity.setPositionRotation(d0, entity.locY, d1, entity.yaw, entity.pitch);
-                worldserver1.t().a(entity, d3, d4, d5, f);
+                worldserver1.getTravelAgent().a(entity, d3, d4, d5, f);
                 worldserver1.addEntity(entity);
                 worldserver1.entityJoinedWorld(entity, false);
             }
@@ -489,7 +489,7 @@ public abstract class PlayerList {
     }
 
     public boolean isOp(String s) {
-        return this.operators.contains(s.trim().toLowerCase()) || this.server.L() && this.server.worldServer[0].getWorldData().allowCommands() && this.server.K().equalsIgnoreCase(s) || this.o;
+        return this.operators.contains(s.trim().toLowerCase()) || this.server.M() && this.server.worldServer[0].getWorldData().allowCommands() && this.server.L().equalsIgnoreCase(s) || this.o;
     }
 
     public EntityPlayer getPlayer(String s) {
@@ -510,7 +510,7 @@ public abstract class PlayerList {
 
     public List a(ChunkCoordinates chunkcoordinates, int i, int j, int k, int l, int i1, int j1, Map map, String s, String s1, World world) {
         if (this.players.isEmpty()) {
-            return null;
+            return Collections.emptyList();
         } else {
             Object object = new ArrayList();
             boolean flag = k < 0;
@@ -660,7 +660,7 @@ public abstract class PlayerList {
 
     public void b(EntityPlayer entityplayer, WorldServer worldserver) {
         entityplayer.playerConnection.sendPacket(new PacketPlayOutUpdateTime(worldserver.getTime(), worldserver.getDayTime(), worldserver.getGameRules().getBoolean("doDaylightCycle")));
-        if (worldserver.P()) {
+        if (worldserver.Q()) {
             entityplayer.playerConnection.sendPacket(new PacketPlayOutGameStateChange(1, 0.0F));
             entityplayer.playerConnection.sendPacket(new PacketPlayOutGameStateChange(7, worldserver.j(1.0F)));
             entityplayer.playerConnection.sendPacket(new PacketPlayOutGameStateChange(8, worldserver.h(1.0F)));
@@ -709,7 +709,7 @@ public abstract class PlayerList {
     }
 
     public int o() {
-        return this.c;
+        return this.m;
     }
 
     public MinecraftServer getServer() {
@@ -746,14 +746,30 @@ public abstract class PlayerList {
     }
 
     public ServerStatisticManager i(String s) {
-        ServerStatisticManager serverstatisticmanager = (ServerStatisticManager) this.k.get(s);
+        ServerStatisticManager serverstatisticmanager = (ServerStatisticManager) this.j.get(s);
 
         if (serverstatisticmanager == null) {
             serverstatisticmanager = new ServerStatisticManager(this.server, new File(this.server.getWorldServer(0).getDataManager().getDirectory(), "stats/" + s + ".json"));
             serverstatisticmanager.a();
-            this.k.put(s, serverstatisticmanager);
+            this.j.put(s, serverstatisticmanager);
         }
 
         return serverstatisticmanager;
+    }
+
+    public void a(int i) {
+        this.m = i;
+        if (this.server.worldServer != null) {
+            WorldServer[] aworldserver = this.server.worldServer;
+            int j = aworldserver.length;
+
+            for (int k = 0; k < j; ++k) {
+                WorldServer worldserver = aworldserver[k];
+
+                if (worldserver != null) {
+                    worldserver.getPlayerChunkMap().a(i);
+                }
+            }
+        }
     }
 }

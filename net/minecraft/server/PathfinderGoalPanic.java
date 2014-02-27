@@ -23,9 +23,9 @@ public class PathfinderGoalPanic extends PathfinderGoal {
             if (vec3d == null) {
                 return false;
             } else {
-                this.c = vec3d.c;
-                this.d = vec3d.d;
-                this.e = vec3d.e;
+                this.c = vec3d.a;
+                this.d = vec3d.b;
+                this.e = vec3d.c;
                 return true;
             }
         }

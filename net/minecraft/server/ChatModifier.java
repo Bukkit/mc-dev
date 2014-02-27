@@ -81,7 +81,7 @@ public class ChatModifier {
         return this;
     }
 
-    public ChatModifier a(ChatClickable chatclickable) {
+    public ChatModifier setChatClickable(ChatClickable chatclickable) {
         this.h = chatclickable;
         return this;
     }
@@ -178,7 +178,7 @@ public class ChatModifier {
         chatmodifier.setUnderline(Boolean.valueOf(this.e()));
         chatmodifier.setRandom(Boolean.valueOf(this.f()));
         chatmodifier.setColor(this.a());
-        chatmodifier.a(this.h());
+        chatmodifier.setChatClickable(this.h());
         chatmodifier.a(this.i());
         return chatmodifier;
     }

@@ -12,12 +12,12 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         super(world);
     }
 
-    protected void bp() {
+    protected void bo() {
         if (this.getAge() != 0) {
             this.love = 0;
         }
 
-        super.bp();
+        super.bo();
     }
 
     public void e() {
@@ -54,7 +54,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
 
             EntityHuman entityhuman = (EntityHuman) entity;
 
-            if (entityhuman.bD() == null || !this.c(entityhuman.bD())) {
+            if (entityhuman.bE() == null || !this.c(entityhuman.bE())) {
                 this.target = null;
             }
         } else if (entity instanceof EntityAnimal) {
@@ -94,8 +94,8 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         EntityAgeable entityageable = this.createChild(entityanimal);
 
         if (entityageable != null) {
-            if (this.br == null && entityanimal.cb() != null) {
-                this.br = entityanimal.cb();
+            if (this.br == null && entityanimal.cd() != null) {
+                this.br = entityanimal.cd();
             }
 
             if (this.br != null) {
@@ -133,7 +133,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
             return false;
         } else {
             this.bo = 60;
-            if (!this.bk()) {
+            if (!this.bj()) {
                 AttributeInstance attributeinstance = this.getAttributeInstance(GenericAttributes.d);
 
                 if (attributeinstance.a(h) == null) {
@@ -185,7 +185,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
                 for (i = 0; i < list.size(); ++i) {
                     EntityHuman entityhuman = (EntityHuman) list.get(i);
 
-                    if (entityhuman.bD() != null && this.c(entityhuman.bD())) {
+                    if (entityhuman.bE() != null && this.c(entityhuman.bE())) {
                         return entityhuman;
                     }
                 }
@@ -253,19 +253,19 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimal {
         this.world.broadcastEntityEffect(this, (byte) 18);
     }
 
-    public EntityHuman cb() {
+    public EntityHuman cd() {
         return this.br;
     }
 
-    public boolean cc() {
+    public boolean ce() {
         return this.love > 0;
     }
 
-    public void cd() {
+    public void cf() {
         this.love = 0;
     }
 
     public boolean mate(EntityAnimal entityanimal) {
-        return entityanimal == this ? false : (entityanimal.getClass() != this.getClass() ? false : this.cc() && entityanimal.cc());
+        return entityanimal == this ? false : (entityanimal.getClass() != this.getClass() ? false : this.ce() && entityanimal.ce());
     }
 }

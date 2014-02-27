@@ -14,6 +14,6 @@ class PlayerConnectionFuture implements GenericFutureListener {
     }
 
     public void operationComplete(Future future) {
-        this.b.networkManager.a((IChatBaseComponent) this.a);
+        this.b.networkManager.close(this.a);
     }
 }

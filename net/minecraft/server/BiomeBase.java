@@ -382,6 +382,8 @@ public abstract class BiomeBase {
 
         n.remove(HELL);
         n.remove(SKY);
+        n.remove(FROZEN_OCEAN);
+        n.remove(SMALL_MOUNTAINS);
         ac = new NoiseGenerator3(new Random(1234L), 1);
         ad = new NoiseGenerator3(new Random(2345L), 1);
         ae = new WorldGenTallPlant();

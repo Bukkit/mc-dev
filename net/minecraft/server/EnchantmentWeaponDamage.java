@@ -25,8 +25,8 @@ public class EnchantmentWeaponDamage extends Enchantment {
         return 5;
     }
 
-    public float a(int i, EntityLiving entityliving) {
-        return this.a == 0 ? (float) i * 1.25F : (this.a == 1 && entityliving.getMonsterType() == EnumMonsterType.UNDEAD ? (float) i * 2.5F : (this.a == 2 && entityliving.getMonsterType() == EnumMonsterType.ARTHROPOD ? (float) i * 2.5F : 0.0F));
+    public float a(int i, EnumMonsterType enummonstertype) {
+        return this.a == 0 ? (float) i * 1.25F : (this.a == 1 && enummonstertype == EnumMonsterType.UNDEAD ? (float) i * 2.5F : (this.a == 2 && enummonstertype == EnumMonsterType.ARTHROPOD ? (float) i * 2.5F : 0.0F));
     }
 
     public String a() {
@@ -46,7 +46,7 @@ public class EnchantmentWeaponDamage extends Enchantment {
             EntityLiving entityliving1 = (EntityLiving) entity;
 
             if (this.a == 2 && entityliving1.getMonsterType() == EnumMonsterType.ARTHROPOD) {
-                int j = 20 + entityliving.aI().nextInt(10 * i);
+                int j = 20 + entityliving.aH().nextInt(10 * i);
 
                 entityliving1.addEffect(new MobEffect(MobEffectList.SLOWER_MOVEMENT.id, j, 3));
             }

@@ -11,14 +11,14 @@ public class CrashReportVec3DPoolSize implements Callable {
     }
 
     public String a() {
-        int i = this.a.worldServer[0].getVec3DPool().c();
-        int j = 56 * i;
-        int k = j / 1024 / 1024;
-        int l = this.a.worldServer[0].getVec3DPool().d();
-        int i1 = 56 * l;
-        int j1 = i1 / 1024 / 1024;
+        byte b0 = 0;
+        int i = 56 * b0;
+        int j = i / 1024 / 1024;
+        byte b1 = 0;
+        int k = 56 * b1;
+        int l = k / 1024 / 1024;
 
-        return i + " (" + j + " bytes; " + k + " MB) allocated, " + l + " (" + i1 + " bytes; " + j1 + " MB) used";
+        return b0 + " (" + i + " bytes; " + j + " MB) allocated, " + b1 + " (" + k + " bytes; " + l + " MB) used";
     }
 
     public Object call() {

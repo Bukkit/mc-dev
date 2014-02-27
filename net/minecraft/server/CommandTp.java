@@ -6,7 +6,7 @@ public class CommandTp extends CommandAbstract {
 
     public CommandTp() {}
 
-    public String c() {
+    public String getCommand() {
         return "tp";
     }
 
@@ -18,7 +18,7 @@ public class CommandTp extends CommandAbstract {
         return "commands.tp.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length < 1) {
             throw new ExceptionUsage("commands.tp.usage", new Object[0]);
         } else {
@@ -42,13 +42,13 @@ public class CommandTp extends CommandAbstract {
                     }
 
                     if (entityplayer1.world != entityplayer.world) {
-                        a(icommandlistener, "commands.tp.notSameDimension", new Object[0]);
+                        a(icommandlistener, this, "commands.tp.notSameDimension", new Object[0]);
                         return;
                     }
 
                     entityplayer.mount((Entity) null);
                     entityplayer.playerConnection.a(entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch);
-                    a(icommandlistener, "commands.tp.success", new Object[] { entityplayer.getName(), entityplayer1.getName()});
+                    a(icommandlistener, this, "commands.tp.success", new Object[] { entityplayer.getName(), entityplayer1.getName()});
                 }
             } else if (entityplayer.world != null) {
                 int i = astring.length - 3;
@@ -58,16 +58,16 @@ public class CommandTp extends CommandAbstract {
 
                 entityplayer.mount((Entity) null);
                 entityplayer.enderTeleportTo(d0, d1, d2);
-                a(icommandlistener, "commands.tp.success.coordinates", new Object[] { entityplayer.getName(), Double.valueOf(d0), Double.valueOf(d1), Double.valueOf(d2)});
+                a(icommandlistener, this, "commands.tp.success.coordinates", new Object[] { entityplayer.getName(), Double.valueOf(d0), Double.valueOf(d1), Double.valueOf(d2)});
             }
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length != 1 && astring.length != 2 ? null : a(astring, MinecraftServer.getServer().getPlayers());
     }
 
-    public boolean a(String[] astring, int i) {
+    public boolean isListStart(String[] astring, int i) {
         return i == 0;
     }
 }

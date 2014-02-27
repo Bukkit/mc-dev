@@ -6,7 +6,7 @@ public class CommandKick extends CommandAbstract {
 
     public CommandKick() {}
 
-    public String c() {
+    public String getCommand() {
         return "kick";
     }
 
@@ -18,7 +18,7 @@ public class CommandKick extends CommandAbstract {
         return "commands.kick.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0 && astring[0].length() > 1) {
             EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().getPlayer(astring[0]);
             String s = "Kicked by an operator.";
@@ -34,9 +34,9 @@ public class CommandKick extends CommandAbstract {
 
                 entityplayer.playerConnection.disconnect(s);
                 if (flag) {
-                    a(icommandlistener, "commands.kick.success.reason", new Object[] { entityplayer.getName(), s});
+                    a(icommandlistener, this, "commands.kick.success.reason", new Object[] { entityplayer.getName(), s});
                 } else {
-                    a(icommandlistener, "commands.kick.success", new Object[] { entityplayer.getName()});
+                    a(icommandlistener, this, "commands.kick.success", new Object[] { entityplayer.getName()});
                 }
             }
         } else {
@@ -44,7 +44,7 @@ public class CommandKick extends CommandAbstract {
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length >= 1 ? a(astring, MinecraftServer.getServer().getPlayers()) : null;
     }
 }

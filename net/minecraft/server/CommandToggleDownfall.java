@@ -4,7 +4,7 @@ public class CommandToggleDownfall extends CommandAbstract {
 
     public CommandToggleDownfall() {}
 
-    public String c() {
+    public String getCommand() {
         return "toggledownfall";
     }
 
@@ -16,9 +16,9 @@ public class CommandToggleDownfall extends CommandAbstract {
         return "commands.downfall.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         this.d();
-        a(icommandlistener, "commands.downfall.success", new Object[0]);
+        a(icommandlistener, this, "commands.downfall.success", new Object[0]);
     }
 
     protected void d() {

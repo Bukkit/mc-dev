@@ -18,10 +18,15 @@ class MojangStatisticsTask extends TimerTask {
 
             synchronized (MojangStatisticsGenerator.b(this.a)) {
                 hashmap = new HashMap(MojangStatisticsGenerator.c(this.a));
-                hashmap.put("snooper_count", Integer.valueOf(MojangStatisticsGenerator.d(this.a)));
+                if (MojangStatisticsGenerator.d(this.a) == 0) {
+                    hashmap.putAll(MojangStatisticsGenerator.e(this.a));
+                }
+
+                hashmap.put("snooper_count", Integer.valueOf(MojangStatisticsGenerator.f(this.a)));
+                hashmap.put("snooper_token", MojangStatisticsGenerator.g(this.a));
             }
 
-            HttpUtilities.a(MojangStatisticsGenerator.e(this.a), (Map) hashmap, true);
+            HttpUtilities.a(MojangStatisticsGenerator.h(this.a), (Map) hashmap, true);
         }
     }
 }

@@ -29,7 +29,7 @@ public class ChatMessage extends ChatBaseComponent {
             Object object = aobject1[j];
 
             if (object instanceof IChatBaseComponent) {
-                ((IChatBaseComponent) object).b().a(this.b());
+                ((IChatBaseComponent) object).getChatModifier().a(this.getChatModifier());
             }
         }
     }
@@ -77,7 +77,7 @@ public class ChatMessage extends ChatBaseComponent {
                 if (l > j) {
                     ChatComponentText chatcomponenttext = new ChatComponentText(String.format(s.substring(j, l), new Object[0]));
 
-                    chatcomponenttext.b().a(this.b());
+                    chatcomponenttext.getChatModifier().a(this.getChatModifier());
                     this.b.add(chatcomponenttext);
                 }
 
@@ -87,7 +87,7 @@ public class ChatMessage extends ChatBaseComponent {
                 if ("%".equals(s1) && "%%".equals(s2)) {
                     ChatComponentText chatcomponenttext1 = new ChatComponentText("%");
 
-                    chatcomponenttext1.b().a(this.b());
+                    chatcomponenttext1.getChatModifier().a(this.getChatModifier());
                     this.b.add(chatcomponenttext1);
                 } else {
                     if (!"s".equals(s1)) {
@@ -104,7 +104,7 @@ public class ChatMessage extends ChatBaseComponent {
             if (j < s.length()) {
                 ChatComponentText chatcomponenttext2 = new ChatComponentText(String.format(s.substring(j), new Object[0]));
 
-                chatcomponenttext2.b().a(this.b());
+                chatcomponenttext2.getChatModifier().a(this.getChatModifier());
                 this.b.add(chatcomponenttext2);
             }
         } catch (IllegalFormatException illegalformatexception) {
@@ -122,8 +122,8 @@ public class ChatMessage extends ChatBaseComponent {
             if (object instanceof IChatBaseComponent) {
                 object1 = (IChatBaseComponent) object;
             } else {
-                object1 = new ChatComponentText(object.toString());
-                ((IChatBaseComponent) object1).b().a(this.b());
+                object1 = new ChatComponentText(object == null ? "null" : object.toString());
+                ((IChatBaseComponent) object1).getChatModifier().a(this.getChatModifier());
             }
 
             return (IChatBaseComponent) object1;
@@ -139,7 +139,7 @@ public class ChatMessage extends ChatBaseComponent {
             Object object = aobject[j];
 
             if (object instanceof IChatBaseComponent) {
-                ((IChatBaseComponent) object).b().a(this.b());
+                ((IChatBaseComponent) object).getChatModifier().a(this.getChatModifier());
             }
         }
 
@@ -149,7 +149,7 @@ public class ChatMessage extends ChatBaseComponent {
             while (iterator.hasNext()) {
                 IChatBaseComponent ichatbasecomponent = (IChatBaseComponent) iterator.next();
 
-                ichatbasecomponent.b().a(chatmodifier);
+                ichatbasecomponent.getChatModifier().a(chatmodifier);
             }
         }
 
@@ -188,7 +188,7 @@ public class ChatMessage extends ChatBaseComponent {
 
         ChatMessage chatmessage = new ChatMessage(this.d, aobject);
 
-        chatmessage.setChatModifier(this.b().clone());
+        chatmessage.setChatModifier(this.getChatModifier().clone());
         Iterator iterator = this.a().iterator();
 
         while (iterator.hasNext()) {
@@ -221,7 +221,7 @@ public class ChatMessage extends ChatBaseComponent {
     }
 
     public String toString() {
-        return "TranslatableComponent{key=\'" + this.d + '\'' + ", args=" + Arrays.toString(this.e) + ", siblings=" + this.a + ", style=" + this.b() + '}';
+        return "TranslatableComponent{key=\'" + this.d + '\'' + ", args=" + Arrays.toString(this.e) + ", siblings=" + this.a + ", style=" + this.getChatModifier() + '}';
     }
 
     public String i() {

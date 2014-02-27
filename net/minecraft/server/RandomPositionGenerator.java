@@ -11,21 +11,21 @@ public class RandomPositionGenerator {
     }
 
     public static Vec3D a(EntityCreature entitycreature, int i, int j, Vec3D vec3d) {
-        a.c = vec3d.c - entitycreature.locX;
-        a.d = vec3d.d - entitycreature.locY;
-        a.e = vec3d.e - entitycreature.locZ;
+        a.a = vec3d.a - entitycreature.locX;
+        a.b = vec3d.b - entitycreature.locY;
+        a.c = vec3d.c - entitycreature.locZ;
         return c(entitycreature, i, j, a);
     }
 
     public static Vec3D b(EntityCreature entitycreature, int i, int j, Vec3D vec3d) {
-        a.c = entitycreature.locX - vec3d.c;
-        a.d = entitycreature.locY - vec3d.d;
-        a.e = entitycreature.locZ - vec3d.e;
+        a.a = entitycreature.locX - vec3d.a;
+        a.b = entitycreature.locY - vec3d.b;
+        a.c = entitycreature.locZ - vec3d.c;
         return c(entitycreature, i, j, a);
     }
 
     private static Vec3D c(EntityCreature entitycreature, int i, int j, Vec3D vec3d) {
-        Random random = entitycreature.aI();
+        Random random = entitycreature.aH();
         boolean flag = false;
         int k = 0;
         int l = 0;
@@ -33,9 +33,9 @@ public class RandomPositionGenerator {
         float f = -99999.0F;
         boolean flag1;
 
-        if (entitycreature.bW()) {
-            double d0 = (double) (entitycreature.bT().e(MathHelper.floor(entitycreature.locX), MathHelper.floor(entitycreature.locY), MathHelper.floor(entitycreature.locZ)) + 4.0F);
-            double d1 = (double) (entitycreature.bU() + (float) i);
+        if (entitycreature.bY()) {
+            double d0 = (double) (entitycreature.bV().e(MathHelper.floor(entitycreature.locX), MathHelper.floor(entitycreature.locY), MathHelper.floor(entitycreature.locZ)) + 4.0F);
+            double d1 = (double) (entitycreature.bW() + (float) i);
 
             flag1 = d0 < d1 * d1;
         } else {
@@ -47,7 +47,7 @@ public class RandomPositionGenerator {
             int l1 = random.nextInt(2 * j) - j;
             int i2 = random.nextInt(2 * i) - i;
 
-            if (vec3d == null || (double) k1 * vec3d.c + (double) i2 * vec3d.e >= 0.0D) {
+            if (vec3d == null || (double) k1 * vec3d.a + (double) i2 * vec3d.c >= 0.0D) {
                 k1 += MathHelper.floor(entitycreature.locX);
                 l1 += MathHelper.floor(entitycreature.locY);
                 i2 += MathHelper.floor(entitycreature.locZ);
@@ -66,7 +66,7 @@ public class RandomPositionGenerator {
         }
 
         if (flag) {
-            return entitycreature.world.getVec3DPool().create((double) k, (double) l, (double) i1);
+            return Vec3D.a((double) k, (double) l, (double) i1);
         } else {
             return null;
         }

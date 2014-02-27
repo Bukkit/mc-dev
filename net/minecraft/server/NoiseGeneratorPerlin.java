@@ -8,6 +8,11 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
     public double a;
     public double b;
     public double c;
+    private static final double[] e = new double[] { 1.0D, -1.0D, 1.0D, -1.0D, 1.0D, -1.0D, 1.0D, -1.0D, 0.0D, 0.0D, 0.0D, 0.0D, 1.0D, 0.0D, -1.0D, 0.0D};
+    private static final double[] f = new double[] { 1.0D, 1.0D, -1.0D, -1.0D, 0.0D, 0.0D, 0.0D, 0.0D, 1.0D, -1.0D, 1.0D, -1.0D, 1.0D, -1.0D, 1.0D, -1.0D};
+    private static final double[] g = new double[] { 0.0D, 0.0D, 0.0D, 0.0D, 1.0D, 1.0D, -1.0D, -1.0D, 1.0D, 1.0D, -1.0D, -1.0D, 0.0D, 1.0D, 0.0D, -1.0D};
+    private static final double[] h = new double[] { 1.0D, -1.0D, 1.0D, -1.0D, 1.0D, -1.0D, 1.0D, -1.0D, 0.0D, 0.0D, 0.0D, 0.0D, 1.0D, 0.0D, -1.0D, 0.0D};
+    private static final double[] i = new double[] { 0.0D, 0.0D, 0.0D, 0.0D, 1.0D, 1.0D, -1.0D, -1.0D, 1.0D, 1.0D, -1.0D, -1.0D, 0.0D, 1.0D, 0.0D, -1.0D};
 
     public NoiseGeneratorPerlin() {
         this(new Random());
@@ -41,18 +46,14 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
 
     public final double a(int i, double d0, double d1) {
         int j = i & 15;
-        double d2 = (double) (1 - ((j & 8) >> 3)) * d0;
-        double d3 = j < 4 ? 0.0D : (j != 12 && j != 14 ? d1 : d0);
 
-        return ((j & 1) == 0 ? d2 : -d2) + ((j & 2) == 0 ? d3 : -d3);
+        return h[j] * d0 + i[j] * d1;
     }
 
     public final double a(int i, double d0, double d1, double d2) {
         int j = i & 15;
-        double d3 = j < 8 ? d0 : d1;
-        double d4 = j < 4 ? d1 : (j != 12 && j != 14 ? d2 : d0);
 
-        return ((j & 1) == 0 ? d3 : -d3) + ((j & 2) == 0 ? d4 : -d4);
+        return e[j] * d0 + f[j] * d1 + g[j] * d2;
     }
 
     public void a(double[] adouble, double d0, double d1, double d2, int i, int j, int k, double d3, double d4, double d5, double d6) {

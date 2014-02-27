@@ -31,7 +31,7 @@ public class TileEntityBeacon extends TileEntity implements IInventory {
                 b0 = 1;
             }
 
-            AxisAlignedBB axisalignedbb = AxisAlignedBB.a().a((double) this.x, (double) this.y, (double) this.z, (double) (this.x + 1), (double) (this.y + 1), (double) (this.z + 1)).grow(d0, d0, d0);
+            AxisAlignedBB axisalignedbb = AxisAlignedBB.a((double) this.x, (double) this.y, (double) this.z, (double) (this.x + 1), (double) (this.y + 1), (double) (this.z + 1)).grow(d0, d0, d0);
 
             axisalignedbb.e = (double) this.world.getHeight();
             List list = this.world.a(EntityHuman.class, axisalignedbb);
@@ -96,7 +96,7 @@ public class TileEntityBeacon extends TileEntity implements IInventory {
         }
 
         if (!this.world.isStatic && this.l == 4 && i < this.l) {
-            Iterator iterator = this.world.a(EntityHuman.class, AxisAlignedBB.a().a((double) this.x, (double) this.y, (double) this.z, (double) this.x, (double) (this.y - 4), (double) this.z).grow(10.0D, 5.0D, 10.0D)).iterator();
+            Iterator iterator = this.world.a(EntityHuman.class, AxisAlignedBB.a((double) this.x, (double) this.y, (double) this.z, (double) this.x, (double) (this.y - 4), (double) this.z).grow(10.0D, 5.0D, 10.0D)).iterator();
 
             while (iterator.hasNext()) {
                 EntityHuman entityhuman = (EntityHuman) iterator.next();

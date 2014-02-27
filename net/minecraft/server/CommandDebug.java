@@ -17,7 +17,7 @@ public class CommandDebug extends CommandAbstract {
 
     public CommandDebug() {}
 
-    public String c() {
+    public String getCommand() {
         return "debug";
     }
 
@@ -29,13 +29,13 @@ public class CommandDebug extends CommandAbstract {
         return "commands.debug.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length == 1) {
             if (astring[0].equals("start")) {
-                a(icommandlistener, "commands.debug.start", new Object[0]);
-                MinecraftServer.getServer().ak();
-                this.b = MinecraftServer.ap();
-                this.c = MinecraftServer.getServer().aj();
+                a(icommandlistener, this, "commands.debug.start", new Object[0]);
+                MinecraftServer.getServer().al();
+                this.b = MinecraftServer.aq();
+                this.c = MinecraftServer.getServer().ak();
                 return;
             }
 
@@ -44,14 +44,14 @@ public class CommandDebug extends CommandAbstract {
                     throw new CommandException("commands.debug.notStarted", new Object[0]);
                 }
 
-                long i = MinecraftServer.ap();
-                int j = MinecraftServer.getServer().aj();
+                long i = MinecraftServer.aq();
+                int j = MinecraftServer.getServer().ak();
                 long k = i - this.b;
                 int l = j - this.c;
 
                 this.a(k, l);
                 MinecraftServer.getServer().methodProfiler.a = false;
-                a(icommandlistener, "commands.debug.stop", new Object[] { Float.valueOf((float) k / 1000.0F), Integer.valueOf(l)});
+                a(icommandlistener, this, "commands.debug.stop", new Object[] { Float.valueOf((float) k / 1000.0F), Integer.valueOf(l)});
                 return;
             }
         }
@@ -130,7 +130,7 @@ public class CommandDebug extends CommandAbstract {
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length == 1 ? a(astring, new String[] { "start", "stop"}) : null;
     }
 }

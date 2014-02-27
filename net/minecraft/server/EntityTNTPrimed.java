@@ -7,7 +7,7 @@ public class EntityTNTPrimed extends Entity {
 
     public EntityTNTPrimed(World world) {
         super(world);
-        this.l = true;
+        this.k = true;
         this.a(0.98F, 0.98F);
         this.height = this.length / 2.0F;
     }
@@ -33,7 +33,7 @@ public class EntityTNTPrimed extends Entity {
         return false;
     }
 
-    public boolean R() {
+    public boolean Q() {
         return !this.dead;
     }
 

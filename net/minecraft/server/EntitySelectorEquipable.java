@@ -2,10 +2,10 @@ package net.minecraft.server;
 
 public class EntitySelectorEquipable implements IEntitySelector {
 
-    private final ItemStack c;
+    private final ItemStack d;
 
     public EntitySelectorEquipable(ItemStack itemstack) {
-        this.c = itemstack;
+        this.d = itemstack;
     }
 
     public boolean a(Entity entity) {
@@ -16,7 +16,7 @@ public class EntitySelectorEquipable implements IEntitySelector {
         } else {
             EntityLiving entityliving = (EntityLiving) entity;
 
-            return entityliving.getEquipment(EntityInsentient.b(this.c)) != null ? false : (entityliving instanceof EntityInsentient ? ((EntityInsentient) entityliving).bH() : entityliving instanceof EntityHuman);
+            return entityliving.getEquipment(EntityInsentient.b(this.d)) != null ? false : (entityliving instanceof EntityInsentient ? ((EntityInsentient) entityliving).bJ() : entityliving instanceof EntityHuman);
         }
     }
 }

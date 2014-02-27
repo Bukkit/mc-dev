@@ -6,7 +6,7 @@ public class CommandGamemodeDefault extends CommandGamemode {
 
     public CommandGamemodeDefault() {}
 
-    public String c() {
+    public String getCommand() {
         return "defaultgamemode";
     }
 
@@ -14,12 +14,12 @@ public class CommandGamemodeDefault extends CommandGamemode {
         return "commands.defaultgamemode.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 0) {
             EnumGamemode enumgamemode = this.h(icommandlistener, astring[0]);
 
             this.a(enumgamemode);
-            a(icommandlistener, "commands.defaultgamemode.success", new Object[] { new ChatMessage("gameMode." + enumgamemode.b(), new Object[0])});
+            a(icommandlistener, this, "commands.defaultgamemode.success", new Object[] { new ChatMessage("gameMode." + enumgamemode.b(), new Object[0])});
         } else {
             throw new ExceptionUsage("commands.defaultgamemode.usage", new Object[0]);
         }

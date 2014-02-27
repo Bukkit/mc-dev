@@ -55,14 +55,14 @@ public class ServerStatisticManager extends StatisticManager {
         }
     }
 
-    public void a(EntityHuman entityhuman, Statistic statistic, int i) {
-        int j = statistic.d() ? this.a(statistic) : 0;
+    public void setStatistic(EntityHuman entityhuman, Statistic statistic, int i) {
+        int j = statistic.d() ? this.getStatisticValue(statistic) : 0;
 
-        super.a(entityhuman, statistic, i);
+        super.setStatistic(entityhuman, statistic, i);
         this.e.add(statistic);
         if (statistic.d() && j == 0 && i > 0) {
             this.g = true;
-            if (this.c.ar()) {
+            if (this.c.as()) {
                 this.c.getPlayerList().sendMessage(new ChatMessage("chat.type.achievement", new Object[] { entityhuman.getScoreboardDisplayName(), statistic.j()}));
             }
         }
@@ -88,7 +88,7 @@ public class ServerStatisticManager extends StatisticManager {
 
             while (iterator.hasNext()) {
                 Entry entry = (Entry) iterator.next();
-                Statistic statistic = StatisticList.a((String) entry.getKey());
+                Statistic statistic = StatisticList.getStatistic((String) entry.getKey());
 
                 if (statistic != null) {
                     StatisticWrapper statisticwrapper = new StatisticWrapper();
@@ -107,6 +107,7 @@ public class ServerStatisticManager extends StatisticManager {
                                 Constructor constructor = statistic.l().getConstructor(new Class[0]);
                                 IJsonStatistic ijsonstatistic = (IJsonStatistic) constructor.newInstance(new Object[0]);
 
+                                ijsonstatistic.a(jsonobject1.get("progress"));
                                 statisticwrapper.a(ijsonstatistic);
                             } catch (Throwable throwable) {
                                 b.warn("Invalid statistic progress in " + this.d, throwable);
@@ -142,9 +143,9 @@ public class ServerStatisticManager extends StatisticManager {
                     b.warn("Couldn\'t save statistic " + ((Statistic) entry.getKey()).e() + ": error serializing progress", throwable);
                 }
 
-                jsonobject.add(((Statistic) entry.getKey()).e, jsonobject1);
+                jsonobject.add(((Statistic) entry.getKey()).name, jsonobject1);
             } else {
-                jsonobject.addProperty(((Statistic) entry.getKey()).e, Integer.valueOf(((StatisticWrapper) entry.getValue()).a()));
+                jsonobject.addProperty(((Statistic) entry.getKey()).name, Integer.valueOf(((StatisticWrapper) entry.getValue()).a()));
             }
         }
 
@@ -162,7 +163,7 @@ public class ServerStatisticManager extends StatisticManager {
     }
 
     public void a(EntityPlayer entityplayer) {
-        int i = this.c.aj();
+        int i = this.c.ak();
         HashMap hashmap = Maps.newHashMap();
 
         if (this.g || i - this.f > 300) {
@@ -172,14 +173,14 @@ public class ServerStatisticManager extends StatisticManager {
             while (iterator.hasNext()) {
                 Statistic statistic = (Statistic) iterator.next();
 
-                hashmap.put(statistic, Integer.valueOf(this.a(statistic)));
+                hashmap.put(statistic, Integer.valueOf(this.getStatisticValue(statistic)));
             }
         }
 
         entityplayer.playerConnection.sendPacket(new PacketPlayOutStatistic(hashmap));
     }
 
-    public void b(EntityPlayer entityplayer) {
+    public void updateStatistics(EntityPlayer entityplayer) {
         HashMap hashmap = Maps.newHashMap();
         Iterator iterator = AchievementList.e.iterator();
 
@@ -187,7 +188,7 @@ public class ServerStatisticManager extends StatisticManager {
             Achievement achievement = (Achievement) iterator.next();
 
             if (this.a(achievement)) {
-                hashmap.put(achievement, Integer.valueOf(this.a((Statistic) achievement)));
+                hashmap.put(achievement, Integer.valueOf(this.getStatisticValue(achievement)));
                 this.e.remove(achievement);
             }
         }

@@ -29,7 +29,7 @@ public class PathfinderGoalFollowOwner extends PathfinderGoal {
             return false;
         } else if (this.d.isSitting()) {
             return false;
-        } else if (this.d.e(entityliving) < (double) (this.c * this.c)) {
+        } else if (this.d.f(entityliving) < (double) (this.c * this.c)) {
             return false;
         } else {
             this.e = entityliving;
@@ -38,7 +38,7 @@ public class PathfinderGoalFollowOwner extends PathfinderGoal {
     }
 
     public boolean b() {
-        return !this.g.g() && this.d.e(this.e) > (double) (this.b * this.b) && !this.d.isSitting();
+        return !this.g.g() && this.d.f(this.e) > (double) (this.b * this.b) && !this.d.isSitting();
     }
 
     public void c() {
@@ -54,13 +54,13 @@ public class PathfinderGoalFollowOwner extends PathfinderGoal {
     }
 
     public void e() {
-        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.x());
+        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.bv());
         if (!this.d.isSitting()) {
             if (--this.h <= 0) {
                 this.h = 10;
                 if (!this.g.a((Entity) this.e, this.f)) {
-                    if (!this.d.bL()) {
-                        if (this.d.e(this.e) >= 144.0D) {
+                    if (!this.d.bN()) {
+                        if (this.d.f(this.e) >= 144.0D) {
                             int i = MathHelper.floor(this.e.locX) - 2;
                             int j = MathHelper.floor(this.e.locZ) - 2;
                             int k = MathHelper.floor(this.e.boundingBox.b);

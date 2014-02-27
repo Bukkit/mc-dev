@@ -6,7 +6,7 @@ public class CommandEnchant extends CommandAbstract {
 
     public CommandEnchant() {}
 
-    public String c() {
+    public String getCommand() {
         return "enchant";
     }
 
@@ -18,14 +18,14 @@ public class CommandEnchant extends CommandAbstract {
         return "commands.enchant.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length < 2) {
             throw new ExceptionUsage("commands.enchant.usage", new Object[0]);
         } else {
             EntityPlayer entityplayer = d(icommandlistener, astring[0]);
             int i = a(icommandlistener, astring[1], 0, Enchantment.byId.length - 1);
             int j = 1;
-            ItemStack itemstack = entityplayer.bD();
+            ItemStack itemstack = entityplayer.bE();
 
             if (itemstack == null) {
                 throw new CommandException("commands.enchant.noItem", new Object[0]);
@@ -60,13 +60,13 @@ public class CommandEnchant extends CommandAbstract {
                     }
 
                     itemstack.addEnchantment(enchantment, j);
-                    a(icommandlistener, "commands.enchant.success", new Object[0]);
+                    a(icommandlistener, this, "commands.enchant.success", new Object[0]);
                 }
             }
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length == 1 ? a(astring, this.d()) : null;
     }
 
@@ -74,7 +74,7 @@ public class CommandEnchant extends CommandAbstract {
         return MinecraftServer.getServer().getPlayers();
     }
 
-    public boolean a(String[] astring, int i) {
+    public boolean isListStart(String[] astring, int i) {
         return i == 0;
     }
 }

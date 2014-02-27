@@ -12,11 +12,11 @@ public abstract class EntityGolem extends EntityCreature implements IAnimal {
         return "none";
     }
 
-    protected String aT() {
+    protected String aS() {
         return "none";
     }
 
-    protected String aU() {
+    protected String aT() {
         return "none";
     }
 

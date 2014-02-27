@@ -15,6 +15,18 @@ public class AchievementSet extends ForwardingSet implements IJsonStatistic {
 
     public AchievementSet() {}
 
+    public void a(JsonElement jsonelement) {
+        if (jsonelement.isJsonArray()) {
+            Iterator iterator = jsonelement.getAsJsonArray().iterator();
+
+            while (iterator.hasNext()) {
+                JsonElement jsonelement1 = (JsonElement) iterator.next();
+
+                this.add(jsonelement1.getAsString());
+            }
+        }
+    }
+
     public JsonElement a() {
         JsonArray jsonarray = new JsonArray();
         Iterator iterator = this.iterator();

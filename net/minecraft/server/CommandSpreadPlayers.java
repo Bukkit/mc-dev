@@ -16,7 +16,7 @@ public class CommandSpreadPlayers extends CommandAbstract {
 
     public CommandSpreadPlayers() {}
 
-    public String c() {
+    public String getCommand() {
         return "spreadplayers";
     }
 
@@ -28,7 +28,7 @@ public class CommandSpreadPlayers extends CommandAbstract {
         return "commands.spreadplayers.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length < 6) {
             throw new ExceptionUsage("commands.spreadplayers.usage", new Object[0]);
         } else {
@@ -85,7 +85,7 @@ public class CommandSpreadPlayers extends CommandAbstract {
         int i = this.a(location2d, d0, world, random, d2, d3, d4, d5, alocation2d, flag);
         double d6 = this.a(list, world, alocation2d, flag);
 
-        a(icommandlistener, "commands.spreadplayers.success." + (flag ? "teams" : "players"), new Object[] { Integer.valueOf(alocation2d.length), Double.valueOf(location2d.a), Double.valueOf(location2d.b)});
+        a(icommandlistener, this, "commands.spreadplayers.success." + (flag ? "teams" : "players"), new Object[] { Integer.valueOf(alocation2d.length), Double.valueOf(location2d.a), Double.valueOf(location2d.b)});
         if (alocation2d.length > 1) {
             icommandlistener.sendMessage(new ChatMessage("commands.spreadplayers.info." + (flag ? "teams" : "players"), new Object[] { String.format("%.2f", new Object[] { Double.valueOf(d6)}), Integer.valueOf(i)}));
         }

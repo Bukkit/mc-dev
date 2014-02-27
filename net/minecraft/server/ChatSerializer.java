@@ -68,7 +68,7 @@ public class ChatSerializer implements JsonDeserializer, JsonSerializer {
                         if (aobject[i] instanceof ChatComponentText) {
                             ChatComponentText chatcomponenttext = (ChatComponentText) aobject[i];
 
-                            if (chatcomponenttext.b().g() && chatcomponenttext.a().isEmpty()) {
+                            if (chatcomponenttext.getChatModifier().g() && chatcomponenttext.a().isEmpty()) {
                                 aobject[i] = chatcomponenttext.g();
                             }
                         }
@@ -113,13 +113,13 @@ public class ChatSerializer implements JsonDeserializer, JsonSerializer {
     }
 
     public JsonElement a(IChatBaseComponent ichatbasecomponent, Type type, JsonSerializationContext jsonserializationcontext) {
-        if (ichatbasecomponent instanceof ChatComponentText && ichatbasecomponent.b().g() && ichatbasecomponent.a().isEmpty()) {
+        if (ichatbasecomponent instanceof ChatComponentText && ichatbasecomponent.getChatModifier().g() && ichatbasecomponent.a().isEmpty()) {
             return new JsonPrimitive(((ChatComponentText) ichatbasecomponent).g());
         } else {
             JsonObject jsonobject = new JsonObject();
 
-            if (!ichatbasecomponent.b().g()) {
-                this.a(ichatbasecomponent.b(), jsonobject, jsonserializationcontext);
+            if (!ichatbasecomponent.getChatModifier().g()) {
+                this.a(ichatbasecomponent.getChatModifier(), jsonobject, jsonserializationcontext);
             }
 
             if (!ichatbasecomponent.a().isEmpty()) {

@@ -15,14 +15,17 @@ public class PacketEncoder extends MessageToByteEncoder {
 
     private static final Logger a = LogManager.getLogger();
     private static final Marker b = MarkerManager.getMarker("PACKET_SENT", NetworkManager.b);
+    private final NetworkStatistics c;
 
-    public PacketEncoder() {}
+    public PacketEncoder(NetworkStatistics networkstatistics) {
+        this.c = networkstatistics;
+    }
 
     protected void a(ChannelHandlerContext channelhandlercontext, Packet packet, ByteBuf bytebuf) {
-        Integer integer = (Integer) ((BiMap) channelhandlercontext.channel().attr(NetworkManager.e).get()).inverse().get(packet.getClass());
+        Integer integer = (Integer) ((BiMap) channelhandlercontext.channel().attr(NetworkManager.f).get()).inverse().get(packet.getClass());
 
         if (a.isDebugEnabled()) {
-            a.debug(b, "OUT: [{}:{}] {}[{}]", new Object[] { channelhandlercontext.channel().attr(NetworkManager.c).get(), integer, packet.getClass().getName(), packet.b()});
+            a.debug(b, "OUT: [{}:{}] {}[{}]", new Object[] { channelhandlercontext.channel().attr(NetworkManager.d).get(), integer, packet.getClass().getName(), packet.b()});
         }
 
         if (integer == null) {
@@ -32,6 +35,7 @@ public class PacketEncoder extends MessageToByteEncoder {
 
             packetdataserializer.b(integer.intValue());
             packet.b(packetdataserializer);
+            this.c.b(integer.intValue(), (long) packetdataserializer.readableBytes());
         }
     }
 

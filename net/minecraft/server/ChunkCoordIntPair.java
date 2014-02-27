@@ -15,17 +15,22 @@ public class ChunkCoordIntPair {
     }
 
     public int hashCode() {
-        long i = a(this.x, this.z);
-        int j = (int) i;
-        int k = (int) (i >> 32);
+        int i = 1664525 * this.x + 1013904223;
+        int j = 1664525 * (this.z ^ -559038737) + 1013904223;
 
-        return j ^ k;
+        return i ^ j;
     }
 
     public boolean equals(Object object) {
-        ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) object;
+        if (this == object) {
+            return true;
+        } else if (!(object instanceof ChunkCoordIntPair)) {
+            return false;
+        } else {
+            ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) object;
 
-        return chunkcoordintpair.x == this.x && chunkcoordintpair.z == this.z;
+            return this.x == chunkcoordintpair.x && this.z == chunkcoordintpair.z;
+        }
     }
 
     public int a() {

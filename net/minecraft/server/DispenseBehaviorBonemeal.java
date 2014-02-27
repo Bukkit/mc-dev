@@ -10,9 +10,9 @@ final class DispenseBehaviorBonemeal extends DispenseBehaviorItem {
         if (itemstack.getData() == 15) {
             EnumFacing enumfacing = BlockDispenser.b(isourceblock.h());
             World world = isourceblock.k();
-            int i = isourceblock.getBlockX() + enumfacing.c();
-            int j = isourceblock.getBlockY() + enumfacing.d();
-            int k = isourceblock.getBlockZ() + enumfacing.e();
+            int i = isourceblock.getBlockX() + enumfacing.getAdjacentX();
+            int j = isourceblock.getBlockY() + enumfacing.getAdjacentY();
+            int k = isourceblock.getBlockZ() + enumfacing.getAdjacentZ();
 
             if (ItemDye.a(itemstack, world, i, j, k)) {
                 if (!world.isStatic) {

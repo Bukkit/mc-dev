@@ -8,8 +8,8 @@ public class RegistryDefault extends RegistrySimple {
         this.a = object;
     }
 
-    public Object a(Object object) {
-        Object object1 = super.a(object);
+    public Object get(Object object) {
+        Object object1 = super.get(object);
 
         return object1 == null ? this.a : object1;
     }

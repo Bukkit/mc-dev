@@ -21,11 +21,11 @@ public abstract class CommandAbstract implements ICommand {
         return null;
     }
 
-    public boolean a(ICommandListener icommandlistener) {
-        return icommandlistener.a(this.a(), this.c());
+    public boolean canUse(ICommandListener icommandlistener) {
+        return icommandlistener.a(this.a(), this.getCommand());
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return null;
     }
 
@@ -225,7 +225,7 @@ public abstract class CommandAbstract implements ICommand {
                 if (item1 != null) {
                     ChatMessage chatmessage = new ChatMessage("commands.generic.deprecatedId", new Object[] { Item.REGISTRY.c(item1)});
 
-                    chatmessage.b().setColor(EnumChatFormat.GRAY);
+                    chatmessage.getChatModifier().setColor(EnumChatFormat.GRAY);
                     icommandlistener.sendMessage(chatmessage);
                 }
 
@@ -253,7 +253,7 @@ public abstract class CommandAbstract implements ICommand {
                     Block block = Block.e(i);
                     ChatMessage chatmessage = new ChatMessage("commands.generic.deprecatedId", new Object[] { Block.REGISTRY.c(block)});
 
-                    chatmessage.b().setColor(EnumChatFormat.GRAY);
+                    chatmessage.getChatModifier().setColor(EnumChatFormat.GRAY);
                     icommandlistener.sendMessage(chatmessage);
                     return block;
                 }
@@ -344,17 +344,17 @@ public abstract class CommandAbstract implements ICommand {
         return arraylist;
     }
 
-    public boolean a(String[] astring, int i) {
+    public boolean isListStart(String[] astring, int i) {
         return false;
     }
 
-    public static void a(ICommandListener icommandlistener, String s, Object... aobject) {
-        a(icommandlistener, 0, s, aobject);
+    public static void a(ICommandListener icommandlistener, ICommand icommand, String s, Object... aobject) {
+        a(icommandlistener, icommand, 0, s, aobject);
     }
 
-    public static void a(ICommandListener icommandlistener, int i, String s, Object... aobject) {
+    public static void a(ICommandListener icommandlistener, ICommand icommand, int i, String s, Object... aobject) {
         if (a != null) {
-            a.a(icommandlistener, i, s, aobject);
+            a.a(icommandlistener, icommand, i, s, aobject);
         }
     }
 
@@ -363,7 +363,7 @@ public abstract class CommandAbstract implements ICommand {
     }
 
     public int a(ICommand icommand) {
-        return this.c().compareTo(icommand.c());
+        return this.getCommand().compareTo(icommand.getCommand());
     }
 
     public int compareTo(Object object) {

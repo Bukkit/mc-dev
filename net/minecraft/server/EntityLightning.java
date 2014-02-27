@@ -67,7 +67,7 @@ public class EntityLightning extends EntityWeather {
                 this.world.q = 2;
             } else {
                 double d0 = 3.0D;
-                List list = this.world.getEntities(this, AxisAlignedBB.a().a(this.locX - d0, this.locY - d0, this.locZ - d0, this.locX + d0, this.locY + 6.0D + d0, this.locZ + d0));
+                List list = this.world.getEntities(this, AxisAlignedBB.a(this.locX - d0, this.locY - d0, this.locZ - d0, this.locX + d0, this.locY + 6.0D + d0, this.locZ + d0));
 
                 for (int l = 0; l < list.size(); ++l) {
                     Entity entity = (Entity) list.get(l);

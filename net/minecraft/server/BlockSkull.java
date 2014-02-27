@@ -129,8 +129,8 @@ public class BlockSkull extends BlockContainer {
                     if (!world.isStatic) {
                         entitywither = new EntityWither(world);
                         entitywither.setPositionRotation((double) i + 0.5D, (double) j - 1.45D, (double) (k + l) + 1.5D, 90.0F, 0.0F);
-                        entitywither.aN = 90.0F;
-                        entitywither.bX();
+                        entitywither.aM = 90.0F;
+                        entitywither.bZ();
                         if (!world.isStatic) {
                             iterator = world.a(EntityHuman.class, entitywither.boundingBox.grow(50.0D, 50.0D, 50.0D)).iterator();
 
@@ -173,7 +173,7 @@ public class BlockSkull extends BlockContainer {
                     if (!world.isStatic) {
                         entitywither = new EntityWither(world);
                         entitywither.setPositionRotation((double) (i + l) + 1.5D, (double) j - 1.45D, (double) k + 0.5D, 0.0F, 0.0F);
-                        entitywither.bX();
+                        entitywither.bZ();
                         if (!world.isStatic) {
                             iterator = world.a(EntityHuman.class, entitywither.boundingBox.grow(50.0D, 50.0D, 50.0D)).iterator();
 

@@ -3,7 +3,7 @@ package net.minecraft.server;
 final class EnchantmentModifierDamage implements EnchantmentModifier {
 
     public float a;
-    public EntityLiving b;
+    public EnumMonsterType b;
 
     private EnchantmentModifierDamage() {}
 

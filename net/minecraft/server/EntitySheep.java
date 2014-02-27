@@ -26,13 +26,13 @@ public class EntitySheep extends EntityAnimal {
         this.bq.setItem(1, new ItemStack(Items.INK_SACK, 1, 0));
     }
 
-    protected boolean bk() {
+    protected boolean bj() {
         return true;
     }
 
-    protected void bn() {
+    protected void bm() {
         this.br = this.bs.f();
-        super.bn();
+        super.bm();
     }
 
     public void e() {
@@ -43,8 +43,8 @@ public class EntitySheep extends EntityAnimal {
         super.e();
     }
 
-    protected void aD() {
-        super.aD();
+    protected void aC() {
+        super.aC();
         this.getAttributeInstance(GenericAttributes.a).setValue(8.0D);
         this.getAttributeInstance(GenericAttributes.d).setValue(0.23000000417232513D);
     }
@@ -104,11 +104,11 @@ public class EntitySheep extends EntityAnimal {
         return "mob.sheep.say";
     }
 
-    protected String aT() {
+    protected String aS() {
         return "mob.sheep.say";
     }
 
-    protected String aU() {
+    protected String aT() {
         return "mob.sheep.say";
     }
 

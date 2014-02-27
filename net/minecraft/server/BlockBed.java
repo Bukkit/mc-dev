@@ -39,7 +39,7 @@ public class BlockBed extends BlockDirectional {
                         EntityHuman entityhuman2 = (EntityHuman) iterator.next();
 
                         if (entityhuman2.isSleeping()) {
-                            ChunkCoordinates chunkcoordinates = entityhuman2.bC;
+                            ChunkCoordinates chunkcoordinates = entityhuman2.bB;
 
                             if (chunkcoordinates.x == i && chunkcoordinates.y == j && chunkcoordinates.z == k) {
                                 entityhuman1 = entityhuman2;

@@ -36,7 +36,7 @@ public class WorldServer extends World {
         super(idatamanager, s, worldsettings, WorldProvider.byDimension(i), methodprofiler);
         this.server = minecraftserver;
         this.tracker = new EntityTracker(this);
-        this.manager = new PlayerChunkMap(this, minecraftserver.getPlayerList().o());
+        this.manager = new PlayerChunkMap(this);
         if (this.entitiesById == null) {
             this.entitiesById = new IntHashMap();
         }
@@ -113,7 +113,7 @@ public class WorldServer extends World {
     }
 
     public BiomeMeta a(EnumCreatureType enumcreaturetype, int i, int j, int k) {
-        List list = this.K().getMobsFor(enumcreaturetype, i, j, k);
+        List list = this.L().getMobsFor(enumcreaturetype, i, j, k);
 
         return list != null && !list.isEmpty() ? (BiomeMeta) WeightedRandom.a(this.random, (Collection) list) : null;
     }
@@ -197,7 +197,7 @@ public class WorldServer extends World {
             int k1;
             int l1;
 
-            if (this.random.nextInt(100000) == 0 && this.P() && this.O()) {
+            if (this.random.nextInt(100000) == 0 && this.Q() && this.P()) {
                 this.k = this.k * 3 + 1013904223;
                 i1 = this.k >> 2;
                 j1 = k + (i1 & 15);
@@ -219,11 +219,11 @@ public class WorldServer extends World {
                     this.setTypeUpdate(j1 + k, l1 - 1, k1 + l, Blocks.ICE);
                 }
 
-                if (this.P() && this.e(j1 + k, l1, k1 + l, true)) {
+                if (this.Q() && this.e(j1 + k, l1, k1 + l, true)) {
                     this.setTypeUpdate(j1 + k, l1, k1 + l, Blocks.SNOW);
                 }
 
-                if (this.P()) {
+                if (this.Q()) {
                     BiomeBase biomebase = this.getBiome(j1 + k, k1 + l);
 
                     if (biomebase.e()) {
@@ -568,17 +568,27 @@ public class WorldServer extends World {
             }
 
             this.chunkProvider.saveChunks(flag, iprogressupdate);
+            List list = this.chunkProviderServer.a();
+            Iterator iterator = list.iterator();
+
+            while (iterator.hasNext()) {
+                Chunk chunk = (Chunk) iterator.next();
+
+                if (!this.manager.a(chunk.locX, chunk.locZ)) {
+                    this.chunkProviderServer.queueUnload(chunk.locX, chunk.locZ);
+                }
+            }
         }
     }
 
     public void flushSave() {
         if (this.chunkProvider.canSave()) {
-            this.chunkProvider.b();
+            this.chunkProvider.c();
         }
     }
 
     protected void a() {
-        this.F();
+        this.G();
         this.dataManager.saveWorldData(this.worldData, this.server.getPlayerList().q());
         this.worldMaps.a();
     }
@@ -586,7 +596,7 @@ public class WorldServer extends World {
     protected void a(Entity entity) {
         super.a(entity);
         this.entitiesById.a(entity.getId(), entity);
-        Entity[] aentity = entity.at();
+        Entity[] aentity = entity.as();
 
         if (aentity != null) {
             for (int i = 0; i < aentity.length; ++i) {
@@ -598,7 +608,7 @@ public class WorldServer extends World {
     protected void b(Entity entity) {
         super.b(entity);
         this.entitiesById.d(entity.getId());
-        Entity[] aentity = entity.at();
+        Entity[] aentity = entity.as();
 
         if (aentity != null) {
             for (int i = 0; i < aentity.length; ++i) {
@@ -695,7 +705,7 @@ public class WorldServer extends World {
     }
 
     protected void o() {
-        boolean flag = this.P();
+        boolean flag = this.Q();
 
         super.o();
         if (this.m != this.n) {
@@ -706,7 +716,7 @@ public class WorldServer extends World {
             this.server.getPlayerList().a(new PacketPlayOutGameStateChange(8, this.p), this.worldProvider.dimension);
         }
 
-        if (flag != this.P()) {
+        if (flag != this.Q()) {
             if (flag) {
                 this.server.getPlayerList().sendAll(new PacketPlayOutGameStateChange(2, 0.0F));
             } else {
@@ -716,6 +726,10 @@ public class WorldServer extends World {
             this.server.getPlayerList().sendAll(new PacketPlayOutGameStateChange(7, this.n));
             this.server.getPlayerList().sendAll(new PacketPlayOutGameStateChange(8, this.p));
         }
+    }
+
+    protected int p() {
+        return this.server.getPlayerList().o();
     }
 
     public MinecraftServer getMinecraftServer() {
@@ -730,7 +744,7 @@ public class WorldServer extends World {
         return this.manager;
     }
 
-    public PortalTravelAgent t() {
+    public PortalTravelAgent getTravelAgent() {
         return this.Q;
     }
 

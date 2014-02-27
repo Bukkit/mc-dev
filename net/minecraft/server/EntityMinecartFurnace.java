@@ -41,7 +41,7 @@ public class EntityMinecartFurnace extends EntityMinecartAbstract {
 
     public void a(DamageSource damagesource) {
         super.a(damagesource);
-        if (!damagesource.c()) {
+        if (!damagesource.isExplosion()) {
             this.a(new ItemStack(Blocks.FURNACE, 1), 0.0F);
         }
     }

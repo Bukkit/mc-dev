@@ -86,7 +86,7 @@ public class BlockDispenser extends BlockContainer {
     }
 
     protected IDispenseBehavior a(ItemStack itemstack) {
-        return (IDispenseBehavior) a.a(itemstack.getItem());
+        return (IDispenseBehavior) a.get(itemstack.getItem());
     }
 
     public void doPhysics(World world, int i, int j, int k, Block block) {
@@ -165,9 +165,9 @@ public class BlockDispenser extends BlockContainer {
 
     public static IPosition a(ISourceBlock isourceblock) {
         EnumFacing enumfacing = b(isourceblock.h());
-        double d0 = isourceblock.getX() + 0.7D * (double) enumfacing.c();
-        double d1 = isourceblock.getY() + 0.7D * (double) enumfacing.d();
-        double d2 = isourceblock.getZ() + 0.7D * (double) enumfacing.e();
+        double d0 = isourceblock.getX() + 0.7D * (double) enumfacing.getAdjacentX();
+        double d1 = isourceblock.getY() + 0.7D * (double) enumfacing.getAdjacentY();
+        double d2 = isourceblock.getZ() + 0.7D * (double) enumfacing.getAdjacentZ();
 
         return new Position(d0, d1, d2);
     }

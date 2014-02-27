@@ -4,53 +4,56 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.UUID;
 
+import net.minecraft.util.com.google.common.collect.Maps;
+
 public class MojangStatisticsGenerator {
 
-    private Map a = new HashMap();
-    private final String b = UUID.randomUUID().toString();
-    private final URL c;
-    private final IMojangStatistics d;
-    private final Timer e = new Timer("Snooper Timer", true);
-    private final Object f = new Object();
-    private final long g;
-    private boolean h;
-    private int i;
+    private final Map a = Maps.newHashMap();
+    private final Map b = Maps.newHashMap();
+    private final String c = UUID.randomUUID().toString();
+    private final URL d;
+    private final IMojangStatistics e;
+    private final Timer f = new Timer("Snooper Timer", true);
+    private final Object g = new Object();
+    private final long h;
+    private boolean i;
+    private int j;
 
     public MojangStatisticsGenerator(String s, IMojangStatistics imojangstatistics, long i) {
         try {
-            this.c = new URL("http://snoop.minecraft.net/" + s + "?version=" + 1);
+            this.d = new URL("http://snoop.minecraft.net/" + s + "?version=" + 2);
         } catch (MalformedURLException malformedurlexception) {
             throw new IllegalArgumentException();
         }
 
-        this.d = imojangstatistics;
-        this.g = i;
+        this.e = imojangstatistics;
+        this.h = i;
     }
 
     public void a() {
-        if (!this.h) {
-            this.h = true;
+        if (!this.i) {
+            this.i = true;
             this.h();
-            this.e.schedule(new MojangStatisticsTask(this), 0L, 900000L);
+            this.f.schedule(new MojangStatisticsTask(this), 0L, 900000L);
         }
     }
 
     private void h() {
         this.i();
-        this.a("snooper_token", this.b);
-        this.a("os_name", System.getProperty("os.name"));
-        this.a("os_version", System.getProperty("os.version"));
-        this.a("os_architecture", System.getProperty("os.arch"));
-        this.a("java_version", System.getProperty("java.version"));
-        this.a("version", "1.7.2");
-        this.d.b(this);
+        this.a("snooper_token", this.c);
+        this.b("snooper_token", this.c);
+        this.b("os_name", System.getProperty("os.name"));
+        this.b("os_version", System.getProperty("os.version"));
+        this.b("os_architecture", System.getProperty("os.arch"));
+        this.b("java_version", System.getProperty("java.version"));
+        this.b("version", "1.7.5");
+        this.e.b(this);
     }
 
     private void i() {
@@ -71,50 +74,70 @@ public class MojangStatisticsGenerator {
     }
 
     public void b() {
-        this.a("memory_total", Long.valueOf(Runtime.getRuntime().totalMemory()));
-        this.a("memory_max", Long.valueOf(Runtime.getRuntime().maxMemory()));
-        this.a("memory_free", Long.valueOf(Runtime.getRuntime().freeMemory()));
-        this.a("cpu_cores", Integer.valueOf(Runtime.getRuntime().availableProcessors()));
-        this.d.a(this);
+        this.b("memory_total", Long.valueOf(Runtime.getRuntime().totalMemory()));
+        this.b("memory_max", Long.valueOf(Runtime.getRuntime().maxMemory()));
+        this.b("memory_free", Long.valueOf(Runtime.getRuntime().freeMemory()));
+        this.b("cpu_cores", Integer.valueOf(Runtime.getRuntime().availableProcessors()));
+        this.e.a(this);
     }
 
     public void a(String s, Object object) {
-        Object object1 = this.f;
+        Object object1 = this.g;
 
-        synchronized (this.f) {
+        synchronized (this.g) {
+            this.b.put(s, object);
+        }
+    }
+
+    public void b(String s, Object object) {
+        Object object1 = this.g;
+
+        synchronized (this.g) {
             this.a.put(s, object);
         }
     }
 
     public boolean d() {
-        return this.h;
+        return this.i;
     }
 
     public void e() {
-        this.e.cancel();
+        this.f.cancel();
     }
 
     public long g() {
-        return this.g;
+        return this.h;
     }
 
     static IMojangStatistics a(MojangStatisticsGenerator mojangstatisticsgenerator) {
-        return mojangstatisticsgenerator.d;
+        return mojangstatisticsgenerator.e;
     }
 
     static Object b(MojangStatisticsGenerator mojangstatisticsgenerator) {
-        return mojangstatisticsgenerator.f;
+        return mojangstatisticsgenerator.g;
     }
 
     static Map c(MojangStatisticsGenerator mojangstatisticsgenerator) {
-        return mojangstatisticsgenerator.a;
+        return mojangstatisticsgenerator.b;
     }
 
     static int d(MojangStatisticsGenerator mojangstatisticsgenerator) {
-        return mojangstatisticsgenerator.i++;
+        return mojangstatisticsgenerator.j;
     }
 
-    static URL e(MojangStatisticsGenerator mojangstatisticsgenerator) {
+    static Map e(MojangStatisticsGenerator mojangstatisticsgenerator) {
+        return mojangstatisticsgenerator.a;
+    }
+
+    static int f(MojangStatisticsGenerator mojangstatisticsgenerator) {
+        return mojangstatisticsgenerator.j++;
+    }
+
+    static String g(MojangStatisticsGenerator mojangstatisticsgenerator) {
         return mojangstatisticsgenerator.c;
+    }
+
+    static URL h(MojangStatisticsGenerator mojangstatisticsgenerator) {
+        return mojangstatisticsgenerator.d;
     }
 }

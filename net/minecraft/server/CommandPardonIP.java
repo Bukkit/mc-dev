@@ -7,7 +7,7 @@ public class CommandPardonIP extends CommandAbstract {
 
     public CommandPardonIP() {}
 
-    public String c() {
+    public String getCommand() {
         return "pardon-ip";
     }
 
@@ -15,21 +15,21 @@ public class CommandPardonIP extends CommandAbstract {
         return 3;
     }
 
-    public boolean a(ICommandListener icommandlistener) {
-        return MinecraftServer.getServer().getPlayerList().getIPBans().isEnabled() && super.a(icommandlistener);
+    public boolean canUse(ICommandListener icommandlistener) {
+        return MinecraftServer.getServer().getPlayerList().getIPBans().isEnabled() && super.canUse(icommandlistener);
     }
 
     public String c(ICommandListener icommandlistener) {
         return "commands.unbanip.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length == 1 && astring[0].length() > 1) {
             Matcher matcher = CommandBanIp.a.matcher(astring[0]);
 
             if (matcher.matches()) {
                 MinecraftServer.getServer().getPlayerList().getIPBans().remove(astring[0]);
-                a(icommandlistener, "commands.unbanip.success", new Object[] { astring[0]});
+                a(icommandlistener, this, "commands.unbanip.success", new Object[] { astring[0]});
             } else {
                 throw new ExceptionInvalidSyntax("commands.unbanip.invalid", new Object[0]);
             }
@@ -38,7 +38,7 @@ public class CommandPardonIP extends CommandAbstract {
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length == 1 ? a(astring, MinecraftServer.getServer().getPlayerList().getIPBans().getEntries().keySet()) : null;
     }
 }

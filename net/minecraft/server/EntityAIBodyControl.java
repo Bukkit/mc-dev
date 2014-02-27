@@ -15,16 +15,16 @@ public class EntityAIBodyControl {
         double d1 = this.entity.locZ - this.entity.lastZ;
 
         if (d0 * d0 + d1 * d1 > 2.500000277905201E-7D) {
-            this.entity.aN = this.entity.yaw;
-            this.entity.aP = this.a(this.entity.aN, this.entity.aP, 75.0F);
-            this.c = this.entity.aP;
+            this.entity.aM = this.entity.yaw;
+            this.entity.aO = this.a(this.entity.aM, this.entity.aO, 75.0F);
+            this.c = this.entity.aO;
             this.b = 0;
         } else {
             float f = 75.0F;
 
-            if (Math.abs(this.entity.aP - this.c) > 15.0F) {
+            if (Math.abs(this.entity.aO - this.c) > 15.0F) {
                 this.b = 0;
-                this.c = this.entity.aP;
+                this.c = this.entity.aO;
             } else {
                 ++this.b;
                 boolean flag = true;
@@ -34,7 +34,7 @@ public class EntityAIBodyControl {
                 }
             }
 
-            this.entity.aN = this.a(this.entity.aP, this.entity.aN, f);
+            this.entity.aM = this.a(this.entity.aO, this.entity.aM, f);
         }
     }
 

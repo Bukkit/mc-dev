@@ -13,7 +13,7 @@ class SlotBrewing extends Slot {
         return itemstack != null ? itemstack.getItem().m(itemstack) : false;
     }
 
-    public int a() {
+    public int getMaxStackSize() {
         return 64;
     }
 }

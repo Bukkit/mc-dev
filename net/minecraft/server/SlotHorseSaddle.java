@@ -10,6 +10,6 @@ class SlotHorseSaddle extends Slot {
     }
 
     public boolean isAllowed(ItemStack itemstack) {
-        return super.isAllowed(itemstack) && itemstack.getItem() == Items.SADDLE && !this.e();
+        return super.isAllowed(itemstack) && itemstack.getItem() == Items.SADDLE && !this.hasItem();
     }
 }

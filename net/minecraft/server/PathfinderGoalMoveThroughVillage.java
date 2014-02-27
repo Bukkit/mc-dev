@@ -22,7 +22,7 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
 
     public boolean a() {
         this.f();
-        if (this.e && this.a.world.v()) {
+        if (this.e && this.a.world.w()) {
             return false;
         } else {
             Village village = this.a.world.villages.getClosestVillage(MathHelper.floor(this.a.locX), MathHelper.floor(this.a.locY), MathHelper.floor(this.a.locZ), 0);
@@ -42,13 +42,13 @@ public class PathfinderGoalMoveThroughVillage extends PathfinderGoal {
                     if (this.c != null) {
                         return true;
                     } else {
-                        Vec3D vec3d = RandomPositionGenerator.a(this.a, 10, 7, this.a.world.getVec3DPool().create((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ));
+                        Vec3D vec3d = RandomPositionGenerator.a(this.a, 10, 7, Vec3D.a((double) this.d.locX, (double) this.d.locY, (double) this.d.locZ));
 
                         if (vec3d == null) {
                             return false;
                         } else {
                             this.a.getNavigation().b(false);
-                            this.c = this.a.getNavigation().a(vec3d.c, vec3d.d, vec3d.e);
+                            this.c = this.a.getNavigation().a(vec3d.a, vec3d.b, vec3d.c);
                             this.a.getNavigation().b(flag);
                             return this.c != null;
                         }

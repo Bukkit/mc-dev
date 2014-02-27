@@ -23,7 +23,7 @@ public class PacketStatusListener implements PacketStatusInListener {
     public void a() {}
 
     public void a(PacketStatusInStart packetstatusinstart) {
-        this.networkManager.handle(new PacketStatusOutServerInfo(this.minecraftServer.at()), new GenericFutureListener[0]);
+        this.networkManager.handle(new PacketStatusOutServerInfo(this.minecraftServer.au()), new GenericFutureListener[0]);
     }
 
     public void a(PacketStatusInPing packetstatusinping) {

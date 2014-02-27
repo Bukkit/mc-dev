@@ -6,7 +6,7 @@ public class CommandBan extends CommandAbstract {
 
     public CommandBan() {}
 
-    public String c() {
+    public String getCommand() {
         return "ban";
     }
 
@@ -18,11 +18,11 @@ public class CommandBan extends CommandAbstract {
         return "commands.ban.usage";
     }
 
-    public boolean a(ICommandListener icommandlistener) {
-        return MinecraftServer.getServer().getPlayerList().getNameBans().isEnabled() && super.a(icommandlistener);
+    public boolean canUse(ICommandListener icommandlistener) {
+        return MinecraftServer.getServer().getPlayerList().getNameBans().isEnabled() && super.canUse(icommandlistener);
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 1 && astring[0].length() > 0) {
             EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().getPlayer(astring[0]);
             BanEntry banentry = new BanEntry(astring[0]);
@@ -37,13 +37,13 @@ public class CommandBan extends CommandAbstract {
                 entityplayer.playerConnection.disconnect("You are banned from this server.");
             }
 
-            a(icommandlistener, "commands.ban.success", new Object[] { astring[0]});
+            a(icommandlistener, this, "commands.ban.success", new Object[] { astring[0]});
         } else {
             throw new ExceptionUsage("commands.ban.usage", new Object[0]);
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length >= 1 ? a(astring, MinecraftServer.getServer().getPlayers()) : null;
     }
 }

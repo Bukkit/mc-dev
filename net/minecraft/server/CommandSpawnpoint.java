@@ -6,7 +6,7 @@ public class CommandSpawnpoint extends CommandAbstract {
 
     public CommandSpawnpoint() {}
 
-    public String c() {
+    public String getCommand() {
         return "spawnpoint";
     }
 
@@ -18,7 +18,7 @@ public class CommandSpawnpoint extends CommandAbstract {
         return "commands.spawnpoint.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         EntityPlayer entityplayer = astring.length == 0 ? b(icommandlistener) : d(icommandlistener, astring[0]);
 
         if (astring.length == 4) {
@@ -31,7 +31,7 @@ public class CommandSpawnpoint extends CommandAbstract {
                 int i1 = a(icommandlistener, astring[j++], -i, i);
 
                 entityplayer.setRespawnPosition(new ChunkCoordinates(k, l, i1), true);
-                a(icommandlistener, "commands.spawnpoint.success", new Object[] { entityplayer.getName(), Integer.valueOf(k), Integer.valueOf(l), Integer.valueOf(i1)});
+                a(icommandlistener, this, "commands.spawnpoint.success", new Object[] { entityplayer.getName(), Integer.valueOf(k), Integer.valueOf(l), Integer.valueOf(i1)});
             }
         } else {
             if (astring.length > 1) {
@@ -41,15 +41,15 @@ public class CommandSpawnpoint extends CommandAbstract {
             ChunkCoordinates chunkcoordinates = entityplayer.getChunkCoordinates();
 
             entityplayer.setRespawnPosition(chunkcoordinates, true);
-            a(icommandlistener, "commands.spawnpoint.success", new Object[] { entityplayer.getName(), Integer.valueOf(chunkcoordinates.x), Integer.valueOf(chunkcoordinates.y), Integer.valueOf(chunkcoordinates.z)});
+            a(icommandlistener, this, "commands.spawnpoint.success", new Object[] { entityplayer.getName(), Integer.valueOf(chunkcoordinates.x), Integer.valueOf(chunkcoordinates.y), Integer.valueOf(chunkcoordinates.z)});
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length != 1 && astring.length != 2 ? null : a(astring, MinecraftServer.getServer().getPlayers());
     }
 
-    public boolean a(String[] astring, int i) {
+    public boolean isListStart(String[] astring, int i) {
         return i == 0;
     }
 }

@@ -50,22 +50,22 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         this.goalSelector.a(10, new PathfinderGoalLookAtPlayer(this, EntityInsentient.class, 8.0F));
     }
 
-    protected void aD() {
-        super.aD();
+    protected void aC() {
+        super.aC();
         this.getAttributeInstance(GenericAttributes.d).setValue(0.5D);
     }
 
-    public boolean bk() {
+    public boolean bj() {
         return true;
     }
 
-    protected void bp() {
+    protected void bo() {
         if (--this.profession <= 0) {
             this.world.villages.a(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ));
             this.profession = 70 + this.random.nextInt(50);
             this.village = this.world.villages.getClosestVillage(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ), 32);
             if (this.village == null) {
-                this.bV();
+                this.bX();
             } else {
                 ChunkCoordinates chunkcoordinates = this.village.getCenter();
 
@@ -77,7 +77,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
             }
         }
 
-        if (!this.ca() && this.bv > 0) {
+        if (!this.cc() && this.bv > 0) {
             --this.bv;
             if (this.bv <= 0) {
                 if (this.bw) {
@@ -105,14 +105,14 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
             }
         }
 
-        super.bp();
+        super.bo();
     }
 
     public boolean a(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
         boolean flag = itemstack != null && itemstack.getItem() == Items.MONSTER_EGG;
 
-        if (!flag && this.isAlive() && !this.ca() && !this.isBaby()) {
+        if (!flag && this.isAlive() && !this.cc() && !this.isBaby()) {
             if (!this.world.isStatic) {
                 this.a_(entityhuman);
                 entityhuman.openTrade(this, this.getCustomName());
@@ -154,14 +154,14 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
     }
 
     protected String t() {
-        return this.ca() ? "mob.villager.haggle" : "mob.villager.idle";
+        return this.cc() ? "mob.villager.haggle" : "mob.villager.idle";
     }
 
-    protected String aT() {
+    protected String aS() {
         return "mob.villager.hit";
     }
 
-    protected String aU() {
+    protected String aT() {
         return "mob.villager.death";
     }
 
@@ -173,7 +173,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         return this.datawatcher.getInt(16);
     }
 
-    public boolean bY() {
+    public boolean ca() {
         return this.br;
     }
 
@@ -185,7 +185,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         this.bs = flag;
     }
 
-    public boolean bZ() {
+    public boolean cb() {
         return this.bs;
     }
 
@@ -238,14 +238,14 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         return this.tradingPlayer;
     }
 
-    public boolean ca() {
+    public boolean cc() {
         return this.tradingPlayer != null;
     }
 
     public void a(MerchantRecipe merchantrecipe) {
         merchantrecipe.f();
         this.a_ = -this.q();
-        this.makeSound("mob.villager.yes", this.bf(), this.bg());
+        this.makeSound("mob.villager.yes", this.be(), this.bf());
         if (merchantrecipe.a((MerchantRecipe) this.bu.get(this.bu.size() - 1))) {
             this.bv = 40;
             this.bw = true;
@@ -265,9 +265,9 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         if (!this.world.isStatic && this.a_ > -this.q() + 20) {
             this.a_ = -this.q();
             if (itemstack != null) {
-                this.makeSound("mob.villager.yes", this.bf(), this.bg());
+                this.makeSound("mob.villager.yes", this.be(), this.bf());
             } else {
-                this.makeSound("mob.villager.no", this.bf(), this.bg());
+                this.makeSound("mob.villager.no", this.be(), this.bf());
             }
         }
     }
@@ -463,7 +463,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         return groupdataentity;
     }
 
-    public void cb() {
+    public void cd() {
         this.bz = true;
     }
 
@@ -474,7 +474,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
         return entityvillager;
     }
 
-    public boolean bK() {
+    public boolean bM() {
         return false;
     }
 

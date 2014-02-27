@@ -6,7 +6,7 @@ public class CommandTime extends CommandAbstract {
 
     public CommandTime() {}
 
-    public String c() {
+    public String getCommand() {
         return "time";
     }
 
@@ -18,7 +18,7 @@ public class CommandTime extends CommandAbstract {
         return "commands.time.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length > 1) {
             int i;
 
@@ -32,14 +32,14 @@ public class CommandTime extends CommandAbstract {
                 }
 
                 this.a(icommandlistener, i);
-                a(icommandlistener, "commands.time.set", new Object[] { Integer.valueOf(i)});
+                a(icommandlistener, this, "commands.time.set", new Object[] { Integer.valueOf(i)});
                 return;
             }
 
             if (astring[0].equals("add")) {
                 i = a(icommandlistener, astring[1], 0);
                 this.b(icommandlistener, i);
-                a(icommandlistener, "commands.time.added", new Object[] { Integer.valueOf(i)});
+                a(icommandlistener, this, "commands.time.added", new Object[] { Integer.valueOf(i)});
                 return;
             }
         }
@@ -47,7 +47,7 @@ public class CommandTime extends CommandAbstract {
         throw new ExceptionUsage("commands.time.usage", new Object[0]);
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
         return astring.length == 1 ? a(astring, new String[] { "set", "add"}) : (astring.length == 2 && astring[0].equals("set") ? a(astring, new String[] { "day", "night"}) : null);
     }
 

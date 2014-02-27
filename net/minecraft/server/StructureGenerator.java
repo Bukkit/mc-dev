@@ -198,7 +198,9 @@ public abstract class StructureGenerator extends WorldGenBase {
                             int j = nbttagcompound1.getInt("ChunkZ");
                             StructureStart structurestart = WorldGenFactory.a(nbttagcompound1, world);
 
-                            this.d.put(Long.valueOf(ChunkCoordIntPair.a(i, j)), structurestart);
+                            if (structurestart != null) {
+                                this.d.put(Long.valueOf(ChunkCoordIntPair.a(i, j)), structurestart);
+                            }
                         }
                     }
                 }

@@ -28,5 +28,5 @@ public interface IChunkProvider {
 
     void recreateStructures(int i, int j);
 
-    void b();
+    void c();
 }

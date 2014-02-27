@@ -353,7 +353,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         return true;
     }
 
-    public void b() {}
+    public void c() {}
 
     public boolean unloadChunks() {
         return false;

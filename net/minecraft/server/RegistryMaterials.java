@@ -25,7 +25,7 @@ public class RegistryMaterials extends RegistrySimple implements Registry {
     }
 
     public Object a(String s) {
-        return super.a(c(s));
+        return super.get(c(s));
     }
 
     public String c(Object object) {
@@ -60,7 +60,7 @@ public class RegistryMaterials extends RegistrySimple implements Registry {
         return this.b((String) object);
     }
 
-    public Object a(Object object) {
+    public Object get(Object object) {
         return this.a((String) object);
     }
 }

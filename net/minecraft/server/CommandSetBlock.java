@@ -6,7 +6,7 @@ public class CommandSetBlock extends CommandAbstract {
 
     public CommandSetBlock() {}
 
-    public String c() {
+    public String getCommand() {
         return "setblock";
     }
 
@@ -18,7 +18,7 @@ public class CommandSetBlock extends CommandAbstract {
         return "commands.setblock.usage";
     }
 
-    public void b(ICommandListener icommandlistener, String[] astring) {
+    public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 4) {
             int i = icommandlistener.getChunkCoordinates().x;
             int j = icommandlistener.getChunkCoordinates().y;
@@ -46,7 +46,7 @@ public class CommandSetBlock extends CommandAbstract {
                     String s = a(icommandlistener, astring, 6).c();
 
                     try {
-                        NBTBase nbtbase = MojangsonParser.a(s);
+                        NBTBase nbtbase = MojangsonParser.parse(s);
 
                         if (!(nbtbase instanceof NBTTagCompound)) {
                             throw new CommandException("commands.setblock.tagError", new Object[] { "Not a valid tag"});
@@ -81,7 +81,7 @@ public class CommandSetBlock extends CommandAbstract {
                         }
                     }
 
-                    a(icommandlistener, "commands.setblock.success", new Object[0]);
+                    a(icommandlistener, this, "commands.setblock.success", new Object[0]);
                 }
             }
         } else {
@@ -89,7 +89,7 @@ public class CommandSetBlock extends CommandAbstract {
         }
     }
 
-    public List a(ICommandListener icommandlistener, String[] astring) {
-        return astring.length == 4 ? a(astring, Block.REGISTRY.b()) : (astring.length == 6 ? a(astring, new String[] { "replace", "destroy", "keep"}) : null);
+    public List tabComplete(ICommandListener icommandlistener, String[] astring) {
+        return astring.length == 4 ? a(astring, Block.REGISTRY.keySet()) : (astring.length == 6 ? a(astring, new String[] { "replace", "destroy", "keep"}) : null);
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.util.com.google.gson.JsonDeserializationContext;
 import net.minecraft.util.com.google.gson.JsonDeserializer;
 import net.minecraft.util.com.google.gson.JsonElement;
 import net.minecraft.util.com.google.gson.JsonObject;
+import net.minecraft.util.com.google.gson.JsonPrimitive;
 import net.minecraft.util.com.google.gson.JsonSerializationContext;
 import net.minecraft.util.com.google.gson.JsonSerializer;
 
@@ -18,53 +19,65 @@ public class ChatModifierSerializer implements JsonDeserializer, JsonSerializer 
             ChatModifier chatmodifier = new ChatModifier();
             JsonObject jsonobject = jsonelement.getAsJsonObject();
 
-            if (jsonobject.has("bold")) {
-                ChatModifier.a(chatmodifier, Boolean.valueOf(jsonobject.get("bold").getAsBoolean()));
-            }
-
-            if (jsonobject.has("italic")) {
-                ChatModifier.b(chatmodifier, Boolean.valueOf(jsonobject.get("italic").getAsBoolean()));
-            }
-
-            if (jsonobject.has("underlined")) {
-                ChatModifier.c(chatmodifier, Boolean.valueOf(jsonobject.get("underlined").getAsBoolean()));
-            }
-
-            if (jsonobject.has("strikethrough")) {
-                ChatModifier.d(chatmodifier, Boolean.valueOf(jsonobject.get("strikethrough").getAsBoolean()));
-            }
-
-            if (jsonobject.has("obfuscated")) {
-                ChatModifier.e(chatmodifier, Boolean.valueOf(jsonobject.get("obfuscated").getAsBoolean()));
-            }
-
-            if (jsonobject.has("color")) {
-                ChatModifier.a(chatmodifier, (EnumChatFormat) jsondeserializationcontext.deserialize(jsonobject.get("color"), EnumChatFormat.class));
-            }
-
-            JsonObject jsonobject1;
-
-            if (jsonobject.has("clickEvent")) {
-                jsonobject1 = jsonobject.getAsJsonObject("clickEvent");
-                EnumClickAction enumclickaction = EnumClickAction.a(jsonobject1.getAsJsonPrimitive("action").getAsString());
-                String s = jsonobject1.getAsJsonPrimitive("value").getAsString();
-
-                if (enumclickaction != null && s != null && enumclickaction.a()) {
-                    ChatModifier.a(chatmodifier, new ChatClickable(enumclickaction, s));
+            if (jsonobject == null) {
+                return null;
+            } else {
+                if (jsonobject.has("bold")) {
+                    ChatModifier.a(chatmodifier, Boolean.valueOf(jsonobject.get("bold").getAsBoolean()));
                 }
-            }
 
-            if (jsonobject.has("hoverEvent")) {
-                jsonobject1 = jsonobject.getAsJsonObject("hoverEvent");
-                EnumHoverAction enumhoveraction = EnumHoverAction.a(jsonobject1.getAsJsonPrimitive("action").getAsString());
-                IChatBaseComponent ichatbasecomponent = (IChatBaseComponent) jsondeserializationcontext.deserialize(jsonobject1.get("value"), IChatBaseComponent.class);
-
-                if (enumhoveraction != null && ichatbasecomponent != null && enumhoveraction.a()) {
-                    ChatModifier.a(chatmodifier, new ChatHoverable(enumhoveraction, ichatbasecomponent));
+                if (jsonobject.has("italic")) {
+                    ChatModifier.b(chatmodifier, Boolean.valueOf(jsonobject.get("italic").getAsBoolean()));
                 }
-            }
 
-            return chatmodifier;
+                if (jsonobject.has("underlined")) {
+                    ChatModifier.c(chatmodifier, Boolean.valueOf(jsonobject.get("underlined").getAsBoolean()));
+                }
+
+                if (jsonobject.has("strikethrough")) {
+                    ChatModifier.d(chatmodifier, Boolean.valueOf(jsonobject.get("strikethrough").getAsBoolean()));
+                }
+
+                if (jsonobject.has("obfuscated")) {
+                    ChatModifier.e(chatmodifier, Boolean.valueOf(jsonobject.get("obfuscated").getAsBoolean()));
+                }
+
+                if (jsonobject.has("color")) {
+                    ChatModifier.a(chatmodifier, (EnumChatFormat) jsondeserializationcontext.deserialize(jsonobject.get("color"), EnumChatFormat.class));
+                }
+
+                JsonObject jsonobject1;
+                JsonPrimitive jsonprimitive;
+
+                if (jsonobject.has("clickEvent")) {
+                    jsonobject1 = jsonobject.getAsJsonObject("clickEvent");
+                    if (jsonobject1 != null) {
+                        jsonprimitive = jsonobject1.getAsJsonPrimitive("action");
+                        EnumClickAction enumclickaction = jsonprimitive == null ? null : EnumClickAction.a(jsonprimitive.getAsString());
+                        JsonPrimitive jsonprimitive1 = jsonobject1.getAsJsonPrimitive("value");
+                        String s = jsonprimitive1 == null ? null : jsonprimitive1.getAsString();
+
+                        if (enumclickaction != null && s != null && enumclickaction.a()) {
+                            ChatModifier.a(chatmodifier, new ChatClickable(enumclickaction, s));
+                        }
+                    }
+                }
+
+                if (jsonobject.has("hoverEvent")) {
+                    jsonobject1 = jsonobject.getAsJsonObject("hoverEvent");
+                    if (jsonobject1 != null) {
+                        jsonprimitive = jsonobject1.getAsJsonPrimitive("action");
+                        EnumHoverAction enumhoveraction = jsonprimitive == null ? null : EnumHoverAction.a(jsonprimitive.getAsString());
+                        IChatBaseComponent ichatbasecomponent = (IChatBaseComponent) jsondeserializationcontext.deserialize(jsonobject1.get("value"), IChatBaseComponent.class);
+
+                        if (enumhoveraction != null && ichatbasecomponent != null && enumhoveraction.a()) {
+                            ChatModifier.a(chatmodifier, new ChatHoverable(enumhoveraction, ichatbasecomponent));
+                        }
+                    }
+                }
+
+                return chatmodifier;
+            }
         } else {
             return null;
         }

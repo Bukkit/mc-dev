@@ -21,7 +21,7 @@ public class ChatComponentText extends ChatBaseComponent {
     public ChatComponentText h() {
         ChatComponentText chatcomponenttext = new ChatComponentText(this.b);
 
-        chatcomponenttext.setChatModifier(this.b().clone());
+        chatcomponenttext.setChatModifier(this.getChatModifier().clone());
         Iterator iterator = this.a().iterator();
 
         while (iterator.hasNext()) {
@@ -46,7 +46,7 @@ public class ChatComponentText extends ChatBaseComponent {
     }
 
     public String toString() {
-        return "TextComponent{text=\'" + this.b + '\'' + ", siblings=" + this.a + ", style=" + this.b() + '}';
+        return "TextComponent{text=\'" + this.b + '\'' + ", siblings=" + this.a + ", style=" + this.getChatModifier() + '}';
     }
 
     public IChatBaseComponent f() {

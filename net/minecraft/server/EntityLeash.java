@@ -39,7 +39,7 @@ public class EntityLeash extends EntityHanging {
     public void a(NBTTagCompound nbttagcompound) {}
 
     public boolean c(EntityHuman entityhuman) {
-        ItemStack itemstack = entityhuman.be();
+        ItemStack itemstack = entityhuman.bd();
         boolean flag = false;
         double d0;
         List list;
@@ -48,13 +48,13 @@ public class EntityLeash extends EntityHanging {
 
         if (itemstack != null && itemstack.getItem() == Items.LEASH && !this.world.isStatic) {
             d0 = 7.0D;
-            list = this.world.a(EntityInsentient.class, AxisAlignedBB.a().a(this.locX - d0, this.locY - d0, this.locZ - d0, this.locX + d0, this.locY + d0, this.locZ + d0));
+            list = this.world.a(EntityInsentient.class, AxisAlignedBB.a(this.locX - d0, this.locY - d0, this.locZ - d0, this.locX + d0, this.locY + d0, this.locZ + d0));
             if (list != null) {
                 iterator = list.iterator();
 
                 while (iterator.hasNext()) {
                     entityinsentient = (EntityInsentient) iterator.next();
-                    if (entityinsentient.bL() && entityinsentient.getLeashHolder() == entityhuman) {
+                    if (entityinsentient.bN() && entityinsentient.getLeashHolder() == entityhuman) {
                         entityinsentient.setLeashHolder(this, true);
                         flag = true;
                     }
@@ -66,13 +66,13 @@ public class EntityLeash extends EntityHanging {
             this.die();
             if (entityhuman.abilities.canInstantlyBuild) {
                 d0 = 7.0D;
-                list = this.world.a(EntityInsentient.class, AxisAlignedBB.a().a(this.locX - d0, this.locY - d0, this.locZ - d0, this.locX + d0, this.locY + d0, this.locZ + d0));
+                list = this.world.a(EntityInsentient.class, AxisAlignedBB.a(this.locX - d0, this.locY - d0, this.locZ - d0, this.locX + d0, this.locY + d0, this.locZ + d0));
                 if (list != null) {
                     iterator = list.iterator();
 
                     while (iterator.hasNext()) {
                         entityinsentient = (EntityInsentient) iterator.next();
-                        if (entityinsentient.bL() && entityinsentient.getLeashHolder() == this) {
+                        if (entityinsentient.bN() && entityinsentient.getLeashHolder() == this) {
                             entityinsentient.unleash(true, false);
                         }
                     }
@@ -90,13 +90,13 @@ public class EntityLeash extends EntityHanging {
     public static EntityLeash a(World world, int i, int j, int k) {
         EntityLeash entityleash = new EntityLeash(world, i, j, k);
 
-        entityleash.o = true;
+        entityleash.n = true;
         world.addEntity(entityleash);
         return entityleash;
     }
 
     public static EntityLeash b(World world, int i, int j, int k) {
-        List list = world.a(EntityLeash.class, AxisAlignedBB.a().a((double) i - 1.0D, (double) j - 1.0D, (double) k - 1.0D, (double) i + 1.0D, (double) j + 1.0D, (double) k + 1.0D));
+        List list = world.a(EntityLeash.class, AxisAlignedBB.a((double) i - 1.0D, (double) j - 1.0D, (double) k - 1.0D, (double) i + 1.0D, (double) j + 1.0D, (double) k + 1.0D));
 
         if (list != null) {
             Iterator iterator = list.iterator();

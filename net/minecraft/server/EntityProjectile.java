@@ -13,7 +13,7 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
     private EntityLiving shooter;
     private String shooterName;
     private int i;
-    private int j;
+    private int at;
 
     public EntityProjectile(World world) {
         super(world);
@@ -79,9 +79,9 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
     }
 
     public void h() {
-        this.T = this.locX;
-        this.U = this.locY;
-        this.V = this.locZ;
+        this.S = this.locX;
+        this.T = this.locY;
+        this.U = this.locZ;
         super.h();
         if (this.shake > 0) {
             --this.shake;
@@ -102,19 +102,19 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
             this.motY *= (double) (this.random.nextFloat() * 0.2F);
             this.motZ *= (double) (this.random.nextFloat() * 0.2F);
             this.i = 0;
-            this.j = 0;
+            this.at = 0;
         } else {
-            ++this.j;
+            ++this.at;
         }
 
-        Vec3D vec3d = this.world.getVec3DPool().create(this.locX, this.locY, this.locZ);
-        Vec3D vec3d1 = this.world.getVec3DPool().create(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
+        Vec3D vec3d = Vec3D.a(this.locX, this.locY, this.locZ);
+        Vec3D vec3d1 = Vec3D.a(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
         MovingObjectPosition movingobjectposition = this.world.a(vec3d, vec3d1);
 
-        vec3d = this.world.getVec3DPool().create(this.locX, this.locY, this.locZ);
-        vec3d1 = this.world.getVec3DPool().create(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
+        vec3d = Vec3D.a(this.locX, this.locY, this.locZ);
+        vec3d1 = Vec3D.a(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
         if (movingobjectposition != null) {
-            vec3d1 = this.world.getVec3DPool().create(movingobjectposition.pos.c, movingobjectposition.pos.d, movingobjectposition.pos.e);
+            vec3d1 = Vec3D.a(movingobjectposition.pos.a, movingobjectposition.pos.b, movingobjectposition.pos.c);
         }
 
         if (!this.world.isStatic) {
@@ -126,7 +126,7 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
             for (int i = 0; i < list.size(); ++i) {
                 Entity entity1 = (Entity) list.get(i);
 
-                if (entity1.R() && (entity1 != entityliving || this.j >= 5)) {
+                if (entity1.Q() && (entity1 != entityliving || this.at >= 5)) {
                     float f = 0.3F;
                     AxisAlignedBB axisalignedbb = entity1.boundingBox.grow((double) f, (double) f, (double) f);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
@@ -149,7 +149,7 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
 
         if (movingobjectposition != null) {
             if (movingobjectposition.type == EnumMovingObjectType.BLOCK && this.world.getType(movingobjectposition.b, movingobjectposition.c, movingobjectposition.d) == Blocks.PORTAL) {
-                this.ah();
+                this.ag();
             } else {
                 this.a(movingobjectposition);
             }
@@ -183,7 +183,7 @@ public abstract class EntityProjectile extends Entity implements IProjectile {
         float f2 = 0.99F;
         float f3 = this.i();
 
-        if (this.M()) {
+        if (this.L()) {
             for (int j = 0; j < 4; ++j) {
                 float f4 = 0.25F;
 
