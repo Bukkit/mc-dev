@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.UUID;
+
 public abstract class EntityTameableAnimal extends EntityAnimal implements EntityOwnable {
 
     protected PathfinderGoalSit bp = new PathfinderGoalSit(this);
@@ -16,10 +18,10 @@ public abstract class EntityTameableAnimal extends EntityAnimal implements Entit
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        if (this.getOwnerName() == null) {
-            nbttagcompound.setString("Owner", "");
+        if (this.getOwnerUUID() == null) {
+            nbttagcompound.setString("OwnerUUID", "");
         } else {
-            nbttagcompound.setString("Owner", this.getOwnerName());
+            nbttagcompound.setString("OwnerUUID", this.getOwnerUUID());
         }
 
         nbttagcompound.setBoolean("Sitting", this.isSitting());
@@ -27,10 +29,18 @@ public abstract class EntityTameableAnimal extends EntityAnimal implements Entit
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        String s = nbttagcompound.getString("Owner");
+        String s = "";
+
+        if (nbttagcompound.hasKeyOfType("OwnerUUID", 8)) {
+            s = nbttagcompound.getString("OwnerUUID");
+        } else {
+            String s1 = nbttagcompound.getString("Owner");
+
+            s = NameReferencingFileConverter.a(s1);
+        }
 
         if (s.length() > 0) {
-            this.setOwnerName(s);
+            this.setOwnerUUID(s);
             this.setTamed(true);
         }
 
@@ -82,16 +92,26 @@ public abstract class EntityTameableAnimal extends EntityAnimal implements Entit
         }
     }
 
-    public String getOwnerName() {
+    public String getOwnerUUID() {
         return this.datawatcher.getString(17);
     }
 
-    public void setOwnerName(String s) {
+    public void setOwnerUUID(String s) {
         this.datawatcher.watch(17, s);
     }
 
     public EntityLiving getOwner() {
-        return this.world.a(this.getOwnerName());
+        try {
+            UUID uuid = UUID.fromString(this.getOwnerUUID());
+
+            return uuid == null ? null : this.world.a(uuid);
+        } catch (IllegalArgumentException illegalargumentexception) {
+            return null;
+        }
+    }
+
+    public boolean e(EntityLiving entityliving) {
+        return entityliving == this.getOwner();
     }
 
     public PathfinderGoalSit getGoalSit() {

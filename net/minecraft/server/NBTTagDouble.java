@@ -17,7 +17,8 @@ public class NBTTagDouble extends NBTNumber {
         dataoutput.writeDouble(this.data);
     }
 
-    void load(DataInput datainput, int i) {
+    void load(DataInput datainput, int i, NBTReadLimiter nbtreadlimiter) {
+        nbtreadlimiter.a(64L);
         this.data = datainput.readDouble();
     }
 

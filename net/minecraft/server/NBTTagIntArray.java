@@ -22,9 +22,10 @@ public class NBTTagIntArray extends NBTBase {
         }
     }
 
-    void load(DataInput datainput, int i) {
+    void load(DataInput datainput, int i, NBTReadLimiter nbtreadlimiter) {
         int j = datainput.readInt();
 
+        nbtreadlimiter.a((long) (32 * j));
         this.data = new int[j];
 
         for (int k = 0; k < j; ++k) {

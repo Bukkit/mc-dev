@@ -9,7 +9,7 @@ public abstract class NBTBase {
 
     abstract void write(DataOutput dataoutput);
 
-    abstract void load(DataInput datainput, int i);
+    abstract void load(DataInput datainput, int i, NBTReadLimiter nbtreadlimiter);
 
     public abstract String toString();
 

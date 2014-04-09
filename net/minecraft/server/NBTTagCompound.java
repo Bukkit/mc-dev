@@ -32,7 +32,7 @@ public class NBTTagCompound extends NBTBase {
         dataoutput.writeByte(0);
     }
 
-    void load(DataInput datainput, int i) {
+    void load(DataInput datainput, int i, NBTReadLimiter nbtreadlimiter) {
         if (i > 512) {
             throw new RuntimeException("Tried to read NBT tag with too high complexity, depth > 512");
         } else {
@@ -40,9 +40,11 @@ public class NBTTagCompound extends NBTBase {
 
             byte b0;
 
-            while ((b0 = a(datainput)) != 0) {
-                String s = b(datainput);
-                NBTBase nbtbase = a(b0, s, datainput, i + 1);
+            while ((b0 = a(datainput, nbtreadlimiter)) != 0) {
+                String s = b(datainput, nbtreadlimiter);
+
+                nbtreadlimiter.a((long) (16 * s.length()));
+                NBTBase nbtbase = a(b0, s, datainput, i + 1, nbtreadlimiter);
 
                 this.map.put(s, nbtbase);
             }
@@ -294,19 +296,19 @@ public class NBTTagCompound extends NBTBase {
         }
     }
 
-    private static byte a(DataInput datainput) {
+    private static byte a(DataInput datainput, NBTReadLimiter nbtreadlimiter) {
         return datainput.readByte();
     }
 
-    private static String b(DataInput datainput) {
+    private static String b(DataInput datainput, NBTReadLimiter nbtreadlimiter) {
         return datainput.readUTF();
     }
 
-    static NBTBase a(byte b0, String s, DataInput datainput, int i) {
+    static NBTBase a(byte b0, String s, DataInput datainput, int i, NBTReadLimiter nbtreadlimiter) {
         NBTBase nbtbase = NBTBase.createTag(b0);
 
         try {
-            nbtbase.load(datainput, i);
+            nbtbase.load(datainput, i, nbtreadlimiter);
             return nbtbase;
         } catch (IOException ioexception) {
             CrashReport crashreport = CrashReport.a(ioexception, "Loading NBT data");

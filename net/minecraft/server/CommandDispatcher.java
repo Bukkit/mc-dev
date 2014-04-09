@@ -36,7 +36,7 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
         this.a(new CommandSetBlock());
         this.a(new CommandTestForBlock());
         this.a(new CommandTellRaw());
-        if (MinecraftServer.getServer().W()) {
+        if (MinecraftServer.getServer().X()) {
             this.a(new CommandOp());
             this.a(new CommandDeop());
             this.a(new CommandStop());
@@ -77,7 +77,7 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
             while (iterator.hasNext()) {
                 EntityPlayer entityplayer = (EntityPlayer) iterator.next();
 
-                if (entityplayer != icommandlistener && MinecraftServer.getServer().getPlayerList().isOp(entityplayer.getName()) && icommand.canUse(entityplayer) && (!(icommandlistener instanceof RemoteControlCommandListener) || MinecraftServer.getServer().m())) {
+                if (entityplayer != icommandlistener && MinecraftServer.getServer().getPlayerList().isOp(entityplayer.getProfile()) && icommand.canUse(entityplayer) && (!(icommandlistener instanceof RemoteControlCommandListener) || MinecraftServer.getServer().m())) {
                     entityplayer.sendMessage(chatmessage);
                 }
             }

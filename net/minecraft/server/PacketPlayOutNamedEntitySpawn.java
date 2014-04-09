@@ -1,8 +1,11 @@
 package net.minecraft.server;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import net.minecraft.util.com.mojang.authlib.GameProfile;
+import net.minecraft.util.com.mojang.authlib.properties.Property;
 
 public class PacketPlayOutNamedEntitySpawn extends Packet {
 
@@ -35,7 +38,19 @@ public class PacketPlayOutNamedEntitySpawn extends Packet {
 
     public void a(PacketDataSerializer packetdataserializer) {
         this.a = packetdataserializer.a();
-        this.b = new GameProfile(packetdataserializer.c(36), packetdataserializer.c(16));
+        UUID uuid = UUID.fromString(packetdataserializer.c(36));
+
+        this.b = new GameProfile(uuid, packetdataserializer.c(16));
+        int i = packetdataserializer.a();
+
+        for (int j = 0; j < i; ++j) {
+            String s = packetdataserializer.c(32767);
+            String s1 = packetdataserializer.c(32767);
+            String s2 = packetdataserializer.c(32767);
+
+            this.b.getProperties().put(s, new Property(s, s1, s2));
+        }
+
         this.c = packetdataserializer.readInt();
         this.d = packetdataserializer.readInt();
         this.e = packetdataserializer.readInt();
@@ -47,8 +62,21 @@ public class PacketPlayOutNamedEntitySpawn extends Packet {
 
     public void b(PacketDataSerializer packetdataserializer) {
         packetdataserializer.b(this.a);
-        packetdataserializer.a(this.b.getId());
+        UUID uuid = this.b.getId();
+
+        packetdataserializer.a(uuid == null ? "" : uuid.toString());
         packetdataserializer.a(this.b.getName());
+        packetdataserializer.b(this.b.getProperties().size());
+        Iterator iterator = this.b.getProperties().values().iterator();
+
+        while (iterator.hasNext()) {
+            Property property = (Property) iterator.next();
+
+            packetdataserializer.a(property.getName());
+            packetdataserializer.a(property.getValue());
+            packetdataserializer.a(property.getSignature());
+        }
+
         packetdataserializer.writeInt(this.c);
         packetdataserializer.writeInt(this.d);
         packetdataserializer.writeInt(this.e);

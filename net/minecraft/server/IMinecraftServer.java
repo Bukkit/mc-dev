@@ -26,7 +26,7 @@ public interface IMinecraftServer {
 
     String[] getPlayers();
 
-    String N();
+    String O();
 
     String getPlugins();
 

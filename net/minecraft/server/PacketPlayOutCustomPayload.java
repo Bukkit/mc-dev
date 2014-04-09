@@ -16,8 +16,8 @@ public class PacketPlayOutCustomPayload extends Packet {
     public PacketPlayOutCustomPayload(String s, byte[] abyte) {
         this.tag = s;
         this.data = abyte;
-        if (abyte.length >= 32767) {
-            throw new IllegalArgumentException("Payload may not be larger than 32767 bytes");
+        if (abyte.length >= 1048576) {
+            throw new IllegalArgumentException("Payload may not be larger than 1048576 bytes");
         }
     }
 

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import net.minecraft.util.com.google.common.collect.Lists;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -163,9 +164,10 @@ public class ChunkProviderServer implements IChunkProvider {
 
     public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
         int i = 0;
+        ArrayList arraylist = Lists.newArrayList(this.chunkList);
 
-        for (int j = 0; j < this.chunkList.size(); ++j) {
-            Chunk chunk = (Chunk) this.chunkList.get(j);
+        for (int j = 0; j < arraylist.size(); ++j) {
+            Chunk chunk = (Chunk) arraylist.get(j);
 
             if (flag) {
                 this.saveChunkNOP(chunk);
@@ -197,12 +199,15 @@ public class ChunkProviderServer implements IChunkProvider {
                     Long olong = (Long) this.unloadQueue.iterator().next();
                     Chunk chunk = (Chunk) this.chunks.getEntry(olong.longValue());
 
-                    chunk.removeEntities();
-                    this.saveChunk(chunk);
-                    this.saveChunkNOP(chunk);
+                    if (chunk != null) {
+                        chunk.removeEntities();
+                        this.saveChunk(chunk);
+                        this.saveChunkNOP(chunk);
+                        this.chunkList.remove(chunk);
+                    }
+
                     this.unloadQueue.remove(olong);
                     this.chunks.remove(olong.longValue());
-                    this.chunkList.remove(chunk);
                 }
             }
 

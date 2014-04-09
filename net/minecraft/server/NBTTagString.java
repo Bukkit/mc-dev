@@ -22,8 +22,9 @@ public class NBTTagString extends NBTBase {
         dataoutput.writeUTF(this.data);
     }
 
-    void load(DataInput datainput, int i) {
+    void load(DataInput datainput, int i, NBTReadLimiter nbtreadlimiter) {
         this.data = datainput.readUTF();
+        nbtreadlimiter.a((long) (16 * this.data.length()));
     }
 
     public byte getTypeId() {

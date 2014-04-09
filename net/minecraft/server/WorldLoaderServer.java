@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
@@ -136,7 +135,7 @@ public class WorldLoaderServer extends WorldLoader {
                         if (datainputstream == null) {
                             b.warn("Failed to fetch input stream");
                         } else {
-                            NBTTagCompound nbttagcompound = NBTCompressedStreamTools.a((DataInput) datainputstream);
+                            NBTTagCompound nbttagcompound = NBTCompressedStreamTools.a(datainputstream);
 
                             datainputstream.close();
                             NBTTagCompound nbttagcompound1 = nbttagcompound.getCompound("Level");

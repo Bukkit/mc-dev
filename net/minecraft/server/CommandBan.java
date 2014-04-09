@@ -1,6 +1,9 @@
 package net.minecraft.server;
 
+import java.util.Date;
 import java.util.List;
+
+import net.minecraft.util.com.mojang.authlib.GameProfile;
 
 public class CommandBan extends CommandAbstract {
 
@@ -19,25 +22,34 @@ public class CommandBan extends CommandAbstract {
     }
 
     public boolean canUse(ICommandListener icommandlistener) {
-        return MinecraftServer.getServer().getPlayerList().getNameBans().isEnabled() && super.canUse(icommandlistener);
+        return MinecraftServer.getServer().getPlayerList().getProfileBans().isEnabled() && super.canUse(icommandlistener);
     }
 
     public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 1 && astring[0].length() > 0) {
-            EntityPlayer entityplayer = MinecraftServer.getServer().getPlayerList().getPlayer(astring[0]);
-            BanEntry banentry = new BanEntry(astring[0]);
+            MinecraftServer minecraftserver = MinecraftServer.getServer();
+            GameProfile gameprofile = minecraftserver.getUserCache().a(astring[0]);
 
-            banentry.setSource(icommandlistener.getName());
-            if (astring.length >= 2) {
-                banentry.setReason(a(icommandlistener, astring, 1).c());
+            if (gameprofile == null) {
+                throw new CommandException("commands.ban.failed", new Object[] { astring[0]});
+            } else {
+                String s = null;
+
+                if (astring.length >= 2) {
+                    s = a(icommandlistener, astring, 1).c();
+                }
+
+                GameProfileBanEntry gameprofilebanentry = new GameProfileBanEntry(gameprofile, (Date) null, icommandlistener.getName(), (Date) null, s);
+
+                minecraftserver.getPlayerList().getProfileBans().add(gameprofilebanentry);
+                EntityPlayer entityplayer = minecraftserver.getPlayerList().getPlayer(astring[0]);
+
+                if (entityplayer != null) {
+                    entityplayer.playerConnection.disconnect("You are banned from this server.");
+                }
+
+                a(icommandlistener, this, "commands.ban.success", new Object[] { astring[0]});
             }
-
-            MinecraftServer.getServer().getPlayerList().getNameBans().add(banentry);
-            if (entityplayer != null) {
-                entityplayer.playerConnection.disconnect("You are banned from this server.");
-            }
-
-            a(icommandlistener, this, "commands.ban.success", new Object[] { astring[0]});
         } else {
             throw new ExceptionUsage("commands.ban.usage", new Object[0]);
         }

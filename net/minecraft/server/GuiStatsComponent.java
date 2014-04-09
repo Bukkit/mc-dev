@@ -29,7 +29,7 @@ public class GuiStatsComponent extends JComponent {
 
         System.gc();
         this.d[0] = "Memory use: " + i / 1024L / 1024L + " mb (" + Runtime.getRuntime().freeMemory() * 100L / Runtime.getRuntime().maxMemory() + "% free)";
-        this.d[1] = "Avg tick: " + a.format(this.a(this.e.f) * 1.0E-6D) + " ms";
+        this.d[1] = "Avg tick: " + a.format(this.a(this.e.g) * 1.0E-6D) + " ms";
         this.repaint();
     }
 

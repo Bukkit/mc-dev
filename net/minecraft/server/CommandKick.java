@@ -11,7 +11,7 @@ public class CommandKick extends CommandAbstract {
     }
 
     public int a() {
-        return 3;
+        return 2;
     }
 
     public String c(ICommandListener icommandlistener) {

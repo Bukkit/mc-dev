@@ -8,7 +8,7 @@ class PacketStatisticsTracker {
 
     public PacketStatisticsTracker() {
         for (int i = 0; i < 100; ++i) {
-            this.a[i] = new AtomicReference(new PackStatisticData(0L, 0, 0.0D, (EmptyClass3) null));
+            this.a[i] = new AtomicReference(new PackStatisticData(0L, 0, 0.0D, (ModdingApi) null));
         }
     }
 
@@ -54,7 +54,7 @@ class PacketStatisticsTracker {
 
     public PacketStatistics c() {
         int i = -1;
-        PackStatisticData packstatisticdata = new PackStatisticData(-1L, -1, 0.0D, (EmptyClass3) null);
+        PackStatisticData packstatisticdata = new PackStatisticData(-1L, -1, 0.0D, (ModdingApi) null);
 
         for (int j = 0; j < 100; ++j) {
             PackStatisticData packstatisticdata1 = (PackStatisticData) this.a[j].get();
@@ -70,7 +70,7 @@ class PacketStatisticsTracker {
 
     public PacketStatistics d() {
         int i = -1;
-        PackStatisticData packstatisticdata = new PackStatisticData(-1L, -1, 0.0D, (EmptyClass3) null);
+        PackStatisticData packstatisticdata = new PackStatisticData(-1L, -1, 0.0D, (ModdingApi) null);
 
         for (int j = 0; j < 100; ++j) {
             PackStatisticData packstatisticdata1 = (PackStatisticData) this.a[j].get();

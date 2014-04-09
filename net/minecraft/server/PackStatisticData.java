@@ -28,7 +28,7 @@ class PackStatisticData {
         return "{totalBytes=" + this.a + ", count=" + this.b + ", averageBytes=" + this.c + '}';
     }
 
-    PackStatisticData(long i, int j, double d0, EmptyClass3 emptyclass3) {
+    PackStatisticData(long i, int j, double d0, ModdingApi moddingapi) {
         this(i, j, d0);
     }
 

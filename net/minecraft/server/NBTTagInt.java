@@ -17,7 +17,8 @@ public class NBTTagInt extends NBTNumber {
         dataoutput.writeInt(this.data);
     }
 
-    void load(DataInput datainput, int i) {
+    void load(DataInput datainput, int i, NBTReadLimiter nbtreadlimiter) {
+        nbtreadlimiter.a(32L);
         this.data = datainput.readInt();
     }
 

@@ -262,7 +262,7 @@ public class EntityArrow extends Entity implements IProjectile {
                     this.d = movingobjectposition.b;
                     this.e = movingobjectposition.c;
                     this.f = movingobjectposition.d;
-                    this.g = block;
+                    this.g = this.world.getType(this.d, this.e, this.f);
                     this.h = this.world.getData(this.d, this.e, this.f);
                     this.motX = (double) ((float) (movingobjectposition.pos.a - this.locX));
                     this.motY = (double) ((float) (movingobjectposition.pos.b - this.locY));

@@ -18,13 +18,13 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
     private final File baseDir;
     private final File playerDir;
     private final File dataDir;
-    private final long sessionId = MinecraftServer.aq();
+    private final long sessionId = MinecraftServer.ar();
     private final String f;
 
     public WorldNBTStorage(File file1, String s, boolean flag) {
         this.baseDir = new File(file1, s);
         this.baseDir.mkdirs();
-        this.playerDir = new File(this.baseDir, "players");
+        this.playerDir = new File(this.baseDir, "playerdata");
         this.dataDir = new File(this.baseDir, "data");
         this.dataDir.mkdirs();
         this.f = s;
@@ -170,8 +170,8 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
 
             entityhuman.e(nbttagcompound);
-            File file1 = new File(this.playerDir, entityhuman.getName() + ".dat.tmp");
-            File file2 = new File(this.playerDir, entityhuman.getName() + ".dat");
+            File file1 = new File(this.playerDir, entityhuman.getUniqueID().toString() + ".dat.tmp");
+            File file2 = new File(this.playerDir, entityhuman.getUniqueID().toString() + ".dat");
 
             NBTCompressedStreamTools.a(nbttagcompound, (OutputStream) (new FileOutputStream(file1)));
             if (file2.exists()) {
@@ -185,27 +185,23 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
     }
 
     public NBTTagCompound load(EntityHuman entityhuman) {
-        NBTTagCompound nbttagcompound = this.getPlayerData(entityhuman.getName());
+        NBTTagCompound nbttagcompound = null;
+
+        try {
+            File file1 = new File(this.playerDir, entityhuman.getUniqueID().toString() + ".dat");
+
+            if (file1.exists() && file1.isFile()) {
+                nbttagcompound = NBTCompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
+            }
+        } catch (Exception exception) {
+            a.warn("Failed to load player data for " + entityhuman.getName());
+        }
 
         if (nbttagcompound != null) {
             entityhuman.f(nbttagcompound);
         }
 
         return nbttagcompound;
-    }
-
-    public NBTTagCompound getPlayerData(String s) {
-        try {
-            File file1 = new File(this.playerDir, s + ".dat");
-
-            if (file1.exists()) {
-                return NBTCompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
-            }
-        } catch (Exception exception) {
-            a.warn("Failed to load player data for " + s);
-        }
-
-        return null;
     }
 
     public IPlayerFileData getPlayerFileData() {

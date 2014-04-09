@@ -2,7 +2,7 @@ package net.minecraft.server;
 
 public interface EntityOwnable {
 
-    String getOwnerName();
+    String getOwnerUUID();
 
     Entity getOwner();
 }

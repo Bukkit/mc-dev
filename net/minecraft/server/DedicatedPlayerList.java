@@ -1,42 +1,34 @@
 package net.minecraft.server;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.Iterator;
+import java.io.IOException;
 
+import net.minecraft.util.com.mojang.authlib.GameProfile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DedicatedPlayerList extends PlayerList {
 
-    private static final Logger c = LogManager.getLogger();
-    private File d;
-    private File e;
+    private static final Logger g = LogManager.getLogger();
 
     public DedicatedPlayerList(DedicatedServer dedicatedserver) {
         super(dedicatedserver);
-        this.d = dedicatedserver.d("ops.txt");
-        this.e = dedicatedserver.d("white-list.txt");
         this.a(dedicatedserver.a("view-distance", 10));
         this.maxPlayers = dedicatedserver.a("max-players", 20);
         this.setHasWhitelist(dedicatedserver.a("white-list", false));
-        if (!dedicatedserver.M()) {
-            this.getNameBans().setEnabled(true);
-            this.getIPBans().setEnabled(true);
+        if (!dedicatedserver.N()) {
+            this.getProfileBans().a(true);
+            this.getIPBans().a(true);
         }
 
-        this.getNameBans().load();
-        this.getNameBans().save();
-        this.getIPBans().load();
-        this.getIPBans().save();
-        this.t();
+        this.y();
+        this.w();
+        this.x();
         this.v();
-        this.u();
-        if (!this.e.exists()) {
-            this.w();
+        this.z();
+        this.B();
+        this.A();
+        if (!this.getWhitelist().c().exists()) {
+            this.C();
         }
     }
 
@@ -46,99 +38,96 @@ public class DedicatedPlayerList extends PlayerList {
         this.getServer().a();
     }
 
-    public void addOp(String s) {
-        super.addOp(s);
-        this.u();
+    public void addOp(GameProfile gameprofile) {
+        super.addOp(gameprofile);
+        this.A();
     }
 
-    public void removeOp(String s) {
-        super.removeOp(s);
-        this.u();
+    public void removeOp(GameProfile gameprofile) {
+        super.removeOp(gameprofile);
+        this.A();
     }
 
-    public void removeWhitelist(String s) {
-        super.removeWhitelist(s);
-        this.w();
+    public void removeWhitelist(GameProfile gameprofile) {
+        super.removeWhitelist(gameprofile);
+        this.C();
     }
 
-    public void addWhitelist(String s) {
-        super.addWhitelist(s);
-        this.w();
+    public void addWhitelist(GameProfile gameprofile) {
+        super.addWhitelist(gameprofile);
+        this.C();
     }
 
     public void reloadWhitelist() {
-        this.v();
-    }
-
-    private void t() {
-        try {
-            this.getOPs().clear();
-            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.d));
-            String s = "";
-
-            while ((s = bufferedreader.readLine()) != null) {
-                this.getOPs().add(s.trim().toLowerCase());
-            }
-
-            bufferedreader.close();
-        } catch (Exception exception) {
-            c.warn("Failed to load operators list: " + exception);
-        }
-    }
-
-    private void u() {
-        try {
-            PrintWriter printwriter = new PrintWriter(new FileWriter(this.d, false));
-            Iterator iterator = this.getOPs().iterator();
-
-            while (iterator.hasNext()) {
-                String s = (String) iterator.next();
-
-                printwriter.println(s);
-            }
-
-            printwriter.close();
-        } catch (Exception exception) {
-            c.warn("Failed to save operators list: " + exception);
-        }
+        this.B();
     }
 
     private void v() {
         try {
-            this.getWhitelisted().clear();
-            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.e));
-            String s = "";
-
-            while ((s = bufferedreader.readLine()) != null) {
-                this.getWhitelisted().add(s.trim().toLowerCase());
-            }
-
-            bufferedreader.close();
-        } catch (Exception exception) {
-            c.warn("Failed to load white-list: " + exception);
+            this.getIPBans().save();
+        } catch (IOException ioexception) {
+            g.warn("Failed to save ip banlist: ", ioexception);
         }
     }
 
     private void w() {
         try {
-            PrintWriter printwriter = new PrintWriter(new FileWriter(this.e, false));
-            Iterator iterator = this.getWhitelisted().iterator();
-
-            while (iterator.hasNext()) {
-                String s = (String) iterator.next();
-
-                printwriter.println(s);
-            }
-
-            printwriter.close();
-        } catch (Exception exception) {
-            c.warn("Failed to save white-list: " + exception);
+            this.getProfileBans().save();
+        } catch (IOException ioexception) {
+            g.warn("Failed to save user banlist: ", ioexception);
         }
     }
 
-    public boolean isWhitelisted(String s) {
-        s = s.trim().toLowerCase();
-        return !this.getHasWhitelist() || this.isOp(s) || this.getWhitelisted().contains(s);
+    private void x() {
+        try {
+            this.getIPBans().load();
+        } catch (IOException ioexception) {
+            g.warn("Failed to load ip banlist: ", ioexception);
+        }
+    }
+
+    private void y() {
+        try {
+            this.getProfileBans().load();
+        } catch (IOException ioexception) {
+            g.warn("Failed to load user banlist: ", ioexception);
+        }
+    }
+
+    private void z() {
+        try {
+            this.getOPs().load();
+        } catch (Exception exception) {
+            g.warn("Failed to load operators list: ", exception);
+        }
+    }
+
+    private void A() {
+        try {
+            this.getOPs().save();
+        } catch (Exception exception) {
+            g.warn("Failed to save operators list: ", exception);
+        }
+    }
+
+    private void B() {
+        try {
+            this.getWhitelist().load();
+        } catch (Exception exception) {
+            g.warn("Failed to load white-list: ", exception);
+        }
+    }
+
+    private void C() {
+        try {
+            this.getWhitelist().save();
+        } catch (Exception exception) {
+            g.warn("Failed to save white-list: ", exception);
+        }
+    }
+
+    public boolean isWhitelisted(GameProfile gameprofile) {
+        return !this.getHasWhitelist() || this.isOp(gameprofile) || this.getWhitelist().isWhitelisted(gameprofile);
     }
 
     public DedicatedServer getServer() {

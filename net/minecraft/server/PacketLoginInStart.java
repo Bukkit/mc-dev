@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.UUID;
+
 import net.minecraft.util.com.mojang.authlib.GameProfile;
 
 public class PacketLoginInStart extends Packet {
@@ -13,7 +15,7 @@ public class PacketLoginInStart extends Packet {
     }
 
     public void a(PacketDataSerializer packetdataserializer) {
-        this.a = new GameProfile((String) null, packetdataserializer.c(16));
+        this.a = new GameProfile((UUID) null, packetdataserializer.c(16));
     }
 
     public void b(PacketDataSerializer packetdataserializer) {

@@ -39,6 +39,6 @@ public class CommandPardonIP extends CommandAbstract {
     }
 
     public List tabComplete(ICommandListener icommandlistener, String[] astring) {
-        return astring.length == 1 ? a(astring, MinecraftServer.getServer().getPlayerList().getIPBans().getEntries().keySet()) : null;
+        return astring.length == 1 ? a(astring, MinecraftServer.getServer().getPlayerList().getIPBans().getEntries()) : null;
     }
 }

@@ -33,9 +33,9 @@ public class CommandDebug extends CommandAbstract {
         if (astring.length == 1) {
             if (astring[0].equals("start")) {
                 a(icommandlistener, this, "commands.debug.start", new Object[0]);
-                MinecraftServer.getServer().al();
-                this.b = MinecraftServer.aq();
-                this.c = MinecraftServer.getServer().ak();
+                MinecraftServer.getServer().am();
+                this.b = MinecraftServer.ar();
+                this.c = MinecraftServer.getServer().al();
                 return;
             }
 
@@ -44,8 +44,8 @@ public class CommandDebug extends CommandAbstract {
                     throw new CommandException("commands.debug.notStarted", new Object[0]);
                 }
 
-                long i = MinecraftServer.aq();
-                int j = MinecraftServer.getServer().ak();
+                long i = MinecraftServer.ar();
+                int j = MinecraftServer.getServer().al();
                 long k = i - this.b;
                 int l = j - this.c;
 

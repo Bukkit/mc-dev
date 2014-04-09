@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
@@ -122,7 +121,7 @@ public class PersistentCollection {
 
             if (file1 != null && file1.exists()) {
                 DataInputStream datainputstream = new DataInputStream(new FileInputStream(file1));
-                NBTTagCompound nbttagcompound = NBTCompressedStreamTools.a((DataInput) datainputstream);
+                NBTTagCompound nbttagcompound = NBTCompressedStreamTools.a(datainputstream);
 
                 datainputstream.close();
                 Iterator iterator = nbttagcompound.c().iterator();

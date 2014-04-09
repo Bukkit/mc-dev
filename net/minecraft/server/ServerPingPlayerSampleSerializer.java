@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import java.lang.reflect.Type;
+import java.util.UUID;
 
 import net.minecraft.util.com.google.gson.JsonArray;
 import net.minecraft.util.com.google.gson.JsonDeserializationContext;
@@ -27,8 +28,9 @@ public class ServerPingPlayerSampleSerializer implements JsonDeserializer, JsonS
 
                 for (int i = 0; i < agameprofile.length; ++i) {
                     JsonObject jsonobject1 = ChatDeserializer.l(jsonarray.get(i), "player[" + i + "]");
+                    String s = ChatDeserializer.h(jsonobject1, "id");
 
-                    agameprofile[i] = new GameProfile(ChatDeserializer.h(jsonobject1, "id"), ChatDeserializer.h(jsonobject1, "name"));
+                    agameprofile[i] = new GameProfile(UUID.fromString(s), ChatDeserializer.h(jsonobject1, "name"));
                 }
 
                 serverpingplayersample.a(agameprofile);
@@ -48,8 +50,9 @@ public class ServerPingPlayerSampleSerializer implements JsonDeserializer, JsonS
 
             for (int i = 0; i < serverpingplayersample.c().length; ++i) {
                 JsonObject jsonobject1 = new JsonObject();
+                UUID uuid = serverpingplayersample.c()[i].getId();
 
-                jsonobject1.addProperty("id", serverpingplayersample.c()[i].getId());
+                jsonobject1.addProperty("id", uuid == null ? "" : uuid.toString());
                 jsonobject1.addProperty("name", serverpingplayersample.c()[i].getName());
                 jsonarray.add(jsonobject1);
             }

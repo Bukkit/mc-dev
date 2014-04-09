@@ -25,7 +25,7 @@ public class RegistrySimple implements IRegistry {
 
     public void a(Object object, Object object1) {
         if (this.c.containsKey(object)) {
-            a.warn("Adding duplicate key \'" + object + "\' to registry");
+            a.debug("Adding duplicate key \'" + object + "\' to registry");
         }
 
         this.c.put(object, object1);

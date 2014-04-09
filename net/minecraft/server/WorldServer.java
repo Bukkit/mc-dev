@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
+import net.minecraft.util.com.google.common.collect.Lists;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -568,13 +569,13 @@ public class WorldServer extends World {
             }
 
             this.chunkProvider.saveChunks(flag, iprogressupdate);
-            List list = this.chunkProviderServer.a();
-            Iterator iterator = list.iterator();
+            ArrayList arraylist = Lists.newArrayList(this.chunkProviderServer.a());
+            Iterator iterator = arraylist.iterator();
 
             while (iterator.hasNext()) {
                 Chunk chunk = (Chunk) iterator.next();
 
-                if (!this.manager.a(chunk.locX, chunk.locZ)) {
+                if (chunk != null && !this.manager.a(chunk.locX, chunk.locZ)) {
                     this.chunkProviderServer.queueUnload(chunk.locX, chunk.locZ);
                 }
             }
@@ -589,7 +590,7 @@ public class WorldServer extends World {
 
     protected void a() {
         this.G();
-        this.dataManager.saveWorldData(this.worldData, this.server.getPlayerList().q());
+        this.dataManager.saveWorldData(this.worldData, this.server.getPlayerList().t());
         this.worldMaps.a();
     }
 
@@ -729,7 +730,7 @@ public class WorldServer extends World {
     }
 
     protected int p() {
-        return this.server.getPlayerList().o();
+        return this.server.getPlayerList().s();
     }
 
     public MinecraftServer getMinecraftServer() {

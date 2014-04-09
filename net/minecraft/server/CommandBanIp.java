@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -57,15 +58,10 @@ public class CommandBanIp extends CommandAbstract {
     }
 
     protected void a(ICommandListener icommandlistener, String s, String s1) {
-        BanEntry banentry = new BanEntry(s);
+        IpBanEntry ipbanentry = new IpBanEntry(s, (Date) null, icommandlistener.getName(), (Date) null, s1);
 
-        banentry.setSource(icommandlistener.getName());
-        if (s1 != null) {
-            banentry.setReason(s1);
-        }
-
-        MinecraftServer.getServer().getPlayerList().getIPBans().add(banentry);
-        List list = MinecraftServer.getServer().getPlayerList().h(s);
+        MinecraftServer.getServer().getPlayerList().getIPBans().add(ipbanentry);
+        List list = MinecraftServer.getServer().getPlayerList().b(s);
         String[] astring = new String[list.size()];
         int i = 0;
 
