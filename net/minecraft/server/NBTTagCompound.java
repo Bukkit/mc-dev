@@ -120,17 +120,7 @@ public class NBTTagCompound extends NBTBase {
     public boolean hasKeyOfType(String s, int i) {
         byte b0 = this.b(s);
 
-        if (b0 == i) {
-            return true;
-        } else if (i != 99) {
-            if (b0 > 0) {
-                b.warn("NBT tag {} was of wrong type; expected {}, found {}", new Object[] { s, getTagName(i), getTagName(b0)});
-            }
-
-            return false;
-        } else {
-            return b0 == 1 || b0 == 2 || b0 == 3 || b0 == 4 || b0 == 5 || b0 == 6;
-        }
+        return b0 == i ? true : (i != 99 ? false : b0 == 1 || b0 == 2 || b0 == 3 || b0 == 4 || b0 == 5 || b0 == 6);
     }
 
     public byte getByte(String s) {

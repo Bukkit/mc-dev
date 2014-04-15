@@ -29,12 +29,12 @@ public class PacketSplitter extends ByteToMessageDecoder {
                 try {
                     int j = packetdataserializer.a();
 
-                    if (bytebuf.readableBytes() >= j) {
-                        list.add(bytebuf.readBytes(j));
+                    if (bytebuf.readableBytes() < j) {
+                        bytebuf.resetReaderIndex();
                         return;
                     }
 
-                    bytebuf.resetReaderIndex();
+                    list.add(bytebuf.readBytes(j));
                 } finally {
                     packetdataserializer.release();
                 }
