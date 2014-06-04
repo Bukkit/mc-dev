@@ -57,7 +57,7 @@ public class PacketPlayOutScoreboardTeam extends Packet {
             short short1 = packetdataserializer.readShort();
 
             for (int i = 0; i < short1; ++i) {
-                this.e.add(packetdataserializer.c(16));
+                this.e.add(packetdataserializer.c(40));
             }
         }
     }

@@ -12,7 +12,7 @@ public class WorldGenBonusChest extends WorldGenerator {
         this.b = i;
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         Block block;
 
         while (((block = world.getType(i, j, k)).getMaterial() == Material.AIR || block.getMaterial() == Material.LEAVES) && j > 1) {

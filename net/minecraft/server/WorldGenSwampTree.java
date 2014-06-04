@@ -8,7 +8,7 @@ public class WorldGenSwampTree extends WorldGenTreeAbstract {
         super(false);
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         int l;
 
         for (l = random.nextInt(4) + 5; world.getType(i, j - 1, k).getMaterial() == Material.WATER; --j) {

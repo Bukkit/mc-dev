@@ -30,12 +30,12 @@ public class AttributeMapServer extends AttributeMapBase {
     }
 
     public AttributeInstance b(IAttribute iattribute) {
-        if (this.b.containsKey(iattribute.a())) {
+        if (this.b.containsKey(iattribute.getName())) {
             throw new IllegalArgumentException("Attribute is already registered!");
         } else {
             AttributeModifiable attributemodifiable = new AttributeModifiable(this, iattribute);
 
-            this.b.put(iattribute.a(), attributemodifiable);
+            this.b.put(iattribute.getName(), attributemodifiable);
             if (iattribute instanceof AttributeRanged && ((AttributeRanged) iattribute).f() != null) {
                 this.c.put(((AttributeRanged) iattribute).f(), attributemodifiable);
             }
@@ -46,12 +46,12 @@ public class AttributeMapServer extends AttributeMapBase {
     }
 
     public void a(AttributeModifiable attributemodifiable) {
-        if (attributemodifiable.a().c()) {
+        if (attributemodifiable.getAttribute().c()) {
             this.d.add(attributemodifiable);
         }
     }
 
-    public Set b() {
+    public Set getAttributes() {
         return this.d;
     }
 
@@ -62,7 +62,7 @@ public class AttributeMapServer extends AttributeMapBase {
         while (iterator.hasNext()) {
             AttributeInstance attributeinstance = (AttributeInstance) iterator.next();
 
-            if (attributeinstance.a().c()) {
+            if (attributeinstance.getAttribute().c()) {
                 hashset.add(attributeinstance);
             }
         }

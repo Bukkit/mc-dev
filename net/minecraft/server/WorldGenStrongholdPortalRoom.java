@@ -126,7 +126,7 @@ public class WorldGenStrongholdPortalRoom extends WorldGenStrongholdPiece {
                 TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(l, k, i1);
 
                 if (tileentitymobspawner != null) {
-                    tileentitymobspawner.a().a("Silverfish");
+                    tileentitymobspawner.getSpawner().setMobName("Silverfish");
                 }
             }
         }

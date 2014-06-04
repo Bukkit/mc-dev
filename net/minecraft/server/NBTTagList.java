@@ -115,7 +115,7 @@ public class NBTTagList extends NBTBase {
         }
     }
 
-    public String f(int i) {
+    public String getString(int i) {
         if (i >= 0 && i < this.list.size()) {
             NBTBase nbtbase = (NBTBase) this.list.get(i);
 

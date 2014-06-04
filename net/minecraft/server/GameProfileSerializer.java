@@ -8,7 +8,7 @@ import net.minecraft.util.com.mojang.authlib.properties.Property;
 
 public final class GameProfileSerializer {
 
-    public static GameProfile a(NBTTagCompound nbttagcompound) {
+    public static GameProfile deserialize(NBTTagCompound nbttagcompound) {
         String s = null;
         String s1 = null;
 
@@ -58,7 +58,7 @@ public final class GameProfileSerializer {
         }
     }
 
-    public static void a(NBTTagCompound nbttagcompound, GameProfile gameprofile) {
+    public static void serialize(NBTTagCompound nbttagcompound, GameProfile gameprofile) {
         if (!UtilColor.b(gameprofile.getName())) {
             nbttagcompound.setString("Name", gameprofile.getName());
         }

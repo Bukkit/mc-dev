@@ -23,8 +23,8 @@ public class IpBanEntry extends ExpirableListEntry {
     }
 
     protected void a(JsonObject jsonobject) {
-        if (this.f() != null) {
-            jsonobject.addProperty("ip", (String) this.f());
+        if (this.getKey() != null) {
+            jsonobject.addProperty("ip", (String) this.getKey());
             super.a(jsonobject);
         }
     }

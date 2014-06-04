@@ -37,7 +37,7 @@ public class BlockPlant extends Block {
     protected void e(World world, int i, int j, int k) {
         if (!this.j(world, i, j, k)) {
             this.b(world, i, j, k, world.getData(i, j, k), 0);
-            world.setTypeAndData(i, j, k, e(0), 0, 2);
+            world.setTypeAndData(i, j, k, getById(0), 0, 2);
         }
     }
 

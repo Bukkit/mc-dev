@@ -48,7 +48,7 @@ public class BiomeTaiga extends BiomeBase {
                 j1 = j + random.nextInt(16) + 8;
                 int k1 = world.getHighestBlockYAt(i1, j1);
 
-                aG.a(world, random, i1, k1, j1);
+                aG.generate(world, random, i1, k1, j1);
             }
         }
 
@@ -58,7 +58,7 @@ public class BiomeTaiga extends BiomeBase {
             l = i + random.nextInt(16) + 8;
             i1 = j + random.nextInt(16) + 8;
             j1 = random.nextInt(world.getHighestBlockYAt(l, i1) + 32);
-            ae.a(world, random, l, j1, i1);
+            ae.generate(world, random, l, j1, i1);
         }
 
         super.a(world, random, i, j);

@@ -30,7 +30,7 @@ public class AttributeModifiable implements AttributeInstance {
         }
     }
 
-    public IAttribute a() {
+    public IAttribute getAttribute() {
         return this.b;
     }
 

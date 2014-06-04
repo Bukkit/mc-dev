@@ -22,7 +22,7 @@ public class OpList extends JsonList {
 
         OpListEntry oplistentry;
 
-        for (Iterator iterator = this.e().values().iterator(); iterator.hasNext(); astring[i++] = ((GameProfile) oplistentry.f()).getName()) {
+        for (Iterator iterator = this.e().values().iterator(); iterator.hasNext(); astring[i++] = ((GameProfile) oplistentry.getKey()).getName()) {
             oplistentry = (OpListEntry) iterator.next();
         }
 
@@ -44,9 +44,9 @@ public class OpList extends JsonList {
             }
 
             oplistentry = (OpListEntry) iterator.next();
-        } while (!s.equalsIgnoreCase(((GameProfile) oplistentry.f()).getName()));
+        } while (!s.equalsIgnoreCase(((GameProfile) oplistentry.getKey()).getName()));
 
-        return (GameProfile) oplistentry.f();
+        return (GameProfile) oplistentry.getKey();
     }
 
     protected String a(Object object) {

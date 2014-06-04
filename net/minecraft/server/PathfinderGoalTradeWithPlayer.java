@@ -12,7 +12,7 @@ public class PathfinderGoalTradeWithPlayer extends PathfinderGoal {
     public boolean a() {
         if (!this.a.isAlive()) {
             return false;
-        } else if (this.a.L()) {
+        } else if (this.a.M()) {
             return false;
         } else if (!this.a.onGround) {
             return false;

@@ -35,7 +35,7 @@ public class BiomeSavanna extends BiomeBase {
             int i1 = j + random.nextInt(16) + 8;
             int j1 = random.nextInt(world.getHighestBlockYAt(l, i1) + 32);
 
-            ae.a(world, random, l, j1, i1);
+            ae.generate(world, random, l, j1, i1);
         }
 
         super.a(world, random, i, j);

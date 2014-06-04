@@ -13,7 +13,7 @@ public class WorldGenTaigaStructure extends WorldGenerator {
         this.b = i;
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         while (true) {
             if (j > 3) {
                 label63: {

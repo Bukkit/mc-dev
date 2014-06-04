@@ -154,7 +154,7 @@ public abstract class CommandAbstract implements ICommand {
                 }
             }
 
-            chatcomponenttext.a((IChatBaseComponent) object);
+            chatcomponenttext.addSibling((IChatBaseComponent) object);
         }
 
         return chatcomponenttext;
@@ -216,11 +216,11 @@ public abstract class CommandAbstract implements ICommand {
     }
 
     public static Item f(ICommandListener icommandlistener, String s) {
-        Item item = (Item) Item.REGISTRY.a(s);
+        Item item = (Item) Item.REGISTRY.get(s);
 
         if (item == null) {
             try {
-                Item item1 = Item.d(Integer.parseInt(s));
+                Item item1 = Item.getById(Integer.parseInt(s));
 
                 if (item1 != null) {
                     ChatMessage chatmessage = new ChatMessage("commands.generic.deprecatedId", new Object[] { Item.REGISTRY.c(item1)});
@@ -244,13 +244,13 @@ public abstract class CommandAbstract implements ICommand {
 
     public static Block g(ICommandListener icommandlistener, String s) {
         if (Block.REGISTRY.b(s)) {
-            return (Block) Block.REGISTRY.a(s);
+            return (Block) Block.REGISTRY.get(s);
         } else {
             try {
                 int i = Integer.parseInt(s);
 
                 if (Block.REGISTRY.b(i)) {
-                    Block block = Block.e(i);
+                    Block block = Block.getById(i);
                     ChatMessage chatmessage = new ChatMessage("commands.generic.deprecatedId", new Object[] { Block.REGISTRY.c(block)});
 
                     chatmessage.getChatModifier().setColor(EnumChatFormat.GRAY);
@@ -297,7 +297,7 @@ public abstract class CommandAbstract implements ICommand {
                 }
             }
 
-            chatcomponenttext.a(aichatbasecomponent[i]);
+            chatcomponenttext.addSibling(aichatbasecomponent[i]);
         }
 
         return chatcomponenttext;

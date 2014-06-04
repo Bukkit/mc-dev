@@ -51,7 +51,7 @@ public class BiomeBigHills extends BiomeBase {
             l = i + random.nextInt(16);
             i1 = random.nextInt(64);
             j1 = j + random.nextInt(16);
-            this.aC.a(world, random, l, i1, j1);
+            this.aC.generate(world, random, l, i1, j1);
         }
     }
 

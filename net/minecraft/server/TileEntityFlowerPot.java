@@ -14,13 +14,13 @@ public class TileEntityFlowerPot extends TileEntity {
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.setInt("Item", Item.b(this.a));
+        nbttagcompound.setInt("Item", Item.getId(this.a));
         nbttagcompound.setInt("Data", this.i);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.a = Item.d(nbttagcompound.getInt("Item"));
+        this.a = Item.getById(nbttagcompound.getInt("Item"));
         this.i = nbttagcompound.getInt("Data");
     }
 

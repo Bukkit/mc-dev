@@ -64,7 +64,7 @@ public class WorldGenNetherPiece12 extends WorldGenNetherPiece {
                 TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(j, i, k);
 
                 if (tileentitymobspawner != null) {
-                    tileentitymobspawner.a().a("Blaze");
+                    tileentitymobspawner.getSpawner().setMobName("Blaze");
                 }
             }
         }

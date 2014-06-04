@@ -37,9 +37,9 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
         this.ak = true;
     }
 
-    protected void aC() {
-        super.aC();
-        this.getAttributeInstance(GenericAttributes.a).setValue(200.0D);
+    protected void aD() {
+        super.aD();
+        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(200.0D);
     }
 
     protected void c() {
@@ -441,7 +441,7 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
         return super.damageEntity(damagesource, f);
     }
 
-    protected void aE() {
+    protected void aF() {
         ++this.bB;
         if (this.bB >= 180 && this.bB <= 200) {
             float f = (this.random.nextFloat() - 0.5F) * 8.0F;
@@ -530,11 +530,11 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
 
     protected void w() {}
 
-    public Entity[] as() {
+    public Entity[] at() {
         return this.children;
     }
 
-    public boolean Q() {
+    public boolean R() {
         return false;
     }
 
@@ -546,11 +546,11 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
         return "mob.enderdragon.growl";
     }
 
-    protected String aS() {
+    protected String aT() {
         return "mob.enderdragon.hit";
     }
 
-    protected float be() {
+    protected float bf() {
         return 5.0F;
     }
 }

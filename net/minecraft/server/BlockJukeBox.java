@@ -68,13 +68,13 @@ public class BlockJukeBox extends BlockContainer {
         return new TileEntityRecordPlayer();
     }
 
-    public boolean M() {
+    public boolean isComplexRedstone() {
         return true;
     }
 
     public int g(World world, int i, int j, int k, int l) {
         ItemStack itemstack = ((TileEntityRecordPlayer) world.getTileEntity(i, j, k)).getRecord();
 
-        return itemstack == null ? 0 : Item.b(itemstack.getItem()) + 1 - Item.b(Items.RECORD_1);
+        return itemstack == null ? 0 : Item.getId(itemstack.getItem()) + 1 - Item.getId(Items.RECORD_1);
     }
 }

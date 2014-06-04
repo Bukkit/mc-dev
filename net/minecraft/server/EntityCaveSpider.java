@@ -7,9 +7,9 @@ public class EntityCaveSpider extends EntitySpider {
         this.a(0.7F, 0.5F);
     }
 
-    protected void aC() {
-        super.aC();
-        this.getAttributeInstance(GenericAttributes.a).setValue(12.0D);
+    protected void aD() {
+        super.aD();
+        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(12.0D);
     }
 
     public boolean n(Entity entity) {
@@ -34,7 +34,7 @@ public class EntityCaveSpider extends EntitySpider {
         }
     }
 
-    public GroupDataEntity a(GroupDataEntity groupdataentity) {
+    public GroupDataEntity prepare(GroupDataEntity groupdataentity) {
         return groupdataentity;
     }
 }

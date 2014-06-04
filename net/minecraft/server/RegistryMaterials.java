@@ -24,7 +24,7 @@ public class RegistryMaterials extends RegistrySimple implements Registry {
         return HashBiMap.create();
     }
 
-    public Object a(String s) {
+    public Object get(String s) {
         return super.get(c(s));
     }
 
@@ -61,6 +61,6 @@ public class RegistryMaterials extends RegistrySimple implements Registry {
     }
 
     public Object get(Object object) {
-        return this.a((String) object);
+        return this.get((String) object);
     }
 }

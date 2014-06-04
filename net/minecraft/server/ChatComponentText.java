@@ -27,7 +27,7 @@ public class ChatComponentText extends ChatBaseComponent {
         while (iterator.hasNext()) {
             IChatBaseComponent ichatbasecomponent = (IChatBaseComponent) iterator.next();
 
-            chatcomponenttext.a(ichatbasecomponent.f());
+            chatcomponenttext.addSibling(ichatbasecomponent.f());
         }
 
         return chatcomponenttext;

@@ -124,7 +124,7 @@ public final class SpawnerCreature {
                                                             if (entityinsentient.canSpawn()) {
                                                                 ++j2;
                                                                 worldserver.addEntity(entityinsentient);
-                                                                groupdataentity = entityinsentient.a(groupdataentity);
+                                                                groupdataentity = entityinsentient.prepare(groupdataentity);
                                                                 if (j2 >= entityinsentient.bB()) {
                                                                     continue label110;
                                                                 }
@@ -201,7 +201,7 @@ public final class SpawnerCreature {
 
                             entityinsentient.setPositionRotation((double) f, (double) f1, (double) f2, random.nextFloat() * 360.0F, 0.0F);
                             world.addEntity(entityinsentient);
-                            groupdataentity = entityinsentient.a(groupdataentity);
+                            groupdataentity = entityinsentient.prepare(groupdataentity);
                             flag = true;
                         }
 

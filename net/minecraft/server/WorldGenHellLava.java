@@ -12,7 +12,7 @@ public class WorldGenHellLava extends WorldGenerator {
         this.b = flag;
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         if (world.getType(i, j + 1, k) != Blocks.NETHERRACK) {
             return false;
         } else if (world.getType(i, j, k).getMaterial() != Material.AIR && world.getType(i, j, k) != Blocks.NETHERRACK) {

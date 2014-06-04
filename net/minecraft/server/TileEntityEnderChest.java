@@ -12,7 +12,7 @@ public class TileEntityEnderChest extends TileEntity {
     public void h() {
         super.h();
         if (++this.k % 20 * 4 == 0) {
-            this.world.playNote(this.x, this.y, this.z, Blocks.ENDER_CHEST, 1, this.j);
+            this.world.playBlockAction(this.x, this.y, this.z, Blocks.ENDER_CHEST, 1, this.j);
         }
 
         this.i = this.a;
@@ -70,12 +70,12 @@ public class TileEntityEnderChest extends TileEntity {
 
     public void a() {
         ++this.j;
-        this.world.playNote(this.x, this.y, this.z, Blocks.ENDER_CHEST, 1, this.j);
+        this.world.playBlockAction(this.x, this.y, this.z, Blocks.ENDER_CHEST, 1, this.j);
     }
 
     public void b() {
         --this.j;
-        this.world.playNote(this.x, this.y, this.z, Blocks.ENDER_CHEST, 1, this.j);
+        this.world.playBlockAction(this.x, this.y, this.z, Blocks.ENDER_CHEST, 1, this.j);
     }
 
     public boolean a(EntityHuman entityhuman) {

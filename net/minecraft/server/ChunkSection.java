@@ -28,7 +28,7 @@ public class ChunkSection {
             l |= this.extBlockIds.a(i, j, k) << 8;
         }
 
-        return Block.e(l);
+        return Block.getById(l);
     }
 
     public void setTypeId(int i, int j, int k, Block block) {
@@ -38,7 +38,7 @@ public class ChunkSection {
             l |= this.extBlockIds.a(i, j, k) << 8;
         }
 
-        Block block1 = Block.e(l);
+        Block block1 = Block.getById(l);
 
         if (block1 != Blocks.AIR) {
             --this.nonEmptyBlockCount;
@@ -54,7 +54,7 @@ public class ChunkSection {
             }
         }
 
-        int i1 = Block.b(block);
+        int i1 = Block.getId(block);
 
         this.blockIds[j << 8 | k << 4 | i] = (byte) (i1 & 255);
         if (i1 > 255) {

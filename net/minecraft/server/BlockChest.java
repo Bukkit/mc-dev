@@ -276,7 +276,7 @@ public class BlockChest extends BlockContainer {
                 }
             }
 
-            world.f(i, j, k, block);
+            world.updateAdjacentComparators(i, j, k, block);
         }
 
         super.remove(world, i, j, k, block, l);
@@ -368,15 +368,15 @@ public class BlockChest extends BlockContainer {
                 return false;
             }
 
-            EntityOcelot entityocelot1 = (EntityOcelot) iterator.next();
+            Entity entity = (Entity) iterator.next();
 
-            entityocelot = (EntityOcelot) entityocelot1;
+            entityocelot = (EntityOcelot) entity;
         } while (!entityocelot.isSitting());
 
         return true;
     }
 
-    public boolean M() {
+    public boolean isComplexRedstone() {
         return true;
     }
 

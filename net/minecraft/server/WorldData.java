@@ -61,7 +61,7 @@ public class WorldData {
             }
         }
 
-        this.gameType = EnumGamemode.a(nbttagcompound.getInt("GameType"));
+        this.gameType = EnumGamemode.getById(nbttagcompound.getInt("GameType"));
         if (nbttagcompound.hasKeyOfType("MapFeatures", 99)) {
             this.useMapFeatures = nbttagcompound.getBoolean("MapFeatures");
         } else {
@@ -173,7 +173,7 @@ public class WorldData {
         nbttagcompound.setString("generatorName", this.type.name());
         nbttagcompound.setInt("generatorVersion", this.type.getVersion());
         nbttagcompound.setString("generatorOptions", this.generatorOptions);
-        nbttagcompound.setInt("GameType", this.gameType.a());
+        nbttagcompound.setInt("GameType", this.gameType.getId());
         nbttagcompound.setBoolean("MapFeatures", this.useMapFeatures);
         nbttagcompound.setInt("SpawnX", this.spawnX);
         nbttagcompound.setInt("SpawnY", this.spawnY);

@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface IScoreboardCriteria {
 
-    Map a = new HashMap();
+    Map criteria = new HashMap();
     IScoreboardCriteria b = new ScoreboardBaseCriteria("dummy");
     IScoreboardCriteria c = new ScoreboardBaseCriteria("deathCount");
     IScoreboardCriteria d = new ScoreboardBaseCriteria("playerKillCount");

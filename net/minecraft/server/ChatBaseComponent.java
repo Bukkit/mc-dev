@@ -13,7 +13,7 @@ public abstract class ChatBaseComponent implements IChatBaseComponent {
 
     public ChatBaseComponent() {}
 
-    public IChatBaseComponent a(IChatBaseComponent ichatbasecomponent) {
+    public IChatBaseComponent addSibling(IChatBaseComponent ichatbasecomponent) {
         ichatbasecomponent.getChatModifier().a(this.getChatModifier());
         this.a.add(ichatbasecomponent);
         return this;
@@ -24,7 +24,7 @@ public abstract class ChatBaseComponent implements IChatBaseComponent {
     }
 
     public IChatBaseComponent a(String s) {
-        return this.a((IChatBaseComponent) (new ChatComponentText(s)));
+        return this.addSibling(new ChatComponentText(s));
     }
 
     public IChatBaseComponent setChatModifier(ChatModifier chatmodifier) {

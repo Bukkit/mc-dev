@@ -15,7 +15,7 @@ public class ItemEnderEye extends Item {
                 return true;
             } else {
                 world.setData(i, j, k, i1 + 4, 2);
-                world.f(i, j, k, Blocks.ENDER_PORTAL_FRAME);
+                world.updateAdjacentComparators(i, j, k, Blocks.ENDER_PORTAL_FRAME);
                 --itemstack.count;
 
                 int j1;
@@ -42,30 +42,30 @@ public class ItemEnderEye extends Item {
                 int k2;
                 int l2;
 
-                for (j2 = -2; j2 <= 2; ++j2) {
-                    k2 = i + Direction.a[i2] * j2;
-                    l2 = k + Direction.b[i2] * j2;
-                    if (world.getType(k2, j, l2) == Blocks.ENDER_PORTAL_FRAME) {
-                        if (!BlockEnderPortalFrame.b(world.getData(k2, j, l2))) {
+                for (l2 = -2; l2 <= 2; ++l2) {
+                    j2 = i + Direction.a[i2] * l2;
+                    k2 = k + Direction.b[i2] * l2;
+                    if (world.getType(j2, j, k2) == Blocks.ENDER_PORTAL_FRAME) {
+                        if (!BlockEnderPortalFrame.b(world.getData(j2, j, k2))) {
                             flag1 = false;
                             break;
                         }
 
-                        l1 = j2;
+                        l1 = l2;
                         if (!flag) {
-                            k1 = j2;
+                            k1 = l2;
                             flag = true;
                         }
                     }
                 }
 
                 if (flag1 && l1 == k1 + 2) {
-                    for (j2 = k1; j2 <= l1; ++j2) {
-                        k2 = i + Direction.a[i2] * j2;
-                        l2 = k + Direction.b[i2] * j2;
-                        k2 += Direction.a[j1] * 4;
-                        l2 += Direction.b[j1] * 4;
-                        if (world.getType(k2, j, l2) != Blocks.ENDER_PORTAL_FRAME || !BlockEnderPortalFrame.b(world.getData(k2, j, l2))) {
+                    for (l2 = k1; l2 <= l1; ++l2) {
+                        j2 = i + Direction.a[i2] * l2;
+                        k2 = k + Direction.b[i2] * l2;
+                        j2 += Direction.a[j1] * 4;
+                        k2 += Direction.b[j1] * 4;
+                        if (world.getType(j2, j, k2) != Blocks.ENDER_PORTAL_FRAME || !BlockEnderPortalFrame.b(world.getData(j2, j, k2))) {
                             flag1 = false;
                             break;
                         }
@@ -73,13 +73,13 @@ public class ItemEnderEye extends Item {
 
                     int i3;
 
-                    for (j2 = k1 - 1; j2 <= l1 + 1; j2 += 4) {
-                        for (k2 = 1; k2 <= 3; ++k2) {
-                            l2 = i + Direction.a[i2] * j2;
-                            i3 = k + Direction.b[i2] * j2;
-                            l2 += Direction.a[j1] * k2;
-                            i3 += Direction.b[j1] * k2;
-                            if (world.getType(l2, j, i3) != Blocks.ENDER_PORTAL_FRAME || !BlockEnderPortalFrame.b(world.getData(l2, j, i3))) {
+                    for (l2 = k1 - 1; l2 <= l1 + 1; l2 += 4) {
+                        for (j2 = 1; j2 <= 3; ++j2) {
+                            k2 = i + Direction.a[i2] * l2;
+                            i3 = k + Direction.b[i2] * l2;
+                            k2 += Direction.a[j1] * j2;
+                            i3 += Direction.b[j1] * j2;
+                            if (world.getType(k2, j, i3) != Blocks.ENDER_PORTAL_FRAME || !BlockEnderPortalFrame.b(world.getData(k2, j, i3))) {
                                 flag1 = false;
                                 break;
                             }
@@ -87,13 +87,13 @@ public class ItemEnderEye extends Item {
                     }
 
                     if (flag1) {
-                        for (j2 = k1; j2 <= l1; ++j2) {
-                            for (k2 = 1; k2 <= 3; ++k2) {
-                                l2 = i + Direction.a[i2] * j2;
-                                i3 = k + Direction.b[i2] * j2;
-                                l2 += Direction.a[j1] * k2;
-                                i3 += Direction.b[j1] * k2;
-                                world.setTypeAndData(l2, j, i3, Blocks.ENDER_PORTAL, 0, 2);
+                        for (l2 = k1; l2 <= l1; ++l2) {
+                            for (j2 = 1; j2 <= 3; ++j2) {
+                                k2 = i + Direction.a[i2] * l2;
+                                i3 = k + Direction.b[i2] * l2;
+                                k2 += Direction.a[j1] * j2;
+                                i3 += Direction.b[j1] * j2;
+                                world.setTypeAndData(k2, j, i3, Blocks.ENDER_PORTAL, 0, 2);
                             }
                         }
                     }

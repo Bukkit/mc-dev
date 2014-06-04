@@ -197,7 +197,7 @@ public class CommandScoreboard extends CommandAbstract {
         String s = astring[i++];
         String s1 = astring[i++];
         Scoreboard scoreboard = this.d();
-        IScoreboardCriteria iscoreboardcriteria = (IScoreboardCriteria) IScoreboardCriteria.a.get(s1);
+        IScoreboardCriteria iscoreboardcriteria = (IScoreboardCriteria) IScoreboardCriteria.criteria.get(s1);
 
         if (iscoreboardcriteria == null) {
             throw new ExceptionUsage("commands.scoreboard.objectives.add.wrongType", new Object[] { s1});
@@ -574,7 +574,7 @@ public class CommandScoreboard extends CommandAbstract {
 
                 if (astring[1].equalsIgnoreCase("add")) {
                     if (astring.length == 4) {
-                        Set set = IScoreboardCriteria.a.keySet();
+                        Set set = IScoreboardCriteria.criteria.keySet();
 
                         return a(astring, set);
                     }

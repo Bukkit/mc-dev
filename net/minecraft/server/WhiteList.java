@@ -26,7 +26,7 @@ public class WhiteList extends JsonList {
 
         WhiteListEntry whitelistentry;
 
-        for (Iterator iterator = this.e().values().iterator(); iterator.hasNext(); astring[i++] = ((GameProfile) whitelistentry.f()).getName()) {
+        for (Iterator iterator = this.e().values().iterator(); iterator.hasNext(); astring[i++] = ((GameProfile) whitelistentry.getKey()).getName()) {
             whitelistentry = (WhiteListEntry) iterator.next();
         }
 
@@ -48,9 +48,9 @@ public class WhiteList extends JsonList {
             }
 
             whitelistentry = (WhiteListEntry) iterator.next();
-        } while (!s.equalsIgnoreCase(((GameProfile) whitelistentry.f()).getName()));
+        } while (!s.equalsIgnoreCase(((GameProfile) whitelistentry.getKey()).getName()));
 
-        return (GameProfile) whitelistentry.f();
+        return (GameProfile) whitelistentry.getKey();
     }
 
     protected String a(Object object) {

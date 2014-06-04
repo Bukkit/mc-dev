@@ -12,7 +12,7 @@ public enum EnumGamemode {
         this.f = s1;
     }
 
-    public int a() {
+    public int getId() {
         return this.e;
     }
 
@@ -43,7 +43,7 @@ public enum EnumGamemode {
         return this == CREATIVE;
     }
 
-    public static EnumGamemode a(int i) {
+    public static EnumGamemode getById(int i) {
         EnumGamemode[] aenumgamemode = values();
         int j = aenumgamemode.length;
 

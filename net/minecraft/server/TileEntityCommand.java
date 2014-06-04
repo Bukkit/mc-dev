@@ -23,7 +23,7 @@ public class TileEntityCommand extends TileEntity {
         return new PacketPlayOutTileEntityData(this.x, this.y, this.z, 2, nbttagcompound);
     }
 
-    public CommandBlockListenerAbstract a() {
+    public CommandBlockListenerAbstract getCommandBlock() {
         return this.a;
     }
 }

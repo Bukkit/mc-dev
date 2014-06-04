@@ -133,7 +133,7 @@ public class WorldGenFlatInfo {
                 k = Integer.parseInt(astring[1]);
             }
 
-            if (Block.e(l) == Blocks.AIR) {
+            if (Block.getById(l) == Blocks.AIR) {
                 l = 0;
                 k = 0;
             }
@@ -145,7 +145,7 @@ public class WorldGenFlatInfo {
             return null;
         }
 
-        WorldGenFlatLayerInfo worldgenflatlayerinfo = new WorldGenFlatLayerInfo(j, Block.e(l), k);
+        WorldGenFlatLayerInfo worldgenflatlayerinfo = new WorldGenFlatLayerInfo(j, Block.getById(l), k);
 
         worldgenflatlayerinfo.c(i);
         return worldgenflatlayerinfo;

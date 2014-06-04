@@ -12,8 +12,8 @@ public class EntityBlaze extends EntityMonster {
         this.b = 10;
     }
 
-    protected void aC() {
-        super.aC();
+    protected void aD() {
+        super.aD();
         this.getAttributeInstance(GenericAttributes.e).setValue(6.0D);
     }
 
@@ -26,11 +26,11 @@ public class EntityBlaze extends EntityMonster {
         return "mob.blaze.breathe";
     }
 
-    protected String aS() {
+    protected String aT() {
         return "mob.blaze.hit";
     }
 
-    protected String aT() {
+    protected String aU() {
         return "mob.blaze.death";
     }
 
@@ -40,7 +40,7 @@ public class EntityBlaze extends EntityMonster {
 
     public void e() {
         if (!this.world.isStatic) {
-            if (this.K()) {
+            if (this.L()) {
                 this.damageEntity(DamageSource.DROWN, 1.0F);
             }
 

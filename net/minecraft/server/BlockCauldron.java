@@ -109,7 +109,7 @@ public class BlockCauldron extends Block {
 
     public void a(World world, int i, int j, int k, int l) {
         world.setData(i, j, k, MathHelper.a(l, 0, 3), 2);
-        world.f(i, j, k, this);
+        world.updateAdjacentComparators(i, j, k, this);
     }
 
     public void l(World world, int i, int j, int k) {
@@ -126,7 +126,7 @@ public class BlockCauldron extends Block {
         return Items.CAULDRON;
     }
 
-    public boolean M() {
+    public boolean isComplexRedstone() {
         return true;
     }
 

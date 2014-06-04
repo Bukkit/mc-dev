@@ -33,7 +33,7 @@ public class TileEntityMobSpawner extends TileEntity {
         return this.a.b(i) ? true : super.c(i, j);
     }
 
-    public MobSpawnerAbstract a() {
+    public MobSpawnerAbstract getSpawner() {
         return this.a;
     }
 }

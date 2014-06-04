@@ -23,6 +23,6 @@ public class BlockHugeMushroom extends Block {
     }
 
     public Item getDropType(int i, Random random, int j) {
-        return Item.d(Block.b((Block) Blocks.BROWN_MUSHROOM) + this.b);
+        return Item.getById(Block.getId(Blocks.BROWN_MUSHROOM) + this.b);
     }
 }

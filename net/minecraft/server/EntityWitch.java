@@ -31,11 +31,11 @@ public class EntityWitch extends EntityMonster implements IRangedEntity {
         return "mob.witch.idle";
     }
 
-    protected String aS() {
+    protected String aT() {
         return "mob.witch.hurt";
     }
 
-    protected String aT() {
+    protected String aU() {
         return "mob.witch.death";
     }
 
@@ -47,13 +47,13 @@ public class EntityWitch extends EntityMonster implements IRangedEntity {
         return this.getDataWatcher().getByte(21) == 1;
     }
 
-    protected void aC() {
-        super.aC();
-        this.getAttributeInstance(GenericAttributes.a).setValue(26.0D);
+    protected void aD() {
+        super.aD();
+        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(26.0D);
         this.getAttributeInstance(GenericAttributes.d).setValue(0.25D);
     }
 
-    public boolean bj() {
+    public boolean bk() {
         return true;
     }
 
@@ -62,7 +62,7 @@ public class EntityWitch extends EntityMonster implements IRangedEntity {
             if (this.bZ()) {
                 if (this.bs-- <= 0) {
                     this.a(false);
-                    ItemStack itemstack = this.bd();
+                    ItemStack itemstack = this.be();
 
                     this.setEquipment(0, (ItemStack) null);
                     if (itemstack != null && itemstack.getItem() == Items.POTION) {
@@ -98,7 +98,7 @@ public class EntityWitch extends EntityMonster implements IRangedEntity {
 
                 if (short1 > -1) {
                     this.setEquipment(0, new ItemStack(Items.POTION, 1, short1));
-                    this.bs = this.bd().n();
+                    this.bs = this.be().n();
                     this.a(true);
                     AttributeInstance attributeinstance = this.getAttributeInstance(GenericAttributes.d);
 
@@ -115,13 +115,13 @@ public class EntityWitch extends EntityMonster implements IRangedEntity {
         super.e();
     }
 
-    protected float c(DamageSource damagesource, float f) {
-        f = super.c(damagesource, f);
+    protected float applyMagicModifier(DamageSource damagesource, float f) {
+        f = super.applyMagicModifier(damagesource, f);
         if (damagesource.getEntity() == this) {
             f = 0.0F;
         }
 
-        if (damagesource.s()) {
+        if (damagesource.isMagic()) {
             f = (float) ((double) f * 0.15D);
         }
 

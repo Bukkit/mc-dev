@@ -125,7 +125,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     public Item getDropType(int i, Random random, int j) {
-        return b(i) ? Item.d(0) : Items.BED;
+        return b(i) ? Item.getById(0) : Items.BED;
     }
 
     private void e() {

@@ -54,7 +54,7 @@ public class PathfinderGoalFollowOwner extends PathfinderGoal {
     }
 
     public void e() {
-        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.bv());
+        this.d.getControllerLook().a(this.e, 10.0F, (float) this.d.x());
         if (!this.d.isSitting()) {
             if (--this.h <= 0) {
                 this.h = 10;

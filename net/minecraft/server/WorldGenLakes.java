@@ -10,7 +10,7 @@ public class WorldGenLakes extends WorldGenerator {
         this.a = block;
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         i -= 8;
 
         for (k -= 8; j > 5 && world.isEmpty(i, j, k); --j) {

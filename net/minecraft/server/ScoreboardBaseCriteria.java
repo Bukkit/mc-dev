@@ -8,7 +8,7 @@ public class ScoreboardBaseCriteria implements IScoreboardCriteria {
 
     public ScoreboardBaseCriteria(String s) {
         this.g = s;
-        IScoreboardCriteria.a.put(s, this);
+        IScoreboardCriteria.criteria.put(s, this);
     }
 
     public String getName() {

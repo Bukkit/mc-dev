@@ -12,7 +12,7 @@ public class WorldGenSand extends WorldGenerator {
         this.b = i;
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         if (world.getType(i, j, k).getMaterial() != Material.WATER) {
             return false;
         } else {

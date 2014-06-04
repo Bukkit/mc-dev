@@ -99,7 +99,7 @@ public class BlockBrewingStand extends BlockContainer {
         return Items.BREWING_STAND;
     }
 
-    public boolean M() {
+    public boolean isComplexRedstone() {
         return true;
     }
 

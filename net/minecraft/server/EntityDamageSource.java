@@ -14,7 +14,7 @@ public class EntityDamageSource extends DamageSource {
     }
 
     public IChatBaseComponent getLocalizedDeathMessage(EntityLiving entityliving) {
-        ItemStack itemstack = this.p instanceof EntityLiving ? ((EntityLiving) this.p).bd() : null;
+        ItemStack itemstack = this.p instanceof EntityLiving ? ((EntityLiving) this.p).be() : null;
         String s = "death.attack." + this.translationIndex;
         String s1 = s + ".item";
 

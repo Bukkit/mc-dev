@@ -31,7 +31,7 @@ public class PacketPlayOutMultiBlockChange extends Packet {
                 int j1 = ashort[k] & 255;
 
                 dataoutputstream.writeShort(ashort[k]);
-                dataoutputstream.writeShort((short) ((Block.b(chunk.getType(l, j1, i1)) & 4095) << 4 | chunk.getData(l, j1, i1) & 15));
+                dataoutputstream.writeShort((short) ((Block.getId(chunk.getType(l, j1, i1)) & 4095) << 4 | chunk.getData(l, j1, i1) & 15));
             }
 
             this.c = bytearrayoutputstream.toByteArray();

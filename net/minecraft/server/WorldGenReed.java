@@ -6,7 +6,7 @@ public class WorldGenReed extends WorldGenerator {
 
     public WorldGenReed() {}
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         for (int l = 0; l < 20; ++l) {
             int i1 = i + random.nextInt(4) - random.nextInt(4);
             int j1 = j;

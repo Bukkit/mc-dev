@@ -38,7 +38,7 @@ public class BiomeJungle extends BiomeBase {
         int l = j + random.nextInt(16) + 8;
         int i1 = random.nextInt(world.getHighestBlockYAt(k, l) * 2);
 
-        (new WorldGenMelon()).a(world, random, k, i1, l);
+        (new WorldGenMelon()).generate(world, random, k, i1, l);
         WorldGenVines worldgenvines = new WorldGenVines();
 
         for (l = 0; l < 50; ++l) {
@@ -46,7 +46,7 @@ public class BiomeJungle extends BiomeBase {
             short short1 = 128;
             int j1 = j + random.nextInt(16) + 8;
 
-            worldgenvines.a(world, random, i1, short1, j1);
+            worldgenvines.generate(world, random, i1, short1, j1);
         }
     }
 }

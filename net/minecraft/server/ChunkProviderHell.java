@@ -332,7 +332,7 @@ public class ChunkProviderHell implements IChunkProvider {
             j1 = k + this.i.nextInt(16) + 8;
             k1 = this.i.nextInt(120) + 4;
             l1 = l + this.i.nextInt(16) + 8;
-            (new WorldGenHellLava(Blocks.LAVA, false)).a(this.o, this.i, j1, k1, l1);
+            (new WorldGenHellLava(Blocks.LAVA, false)).generate(this.o, this.i, j1, k1, l1);
         }
 
         i1 = this.i.nextInt(this.i.nextInt(10) + 1) + 1;
@@ -343,7 +343,7 @@ public class ChunkProviderHell implements IChunkProvider {
             k1 = k + this.i.nextInt(16) + 8;
             l1 = this.i.nextInt(120) + 4;
             i2 = l + this.i.nextInt(16) + 8;
-            (new WorldGenFire()).a(this.o, this.i, k1, l1, i2);
+            (new WorldGenFire()).generate(this.o, this.i, k1, l1, i2);
         }
 
         i1 = this.i.nextInt(this.i.nextInt(10) + 1);
@@ -352,28 +352,28 @@ public class ChunkProviderHell implements IChunkProvider {
             k1 = k + this.i.nextInt(16) + 8;
             l1 = this.i.nextInt(120) + 4;
             i2 = l + this.i.nextInt(16) + 8;
-            (new WorldGenLightStone1()).a(this.o, this.i, k1, l1, i2);
+            (new WorldGenLightStone1()).generate(this.o, this.i, k1, l1, i2);
         }
 
         for (j1 = 0; j1 < 10; ++j1) {
             k1 = k + this.i.nextInt(16) + 8;
             l1 = this.i.nextInt(128);
             i2 = l + this.i.nextInt(16) + 8;
-            (new WorldGenLightStone2()).a(this.o, this.i, k1, l1, i2);
+            (new WorldGenLightStone2()).generate(this.o, this.i, k1, l1, i2);
         }
 
         if (this.i.nextInt(1) == 0) {
             j1 = k + this.i.nextInt(16) + 8;
             k1 = this.i.nextInt(128);
             l1 = l + this.i.nextInt(16) + 8;
-            (new WorldGenFlowers(Blocks.BROWN_MUSHROOM)).a(this.o, this.i, j1, k1, l1);
+            (new WorldGenFlowers(Blocks.BROWN_MUSHROOM)).generate(this.o, this.i, j1, k1, l1);
         }
 
         if (this.i.nextInt(1) == 0) {
             j1 = k + this.i.nextInt(16) + 8;
             k1 = this.i.nextInt(128);
             l1 = l + this.i.nextInt(16) + 8;
-            (new WorldGenFlowers(Blocks.RED_MUSHROOM)).a(this.o, this.i, j1, k1, l1);
+            (new WorldGenFlowers(Blocks.RED_MUSHROOM)).generate(this.o, this.i, j1, k1, l1);
         }
 
         WorldGenMinable worldgenminable = new WorldGenMinable(Blocks.QUARTZ_ORE, 13, Blocks.NETHERRACK);
@@ -384,14 +384,14 @@ public class ChunkProviderHell implements IChunkProvider {
             l1 = k + this.i.nextInt(16);
             i2 = this.i.nextInt(108) + 10;
             j2 = l + this.i.nextInt(16);
-            worldgenminable.a(this.o, this.i, l1, i2, j2);
+            worldgenminable.generate(this.o, this.i, l1, i2, j2);
         }
 
         for (k1 = 0; k1 < 16; ++k1) {
             l1 = k + this.i.nextInt(16);
             i2 = this.i.nextInt(108) + 10;
             j2 = l + this.i.nextInt(16);
-            (new WorldGenHellLava(Blocks.LAVA, true)).a(this.o, this.i, l1, i2, j2);
+            (new WorldGenHellLava(Blocks.LAVA, true)).generate(this.o, this.i, l1, i2, j2);
         }
 
         BlockFalling.instaFall = false;

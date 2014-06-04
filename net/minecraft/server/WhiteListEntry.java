@@ -16,9 +16,9 @@ public class WhiteListEntry extends JsonListEntry {
     }
 
     protected void a(JsonObject jsonobject) {
-        if (this.f() != null) {
-            jsonobject.addProperty("uuid", ((GameProfile) this.f()).getId() == null ? "" : ((GameProfile) this.f()).getId().toString());
-            jsonobject.addProperty("name", ((GameProfile) this.f()).getName());
+        if (this.getKey() != null) {
+            jsonobject.addProperty("uuid", ((GameProfile) this.getKey()).getId() == null ? "" : ((GameProfile) this.getKey()).getId().toString());
+            jsonobject.addProperty("name", ((GameProfile) this.getKey()).getName());
             super.a(jsonobject);
         }
     }

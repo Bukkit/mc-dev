@@ -26,7 +26,7 @@ public class PacketPlayOutBlockAction extends Packet {
         this.c = packetdataserializer.readInt();
         this.d = packetdataserializer.readUnsignedByte();
         this.e = packetdataserializer.readUnsignedByte();
-        this.f = Block.e(packetdataserializer.a() & 4095);
+        this.f = Block.getById(packetdataserializer.a() & 4095);
     }
 
     public void b(PacketDataSerializer packetdataserializer) {
@@ -35,7 +35,7 @@ public class PacketPlayOutBlockAction extends Packet {
         packetdataserializer.writeInt(this.c);
         packetdataserializer.writeByte(this.d);
         packetdataserializer.writeByte(this.e);
-        packetdataserializer.b(Block.b(this.f) & 4095);
+        packetdataserializer.b(Block.getId(this.f) & 4095);
     }
 
     public void a(PacketPlayOutListener packetplayoutlistener) {

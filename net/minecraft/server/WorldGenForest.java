@@ -11,7 +11,7 @@ public class WorldGenForest extends WorldGenTreeAbstract {
         this.a = flag1;
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         int l = random.nextInt(3) + 5;
 
         if (this.a) {

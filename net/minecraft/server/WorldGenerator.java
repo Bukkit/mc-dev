@@ -14,7 +14,7 @@ public abstract class WorldGenerator {
         this.a = flag;
     }
 
-    public abstract boolean a(World world, Random random, int i, int j, int k);
+    public abstract boolean generate(World world, Random random, int i, int j, int k);
 
     public void a(double d0, double d1, double d2) {}
 

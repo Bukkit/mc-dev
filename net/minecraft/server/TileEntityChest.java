@@ -312,15 +312,15 @@ public class TileEntityChest extends TileEntity implements IInventory {
         }
 
         ++this.o;
-        this.world.playNote(this.x, this.y, this.z, this.q(), 1, this.o);
+        this.world.playBlockAction(this.x, this.y, this.z, this.q(), 1, this.o);
         this.world.applyPhysics(this.x, this.y, this.z, this.q());
         this.world.applyPhysics(this.x, this.y - 1, this.z, this.q());
     }
 
-    public void l_() {
+    public void closeContainer() {
         if (this.q() instanceof BlockChest) {
             --this.o;
-            this.world.playNote(this.x, this.y, this.z, this.q(), 1, this.o);
+            this.world.playBlockAction(this.x, this.y, this.z, this.q(), 1, this.o);
             this.world.applyPhysics(this.x, this.y, this.z, this.q());
             this.world.applyPhysics(this.x, this.y - 1, this.z, this.q());
         }

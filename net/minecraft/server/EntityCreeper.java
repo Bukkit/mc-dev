@@ -20,16 +20,16 @@ public class EntityCreeper extends EntityMonster {
         this.targetSelector.a(2, new PathfinderGoalHurtByTarget(this, false));
     }
 
-    protected void aC() {
-        super.aC();
+    protected void aD() {
+        super.aD();
         this.getAttributeInstance(GenericAttributes.d).setValue(0.25D);
     }
 
-    public boolean bj() {
+    public boolean bk() {
         return true;
     }
 
-    public int aw() {
+    public int ax() {
         return this.getGoalTarget() == null ? 3 : 3 + (int) (this.getHealth() - 1.0F);
     }
 
@@ -102,22 +102,22 @@ public class EntityCreeper extends EntityMonster {
         super.h();
     }
 
-    protected String aS() {
+    protected String aT() {
         return "mob.creeper.say";
     }
 
-    protected String aT() {
+    protected String aU() {
         return "mob.creeper.death";
     }
 
     public void die(DamageSource damagesource) {
         super.die(damagesource);
         if (damagesource.getEntity() instanceof EntitySkeleton) {
-            int i = Item.b(Items.RECORD_1);
-            int j = Item.b(Items.RECORD_12);
+            int i = Item.getId(Items.RECORD_1);
+            int j = Item.getId(Items.RECORD_12);
             int k = i + this.random.nextInt(j - i + 1);
 
-            this.a(Item.d(k), 1);
+            this.a(Item.getById(k), 1);
         }
     }
 
@@ -151,7 +151,7 @@ public class EntityCreeper extends EntityMonster {
 
         if (itemstack != null && itemstack.getItem() == Items.FLINT_AND_STEEL) {
             this.world.makeSound(this.locX + 0.5D, this.locY + 0.5D, this.locZ + 0.5D, "fire.ignite", 1.0F, this.random.nextFloat() * 0.4F + 0.8F);
-            entityhuman.aZ();
+            entityhuman.ba();
             if (!this.world.isStatic) {
                 this.cd();
                 itemstack.damage(1, entityhuman);

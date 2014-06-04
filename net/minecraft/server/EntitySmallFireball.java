@@ -62,7 +62,7 @@ public class EntitySmallFireball extends EntityFireball {
         }
     }
 
-    public boolean Q() {
+    public boolean R() {
         return false;
     }
 

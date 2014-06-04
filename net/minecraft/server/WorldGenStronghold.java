@@ -20,7 +20,7 @@ public class WorldGenStronghold extends StructureGenerator {
         this.h = 32.0D;
         this.i = 3;
         this.e = new ArrayList();
-        BiomeBase[] abiomebase = BiomeBase.n();
+        BiomeBase[] abiomebase = BiomeBase.getBiomes();
         int i = abiomebase.length;
 
         for (int j = 0; j < i; ++j) {

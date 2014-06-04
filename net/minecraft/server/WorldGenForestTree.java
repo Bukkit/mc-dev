@@ -8,7 +8,7 @@ public class WorldGenForestTree extends WorldGenTreeAbstract {
         super(flag);
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         int l = random.nextInt(3) + random.nextInt(2) + 6;
         boolean flag = true;
 

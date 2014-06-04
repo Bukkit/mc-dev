@@ -8,7 +8,7 @@ public class WorldGenTaiga2 extends WorldGenTreeAbstract {
         super(flag);
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         int l = random.nextInt(4) + 6;
         int i1 = 1 + random.nextInt(2);
         int j1 = l - i1;

@@ -86,12 +86,12 @@ public class BiomeForest extends BiomeBase {
                     if (random.nextInt(20) == 0) {
                         WorldGenHugeMushroom worldgenhugemushroom = new WorldGenHugeMushroom();
 
-                        worldgenhugemushroom.a(world, random, i1, k1, j1);
+                        worldgenhugemushroom.generate(world, random, i1, k1, j1);
                     } else {
                         WorldGenTreeAbstract worldgentreeabstract = this.a(random);
 
                         worldgentreeabstract.a(1.0D, 1.0D, 1.0D);
-                        if (worldgentreeabstract.a(world, random, i1, k1, j1)) {
+                        if (worldgentreeabstract.generate(world, random, i1, k1, j1)) {
                             worldgentreeabstract.b(world, random, i1, k1, j1);
                         }
                     }
@@ -124,7 +124,7 @@ public class BiomeForest extends BiomeBase {
                     int l1 = j + random.nextInt(16) + 8;
                     int i2 = random.nextInt(world.getHighestBlockYAt(k1, l1) + 32);
 
-                    if (!ae.a(world, random, k1, i2, l1)) {
+                    if (!ae.generate(world, random, k1, i2, l1)) {
                         ++j1;
                         continue;
                     }

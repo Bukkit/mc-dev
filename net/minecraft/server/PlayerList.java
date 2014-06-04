@@ -85,7 +85,7 @@ public abstract class PlayerList {
         playerconnection.sendPacket(new PacketPlayOutHeldItemSlot(entityplayer.inventory.itemInHandIndex));
         entityplayer.getStatisticManager().d();
         entityplayer.getStatisticManager().updateStatistics(entityplayer);
-        this.a((ScoreboardServer) worldserver.getScoreboard(), entityplayer);
+        this.sendScoreboard((ScoreboardServer) worldserver.getScoreboard(), entityplayer);
         this.server.az();
         ChatMessage chatmessage;
 
@@ -117,15 +117,15 @@ public abstract class PlayerList {
             Entity entity = EntityTypes.a(nbttagcompound.getCompound("Riding"), worldserver);
 
             if (entity != null) {
-                entity.n = true;
+                entity.attachedToPlayer = true;
                 worldserver.addEntity(entity);
                 entityplayer.mount(entity);
-                entity.n = false;
+                entity.attachedToPlayer = false;
             }
         }
     }
 
-    protected void a(ScoreboardServer scoreboardserver, EntityPlayer entityplayer) {
+    protected void sendScoreboard(ScoreboardServer scoreboardserver, EntityPlayer entityplayer) {
         HashSet hashset = new HashSet();
         Iterator iterator = scoreboardserver.getTeams().iterator();
 
@@ -581,7 +581,7 @@ public abstract class PlayerList {
                         }
                     }
 
-                    if (this.a((EntityHuman) entityplayer, map) && (l == EnumGamemode.NONE.a() || l == entityplayer.playerInteractManager.getGameMode().a()) && (i1 <= 0 || entityplayer.expLevel >= i1) && entityplayer.expLevel <= j1) {
+                    if (this.a((EntityHuman) entityplayer, map) && (l == EnumGamemode.NONE.getId() || l == entityplayer.playerInteractManager.getGameMode().getId()) && (i1 <= 0 || entityplayer.expLevel >= i1) && entityplayer.expLevel <= j1) {
                         ((List) object).add(entityplayer);
                     }
                 }

@@ -26,7 +26,7 @@ public class CommandGamerule extends CommandAbstract {
             String s1 = astring[1];
             GameRules gamerules = this.d();
 
-            if (gamerules.e(s)) {
+            if (gamerules.contains(s)) {
                 gamerules.set(s, s1);
                 a(icommandlistener, this, "commands.gamerule.success", new Object[0]);
             } else {
@@ -36,7 +36,7 @@ public class CommandGamerule extends CommandAbstract {
             s = astring[0];
             GameRules gamerules1 = this.d();
 
-            if (gamerules1.e(s)) {
+            if (gamerules1.contains(s)) {
                 String s2 = gamerules1.get(s);
 
                 icommandlistener.sendMessage((new ChatComponentText(s)).a(" = ").a(s2));
@@ -46,14 +46,14 @@ public class CommandGamerule extends CommandAbstract {
         } else if (astring.length == 0) {
             GameRules gamerules2 = this.d();
 
-            icommandlistener.sendMessage(new ChatComponentText(a(gamerules2.b())));
+            icommandlistener.sendMessage(new ChatComponentText(a(gamerules2.getGameRules())));
         } else {
             throw new ExceptionUsage("commands.gamerule.usage", new Object[0]);
         }
     }
 
     public List tabComplete(ICommandListener icommandlistener, String[] astring) {
-        return astring.length == 1 ? a(astring, this.d().b()) : (astring.length == 2 ? a(astring, new String[] { "true", "false"}) : null);
+        return astring.length == 1 ? a(astring, this.d().getGameRules()) : (astring.length == 2 ? a(astring, new String[] { "true", "false"}) : null);
     }
 
     private GameRules d() {

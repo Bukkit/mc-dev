@@ -9,7 +9,7 @@ class EntityMinecartCommandBlockListener extends CommandBlockListenerAbstract {
     }
 
     public void e() {
-        this.a.getDataWatcher().watch(23, this.i());
+        this.a.getDataWatcher().watch(23, this.getCommand());
         this.a.getDataWatcher().watch(24, ChatSerializer.a(this.h()));
     }
 

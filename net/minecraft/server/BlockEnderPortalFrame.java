@@ -48,7 +48,7 @@ public class BlockEnderPortalFrame extends Block {
         world.setData(i, j, k, l, 2);
     }
 
-    public boolean M() {
+    public boolean isComplexRedstone() {
         return true;
     }
 

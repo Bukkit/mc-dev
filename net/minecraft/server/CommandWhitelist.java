@@ -51,7 +51,7 @@ public class CommandWhitelist extends CommandAbstract {
                     throw new ExceptionUsage("commands.whitelist.add.usage", new Object[0]);
                 }
 
-                gameprofile = minecraftserver.getUserCache().a(astring[1]);
+                gameprofile = minecraftserver.getUserCache().getProfile(astring[1]);
                 if (gameprofile == null) {
                     throw new CommandException("commands.whitelist.add.failed", new Object[] { astring[1]});
                 }

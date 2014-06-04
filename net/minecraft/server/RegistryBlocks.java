@@ -17,8 +17,8 @@ public class RegistryBlocks extends RegistryMaterials {
         super.a(i, s, object);
     }
 
-    public Object a(String s) {
-        Object object = super.a(s);
+    public Object get(String s) {
+        Object object = super.get(s);
 
         return object == null ? this.e : object;
     }
@@ -30,6 +30,6 @@ public class RegistryBlocks extends RegistryMaterials {
     }
 
     public Object get(Object object) {
-        return this.a((String) object);
+        return this.get((String) object);
     }
 }

@@ -90,19 +90,19 @@ public class BiomeDecorator {
         for (i = 0; i < this.F; ++i) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
-            this.f.a(this.a, this.b, j, this.a.i(j, k), k);
+            this.f.generate(this.a, this.b, j, this.a.i(j, k), k);
         }
 
         for (i = 0; i < this.G; ++i) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
-            this.e.a(this.a, this.b, j, this.a.i(j, k), k);
+            this.e.generate(this.a, this.b, j, this.a.i(j, k), k);
         }
 
         for (i = 0; i < this.E; ++i) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
-            this.g.a(this.a, this.b, j, this.a.i(j, k), k);
+            this.g.generate(this.a, this.b, j, this.a.i(j, k), k);
         }
 
         i = this.x;
@@ -120,7 +120,7 @@ public class BiomeDecorator {
             WorldGenTreeAbstract worldgentreeabstract = biomebase.a(this.b);
 
             worldgentreeabstract.a(1.0D, 1.0D, 1.0D);
-            if (worldgentreeabstract.a(this.a, this.b, k, i1, l)) {
+            if (worldgentreeabstract.generate(this.a, this.b, k, i1, l)) {
                 worldgentreeabstract.b(this.a, this.b, k, i1, l);
             }
         }
@@ -128,7 +128,7 @@ public class BiomeDecorator {
         for (j = 0; j < this.H; ++j) {
             k = this.c + this.b.nextInt(16) + 8;
             l = this.d + this.b.nextInt(16) + 8;
-            this.s.a(this.a, this.b, k, this.a.getHighestBlockYAt(k, l), l);
+            this.s.generate(this.a, this.b, k, this.a.getHighestBlockYAt(k, l), l);
         }
 
         for (j = 0; j < this.y; ++j) {
@@ -140,7 +140,7 @@ public class BiomeDecorator {
 
             if (blockflowers.getMaterial() != Material.AIR) {
                 this.p.a(blockflowers, BlockFlowers.f(s));
-                this.p.a(this.a, this.b, k, i1, l);
+                this.p.generate(this.a, this.b, k, i1, l);
             }
         }
 
@@ -150,14 +150,14 @@ public class BiomeDecorator {
             i1 = this.b.nextInt(this.a.getHighestBlockYAt(k, l) * 2);
             WorldGenerator worldgenerator = biomebase.b(this.b);
 
-            worldgenerator.a(this.a, this.b, k, i1, l);
+            worldgenerator.generate(this.a, this.b, k, i1, l);
         }
 
         for (j = 0; j < this.A; ++j) {
             k = this.c + this.b.nextInt(16) + 8;
             l = this.d + this.b.nextInt(16) + 8;
             i1 = this.b.nextInt(this.a.getHighestBlockYAt(k, l) * 2);
-            (new WorldGenDeadBush(Blocks.DEAD_BUSH)).a(this.a, this.b, k, i1, l);
+            (new WorldGenDeadBush(Blocks.DEAD_BUSH)).generate(this.a, this.b, k, i1, l);
         }
 
         for (j = 0; j < this.w; ++j) {
@@ -168,7 +168,7 @@ public class BiomeDecorator {
                 ;
             }
 
-            this.v.a(this.a, this.b, k, i1, l);
+            this.v.generate(this.a, this.b, k, i1, l);
         }
 
         for (j = 0; j < this.B; ++j) {
@@ -176,14 +176,14 @@ public class BiomeDecorator {
                 k = this.c + this.b.nextInt(16) + 8;
                 l = this.d + this.b.nextInt(16) + 8;
                 i1 = this.a.getHighestBlockYAt(k, l);
-                this.q.a(this.a, this.b, k, i1, l);
+                this.q.generate(this.a, this.b, k, i1, l);
             }
 
             if (this.b.nextInt(8) == 0) {
                 k = this.c + this.b.nextInt(16) + 8;
                 l = this.d + this.b.nextInt(16) + 8;
                 i1 = this.b.nextInt(this.a.getHighestBlockYAt(k, l) * 2);
-                this.r.a(this.a, this.b, k, i1, l);
+                this.r.generate(this.a, this.b, k, i1, l);
             }
         }
 
@@ -191,42 +191,42 @@ public class BiomeDecorator {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
             l = this.b.nextInt(this.a.getHighestBlockYAt(j, k) * 2);
-            this.q.a(this.a, this.b, j, l, k);
+            this.q.generate(this.a, this.b, j, l, k);
         }
 
         if (this.b.nextInt(8) == 0) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
             l = this.b.nextInt(this.a.getHighestBlockYAt(j, k) * 2);
-            this.r.a(this.a, this.b, j, l, k);
+            this.r.generate(this.a, this.b, j, l, k);
         }
 
         for (j = 0; j < this.C; ++j) {
             k = this.c + this.b.nextInt(16) + 8;
             l = this.d + this.b.nextInt(16) + 8;
             i1 = this.b.nextInt(this.a.getHighestBlockYAt(k, l) * 2);
-            this.t.a(this.a, this.b, k, i1, l);
+            this.t.generate(this.a, this.b, k, i1, l);
         }
 
         for (j = 0; j < 10; ++j) {
             k = this.c + this.b.nextInt(16) + 8;
             l = this.d + this.b.nextInt(16) + 8;
             i1 = this.b.nextInt(this.a.getHighestBlockYAt(k, l) * 2);
-            this.t.a(this.a, this.b, k, i1, l);
+            this.t.generate(this.a, this.b, k, i1, l);
         }
 
         if (this.b.nextInt(32) == 0) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
             l = this.b.nextInt(this.a.getHighestBlockYAt(j, k) * 2);
-            (new WorldGenPumpkin()).a(this.a, this.b, j, l, k);
+            (new WorldGenPumpkin()).generate(this.a, this.b, j, l, k);
         }
 
         for (j = 0; j < this.D; ++j) {
             k = this.c + this.b.nextInt(16) + 8;
             l = this.d + this.b.nextInt(16) + 8;
             i1 = this.b.nextInt(this.a.getHighestBlockYAt(k, l) * 2);
-            this.u.a(this.a, this.b, k, i1, l);
+            this.u.generate(this.a, this.b, k, i1, l);
         }
 
         if (this.I) {
@@ -234,14 +234,14 @@ public class BiomeDecorator {
                 k = this.c + this.b.nextInt(16) + 8;
                 l = this.b.nextInt(this.b.nextInt(248) + 8);
                 i1 = this.d + this.b.nextInt(16) + 8;
-                (new WorldGenLiquids(Blocks.WATER)).a(this.a, this.b, k, l, i1);
+                (new WorldGenLiquids(Blocks.WATER)).generate(this.a, this.b, k, l, i1);
             }
 
             for (j = 0; j < 20; ++j) {
                 k = this.c + this.b.nextInt(16) + 8;
                 l = this.b.nextInt(this.b.nextInt(this.b.nextInt(240) + 8) + 8);
                 i1 = this.d + this.b.nextInt(16) + 8;
-                (new WorldGenLiquids(Blocks.LAVA)).a(this.a, this.b, k, l, i1);
+                (new WorldGenLiquids(Blocks.LAVA)).generate(this.a, this.b, k, l, i1);
             }
         }
     }
@@ -252,7 +252,7 @@ public class BiomeDecorator {
             int j1 = this.b.nextInt(k - j) + j;
             int k1 = this.d + this.b.nextInt(16);
 
-            worldgenerator.a(this.a, this.b, i1, j1, k1);
+            worldgenerator.generate(this.a, this.b, i1, j1, k1);
         }
     }
 
@@ -262,7 +262,7 @@ public class BiomeDecorator {
             int j1 = this.b.nextInt(k) + this.b.nextInt(k) + (j - k);
             int k1 = this.d + this.b.nextInt(16);
 
-            worldgenerator.a(this.a, this.b, i1, j1, k1);
+            worldgenerator.generate(this.a, this.b, i1, j1, k1);
         }
     }
 

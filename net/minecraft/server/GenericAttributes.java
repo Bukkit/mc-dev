@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 public class GenericAttributes {
 
     private static final Logger f = LogManager.getLogger();
-    public static final IAttribute a = (new AttributeRanged("generic.maxHealth", 20.0D, 0.0D, Double.MAX_VALUE)).a("Max Health").a(true);
+    public static final IAttribute maxHealth = (new AttributeRanged("generic.maxHealth", 20.0D, 0.0D, Double.MAX_VALUE)).a("Max Health").a(true);
     public static final IAttribute b = (new AttributeRanged("generic.followRange", 32.0D, 0.0D, 2048.0D)).a("Follow Range");
     public static final IAttribute c = (new AttributeRanged("generic.knockbackResistance", 0.0D, 0.0D, 1.0D)).a("Knockback Resistance");
     public static final IAttribute d = (new AttributeRanged("generic.movementSpeed", 0.699999988079071D, 0.0D, Double.MAX_VALUE)).a("Movement Speed").a(true);
@@ -31,9 +31,9 @@ public class GenericAttributes {
 
     private static NBTTagCompound a(AttributeInstance attributeinstance) {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
-        IAttribute iattribute = attributeinstance.a();
+        IAttribute iattribute = attributeinstance.getAttribute();
 
-        nbttagcompound.setString("Name", iattribute.a());
+        nbttagcompound.setString("Name", iattribute.getName());
         nbttagcompound.setDouble("Base", attributeinstance.b());
         Collection collection = attributeinstance.c();
 

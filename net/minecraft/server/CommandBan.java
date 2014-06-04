@@ -28,7 +28,7 @@ public class CommandBan extends CommandAbstract {
     public void execute(ICommandListener icommandlistener, String[] astring) {
         if (astring.length >= 1 && astring[0].length() > 0) {
             MinecraftServer minecraftserver = MinecraftServer.getServer();
-            GameProfile gameprofile = minecraftserver.getUserCache().a(astring[0]);
+            GameProfile gameprofile = minecraftserver.getUserCache().getProfile(astring[0]);
 
             if (gameprofile == null) {
                 throw new CommandException("commands.ban.failed", new Object[] { astring[0]});

@@ -24,7 +24,7 @@ public class Statistic {
         this.a = ichatbasecomponent;
         this.b = counter;
         this.c = new ScoreboardStatisticCriteria(this);
-        IScoreboardCriteria.a.put(this.c.getName(), this.c);
+        IScoreboardCriteria.criteria.put(this.c.getName(), this.c);
     }
 
     public Statistic(String s, IChatBaseComponent ichatbasecomponent) {
@@ -40,7 +40,7 @@ public class Statistic {
         if (StatisticList.a.containsKey(this.name)) {
             throw new RuntimeException("Duplicate stat id: \"" + ((Statistic) StatisticList.a.get(this.name)).a + "\" and \"" + this.a + "\" at id " + this.name);
         } else {
-            StatisticList.b.add(this);
+            StatisticList.stats.add(this);
             StatisticList.a.put(this.name, this);
             return this;
         }
@@ -60,7 +60,7 @@ public class Statistic {
 
     public IChatBaseComponent j() {
         IChatBaseComponent ichatbasecomponent = this.e();
-        IChatBaseComponent ichatbasecomponent1 = (new ChatComponentText("[")).a(ichatbasecomponent).a("]");
+        IChatBaseComponent ichatbasecomponent1 = (new ChatComponentText("[")).addSibling(ichatbasecomponent).a("]");
 
         ichatbasecomponent1.setChatModifier(ichatbasecomponent.getChatModifier());
         return ichatbasecomponent1;

@@ -59,7 +59,7 @@ public class ItemSkull extends Item {
                             NBTTagCompound nbttagcompound = itemstack.getTag();
 
                             if (nbttagcompound.hasKeyOfType("SkullOwner", 10)) {
-                                gameprofile = GameProfileSerializer.a(nbttagcompound.getCompound("SkullOwner"));
+                                gameprofile = GameProfileSerializer.deserialize(nbttagcompound.getCompound("SkullOwner"));
                             } else if (nbttagcompound.hasKeyOfType("SkullOwner", 8) && nbttagcompound.getString("SkullOwner").length() > 0) {
                                 gameprofile = new GameProfile((UUID) null, nbttagcompound.getString("SkullOwner"));
                             }
@@ -98,7 +98,7 @@ public class ItemSkull extends Item {
     public String n(ItemStack itemstack) {
         if (itemstack.getData() == 3 && itemstack.hasTag()) {
             if (itemstack.getTag().hasKeyOfType("SkullOwner", 10)) {
-                return LocaleI18n.get("item.skull.player.name", new Object[] { GameProfileSerializer.a(itemstack.getTag().getCompound("SkullOwner")).getName()});
+                return LocaleI18n.get("item.skull.player.name", new Object[] { GameProfileSerializer.deserialize(itemstack.getTag().getCompound("SkullOwner")).getName()});
             }
 
             if (itemstack.getTag().hasKeyOfType("SkullOwner", 8)) {

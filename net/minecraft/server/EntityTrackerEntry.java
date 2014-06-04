@@ -202,8 +202,8 @@ public class EntityTrackerEntry {
         }
 
         if (this.tracker instanceof EntityLiving) {
-            AttributeMapServer attributemapserver = (AttributeMapServer) ((EntityLiving) this.tracker).bb();
-            Set set = attributemapserver.b();
+            AttributeMapServer attributemapserver = (AttributeMapServer) ((EntityLiving) this.tracker).getAttributeMap();
+            Set set = attributemapserver.getAttributes();
 
             if (!set.isEmpty()) {
                 this.broadcastIncludingSelf(new PacketPlayOutUpdateAttributes(this.tracker.getId(), set));
@@ -253,7 +253,7 @@ public class EntityTrackerEntry {
             double d1 = entityplayer.locZ - (double) (this.zLoc / 32);
 
             if (d0 >= (double) (-this.b) && d0 <= (double) this.b && d1 >= (double) (-this.b) && d1 <= (double) this.b) {
-                if (!this.trackedPlayers.contains(entityplayer) && (this.d(entityplayer) || this.tracker.n)) {
+                if (!this.trackedPlayers.contains(entityplayer) && (this.d(entityplayer) || this.tracker.attachedToPlayer)) {
                     this.trackedPlayers.add(entityplayer);
                     Packet packet = this.c();
 
@@ -263,7 +263,7 @@ public class EntityTrackerEntry {
                     }
 
                     if (this.tracker instanceof EntityLiving) {
-                        AttributeMapServer attributemapserver = (AttributeMapServer) ((EntityLiving) this.tracker).bb();
+                        AttributeMapServer attributemapserver = (AttributeMapServer) ((EntityLiving) this.tracker).getAttributeMap();
                         Collection collection = attributemapserver.c();
 
                         if (!collection.isEmpty()) {
@@ -402,7 +402,7 @@ public class EntityTrackerEntry {
                 } else if (this.tracker instanceof EntityFallingBlock) {
                     EntityFallingBlock entityfallingblock = (EntityFallingBlock) this.tracker;
 
-                    return new PacketPlayOutSpawnEntity(this.tracker, 70, Block.b(entityfallingblock.f()) | entityfallingblock.data << 16);
+                    return new PacketPlayOutSpawnEntity(this.tracker, 70, Block.getId(entityfallingblock.f()) | entityfallingblock.data << 16);
                 } else if (this.tracker instanceof EntityPainting) {
                     return new PacketPlayOutSpawnEntityPainting((EntityPainting) this.tracker);
                 } else if (this.tracker instanceof EntityItemFrame) {

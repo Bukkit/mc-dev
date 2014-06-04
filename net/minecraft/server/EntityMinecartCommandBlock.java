@@ -22,8 +22,8 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract {
     protected void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
         this.a.b(nbttagcompound);
-        this.getDataWatcher().watch(23, this.e().i());
-        this.getDataWatcher().watch(24, ChatSerializer.a(this.e().h()));
+        this.getDataWatcher().watch(23, this.getCommandBlock().getCommand());
+        this.getDataWatcher().watch(24, ChatSerializer.a(this.getCommandBlock().h()));
     }
 
     protected void b(NBTTagCompound nbttagcompound) {
@@ -39,20 +39,20 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract {
         return Blocks.COMMAND;
     }
 
-    public CommandBlockListenerAbstract e() {
+    public CommandBlockListenerAbstract getCommandBlock() {
         return this.a;
     }
 
     public void a(int i, int j, int k, boolean flag) {
         if (flag && this.ticksLived - this.b >= 4) {
-            this.e().a(this.world);
+            this.getCommandBlock().a(this.world);
             this.b = this.ticksLived;
         }
     }
 
     public boolean c(EntityHuman entityhuman) {
         if (this.world.isStatic) {
-            entityhuman.a(this.e());
+            entityhuman.a(this.getCommandBlock());
         }
 
         return super.c(entityhuman);
@@ -67,7 +67,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract {
                 ;
             }
         } else if (i == 23) {
-            this.a.a(this.getDataWatcher().getString(23));
+            this.a.setCommand(this.getDataWatcher().getString(23));
         }
     }
 }

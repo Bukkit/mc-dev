@@ -15,7 +15,7 @@ public class WorldGenHugeMushroom extends WorldGenerator {
         super(false);
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         int l = random.nextInt(2);
 
         if (this.a >= 0) {
@@ -138,7 +138,7 @@ public class WorldGenHugeMushroom extends WorldGenerator {
                                 }
 
                                 if ((l2 != 0 || j >= j + i1 - 1) && !world.getType(j2, j1, k2).j()) {
-                                    this.setTypeAndData(world, j2, j1, k2, Block.e(Block.b(Blocks.BIG_MUSHROOM_1) + l), l2);
+                                    this.setTypeAndData(world, j2, j1, k2, Block.getById(Block.getId(Blocks.BIG_MUSHROOM_1) + l), l2);
                                 }
                             }
                         }
@@ -148,7 +148,7 @@ public class WorldGenHugeMushroom extends WorldGenerator {
                         Block block2 = world.getType(i, j + j1, k);
 
                         if (!block2.j()) {
-                            this.setTypeAndData(world, i, j + j1, k, Block.e(Block.b(Blocks.BIG_MUSHROOM_1) + l), 10);
+                            this.setTypeAndData(world, i, j + j1, k, Block.getById(Block.getId(Blocks.BIG_MUSHROOM_1) + l), 10);
                         }
                     }
 

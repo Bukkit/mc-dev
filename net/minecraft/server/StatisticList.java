@@ -10,7 +10,7 @@ import java.util.Map;
 public class StatisticList {
 
     protected static Map a = new HashMap();
-    public static List b = new ArrayList();
+    public static List stats = new ArrayList();
     public static List c = new ArrayList();
     public static List d = new ArrayList();
     public static List e = new ArrayList();
@@ -77,7 +77,7 @@ public class StatisticList {
             Item item = (Item) iterator.next();
 
             if (item != null) {
-                int i = Item.b(item);
+                int i = Item.getId(item);
 
                 CRAFT_BLOCK_COUNT[i] = (new CraftingStatistic("stat.craftItem." + i, new ChatMessage("stat.craftItem", new Object[] { (new ItemStack(item)).E()}), item)).h();
             }
@@ -93,7 +93,7 @@ public class StatisticList {
             Block block = (Block) iterator.next();
 
             if (Item.getItemOf(block) != null) {
-                int i = Block.b(block);
+                int i = Block.getId(block);
 
                 if (block.G()) {
                     MINE_BLOCK_COUNT[i] = (new CraftingStatistic("stat.mineBlock." + i, new ChatMessage("stat.mineBlock", new Object[] { (new ItemStack(block)).E()}), Item.getItemOf(block))).h();
@@ -112,7 +112,7 @@ public class StatisticList {
             Item item = (Item) iterator.next();
 
             if (item != null) {
-                int i = Item.b(item);
+                int i = Item.getId(item);
 
                 USE_ITEM_COUNT[i] = (new CraftingStatistic("stat.useItem." + i, new ChatMessage("stat.useItem", new Object[] { (new ItemStack(item)).E()}), item)).h();
                 if (!(item instanceof ItemBlock)) {
@@ -131,7 +131,7 @@ public class StatisticList {
             Item item = (Item) iterator.next();
 
             if (item != null) {
-                int i = Item.b(item);
+                int i = Item.getId(item);
 
                 if (item.usesDurability()) {
                     BREAK_ITEM_COUNT[i] = (new CraftingStatistic("stat.breakItem." + i, new ChatMessage("stat.breakItem", new Object[] { (new ItemStack(item)).E()}), item)).h();
@@ -160,13 +160,13 @@ public class StatisticList {
     }
 
     private static void a(Statistic[] astatistic, Block block, Block block1) {
-        int i = Block.b(block);
-        int j = Block.b(block1);
+        int i = Block.getId(block);
+        int j = Block.getId(block1);
 
         if (astatistic[i] != null && astatistic[j] == null) {
             astatistic[j] = astatistic[i];
         } else {
-            b.remove(astatistic[i]);
+            stats.remove(astatistic[i]);
             e.remove(astatistic[i]);
             c.remove(astatistic[i]);
             astatistic[i] = astatistic[j];

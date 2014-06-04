@@ -99,7 +99,7 @@ public class PropertyManager {
         }
     }
 
-    public void a(String s, Object object) {
+    public void setProperty(String s, Object object) {
         this.properties.setProperty(s, "" + object);
     }
 }

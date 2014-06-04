@@ -19,7 +19,7 @@ public class PathfinderGoalPlay extends PathfinderGoal {
     public boolean a() {
         if (this.a.getAge() >= 0) {
             return false;
-        } else if (this.a.aH().nextInt(400) != 0) {
+        } else if (this.a.aI().nextInt(400) != 0) {
             return false;
         } else {
             List list = this.a.world.a(EntityVillager.class, this.a.boundingBox.grow(6.0D, 3.0D, 6.0D));

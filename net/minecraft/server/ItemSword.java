@@ -74,7 +74,7 @@ public class ItemSword extends Item {
     public Multimap k() {
         Multimap multimap = super.k();
 
-        multimap.put(GenericAttributes.e.a(), new AttributeModifier(f, "Weapon modifier", (double) this.damage, 0));
+        multimap.put(GenericAttributes.e.getName(), new AttributeModifier(f, "Weapon modifier", (double) this.damage, 0));
         return multimap;
     }
 }

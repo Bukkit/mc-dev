@@ -11,7 +11,7 @@ class CrashReportLevelGameMode implements Callable {
     }
 
     public String a() {
-        return String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", new Object[] { WorldData.o(this.a).b(), Integer.valueOf(WorldData.o(this.a).a()), Boolean.valueOf(WorldData.p(this.a)), Boolean.valueOf(WorldData.q(this.a))});
+        return String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", new Object[] { WorldData.o(this.a).b(), Integer.valueOf(WorldData.o(this.a).getId()), Boolean.valueOf(WorldData.p(this.a)), Boolean.valueOf(WorldData.q(this.a))});
     }
 
     public Object call() {

@@ -148,14 +148,14 @@ public class BlockFurnace extends BlockContainer {
                     }
                 }
 
-                world.f(i, j, k, block);
+                world.updateAdjacentComparators(i, j, k, block);
             }
         }
 
         super.remove(world, i, j, k, block, l);
     }
 
-    public boolean M() {
+    public boolean isComplexRedstone() {
         return true;
     }
 

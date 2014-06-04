@@ -18,7 +18,7 @@ public class WorldGenMinable extends WorldGenerator {
         this.c = block1;
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         float f = random.nextFloat() * 3.1415927F;
         double d0 = (double) ((float) (i + 8) + MathHelper.sin(f) * (float) this.b / 8.0F);
         double d1 = (double) ((float) (i + 8) - MathHelper.sin(f) * (float) this.b / 8.0F);

@@ -36,7 +36,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     private int invulnerableTicks = 60;
     private EnumChatVisibility bV;
     private boolean bW = true;
-    private long bX = 0L;
+    private long bX = System.currentTimeMillis();
     private int containerCounter;
     public boolean g;
     public int ping;
@@ -76,14 +76,14 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             if (MinecraftServer.getServer().getForceGamemode()) {
                 this.playerInteractManager.setGameMode(MinecraftServer.getServer().getGamemode());
             } else {
-                this.playerInteractManager.setGameMode(EnumGamemode.a(nbttagcompound.getInt("playerGameType")));
+                this.playerInteractManager.setGameMode(EnumGamemode.getById(nbttagcompound.getInt("playerGameType")));
             }
         }
     }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        nbttagcompound.setInt("playerGameType", this.playerInteractManager.getGameMode().a());
+        nbttagcompound.setInt("playerGameType", this.playerInteractManager.getGameMode().getId());
     }
 
     public void levelDown(int i) {
@@ -143,7 +143,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                 if (chunkcoordintpair != null) {
                     if (this.world.isLoaded(chunkcoordintpair.x << 4, 0, chunkcoordintpair.z << 4)) {
                         chunk = this.world.getChunkAt(chunkcoordintpair.x, chunkcoordintpair.z);
-                        if (chunk.k()) {
+                        if (chunk.isReady()) {
                             arraylist.add(chunk);
                             arraylist1.addAll(((WorldServer) this.world).getTileEntities(chunkcoordintpair.x * 16, 0, chunkcoordintpair.z * 16, chunkcoordintpair.x * 16 + 16, 256, chunkcoordintpair.z * 16 + 16));
                             iterator1.remove();
@@ -172,10 +172,6 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                 }
             }
         }
-
-        if (this.bX > 0L && this.server.getIdleTimeout() > 0 && MinecraftServer.ar() - this.bX > (long) (this.server.getIdleTimeout() * 1000 * 60)) {
-            this.playerConnection.disconnect("You have been idle for too long!");
-        }
     }
 
     public void i() {
@@ -194,15 +190,15 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                 }
             }
 
-            if (this.getHealth() != this.bQ || this.bR != this.foodData.a() || this.foodData.e() == 0.0F != this.bS) {
-                this.playerConnection.sendPacket(new PacketPlayOutUpdateHealth(this.getHealth(), this.foodData.a(), this.foodData.e()));
+            if (this.getHealth() != this.bQ || this.bR != this.foodData.getFoodLevel() || this.foodData.getSaturationLevel() == 0.0F != this.bS) {
+                this.playerConnection.sendPacket(new PacketPlayOutUpdateHealth(this.getHealth(), this.foodData.getFoodLevel(), this.foodData.getSaturationLevel()));
                 this.bQ = this.getHealth();
-                this.bR = this.foodData.a();
-                this.bS = this.foodData.e() == 0.0F;
+                this.bR = this.foodData.getFoodLevel();
+                this.bS = this.foodData.getSaturationLevel() == 0.0F;
             }
 
-            if (this.getHealth() + this.br() != this.bP) {
-                this.bP = this.getHealth() + this.br();
+            if (this.getHealth() + this.getAbsorptionHearts() != this.bP) {
+                this.bP = this.getHealth() + this.getAbsorptionHearts();
                 Collection collection = this.getScoreboard().getObjectivesForCriteria(IScoreboardCriteria.f);
                 Iterator iterator = collection.iterator();
 
@@ -218,7 +214,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                 this.playerConnection.sendPacket(new PacketPlayOutExperience(this.exp, this.expTotal, this.expLevel));
             }
 
-            if (this.ticksLived % 20 * 5 == 0 && !this.getStatisticManager().a(AchievementList.L)) {
+            if (this.ticksLived % 20 * 5 == 0 && !this.getStatisticManager().hasAchievement(AchievementList.L)) {
                 this.j();
             }
         } catch (Throwable throwable) {
@@ -271,7 +267,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void die(DamageSource damagesource) {
-        this.server.getPlayerList().sendMessage(this.aV().b());
+        this.server.getPlayerList().sendMessage(this.aW().b());
         if (!this.world.getGameRules().getBoolean("keepInventory")) {
             this.inventory.m();
         }
@@ -286,7 +282,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             scoreboardscore.incrementScore();
         }
 
-        EntityLiving entityliving = this.aW();
+        EntityLiving entityliving = this.aX();
 
         if (entityliving != null) {
             int i = EntityTypes.a(entityliving);
@@ -300,7 +296,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         }
 
         this.a(StatisticList.v, 1);
-        this.aV().g();
+        this.aW().g();
     }
 
     public boolean damageEntity(DamageSource damagesource, float f) {
@@ -566,7 +562,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void setContainerData(Container container, int i, int j) {
-        this.playerConnection.sendPacket(new PacketPlayOutCraftProgressBar(container.windowId, i, j));
+        this.playerConnection.sendPacket(new PacketPlayOutWindowData(container.windowId, i, j));
     }
 
     public void closeInventory() {
@@ -694,7 +690,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(EnumGamemode enumgamemode) {
         this.playerInteractManager.setGameMode(enumgamemode);
-        this.playerConnection.sendPacket(new PacketPlayOutGameStateChange(3, (float) enumgamemode.a()));
+        this.playerConnection.sendPacket(new PacketPlayOutGameStateChange(3, (float) enumgamemode.getId()));
     }
 
     public void sendMessage(IChatBaseComponent ichatbasecomponent) {
@@ -768,5 +764,9 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         } else {
             this.removeQueue.add(Integer.valueOf(entity.getId()));
         }
+    }
+
+    public long x() {
+        return this.bX;
     }
 }

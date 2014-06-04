@@ -20,7 +20,7 @@ public class PacketPlayOutUpdateAttributes extends Packet {
         while (iterator.hasNext()) {
             AttributeInstance attributeinstance = (AttributeInstance) iterator.next();
 
-            this.b.add(new AttributeSnapshot(this, attributeinstance.a().a(), attributeinstance.b(), attributeinstance.c()));
+            this.b.add(new AttributeSnapshot(this, attributeinstance.getAttribute().getName(), attributeinstance.b(), attributeinstance.c()));
         }
     }
 

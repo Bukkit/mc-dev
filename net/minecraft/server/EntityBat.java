@@ -9,7 +9,7 @@ public class EntityBat extends EntityAmbient {
     public EntityBat(World world) {
         super(world);
         this.a(0.5F, 0.9F);
-        this.setStartled(true);
+        this.setAsleep(true);
     }
 
     protected void c() {
@@ -17,44 +17,44 @@ public class EntityBat extends EntityAmbient {
         this.datawatcher.a(16, new Byte((byte) 0));
     }
 
-    protected float be() {
+    protected float bf() {
         return 0.1F;
     }
 
-    protected float bf() {
-        return super.bf() * 0.95F;
+    protected float bg() {
+        return super.bg() * 0.95F;
     }
 
     protected String t() {
-        return this.isStartled() && this.random.nextInt(4) != 0 ? null : "mob.bat.idle";
-    }
-
-    protected String aS() {
-        return "mob.bat.hurt";
+        return this.isAsleep() && this.random.nextInt(4) != 0 ? null : "mob.bat.idle";
     }
 
     protected String aT() {
+        return "mob.bat.hurt";
+    }
+
+    protected String aU() {
         return "mob.bat.death";
     }
 
-    public boolean R() {
+    public boolean S() {
         return false;
     }
 
     protected void o(Entity entity) {}
 
-    protected void bn() {}
+    protected void bo() {}
 
-    protected void aC() {
-        super.aC();
-        this.getAttributeInstance(GenericAttributes.a).setValue(6.0D);
+    protected void aD() {
+        super.aD();
+        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(6.0D);
     }
 
-    public boolean isStartled() {
+    public boolean isAsleep() {
         return (this.datawatcher.getByte(16) & 1) != 0;
     }
 
-    public void setStartled(boolean flag) {
+    public void setAsleep(boolean flag) {
         byte b0 = this.datawatcher.getByte(16);
 
         if (flag) {
@@ -64,13 +64,13 @@ public class EntityBat extends EntityAmbient {
         }
     }
 
-    protected boolean bj() {
+    protected boolean bk() {
         return true;
     }
 
     public void h() {
         super.h();
-        if (this.isStartled()) {
+        if (this.isAsleep()) {
             this.motX = this.motY = this.motZ = 0.0D;
             this.locY = (double) MathHelper.floor(this.locY) + 1.0D - (double) this.length;
         } else {
@@ -78,11 +78,11 @@ public class EntityBat extends EntityAmbient {
         }
     }
 
-    protected void bm() {
-        super.bm();
-        if (this.isStartled()) {
+    protected void bn() {
+        super.bn();
+        if (this.isAsleep()) {
             if (!this.world.getType(MathHelper.floor(this.locX), (int) this.locY + 1, MathHelper.floor(this.locZ)).r()) {
-                this.setStartled(false);
+                this.setAsleep(false);
                 this.world.a((EntityHuman) null, 1015, (int) this.locX, (int) this.locY, (int) this.locZ, 0);
             } else {
                 if (this.random.nextInt(200) == 0) {
@@ -90,7 +90,7 @@ public class EntityBat extends EntityAmbient {
                 }
 
                 if (this.world.findNearbyPlayer(this, 4.0D) != null) {
-                    this.setStartled(false);
+                    this.setAsleep(false);
                     this.world.a((EntityHuman) null, 1015, (int) this.locX, (int) this.locY, (int) this.locZ, 0);
                 }
             }
@@ -116,7 +116,7 @@ public class EntityBat extends EntityAmbient {
             this.be = 0.5F;
             this.yaw += f1;
             if (this.random.nextInt(100) == 0 && this.world.getType(MathHelper.floor(this.locX), (int) this.locY + 1, MathHelper.floor(this.locZ)).r()) {
-                this.setStartled(true);
+                this.setAsleep(true);
             }
         }
     }
@@ -129,7 +129,7 @@ public class EntityBat extends EntityAmbient {
 
     protected void a(double d0, boolean flag) {}
 
-    public boolean ay() {
+    public boolean az() {
         return true;
     }
 
@@ -137,8 +137,8 @@ public class EntityBat extends EntityAmbient {
         if (this.isInvulnerable()) {
             return false;
         } else {
-            if (!this.world.isStatic && this.isStartled()) {
-                this.setStartled(false);
+            if (!this.world.isStatic && this.isAsleep()) {
+                this.setAsleep(false);
             }
 
             return super.damageEntity(damagesource, f);

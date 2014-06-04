@@ -75,10 +75,10 @@ public class CommandDispatcher extends CommandHandler implements ICommandDispatc
             Iterator iterator = MinecraftServer.getServer().getPlayerList().players.iterator();
 
             while (iterator.hasNext()) {
-                EntityPlayer entityplayer = (EntityPlayer) iterator.next();
+                EntityHuman entityhuman = (EntityHuman) iterator.next();
 
-                if (entityplayer != icommandlistener && MinecraftServer.getServer().getPlayerList().isOp(entityplayer.getProfile()) && icommand.canUse(entityplayer) && (!(icommandlistener instanceof RemoteControlCommandListener) || MinecraftServer.getServer().m())) {
-                    entityplayer.sendMessage(chatmessage);
+                if (entityhuman != icommandlistener && MinecraftServer.getServer().getPlayerList().isOp(entityhuman.getProfile()) && icommand.canUse(entityhuman) && (!(icommandlistener instanceof RemoteControlCommandListener) || MinecraftServer.getServer().m())) {
+                    entityhuman.sendMessage(chatmessage);
                 }
             }
         }

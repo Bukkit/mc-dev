@@ -32,10 +32,10 @@ public class WorldGenVillageFarm2 extends WorldGenVillagePiece {
 
     protected void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
-        this.a = Block.e(nbttagcompound.getInt("CA"));
-        this.b = Block.e(nbttagcompound.getInt("CB"));
-        this.c = Block.e(nbttagcompound.getInt("CC"));
-        this.d = Block.e(nbttagcompound.getInt("CD"));
+        this.a = Block.getById(nbttagcompound.getInt("CA"));
+        this.b = Block.getById(nbttagcompound.getInt("CB"));
+        this.c = Block.getById(nbttagcompound.getInt("CC"));
+        this.d = Block.getById(nbttagcompound.getInt("CD"));
     }
 
     private Block a(Random random) {

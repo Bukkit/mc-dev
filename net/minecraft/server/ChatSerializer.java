@@ -38,7 +38,7 @@ public class ChatSerializer implements JsonDeserializer, JsonSerializer {
                     if (ichatbasecomponent == null) {
                         ichatbasecomponent = ichatbasecomponent1;
                     } else {
-                        ichatbasecomponent.a(ichatbasecomponent1);
+                        ichatbasecomponent.addSibling(ichatbasecomponent1);
                     }
                 }
 
@@ -88,7 +88,7 @@ public class ChatSerializer implements JsonDeserializer, JsonSerializer {
                 }
 
                 for (int j = 0; j < jsonarray2.size(); ++j) {
-                    ((IChatBaseComponent) object).a(this.a(jsonarray2.get(j), type, jsondeserializationcontext));
+                    ((IChatBaseComponent) object).addSibling(this.a(jsonarray2.get(j), type, jsondeserializationcontext));
                 }
             }
 

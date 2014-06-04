@@ -57,7 +57,7 @@ public class CommandHandler implements ICommandHandler {
                             icommand.execute(icommandlistener, astring);
                             ++j;
                         } catch (CommandException commandexception) {
-                            ChatMessage chatmessage1 = new ChatMessage(commandexception.getMessage(), commandexception.a());
+                            ChatMessage chatmessage1 = new ChatMessage(commandexception.getMessage(), commandexception.getArgs());
 
                             chatmessage1.getChatModifier().setColor(EnumChatFormat.RED);
                             icommandlistener.sendMessage(chatmessage1);
@@ -70,7 +70,7 @@ public class CommandHandler implements ICommandHandler {
                         icommand.execute(icommandlistener, astring);
                         ++j;
                     } catch (CommandException commandexception1) {
-                        chatmessage = new ChatMessage(commandexception1.getMessage(), commandexception1.a());
+                        chatmessage = new ChatMessage(commandexception1.getMessage(), commandexception1.getArgs());
                         chatmessage.getChatModifier().setColor(EnumChatFormat.RED);
                         icommandlistener.sendMessage(chatmessage);
                     }
@@ -82,11 +82,11 @@ public class CommandHandler implements ICommandHandler {
                 icommandlistener.sendMessage(chatmessage2);
             }
         } catch (ExceptionUsage exceptionusage) {
-            chatmessage = new ChatMessage("commands.generic.usage", new Object[] { new ChatMessage(exceptionusage.getMessage(), exceptionusage.a())});
+            chatmessage = new ChatMessage("commands.generic.usage", new Object[] { new ChatMessage(exceptionusage.getMessage(), exceptionusage.getArgs())});
             chatmessage.getChatModifier().setColor(EnumChatFormat.RED);
             icommandlistener.sendMessage(chatmessage);
         } catch (CommandException commandexception2) {
-            chatmessage = new ChatMessage(commandexception2.getMessage(), commandexception2.a());
+            chatmessage = new ChatMessage(commandexception2.getMessage(), commandexception2.getArgs());
             chatmessage.getChatModifier().setColor(EnumChatFormat.RED);
             icommandlistener.sendMessage(chatmessage);
         } catch (Throwable throwable) {

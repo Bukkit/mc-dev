@@ -16,14 +16,14 @@ public class EntityPigZombie extends EntityZombie {
         this.fireProof = true;
     }
 
-    protected void aC() {
-        super.aC();
+    protected void aD() {
+        super.aD();
         this.getAttributeInstance(bp).setValue(0.0D);
         this.getAttributeInstance(GenericAttributes.d).setValue(0.5D);
         this.getAttributeInstance(GenericAttributes.e).setValue(5.0D);
     }
 
-    protected boolean bj() {
+    protected boolean bk() {
         return false;
     }
 
@@ -39,7 +39,7 @@ public class EntityPigZombie extends EntityZombie {
 
         this.bu = this.target;
         if (this.soundDelay > 0 && --this.soundDelay == 0) {
-            this.makeSound("mob.zombiepig.zpigangry", this.be() * 2.0F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+            this.makeSound("mob.zombiepig.zpigangry", this.bf() * 2.0F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
         super.h();
@@ -99,11 +99,11 @@ public class EntityPigZombie extends EntityZombie {
         return "mob.zombiepig.zpig";
     }
 
-    protected String aS() {
+    protected String aT() {
         return "mob.zombiepig.zpighurt";
     }
 
-    protected String aT() {
+    protected String aU() {
         return "mob.zombiepig.zpigdeath";
     }
 
@@ -135,8 +135,8 @@ public class EntityPigZombie extends EntityZombie {
         this.setEquipment(0, new ItemStack(Items.GOLD_SWORD));
     }
 
-    public GroupDataEntity a(GroupDataEntity groupdataentity) {
-        super.a(groupdataentity);
+    public GroupDataEntity prepare(GroupDataEntity groupdataentity) {
+        super.prepare(groupdataentity);
         this.setVillager(false);
         return groupdataentity;
     }

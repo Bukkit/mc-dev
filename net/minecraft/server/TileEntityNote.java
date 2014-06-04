@@ -50,7 +50,7 @@ public class TileEntityNote extends TileEntity {
                 b0 = 4;
             }
 
-            world.playNote(i, j, k, Blocks.NOTE_BLOCK, b0, this.note);
+            world.playBlockAction(i, j, k, Blocks.NOTE_BLOCK, b0, this.note);
         }
     }
 }

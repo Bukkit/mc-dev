@@ -6,7 +6,7 @@ public class WorldGenVines extends WorldGenerator {
 
     public WorldGenVines() {}
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         int l = i;
 
         for (int i1 = k; j < 128; ++j) {

@@ -10,7 +10,7 @@ public class BlockWeb extends Block {
     }
 
     public void a(World world, int i, int j, int k, Entity entity) {
-        entity.ar();
+        entity.as();
     }
 
     public boolean c() {

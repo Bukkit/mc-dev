@@ -16,7 +16,7 @@ public class PacketPlayInSettings extends Packet {
         this.b = packetdataserializer.readByte();
         this.c = EnumChatVisibility.a(packetdataserializer.readByte());
         this.d = packetdataserializer.readBoolean();
-        this.e = EnumDifficulty.a(packetdataserializer.readByte());
+        this.e = EnumDifficulty.getById(packetdataserializer.readByte());
         this.f = packetdataserializer.readBoolean();
     }
 

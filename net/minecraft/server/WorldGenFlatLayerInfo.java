@@ -39,7 +39,7 @@ public class WorldGenFlatLayerInfo {
     }
 
     public String toString() {
-        String s = Integer.toString(Block.b(this.a));
+        String s = Integer.toString(Block.getId(this.a));
 
         if (this.b > 1) {
             s = this.b + "x" + s;

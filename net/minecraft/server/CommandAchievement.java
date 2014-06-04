@@ -55,7 +55,7 @@ public class CommandAchievement extends CommandAbstract {
 
                         ArrayList arraylist;
 
-                        for (arraylist = Lists.newArrayList(); achievement1.c != null && !entityplayer.getStatisticManager().a(achievement1.c); achievement1 = achievement1.c) {
+                        for (arraylist = Lists.newArrayList(); achievement1.c != null && !entityplayer.getStatisticManager().hasAchievement(achievement1.c); achievement1 = achievement1.c) {
                             arraylist.add(achievement1.c);
                         }
 
@@ -86,7 +86,7 @@ public class CommandAchievement extends CommandAbstract {
             return astring.length == 3 ? a(astring, MinecraftServer.getServer().getPlayers()) : null;
         } else {
             ArrayList arraylist = Lists.newArrayList();
-            Iterator iterator = StatisticList.b.iterator();
+            Iterator iterator = StatisticList.stats.iterator();
 
             while (iterator.hasNext()) {
                 Statistic statistic = (Statistic) iterator.next();

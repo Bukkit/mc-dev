@@ -9,7 +9,7 @@ public class CommandException extends RuntimeException {
         this.a = aobject;
     }
 
-    public Object[] a() {
+    public Object[] getArgs() {
         return this.a;
     }
 }

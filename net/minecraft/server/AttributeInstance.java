@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public interface AttributeInstance {
 
-    IAttribute a();
+    IAttribute getAttribute();
 
     double b();
 

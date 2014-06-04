@@ -14,7 +14,7 @@ public abstract class AttributeBase implements IAttribute {
         }
     }
 
-    public String a() {
+    public String getName() {
         return this.a;
     }
 

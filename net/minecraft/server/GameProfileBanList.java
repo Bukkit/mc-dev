@@ -26,7 +26,7 @@ public class GameProfileBanList extends JsonList {
 
         GameProfileBanEntry gameprofilebanentry;
 
-        for (Iterator iterator = this.e().values().iterator(); iterator.hasNext(); astring[i++] = ((GameProfile) gameprofilebanentry.f()).getName()) {
+        for (Iterator iterator = this.e().values().iterator(); iterator.hasNext(); astring[i++] = ((GameProfile) gameprofilebanentry.getKey()).getName()) {
             gameprofilebanentry = (GameProfileBanEntry) iterator.next();
         }
 
@@ -48,9 +48,9 @@ public class GameProfileBanList extends JsonList {
             }
 
             gameprofilebanentry = (GameProfileBanEntry) iterator.next();
-        } while (!s.equalsIgnoreCase(((GameProfile) gameprofilebanentry.f()).getName()));
+        } while (!s.equalsIgnoreCase(((GameProfile) gameprofilebanentry.getKey()).getName()));
 
-        return (GameProfile) gameprofilebanentry.f();
+        return (GameProfile) gameprofilebanentry.getKey();
     }
 
     protected String a(Object object) {

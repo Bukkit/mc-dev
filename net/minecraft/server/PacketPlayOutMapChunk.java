@@ -12,17 +12,17 @@ public class PacketPlayOutMapChunk extends Packet {
     private int c;
     private int d;
     private byte[] e;
-    private byte[] buffer;
-    private boolean inflatedBuffer;
-    private int size;
-    private static byte[] buildBuffer = new byte[196864];
+    private byte[] f;
+    private boolean g;
+    private int h;
+    private static byte[] i = new byte[196864];
 
     public PacketPlayOutMapChunk() {}
 
     public PacketPlayOutMapChunk(Chunk chunk, boolean flag, int i) {
         this.a = chunk.locX;
         this.b = chunk.locZ;
-        this.inflatedBuffer = flag;
+        this.g = flag;
         ChunkMap chunkmap = a(chunk, flag, i);
         Deflater deflater = new Deflater(-1);
 
@@ -30,11 +30,11 @@ public class PacketPlayOutMapChunk extends Packet {
         this.c = chunkmap.b;
 
         try {
-            this.buffer = chunkmap.a;
+            this.f = chunkmap.a;
             deflater.setInput(chunkmap.a, 0, chunkmap.a.length);
             deflater.finish();
             this.e = new byte[chunkmap.a.length];
-            this.size = deflater.deflate(this.e);
+            this.h = deflater.deflate(this.e);
         } finally {
             deflater.end();
         }
@@ -47,15 +47,15 @@ public class PacketPlayOutMapChunk extends Packet {
     public void a(PacketDataSerializer packetdataserializer) {
         this.a = packetdataserializer.readInt();
         this.b = packetdataserializer.readInt();
-        this.inflatedBuffer = packetdataserializer.readBoolean();
+        this.g = packetdataserializer.readBoolean();
         this.c = packetdataserializer.readShort();
         this.d = packetdataserializer.readShort();
-        this.size = packetdataserializer.readInt();
-        if (buildBuffer.length < this.size) {
-            buildBuffer = new byte[this.size];
+        this.h = packetdataserializer.readInt();
+        if (i.length < this.h) {
+            i = new byte[this.h];
         }
 
-        packetdataserializer.readBytes(buildBuffer, 0, this.size);
+        packetdataserializer.readBytes(i, 0, this.h);
         int i = 0;
 
         int j;
@@ -65,17 +65,17 @@ public class PacketPlayOutMapChunk extends Packet {
         }
 
         j = 12288 * i;
-        if (this.inflatedBuffer) {
+        if (this.g) {
             j += 256;
         }
 
-        this.buffer = new byte[j];
+        this.f = new byte[j];
         Inflater inflater = new Inflater();
 
-        inflater.setInput(buildBuffer, 0, this.size);
+        inflater.setInput(i, 0, this.h);
 
         try {
-            inflater.inflate(this.buffer);
+            inflater.inflate(this.f);
         } catch (DataFormatException dataformatexception) {
             throw new IOException("Bad compressed data format");
         } finally {
@@ -86,11 +86,11 @@ public class PacketPlayOutMapChunk extends Packet {
     public void b(PacketDataSerializer packetdataserializer) {
         packetdataserializer.writeInt(this.a);
         packetdataserializer.writeInt(this.b);
-        packetdataserializer.writeBoolean(this.inflatedBuffer);
+        packetdataserializer.writeBoolean(this.g);
         packetdataserializer.writeShort((short) (this.c & '\uffff'));
         packetdataserializer.writeShort((short) (this.d & '\uffff'));
-        packetdataserializer.writeInt(this.size);
-        packetdataserializer.writeBytes(this.e, 0, this.size);
+        packetdataserializer.writeInt(this.h);
+        packetdataserializer.writeBytes(this.e, 0, this.h);
     }
 
     public void a(PacketPlayOutListener packetplayoutlistener) {
@@ -98,15 +98,15 @@ public class PacketPlayOutMapChunk extends Packet {
     }
 
     public String b() {
-        return String.format("x=%d, z=%d, full=%b, sects=%d, add=%d, size=%d", new Object[] { Integer.valueOf(this.a), Integer.valueOf(this.b), Boolean.valueOf(this.inflatedBuffer), Integer.valueOf(this.c), Integer.valueOf(this.d), Integer.valueOf(this.size)});
+        return String.format("x=%d, z=%d, full=%b, sects=%d, add=%d, size=%d", new Object[] { Integer.valueOf(this.a), Integer.valueOf(this.b), Boolean.valueOf(this.g), Integer.valueOf(this.c), Integer.valueOf(this.d), Integer.valueOf(this.h)});
     }
 
     public static ChunkMap a(Chunk chunk, boolean flag, int i) {
         int j = 0;
-        ChunkSection[] achunksection = chunk.i();
+        ChunkSection[] achunksection = chunk.getSections();
         int k = 0;
         ChunkMap chunkmap = new ChunkMap();
-        byte[] abyte = buildBuffer;
+        byte[] abyte = i;
 
         if (flag) {
             chunk.q = true;

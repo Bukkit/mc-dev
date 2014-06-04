@@ -32,7 +32,7 @@ public class FoodMetaData {
             }
         }
 
-        if (entityhuman.world.getGameRules().getBoolean("naturalRegeneration") && this.foodLevel >= 18 && entityhuman.bQ()) {
+        if (entityhuman.world.getGameRules().getBoolean("naturalRegeneration") && this.foodLevel >= 18 && entityhuman.bR()) {
             ++this.foodTickTimer;
             if (this.foodTickTimer >= 80) {
                 entityhuman.heal(1.0F);
@@ -69,7 +69,7 @@ public class FoodMetaData {
         nbttagcompound.setFloat("foodExhaustionLevel", this.exhaustionLevel);
     }
 
-    public int a() {
+    public int getFoodLevel() {
         return this.foodLevel;
     }
 
@@ -81,7 +81,7 @@ public class FoodMetaData {
         this.exhaustionLevel = Math.min(this.exhaustionLevel + f, 40.0F);
     }
 
-    public float e() {
+    public float getSaturationLevel() {
         return this.saturationLevel;
     }
 }

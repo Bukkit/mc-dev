@@ -46,7 +46,7 @@ public class EnchantmentWeaponDamage extends Enchantment {
             EntityLiving entityliving1 = (EntityLiving) entity;
 
             if (this.a == 2 && entityliving1.getMonsterType() == EnumMonsterType.ARTHROPOD) {
-                int j = 20 + entityliving.aH().nextInt(10 * i);
+                int j = 20 + entityliving.aI().nextInt(10 * i);
 
                 entityliving1.addEffect(new MobEffect(MobEffectList.SLOWER_MOVEMENT.id, j, 3));
             }

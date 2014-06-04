@@ -22,8 +22,8 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         }
     }
 
-    protected void aC() {
-        super.aC();
+    protected void aD() {
+        super.aD();
         this.getAttributeInstance(GenericAttributes.d).setValue(0.25D);
     }
 
@@ -32,7 +32,7 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         this.datawatcher.a(13, new Byte((byte) 0));
     }
 
-    public boolean bj() {
+    public boolean bk() {
         return true;
     }
 
@@ -40,11 +40,11 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         return "mob.skeleton.say";
     }
 
-    protected String aS() {
+    protected String aT() {
         return "mob.skeleton.hurt";
     }
 
-    protected String aT() {
+    protected String aU() {
         return "mob.skeleton.death";
     }
 
@@ -101,8 +101,8 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         super.e();
     }
 
-    public void aa() {
-        super.aa();
+    public void ab() {
+        super.ab();
         if (this.vehicle instanceof EntityCreature) {
             EntityCreature entitycreature = (EntityCreature) this.vehicle;
 
@@ -163,9 +163,9 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         this.setEquipment(0, new ItemStack(Items.BOW));
     }
 
-    public GroupDataEntity a(GroupDataEntity groupdataentity) {
-        groupdataentity = super.a(groupdataentity);
-        if (this.world.worldProvider instanceof WorldProviderHell && this.aH().nextInt(5) > 0) {
+    public GroupDataEntity prepare(GroupDataEntity groupdataentity) {
+        groupdataentity = super.prepare(groupdataentity);
+        if (this.world.worldProvider instanceof WorldProviderHell && this.aI().nextInt(5) > 0) {
             this.goalSelector.a(4, this.bq);
             this.setSkeletonType(1);
             this.setEquipment(0, new ItemStack(Items.STONE_SWORD));
@@ -192,7 +192,7 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
     public void bZ() {
         this.goalSelector.a((PathfinderGoal) this.bq);
         this.goalSelector.a((PathfinderGoal) this.bp);
-        ItemStack itemstack = this.bd();
+        ItemStack itemstack = this.be();
 
         if (itemstack != null && itemstack.getItem() == Items.BOW) {
             this.goalSelector.a(4, this.bp);
@@ -203,8 +203,8 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
 
     public void a(EntityLiving entityliving, float f) {
         EntityArrow entityarrow = new EntityArrow(this.world, this, entityliving, 1.6F, (float) (14 - this.world.difficulty.a() * 4));
-        int i = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.bd());
-        int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.bd());
+        int i = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.be());
+        int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.be());
 
         entityarrow.b((double) (f * 2.0F) + this.random.nextGaussian() * 0.25D + (double) ((float) this.world.difficulty.a() * 0.11F));
         if (i > 0) {
@@ -215,11 +215,11 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
             entityarrow.setKnockbackStrength(j);
         }
 
-        if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.bd()) > 0 || this.getSkeletonType() == 1) {
+        if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.be()) > 0 || this.getSkeletonType() == 1) {
             entityarrow.setOnFire(100);
         }
 
-        this.makeSound("random.bow", 1.0F, 1.0F / (this.aH().nextFloat() * 0.4F + 0.8F));
+        this.makeSound("random.bow", 1.0F, 1.0F / (this.aI().nextFloat() * 0.4F + 0.8F));
         this.world.addEntity(entityarrow);
     }
 
@@ -260,7 +260,7 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
         }
     }
 
-    public double ac() {
-        return super.ac() - 0.5D;
+    public double ad() {
+        return super.ad() - 0.5D;
     }
 }

@@ -25,7 +25,7 @@ public class CommandEnchant extends CommandAbstract {
             EntityPlayer entityplayer = d(icommandlistener, astring[0]);
             int i = a(icommandlistener, astring[1], 0, Enchantment.byId.length - 1);
             int j = 1;
-            ItemStack itemstack = entityplayer.bE();
+            ItemStack itemstack = entityplayer.bF();
 
             if (itemstack == null) {
                 throw new CommandException("commands.enchant.noItem", new Object[0]);

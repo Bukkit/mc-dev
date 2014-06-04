@@ -99,7 +99,7 @@ public class UserCache {
         }
     }
 
-    public GameProfile a(String s) {
+    public GameProfile getProfile(String s) {
         String s1 = s.toLowerCase(Locale.ROOT);
         UserCacheEntry usercacheentry = (UserCacheEntry) this.c.get(s1);
 
@@ -214,9 +214,9 @@ public class UserCache {
             bufferedwriter.write(s);
             return;
         } catch (FileNotFoundException filenotfoundexception) {
-            ;
-        } catch (IOException ioexception) {
             return;
+        } catch (IOException ioexception) {
+            ;
         } finally {
             IOUtils.closeQuietly(bufferedwriter);
         }

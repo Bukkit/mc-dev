@@ -29,7 +29,7 @@ public class CombatTracker {
             } else if (block == Blocks.VINE) {
                 this.h = "vines";
             }
-        } else if (this.b.L()) {
+        } else if (this.b.M()) {
             this.h = "water";
         }
     }
@@ -46,7 +46,7 @@ public class CombatTracker {
             this.f = true;
             this.d = this.b.ticksLived;
             this.e = this.d;
-            this.b.bt();
+            this.b.bu();
         }
     }
 
@@ -66,7 +66,7 @@ public class CombatTracker {
                 if (combatentry.a() != DamageSource.FALL && combatentry.a() != DamageSource.OUT_OF_WORLD) {
                     if (ichatbasecomponent1 != null && (ichatbasecomponent == null || !ichatbasecomponent1.equals(ichatbasecomponent))) {
                         Entity entity1 = combatentry.a().getEntity();
-                        ItemStack itemstack = entity1 instanceof EntityLiving ? ((EntityLiving) entity1).bd() : null;
+                        ItemStack itemstack = entity1 instanceof EntityLiving ? ((EntityLiving) entity1).be() : null;
 
                         if (itemstack != null && itemstack.hasName()) {
                             object = new ChatMessage("death.fell.assist.item", new Object[] { this.b.getScoreboardDisplayName(), ichatbasecomponent1, itemstack.E()});
@@ -74,7 +74,7 @@ public class CombatTracker {
                             object = new ChatMessage("death.fell.assist", new Object[] { this.b.getScoreboardDisplayName(), ichatbasecomponent1});
                         }
                     } else if (ichatbasecomponent != null) {
-                        ItemStack itemstack1 = entity instanceof EntityLiving ? ((EntityLiving) entity).bd() : null;
+                        ItemStack itemstack1 = entity instanceof EntityLiving ? ((EntityLiving) entity).be() : null;
 
                         if (itemstack1 != null && itemstack1.hasName()) {
                             object = new ChatMessage("death.fell.finish.item", new Object[] { this.b.getScoreboardDisplayName(), ichatbasecomponent, itemstack1.E()});
@@ -175,7 +175,7 @@ public class CombatTracker {
             this.f = false;
             this.e = this.b.ticksLived;
             if (flag) {
-                this.b.bu();
+                this.b.bv();
             }
 
             this.a.clear();

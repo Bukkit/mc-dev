@@ -68,7 +68,7 @@ public class CommandSummon extends CommandAbstract {
                 } else {
                     entity.setPositionRotation(d0, d1, d2, entity.yaw, entity.pitch);
                     if (!flag && entity instanceof EntityInsentient) {
-                        ((EntityInsentient) entity).a((GroupDataEntity) null);
+                        ((EntityInsentient) entity).prepare((GroupDataEntity) null);
                     }
 
                     world.addEntity(entity);

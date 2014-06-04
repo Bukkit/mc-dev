@@ -27,11 +27,7 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
         boolean flag = true;
 
         try {
-            try {
-                if (bytebuf.readUnsignedByte() != 254) {
-                    return;
-                }
-
+            if (bytebuf.readUnsignedByte() == 254) {
                 InetSocketAddress inetsocketaddress = (InetSocketAddress) channelhandlercontext.channel().remoteAddress();
                 MinecraftServer minecraftserver = this.b.d();
                 int i = bytebuf.readableBytes();
@@ -82,9 +78,10 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
 
                 bytebuf.release();
                 flag = false;
-            } catch (RuntimeException runtimeexception) {
-                ;
+                return;
             }
+        } catch (RuntimeException runtimeexception) {
+            return;
         } finally {
             if (flag) {
                 bytebuf.resetReaderIndex();

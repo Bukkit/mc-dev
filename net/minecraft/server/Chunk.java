@@ -33,7 +33,7 @@ public class Chunk {
     public boolean m;
     public boolean n;
     public boolean o;
-    public long p;
+    public long lastSaved;
     public boolean q;
     public int r;
     public long s;
@@ -128,7 +128,7 @@ public class Chunk {
         return 0;
     }
 
-    public ChunkSection[] i() {
+    public ChunkSection[] getSections() {
         return this.sections;
     }
 
@@ -674,7 +674,7 @@ public class Chunk {
             while (iterator.hasNext()) {
                 Entity entity = (Entity) iterator.next();
 
-                entity.W();
+                entity.X();
             }
 
             this.world.a(this.entitySlices[i]);
@@ -715,7 +715,7 @@ public class Chunk {
 
                 if (entity1 != entity && entity1.boundingBox.b(axisalignedbb) && (ientityselector == null || ientityselector.a(entity1))) {
                     list.add(entity1);
-                    Entity[] aentity = entity1.as();
+                    Entity[] aentity = entity1.at();
 
                     if (aentity != null) {
                         for (int i1 = 0; i1 < aentity.length; ++i1) {
@@ -752,10 +752,10 @@ public class Chunk {
 
     public boolean a(boolean flag) {
         if (flag) {
-            if (this.o && this.world.getTime() != this.p || this.n) {
+            if (this.o && this.world.getTime() != this.lastSaved || this.n) {
                 return true;
             }
-        } else if (this.o && this.world.getTime() >= this.p + 600L) {
+        } else if (this.o && this.world.getTime() >= this.lastSaved + 600L) {
             return true;
         }
 
@@ -770,7 +770,7 @@ public class Chunk {
         return false;
     }
 
-    public void a(IChunkProvider ichunkprovider, IChunkProvider ichunkprovider1, int i, int j) {
+    public void loadNearby(IChunkProvider ichunkprovider, IChunkProvider ichunkprovider1, int i, int j) {
         if (!this.done && ichunkprovider.isChunkLoaded(i + 1, j + 1) && ichunkprovider.isChunkLoaded(i, j + 1) && ichunkprovider.isChunkLoaded(i + 1, j)) {
             ichunkprovider.getChunkAt(ichunkprovider1, i, j);
         }
@@ -825,7 +825,7 @@ public class Chunk {
         }
     }
 
-    public boolean k() {
+    public boolean isReady() {
         return this.m && this.done && this.lit;
     }
 
@@ -857,7 +857,7 @@ public class Chunk {
         this.sections = achunksection;
     }
 
-    public BiomeBase a(int i, int j, WorldChunkManager worldchunkmanager) {
+    public BiomeBase getBiome(int i, int j, WorldChunkManager worldchunkmanager) {
         int k = this.v[j << 4 | i] & 255;
 
         if (k == 255) {

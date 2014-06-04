@@ -65,7 +65,7 @@ public class PersistentScoreboard extends PersistentBase {
 
     protected void a(ScoreboardTeam scoreboardteam, NBTTagList nbttaglist) {
         for (int i = 0; i < nbttaglist.size(); ++i) {
-            this.b.addPlayerToTeam(nbttaglist.f(i), scoreboardteam.getName());
+            this.b.addPlayerToTeam(nbttaglist.getString(i), scoreboardteam.getName());
         }
     }
 
@@ -83,7 +83,7 @@ public class PersistentScoreboard extends PersistentBase {
     protected void b(NBTTagList nbttaglist) {
         for (int i = 0; i < nbttaglist.size(); ++i) {
             NBTTagCompound nbttagcompound = nbttaglist.get(i);
-            IScoreboardCriteria iscoreboardcriteria = (IScoreboardCriteria) IScoreboardCriteria.a.get(nbttagcompound.getString("CriteriaName"));
+            IScoreboardCriteria iscoreboardcriteria = (IScoreboardCriteria) IScoreboardCriteria.criteria.get(nbttagcompound.getString("CriteriaName"));
             ScoreboardObjective scoreboardobjective = this.b.registerObjective(nbttagcompound.getString("Name"), iscoreboardcriteria);
 
             scoreboardobjective.setDisplayName(nbttagcompound.getString("DisplayName"));

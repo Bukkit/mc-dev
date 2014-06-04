@@ -29,9 +29,9 @@ public class PacketPlayOutLogin extends Packet {
         this.b = (short1 & 8) == 8;
         int i = short1 & -9;
 
-        this.c = EnumGamemode.a(i);
+        this.c = EnumGamemode.getById(i);
         this.d = packetdataserializer.readByte();
-        this.e = EnumDifficulty.a(packetdataserializer.readUnsignedByte());
+        this.e = EnumDifficulty.getById(packetdataserializer.readUnsignedByte());
         this.f = packetdataserializer.readUnsignedByte();
         this.g = WorldType.getType(packetdataserializer.c(16));
         if (this.g == null) {
@@ -41,7 +41,7 @@ public class PacketPlayOutLogin extends Packet {
 
     public void b(PacketDataSerializer packetdataserializer) {
         packetdataserializer.writeInt(this.a);
-        int i = this.c.a();
+        int i = this.c.getId();
 
         if (this.b) {
             i |= 8;
@@ -59,7 +59,7 @@ public class PacketPlayOutLogin extends Packet {
     }
 
     public String b() {
-        return String.format("eid=%d, gameType=%d, hardcore=%b, dimension=%d, difficulty=%s, maxplayers=%d", new Object[] { Integer.valueOf(this.a), Integer.valueOf(this.c.a()), Boolean.valueOf(this.b), Integer.valueOf(this.d), this.e, Integer.valueOf(this.f)});
+        return String.format("eid=%d, gameType=%d, hardcore=%b, dimension=%d, difficulty=%s, maxplayers=%d", new Object[] { Integer.valueOf(this.a), Integer.valueOf(this.c.getId()), Boolean.valueOf(this.b), Integer.valueOf(this.d), this.e, Integer.valueOf(this.f)});
     }
 
     public void handle(PacketListener packetlistener) {

@@ -308,7 +308,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
             k1 = k + this.i.nextInt(16) + 8;
             l1 = this.i.nextInt(256);
             i2 = l + this.i.nextInt(16) + 8;
-            (new WorldGenLakes(Blocks.STATIONARY_WATER)).a(this.n, this.i, k1, l1, i2);
+            (new WorldGenLakes(Blocks.STATIONARY_WATER)).generate(this.n, this.i, k1, l1, i2);
         }
 
         if (!flag && this.i.nextInt(8) == 0) {
@@ -316,7 +316,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
             l1 = this.i.nextInt(this.i.nextInt(248) + 8);
             i2 = l + this.i.nextInt(16) + 8;
             if (l1 < 63 || this.i.nextInt(10) == 0) {
-                (new WorldGenLakes(Blocks.STATIONARY_LAVA)).a(this.n, this.i, k1, l1, i2);
+                (new WorldGenLakes(Blocks.STATIONARY_LAVA)).generate(this.n, this.i, k1, l1, i2);
             }
         }
 
@@ -325,7 +325,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
             i2 = this.i.nextInt(256);
             int j2 = l + this.i.nextInt(16) + 8;
 
-            (new WorldGenDungeons()).a(this.n, this.i, l1, i2, j2);
+            (new WorldGenDungeons()).generate(this.n, this.i, l1, i2, j2);
         }
 
         biomebase.a(this.n, this.i, k, l);

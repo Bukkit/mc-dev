@@ -42,14 +42,14 @@ public class RemoteControlSession extends RemoteConnectionThread {
                 BufferedInputStream bufferedinputstream = new BufferedInputStream(this.j.getInputStream());
                 int i = bufferedinputstream.read(this.k, 0, 1460);
 
-                if (10 > i) {
-                    return;
-                }
+                if (10 <= i) {
+                    byte b0 = 0;
+                    int j = StatusChallengeUtils.b(this.k, 0, i);
 
-                byte b0 = 0;
-                int j = StatusChallengeUtils.b(this.k, 0, i);
+                    if (j != i - 4) {
+                        return;
+                    }
 
-                if (j == i - 4) {
                     int k = b0 + 4;
                     int l = StatusChallengeUtils.b(this.k, k, i);
 

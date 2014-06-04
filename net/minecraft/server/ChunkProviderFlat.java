@@ -85,11 +85,11 @@ public class ChunkProviderFlat implements IChunkProvider {
 
             if (block != null) {
                 k = l >> 4;
-                ChunkSection chunksection = chunk.i()[k];
+                ChunkSection chunksection = chunk.getSections()[k];
 
                 if (chunksection == null) {
                     chunksection = new ChunkSection(l, !this.a.worldProvider.g);
-                    chunk.i()[k] = chunksection;
+                    chunk.getSections()[k] = chunksection;
                 }
 
                 for (int i1 = 0; i1 < 16; ++i1) {
@@ -112,9 +112,9 @@ public class ChunkProviderFlat implements IChunkProvider {
         Iterator iterator = this.f.iterator();
 
         while (iterator.hasNext()) {
-            StructureGenerator structuregenerator = (StructureGenerator) iterator.next();
+            WorldGenBase worldgenbase = (WorldGenBase) iterator.next();
 
-            structuregenerator.a(this, this.a, i, j, (Block[]) null);
+            worldgenbase.a(this, this.a, i, j, (Block[]) null);
         }
 
         chunk.initLighting();
@@ -155,7 +155,7 @@ public class ChunkProviderFlat implements IChunkProvider {
             l1 = k + this.b.nextInt(16) + 8;
             k1 = this.b.nextInt(256);
             i2 = l + this.b.nextInt(16) + 8;
-            this.i.a(this.a, this.b, l1, k1, i2);
+            this.i.generate(this.a, this.b, l1, k1, i2);
         }
 
         if (this.j != null && !flag && this.b.nextInt(8) == 0) {
@@ -163,7 +163,7 @@ public class ChunkProviderFlat implements IChunkProvider {
             k1 = this.b.nextInt(this.b.nextInt(248) + 8);
             i2 = l + this.b.nextInt(16) + 8;
             if (k1 < 63 || this.b.nextInt(10) == 0) {
-                this.j.a(this.a, this.b, l1, k1, i2);
+                this.j.generate(this.a, this.b, l1, k1, i2);
             }
         }
 
@@ -173,7 +173,7 @@ public class ChunkProviderFlat implements IChunkProvider {
                 i2 = this.b.nextInt(256);
                 int j2 = l + this.b.nextInt(16) + 8;
 
-                (new WorldGenDungeons()).a(this.a, this.b, k1, i2, j2);
+                (new WorldGenDungeons()).generate(this.a, this.b, k1, i2, j2);
             }
         }
 

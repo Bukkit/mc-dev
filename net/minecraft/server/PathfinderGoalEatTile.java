@@ -13,7 +13,7 @@ public class PathfinderGoalEatTile extends PathfinderGoal {
     }
 
     public boolean a() {
-        if (this.b.aH().nextInt(this.b.isBaby() ? 50 : 1000) != 0) {
+        if (this.b.aI().nextInt(this.b.isBaby() ? 50 : 1000) != 0) {
             return false;
         } else {
             int i = MathHelper.floor(this.b.locX);
@@ -57,7 +57,7 @@ public class PathfinderGoalEatTile extends PathfinderGoal {
                 this.b.p();
             } else if (this.c.getType(i, j - 1, k) == Blocks.GRASS) {
                 if (this.c.getGameRules().getBoolean("mobGriefing")) {
-                    this.c.triggerEffect(2001, i, j - 1, k, Block.b((Block) Blocks.GRASS));
+                    this.c.triggerEffect(2001, i, j - 1, k, Block.getId(Blocks.GRASS));
                     this.c.setTypeAndData(i, j - 1, k, Blocks.DIRT, 0, 2);
                 }
 

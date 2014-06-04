@@ -10,7 +10,7 @@ public class WorldGenEnder extends WorldGenerator {
         this.a = block;
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         if (world.isEmpty(i, j, k) && world.getType(i, j - 1, k) == this.a) {
             int l = random.nextInt(32) + 6;
             int i1 = random.nextInt(4) + 1;

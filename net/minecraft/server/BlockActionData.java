@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-public class NoteBlockData {
+public class BlockActionData {
 
     private int a;
     private int b;
@@ -9,7 +9,7 @@ public class NoteBlockData {
     private int e;
     private int f;
 
-    public NoteBlockData(int i, int j, int k, Block block, int l, int i1) {
+    public BlockActionData(int i, int j, int k, Block block, int l, int i1) {
         this.a = i;
         this.b = j;
         this.c = k;
@@ -43,12 +43,12 @@ public class NoteBlockData {
     }
 
     public boolean equals(Object object) {
-        if (!(object instanceof NoteBlockData)) {
+        if (!(object instanceof BlockActionData)) {
             return false;
         } else {
-            NoteBlockData noteblockdata = (NoteBlockData) object;
+            BlockActionData blockactiondata = (BlockActionData) object;
 
-            return this.a == noteblockdata.a && this.b == noteblockdata.b && this.c == noteblockdata.c && this.e == noteblockdata.e && this.f == noteblockdata.f && this.d == noteblockdata.d;
+            return this.a == blockactiondata.a && this.b == blockactiondata.b && this.c == blockactiondata.c && this.e == blockactiondata.e && this.f == blockactiondata.f && this.d == blockactiondata.d;
         }
     }
 

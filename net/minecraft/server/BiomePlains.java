@@ -50,7 +50,7 @@ public class BiomePlains extends BiomeBase {
                 l = i + random.nextInt(16) + 8;
                 i1 = j + random.nextInt(16) + 8;
                 j1 = random.nextInt(world.getHighestBlockYAt(l, i1) + 32);
-                ae.a(world, random, l, j1, i1);
+                ae.generate(world, random, l, j1, i1);
             }
         }
 
@@ -61,7 +61,7 @@ public class BiomePlains extends BiomeBase {
                 l = i + random.nextInt(16) + 8;
                 i1 = j + random.nextInt(16) + 8;
                 j1 = random.nextInt(world.getHighestBlockYAt(l, i1) + 32);
-                ae.a(world, random, l, j1, i1);
+                ae.generate(world, random, l, j1, i1);
             }
         }
 

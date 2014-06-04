@@ -26,7 +26,7 @@ public class EnchantmentThorns extends Enchantment {
     }
 
     public void b(EntityLiving entityliving, Entity entity, int i) {
-        Random random = entityliving.aH();
+        Random random = entityliving.aI();
         ItemStack itemstack = EnchantmentManager.a(Enchantment.THORNS, entityliving);
 
         if (a(i, random)) {

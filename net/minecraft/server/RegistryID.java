@@ -1,22 +1,22 @@
 package net.minecraft.server;
 
-import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.util.com.google.common.base.Predicates;
 import net.minecraft.util.com.google.common.collect.Iterators;
-import net.minecraft.util.gnu.trove.map.hash.TIntIntHashMap;
+import net.minecraft.util.com.google.common.collect.Lists;
 
 public class RegistryID implements Registry {
 
-    private TIntIntHashMap a = new TIntIntHashMap(256, 0.5F, -1, -1);
-    private List b = new ArrayList();
+    private IdentityHashMap a = new IdentityHashMap(512);
+    private List b = Lists.newArrayList();
 
     public RegistryID() {}
 
     public void a(Object object, int i) {
-        this.a.put(System.identityHashCode(object), i);
+        this.a.put(object, Integer.valueOf(i));
 
         while (this.b.size() <= i) {
             this.b.add(null);
@@ -26,7 +26,9 @@ public class RegistryID implements Registry {
     }
 
     public int b(Object object) {
-        return this.a.get(System.identityHashCode(object));
+        Integer integer = (Integer) this.a.get(object);
+
+        return integer == null ? -1 : integer.intValue();
     }
 
     public Object a(int i) {

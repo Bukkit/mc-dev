@@ -27,7 +27,7 @@ public class WorldServer extends World {
     private int emptyTime;
     private final PortalTravelAgent Q;
     private final SpawnerCreature R = new SpawnerCreature();
-    private NoteDataList[] S = new NoteDataList[] { new NoteDataList((EmptyClass2) null), new NoteDataList((EmptyClass2) null)};
+    private BlockActionDataList[] S = new BlockActionDataList[] { new BlockActionDataList((BananaAPI) null), new BlockActionDataList((BananaAPI) null)};
     private int T;
     private static final StructurePieceTreasure[] U = new StructurePieceTreasure[] { new StructurePieceTreasure(Items.STICK, 0, 1, 3, 10), new StructurePieceTreasure(Item.getItemOf(Blocks.WOOD), 0, 1, 3, 10), new StructurePieceTreasure(Item.getItemOf(Blocks.LOG), 0, 1, 3, 10), new StructurePieceTreasure(Items.STONE_AXE, 0, 1, 1, 3), new StructurePieceTreasure(Items.WOOD_AXE, 0, 1, 1, 5), new StructurePieceTreasure(Items.STONE_PICKAXE, 0, 1, 1, 3), new StructurePieceTreasure(Items.WOOD_PICKAXE, 0, 1, 1, 5), new StructurePieceTreasure(Items.APPLE, 0, 2, 3, 5), new StructurePieceTreasure(Items.BREAD, 0, 2, 3, 3), new StructurePieceTreasure(Item.getItemOf(Blocks.LOG2), 0, 1, 3, 10)};
     private List V = new ArrayList();
@@ -234,7 +234,7 @@ public class WorldServer extends World {
             }
 
             this.methodProfiler.c("tickBlocks");
-            ChunkSection[] achunksection = chunk.i();
+            ChunkSection[] achunksection = chunk.getSections();
 
             j1 = achunksection.length;
 
@@ -547,7 +547,7 @@ public class WorldServer extends World {
             int k = this.worldData.e() + this.random.nextInt(6) - this.random.nextInt(6);
             int l = this.i(j, k) + 1;
 
-            if (worldgenbonuschest.a(this, this.random, j, l, k)) {
+            if (worldgenbonuschest.generate(this, this.random, j, l, k)) {
                 break;
             }
         }
@@ -597,7 +597,7 @@ public class WorldServer extends World {
     protected void a(Entity entity) {
         super.a(entity);
         this.entitiesById.a(entity.getId(), entity);
-        Entity[] aentity = entity.as();
+        Entity[] aentity = entity.at();
 
         if (aentity != null) {
             for (int i = 0; i < aentity.length; ++i) {
@@ -609,7 +609,7 @@ public class WorldServer extends World {
     protected void b(Entity entity) {
         super.b(entity);
         this.entitiesById.d(entity.getId());
-        Entity[] aentity = entity.as();
+        Entity[] aentity = entity.at();
 
         if (aentity != null) {
             for (int i = 0; i < aentity.length; ++i) {
@@ -659,20 +659,20 @@ public class WorldServer extends World {
         return explosion;
     }
 
-    public void playNote(int i, int j, int k, Block block, int l, int i1) {
-        NoteBlockData noteblockdata = new NoteBlockData(i, j, k, block, l, i1);
+    public void playBlockAction(int i, int j, int k, Block block, int l, int i1) {
+        BlockActionData blockactiondata = new BlockActionData(i, j, k, block, l, i1);
         Iterator iterator = this.S[this.T].iterator();
 
-        NoteBlockData noteblockdata1;
+        BlockActionData blockactiondata1;
 
         do {
             if (!iterator.hasNext()) {
-                this.S[this.T].add(noteblockdata);
+                this.S[this.T].add(blockactiondata);
                 return;
             }
 
-            noteblockdata1 = (NoteBlockData) iterator.next();
-        } while (!noteblockdata1.equals(noteblockdata));
+            blockactiondata1 = (BlockActionData) iterator.next();
+        } while (!blockactiondata1.equals(blockactiondata));
 
     }
 
@@ -684,10 +684,10 @@ public class WorldServer extends World {
             Iterator iterator = this.S[i].iterator();
 
             while (iterator.hasNext()) {
-                NoteBlockData noteblockdata = (NoteBlockData) iterator.next();
+                BlockActionData blockactiondata = (BlockActionData) iterator.next();
 
-                if (this.a(noteblockdata)) {
-                    this.server.getPlayerList().sendPacketNearby((double) noteblockdata.a(), (double) noteblockdata.b(), (double) noteblockdata.c(), 64.0D, this.worldProvider.dimension, new PacketPlayOutBlockAction(noteblockdata.a(), noteblockdata.b(), noteblockdata.c(), noteblockdata.f(), noteblockdata.d(), noteblockdata.e()));
+                if (this.a(blockactiondata)) {
+                    this.server.getPlayerList().sendPacketNearby((double) blockactiondata.a(), (double) blockactiondata.b(), (double) blockactiondata.c(), 64.0D, this.worldProvider.dimension, new PacketPlayOutBlockAction(blockactiondata.a(), blockactiondata.b(), blockactiondata.c(), blockactiondata.f(), blockactiondata.d(), blockactiondata.e()));
                 }
             }
 
@@ -695,10 +695,10 @@ public class WorldServer extends World {
         }
     }
 
-    private boolean a(NoteBlockData noteblockdata) {
-        Block block = this.getType(noteblockdata.a(), noteblockdata.b(), noteblockdata.c());
+    private boolean a(BlockActionData blockactiondata) {
+        Block block = this.getType(blockactiondata.a(), blockactiondata.b(), blockactiondata.c());
 
-        return block == noteblockdata.f() ? block.a(this, noteblockdata.a(), noteblockdata.b(), noteblockdata.c(), noteblockdata.d(), noteblockdata.e()) : false;
+        return block == blockactiondata.f() ? block.a(this, blockactiondata.a(), blockactiondata.b(), blockactiondata.c(), blockactiondata.d(), blockactiondata.e()) : false;
     }
 
     public void saveLevel() {

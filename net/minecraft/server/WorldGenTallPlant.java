@@ -12,7 +12,7 @@ public class WorldGenTallPlant extends WorldGenerator {
         this.a = i;
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         boolean flag = false;
 
         for (int l = 0; l < 64; ++l) {

@@ -8,7 +8,7 @@ public class WorldGenDungeons extends WorldGenerator {
 
     public WorldGenDungeons() {}
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         byte b0 = 3;
         int l = random.nextInt(2) + 2;
         int i1 = random.nextInt(2) + 2;
@@ -113,7 +113,7 @@ public class WorldGenDungeons extends WorldGenerator {
             TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(i, j, k);
 
             if (tileentitymobspawner != null) {
-                tileentitymobspawner.a().a(this.a(random));
+                tileentitymobspawner.getSpawner().setMobName(this.a(random));
             } else {
                 System.err.println("Failed to fetch mob spawner entity at (" + i + ", " + j + ", " + k + ")");
             }

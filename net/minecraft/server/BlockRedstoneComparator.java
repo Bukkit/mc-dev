@@ -66,13 +66,13 @@ public class BlockRedstoneComparator extends BlockDiodeAbstract implements ICont
         int l1 = k + Direction.b[j1];
         Block block = world.getType(k1, j, l1);
 
-        if (block.M()) {
+        if (block.isComplexRedstone()) {
             i1 = block.g(world, k1, j, l1, Direction.f[j1]);
         } else if (i1 < 15 && block.r()) {
             k1 += Direction.a[j1];
             l1 += Direction.b[j1];
             block = world.getType(k1, j, l1);
-            if (block.M()) {
+            if (block.isComplexRedstone()) {
                 i1 = block.g(world, k1, j, l1, Direction.f[j1]);
             }
         }

@@ -57,7 +57,7 @@ public class ItemTool extends Item {
     public Multimap k() {
         Multimap multimap = super.k();
 
-        multimap.put(GenericAttributes.e.a(), new AttributeModifier(f, "Tool modifier", (double) this.d, 0));
+        multimap.put(GenericAttributes.e.getName(), new AttributeModifier(f, "Tool modifier", (double) this.d, 0));
         return multimap;
     }
 }

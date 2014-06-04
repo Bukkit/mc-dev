@@ -27,13 +27,13 @@ public class BiomeIcePlains extends BiomeBase {
             for (k = 0; k < 3; ++k) {
                 l = i + random.nextInt(16) + 8;
                 i1 = j + random.nextInt(16) + 8;
-                this.aD.a(world, random, l, world.getHighestBlockYAt(l, i1), i1);
+                this.aD.generate(world, random, l, world.getHighestBlockYAt(l, i1), i1);
             }
 
             for (k = 0; k < 2; ++k) {
                 l = i + random.nextInt(16) + 8;
                 i1 = j + random.nextInt(16) + 8;
-                this.aE.a(world, random, l, world.getHighestBlockYAt(l, i1), i1);
+                this.aE.generate(world, random, l, world.getHighestBlockYAt(l, i1), i1);
             }
         }
 

@@ -11,13 +11,13 @@ public abstract class EntityFlying extends EntityInsentient {
     protected void a(double d0, boolean flag) {}
 
     public void e(float f, float f1) {
-        if (this.L()) {
+        if (this.M()) {
             this.a(f, f1, 0.02F);
             this.move(this.motX, this.motY, this.motZ);
             this.motX *= 0.800000011920929D;
             this.motY *= 0.800000011920929D;
             this.motZ *= 0.800000011920929D;
-        } else if (this.O()) {
+        } else if (this.P()) {
             this.a(f, f1, 0.02F);
             this.move(this.motX, this.motY, this.motZ);
             this.motX *= 0.5D;

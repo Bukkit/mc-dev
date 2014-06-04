@@ -42,7 +42,7 @@ public class DataWatcher {
         }
     }
 
-    public void a(int i, int j) {
+    public void add(int i, int j) {
         WatchableObject watchableobject = new WatchableObject(j, i, null);
 
         this.f.writeLock().lock();
@@ -105,7 +105,7 @@ public class DataWatcher {
         }
     }
 
-    public void h(int i) {
+    public void update(int i) {
         WatchableObject.a(this.i(i), true);
         this.e = true;
     }

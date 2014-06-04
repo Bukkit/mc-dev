@@ -14,11 +14,11 @@ public class JsonListEntry {
         this.a = object;
     }
 
-    Object f() {
+    Object getKey() {
         return this.a;
     }
 
-    boolean e() {
+    boolean hasExpired() {
         return false;
     }
 

@@ -11,10 +11,10 @@ class CrashReportTileEntityType implements Callable {
     }
 
     public String a() {
-        int i = Block.b(this.a.world.getType(this.a.x, this.a.y, this.a.z));
+        int i = Block.getId(this.a.world.getType(this.a.x, this.a.y, this.a.z));
 
         try {
-            return String.format("ID #%d (%s // %s)", new Object[] { Integer.valueOf(i), Block.e(i).a(), Block.e(i).getClass().getCanonicalName()});
+            return String.format("ID #%d (%s // %s)", new Object[] { Integer.valueOf(i), Block.getById(i).a(), Block.getById(i).getClass().getCanonicalName()});
         } catch (Throwable throwable) {
             return "ID #" + i;
         }

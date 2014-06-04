@@ -46,7 +46,7 @@ public class EntityItem extends Entity {
     }
 
     protected void c() {
-        this.getDataWatcher().a(10, 5);
+        this.getDataWatcher().add(10, 5);
     }
 
     public void h() {
@@ -147,7 +147,7 @@ public class EntityItem extends Entity {
         this.age = 4800;
     }
 
-    public boolean M() {
+    public boolean N() {
         return this.world.a(this.boundingBox, Material.WATER, (Entity) this);
     }
 
@@ -161,7 +161,7 @@ public class EntityItem extends Entity {
         } else if (this.getItemStack() != null && this.getItemStack().getItem() == Items.NETHER_STAR && damagesource.isExplosion()) {
             return false;
         } else {
-            this.P();
+            this.Q();
             this.e = (int) ((float) this.e - f);
             if (this.e <= 0) {
                 this.die();
@@ -253,7 +253,7 @@ public class EntityItem extends Entity {
         return LocaleI18n.get("item." + this.getItemStack().a());
     }
 
-    public boolean au() {
+    public boolean av() {
         return false;
     }
 
@@ -272,7 +272,7 @@ public class EntityItem extends Entity {
 
     public void setItemStack(ItemStack itemstack) {
         this.getDataWatcher().watch(10, itemstack);
-        this.getDataWatcher().h(10);
+        this.getDataWatcher().update(10);
     }
 
     public String i() {

@@ -23,7 +23,7 @@ public class BiomeDesert extends BiomeBase {
             int l = j + random.nextInt(16) + 8;
             WorldGenDesertWell worldgendesertwell = new WorldGenDesertWell();
 
-            worldgendesertwell.a(world, random, k, world.getHighestBlockYAt(k, l) + 1, l);
+            worldgendesertwell.generate(world, random, k, world.getHighestBlockYAt(k, l) + 1, l);
         }
     }
 }

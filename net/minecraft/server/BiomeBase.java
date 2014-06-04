@@ -334,7 +334,7 @@ public abstract class BiomeBase {
         return (double) this.temperature < 0.2D ? EnumTemperature.COLD : ((double) this.temperature < 1.0D ? EnumTemperature.MEDIUM : EnumTemperature.WARM);
     }
 
-    public static BiomeBase[] n() {
+    public static BiomeBase[] getBiomes() {
         return biomes;
     }
 

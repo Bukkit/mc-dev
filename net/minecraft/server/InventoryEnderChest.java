@@ -59,12 +59,12 @@ public class InventoryEnderChest extends InventorySubcontainer {
         super.startOpen();
     }
 
-    public void l_() {
+    public void closeContainer() {
         if (this.a != null) {
             this.a.b();
         }
 
-        super.l_();
+        super.closeContainer();
         this.a = null;
     }
 }

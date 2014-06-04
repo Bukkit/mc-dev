@@ -1,14 +1,14 @@
 package net.minecraft.server;
 
-public class PacketPlayOutCraftProgressBar extends Packet {
+public class PacketPlayOutWindowData extends Packet {
 
     private int a;
     private int b;
     private int c;
 
-    public PacketPlayOutCraftProgressBar() {}
+    public PacketPlayOutWindowData() {}
 
-    public PacketPlayOutCraftProgressBar(int i, int j, int k) {
+    public PacketPlayOutWindowData(int i, int j, int k) {
         this.a = i;
         this.b = j;
         this.c = k;

@@ -46,7 +46,7 @@ public interface PacketPlayOutListener extends PacketListener {
 
     void a(PacketPlayOutOpenWindow packetplayoutopenwindow);
 
-    void a(PacketPlayOutCraftProgressBar packetplayoutcraftprogressbar);
+    void a(PacketPlayOutWindowData packetplayoutwindowdata);
 
     void a(PacketPlayOutSetSlot packetplayoutsetslot);
 

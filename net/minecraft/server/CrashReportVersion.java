@@ -11,7 +11,7 @@ class CrashReportVersion implements Callable {
     }
 
     public String a() {
-        return "1.7.9";
+        return "1.7.10";
     }
 
     public Object call() {

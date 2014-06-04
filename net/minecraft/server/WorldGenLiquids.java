@@ -10,7 +10,7 @@ public class WorldGenLiquids extends WorldGenerator {
         this.a = block;
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         if (world.getType(i, j + 1, k) != Blocks.STONE) {
             return false;
         } else if (world.getType(i, j - 1, k) != Blocks.STONE) {

@@ -73,7 +73,7 @@ public final class ItemStack {
         boolean flag = this.getItem().interactWith(this, entityhuman, world, i, j, k, l, f, f1, f2);
 
         if (flag) {
-            entityhuman.a(StatisticList.USE_ITEM_COUNT[Item.b(this.item)], 1);
+            entityhuman.a(StatisticList.USE_ITEM_COUNT[Item.getId(this.item)], 1);
         }
 
         return flag;
@@ -92,7 +92,7 @@ public final class ItemStack {
     }
 
     public NBTTagCompound save(NBTTagCompound nbttagcompound) {
-        nbttagcompound.setShort("id", (short) Item.b(this.item));
+        nbttagcompound.setShort("id", (short) Item.getId(this.item));
         nbttagcompound.setByte("Count", (byte) this.count);
         nbttagcompound.setShort("Damage", (short) this.damage);
         if (this.tag != null) {
@@ -103,7 +103,7 @@ public final class ItemStack {
     }
 
     public void c(NBTTagCompound nbttagcompound) {
-        this.item = Item.d(nbttagcompound.getShort("id"));
+        this.item = Item.getById(nbttagcompound.getShort("id"));
         this.count = nbttagcompound.getByte("Count");
         this.damage = nbttagcompound.getShort("Damage");
         if (this.damage < 0) {
@@ -182,15 +182,15 @@ public final class ItemStack {
     public void damage(int i, EntityLiving entityliving) {
         if (!(entityliving instanceof EntityHuman) || !((EntityHuman) entityliving).abilities.canInstantlyBuild) {
             if (this.g()) {
-                if (this.isDamaged(i, entityliving.aH())) {
+                if (this.isDamaged(i, entityliving.aI())) {
                     entityliving.a(this);
                     --this.count;
                     if (entityliving instanceof EntityHuman) {
                         EntityHuman entityhuman = (EntityHuman) entityliving;
 
-                        entityhuman.a(StatisticList.BREAK_ITEM_COUNT[Item.b(this.item)], 1);
+                        entityhuman.a(StatisticList.BREAK_ITEM_COUNT[Item.getId(this.item)], 1);
                         if (this.count == 0 && this.getItem() instanceof ItemBow) {
-                            entityhuman.bF();
+                            entityhuman.bG();
                         }
                     }
 
@@ -208,7 +208,7 @@ public final class ItemStack {
         boolean flag = this.item.a(this, entityliving, (EntityLiving) entityhuman);
 
         if (flag) {
-            entityhuman.a(StatisticList.USE_ITEM_COUNT[Item.b(this.item)], 1);
+            entityhuman.a(StatisticList.USE_ITEM_COUNT[Item.getId(this.item)], 1);
         }
     }
 
@@ -216,7 +216,7 @@ public final class ItemStack {
         boolean flag = this.item.a(this, world, block, i, j, k, entityhuman);
 
         if (flag) {
-            entityhuman.a(StatisticList.USE_ITEM_COUNT[Item.b(this.item)], 1);
+            entityhuman.a(StatisticList.USE_ITEM_COUNT[Item.getId(this.item)], 1);
         }
     }
 
@@ -275,7 +275,7 @@ public final class ItemStack {
     }
 
     public void a(World world, EntityHuman entityhuman, int i) {
-        entityhuman.a(StatisticList.CRAFT_BLOCK_COUNT[Item.b(this.item)], i);
+        entityhuman.a(StatisticList.CRAFT_BLOCK_COUNT[Item.getId(this.item)], i);
         this.item.d(this, world, entityhuman);
     }
 

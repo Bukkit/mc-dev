@@ -65,8 +65,9 @@ public class PlayerConnection implements PacketPlayInListener {
             --this.x;
         }
 
-        this.minecraftServer.methodProfiler.c("playerTick");
-        this.minecraftServer.methodProfiler.b();
+        if (this.player.x() > 0L && this.minecraftServer.getIdleTimeout() > 0 && MinecraftServer.ar() - this.player.x() > (long) (this.minecraftServer.getIdleTimeout() * 1000 * 60)) {
+            this.disconnect("You have been idle for too long!");
+        }
     }
 
     public NetworkManager b() {
@@ -107,7 +108,7 @@ public class PlayerConnection implements PacketPlayInListener {
                     float f = this.player.yaw;
                     float f1 = this.player.pitch;
 
-                    this.player.vehicle.ab();
+                    this.player.vehicle.ac();
                     d1 = this.player.locX;
                     d2 = this.player.locY;
                     d3 = this.player.locZ;
@@ -121,7 +122,7 @@ public class PlayerConnection implements PacketPlayInListener {
                     this.player.V = 0.0F;
                     this.player.setLocation(d1, d2, d3, f, f1);
                     if (this.player.vehicle != null) {
-                        this.player.vehicle.ab();
+                        this.player.vehicle.ac();
                     }
 
                     this.minecraftServer.getPlayerList().d(this.player);
@@ -205,7 +206,7 @@ public class PlayerConnection implements PacketPlayInListener {
                 boolean flag = worldserver.getCubes(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).isEmpty();
 
                 if (this.player.onGround && !packetplayinflying.i() && d5 > 0.0D) {
-                    this.player.bi();
+                    this.player.bj();
                 }
 
                 this.player.move(d4, d5, d6);
@@ -278,7 +279,7 @@ public class PlayerConnection implements PacketPlayInListener {
         } else if (packetplayinblockdig.g() == 3) {
             this.player.a(true);
         } else if (packetplayinblockdig.g() == 5) {
-            this.player.bz();
+            this.player.bA();
         } else {
             boolean flag = false;
 
@@ -401,7 +402,7 @@ public class PlayerConnection implements PacketPlayInListener {
         if (itemstack == null || itemstack.n() == 0) {
             this.player.g = true;
             this.player.inventory.items[this.player.inventory.itemInHandIndex] = ItemStack.b(this.player.inventory.items[this.player.inventory.itemInHandIndex]);
-            Slot slot = this.player.activeContainer.a((IInventory) this.player.inventory, this.player.inventory.itemInHandIndex);
+            Slot slot = this.player.activeContainer.getSlot(this.player.inventory, this.player.inventory.itemInHandIndex);
 
             this.player.activeContainer.b();
             this.player.g = false;
@@ -501,7 +502,7 @@ public class PlayerConnection implements PacketPlayInListener {
     public void a(PacketPlayInArmAnimation packetplayinarmanimation) {
         this.player.v();
         if (packetplayinarmanimation.d() == 1) {
-            this.player.aZ();
+            this.player.ba();
         }
     }
 
@@ -533,7 +534,7 @@ public class PlayerConnection implements PacketPlayInListener {
 
         this.player.v();
         if (entity != null) {
-            boolean flag = this.player.p(entity);
+            boolean flag = this.player.hasLineOfSight(entity);
             double d0 = 36.0D;
 
             if (!flag) {
@@ -625,7 +626,7 @@ public class PlayerConnection implements PacketPlayInListener {
     public void a(PacketPlayInEnchantItem packetplayinenchantitem) {
         this.player.v();
         if (this.player.activeContainer.windowId == packetplayinenchantitem.c() && this.player.activeContainer.c(this.player)) {
-            this.player.activeContainer.a((EntityHuman) this.player, packetplayinenchantitem.d());
+            this.player.activeContainer.a(this.player, packetplayinenchantitem.d());
             this.player.activeContainer.b();
         }
     }
@@ -759,16 +760,16 @@ public class PlayerConnection implements PacketPlayInListener {
 
             try {
                 itemstack = packetdataserializer.c();
-                if (itemstack == null) {
-                    return;
-                }
+                if (itemstack != null) {
+                    if (!ItemBookAndQuill.a(itemstack.getTag())) {
+                        throw new IOException("Invalid book tag!");
+                    }
 
-                if (!ItemBookAndQuill.a(itemstack.getTag())) {
-                    throw new IOException("Invalid book tag!");
-                }
+                    itemstack1 = this.player.inventory.getItemInHand();
+                    if (itemstack1 == null) {
+                        return;
+                    }
 
-                itemstack1 = this.player.inventory.getItemInHand();
-                if (itemstack1 != null) {
                     if (itemstack.getItem() == Items.BOOK_AND_QUILL && itemstack.getItem() == itemstack1.getItem()) {
                         itemstack1.a("pages", (NBTBase) itemstack.getTag().getList("pages", 8));
                     }
@@ -845,20 +846,20 @@ public class PlayerConnection implements PacketPlayInListener {
                             TileEntity tileentity = this.player.world.getTileEntity(packetdataserializer.readInt(), packetdataserializer.readInt(), packetdataserializer.readInt());
 
                             if (tileentity instanceof TileEntityCommand) {
-                                commandblocklistenerabstract = ((TileEntityCommand) tileentity).a();
+                                commandblocklistenerabstract = ((TileEntityCommand) tileentity).getCommandBlock();
                             }
                         } else if (b0 == 1) {
                             Entity entity = this.player.world.getEntity(packetdataserializer.readInt());
 
                             if (entity instanceof EntityMinecartCommandBlock) {
-                                commandblocklistenerabstract = ((EntityMinecartCommandBlock) entity).e();
+                                commandblocklistenerabstract = ((EntityMinecartCommandBlock) entity).getCommandBlock();
                             }
                         }
 
                         String s = packetdataserializer.c(packetdataserializer.readableBytes());
 
                         if (commandblocklistenerabstract != null) {
-                            commandblocklistenerabstract.a(s);
+                            commandblocklistenerabstract.setCommand(s);
                             commandblocklistenerabstract.e();
                             this.player.sendMessage(new ChatMessage("advMode.setCommand.success", new Object[] { s}));
                         }

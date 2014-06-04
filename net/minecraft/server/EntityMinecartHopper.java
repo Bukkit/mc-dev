@@ -59,7 +59,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         return this.world;
     }
 
-    public double aC() {
+    public double x() {
         return this.locX;
     }
 

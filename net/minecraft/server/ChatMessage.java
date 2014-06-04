@@ -194,7 +194,7 @@ public class ChatMessage extends ChatBaseComponent {
         while (iterator.hasNext()) {
             IChatBaseComponent ichatbasecomponent = (IChatBaseComponent) iterator.next();
 
-            chatmessage.a(ichatbasecomponent.f());
+            chatmessage.addSibling(ichatbasecomponent.f());
         }
 
         return chatmessage;

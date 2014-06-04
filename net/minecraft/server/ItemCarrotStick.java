@@ -9,7 +9,7 @@ public class ItemCarrotStick extends Item {
     }
 
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        if (entityhuman.al() && entityhuman.vehicle instanceof EntityPig) {
+        if (entityhuman.am() && entityhuman.vehicle instanceof EntityPig) {
             EntityPig entitypig = (EntityPig) entityhuman.vehicle;
 
             if (entitypig.ca().h() && itemstack.l() - itemstack.getData() >= 7) {

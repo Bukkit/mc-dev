@@ -6,7 +6,7 @@ public class WorldGenLightStone1 extends WorldGenerator {
 
     public WorldGenLightStone1() {}
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         if (!world.isEmpty(i, j, k)) {
             return false;
         } else if (world.getType(i, j + 1, k) != Blocks.NETHERRACK) {

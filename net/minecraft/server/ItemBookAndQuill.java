@@ -24,7 +24,7 @@ public class ItemBookAndQuill extends Item {
             NBTTagList nbttaglist = nbttagcompound.getList("pages", 8);
 
             for (int i = 0; i < nbttaglist.size(); ++i) {
-                String s = nbttaglist.f(i);
+                String s = nbttaglist.getString(i);
 
                 if (s == null) {
                     return false;

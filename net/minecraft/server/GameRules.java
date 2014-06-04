@@ -72,11 +72,11 @@ public class GameRules {
         }
     }
 
-    public String[] b() {
+    public String[] getGameRules() {
         return (String[]) this.a.keySet().toArray(new String[0]);
     }
 
-    public boolean e(String s) {
+    public boolean contains(String s) {
         return this.a.containsKey(s);
     }
 }

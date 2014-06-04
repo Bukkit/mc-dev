@@ -39,11 +39,11 @@ public class WorldMapHumanTracker {
 
             if (--this.g < 0) {
                 this.g = 4;
-                abyte = new byte[this.worldMap.g.size() * 3 + 1];
+                abyte = new byte[this.worldMap.decorations.size() * 3 + 1];
                 abyte[0] = 1;
                 i = 0;
 
-                for (Iterator iterator = this.worldMap.g.values().iterator(); iterator.hasNext(); ++i) {
+                for (Iterator iterator = this.worldMap.decorations.values().iterator(); iterator.hasNext(); ++i) {
                     WorldMapDecoration worldmapdecoration = (WorldMapDecoration) iterator.next();
 
                     abyte[i * 3 + 1] = (byte) (worldmapdecoration.type << 4 | worldmapdecoration.rotation & 15);

@@ -15,16 +15,16 @@ public class BlockPumpkin extends BlockDirectional {
         super.onPlace(world, i, j, k);
         if (world.getType(i, j - 1, k) == Blocks.SNOW_BLOCK && world.getType(i, j - 2, k) == Blocks.SNOW_BLOCK) {
             if (!world.isStatic) {
-                world.setTypeAndData(i, j, k, e(0), 0, 2);
-                world.setTypeAndData(i, j - 1, k, e(0), 0, 2);
-                world.setTypeAndData(i, j - 2, k, e(0), 0, 2);
+                world.setTypeAndData(i, j, k, getById(0), 0, 2);
+                world.setTypeAndData(i, j - 1, k, getById(0), 0, 2);
+                world.setTypeAndData(i, j - 2, k, getById(0), 0, 2);
                 EntitySnowman entitysnowman = new EntitySnowman(world);
 
                 entitysnowman.setPositionRotation((double) i + 0.5D, (double) j - 1.95D, (double) k + 0.5D, 0.0F, 0.0F);
                 world.addEntity(entitysnowman);
-                world.update(i, j, k, e(0));
-                world.update(i, j - 1, k, e(0));
-                world.update(i, j - 2, k, e(0));
+                world.update(i, j, k, getById(0));
+                world.update(i, j - 1, k, getById(0));
+                world.update(i, j - 2, k, getById(0));
             }
 
             for (int l = 0; l < 120; ++l) {
@@ -35,15 +35,15 @@ public class BlockPumpkin extends BlockDirectional {
             boolean flag1 = world.getType(i, j - 1, k - 1) == Blocks.IRON_BLOCK && world.getType(i, j - 1, k + 1) == Blocks.IRON_BLOCK;
 
             if (flag || flag1) {
-                world.setTypeAndData(i, j, k, e(0), 0, 2);
-                world.setTypeAndData(i, j - 1, k, e(0), 0, 2);
-                world.setTypeAndData(i, j - 2, k, e(0), 0, 2);
+                world.setTypeAndData(i, j, k, getById(0), 0, 2);
+                world.setTypeAndData(i, j - 1, k, getById(0), 0, 2);
+                world.setTypeAndData(i, j - 2, k, getById(0), 0, 2);
                 if (flag) {
-                    world.setTypeAndData(i - 1, j - 1, k, e(0), 0, 2);
-                    world.setTypeAndData(i + 1, j - 1, k, e(0), 0, 2);
+                    world.setTypeAndData(i - 1, j - 1, k, getById(0), 0, 2);
+                    world.setTypeAndData(i + 1, j - 1, k, getById(0), 0, 2);
                 } else {
-                    world.setTypeAndData(i, j - 1, k - 1, e(0), 0, 2);
-                    world.setTypeAndData(i, j - 1, k + 1, e(0), 0, 2);
+                    world.setTypeAndData(i, j - 1, k - 1, getById(0), 0, 2);
+                    world.setTypeAndData(i, j - 1, k + 1, getById(0), 0, 2);
                 }
 
                 EntityIronGolem entityirongolem = new EntityIronGolem(world);
@@ -56,15 +56,15 @@ public class BlockPumpkin extends BlockDirectional {
                     world.addParticle("snowballpoof", (double) i + world.random.nextDouble(), (double) (j - 2) + world.random.nextDouble() * 3.9D, (double) k + world.random.nextDouble(), 0.0D, 0.0D, 0.0D);
                 }
 
-                world.update(i, j, k, e(0));
-                world.update(i, j - 1, k, e(0));
-                world.update(i, j - 2, k, e(0));
+                world.update(i, j, k, getById(0));
+                world.update(i, j - 1, k, getById(0));
+                world.update(i, j - 2, k, getById(0));
                 if (flag) {
-                    world.update(i - 1, j - 1, k, e(0));
-                    world.update(i + 1, j - 1, k, e(0));
+                    world.update(i - 1, j - 1, k, getById(0));
+                    world.update(i + 1, j - 1, k, getById(0));
                 } else {
-                    world.update(i, j - 1, k - 1, e(0));
-                    world.update(i, j - 1, k + 1, e(0));
+                    world.update(i, j - 1, k - 1, getById(0));
+                    world.update(i, j - 1, k + 1, getById(0));
                 }
             }
         }

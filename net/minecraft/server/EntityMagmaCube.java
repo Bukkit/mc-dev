@@ -7,8 +7,8 @@ public class EntityMagmaCube extends EntitySlime {
         this.fireProof = true;
     }
 
-    protected void aC() {
-        super.aC();
+    protected void aD() {
+        super.aD();
         this.getAttributeInstance(GenericAttributes.d).setValue(0.20000000298023224D);
     }
 
@@ -16,7 +16,7 @@ public class EntityMagmaCube extends EntitySlime {
         return this.world.difficulty != EnumDifficulty.PEACEFUL && this.world.b(this.boundingBox) && this.world.getCubes(this, this.boundingBox).isEmpty() && !this.world.containsLiquid(this.boundingBox);
     }
 
-    public int aU() {
+    public int aV() {
         return this.getSize() * 3;
     }
 
@@ -64,7 +64,7 @@ public class EntityMagmaCube extends EntitySlime {
         this.h *= 0.9F;
     }
 
-    protected void bi() {
+    protected void bj() {
         this.motY = (double) (0.42F + (float) this.getSize() * 0.1F);
         this.al = true;
     }
@@ -83,7 +83,7 @@ public class EntityMagmaCube extends EntitySlime {
         return this.getSize() > 1 ? "mob.magmacube.big" : "mob.magmacube.small";
     }
 
-    public boolean O() {
+    public boolean P() {
         return false;
     }
 

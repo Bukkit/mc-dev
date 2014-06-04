@@ -187,7 +187,7 @@ public class ServerStatisticManager extends StatisticManager {
         while (iterator.hasNext()) {
             Achievement achievement = (Achievement) iterator.next();
 
-            if (this.a(achievement)) {
+            if (this.hasAchievement(achievement)) {
                 hashmap.put(achievement, Integer.valueOf(this.getStatisticValue(achievement)));
                 this.e.remove(achievement);
             }

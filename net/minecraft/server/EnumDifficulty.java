@@ -17,7 +17,7 @@ public enum EnumDifficulty {
         return this.f;
     }
 
-    public static EnumDifficulty a(int i) {
+    public static EnumDifficulty getById(int i) {
         return e[i % e.length];
     }
 

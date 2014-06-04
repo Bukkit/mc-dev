@@ -22,8 +22,8 @@ public class PacketPlayOutRespawn extends Packet {
 
     public void a(PacketDataSerializer packetdataserializer) {
         this.a = packetdataserializer.readInt();
-        this.b = EnumDifficulty.a(packetdataserializer.readUnsignedByte());
-        this.c = EnumGamemode.a(packetdataserializer.readUnsignedByte());
+        this.b = EnumDifficulty.getById(packetdataserializer.readUnsignedByte());
+        this.c = EnumGamemode.getById(packetdataserializer.readUnsignedByte());
         this.d = WorldType.getType(packetdataserializer.c(16));
         if (this.d == null) {
             this.d = WorldType.NORMAL;
@@ -33,7 +33,7 @@ public class PacketPlayOutRespawn extends Packet {
     public void b(PacketDataSerializer packetdataserializer) {
         packetdataserializer.writeInt(this.a);
         packetdataserializer.writeByte(this.b.a());
-        packetdataserializer.writeByte(this.c.a());
+        packetdataserializer.writeByte(this.c.getId());
         packetdataserializer.a(this.d.name());
     }
 

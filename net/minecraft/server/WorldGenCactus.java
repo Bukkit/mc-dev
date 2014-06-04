@@ -6,7 +6,7 @@ public class WorldGenCactus extends WorldGenerator {
 
     public WorldGenCactus() {}
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         for (int l = 0; l < 10; ++l) {
             int i1 = i + random.nextInt(8) - random.nextInt(8);
             int j1 = j + random.nextInt(4) - random.nextInt(4);

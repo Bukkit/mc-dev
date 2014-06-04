@@ -11,7 +11,7 @@ public class WorldGenMegaTree extends WorldGenMegaTreeAbstract {
         this.e = flag1;
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         int l = this.a(random);
 
         if (!this.a(world, random, i, j, k, l)) {

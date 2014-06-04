@@ -12,7 +12,7 @@ public class WorldGenPackedIce1 extends WorldGenerator {
         this.b = i;
     }
 
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         while (world.isEmpty(i, j, k) && j > 2) {
             --j;
         }

@@ -56,11 +56,11 @@ public class BlockPiston extends Block {
 
             if (flag && !c(l)) {
                 if (h(world, i, j, k, i1)) {
-                    world.playNote(i, j, k, this, 0, i1);
+                    world.playBlockAction(i, j, k, this, 0, i1);
                 }
             } else if (!flag && c(l)) {
                 world.setData(i, j, k, i1, 2);
-                world.playNote(i, j, k, this, 1, i1);
+                world.playBlockAction(i, j, k, this, 1, i1);
             }
         }
     }

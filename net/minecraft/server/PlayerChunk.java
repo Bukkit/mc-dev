@@ -38,7 +38,7 @@ class PlayerChunk {
         if (this.b.contains(entityplayer)) {
             Chunk chunk = PlayerChunkMap.a(this.playerChunkMap).getChunkAt(this.location.x, this.location.z);
 
-            if (chunk.k()) {
+            if (chunk.isReady()) {
                 entityplayer.playerConnection.sendPacket(new PacketPlayOutMapChunk(chunk, true, 0));
             }
 

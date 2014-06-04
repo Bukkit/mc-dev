@@ -10,12 +10,12 @@ public class StatisticManager {
 
     public StatisticManager() {}
 
-    public boolean a(Achievement achievement) {
+    public boolean hasAchievement(Achievement achievement) {
         return this.getStatisticValue(achievement) > 0;
     }
 
     public boolean b(Achievement achievement) {
-        return achievement.c == null || this.a(achievement.c);
+        return achievement.c == null || this.hasAchievement(achievement.c);
     }
 
     public void b(EntityHuman entityhuman, Statistic statistic, int i) {

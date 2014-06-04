@@ -101,7 +101,7 @@ public class BlockFlowerPot extends BlockContainer {
             TileEntityFlowerPot tileentityflowerpot = this.e(world, i, j, k);
 
             if (tileentityflowerpot != null) {
-                tileentityflowerpot.a(Item.d(0), 0);
+                tileentityflowerpot.a(Item.getById(0), 0);
             }
         }
     }
